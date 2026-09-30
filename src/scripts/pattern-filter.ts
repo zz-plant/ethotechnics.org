@@ -32,6 +32,9 @@ const initializePatternFilter = (root: HTMLElement) => {
   const selectionInputs = Array.from(
     root.querySelectorAll<HTMLInputElement>("[data-pattern-select]"),
   );
+  // The bundle bar stays hidden until a mechanism is saved: with nothing
+  // selected its buttons have nothing to act on.
+  const bundlePanel = root.querySelector<HTMLElement>("[data-pattern-bundle]");
   const bundleLink =
     root.querySelector<HTMLAnchorElement>("[data-bundle-link]");
   const bundleStatus = root.querySelector<HTMLElement>(
@@ -116,6 +119,10 @@ const initializePatternFilter = (root: HTMLElement) => {
   const updateBundleControls = () => {
     const count = selection.size;
     const hasSelection = count > 0;
+
+    if (bundlePanel) {
+      bundlePanel.hidden = !hasSelection;
+    }
 
     [downloadButton, printButton, copyBundleButton, emailSubmit].forEach(
       (button) => {

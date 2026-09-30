@@ -22,7 +22,7 @@
 
   .pattern-filter {
     display: grid;
-    gap: 1.4rem;
+    gap: var(--space-4);
   }
 
   .pattern-filter .card-grid,
@@ -31,31 +31,30 @@
   }
 
   .pattern-filter__controls {
-    display: flex;
-    flex-direction: column;
-    gap: 0.9rem;
-    align-items: flex-start;
-  }
-
-  .pattern-filter__description {
-    margin: 0.35rem 0 0;
-    max-width: 36ch;
+    display: grid;
+    gap: var(--space-2);
   }
 
   .pattern-filter__search {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
+    display: grid;
+    gap: var(--space-1);
+    max-width: 36rem;
+  }
+
+  .pattern-filter__search-label {
+    font-size: var(--text-sm);
+    font-weight: 600;
   }
 
   .pattern-filter__search-input {
     width: 100%;
-    max-width: 360px;
+    min-height: 44px;
     padding: 0.65rem 0.85rem;
     border-radius: var(--radius);
-    border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
-    background: color-mix(in srgb, var(--surface) 94%, transparent);
+    border: 1px solid var(--border);
+    background: var(--surface);
     color: inherit;
+    font: inherit;
   }
 
   .pattern-filter__search-input:focus-visible {
@@ -65,44 +64,127 @@
     box-shadow: var(--focus-ring);
   }
 
+  .pattern-filter__themes {
+    margin: 0;
+  }
+
+  .pattern-filter__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-1) var(--space-3);
+  }
+
+  .pattern-filter__meta > p {
+    margin: 0;
+  }
+
   .pattern-filter__saved {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.6rem;
-    align-items: center;
+    align-items: baseline;
+    gap: var(--space-1) var(--space-2);
   }
 
   .pattern-filter__saved .muted {
     margin: 0;
-    flex-basis: 100%;
   }
 
-  .pattern-bundle {
-    width: 100%;
-    padding: 1rem 1.1rem;
-    border-radius: var(--radius-lg);
-    border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
-    background: color-mix(in srgb, var(--surface) 94%, transparent);
+  .pattern-filter__text-button {
+    border: 0;
+    padding: 0.25rem 0;
+    background: none;
+    color: var(--accent);
+    font: inherit;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    cursor: pointer;
+  }
+
+  .pattern-filter__text-button:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: 2px;
+    border-radius: var(--radius-xs);
+  }
+
+  .pattern-filter__legend {
+    font-size: var(--text-sm);
+  }
+
+  .pattern-filter__legend summary {
+    cursor: pointer;
+    color: var(--muted);
+    width: fit-content;
+  }
+
+  .pattern-filter__legend summary:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: 2px;
+  }
+
+  .pattern-filter__legend dl {
     display: grid;
-    gap: 0.9rem;
+    gap: var(--space-1);
+    margin: var(--space-1) 0 0;
   }
 
-  .pattern-bundle__header {
+  .pattern-filter__legend dt {
+    display: inline;
+    font-weight: 600;
+  }
+
+  .pattern-filter__legend dt::after {
+    content: ": ";
+  }
+
+  .pattern-filter__legend dd {
+    display: inline;
+    margin: 0;
+    color: var(--muted);
+  }
+
+  .pattern-filter__results {
+    display: grid;
+    gap: var(--space-3);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+    align-items: start;
+  }
+
+  .pattern-filter__results > .card {
+    gap: var(--space-1);
+    padding: var(--space-3);
+  }
+
+  /* Shown by pattern-filter.ts once a mechanism is saved. Sticky to the
+     bottom of the viewport while the reader scrolls the catalog. */
+  .pattern-bundle {
+    position: sticky;
+    bottom: var(--space-2);
+    z-index: var(--z-overlay);
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
     align-items: center;
-    justify-content: space-between;
+    gap: var(--space-1) var(--space-3);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-lg);
+    border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--border));
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
   }
 
-  .pattern-bundle__copy h3 {
-    margin: 0.1rem 0;
+  .pattern-bundle__status {
+    margin: 0;
+    font-size: var(--text-sm);
+    font-weight: 600;
   }
 
   .pattern-bundle__actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.6rem;
+    gap: var(--space-1);
     align-items: center;
   }
 
@@ -112,37 +194,89 @@
     cursor: not-allowed;
   }
 
-  .pattern-bundle__email {
-    display: grid;
-    gap: 0.35rem;
+  .pattern-bundle__more {
+    font-size: var(--text-sm);
   }
 
-  .pattern-bundle__email-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
+  .pattern-bundle__more summary {
+    cursor: pointer;
+    color: var(--accent);
+    font-weight: 600;
+    min-height: 44px;
+    display: inline-flex;
     align-items: center;
   }
 
-  .pattern-bundle__email .button {
-    height: 44px;
+  .pattern-bundle__more summary:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: 2px;
+  }
+
+  .pattern-bundle__email {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: var(--space-1) var(--space-2);
+    padding-bottom: var(--space-1);
+  }
+
+  .pattern-bundle__email > p {
+    margin: 0;
+    flex-basis: 100%;
   }
 
   .pattern-bundle__email-label {
     display: grid;
-    gap: 0.35rem;
-    min-width: 260px;
-  }
-
-  .pattern-bundle__hint {
-    margin: 0;
-    display: flex;
-    gap: 0.35rem;
-    align-items: center;
+    gap: 0.25rem;
+    flex: 1 1 14rem;
   }
 
   .pattern-bundle__link {
     font-weight: 700;
+  }
+
+  /* On a phone the bar sits over the cards, so it stays two rows tall:
+     status and email toggle, then the three actions side by side. */
+  @media (max-width: 640px) {
+    .pattern-bundle {
+      gap: 0 var(--space-2);
+      padding: var(--space-1) var(--space-2) var(--space-2);
+    }
+
+    .pattern-bundle__status {
+      flex: 1 1 auto;
+    }
+
+    .pattern-bundle__more {
+      order: 1;
+    }
+
+    .pattern-bundle__more[open] {
+      order: 3;
+      flex-basis: 100%;
+    }
+
+    .pattern-bundle__actions {
+      order: 2;
+      flex-basis: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .pattern-bundle__actions .button {
+      justify-content: center;
+      padding-inline: 0.35rem;
+      font-size: var(--text-xs);
+      white-space: normal;
+      text-align: center;
+      line-height: 1.2;
+    }
+  }
+
+  .pattern-card__heading {
+    margin: 0;
+    font-size: 1.15rem;
+    line-height: 1.3;
   }
 
   .pattern-card__title {
@@ -155,29 +289,36 @@
     text-decoration: underline;
   }
 
+  .pattern-card__summary {
+    margin: 0;
+  }
+
   .pattern-card__meta {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 0.75rem;
+    gap: var(--space-1) var(--space-2);
     flex-wrap: wrap;
+  }
+
+  .pattern-card__meta > p {
+    margin: 0;
   }
 
   .pattern-card__actions {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin: 0.35rem 0 0.6rem;
+    margin: var(--space-1) 0 0;
   }
 
   .pattern-card__select {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    padding: 0.35rem 0.6rem;
-    border-radius: var(--radius-md);
-    border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
-    background: color-mix(in srgb, var(--surface) 92%, transparent);
+    min-height: 44px;
+    font-size: var(--text-sm);
+    color: var(--muted);
     cursor: pointer;
   }
 
@@ -186,47 +327,47 @@
   }
 
   .pattern-card__select:has(input:checked) {
-    border-color: color-mix(in srgb, var(--accent) 70%, var(--border));
-    background: color-mix(in srgb, var(--accent) 14%, var(--surface));
+    color: var(--accent);
+    font-weight: 600;
   }
 
   .pattern-card__select:focus-within {
-    outline: 2px solid var(--accent);
+    outline: var(--focus-outline);
     outline-offset: 2px;
+    border-radius: var(--radius-xs);
   }
 
+  /* A disclosure inside the card, not a second box: a rule above it
+     separates it from the summary. */
   .pattern-card__teaser {
     display: grid;
-    gap: 0.5rem;
-    padding: 0.65rem 0.75rem;
-    border-radius: var(--radius-md);
-    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-    background: color-mix(in srgb, var(--surface) 94%, transparent);
+    gap: var(--space-2);
+    border-top: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    margin-top: var(--space-1);
   }
 
   .pattern-card__teaser summary {
     cursor: pointer;
-    font-weight: 700;
-    color: var(--text);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--muted);
     min-height: 44px;
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    padding: 0.1rem 0;
   }
 
   .pattern-card__teaser summary:focus-visible {
-    outline: 2px solid var(--accent-strong);
+    outline: var(--focus-outline);
     outline-offset: 2px;
-    box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent);
-  }
-
-  .pattern-card__teaser[open] {
-    background: var(--panel);
   }
 
   .pattern-card__section {
     display: grid;
     gap: 0.35rem;
+  }
+
+  .pattern-card__section > p {
+    margin: 0;
   }
 
   .pattern-card__list {
@@ -240,24 +381,12 @@
     margin: 0;
   }
 
-  .pattern-card__glossary {
-    margin: 0.2rem 0 0.6rem;
-  }
-
   .pattern-card__glossary a {
-    font-weight: 700;
+    font-weight: 600;
   }
 
   .pattern-card__link {
     font-weight: 700;
-  }
-
-  .pattern-card__diagnostics {
-    display: grid;
-    gap: 0.4rem;
-    margin-top: 0.4rem;
-    padding-top: 0.45rem;
-    border-top: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
   }
 
   .pattern-card__diagnostics-actions {
@@ -269,6 +398,21 @@
 
   .pattern-card__diagnostics-actions [data-diagnostic-status] {
     min-height: 1.2rem;
+  }
+
+  .mechanisms__links {
+    margin: 0 0 var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  .mechanisms__links a {
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .mechanisms__links-sep {
+    padding-inline: 0.35rem;
   }
 
   .mechanisms__spec-grid,

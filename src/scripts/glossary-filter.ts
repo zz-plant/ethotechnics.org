@@ -10,6 +10,11 @@ const initGlossaryFilter = () => {
   const emptyState = document.querySelector<HTMLElement>(
     ".glossary-index__empty",
   );
+  // Letter groups in the A–Z index. A group with no visible term hides so
+  // its heading does not sit over an empty column.
+  const letterGroups = Array.from(
+    document.querySelectorAll<HTMLElement>("[data-glossary-group]"),
+  );
   const count = document.querySelector<HTMLElement>(".glossary-filter__count");
   const clearButton = document.querySelector<HTMLButtonElement>(
     "[data-clear-filter]",
@@ -208,6 +213,11 @@ const initGlossaryFilter = () => {
     });
 
     emptyState.hidden = visible > 0;
+    letterGroups.forEach((group) => {
+      group.hidden = !group.querySelector(
+        ".glossary-index__item:not(.is-hidden)",
+      );
+    });
     const querySuffix = rawQuery ? ` for “${rawQuery}”` : "";
     const letterSuffix = activeLetter !== "all" ? ` · ${activeLetter}` : "";
     const facetLabels = facetKeys.flatMap((key) => getFacetLabels(key));
@@ -384,7 +394,9 @@ const initGlossaryFilter = () => {
     if (!(target instanceof HTMLElement)) {
       return;
     }
-    const button = target.closest<HTMLButtonElement>("[data-glossary-remove]");
+    const button = target.closest<HTMLButtonElement>(
+      "[data-glossary-remove], [data-glossary-letter-clear]",
+    );
     if (!button) {
       return;
     }

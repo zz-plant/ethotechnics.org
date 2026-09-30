@@ -37,7 +37,18 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
   data-diagnostic-titles={JSON.stringify(diagnosticTitles)}
 >
   <div class="pattern-filter__controls">
-    <ul class="pill-list">
+    <label class="pattern-filter__search" for={searchInputId}>
+      <span class="pattern-filter__search-label">Search mechanisms</span>
+      <input
+        id={searchInputId}
+        type="search"
+        class="pattern-filter__search-input"
+        placeholder="Search by name or keyword"
+        data-search-input
+        aria-label="Search mechanisms by name or keyword"
+      />
+    </label>
+    <ul class="pill-list pattern-filter__themes">
       {
         filtersWithAll.map((filter) => {
           const isAll = filter.slug === "all";
@@ -51,6 +62,7 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
                 class="pill-list__button"
                 aria-pressed={isAll}
                 data-filter={filter.slug}
+                title={filter.description}
                 aria-label={
                   filter.slug === "all"
                     ? "Show all mechanisms"
@@ -59,111 +71,66 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
               >
                 {filter.label}
               </button>
-              {!isAll && filter.description ? (
-                <p class="muted small pattern-filter__description">
-                  {filter.description}
-                </p>
-              ) : null}
             </li>
           );
         })
       }
     </ul>
-    <label class="pattern-filter__search" for={searchInputId}>
-      <span class="muted">Search mechanisms</span>
-      <input
-        id={searchInputId}
-        type="search"
-        class="pattern-filter__search-input"
-        placeholder="Search by name or keyword"
-        data-search-input
-        aria-label="Search mechanisms by name or keyword"
-      />
-    </label>
-    <p class="muted" role="status" aria-live="polite" data-filter-status>
-      Showing all mechanisms.
-    </p>
-    <div class="pattern-filter__saved">
-      <button
-        class="button ghost button--compact"
-        type="button"
-        data-save-filters
+    <div class="pattern-filter__meta">
+      <p
+        class="muted small"
+        role="status"
+        aria-live="polite"
+        data-filter-status
       >
-        Save filters
-      </button>
-      <button
-        class="button ghost button--compact"
-        type="button"
-        data-restore-filters
-      >
-        Restore saved
-      </button>
-      <button
-        class="button ghost button--compact"
-        type="button"
-        data-clear-filters
-      >
-        Clear filters
-      </button>
-      <p class="muted small" data-saved-status aria-live="polite">
-        Saved filters stay in this browser.
+        Showing all mechanisms.
       </p>
-    </div>
-    <div class="pattern-bundle" data-pattern-bundle>
-      <div class="pattern-bundle__header">
-        <div class="pattern-bundle__copy">
-          <p class="muted">Mechanism bundle</p>
-          <h3>Save selected mechanisms.</h3>
-          <p class="muted small" data-selection-status aria-live="polite">
-            No mechanisms selected yet.
-          </p>
-        </div>
-        <div class="pattern-bundle__actions">
-          <button class="button" type="button" data-download-bundle>
-            Download markdown
-          </button>
-          <button class="button button--subtle" type="button" data-print-bundle>
-            Save as PDF
-          </button>
-          <button class="copy-button" type="button" data-copy-bundle>
-            Copy bundle link
-          </button>
-        </div>
+      <div class="pattern-filter__saved">
+        <button
+          class="pattern-filter__text-button"
+          type="button"
+          data-save-filters
+        >
+          Save filters
+        </button>
+        <button
+          class="pattern-filter__text-button"
+          type="button"
+          data-restore-filters
+        >
+          Restore saved
+        </button>
+        <button
+          class="pattern-filter__text-button"
+          type="button"
+          data-clear-filters
+        >
+          Clear filters
+        </button>
+        <span class="muted small" data-saved-status aria-live="polite">
+          Saved filters stay in this browser.
+        </span>
       </div>
-      <form class="pattern-bundle__email" data-email-form>
-        <div class="pattern-bundle__email-row">
-          <label
-            class="pattern-bundle__email-label"
-            for={`${searchInputId}-email`}
-          >
-            <span>Email the bundle link (optional)</span>
-            <input
-              id={`${searchInputId}-email`}
-              name="bundle-email"
-              type="email"
-              inputmode="email"
-              autocomplete="email"
-              class="pattern-filter__search-input"
-              placeholder="you@example.com"
-              data-bundle-email
-            />
-          </label>
-          <button class="button" type="submit" data-email-submit>
-            Draft email
-          </button>
-        </div>
-        <p class="muted small" data-email-status aria-live="polite">
-          Selections stay on this device.
-        </p>
-      </form>
-      <p class="muted small pattern-bundle__hint">
-        <a class="pattern-bundle__link" href="#mechanisms" data-bundle-link>
-          Current bundle link
-        </a>
-      </p>
     </div>
+    {
+      filters.some((filter) => filter.description) && (
+        <details class="pattern-filter__legend">
+          <summary>What the themes mean</summary>
+          <dl>
+            {filters.map((filter) =>
+              filter.description ? (
+                <div>
+                  <dt>{filter.label}</dt>
+                  <dd>{filter.description}</dd>
+                </div>
+              ) : null,
+            )}
+          </dl>
+        </details>
+      )
+    }
   </div>
-  <div class="grid" data-pattern-results>
+  <div class="pattern-filter__results" data-pattern-results>
     {
       entries.map((pattern) => {
         const appliedFilters = pattern.filters
@@ -201,7 +168,7 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
             )}
           >
             <div class="pattern-card__meta">
-              <p class="muted">Filters: {appliedFilters}</p>
+              <p class="muted small">{appliedFilters}</p>
               <label
                 class="pattern-card__select"
                 for={`${pattern.slug}-bundle`}
@@ -216,12 +183,12 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
                 <span>Save to bundle</span>
               </label>
             </div>
-            <h3>
+            <h3 class="pattern-card__heading">
               <a class="pattern-card__title" href={detailHref}>
                 {pattern.title}
               </a>
             </h3>
-            <p>{pattern.summary}</p>
+            <p class="pattern-card__summary">{pattern.summary}</p>
             <div class="pattern-card__actions">
               <a
                 class="button ghost button--compact"
@@ -232,29 +199,8 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
                 Details
               </a>
             </div>
-            {glossaryAnchors.length > 0 && (
-              <p class="muted pattern-card__glossary">
-                Glossary anchors:{" "}
-                {glossaryAnchors.map((anchor, index) => {
-                  const separator =
-                    index < glossaryAnchors.length - 1 ? ", " : "";
-
-                  return (
-                    <span>
-                      <a
-                        href={anchor.href}
-                        title={anchor.definition || undefined}
-                      >
-                        {anchor.label}
-                      </a>
-                      {separator}
-                    </span>
-                  );
-                })}
-              </p>
-            )}
             <details class="pattern-card__teaser">
-              <summary>Steps and templates</summary>
+              <summary>Steps, terms, and diagnostics</summary>
               <div class="pattern-card__section">
                 <p class="muted small">Steps</p>
                 <ol class="pattern-card__list">
@@ -280,44 +226,132 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
                   {pattern.example.description}
                 </p>
               </div>
+              {glossaryAnchors.length > 0 && (
+                <div class="pattern-card__section">
+                  <p class="muted small">Glossary terms</p>
+                  <p class="pattern-card__glossary">
+                    {glossaryAnchors.map((anchor, index) => {
+                      const separator =
+                        index < glossaryAnchors.length - 1 ? ", " : "";
+
+                      return (
+                        <span>
+                          <a
+                            href={anchor.href}
+                            title={anchor.definition || undefined}
+                          >
+                            {anchor.label}
+                          </a>
+                          {separator}
+                        </span>
+                      );
+                    })}
+                  </p>
+                </div>
+              )}
+              <div class="pattern-card__section pattern-card__diagnostics">
+                <p class="muted small">Diagnostics</p>
+                <p>
+                  {pattern.diagnostics.map((slug, index) => {
+                    const label = diagnosticTitles[slug] ?? slug;
+                    const separator =
+                      index < pattern.diagnostics.length - 1 ? ", " : "";
+
+                    return (
+                      <span>
+                        <a href={`/diagnostics#${slug}`} data-diagnostic-link>
+                          {label}
+                        </a>
+                        {separator}
+                      </span>
+                    );
+                  })}
+                </p>
+                <div class="pattern-card__diagnostics-actions">
+                  <button
+                    class="copy-button"
+                    type="button"
+                    data-copy-diagnostics
+                  >
+                    Copy diagnostic links
+                  </button>
+                  <span
+                    class="muted small"
+                    data-diagnostic-status
+                    aria-live="polite"
+                  />
+                </div>
+              </div>
               <a class="pattern-card__link" href={detailHref}>
                 View full details
               </a>
             </details>
-            <div class="pattern-card__diagnostics">
-              <p class="muted">
-                Diagnostics{" "}
-                {pattern.diagnostics.map((slug, index) => {
-                  const label = diagnosticTitles[slug] ?? slug;
-                  const separator =
-                    index < pattern.diagnostics.length - 1 ? ", " : "";
-
-                  return (
-                    <span>
-                      <a href={`/diagnostics#${slug}`} data-diagnostic-link>
-                        {label}
-                      </a>
-                      {separator}
-                    </span>
-                  );
-                })}
-              </p>
-              <div class="pattern-card__diagnostics-actions">
-                <button class="copy-button" type="button" data-copy-diagnostics>
-                  Copy diagnostic links
-                </button>
-                <span
-                  class="muted small"
-                  data-diagnostic-status
-                  aria-live="polite"
-                />
-              </div>
-            </div>
           </article>
         );
       })
     }
     <p class="muted" data-empty hidden>No mechanisms match your filters yet.</p>
+  </div>
+
+  <div class="pattern-bundle" data-pattern-bundle hidden>
+    <p class="pattern-bundle__status" data-selection-status aria-live="polite">
+      No mechanisms selected yet.
+    </p>
+    <div class="pattern-bundle__actions">
+      <button class="button button--compact" type="button" data-download-bundle>
+        Download markdown
+      </button>
+      <button
+        class="button ghost button--compact"
+        type="button"
+        data-print-bundle
+      >
+        Save as PDF
+      </button>
+      <button
+        class="button ghost button--compact"
+        type="button"
+        data-copy-bundle
+      >
+        Copy bundle link
+      </button>
+    </div>
+    <details class="pattern-bundle__more">
+      <summary>Email the link</summary>
+      <form class="pattern-bundle__email" data-email-form>
+        <label
+          class="pattern-bundle__email-label"
+          for={`${searchInputId}-email`}
+        >
+          <span class="muted small">Email address</span>
+          <input
+            id={`${searchInputId}-email`}
+            name="bundle-email"
+            type="email"
+            inputmode="email"
+            autocomplete="email"
+            class="pattern-filter__search-input"
+            placeholder="you@example.com"
+            data-bundle-email
+          />
+        </label>
+        <button
+          class="button ghost button--compact"
+          type="submit"
+          data-email-submit
+        >
+          Draft email
+        </button>
+        <p class="muted small" data-email-status aria-live="polite">
+          Selections stay on this device.
+        </p>
+        <p class="muted small pattern-bundle__hint">
+          <a class="pattern-bundle__link" href="#mechanisms" data-bundle-link>
+            Current bundle link
+          </a>
+        </p>
+      </form>
+    </details>
   </div>
 
   <dialog class="pattern-drawer" data-pattern-drawer>

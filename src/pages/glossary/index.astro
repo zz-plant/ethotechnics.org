@@ -3,8 +3,6 @@ import InlineScript from "../../components/InlineScript.astro";
 import "../../styles/components/glossary.css";
 import { getEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import CardGrid from "../../components/CardGrid.astro";
-import CardItem from "../../components/CardItem.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
@@ -40,8 +38,8 @@ const {
 // here too, which made the intro's map read "4 + 13 more sections"; the
 // territory map is the section that lists them, with counts.
 const anchorLinks = [
-  { href: "#glossary-pathways", label: "Where terms are used" },
   { href: "#glossary-index", label: "A–Z index" },
+  { href: "#glossary-pathways", label: "Where terms are used" },
   { href: "#explainer-links", label: "Explainers" },
   { href: "#territory-map", label: "Sections" },
 ];
@@ -49,6 +47,20 @@ const domainFilters = glossaryDomainFilters;
 const phaseFilters = glossaryPhaseFilters;
 const measurabilityFilters = glossaryMeasurabilityFilters;
 const entryIndex = buildGlossaryIndexEntries(categories);
+const entryLetter = (title: string) => title.trim().charAt(0).toUpperCase();
+// The A–Z index renders as letter groups; entryIndex is already sorted.
+const letterGroups = entryIndex.reduce<
+  { letter: string; entries: typeof entryIndex }[]
+>((groups, entry) => {
+  const letter = entryLetter(entry.title);
+  const last = groups.at(-1);
+  if (last && last.letter === letter) {
+    last.entries.push(entry);
+  } else {
+    groups.push({ letter, entries: [entry] });
+  }
+  return groups;
+}, []);
 const { statusFilters, glossarySuggestions, glossaryLetters, territoryCounts } =
   buildGlossaryIndexFacets(categories, entryIndex);
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
@@ -128,352 +140,364 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     title="Ethotechnics glossary"
     description={pageDescription}
     anchorLinks={anchorLinks}
-    illustration="glossary"
   />
-  <div class="callout glossary__starter" id="starter-terms">
-    <h3>Start with these terms</h3>
-    <p class="muted">The terms the rest of the glossary builds on.</p>
-    <ul class="glossary__starter-list">
-      {
-        starterTerms.map((term) => (
-          <li>
-            <a href={glossaryEntryUrl(term.id)}>{term.label}</a>
-            <p class="muted small">{term.description}</p>
-          </li>
-        ))
-      }
-    </ul>
-  </div>
   <SectionBlock
-    id="glossary-pathways"
-    eyebrow="Pathways"
-    title="Where the glossary terms are used"
-    description="The same terms appear in the standards, the research, the mechanisms library, and the field notes. Follow a term to where it is applied."
-    variant="alt"
+    id="glossary-index"
+    title="All terms, A to Z"
+    description={`${entryIndex.length} terms, each with its own page.`}
+    className="glossary-catalog"
   >
-    <CardGrid className="grid--two">
-      {
-        glossaryPathways.map((pathway) => (
-          <CardItem title={pathway.title} description={pathway.description}>
-            <p slot="footer">
-              <a class="button ghost button--compact" href={pathway.href}>
-                {pathway.linkLabel}
-              </a>
-            </p>
-          </CardItem>
-        ))
-      }
-    </CardGrid>
-  </SectionBlock>
-  <div class="glossary-filter">
-    <div class="glossary-filter__controls">
-      <label class="glossary-filter__label" for="glossary-filter">
-        <span class="visually-hidden">Filter glossary terms</span>
-        <input
-          id="glossary-filter"
-          name="query"
-          type="search"
-          inputmode="search"
-          placeholder="Filter terms (e.g., consent)"
-          autocomplete="off"
-          list="glossary-filter-suggestions"
-          value={searchQuery}
-        />
-      </label>
-      <div class="glossary-filter__tabs" role="tablist">
-        <button
-          class="glossary-filter__tab is-active"
-          type="button"
-          role="tab"
-          aria-selected="true"
-          data-glossary-tab="all"
-        >
-          All entries <span data-glossary-total>{totalEntries}</span>
-        </button>
-        <button
-          class="glossary-filter__tab"
-          type="button"
-          role="tab"
-          aria-selected="false"
-          data-glossary-tab="domains"
-        >
-          By domain
-        </button>
-        <button
-          class="glossary-filter__tab"
-          type="button"
-          role="tab"
-          aria-selected="false"
-          data-glossary-tab="phases"
-        >
-          By phase
-        </button>
-        <button
-          class="glossary-filter__tab"
-          type="button"
-          role="tab"
-          aria-selected="false"
-          data-glossary-tab="measurability"
-        >
-          By measurability
-        </button>
-      </div>
-    </div>
-    <div class="glossary-filter__panels">
-      <div
-        class="glossary-filter__panel"
-        role="tabpanel"
-        data-glossary-panel="all"
-      >
-        <p class="muted">Currently viewing: All entries</p>
-      </div>
-      <fieldset
-        class="glossary-filter__panel"
-        role="tabpanel"
-        data-glossary-panel="domains"
-        hidden
-      >
-        <legend>Filter by domain</legend>
-        <div class="glossary-filter__chips">
-          {
-            domainFilters.map((domain) => (
-              <label class="glossary-filter__chip">
-                <input
-                  type="checkbox"
-                  value={domain.id}
-                  data-glossary-filter="domains"
-                  data-glossary-label={domain.label}
-                />
-                <span class="glossary-filter__chip-label">{domain.label}</span>
-                <span class="glossary-filter__chip-count" data-glossary-count />
-              </label>
-            ))
-          }
-        </div>
-      </fieldset>
-      <fieldset
-        class="glossary-filter__panel"
-        role="tabpanel"
-        data-glossary-panel="phases"
-        hidden
-      >
-        <legend>Filter by phase</legend>
-        <div class="glossary-filter__chips">
-          {
-            phaseFilters.map((phase) => (
-              <label class="glossary-filter__chip">
-                <input
-                  type="checkbox"
-                  value={phase.id}
-                  data-glossary-filter="phases"
-                  data-glossary-label={phase.label}
-                />
-                <span class="glossary-filter__chip-label">{phase.label}</span>
-                <span class="glossary-filter__chip-count" data-glossary-count />
-              </label>
-            ))
-          }
-        </div>
-      </fieldset>
-      <fieldset
-        class="glossary-filter__panel"
-        role="tabpanel"
-        data-glossary-panel="measurability"
-        hidden
-      >
-        <legend>Filter by measurability</legend>
-        <div class="glossary-filter__chips">
-          {
-            measurabilityFilters.map((option) => (
-              <label class="glossary-filter__chip">
-                <input
-                  type="checkbox"
-                  value={option.id}
-                  data-glossary-filter="measurability"
-                  data-glossary-label={option.label}
-                />
-                <span class="glossary-filter__chip-label">{option.label}</span>
-                <span class="glossary-filter__chip-count" data-glossary-count />
-              </label>
-            ))
-          }
-        </div>
-      </fieldset>
-      {
-        statusFilters.length > 0 && (
-          <fieldset
-            class="glossary-filter__panel glossary-filter__panel--status"
-            role="tabpanel"
-            data-glossary-panel="status"
+    <div class="glossary-filter">
+      <div class="glossary-filter__controls">
+        <label class="glossary-filter__label" for="glossary-filter">
+          <span class="glossary-filter__label-text">Filter glossary terms</span>
+          <input
+            id="glossary-filter"
+            name="query"
+            type="search"
+            inputmode="search"
+            placeholder="Filter terms (e.g., consent)"
+            autocomplete="off"
+            list="glossary-filter-suggestions"
+            value={searchQuery}
+          />
+        </label>
+        <div class="glossary-filter__tabs" role="tablist">
+          <button
+            class="glossary-filter__tab is-active"
+            type="button"
+            role="tab"
+            aria-selected="true"
+            data-glossary-tab="all"
           >
-            <legend>Filter by status</legend>
-            <div class="glossary-filter__chips">
-              {statusFilters.map((status) => (
+            All entries <span data-glossary-total>{totalEntries}</span>
+          </button>
+          <button
+            class="glossary-filter__tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            data-glossary-tab="domains"
+          >
+            By domain
+          </button>
+          <button
+            class="glossary-filter__tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            data-glossary-tab="phases"
+          >
+            By phase
+          </button>
+          <button
+            class="glossary-filter__tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            data-glossary-tab="measurability"
+          >
+            By measurability
+          </button>
+        </div>
+      </div>
+      <p class="glossary-filter__starters" id="starter-terms">
+        <span class="muted">Start with</span>
+        {
+          starterTerms.map((term, index) => (
+            <>
+              <a href={glossaryEntryUrl(term.id)} title={term.description}>
+                {term.label}
+              </a>
+              {index < starterTerms.length - 1 && (
+                <span class="glossary-filter__sep" aria-hidden="true">
+                  ·
+                </span>
+              )}
+            </>
+          ))
+        }
+      </p>
+      <div class="glossary-filter__panels">
+        <div
+          class="glossary-filter__panel"
+          role="tabpanel"
+          data-glossary-panel="all"
+        >
+          <p class="muted small">
+            Search across all terms or narrow by domain, phase, or
+            measurability.
+          </p>
+        </div>
+        <fieldset
+          class="glossary-filter__panel"
+          role="tabpanel"
+          data-glossary-panel="domains"
+          hidden
+        >
+          <legend>Filter by domain</legend>
+          <div class="glossary-filter__chips">
+            {
+              domainFilters.map((domain) => (
                 <label class="glossary-filter__chip">
                   <input
                     type="checkbox"
-                    value={status}
-                    data-glossary-filter="status"
-                    data-glossary-label={status}
+                    value={domain.id}
+                    data-glossary-filter="domains"
+                    data-glossary-label={domain.label}
                   />
-                  <span class="glossary-filter__chip-label">{status}</span>
+                  <span class="glossary-filter__chip-label">
+                    {domain.label}
+                  </span>
                   <span
                     class="glossary-filter__chip-count"
                     data-glossary-count
                   />
                 </label>
-              ))}
-            </div>
-          </fieldset>
-        )
+              ))
+            }
+          </div>
+        </fieldset>
+        <fieldset
+          class="glossary-filter__panel"
+          role="tabpanel"
+          data-glossary-panel="phases"
+          hidden
+        >
+          <legend>Filter by phase</legend>
+          <div class="glossary-filter__chips">
+            {
+              phaseFilters.map((phase) => (
+                <label class="glossary-filter__chip">
+                  <input
+                    type="checkbox"
+                    value={phase.id}
+                    data-glossary-filter="phases"
+                    data-glossary-label={phase.label}
+                  />
+                  <span class="glossary-filter__chip-label">{phase.label}</span>
+                  <span
+                    class="glossary-filter__chip-count"
+                    data-glossary-count
+                  />
+                </label>
+              ))
+            }
+          </div>
+        </fieldset>
+        <fieldset
+          class="glossary-filter__panel"
+          role="tabpanel"
+          data-glossary-panel="measurability"
+          hidden
+        >
+          <legend>Filter by measurability</legend>
+          <div class="glossary-filter__chips">
+            {
+              measurabilityFilters.map((option) => (
+                <label class="glossary-filter__chip">
+                  <input
+                    type="checkbox"
+                    value={option.id}
+                    data-glossary-filter="measurability"
+                    data-glossary-label={option.label}
+                  />
+                  <span class="glossary-filter__chip-label">
+                    {option.label}
+                  </span>
+                  <span
+                    class="glossary-filter__chip-count"
+                    data-glossary-count
+                  />
+                </label>
+              ))
+            }
+          </div>
+        </fieldset>
+        {
+          statusFilters.length > 0 && (
+            <fieldset
+              class="glossary-filter__panel glossary-filter__panel--status"
+              role="tabpanel"
+              data-glossary-panel="status"
+            >
+              <legend>Filter by status</legend>
+              <div class="glossary-filter__chips">
+                {statusFilters.map((status) => (
+                  <label class="glossary-filter__chip">
+                    <input
+                      type="checkbox"
+                      value={status}
+                      data-glossary-filter="status"
+                      data-glossary-label={status}
+                    />
+                    <span class="glossary-filter__chip-label">{status}</span>
+                    <span
+                      class="glossary-filter__chip-count"
+                      data-glossary-count
+                    />
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+          )
+        }
+      </div>
+      <div class="glossary-filter__active" data-glossary-active hidden>
+        <p class="muted">Active filters:</p>
+        <div class="glossary-filter__active-chips"></div>
+      </div>
+      <div class="glossary-filter__status">
+        <p
+          class="muted small glossary-filter__count"
+          aria-live="polite"
+          aria-atomic="true"
+          data-total={totalEntries}
+        >
+          Showing {visibleEntries} of {totalEntries} terms
+          {hasSearchQuery && ` for “${searchQuery}”`}
+        </p>
+        <div class="glossary-filter__actions">
+          <button
+            class="glossary-filter__text-button glossary-filter__clear"
+            type="button"
+            data-clear-filter
+          >
+            Clear filter
+          </button>
+          <button
+            class="glossary-filter__text-button"
+            type="button"
+            data-glossary-expand
+          >
+            Expand sections
+          </button>
+          <button
+            class="glossary-filter__text-button"
+            type="button"
+            data-glossary-collapse
+          >
+            Collapse sections
+          </button>
+        </div>
+      </div>
+    </div>
+    <nav class="glossary-index__letters" aria-label="Filter by letter">
+      <button
+        class="pill pill--ghost is-active"
+        type="button"
+        data-glossary-letter="all"
+        aria-pressed="true"
+      >
+        All
+      </button>
+      {
+        glossaryLetters.map((letter) => (
+          <button
+            class="pill pill--ghost"
+            type="button"
+            data-glossary-letter={letter}
+            aria-pressed="false"
+          >
+            {letter}
+          </button>
+        ))
       }
-    </div>
-    <div class="glossary-filter__active" data-glossary-active hidden>
-      <p class="muted">Active filters:</p>
-      <div class="glossary-filter__active-chips"></div>
-    </div>
-    <div class="glossary-filter__actions">
-      <button
-        class="button ghost button--compact glossary-filter__clear"
-        type="button"
-        data-clear-filter
-      >
-        Clear filter
-      </button>
-      <button
-        class="button ghost button--compact"
-        type="button"
-        data-glossary-expand
-      >
-        Expand sections
-      </button>
-      <button
-        class="button ghost button--compact"
-        type="button"
-        data-glossary-collapse
-      >
-        Collapse sections
-      </button>
-    </div>
-    <p class="muted glossary-filter__hint">
-      Search across all terms or narrow by domain, phase, or measurability.
-    </p>
-    <p
-      class="muted glossary-filter__count"
-      aria-live="polite"
-      aria-atomic="true"
-      data-total={totalEntries}
-    >
-      Showing {visibleEntries} of {totalEntries} terms
-      {hasSearchQuery && ` for “${searchQuery}”`}
-    </p>
+    </nav>
+    <nav class="glossary-index" aria-label="Glossary index">
+      {
+        letterGroups.map((group) => (
+          <section
+            class="glossary-index__group"
+            data-glossary-group={group.letter}
+            aria-labelledby={`glossary-letter-${group.letter}`}
+          >
+            <h3
+              class="glossary-index__letter"
+              id={`glossary-letter-${group.letter}`}
+            >
+              {group.letter}
+            </h3>
+            {group.entries.map((entry) => {
+              const matchesQuery = entry.searchText.includes(normalizedQuery);
+              const entryClasses = [
+                "glossary-index__item",
+                ...(hasSearchQuery && !matchesQuery ? ["is-hidden"] : []),
+              ].join(" ");
+
+              return (
+                <a
+                  class={entryClasses}
+                  href={glossaryEntryUrl(entry.id)}
+                  data-glossary-entry-link
+                  data-title={entry.title}
+                  data-category={entry.categoryLabel}
+                  data-category-id={entry.categoryId}
+                  data-tags={entry.tags.join(" ")}
+                  data-domains={entry.domains.join(" ")}
+                  data-phases={entry.phases.join(" ")}
+                  data-measurability={entry.measurability}
+                  data-maturity={entry.maturity}
+                  data-scale={entry.scale}
+                  data-status={entry.status ?? ""}
+                  data-letter={entryLetter(entry.title)}
+                  data-search={entry.searchText}
+                >
+                  <span class="glossary-index__term">{entry.title}</span>
+                  <span class="glossary-index__category">
+                    {entry.categoryLabel}
+                  </span>
+                </a>
+              );
+            })}
+          </section>
+        ))
+      }
+    </nav>
     <p class="muted glossary-index__empty" hidden={visibleEntries > 0}>
       No entries match that search or filter. Try another keyword or browse the
       territory map for nearby concepts.
     </p>
-  </div>
+  </SectionBlock>
   <datalist id="glossary-filter-suggestions">
     {glossarySuggestions.map((suggestion) => <option value={suggestion} />)}
   </datalist>
+  <SectionBlock
+    id="glossary-pathways"
+    title="Where the glossary terms are used"
+    description="The same terms appear in the standards, the research, the mechanisms library, and the field notes."
+    variant="alt"
+  >
+    <ul class="glossary-links">
+      {
+        glossaryPathways.map((pathway) => (
+          <li>
+            <a href={pathway.href}>{pathway.linkLabel}</a>
+            <span class="muted small">{pathway.description}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </SectionBlock>
   <SectionBlock
     id="explainer-links"
     eyebrow="Explainers"
     title="Glossary explainers"
     description="Longer explanations of selected terms, each linked back to its glossary entry."
-    variant="alt"
   >
-    <CardGrid className="grid--three">
+    <ul class="glossary-links glossary-links--columns">
       {
         explainerLinksWithGlossary.map((explainer) => (
-          <CardItem title={explainer.title} description={explainer.description}>
-            <p slot="footer">
-              <a class="button ghost button--compact" href={explainer.href}>
-                Read explainer
-              </a>
-              <span class="muted">
-                {" "}
-                • <a href={explainer.glossaryHref}>Glossary entry</a>
-              </span>
-            </p>
-          </CardItem>
+          <li>
+            <a href={explainer.href}>{explainer.title}</a>
+            <span class="muted small">
+              {explainer.description}{" "}
+              <a href={explainer.glossaryHref}>Glossary entry</a>
+            </span>
+          </li>
         ))
       }
-    </CardGrid>
-  </SectionBlock>
-
-  <SectionBlock
-    id="glossary-index"
-    eyebrow="Index"
-    title="All terms, A to Z"
-    description={`All ${entryIndex.length} terms in alphabetical order, each with its own permanent link.`}
-  >
-    <div class="glossary-index__toolbar">
-      <div>
-        <p class="eyebrow">Quick jump</p>
-        <p class="muted glossary-index__hint">
-          Filter by letter to scan faster, then open a term for full citations.
-        </p>
-      </div>
-      <nav class="glossary-index__letters" aria-label="Filter by letter">
-        <button
-          class="pill pill--ghost is-active"
-          type="button"
-          data-glossary-letter="all"
-          aria-pressed="true"
-        >
-          All
-        </button>
-        {
-          glossaryLetters.map((letter) => (
-            <button
-              class="pill pill--ghost"
-              type="button"
-              data-glossary-letter={letter}
-              aria-pressed="false"
-            >
-              {letter}
-            </button>
-          ))
-        }
-      </nav>
-    </div>
-    <nav class="glossary-index" aria-label="Glossary index">
-      {
-        entryIndex.map((entry) => {
-          const matchesQuery = entry.searchText.includes(normalizedQuery);
-          const entryClasses = [
-            "glossary-index__item",
-            ...(hasSearchQuery && !matchesQuery ? ["is-hidden"] : []),
-          ].join(" ");
-
-          return (
-            <a
-              class={entryClasses}
-              href={glossaryEntryUrl(entry.id)}
-              data-glossary-entry-link
-              data-title={entry.title}
-              data-category={entry.categoryLabel}
-              data-category-id={entry.categoryId}
-              data-tags={entry.tags.join(" ")}
-              data-domains={entry.domains.join(" ")}
-              data-phases={entry.phases.join(" ")}
-              data-measurability={entry.measurability}
-              data-maturity={entry.maturity}
-              data-scale={entry.scale}
-              data-status={entry.status ?? ""}
-              data-letter={entry.title.trim().charAt(0).toUpperCase()}
-              data-search={entry.searchText}
-            >
-              <span class="glossary-index__term">{entry.title}</span>
-              <span class="muted glossary-index__category">
-                {entry.categoryLabel}
-              </span>
-            </a>
-          );
-        })
-      }
-    </nav>
-    <p class="glossary__cta muted">Each term links to its own page.</p>
+    </ul>
   </SectionBlock>
 
   <SectionBlock
