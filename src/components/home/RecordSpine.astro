@@ -11,6 +11,7 @@
  * only reads positions.
  */
 import { casesBySlug } from "../../content/casebook";
+import SpeechBubble from "../SpeechBubble.astro";
 
 const robodebt = casesBySlug.get("robodebt");
 const events = robodebt?.timeline ?? [];
@@ -29,7 +30,8 @@ const haltedBy = robodebt?.haltedBy ?? "A court.";
         <p class="section-lead">
           Robodebt, from the casebook, one dated event at a time. The left
           column is what the record showed. The right column is what the
-          institution said.
+          institution said. A warning the institution did not answer is marked
+          unanswered.
         </p>
       </header>
 
@@ -91,7 +93,29 @@ const haltedBy = robodebt?.haltedBy ?? "A court.";
               data-halt={event.halt ? "true" : undefined}
             >
               <span class="record-spine__when">{event.when}</span>
-              <span class="record-spine__what">{event.what}</span>
+              {event.voice ? (
+                <div
+                  class:list={[
+                    "record-spine__what",
+                    "record-spine__voice",
+                    `record-spine__voice--${event.voice.side}`,
+                  ]}
+                >
+                  <SpeechBubble
+                    side={event.voice.side}
+                    speaker={event.voice.speaker}
+                    verbatim={event.voice.verbatim}
+                    answered={event.voice.answered}
+                  >
+                    {event.voice.said}
+                  </SpeechBubble>
+                  {event.voice.after && (
+                    <p class="record-spine__after">{event.voice.after}</p>
+                  )}
+                </div>
+              ) : (
+                <span class="record-spine__what">{event.what}</span>
+              )}
             </li>
           ))}
         </ol>
