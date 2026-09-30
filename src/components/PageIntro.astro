@@ -1,7 +1,6 @@
 ---
 import PageIntroAnchorList from "./PageIntroAnchorList.astro";
 import SectionNav from "./SectionNav.astro";
-import type { SectionIllustrationId } from "./SectionIllustration.astro";
 
 export interface AnchorLink {
   href: string;
@@ -17,13 +16,6 @@ export interface Props {
   anchorLinksSummary?: string;
   version?: string;
   lastUpdated?: string;
-  /**
-   * Accepted and ignored. The section illustrations filled the first screen of
-   * every hub page beside the title and told the reader nothing the title did
-   * not; predicted attention maps put 28-39% of first-screen attention on this
-   * opener. Callers are being cleaned up; the prop stays until they are.
-   */
-  illustration?: SectionIllustrationId;
 }
 
 const {

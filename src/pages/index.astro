@@ -62,20 +62,18 @@ const doors = [
         <a class="button primary" href="#self-test">
           Test your system in 60 seconds
         </a>
-        <a
-          class="button ghost institute-hero__triage-link"
-          href="/triage"
-          aria-label="Go to incident triage →"
-        >
+        <a class="institute-hero__triage-link" href="/triage">
           <span class="incident-dot" aria-hidden="true"></span>
           Incident triage →
         </a>
       </div>
       <nav
         class="home-doors home-doors--strip"
-        aria-label="Direct role entry paths"
+        aria-labelledby="home-doors-strip-label"
       >
-        <span class="home-doors__strip-label">Start by role:</span>
+        <span class="home-doors__strip-label" id="home-doors-strip-label"
+          >Start by role:</span
+        >
         <ul>
           {
             doors.map((door) => (
@@ -95,14 +93,17 @@ const doors = [
 
   <section
     id="mechanism"
-    class="home-claim stack-lg"
+    class="home-claim stack-md"
     aria-labelledby="mechanism-heading"
   >
-    <p class="eyebrow">Why nobody stopped it</p>
-    <h2 id="mechanism-heading" class="section__heading">
-      A system's reach can double without anyone deciding that it should.
-    </h2>
-    <p class="section-lead">
+    <div class="home-split-header">
+      <div class="stack-sm">
+        <p class="eyebrow">Why nobody stopped it</p>
+        <h2 id="mechanism-heading" class="section__heading">
+          A system's reach can double without anyone deciding that it should.
+        </h2>
+      </div>
+      <p class="section-lead">
       The warnings above piled up for years and the scheme kept running. One
       reason: an automated system's reach can grow in small steps, and no single
       step is big enough to trigger a review. The two systems below grow by the
@@ -110,7 +111,8 @@ const doors = [
       enough to notice, so it is never reviewed. The second records every step
       as a new approval, so someone can read it, question it, and undo it. The
       standards on this site require the second.
-    </p>
+      </p>
+    </div>
     <div class="home-draw" data-reveal="draw">
       <RatchetFigure level="h3" />
     </div>

@@ -23,13 +23,46 @@
   .home-claim {
     max-width: var(--content-max);
     margin-inline: auto;
-    padding: clamp(2.6rem, 4.5vw, 4rem) var(--page-gutter)
-      clamp(2.2rem, 4vw, 3.25rem);
+    padding: clamp(2rem, 3.5vw, 3rem) var(--page-gutter)
+      clamp(1.8rem, 3vw, 2.4rem);
     border-bottom: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
   }
 
   .home-claim .section-lead {
     max-width: 68ch;
+  }
+
+  /* The record's and the mechanism's headers: heading on the left, lede on
+     the right on a wide screen, so each opens with one band instead of a
+     stack three blocks tall. Stacked below 1000px. */
+  .home-split-header {
+    display: grid;
+    gap: var(--space-3);
+    align-items: start;
+  }
+
+  .home-split-header > .section-lead {
+    margin: 0;
+  }
+
+  @media (min-width: 1000px) {
+    .home-split-header {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      column-gap: clamp(2rem, 4vw, 3.5rem);
+    }
+
+    .record-spine__header.home-split-header {
+      max-width: none;
+    }
+  }
+
+  /* The figure is two side-by-side charts drawn on a 960-wide canvas. At the
+     full content width it stood 480px tall and pushed the casebook to the
+     fourth screen; capped, it reads the same and the casebook starts on the
+     third. */
+  .home-claim .home-draw {
+    width: 100%;
+    max-width: 50rem;
   }
 
   .home-supplement {
@@ -110,10 +143,22 @@
     gap: 0.75rem 1rem;
   }
 
+  /* A text link beside the one solid button: the hero has one primary
+     action, and triage is for a reader who already knows they need it. */
   .institute-hero__triage-link {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
+    font-weight: 600;
+    color: var(--link);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+
+  .institute-hero__triage-link:hover {
+    color: var(--link-hover);
+    text-decoration-thickness: 2px;
   }
 
   .incident-dot {
@@ -429,7 +474,7 @@
   .home-casebook {
     max-width: var(--content-max);
     margin-inline: auto;
-    padding: clamp(2.6rem, 4.5vw, 4rem) var(--page-gutter)
+    padding: clamp(2rem, 3.5vw, 3rem) var(--page-gutter)
       clamp(2.2rem, 4vw, 3.25rem);
     border-bottom: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
   }
@@ -538,63 +583,74 @@
     }
   }
 
-  /* The hero's compact doors: three links in one line, for readers who will
-     not scroll the story. */
+  /* The hero's role links: a labeled row at body size, styled as links.
+     They were 12px pills, the least legible thing in the hero, though they
+     are the clearest way in for two of the three readers. */
   .home-doors--strip {
     max-width: none;
     padding: 0;
+    border-bottom: 0;
     margin: 0.25rem 0 0;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    gap: 0.4rem 0.8rem;
+    align-items: baseline;
+    gap: 0.25rem 0.6rem;
+    font-size: var(--text-body);
+    line-height: 1.5;
   }
 
   .home-doors__strip-label {
-    font-size: var(--text-xs);
     font-weight: 650;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--muted);
+    color: var(--text);
   }
 
   .home-doors--strip ul {
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    gap: 0.4rem 0.7rem;
+    align-items: baseline;
+    gap: 0.25rem 0;
     margin: 0;
     padding: 0;
   }
 
+  .home-doors--strip li + li::before {
+    content: "·";
+    margin-inline: 0.6rem;
+    color: var(--muted);
+  }
+
+  /* On a phone the three links would wrap mid-row and start lines with a
+     separator; they stack instead, one per line. */
+  @media (max-width: 640px) {
+    .home-doors--strip ul {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .home-doors--strip li + li::before {
+      content: none;
+    }
+  }
+
   .home-doors__strip-link {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.25rem 0.65rem;
-    border-radius: var(--radius-pill);
-    border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
-    background: color-mix(in srgb, var(--surface) 60%, transparent);
-    font-size: var(--text-sm);
+    color: var(--link);
     font-weight: 550;
-    color: var(--text);
-    text-decoration: none;
-    transition:
-      border-color var(--motion-fast) ease,
-      background-color var(--motion-fast) ease,
-      color var(--motion-fast) ease;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
   }
 
-  .home-doors__strip-link:hover,
-  .home-doors__strip-link:focus-visible {
-    border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
-    background: color-mix(in srgb, var(--accent) 8%, var(--surface));
-    color: var(--accent);
-    text-decoration: none;
+  .home-doors__strip-link:hover {
+    color: var(--link-hover);
+    text-decoration-thickness: 2px;
   }
 
-  .home-doors__strip-link::after {
-    content: " →";
+  .home-doors__strip-link:focus-visible,
+  .institute-hero__triage-link:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
+    border-radius: var(--radius-xs);
   }
 
   /* Act 1: the record spine. The panel summarizes the event list; sticky
@@ -602,8 +658,8 @@
   .record-spine {
     max-width: var(--content-max);
     margin-inline: auto;
-    padding: clamp(2.6rem, 4.5vw, 4rem) var(--page-gutter)
-      clamp(2.2rem, 4vw, 3.25rem);
+    padding: clamp(2rem, 3.5vw, 3rem) var(--page-gutter)
+      clamp(1.8rem, 3vw, 2.4rem);
     border-bottom: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
   }
 
@@ -648,6 +704,8 @@
   }
 
   .record-spine__panel-badge {
+    flex-shrink: 0;
+    white-space: nowrap;
     font-family: var(--sans);
     font-size: var(--text-xs, 0.75rem);
     font-weight: 650;
@@ -671,6 +729,7 @@
   }
 
   .record-spine__panel-title {
+    min-width: 0;
     margin: 0;
     font-family: var(--sans);
     font-size: var(--text-xs, 0.75rem);
@@ -733,7 +792,7 @@
     display: grid;
     grid-template-columns: 7.5rem minmax(0, 1fr);
     gap: 1rem;
-    padding: 0.9rem 0.2rem;
+    padding: 0.75rem 0.2rem;
     border-bottom: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
   }
 

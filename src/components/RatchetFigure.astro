@@ -193,24 +193,6 @@ const expansions = history.length - 1;
         }
       </svg>
     </div>
-    <div class="ratchet__history">
-      <p class="ratchet__history-title">
-        The right-hand system's record, first three entries of
-        {history.length}
-      </p>
-      <ol class="ratchet__entries">
-        {
-          history.slice(0, 3).map((entry) => (
-            <li>
-              <code>
-                {`{ from: ${entry.from}, to: ${entry.to}, reason: ${entry.reason} }`}
-              </code>
-              <span class="ratchet__entry-note">{entry.note}</span>
-            </li>
-          ))
-        }
-      </ol>
-    </div>
   </div>
   <p class="demo-figure__note">
     A demonstration, not a measurement of any real system. The record format

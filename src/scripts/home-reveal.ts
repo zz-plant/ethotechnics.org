@@ -46,14 +46,18 @@ function init(): void {
   const badgeEl = panel.querySelector<HTMLElement>("[data-ledger-live-badge]");
   const total = Number.parseInt(panel.dataset.evidenceTotal ?? "5", 10);
 
+  // A row counts once the reader has seen all of it: its bottom edge is on
+  // screen, or it has already scrolled past. The old trigger, a line 65% of
+  // the way down, left fully visible rows uncounted: the panel said "3 of 5"
+  // with the November 2019 row in plain view.
   const updateLedger = () => {
-    const triggerY = window.innerHeight * 0.65;
+    const seenLine = window.innerHeight;
     let seen = 0;
     let isHalted = false;
 
     for (const row of rows) {
       const rect = row.getBoundingClientRect();
-      if (rect.top <= triggerY) {
+      if (rect.bottom <= seenLine) {
         if (row.dataset.evidence === "true") {
           seen += 1;
         }
@@ -116,7 +120,7 @@ function init(): void {
     },
     {
       threshold: [0, 0.25, 0.5, 0.75, 1],
-      rootMargin: "0px 0px -25% 0px",
+      rootMargin: "0px",
     },
   );
   for (const row of rows) {
