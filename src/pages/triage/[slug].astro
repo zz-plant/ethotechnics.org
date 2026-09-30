@@ -64,12 +64,12 @@ const workflowStages: {
     key: "triage",
     title: "Triage",
     description:
-      "Capture the failure state and decision context before evidence drifts.",
+      "Record what failed and the decision involved, before logs rotate and memories fade.",
     artifact: pickArtifact(["decision-record-template"]),
     diagnosticsHref: "/diagnostics/self-defense-tools#governable",
-    diagnosticsLabel: "Run governability check",
+    diagnosticsLabel: "Check whether the decision can be challenged",
     standardsHref: "/standards/std-02-contestability-recourse",
-    standardsLabel: "Review contestability standard",
+    standardsLabel: "Review STD-02: Contestability and recourse",
   },
   {
     key: "stabilize",
@@ -78,22 +78,22 @@ const workflowStages: {
       "Stop or narrow the harmful flow while the owner and the escalation path are in place.",
     artifact: pickArtifact(["escalation-ladder-freeze-authority"]),
     diagnosticsHref: "/diagnostics/delegation-audit",
-    diagnosticsLabel: "Audit the delegation",
+    diagnosticsLabel: "Check what the system is allowed to decide",
     // STD-03 (justice SLOs) has no page yet; STD-06 carries the published
     // thresholds and breach actions.
     standardsHref: "/standards/std-06-human-impact-safety-case",
-    standardsLabel: "Review human impact safety case",
+    standardsLabel: "Review STD-06: Human impact safety case",
   },
   {
     key: "evidence",
     title: "Evidence",
     description:
-      "Assemble the records and the evidence pack, so each repair obligation can be audited against its clock.",
+      "Gather the records and the evidence pack, so each repair the organization owes can be checked against its deadline.",
     artifact: pickArtifact(["harm-receipt-format"]),
     diagnosticsHref: "/diagnostics/record-conformance",
     diagnosticsLabel: "Check record conformance",
     standardsHref: "/standards/std-01-temporal-rights",
-    standardsLabel: "Review temporal-rights standard",
+    standardsLabel: "Review STD-01: Deadlines for decisions and reversals",
   },
 ];
 
@@ -123,16 +123,16 @@ const breadcrumbItems = [
     <p>{state.descriptionLine1}</p>
     <p>{state.descriptionLine2}</p>
     <div class="panel stack-sm">
-      <p class="eyebrow">Next required artifact</p>
+      <p class="eyebrow">Start here</p>
       <p class="muted">
         Start with <strong>{orderedWorkflowStages[0]?.artifact.name}</strong>.
-        It fixes the owner, the evidence scope, and the reversal path before the
-        response drifts.
+        It records who owns the response, what evidence to keep, and how the
+        decision will be reversed, before those questions get lost.
       </p>
       <ol class="small muted">
         <li>Assign the accountable owner now.</li>
         <li>Capture evidence and timestamps in the first artifact.</li>
-        <li>Confirm escalation handoff before opening additional tracks.</li>
+        <li>Confirm who the case escalates to before starting other work on it.</li>
       </ol>
     </div>
     <h2>Response workflow (triage → stabilize → evidence)</h2>

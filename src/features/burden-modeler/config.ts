@@ -33,7 +33,7 @@ export const burdenDrivers: BurdenDriver[] = [
     category: "task-load",
     weight: 1.4,
     mitigations: [
-      "Route interrupt-heavy work to rotating buffers or guardrail teams.",
+      "Route interrupt-heavy work to a rotating on-call person or team.",
       "Block focus windows for deep work and align escalation paths.",
     ],
   },
@@ -44,7 +44,7 @@ export const burdenDrivers: BurdenDriver[] = [
     category: "cognitive-load",
     weight: 1.25,
     mitigations: [
-      "Trim the number of active lanes and clarify who owns each decision.",
+      "Cut the number of active work queues and clarify who owns each decision.",
       "Collapse duplicative queues with a single routing checklist.",
     ],
   },
@@ -68,7 +68,7 @@ export const burdenDrivers: BurdenDriver[] = [
     category: "risk-exposure",
     weight: 1.1,
     mitigations: [
-      "Write light-weight runbooks for the top three failure modes.",
+      "Write lightweight runbooks for the top three failure modes.",
       "Add pre-flight checklists for safety-critical or consent-sensitive steps.",
     ],
   },
@@ -80,7 +80,7 @@ export const burdenDrivers: BurdenDriver[] = [
     category: "risk-exposure",
     weight: 1.3,
     mitigations: [
-      "Add protective friction and clearer refusal policies to lower incoming risk.",
+      "Add checks that slow risky requests, and clearer rules for when to refuse them.",
       "Staff backup responders or on-call rotations during known spikes.",
     ],
   },
@@ -92,8 +92,8 @@ export const burdenDrivers: BurdenDriver[] = [
     category: "task-load",
     weight: 1.2,
     mitigations: [
-      "Set intake limits and pre-negotiate refusal windows during thin coverage.",
-      "Cross-train adjacent teams and rotate shadowers into the queue.",
+      "Set intake limits, and agree in advance when the team may stop taking new work during thin coverage.",
+      "Cross-train adjacent teams and have trainees shadow the queue.",
     ],
   },
   {

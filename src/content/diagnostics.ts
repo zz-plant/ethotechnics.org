@@ -110,7 +110,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         version: "v1.2.0",
         date: "2026-09-06",
         summary:
-          "Added the Delegation Audit, which walks one workflow through the six state variables.",
+          "Added the Delegation Audit, which takes one workflow through six questions.",
       },
       {
         version: "v1.1.0",
@@ -177,7 +177,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       title: "Delegation Audit",
       tier: "Belief level",
       description:
-        "Walks a team through one workflow against six questions and returns an exposure score, the permissions nobody can justify, and whether its decisions can be undone. Start here when you have no records to hand; use the Record Conformance Checker once you do.",
+        "Walks a team through one workflow against six questions and returns an exposure score, the permissions nobody can justify, and whether its decisions can be undone. Start here when the system keeps no decision records yet; use the Record Conformance Checker once it does.",
       methodCards: {
         measures: [
           "Whether each action class has an identifiable authorizer, evidence basis, and end condition.",
@@ -187,7 +187,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         doesNotMeasure: [
           "It records what the team in the room believes. It does not verify any of it.",
           "It is not an audit. Nothing here is evidence, and no finding is a compliance verdict.",
-          "An ungrounded grant is a finding to investigate, not a proven violation.",
+          "A permission nobody can justify is a finding to investigate, not a proven violation.",
         ],
         assumptions: [
           "The scope is one named workflow, not a whole system or product.",
@@ -203,15 +203,15 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Standing and correction answers: who bears errors, who answers, what can be stopped.",
         ],
         procedure: [
-          "Walk the six state variables in order and answer in plain language.",
+          "Answer the six questions in order, in plain language.",
           "Read the exposure score with its three factors shown separately.",
-          "Review the ungrounded grants and the reversibility ladder, weakest level first.",
+          "Review the permissions nobody can justify, then the three reversibility levels, weakest first.",
           "Copy the readout or export the JSON snapshot for the record.",
         ],
         outputs: [
           "Exposure score in workflow staff-week hours with its three inputs.",
-          "A rating per state variable with the reasons behind it.",
-          "A list of ungrounded grants and a reversibility verdict at three levels.",
+          "A rating for each of the six questions, with the reasons behind it.",
+          "A list of permissions nobody can justify, and whether decisions can be undone at three levels: technical, operational, and institutional.",
           "Findings linked to the STD-08 and STD-06 clause, the mechanism, and the eval suite.",
         ],
       },
@@ -225,7 +225,7 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Can you stop it, can the institution keep functioning if you do, and does anyone still hold the expertise?",
         ],
         rubric: [
-          "Grounded: 70 or above out of 100 on that state variable.",
+          "Grounded: 70 or above out of 100 on that question.",
           "Partial: 40 to 69.",
           "Weak: below 40.",
           "Reversibility at each level is evidenced, not evidenced, or not feasible. An unevidenced level is never recorded as feasible.",
@@ -246,7 +246,7 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Scoping the audit to a whole product instead of one workflow.",
           "Estimating substitution cost without having run the alternative.",
           "Recording an untested stop as working reversibility.",
-          "Treating an ungrounded grant as a violation instead of an open question.",
+          "Treating a permission nobody can justify as a violation instead of an open question.",
         ],
       },
       replicability: {
@@ -258,20 +258,20 @@ export const diagnosticsContent: DiagnosticsContent = {
         ],
         exampleOutputs: [
           "Exposure score with dependency depth, substitution cost, and correction latency stated.",
-          "Ungrounded grant list with the reason each grant is ungrounded.",
+          "List of permissions nobody can justify, with the reason for each.",
           "Reversibility verdict naming the weakest of the three levels.",
         ],
       },
       bestFor:
-        "Teams who need to know whether a delegation still holds, not whether the model is accurate.",
+        "Teams who need to know whether the system's permission to decide is still justified, not whether the model is accurate.",
       readiness: [
         "Run before an expansion decision, at renewal, or after an incident that a human was supposed to catch.",
         "Bring the person who authorized the system and the person who cleans up after it.",
       ],
       outputs: [
         "Exposure score with its three factors and the units on screen.",
-        "Per-variable rating across capability, authority, evidence, dependency, standing, and correction.",
-        "Ungrounded grants and a three-level reversibility verdict with the weakest level called out.",
+        "A rating for each of capability, authority, evidence, dependency, standing (who can challenge a decision), and correction.",
+        "Permissions nobody can justify, and a reversibility verdict at three levels with the weakest called out.",
       ],
       estimatedTime: "20-30 minutes",
       prepChecklist: [
@@ -293,7 +293,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       title: "Record Conformance Checker",
       tier: "Evidence level",
       description:
-        "Parses a stream of STD-07 delegation records, validates it against the schema, recomputes the hashes, and returns the conformance level it earns against the level its emitter declares. Reach for it when a system already emits records; the Delegation Audit covers the case where it does not.",
+        "Reads a system's STD-07 decision records, checks them against the schema, recomputes the hashes, and compares the conformance level the records earn with the level the system claims. Use it when a system already produces records; use the Delegation Audit when it does not.",
       methodCards: {
         measures: [
           "Whether every record validates against the published STD-07 schema.",
@@ -302,7 +302,7 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Whether the emitter's own manifest agrees with its stream: the level it declares, and the record kinds it claims to emit.",
         ],
         doesNotMeasure: [
-          "It cannot tell whether a belief was correct or an authorization wise. A stream does not contain that, and scoring it would make this the nominal safeguard it exists to catch.",
+          "It cannot tell whether a belief was correct or an authorization wise. A stream does not contain that, and scoring it anyway would make this tool the safeguard-on-paper it exists to catch.",
           "It reads what the records say about each other, not what the system did. A conforming log can describe a badly run institution.",
           "A dangling reference is usually a partial export, not a defect.",
         ],
@@ -407,7 +407,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       slug: "burden-modeler",
       title: "Burden Modeler",
       description:
-        "Scores task load, cognitive friction, and risk exposure across seven weighted drivers and ranks where relief would reduce burden most.",
+        "Rate seven sources of workload, such as interruptions, handoffs, and incidents. Get a burden score out of 100 and the three places where reducing load would help most.",
       methodCards: {
         measures: [
           "Task load volume across roles and handoffs.",
@@ -489,7 +489,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       outputs: [
         "Burden index score with plain-language findings tied to your scenario.",
         "Ranked hotspots with mitigation paths and expected relief per action.",
-        "PDF summary of the index, hotspots, and mitigations.",
+        "JSON export of the index, hotspots, and mitigations.",
       ],
       estimatedTime: "10–15 minutes",
       prepChecklist: [
@@ -509,7 +509,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       slug: "corrective-debt-calculator",
       title: "Corrective capacity self-assessment",
       description:
-        "Summarizes five self-reported answers about growth, challenge intake, reversal, revision, and workarounds. The score is a discussion aid, not a measurement of corrective capacity.",
+        "Scores five self-reported answers: how fast the system's reach grew, how challenges are received, how fast decisions are reversed, whether exceptions change the rules, and whether staff workarounds are tracked. The score is a starting point for discussion, not a measurement of the institution's ability to correct itself.",
       methodCards: {
         measures: [
           "The action-capacity growth band selected by the operator.",
@@ -567,7 +567,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         scoringLogic: [
           "Each component contributes its band weight; the total normalizes to 0–100.",
           "Tiers: critical, high, moderate, low.",
-          "The score does not estimate absorption, financial cost, or a future trajectory.",
+          "The score does not estimate how much extra work staff take on to cover for the system, financial cost, or a future trajectory.",
           "The two context questions never change the score. They add a readout line that says whether the answers describe an institution that lacks information or one that holds sole authority and has chosen to keep the arrangement.",
         ],
       },
@@ -578,7 +578,7 @@ export const diagnosticsContent: DiagnosticsContent = {
           "No empirical calibration or predictive validity is established for these weights.",
         failureModes: [
           "Counting the appeals queue as corrective capacity when it resolves cases and changes nothing upstream.",
-          "Reading workarounds as resilience and scaling the system on absorbed labor.",
+          "Reading workarounds as resilience, and scaling the system on staff quietly covering for it.",
           "Reading a high score as missing information when the institution already has the numbers. Where it holds sole authority and has priced and declined a fix, better measurement will not change the outcome.",
           "Using model metrics — accuracy, retraining — as evidence of corrective capacity.",
         ],
@@ -592,14 +592,14 @@ export const diagnosticsContent: DiagnosticsContent = {
         ],
         exampleOutputs: [
           "Self-assessment with a concern tier and reported growth band.",
-          "An explicit limit: no absorption share is measured.",
+          "An explicit limit: it does not measure how much of the system's failure staff cover for.",
         ],
       },
       bestFor:
         "Governance leads comparing what a system can do to people with what people can do back, before the next expansion decision.",
       readiness: [
         "Use before approving a scope expansion or an automation increase.",
-        "Pair with the exception-learning eval to trace whether any challenge changed an upstream object.",
+        "Pair with the exception-learning eval to trace whether any challenge changed an upstream rule.",
       ],
       outputs: [
         "Heuristic concern tier from self-reported answers.",
@@ -613,11 +613,11 @@ export const diagnosticsContent: DiagnosticsContent = {
         "The last time a handled exception changed an upstream rule.",
       ],
       studioNote:
-        "Studio support can run the two-axis comparison and trace exception-to-revision paths.",
-      ctaLabel: "Start the Corrective capacity self-assessment",
+        "Ethotechnics Studio can run this comparison with your team and trace whether handled exceptions ever changed a rule.",
+      ctaLabel: "Start the corrective capacity self-assessment",
       ctaHref: "/diagnostics/corrective-debt-calculator",
       ctaAriaLabel:
-        "Start the Corrective capacity self-assessment diagnostic tool",
+        "Start the corrective capacity self-assessment diagnostic tool",
       exampleLabel: "View sample output",
       exampleHref: "/diagnostics#output-baseline",
       deliveryType: "self-serve",

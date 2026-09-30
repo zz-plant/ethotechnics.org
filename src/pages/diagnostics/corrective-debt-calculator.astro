@@ -49,7 +49,7 @@ const anchorLinks = [
   <SectionBlock
     id="overview"
     eyebrow="Overview"
-    title="When to use the Corrective capacity self-assessment."
+    title="When to use the corrective capacity self-assessment"
     description={tool.bestFor}
   >
     <ul class="muted">
@@ -69,8 +69,8 @@ const anchorLinks = [
   <SectionBlock
     id="methodology"
     eyebrow="Methodology"
-    title="Two axes, one gap."
-    description="Action capacity and corrective capacity are stated separately and compared. The gap between them is the debt."
+    title="What the system can do, and what can be corrected"
+    description="The tool asks about two things separately. Action capacity is how fast the system's power to decide about people is growing. Corrective capacity is how well the institution hears and fixes its mistakes. The gap between them is the corrective debt."
     variant="alt"
   >
     <DiagnosticMethodology
@@ -88,7 +88,7 @@ const anchorLinks = [
         >, not evidence that adaptable humans can handle the edge cases. The
         presumption is rebuttable: show that the workaround is a product of
         preference rather than compensation. Until it is rebutted, repeated
-        adaptation counts as rigidity being subsidized by human flexibility.
+        adaptation counts as people covering for a system that will not change.
       </p>
       <p class="muted small">
         Related:
@@ -103,13 +103,13 @@ const anchorLinks = [
   <SectionBlock
     id="run-tool"
     eyebrow="Run the tool"
-    title="State the two axes for the last twelve months."
-    description="Five inputs: how fast action compounded, and four measures of the capacity to hear from people when it is wrong."
+    title="Answer for the last twelve months"
+    description="Five questions: how fast the system's reach grew, and four on whether the institution hears from people when the system is wrong, and acts on it."
   >
     <form class="intake-form" data-debt-form>
       <fieldset class="intake-form__grid">
         <label class="intake-form__field">
-          Action-capacity growth
+          Growth in what the system decides
           <select id="growth" name="growth" required>
             <option value="compounding">
               Compounding — decisions automated and dependence grew each month
@@ -127,7 +127,7 @@ const anchorLinks = [
           </select>
         </label>
         <label class="intake-form__field">
-          Reversal latency
+          Time to reverse a decision
           <select id="reversal" name="reversal" required>
             <option value="unbounded">Unknown or unbounded</option>
             <option value="slow">Days to weeks</option>
@@ -135,7 +135,7 @@ const anchorLinks = [
           </select>
         </label>
         <label class="intake-form__field">
-          Upstream revision
+          Whether exceptions change the rules
           <select id="revision" name="revision" required>
             <option value="never">
               Handled exceptions never change the rule that produced them
@@ -145,7 +145,7 @@ const anchorLinks = [
           </select>
         </label>
         <label class="intake-form__field">
-          Workaround register
+          Record of staff workarounds
           <select id="workaround" name="workaround" required>
             <option value="none">
               Recurring workarounds are inventoried nowhere
@@ -172,8 +172,8 @@ const anchorLinks = [
               Management decides after consulting the people who carry the work
             </option>
             <option value="shared">
-              Decisions are shared, and the people who carry the work can bind
-              them
+              Decisions are shared, and the people who carry the work have a
+              binding say
             </option>
           </select>
         </label>
@@ -193,7 +193,7 @@ const anchorLinks = [
       </fieldset>
       <div class="intake-form__actions">
         <button class="button primary" type="submit" data-debt-submit>
-          Calculate corrective debt
+          Score my answers
         </button>
       </div>
     </form>
@@ -207,17 +207,17 @@ const anchorLinks = [
     variant="alt"
   >
     <div class="panel" data-debt-results hidden>
-      <p class="muted">Heuristic concern score</p>
+      <p class="muted">Concern score, from your answers</p>
       <p class="metric" data-debt-score>--</p>
       <span class="status-pill status-pill--yellow" data-debt-tier
         >Moderate</span
       >
       <p class="muted" data-debt-summary>
-        Complete the form above to generate your corrective debt score.
+        Answer the questions above to see your concern score.
       </p>
       <div class="metrics-grid">
         <div>
-          <p class="muted">Reported action-capacity growth</p>
+          <p class="muted">Reported growth in what the system decides</p>
           <p class="metric" data-debt-trajectory>--</p>
         </div>
         <div>
@@ -329,13 +329,13 @@ const anchorLinks = [
   ) => {
     const solePower = authority === "management" || authority === "consulted";
     if (solePower && fix === "kept") {
-      return "These answers describe an institution that has priced a fix, chose to keep the workaround, and holds sole authority over changing it. That is a conflict of interest, not a gap in information. Measuring the workaround more closely will not change who decides. Standing for the people who carry the work, or leverage from outside the institution, might.";
+      return "These answers describe an institution that has priced a fix, chose to keep the workaround, and holds sole authority over changing it. That is a conflict of interest, not a gap in information. Measuring the workaround more closely will not change who decides. A binding say for the people who carry the work, or pressure from outside the institution, might.";
     }
     if (solePower) {
       return "The people who carry the work have no binding say over the conditions that produce it. Understanding the workaround better will not change that. Check whether the institution knows the cost and has chosen to keep it.";
     }
     if (authority === "shared") {
-      return "The people who carry the work can bind decisions about these conditions. The score above still applies to the corrective route it describes.";
+      return "The people who carry the work have a binding say over these conditions. The score above still applies to the corrective route it describes.";
     }
     if (fix === "kept") {
       return "The institution has priced a fix and chose to keep the workaround. Authority over the decision was not stated.";
@@ -395,21 +395,21 @@ const anchorLinks = [
       min: 60,
       status: "red",
       summary:
-        "Your answers fall in the high concern band. The institution is acting on people faster than it can hear from them. Fund the corrective axis before the next expansion.",
+        "Your answers fall in the high concern band. The institution is acting on people faster than it can hear from them. Fund challenge intake, reversal, and revision before the next expansion.",
     },
     {
       label: "Moderate",
       min: 40,
       status: "yellow",
       summary:
-        "Your answers fall in the moderate concern band. Correction machinery exists but does not match the growth on the action axis. Close the gaps the inputs name.",
+        "Your answers fall in the moderate concern band. There are ways to correct the system, but they have not kept pace with its growth. Close the gaps your answers name.",
     },
     {
       label: "Low",
       min: 0,
       status: "green",
       summary:
-        "Your answers fall in the low concern band. You report resourced corrective capacity and regular revision; neither is independently verified. Keep the two axes tracked so the gap stays visible.",
+        "Your answers fall in the low concern band. You report resourced corrective capacity and regular revision; neither is independently verified. Keep tracking growth and correction side by side so a gap shows if it opens.",
     },
   ];
 
