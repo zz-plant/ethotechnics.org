@@ -198,10 +198,11 @@
   .pattern-card__teaser {
     display: grid;
     gap: 0.5rem;
-    padding: 0.65rem 0.75rem;
-    border-radius: var(--radius-md);
-    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-    background: color-mix(in srgb, var(--surface) 94%, transparent);
+    padding: 0.35rem 0 0;
+    border-radius: 0;
+    border: 0;
+    border-top: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    background: none;
   }
 
   .pattern-card__teaser summary {
@@ -221,7 +222,7 @@
   }
 
   .pattern-card__teaser[open] {
-    background: var(--panel);
+    background: none;
   }
 
   .pattern-card__section {
@@ -469,7 +470,7 @@
     bottom: 0;
     width: min(100%, 580px);
     background: var(--surface);
-    box-shadow: -8px 0 24px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-float);
     display: flex;
     flex-direction: column;
     height: 100%;

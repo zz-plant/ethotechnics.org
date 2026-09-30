@@ -46,9 +46,7 @@
       var(--surface),
       color-mix(in srgb, var(--accent) 12%, transparent)
     );
-    box-shadow:
-      0 4px 12px color-mix(in srgb, var(--accent) 15%, transparent),
-      0 0 0 2px var(--accent);
+    box-shadow: 0 0 0 2px var(--accent);
   }
 
   .search-icon {
@@ -84,7 +82,7 @@
     padding: 0;
     border: 1px solid var(--border);
     border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-float);
     background: var(--surface);
     overflow: hidden;
   }
@@ -301,8 +299,6 @@
   .search-result:hover,
   .search-result:focus-within {
     border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
-    box-shadow: var(--shadow-sm);
-    transform: translateY(-1px);
   }
 
   .search-result a:focus-visible {
