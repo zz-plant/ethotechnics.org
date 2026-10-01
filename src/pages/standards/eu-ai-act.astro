@@ -9,8 +9,9 @@ const pageDescription =
   "An Ethotechnics critique of the EU AI Act: most high-risk systems are self-assessed, their authority does not lapse, and a challenge need not reach them.";
 const permalink = "/standards/eu-ai-act";
 const publishedTime = "2026-02-15T00:00:00Z";
-const modifiedTime = "2026-03-04T00:00:00Z";
-const lastUpdated = "2026-05-20";
+const modifiedTime = "2026-10-01T00:00:00Z";
+const timelineReviewed = "2026-05-20";
+const critiqueRevised = "2026-10-01";
 const anchorLinks = [
   { href: "#overview", label: "What it is" },
   { href: "#critique", label: "Ethotechnics critique" },
@@ -24,6 +25,8 @@ const publication = derivePublicationMetadata({
   permalink,
   published: publishedTime,
   updated: modifiedTime,
+  changelogSummary:
+    "Rewrote the critique around authority that does not lapse, challenges that need not reach the system, and cost that is assessed but not counted, and moved it ahead of the timeline.",
 });
 ---
 
@@ -48,7 +51,10 @@ const publication = derivePublicationMetadata({
       human oversight, and enforces compliance through EU and national
       authorities.
     </p>
-    <p><strong>Resource status:</strong> reviewed and updated {lastUpdated}.</p>
+    <p>
+      <strong>Resource status:</strong> critique revised {critiqueRevised};
+      timeline status reviewed {timelineReviewed}.
+    </p>
   </SectionBlock>
 
   <SectionBlock

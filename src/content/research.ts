@@ -76,7 +76,7 @@ export const researchContent: ResearchContent = {
     "Research on one question: when an automated system is wrong, does the evidence reach someone who can change the rule? Essays, scored cases, a working paper.",
   permalink: "/research",
   published: "2025-12-03T00:00:00Z",
-  updated: "2026-09-22T00:00:00Z",
+  updated: "2026-10-01T00:00:00Z",
   publication: {
     authors: [
       {
@@ -124,7 +124,7 @@ export const researchContent: ResearchContent = {
     attribution:
       "Credit Ethotechnics Institute Research Team, include the page title + version, and link to the canonical permalink.",
   },
-  lastUpdated: "2026-09-25T00:00:00Z",
+  lastUpdated: "2026-10-01T00:00:00Z",
   updateCadence:
     "Updates publish on a quarterly cadence with interim Field Notes.",
   anchorLinks: [
