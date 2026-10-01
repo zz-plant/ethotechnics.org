@@ -4,9 +4,11 @@
     "title": "Governance",
     "slug": "governance",
     "summary": "Policy, authority, and oversight structures that name who is accountable for each decision.",
-    "owner": "Institute Governance",
     "scope": "Domain",
-    "readiness": "beta",
+    "safeguards": [
+      "Authority",
+      "Correction"
+    ],
     "relatedArtifacts": [
       {
         "label": "Standards catalog",
@@ -25,9 +27,11 @@
     "title": "Policy",
     "slug": "governance/policy",
     "summary": "Decision rules and thresholds that bind a team to specific, checkable obligations.",
-    "owner": "Policy Stewardship",
     "scope": "Capability",
-    "readiness": "alpha",
+    "safeguards": [
+      "Authority",
+      "Evidence"
+    ],
     "relatedArtifacts": [
       {
         "label": "STD-01 temporal rights",
@@ -46,9 +50,11 @@
     "title": "Oversight",
     "slug": "governance/oversight",
     "summary": "Review bodies and escalation paths that keep power contestable.",
-    "owner": "Oversight Council",
     "scope": "Capability",
-    "readiness": "beta",
+    "safeguards": [
+      "Standing",
+      "Correction"
+    ],
     "relatedArtifacts": [
       {
         "label": "STD-02 contestability recourse",
@@ -67,9 +73,11 @@
     "title": "Audits",
     "slug": "governance/oversight/audits",
     "summary": "Evidence-backed reviews that verify policy adherence and remediation follow-through.",
-    "owner": "Audit Program",
     "scope": "Practice",
-    "readiness": "draft",
+    "safeguards": [
+      "Evidence",
+      "Correction"
+    ],
     "relatedArtifacts": [
       {
         "label": "Diagnostics",
@@ -88,12 +96,14 @@
     "title": "Delivery",
     "slug": "delivery",
     "summary": "Shipping and running consequential systems under load: intake criteria, live operations, and escalation.",
-    "owner": "Delivery Practice",
     "scope": "Domain",
-    "readiness": "stable",
+    "safeguards": [
+      "Capability",
+      "Correction"
+    ],
     "relatedArtifacts": [
       {
-        "label": "Quick start",
+        "label": "Start here",
         "href": "/start",
         "type": "guide"
       },
@@ -109,9 +119,11 @@
     "title": "Intake",
     "slug": "delivery/intake",
     "summary": "Entry criteria that check new work against the standards, its scope, and its readiness.",
-    "owner": "Delivery Intake",
     "scope": "Capability",
-    "readiness": "beta",
+    "safeguards": [
+      "Capability",
+      "Evidence"
+    ],
     "relatedArtifacts": [
       {
         "label": "Diagnostics intake",
@@ -129,10 +141,12 @@
     "id": "tax-delivery-operations",
     "title": "Operations",
     "slug": "delivery/operations",
-    "summary": "Live operations patterns that keep a running system stoppable and its failures answered.",
-    "owner": "Operations Team",
+    "summary": "Live operations patterns that keep a running system correctable and its failures answered.",
     "scope": "Capability",
-    "readiness": "beta",
+    "safeguards": [
+      "Correction",
+      "Dependency"
+    ],
     "relatedArtifacts": [
       {
         "label": "Finite measurement tiers",
@@ -151,9 +165,10 @@
     "title": "Escalation",
     "slug": "delivery/operations/escalation",
     "summary": "Defined halt and escalation paths that record who must act, and by when.",
-    "owner": "Incident Response",
     "scope": "Practice",
-    "readiness": "alpha",
+    "safeguards": [
+      "Correction"
+    ],
     "relatedArtifacts": [
       {
         "label": "Mechanisms catalog",
@@ -172,9 +187,10 @@
     "title": "Assurance",
     "slug": "assurance",
     "summary": "Signals, measurements, and reviews that show whether governance controls keep working over time.",
-    "owner": "Assurance Lab",
     "scope": "Domain",
-    "readiness": "beta",
+    "safeguards": [
+      "Evidence"
+    ],
     "relatedArtifacts": [
       {
         "label": "Standards",
@@ -193,9 +209,11 @@
     "title": "Monitoring",
     "slug": "assurance/monitoring",
     "summary": "Ongoing telemetry for burden, contestability, and recovery signals.",
-    "owner": "Assurance Lab",
     "scope": "Capability",
-    "readiness": "beta",
+    "safeguards": [
+      "Evidence",
+      "Correction"
+    ],
     "relatedArtifacts": [
       {
         "label": "Validators",
@@ -214,9 +232,11 @@
     "title": "Red Teaming",
     "slug": "assurance/red-teaming",
     "summary": "Adversarial evaluation that tests a system before its failures reach the public.",
-    "owner": "Assurance Lab",
     "scope": "Capability",
-    "readiness": "alpha",
+    "safeguards": [
+      "Evidence",
+      "Capability"
+    ],
     "relatedArtifacts": [
       {
         "label": "Research agenda",
@@ -235,9 +255,10 @@
     "title": "Experience",
     "slug": "experience",
     "summary": "The points where a person meets the system: where they carry its burden, give consent, or seek recourse.",
-    "owner": "Experience Design",
     "scope": "Domain",
-    "readiness": "beta",
+    "safeguards": [
+      "Standing"
+    ],
     "relatedArtifacts": [
       {
         "label": "Glossary",
@@ -256,9 +277,11 @@
     "title": "Consent",
     "slug": "experience/consent",
     "summary": "Permission requests, refusal options, and safe exits at each point where a person meets the system.",
-    "owner": "Experience Design",
     "scope": "Capability",
-    "readiness": "beta",
+    "safeguards": [
+      "Standing",
+      "Dependency"
+    ],
     "relatedArtifacts": [
       {
         "label": "STD-01 minimum binding set",
@@ -277,9 +300,11 @@
     "title": "Recourse",
     "slug": "experience/recourse",
     "summary": "Appeals, reversals, and human-assisted paths when automation fails.",
-    "owner": "Experience Design",
     "scope": "Capability",
-    "readiness": "beta",
+    "safeguards": [
+      "Standing",
+      "Correction"
+    ],
     "relatedArtifacts": [
       {
         "label": "STD-02 contestability recourse",
@@ -298,9 +323,11 @@
     "title": "Authority",
     "slug": "authority",
     "summary": "How authority is handed to a system: how each grant is created, justified, held, and widened.",
-    "owner": "Institute Governance",
     "scope": "Domain",
-    "readiness": "alpha",
+    "safeguards": [
+      "Authority",
+      "Capability"
+    ],
     "relatedArtifacts": [
       {
         "label": "Laws for engineering delegated intelligence",
@@ -319,9 +346,10 @@
     "title": "Delegation",
     "slug": "authority/delegation",
     "summary": "Writing authority as a record with a holder, a ceiling, an evidence basis, a state, and an expiry.",
-    "owner": "Policy Stewardship",
     "scope": "Capability",
-    "readiness": "alpha",
+    "safeguards": [
+      "Authority"
+    ],
     "relatedArtifacts": [
       {
         "label": "STD-07 Revisable Delegation Record",
@@ -340,9 +368,11 @@
     "title": "Policy Validity",
     "slug": "authority/policy-validity",
     "summary": "Keeping the propositions a grant rests on versioned, dated, and able to reach the grant when they change.",
-    "owner": "Policy Stewardship",
     "scope": "Capability",
-    "readiness": "draft",
+    "safeguards": [
+      "Evidence",
+      "Authority"
+    ],
     "relatedArtifacts": [
       {
         "label": "Authority as a lease",
@@ -361,9 +391,11 @@
     "title": "Expansion",
     "slug": "authority/expansion",
     "summary": "Treating each widening of a delegation as its own authorization decision rather than a reward for success.",
-    "owner": "Oversight Council",
     "scope": "Practice",
-    "readiness": "draft",
+    "safeguards": [
+      "Capability",
+      "Authority"
+    ],
     "relatedArtifacts": [
       {
         "label": "Justified delegation",
@@ -382,9 +414,10 @@
     "title": "Dependence",
     "slug": "dependence",
     "summary": "How far an institution relies on a system, tracked over time, and the skills and alternatives it keeps so it can still withdraw or challenge it.",
-    "owner": "Assurance Lab",
     "scope": "Domain",
-    "readiness": "alpha",
+    "safeguards": [
+      "Dependency"
+    ],
     "relatedArtifacts": [
       {
         "label": "Dependence and reversibility eval",
@@ -403,9 +436,11 @@
     "title": "Reversibility",
     "slug": "dependence/reversibility",
     "summary": "Evidence at three levels that a correction can be made: the mechanism works, operations absorb it, the institution survives it.",
-    "owner": "Assurance Lab",
     "scope": "Capability",
-    "readiness": "draft",
+    "safeguards": [
+      "Correction",
+      "Dependency"
+    ],
     "relatedArtifacts": [
       {
         "label": "Three kinds of reversibility",
@@ -424,9 +459,10 @@
     "title": "Standing",
     "slug": "dependence/standing",
     "summary": "Routes by which parties exposed to a system's errors can raise a challenge that must be answered and can change state.",
-    "owner": "Oversight Council",
     "scope": "Capability",
-    "readiness": "draft",
+    "safeguards": [
+      "Standing"
+    ],
     "relatedArtifacts": [
       {
         "label": "STD-02 contestability and recourse",
@@ -445,9 +481,10 @@
     "title": "Preserved Capacity",
     "slug": "dependence/preserved-capacity",
     "summary": "Naming, funding, and exercising the capacities an institution needs in order to question, replace, or withdraw a system.",
-    "owner": "Institute Governance",
     "scope": "Practice",
-    "readiness": "draft",
+    "safeguards": [
+      "Dependency"
+    ],
     "relatedArtifacts": [
       {
         "label": "Error-bearing parties",

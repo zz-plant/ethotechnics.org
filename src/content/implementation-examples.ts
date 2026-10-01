@@ -93,10 +93,10 @@ export const createImplementationPublication = (
     {
       name: "Ethotechnics Institute",
       affiliation: "Ethotechnics Institute",
-      email: "standards@ethotechnics.org",
+      email: "hello@ethotechnics.org",
     },
   ],
-  contact: "standards@ethotechnics.org",
+  contact: "hello@ethotechnics.org",
   published: "2025-02-01T00:00:00Z",
   updated: "2025-02-01T00:00:00Z",
   version: "v1.0.0",

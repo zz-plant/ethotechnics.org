@@ -48,7 +48,7 @@ const REDIRECT_MAP: Record<string, string> = {
   // progressive consent. Its index pointed mostly at explainers; its one page
   // of its own moved rather than being dropped.
   "/applications": "/mechanisms",
-  "/applications/moral-circuit-breakers": "/mechanisms/moral-circuit-breakers",
+  "/applications/moral-circuit-breakers": "/mechanisms/patterns/halt-tier-register",
   "/diy-packs": "/archive/retired-tools",
   "/bundles": "/archive/retired-tools",
   "/bundles/diagnostic-export-kit": "/archive/retired-tools",
@@ -95,6 +95,10 @@ const REDIRECT_MAP: Record<string, string> = {
   // nobody: four role titles and no people behind them. The page that does
   // carry stewardship — owners against decisions — is the governance process.
   "/institute/team": "/institute/governance",
+  // The Institute hub listed programs, stewards, and a publishing pipeline
+  // that the governance log records never existed. What remained true, the
+  // Institute and the Studio and how they differ, is on /about.
+  "/institute": "/about",
   // /agents has one page, the spec. A bare hit on the directory 404ed.
   "/agents": "/agents/spec",
   "/agent-toolkit": "/archive/retired-tools",
@@ -114,6 +118,26 @@ const REDIRECT_MAP: Record<string, string> = {
   "/diagnostics/capacity-forecaster": "/diagnostics",
   "/diagnostics/maintenance-simulator": "/diagnostics",
   "/diagnostics/maintenance-debt-calculator": "/diagnostics",
+  // The Ethics Audit Scorecard was retired on 1 October 2026. Its six
+  // dimensions (transparency, fairness, privacy, sustainability and two more)
+  // were a general ethics checklist, not the six safeguards, and the
+  // diagnostics page described it as scoring the framework's own criteria.
+  // The self-test asks one question per safeguard.
+  "/audit": "/#self-test",
+  // Three research pages retired on 1 October 2026. The agenda studied a
+  // different question from /research ("protected pauses", "stewardship
+  // windows") and promised partner studies nobody ran. CH-01 described a
+  // program Ethotechnics "convenes" and pointed to glossary entries that do
+  // not exist. Bridge artifacts repeated a section of /research.
+  "/research/agenda": "/research#agenda",
+  "/research/temporal-governance-studies": "/research/theory",
+  "/research/bridge-artifacts": "/research#bridge-artifacts",
+  // Two mechanism pages that repeated catalog entries. The MEC-04 sheet
+  // repeated the hard-clock pattern and offered a "facilitation script" PDF
+  // that held only a title line. Moral circuit breakers repeated MEC-05 and
+  // MEC-21 under an older name.
+  "/mechanisms/mec-04-hard-clock": "/mechanisms/patterns/hard-clock",
+  "/mechanisms/moral-circuit-breakers": "/mechanisms/patterns/halt-tier-register",
 };
 
 const resolveLegacyPathRedirect = (url: URL): string | null => {

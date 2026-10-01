@@ -23,10 +23,10 @@ export function derivePublicationMetadata({
       {
         name: authorName,
         affiliation: "Ethotechnics Institute",
-        email: "standards@ethotechnics.org",
+        email: "hello@ethotechnics.org",
       },
     ],
-    contact: "standards@ethotechnics.org",
+    contact: "hello@ethotechnics.org",
     published,
     updated: resolvedUpdated,
     version,

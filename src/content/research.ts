@@ -82,10 +82,10 @@ export const researchContent: ResearchContent = {
       {
         name: "Ethotechnics Institute",
         affiliation: "Ethotechnics Institute",
-        email: "research@ethotechnics.org",
+        email: "hello@ethotechnics.org",
       },
     ],
-    contact: "research@ethotechnics.org",
+    contact: "hello@ethotechnics.org",
     published: "2025-12-03T00:00:00Z",
     updated: "2026-10-01T00:00:00Z",
     version: "v1.4.0",
@@ -131,8 +131,7 @@ export const researchContent: ResearchContent = {
       "Credit the Ethotechnics Institute, include the page title + version, and link to the canonical permalink.",
   },
   lastUpdated: "2026-10-01T00:00:00Z",
-  updateCadence:
-    "Updates publish on a quarterly cadence with interim Field Notes.",
+  updateCadence: "Each change is dated in the changelog at the foot of the page.",
   anchorLinks: [
     { href: "#results", label: "Results" },
     { href: "#orientation", label: "Orientation" },
@@ -202,94 +201,65 @@ export const researchContent: ResearchContent = {
   ],
   agenda: [
     {
-      title: "Participation and consent in high-volume services",
-      timeframe: "Q3–Q4",
+      title: "Does an upheld challenge change the rule?",
+      timeframe: "Open question",
       goals: [
-        "Map consent journeys for consequential services and find where fatigue or confusion spikes.",
-        "Prototype safeguards that let people pause automation without losing access.",
-        "Ship plain-language participation guides teams can adapt to new launches.",
+        "Record, for each casebook case, what changed after the failure: one case, the process, or the rule.",
+        "Find systems that publish how many challenges they uphold, and check whether any rule changed after them.",
+        "Test whether the corrective learning evals can be scored from public records alone.",
       ],
-      glossaryRefs: ["consent-journey", "safety-valve"],
+      glossaryRefs: ["exception-absorption", "exception-learning"],
     },
     {
-      title: "Operational burden and service debt",
-      timeframe: "Rolling",
+      title: "Who pays for correction?",
+      timeframe: "Open question",
       goals: [
-        "Quantify burden index inputs with community partners and support teams.",
-        "Track how often maintenance windows slip and what mitigations keep people safe.",
-        "Publish heuristics for appeal paths that reduce frustration.",
+        "Measure the time a person spends proving an automated decision wrong, using the time cost STD-01 asks operators to publish.",
+        "Set an institution's efficiency figures beside the correction work its system moves onto claimants, staff, and clinicians.",
+        "Find where, if anywhere, that work appears in a public budget.",
       ],
-      glossaryRefs: [
-        "burden-index",
-        "stewardship-window",
-        "signal-credibility",
-      ],
+      glossaryRefs: ["burden-transfer-event", "compensated-performance"],
     },
   ],
   focusAreas: [
     {
-      slug: "governance",
-      title: "Governance",
+      slug: "standing",
+      title: "Standing",
       description:
-        "Decision accountability, data handling, and escalation paths people can understand.",
+        "Who can make a running system answer: a challenge route, a date by which it must be answered, and someone who can force a halt.",
       questions: [
-        "What documentation shows non-technical partners how choices were made?",
-        "How can we expose decision logs without creating new harms?",
+        "Which public systems give the person they decide about a challenge that must be answered by a date?",
+        "When a challenge is upheld, who besides that person learns of it?",
       ],
-      glossaryRefs: ["stewardship-window", "signal-credibility"],
+      glossaryRefs: ["corrective-standing", "standing-mechanism"],
     },
     {
-      slug: "safeguards",
-      title: "Safeguards",
+      slug: "correction",
+      title: "Correction",
       description:
-        "Consent-aware defaults, appeal paths, and reversible states that reduce risk.",
+        "Whether an upheld challenge reaches the rule that produced the decision, and how long that takes.",
       questions: [
-        "Where do people need safety valves to pause or undo automation?",
-        "Which UI cues make opt-outs visible without friction?",
+        "How long after the first upheld challenge did each casebook rule change?",
+        "What record would show that a rule changed because of a challenge?",
       ],
-      glossaryRefs: ["consent-journey", "safety-valve"],
+      glossaryRefs: ["exception-learning", "correction-obligation"],
     },
     {
-      slug: "ui-patterns",
-      title: "UI patterns",
+      slug: "burden",
+      title: "Burden",
       description:
-        "Interface practices that show people their options, in plain language, without excluding anyone.",
+        "Who does the work of correcting the system, and whether the institution counts that work as a cost.",
       questions: [
-        "How do we explain model limitations without blame-shifting?",
-        "Which interaction patterns keep people oriented in complex flows?",
+        "How much time does a successful challenge cost the person who brings it?",
+        "Which efficiency figures leave that time out?",
       ],
-      glossaryRefs: ["signal-credibility"],
+      glossaryRefs: [
+        "burden-transfer-event",
+        "principle-of-non-expropriation-of-resilience",
+      ],
     },
   ],
   publications: [
-    {
-      title: "Participatory consent prompts",
-      type: "protocol",
-      status: "planned",
-      summary:
-        "Planned field protocol for testing progressive consent prompts with the people who use a service.",
-      tags: ["consent", "facilitation", "safeguards"],
-      glossaryRefs: ["consent-journey"],
-      href: "/explainers/consent-journey",
-      ctaLabel: "Read the consent journey explainer",
-      structuredAbstract: {
-        question:
-          "Do progressive consent prompts reduce fatigue and improve understanding?",
-        method:
-          "Planned: structured interviews and co-design workshops using scripted prompts and consent checkpoints.",
-        sample: "No sessions have been run.",
-        findings: "None yet.",
-        limitations:
-          "A small, qualitative study would not support statistical generalization.",
-      },
-      datasets: [
-        "To be published with the results: anonymized checkpoint excerpts and the prompt pack.",
-      ],
-      ethicsNotes: [
-        "Each session will record verbal consent.",
-        "Participant identities will be removed from anything shared.",
-      ],
-    },
     {
       title: "Burden index signals",
       type: "report",
@@ -316,33 +286,6 @@ export const researchContent: ResearchContent = {
       ethicsNotes: [
         "Scenario names will be anonymized before anything is shared.",
         "Participating teams will consent to aggregate reporting.",
-      ],
-    },
-    {
-      title: "Maintenance readiness workshop",
-      type: "deck",
-      status: "planned",
-      summary:
-        "Workshop slides for negotiating stewardship windows with cross-functional leads.",
-      tags: ["maintenance", "governance", "operations"],
-      glossaryRefs: ["stewardship-window"],
-      href: "mailto:hello@ethotechnics.org?subject=Maintenance%20readiness%20deck",
-      ctaLabel: "Request the deck",
-      structuredAbstract: {
-        question: "Do stewardship windows improve maintenance readiness?",
-        method:
-          "Planned: facilitated tabletop exercises followed by a review of the teams' decision logs.",
-        sample: "No workshops have been evaluated.",
-        findings: "None yet.",
-        limitations:
-          "Results from facilitated sessions may not hold for teams working on their own.",
-      },
-      datasets: [
-        "Stewardship window planning template.",
-        "Communication cadence checklist with role mapping.",
-      ],
-      ethicsNotes: [
-        "Partner data will stay confidential unless a partner chooses to share it.",
       ],
     },
     {

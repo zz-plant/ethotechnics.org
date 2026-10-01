@@ -12,7 +12,6 @@ import { expect, test } from "@playwright/test";
  */
 
 const PAGES = [
-  { path: "/audit", family: "audit" },
   { path: "/glossary/stoppability", family: "glossary entry" },
   { path: "/evals/stoppability", family: "eval suite" },
   // Deliberately unshadowed slugs. Static pages exist at

@@ -62,7 +62,7 @@ export const siteFooter: SiteFooterContent = {
       heading: "Knowledge & research",
       links: [
         { label: "Glossary", href: "/glossary" },
-        { label: "Capability taxonomy", href: "/taxonomy" },
+        { label: "Practice taxonomy", href: "/taxonomy" },
         { label: "Failure casebook", href: "/casebook" },
         { label: "Theory & foundations", href: "/research/theory" },
         { label: "Field notes", href: "/field-notes" },

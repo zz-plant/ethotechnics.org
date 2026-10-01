@@ -9,7 +9,7 @@ import { postMarketWorkflow } from "../../content/crosswalks";
 
 const { pageTitle, pageDescription, eyebrow, title, description } =
   incidentLessonsIntro;
-const enhancedDescription = `${description} The workflow below also serves post-market monitoring and incident reporting.`;
+const enhancedDescription = description;
 ---
 
 <BaseLayout
@@ -37,9 +37,9 @@ const enhancedDescription = `${description} The workflow below also serves post-
 
   <SectionBlock
     id="retrospectives"
-    eyebrow="Incident lessons"
-    title="Browse the retrospectives."
-    description="Each card gives the headline, sector, and timeframe. The lesson page holds the full remediation checklist."
+    eyebrow="Composite scenarios"
+    title="Three patterns"
+    description="Each card names the setting the pattern is drawn from. The scenario page holds the missing controls and the fixes."
     className="section--banded"
   >
     <CardGrid className="grid--two">
@@ -52,15 +52,14 @@ const enhancedDescription = `${description} The workflow below also serves post-
             descriptionTone="default"
           >
             <ul class="muted">
-              <li>{lesson.incident.sector}</li>
-              <li>{lesson.incident.timeframe}</li>
+              <li>Drawn from: {lesson.incident.sector.toLowerCase()}</li>
             </ul>
             <div slot="footer" class="card__footer">
               <a
                 class="button ghost button--compact"
                 href={`/incidents/${lesson.slug}`}
               >
-                Open lesson
+                Open scenario
               </a>
             </div>
           </CardItem>

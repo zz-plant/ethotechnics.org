@@ -1,6 +1,6 @@
 // AUTO-GENERATED FILE. DO NOT EDIT.
 // Source of truth lives in the JSON file referenced below.
-// source-sha256: 4b6c9d89678576b81e6c65a3b5ac3a9105659fd4f6ebc3137e04143f74a0e9e1
+// source-sha256: 5e1ff3e37e73d3eb49e9e6d8ed69904a5f38a0b44bfd81bb0dd497d4e6e36a08
 import sourceData from "../taxonomy.json" with { type: "json" };
 
 export const taxonomyEntriesData = sourceData;

@@ -48,9 +48,19 @@ const taxonomyEntrySchema = z.object({
   title: z.string(),
   slug: z.string(),
   summary: z.string(),
-  owner: z.string(),
   scope: z.string(),
-  readiness: z.enum(["draft", "alpha", "beta", "stable"]),
+  safeguards: z
+    .array(
+      z.enum([
+        "Capability",
+        "Authority",
+        "Evidence",
+        "Dependency",
+        "Standing",
+        "Correction",
+      ]),
+    )
+    .min(1),
   relatedArtifacts: z.array(taxonomyArtifactSchema),
 });
 

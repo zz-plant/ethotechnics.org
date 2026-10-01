@@ -266,8 +266,7 @@ export const frontierDoctrineScan: FrontierDoctrineScan = {
   permalink: "/research/frontier-doctrine-scan",
   scanDate: "2026-09",
   published: "2026-09-06",
-  refreshCadence:
-    "Refreshed every six months, or marked stale on this page if a refresh has not been published within nine months of the scan date.",
+  refreshCadence: "No refresh is scheduled.",
   staleAfter: "2027-06",
   scope:
     "Ten frontier labs scored against the twelve Laws for Engineering Delegated Intelligence on the basis of public doctrine and product architecture.",

@@ -7,14 +7,14 @@ import agentSafetyObjectModel from "../../data/agents-spec.json";
 const pageTitle = "Agent Safety Object Model";
 const pageDescription =
   "A JSON schema that declares an AI agent's autonomy level, action classes, override authority, receipts, and clocks, with what breaks when a field is missing.";
-const version = "v1.1.0";
-const lastUpdated = "2026-02-22";
+const version = "v1.1.1";
+const lastUpdated = "2026-10-01";
 const anchorLinks = [
   { href: "#overview", label: "Overview" },
   { href: "#example", label: "Example model" },
   { href: "#fields", label: "Field guide" },
   { href: "#failure-modes", label: "What breaks if missing" },
-  { href: "#schema", label: "JSON schema" },
+  { href: "#schema", label: "Full example (1.1.0)" },
   { href: "#usage", label: "Usage" },
   { href: "#referenced-by", label: "Referenced by" },
 ];
@@ -190,7 +190,14 @@ const breadcrumbItems = [
         Spec page: <a href="/agents/spec">/agents/spec</a>
       </li>
       <li>
-        JSON schema: <a href="/agents/spec.json">/agents/spec.json</a>
+        Object model schema, version 2.0.0:
+        <a href="/standards/agent-safety-object-model.schema.json"
+          >/standards/agent-safety-object-model.schema.json</a
+        >
+      </li>
+      <li>
+        This page's example object as JSON:
+        <a href="/agents/spec.json">/agents/spec.json</a>
       </li>
     </ul>
   </SectionBlock>
@@ -256,9 +263,9 @@ const breadcrumbItems = [
 
   <SectionBlock
     id="schema"
-    eyebrow="Schema"
-    title="Machine-readable JSON"
-    description="Validate a system's object model against this schema in CI."
+    eyebrow="Example"
+    title="The full example object, in the 1.1.0 shape"
+    description="This instance predates version 2.0.0 of the schema, which replaces approval_required with a grant reference for each action class and stop_override_authority with an intervention reference. Validate against the schema, not this example."
   >
     <pre class="code-block">{agentSafetyObjectModelText}</pre>
   </SectionBlock>
@@ -272,9 +279,8 @@ const breadcrumbItems = [
   >
     <ul class="muted">
       <li>
-        Validate new agent releases with <a href="/evidence-packs"
-          >release gates</a
-        >.
+        Record the decision to deploy each agent release with the
+        <a href="/mechanisms/patterns/admission-gate">MEC-22 admission gate</a>.
       </li>
       <li>
         Map action classes to <a href="/standards/ethotechnics-for-agents"
@@ -318,7 +324,7 @@ const breadcrumbItems = [
         <p class="eyebrow">Required by bindings</p>
         <ul class="muted">
           <li>
-            <a href="/evidence-packs">Release gate checklist</a>
+            <a href="/mechanisms/patterns/admission-gate">MEC-22 Admission gate</a>
           </li>
         </ul>
       </div>

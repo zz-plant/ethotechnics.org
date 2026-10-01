@@ -34,9 +34,10 @@ describe("taxonomy entries", () => {
     ]);
   });
 
-  it("gives every entry an owner, a scope, and exactly two related artifacts", () => {
+  it("files every entry under at least one safeguard, with a scope and exactly two related artifacts", () => {
     for (const entry of taxonomyEntries) {
-      expect(entry.owner.length).toBeGreaterThan(0);
+      expect(entry.safeguards.length).toBeGreaterThan(0);
+      expect("owner" in entry).toBe(false);
       expect(["Domain", "Capability", "Practice"]).toContain(entry.scope);
       expect(entry.summary.length).toBeGreaterThan(0);
       expect(entry.relatedArtifacts).toHaveLength(2);

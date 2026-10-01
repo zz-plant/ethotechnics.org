@@ -323,7 +323,7 @@ export const useCases: UseCase[] = [
     },
     cases: [],
     noCaseNote:
-      "No case from health care has been scored yet. One anonymized incident, an appeal accepted without a remedy, comes from this setting.",
+      "No case from health care has been scored yet. One composite scenario, an appeal accepted without a remedy, is drawn from this setting.",
     bind: ["STD-01", "STD-02", "STD-06"],
     runFirst: {
       slug: "latency-audit",
