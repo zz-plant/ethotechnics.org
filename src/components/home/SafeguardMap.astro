@@ -25,15 +25,18 @@ interface Props {
 
 const { class: className }: Props = Astro.props;
 
-/** What each safeguard looks like when it holds, in the reader's terms. */
+/**
+ * What each safeguard looks like when it holds, in a few words. The questions
+ * beside the loop ask the full version; the loop only has to say which stop
+ * an answer fills.
+ */
 const holds: Record<StateVariableId, string> = {
-  evidence: "The reasons for switching it on are still true.",
-  authority: "Its permission to act has an end date.",
-  capability: "Each time it grew, someone approved it.",
-  standing:
-    "A person it decided about can challenge it and get a human answer by a set date.",
-  dependency: "Someone can switch it off without the service falling over.",
-  correction: "A named person can halt it within a day.",
+  evidence: "Reasons still true",
+  authority: "Permission has an end date",
+  capability: "Growth approved",
+  standing: "Challenge answered by a date",
+  dependency: "Can be switched off",
+  correction: "Halted within a day",
 };
 
 const order: StateVariableId[] = [
