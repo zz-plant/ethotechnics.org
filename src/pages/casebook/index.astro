@@ -33,13 +33,19 @@ const tally = verdictTally();
       { href: "#cases", label: "The cases" },
       { href: "#reading", label: "How to read a score" },
     ]}
-  />
+  >
+    <Fragment slot="actions">
+      <a class="button ghost" href="/use-cases"
+        >Which systems these cases point to</a
+      >
+    </Fragment>
+  </PageIntro>
 
   <SectionBlock
     id="matrix"
     eyebrow="Six safeguards, five cases"
     title="Where the safeguards broke"
-    description="Read down a column to see which safeguard fails most often. Read across a row to see the shape of one case. Standing, the right of the people affected to challenge a decision and be answered, has never held. Correction held once, and only because the system was halted before people came to depend on it. The last column asks whether the institution changed the process that produced the errors, or corrected them and left it as it was."
+    description="Read down a column to see which safeguard fails most often. Read across a row to see the shape of one case. Standing, the right of the people affected to challenge a decision and be answered, held in none of the five. Correction held once, and only because the system was halted before people came to depend on it. The last column asks whether the institution changed the process that produced the errors, or corrected them and left it as it was."
     variant="alt"
   >
     <div class="table-responsive">

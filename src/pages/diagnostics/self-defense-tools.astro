@@ -5,13 +5,19 @@ import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import { useCases } from "../../content/use-cases";
 
 const pageTitle = "Self-defense diagnostic tools";
 const pageDescription =
   "Three yes/no checks for a person facing an automated decision: whether it can be challenged, whether the appeal can change the outcome, and who can reverse it.";
 const permalink = "/diagnostics/self-defense-tools";
 
+// What the law already lets the reader ask for, from the same registry that
+// tells operators what to bind. The checks below ask whether a decision can be
+// challenged; this says what a person can demand while they find out.
+const rights = useCases.filter((entry) => entry.personCanAsk);
 const anchorLinks = [
+  { href: "#your-rights", label: "What you can ask for now" },
   { href: "#how-to-use", label: "How to use" },
   { href: "#governable", label: "Can this decision be challenged?" },
   { href: "#appeal-real", label: "Can the appeal change anything?" },
@@ -202,6 +208,29 @@ const printSheet = {
   />
 
   <SectionBlock
+    id="your-rights"
+    eyebrow="Before the checks"
+    title="What the law already lets you ask for"
+    description="The standards on this site are drafts with no force. These rules are in force where they name, and some may cover your case. This is not legal advice."
+  >
+    <CardGrid className="grid--two self-defense__rights">
+      {
+        rights.map((entry) => (
+          <CardItem
+            title={entry.title}
+            description={entry.personCanAsk}
+            descriptionTone="default"
+          >
+            <a slot="footer" class="muted" href={`/use-cases#${entry.id}`}>
+              How this kind of system is governed
+            </a>
+          </CardItem>
+        ))
+      }
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
     id="how-to-use"
     eyebrow="How to use"
     title="Six or seven yes/no questions per check"
@@ -326,6 +355,11 @@ const printSheet = {
 </script>
 
 <style>
+  /* Four rights read as two rows of two, not three and one. */
+  :global(.self-defense__rights) {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr));
+  }
+
   .print-only {
     display: none;
   }

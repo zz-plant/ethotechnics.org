@@ -74,6 +74,11 @@ The site separates three layers so a reader can adopt a standard without accepti
 
 ## 3. Framework Navigation & Primary Resources
 
+### Which systems this is for
+- **Use cases**: https://ethotechnics.org/use-cases
+  - Six decision contexts the standards are built for: public benefits and debt recovery; credit, payments, and account holds; AI agents that take actions; health coverage and care decisions; platform enforcement; grading people and judging their work. Each names the scored cases from it, the standards to bind, the first check to run, and law already in force that asks for the same evidence.
+  - Five boundaries where the framework does less: recommendations and personalization, testing a model before deployment, tools that inform a person who decides each case, low-volume committee decisions, and automation that touches no one outside the team.
+
 ### Doctrine
 - **Method**: https://ethotechnics.org/method
 - **Laws for Engineering Delegated Intelligence**: https://ethotechnics.org/standards/laws
@@ -85,6 +90,7 @@ The site separates three layers so a reader can adopt a standard without accepti
 
 ### Standards & Compliance
 - **Standards Catalogue**: https://ethotechnics.org/standards
+  - Status: STD-01 to STD-09 are drafts (STD-04, the FHIR profile set, is deprecated). MVC-01 and PM-01 are marked stable. None has force until an organization adopts it or a contract cites it.
   - STD-01: Temporal Bill of Rights (clocks, deadlines, exit)
   - STD-02: Contestability and Recourse
   - STD-03: Justice SLOs
@@ -122,7 +128,9 @@ The site separates three layers so a reader can adopt a standard without accepti
 - **Record Conformance Checker**: https://ethotechnics.org/diagnostics/record-conformance
   - Evidence level. Parses a stream of STD-07 records, validates the schema, recomputes the hashes, and returns the conformance level the stream earns against the level its emitter declares.
 - **Burden Modeler**: https://ethotechnics.org/diagnostics/burden-modeler
-  - Quantifies human operator workload, cognitive overhead, and burnout thresholds.
+  - Belief level. Scores seven workload drivers a team rates (interruptions, handoffs, tooling, runbooks, incidents, coverage, decision debt) and ranks where load concentrates. Not to be confused with VAL-01 at /validators/burden-modeler, which scores the time a user journey takes from the affected person.
+- **Corrective capacity self-assessment**: https://ethotechnics.org/diagnostics/corrective-debt-calculator
+  - Belief level. Scores five self-reported answers on whether the institution can correct what it decides.
 - **Finite Loop**: https://ethotechnics.org/finite
   - Training loop for rehearsing stoppability and rollback protocols.
 
@@ -141,7 +149,7 @@ The site separates three layers so a reader can adopt a standard without accepti
 - **Glossary**: https://ethotechnics.org/glossary
   - Defines core vocabulary: Authority Grant, Burden, Capability Catalog, Contestability, Dependency Record, Escalation Clock, Evidence Pack, Intervention Specification, Legibility, Policy Record, Preserved Capacity, Repair Authority, Revisable Delegation, Reversibility Ladder, Standing, Stoppability, Substrate Profile, Validator.
 
-### Research & Thought Leadership
+### Research
 - **Research Agenda**: https://ethotechnics.org/research
 - **Field Notes**: https://ethotechnics.org/field-notes
 - **Start here**: https://ethotechnics.org/start
@@ -205,7 +213,7 @@ Ethotechnics Studio (https://ethotechnics.com) provides commissioned commercial 
 ```bibtex
 @misc{ethotechnics2026,
   author = {{Ethotechnics Institute}},
-  title = {Ethotechnics: The Reference Standard for Accountable AI Systems},
+  title = {Ethotechnics: Proposed Standards for Stoppable, Explainable, and Appealable Automated Decision Systems},
   year = {2026},
   url = {https://ethotechnics.org},
   note = {Accessed: 2026}

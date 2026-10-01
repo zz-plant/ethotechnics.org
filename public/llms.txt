@@ -25,6 +25,7 @@ Every consequential decision is one link in a governed chain, and each stage has
 evidence -> authority -> decision -> consequence -> challenge -> reconsideration -> correction
 
 ## Doctrine and Method
+- [Which systems this is for](https://ethotechnics.org/use-cases): Six decision contexts the standards are built for (public benefits, credit and account holds, AI agents that take actions, health coverage, platform enforcement, grading and workplace records), the standards and first check for each, five boundaries where the framework does less, and which tools check evidence versus score a self-report.
 - [Method](https://ethotechnics.org/method): The chain, the six state variables (capability, authority, evidence, dependency, standing, correction), and where each law is bound.
 - [Laws](https://ethotechnics.org/standards/laws): The twelve laws with their invariants.
 - [STD-08 Delegation](https://ethotechnics.org/standards/std-08-delegation): Authority as a lease, policy validity, intervention specification, correction symmetry. Evidence pack: https://ethotechnics.org/evidence-packs/std-08
@@ -35,7 +36,7 @@ evidence -> authority -> decision -> consequence -> challenge -> reconsideration
 - [Frontier Doctrine Scan](https://ethotechnics.org/research/frontier-doctrine-scan): Ten labs scored against the twelve laws, dated 2026-09.
 
 ## Core Frameworks & Standards
-- [Standards & Mechanisms](https://ethotechnics.org/standards): Standard clauses, obligations, and patterns mapped to NIST AI RMF, EU AI Act, and ISO standards.
+- [Standards & Mechanisms](https://ethotechnics.org/standards): Draft standard clauses, obligations, and patterns mapped to NIST AI RMF, EU AI Act, and ISO standards. STD-01 to STD-09 are drafts; none has force until adopted.
 - [Diagnostics & Triage](https://ethotechnics.org/diagnostics): Scoped risk models, burden calculators, and incident triage paths.
 - [Delegation Audit](https://ethotechnics.org/diagnostics/delegation-audit): Belief level. A facilitated self-report on one workflow: exposure score, grants nobody can ground, reversibility at three levels.
 - [Record Conformance Checker](https://ethotechnics.org/diagnostics/record-conformance): Evidence level. Grades an exported stream of STD-07 records against the schema and the hash chain, and returns the conformance level it earns.
@@ -54,8 +55,8 @@ evidence -> authority -> decision -> consequence -> challenge -> reconsideration
 - Delegation state (JSON): /api/grants.json, /api/policies.json, /api/dependencies.json, /api/standing.json, /api/interventions.json, /api/capabilities.json, /api/substrate-profiles.json. One worked example across the six state variables.
 
 ## Key Concepts
-- **Stoppability**: The engineering and organizational capacity to safely halt, pause, or roll back an AI system when harm occurs.
-- **Evidence Packs**: Structured, verifiable audit trails and operational artifacts required for GRC workflows.
+- **Stoppability**: The engineering and organizational capacity to safely halt, pause, or roll back an automated decision system when harm occurs.
+- **Evidence Packs**: For each standard, the records a system must be able to show to demonstrate a clause is met. They list what to collect; they do not check it.
 - **Repair Authority**: Named individuals with organizational power and budget to remediate harm within bounded escalation clocks.
 - **Contestability**: Explicit channels allowing affected people to understand, appeal, and reverse automated decisions.
 

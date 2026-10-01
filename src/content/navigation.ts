@@ -84,7 +84,7 @@ export const navSections: NavSection[] = [
   {
     heading: "Method",
     description:
-      "What must be true when a system decides for an institution: the chain, the laws, and the specifications that enforce them.",
+      "What must be true when a system decides for an institution: the chain, the laws, and the draft specifications that bind them.",
     links: [
       {
         href: "/method",
@@ -95,7 +95,7 @@ export const navSections: NavSection[] = [
       {
         href: "/standards/laws",
         label: "The twelve laws",
-        description: "Each law and the condition a clause must enforce",
+        description: "Each law and the condition a clause binds",
       },
       {
         href: "/standards",
@@ -153,7 +153,7 @@ export const navSections: NavSection[] = [
     // product names.
     heading: "Tools",
     description:
-      "Ordered by what you bring: a workflow, a decision log, or a set of numbers.",
+      "Ordered by what you bring: a workflow, workload ratings, a decision log, or the decision your system makes.",
     links: [
       {
         href: "/diagnostics/delegation-audit",
@@ -164,7 +164,7 @@ export const navSections: NavSection[] = [
         href: "/diagnostics/burden-modeler",
         label: "Burden modeler",
         description:
-          "Bring a workflow: who bears the cost of each step, and how much?",
+          "Bring workload ratings: where the work a system creates concentrates",
       },
       {
         href: "/diagnostics/record-conformance",
@@ -173,10 +173,16 @@ export const navSections: NavSection[] = [
           "Bring a decision log: does it meet the level it claims?",
       },
       {
+        href: "/use-cases",
+        label: "Which tool for your system",
+        description:
+          "Bring the decision it makes: six contexts, each with the check to run first",
+      },
+      {
         href: "/diagnostics",
         label: "All tools",
         description:
-          "Also the forecasters and simulators, which take numbers",
+          "Also the corrective capacity self-assessment and checks for a person a system decided about",
       },
     ],
   },

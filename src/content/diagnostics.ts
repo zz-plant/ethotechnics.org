@@ -412,6 +412,7 @@ export const diagnosticsContent: DiagnosticsContent = {
     {
       slug: "burden-modeler",
       title: "Burden Modeler",
+      tier: "Belief level",
       description:
         "Rate seven sources of workload, such as interruptions, handoffs, and incidents. Get a burden score out of 100 and the three places where reducing load would help most.",
       methodCards: {
@@ -514,6 +515,7 @@ export const diagnosticsContent: DiagnosticsContent = {
     {
       slug: "corrective-debt-calculator",
       title: "Corrective capacity self-assessment",
+      tier: "Belief level",
       description:
         "Scores five self-reported answers: how fast the system's reach grew, how challenges are received, how fast decisions are reversed, whether exceptions change the rules, and whether staff workarounds are tracked. The score is a starting point for discussion, not a measurement of the institution's ability to correct itself.",
       metaDescription:

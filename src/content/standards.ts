@@ -68,7 +68,7 @@ export const standardsContent: StandardsContent = {
   anchorLinks: [
     { href: "#register", label: "The register" },
     { href: "#doctrine", label: "Foundations and references" },
-    { href: "#adopted-standards", label: "Where existing frameworks fall short" },
+    { href: "#adopted-standards", label: "What frameworks leave open" },
     { href: "#implementation-examples", label: "Domain-by-domain comparisons" },
     { href: "#referenced-by", label: "Where the standards are cited" },
   ],

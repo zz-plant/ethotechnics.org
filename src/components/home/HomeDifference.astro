@@ -1,80 +1,34 @@
 ---
+import FrameworkComparisonTable from "../FrameworkComparisonTable.astro";
 import SectionBlock from "../SectionBlock.astro";
 ---
 
 <SectionBlock
   id="difference"
   eyebrow="How this differs"
-  title="Other frameworks ask whether risk was managed. These standards ask whether the system can be stopped."
-  description="They work alongside the EU AI Act, NIST, ISO 42001, and the OECD principles. They cover what those leave vague: who can stop a running system, how fast, and who carries the cost while it runs."
+  title="The frameworks already ask for a way to stop a system. These drafts say who holds it and how fast it works."
+  description="They are written to sit beside the EU AI Act, the NIST AI RMF, ISO/IEC 42001, and the OECD principles, and to make three things checkable: who can stop a running system, how fast, and who carries the cost while it runs."
   variant="default"
 >
   <p>
-    Most AI governance frameworks improve documentation and oversight. They say
-    less about whether a running system can be halted, reversed, and repaired,
-    or how long that takes for the person it is harming.
+    Each of those frameworks asks for oversight and a means of intervention.
+    Each leaves the operator to decide who exercises it, how fast, and what
+    record shows that it worked. The drafts here fill in those parameters. They
+    also bind any system that decides about people, so they would have applied
+    to Post Office Horizon, which was accounting software, not AI.
   </p>
   <p>
-    When a system cuts its own workload, the work it drops lands on someone:
-    the nurse fixing a scheduler's mistakes, the claimant proving a denial
-    wrong. That work is part of the system, so the person doing it should have
-    a say in fixing it. The cost should fall on the institution that runs the
-    system, not on the people it serves.
+    When a system cuts its own workload, the work it drops lands on someone: the
+    nurse fixing a scheduler's mistakes, the claimant proving a denial wrong.
+    That work is part of the system, so the person doing it should have a say in
+    fixing it. The cost should fall on the institution that runs the system, not
+    on the people it serves.
   </p>
-  <div class="mapping-table__wrapper">
-    <table class="mapping-table mapping-table--compare">
-      <thead>
-        <tr>
-          <th scope="col">Existing standard says</th>
-          <th scope="col">Ethotechnics requires</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td data-label="Existing standard says">
-            "Maintain human oversight"<br />
-            <span class="small muted">EU AI Act, Art. 14</span>
-          </td>
-          <td data-label="Ethotechnics requires">
-            Named human with stop authority, tested halt path, recovery clock
-          </td>
-        </tr>
-        <tr>
-          <td data-label="Existing standard says">
-            "Manage risks across the AI lifecycle"<br />
-            <span class="small muted">NIST AI RMF</span>
-          </td>
-          <td data-label="Ethotechnics requires">
-            Measurable time-in-harm bounds, exercised rollback and restoration
-            paths
-          </td>
-        </tr>
-        <tr>
-          <td data-label="Existing standard says">
-            "Conduct conformity assessment"<br />
-            <span class="small muted">ISO/IEC 42001</span>
-          </td>
-          <td data-label="Ethotechnics requires">
-            Evidence that the system can be stopped mid-incident, rather than
-            documented as compliant
-          </td>
-        </tr>
-        <tr>
-          <td data-label="Existing standard says">
-            "Implement responsible AI principles"<br />
-            <span class="small muted">OECD AI Principles</span>
-          </td>
-          <td data-label="Ethotechnics requires">
-            Binding escalation: owner + timer + action, or the system degrades
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <FrameworkComparisonTable />
   <p class="muted small">
-    Each requirement on the right can be tested against a running system. A
-    compliance document cannot pass it on its own. See the
-    <a href="/standards/#comparison">full standards comparison</a> for the detailed
-    analysis.
+    Each item on the right is a property of a running system, so a document
+    cannot show it on its own. The drafts have no force until someone adopts
+    them. See the
+    <a href="/standards#comparison">full standards comparison</a>.
   </p>
 </SectionBlock>

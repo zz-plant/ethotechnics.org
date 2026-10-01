@@ -69,11 +69,11 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     anchorLinksSummary="Show full standards outline"
   >
     <Fragment slot="actions">
-      <a class="button primary" href="/standards/std-01-temporal-rights">
-        Open STD-01
+      <a class="button primary" href="/use-cases">
+        Find the standards for your system
       </a>
-      <a class="button ghost" href="/standards/std-02-contestability-recourse">
-        Open STD-02
+      <a class="button ghost" href="/standards/std-01-temporal-rights">
+        Open STD-01
       </a>
       <a
         class="button ghost"
@@ -193,7 +193,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     <CardGrid className="grid--three">
       <CardItem
         title="Draft policy language"
-        description="The core axioms and the comparison below give you the terms, and the requirements that can be enforced, to write into policy."
+        description="The core axioms and the comparison below give you the terms, and the requirements a running system can be tested against, to write into policy."
       >
         <a slot="footer" class="muted" href="/standards/core-axioms"
           >Start with core axioms</a
@@ -220,6 +220,13 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         >
       </CardItem>
     </CardGrid>
+    <p class="small muted">
+      Buying a system from a vendor?
+      <a href="/standards/where-this-binds"
+        >Cite clauses in the contract and require an evidence pack at each
+        release →</a
+      >
+    </p>
   </SectionBlock>
 
   <SectionBlock
@@ -298,8 +305,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <SectionBlock
     id="adopted-standards"
     eyebrow="Existing frameworks"
-    title="Where widely adopted frameworks fall short"
-    description="For each of the most cited AI governance frameworks, what it leaves out when a system has to be stopped or reversed."
+    title="What widely adopted frameworks leave to the operator"
+    description="For each of the most cited AI governance frameworks, what it asks for when a system has to be stopped or reversed, and what it leaves the operator to decide."
   >
     <CardGrid className="grid--two">
       {
@@ -332,14 +339,15 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     <ul class="card__list">
       <li>
         <strong>NIST AI RMF</strong> — A voluntary risk management framework (Govern,
-        Map, Measure, Manage). Strong on risk identification and documentation. Does
-        not require operational stop authority or recovery time targets.
+        Map, Measure, Manage). Strong on risk identification and documentation. MANAGE
+        2.4 calls for mechanisms and assigned responsibilities to deactivate a system;
+        it sets no recovery time targets.
       </li>
       <li>
         <strong>EU AI Act</strong> — A risk-tiered regulatory regime requiring human
-        oversight, conformity assessment, and post-market monitoring. Compliance is
-        document-mediated; oversight obligations do not impose stoppability drills
-        or restoration SLAs.
+        oversight, conformity assessment, and post-market monitoring. Article 14(4)(e)
+        requires a way to interrupt a high-risk system, but not drills, a named stop
+        holder, or restoration deadlines.
       </li>
       <li>
         <strong>ISO/IEC 42001</strong> — A management system standard for AI. Governance
@@ -348,18 +356,18 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </li>
       <li>
         <strong>OECD AI Principles</strong> — Values-oriented guidelines adopted by
-        governments. Non-binding by design; accountability becomes interpretive after
-        harm.
+        governments. Non-binding by design. Principle 1.4 (2024) asks that harmful
+        systems can be overridden or decommissioned, without saying how fast.
       </li>
     </ul>
     <p>
-      These frameworks improve documentation, oversight, and monitoring. They
-      leave one question undertreated: while harm is occurring, can the system
-      be stopped quickly and reliably, without the harmed person carrying the
-      burden?
+      These frameworks ask for documentation, oversight, monitoring, and a means
+      to intervene. They leave the parameters to the operator: while harm is
+      occurring, who can stop the system, how fast, and who carries the burden
+      until they do?
     </p>
 
-    <p class="eyebrow">TL;DR</p>
+    <p class="eyebrow">In short</p>
     <ul class="card__list">
       <li>
         Ethotechnics centers stoppability and time-in-harm over documentation.
@@ -370,10 +378,10 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       <li>Oversight is only real when authority and clocks are enforceable.</li>
     </ul>
     <p>
-      Most AI governance standards in use today are built to answer: “Did you
-      manage risk responsibly?” Ethotechnics is built to answer a different
-      question: “Can this system be stopped and repaired when it is harming
-      someone?” The difference is in mechanics, not values.
+      The frameworks above ask whether risk was managed and whether a means to
+      intervene exists. The drafts here ask how fast that intervention works for
+      the person being harmed, and who can trigger it. The difference is in
+      mechanics, not values.
     </p>
     <p>
       In consequential systems the dominant failure mode is now temporal.
@@ -412,9 +420,11 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           </tr>
           <tr>
             <th scope="row">Oversight</th>
-            <td data-label="Prevailing standards">Advisory review, HITL</td>
+            <td data-label="Prevailing standards"
+              >Human oversight with a means to interrupt</td
+            >
             <td data-label="Ethotechnics"
-              >Enforceable authority + veto rights</td
+              >A named stop holder, a halt clock, and veto rights</td
             >
           </tr>
           <tr>
@@ -430,18 +440,13 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
             >
           </tr>
           <tr>
-            <th scope="row">Enforcement</th>
+            <th scope="row">Where the check happens</th>
             <td data-label="Prevailing standards"
-              >External (audits, regulators)</td
+              >Audits, conformity assessment, regulators</td
             >
             <td data-label="Ethotechnics"
-              >Built-in constraints + internal stop power</td
+              >Stop rules and clocks in the running system, once adopted</td
             >
-          </tr>
-          <tr>
-            <th scope="row">Ethics framing</th>
-            <td data-label="Prevailing standards">Principle optimization</td>
-            <td data-label="Ethotechnics">Constraint satisfaction</td>
           </tr>
         </tbody>
       </table>
@@ -455,19 +460,18 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       <div class="panel stack-sm">
         <p class="eyebrow">1. Runtime control plane</p>
         <p class="small muted">
-          Policies describe intent; control planes constrain behavior. Rather
-          than inventories, risk registers, and post-hoc paperwork, Ethotechnics
-          enforces explicit stop conditions, exercised rollback paths, and safe
-          degradation modes during system execution.
+          Policies describe intent; control planes constrain behavior. Beside
+          inventories, risk registers, and reviews, the drafts specify explicit
+          stop conditions, exercised rollback paths, and safe degradation modes
+          during system execution.
         </p>
       </div>
 
       <div class="panel stack-sm">
         <p class="eyebrow">2. Mechanical stop authority</p>
         <p class="small muted">
-          Oversight is symbolic unless it is exercisable on a clock. Rather than
-          advisory ethics committees or perfunctory review gates, Ethotechnics
-          requires named operational roles with independent authority to halt
+          Oversight is symbolic unless it is exercisable on a clock. The drafts
+          call for named operational roles with independent authority to halt
           automated decisions without needing consensus.
         </p>
       </div>
@@ -486,7 +490,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     <p>
       Existing standards and Ethotechnics agree that governance matters. The
       question Ethotechnics adds is whether a system can be compelled to stop
-      while harm is occurring, quickly and reliably, without the harmed person
+      while harm is occurring, by whom, how fast, and without the harmed person
       carrying the burden.
     </p>
     <p class="muted">
@@ -552,8 +556,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           class="code-block">{`Policy stack → policies → reviews → audits → reports
 Control plane → stop rules → clocks → rollback → restoration`}</pre>
         <p class="muted">
-          The first line is enforced from outside the running system. The second
-          is enforced inside it.
+          The first line is checked from outside the running system. The second
+          is built into it.
         </p>
       </div>
     </div>
@@ -576,6 +580,11 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
         ))
       }
     </CardGrid>
+    <p class="small muted">
+      Retail personalization is a boundary case: no single recommendation
+      changes a person's status, access, money, or risk.
+      <a href="/use-cases">See which systems the standards are for →</a>
+    </p>
   </SectionBlock>
 
   <SectionBlock
@@ -605,7 +614,7 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
         </ul>
       </div>
       <div class="panel">
-        <p class="eyebrow">Required at release</p>
+        <p class="eyebrow">Checked at release</p>
         <ul class="muted">
           <li>
             <a href="/evidence-packs">Release gate checklist</a>
@@ -613,7 +622,7 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
         </ul>
       </div>
       <div class="panel">
-        <p class="eyebrow">Verified by evidence packs</p>
+        <p class="eyebrow">Evidence packs: what to collect</p>
         <ul class="muted">
           <li>
             <a href="/evidence-packs/std-01">STD-01 Evidence Pack</a>

@@ -2,6 +2,7 @@
 import "../styles/components/intake-form.css";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Logo from "../components/Logo.astro";
+import FrameworkComparisonTable from "../components/FrameworkComparisonTable.astro";
 ---
 
 <BaseLayout
@@ -61,86 +62,31 @@ import Logo from "../components/Logo.astro";
   </section>
 
   <section class="stack-sm card">
-    <p class="eyebrow">What existing standards don't cover</p>
-    <h2>The gap Ethotechnics addresses</h2>
+    <p class="eyebrow">What the drafts add to existing standards</p>
+    <h2>Who holds the stop, and how fast it works</h2>
     <p>
-      NIST AI RMF tells you to manage risk. EU AI Act tells you to document
-      compliance. ISO/IEC 42001 tells you to build a management system. OECD AI
-      Principles tell you to be responsible. None of them tell you whether your
-      system can be stopped when it's harming someone.
+      The EU AI Act, the NIST AI RMF, and the OECD principles each ask for a way
+      to stop or override a system. ISO/IEC 42001 asks for a management system
+      that is audited and improved. Each leaves the operator to decide who holds
+      the stop, how fast it works, and what record shows that it worked.
     </p>
     <p>
-      Existing frameworks govern through what an institution writes down:
-      documents, roles, reviews, and attestations. Ethotechnics governs through
-      what a running system can be made to do: stop rules, deadlines that force
-      a response, authority to roll back, and challenges that can change the
-      outcome.
+      The drafts here specify those parameters as properties of a running
+      system: stop rules, deadlines that force a response, authority to roll
+      back, and challenges that can change the outcome. They bind any system
+      that decides about people, whether or not it is AI.
     </p>
-    <div class="mapping-table__wrapper">
-      <table class="mapping-table mapping-table--compare">
-        <thead>
-          <tr>
-            <th scope="col">Existing standard says</th>
-            <th scope="col">Ethotechnics requires</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td data-label="Existing standard says"
-              >"Maintain human oversight" <span class="small muted"
-                >(EU AI Act, Art. 14)</span
-              ></td
-            >
-            <td data-label="Ethotechnics requires"
-              >Named human with stop authority, tested halt path, recovery clock</td
-            >
-          </tr>
-          <tr>
-            <td data-label="Existing standard says"
-              >"Manage risks across the AI lifecycle" <span class="small muted"
-                >(NIST AI RMF)</span
-              ></td
-            >
-            <td data-label="Ethotechnics requires"
-              >Measurable time-in-harm bounds, exercised rollback paths</td
-            >
-          </tr>
-          <tr>
-            <td data-label="Existing standard says"
-              >"Conduct conformity assessment" <span class="small muted"
-                >(ISO/IEC 42001)</span
-              ></td
-            >
-            <td data-label="Ethotechnics requires"
-              >Evidence the system can be stopped mid-incident, rather than
-              documented as compliant</td
-            >
-          </tr>
-          <tr>
-            <td data-label="Existing standard says"
-              >"Implement responsible AI principles" <span class="small muted"
-                >(OECD)</span
-              ></td
-            >
-            <td data-label="Ethotechnics requires"
-              >Binding escalation: owner + timer + action, or the system
-              degrades</td
-            >
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <FrameworkComparisonTable />
     <p class="small muted">
-      Ethotechnics does not compete with these standards on whether governance
-      is "important." It addresses what they leave undertreated:
-      <a href="/standards/#comparison">see the full comparison →</a>
+      The drafts have no force until someone adopts them.
+      <a href="/standards#comparison">See the full comparison →</a>
     </p>
     <p>
       The differentiation is not only against standards but against four nearby
       fields. AI ethics asks whether systems are fair, transparent, private, or
       aligned. Safety engineering asks whether they malfunction. Human-centered
       design asks whether they work for their users. Governance asks who
-      oversees them. Ethotechnics cuts across all four and asks something prior:
+      oversees them. Ethotechnics draws on all four and asks a further question:
       how should technical systems be built so that increases in capability do
       not automatically become increases in domination? A system can be
       accurate, transparent, human-supervised, democratically authorized, and
@@ -266,6 +212,13 @@ import Logo from "../components/Logo.astro";
     <p class="eyebrow">Foundations</p>
     <h2>Start with these resources</h2>
     <ul>
+      <li>
+        <a href="/use-cases">Which systems this is for</a>, by what the system
+        decides, with the standards and first check for each.
+      </li>
+      <li>
+        <a href="/casebook">Casebook</a> for five public failures scored on six safeguards.
+      </li>
       <li><a href="/glossary">Glossary</a> for terms and definitions.</li>
       <li>
         <a href="/mechanisms">Mechanisms catalog</a> for decision logs, escalation
@@ -379,11 +332,11 @@ import Logo from "../components/Logo.astro";
         design defects.
       </li>
       <li>
-        <strong>The epistemic masking feedback loop:</strong> Showing how successful
-        adaptation systematically destroys the error signals an institution needs
-        to recognize its own defects. Competent human absorption manufactures the
-        appearance of system health (the falsified denominator), actively blinding
-        the institution to its own operational fragility and blocking structural reform.
+        <strong>The epistemic masking feedback loop:</strong> An account of when successful
+        adaptation destroys the error signals an institution needs to recognize its
+        own defects. Competent human absorption can manufacture the appearance of
+        system health (the falsified denominator), which can blind the institution
+        to its own operational fragility and block structural reform.
       </li>
       <li>
         <strong>Institutional evaluation by burdens eliminated:</strong>
@@ -395,8 +348,9 @@ import Logo from "../components/Logo.astro";
     <p class="small muted">
       In short: the underlying political theory establishes why human endurance
       does not legitimate an institutional arrangement; the engineering method
-      measures and prevents the mechanisms through which institutions become
-      parasitically dependent on that endurance while reporting success.
+      proposes ways to measure and prevent the mechanisms through which
+      institutions become parasitically dependent on that endurance while
+      reporting success.
     </p>
   </section>
 
