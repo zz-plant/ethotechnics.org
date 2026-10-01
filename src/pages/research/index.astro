@@ -13,7 +13,10 @@ import {
   getGlossaryLabel,
   glossaryEntryPermalink,
 } from "../../utils/glossary";
+import { getCollection } from "astro:content";
 import { researchContent } from "../../content/research";
+import { cases } from "../../content/casebook";
+import { getLawAverage } from "../../content/frontier-doctrine-scan";
 
 const {
   pageTitle,
@@ -31,6 +34,50 @@ const {
   updateCadence,
 } = researchContent;
 const priorityAgenda = agenda.slice(0, 3);
+const essayCount = (await getCollection("theory")).length;
+
+// What the research has produced so far, read from the data each result
+// rests on, so a new case or a refreshed scan updates the sentence.
+const counted = ["none", "one", "two", "three", "four", "five", "six"];
+const inWords = (count: number) => counted[count] ?? String(count);
+const heldIn = (variable: "standing" | "correction") =>
+  cases.filter(
+    (entry) =>
+      entry.findings.find((finding) => finding.variable === variable)
+        ?.verdict === "held",
+  ).length;
+const results = [
+  {
+    meta: `Casebook · ${cases.length} cases`,
+    title: `Standing held in ${inWords(heldIn("standing"))} of the ${inWords(cases.length)} cases`,
+    description: `Each case was established by a court, an inquiry, or a regulator, and scored on six safeguards. Standing, the right of the people affected to challenge a decision and be answered, held in ${inWords(heldIn("standing"))}. Correction held in ${inWords(heldIn("correction"))}.`,
+    href: "/casebook",
+    label: "Read the casebook",
+  },
+  {
+    meta: "Frontier doctrine scan · 2026-09",
+    title: "Lab doctrine covers the first-generation laws, not the second",
+    description: `Ten frontier labs' public doctrine, scored 0 to 4 against the twelve laws. "Capability does not imply authority" averages ${getLawAverage("I")}. Dependence averages ${getLawAverage("V")}, standing ${getLawAverage("VII")}, and contestability ${getLawAverage("XII")}. Per-cell sources are pending.`,
+    href: "/research/frontier-doctrine-scan",
+    label: "Read the scan",
+  },
+  {
+    meta: "Working paper · v0.2",
+    title: "The Green Dashboard",
+    description:
+      "A benchmark proposal: do AI agents meet their targets by using up human effort their metrics do not count? It defines the measure and states falsifiable hypotheses. No experiments have been run.",
+    href: "/research/the-green-dashboard",
+    label: "Read the working paper",
+  },
+  {
+    meta: `Theory · ${essayCount} essays`,
+    title: "Why institutions absorb the evidence",
+    description:
+      "The argument behind the laws. Start with insulation, the essay that names the mechanism the others describe.",
+    href: "/research/theory",
+    label: "Read the theory",
+  },
+];
 const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
 const researchTags = Array.from(
   new Set([
@@ -124,10 +171,33 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     anchorLinks={anchorLinks}
   >
     <Fragment slot="actions">
-      <a class="button primary" href="#agenda"> View research agenda </a>
-      <a class="button ghost" href="#publications"> Browse publications </a>
+      <a class="button primary" href="#results">See the results</a>
+      <a class="button ghost" href="#agenda">View research agenda</a>
     </Fragment>
   </PageIntro>
+  <SectionBlock
+    id="results"
+    eyebrow="Results so far"
+    title="What the research has produced"
+    description="Two results, one proposal, and the argument they test. Each says what it rests on."
+  >
+    <CardGrid className="grid--two research-results">
+      {
+        results.map((result) => (
+          <CardItem
+            meta={result.meta}
+            title={result.title}
+            description={result.description}
+            descriptionTone="default"
+          >
+            <a slot="footer" href={result.href}>
+              {result.label} →
+            </a>
+          </CardItem>
+        ))
+      }
+    </CardGrid>
+  </SectionBlock>
   <SectionBlock
     id="priorities"
     eyebrow="Current priorities"

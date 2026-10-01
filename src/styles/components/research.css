@@ -96,3 +96,13 @@
     }
   }
 }
+
+@layer components {
+  /* Four results read as two pairs. The shared two-column grid fits three
+     cards across at desktop width, which left the fourth alone on a row. */
+  @media (min-width: 720px) {
+    .grid.research-results {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+}

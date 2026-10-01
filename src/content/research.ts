@@ -73,7 +73,7 @@ export type ResearchContent = PageWithPermalink &
 export const researchContent: ResearchContent = {
   pageTitle: "Research — Ethotechnics",
   pageDescription:
-    "The research behind the standards: open questions, planned studies, theory essays, and dated research notes.",
+    "Research on one question: when an automated system is wrong, does the evidence reach someone who can change the rule? Essays, scored cases, a working paper.",
   permalink: "/research",
   published: "2025-12-03T00:00:00Z",
   updated: "2026-09-22T00:00:00Z",
@@ -128,6 +128,7 @@ export const researchContent: ResearchContent = {
   updateCadence:
     "Updates publish on a quarterly cadence with interim Field Notes.",
   anchorLinks: [
+    { href: "#results", label: "Results" },
     { href: "#orientation", label: "Orientation" },
     { href: "#bridge-artifacts", label: "Bridge artifacts" },
     { href: "#standards-timeline", label: "Standards timeline" },

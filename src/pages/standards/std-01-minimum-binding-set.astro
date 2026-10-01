@@ -129,8 +129,6 @@ const bindingSets = [
   publishedTime="2025-06-01T00:00:00.000Z"
   mainClass="page page--wide"
 >
-  <ScholarlyMeta publication={publication} permalink={permalink} />
-
   <SectionBlock
     id="principles"
     eyebrow="Principles"
@@ -197,6 +195,7 @@ const bindingSets = [
     title="Cite this minimum binding set."
     description="Use the citation block for audits, procurement, and policy references."
   >
+    <ScholarlyMeta publication={publication} permalink={permalink} />
     <CitationBlock
       title={pageTitle}
       permalink={permalink}

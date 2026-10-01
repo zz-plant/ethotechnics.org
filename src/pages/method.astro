@@ -30,13 +30,13 @@ const {
 const anchorLinks = [
   { href: "#definition", label: "Definition" },
   { href: "#stack", label: "How the parts fit" },
+  { href: "#sequence", label: "Applying it" },
   { href: "#chain", label: "The chain" },
   { href: "#circuits", label: "The two circuits" },
   { href: "#state-variables", label: "The six safeguards" },
   { href: "#laws", label: "The twelve laws" },
   { href: "#incompatible", label: "Sentences that block repair" },
   { href: "#lenses", label: "The three lenses" },
-  { href: "#sequence", label: "Applying it" },
   { href: "#optimization", label: "The optimization problem" },
 ];
 
@@ -85,8 +85,8 @@ const incompatibleSentences = [
     anchorLinks={anchorLinks}
   >
     <Fragment slot="actions">
-      <a class="button primary" href="/standards">Open the standards</a>
-      <a class="button ghost" href="/diagnostics">Run a diagnostic</a>
+      <a class="button primary" href="#sequence">Apply it to one workflow</a>
+      <a class="button ghost" href="/standards">Open the standards</a>
     </Fragment>
   </PageIntro>
 
@@ -132,6 +132,27 @@ const incompatibleSentences = [
     description="The object is the delegation. The failure is absorption: evidence that a delegation is wrong gets settled case by case and never reaches the rule. The instrument is the record. Read the stack from the top: each layer turns the one above it into something a running system can fail."
   >
     <MethodStack />
+  </SectionBlock>
+
+  <SectionBlock
+    id="sequence"
+    eyebrow="Applying it"
+    title="Four steps, one workflow at a time"
+    description="The method is not adopted at the scale of an organization. It is adopted one workflow at a time, and a different workflow each week produces a cross-section of where burden lands."
+  >
+    <ol class="step-list stack-sm">
+      {
+        applicationSequence.map((step) => (
+          <li>
+            <strong>{step.title}.</strong> {step.detail}
+          </li>
+        ))
+      }
+    </ol>
+    <p class="small muted">
+      Step three uses one of the <a href="#lenses">three lenses</a> described
+      further down. The rest of this page is the reasoning behind the steps.
+    </p>
   </SectionBlock>
 
   <SectionBlock
@@ -314,24 +335,6 @@ const incompatibleSentences = [
         ))
       }
     </div>
-  </SectionBlock>
-
-  <SectionBlock
-    id="sequence"
-    eyebrow="Applying it"
-    title="Four steps, one workflow at a time"
-    description="The method is not adopted at the scale of an organization. It is adopted one workflow at a time, and a different workflow each week produces a cross-section of where burden lands."
-    variant="alt"
-  >
-    <ol class="step-list stack-sm">
-      {
-        applicationSequence.map((step) => (
-          <li>
-            <strong>{step.title}.</strong> {step.detail}
-          </li>
-        ))
-      }
-    </ol>
   </SectionBlock>
 
   <SectionBlock

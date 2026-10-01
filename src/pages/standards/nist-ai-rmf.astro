@@ -6,7 +6,7 @@ import { derivePublicationMetadata } from "../../utils/publication";
 
 const pageTitle = "NIST AI Risk Management Framework (AI RMF 1.0)";
 const pageDescription =
-  "An Ethotechnics critique of the NIST AI Risk Management Framework and its voluntary governance model, with an operational templates path.";
+  "An Ethotechnics critique of the NIST AI RMF: voluntary, it asks for feedback, monitoring, and impact mapping and lets the operator decide what counts as done.";
 const permalink = "/standards/nist-ai-rmf";
 const publishedTime = "2026-02-22T00:00:00Z";
 const modifiedTime = "2026-03-04T00:00:00Z";
@@ -14,9 +14,9 @@ const version = "v1.0.0";
 const lastUpdated = "2026-02-22";
 const anchorLinks = [
   { href: "#overview", label: "What it is" },
-  { href: "#operational-templates", label: "Operational templates path" },
   { href: "#critique", label: "Ethotechnics critique" },
   { href: "#failure-mode", label: "Failure mode" },
+  { href: "#operational-templates", label: "Operational templates path" },
 ];
 const publication = derivePublicationMetadata({
   permalink,
@@ -51,48 +51,29 @@ const publication = derivePublicationMetadata({
   </SectionBlock>
 
   <SectionBlock
-    id="operational-templates"
-    eyebrow="Operational templates"
-    title="From the NIST framework to operating controls"
-    description="Four linked steps from interpretation to implementation, each traceable to the one before."
-  >
-    <ol class="muted">
-      <li>
-        <strong>Explainer:</strong>
-        <a href="/standards/nist-ai-rmf">NIST AI RMF overview and critique</a>.
-      </li>
-      <li>
-        <strong>Mechanism template:</strong>
-        <a href="/standards/std-01-mapping-artifact">STD-01 mapping artifact</a>
-        for control-to-evidence mapping.
-      </li>
-      <li>
-        <strong>Outside review:</strong>
-        <a href="/participate#peer-review">Commission a review</a> of your operational
-        templates from Ethotechnics Studio.
-      </li>
-    </ol>
-  </SectionBlock>
-
-  <SectionBlock
     id="critique"
     eyebrow="Ethotechnics critique"
     title="Where the framework falls short"
+    description="The RMF organizes risk management inside an organization. The gaps are in what it asks that organization to show anyone outside it."
     variant="alt"
   >
     <ul class="card__list">
       <li>
-        <strong>Risk framing privileges prediction over control:</strong> “Map/Measure”
-        improves anticipation and documentation but does not force operational reversibility.
+        <strong>Feedback has no deadline and no record.</strong> The RMF is voluntary.
+        It asks organizations to incorporate adjudicated feedback into system design
+        (GOVERN 5.2), and names no record that shows it happened and no clock for
+        it.
       </li>
       <li>
-        <strong>Voluntary + profile-driven:</strong> Organizations can adopt maturity-shaped
-        artifacts without building hard stop or rollback infrastructure.
+        <strong>Authority to run does not expire.</strong> It asks for monitoring
+        after deployment (MANAGE 4) and processes to decommission a system (GOVERN
+        1.7). Nothing makes the authority to keep running lapse unless someone renews
+        it on evidence.
       </li>
       <li>
-        <strong>Governance becomes management activity:</strong> The RMF supports
-        internal practice but does not require demonstrations that a running system
-        can be halted quickly.
+        <strong>Impacts are characterized, not counted.</strong> It asks organizations
+        to characterize impacts on individuals and communities (MAP 5). It does not
+        ask them to measure or publish what the running system costs those people.
       </li>
     </ul>
   </SectionBlock>
@@ -108,6 +89,31 @@ const publication = derivePublicationMetadata({
       exposed while the institution “manages risk” on a slow clock.
     </p>
   </SectionBlock>
+  <SectionBlock
+    id="operational-templates"
+    eyebrow="Operational templates"
+    title="From the NIST framework to operating controls"
+    description="Three linked steps from interpretation to implementation, each traceable to the one before."
+    variant="alt"
+  >
+    <ol class="muted">
+      <li>
+        <strong>Explainer:</strong>
+        <a href="#critique">the critique</a> on this page.
+      </li>
+      <li>
+        <strong>Mechanism template:</strong>
+        <a href="/standards/std-01-mapping-artifact">STD-01 mapping artifact</a>
+        for control-to-evidence mapping.
+      </li>
+      <li>
+        <strong>Outside review:</strong>
+        <a href="/participate#peer-review">Commission a review</a> of your operational
+        templates from Ethotechnics Studio.
+      </li>
+    </ol>
+  </SectionBlock>
+
   <CitationBlock
     title={pageTitle}
     permalink={permalink}

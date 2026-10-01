@@ -43,42 +43,42 @@ const adoptedStandards: StandardsCardModel[] = [
     eyebrow: "OECD",
     title: "OECD AI Principles",
     description:
-      "Principles-based guidance that lacks binding stop authority and time-bounded remediation.",
+      "Non-binding principles: they ask for accountability and set no duty anyone can enforce.",
     href: "/standards/oecd-ai-principles",
   },
   {
     eyebrow: "NIST",
     title: "NIST AI RMF 1.0",
     description:
-      "Risk management maturity without mandatory rollback, halt, or restoration guarantees.",
+      "Voluntary risk management that asks for feedback and impact mapping, and lets the operator decide what counts as done.",
     href: "/standards/nist-ai-rmf",
   },
   {
     eyebrow: "ISO",
     title: "ISO/IEC 42001",
     description:
-      "Management-system certification that can miss runtime stoppability requirements.",
+      "Certifies the management system. Nothing makes one system's authority to act expire.",
     href: "/standards/iso-iec-42001",
   },
   {
     eyebrow: "EU",
     title: "EU AI Act",
     description:
-      "Regulatory compliance framework where enforcement is slower than machine-speed harm.",
+      "Most high-risk systems are self-assessed before release, and their authority does not lapse. A challenge need not reach the system.",
     href: "/standards/eu-ai-act",
   },
   {
     eyebrow: "Corporate",
     title: "Responsible AI programs",
     description:
-      "Internal principles and review boards that rarely grant stop rights to the affected.",
+      "Internal boards and review gates that answer to the company, not to the people a system decides about.",
     href: "/standards/corporate-responsible-ai",
   },
   {
     eyebrow: "Meta-critique",
     title: "Governance by control",
     description:
-      "The general critique: frameworks that govern through documents, roles, and reviews, with no built-in power to stop a running system.",
+      "The general critique: frameworks that govern through documents, roles, and reviews, not through records a running system has to keep.",
     href: "/standards#governance-by-control",
   },
 ];
