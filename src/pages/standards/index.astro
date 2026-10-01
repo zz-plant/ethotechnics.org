@@ -334,7 +334,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       <li>
         <strong>NIST AI RMF</strong> — A voluntary risk management framework (Govern,
         Map, Measure, Manage). Strong on risk identification and documentation. Does
-        not require operational stop authority or recovery time targets.
+        not require operational stop authority or recovery time targets. It asks
+        organizations to characterize impacts on people up front (MAP 5). It does not
+        ask them to measure or publish the time a running system costs those people.
       </li>
       <li>
         <strong>EU AI Act</strong> — A risk-tiered regulatory regime requiring human
@@ -343,9 +345,10 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         or restoration SLAs.
       </li>
       <li>
-        <strong>ISO/IEC 42001</strong> — A management system standard for AI. Governance
-        effort is certified, but certification can coexist with slow or missing rollback
-        authority.
+        <strong>ISO/IEC 42001</strong> — A management system standard for AI. An accredited
+        body certifies the governance effort, but certification can coexist with slow or
+        missing rollback authority. Top management reviews the management system at planned intervals
+        (clause 9.3). Nothing makes one system's authority to act expire.
       </li>
       <li>
         <strong>OECD AI Principles</strong> — Values-oriented guidelines adopted by
@@ -363,9 +366,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     </ul>
     <p>
       These frameworks improve documentation, oversight, and monitoring. They
-      leave one question undertreated: when a running system is shown to be
-      harming people, does anyone have to act on that evidence, quickly, without
-      the harmed person carrying the burden? Acting can mean halting it,
+      leave one question undertreated. When the evidence shows a running system
+      is harming people, does anyone have to act on it, quickly, without the
+      harmed person carrying the burden? Acting can mean halting the system,
       reversing its decisions, repairing the harm, or changing the rule that
       produced it.
     </p>
@@ -373,18 +376,23 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     <p class="eyebrow">TL;DR</p>
     <ul class="card__list">
       <li>
-        Ethotechnics centers what happens once a system is shown to be wrong,
-        and how long harm runs, over documentation.
+        A challenge that succeeds has to reach the rule, not only the one case.
+      </li>
+      <li>
+        Permission to act is a lease: it expires unless someone renews it, and
+        every widening is a new decision.
+      </li>
+      <li>
+        The operator measures and publishes the time a system costs people.
+        Whoever absorbs its errors can challenge it.
       </li>
       <li>
         Governance is a runtime control plane, not a post-hoc review process.
       </li>
-      <li>Oversight is only real when authority and clocks are enforceable.</li>
     </ul>
     <p>
-      Most AI governance standards in use today are built to answer: “Did you
-      manage risk responsibly?” Ethotechnics is built to answer a different
-      question: “When this system is harming someone, does the evidence reach
+      Most AI governance standards in use today answer one question: “Did you
+      manage risk responsibly?” Ethotechnics answers a different one: “When this system is harming someone, does the evidence reach
       someone who has to change it?” The difference is in mechanics, not
       values.
     </p>
@@ -420,7 +428,16 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
               >Registers, assessments, policies</td
             >
             <td data-label="Ethotechnics"
-              >Stop rules, clocks, restoration paths</td
+              >Expiring authority grants, objection records, burden reports</td
+            >
+          </tr>
+          <tr>
+            <th scope="row">Authority</th>
+            <td data-label="Prevailing standards"
+              >One approval, with reviews on a schedule or after a major change</td
+            >
+            <td data-label="Ethotechnics"
+              >A lease that expires unless renewed, and a new decision for each widening</td
             >
           </tr>
           <tr>
@@ -433,7 +450,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           <tr>
             <th scope="row">Measurement</th>
             <td data-label="Prevailing standards">Process maturity</td>
-            <td data-label="Ethotechnics">Recovery time + time-in-harm</td>
+            <td data-label="Ethotechnics"
+              >Time-in-harm + the time the system costs people</td
+            >
           </tr>
           <tr>
             <th scope="row">Challenge</th>
@@ -441,7 +460,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
               >A right to contest one decision</td
             >
             <td data-label="Ethotechnics"
-              >An objection owes a revision or a reasoned refusal, on a clock</td
+              >A revision or a reasoned refusal for each objection, on a clock</td
             >
           </tr>
           <tr>
@@ -457,7 +476,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
               >External (audits, regulators)</td
             >
             <td data-label="Ethotechnics"
-              >Built-in constraints + internal stop power</td
+              >Built-in constraints + internal power to halt, reverse, or revise</td
             >
           </tr>
           <tr>
@@ -485,12 +504,13 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </div>
 
       <div class="panel stack-sm">
-        <p class="eyebrow">2. Mechanical stop authority</p>
+        <p class="eyebrow">2. Authority that has to act</p>
         <p class="small muted">
-          Oversight is symbolic unless it is exercisable on a clock. Rather than
-          advisory ethics committees or perfunctory review gates, Ethotechnics
-          requires named operational roles with independent authority to halt
-          automated decisions without needing consensus.
+          Oversight is symbolic unless someone has to act on what it sees.
+          Rather than advisory ethics committees or perfunctory review gates,
+          Ethotechnics names who can halt, reverse, or revise a running system,
+          and binds them to a clock. An objection owes a revision or a reasoned
+          refusal. A grant lapses unless someone renews it on stated evidence.
         </p>
       </div>
 
@@ -508,8 +528,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     <p>
       Existing standards and Ethotechnics agree that governance matters. The
       question Ethotechnics adds is whether evidence that a system is harming
-      someone compels action, quickly and reliably, without the harmed person
-      carrying the burden: a halt, a reversal, a repair, or a changed rule.
+      someone compels action. The action can be a halt, a reversal, a repair,
+      or a changed rule. It has to come quickly and reliably, and the harmed
+      person must not carry the burden.
     </p>
     <p class="muted">
       That is the difference between governance as documentation and governance

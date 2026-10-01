@@ -5,16 +5,16 @@ import SectionBlock from "../SectionBlock.astro";
 <SectionBlock
   id="difference"
   eyebrow="How this differs"
-  title="Other frameworks ask whether risk was managed. These standards ask whether a challenge that succeeds changes the system."
-  description="They work alongside the GDPR, the EU AI Act, NIST, ISO 42001, and the OECD principles. They cover what those leave vague: who has to act when a running system is shown to be wrong, how fast, and who carries the cost until they do."
+  title="Other frameworks ask whether an institution manages risk. These standards ask whether a challenge that succeeds changes the system."
+  description="They work alongside the GDPR, the EU AI Act, NIST, ISO 42001, and the OECD principles. They cover what those leave vague: who has to act when a running system is wrong, when its permission to act ends, and who carries the cost until then."
   variant="default"
 >
   <p>
     Most AI governance frameworks improve documentation and oversight. They say
-    less about what happens once a running system is shown to be wrong: whether
-    it is halted, reversed, and repaired, and how long that takes for the person
-    it is harming. They say least about whether the rule that produced the error
-    changes, or only the one case.
+    less about what happens once a running system is wrong: whether someone
+    halts it, reverses its decisions, and repairs the harm, and how long the
+    person it is harming waits. They say least about whether anyone changes the
+    rule that produced the error, or only the one case.
   </p>
   <p>
     When a system cuts its own workload, the work it drops lands on someone:
@@ -38,8 +38,28 @@ import SectionBlock from "../SectionBlock.astro";
             <span class="small muted">GDPR, Art. 22(3)</span>
           </td>
           <td data-label="Ethotechnics requires">
-            An objection owes a revision or a reasoned refusal, on the record,
-            within a set clock
+            A revision or a reasoned refusal for every objection, on the
+            record, within a set clock
+          </td>
+        </tr>
+        <tr>
+          <td data-label="Existing standard says">
+            "Review the management system at planned intervals"<br />
+            <span class="small muted">ISO/IEC 42001, cl. 9.3</span>
+          </td>
+          <td data-label="Ethotechnics requires">
+            A grant that expires unless someone renews it on evidence stated in
+            advance, and a new authorization for every widening of scope
+          </td>
+        </tr>
+        <tr>
+          <td data-label="Existing standard says">
+            "Characterize impacts on individuals and communities"<br />
+            <span class="small muted">NIST AI RMF, MAP 5</span>
+          </td>
+          <td data-label="Ethotechnics requires">
+            A published measure of the time the system costs people, and
+            standing for whoever absorbs its errors
           </td>
         </tr>
         <tr>
@@ -49,26 +69,6 @@ import SectionBlock from "../SectionBlock.astro";
           </td>
           <td data-label="Ethotechnics requires">
             Named human with stop authority, tested halt path, recovery clock
-          </td>
-        </tr>
-        <tr>
-          <td data-label="Existing standard says">
-            "Manage risks across the AI lifecycle"<br />
-            <span class="small muted">NIST AI RMF</span>
-          </td>
-          <td data-label="Ethotechnics requires">
-            Measurable time-in-harm bounds, exercised rollback and restoration
-            paths
-          </td>
-        </tr>
-        <tr>
-          <td data-label="Existing standard says">
-            "Conduct conformity assessment"<br />
-            <span class="small muted">ISO/IEC 42001</span>
-          </td>
-          <td data-label="Ethotechnics requires">
-            Evidence that the system can be stopped mid-incident, rather than
-            documented as compliant
           </td>
         </tr>
         <tr>
@@ -84,8 +84,8 @@ import SectionBlock from "../SectionBlock.astro";
     </table>
   </div>
   <p class="muted small">
-    Each requirement on the right can be tested against a running system. A
-    compliance document cannot pass it on its own. See the
+    Each requirement on the right is a test a running system passes or fails.
+    A compliance document cannot pass it on its own. See the
     <a href="/standards/#comparison">full standards comparison</a> for the detailed
     analysis.
   </p>
