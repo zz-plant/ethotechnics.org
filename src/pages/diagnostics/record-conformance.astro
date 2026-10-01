@@ -45,12 +45,17 @@ const permalink = `/diagnostics/${tool.slug}`;
       <p class="eyebrow">Run it in CI</p>
       <h3 id="conformance-ci-title">The same checker, as a command</h3>
       <p>
+        The GitHub Action <code>zz-plant/ethotechnics.org</code> runs this checker
+        on a record stream in CI, fails the job when the stream earns less than it
+        declares, and annotates each finding with its clause. It runs from its own
+        checkout with the runner's Node and installs nothing, so pin it to a commit.
+      </p>
+      <p>
+        From a clone of the repository,
         <code
-          >npx @ethotechnics/conformance records.jsonl --manifest manifest.json</code
-        > grades a stream from the shell and exits non-zero when the log has not earned
-        the level it declares. The GitHub Action
-        <code>zz-plant/ethotechnics.org</code> runs it on every pull request and annotates
-        each finding with its clause.
+          >node packages/conformance/action/cli.mjs records.jsonl --manifest
+          manifest.json</code
+        > does the same from the shell. The npm package is not published yet.
       </p>
       <p class="small muted">
         <a

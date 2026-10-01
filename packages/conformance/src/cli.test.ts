@@ -1,11 +1,21 @@
 import { describe, expect, it } from "bun:test";
+import { mkdtempSync, symlinkSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 
 import {
   EXAMPLE_MANIFEST,
   EXAMPLE_STREAM,
 } from "../../../src/features/record-conformance/example";
 import { auditRecords } from "../../../src/features/record-conformance/conformance";
-import { formatGithub, formatText, parseArgs, shouldFail } from "./cli";
+import {
+  formatGithub,
+  formatText,
+  isEntryPoint,
+  parseArgs,
+  shouldFail,
+} from "./cli";
 
 describe("parseArgs", () => {
   it("requires exactly one records file", () => {
@@ -128,5 +138,30 @@ describe("output formats", () => {
     expect(annotations.length).toBe(report.findings.length);
     expect(annotations[0]).toMatch(/^::error file=records\.jsonl,title=/);
     for (const line of annotations) expect(line).not.toMatch(/[^%]\n/);
+  });
+});
+
+describe("entry point", () => {
+  const cliPath = fileURLToPath(new URL("./cli.ts", import.meta.url));
+
+  it("does not run when a test imports it", () => {
+    expect(
+      isEntryPoint(process.argv[1], new URL("./cli.ts", import.meta.url).href),
+    ).toBe(false);
+  });
+
+  // npx and an installed bin reach the CLI through a symlink. A run that does
+  // nothing and exits 0 is a passing CI job that checked no records.
+  it("runs when started through a bin symlink", () => {
+    const dir = mkdtempSync(join(tmpdir(), "conformance-bin-"));
+    const bin = join(dir, "ethotechnics-conformance");
+    symlinkSync(cliPath, bin);
+    expect(isEntryPoint(bin, new URL("./cli.ts", import.meta.url).href)).toBe(
+      true,
+    );
+
+    const result = Bun.spawnSync(["bun", bin]);
+    expect(result.exitCode).toBe(2);
+    expect(result.stderr.toString()).toContain("exactly one records file");
   });
 });

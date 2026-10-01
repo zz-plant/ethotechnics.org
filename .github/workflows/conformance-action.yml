@@ -1,0 +1,65 @@
+name: Conformance action
+
+# Runs the GitHub Action in action.yml against committed fixtures, the way a
+# consumer would call it. The Action once installed its checker from an npm
+# package that was never published, and the CLI exited 0 without reading a
+# record when started through a symlink. Either failure looks like a passing
+# job, so this workflow asserts both directions: a stream that earns its level
+# passes, and a tampered stream fails.
+
+on:
+  pull_request:
+    paths:
+      - action.yml
+      - packages/conformance/**
+      - src/features/record-conformance/**
+      - src/utils/revisable-delegation-record.ts
+      - .github/workflows/conformance-action.yml
+  push:
+    branches: [main]
+    paths:
+      - action.yml
+      - packages/conformance/**
+      - src/features/record-conformance/**
+      - src/utils/revisable-delegation-record.ts
+      - .github/workflows/conformance-action.yml
+
+permissions:
+  contents: read
+
+jobs:
+  action:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Grade a stream that earns its level
+        id: example
+        uses: ./
+        with:
+          records: packages/conformance/fixtures/example.jsonl
+          manifest: packages/conformance/fixtures/example.manifest.json
+          as-of: "2026-09-08T00:00:00Z"
+
+      - name: Expect level 3
+        env:
+          EARNED: ${{ steps.example.outputs.earned-level }}
+        run: test "$EARNED" = "3"
+
+      - name: Grade a stream with a record edited after hashing
+        id: tampered
+        continue-on-error: true
+        uses: ./
+        with:
+          records: packages/conformance/fixtures/tampered.jsonl
+          manifest: packages/conformance/fixtures/example.manifest.json
+          as-of: "2026-09-08T00:00:00Z"
+
+      - name: Expect the tampered stream to fail
+        env:
+          OUTCOME: ${{ steps.tampered.outcome }}
+          EARNED: ${{ steps.tampered.outputs.earned-level }}
+        run: |
+          test "$OUTCOME" = "failure"
+          test "$EARNED" = "0"
