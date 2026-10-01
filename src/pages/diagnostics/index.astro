@@ -7,6 +7,7 @@ import CitationBlock from "../../components/CitationBlock.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import { diagnosticsContent } from "../../content/diagnostics";
+import { studioSummary } from "../../content/studio";
 
 const {
   pageTitle,
@@ -73,7 +74,7 @@ const toolCards = quickTriagePrompts.flatMap((prompt) => {
 // cards: the symptom each tool answers and the standard it reports against.
 const standardsMap = [
   {
-    tool: "Burden Modeler",
+    tool: "Workload Modeler",
     symptom:
       "Silent absorption: staff burnout, manual overrides, uncounted workaround labor.",
     output: "Burden score and hotspot ranking",
@@ -362,16 +363,12 @@ const selfDefenseTools = [
 
   <section
     class="cta stack-md"
-    aria-label="Commercial advisory and custom audits"
+    aria-label="Commissioned evaluation by Ethotechnics Studio"
   >
     <div class="stack-sm">
       <p class="eyebrow">Ethotechnics Studio</p>
-      <h2>Custom risk modeling and commissioned diligence</h2>
-      <p class="muted">
-        Ethotechnics Studio runs clinical AI safety evaluations, VC portfolio
-        diligence, custom governance tooling, and independent audit
-        verification.
-      </p>
+      <h2>Commissioned evaluation of healthcare AI</h2>
+      <p class="muted">{studioSummary}</p>
     </div>
     <div class="actions">
       <a

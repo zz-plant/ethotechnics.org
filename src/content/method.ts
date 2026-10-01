@@ -177,7 +177,7 @@ export const methodContent: MethodContent = {
       question: "Who carries the burden of this decision, and for how long?",
       currentAssets: [
         "Burden hours schema",
-        "Burden modeler and burden budget worksheet",
+        "VAL-01 Burden Modeler and the burden budget worksheet",
         "The three lenses, in the method",
         "STD-01 Temporal Bill of Rights clocks",
       ],

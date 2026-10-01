@@ -46,8 +46,9 @@ export type UseCase = {
   /**
    * The tool to run first, and what it tells you here. A slug names a
    * diagnostic; with `validator`, it names one of the /validators forms. The
-   * two registries share the name "Burden Modeler" for different tools: the
-   * diagnostic rates staff workload, VAL-01 scores the affected person's time.
+   * diagnostic named Workload Modeler (at /diagnostics/burden-modeler) rates
+   * staff workload; VAL-01, the Burden Modeler, scores the affected person's
+   * time.
    */
   runFirst: { slug: string; validator?: boolean; note: string };
   /** Worked examples and sector comparisons under /examples. */
@@ -62,6 +63,8 @@ export type UseCase = {
    * gives the person a specific request to make.
    */
   personCanAsk?: string;
+  /** True where Ethotechnics Studio takes commissioned work (src/content/studio.ts). */
+  studio?: boolean;
 };
 
 export type Boundary = {
@@ -147,7 +150,7 @@ export const useCasesContent: UseCasesContent = {
     {
       title: "Organizes a self-report",
       description:
-        "The Delegation Audit, the corrective capacity self-assessment, the Burden Modeler, the three validators, and the 60-second self-test score what a team enters about its system. None of them verifies it.",
+        "The Delegation Audit, the corrective capacity self-assessment, the Workload Modeler, the three validators, and the 60-second self-test score what a team enters about its system. None of them verifies it.",
       links: [
         { label: "Delegation Audit", href: "/diagnostics/delegation-audit" },
         { label: "All diagnostics", href: "/diagnostics" },
@@ -156,7 +159,7 @@ export const useCasesContent: UseCasesContent = {
     {
       title: "Proposes",
       description:
-        "STD-01 to STD-09 are drafts, apart from STD-04, which is deprecated. None has force until an organization adopts it or a contract cites it. The case scores are this project's reading of what courts, inquiries, and regulators found.",
+        "Every standard here is a draft, apart from STD-04, which is deprecated. None has force until an organization adopts it or a contract cites it. The case scores are this project's reading of what courts, inquiries, and regulators found.",
       links: [
         { label: "Standards and their status", href: "/standards" },
         { label: "How the cases are scored", href: "/casebook" },
@@ -287,6 +290,7 @@ export const useCases: UseCase[] = [
   {
     id: "health-coverage",
     title: "Health coverage and care decisions",
+    studio: true,
     decides:
       "Whether a treatment is authorized or a claim is paid, and how a patient is triaged.",
     systems:

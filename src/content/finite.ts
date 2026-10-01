@@ -146,7 +146,7 @@ export const finiteContent = {
       { label: "Explore pilot details", href: "#pilot", variant: "primary" },
       {
         label: "Talk with the team",
-        href: "mailto:studio@ethotechnics.org",
+        href: "mailto:hello@ethotechnics.org",
         variant: "ghost",
       },
     ],
@@ -344,7 +344,7 @@ export const finiteContent = {
     ],
     contact: {
       label: "Email the team",
-      href: "mailto:studio@ethotechnics.org",
+      href: "mailto:hello@ethotechnics.org",
       description:
         "Tell us about your workflows and risk surface. We will schedule a walkthrough and select scenarios that show how stoppable your systems are today.",
     },
@@ -353,7 +353,7 @@ export const finiteContent = {
     title: "Sample Finite scorecard",
     description:
       "The scorecard structure for recording shutdown, reversibility, and volatility export findings.",
-    href: "mailto:studio@ethotechnics.org?subject=Finite%20scorecard%20sample",
+    href: "mailto:hello@ethotechnics.org?subject=Finite%20scorecard%20sample",
     label: "Request the sample scorecard",
   },
   institutionalGames: {
