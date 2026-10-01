@@ -121,7 +121,7 @@ export function BurdenModeler() {
   return (
     <div className="panel panel--glass burden-modeler" data-burden-modeler>
       <div className="burden-modeler__header">
-        <p className="eyebrow">Burden Modeler</p>
+        <p className="eyebrow">Workload Modeler</p>
         <h2>See where the workload piles up and what would reduce it.</h2>
         <p className="muted">
           Rate from 0 to 10 how much operational and cognitive load each factor
@@ -432,11 +432,10 @@ export function BurdenModeler() {
           <div className="result-card result-card--cta">
             <div>
               <p className="eyebrow">Outside help</p>
-              <h3>Need facilitation?</h3>
+              <h3>Running a healthcare AI system?</h3>
               <p className="muted">
-                If the index reads Overloaded, Ethotechnics Studio can run a facilitated
-                session under commission: weighting inputs with your support staff, checking the
-                relief estimates, and drafting an escalation plan.
+                If the index reads Overloaded, Ethotechnics Studio&apos;s safeguards review
+                lists the gaps under commission, ranked by the harm they could do.
               </p>
             </div>
             <a
@@ -445,7 +444,7 @@ export function BurdenModeler() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Book a facilitated burden modeling session
+              Ethotechnics Studio
             </a>
           </div>
         </div>

@@ -162,7 +162,7 @@ export const navSections: NavSection[] = [
       },
       {
         href: "/diagnostics/burden-modeler",
-        label: "Burden modeler",
+        label: "Workload modeler",
         description:
           "Bring workload ratings: where the work a system creates concentrates",
       },

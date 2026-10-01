@@ -6,14 +6,15 @@ import SectionBlock from "../../components/SectionBlock.astro";
 import InstituteStudioComparison from "../../components/InstituteStudioComparison.astro";
 import StudioBadge from "../../components/StudioBadge.astro";
 import { instituteStudioComparisonContent } from "../../content/comparison";
+import { studio, studioMailto } from "../../content/studio";
 
 const pageTitle = "How Studio fits";
 const pageDescription =
-  "When the Institute's open standards and diagnostics are enough, and when to commission the Studio for facilitation, mediation, or delivery work.";
+  "When the Institute's open standards and diagnostics are enough, and when to commission Ethotechnics Studio to evaluate a healthcare AI system.";
 const anchorLinks = [
   { href: "#positioning", label: "Institute vs Studio" },
   { href: "#self-serve", label: "Stay self-serve" },
-  { href: "#escalation", label: "When to escalate" },
+  { href: "#offers", label: "What the Studio does" },
   { href: "#boundaries", label: "Engagement boundaries" },
   { href: "#contact", label: "Contact" },
 ];
@@ -23,6 +24,7 @@ const anchorLinks = [
   title={`${pageTitle} — Ethotechnics Institute`}
   description={pageDescription}
   publishedTime="2025-06-01T00:00:00.000Z"
+  modifiedTime="2026-10-01T00:00:00.000Z"
 >
   <PageIntro
     eyebrow="Institute"
@@ -39,7 +41,7 @@ const anchorLinks = [
     id="positioning"
     eyebrow="Positioning"
     title="Institute vs. Studio"
-    description="The Institute publishes the framework. The Studio applies it to one organization's systems under commission."
+    description="The Institute publishes the framework. The Studio applies it to one organization's healthcare AI system under commission."
   >
     <InstituteStudioComparison content={instituteStudioComparisonContent} />
   </SectionBlock>
@@ -52,11 +54,14 @@ const anchorLinks = [
     variant="alt"
   >
     <ul class="muted">
-      <li>Run a diagnostic to translate risk into a report card.</li>
+      <li>Run a diagnostic and file the readout it returns.</li>
       <li>
-        Pull mechanism specs for governance, friction, or policy safeguards.
+        Find the standards and first check for your kind of system on
+        <a href="/use-cases">which systems this is for</a>.
       </li>
-      <li>Use stable permalinks in memos, audits, or decision logs.</li>
+      <li>
+        Cite stable permalinks in memos, contracts, audits, or decision logs.
+      </li>
       <li>
         Share draft standards internally before committing to delivery changes.
       </li>
@@ -64,39 +69,46 @@ const anchorLinks = [
   </SectionBlock>
 
   <SectionBlock
-    id="escalation"
-    eyebrow="When to escalate"
-    title="Bring in the Studio when the decision window is tight"
-    description="Studio support is for facilitation, mediation, or delivery tasks that need a partner."
+    id="offers"
+    eyebrow="Commissioned work"
+    title="What the Studio does"
+    description={`${studio.focus}, for ${studio.clients}. As listed on ethotechnics.com on ${studio.checked}.`}
   >
     <ul class="muted">
-      <li>You need a neutral facilitator for governance or appeals.</li>
-      <li>Multiple teams are blocked on a binding policy decision.</li>
-      <li>A diagnostic surfaced risk and needs rapid remediation.</li>
-      <li>
-        You are preparing a consequential launch and want an outside party to
-        share accountability for it.
-      </li>
+      {
+        studio.offers.map((offer) => (
+          <li>
+            <strong>{offer.name}</strong> ({offer.format}). {offer.output}
+          </li>
+        ))
+      }
     </ul>
+    <p class="small muted">
+      Prices and current availability are on
+      <a href={studio.href} rel="noopener noreferrer" target="_blank"
+        >ethotechnics.com</a
+      >. Most of the work falls under the
+      <a href="/use-cases#health-coverage">health coverage and care</a> context.
+    </p>
   </SectionBlock>
 
   <SectionBlock
     id="boundaries"
     eyebrow="Boundaries"
     title="Studio engagements stay aligned to published standards"
-    description="Engagements focus on delivery and facilitation, not rewriting the public standard."
+    description="Engagements apply the public standard. They do not rewrite it, and they do not certify a system."
     variant="alt"
   >
     <ul class="muted">
       <li>
-        Studio engagements reference the same standards and mechanisms published
+        Studio engagements cite the same standards and mechanisms published
         here.
       </li>
-      <li>Outcomes feed back into public artifacts when possible.</li>
       <li>
-        Escalations should still preserve open access to the Institute
-        materials.
+        An evaluation states what the Studio found. Accountability for the
+        system stays with the organization that runs it.
       </li>
+      <li>Outcomes feed back into public artifacts when possible.</li>
     </ul>
   </SectionBlock>
 
@@ -104,11 +116,11 @@ const anchorLinks = [
     id="contact"
     eyebrow="Contact"
     title="Contact the Studio"
-    description="Studio intake is by email."
+    description="Book a consultation on ethotechnics.com, or email the Studio."
   >
     <p class="muted">
-      Email <a href="mailto:studio@ethotechnics.org">studio@ethotechnics.org</a> with
-      the diagnostic output or risk brief so the team can route you to the right forum.
+      Email <a href={studioMailto()}>{studio.email}</a>. Include the system, the
+      decision it makes, and any diagnostic readout you already have.
     </p>
   </SectionBlock>
 </BaseLayout>

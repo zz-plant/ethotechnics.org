@@ -147,7 +147,7 @@ export const researchContent: ResearchContent = {
       period: "2026 Q1",
       title: "STD-01 ratification draft",
       summary:
-        "Version 1.0 was released for public review. It stays a draft until two independent implementation reports and a standards council ratification.",
+        "Version 1.0 was released for public review. It stays a draft until two independent implementation reports and a decision recorded through the RFC process.",
       standardRef: "STD-01",
       href: "/standards/std-01-temporal-rights",
     },
@@ -295,16 +295,16 @@ export const researchContent: ResearchContent = {
       type: "report",
       status: "planned",
       summary:
-        "Planned pilot to test which operational signals the burden modeler should weight most.",
+        "Planned pilot to test which operational signals the Workload Modeler should weight most.",
       tags: ["diagnostics", "measurement", "governance"],
       glossaryRefs: ["burden-index", "signal-credibility"],
       href: "/diagnostics/burden-modeler",
-      ctaLabel: "Open the burden modeler",
+      ctaLabel: "Open the Workload Modeler",
       structuredAbstract: {
         question:
           "Which operational signals most reliably predict sustained burden?",
         method:
-          "Planned: burden modeler outputs compared with debriefs from the teams involved.",
+          "Planned: Workload Modeler outputs compared with debriefs from the teams involved.",
         sample: "No scenarios have been collected.",
         findings: "None yet.",
         limitations:
@@ -326,7 +326,7 @@ export const researchContent: ResearchContent = {
         "Workshop slides for negotiating stewardship windows with cross-functional leads.",
       tags: ["maintenance", "governance", "operations"],
       glossaryRefs: ["stewardship-window"],
-      href: "mailto:studio@ethotechnics.org?subject=Maintenance%20readiness%20deck",
+      href: "mailto:hello@ethotechnics.org?subject=Maintenance%20readiness%20deck",
       ctaLabel: "Request the deck",
       structuredAbstract: {
         question: "Do stewardship windows improve maintenance readiness?",

@@ -90,7 +90,7 @@ The site separates three layers so a reader can adopt a standard without accepti
 
 ### Standards & Compliance
 - **Standards Catalogue**: https://ethotechnics.org/standards
-  - Status: STD-01 to STD-09 are drafts (STD-04, the FHIR profile set, is deprecated). MVC-01 and PM-01 are marked stable. None has force until an organization adopts it or a contract cites it.
+  - Status: every standard is a draft, apart from STD-04, the FHIR profile set, which is deprecated. None has force until an organization adopts it or a contract cites it.
   - STD-01: Temporal Bill of Rights (clocks, deadlines, exit)
   - STD-02: Contestability and Recourse
   - STD-03: Justice SLOs
@@ -127,8 +127,8 @@ The site separates three layers so a reader can adopt a standard without accepti
   - Belief level. Walks a delegation against the six state variables and reports where they have drifted apart. It records what a team believes and verifies none of it.
 - **Record Conformance Checker**: https://ethotechnics.org/diagnostics/record-conformance
   - Evidence level. Parses a stream of STD-07 records, validates the schema, recomputes the hashes, and returns the conformance level the stream earns against the level its emitter declares.
-- **Burden Modeler**: https://ethotechnics.org/diagnostics/burden-modeler
-  - Belief level. Scores seven workload drivers a team rates (interruptions, handoffs, tooling, runbooks, incidents, coverage, decision debt) and ranks where load concentrates. Not to be confused with VAL-01 at /validators/burden-modeler, which scores the time a user journey takes from the affected person.
+- **Workload Modeler**: https://ethotechnics.org/diagnostics/burden-modeler
+  - Belief level. Scores seven workload drivers a team rates (interruptions, handoffs, tooling, runbooks, incidents, coverage, decision debt) and ranks where load concentrates. Distinct from VAL-01, the Burden Modeler at /validators/burden-modeler, which scores the time a user journey takes from the affected person.
 - **Corrective capacity self-assessment**: https://ethotechnics.org/diagnostics/corrective-debt-calculator
   - Belief level. Scores five self-reported answers on whether the institution can correct what it decides.
 - **Finite Loop**: https://ethotechnics.org/finite
@@ -193,11 +193,11 @@ Schemas under https://ethotechnics.org/standards/ include authority-grant, capab
 
 ## 5. Commercial Advisory & Studio Services
 
-Ethotechnics Studio (https://ethotechnics.com) provides commissioned commercial services for enterprise organizations, healthcare systems, and venture funds:
-- Clinical AI Safety & Verification Audits
-- VC Diligence & Technical AI Risk Assessment
-- Custom Governance Architecture & Policy Formulation
-- Independent GRC & Stoppability Auditing
+Ethotechnics Studio (https://ethotechnics.com) does commissioned safety evaluation for healthcare AI, for health plans, healthcare AI companies, and investors in healthcare AI. As listed on ethotechnics.com on 2026-10-01:
+- Safeguards review (60 minutes): a written list of gaps, ranked by the harm they could do.
+- Readiness sprint (2 weeks): one workflow mapped end to end: who can stop it, how fast, and who owns each fix.
+- Investor diligence (5 business days): the clinical safety, evidence, and regulatory exposure of a healthcare AI deal, in a memo you can cite.
+- Clinical AI safety evaluation (2 to 3 weeks): a written evaluation against FDA and EU AI Act expectations, with a summary for your board.
 
 ---
 
@@ -208,7 +208,7 @@ Ethotechnics Studio (https://ethotechnics.com) provides commissioned commercial 
 - **Intake & Collaboration**: https://ethotechnics.org/participate
 - **RSS Feed**: https://ethotechnics.org/rss.xml
 - **Email Inquiries**: mailto:hello@ethotechnics.org
-- **Studio Inquiries**: mailto:studio@ethotechnics.org
+- **Studio Inquiries**: mailto:hello@ethotechnics.com
 - **Citation (BibTeX)**:
 ```bibtex
 @misc{ethotechnics2026,

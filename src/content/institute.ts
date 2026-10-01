@@ -1,4 +1,5 @@
 import type { AnchorLink, PageWithPermalink, PublishedContent } from "./types";
+import { studio, studioSummary } from "./studio";
 
 export type GovernanceItem = {
   title: string;
@@ -66,43 +67,39 @@ export const instituteContent: InstituteContent = {
       tags: ["Self-serve", "Open CC BY-SA 4.0", "Library-first"],
     },
     {
-      title: "Choose the right program",
+      title: "Contribute to the library",
       detail:
-        "Join a sprint, research cohort, or forum that matches your decision window.",
-      tags: ["Sprints", "Cohorts", "Forums"],
+        "Send a public failure for scoring, a correction, or a draft guide for the library.",
+      tags: ["Cases", "Corrections", "Guides"],
     },
     {
       title: "Know when to escalate",
       detail:
-        "When a diagnostic surfaces a risk your team cannot close alone, the Studio takes it on as a commissioned engagement. The comparison below shows where that handoff happens.",
-      tags: ["Escalation", "Studio partnership", "Fast triage"],
+        "When a healthcare AI system needs an outside evaluation, the Studio takes it on as commissioned work. The comparison below shows where that handoff happens.",
+      tags: ["Escalation", "Studio partnership"],
     },
   ],
   programs: [
     {
-      title: "Readiness diagnostics",
+      title: "Self-serve diagnostics",
       detail:
-        "Short exercises that rate risk in data handling, user consent, and impact after launch.",
+        "Four tools that take one workflow or one record stream and return a readout you can file.",
       outcome:
-        "Outputs: a risk map, suggested mitigations, and links to the Library pages behind each one.",
-      status: "Rolling access",
-      howToJoin:
-        "Start with the diagnostics menu and share your readout for routing.",
-      ctaLabel: "Request a diagnostic review",
-      ctaHref:
-        "mailto:studio@ethotechnics.org?subject=Diagnostic%20review%20request",
+        "Outputs: a scored readout, the mechanisms behind each finding, and a link you can share.",
+      status: "Open",
+      howToJoin: "Run one from the diagnostics page. No contact is needed.",
+      ctaLabel: "Open the diagnostics",
+      ctaHref: "/diagnostics",
     },
     {
-      title: "Decision forums",
-      detail:
-        "Short governance reviews of a pending decision by reviewers from outside the team.",
-      outcome:
-        "Outputs: a logged decision, accountable steward, and follow-ups with owners and dates.",
-      status: "Quarterly cohorts",
-      howToJoin: "Email the Studio to be matched with the next forum window.",
-      ctaLabel: "Join the next forum",
-      ctaHref:
-        "mailto:studio@ethotechnics.org?subject=Decision%20forum%20request",
+      title: "Studio engagements",
+      detail: studioSummary,
+      outcome: `Outputs, as the Studio lists them: ${studio.offers.map((offer) => offer.output.charAt(0).toLowerCase() + offer.output.slice(1).replace(/\.$/, "")).join("; ")}.`,
+      status: "Commissioned",
+      howToJoin:
+        "Book a consultation on ethotechnics.com, or email the Studio.",
+      ctaLabel: "Visit Ethotechnics Studio",
+      ctaHref: studio.href,
     },
     {
       title: "Publishing pipeline",
@@ -127,7 +124,7 @@ export const instituteContent: InstituteContent = {
     {
       title: "Documented safeguards",
       detail:
-        "Escalation paths, appeal windows, and office hours when a diagnostic shows heightened risk.",
+        "Escalation paths and comment windows for the Institute's own decisions, each recorded as an RFC.",
       artifactLabel: "Review current RFCs",
       artifactHref: "/institute/governance#open-rfcs",
     },
@@ -151,18 +148,17 @@ export const instituteContent: InstituteContent = {
   ],
   contact: [
     {
-      label: "Book a diagnostic review",
-      href: "mailto:studio@ethotechnics.org",
-      description:
-        "Share the diagnostic output or risk area so we can suggest the right forum.",
-      linkLabel: "Email Studio",
+      label: "Commission the Studio",
+      href: studio.href,
+      description: `For an outside evaluation of a healthcare AI system. Book on ethotechnics.com or email ${studio.email}.`,
+      linkLabel: "Ethotechnics Studio",
     },
     {
-      label: "Propose a program partnership",
-      href: "mailto:studio@ethotechnics.org",
+      label: "Contribute a case or a guide",
+      href: "mailto:hello@ethotechnics.org?subject=Contribution",
       description:
-        "Co-develop a cohort, publish a playbook, or request facilitation support.",
-      linkLabel: "Email Studio",
+        "Send a public failure for scoring, a correction, or a draft guide for the library.",
+      linkLabel: "Email hello@ethotechnics.org",
     },
     {
       label: "Press and speaking",
