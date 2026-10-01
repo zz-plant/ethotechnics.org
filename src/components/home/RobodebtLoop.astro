@@ -23,21 +23,26 @@ const robodebt = casesBySlug.get("robodebt");
 const rulings = robodebt?.timeline?.find(
   (event) => event.voice?.speaker === "The Administrative Appeals Tribunal",
 );
-const period = robodebt?.period ?? "July 2016 to November 2019";
-const ruled = rulings?.voice?.said ?? "The debt is unlawful.";
-const ruledWhen = rulings?.when ?? "2017–19";
+const period = robodebt?.period;
+const ruled = rulings?.voice?.said;
+const ruledWhen = rulings?.when;
 
 // The crowd is a crowd, not a count: seven figures stand for everyone who
 // got a notice. The last one is the person whose appeal is followed.
-const people = [28, 60, 92, 124, 156, 188, 220];
-const appellant = people[people.length - 1]!;
+const appellant = 220;
+const people = [28, 60, 92, 124, 156, 188, appellant];
 const headY = 132;
 
-const description = `Robodebt drawn as a loop. The scheme, ${period}, sends 470,000 unlawful debts to people. One person appeals. The tribunal rules "${ruled}" and the ruling goes back to that one person: one debt fixed. This happened dozens of times, ${ruledWhen}. The path from the rulings back to the scheme is broken: no ruling changed the scheme.`;
+// Drawn only while the casebook still holds every fact the figure states.
+const description =
+  period &&
+  ruled &&
+  ruledWhen &&
+  `Robodebt drawn as a loop. The scheme, ${period}, sends 470,000 unlawful debts to people. One person appeals. The tribunal rules "${ruled}" and the ruling goes back to that one person: one debt fixed. This happened dozens of times, ${ruledWhen}. The path from the rulings back to the scheme is broken: no ruling changed the scheme.`;
 ---
 
 {
-  robodebt && (
+  description && (
     <figure
       class:list={["home-loop", className]}
       aria-labelledby="home-loop-caption"
