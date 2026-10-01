@@ -1500,7 +1500,7 @@ registerResource("agent://onboarding", "agent://onboarding", async () => {
   const onboarding = `# Agent Onboarding & Quick Start
 
 ## 🎯 Mission
-This repo powers ethotechnics.org: open standards, scored public failures, and diagnostics for keeping automated decision systems stoppable, explainable, and appealable. See AGENTS.md for the public copy voice.
+This repo powers ethotechnics.org: open standards, scored public failures, and diagnostics for keeping automated decision systems answerable: when one is wrong, the evidence reaches someone who has to change it. See AGENTS.md for the public copy voice.
 
 ## 🚀 Getting Started
 1. Run \`bun run agent:doctor\` to verify your environment.

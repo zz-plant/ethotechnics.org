@@ -326,8 +326,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   >
     <p class="eyebrow">The landscape</p>
     <p>
-      Four frameworks dominate AI governance today. Each addresses a different
-      part of the problem:
+      Four frameworks dominate AI governance today, and one data protection
+      law already governs automated decisions. Each addresses a different part
+      of the problem:
     </p>
     <ul class="card__list">
       <li>
@@ -351,18 +352,29 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         governments. Non-binding by design; accountability becomes interpretive after
         harm.
       </li>
+      <li>
+        <strong>GDPR, Article 22</strong> — Limits solely automated decisions with
+        legal or similarly significant effects. Where a contract or the person's
+        consent allows one, the controller must offer at least human
+        intervention, a chance to state a view, and a way to contest the
+        decision. The right attaches to that one decision. Nothing in Article 22
+        makes a run of successful contests a reason to revise the rule.
+      </li>
     </ul>
     <p>
       These frameworks improve documentation, oversight, and monitoring. They
-      leave one question undertreated: while harm is occurring, can the system
-      be stopped quickly and reliably, without the harmed person carrying the
-      burden?
+      leave one question undertreated: when a running system is shown to be
+      harming people, does anyone have to act on that evidence, quickly, without
+      the harmed person carrying the burden? Acting can mean halting it,
+      reversing its decisions, repairing the harm, or changing the rule that
+      produced it.
     </p>
 
     <p class="eyebrow">TL;DR</p>
     <ul class="card__list">
       <li>
-        Ethotechnics centers stoppability and time-in-harm over documentation.
+        Ethotechnics centers what happens once a system is shown to be wrong,
+        and how long harm runs, over documentation.
       </li>
       <li>
         Governance is a runtime control plane, not a post-hoc review process.
@@ -372,8 +384,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     <p>
       Most AI governance standards in use today are built to answer: “Did you
       manage risk responsibly?” Ethotechnics is built to answer a different
-      question: “Can this system be stopped and repaired when it is harming
-      someone?” The difference is in mechanics, not values.
+      question: “When this system is harming someone, does the evidence reach
+      someone who has to change it?” The difference is in mechanics, not
+      values.
     </p>
     <p>
       In consequential systems the dominant failure mode is now temporal.
@@ -421,6 +434,15 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
             <th scope="row">Measurement</th>
             <td data-label="Prevailing standards">Process maturity</td>
             <td data-label="Ethotechnics">Recovery time + time-in-harm</td>
+          </tr>
+          <tr>
+            <th scope="row">Challenge</th>
+            <td data-label="Prevailing standards"
+              >A right to contest one decision</td
+            >
+            <td data-label="Ethotechnics"
+              >An objection owes a revision or a reasoned refusal, on a clock</td
+            >
           </tr>
           <tr>
             <th scope="row">Monitoring</th>
@@ -485,9 +507,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 
     <p>
       Existing standards and Ethotechnics agree that governance matters. The
-      question Ethotechnics adds is whether a system can be compelled to stop
-      while harm is occurring, quickly and reliably, without the harmed person
-      carrying the burden.
+      question Ethotechnics adds is whether evidence that a system is harming
+      someone compels action, quickly and reliably, without the harmed person
+      carrying the burden: a halt, a reversal, a repair, or a changed rule.
     </p>
     <p class="muted">
       That is the difference between governance as documentation and governance
