@@ -87,12 +87,18 @@ export const researchContent: ResearchContent = {
     ],
     contact: "research@ethotechnics.org",
     published: "2025-12-03T00:00:00Z",
-    updated: "2026-09-25T00:00:00Z",
-    version: "v1.3.0",
+    updated: "2026-10-01T00:00:00Z",
+    version: "v1.4.0",
     doi: "Pending Zenodo deposit",
     archiveUrl:
       "https://web.archive.org/web/*/https://ethotechnics.org/research",
     changelog: [
+      {
+        version: "v1.4.0",
+        date: "2026-10-01",
+        summary:
+          "Opened the page with the research question and what the research has produced: the casebook standing result, the frontier doctrine scan, the working paper, and the theory.",
+      },
       {
         version: "v1.3.0",
         date: "2026-09-25",
