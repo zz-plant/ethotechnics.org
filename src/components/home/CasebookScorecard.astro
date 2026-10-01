@@ -3,6 +3,11 @@
  * The casebook, compressed to one row per case: how long harm ran and which
  * of the six variables held. It is the site's most concrete material and was
  * a single link in the hero's small print.
+ *
+ * The cells are glyphs, so the key comes before the rows: on a wide screen
+ * each column is named above it, and below that width a legend names each
+ * glyph. Both are visual aids only; every row's label already spells out
+ * each variable and its verdict.
  */
 import { cases, stateVariables } from "../../content/casebook";
 import StateVariableGlyph from "../StateVariableGlyph.astro";
@@ -22,51 +27,81 @@ import VerdictMark from "../VerdictMark.astro";
     </h2>
     <p class="section-lead">
       Each was established by a court, an inquiry, or a regulator. In none of
-      them did the organization running the system stop it on its own.
+      them did the organization running the system stop it on its own. Each row
+      marks six safeguards as held, drifted, or failed.
     </p>
   </div>
 
-  <ol class="home-casebook__list">
-    {
-      cases.map((entry) => (
-        <li data-reveal>
-          <a class="home-casebook__row" href={`/casebook/${entry.slug}`}>
-            <span class="home-casebook__title">{entry.title}</span>
-            <span class="home-casebook__meta small muted">
-              {entry.jurisdiction.split(" · ")[0]} · time to halt:{" "}
-              {entry.timeToHalt.split(";")[0]}
-            </span>
-            <span
-              class="home-casebook__verdicts"
-              aria-label={stateVariables
-                .map((variable) => {
+  <div class="home-casebook__key" aria-hidden="true">
+    <ul class="home-casebook__legend">
+      {
+        stateVariables.map((variable) => (
+          <li>
+            <StateVariableGlyph variable={variable.id} label={variable.label} />
+          </li>
+        ))
+      }
+    </ul>
+    <p class="home-casebook__verdict-key">
+      <VerdictMark verdict="held" labelled />
+      <VerdictMark verdict="drifted" labelled />
+      <VerdictMark verdict="failed" labelled />
+    </p>
+  </div>
+
+  <div>
+    <div class="home-casebook__columns" aria-hidden="true">
+      {
+        stateVariables.map((variable) => (
+          <span class="home-casebook__column">{variable.label}</span>
+        ))
+      }
+    </div>
+
+    <ol class="home-casebook__list">
+      {
+        cases.map((entry) => (
+          <li data-reveal>
+            <a class="home-casebook__row" href={`/casebook/${entry.slug}`}>
+              <span class="home-casebook__title">{entry.title}</span>
+              <span class="home-casebook__meta small muted">
+                {entry.jurisdiction.split(" · ")[0]} · time to halt:{" "}
+                {entry.timeToHalt.split(";")[0]}
+              </span>
+              <span
+                class="home-casebook__verdicts"
+                aria-label={stateVariables
+                  .map((variable) => {
+                    const finding = entry.findings.find(
+                      (item) => item.variable === variable.id,
+                    );
+                    return `${variable.label}: ${finding?.verdict ?? "not scored"}`;
+                  })
+                  .join(", ")}
+              >
+                {stateVariables.map((variable) => {
                   const finding = entry.findings.find(
                     (item) => item.variable === variable.id,
                   );
-                  return `${variable.label}: ${finding?.verdict ?? "not scored"}`;
-                })
-                .join(", ")}
-            >
-              {stateVariables.map((variable) => {
-                const finding = entry.findings.find(
-                  (item) => item.variable === variable.id,
-                );
-                return (
-                  <span class="home-casebook__cell" aria-hidden="true">
-                    <StateVariableGlyph variable={variable.id} size="0.85rem" />
-                    {finding && <VerdictMark verdict={finding.verdict} />}
-                  </span>
-                );
-              })}
-            </span>
-          </a>
-        </li>
-      ))
-    }
-  </ol>
+                  return (
+                    <span class="home-casebook__cell" aria-hidden="true">
+                      <StateVariableGlyph
+                        variable={variable.id}
+                        size="0.85rem"
+                      />
+                      {finding && <VerdictMark verdict={finding.verdict} />}
+                    </span>
+                  );
+                })}
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
   <TimeToHaltBars id="home-time-to-halt" />
   <p class="small muted">
-    ● held · ◐ drifted · ○ failed.
     <a href="/casebook">Open the full matrix →</a>
   </p>
 </section>

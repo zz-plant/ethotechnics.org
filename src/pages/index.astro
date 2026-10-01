@@ -1,10 +1,11 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CasebookScorecard from "../components/home/CasebookScorecard.astro";
-import HeroIllustration from "../components/home/HeroIllustration.astro";
 import HomeDifference from "../components/home/HomeDifference.astro";
 import HomeRail from "../components/home/HomeRail.astro";
 import RecordSpine from "../components/home/RecordSpine.astro";
+import RobodebtLoop from "../components/home/RobodebtLoop.astro";
+import SafeguardMap from "../components/home/SafeguardMap.astro";
 import SelfTest from "../components/home/SelfTest.astro";
 import RatchetFigure from "../components/RatchetFigure.astro";
 import { recentReleases } from "../content/recent-releases";
@@ -15,6 +16,11 @@ import { recentReleases } from "../content/recent-releases";
  * stop it (the mechanism), see that it was not special (the casebook), then
  * turn to the reader's own system (the self-test) and the doors out. The
  * two-ledger rail at the viewport edge is the same grammar, as chrome.
+ *
+ * Each idea is drawn as well as written, for readers who think in pictures:
+ * the hero draws the headline as a loop that never closed, the casebook
+ * names its glyph columns before its rows, and the self-test draws the
+ * reader's system as the same loop, filled in by their answers.
  */
 const doors = [
   {
@@ -89,6 +95,7 @@ const doors = [
         </ul>
       </nav>
     </div>
+    <RobodebtLoop class="institute-hero__figure" />
   </section>
 
   <RecordSpine />
@@ -132,7 +139,7 @@ const doors = [
   <div class="home-core">
     <div class="home-core__test">
       <SelfTest />
-      <HeroIllustration class="home-core__figure" />
+      <SafeguardMap class="home-core__figure" />
     </div>
   </div>
 
