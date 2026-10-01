@@ -1,5 +1,5 @@
 ---
-title: "What are Ethical Interrupts?"
+title: "What are ethical interrupts?"
 description: "Ethical interrupts are deliberate checkpoints that pause automation when risk thresholds are crossed."
 permalink: "/explainers/ethical-interrupts"
 eyebrow: "Explainer"
@@ -7,6 +7,7 @@ glossaryRef: "ethical-interrupts"
 definition:
   - "Ethical interrupts are explicit checkpoints that pause automation when ethical risk thresholds are crossed. They require a human review or deliberate confirmation before the system proceeds."
   - "Well-designed interrupts are visible, logged, and tied to a reversible path so the pause itself has an owner and a record."
+  - "An interrupt that fires again and again on the same rule is evidence about the rule, not only a case to clear. Count interrupts by rule and send the count to whoever owns the rule."
 example: "A content moderation pipeline triggers an ethical interrupt when model confidence drops below a threshold and harm severity is high, routing the case to a human reviewer."
 distinctSignals:
   - title: "Interrupt taxonomy"
@@ -14,7 +15,7 @@ distinctSignals:
   - title: "Common failure pattern"
     detail: "Interrupts become nuisance popups if trigger thresholds are vague; tie each interrupt to a risk signal and expiry condition."
   - title: "Evidence to ship"
-    detail: "Track interrupt trigger precision, override outcomes, and incident reductions attributable to each interrupt class."
+    detail: "Track interrupt trigger precision, override outcomes, and the count of interrupts by rule, sent to the rule's owner with the date it was last revised."
 ctas:
   - eyebrow: "Standard"
     title: "STD-01 — The Temporal Bill of Rights"
@@ -32,7 +33,7 @@ faqs:
   - question: "Do ethical interrupts slow systems too much?"
     answer: "They add friction only at risk thresholds. Low-risk cases keep their speed, and high-harm cases get a human review."
 published: "2025-06-01"
-updated: "2025-06-01"
+updated: "2026-10-01"
 publication:
   authors:
     - name: "Ethotechnics Institute"
@@ -40,11 +41,14 @@ publication:
       email: "hello@ethotechnics.org"
   contact: "hello@ethotechnics.org"
   published: "2025-06-01"
-  updated: "2025-06-01"
-  version: "v1.0.0"
+  updated: "2026-10-01"
+  version: "v1.1.0"
   doi: "Pending Zenodo deposit"
   archiveUrl: "https://web.archive.org/web/*/https://ethotechnics.org/explainers/ethical-interrupts"
   changelog:
+    - version: "v1.1.0"
+      date: "2026-10-01"
+      summary: "Treated repeated interrupts on one rule as evidence about the rule."
     - version: "v1.0.0"
       date: "2025-06-01"
       summary: "Initial explainer publication."

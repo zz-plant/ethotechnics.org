@@ -84,9 +84,7 @@ const structuredDataJson = JSON.stringify(structuredData);
               description={entry.summary}
               descriptionTone="default"
             >
-              <p class="small muted">
-                Serves: {entry.safeguards.join(", ")}
-              </p>
+              <p class="small muted">Serves: {entry.safeguards.join(", ")}</p>
               {childEntries.length > 0 && (
                 <ul class="pill-list pill-list--wrap">
                   {childEntries.map((child) => (

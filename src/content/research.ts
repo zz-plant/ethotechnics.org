@@ -131,7 +131,8 @@ export const researchContent: ResearchContent = {
       "Credit the Ethotechnics Institute, include the page title + version, and link to the canonical permalink.",
   },
   lastUpdated: "2026-10-01T00:00:00Z",
-  updateCadence: "Each change is dated in the changelog at the foot of the page.",
+  updateCadence:
+    "Each change is dated in the changelog at the foot of the page.",
   anchorLinks: [
     { href: "#results", label: "Results" },
     { href: "#orientation", label: "Orientation" },

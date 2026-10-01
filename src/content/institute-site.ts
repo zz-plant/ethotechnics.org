@@ -203,7 +203,7 @@ export const failureStates: FailureState[] = [
     descriptionLine1:
       "The system cannot give an explanation specific enough for someone to challenge the decision, oversee it, or repair it.",
     descriptionLine2:
-      "A decision nobody can explain is a decision nobody can govern.",
+      "Without reasons specific to the case, the person cannot challenge it and nobody can tell whether the rule is wrong.",
     artifactSlugs: [
       "decision-record-template",
       "contestability-appeals-playbook",

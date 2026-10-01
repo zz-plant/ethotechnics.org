@@ -23,7 +23,8 @@ const sources = [...walk("src"), ...walk("public")].filter(
 
 describe("contact addresses", () => {
   it("sends no one to a role inbox the site does not name", () => {
-    const retired = /\b(research|standards|institute|diagnostics)@ethotechnics\.org/;
+    const retired =
+      /\b(research|standards|institute|diagnostics)@ethotechnics\.org/;
     const offenders = sources.filter((file) =>
       retired.test(readFileSync(file, "utf8")),
     );

@@ -15,17 +15,17 @@ const failureChoiceLabels: Record<string, string> = {
   "user-harmed": "A user was harmed",
   "no-owner": "No owner is assigned",
   "cant-explain": "Decision cannot be clearly explained",
-  "cant-stop": "System cannot be quickly stopped or rolled back",
+  "cant-stop": "System cannot be stopped or rolled back",
 };
 
 const failurePriorityBadges: Record<string, string> = {
-  "decision-appealed": "High · Owner in 24h",
-  "model-wrong": "Critical · Pause authority needed",
-  "queue-stuck": "High · Escalate in 4h",
-  "user-harmed": "Critical · Human response now",
+  "decision-appealed": "High · Name an owner",
+  "model-wrong": "Critical · Contain the error",
+  "queue-stuck": "High · Set a deadline",
+  "user-harmed": "Critical · Answer the person",
   "no-owner": "High · Assign owner",
-  "cant-explain": "Medium · Review evidence",
-  "cant-stop": "Critical · Halt the system",
+  "cant-explain": "Medium · Record the reasons",
+  "cant-stop": "Critical · Find who can halt it",
 };
 
 // The badges already lead with a severity word; this is what lets the grid
@@ -74,7 +74,7 @@ const failureChoiceIcons: Record<string, string[]> = {
   <PageIntro
     eyebrow="Incident triage"
     title="What is going wrong right now?"
-    description="Choose the closest failure. Each path starts with what to do now, then names who should own follow-up and what evidence to collect."
+    description="Choose the closest failure. Each path starts with what to do now, names who should own follow-up and what evidence to collect, and ends by asking whether the case is one of many the same rule produced."
     anchorLinks={[]}
   />
 

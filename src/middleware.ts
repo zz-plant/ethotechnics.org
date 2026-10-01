@@ -48,7 +48,8 @@ const REDIRECT_MAP: Record<string, string> = {
   // progressive consent. Its index pointed mostly at explainers; its one page
   // of its own moved rather than being dropped.
   "/applications": "/mechanisms",
-  "/applications/moral-circuit-breakers": "/mechanisms/patterns/halt-tier-register",
+  "/applications/moral-circuit-breakers":
+    "/mechanisms/patterns/halt-tier-register",
   "/diy-packs": "/archive/retired-tools",
   "/bundles": "/archive/retired-tools",
   "/bundles/diagnostic-export-kit": "/archive/retired-tools",
@@ -137,7 +138,8 @@ const REDIRECT_MAP: Record<string, string> = {
   // that held only a title line. Moral circuit breakers repeated MEC-05 and
   // MEC-21 under an older name.
   "/mechanisms/mec-04-hard-clock": "/mechanisms/patterns/hard-clock",
-  "/mechanisms/moral-circuit-breakers": "/mechanisms/patterns/halt-tier-register",
+  "/mechanisms/moral-circuit-breakers":
+    "/mechanisms/patterns/halt-tier-register",
 };
 
 const resolveLegacyPathRedirect = (url: URL): string | null => {

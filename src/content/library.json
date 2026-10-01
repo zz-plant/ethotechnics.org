@@ -1,10 +1,10 @@
 [
   {
     "pageTitle": "Mechanisms — Ethotechnics Institute",
-    "pageDescription": "Numbered specifications, MEC-01 to MEC-23, for stopping, challenging, and correcting automated decisions, with steps, audit evidence, and postmortem triggers.",
+    "pageDescription": "Numbered specifications, MEC-01 to MEC-23, for answering challenges, sending what they show to the rule, and halting a system while it is fixed.",
     "permalink": "/mechanisms",
     "published": "2025-12-03T00:00:00Z",
-    "updated": "2026-01-09T00:00:00Z",
+    "updated": "2026-10-01T00:00:00Z",
     "publication": {
       "authors": [
         {
@@ -15,11 +15,16 @@
       ],
       "contact": "hello@ethotechnics.org",
       "published": "2025-12-03T00:00:00Z",
-      "updated": "2026-01-09T00:00:00Z",
-      "version": "v1.1.0",
+      "updated": "2026-10-01T00:00:00Z",
+      "version": "v1.2.0",
       "doi": "Pending Zenodo deposit",
       "archiveUrl": "https://web.archive.org/web/*/https://ethotechnics.org/mechanisms",
       "changelog": [
+        {
+          "version": "v1.2.0",
+          "date": "2026-10-01",
+          "summary": "Filed every mechanism under the six safeguards, led the starters and role paths with challenges that reach the rule, and added that obligation to MEC-06."
+        },
         {
           "version": "v1.1.0",
           "date": "2026-01-09",
@@ -40,27 +45,27 @@
     "quickStart": [
       "Read the primer for the terms the mechanisms use.",
       "Use the glossary for definitions you can cite.",
-      "Filter the catalog for the safeguards your system needs.",
+      "Filter the catalog by the safeguard your system is missing.",
       "Cite each mechanism by its permalink in papers, policy memos, or reviews."
     ],
     "recommended": {
       "title": "Recommended starters",
-      "description": "Three mechanisms to read first when onboarding a team or auditing a system.",
+      "description": "Three mechanisms to read first: a challenge route, a trigger that sends the rule back for review, and a record of who decided.",
       "items": [
+        {
+          "title": "MEC-06 Appeal paths inside the UI",
+          "description": "Put the challenge route inside the product, and count upheld challenges by the rule that produced them.",
+          "href": "/mechanisms/patterns/appeal-paths"
+        },
+        {
+          "title": "MEC-14 Policy review triggers",
+          "description": "Give every policy an expiry date and named triggers that send it back to review.",
+          "href": "/mechanisms/patterns/policy-review-triggers"
+        },
         {
           "title": "MEC-01 Decision log with dissent",
           "description": "Record each decision with its owner, any dissent, and a follow-up date.",
           "href": "/mechanisms/patterns/decision-log"
-        },
-        {
-          "title": "MEC-02 Progressive consent prompts",
-          "description": "Stage consent requests with clear exits and reversible defaults.",
-          "href": "/mechanisms/patterns/progressive-consent"
-        },
-        {
-          "title": "MEC-03 Maintenance windowing",
-          "description": "Publish each maintenance window with its owner, its notices, and its fallback.",
-          "href": "/mechanisms/patterns/maintenance-windowing"
         }
       ]
     },
@@ -71,56 +76,56 @@
         {
           "id": "engineer",
           "label": "Engineer",
-          "summary": "How to halt the system, roll it back, and schedule maintenance safely.",
+          "summary": "How to record each grant of authority, keep capability apart from permission, and halt the system while a correction is made.",
           "items": [
-            {
-              "title": "MEC-05 Kill switch for runaway automation",
-              "description": "Who can halt the system, on what trigger, and how restoration is rehearsed.",
-              "href": "/mechanisms/patterns/kill-switch"
-            },
-            {
-              "title": "MEC-03 Maintenance windowing",
-              "description": "Plan downtime, fallback coverage, and an owner for each window.",
-              "href": "/mechanisms/patterns/maintenance-windowing"
-            },
-            {
-              "title": "Glossary: Stoppability",
-              "description": "Definitions for halts, safety valves, and time-to-halt targets.",
-              "href": "/glossary/stoppability"
-            },
             {
               "title": "MEC-17 Capability catalog",
               "description": "Separate what the system can do from what it is permitted to do.",
               "href": "/mechanisms/patterns/capability-catalog"
+            },
+            {
+              "title": "MEC-13 Authority grant register",
+              "description": "Grants with issuer, scope, evidence basis, expiry, and state history.",
+              "href": "/mechanisms/patterns/authority-grant-register"
+            },
+            {
+              "title": "MEC-22 Admission gate",
+              "description": "Treat the decision to deploy as an authorization, with evidence and a recorded outcome.",
+              "href": "/mechanisms/patterns/admission-gate"
+            },
+            {
+              "title": "MEC-05 Kill switch for runaway automation",
+              "description": "Who can halt the system, on what trigger, and how restoration is rehearsed.",
+              "href": "/mechanisms/patterns/kill-switch"
             }
           ]
         },
         {
           "id": "product-manager",
           "label": "Product manager",
-          "summary": "Design consent, appeals, and a named owner into the user journey.",
+          "summary": "Design the challenge route, its deadline, and the owner it reaches into the user journey.",
           "items": [
+            {
+              "title": "MEC-06 Appeal paths inside the UI",
+              "description": "Put the challenge route inside the product, and count upheld challenges by rule.",
+              "href": "/mechanisms/patterns/appeal-paths"
+            },
+            {
+              "title": "MEC-04 The Hard Clock",
+              "description": "Give every pending state a maximum duration and an exit.",
+              "href": "/mechanisms/patterns/hard-clock"
+            },
             {
               "title": "MEC-02 Progressive consent prompts",
               "description": "Stage consent requests with clear exits and reversible defaults.",
               "href": "/mechanisms/patterns/progressive-consent"
-            },
-            {
-              "title": "MEC-06 Appeal paths inside the UI",
-              "description": "Put the dispute route and human review inside the product.",
-              "href": "/mechanisms/patterns/appeal-paths"
-            },
-            {
-              "title": "Glossary: Consent journey",
-              "description": "Map how people move through requests, opt-outs, and follow-ups.",
-              "href": "/glossary/consent-journey"
             }
           ]
         },
         {
           "id": "regulator",
           "label": "Regulator",
-          "summary": "Focus on accountability logs, audit trails, and remediation evidence.",
+          "summary": "Focus on who decided, whether upheld challenges reached the rule, and when authority ends.",
           "items": [
             {
               "title": "MEC-01 Decision log with dissent",
@@ -128,19 +133,19 @@
               "href": "/mechanisms/patterns/decision-log"
             },
             {
-              "title": "MEC-03 Maintenance windowing",
-              "description": "Evidence of scheduled maintenance, its owners, and documented fixes.",
-              "href": "/mechanisms/patterns/maintenance-windowing"
-            },
-            {
-              "title": "Glossary: Repair log",
-              "description": "Trace fixes, follow-ups, and published commitments over time.",
-              "href": "/glossary/repair-log"
+              "title": "MEC-14 Policy review triggers",
+              "description": "Expiry dates and named triggers that send a policy back to review.",
+              "href": "/mechanisms/patterns/policy-review-triggers"
             },
             {
               "title": "MEC-13 Authority grant register",
               "description": "Grants with issuer, scope, evidence basis, expiry, and state history.",
               "href": "/mechanisms/patterns/authority-grant-register"
+            },
+            {
+              "title": "MEC-23 Challenge load ledger",
+              "description": "Challenge volume against response capacity, so congestion forces a decision instead of fewer challenges.",
+              "href": "/mechanisms/patterns/challenge-load-ledger"
             }
           ]
         }
@@ -151,7 +156,7 @@
         "title": "Primer",
         "summary": "What to read before using the mechanisms.",
         "takeaways": [
-          "Why burden, consent, and stewardship matter for socio-technical systems.",
+          "Why a challenge that is upheld but never reaches the rule leaves the system unchanged.",
           "How to check governance artifacts against what the people using your product go through.",
           "How each mechanism is written: steps, a policy requirement, a product requirement, audit evidence, and a postmortem trigger."
         ]
@@ -161,7 +166,7 @@
         "summary": "How to adapt the mechanisms to your organization.",
         "takeaways": [
           "Each section has a permalink to cite in design docs and runbooks.",
-          "Filters sort each mechanism into governance, friction, or policy.",
+          "Filters sort each mechanism under the six safeguards it serves.",
           "Glossary definitions do not change, so research, field notes, and diagnostics all link to the same meaning."
         ]
       }
@@ -169,19 +174,34 @@
     "patterns": {
       "filters": [
         {
-          "slug": "governance",
-          "label": "Governance",
-          "description": "Decision logs, maintenance windows, and escalation paths, each paired with a diagnostic."
+          "slug": "capability",
+          "label": "Capability",
+          "description": "What the system can do, kept apart from what it is permitted to do, and each widening approved."
         },
         {
-          "slug": "friction",
-          "label": "Friction",
-          "description": "Consent prompts, appeal paths, and reversible defaults built into the interface."
+          "slug": "authority",
+          "label": "Authority",
+          "description": "Who granted the system its power, on what evidence, and when the grant ends."
         },
         {
-          "slug": "policy",
-          "label": "Policy",
-          "description": "Charters, stewardship commitments, and controls you can cite in contracts and playbooks."
+          "slug": "evidence",
+          "label": "Evidence",
+          "description": "The records that show the reasons for switching it on are still true."
+        },
+        {
+          "slug": "dependency",
+          "label": "Dependency",
+          "description": "Whether the service can run without the system, and what leaving it costs."
+        },
+        {
+          "slug": "standing",
+          "label": "Standing",
+          "description": "How a person the system decided about can challenge it and get an answer by a date."
+        },
+        {
+          "slug": "correction",
+          "label": "Correction",
+          "description": "How an upheld challenge reaches the rule, and how the system is halted or reversed meanwhile."
         }
       ],
       "entries": [
@@ -189,7 +209,7 @@
           "slug": "chain-boundary-intervention",
           "title": "MEC-20 Chain-boundary intervention",
           "summary": "Give a chain of automated systems one stop control that reaches every step, so the chain is paused, measured, and held to account as one system.",
-          "filters": ["governance", "friction"],
+          "filters": ["correction", "capability"],
           "glossaryRefs": [
             "delegation-chain",
             "composed-latency",
@@ -248,7 +268,7 @@
           "slug": "decision-log",
           "title": "MEC-01 Decision log with dissent",
           "summary": "Record consequential decisions with the dissent, the options ruled out, and a dated follow-up, so the team and the people affected can see why each was made.",
-          "filters": ["governance", "policy"],
+          "filters": ["authority", "evidence"],
           "glossaryRefs": ["design-authority", "repair-log", "contestability"],
           "cues": [
             "Record why options were ruled out and who was consulted.",
@@ -302,7 +322,7 @@
           "slug": "progressive-consent",
           "title": "MEC-02 Progressive consent prompts",
           "summary": "Stage requests for data or automation over time, with a reminder and an exit at each step of the consent journey.",
-          "filters": ["friction", "policy"],
+          "filters": ["standing", "dependency"],
           "glossaryRefs": [
             "consent-journey",
             "permission-surface",
@@ -360,7 +380,7 @@
           "slug": "maintenance-windowing",
           "title": "MEC-03 Maintenance windowing",
           "summary": "Schedule fixes, monitoring, and staffing in published maintenance windows, each with a named owner.",
-          "filters": ["governance", "policy"],
+          "filters": ["dependency", "correction"],
           "glossaryRefs": [
             "maintenance-window",
             "maintenance-metabolism",
@@ -418,7 +438,7 @@
           "slug": "hard-clock",
           "title": "MEC-04 The Hard Clock",
           "summary": "Give every system state a declared maximum duration so nothing sits in pending forever without escalation, expiry, or an exit.",
-          "filters": ["governance", "friction"],
+          "filters": ["standing", "correction"],
           "glossaryRefs": [
             "time-to-halt",
             "escalation-horizon",
@@ -468,7 +488,7 @@
           "slug": "kill-switch",
           "title": "MEC-05 Kill switch for runaway automation",
           "summary": "Pre-authorized ways to halt the system, with named owners, trigger thresholds, and rehearsed restoration.",
-          "filters": ["governance", "friction"],
+          "filters": ["correction"],
           "glossaryRefs": [
             "stoppability",
             "ethical-interrupts",
@@ -526,7 +546,7 @@
           "slug": "appeal-paths",
           "title": "MEC-06 Appeal paths inside the UI",
           "summary": "Give people a built-in channel to dispute outputs, get human review, or learn how a decision was made.",
-          "filters": ["friction", "governance"],
+          "filters": ["standing", "correction"],
           "glossaryRefs": [
             "contestability",
             "appeal-passage-rate",
@@ -535,17 +555,17 @@
           "cues": [
             "Explain who reviews appeals and the expected response time.",
             "Pre-fill context to reduce effort during stressful moments.",
-            "Track appeal outcomes so the reversal rate is on record."
+            "Count upheld appeals by the rule that produced them, not only in total."
           ],
           "diagnostics": ["burden-modeler"],
           "steps": [
             "Place an appeal entry point near the affected decision with response times.",
             "Pre-fill context so people can submit without rebuilding the story.",
-            "Track outcomes and feed them back into product and policy updates."
+            "Count upheld appeals by rule and send the count to the rule's owner. A set number sends the rule back for review (MEC-14 Policy review triggers)."
           ],
-          "policyRequirement": "Policy requirement (MEC-06 Appeal paths inside the UI)\n- Provide an in-product appeal channel with published response timelines.\n- Log appeal outcomes and feed them into governance review cycles.\nReference: https://ethotechnics.org/mechanisms/patterns/appeal-paths",
+          "policyRequirement": "Policy requirement (MEC-06 Appeal paths inside the UI)\n- Provide an in-product appeal channel with published response timelines.\n- Count upheld appeals by the rule that produced them. A set number sends the rule to its owner for review.\nReference: https://ethotechnics.org/mechanisms/patterns/appeal-paths",
           "productRequirement": "Product requirement (MEC-06)\n- Every appeal submission generates a receipt with response timeline and owner.\n- Appeals are accessible from the decision surface without extra navigation.",
-          "auditEvidenceChecklist": "Audit evidence checklist (MEC-06)\n[ ] Appeal intake form includes pre-filled context.\n[ ] Reviewer rota and escalation paths are documented.\n[ ] Outcome log tracks response times and resolutions.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-06)\n[ ] Appeal intake form includes pre-filled context.\n[ ] Reviewer rota and escalation paths are documented.\n[ ] Outcome log tracks response times and resolutions.\n[ ] Upheld appeals are counted by rule, and the count reaches the rule's owner.",
           "postmortemTrigger": "Postmortem trigger (MEC-06)\nTrigger review when appeal backlogs breach published response timelines.",
           "artifacts": [
             {
@@ -577,6 +597,12 @@
               "failure": "Collects disputes but provides no receipt, timeline, or outcome signal.",
               "counterfactual": "Every appeal generates a receipt, timeline, and outcome log.",
               "warning": "Timelines can vary by case complexity if the variance is stated and tracked."
+            },
+            {
+              "title": "Appeals that only fix cases",
+              "failure": "Each upheld appeal corrects one decision. The rule that produced it stays, and the next person meets the same error.",
+              "counterfactual": "Upheld appeals are counted by rule, and a set number obliges the rule's owner to revise it or publish why not.",
+              "warning": "A high reversal rate is evidence the rule is wrong, not proof the appeal path works."
             }
           ]
         },
@@ -584,7 +610,7 @@
           "slug": "accountability-latency-tracker",
           "title": "MEC-07 Accountability latency tracker",
           "summary": "Measure how long teams take to intervene in, halt, and restore a system after a trigger fires.",
-          "filters": ["governance", "policy"],
+          "filters": ["correction", "evidence"],
           "glossaryRefs": [
             "prospective-auditability",
             "design-authority",
@@ -644,7 +670,7 @@
           "slug": "contestation-apis",
           "title": "MEC-08 Contestation APIs",
           "summary": "Expose APIs that let affected people challenge a decision and require the system to act on the outcome.",
-          "filters": ["governance", "policy"],
+          "filters": ["standing"],
           "glossaryRefs": [
             "contestability",
             "permission-surface",
@@ -708,7 +734,7 @@
           "slug": "burden-dashboards",
           "title": "MEC-09 Burden dashboards",
           "summary": "Make user burden visible with dashboards that track time, steps, and escalation effort across cohorts.",
-          "filters": ["governance", "policy"],
+          "filters": ["evidence", "standing"],
           "glossaryRefs": ["burden-index", "user-burden-ratio", "time-to-halt"],
           "cues": [
             "Publish burden metrics alongside outcome and SLA dashboards.",
@@ -756,7 +782,7 @@
           "slug": "reversibility-audit-logs",
           "title": "MEC-10 Reversibility audit logs",
           "summary": "Track which actions can be reversed, how long reversal takes, and why irreversibility exists.",
-          "filters": ["governance", "policy"],
+          "filters": ["correction", "evidence"],
           "glossaryRefs": [
             "reversibility",
             "prospective-auditability",
@@ -808,7 +834,7 @@
           "slug": "escalation-slas",
           "title": "MEC-11 Escalation SLAs",
           "summary": "Guarantee response times for human escalation when automated decisions are contested.",
-          "filters": ["governance", "policy"],
+          "filters": ["correction", "standing"],
           "glossaryRefs": [
             "escalation-reliability",
             "contestability",
@@ -860,7 +886,7 @@
           "slug": "stoppability-testing",
           "title": "MEC-12 Stoppability testing",
           "summary": "Verify before deployment that authorized people can halt the system under defined conditions.",
-          "filters": ["governance", "policy"],
+          "filters": ["correction"],
           "glossaryRefs": ["stoppability", "time-to-halt", "design-authority"],
           "cues": [
             "Run stoppability drills before launch and after major changes.",
@@ -908,7 +934,7 @@
           "slug": "authority-grant-register",
           "title": "MEC-13 Authority grant register",
           "summary": "Hold every delegated authority as a stateful record with provenance, scope, evidence basis, expiry, revocation conditions, and state history.",
-          "filters": ["governance", "policy"],
+          "filters": ["authority"],
           "glossaryRefs": [
             "design-authority",
             "permission-surface",
@@ -966,7 +992,7 @@
           "slug": "policy-review-triggers",
           "title": "MEC-14 Policy review triggers",
           "summary": "Give every policy an expiry date and named triggers that send the authority grants that depend on it back to review when conditions change.",
-          "filters": ["governance", "policy"],
+          "filters": ["evidence", "authority"],
           "glossaryRefs": [
             "design-authority",
             "reversibility",
@@ -1024,7 +1050,7 @@
           "slug": "withdrawal-rehearsal",
           "title": "MEC-15 Withdrawal rehearsal",
           "summary": "Run the workflow without the system on a schedule and measure what withdrawal would cost at the technical, operational, and institutional levels.",
-          "filters": ["governance", "policy"],
+          "filters": ["dependency", "correction"],
           "glossaryRefs": [
             "right-of-exit",
             "reversibility",
@@ -1082,7 +1108,7 @@
           "slug": "intervention-specification",
           "title": "MEC-16 Intervention specification",
           "summary": "Replace the human-in-the-loop checkbox with a specification of who intervenes, what they can see, what they can prevent or alter, and what happens when they disagree.",
-          "filters": ["governance", "friction"],
+          "filters": ["correction", "authority"],
           "glossaryRefs": [
             "human-override-lanes",
             "decision-reversal-authority",
@@ -1140,7 +1166,7 @@
           "slug": "capability-catalog",
           "title": "MEC-17 Capability catalog",
           "summary": "List what a system could do separately from the register of what it is permitted to do, so knowing a capability never grants it.",
-          "filters": ["governance", "policy"],
+          "filters": ["capability"],
           "glossaryRefs": [
             "permission-surface",
             "bounded-autonomy",
@@ -1198,7 +1224,7 @@
           "slug": "dependency-ledger",
           "title": "MEC-18 Dependency ledger",
           "summary": "Track who now depends on the system, what substitution would cost, which expertise remains, and which capacities are being preserved to keep withdrawal possible.",
-          "filters": ["governance", "policy"],
+          "filters": ["dependency"],
           "glossaryRefs": [
             "moral-lock-in",
             "exit-coercion",
@@ -1256,7 +1282,7 @@
           "slug": "expansion-review",
           "title": "MEC-19 Expansion review",
           "summary": "Make scope growth its own authorization decision, with fresh evidence and a check that correction capacity grew with it.",
-          "filters": ["governance", "policy"],
+          "filters": ["capability", "authority"],
           "glossaryRefs": [
             "earned-autonomy",
             "bounded-autonomy",
@@ -1314,7 +1340,7 @@
           "slug": "halt-tier-register",
           "title": "MEC-21 Halt tier register",
           "summary": "Tier halt authority by blast radius so the power to stop scales with the size of what is being stopped, and the smallest tiers stay cheap enough to use.",
-          "filters": ["governance", "friction"],
+          "filters": ["correction"],
           "glossaryRefs": [
             "halt-stratification",
             "stoppability",
@@ -1372,7 +1398,7 @@
           "slug": "admission-gate",
           "title": "MEC-22 Admission gate",
           "summary": "Treat the decision to deploy at all as an authorization, with evidence and a recorded outcome. Choosing not to deploy is a valid result.",
-          "filters": ["governance", "policy"],
+          "filters": ["authority", "evidence"],
           "glossaryRefs": [
             "admission-gate",
             "decision-reversal-authority",
@@ -1430,7 +1456,7 @@
           "slug": "challenge-load-ledger",
           "title": "MEC-23 Challenge load ledger",
           "summary": "Track challenge volume against response capacity, so sustained congestion triggers a resourcing or scope decision instead of a narrowing of who may challenge.",
-          "filters": ["governance", "friction"],
+          "filters": ["standing", "correction"],
           "glossaryRefs": [
             "challenge-density",
             "corrective-standing",

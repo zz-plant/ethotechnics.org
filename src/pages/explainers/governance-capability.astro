@@ -10,16 +10,24 @@ import WithSidebar from "../../components/WithSidebar.astro";
 
 const pageTitle = "Governance as operational capability";
 const pageDescription =
-  "Ethotechnics measures governance as operational capability: stoppability, reversibility, recovery time, and contestability, not documents or stated intent.";
+  "Governance measured by what a running system can be made to do: answer a challenge, change the rule the challenge exposes, and halt or reverse when it must.";
 const permalink = "/explainers/governance-capability";
 
 const heroCopy =
-  "Most AI governance frameworks improve documentation, oversight, and accountability. Ethotechnics asks a different question: can the system be stopped, reversed, and repaired under stress? When responsibility is defined as operational capability instead of stated intent, many accepted practices no longer hold up.";
+  "Most AI governance frameworks improve documentation, oversight, and accountability. Ethotechnics asks a narrower question: when a running system is wrong, does evidence of the harm reach someone who has to change it? Halting, reversing, and restoring are part of the answer. They are not all of it. A system that can be stopped can still fix one case at a time and never change the rule.";
 
 const executiveSummary = [
   {
+    href: "#standing",
+    text: "Affected parties gain standing. A challenge must be answered, and an upheld one changes the system's state.",
+  },
+  {
+    href: "#rule",
+    text: "Upheld challenges reach the rule. A pattern of exceptions is evidence against the rule, and its owner must answer it.",
+  },
+  {
     href: "#performance-spec",
-    text: "Governance becomes a performance specification. Stop, reverse, and restore must work under stress.",
+    text: "Governance becomes a performance specification. Halt, reverse, and restore must work under stress.",
   },
   {
     href: "#time",
@@ -31,19 +39,51 @@ const executiveSummary = [
   },
   {
     href: "#stop-rights",
-    text: "Authority shifts from consensus to stop rights. Interruption is a legitimate state transition.",
-  },
-  {
-    href: "#standing",
-    text: "Affected parties gain standing. Contestation changes system state without endless follow-up.",
+    text: "Authority to halt does not wait for consensus. Interruption is a legitimate state transition.",
   },
   {
     href: "#monitoring-liability",
-    text: "Monitoring without intervention becomes liability. Visibility without brakes means knowing about harm and continuing.",
+    text: "Monitoring without intervention becomes liability. Knowing about harm and continuing is a choice.",
   },
 ];
 
 const coreImplications = [
+  {
+    id: "standing",
+    title: "Affected parties gain standing, not just visibility",
+    commonModel:
+      "Transparency + explanation + appeals that may not change outcomes.",
+    ethotechnicsModel:
+      "Contestation must change state; clocks and interim protections apply.",
+    implication: "If contestation can’t compel change, it isn’t governance.",
+    requirements: [
+      "A contestation channel with state mutation authority.",
+      "Clear evidence expectations and burden limits.",
+      "Interim protections during contestation.",
+      "Escalation to stop rights when thresholds are crossed.",
+      "A pathway that doesn’t require repeated contact or unusual persistence.",
+    ],
+  },
+  {
+    id: "rule",
+    title: "Upheld challenges reach the rule",
+    commonModel:
+      "Each upheld appeal is resolved as one case. The rule that produced it stays.",
+    ethotechnicsModel:
+      "An upheld challenge is evidence about the rule. Repeated ones oblige the rule's owner to revise it or publish why not.",
+    implication:
+      "An appeals process that only fixes cases absorbs the evidence that the system is wrong.",
+    requirements: [
+      "A count of upheld challenges by rule, sent to whoever owns the rule.",
+      "A threshold at which the owner must revise the rule or publish a reasoned refusal.",
+      "A record linking each rule change to the challenges that prompted it.",
+      "Exception codes reviewed as evidence about the rule, not only as workload.",
+    ],
+    signals: [
+      "Upheld appeals are reported as proof the system works.",
+      "Nobody can name the last rule an appeal changed.",
+    ],
+  },
   {
     id: "performance-spec",
     title: "Governance becomes a performance specification",
@@ -103,7 +143,7 @@ const coreImplications = [
   },
   {
     id: "stop-rights",
-    title: "Authority shifts from consensus to stop rights",
+    title: "Authority to halt does not wait for consensus",
     commonModel:
       "Committees and escalation chains determine whether to interrupt.",
     ethotechnicsModel:
@@ -116,22 +156,6 @@ const coreImplications = [
       "Safe-interrupt architecture (stopping doesn’t create chaos).",
       "Separation of stop authority from consensus permissioning.",
       "Post-stop procedures oriented to restoration, not blame.",
-    ],
-  },
-  {
-    id: "standing",
-    title: "Affected parties gain standing, not just visibility",
-    commonModel:
-      "Transparency + explanation + appeals that may not change outcomes.",
-    ethotechnicsModel:
-      "Contestation must change state; clocks and interim protections apply.",
-    implication: "If contestation can’t compel change, it isn’t governance.",
-    requirements: [
-      "A contestation channel with state mutation authority.",
-      "Clear evidence expectations and burden limits.",
-      "Interim protections during contestation.",
-      "Escalation to stop rights when thresholds are crossed.",
-      "A pathway that doesn’t require repeated contact or unusual persistence.",
     ],
   },
   {
@@ -207,8 +231,8 @@ const additionalImplications = [
 
 const relatedLinks = [
   {
-    href: "/mechanisms#governance",
-    label: "How it works (control surfaces, clocks, drills)",
+    href: "/mechanisms#correction",
+    label: "Mechanisms for correction (appeal paths, review triggers, halts)",
   },
   {
     href: "/standards",
@@ -261,7 +285,7 @@ const buildAnchor = (id: string) =>
     <SectionBlock
       id="executive-summary"
       eyebrow="Executive summary"
-      title="Six implications that change governance"
+      title="Seven implications that change governance"
     >
       <ul class="summary-list">
         {
@@ -380,7 +404,7 @@ const buildAnchor = (id: string) =>
       id="additional-implications"
       eyebrow="Additional implications"
       title="Secondary shifts once capability is required"
-      description="Five further shifts that follow once a system must be able to stop, reverse, and restore."
+      description="Five further shifts that follow once a system must answer challenges and act on what they show."
     >
       <div class="implications" data-implications>
         {
@@ -458,13 +482,13 @@ const buildAnchor = (id: string) =>
       <div class="legitimacy-standard">
         <p>
           A system is not responsible because it intends to be fair, documents
-          its risks, or convenes oversight committees. A system is responsible
-          only when it cannot keep harming people faster than it can be made to
-          stop and repair.
+          its risks, or convenes oversight committees. It is responsible only
+          when the people it decides about can make it answer, and when what
+          they show it reaches the rule.
         </p>
         <p class="muted">
           Many systems now called “compliant” would fail this standard. They are
-          not malicious. They cannot be stopped in operation.
+          not malicious. Their appeals fix one case at a time.
         </p>
       </div>
     </SectionBlock>
