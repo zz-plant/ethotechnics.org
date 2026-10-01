@@ -6,7 +6,8 @@ import CardItem from "../../../components/CardItem.astro";
 import PageIntro from "../../../components/PageIntro.astro";
 import SectionBlock from "../../../components/SectionBlock.astro";
 
-const lastmod = "2026-09-18T00:00:00.000Z";
+const published = "2026-09-18T00:00:00.000Z";
+const modified = "2026-10-01T00:00:00.000Z";
 const essays = (await getCollection("theory")).sort((a, b) =>
   a.data.title.localeCompare(b.data.title, "en", { sensitivity: "base" }),
 );
@@ -60,8 +61,8 @@ const formatLawRefs = (refs: string[]) =>
 <BaseLayout
   title={pageTitle}
   description={pageDescription}
-  publishedTime={lastmod}
-  modifiedTime={lastmod}
+  publishedTime={published}
+  modifiedTime={modified}
 >
   <PageIntro
     eyebrow="Research"
