@@ -7,8 +7,7 @@ import RecordSpine from "../components/home/RecordSpine.astro";
 import RobodebtLoop from "../components/home/RobodebtLoop.astro";
 import SafeguardMap from "../components/home/SafeguardMap.astro";
 import SelfTest from "../components/home/SelfTest.astro";
-import RatchetFigure from "../components/RatchetFigure.astro";
-import { recentReleases } from "../content/recent-releases";
+import ExceptionLearningFigure from "../components/ExceptionLearningFigure.astro";
 import { studioSummary } from "../content/studio";
 
 /**
@@ -102,26 +101,30 @@ const doors = [
   >
     <div class="home-split-header">
       <div class="stack-sm">
-        <p class="eyebrow">Why nobody stopped it</p>
+        <p class="eyebrow">Why the rulings did not stop it</p>
         <h2 id="mechanism-heading" class="section__heading">
-          A system's reach can double without anyone deciding that it should.
+          Each ruling fixed one debt. None of them reached the rule.
         </h2>
       </div>
       <p class="section-lead">
-        At launch the scheme's reach grew about fifty-fold, and nobody
-        re-examined its authority to raise debts. Reach can also grow in steps
-        too small to trigger a review. STD-08 requires every step to be recorded
-        as its own approval.
+        The department treated each ruling as one person's outcome, not as
+        evidence against the scheme, so the rule that raised the debts never had
+        to answer them. The fix is a count: upheld challenges recorded against
+        the rule that produced them, and a set number that sends the rule back
+        to its owner.
       </p>
     </div>
     <div class="home-draw" data-reveal="draw">
-      <RatchetFigure level="h3" />
+      <ExceptionLearningFigure level="h3" />
     </div>
     <p class="small muted">
-      This is Law XI of the twelve the standards are built on: successful
-      automation increases its own governance burden.
-      <a href="/standards/laws#law-xi">Read Law XI →</a>
-      <a href="/standards/std-08-delegation">See what STD-08 requires →</a>
+      This is Law VIII of the twelve the standards are built on: observability
+      without state transition is theater. A ruling that changes one case and
+      not the rule is an observation the system never acts on.
+      <a href="/standards/laws#law-viii">Read Law VIII →</a>
+      <a href="/research/theory/exception-learning"
+        >Read the essay on exception learning →</a
+      >
     </p>
   </section>
 
@@ -165,74 +168,43 @@ const doors = [
   </nav>
 
   <div class="home-supplement">
-    <section
-      id="recently-published"
-      class="stack-sm card card--flat home-supplement__releases"
-      aria-labelledby="recently-published-heading"
-    >
-      <p class="eyebrow">New and updated</p>
-      <h2 id="recently-published-heading">Recent releases</h2>
-      <ul class="recent-releases">
-        {
-          recentReleases.map((release) => (
-            <li>
-              <div class="recent-releases__header">
-                <a href={release.href} class="recent-releases__title">
-                  {release.area} {release.version}
-                </a>
-                <time
-                  class="recent-releases__date muted small"
-                  datetime={release.date}
-                >
-                  {release.date}
-                </time>
-              </div>
-              <p class="muted small">{release.summary}</p>
-            </li>
-          ))
-        }
-      </ul>
+    <section class="stack-sm card card--flat">
+      <p class="eyebrow">Use and cite this work</p>
+      <h2>Free to use, credit, and adapt</h2>
+      <p>
+        Ethotechnics Institute materials are published under
+        <a
+          href="https://creativecommons.org/licenses/by-sa/4.0/"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          CC BY-SA 4.0
+        </a>. Credit the Institute, and publish anything you adapt under the
+        same license.
+      </p>
+      <p class="small muted">
+        Individual entries and patterns include citation metadata so you can
+        reference exactly what you used.
+      </p>
     </section>
 
-    <div class="home-supplement__aside">
-      <section class="stack-sm card card--flat">
-        <p class="eyebrow">Use and cite this work</p>
-        <h2>Free to use, credit, and adapt</h2>
-        <p>
-          Ethotechnics Institute materials are published under
-          <a
-            href="https://creativecommons.org/licenses/by-sa/4.0/"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            CC BY-SA 4.0
-          </a>. Credit the Institute, and publish anything you adapt under the
-          same license.
-        </p>
-        <p class="small muted">
-          Individual entries and patterns include citation metadata so you can
-          reference exactly what you used.
-        </p>
-      </section>
-
-      <section class="stack-sm card card--accent">
-        <p class="eyebrow">Studio</p>
-        <h2>Evaluating a healthcare AI system?</h2>
-        <p>
-          {studioSummary}
-        </p>
-        <p>
-          <a
-            class="button"
-            href="https://ethotechnics.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Ethotechnics Studio →
-          </a>
-        </p>
-      </section>
-    </div>
+    <section class="stack-sm card card--accent">
+      <p class="eyebrow">Studio</p>
+      <h2>Evaluating a healthcare AI system?</h2>
+      <p>
+        {studioSummary}
+      </p>
+      <p>
+        <a
+          class="button"
+          href="https://ethotechnics.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Ethotechnics Studio →
+        </a>
+      </p>
+    </section>
   </div>
 </BaseLayout>
 

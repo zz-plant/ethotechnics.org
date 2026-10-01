@@ -88,11 +88,17 @@ export const researchContent: ResearchContent = {
     contact: "hello@ethotechnics.org",
     published: "2025-12-03T00:00:00Z",
     updated: "2026-10-01T00:00:00Z",
-    version: "v1.4.0",
+    version: "v1.5.0",
     doi: "Pending Zenodo deposit",
     archiveUrl:
       "https://web.archive.org/web/*/https://ethotechnics.org/research",
     changelog: [
+      {
+        version: "v1.5.0",
+        date: "2026-10-01",
+        summary:
+          "Rewrote the agenda and focus areas around standing, correction, and the cost of correction. Retired the separate agenda page, the CH-01 program page, a planned consent protocol, and a workshop deck that did not exist.",
+      },
       {
         version: "v1.4.0",
         date: "2026-10-01",
