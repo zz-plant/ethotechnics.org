@@ -4,6 +4,7 @@ import CitationBlock from "../../components/CitationBlock.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import UseCaseFit from "../../components/UseCaseFit.astro";
 import {
   createImplementationPublication,
   implementationExampleAnchorLinks,
@@ -123,6 +124,8 @@ const publication = createImplementationPublication(
       </li>
     </ul>
   </SectionBlock>
+
+  <UseCaseFit slug="loan-approval" />
 
   <div id="citations">
     <ScholarlyMeta publication={publication} permalink={permalink} />
