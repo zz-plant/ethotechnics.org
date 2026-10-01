@@ -251,6 +251,7 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Estimating substitution cost without having run the alternative.",
           "Recording an untested stop as working reversibility.",
           "Treating a permission nobody can justify as a violation instead of an open question.",
+          "Confusing stewardship with counterfeit buffering: treating human-in-the-loop oversight as a control when the human has no unpenalized override authority and simply acts as a liability sponge for automated outputs.",
         ],
       },
       replicability: {
@@ -591,6 +592,7 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Reading workarounds as resilience, and scaling the system on staff quietly covering for it.",
           "Reading a high score as missing information when the institution already has the numbers. Where it holds sole authority and has priced and declined a fix, better measurement will not change the outcome.",
           "Using model metrics — accuracy, retraining — as evidence of corrective capacity.",
+          "Treating human compensation as a free operational buffer: measuring observed throughput without subtracting the manual exception repair that keeps the metrics green.",
         ],
       },
       replicability: {
