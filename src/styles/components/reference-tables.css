@@ -688,3 +688,18 @@
     font-weight: 600;
   }
 }
+
+@layer components {
+  /* The claims test. The record column carries the comparison table's
+     emphasis; where the standards ask for it sits under it at body weight,
+     one source after another. */
+  .claims-table__basis {
+    display: block;
+    margin-top: var(--space-2);
+    font-weight: 400;
+  }
+
+  .claims-table__source + .claims-table__source::before {
+    content: ", ";
+  }
+}

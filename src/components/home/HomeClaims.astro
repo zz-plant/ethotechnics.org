@@ -1,0 +1,28 @@
+---
+/**
+ * The claims test, where the home page used to compare frameworks. The
+ * comparison answers a buyer's question (what do these standards add to the
+ * GDPR, the AI Act, NIST, ISO, and the OECD principles?) and stays on /about
+ * and /standards. This answers the question the casebook raises: when an
+ * institution describes its system, what would show the description is true?
+ */
+import ClaimsTable from "../ClaimsTable.astro";
+import SectionBlock from "../SectionBlock.astro";
+---
+
+<SectionBlock
+  id="claims"
+  eyebrow="The test"
+  title="A description of a system is a claim. Each claim has a record that would back it."
+  description="If you call a system democratic, show that the people it decides about can make it answer. If you call it efficient, show that the efficiency is not work moved onto people with less power. The standards do not say who should hold power. They hold an institution to what it says about itself."
+  variant="default"
+>
+  <ClaimsTable />
+  <p class="muted small">
+    An election can authorize a program. It does not give the person the program
+    decides about a way to contest that decision; standing does. For how these
+    standards relate to the GDPR, the EU AI Act, the NIST AI RMF, ISO/IEC 42001,
+    and the OECD AI Principles, see the
+    <a href="/standards#comparison">standards comparison</a>.
+  </p>
+</SectionBlock>

@@ -75,6 +75,12 @@ import {
               <div class="fit-context__lead">
                 <p>{context.decides}</p>
                 <p class="muted">{context.why}</p>
+                <p class="fit-context__defense small">
+                  <span class="fit-context__defense-label">
+                    The usual defense:
+                  </span>
+                  "{context.defense.said}" {context.defense.answer}
+                </p>
               </div>
               <FitFacts context={context} />
             </div>
@@ -187,6 +193,17 @@ import {
 
   .fit-context__lead p {
     margin: 0;
+  }
+
+  /* The defense an institution in this context usually offers, set off from
+     the description above it so it reads as the claim the standards answer. */
+  .fit-context__defense {
+    padding-inline-start: var(--space-3);
+    border-inline-start: 2px solid var(--border);
+  }
+
+  .fit-context__defense-label {
+    font-weight: 650;
   }
 
   @media (min-width: 860px) {

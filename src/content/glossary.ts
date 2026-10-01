@@ -2391,7 +2391,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "legitimacy-engineering",
     term: "Legitimacy Engineering",
     definition:
-      "Legitimacy defined by stoppability, reversibility, contestability, ownership, and time-bounded repair capacity, treated as measurable requirements.",
+      "Legitimacy treated as measurable requirements: standing and remedy for the people a system decides about, a named authority on stated evidence, a halt path, and time-bounded repair.",
     appliesTo: ["H. Governance & power"],
   },
   {

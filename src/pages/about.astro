@@ -2,6 +2,7 @@
 import "../styles/components/intake-form.css";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Logo from "../components/Logo.astro";
+import ClaimsTable from "../components/ClaimsTable.astro";
 import IntellectualLineage from "../components/IntellectualLineage.astro";
 import StandardsComparisonTable from "../components/StandardsComparisonTable.astro";
 import {
@@ -40,6 +41,12 @@ for (const entry of cases) {
           The rule never changes. Ethotechnics names that mechanism, scores it
           in public cases, and specifies the records that carry the evidence
           back to the rule in any institution that adopts them.
+        </p>
+        <p class="section-lead">
+          Where a dashboard reports accuracy or efficiency as a property of the
+          system, the casebook and the standards show it as a distribution among
+          people: who carries the errors, who holds the authority, and who can
+          make the institution respond.
         </p>
         <p class="muted">
           The formal definition: keeping capability, authority, evidence,
@@ -97,6 +104,43 @@ for (const entry of cases) {
         " "
       }
       <a href="/low-leverage">low-leverage work</a>.
+    </p>
+  </section>
+
+  <section id="claims" class="stack-sm card">
+    <p class="eyebrow">What it tests, and what it leaves open</p>
+    <h2>From a complaint to a record an institution can breach</h2>
+    <p>
+      Most concerns about an automated system start with the people it decides
+      about and the staff who clean up after it. They arrive as complaints, and
+      an institution is free to treat a complaint as an anecdote. The standards
+      restate each one as a record with an owner and a clock. A nurse's "we're
+      constantly rescuing this system" becomes a measure of the correction
+      staff absorb, counted against the system's performance. A claimant's
+      "nobody listens when it gets me wrong" becomes standing: a challenge that
+      must be received, answered by a date, and able to change the decision.
+    </p>
+    <p>The same records test what an institution says about itself:</p>
+    <ClaimsTable />
+    <p>
+      The restatement has a limit. It can turn "I am bearing this error" into
+      standing against a decision. It cannot settle "why should this
+      institution hold this power over me at all." An election can authorize a
+      program; it does not give the person the program decides about a way to
+      contest that decision. The standards force a named decision. They do not
+      make it, and the choices built into them, such as who receives standing
+      and how short a clock is, carry values of their own.
+    </p>
+    <p>
+      The method leaves the question of who should hold power out on purpose,
+      so that people who disagree about the answer can demand the same records.
+      The theory takes it up in
+      <a href="/research/theory/deliberate-non-use">deliberate non-use</a>,
+      <a href="/research/theory/democratic-vs-coercive-governability"
+        >democratic vs. coercive governability</a
+      >, and
+      <a href="/research/theory/the-compulsion-problem">the compulsion problem</a
+      >.
     </p>
   </section>
 

@@ -70,6 +70,44 @@ const incompatibleSentences = [
     answer: "A hold with no clock is an outcome, and it destroys recourse.",
   },
 ];
+
+/**
+ * Sentences that offer a system's success as the reason it may keep acting.
+ * Each is true of some systems and settles nothing, because each turns a fact
+ * about the system into a fact about its authority, which the laws refuse.
+ */
+const substituteJustifications = [
+  {
+    said: "The model is accurate.",
+    answer:
+      "Accuracy is evidence for a decision. It is not permission to make it (Law I).",
+  },
+  {
+    said: "The pilot succeeded.",
+    answer:
+      "Success is not a license to expand. Each widening is its own authorization (Law XI).",
+  },
+  {
+    said: "We have had few complaints.",
+    answer:
+      "Few complaints can mean people absorbed the errors. The absence of observed failure does not renew authority (Law II).",
+  },
+  {
+    said: "A human is in the loop.",
+    answer:
+      "A person who sees a decision but cannot change it is observing, not governing (Law VIII).",
+  },
+  {
+    said: "It passed the audit.",
+    answer:
+      "Conformance shows how a delegation is run. It does not show the power should be held.",
+  },
+  {
+    said: "We have used it for years.",
+    answer:
+      "Authority decays unless its justification is renewed on evidence (Law II).",
+  },
+];
 ---
 
 <BaseLayout
@@ -301,8 +339,9 @@ const incompatibleSentences = [
     id="incompatible"
     eyebrow="Non-negotiable"
     title="Sentences incompatible with Ethotechnics"
-    description="Each is common in well-intentioned institutions. Each is incompatible with the method when it delays or blocks repair."
+    description="Each is common in well-intentioned institutions. Each is incompatible with the method when it delays repair or stands in for a justification."
   >
+    <h3>Sentences that delay repair</h3>
     <ul class="said-and-answered">
       {
         incompatibleSentences.map((item) => (
@@ -315,8 +354,24 @@ const incompatibleSentences = [
         ))
       }
     </ul>
+    <h3>Sentences that stand in for a justification</h3>
+    <ul class="said-and-answered">
+      {
+        substituteJustifications.map((item) => (
+          <li class="said-and-answered__item">
+            <SpeechBubble side="institution" speaker="An institution" verbatim>
+              {item.said}
+            </SpeechBubble>
+            <p class="said-and-answered__answer">{item.answer}</p>
+          </li>
+        ))
+      }
+    </ul>
     <p class="small">
-      <strong>If a sentence prevents repair, it is incompatible with Ethotechnics.</strong>
+      <strong
+        >If a sentence prevents repair, or offers success as permission, it is
+        incompatible with Ethotechnics.</strong
+      >
     </p>
   </SectionBlock>
 
