@@ -1,0 +1,123 @@
+---
+/**
+ * The lineage argument, in the order it has to be made: what is inherited,
+ * where each neighboring field stops, the one question those stops leave
+ * open, why it is urgent now, and the theory's names for the mechanism.
+ *
+ * Rendered on the About page and in the essay "What Ethotechnics is not"
+ * from one source (content/lineage.ts), so the two cannot drift. No
+ * headings inside: the host section supplies them at its own level.
+ */
+import {
+  inheritedTraditions,
+  neighboringFields,
+  theoryVocabulary,
+  whyNow,
+} from "../content/lineage";
+---
+
+<div class="lineage stack-sm">
+  <p>
+    Ethotechnics does not claim originality for the proposition that human
+    struggle should be reduced, or that institutions exploit unpriced labor to
+    absorb their own failures. Those insights belong to established traditions:
+  </p>
+  <ul>
+    {
+      inheritedTraditions.map((tradition) => (
+        <li>
+          <strong>{tradition.name}:</strong> {tradition.finding}
+        </li>
+      ))
+    }
+  </ul>
+
+  <p>
+    None of these moral propositions is individually original to Ethotechnics.
+    Nor is the mechanism at its center. The fields closest to it each see part
+    of it and stop at a different point:
+  </p>
+  <div class="mapping-table__wrapper">
+    <table class="mapping-table mapping-table--stack lineage__table">
+      <thead>
+        <tr>
+          <th scope="col">Field</th>
+          <th scope="col">What it sees</th>
+          <th scope="col">Where it stops</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          neighboringFields.map((row) => (
+            <tr>
+              <th scope="row" data-label="Field">
+                {row.field}
+                <span class="lineage__works small muted">
+                  {row.works.map((work, index) => (
+                    <>
+                      {work.authors && `${work.authors}, `}
+                      {work.form === "book" ? (
+                        <cite>{work.title}</cite>
+                      ) : work.form === "article" ? (
+                        <>"{work.title}"</>
+                      ) : (
+                        work.title
+                      )}{" "}
+                      ({work.year}){index < row.works.length - 1 && ";"}
+                    </>
+                  ))}
+                </span>
+              </th>
+              <td data-label="What it sees">{row.sees}</td>
+              <td data-label="Where it stops">
+                {row.stops}{" "}
+                <a class="lineage__essay" href={row.essay.href}>
+                  {row.essay.title}&nbsp;→
+                </a>
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <p>
+    Read together, the stops trace one gap. Safety science follows the lost
+    signal, but inside the organization and after a catastrophe. Due process
+    follows the person, but only as far as their own case. Labor and burden
+    studies count the cost, but not the signal the cost hides. Risk frameworks
+    monitor, but leave the monitoring to the operator. None asks what an
+    institution owes when the person who absorbed the error is outside it, the
+    harm is routine rather than catastrophic, and the remedy has to reach the
+    rule.
+  </p>
+  <p>
+    Ethotechnics starts from that question. Its claim: institutions absorb the
+    evidence that their automated systems are wrong, and the absorption keeps
+    the error from anyone who could change the rule. The essay on
+    <a href="/research/theory/insulation">insulation</a> states it in full.
+  </p>
+
+  <p><strong>Why the question is urgent now:</strong></p>
+  <ul>
+    {
+      whyNow.map((item) => (
+        <li>
+          <strong>{item.label}.</strong> {item.text}
+        </li>
+      ))
+    }
+  </ul>
+
+  <p>The theory's names for the mechanism:</p>
+  <ul>
+    {
+      theoryVocabulary.map((item) => (
+        <li>
+          <strong>{item.term}:</strong> {item.text}
+        </li>
+      ))
+    }
+  </ul>
+</div>

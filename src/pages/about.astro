@@ -2,6 +2,7 @@
 import "../styles/components/intake-form.css";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Logo from "../components/Logo.astro";
+import IntellectualLineage from "../components/IntellectualLineage.astro";
 import StandardsComparisonTable from "../components/StandardsComparisonTable.astro";
 import {
   cases,
@@ -262,142 +263,10 @@ for (const entry of cases) {
     </ul>
   </section>
 
-  <section class="stack-sm card">
+  <section id="lineage" class="stack-sm card">
     <p class="eyebrow">Intellectual lineage and distinctive contribution</p>
     <h2>Where the argument comes from, and where it departs</h2>
-    <p>
-      Ethotechnics does not claim originality for the proposition that human
-      struggle should be reduced, or that institutions exploit unpriced labor to
-      absorb their own failures. Those insights belong to established
-      traditions:
-    </p>
-    <ul>
-      <li>
-        <strong>Post-work socialism and Marx:</strong> The distinction between the
-        realm of necessity and the realm of freedom, establishing that technical productivity
-        should reduce compulsory labor rather than intensify it.
-      </li>
-      <li>
-        <strong>The social model of disability:</strong> Shifting attention away from
-        demanding extraordinary individual coping toward altering disabling environments
-        and institutional barriers.
-      </li>
-      <li>
-        <strong>Relational egalitarianism (Elizabeth Anderson):</strong> The principle
-        that individuals are entitled to the social conditions of equal standing and
-        ordinary dignity without having to prove exceptional merit or endurance.
-      </li>
-      <li>
-        <strong
-          >Feminist care ethics and social reproduction theory (Joan Tronto,
-          Nancy Fraser, Eva Kittay, Alison Reiheld):</strong
-        > Analyzing how formal economic success depends on unpriced care labor and
-        identifying "privileged irresponsibility" — the systemic offloading of maintenance
-        work onto others.
-      </li>
-      <li>
-        <strong
-          >Administrative burden theory (Pamela Herd, Donald Moynihan):</strong
-        >
-        Empirical measurement of the learning, compliance, and psychological costs
-        imposed on citizens by state and corporate processes.
-      </li>
-      <li>
-        <strong>Republican political theory (Philip Pettit):</strong> Freedom as non-domination,
-        demonstrating that making lives easier does not make people free if they remain
-        subject to unchecked, arbitrary institutional discretion.
-      </li>
-      <li>
-        <strong
-          >Resilience engineering (David Woods, Erik Hollnagel, Richard Cook):</strong
-        >
-        Describing how human operators constantly adapt under resource constraints
-        to bridge the gap between "work-as-imagined" and "work-as-done."
-      </li>
-    </ul>
-    <p>
-      None of these moral propositions are individually original to
-      Ethotechnics. Nor is the mechanism at its center. Others have described
-      it closely:
-    </p>
-    <ul>
-      <li>
-        <strong>Diane Vaughan, <cite>The Challenger Launch Decision</cite> (1996):</strong>
-        at NASA, repeated O-ring erosion was reclassified as acceptable risk
-        until the warning stopped registering. She called it the normalization
-        of deviance.
-      </li>
-      <li>
-        <strong>Sidney Dekker, <cite>Drift into Failure</cite> (2011):</strong>
-        complex systems move toward failure in small steps, each one locally
-        reasonable.
-      </li>
-      <li>
-        <strong>Madeleine Clare Elish, "Moral Crumple Zones" (2019):</strong>
-        when an automated system fails, the blame lands on the nearest human
-        operator.
-      </li>
-      <li>
-        <strong
-          >Mary L. Gray and Siddharth Suri, <cite>Ghost Work</cite> (2019); Hamid
-          Ekbia and Bonnie Nardi, <cite>Heteromation</cite> (2017):</strong
-        >
-        "automated" systems run on human work that goes unrecorded and is paid
-        little or nothing.
-      </li>
-      <li>
-        <strong
-          >Danielle Keats Citron, "Technological Due Process" (2008); Kars
-          Alfrink and colleagues, "Contestable AI by Design" (2023):</strong
-        >
-        automated decisions need notice, a hearing, and a way to contest them.
-      </li>
-    </ul>
-    <p>
-      Ethotechnics joins these into one claim: institutions absorb the
-      evidence that their automated systems are wrong, and the absorption hides
-      the error from the people who could fix the rule. Its vocabulary for that
-      mechanism:
-    </p>
-    <ul>
-      <li>
-        <strong
-          >The conversion of human capacity into institutional entitlement:</strong
-        >
-        Tracing the specific mechanism through which an institution observes that
-        people can compensate for its deficiencies, organizes its baseline operations
-        on the assumption that they will, and converts an exceptional act of endurance
-        into a compulsory operational requirement.
-      </li>
-      <li>
-        <strong>The Principle of Non-Expropriation of Resilience:</strong> An individual's
-        capacity to adapt to institutional deficiencies does not, by itself, establish
-        an institutional entitlement to that adaptation. When a predictable and correctable
-        deficiency is routinely compensated for through unrecorded human effort,
-        successful outcomes do not establish that the arrangement is adequate.
-      </li>
-      <li>
-        <strong>Intrinsic versus compensated institutional performance:</strong>
-        Distinguishing performance achieved within formal design models from performance
-        parasitic on unrecorded human compensation. This establishes an operational
-        boundary: legitimate resilience absorbs irreducible uncertainty with monitored,
-        replenished buffers; illegitimate compensation subsidizes predictable, correctable
-        design defects.
-      </li>
-      <li>
-        <strong>The epistemic masking feedback loop:</strong> Showing how successful
-        adaptation systematically destroys the error signals an institution needs
-        to recognize its own defects. Competent human absorption manufactures the
-        appearance of system health (the falsified denominator), actively blinding
-        the institution to its own operational fragility and blocking structural reform.
-      </li>
-      <li>
-        <strong>Institutional evaluation by burdens eliminated:</strong>
-        Evaluating systems not merely by gross output, but by whether a deployment
-        or reform reduces the obligation to perform preventable compensatory work
-        while preserving substantive freedom and low-cost corrective power.
-      </li>
-    </ul>
+    <IntellectualLineage />
     <p>
       Its departure is the instrument. The claim becomes obligations a running
       system can fail, records an auditor can read, and public cases scored
