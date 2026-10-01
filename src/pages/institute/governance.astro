@@ -102,7 +102,9 @@ const latestGovernanceUpdate = [...quarterlyUpdates]
             </p>
             <p class="muted small">Owner: {rfc.owner}</p>
             <p class="muted small">
-              Reviewer roles: {rfc.reviewerRoles.join(", ")}
+              {rfc.reviewerRoles.length > 0
+                ? `Reviewer roles: ${rfc.reviewerRoles.join(", ")}`
+                : "No outside reviewers recorded."}
             </p>
           </CardItem>
         ))

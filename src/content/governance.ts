@@ -105,12 +105,8 @@ export const governanceContent: GovernanceContent = {
       openedOn: "2026-02-03",
       reviewWindow: "2026-02-03 → 2026-02-24",
       closedOn: "2026-09-18",
-      owner: "Institute steward council",
-      reviewerRoles: [
-        "Studio facilitator",
-        "Operations lead",
-        "Documentation steward",
-      ],
+      owner: "Kanav Jain",
+      reviewerRoles: [],
       summary:
         "Defines a minimum compatibility contract for evidence packs so diagnostics and standards pages can share structured receipts.",
     },
@@ -121,8 +117,8 @@ export const governanceContent: GovernanceContent = {
       openedOn: "2026-01-28",
       reviewWindow: "2026-01-28 → 2026-02-20",
       closedOn: "2026-09-18",
-      owner: "Program operations",
-      reviewerRoles: ["Risk steward", "Community reviewer"],
+      owner: "Kanav Jain",
+      reviewerRoles: [],
       summary:
         "Sets response-time targets and ownership for contested diagnostic outcomes.",
     },
@@ -133,13 +129,24 @@ export const governanceContent: GovernanceContent = {
       openedOn: "2025-11-04",
       reviewWindow: "2025-11-04 → 2025-11-18",
       closedOn: "2025-11-20",
-      owner: "Publishing pipeline",
-      reviewerRoles: ["Documentation steward", "Institute lead"],
+      owner: "Kanav Jain",
+      reviewerRoles: [],
       summary:
         "Standardized the public digest structure so each quarter ships dated deltas, decisions, and release references.",
     },
   ],
   decisions: [
+    {
+      id: "DEC-2026-10-01",
+      title: "Name who made each governance decision",
+      outcome: "Accepted",
+      rationale:
+        "Earlier records named a steward council, program operations, a publishing pipeline, a documentation steward, and reviewer roles such as a risk steward and a community reviewer. None of these existed as a separate body. The records now name Kanav Jain, the Institute's author, as the owner of each decision, and the RFCs list no reviewer roles that were not filled. DEC-2026-01-03 described community office hours that were never held, so it is withdrawn. DEC-2026-02-01 and the Q3 2025 update mention decision forums and forum hours; those forums did not run either. The earlier entries stay in the log, corrected, rather than being removed.",
+      date: "2026-10-01",
+      owner: "Kanav Jain",
+      releaseVersion: "governance-v1.5.0",
+      releaseHref: "/institute/governance#decision-log",
+    },
     {
       id: "DEC-2026-09-02",
       title: "Resolve lapsed RFC-2026-01 (Recourse escalation SLA for diagnostics)",
@@ -147,7 +154,7 @@ export const governanceContent: GovernanceContent = {
       rationale:
         "The review window lapsed without a logged decision. The substance was carried by the diagnostics anti-weaponization constraints (AW-01 to AW-04), which set response-time and ownership targets for contested outcomes. Closed so the open-RFC list stops carrying a decision nobody logged.",
       date: "2026-09-18",
-      owner: "Program operations",
+      owner: "Kanav Jain",
       releaseVersion: "diagnostics-v2.0.0",
       releaseHref: "/anti-weaponization",
     },
@@ -158,7 +165,7 @@ export const governanceContent: GovernanceContent = {
       rationale:
         "The review window lapsed without a logged decision. The baseline is adopted as released because the evidence packs that shipped after the proposal (STD-01, STD-02, STD-06, STD-08, STD-09) and the evidence-pack readiness checker already embody it. The lapse is recorded rather than hidden.",
       date: "2026-09-18",
-      owner: "Institute steward council",
+      owner: "Kanav Jain",
       releaseVersion: "evidence-packs-v1.0.0",
       releaseHref: "/evidence-packs",
     },
@@ -169,18 +176,18 @@ export const governanceContent: GovernanceContent = {
       rationale:
         "Ownership was inconsistent across forum outputs. Mandatory owner attribution reduces ambiguity in follow-up.",
       date: "2026-02-14",
-      owner: "Institute steward council",
+      owner: "Kanav Jain",
       releaseVersion: "governance-v1.4.0",
       releaseHref: "/mechanisms",
     },
     {
       id: "DEC-2026-01-03",
       title: "Extend review windows to include community office hours",
-      outcome: "Accepted with amendment",
+      outcome: "Withdrawn by DEC-2026-10-01",
       rationale:
         "Asynchronous review missed context from implementation teams; office-hours notes now count as formal review input.",
       date: "2026-01-22",
-      owner: "Program operations",
+      owner: "Kanav Jain",
       releaseVersion: "governance-v1.3.2",
       releaseHref: "/participate",
     },
@@ -191,7 +198,7 @@ export const governanceContent: GovernanceContent = {
       rationale:
         "Open threads without closure dates made audits hard. Archiving after release keeps status visible and history navigable.",
       date: "2025-12-19",
-      owner: "Documentation steward",
+      owner: "Kanav Jain",
       releaseVersion: "governance-v1.2.0",
       releaseHref: "/institute/governance",
     },

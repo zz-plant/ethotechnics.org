@@ -688,3 +688,26 @@
     font-weight: 600;
   }
 }
+
+@layer components {
+  /* The claims test. The record column carries the comparison table's
+     emphasis; where the standards ask for it sits under it at body weight,
+     one source after another. */
+  .claims-table__basis {
+    display: block;
+    margin-top: var(--space-2);
+    font-weight: 400;
+  }
+
+  /* Each source is its own inline-flex box, so the markup's whitespace
+     around a link cannot land before the comma after it, and the comma
+     belongs to the link it follows: a wrap never starts a line with one. */
+  .claims-table__source {
+    display: inline-flex;
+  }
+
+  .claims-table__source:not(:last-child)::after {
+    content: ",";
+    margin-inline-end: var(--space-1);
+  }
+}

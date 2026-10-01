@@ -1,0 +1,41 @@
+---
+/**
+ * The claims test: what an institution calls its system, beside the record
+ * that would back it. Rows live in content/institutional-claims.ts so the
+ * home page and the About page cannot drift apart.
+ */
+import { institutionalClaims } from "../content/institutional-claims";
+---
+
+<div class="mapping-table__wrapper">
+  <table class="mapping-table mapping-table--compare claims-table">
+    <thead>
+      <tr>
+        <th scope="col">If you call the system…</th>
+        <th scope="col">…show the record</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        institutionalClaims.map((row) => (
+          <tr>
+            <td data-label="If you call the system…">
+              <strong>{row.claim}</strong>
+            </td>
+            <td data-label="…show the record">
+              {row.show}
+              <span class="claims-table__basis small muted">
+                Asked for by{" "}
+                {row.basis.map((item) => (
+                  <span class="claims-table__source">
+                    <a href={item.href}>{item.label}</a>
+                  </span>
+                ))}
+              </span>
+            </td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>

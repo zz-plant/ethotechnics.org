@@ -37,6 +37,11 @@ export type UseCase = {
   systems: string;
   /** Why the framework applies in this context in particular. */
   why: string;
+  /**
+   * The defense an institution in this context usually offers for its
+   * system, and why the standards do not accept it as a justification.
+   */
+  defense: { said: string; answer: string };
   /** Scored public failures from this context. */
   cases: FitCase[];
   /** Said instead when no case from this context has been scored. */
@@ -177,6 +182,11 @@ export const useCases: UseCase[] = [
     systems:
       "Eligibility checks, overpayment and debt raising, fraud risk scores on claims, data matching across agencies.",
     why: "Two of the five scored cases are here. In both, people contested their decisions for years while the rule that produced the errors kept running. The burden of disproof often falls on the claimant, and a wrong debt stands while they contest it.",
+    defense: {
+      said: "Each wrong decision was corrected on appeal.",
+      answer:
+        "A corrected case is not a corrected rule. A claimant who cannot opt out is owed more correction, not less.",
+    },
     cases: [
       { slug: "robodebt", clause: { standard: "STD-08", clause: "§2.3" } },
       {
@@ -219,6 +229,11 @@ export const useCases: UseCase[] = [
     systems:
       "Credit scoring and limit setting, fraud holds, account locks, payment blocks, refund and chargeback decisions.",
     why: "These decisions run in real time, and many take effect before anyone could review them. The framework does not ask them to wait. It asks that each hold issue a receipt, run review clocks, and restore access when no fraud is confirmed.",
+    defense: {
+      said: "The fraud model is accurate.",
+      answer:
+        "Accuracy is evidence for a hold. It is not permission to keep one open without a receipt or a clock.",
+    },
     cases: [
       { slug: "apple-card", clause: { standard: "STD-02", clause: "§8.1" } },
     ],
@@ -265,6 +280,11 @@ export const useCases: UseCase[] = [
     systems:
       "Support and refund agents, agents with write access to accounts or records, chains of agents handing work to each other, typed decision models used as gates.",
     why: "The tooling is furthest along here. Agent decisions are cheap and numerous, and a logging layer may not record them as decisions at all. STD-07 specifies the record each action leaves. STD-08 treats the agent's authority as a lease that expires. STD-09 treats a chain of agents as one delegation.",
+    defense: {
+      said: "The agent passed its evals.",
+      answer:
+        "Passing evals shows what the agent can do. It still needs a grant that names its scope and expires.",
+    },
     cases: [],
     noCaseNote:
       "No public failure from this context has been scored yet. The refund example applies each clause to one agent.",
@@ -296,6 +316,11 @@ export const useCases: UseCase[] = [
     systems:
       "Prior authorization and utilization review, claim denials, clinical risk scores that set a care pathway, triage.",
     why: "Coverage decisions are frequent and each one is consequential, and a delay is itself a harm. Patients and clinicians already appeal them, so the casebook's question applies directly: does a won appeal change the rule?",
+    defense: {
+      said: "Patients can appeal.",
+      answer:
+        "Appeals that win one case at a time, while the rule stays, show the rule is wrong. They do not show the system works.",
+    },
     cases: [],
     noCaseNote:
       "No case from health care has been scored yet. One anonymized incident, an appeal accepted without a remedy, comes from this setting.",
@@ -334,6 +359,11 @@ export const useCases: UseCase[] = [
     systems:
       "Content takedowns, account suspensions, seller and creator delisting, spam and abuse filters.",
     why: "Enforcement runs at a volume no team could review case by case, and a wrong suspension can cut off a person's income or audience. Removal often has to be fast. The framework asks that it issue a receipt, bound its exceptions, and restore the content if the takedown is overturned.",
+    defense: {
+      said: "Users can appeal a takedown.",
+      answer:
+        "An appeal is a remedy only if an overturned takedown restores the content, on a clock.",
+    },
     cases: [],
     noCaseNote: "No platform case has been scored yet.",
     bind: ["MVC-01", "STD-02"],
@@ -361,6 +391,11 @@ export const useCases: UseCase[] = [
     systems:
       "Exam standardization and automated marking, productivity and shift scoring, accounting systems whose figures are used against the people who work in them.",
     why: "Two scored cases are here, and neither system was a machine-learning model. Ofqual's 2020 model was a statistical standardization. Horizon was branch accounting software. The standards apply anyway, because they bind the decision, not the component that made it.",
+    defense: {
+      said: "The system is robust.",
+      answer:
+        "The Post Office told each defendant that of Horizon, while subpostmasters were held liable for the shortfalls it reported.",
+    },
     cases: [
       {
         slug: "ofqual-2020-grades",
