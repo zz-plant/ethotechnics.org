@@ -26,14 +26,14 @@ export const selfTestQuestions: SelfTestQuestion[] = [
     label: "Correction",
     question:
       "If it were harming people right now, could a named person halt it within a day?",
-    ifNo: "Harm can be seen but not stopped.",
+    ifNo: "No one can halt it within a day of seeing the harm.",
   },
   {
     variable: "standing",
     label: "Standing",
     question:
       "Can someone it decided about challenge the decision and get a human answer by a set date?",
-    ifNo: "People are affected faster than anyone can object.",
+    ifNo: "No one has to answer a person who challenges it.",
   },
   {
     variable: "authority",
@@ -61,7 +61,7 @@ export const selfTestQuestions: SelfTestQuestion[] = [
     label: "Dependency",
     question:
       "Could you switch it off tomorrow without the service it supports falling over?",
-    ifNo: "It is too embedded to switch off in time.",
+    ifNo: "Switching it off would take down the service it supports.",
   },
 ];
 
@@ -160,10 +160,10 @@ export function verdictLine(result: SelfTestResult): string {
     return `All ${total} hold. Check that someone other than you would answer the same way.`;
   }
   if (drift === total) {
-    return `None of the ${total} hold. Robodebt failed on four of these and ran for three years.`;
+    return `None of the ${total} hold. Robodebt failed on four of these and ran for three years and four months.`;
   }
   if (drift >= 4) {
-    return `${drift} of ${total} are drifting. Four of the five public failures in the casebook drifted on at least four.`;
+    return `${drift} of ${total} are drifting. Four of the five casebook failures had at least four not holding.`;
   }
-  return `${drift} of ${total} ${drift === 1 ? "is" : "are"} drifting. Fix ${drift === 1 ? "it" : "them"} before the system grows.`;
+  return `${drift} of ${total} ${drift === 1 ? "is" : "are"} drifting. Fix ${drift === 1 ? "it" : "them"} before its scope next widens.`;
 }

@@ -6,22 +6,22 @@ import SectionBlock from "../SectionBlock.astro";
   id="difference"
   eyebrow="How this differs"
   title="Other frameworks ask whether an institution manages risk. These standards ask whether a challenge that succeeds changes the system."
-  description="They work alongside the GDPR, the EU AI Act, NIST, ISO 42001, and the OECD principles. They cover what those leave vague: who has to act when a running system is wrong, when its permission to act ends, and who carries the cost until then."
+  description="These standards work alongside the GDPR, the EU AI Act, the NIST AI RMF, ISO/IEC 42001, and the OECD AI Principles. They specify what those leave open: who has to act when a running system is wrong, when its permission to act ends, and who carries the cost until then."
   variant="default"
 >
   <p>
-    Most AI governance frameworks improve documentation and oversight. They say
-    less about what happens once a running system is wrong: whether someone
+    Those frameworks improve documentation and oversight. They say less about
+    what happens once a running system is wrong: whether someone
     halts it, reverses its decisions, and repairs the harm, and how long the
     person it is harming waits. They say least about whether anyone changes the
-    rule that produced the error, or only the one case.
+    rule that produced the error, or only fixes the one case.
   </p>
   <p>
     When a system cuts its own workload, the work it drops lands on someone:
     the nurse fixing a scheduler's mistakes, the claimant proving a denial
-    wrong. That work is part of the system, so the person doing it should have
-    a say in fixing it. The cost should fall on the institution that runs the
-    system, not on the people it serves.
+    wrong. That work is part of the system, so the person doing it has
+    standing to challenge it. The cost belongs to the institution that runs
+    the system, not to the people it serves.
   </p>
   <div class="mapping-table__wrapper">
     <table class="mapping-table mapping-table--compare">
@@ -68,7 +68,8 @@ import SectionBlock from "../SectionBlock.astro";
             <span class="small muted">EU AI Act, Art. 14</span>
           </td>
           <td data-label="Ethotechnics requires">
-            Named human with stop authority, tested halt path, recovery clock
+            A named person with authority to halt it, a tested halt path, and
+            a recovery deadline
           </td>
         </tr>
         <tr>
@@ -77,7 +78,8 @@ import SectionBlock from "../SectionBlock.astro";
             <span class="small muted">OECD AI Principles</span>
           </td>
           <td data-label="Ethotechnics requires">
-            Binding escalation: owner + timer + action, or the system degrades
+            Binding escalation: a named owner, a deadline, and a set action, or
+            the system falls back to a safe mode
           </td>
         </tr>
       </tbody>

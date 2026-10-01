@@ -27,8 +27,16 @@ const plotTop = 84;
 const plotBottom = 300;
 const yMax = 2.2;
 const panels = [
-  { x0: 44, title: "Grows unnoticed", kicker: "reviewed only after a big jump" },
-  { x0: 524, title: "Grows by decision", kicker: "every step approved (STD-08)" },
+  {
+    x0: 44,
+    title: "Grows unnoticed",
+    kicker: `reviewed only after a single ${RATCHET.reviewThresholdPct}% step`,
+  },
+  {
+    x0: 524,
+    title: "Grows by decision",
+    kicker: "every step approved (STD-08)",
+  },
 ] as const;
 
 const xAt = (x0: number, month: number) =>
