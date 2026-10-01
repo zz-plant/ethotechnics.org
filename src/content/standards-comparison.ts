@@ -36,15 +36,19 @@ export const standardsComparisonRows: StandardsComparisonRow[] = [
     requires:
       "A published measure of the time the system costs people, and standing for whoever absorbs its errors",
   },
+  // Art. 14(4)(e) already asks for a stop. What it leaves open is who holds
+  // it, whether it has been tested, and how fast recovery follows.
   {
-    says: "Maintain human oversight",
-    source: "EU AI Act, Art. 14",
+    says: "Interrupt the system through a stop button or a similar procedure",
+    source: "EU AI Act, Art. 14(4)(e)",
     requires:
-      "A named person with authority to halt it, a tested halt path, and a recovery deadline",
+      "A named person who holds that stop, a halt path tested on production, and a recovery deadline",
   },
+  // Principle 1.4 (2024) asks that harmful systems can be overridden or
+  // decommissioned. It does not say who must act, or by when.
   {
-    says: "Implement responsible AI principles",
-    source: "OECD AI Principles",
+    says: "Ensure harmful systems can be overridden, repaired, or decommissioned",
+    source: "OECD AI Principles, 1.4 (2024)",
     requires:
       "Binding escalation: a named owner, a deadline, and a set action, or the system falls back to a safe mode",
   },

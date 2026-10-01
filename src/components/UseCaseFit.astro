@@ -1,0 +1,61 @@
+---
+/**
+ * Where a worked example sits on /use-cases: the context it belongs to, with
+ * the standards to bind and the check to run first, or the boundary it shows.
+ *
+ * The sector comparisons under /examples used to end at glossary links, so a
+ * reader who found their sector there met no standard and no tool. Every
+ * example page renders this, and use-cases.test.ts fails if an example
+ * belongs to no context.
+ *
+ * Props:
+ * - slug: The example's path segment under /examples.
+ */
+import FitFacts from "./FitFacts.astro";
+import SectionBlock from "./SectionBlock.astro";
+import { fitForExample } from "../content/use-cases";
+
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+const fit = fitForExample(slug);
+if (!fit) {
+  throw new Error(
+    `UseCaseFit: /examples/${slug} belongs to no entry in src/content/use-cases.ts`,
+  );
+}
+const href = `/use-cases#${fit.entry.id}`;
+---
+
+{
+  fit.kind === "context" ? (
+    <SectionBlock
+      id="fit"
+      eyebrow="Where this fits"
+      title={fit.entry.title}
+      description={fit.entry.decides}
+    >
+      <div class="stack-sm">
+        <FitFacts context={fit.entry} compact />
+        <p class="small">
+          <a href={href}>
+            The full entry, and the five places the framework does less &rarr;
+          </a>
+        </p>
+      </div>
+    </SectionBlock>
+  ) : (
+    <SectionBlock
+      id="fit"
+      eyebrow="Where this fits"
+      title={`A boundary case: ${fit.entry.title.toLowerCase()}`}
+      description={fit.entry.why}
+    >
+      <p class="small">
+        <a href={href}>Where the framework does less &rarr;</a>
+      </p>
+    </SectionBlock>
+  )
+}

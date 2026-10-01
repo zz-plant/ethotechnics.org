@@ -230,12 +230,12 @@ export type CasebookContent = PageWithPermalink & {
 export const casebookContent: CasebookContent = {
   pageTitle: "Casebook — five public failures, scored — Ethotechnics",
   pageDescription:
-    "Robodebt, the Dutch childcare-benefits scandal, Post Office Horizon, England's 2020 exam grades, and Apple Card, each scored on six safeguards and linked to the clauses that would have caught it.",
+    "Robodebt, the Dutch childcare-benefits scandal, Post Office Horizon, England's 2020 exam grades, and Apple Card, each scored on six safeguards by this project.",
   permalink: "/casebook",
   eyebrow: "Casebook",
   title: "Five public failures, scored",
   description:
-    "Each case was established by a court, an inquiry, or a regulator. Each is scored on six safeguards: capability, authority, evidence, dependency, standing, and correction. Each score names the clause that would have caught the failure. A last column records whether the institution changed the process that produced the errors, or corrected the errors and left the process as it was. The scores are not a verdict on anyone. They show where the safeguards broke.",
+    "Each case was established by a court, an inquiry, or a regulator. Each is scored on six safeguards: capability, authority, evidence, dependency, standing, and correction. Each score names the draft clause this project argues would have caught the failure. The findings are the court's, the inquiry's, or the regulator's; the scores are this project's reading of them. A last column records whether the institution changed the process that produced the errors, or corrected the errors and left the process as it was. The scores are not a verdict on anyone. They show where the safeguards broke.",
 };
 
 export const cases: Case[] = [

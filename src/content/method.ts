@@ -74,9 +74,9 @@ export const methodContent: MethodContent = {
     "Evidence that an automated decision is wrong is settled one case at a time and never reaches the rule. The method puts it on the record, one workflow at a time.",
   permalink: "/method",
   definition:
-    "Ethotechnics is the engineering discipline concerned with keeping capability, authority, evidence, dependency, standing, and correction coupled tightly enough that increasing machine agency does not silently become unreviewable institutional power. Where ethics asks what we should do, Ethotechnics designs the mechanisms that make it reliably happen.",
+    "Ethotechnics is the engineering discipline concerned with keeping capability, authority, evidence, dependency, standing, and correction coupled tightly enough that increasing machine agency does not silently become unreviewable institutional power. Where ethics asks what we should do, Ethotechnics specifies the mechanisms meant to make it happen and the records that show whether they did.",
   positiveDefinition:
-    "Ethotechnics is the practice of building powerful systems that remain answerable to the people and realities they can never fully represent.",
+    "Ethotechnics is the practice of building capable systems that remain answerable to the people and realities they can never fully represent.",
   claim:
     "The primary object being engineered is not the model. It is the delegation of consequential agency. The question is not whether the model is capable, aligned, or safe. It is whether the delegation itself remains valid as the system acts, learns, scales, and becomes depended upon.",
   unitOfGovernance:
@@ -124,11 +124,11 @@ export const methodContent: MethodContent = {
         "Which actions is the system permitted to perform, for whom, and until when?",
       currentAssets: [
         "stop_override_authority, autonomy_level, and action_classes on the agent safety object model",
-        "MEC-03 rollback authority",
+        "MEC-13 authority grant register",
         "Glossary: design-authority, decision-reversal-authority, permission-surface, human-override-lanes",
         "STD-07 Article II: every action names the authorization it ran under, and a delegation with no revocation conditions is a transfer",
         "STD-08 Part A: a grant is a lease, renewal states its evidence in advance, and widening scope is a new authorization",
-        "Delegation Audit: names the action classes nobody can ground in a grant",
+        "Delegation Audit (self-report): lists the action classes the team cannot ground in a grant",
         "STD-08 §1.5: authority is read from grant and authorization records, never from content the delegation acts on",
       ],
       links: [
@@ -261,7 +261,7 @@ export const methodContent: MethodContent = {
         "MEC-12 stoppability testing",
         "Tier 1 harness: stop, override, audit completeness",
         "STD-08 Part D: correction capacity is stated across seven components and must grow when authority does",
-        "Delegation Audit: a reversibility verdict at the technical, operational, and institutional levels",
+        "Delegation Audit (self-report): the team's own reading of reversibility at the technical, operational, and institutional levels",
       ],
       links: [
         { label: "STD-08 Delegation", href: "/standards/std-08-delegation" },
@@ -461,7 +461,7 @@ export const methodContent: MethodContent = {
     {
       title: "Select a workflow",
       detail:
-        "Choose a process where system decisions affect people: triage, prior authorization, customer escalation.",
+        "Choose a process where system decisions affect people: a benefit eligibility check, a prior authorization, a fraud hold. The six contexts on /use-cases name the standards and the first check for each.",
     },
     {
       title: "Map burden by role",

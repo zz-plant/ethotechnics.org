@@ -41,7 +41,7 @@ export const instituteStudioComparisonContent: InstituteStudioComparisonContent 
         eyebrow: "Institute",
         title: "Open guidance and self-serve diagnostics.",
         description:
-          "Work from the open-source mechanisms catalog, and run a diagnostic yourself for a first reading of readiness.",
+          "Work from the openly licensed mechanisms catalog (CC BY-SA 4.0), and run a diagnostic yourself for a first reading of readiness.",
         actions: [
           {
             label: "Browse mechanisms",

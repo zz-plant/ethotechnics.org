@@ -27,7 +27,7 @@ export const siteFooter: SiteFooterContent = {
       logoAlt: "Ethotechnics Institute seal",
     },
     description:
-      "An open framework for accountable AI systems — proposed standards, mechanisms, and diagnostics.",
+      "Proposed standards, mechanisms, and diagnostics for keeping automated decision systems stoppable, explainable, and appealable, whether or not they use AI.",
     license: {
       label: "Content licensed CC BY-SA 4.0",
       href: "https://creativecommons.org/licenses/by-sa/4.0/",
@@ -74,6 +74,7 @@ export const siteFooter: SiteFooterContent = {
       heading: "Institute & governance",
       links: [
         { label: "Start here", href: "/start" },
+        { label: "Which systems this is for", href: "/use-cases" },
         { label: "About the institute", href: "/about" },
         { label: "Governance process", href: "/institute/governance" },
         {

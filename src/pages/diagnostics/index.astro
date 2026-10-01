@@ -26,26 +26,27 @@ const anchorLinks = [
   { href: "#referenced-by", label: "Where diagnostics are cited" },
 ];
 const introDescription =
-  "For operators, governance teams, and auditors. " + pageDescription;
+  "For operators, governance teams, and auditors. Three of the four tools score what you enter about a workflow. The Record Conformance Checker grades the records a system exports.";
 // The page's one list of tools. Each card is a single link to the tool; the
 // card id keeps the /diagnostics#<slug> links from other pages working.
 const quickTriagePrompts = [
   {
     slug: "burden-modeler",
     question: "Is workload concentrating on a few people or steps?",
-    description: "Score task load and rank where relief would help most.",
+    description:
+      "Rate seven sources of workload with the team and see where it concentrates.",
   },
   {
     slug: "delegation-audit",
     question: "Is the system still justified in making this decision?",
     description:
-      "Take one workflow through six questions and find the permissions nobody can justify.",
+      "Take one workflow through six questions and list the permissions your team cannot ground in a grant.",
   },
   {
     slug: "record-conformance",
     question: "Do your decision records meet the level you claim?",
     description:
-      "Check the records a system produces against the published schema, and verify they have not been altered.",
+      "Check the records a system exports against the published schema, and recompute the hash chain that links them.",
   },
   {
     slug: "corrective-debt-calculator",
@@ -75,7 +76,7 @@ const standardsMap = [
     tool: "Burden Modeler",
     symptom:
       "Silent absorption: staff burnout, manual overrides, uncounted workaround labor.",
-    output: "Burden evidence table",
+    output: "Burden score and hotspot ranking",
     standard: "STD-02 / Law IV",
   },
   {
@@ -95,7 +96,7 @@ const standardsMap = [
   {
     tool: "Record Conformance Checker",
     symptom:
-      "Opaque authority: is the decision reversible, and can the person contest it with standing?",
+      "Opaque authority: do the records say who authorized each action, and whether a person can contest it?",
     output: "Conformance level earned",
     standard: "STD-07 / Law VII",
   },
@@ -136,7 +137,11 @@ const selfDefenseTools = [
     description={introDescription}
     anchorLinks={anchorLinks}
     anchorLinksSummary="More anchors"
-  />
+  >
+    <Fragment slot="actions">
+      <a class="button ghost" href="/use-cases">Which tool for your system</a>
+    </Fragment>
+  </PageIntro>
   <section
     id="quick-triage"
     class="section diagnostics-start"
@@ -300,7 +305,7 @@ const selfDefenseTools = [
   <SectionBlock
     id="referenced-by"
     eyebrow="Referenced by"
-    title="Where diagnostics connect to enforcement"
+    title="Where diagnostics connect to the standards"
     description="The examples, bindings, and evidence packs that cite a diagnostic output."
   >
     <div class="grid grid--three">

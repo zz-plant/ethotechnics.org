@@ -10,6 +10,9 @@ import { evalTestCases } from "../../content/eval-test-cases";
 import { tier1Checks } from "../../harness/checks";
 
 const machineCaseCount = tier1Checks.length;
+const draftSuiteCount = evalsContent.suites.filter(
+  (suite) => suite.status === "draft",
+).length;
 
 const {
   pageTitle,
@@ -61,9 +64,17 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <PageIntro
     eyebrow="Evals"
     title="Governance eval suites"
-    description="Suites that test whether a deployed system's authority is still valid, who carries its burden, and whether it can be stopped, appealed, and repaired within a stated time limit."
+    description={`Suites that test whether a deployed system's authority is still valid, who carries its burden, and whether it can be stopped, appealed, and repaired within a stated time limit. ${machineCaseCount} of the ${evalTestCases.length} cases run automatically; a reviewer scores the rest against a written rubric. ${draftSuiteCount} of the ${evalsContent.suites.length} suites are drafts.`}
     anchorLinks={anchorLinks}
-  />
+  >
+    <Fragment slot="actions">
+      <a class="button ghost" href="/evals/coverage">What the evals can check</a
+      >
+      <a class="button ghost" href="/use-cases#model-testing"
+        >Evals test the deployment, not the model</a
+      >
+    </Fragment>
+  </PageIntro>
 
   <SectionBlock
     id="stack"

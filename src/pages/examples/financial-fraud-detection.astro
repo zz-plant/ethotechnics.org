@@ -4,6 +4,7 @@ import CitationBlock from "../../components/CitationBlock.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import UseCaseFit from "../../components/UseCaseFit.astro";
 import {
   createImplementationPublication,
   implementationExampleAnchorLinks,
@@ -119,6 +120,8 @@ const publication = createImplementationPublication(
       <li>Track restoration completeness for downstream financial harm.</li>
     </ul>
   </SectionBlock>
+
+  <UseCaseFit slug="financial-fraud-detection" />
 
   <div id="citations">
     <ScholarlyMeta publication={publication} permalink={permalink} />

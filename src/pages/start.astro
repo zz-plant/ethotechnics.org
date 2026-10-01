@@ -22,6 +22,10 @@ const pageDescription =
           Seven roles, one page each. Pick the one closest to your work to see
           the standards, tools, and first steps that apply to it.
         </p>
+        <p class="small muted">
+          Know the system better than the role?
+          <a href="/use-cases">Start from what it decides →</a>
+        </p>
       </div>
     </div>
   </header>
@@ -108,6 +112,19 @@ const pageDescription =
             >Check a decision about you</a
           >
           <a href="/triage" class="button button--ghost">Incident triage</a>
+        </div>
+      </div>
+
+      <div class="direct-track">
+        <span class="eyebrow">Fit</span>
+        <h2>Not sure this applies to your system?</h2>
+        <p>
+          Six kinds of automated decision the standards are built for, what to
+          bind and run first in each, and five where the framework does less.
+        </p>
+        <div class="direct-track__links">
+          <a href="/use-cases" class="button">Which systems this is for</a>
+          <a href="/casebook" class="button button--ghost">Scored cases</a>
         </div>
       </div>
 
@@ -497,6 +514,13 @@ const pageDescription =
     display: grid;
     gap: var(--space-5);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  }
+
+  /* Four tracks: two rows of two, so no track sits alone on a row. */
+  @media (min-width: 720px) {
+    .direct-tracks {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 
   .direct-track {

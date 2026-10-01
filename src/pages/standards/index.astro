@@ -81,11 +81,11 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     anchorLinksSummary="Show full standards outline"
   >
     <Fragment slot="actions">
-      <a class="button primary" href="/standards/std-01-temporal-rights">
-        Open STD-01
+      <a class="button primary" href="/use-cases">
+        Find the standards for your system
       </a>
-      <a class="button ghost" href="/standards/std-02-contestability-recourse">
-        Open STD-02
+      <a class="button ghost" href="/standards/std-01-temporal-rights">
+        Open STD-01
       </a>
       <a class="button ghost" href="#comparison">See how they differ</a>
     </Fragment>
@@ -200,7 +200,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     <CardGrid className="grid--three">
       <CardItem
         title="Draft policy language"
-        description="The core axioms and the comparison below give you the terms, and the requirements that can be enforced, to write into policy."
+        description="The core axioms and the comparison below give you the terms, and the requirements a running system can be tested against, to write into policy."
       >
         <a slot="footer" class="muted" href="/standards/core-axioms"
           >Start with core axioms</a
@@ -227,6 +227,13 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         >
       </CardItem>
     </CardGrid>
+    <p class="small muted">
+      Buying a system from a vendor?
+      <a href="/standards/where-this-binds"
+        >Cite clauses in the contract and require an evidence pack at each
+        release →</a
+      >
+    </p>
   </SectionBlock>
 
   <SectionBlock
@@ -340,8 +347,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     <ul class="card__list">
       <li>
         <strong>NIST AI RMF</strong> — A voluntary risk management framework (Govern,
-        Map, Measure, Manage). Strong on risk identification and documentation. Does
-        not require operational stop authority or recovery time targets. It asks
+        Map, Measure, Manage). Strong on risk identification and documentation. MANAGE
+        2.4 asks for mechanisms and assigned responsibilities to deactivate a
+        system; nothing sets a recovery time target. It asks
         organizations to characterize impacts on people up front (MAP 5). It does not
         ask them to measure or publish the time a running system costs those people.
       </li>
@@ -383,7 +391,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       produced it.
     </p>
 
-    <p class="eyebrow">TL;DR</p>
+    <p class="eyebrow">In short</p>
     <ul class="card__list">
       <li>
         A challenge that succeeds has to reach the rule, not only the one case.
@@ -454,7 +462,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           <tr>
             <th scope="row">Oversight</th>
             <td data-label="Prevailing standards"
-              >Advisory review, a human in the loop</td
+              >Human oversight with a means to interrupt</td
             >
             <td data-label="Ethotechnics"
               >Enforceable authority and a veto that binds</td
@@ -484,9 +492,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
             >
           </tr>
           <tr>
-            <th scope="row">Enforcement</th>
+            <th scope="row">Where the check happens</th>
             <td data-label="Prevailing standards"
-              >External (audits, regulators)</td
+              >Audits, conformity assessment, regulators</td
             >
             <td data-label="Ethotechnics"
               >Built-in constraints + internal power to halt, reverse, or revise</td
@@ -612,8 +620,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           class="code-block">{`Policy stack → policies → reviews → audits → reports
 Control plane → stop rules → clocks → rollback → restoration`}</pre>
         <p class="muted">
-          The first line is enforced from outside the running system. The second
-          is enforced inside it.
+          The first line is checked from outside the running system. The second
+          is built into it.
         </p>
       </div>
     </div>
@@ -636,6 +644,11 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
         ))
       }
     </CardGrid>
+    <p class="small muted">
+      Retail personalization is a boundary case: no single recommendation
+      changes a person's status, access, money, or risk.
+      <a href="/use-cases">See which systems the standards are for →</a>
+    </p>
   </SectionBlock>
 
   <SectionBlock
@@ -665,7 +678,7 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
         </ul>
       </div>
       <div class="panel">
-        <p class="eyebrow">Required at release</p>
+        <p class="eyebrow">Checked at release</p>
         <ul class="muted">
           <li>
             <a href="/evidence-packs">Release gate checklist</a>
@@ -673,7 +686,7 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
         </ul>
       </div>
       <div class="panel">
-        <p class="eyebrow">Verified by evidence packs</p>
+        <p class="eyebrow">Evidence packs: what to collect</p>
         <ul class="muted">
           <li>
             <a href="/evidence-packs/std-01">STD-01 Evidence Pack</a>

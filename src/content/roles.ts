@@ -91,11 +91,11 @@ export const roles: Role[] = [
       },
       {
         number: 3,
-        title: "Measure the work the system pushes onto people",
+        title: "Emit a record for every action, and grade it",
         description:
-          "Count the hours the system pushes onto people, and check whether reviewers can keep up with the volume it assumes.",
-        ctaLabel: "Run Burden Modeler",
-        ctaHref: "/diagnostics/burden-modeler",
+          "Write each decision as an STD-07 record that names the grant it ran under, then grade an exported stream against the conformance level you claim.",
+        ctaLabel: "Open Record Conformance",
+        ctaHref: "/diagnostics/record-conformance",
       },
     ],
     guide: {
@@ -149,8 +149,9 @@ export const roles: Role[] = [
       "record-conformance",
     ],
     featuredStandards: [
+      "std-07-revisable-delegation-record",
+      "std-08-delegation",
       "std-01-temporal-rights",
-      "std-02-contestability-recourse",
     ],
     formerPaths: ["/quick-start/engineers", "/adopt/build"],
   },
@@ -165,7 +166,7 @@ export const roles: Role[] = [
         number: 1,
         title: "Review the regulatory crosswalks",
         description:
-          "Line-by-line mappings between international AI legislation and controls a system can be tested against.",
+          "Line-by-line mappings from the EU AI Act, the NIST AI RMF, and ISO/IEC 42001 to controls a system can be tested against.",
         ctaLabel: "View crosswalk matrix",
         ctaHref: "/standards/enforceable-governance-crosswalks",
       },
@@ -174,16 +175,16 @@ export const roles: Role[] = [
         title: "Set measurable targets for appeals",
         description:
           "Commit to numbers: how many appeals get through, how fast, and a promise that appealing carries no penalty.",
-        ctaLabel: "See appeal targets",
-        ctaHref: "/glossary/service-level-indicators",
+        ctaLabel: "Read STD-03: Justice SLOs",
+        ctaHref: "/standards/std-03-justice-slos",
       },
       {
         number: 3,
         title: "Draft contract clauses",
         description:
-          "Draft the authority, evidence, and correction terms a vendor agreement has to state before the system is allowed to decide.",
-        ctaLabel: "Read STD-08: Delegation",
-        ctaHref: "/standards/std-08-delegation",
+          "Write the authority, evidence, and correction terms a vendor agreement has to state before the system is allowed to decide. Cite clause numbers, and require an evidence pack at each release.",
+        ctaLabel: "Cite the standards in a contract",
+        ctaHref: "/standards/where-this-binds",
       },
     ],
     guide: {
@@ -242,32 +243,32 @@ export const roles: Role[] = [
     orientation: [
       {
         number: 1,
-        title: "Inspect the failure taxonomy",
+        title: "Grade a system's decision records",
         description:
-          "Check systems for the visible signs of known failures, and for behavior that looks compliant but is not.",
-        ctaLabel: "Explore taxonomy",
-        ctaHref: "/taxonomy",
+          "Check the records a system exports against the conformance level it claims. This is the one tool here that reads evidence rather than answers.",
+        ctaLabel: "Open Record Conformance",
+        ctaHref: "/diagnostics/record-conformance",
       },
       {
         number: 2,
-        title: "Verify evidence receipts",
+        title: "Know what each clause asks you to see",
         description:
-          "Check decision timestamps, deadlines, and the records people received against what the operator claims.",
+          "Each evidence pack lists the records a clause needs: decision timestamps, deadlines, and what people received. Check the operator's records against it.",
         ctaLabel: "Inspect evidence packs",
         ctaHref: "/evidence-packs",
       },
       {
         number: 3,
-        title: "Grade a system's decision records",
+        title: "Read five public failures as worked audits",
         description:
-          "Check a system's decision records against the conformance level it claims, and see whether it meets it.",
-        ctaLabel: "Open Record Conformance",
-        ctaHref: "/diagnostics/record-conformance",
+          "Each case was established by a court, an inquiry, or a regulator, and each is scored on six safeguards with the clause that names the missing record.",
+        ctaLabel: "Open the casebook",
+        ctaHref: "/casebook",
       },
     ],
     featuredDiagnostics: [
-      "delegation-audit",
       "record-conformance",
+      "delegation-audit",
       "burden-modeler",
     ],
     featuredStandards: [
@@ -337,8 +338,8 @@ export const roles: Role[] = [
         title: "Model the burden of one flow",
         description:
           "Score a real user journey for time spent, number of steps, and whether there is a way out. Use the result as a design brief.",
-        ctaLabel: "Run Burden Modeler",
-        ctaHref: "/diagnostics/burden-modeler",
+        ctaLabel: "Run the VAL-01 Burden Modeler",
+        ctaHref: "/validators/burden-modeler",
       },
       {
         number: 3,
@@ -410,7 +411,7 @@ export const roles: Role[] = [
         number: 1,
         title: "Tie the question to one of the twelve laws",
         description:
-          "State the claim as one of the twelve laws, so findings point to something a standard requires.",
+          "State the claim as one of the twelve laws, so findings bear on a specific clause.",
         ctaLabel: "Read the laws",
         ctaHref: "/standards/laws",
       },
@@ -483,9 +484,9 @@ export const roles: Role[] = [
         number: 1,
         title: "See the cost of failures nobody budgeted for",
         description:
-          "How staff quietly covering for a fragile system, and cases closed without being resolved, build into liability.",
-        ctaLabel: "Read institutional principles",
-        ctaHref: "/about",
+          "Five public failures at their real scale: about A$1.8 billion in Robodebt repayments, wiped debts, and interest; more than 900 Horizon prosecutions; a Dutch cabinet that resigned.",
+        ctaLabel: "Open the casebook",
+        ctaHref: "/casebook",
       },
       {
         number: 2,
@@ -504,8 +505,8 @@ export const roles: Role[] = [
         ctaHref: "/glossary/ethotechnic-maturity",
       },
     ],
-    featuredDiagnostics: ["delegation-audit", "burden-modeler"],
-    featuredStandards: ["std-01-temporal-rights"],
+    featuredDiagnostics: ["corrective-debt-calculator", "delegation-audit"],
+    featuredStandards: ["std-06-human-impact-safety-case", "std-08-delegation"],
     formerPaths: [],
   },
 ];
