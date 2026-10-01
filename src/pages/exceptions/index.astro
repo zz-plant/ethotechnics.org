@@ -7,7 +7,7 @@ import CardItem from "../../components/CardItem.astro";
 
 const pageTitle = "Bounded exceptions framework — Ethotechnics Institute";
 const pageDescription =
-  "Five exceptions, from fraud to legal hold, that may delay a remedy for a set maximum time. The receipt, the named owner, and the review clock stay mandatory.";
+  "Five exceptions, from fraud to legal hold, that may delay a remedy for a set time. The receipt, owner, and clock stay mandatory. The durations are proposals.";
 
 const exceptions = [
   {
@@ -15,28 +15,28 @@ const exceptions = [
     title: "Fraud",
     delayed: "Remedy execution may pause while fraud is validated.",
     musts: "Receipt, owner assignment, and review clock remain mandatory.",
-    cadence: "Max duration: 72 hours. Review cadence: every 12 hours.",
+    cadence: "Proposed maximum: 72 hours. Proposed review: every 12 hours.",
   },
   {
     id: "abuse-safety",
     title: "Abuse / safety",
     delayed: "Full remediation can pause if immediate harm is likely.",
     musts: "Receipt, owner, and acknowledgment clock still required.",
-    cadence: "Max duration: 48 hours. Review cadence: every 8 hours.",
+    cadence: "Proposed maximum: 48 hours. Proposed review: every 8 hours.",
   },
   {
     id: "security",
     title: "Security",
     delayed: "Remedy may be staged to preserve forensic integrity.",
     musts: "Receipt, owner, and review clock still required.",
-    cadence: "Max duration: 96 hours. Review cadence: every 24 hours.",
+    cadence: "Proposed maximum: 96 hours. Proposed review: every 24 hours.",
   },
   {
     id: "legal-hold",
     title: "Legal hold",
     delayed: "Remedy may be deferred while counsel confirms constraints.",
     musts: "Receipt, owner, and acknowledgment clock remain mandatory.",
-    cadence: "Max duration: 14 days. Review cadence: every 72 hours.",
+    cadence: "Proposed maximum: 14 days. Proposed review: every 72 hours.",
   },
   {
     id: "irreversibility",
@@ -44,7 +44,7 @@ const exceptions = [
     delayed:
       "Final remedy can pause while reversible alternatives are prepared.",
     musts: "Receipt, owner, and review clock remain mandatory.",
-    cadence: "Max duration: 7 days. Review cadence: every 48 hours.",
+    cadence: "Proposed maximum: 7 days. Proposed review: every 48 hours.",
   },
 ];
 ---
@@ -67,7 +67,7 @@ const exceptions = [
   <SectionBlock
     eyebrow="Exception classes"
     title="Bounded exceptions with required minimums"
-    description="Every class defines what is delayed, what remains mandatory, and the maximum duration."
+    description="Each class says what may be delayed and what stays mandatory. The durations are proposed defaults. No standard on this site contains them yet, so an operator that adopts the framework sets its own and publishes them."
   >
     <CardGrid className="grid--two">
       {
@@ -95,9 +95,16 @@ const exceptions = [
   >
     <ul class="muted">
       <li>Receipt ID and decision payload linked to the impacted person.</li>
-      <li>Named owner and escalation authority with on-call coverage.</li>
+      <li>
+        A named owner, and someone with authority to escalate who can be reached
+        while the exception runs.
+      </li>
       <li>Clock timestamps for acknowledgment, review, and remedy.</li>
       <li>Justification and expiry date for the exception class.</li>
+      <li>
+        A count of how often each class is used, sent to whoever owns the rule.
+        An exception used often is evidence that the rule is wrong.
+      </li>
       <li>
         Receipt payloads conform to the{" "}
         <a href="/standards/agent-receipt-schema.json">Agent Receipt schema</a>.

@@ -28,14 +28,14 @@ export type IncidentLessonsIntro = PageWithPermalink & {
 };
 
 export const incidentLessonsIntro: IncidentLessonsIntro = {
-  pageTitle: "Governance lessons from incidents — Ethotechnics",
+  pageTitle: "Three composite failure patterns — Ethotechnics",
   pageDescription:
-    "Three incident patterns, from an appeals backlog to unlogged overrides, with missing controls, signals to watch, remediation checklists, and a reporting workflow.",
+    "Three composite scenarios, from an appeals backlog to unlogged overrides. None reports on a named institution. Each names the missing control and the fix.",
   permalink: "/incidents",
-  eyebrow: "Governance lessons",
-  title: "Incident retrospectives with remediation receipts.",
+  eyebrow: "Composite scenarios",
+  title: "Three failure patterns, each drawn from many systems.",
   description:
-    "Each entry distills the governance failure, the signals that could have been monitored, and the fixes to prioritize next.",
+    "These are composites. None reports on a named institution or a dated event. Each names the control that was missing, the signal that would have shown it, and the fix. For failures a court, an inquiry, or a regulator established, see the casebook.",
 };
 
 export const incidentLessons: IncidentLesson[] = [
@@ -51,7 +51,7 @@ export const incidentLessons: IncidentLesson[] = [
       headline: "Appeal triage delay compounded user burden.",
       impact: "Prolonged access suspension and inconsistent communications.",
       sector: "Financial services",
-      timeframe: "2026 Q1",
+      timeframe: "Composite, not a dated event",
     },
     governanceFailures: [
       "No automated escalation when repair SLAs crossed risk thresholds.",
@@ -84,7 +84,7 @@ export const incidentLessons: IncidentLesson[] = [
       headline: "Manual decisions skipped decision-log capture.",
       impact: "Inconsistent outcomes and incomplete accountability trails.",
       sector: "Public benefits",
-      timeframe: "2025 Q4",
+      timeframe: "Composite, not a dated event",
     },
     governanceFailures: [
       "Decision record capture did not include human override flows.",
@@ -120,7 +120,7 @@ export const incidentLessons: IncidentLesson[] = [
       headline: "Resolution closed before repair tasks were complete.",
       impact: "User outcomes never corrected despite approved appeals.",
       sector: "Healthcare",
-      timeframe: "2025 Q4",
+      timeframe: "Composite, not a dated event",
     },
     governanceFailures: [
       "No confirmation loop between appeal resolution and delivery teams.",

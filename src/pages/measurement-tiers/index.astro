@@ -19,34 +19,84 @@ const machineAnswerable = tier1Checks.map((check) => {
 
 const pageTitle = "Measurement tiers — Ethotechnics Institute";
 const pageDescription =
-  "Four measures of whether an automated system can be halted, reversed, and appealed, and what it costs people. Each has three evidence levels and a check for gaming.";
+  "Five measures: whether challenges change the rule, what the system costs people, and whether it can be reversed and halted. Each has three evidence levels.";
 
 const mpis = [
   {
-    id: "time-to-halt",
-    title: "Time-to-halt (TTH)",
-    summary: "Elapsed time from detection to a confirmed automation halt.",
+    id: "rule-change",
+    title: "Rule change after upheld challenges",
+    summary:
+      "Share of rules that crossed a set number of upheld challenges and were then revised or kept with a published reason, and how long that took.",
     tiers: [
       {
         tier: "Tier 0",
         evidence:
-          "System logs showing halt trigger and halt completion timestamps.",
+          "Upheld challenges recorded with the rule that produced each decision.",
       },
       {
         tier: "Tier 1",
         evidence:
-          "Drill reports with median and p95 halt times by team and system.",
+          "A count by rule sent to each rule's owner, with the owner's answer and its date.",
       },
       {
         tier: "Tier 2",
         evidence:
-          "Incident postmortems verifying production halt times under load.",
+          "A sample of rule changes traced back to the challenges that prompted them, checked by someone outside the team.",
       },
     ],
     gaming:
-      "Halt tests run on low-traffic sandboxes instead of production paths.",
+      "Coding each upheld challenge as a one-off exception so no rule ever reaches the threshold.",
     detection:
-      "Validator compares drill environment IDs against production system inventory.",
+      "Join exception codes to rule identifiers, and count a rule's one-off exceptions toward its total anyway.",
+  },
+  {
+    id: "appeal-success",
+    title: "Appeal success rate",
+    summary:
+      "Share of contested decisions that result in reversal or remedy. A high rate is evidence the rule is wrong, not proof the appeal path works.",
+    tiers: [
+      {
+        tier: "Tier 0",
+        evidence: "Appeal intake records with outcomes and timestamps.",
+      },
+      {
+        tier: "Tier 1",
+        evidence: "Reviewer roster coverage and SLA compliance for appeals.",
+      },
+      {
+        tier: "Tier 2",
+        evidence: "External audit sampling of appeal outcomes for consistency.",
+      },
+    ],
+    gaming:
+      "Redirecting appeals to off-platform channels so they are not counted.",
+    detection:
+      "Check for a mismatch between receipts issued and appeals recorded.",
+  },
+  {
+    id: "burden-ratio",
+    title: "Burden ratio",
+    summary:
+      "Relative time cost imposed on impacted people versus internal operators.",
+    tiers: [
+      {
+        tier: "Tier 0",
+        evidence:
+          "Journey maps with time cost logs for entry, exit, and appeal flows.",
+      },
+      {
+        tier: "Tier 1",
+        evidence: "Time-on-task analytics with segmentation by user cohort.",
+      },
+      {
+        tier: "Tier 2",
+        evidence: "Independent usability studies verifying time cost deltas.",
+      },
+    ],
+    gaming:
+      "Measuring only successful flows while ignoring drop-offs or abandoned cases.",
+    detection:
+      "Require abandonment rates and cross-check them with support tickets.",
   },
   {
     id: "reversibility",
@@ -72,55 +122,33 @@ const mpis = [
     gaming:
       "Counting only low-stakes cases while excluding high-impact reversals.",
     detection:
-      "Validator samples by impact tier and checks for missing high-severity cases.",
+      "Sample by impact tier and check for missing high-severity cases.",
   },
   {
-    id: "appeal-success",
-    title: "Appeal success rate",
-    summary: "Share of contested decisions that result in reversal or remedy.",
-    tiers: [
-      {
-        tier: "Tier 0",
-        evidence: "Appeal intake records with outcomes and timestamps.",
-      },
-      {
-        tier: "Tier 1",
-        evidence: "Reviewer roster coverage and SLA compliance for appeals.",
-      },
-      {
-        tier: "Tier 2",
-        evidence: "External audit sampling of appeal outcomes for consistency.",
-      },
-    ],
-    gaming:
-      "Redirecting appeals to off-platform channels so they are not counted.",
-    detection:
-      "Validator checks for mismatch between receipts issued and appeals recorded.",
-  },
-  {
-    id: "burden-ratio",
-    title: "Burden ratio",
-    summary:
-      "Relative time cost imposed on impacted people versus internal operators.",
+    id: "time-to-halt",
+    title: "Time-to-halt (TTH)",
+    summary: "Elapsed time from detection to a confirmed automation halt.",
     tiers: [
       {
         tier: "Tier 0",
         evidence:
-          "Journey maps with time cost logs for entry, exit, and appeal flows.",
+          "System logs showing halt trigger and halt completion timestamps.",
       },
       {
         tier: "Tier 1",
-        evidence: "Time-on-task analytics with segmentation by user cohort.",
+        evidence:
+          "Drill reports with median and p95 halt times by team and system.",
       },
       {
         tier: "Tier 2",
-        evidence: "Independent usability studies verifying time cost deltas.",
+        evidence:
+          "Incident postmortems verifying production halt times under load.",
       },
     ],
     gaming:
-      "Measuring only successful flows while ignoring drop-offs or abandoned cases.",
+      "Halt tests run on low-traffic sandboxes instead of production paths.",
     detection:
-      "Validator requires abandonment rates and cross-checks with support tickets.",
+      "Compare drill environment IDs against the production system inventory.",
   },
 ];
 ---
@@ -139,7 +167,7 @@ const mpis = [
   <SectionBlock
     eyebrow="How to use"
     title="Apply the tiers to every measure"
-    description="The four measures are Moral Performance Indicators (MPIs). Tier 0 is the baseline. Each higher tier needs stronger evidence than the one below it."
+    description="Five measures, the first the one the others serve. Tier 0 is the baseline. Each higher tier needs stronger evidence than the one below it."
   >
     <ul class="muted">
       <li>Tier 0 shows the system records the measure at all.</li>

@@ -189,7 +189,7 @@ export const navSections: NavSection[] = [
   {
     heading: "Knowledge",
     description:
-      "Terms, failure modes, real incidents, and the theory behind the laws.",
+      "Terms, scored public failures, and the theory behind the laws.",
     links: [
       {
         href: "/glossary",
@@ -198,9 +198,9 @@ export const navSections: NavSection[] = [
       },
       {
         href: "/taxonomy",
-        label: "Capability taxonomy",
+        label: "Practice taxonomy",
         description:
-          "Governance practices by domain, each with an owner and a readiness level",
+          "Governance practices by domain, each filed under the safeguards it serves",
       },
       {
         href: "/casebook",
@@ -211,7 +211,7 @@ export const navSections: NavSection[] = [
       {
         href: "/field-notes",
         label: "Field notes",
-        description: "Working papers and studies of how governance works in practice",
+        description: "Dated notes on outside changes that bear on the standards",
       },
       {
         href: "/research/theory",

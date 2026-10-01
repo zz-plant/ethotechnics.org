@@ -82,7 +82,7 @@ const pageDescription = entry.summary;
 
 const anchorLinks = [
   { href: "#summary", label: "Summary" },
-  { href: "#metadata", label: "Metadata" },
+  { href: "#metadata", label: "Safeguards" },
   { href: "#artifacts", label: "Related artifacts" },
   { href: "#navigation", label: "Navigation" },
 ];
@@ -159,22 +159,21 @@ const structuredDataJson = JSON.stringify(structuredData);
 
   <SectionBlock
     id="metadata"
-    eyebrow="Metadata"
-    title="Ownership and readiness"
+    eyebrow="Where it sits"
+    title="The safeguards it serves"
     variant="alt"
   >
     <dl class="standard-definitions">
       <div>
-        <dt>Owner</dt>
-        <dd>{entry.owner}</dd>
-      </div>
-      <div>
-        <dt>Scope</dt>
+        <dt>Level</dt>
         <dd>{entry.scope}</dd>
       </div>
       <div>
-        <dt>Readiness</dt>
-        <dd>{entry.readiness}</dd>
+        <dt>Safeguards</dt>
+        <dd>
+          {entry.safeguards.join(", ")}.{" "}
+          <a href="/method#state-variables">What the six safeguards are</a>
+        </dd>
       </div>
     </dl>
   </SectionBlock>

@@ -3,6 +3,16 @@ import { file, glob } from "astro/loaders";
 import { z } from "astro/zod";
 
 // Reuse common schemas
+
+/** The six safeguards, as the mechanism catalog files its patterns. */
+const mechanismSafeguards = [
+  "capability",
+  "authority",
+  "evidence",
+  "dependency",
+  "standing",
+  "correction",
+] as const;
 const pageCopySchema = z.object({
   pageTitle: z.string(),
   pageDescription: z.string(),
@@ -48,9 +58,19 @@ const taxonomyEntrySchema = z.object({
   title: z.string(),
   slug: z.string(),
   summary: z.string(),
-  owner: z.string(),
   scope: z.string(),
-  readiness: z.enum(["draft", "alpha", "beta", "stable"]),
+  safeguards: z
+    .array(
+      z.enum([
+        "Capability",
+        "Authority",
+        "Evidence",
+        "Dependency",
+        "Standing",
+        "Correction",
+      ]),
+    )
+    .min(1),
   relatedArtifacts: z.array(taxonomyArtifactSchema),
 });
 
@@ -221,7 +241,7 @@ const library = defineCollection({
     patterns: z.object({
       filters: z.array(
         z.object({
-          slug: z.enum(["governance", "friction", "policy"]),
+          slug: z.enum(mechanismSafeguards),
           label: z.string(),
           description: z.string(),
         }),
@@ -231,7 +251,7 @@ const library = defineCollection({
           slug: z.string(),
           title: z.string(),
           summary: z.string(),
-          filters: z.array(z.enum(["governance", "friction", "policy"])),
+          filters: z.array(z.enum(mechanismSafeguards)).min(1),
           glossaryRefs: z.array(z.string()),
           cues: z.array(z.string()),
           diagnostics: z.array(z.string()),

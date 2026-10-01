@@ -281,7 +281,7 @@ describe("pattern-filter", () => {
       expect(
         document.querySelector<HTMLElement>("[data-filter-status]")
           ?.textContent,
-      ).toContain("All themes");
+      ).toContain("All safeguards");
     });
     it("updates on filter", async () => {
       await init();

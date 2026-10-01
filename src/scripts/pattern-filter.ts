@@ -414,7 +414,7 @@ const initializePatternFilter = (root: HTMLElement) => {
     if (status) {
       const filterLabel = selectedFilter
         ? getFilterLabel(selectedFilter)
-        : "All themes";
+        : "All safeguards";
       const queryLabel = normalizedQuery
         ? ` and search for "${normalizedQuery}"`
         : "";

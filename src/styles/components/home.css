@@ -89,54 +89,9 @@
 
   @media (min-width: 860px) {
     .home-supplement {
-      grid-template-columns: minmax(0, 1.35fr) minmax(18rem, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       align-items: start;
     }
-  }
-
-  .home-supplement__aside {
-    display: grid;
-    gap: clamp(var(--space-5), 2.5vw, var(--space-6));
-  }
-
-  .recent-releases {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .recent-releases li {
-    padding: var(--space-3) 0;
-    border-top: 1px solid color-mix(in srgb, var(--border) 72%, transparent);
-    font-size: var(--text-sm);
-    line-height: 1.5;
-  }
-
-  .recent-releases li:last-child {
-    border-bottom: 1px solid color-mix(in srgb, var(--border) 72%, transparent);
-  }
-
-  .recent-releases__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: var(--space-3);
-    margin-bottom: var(--space-1);
-  }
-
-  .recent-releases__title {
-    font-weight: 650;
-    color: var(--link);
-    text-decoration: none;
-  }
-
-  .recent-releases__title:hover {
-    text-decoration: underline;
-  }
-
-  .recent-releases__date {
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
   }
 
   .card--accent {
@@ -1304,58 +1259,38 @@
     }
   }
 
-  /* The ratchet draws itself once its section is in view: the staircases
-     grow left to right, the decision markers land after them. Static and
-     fully drawn wherever the script has not run. */
-  [data-reveal-ready] .home-draw .ratchet__stairs-main {
+  /* The rule-count figure draws itself once its section is in view: the
+     upheld challenges appear, then the arrow and the revised rule draw.
+     Static and complete wherever the script has not run. */
+  [data-reveal-ready] .home-draw .rule-count__marks,
+  [data-reveal-ready] .home-draw .rule-count__late {
+    opacity: 0;
+  }
+
+  [data-reveal-ready] .home-draw .rule-count__draw {
     stroke-dasharray: 100;
     stroke-dashoffset: 100;
   }
 
-  [data-reveal-ready] .home-draw .ratchet__decision {
-    opacity: 0;
-  }
-
   @media (prefers-reduced-motion: no-preference) {
-    [data-reveal-ready] .home-draw .ratchet__stairs-main {
-      transition: stroke-dashoffset 1.7s var(--ease-out-editorial);
+    [data-reveal-ready] .home-draw .rule-count__marks {
+      transition: opacity 0.6s ease;
     }
 
-    [data-reveal-ready] .home-draw .ratchet__decision {
-      transition: opacity 0.5s ease 1.3s;
+    [data-reveal-ready] .home-draw .rule-count__draw {
+      transition: stroke-dashoffset 0.8s var(--ease-out-editorial) 0.7s;
     }
 
-    [data-reveal-ready] .home-draw.is-inview .ratchet__stairs-main {
-      stroke-dashoffset: 0;
+    [data-reveal-ready] .home-draw .rule-count__late {
+      transition: opacity 0.4s ease 1.3s;
     }
 
-    [data-reveal-ready] .home-draw.is-inview .ratchet__decision {
+    [data-reveal-ready] .home-draw.is-inview .rule-count__marks,
+    [data-reveal-ready] .home-draw.is-inview .rule-count__late {
       opacity: 1;
     }
 
-    /* Where the browser ties animation to scroll, the draw is scroll-linked
-       instead of one-shot: the curves grow as the figure crosses the
-       viewport. Still no capture -- the page scrolls normally. */
-    @supports (animation-timeline: view()) {
-      .home-draw {
-        view-timeline-name: --ratchet-draw;
-      }
-
-      [data-reveal-ready] .home-draw .ratchet__stairs-main {
-        transition: none;
-        animation: ratchet-draw linear both;
-        animation-timeline: --ratchet-draw;
-        animation-range: entry 30% cover 45%;
-      }
-    }
-  }
-
-  @keyframes ratchet-draw {
-    from {
-      stroke-dashoffset: 100;
-    }
-
-    to {
+    [data-reveal-ready] .home-draw.is-inview .rule-count__draw {
       stroke-dashoffset: 0;
     }
   }

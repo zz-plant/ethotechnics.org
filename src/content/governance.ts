@@ -84,7 +84,7 @@ export const governanceContent: GovernanceContent = {
     {
       stage: "Review window",
       detail:
-        "Reviewer roles assess harms, rollback plans, and implementation fit during a dated comment window.",
+        "The RFC is public for a dated comment window. Anyone can comment on harms, rollback plans, and implementation fit; no outside reviewer is assigned.",
     },
     {
       stage: "Decision",

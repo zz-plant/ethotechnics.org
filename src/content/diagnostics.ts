@@ -85,10 +85,10 @@ export const diagnosticsContent: DiagnosticsContent = {
       {
         name: "Ethotechnics Institute Diagnostics Lab",
         affiliation: "Ethotechnics Institute",
-        email: "diagnostics@ethotechnics.org",
+        email: "hello@ethotechnics.org",
       },
     ],
-    contact: "diagnostics@ethotechnics.org",
+    contact: "hello@ethotechnics.org",
     published: "2025-12-03T00:00:00Z",
     updated: "2026-09-29T00:00:00Z",
     version: "v1.4.0",

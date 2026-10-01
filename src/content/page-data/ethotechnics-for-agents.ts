@@ -225,7 +225,7 @@ export const practiceSections: PracticeSection[] = [
       },
       {
         title: "MEC-04 The Hard Clock",
-        href: "/mechanisms/mec-04-hard-clock",
+        href: "/mechanisms/patterns/hard-clock",
       },
     ],
     gaps: [
@@ -256,7 +256,7 @@ export const practiceSections: PracticeSection[] = [
       },
       {
         title: "MEC-04 The Hard Clock",
-        href: "/mechanisms/mec-04-hard-clock",
+        href: "/mechanisms/patterns/hard-clock",
       },
       {
         title: "MEC-03 Maintenance windowing",
@@ -323,7 +323,7 @@ export const practiceSections: PracticeSection[] = [
       },
       {
         title: "MEC-04 The Hard Clock",
-        href: "/mechanisms/mec-04-hard-clock",
+        href: "/mechanisms/patterns/hard-clock",
       },
     ],
     gaps: [

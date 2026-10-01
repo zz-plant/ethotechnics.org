@@ -5,7 +5,7 @@ import SectionBlock from "../../components/SectionBlock.astro";
 
 const pageTitle = "STD-06 Evidence Pack — Ethotechnics Institute";
 const pageDescription =
-  "The evidence an STD-06 human impact safety case must carry: six portable artifacts, test battery results, three tiers of proof, and what auditors ask.";
+  "The evidence an STD-06 human impact safety case must carry: eight portable artifacts, test battery results, three tiers of proof, and what auditors ask.";
 
 const tiers = [
   {
@@ -49,6 +49,16 @@ const artifacts = [
     details: "Active boundary breaches and the last remediation review date.",
   },
   {
+    title: "Dependency ledger",
+    details:
+      "Dependents with criticality, substitution cost and its basis, retained expertise with the date it was last exercised, alternatives with their status, correction latency, and the exposure score with each of its inputs.",
+  },
+  {
+    title: "Withdrawal rehearsal report",
+    details:
+      "Date, scope, participants, outcome, and what the rehearsal showed at the technical, operational, and institutional levels of reversibility.",
+  },
+  {
     title: "Silent-harm discovery report",
     details:
       "Error, reversal, and remedy rates per affected population, with the cadence and the records they were computed from (§2.4).",
@@ -62,6 +72,17 @@ const testEvidence = [
   "Burden ceiling measurements with UX flow maps.",
   "Disclosure latency report with receipt delivery timestamps.",
   "Per-population rate comparison computed without waiting for a challenge or claim (§2.4).",
+  "Withdrawal rehearsal with measured correction latency and a report per reversibility level.",
+];
+
+const dependencyChecklist = [
+  "Dependency record populated with dependents, substitution cost, retained expertise, alternatives, last rehearsal, and correction latency (§5.1).",
+  "Exposure score published with dependency depth, substitution cost, and correction latency shown separately (§5.2).",
+  "Reversibility evidenced at all three levels, with unevidenced levels marked not evidenced rather than feasible (§5.3).",
+  "Preserved capacities listed with a reason and a named owner, and any erosion recorded as a governance event (§5.4).",
+  "No expansion of scope, population, or authority while institutional reversibility is unevidenced (§5.5).",
+  "Withdrawal rehearsed on the published cadence, at least annually where exposure is non-trivial, and before any expansion (§5.6).",
+  "Dependency record refreshed before any renewal or expansion decision that cites it (§5.7).",
 ];
 
 const portabilityChecklist = [
@@ -87,6 +108,7 @@ const portabilityChecklist = [
       { href: "#tests", label: "Test battery evidence" },
       { href: "#portability", label: "Portability checklist" },
       { href: "#auditors", label: "What auditors ask" },
+      { href: "#dependency", label: "Dependency and reversibility" },
       { href: "#referenced-by", label: "Referenced by" },
     ]}
   />
@@ -166,15 +188,34 @@ const portabilityChecklist = [
       <li>
         Show the public-facing disclosure packet used for affected people.
       </li>
+      <li>
+        Show the dependency ledger and how the exposure score moved since the
+        last refresh.
+      </li>
+      <li>
+        Show the last withdrawal rehearsal report and what it found at the
+        institutional level.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="dependency"
+    eyebrow="Article V"
+    title="Dependency and reversibility checklist"
+    description="Evidence for STD-06 Article V. Each line maps to a clause."
+    variant="alt"
+  >
+    <ul class="muted">
+      {dependencyChecklist.map((item) => <li>{item}</li>)}
     </ul>
   </SectionBlock>
 
   <SectionBlock
     id="referenced-by"
     eyebrow="Referenced by"
-    title="Where STD-06 evidence is enforced"
+    title="Where STD-06 evidence is asked for"
     description="The standard, bindings, and validators that depend on this evidence."
-    variant="alt"
   >
     <div class="grid grid--three">
       <div class="panel">

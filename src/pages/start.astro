@@ -132,8 +132,8 @@ const pageDescription =
         <span class="eyebrow">Adoption</span>
         <h2>Already decided to adopt?</h2>
         <p>
-          Two paths: follow the one-sprint adoption plan, or practice halting an
-          automated system in Finite, a training simulation.
+          Two paths: follow the one-sprint adoption plan, or practice deciding
+          when to halt an automated system in Finite, a training simulation.
         </p>
         <div class="direct-track__links">
           <a href="#fast-path" class="button">Adoption plan</a>
@@ -157,13 +157,17 @@ const pageDescription =
 
       <div class="fast-path-grid">
         <div class="fast-path-card">
-          <span class="fast-path-card__badge">1 day</span>
-          <h3>Kill switch</h3>
-          <p class="fast-path-card__owner">Ops / Reliability</p>
-          <p class="fast-path-card__desc">
-            Gives a named person a tested way to stop the automation.
+          <span class="fast-path-card__badge">2 days</span>
+          <h3>An appeal path that reaches the rule</h3>
+          <p class="fast-path-card__owner">
+            Support / Trust, with the rule's owner
           </p>
-          <a href="/mechanisms/patterns/kill-switch" class="fast-path-link"
+          <p class="fast-path-card__desc">
+            Gives people a way to challenge a decision inside the product, and
+            counts upheld challenges by rule. A set number sends the rule back
+            to its owner for review.
+          </p>
+          <a href="/mechanisms/patterns/appeal-paths" class="fast-path-link"
             >Open mechanism &rarr;</a
           >
         </div>
@@ -180,13 +184,14 @@ const pageDescription =
           >
         </div>
         <div class="fast-path-card">
-          <span class="fast-path-card__badge">2 days</span>
-          <h3>In-product appeal path</h3>
-          <p class="fast-path-card__owner">Support / Trust</p>
+          <span class="fast-path-card__badge">1 day</span>
+          <h3>A named halt</h3>
+          <p class="fast-path-card__owner">Ops / Reliability</p>
           <p class="fast-path-card__desc">
-            Gives people a way to challenge a decision inside the product.
+            Gives a named person a tested way to halt the automation while a
+            correction is made.
           </p>
-          <a href="/mechanisms/patterns/appeal-paths" class="fast-path-link"
+          <a href="/mechanisms/patterns/kill-switch" class="fast-path-link"
             >Open mechanism &rarr;</a
           >
         </div>
@@ -251,10 +256,12 @@ const pageDescription =
               >
             </li>
             <li>
-              <a href="/evidence-packs"><strong>Release gate binding</strong></a
+              <a href="/mechanisms/patterns/admission-gate"
+                ><strong>MEC-22 Admission gate</strong></a
               >
               <span
-                >Copy the release gate checklist into your deployment template.</span
+                >Record the decision to deploy as an authorization, with its
+                evidence and outcome.</span
               >
             </li>
             <li>
@@ -291,8 +298,8 @@ const pageDescription =
           <span class="section-card__tag">Architecture</span>
           <h3 class="section-card__title">Mechanisms &rarr;</h3>
           <p class="section-card__desc">
-            Specifications for kill switches, decision logs with dissent, and
-            limits on automation.
+            Specifications for appeal paths that reach the rule, decision logs
+            with dissent, and named halts.
           </p>
         </a>
         <a href="/diagnostics" class="section-card">
