@@ -25,8 +25,12 @@ const internalLinkSectionMap: Array<{ match: RegExp; section: string }> = [
   { match: /^\/explainers/, section: "Explainers" },
 ];
 
-const toTitleLabel = (value: string) =>
-  value.replace(/[-_]/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
+// Labels are built from slugs, so they are sentence case like every other
+// label on the site: "Typed decision models", not "Typed Decision Models".
+const toTitleLabel = (value: string) => {
+  const words = value.replace(/[-_]/g, " ");
+  return words.charAt(0).toUpperCase() + words.slice(1);
+};
 
 const relatedLinkLabel = (href: string) => {
   const normalized = href.replace(/^https?:\/\//, "").replace(/\/$/, "");
@@ -48,9 +52,10 @@ const relatedLinkLabel = (href: string) => {
     return toTitleLabel(slug ?? "Related resource");
   }
 
-  const [host, ...rest] = normalized.split("/");
-  const pathLabel = toTitleLabel(rest.at(-1) ?? host);
-  return `${pathLabel} (${host})`;
+  // An external URL's last segment is a headline slug that has lost its
+  // capitals, apostrophes, and percent signs. The host is the honest label.
+  const [host] = normalized.split("/");
+  return `Source (${host.replace(/^www\./, "")})`;
 };
 
 const estimateReadingTime = (text: string) => {

@@ -767,7 +767,7 @@ export const cases: Case[] = [
     slug: "ofqual-2020-grades",
     title: "England's 2020 exam grades",
     system:
-      "A standardization model that replaced cancelled A-level and GCSE exams by fitting each school's historical grade distribution to its current cohort, overriding teachers' assessed grades for all but the smallest classes.",
+      "A standardization model that replaced canceled A-level and GCSE exams by fitting each school's historical grade distribution to its current cohort, overriding teachers' assessed grades for all but the smallest classes.",
     jurisdiction: "England · Ofqual, Department for Education",
     period: "13 to 17 August 2020",
     scale:
@@ -784,14 +784,14 @@ export const cases: Case[] = [
     metaDescription:
       "In August 2020, Ofqual's model lowered about 39% of England's A-level grades below teacher assessments. It was withdrawn in four days. Scored on six safeguards.",
     narrative: [
-      "When the 2020 exams were cancelled, the Secretary of State directed Ofqual to award grades and to ensure the distribution was broadly similar to previous years. Schools submitted a centre-assessed grade and a rank order for each student. Ofqual's model then fitted each school's grade distribution from the previous three years, adjusted for the cohort's prior attainment, to the rank order. Where a subject cohort at a school was five or fewer, the teacher's grade was used as submitted; between five and fifteen, a blend.",
+      "When the 2020 exams were canceled, the Secretary of State directed Ofqual to award grades and to ensure the distribution was broadly similar to previous years. Schools submitted a centre-assessed grade and a rank order for each student. Ofqual's model then fitted each school's grade distribution from the previous three years, adjusted for the cohort's prior attainment, to the rank order. Where a subject cohort at a school was five or fewer, the teacher's grade was used as submitted; between five and fifteen, a blend.",
       "Results were issued on 13 August. The regulator's interim report published the same day acknowledged that the model could not be validated against outcomes for individual students, since none existed, and that its aggregate agreement with past distributions was the design target rather than a measurement of accuracy. Students could appeal only through their school, on grounds of administrative error or, under a policy announced two days before results and withdrawn two days after, a higher mock grade. There was no ground of appeal that the model had ranked the student wrongly.",
       "Scotland's regulator had already withdrawn its equivalent model on 11 August. On 17 August Ofqual and the Department for Education announced that centre-assessed grades would stand. The Office for Statistics Regulation's review, published in March 2021, concluded that the model's limitations were understood by those building it and that the failure was in how the choices were made, explained, and opened to challenge.",
     ],
     timeline: [
       {
         when: "2020",
-        what: "Exams are cancelled. The Secretary of State directs Ofqual to keep grades broadly similar to previous years.",
+        what: "Exams are canceled. The Secretary of State directs Ofqual to keep grades broadly similar to previous years.",
       },
       {
         when: "11 Aug 2020",
@@ -845,7 +845,7 @@ export const cases: Case[] = [
         variable: "dependency",
         verdict: "held",
         finding:
-          "The halt was thrown four days in, before universities had finalised admissions and before the grades had been used for anything irreversible. Dependence had not yet set. Three weeks later, with places confirmed and courses full, the same reversal would have been operationally impossible. The clock, not the decision, is what made this case recoverable.",
+          "The halt was thrown four days in, before universities had finalized admissions and before the grades had been used for anything irreversible. Dependence had not yet set. Three weeks later, with places confirmed and courses full, the same reversal would have been operationally impossible. The clock, not the decision, is what made this case recoverable.",
         clauses: [{ standard: "STD-06", clause: "§5.5" }],
         laws: ["V", "XI"],
       },
@@ -865,7 +865,7 @@ export const cases: Case[] = [
         variable: "correction",
         verdict: "drifted",
         finding:
-          "The halt existed and was thrown. It was not the operator's; it was ministerial, taken under public pressure, and after a neighbouring jurisdiction had gone first. A correction that works when a minister chooses to exercise it is real, but it is not a rehearsed control with a named owner and a declared threshold.",
+          "The halt existed and was thrown. It was not the operator's; it was ministerial, taken under public pressure, and after a neighboring jurisdiction had gone first. A correction that works when a minister chooses to exercise it is real, but it is not a rehearsed control with a named owner and a declared threshold.",
         clauses: [
           { standard: "STD-06", clause: "§1.3" },
           { standard: "STD-06", clause: "§2.2" },
@@ -929,7 +929,7 @@ export const cases: Case[] = [
       "New York's regulator found in 2021 that Apple Card's credit limits broke no fair lending law, but applicants got no reasons and no appeal. Scored on six safeguards.",
     narrative: [
       "In November 2019, several applicants reported publicly that they had been offered credit limits many times higher than their spouses', despite shared finances and, in some cases, the spouse's better credit history. Customer service representatives could not explain the outcomes and, by the applicants' accounts, said the algorithm had decided. The New York Department of Financial Services opened an investigation.",
-      "The Department's report, published in March 2021, found that the underwriting model did not use sex or marital status and that the outcomes could be explained by differences in the applicants' individual credit files, including that a spouse who was an authorised user on the other's accounts had a thinner history. It found no violation of fair lending law. It also found that neither applicants nor the bank's staff had been able to obtain that explanation at the time, that there was no process to request reconsideration of a limit, and that the bank's reliance on individual credit data disadvantaged spouses whose finances were shared but whose credit histories were not.",
+      "The Department's report, published in March 2021, found that the underwriting model did not use sex or marital status and that the outcomes could be explained by differences in the applicants' individual credit files, including that a spouse who was an authorized user on the other's accounts had a thinner history. It found no violation of fair lending law. It also found that neither applicants nor the bank's staff had been able to obtain that explanation at the time, that there was no process to request reconsideration of a limit, and that the bank's reliance on individual credit data disadvantaged spouses whose finances were shared but whose credit histories were not.",
       "The issuer subsequently introduced the ability for spouses to share an account and build credit jointly, and a reconsideration process. The model was not changed.",
     ],
     timeline: [
@@ -960,7 +960,7 @@ export const cases: Case[] = [
         variable: "capability",
         verdict: "held",
         finding:
-          "The model set limits. It did not do anything it had not been authorised to do, and its inputs were declared to the regulator.",
+          "The model set limits. It did not do anything it had not been authorized to do, and its inputs were declared to the regulator.",
         clauses: [{ standard: "STD-07", clause: "§2.2" }],
         laws: ["I"],
       },

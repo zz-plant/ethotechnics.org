@@ -33,8 +33,8 @@ const openRfcs = rfcs
 const lapsedRfcs = openRfcs.filter((entry) => entry.review.lapsed).length;
 const rfcSectionDescription =
   lapsedRfcs === 0
-    ? "Open RFCs show the status, owners, reviewer roles, and active review windows before decisions are logged."
-    : `Open RFCs show the status, owners, and reviewer roles before decisions are logged. ${lapsedRfcs} of ${openRfcs.length} have passed their stated review window without a decision being logged.`;
+    ? "Open RFCs show the status, the owner, and the review window before a decision is logged."
+    : `Open RFCs show the status and the owner before a decision is logged. ${lapsedRfcs} of ${openRfcs.length} have passed their stated review window without a decision being logged.`;
 
 // The page used to promise a quarterly cadence it did not keep. It reports
 // the date of the most recent update and leaves the reader to judge the gap,

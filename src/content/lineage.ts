@@ -244,26 +244,26 @@ export const whyNow: { label: string; text: string }[] = [
   },
 ];
 
-/** The theory's names for the mechanism. */
+/** The theory's names for the mechanism, each in one plain sentence or two. */
 export const theoryVocabulary: { term: string; text: string }[] = [
   {
-    term: "The conversion of human capacity into institutional entitlement",
-    text: "Tracing the specific mechanism through which an institution observes that people can compensate for its deficiencies, organizes its baseline operations on the assumption that they will, and converts an exceptional act of endurance into a compulsory operational requirement.",
+    term: "Capacity turned into entitlement",
+    text: "An institution notices that people can cover for its deficiencies, builds its operations on the assumption that they will, and turns a one-off act of endurance into a standing requirement.",
   },
   {
-    term: "The Principle of Non-Expropriation of Resilience",
-    text: "An individual's capacity to adapt to institutional deficiencies does not, by itself, establish an institutional entitlement to that adaptation. When a predictable and correctable deficiency is routinely compensated for through unrecorded human effort, successful outcomes do not establish that the arrangement is adequate.",
+    term: "Non-expropriation of resilience",
+    text: "That people can adapt to a deficiency does not entitle the institution to their adaptation. When a fixable deficiency is routinely covered by unrecorded effort, good outcomes do not show the arrangement works.",
   },
   {
-    term: "Intrinsic versus compensated institutional performance",
-    text: "Distinguishing performance achieved within formal design models from performance parasitic on unrecorded human compensation. This establishes an operational boundary: legitimate resilience absorbs irreducible uncertainty with monitored, replenished buffers; illegitimate compensation subsidizes predictable, correctable design defects.",
+    term: "Intrinsic and compensated performance",
+    text: "Performance a system achieves on its own, set against performance that depends on unrecorded human correction. A monitored buffer that absorbs genuine uncertainty is resilience. Unrecorded work that covers a fixable defect is a subsidy.",
   },
   {
-    term: "The epistemic masking feedback loop",
-    text: "Showing how successful adaptation systematically destroys the error signals an institution needs to recognize its own defects. Competent human absorption manufactures the appearance of system health (the falsified denominator), actively blinding the institution to its own operational fragility and blocking structural reform.",
+    term: "Masking",
+    text: "When people cover for a broken system, its error rate looks low. The institution reads the low rate as health and fixes nothing.",
   },
   {
-    term: "Institutional evaluation by burdens eliminated",
-    text: "Evaluating systems not merely by gross output, but by whether a deployment or reform reduces the obligation to perform preventable compensatory work while preserving substantive freedom and low-cost corrective power.",
+    term: "Evaluation by burdens removed",
+    text: "A system or a reform is judged by whether it removes preventable correction work from people, not only by how much it produces.",
   },
 ];

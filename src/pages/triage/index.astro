@@ -2,32 +2,16 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import { failureStates } from "../../content/institute-site";
+import {
+  failureChoiceLabels,
+  failurePriorityBadges,
+} from "../../content/triage";
 
 /**
  * Incident triage. This grid used to sit in the middle of the home page,
  * where a first-time reader met seven severity badges before knowing what
  * the site was. Someone in the middle of an incident is sent here directly.
  */
-const failureChoiceLabels: Record<string, string> = {
-  "decision-appealed": "Decision appealed",
-  "model-wrong": "Model made a harmful error",
-  "queue-stuck": "Appeals or reviews are stuck",
-  "user-harmed": "A user was harmed",
-  "no-owner": "No owner is assigned",
-  "cant-explain": "Decision cannot be clearly explained",
-  "cant-stop": "System cannot be stopped or rolled back",
-};
-
-const failurePriorityBadges: Record<string, string> = {
-  "decision-appealed": "High · Name an owner",
-  "model-wrong": "Critical · Contain the error",
-  "queue-stuck": "High · Set a deadline",
-  "user-harmed": "Critical · Answer the person",
-  "no-owner": "High · Assign owner",
-  "cant-explain": "Medium · Record the reasons",
-  "cant-stop": "Critical · Find who can halt it",
-};
-
 // The badges already lead with a severity word; this is what lets the grid
 // show it. Seven triage cards whose whole job is "how bad is this" rendered
 // Critical, High and Medium in identical neutral grey, so severity was

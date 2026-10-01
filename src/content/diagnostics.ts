@@ -364,7 +364,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         pilotNotes:
           "Built against the two systems that emit the shape today, using the exported output of one of them as the worked example rather than a fixture written to pass.",
         reliability:
-          "Deterministic. The same stream and the same as-of time give the same readout, because every check is mechanical and none of them asks for a judgement.",
+          "Deterministic. The same stream and the same as-of time give the same readout, because every check is mechanical and none of them asks for a judgment.",
         failureModes: [
           "Auditing a filtered export and reading the resulting chain break as tampering.",
           "Judging clocks against now rather than the export time, which fails a record for the reviewer's lateness.",

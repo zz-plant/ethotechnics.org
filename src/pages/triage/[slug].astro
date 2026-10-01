@@ -8,6 +8,7 @@ import {
   type FailureState,
   type InstituteArtifact,
 } from "../../content/institute-site";
+import { failureFirstMoves } from "../../content/triage";
 
 const slug = Astro.params.slug;
 const state =
@@ -125,12 +126,12 @@ const breadcrumbItems = [
     <div class="panel stack-sm">
       <p class="eyebrow">Start here</p>
       <p class="muted">
-        Start with <strong>{orderedWorkflowStages[0]?.artifact.name}</strong>.
-        It records who owns the response, what evidence to keep, and how the
-        decision will be reversed, before those questions get lost.
+        Start with the
+        <strong>{orderedWorkflowStages[0]?.artifact.name.toLowerCase()}</strong>.
+        {orderedWorkflowStages[0]?.artifact.description[0]}
       </p>
       <ol class="small muted">
-        <li>Assign the accountable owner now.</li>
+        <li>{failureFirstMoves[state.slug] ?? "Assign the accountable owner now."}</li>
         <li>Capture evidence and timestamps in the first artifact.</li>
         <li>Confirm who the case escalates to before starting other work on it.</li>
       </ol>

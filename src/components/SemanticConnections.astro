@@ -26,21 +26,17 @@ if (!hasConnections) {
 
 <aside
   class={`semantic-connections ${className}`}
-  aria-label="Semantic Connections"
+  aria-label="Connected standards and tools"
 >
   <div class="semantic-connections__header">
-    <h3 class="semantic-connections__title">
-      Connected Specifications & Tools
-    </h3>
+    <h3 class="semantic-connections__title">Connected standards and tools</h3>
   </div>
 
   <div class="semantic-connections__grid">
     {
       context.diagnostics.length > 0 && (
         <div class="semantic-connections__column">
-          <span class="semantic-connections__label">
-            Interactive Verification
-          </span>
+          <span class="semantic-connections__label">Tools to run</span>
           <div class="semantic-connections__list">
             {context.diagnostics.slice(0, 3).map((diag) => (
               <a
@@ -67,7 +63,7 @@ if (!hasConnections) {
       context.failureModes.length > 0 && (
         <div class="semantic-connections__column">
           <span class="semantic-connections__label">
-            Prevented Failure Modes
+            Failure modes it addresses
           </span>
           <div class="semantic-connections__list">
             {context.failureModes.slice(0, 3).map((fm) => (
@@ -92,7 +88,7 @@ if (!hasConnections) {
     {
       context.standards.length > 0 && (
         <div class="semantic-connections__column">
-          <span class="semantic-connections__label">Normative Standards</span>
+          <span class="semantic-connections__label">Standards</span>
           <div class="semantic-connections__list">
             {context.standards.slice(0, 3).map((std) => (
               <a
@@ -104,7 +100,7 @@ if (!hasConnections) {
                 </strong>
                 <p class="semantic-connections__card-desc">{std.description}</p>
                 <span class="semantic-connections__card-action">
-                  View specification &rarr;
+                  Read the standard &rarr;
                 </span>
               </a>
             ))}

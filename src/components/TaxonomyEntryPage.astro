@@ -81,9 +81,8 @@ const pageTitle = `${entry.title}${titleSuffix}`;
 const pageDescription = entry.summary;
 
 const anchorLinks = [
-  { href: "#summary", label: "Summary" },
   { href: "#metadata", label: "Safeguards" },
-  { href: "#artifacts", label: "Related artifacts" },
+  { href: "#artifacts", label: "Standards and tools" },
   { href: "#navigation", label: "Navigation" },
 ];
 
@@ -151,12 +150,6 @@ const structuredDataJson = JSON.stringify(structuredData);
     anchorLinks={anchorLinks}
   />
 
-  <SectionBlock id="summary" eyebrow="Summary" title="Scope overview">
-    <div class="panel">
-      <p>{entry.summary}</p>
-    </div>
-  </SectionBlock>
-
   <SectionBlock
     id="metadata"
     eyebrow="Where it sits"
@@ -180,9 +173,8 @@ const structuredDataJson = JSON.stringify(structuredData);
 
   <SectionBlock
     id="artifacts"
-    eyebrow="Related artifacts"
-    title="Assets that reinforce this level"
-    description="Link to the standards, tools, and references that define expected outcomes."
+    eyebrow="Related"
+    title="Standards and tools that apply"
   >
     <CardGrid className="grid--two">
       {

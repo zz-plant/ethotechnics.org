@@ -360,9 +360,9 @@ export const roles: Role[] = [
     ],
     guide: {
       focusAreas: [
-        "Check each flow: can a person stop it, did they agree to it, and can it be undone?",
-        "Pair mechanism specs with interaction patterns and copy.",
-        "Validate workflows with diagnostics before shipping.",
+        "Check each flow: can a person challenge the decision, get an answer by a date, and leave without losing their place?",
+        "Put the challenge route on the screen where the decision appears, not in a help page.",
+        "Count what the flow asks of people, in minutes and steps, before it ships.",
       ],
       keyLinks: [
         {
@@ -378,7 +378,7 @@ export const roles: Role[] = [
         {
           label: "Field notes",
           href: "/field-notes",
-          note: "Applied examples and notes for running workshops.",
+          note: "Dated notes on outside changes that bear on the standards.",
         },
         {
           label: "Diagnostics",
@@ -392,8 +392,8 @@ export const roles: Role[] = [
         },
       ],
       firstMoves: [
-        "Select two mechanisms that map to your flow’s risk points.",
-        "Run a diagnostic with the team to find gaps in consent or in the work the flow asks of people.",
+        "Pick the step in your flow where a decision lands on a person, and read the mechanism for it.",
+        "Score one real journey with the Burden Modeler and share the result as the design brief.",
         "Check interface copy against the glossary's defined terms before release.",
       ],
     },
@@ -462,7 +462,7 @@ export const roles: Role[] = [
         {
           label: "Field notes",
           href: "/field-notes",
-          note: "Published case notes tied to standards.",
+          note: "Dated notes on outside changes that bear on the standards.",
         },
       ],
       firstMoves: [

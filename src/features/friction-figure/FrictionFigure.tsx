@@ -199,8 +199,15 @@ export function FrictionFigure({ copy }: Props) {
         A demonstration, not a measurement of any institution. The five
         properties are declared in the essay next to the prose that names them,
         and the figure refuses to build if the two disagree. How each is
-        computed from the chain is in{" "}
-        <code>src/features/friction-figure/frictionLogic.ts</code>.
+        computed from the chain is{" "}
+        <a
+          href="https://github.com/zz-plant/ethotechnics.org/blob/main/src/features/friction-figure/frictionLogic.ts"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          in the public source
+        </a>
+        .
       </p>
     </div>
   );

@@ -222,6 +222,17 @@ const buildHighlightMark = (
   return mark;
 };
 
+/**
+ * A term inside an email address, domain, or path is part of that address,
+ * not a use of the term: "hello@ethotechnics.org" rendered as
+ * "hello@" + a tooltip + ".org" on the participate page.
+ */
+const isInsideAddress = (text: string, start: number, end: number): boolean => {
+  const before = text[start - 1] ?? "";
+  const after = text.slice(end, end + 2);
+  return /[@./\\]/.test(before) || /^[@]|^\.[a-z0-9]/i.test(after);
+};
+
 const replaceGlossaryTerms = (node: Text): void => {
   const text = node.textContent;
   if (!text) {
@@ -243,7 +254,10 @@ const replaceGlossaryTerms = (node: Text): void => {
 
     fragment.append(text.slice(lastIndex, matchIndex));
 
-    if (entry) {
+    if (
+      entry &&
+      !isInsideAddress(text, matchIndex, matchIndex + matchText.length)
+    ) {
       fragment.append(buildHighlightMark(matchText, entry));
     } else {
       fragment.append(matchText);

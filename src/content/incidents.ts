@@ -48,8 +48,10 @@ export const incidentLessons: IncidentLesson[] = [
     updated: "2026-02-20T00:00:00Z",
     glossaryRefs: ["appeal-event", "repair-sla", "burden-hours"],
     incident: {
-      headline: "Appeal triage delay compounded user burden.",
-      impact: "Prolonged access suspension and inconsistent communications.",
+      headline:
+        "Appeals waited in a backlog, and people stayed locked out while they waited.",
+      impact:
+        "Accounts stayed suspended for weeks, and people were told different things.",
       sector: "Financial services",
       timeframe: "Composite, not a dated event",
     },
@@ -81,8 +83,10 @@ export const incidentLessons: IncidentLesson[] = [
     published: "2026-02-05T00:00:00Z",
     glossaryRefs: ["decision-record", "auditability"],
     incident: {
-      headline: "Manual decisions skipped decision-log capture.",
-      impact: "Inconsistent outcomes and incomplete accountability trails.",
+      headline:
+        "Staff overrode the model, and none of the overrides was logged.",
+      impact:
+        "Similar cases got different outcomes, and nobody could trace who decided.",
       sector: "Public benefits",
       timeframe: "Composite, not a dated event",
     },
@@ -117,8 +121,9 @@ export const incidentLessons: IncidentLesson[] = [
     published: "2026-01-22T00:00:00Z",
     glossaryRefs: ["appeal-event", "remedy"],
     incident: {
-      headline: "Resolution closed before repair tasks were complete.",
-      impact: "User outcomes never corrected despite approved appeals.",
+      headline: "Appeals were marked resolved before the repair was done.",
+      impact:
+        "People won their appeals, and their outcomes were never corrected.",
       sector: "Healthcare",
       timeframe: "Composite, not a dated event",
     },

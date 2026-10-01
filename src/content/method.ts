@@ -158,7 +158,7 @@ export const methodContent: MethodContent = {
         "MEC-01 decision log with dissent",
         "STD-07 action records, pinned to their authorization",
         "typed_judgment on the decision record: the pinned decider, the questions it answered, what it returned, and where any reason came from",
-        "STD-02 §1.4: a reason states what the decision rested on, and an explanation written afterwards is labelled as an account",
+        "STD-02 §1.4: a reason states what the decision rested on, and an explanation written afterwards is labeled as an account",
       ],
       links: [
         {

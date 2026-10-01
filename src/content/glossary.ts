@@ -101,7 +101,7 @@ export type GlossaryContent = PageWithPermalink & {
 export const glossaryContent: GlossaryContent =
   glossaryContentData as GlossaryContent;
 
-export const glossaryTerms: GlossaryTerm[] = [
+const glossaryTermSeeds: GlossaryTerm[] = [
   {
     slug: "principle-of-non-expropriation-of-resilience",
     term: "Principle of Non-Expropriation of Resilience",
@@ -1650,7 +1650,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "pathways-to-restitution",
     term: "Pathways to Restitution",
     definition:
-      "Documented steps a system must take to repair harm: acknowledgement, remedy, verification, and follow-up. Pathways reduce moral debt and belong in the repair log.",
+      "Documented steps a system must take to repair harm: acknowledgment, remedy, verification, and follow-up. Pathways reduce moral debt and belong in the repair log.",
     appliesTo: ["L. Open research areas"],
   },
   {
@@ -2724,3 +2724,44 @@ export const glossaryTerms: GlossaryTerm[] = [
     appliesTo: ["M. Foundational principles"],
   },
 ];
+
+/**
+ * Tooltips used to carry their own definitions, written apart from the
+ * entries, and about 150 of 367 had drifted from the entry they link to: the
+ * Contestability tooltip defined it as forcing "a decision to become a
+ * contestable object" while the entry said a person can challenge the
+ * decision and win. A tooltip now shows its entry's opening sentence, so the
+ * two cannot disagree. The seed text is used only for a term with no entry.
+ */
+const LABEL_SENTENCE = /^(normative|informative) definition\.$/i;
+const plainText = (html: string): string =>
+  html
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;|&rsquo;/g, "’")
+    .replace(/\s+([,.;:!?])/g, "$1")
+    .replace(/\s+/g, " ")
+    .trim();
+const openingSentence = (html: string): string => {
+  const sentences = (plainText(html).match(/[^.!?]+[.!?]+(?=\s|$)/g) ?? [])
+    .map((sentence) => sentence.trim())
+    .filter((sentence) => sentence && !LABEL_SENTENCE.test(sentence));
+  let lead = "";
+  for (const sentence of sentences) {
+    lead = lead ? `${lead} ${sentence}` : sentence;
+    if (lead.length >= 60) break;
+  }
+  return lead;
+};
+const entryLeadById = new Map(
+  glossaryContent.categories
+    .flatMap((category) => category.entries)
+    .map((entry) => [entry.id, openingSentence(entry.bodyHtml)]),
+);
+
+export const glossaryTerms: GlossaryTerm[] = glossaryTermSeeds.map((term) => ({
+  ...term,
+  definition: entryLeadById.get(term.slug) || term.definition,
+}));
