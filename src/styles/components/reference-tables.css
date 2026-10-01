@@ -699,7 +699,15 @@
     font-weight: 400;
   }
 
-  .claims-table__source + .claims-table__source::before {
-    content: ", ";
+  /* Each source is its own inline-flex box, so the markup's whitespace
+     around a link cannot land before the comma after it, and the comma
+     belongs to the link it follows: a wrap never starts a line with one. */
+  .claims-table__source {
+    display: inline-flex;
+  }
+
+  .claims-table__source:not(:last-child)::after {
+    content: ",";
+    margin-inline-end: var(--space-1);
   }
 }
