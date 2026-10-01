@@ -200,7 +200,7 @@ export const neighboringFields: NeighboringField[] = [
       { authors: "", title: "NIST AI RMF", year: 2023, form: "instrument" },
       { authors: "", title: "ISO/IEC 42001", year: 2023, form: "instrument" },
     ],
-    sees: "Risk assessed before deployment, human oversight required, and the system monitored after it ships.",
+    sees: "Risk assessed before deployment, human oversight required for high-risk systems, and the system monitored after it ships.",
     stops:
       "They assess a system before it runs and again after a major change, and leave monitoring to the organization running it, which then produces the evidence for its own renewal.",
     essay: {
@@ -240,7 +240,7 @@ export const whyNow: { label: string; text: string }[] = [
   },
   {
     label: "Law",
-    text: "The EU AI Act requires human oversight and the GDPR a way to contest a decision, but neither law states a test a running system must pass to show either one works.",
+    text: "The EU AI Act requires human oversight of high-risk systems. The GDPR requires a way to contest a solely automated decision with legal or similarly significant effects, where the decision is necessary for a contract or rests on the person's explicit consent. Neither law states a test a running system must pass to show the oversight or the contest works.",
   },
 ];
 
