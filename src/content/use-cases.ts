@@ -394,7 +394,7 @@ export const useCases: UseCase[] = [
     defense: {
       said: "The system is robust.",
       answer:
-        "The Post Office said that of Horizon for years while subpostmasters paid the shortfalls it produced.",
+        "The Post Office told each defendant that of Horizon, while subpostmasters were held liable for the shortfalls it reported.",
     },
     cases: [
       {

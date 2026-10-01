@@ -141,7 +141,7 @@ export const governanceContent: GovernanceContent = {
       title: "Name who made each governance decision",
       outcome: "Accepted",
       rationale:
-        "Earlier records named a steward council, program operations, a publishing pipeline, a documentation steward, and reviewer roles such as a risk steward and a community reviewer. None of these existed as a separate body. The records now name Kanav Jain, the Institute's author, as the owner of each decision, and the RFCs list no reviewer roles that were not filled. DEC-2026-01-03 described community office hours that were never held, so it is withdrawn. The earlier entries stay in the log, corrected, rather than being removed.",
+        "Earlier records named a steward council, program operations, a publishing pipeline, a documentation steward, and reviewer roles such as a risk steward and a community reviewer. None of these existed as a separate body. The records now name Kanav Jain, the Institute's author, as the owner of each decision, and the RFCs list no reviewer roles that were not filled. DEC-2026-01-03 described community office hours that were never held, so it is withdrawn. DEC-2026-02-01 and the Q3 2025 update mention decision forums and forum hours; those forums did not run either. The earlier entries stay in the log, corrected, rather than being removed.",
       date: "2026-10-01",
       owner: "Kanav Jain",
       releaseVersion: "governance-v1.5.0",
