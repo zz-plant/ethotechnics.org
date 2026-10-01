@@ -240,7 +240,7 @@ export const whyNow: { label: string; text: string }[] = [
   },
   {
     label: "Law",
-    text: "The EU AI Act requires human oversight of high-risk systems. The GDPR requires a way to contest a solely automated decision with legal or similarly significant effects, where a contract or the person's consent allows the decision. Neither law states a test a running system must pass to show the oversight or the contest works.",
+    text: "The EU AI Act requires human oversight of high-risk systems. The GDPR requires a way to contest a solely automated decision with legal or similarly significant effects, where the decision is necessary for a contract or rests on the person's explicit consent. Neither law states a test a running system must pass to show the oversight or the contest works.",
   },
 ];
 
