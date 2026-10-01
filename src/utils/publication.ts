@@ -5,7 +5,7 @@ export function derivePublicationMetadata({
   published,
   updated,
   version = "Draft",
-  authorName = "Ethotechnics Standards Working Group",
+  authorName = "Ethotechnics Institute",
   changelogSummary = "Published.",
 }: {
   permalink: string;

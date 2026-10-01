@@ -80,7 +80,7 @@ export const researchContent: ResearchContent = {
   publication: {
     authors: [
       {
-        name: "Ethotechnics Institute Research Team",
+        name: "Ethotechnics Institute",
         affiliation: "Ethotechnics Institute",
         email: "research@ethotechnics.org",
       },
@@ -128,7 +128,7 @@ export const researchContent: ResearchContent = {
       href: "https://creativecommons.org/licenses/by-sa/4.0/",
     },
     attribution:
-      "Credit Ethotechnics Institute Research Team, include the page title + version, and link to the canonical permalink.",
+      "Credit the Ethotechnics Institute, include the page title + version, and link to the canonical permalink.",
   },
   lastUpdated: "2026-10-01T00:00:00Z",
   updateCadence:
