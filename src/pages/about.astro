@@ -2,6 +2,7 @@
 import "../styles/components/intake-form.css";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Logo from "../components/Logo.astro";
+import StandardsComparisonTable from "../components/StandardsComparisonTable.astro";
 import {
   cases,
   type LearningVerdict,
@@ -35,8 +36,8 @@ for (const entry of cases) {
           Institutions absorb the evidence that their automated systems are
           wrong. A worker quietly fixes the error. An appeal settles one case.
           The rule never changes. Ethotechnics names that mechanism, scores it
-          in public cases, and specifies the records that force the evidence
-          back to the rule.
+          in public cases, and specifies the records that carry the evidence
+          back to the rule in any institution that adopts them.
         </p>
         <p class="muted">
           The formal definition: keeping capability, authority, evidence,
@@ -98,48 +99,7 @@ for (const entry of cases) {
       count of the time the system costs people, and a named person who can
       halt it.
     </p>
-    <div class="mapping-table__wrapper">
-      <table class="mapping-table mapping-table--compare">
-        <thead>
-          <tr>
-            <th scope="col">Existing standard says</th>
-            <th scope="col">Ethotechnics requires</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td data-label="Existing standard says"
-              >"Contest the decision" <span class="small muted">(GDPR, Art. 22(3))</span></td
-            >
-            <td data-label="Ethotechnics requires">A revision or a reasoned refusal for every objection, on the record, within a set clock</td>
-          </tr>
-          <tr>
-            <td data-label="Existing standard says"
-              >"Review the management system at planned intervals" <span class="small muted">(ISO/IEC 42001, cl. 9.3)</span></td
-            >
-            <td data-label="Ethotechnics requires">A grant that expires unless someone renews it on evidence stated in advance, and a new authorization for every widening of scope</td>
-          </tr>
-          <tr>
-            <td data-label="Existing standard says"
-              >"Characterize impacts on individuals and communities" <span class="small muted">(NIST AI RMF, MAP 5)</span></td
-            >
-            <td data-label="Ethotechnics requires">A published measure of the time the system costs people, and standing for whoever absorbs its errors</td>
-          </tr>
-          <tr>
-            <td data-label="Existing standard says"
-              >"Maintain human oversight" <span class="small muted">(EU AI Act, Art. 14)</span></td
-            >
-            <td data-label="Ethotechnics requires">A named person with authority to halt it, a tested halt path, and a recovery deadline</td>
-          </tr>
-          <tr>
-            <td data-label="Existing standard says"
-              >"Implement responsible AI principles" <span class="small muted">(OECD AI Principles)</span></td
-            >
-            <td data-label="Ethotechnics requires">Binding escalation: a named owner, a deadline, and a set action, or the system falls back to a safe mode</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <StandardsComparisonTable />
     <p class="small muted">
       Ethotechnics does not compete with these standards on whether governance
       is "important." It addresses what they leave open:

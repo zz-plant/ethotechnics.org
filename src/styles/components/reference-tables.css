@@ -590,6 +590,31 @@
     text-decoration: underline;
   }
 
+  .method-stack__name--plain {
+    color: var(--text);
+  }
+
+  .method-stack__count a {
+    color: var(--link);
+  }
+
+  /* A layer that spans two pages lists one link per page. As flex items the
+     links ignore the markup's whitespace, so the comma sits against the
+     first label. */
+  .method-stack__count:has(.method-stack__count-part) {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: var(--space-1);
+  }
+
+  .method-stack__count-part {
+    display: inline-flex;
+  }
+
+  .method-stack__count-part:not(:last-child)::after {
+    content: ",";
+  }
+
   .method-stack__count {
     font-family: var(--sans);
     font-size: var(--text-xs);

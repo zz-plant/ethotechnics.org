@@ -16,7 +16,7 @@ dependency, standing, and correction coupled tightly enough that increasing mach
 become unreviewable institutional power. Its central claim: institutions absorb the evidence that
 their automated systems are wrong (a worker quietly fixes the error, an appeal settles one case, and
 the rule never changes). Ethotechnics names that mechanism, scores it in public cases, and specifies
-the records that force the evidence back to the rule. The site publishes proposed standards, mechanisms,
+the records that carry the evidence back to the rule in any institution that adopts them. The site publishes proposed standards, mechanisms,
 diagnostics, and a glossary that make those states explicit and reviewable. The project favors
 lean, fast-loading pages and clear storytelling.
 

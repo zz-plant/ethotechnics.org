@@ -42,7 +42,20 @@ const safeguards = methodContent.stateVariables
   .map((variable) => variable.state.toLowerCase())
   .join(", ");
 
-const layers = [
+/**
+ * A layer links its name to the one page that holds it. A layer that spans
+ * two pages links each count instead, so a count never points at a page that
+ * does not hold what it counts.
+ */
+type Layer = {
+  name: string;
+  role: string;
+  href?: string;
+  count?: string;
+  countLinks?: { label: string; href: string }[];
+};
+
+const layers: Layer[] = [
   {
     name: "Theory",
     count: `${essays} essays`,
@@ -81,9 +94,14 @@ const layers = [
   },
   {
     name: "Evals and diagnostics",
-    count: `${evalsContent.suites.length} suites, ${diagnosticsContent.tools.length} tools`,
+    countLinks: [
+      { label: `${evalsContent.suites.length} eval suites`, href: "/evals" },
+      {
+        label: `${diagnosticsContent.tools.length} diagnostic tools`,
+        href: "/diagnostics",
+      },
+    ],
     role: "Tests that check a system against the clauses, starting from a workflow, a decision log, or a set of numbers.",
-    href: "/evals",
   },
   {
     name: "Casebook",
@@ -122,10 +140,23 @@ const views = [
     {
       layers.map((layer) => (
         <li class="method-stack__layer">
-          <a class="method-stack__name" href={layer.href}>
-            {layer.name}
-          </a>
-          <span class="method-stack__count">{layer.count}</span>
+          {layer.href ? (
+            <a class="method-stack__name" href={layer.href}>
+              {layer.name}
+            </a>
+          ) : (
+            <span class="method-stack__name method-stack__name--plain">
+              {layer.name}
+            </span>
+          )}
+          <span class="method-stack__count">
+            {layer.count}
+            {layer.countLinks?.map((link) => (
+              <span class="method-stack__count-part">
+                <a href={link.href}>{link.label}</a>
+              </span>
+            ))}
+          </span>
           <span class="method-stack__role">{layer.role}</span>
         </li>
       ))
