@@ -7,6 +7,7 @@ import StateVariableGlyph, {
 } from "../components/StateVariableGlyph.astro";
 import { methodContent } from "../content/method";
 import ChainDiagram from "../components/ChainDiagram.astro";
+import MethodStack from "../components/MethodStack.astro";
 import SpeechBubble from "../components/SpeechBubble.astro";
 
 const {
@@ -28,9 +29,10 @@ const {
 
 const anchorLinks = [
   { href: "#definition", label: "Definition" },
+  { href: "#stack", label: "How the parts fit" },
   { href: "#chain", label: "The chain" },
   { href: "#circuits", label: "The two circuits" },
-  { href: "#state-variables", label: "Six things kept in step" },
+  { href: "#state-variables", label: "The six safeguards" },
   { href: "#laws", label: "The twelve laws" },
   { href: "#incompatible", label: "Sentences that block repair" },
   { href: "#lenses", label: "The three lenses" },
@@ -124,6 +126,15 @@ const incompatibleSentences = [
   </SectionBlock>
 
   <SectionBlock
+    id="stack"
+    eyebrow="How the parts fit"
+    title="One claim, one stack"
+    description="The object is the delegation. The failure is absorption: evidence that a delegation is wrong gets settled case by case and never reaches the rule. The instrument is the record. Read the stack from the top: each layer turns the one above it into something a running system can fail."
+  >
+    <MethodStack />
+  </SectionBlock>
+
+  <SectionBlock
     id="chain"
     eyebrow="The chain"
     title="Seven stages every consequential decision passes through"
@@ -195,9 +206,9 @@ const incompatibleSentences = [
 
   <SectionBlock
     id="state-variables"
-    eyebrow="State variables"
+    eyebrow="The six safeguards"
     title="Six things that must stay in step"
-    description="A well-built system records each of these explicitly. It becomes unsafe when they drift apart: when it can do more than it is authorized to, or holds authority the evidence no longer supports."
+    description="A well-built system records each of these explicitly. It becomes unsafe when they drift apart: when it can do more than it is authorized to, or holds authority the evidence no longer supports. The laws call them state variables; the casebook and the self-test call them safeguards."
   >
     <div class="mapping-table__wrapper">
       <table class="mapping-table">

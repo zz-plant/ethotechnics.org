@@ -1,5 +1,6 @@
 ---
 import SectionBlock from "../SectionBlock.astro";
+import StandardsComparisonTable from "../StandardsComparisonTable.astro";
 ---
 
 <SectionBlock
@@ -23,68 +24,7 @@ import SectionBlock from "../SectionBlock.astro";
     standing to challenge it. The cost belongs to the institution that runs
     the system, not to the people it serves.
   </p>
-  <div class="mapping-table__wrapper">
-    <table class="mapping-table mapping-table--compare">
-      <thead>
-        <tr>
-          <th scope="col">Existing standard says</th>
-          <th scope="col">Ethotechnics requires</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td data-label="Existing standard says">
-            "Contest the decision"<br />
-            <span class="small muted">GDPR, Art. 22(3)</span>
-          </td>
-          <td data-label="Ethotechnics requires">
-            A revision or a reasoned refusal for every objection, on the
-            record, within a set clock
-          </td>
-        </tr>
-        <tr>
-          <td data-label="Existing standard says">
-            "Review the management system at planned intervals"<br />
-            <span class="small muted">ISO/IEC 42001, cl. 9.3</span>
-          </td>
-          <td data-label="Ethotechnics requires">
-            A grant that expires unless someone renews it on evidence stated in
-            advance, and a new authorization for every widening of scope
-          </td>
-        </tr>
-        <tr>
-          <td data-label="Existing standard says">
-            "Characterize impacts on individuals and communities"<br />
-            <span class="small muted">NIST AI RMF, MAP 5</span>
-          </td>
-          <td data-label="Ethotechnics requires">
-            A published measure of the time the system costs people, and
-            standing for whoever absorbs its errors
-          </td>
-        </tr>
-        <tr>
-          <td data-label="Existing standard says">
-            "Maintain human oversight"<br />
-            <span class="small muted">EU AI Act, Art. 14</span>
-          </td>
-          <td data-label="Ethotechnics requires">
-            A named person with authority to halt it, a tested halt path, and
-            a recovery deadline
-          </td>
-        </tr>
-        <tr>
-          <td data-label="Existing standard says">
-            "Implement responsible AI principles"<br />
-            <span class="small muted">OECD AI Principles</span>
-          </td>
-          <td data-label="Ethotechnics requires">
-            Binding escalation: a named owner, a deadline, and a set action, or
-            the system falls back to a safe mode
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <StandardsComparisonTable />
   <p class="muted small">
     Each requirement on the right is a test a running system passes or fails.
     A compliance document cannot pass it on its own. See the

@@ -74,7 +74,7 @@ export const methodContent: MethodContent = {
     "Seven steps every consequential decision passes through, six safeguards that must keep pace as a system grows, and the twelve laws behind the standards.",
   permalink: "/method",
   definition:
-    "Ethotechnics is the engineering discipline concerned with keeping authority, evidence, capability, consequence, and correction coupled tightly enough that increasing machine agency does not silently become unreviewable institutional power. Where ethics asks what we should do, Ethotechnics designs the mechanisms that make it reliably happen.",
+    "Ethotechnics is the engineering discipline concerned with keeping capability, authority, evidence, dependency, standing, and correction coupled tightly enough that increasing machine agency does not silently become unreviewable institutional power. Where ethics asks what we should do, Ethotechnics designs the mechanisms that make it reliably happen.",
   positiveDefinition:
     "Ethotechnics is the practice of building powerful systems that remain answerable to the people and realities they can never fully represent.",
   claim:
