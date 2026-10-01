@@ -31,6 +31,13 @@ function init(): void {
   const items = [
     ...form.querySelectorAll<HTMLLIElement>(".self-test__item"),
   ];
+  // The safeguard map beside the questions: one stop per variable, drawn
+  // held or broken as each question is answered.
+  const mapStops = [
+    ...document.querySelectorAll<HTMLElement>(
+      "[data-safeguard-map] [data-map-variable]",
+    ),
+  ];
 
   const readAnswers = (): (SelfTestAnswer | undefined)[] =>
     selfTestQuestions.map((_, index) => {
@@ -65,6 +72,12 @@ function init(): void {
     items.forEach((item, index) => {
       item.dataset.answer = answers[index] ?? "";
     });
+    for (const stop of mapStops) {
+      const index = selfTestQuestions.findIndex(
+        (question) => question.variable === stop.dataset.mapVariable,
+      );
+      stop.dataset.answer = answers[index] ?? "";
+    }
 
     if (score.answered === 0) {
       result.hidden = true;

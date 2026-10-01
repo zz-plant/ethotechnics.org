@@ -1,0 +1,112 @@
+---
+/**
+ * The six safeguards as one loop, beside the self-test that asks about them.
+ *
+ * The stops follow the method's chain: evidence justifies an authority, the
+ * authority bounds what the system does, the system decides about a person,
+ * the person challenges, and a correction becomes the next decision's
+ * evidence. Dependency sits before correction because it is what decides
+ * whether a halt is survivable. Each stop carries the glyph the casebook and
+ * the questions use, so the reader learns one set of marks.
+ *
+ * The self-test script fills each stop in as its question is answered: held
+ * is drawn solid, not holding is drawn broken, and when correction is not
+ * holding the return path breaks too, as Robodebt's did in the hero. The
+ * states are a picture of answers already in the form, whose result is
+ * announced on its own, so they are not repeated to assistive technology.
+ */
+import type { StateVariableId } from "../../content/casebook";
+import { selfTestQuestions } from "../../utils/self-test";
+import StateVariableGlyph from "../StateVariableGlyph.astro";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className }: Props = Astro.props;
+
+/** What each safeguard looks like when it holds, in the reader's terms. */
+const holds: Record<StateVariableId, string> = {
+  evidence: "The reasons it was switched on are still true.",
+  authority: "Its permission to act has an end date.",
+  capability: "Each time it grew, someone approved it.",
+  standing: "A person it decided about can challenge it and get an answer.",
+  dependency: "It can be switched off without the service falling over.",
+  correction: "A named person can halt it within a day.",
+};
+
+const order: StateVariableId[] = [
+  "evidence",
+  "authority",
+  "capability",
+  "standing",
+  "dependency",
+  "correction",
+];
+
+const labelFor = (variable: StateVariableId) =>
+  selfTestQuestions.find((question) => question.variable === variable)?.label ??
+  variable;
+
+const stops = order.map((variable) => ({
+  variable,
+  label: labelFor(variable),
+  holds: holds[variable],
+}));
+// The person the system decides about stands between what it does and the
+// challenge they bring. Not a safeguard, so it is drawn as a waypoint.
+const waypointAfter: StateVariableId = "capability";
+---
+
+<figure
+  class:list={["safeguard-map", className]}
+  aria-labelledby="safeguard-map-title"
+  data-safeguard-map
+  data-glossary-ignore
+>
+  <figcaption class="safeguard-map__caption">
+    <p id="safeguard-map-title" class="safeguard-map__title">
+      The six safeguards, as one loop
+    </p>
+    <p class="small muted">
+      Each answer fills in its stop. A broken stop breaks the loop after it.
+    </p>
+  </figcaption>
+  <ol class="safeguard-map__stops">
+    {
+      stops.map((stop) => (
+        <>
+          <li class="safeguard-map__stop" data-map-variable={stop.variable}>
+            <span class="safeguard-map__node">
+              <StateVariableGlyph variable={stop.variable} size="1.15rem" />
+            </span>
+            <span class="safeguard-map__text">
+              <span class="safeguard-map__label">{stop.label}</span>
+              <span class="safeguard-map__holds">{stop.holds}</span>
+            </span>
+          </li>
+          {stop.variable === waypointAfter && (
+            <li class="safeguard-map__stop safeguard-map__stop--waypoint">
+              <span class="safeguard-map__node" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="1rem" height="1rem">
+                  <circle cx="12" cy="8" r="3.5" />
+                  <path d="M 5 20 a 7 7 0 0 1 14 0" />
+                </svg>
+              </span>
+              <span class="safeguard-map__text">
+                <span class="safeguard-map__holds">
+                  It decides something about a person.
+                </span>
+              </span>
+            </li>
+          )}
+        </>
+      ))
+    }
+    <li class="safeguard-map__return">
+      <span class="safeguard-map__holds">
+        Back to evidence: a correction is evidence for the next decision.
+      </span>
+    </li>
+  </ol>
+</figure>
