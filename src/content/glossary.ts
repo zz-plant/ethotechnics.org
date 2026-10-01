@@ -162,7 +162,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "ethotechnics",
     term: "Ethotechnics",
     definition:
-      "The engineering discipline that keeps authority, evidence, capability, consequence, and correction coupled so increasing machine agency cannot silently become unreviewable institutional power. Where ethics asks \u201cWhat should we do?\u201d, Ethotechnics designs the mechanisms that make it reliably happen.",
+      "The engineering discipline that keeps capability, authority, evidence, dependency, standing, and correction coupled so increasing machine agency cannot silently become unreviewable institutional power. Where ethics asks \u201cWhat should we do?\u201d, Ethotechnics designs the mechanisms that make it reliably happen.",
     appliesTo: ["hospitals", "platforms", "governance"],
   },
   {
