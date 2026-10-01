@@ -202,7 +202,7 @@ export const neighboringFields: NeighboringField[] = [
     ],
     sees: "Risk assessed before deployment, human oversight required for high-risk systems, and the system monitored after it ships.",
     stops:
-      "They assess a system before it runs and again after a major change. Monitoring after release falls mostly to the provider, which then produces the evidence that its own system still complies.",
+      "They assess a system before it runs and again after a major change. Monitoring after release is left to the organizations responsible for the system, which then produce the evidence that it still complies.",
     essay: {
       title: "Endogenous authorization",
       href: "/research/theory/endogenous-authorization",
