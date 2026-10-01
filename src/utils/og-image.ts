@@ -51,7 +51,7 @@ const templateStyles: Record<OgTemplate, TemplateStyle> = {
   },
   home: {
     label: "Institute",
-    kicker: "Open standards for stopping automated systems",
+    kicker: "Open standards for answerable automated decisions",
     accent: SAPPHIRE,
   },
   standards: {
