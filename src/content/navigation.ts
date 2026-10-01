@@ -127,7 +127,7 @@ export const navSections: NavSection[] = [
       {
         href: "/evals",
         label: "Eval suites",
-        description: "Test suites that check whether a system can be stopped, explained, and appealed",
+        description: "Test suites for delegation validity, burden, standing, appeal, and correction",
       },
       {
         href: "/evals/coverage",

@@ -1,12 +1,14 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CasebookScorecard from "../components/home/CasebookScorecard.astro";
-import HeroIllustration from "../components/home/HeroIllustration.astro";
 import HomeDifference from "../components/home/HomeDifference.astro";
 import HomeRail from "../components/home/HomeRail.astro";
 import RecordSpine from "../components/home/RecordSpine.astro";
+import RobodebtLoop from "../components/home/RobodebtLoop.astro";
+import SafeguardMap from "../components/home/SafeguardMap.astro";
 import SelfTest from "../components/home/SelfTest.astro";
 import RatchetFigure from "../components/RatchetFigure.astro";
+import { RATCHET } from "../utils/ratchet";
 import { recentReleases } from "../content/recent-releases";
 
 /**
@@ -15,6 +17,11 @@ import { recentReleases } from "../content/recent-releases";
  * stop it (the mechanism), see that it was not special (the casebook), then
  * turn to the reader's own system (the self-test) and the doors out. The
  * two-ledger rail at the viewport edge is the same grammar, as chrome.
+ *
+ * Each idea is drawn as well as written, for readers who think in pictures:
+ * the hero draws the headline as a loop that never closed, the casebook
+ * names its glyph columns before its rows, and the self-test draws the
+ * reader's system as the same loop, filled in by their answers.
  */
 const doors = [
   {
@@ -30,14 +37,14 @@ const doors = [
   {
     href: "/diagnostics/self-defense-tools",
     who: "A system decided something about me",
-    what: "Three checks: can this be appealed, and who can change it?",
+    what: "Three checks: can this decision be challenged, can the appeal change the outcome, and who holds power here?",
   },
 ];
 ---
 
 <BaseLayout
-  title="Ethotechnics Institute — can anyone stop your automated system?"
-  description="Open standards, scored public failures, and free diagnostics for keeping automated decision systems stoppable, explainable, and appealable."
+  title="Ethotechnics Institute — who has to act when a system is wrong?"
+  description="Open standards, scored public failures, and free diagnostics for one question: when an automated decision system is wrong, does anyone have to change it?"
   structuredDataType="collection"
 >
   <HomeRail />
@@ -49,16 +56,16 @@ const doors = [
         The appeals kept winning. The system kept running.
       </h1>
       <p class="section-lead">
-        Between 2016 and 2019, Australia's Centrelink raised 470,000 unlawful
-        debts. The Administrative Appeals Tribunal ruled individual debts
-        unlawful dozens of times. Each ruling resolved one person's debt. Nobody
-        with the power to stop the scheme treated those rulings as evidence
-        against it.
+        From July 2016 to November 2019, Australia's Centrelink raised about
+        470,000 unlawful debts. The Administrative Appeals Tribunal ruled
+        individual debts unlawful dozens of times. Each ruling set aside one
+        person's debt. The department running the scheme did not appeal those
+        rulings and did not treat them as evidence against it.
       </p>
       <p class="section-lead">
         We publish open standards, public case scores, and diagnostics for one
-        question: when an automated decision system is hurting people, can
-        anyone stop it?
+        question: when an automated decision system is hurting people, does
+        evidence of the harm reach someone who has to change the system?
       </p>
       <div class="institute-hero__actions actions">
         <a class="button primary" href="#self-test">
@@ -89,6 +96,7 @@ const doors = [
         </ul>
       </nav>
     </div>
+    <RobodebtLoop class="institute-hero__figure" />
   </section>
 
   <RecordSpine />
@@ -106,21 +114,24 @@ const doors = [
         </h2>
       </div>
       <p class="section-lead">
-        The warnings above piled up for years and the scheme kept running. One
-        reason: an automated system's reach can grow in small steps, and no
-        single step is big enough to trigger a review. The two systems below
-        grow by the same two percent a month. The first is reviewed only when
-        one step is big enough to notice, so it is never reviewed. The second
-        records every step as a new approval, so someone can read it, question
-        it, and undo it. The standards on this site require the second.
+        The warnings above piled up for years and the scheme kept running. Its
+        reach had already grown without a decision: debt notices went from about
+        20,000 a year to 20,000 a week, and nobody re-examined the authority to
+        raise them. Reach can also grow in steps too small to trigger a review.
+        The two systems below grow by {RATCHET.stepPct}% a month. The first is
+        reviewed only when a single step reaches {RATCHET.reviewThresholdPct}%,
+        so it is never reviewed. The second records every step as a new
+        approval, so a reviewer can read each step, question it, and undo it.
+        STD-08 requires the second.
       </p>
     </div>
     <div class="home-draw" data-reveal="draw">
       <RatchetFigure level="h3" />
     </div>
     <p class="small muted">
-      This is one of the twelve laws the standards are built on.
-      <a href="/standards/laws">Read the laws →</a>
+      This is Law XI of the twelve the standards are built on: successful
+      automation increases its own governance burden.
+      <a href="/standards/laws#law-xi">Read Law XI →</a>
       <a href="/standards/std-08-delegation">See what STD-08 requires →</a>
     </p>
   </section>
@@ -132,7 +143,7 @@ const doors = [
   <div class="home-core">
     <div class="home-core__test">
       <SelfTest />
-      <HeroIllustration class="home-core__figure" />
+      <SafeguardMap class="home-core__figure" />
     </div>
   </div>
 

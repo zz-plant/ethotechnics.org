@@ -2,7 +2,23 @@
 import "../styles/components/intake-form.css";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Logo from "../components/Logo.astro";
-import FrameworkComparisonTable from "../components/FrameworkComparisonTable.astro";
+import IntellectualLineage from "../components/IntellectualLineage.astro";
+import StandardsComparisonTable from "../components/StandardsComparisonTable.astro";
+import {
+  cases,
+  type LearningVerdict,
+} from "../content/casebook";
+
+// The contribution section states how the casebook's institutions responded,
+// so the tally comes from the cases and moves when a case is added.
+const learning: Record<LearningVerdict, number> = {
+  learned: 0,
+  partial: 0,
+  absorbed: 0,
+};
+for (const entry of cases) {
+  learning[entry.learningOutcome.verdict] += 1;
+}
 ---
 
 <BaseLayout
@@ -18,15 +34,18 @@ import FrameworkComparisonTable from "../components/FrameworkComparisonTable.ast
           An engineering discipline for keeping automated decisions answerable
         </h1>
         <p class="section-lead">
-          Ethotechnics is about building automated decision systems that can be
-          stopped, challenged, and reversed, and that answer for the work and
-          harm they push onto people.
+          Institutions absorb the evidence that their automated systems are
+          wrong. A worker quietly fixes the error. An appeal settles one case.
+          The rule never changes. Ethotechnics names that mechanism, scores it
+          in public cases, and specifies the records that carry the evidence
+          back to the rule in any institution that adopts them.
         </p>
         <p class="muted">
-          The formal definition: keeping authority, evidence, capability,
-          consequence, and correction coupled tightly enough that increasing
+          The formal definition: keeping capability, authority, evidence,
+          dependency, standing, and correction coupled tightly enough that increasing
           machine agency does not silently become unreviewable institutional
-          power. The framework is written by <strong>Kanav Jain</strong> and
+          power. Those six are the safeguards the casebook scores. The framework
+          is written by <strong>Kanav Jain</strong> and
           published openly as standards, a glossary, and diagnostics.
         </p>
       </div>
@@ -37,49 +56,30 @@ import FrameworkComparisonTable from "../components/FrameworkComparisonTable.ast
   </section>
 
   <section class="stack-sm card">
-    <p class="eyebrow">Institute and Studio</p>
-    <h2>How the Institute and Studio fit together</h2>
+    <p class="eyebrow">What existing standards don't cover</p>
+    <h2>The gap Ethotechnics addresses</h2>
     <p>
-      <strong>Ethotechnics Institute</strong> is the public, open-access commons:
-      standards, glossary, diagnostics, and field notes are free to use, cite,
-      and extend.
+      The NIST AI RMF tells you to manage risk. The EU AI Act tells you to
+      document compliance and to keep a way to halt a high-risk system.
+      ISO/IEC 42001 tells you to build a management system. The OECD AI
+      Principles ask that a harmful system can be overridden or decommissioned. The GDPR gives a person the right
+      to contest one decision. None of them asks whether a challenge that
+      succeeds changes the rule, whether permission to act expires, or who
+      carries the cost of errors while the system runs.
     </p>
     <p>
-      <strong>Ethotechnics Studio</strong> provides clinical AI safety evaluations,
-      VC diligence, and governance advisory through commissioned engagements. The
-      Institute publishes the open framework; the Studio applies it to specific systems
-      and organizations.
+      Existing frameworks govern through what an institution writes down:
+      documents, roles, reviews, and attestations. These drafts specify the
+      records a running system has to keep: grants that expire unless renewed,
+      objections that are owed a revision or a reasoned refusal, a published
+      count of the time the system costs people, and a named person who can
+      halt it.
     </p>
-    <p>
-      <a
-        href="https://ethotechnics.com"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        Visit Ethotechnics Studio →
-      </a>
-    </p>
-  </section>
-
-  <section class="stack-sm card">
-    <p class="eyebrow">What the drafts add to existing standards</p>
-    <h2>Who holds the stop, and how fast it works</h2>
-    <p>
-      The EU AI Act, the NIST AI RMF, and the OECD principles each ask for a way
-      to stop or override a system. ISO/IEC 42001 asks for a management system
-      that is audited and improved. Each leaves the operator to decide who holds
-      the stop, how fast it works, and what record shows that it worked.
-    </p>
-    <p>
-      The drafts here specify those parameters as properties of a running
-      system: stop rules, deadlines that force a response, authority to roll
-      back, and challenges that can change the outcome. They bind any system
-      that decides about people, whether or not it is AI.
-    </p>
-    <FrameworkComparisonTable />
+    <StandardsComparisonTable />
     <p class="small muted">
-      The drafts have no force until someone adopts them.
-      <a href="/standards#comparison">See the full comparison →</a>
+      Ethotechnics does not compete with these standards on whether governance
+      is "important." It addresses what they leave open:
+      <a href="/standards#comparison">see the full comparison →</a>
     </p>
     <p>
       The differentiation is not only against standards but against four nearby
@@ -208,6 +208,48 @@ import FrameworkComparisonTable from "../components/FrameworkComparisonTable.ast
     </p>
   </section>
 
+  <section id="lineage" class="stack-sm card">
+    <p class="eyebrow">Intellectual lineage and distinctive contribution</p>
+    <h2>Where the argument comes from, and where it departs</h2>
+    <IntellectualLineage />
+    <p>
+      Its departure is the instrument. The claim becomes obligations a running
+      system can fail, records an auditor can read, and public cases scored
+      against both:
+    </p>
+    <ul>
+      <li>
+        <strong>Obligations with clause numbers:</strong> a grant that expires
+        unless renewed on evidence stated in advance (STD-08 §1.1); a widening
+        of scope that needs its own authorization (STD-08 §1.3); an objection
+        that owes a revision or a reasoned refusal on a clock (STD-07 §4.2); a
+        published measure of the time a system costs people (STD-01 §7.1); and
+        standing for whoever absorbs its errors (STD-02 §8.4).
+      </li>
+      <li>
+        <strong>Records:</strong> the
+        <a href="/standards/std-07-revisable-delegation-record"
+          >revisable delegation record</a
+        > and the
+        <a href="/standards/authority-grant.schema.json">authority grant schema</a
+        >, so a reader can check whether each obligation was met.
+      </li>
+      <li>
+        <strong>Public cases:</strong> the <a href="/casebook">casebook</a> scores
+        {cases.length} failures on the six safeguards and on what the institution
+        did afterward: {learning.absorbed} left the process unchanged, {
+          learning.partial
+        } partly changed it, and {learning.learned} changed the rules.
+      </li>
+    </ul>
+    <p class="small muted">
+      In short: the underlying political theory establishes why human endurance
+      does not legitimate an institutional arrangement; the engineering method
+      proposes ways to measure and prevent the mechanisms through which institutions become
+      parasitically dependent on that endurance while reporting success.
+    </p>
+  </section>
+
   <section class="stack-sm card">
     <p class="eyebrow">Foundations</p>
     <h2>Start with these resources</h2>
@@ -217,7 +259,8 @@ import FrameworkComparisonTable from "../components/FrameworkComparisonTable.ast
         decides, with the standards and first check for each.
       </li>
       <li>
-        <a href="/casebook">Casebook</a> for five public failures scored on six safeguards.
+        <a href="/casebook">Casebook</a> for five public failures scored on six
+        safeguards.
       </li>
       <li><a href="/glossary">Glossary</a> for terms and definitions.</li>
       <li>
@@ -246,111 +289,27 @@ import FrameworkComparisonTable from "../components/FrameworkComparisonTable.ast
   </section>
 
   <section class="stack-sm card">
-    <p class="eyebrow">Intellectual lineage and distinctive contribution</p>
-    <h2>Where the argument comes from, and where it departs</h2>
+    <p class="eyebrow">Institute and Studio</p>
+    <h2>How the Institute and Studio fit together</h2>
     <p>
-      Ethotechnics does not claim originality for the proposition that human
-      struggle should be reduced, or that institutions exploit unpriced labor to
-      absorb their own failures. Those insights belong to established
-      traditions:
+      <strong>Ethotechnics Institute</strong> is the public, open-access commons:
+      standards, glossary, diagnostics, and field notes are free to use, cite,
+      and extend.
     </p>
-    <ul>
-      <li>
-        <strong>Post-work socialism and Marx:</strong> The distinction between the
-        realm of necessity and the realm of freedom, establishing that technical productivity
-        should reduce compulsory labor rather than intensify it.
-      </li>
-      <li>
-        <strong>The social model of disability:</strong> Shifting attention away from
-        demanding extraordinary individual coping toward altering disabling environments
-        and institutional barriers.
-      </li>
-      <li>
-        <strong>Relational egalitarianism (Elizabeth Anderson):</strong> The principle
-        that individuals are entitled to the social conditions of equal standing and
-        ordinary dignity without having to prove exceptional merit or endurance.
-      </li>
-      <li>
-        <strong
-          >Feminist care ethics and social reproduction theory (Joan Tronto,
-          Nancy Fraser, Eva Kittay, Alison Reiheld):</strong
-        > Analyzing how formal economic success depends on unpriced care labor and
-        identifying "privileged irresponsibility" — the systemic offloading of maintenance
-        work onto others.
-      </li>
-      <li>
-        <strong
-          >Administrative burden theory (Pamela Herd, Donald Moynihan):</strong
-        >
-        Empirical measurement of the learning, compliance, and psychological costs
-        imposed on citizens by state and corporate processes.
-      </li>
-      <li>
-        <strong>Republican political theory (Philip Pettit):</strong> Freedom as non-domination,
-        demonstrating that making lives easier does not make people free if they remain
-        subject to unchecked, arbitrary institutional discretion.
-      </li>
-      <li>
-        <strong
-          >Resilience engineering (David Woods, Erik Hollnagel, Richard Cook):</strong
-        >
-        Describing how human operators constantly adapt under resource constraints
-        to bridge the gap between "work-as-imagined" and "work-as-done."
-      </li>
-    </ul>
     <p>
-      None of these moral propositions are individually original to
-      Ethotechnics. The distinctive contribution lies in connecting these
-      insights into a specific <strong
-        >theory of institutional evaluation and diagnostic engineering</strong
+      <strong>Ethotechnics Studio</strong> provides clinical AI safety evaluations,
+      VC diligence, and governance advisory through commissioned engagements. The
+      Institute publishes the open framework; the Studio applies it to specific systems
+      and organizations.
+    </p>
+    <p>
+      <a
+        href="https://ethotechnics.com"
+        rel="noopener noreferrer"
+        target="_blank"
       >
-      for automated systems:
-    </p>
-    <ul>
-      <li>
-        <strong
-          >The conversion of human capacity into institutional entitlement:</strong
-        >
-        Tracing the specific mechanism through which an institution observes that
-        people can compensate for its deficiencies, organizes its baseline operations
-        on the assumption that they will, and converts an exceptional act of endurance
-        into a compulsory operational requirement.
-      </li>
-      <li>
-        <strong>The Principle of Non-Expropriation of Resilience:</strong> An individual's
-        capacity to adapt to institutional deficiencies does not, by itself, establish
-        an institutional entitlement to that adaptation. When a predictable and correctable
-        deficiency is routinely compensated for through unrecorded human effort,
-        successful outcomes do not establish that the arrangement is adequate.
-      </li>
-      <li>
-        <strong>Intrinsic versus compensated institutional performance:</strong>
-        Distinguishing performance achieved within formal design models from performance
-        parasitic on unrecorded human compensation. This establishes an operational
-        boundary: legitimate resilience absorbs irreducible uncertainty with monitored,
-        replenished buffers; illegitimate compensation subsidizes predictable, correctable
-        design defects.
-      </li>
-      <li>
-        <strong>The epistemic masking feedback loop:</strong> An account of when successful
-        adaptation destroys the error signals an institution needs to recognize its
-        own defects. Competent human absorption can manufacture the appearance of
-        system health (the falsified denominator), which can blind the institution
-        to its own operational fragility and block structural reform.
-      </li>
-      <li>
-        <strong>Institutional evaluation by burdens eliminated:</strong>
-        Evaluating systems not merely by gross output, but by whether a deployment
-        or reform reduces the obligation to perform preventable compensatory work
-        while preserving substantive freedom and low-cost corrective power.
-      </li>
-    </ul>
-    <p class="small muted">
-      In short: the underlying political theory establishes why human endurance
-      does not legitimate an institutional arrangement; the engineering method
-      proposes ways to measure and prevent the mechanisms through which
-      institutions become parasitically dependent on that endurance while
-      reporting success.
+        Visit Ethotechnics Studio →
+      </a>
     </p>
   </section>
 

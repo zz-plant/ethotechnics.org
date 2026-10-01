@@ -1,0 +1,183 @@
+---
+/**
+ * How the method's parts fit: one stack, read top to bottom, where each
+ * layer turns the one above it into something a running system can fail.
+ *
+ * The site carries about ten numbered lists (axioms, laws, safeguards, chain
+ * stages, circuits, lenses, taxonomy branches). Read separately they look
+ * like rival foundations. This draws the ones that are layers of a single
+ * argument as a stack, and names the rest as views onto it. Counts come from
+ * the content, so a new law, standard, suite, or case shows up here.
+ */
+import { getCollection } from "astro:content";
+import { cases } from "../content/casebook";
+import { diagnosticsContent } from "../content/diagnostics";
+import { evalsContent } from "../content/evals";
+import { methodContent } from "../content/method";
+import { standardsContent } from "../content/standards";
+
+const essays = (await getCollection("theory")).length;
+// The method page writes small counts as words ("the two circuits"); the
+// views follow it. Counts the list does not cover fall back to digits.
+const words = [
+  "zero",
+  "one",
+  "two",
+  "three",
+  "four",
+  "five",
+  "six",
+  "seven",
+  "eight",
+  "nine",
+  "ten",
+  "eleven",
+  "twelve",
+];
+const inWords = (count: number) => words[count] ?? String(count);
+const listedStandards = standardsContent.standards.filter(
+  (standard) => standard.listedOnSite !== false,
+).length;
+const safeguards = methodContent.stateVariables
+  .map((variable) => variable.state.toLowerCase())
+  .join(", ");
+
+/**
+ * A layer links its name to the one page that holds it. A layer that spans
+ * two pages links each count instead, so a count never points at a page that
+ * does not hold what it counts.
+ */
+type Layer = {
+  name: string;
+  role: string;
+  href?: string;
+  count?: string;
+  countLinks?: { label: string; href: string }[];
+};
+
+const layers: Layer[] = [
+  {
+    name: "Theory",
+    count: `${essays} essays`,
+    role: "Why institutions absorb the evidence that they are wrong, and why that is a problem of power, not only of accuracy.",
+    href: "/research/theory",
+  },
+  {
+    name: "Axioms",
+    count: "5 axioms",
+    role: "What the constraints are owed to: finitude, consent, stewardship, reversibility, and legibility.",
+    href: "/standards/core-axioms",
+  },
+  {
+    name: "Laws",
+    count: `${methodContent.laws.length} laws and one invariant`,
+    role: "The constraints. Each states a condition that must always hold; the invariant states all of them in one sentence.",
+    href: "/standards/laws",
+  },
+  {
+    name: "Safeguards",
+    count: `${methodContent.stateVariables.length} safeguards`,
+    role: `What a delegation must keep in step: ${safeguards}. The casebook and the self-test score these.`,
+    href: "#state-variables",
+  },
+  {
+    name: "Standards",
+    count: `${listedStandards} standards`,
+    role: "Numbered clauses a running system can pass or fail, each with the evidence it needs.",
+    href: "/standards",
+  },
+  {
+    name: "Mechanisms",
+    count: "Blueprints",
+    role: "Controls that meet a clause: decision logs, kill switches, appeal paths, authority grant registers, dependency ledgers.",
+    href: "/mechanisms",
+  },
+  {
+    name: "Evals and diagnostics",
+    countLinks: [
+      { label: `${evalsContent.suites.length} eval suites`, href: "/evals" },
+      {
+        label: `${diagnosticsContent.tools.length} diagnostic tools`,
+        href: "/diagnostics",
+      },
+    ],
+    role: "Tests that check a system against the clauses, starting from a workflow, a decision log, or a set of numbers.",
+  },
+  {
+    name: "Casebook",
+    count: `${cases.length} cases`,
+    role: "Public failures scored on the six safeguards and on whether the institution changed the rule or absorbed the case.",
+    href: "/casebook",
+  },
+];
+
+const views = [
+  {
+    name: `The ${inWords(methodContent.chain.length)}-stage chain`,
+    role: "The path one decision takes through the stack, with the two returns that make it governed.",
+    href: "#chain",
+  },
+  {
+    name: `The ${inWords(methodContent.circuits.length)} circuits`,
+    role: "Where friction lands as a system scales: absorbed and hidden, or recorded and corrected.",
+    href: "#circuits",
+  },
+  {
+    name: `The ${inWords(methodContent.lenses.length)} lenses`,
+    role: "Ways to measure the burden a system moves onto people.",
+    href: "#lenses",
+  },
+  {
+    name: "The capability taxonomy",
+    role: "Governance practices sorted by domain, each with an owner and a readiness level.",
+    href: "/taxonomy",
+  },
+];
+---
+
+<div class="method-stack">
+  <ol class="method-stack__layers" aria-label="The stack, from why to evidence">
+    {
+      layers.map((layer) => (
+        <li class="method-stack__layer">
+          {layer.href ? (
+            <a class="method-stack__name" href={layer.href}>
+              {layer.name}
+            </a>
+          ) : (
+            <span class="method-stack__name method-stack__name--plain">
+              {layer.name}
+            </span>
+          )}
+          <span class="method-stack__count">
+            {layer.count}
+            {layer.countLinks?.map((link) => (
+              <span class="method-stack__count-part">
+                <a href={link.href}>{link.label}</a>
+              </span>
+            ))}
+          </span>
+          <span class="method-stack__role">{layer.role}</span>
+        </li>
+      ))
+    }
+  </ol>
+  <aside class="method-stack__views" aria-labelledby="method-stack-views-title">
+    <p id="method-stack-views-title" class="method-stack__views-title">
+      Views onto the same stack
+    </p>
+    <p class="small muted">
+      These cut across the layers rather than adding to them.
+    </p>
+    <ul class="method-stack__view-list">
+      {
+        views.map((view) => (
+          <li>
+            <a href={view.href}>{view.name}</a>
+            <span class="small muted">{view.role}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </aside>
+</div>

@@ -1,0 +1,194 @@
+---
+/**
+ * The hero's headline, drawn: Robodebt as a loop that never closed.
+ *
+ * The scheme sends debts to people. A person appeals. The tribunal rules
+ * the debt unlawful, and the ruling goes back to that one person. The path
+ * from the rulings back to the scheme is drawn too, broken, because its
+ * absence is the point of the page. The words come from the casebook entry,
+ * so the figure and the record below cannot disagree.
+ *
+ * The SVG carries a full description; the caption under it is visible, and
+ * the hero's own text says the same thing in prose.
+ */
+import { casesBySlug } from "../../content/casebook";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className }: Props = Astro.props;
+
+const robodebt = casesBySlug.get("robodebt");
+const rulings = robodebt?.timeline?.find(
+  (event) => event.voice?.speaker === "The Administrative Appeals Tribunal",
+);
+const period = robodebt?.period;
+const ruled = rulings?.voice?.said;
+const ruledWhen = rulings?.when;
+
+// The crowd is a crowd, not a count: seven figures stand for everyone who
+// got a notice. The last one is the person whose appeal is followed.
+const appellant = 220;
+const people = [28, 60, 92, 124, 156, 188, appellant];
+const headY = 132;
+
+// Drawn only while the casebook still holds every fact the figure states.
+const description =
+  period &&
+  ruled &&
+  ruledWhen &&
+  `Robodebt drawn as a loop. From ${period}, the scheme sent about 470,000 unlawful debts to people. One person appealed. The tribunal ruled "${ruled}" and the ruling went back to that one person: one debt fixed. This happened dozens of times, ${ruledWhen}. The path from the rulings back to the scheme was broken: no ruling changed the scheme.`;
+---
+
+{
+  description && (
+    <figure
+      class:list={["home-loop", className]}
+      aria-labelledby="home-loop-caption"
+      data-glossary-ignore
+    >
+      <svg
+        class="home-loop__svg"
+        viewBox="0 0 400 300"
+        role="img"
+        aria-label={description}
+      >
+        <defs>
+          <marker
+            id="home-loop-arrow-scheme"
+            viewBox="0 0 10 10"
+            refX="8"
+            refY="5"
+            markerWidth="7"
+            markerHeight="7"
+            orient="auto-start-reverse"
+          >
+            <path d="M 0 1 L 9 5 L 0 9 z" class="home-loop__head--scheme" />
+          </marker>
+          <marker
+            id="home-loop-arrow-record"
+            viewBox="0 0 10 10"
+            refX="8"
+            refY="5"
+            markerWidth="7"
+            markerHeight="7"
+            orient="auto-start-reverse"
+          >
+            <path d="M 0 1 L 9 5 L 0 9 z" class="home-loop__head--record" />
+          </marker>
+          <marker
+            id="home-loop-arrow-missing"
+            viewBox="0 0 10 10"
+            refX="8"
+            refY="5"
+            markerWidth="7"
+            markerHeight="7"
+            orient="auto-start-reverse"
+          >
+            <path d="M 0 1 L 9 5 L 0 9 z" class="home-loop__head--missing" />
+          </marker>
+        </defs>
+
+        {/* The scheme: the institution's ledger colour, as in the record. */}
+        <g class="home-loop__box home-loop__box--scheme">
+          <rect x="8" y="8" width="244" height="80" rx="8" />
+          <circle cx="24" cy="28" r="4.5" class="home-loop__dot" />
+          <text x="36" y="32" class="home-loop__caps">
+            The scheme
+          </text>
+          <text x="20" y="56" class="home-loop__title">
+            Debts by income averaging
+          </text>
+          <text x="20" y="76" class="home-loop__text home-loop__text--muted">
+            {period}
+          </text>
+        </g>
+
+        <path
+          d="M 28 88 L 28 116"
+          class="home-loop__flow home-loop__flow--scheme"
+          marker-end="url(#home-loop-arrow-scheme)"
+        />
+        <text x="40" y="108" class="home-loop__text">
+          470,000 unlawful debts
+        </text>
+
+        {people.map((x) => (
+          <g
+            class:list={[
+              "home-loop__person",
+              { "home-loop__person--appellant": x === appellant },
+            ]}
+          >
+            <circle cx={x} cy={headY} r="5" />
+            <path d={`M ${x - 9} ${headY + 19} a 9 9 0 0 1 18 0`} />
+          </g>
+        ))}
+
+        {/* One person's round trip: the appeal down, the ruling back up. */}
+        <path
+          d={`M ${appellant - 8} 158 L ${appellant - 8} 206`}
+          class="home-loop__flow home-loop__flow--record"
+          marker-end="url(#home-loop-arrow-record)"
+        />
+        <text
+          x={appellant - 16}
+          y="187"
+          text-anchor="end"
+          class="home-loop__text"
+        >
+          appeal
+        </text>
+        <path
+          d={`M ${appellant + 8} 206 L ${appellant + 8} 158`}
+          class="home-loop__flow home-loop__flow--record"
+          marker-end="url(#home-loop-arrow-record)"
+        />
+        <text x={appellant + 16} y="187" class="home-loop__text">
+          one debt fixed
+        </text>
+
+        {/* The tribunal: the record's ledger colour. */}
+        <g class="home-loop__box home-loop__box--record">
+          <rect x="8" y="212" width="244" height="80" rx="8" />
+          <circle cx="24" cy="232" r="4.5" class="home-loop__dot" />
+          <text x="36" y="236" class="home-loop__caps">
+            The tribunal
+          </text>
+          <text x="20" y="260" class="home-loop__title">
+            “{ruled}”
+          </text>
+          <text x="20" y="280" class="home-loop__text home-loop__text--muted">
+            Dozens of times, {ruledWhen}
+          </text>
+        </g>
+
+        {/* The return that never happened: dashed, cut, and named. */}
+        <path d="M 252 252 L 378 252 L 378 170" class="home-loop__missing" />
+        <path
+          d="M 378 124 L 378 48 L 258 48"
+          class="home-loop__missing"
+          marker-end="url(#home-loop-arrow-missing)"
+        />
+        <path
+          d="M 370 139 L 386 155 M 386 139 L 370 155"
+          class="home-loop__cut"
+        />
+        <text x="268" y="76" class="home-loop__text home-loop__text--cut">
+          No ruling
+        </text>
+        <text x="268" y="94" class="home-loop__text home-loop__text--cut">
+          changed
+        </text>
+        <text x="268" y="112" class="home-loop__text home-loop__text--cut">
+          the scheme
+        </text>
+      </svg>
+      <figcaption id="home-loop-caption" class="home-loop__caption small muted">
+        Robodebt as a loop. Each ruling went back to one person. None went back
+        to the scheme.
+      </figcaption>
+    </figure>
+  )
+}

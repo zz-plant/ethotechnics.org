@@ -6,24 +6,27 @@ import { derivePublicationMetadata } from "../../utils/publication";
 
 const pageTitle = "EU AI Act";
 const pageDescription =
-  "An Ethotechnics critique of the EU AI Act’s risk-tiered regime, with its timeline status and the implementation controls to build now.";
+  "An Ethotechnics critique of the EU AI Act: most high-risk systems are self-assessed, their authority does not lapse, and a challenge need not reach them.";
 const permalink = "/standards/eu-ai-act";
 const publishedTime = "2026-02-15T00:00:00Z";
-const modifiedTime = "2026-03-04T00:00:00Z";
-const lastUpdated = "2026-05-20";
+const modifiedTime = "2026-10-01T00:00:00Z";
+const timelineReviewed = "2026-05-20";
+const critiqueRevised = "2026-10-01";
 const anchorLinks = [
   { href: "#overview", label: "What it is" },
-  { href: "#timeline", label: "Timeline status" },
-  { href: "#implications-now", label: "Implications now" },
-  { href: "#implementation-cluster", label: "Implementation controls path" },
   { href: "#critique", label: "Ethotechnics critique" },
   { href: "#failure-mode", label: "Failure mode" },
+  { href: "#implementation-cluster", label: "Implementation controls path" },
+  { href: "#timeline", label: "Timeline status" },
+  { href: "#implications-now", label: "Implications now" },
   { href: "#keep-current", label: "How we keep this current" },
 ];
 const publication = derivePublicationMetadata({
   permalink,
   published: publishedTime,
   updated: modifiedTime,
+  changelogSummary:
+    "Rewrote the critique around authority that does not lapse, challenges that need not reach the system, and cost that is assessed but not counted, and moved it ahead of the timeline.",
 });
 ---
 
@@ -48,20 +51,74 @@ const publication = derivePublicationMetadata({
       human oversight, and enforces compliance through EU and national
       authorities.
     </p>
-    <p><strong>Resource status:</strong> reviewed and updated {lastUpdated}.</p>
+    <p>
+      <strong>Resource status:</strong> critique revised {critiqueRevised};
+      timeline status reviewed {timelineReviewed}.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="critique"
+    eyebrow="Ethotechnics critique"
+    title="Where the regime falls short"
+    description="The Act governs a high-risk system through what is assessed and documented before release. The gaps are in what happens once it runs."
+    variant="alt"
+  >
+    <ul class="card__list">
+      <li>
+        <strong>Authority to run does not expire.</strong> Most high-risk systems
+        listed in Annex III are assessed by their own provider before release, and
+        assessed again only after a substantial modification (Art. 43). For those
+        systems, nothing makes the authority to keep running lapse unless someone
+        renews it on evidence.
+      </li>
+      <li>
+        <strong>A challenge does not have to reach the system.</strong> A person can
+        ask for an explanation of a decision (Art. 86) and complain to a market surveillance
+        authority (Art. 85). Nothing requires the provider to treat a pattern of contested
+        decisions as a finding about the system.
+      </li>
+      <li>
+        <strong
+          >The cost to people is assessed before use, not counted while the
+          system runs.</strong
+        > Public bodies and some other deployers assess the impact on fundamental
+        rights before first use (Art. 27). Nothing requires a measure of what the
+        running system costs the people it decides about, such as the time they spend
+        correcting its errors.
+      </li>
+      <li>
+        <strong>A halt is required; rehearsing it is not.</strong> Human oversight
+        must let a person halt a high-risk system (Art. 14). Nothing requires anyone
+        to rehearse the halt or meet a recovery deadline.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="failure-mode"
+    eyebrow="Failure mode"
+    title="Lawful deployment + harmful latency"
+    description="Compliance can coexist with prolonged pending states and slow restoration."
+  >
+    <p>
+      The failure mode is a system that is compliant yet still traps people in
+      extended “pending” states without enforceable restoration timelines.
+    </p>
   </SectionBlock>
 
   <SectionBlock
     id="implementation-cluster"
     eyebrow="Implementation controls"
     title="Follow the implementation path from explainer to review"
-    description="Four steps in order: understand the requirement, map it to controls, export the artifact, and get an outside review if you need one."
+    description="Three steps in order: understand the requirement, map it to controls, and get an outside review if you need one."
+    variant="alt"
   >
     <ol class="muted">
       <li>
         <strong>Explainer:</strong>
-        <a href="/standards/eu-ai-act">EU AI Act</a>
-        baseline and implementation timing.
+        <a href="#timeline">the timeline status</a> on this page, for what is in force
+        and what is scheduled.
       </li>
       <li>
         <strong>Mechanism template:</strong>
@@ -82,7 +139,6 @@ const publication = derivePublicationMetadata({
     id="timeline"
     eyebrow="Timeline status"
     title="Direction is stable; dates can still move"
-    variant="alt"
   >
     <p>
       We treat the Commission timeline as the canonical baseline: entry into
@@ -101,6 +157,7 @@ const publication = derivePublicationMetadata({
     eyebrow="Implications"
     title="What organizations should optimize for right now"
     description="Prepare for converging governance expectations, not a single date bet."
+    variant="alt"
   >
     <ul class="card__list">
       <li>
@@ -123,45 +180,9 @@ const publication = derivePublicationMetadata({
   </SectionBlock>
 
   <SectionBlock
-    id="critique"
-    eyebrow="Ethotechnics critique"
-    title="Where the regime falls short"
-    variant="alt"
-  >
-    <ul class="card__list">
-      <li>
-        <strong>Compliance is document-mediated:</strong> Conformity assessment and
-        technical documentation improve accountability but do not ensure fast intervention.
-      </li>
-      <li>
-        <strong>Human oversight is underspecified:</strong> Oversight obligations
-        do not impose recovery-time targets or stoppability drills.
-      </li>
-      <li>
-        <strong>External enforcement is slower than harm:</strong> Market surveillance
-        can deter and punish, but it is not a primary braking system for compounding
-        harm.
-      </li>
-    </ul>
-  </SectionBlock>
-
-  <SectionBlock
-    id="failure-mode"
-    eyebrow="Failure mode"
-    title="Lawful deployment + harmful latency"
-    description="Compliance can coexist with prolonged pending states and slow restoration."
-  >
-    <p>
-      The failure mode is a system that is compliant yet still traps people in
-      extended “pending” states without enforceable restoration timelines.
-    </p>
-  </SectionBlock>
-
-  <SectionBlock
     id="keep-current"
     eyebrow="Maintenance"
     title="How this resource stays current"
-    variant="alt"
   >
     <ul class="card__list">
       <li>

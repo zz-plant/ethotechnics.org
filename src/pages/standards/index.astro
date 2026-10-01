@@ -7,6 +7,7 @@ import SectionBlock from "../../components/SectionBlock.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import { implementationExamples } from "../../content/implementation-examples";
+import { cases, type Case } from "../../content/casebook";
 import { getCollection } from "astro:content";
 import { standardsContent } from "../../content/standards";
 import { documentClauseIds } from "../../utils/clause-registry";
@@ -17,6 +18,17 @@ import {
 } from "../../content/page-data/standards-index";
 
 const lastUpdated = "2026-08-14";
+
+// The comparison states how long harm ran in the casebook, so the range comes
+// from the cases and moves when a case is added.
+const haltLabel = (entry: Case) =>
+  entry.timeToHalt.split(";")[0].toLowerCase();
+const shortestHalt = cases.reduce((min, entry) =>
+  entry.timeToHaltDays < min.timeToHaltDays ? entry : min,
+);
+const longestHalt = cases.reduce((max, entry) =>
+  entry.timeToHaltDays > max.timeToHaltDays ? entry : max,
+);
 
 // Clause counts come from the documents, not the registry: the registry is a
 // second hand writing the same clauses and it drifts (see clause-registry.ts).
@@ -75,12 +87,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       <a class="button ghost" href="/standards/std-01-temporal-rights">
         Open STD-01
       </a>
-      <a
-        class="button ghost"
-        href="/standards/enforceable-governance-crosswalks"
-      >
-        Open crosswalks
-      </a>
+      <a class="button ghost" href="#comparison">See how they differ</a>
     </Fragment>
   </PageIntro>
   <SectionBlock
@@ -305,8 +312,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <SectionBlock
     id="adopted-standards"
     eyebrow="Existing frameworks"
-    title="What widely adopted frameworks leave to the operator"
-    description="For each of the most cited AI governance frameworks, what it asks for when a system has to be stopped or reversed, and what it leaves the operator to decide."
+    title="Where widely adopted frameworks fall short"
+    description="For each of the most cited AI governance frameworks, what it leaves out once a system is running."
   >
     <CardGrid className="grid--two">
       {
@@ -333,64 +340,89 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   >
     <p class="eyebrow">The landscape</p>
     <p>
-      Four frameworks dominate AI governance today. Each addresses a different
-      part of the problem:
+      This comparison covers four AI governance frameworks and one data
+      protection law that already governs automated decisions. Each addresses
+      a different part of the problem:
     </p>
     <ul class="card__list">
       <li>
         <strong>NIST AI RMF</strong> — A voluntary risk management framework (Govern,
         Map, Measure, Manage). Strong on risk identification and documentation. MANAGE
-        2.4 calls for mechanisms and assigned responsibilities to deactivate a system;
-        it sets no recovery time targets.
+        2.4 asks for mechanisms and assigned responsibilities to deactivate a
+        system; nothing sets a recovery time target. It asks
+        organizations to characterize impacts on people up front (MAP 5). It does not
+        ask them to measure or publish the time a running system costs those people.
       </li>
       <li>
-        <strong>EU AI Act</strong> — A risk-tiered regulatory regime requiring human
-        oversight, conformity assessment, and post-market monitoring. Article 14(4)(e)
-        requires a way to interrupt a high-risk system, but not drills, a named stop
-        holder, or restoration deadlines.
+        <strong>EU AI Act</strong> — A risk-tiered regulation requiring human
+        oversight, conformity assessment, and post-market monitoring. Providers show
+        compliance through technical documentation. Article 14 requires a way to halt
+        a high-risk system; nothing requires anyone to rehearse the halt or meet a
+        restoration deadline.
       </li>
       <li>
-        <strong>ISO/IEC 42001</strong> — A management system standard for AI. Governance
-        effort is certified, but certification can coexist with slow or missing rollback
-        authority.
+        <strong>ISO/IEC 42001</strong> — A management system standard for AI. An accredited
+        body certifies the organization's AI management system, but certification can
+        coexist with slow or missing rollback authority. Top management reviews the
+        management system at planned intervals (clause 9.3). Nothing makes one
+        system's authority to act expire.
       </li>
       <li>
-        <strong>OECD AI Principles</strong> — Values-oriented guidelines adopted by
-        governments. Non-binding by design. Principle 1.4 (2024) asks that harmful
-        systems can be overridden or decommissioned, without saying how fast.
+        <strong>OECD AI Principles</strong> — Values-based principles adopted by
+        governments as a recommendation. Non-binding by design: they ask AI actors to
+        be accountable but set no duty anyone can enforce.
+      </li>
+      <li>
+        <strong>GDPR, Article 22</strong> — Limits solely automated decisions with
+        legal or similarly significant effects. Where one is necessary for a
+        contract or rests on the person's explicit consent, the controller must
+        offer at least human intervention, a chance to state a view, and a way
+        to contest the decision. The right attaches to that one decision.
+        Nothing in Article 22 makes a run of successful contests a reason to
+        revise the rule.
       </li>
     </ul>
     <p>
-      These frameworks ask for documentation, oversight, monitoring, and a means
-      to intervene. They leave the parameters to the operator: while harm is
-      occurring, who can stop the system, how fast, and who carries the burden
-      until they do?
+      These frameworks improve documentation, oversight, and monitoring. They
+      leave one question largely open. When the evidence shows a running system
+      is harming people, does anyone have to act on it within a set time,
+      without the harmed person carrying the burden? Acting can mean halting the system,
+      reversing its decisions, repairing the harm, or changing the rule that
+      produced it.
     </p>
 
     <p class="eyebrow">In short</p>
     <ul class="card__list">
       <li>
-        Ethotechnics centers stoppability and time-in-harm over documentation.
+        A challenge that succeeds has to reach the rule, not only the one case.
+      </li>
+      <li>
+        Permission to act is a lease: it expires unless someone renews it, and
+        every widening is a new decision.
+      </li>
+      <li>
+        The operator measures and publishes the time a system costs people.
+        Whoever absorbs its errors can challenge it.
       </li>
       <li>
         Governance is a runtime control plane, not a post-hoc review process.
       </li>
-      <li>Oversight is only real when authority and clocks are enforceable.</li>
     </ul>
     <p>
-      The frameworks above ask whether risk was managed and whether a means to
-      intervene exists. The drafts here ask how fast that intervention works for
-      the person being harmed, and who can trigger it. The difference is in
-      mechanics, not values.
+      The frameworks above answer one question: “Did you manage risk
+      responsibly?” Ethotechnics answers a different one: “When this system is
+      harming someone, does evidence of the harm reach someone who has to
+      change the system?” The difference is in mechanics, not values.
     </p>
     <p>
-      In consequential systems the dominant failure mode is now temporal.
+      In the casebook, harm ran from {haltLabel(shortestHalt)} to{" "}
+      {haltLabel(longestHalt)} before anyone halted or changed the system.
       Decisions occur at machine speed. Reversal occurs at institutional speed.
       Harm compounds in the gap.
     </p>
     <p class="muted">
-      Ethotechnics treats governability as an operational capability with
-      measurable performance properties.
+      Ethotechnics measures governability: time in harm, time to halt,
+      recovery time, and the time a system costs people.
     </p>
 
     <p class="eyebrow">Comparison matrix</p>
@@ -415,7 +447,16 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
               >Registers, assessments, policies</td
             >
             <td data-label="Ethotechnics"
-              >Stop rules, clocks, restoration paths</td
+              >Expiring authority grants, objection records, burden reports</td
+            >
+          </tr>
+          <tr>
+            <th scope="row">Authority</th>
+            <td data-label="Prevailing standards"
+              >One approval, with reviews on a schedule or after a major change</td
+            >
+            <td data-label="Ethotechnics"
+              >A lease that expires unless renewed, and a new decision for each widening</td
             >
           </tr>
           <tr>
@@ -424,19 +465,30 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
               >Human oversight with a means to interrupt</td
             >
             <td data-label="Ethotechnics"
-              >A named stop holder, a halt clock, and veto rights</td
+              >Enforceable authority and a veto that binds</td
             >
           </tr>
           <tr>
             <th scope="row">Measurement</th>
             <td data-label="Prevailing standards">Process maturity</td>
-            <td data-label="Ethotechnics">Recovery time + time-in-harm</td>
+            <td data-label="Ethotechnics"
+              >Time-in-harm + the time the system costs people</td
+            >
+          </tr>
+          <tr>
+            <th scope="row">Challenge</th>
+            <td data-label="Prevailing standards"
+              >A right to contest one decision</td
+            >
+            <td data-label="Ethotechnics"
+              >A revision or a reasoned refusal for each objection, on a clock</td
+            >
           </tr>
           <tr>
             <th scope="row">Monitoring</th>
             <td data-label="Prevailing standards">Visibility</td>
             <td data-label="Ethotechnics"
-              >Visibility + compelled intervention</td
+              >Visibility that triggers a required intervention</td
             >
           </tr>
           <tr>
@@ -445,7 +497,16 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
               >Audits, conformity assessment, regulators</td
             >
             <td data-label="Ethotechnics"
-              >Stop rules and clocks in the running system, once adopted</td
+              >Built-in constraints + internal power to halt, reverse, or revise</td
+            >
+          </tr>
+          <tr>
+            <th scope="row">Ethics framing</th>
+            <td data-label="Prevailing standards"
+              >Principles weighed case by case</td
+            >
+            <td data-label="Ethotechnics"
+              >Constraints that hold in every case</td
             >
           </tr>
         </tbody>
@@ -460,38 +521,41 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       <div class="panel stack-sm">
         <p class="eyebrow">1. Runtime control plane</p>
         <p class="small muted">
-          Policies describe intent; control planes constrain behavior. Beside
-          inventories, risk registers, and reviews, the drafts specify explicit
-          stop conditions, exercised rollback paths, and safe degradation modes
-          during system execution.
+          Policies describe intent; control planes constrain behavior. Rather
+          than inventories, risk registers, and post-hoc paperwork, the standards
+          require explicit stop conditions, rehearsed rollback paths, and safe
+          fallback modes while the system runs.
         </p>
       </div>
 
       <div class="panel stack-sm">
-        <p class="eyebrow">2. Mechanical stop authority</p>
+        <p class="eyebrow">2. Authority that has to act</p>
         <p class="small muted">
-          Oversight is symbolic unless it is exercisable on a clock. The drafts
-          call for named operational roles with independent authority to halt
-          automated decisions without needing consensus.
+          Oversight is symbolic unless someone has to act on what it sees.
+          Rather than advisory ethics committees or perfunctory review gates,
+          the standards require the operator to name who can halt, reverse, or
+          revise a running system, and bind that person to a clock. An objection owes a revision or a reasoned
+          refusal. A grant lapses unless someone renews it on stated evidence.
         </p>
       </div>
 
       <div class="panel stack-sm">
         <p class="eyebrow">3. Temporal performance bounds</p>
         <p class="small muted">
-          Time is the primary ethical resource. When decisions occur at machine
-          speed, reversal cannot run at institutional speed. Systems cannot run
-          faster than their appeal paths, and pending states must not become
-          unbounded holding cells.
+          The person waiting on a decision carries the cost of every delay.
+          When decisions occur at machine speed, reversal cannot run at
+          institutional speed. A system may not decide faster than its appeal
+          path can answer, and every pending decision needs a deadline.
         </p>
       </div>
     </div>
 
     <p>
       Existing standards and Ethotechnics agree that governance matters. The
-      question Ethotechnics adds is whether a system can be compelled to stop
-      while harm is occurring, by whom, how fast, and without the harmed person
-      carrying the burden.
+      question Ethotechnics adds is whether evidence that a system is harming
+      someone compels action. The action can be a halt, a reversal, a repair,
+      or a changed rule. It has to come within a set time, every time, and the
+      harmed person must not carry the burden.
     </p>
     <p class="muted">
       That is the difference between governance as documentation and governance

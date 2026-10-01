@@ -69,11 +69,11 @@ function init(): void {
 
     if (countEl) {
       if (seen === 0) {
-        countEl.textContent = `0 of ${total} warnings and findings recorded so far.`;
+        countEl.textContent = `0 of ${total} warnings and findings shown so far.`;
       } else if (seen >= total) {
-        countEl.textContent = `${total} dated warnings and findings, 2014–2023. None stopped the scheme before the court did.`;
+        countEl.textContent = `${total} dated warnings and findings, 2014–2023. No warning stopped the scheme. A Federal Court case did, in November 2019.`;
       } else {
-        countEl.textContent = `${seen} of ${total} warnings and findings recorded so far.`;
+        countEl.textContent = `${seen} of ${total} warnings and findings shown so far.`;
       }
     }
 

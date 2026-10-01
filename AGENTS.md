@@ -5,8 +5,8 @@ Scope: applies to the entire repository unless a more specific `AGENTS.md` overr
 ## Purpose
 
 This repo powers ethotechnics.org: open standards, scored public failures, and diagnostics for
-keeping automated decision systems stoppable, explainable, and appealable. Follow these
-instructions to keep changes consistent and reviewable.
+keeping automated decision systems answerable: when one is wrong, evidence of the harm reaches
+someone who has to change it. Follow these instructions to keep changes consistent and reviewable.
 
 ## Public copy voice
 

@@ -1,34 +1,35 @@
 ---
-import FrameworkComparisonTable from "../FrameworkComparisonTable.astro";
 import SectionBlock from "../SectionBlock.astro";
+import StandardsComparisonTable from "../StandardsComparisonTable.astro";
 ---
 
 <SectionBlock
   id="difference"
   eyebrow="How this differs"
-  title="The frameworks already ask for a way to stop a system. These drafts say who holds it and how fast it works."
-  description="They are written to sit beside the EU AI Act, the NIST AI RMF, ISO/IEC 42001, and the OECD principles, and to make three things checkable: who can stop a running system, how fast, and who carries the cost while it runs."
+  title="Other frameworks ask whether an institution manages risk. These standards ask whether a challenge that succeeds changes the system."
+  description="These standards work alongside the GDPR, the EU AI Act, the NIST AI RMF, ISO/IEC 42001, and the OECD AI Principles. They specify what those leave open: who has to act when a running system is wrong, when its permission to act ends, and who carries the cost until then."
   variant="default"
 >
   <p>
-    Each of those frameworks asks for oversight and a means of intervention.
-    Each leaves the operator to decide who exercises it, how fast, and what
-    record shows that it worked. The drafts here fill in those parameters. They
-    also bind any system that decides about people, so they would have applied
-    to Post Office Horizon, which was accounting software, not AI.
+    Those frameworks improve documentation and oversight, and the AI Act and
+    the OECD principles ask for a way to stop a system. They say less about
+    what happens once a running system is wrong: who halts it, whether anyone
+    reverses its decisions and repairs the harm, and how long the person it is
+    harming waits. They say least about whether anyone changes the
+    rule that produced the error, or only fixes the one case.
   </p>
   <p>
-    When a system cuts its own workload, the work it drops lands on someone: the
-    nurse fixing a scheduler's mistakes, the claimant proving a denial wrong.
-    That work is part of the system, so the person doing it should have a say in
-    fixing it. The cost should fall on the institution that runs the system, not
-    on the people it serves.
+    When a system cuts its own workload, the work it drops lands on someone:
+    the nurse fixing a scheduler's mistakes, the claimant proving a denial
+    wrong. That work is part of the system, so the person doing it has
+    standing to challenge it. The cost belongs to the institution that runs
+    the system, not to the people it serves.
   </p>
-  <FrameworkComparisonTable />
+  <StandardsComparisonTable />
   <p class="muted small">
-    Each item on the right is a property of a running system, so a document
-    cannot show it on its own. The drafts have no force until someone adopts
-    them. See the
-    <a href="/standards#comparison">full standards comparison</a>.
+    Each requirement on the right is a test a running system passes or fails.
+    A compliance document cannot pass it on its own. See the
+    <a href="/standards#comparison">full standards comparison</a> for the detailed
+    analysis.
   </p>
 </SectionBlock>

@@ -73,10 +73,10 @@ export type ResearchContent = PageWithPermalink &
 export const researchContent: ResearchContent = {
   pageTitle: "Research — Ethotechnics",
   pageDescription:
-    "The research behind the standards: open questions, planned studies, theory essays, and dated research notes.",
+    "Research on one question: when an automated system is wrong, does the evidence reach someone who can change the rule? Essays, scored cases, a working paper.",
   permalink: "/research",
   published: "2025-12-03T00:00:00Z",
-  updated: "2026-09-22T00:00:00Z",
+  updated: "2026-10-01T00:00:00Z",
   publication: {
     authors: [
       {
@@ -87,12 +87,18 @@ export const researchContent: ResearchContent = {
     ],
     contact: "research@ethotechnics.org",
     published: "2025-12-03T00:00:00Z",
-    updated: "2026-09-25T00:00:00Z",
-    version: "v1.3.0",
+    updated: "2026-10-01T00:00:00Z",
+    version: "v1.4.0",
     doi: "Pending Zenodo deposit",
     archiveUrl:
       "https://web.archive.org/web/*/https://ethotechnics.org/research",
     changelog: [
+      {
+        version: "v1.4.0",
+        date: "2026-10-01",
+        summary:
+          "Opened the page with the research question and what the research has produced: the casebook standing result, the frontier doctrine scan, the working paper, and the theory.",
+      },
       {
         version: "v1.3.0",
         date: "2026-09-25",
@@ -124,10 +130,11 @@ export const researchContent: ResearchContent = {
     attribution:
       "Credit Ethotechnics Institute Research Team, include the page title + version, and link to the canonical permalink.",
   },
-  lastUpdated: "2026-09-25T00:00:00Z",
+  lastUpdated: "2026-10-01T00:00:00Z",
   updateCadence:
     "Updates publish on a quarterly cadence with interim Field Notes.",
   anchorLinks: [
+    { href: "#results", label: "Results" },
     { href: "#orientation", label: "Orientation" },
     { href: "#bridge-artifacts", label: "Bridge artifacts" },
     { href: "#standards-timeline", label: "Standards timeline" },

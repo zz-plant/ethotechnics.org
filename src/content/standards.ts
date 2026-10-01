@@ -63,12 +63,12 @@ export type StandardClause = {
 export const standardsContent: StandardsContent = {
   pageTitle: "Standards — Ethotechnics Institute",
   pageDescription:
-    "Proposed standards for automated systems that make consequential decisions, with each one's status, version, and evidence pack. None has force until adopted.",
+    "Draft standards for records a running system must keep: an answer to every objection, authority that expires, a published time cost. None binds until adopted.",
   permalink: "/standards",
   anchorLinks: [
     { href: "#register", label: "The register" },
     { href: "#doctrine", label: "Foundations and references" },
-    { href: "#adopted-standards", label: "What frameworks leave open" },
+    { href: "#adopted-standards", label: "Where existing frameworks fall short" },
     { href: "#implementation-examples", label: "Domain-by-domain comparisons" },
     { href: "#referenced-by", label: "Where the standards are cited" },
   ],

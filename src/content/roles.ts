@@ -71,7 +71,7 @@ export const roles: Role[] = [
     label: "Engineering",
     who: "You build or operate the system that makes the decision.",
     tagline:
-      "Build decision systems that can be stopped, explained, and reversed, with the guardrails written as code rather than as policy.",
+      "Build decision systems whose errors reach someone who can change the rule: decision records, expiring grants, answered objections, written as code, not policy.",
     orientation: [
       {
         number: 1,
