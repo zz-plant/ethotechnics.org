@@ -43,8 +43,8 @@ const instituteStats = [
   },
   {
     value: `${stewards.length}`,
-    label: "Stewards available",
-    detail: "Named people who triage incoming requests.",
+    label: stewards.length === 1 ? "Named steward" : "Named stewards",
+    detail: "Accountable by name for the Institute's own decisions.",
   },
 ];
 ---
@@ -58,7 +58,9 @@ const instituteStats = [
   >
     <Fragment slot="actions">
       <a class="button primary" href="#programs"> View programs </a>
-      <a class="button ghost" href="#stewards"> Meet the stewards </a>
+      <a class="button ghost" href="#stewards">
+        {stewards.length === 1 ? "Meet the steward" : "Meet the stewards"}
+      </a>
     </Fragment>
   </PageIntro>
   <SectionBlock
@@ -110,9 +112,6 @@ const instituteStats = [
     description="Each program states its outputs, its status, and how to join. Outputs link back to the Library pages they draw on."
     variant="alt"
   >
-    <p class="muted small">
-      Program availability is reviewed quarterly. Email for the current window.
-    </p>
     <CardGrid>
       {
         programs.map((program) => (
@@ -138,7 +137,7 @@ const instituteStats = [
   <SectionBlock
     id="studio"
     eyebrow="Studio partnership"
-    title="When a diagnostic shows risk, bring in the Studio"
+    title="When a healthcare AI system needs an outside evaluation"
     description={instituteStudioGuidance.escalationDescription}
   >
     <InstituteStudioComparison content={instituteStudioComparisonContent} />

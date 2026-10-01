@@ -32,7 +32,7 @@ const permalink = `/diagnostics/${tool.slug}`;
     tool={tool}
     publication={publication}
     permalink={permalink}
-    overviewTitle="When to use the Burden Modeler"
+    overviewTitle="When to use the Workload Modeler"
     methodologyDescription="Inputs, scoring logic, validation notes, and failure modes used in the model."
     sampleOutputTitle="Preview the burden readout"
     sampleOutputDescription="The burden index, the hotspot ranking, and the mitigations listed for each hotspot."
@@ -42,9 +42,10 @@ const permalink = `/diagnostics/${tool.slug}`;
   >
     <BurdenModelerWidget client:visible />
     <p class="muted small">
-      This interactive diagnostic implements the <a
-        href="/validators/burden-modeler">VAL-01 Burden Modeler</a
-      > specification defined under STD-01.
+      This diagnostic rates the workload a system creates for the team that
+      runs it. To score the time a journey takes from the person it decides
+      about, use the <a href="/validators/burden-modeler">VAL-01 Burden Modeler</a
+      > defined under STD-01.
     </p>
   </DiagnosticToolPage>
 </BaseLayout>

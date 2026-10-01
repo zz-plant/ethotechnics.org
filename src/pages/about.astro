@@ -8,6 +8,7 @@ import {
   cases,
   type LearningVerdict,
 } from "../content/casebook";
+import { studio, studioSummary } from "../content/studio";
 
 // The contribution section states how the casebook's institutions responded,
 // so the tally comes from the cases and moves when a case is added.
@@ -121,7 +122,7 @@ for (const entry of cases) {
         rel="noopener noreferrer"
         target="_blank"
       >
-        evaluations and diligence →
+        commissioned safety evaluation for healthcare AI →
       </a>
     </p>
   </section>
@@ -297,10 +298,8 @@ for (const entry of cases) {
       and extend.
     </p>
     <p>
-      <strong>Ethotechnics Studio</strong> provides clinical AI safety evaluations,
-      VC diligence, and governance advisory through commissioned engagements. The
-      Institute publishes the open framework; the Studio applies it to specific systems
-      and organizations.
+      {studioSummary} The Institute publishes the open framework; the Studio
+      applies it to specific systems, for {studio.clients}.
     </p>
     <p>
       <a

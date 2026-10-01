@@ -8,6 +8,7 @@
  * - compact: Show only cases, standards, and the first check, for the
  *   worked example pages that link back to the full entry.
  */
+import { studio, studioSummary } from "../content/studio";
 import {
   caseLink,
   standardLink,
@@ -119,6 +120,19 @@ const scored = context.cases.map(caseLink);
       <div>
         <dt>Law in force</dt>
         <dd>{context.alreadyRequired}</dd>
+      </div>
+    )
+  }
+  {
+    !compact && context.studio && (
+      <div>
+        <dt>Commissioned help</dt>
+        <dd>
+          {studioSummary}{" "}
+          <a href={studio.href} rel="noopener noreferrer" target="_blank">
+            {studio.name} &rarr;
+          </a>
+        </dd>
       </div>
     )
   }

@@ -90,7 +90,7 @@ export const standardsContent: StandardsContent = {
         },
       ],
       stableCriteria:
-        "Requires two independent implementation reports and standards council ratification.",
+        "Requires two independent implementation reports and a decision recorded through the RFC process.",
       effectiveDate: "January 2026",
       published: "2026-01-01",
     },
@@ -140,7 +140,9 @@ export const standardsContent: StandardsContent = {
       title: "Minimum viable contestability standard",
       description:
         "A one-page baseline for standing, reasons, records, timelines, remedies, and non-retaliation.",
-      status: "Stable",
+      // Marked Stable at publication, but none of its stable criteria was ever
+      // recorded as met, which the status model requires. Draft until they are.
+      status: "Draft",
       version: "1.0",
       changelogHref: "/standards/minimum-viable-contestability#text",
       changelogEntries: [
@@ -148,11 +150,17 @@ export const standardsContent: StandardsContent = {
           version: "1.0",
           date: "2025-01-01",
           summary:
-            "Initial stable publication for baseline contestability controls.",
+            "Initial publication of baseline contestability controls, then marked stable.",
+        },
+        {
+          version: "1.0",
+          date: "2026-10-01",
+          summary:
+            "Status corrected to Draft. No production deployment report, audit template validation, or approval decision has been recorded. The text is unchanged.",
         },
       ],
       stableCriteria:
-        "Requires one production deployment report, audit template validation, and council approval.",
+        "Requires one production deployment report, audit template validation, and a decision recorded through the RFC process.",
       effectiveDate: "Immediate",
       published: "2025-01-01",
     },
@@ -162,7 +170,9 @@ export const standardsContent: StandardsContent = {
       title: "Institutional Failure Postmortem Template",
       description:
         "A one-page postmortem template grounded in clocks, reversibility, burden allocation, and repair paths.",
-      status: "Stable",
+      // Same correction as MVC-01: stable on release, with no record of the
+      // three retrospectives its criteria ask for.
+      status: "Draft",
       version: "1.0",
       changelogHref: "/standards/pm-01-failure-postmortem-template",
       changelogEntries: [
@@ -170,7 +180,13 @@ export const standardsContent: StandardsContent = {
           version: "1.0",
           date: "2026-04-15",
           summary:
-            "Initial stable release of the institutional postmortem template.",
+            "Initial release of the institutional postmortem template, then marked stable.",
+        },
+        {
+          version: "1.0",
+          date: "2026-10-01",
+          summary:
+            "Status corrected to Draft. No use in three incident retrospectives with governance sign-off has been recorded. The text is unchanged.",
         },
       ],
       stableCriteria:

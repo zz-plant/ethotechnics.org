@@ -508,7 +508,7 @@ export const evalsContent: EvalsContent = {
       description:
         "Whether AI failures shift burden unfairly in five domains: healthcare, credit, hiring, content moderation, and government benefits.",
       longDescription:
-        "The burden modeler exists as an interactive tool; this suite formalizes it as a benchmark across five application domains. Each domain has specific test cases that measure whether failure modes distribute burden equitably within that domain's context — healthcare appointment denials, credit decision contestability, hiring algorithm transparency, content moderation appeals, and government benefits processing.",
+        "The site's interactive burden tools score one workflow at a time; this suite formalizes the question as a benchmark across five application domains. Each domain has specific test cases that measure whether failure modes distribute burden equitably within that domain's context — healthcare appointment denials, credit decision contestability, hiring algorithm transparency, content moderation appeals, and government benefits processing.",
       version: "1.0.0",
       status: "stable",
       category: "burden",

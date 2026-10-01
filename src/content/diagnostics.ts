@@ -411,7 +411,7 @@ export const diagnosticsContent: DiagnosticsContent = {
     },
     {
       slug: "burden-modeler",
-      title: "Burden Modeler",
+      title: "Workload Modeler",
       tier: "Belief level",
       description:
         "Rate seven sources of workload, such as interruptions, handoffs, and incidents. Get a burden score out of 100 and the three places where reducing load would help most.",
@@ -504,9 +504,9 @@ export const diagnosticsContent: DiagnosticsContent = {
         "Rough task volume or handoff counts.",
         "Known friction points or escalation paths.",
       ],
-      ctaLabel: "Start the Burden Modeler",
+      ctaLabel: "Start the Workload Modeler",
       ctaHref: "/diagnostics/burden-modeler",
-      ctaAriaLabel: "Start the Burden Modeler diagnostic tool",
+      ctaAriaLabel: "Start the Workload Modeler diagnostic tool",
       exampleLabel: "View sample output",
       exampleHref:
         "https://github.com/zz-plant/ethotechnics.org/blob/main/docs/diagnostics-outputs.md#burden-modeler",
@@ -623,7 +623,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         "The last time a handled exception changed an upstream rule.",
       ],
       studioNote:
-        "Ethotechnics Studio can run this comparison with your team and trace whether handled exceptions ever changed a rule.",
+        "For a healthcare AI system, Ethotechnics Studio's readiness sprint maps one workflow end to end: who can stop it, how fast, and who owns each fix.",
       ctaLabel: "Start the corrective capacity self-assessment",
       ctaHref: "/diagnostics/corrective-debt-calculator",
       ctaAriaLabel:
