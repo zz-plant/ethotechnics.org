@@ -81,8 +81,6 @@ const incidentTemplate = `Incident memo (Template)
   publishedTime={publishedTime}
   modifiedTime={modifiedTime}
 >
-  <ScholarlyMeta publication={publication} permalink={permalink} />
-
   <SectionBlock
     id="when-to-use"
     eyebrow="When to use"
@@ -160,6 +158,7 @@ const incidentTemplate = `Incident memo (Template)
     description="Cite the canonical permalink and version in incident documentation."
     variant="alt"
   >
+    <ScholarlyMeta publication={publication} permalink={permalink} />
     <CitationBlock
       title={pageTitle}
       permalink={permalink}

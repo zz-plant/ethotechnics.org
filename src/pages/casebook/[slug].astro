@@ -79,6 +79,14 @@ const sourceKind = {
           <dt>Halted by</dt>
           <dd>{entry.haltedBy}</dd>
         </div>
+        <div>
+          <dt>After the failure</dt>
+          <dd>
+            <a href="#learning">
+              {learningVerdictLabels[entry.learningOutcome.verdict]}
+            </a>
+          </dd>
+        </div>
       </dl>
     </Fragment>
   </PageIntro>

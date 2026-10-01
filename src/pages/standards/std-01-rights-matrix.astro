@@ -193,8 +193,6 @@ const mechanisms = collectUnique(matrix.flatMap((row) => row.mechanisms));
   publishedTime="2025-06-01T00:00:00.000Z"
   mainClass="page page--wide"
 >
-  <ScholarlyMeta publication={publication} permalink={permalink} />
-
   <div class="callout">
     <h3>Rights, validators, and mechanisms</h3>
     <p class="muted">
@@ -471,6 +469,7 @@ const mechanisms = collectUnique(matrix.flatMap((row) => row.mechanisms));
     title="Reference this matrix in audits and work plans."
     description="Cite the permalink and version so the audit trail points at a fixed text."
   >
+    <ScholarlyMeta publication={publication} permalink={permalink} />
     <CitationBlock
       title={pageTitle}
       permalink={permalink}

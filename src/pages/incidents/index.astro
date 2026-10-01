@@ -27,40 +27,16 @@ const enhancedDescription = `${description} The workflow below also serves post-
     title={title}
     description={enhancedDescription}
     anchorLinks={[
-      { href: "#post-market-workflow", label: "Post-market workflow" },
       ...incidentLessons.map((lesson) => ({
         href: `#${lesson.slug}`,
         label: lesson.title,
       })),
+      { href: "#post-market-workflow", label: "Post-market workflow" },
     ]}
   />
 
   <SectionBlock
-    id="post-market-workflow"
-    eyebrow="Post-market monitoring"
-    title="Incident reporting workflow"
-    description="Five stages, from intake to closure, each with the record it must produce."
-    variant="alt"
-  >
-    <ol class="muted">
-      {
-        postMarketWorkflow.map((step) => (
-          <li>
-            <strong>{step.stage}:</strong> {step.outcome}
-          </li>
-        ))
-      }
-    </ol>
-    <p class="muted">
-      Machine-readable workflow objects are available at
-      {" "}
-      <a href="/api/post-market-monitoring.json"
-        >/api/post-market-monitoring.json</a
-      >.
-    </p>
-  </SectionBlock>
-
-  <SectionBlock
+    id="retrospectives"
     eyebrow="Incident lessons"
     title="Browse the retrospectives."
     description="Each card gives the headline, sector, and timeframe. The lesson page holds the full remediation checklist."
@@ -91,5 +67,30 @@ const enhancedDescription = `${description} The workflow below also serves post-
         ))
       }
     </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="post-market-workflow"
+    eyebrow="Post-market monitoring"
+    title="Incident reporting workflow"
+    description="Five stages, from intake to closure, each with the record it must produce."
+    variant="alt"
+  >
+    <ol class="muted">
+      {
+        postMarketWorkflow.map((step) => (
+          <li>
+            <strong>{step.stage}:</strong> {step.outcome}
+          </li>
+        ))
+      }
+    </ol>
+    <p class="muted">
+      Machine-readable workflow objects are available at
+      {" "}
+      <a href="/api/post-market-monitoring.json"
+        >/api/post-market-monitoring.json</a
+      >.
+    </p>
   </SectionBlock>
 </BaseLayout>

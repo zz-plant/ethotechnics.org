@@ -71,7 +71,7 @@ export type MethodContent = {
 export const methodContent: MethodContent = {
   pageTitle: "The Ethotechnics method: keeping automated decisions answerable",
   pageDescription:
-    "Seven steps every consequential decision passes through, six safeguards that must keep pace as a system grows, and the twelve laws behind the standards.",
+    "Evidence that an automated decision is wrong is settled one case at a time and never reaches the rule. The method puts it on the record, one workflow at a time.",
   permalink: "/method",
   definition:
     "Ethotechnics is the engineering discipline concerned with keeping capability, authority, evidence, dependency, standing, and correction coupled tightly enough that increasing machine agency does not silently become unreviewable institutional power. Where ethics asks what we should do, Ethotechnics designs the mechanisms that make it reliably happen.",
