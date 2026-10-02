@@ -672,6 +672,7 @@ const theorySchema = z.object({
   updated: z.string().optional(),
   lawRefs: z.array(z.string()),
   summary: z.string(),
+  question: z.string(),
 });
 
 const explainers = defineCollection({
