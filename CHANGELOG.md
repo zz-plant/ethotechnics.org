@@ -8,6 +8,17 @@ for the operational governance of delegated decision systems.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.21.0] - 2026-10-02
+
+### Fixed
+
+- **The antihuman metric's criteria bridge was out of date.** It named
+  replenishment and freedom from compulsory optimization as the two criteria
+  "not yet built anywhere" — but the reciprocal accommodation suite, added
+  with the Green Dashboard sync, implements all twelve criteria one case per
+  criterion (REC-001 through REC-012). The bridge now maps the full list to
+  that suite and treats the domain suites as corroboration rather than gaps.
+
 ## [1.20.0] - 2026-10-02
 
 ### Changed
