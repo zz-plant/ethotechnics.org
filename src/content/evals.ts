@@ -177,14 +177,26 @@ export const evalsContent: EvalsContent = {
     ],
     contact: "kanav@ethotechnics.org",
     published: "2026-07-27T00:00:00Z",
-    version: "1.8.0",
+    version: "1.10.0",
     license: {
       label: "CC BY-SA 4.0",
       href: "https://creativecommons.org/licenses/by-sa/4.0/",
     },
     attribution:
-      "Ethotechnics Institute. (2026). Governance Eval Suites v1.8.0. Ethotechnics Institute.",
+      "Ethotechnics Institute. (2026). Governance Eval Suites v1.10.0. Ethotechnics Institute.",
     changelog: [
+      {
+        version: "1.10.0",
+        date: "2026-10-01",
+        summary:
+          "Adds COR-007, bound to the new STD-06 \u00a73.3: whether failures caught by a person before reaching anyone else are recorded, whether rescues and incidents are read as one series, and whether a repeat rescue against an unfixed condition becomes a standing item against the condition. 16 eval suites, 173 test cases.",
+      },
+      {
+        version: "1.9.0",
+        date: "2026-10-01",
+        summary:
+          "Three draft cases bound to the collection-cost condition in Law VIII and to the expiry default in STD-01 \u00a75.4. BCN-008 asks whether an instrument's input costs the depleted. BUR-013 puts a ceiling on respondent labor in the operator's own audit. TEM-011 asks whether a published clock carries a consequence at expiry. 16 eval suites, 172 test cases.",
+      },
       {
         version: "1.8.0",
         date: "2026-09-25",
