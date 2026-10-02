@@ -226,6 +226,30 @@ export const neighboringFields: NeighboringField[] = [
       href: "/research/theory/democratic-vs-coercive-governability",
     },
   },
+  {
+    field: "Social reproduction theory & care ethics",
+    works: [
+      {
+        authors: "Nancy Fraser",
+        title: "Contradictions of Capital and Care",
+        year: 2016,
+        form: "article",
+      },
+      {
+        authors: "Joan Tronto",
+        title: "Moral Boundaries",
+        year: 1993,
+        form: "book",
+      },
+    ],
+    sees: "Formal systems depend parasitically on unpriced relational repair and reproductive labor that they externalize and exhaust.",
+    stops:
+      "It analyzes systemic extraction at the social and macroeconomic level. It does not construct engineering constraints, data schemas, or runtime records that force automated systems to account for the finite adaptive capacity they consume.",
+    essay: {
+      title: "The consumption of adaptive capacity",
+      href: "/research/theory/the-consumption-of-adaptive-capacity",
+    },
+  },
 ];
 
 /** Why the question is urgent now, not only open. */
