@@ -54,8 +54,7 @@ describe("self-test", () => {
     );
 
     const driftedOnFourPlus = cases.filter(
-      (entry) =>
-        entry.findings.filter((f) => f.verdict !== "held").length >= 4,
+      (entry) => entry.findings.filter((f) => f.verdict !== "held").length >= 4,
     );
     expect(cases.length).toBe(5);
     expect(driftedOnFourPlus.length).toBe(4);

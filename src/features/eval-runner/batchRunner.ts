@@ -364,7 +364,10 @@ export const runDualLedgerBatch = (
 
   return {
     evidenceBasis: "synthetic",
-    limitations: ["No deployment or operational logs were inspected.", "Scores and verdicts follow selected scenario assumptions, including any supplied score overrides."],
+    limitations: [
+      "No deployment or operational logs were inspected.",
+      "Scores and verdicts follow selected scenario assumptions, including any supplied score overrides.",
+    ],
     suiteId: suite.id,
     suiteTitle: suite.title,
     systemName,
@@ -391,7 +394,9 @@ export const runDualLedgerBatch = (
       criticalFailureCount: failedCriticalCount,
     },
     overallVerdict,
-    nonCompensatoryViolations: nonCompensatoryViolations.map((finding) => `Synthetic scenario: ${finding}`),
+    nonCompensatoryViolations: nonCompensatoryViolations.map(
+      (finding) => `Synthetic scenario: ${finding}`,
+    ),
     results,
   };
 };

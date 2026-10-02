@@ -80,7 +80,7 @@ const failureChoiceIcons: Record<string, string[]> = {
 
   <section id="failure-intake" class="container stack-lg">
     <h2 id="failure-intake-heading" class="sr-only">Failure modes</h2>
-      <ul class="failure-grid" aria-labelledby="failure-intake-heading">
+    <ul class="failure-grid" aria-labelledby="failure-intake-heading">
       {
         failureStates.map((state) => {
           const iconPaths = failureChoiceIcons[state.slug] ?? [
@@ -126,8 +126,8 @@ const failureChoiceIcons: Record<string, string[]> = {
       }
     </ul>
     <p class="small muted">
-      These routes are for a live case: a person, a queue, or a decision
-      that needs attention now.
+      These routes are for a live case: a person, a queue, or a decision that
+      needs attention now.
     </p>
   </section>
 </BaseLayout>

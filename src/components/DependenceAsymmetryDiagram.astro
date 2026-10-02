@@ -21,7 +21,8 @@ const Heading = level;
       Two-Way Dependence: Substitution Cost vs. Exit Cost
     </Heading>
     <p class="muted">
-      Dependence does not license command. The less a population can leave, the more correction capacity the institution owes.
+      Dependence does not license command. The less a population can leave, the
+      more correction capacity the institution owes.
     </p>
   </figcaption>
 
@@ -42,7 +43,7 @@ const Heading = level;
           markerHeight="6"
           orient="auto-start-reverse"
         >
-          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--border)" />
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--border)"></path>
         </marker>
         <marker
           id="duty-arrow"
@@ -53,65 +54,177 @@ const Heading = level;
           markerHeight="6"
           orient="auto-start-reverse"
         >
-          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)" />
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)"></path>
         </marker>
       </defs>
 
       {/* Axis Lines */}
-      <line x1="158" y1="388" x2="905" y2="388" stroke="var(--border)" stroke-width="2" marker-end="url(#axis-arrow)" />
-      <line x1="158" y1="388" x2="158" y2="30" stroke="var(--border)" stroke-width="2" marker-end="url(#axis-arrow)" />
+      <line
+        x1="158"
+        y1="388"
+        x2="905"
+        y2="388"
+        stroke="var(--border)"
+        stroke-width="2"
+        marker-end="url(#axis-arrow)"></line>
+      <line
+        x1="158"
+        y1="388"
+        x2="158"
+        y2="30"
+        stroke="var(--border)"
+        stroke-width="2"
+        marker-end="url(#axis-arrow)"></line>
 
       {/* Axis Labels */}
-      <text x="902" y="414" text-anchor="end" class="state-diagram__clause">Institution Substitution Cost → (Measures Capture)</text>
-      <text x="164" y="22" text-anchor="start" class="state-diagram__clause">Population Exit Cost ↑ (Measures Exposure / Domination)</text>
+      <text x="902" y="414" text-anchor="end" class="state-diagram__clause"
+        >Institution Substitution Cost → (Measures Capture)</text
+      >
+      <text x="164" y="22" text-anchor="start" class="state-diagram__clause"
+        >Population Exit Cost ↑ (Measures Exposure / Domination)</text
+      >
 
       {/* Quadrant Dividers */}
-      <line x1="536" y1="40" x2="536" y2="388" stroke="var(--border)" stroke-width="1" stroke-dasharray="4 4" />
-      <line x1="158" y1="218" x2="902" y2="218" stroke="var(--border)" stroke-width="1" stroke-dasharray="4 4" />
+      <line
+        x1="536"
+        y1="40"
+        x2="536"
+        y2="388"
+        stroke="var(--border)"
+        stroke-width="1"
+        stroke-dasharray="4 4"></line>
+      <line
+        x1="158"
+        y1="218"
+        x2="902"
+        y2="218"
+        stroke="var(--border)"
+        stroke-width="1"
+        stroke-dasharray="4 4"></line>
 
-      {/* Quadrant II: High Exit Cost, Low Substitution Cost (The Asymmetry Trap) */}
+      {
+        /* Quadrant II: High Exit Cost, Low Substitution Cost (The Asymmetry Trap) */
+      }
       <g transform="translate(170, 40)">
-        <rect width="360" height="168" rx="8" fill="var(--panel)" stroke="var(--accent)" stroke-width="2" />
-        <text x="16" y="27" class="state-diagram__state" fill="var(--accent-strong)">The Captive Population Trap</text>
-        <text x="16" y="50" class="state-diagram__label">Low substitution cost for operator ·</text>
-        <text x="16" y="68" class="state-diagram__label">High exit cost for user</text>
-        <text x="16" y="93" class="state-diagram__clause">Default Illusion: "We may direct them,</text>
-        <text x="16" y="111" class="state-diagram__clause">they cannot leave"</text>
-        <text x="16" y="136" class="state-diagram__state">Ethotechnic Inversion: Maximum</text>
-        <text x="16" y="156" class="state-diagram__state">Standing & Reversal Owed</text>
+        <rect
+          width="360"
+          height="168"
+          rx="8"
+          fill="var(--panel)"
+          stroke="var(--accent)"
+          stroke-width="2"></rect>
+        <text
+          x="16"
+          y="27"
+          class="state-diagram__state"
+          fill="var(--accent-strong)">The Captive Population Trap</text
+        >
+        <text x="16" y="50" class="state-diagram__label"
+          >Low substitution cost for operator ·</text
+        >
+        <text x="16" y="68" class="state-diagram__label"
+          >High exit cost for user</text
+        >
+        <text x="16" y="93" class="state-diagram__clause"
+          >Default Illusion: "We may direct them,</text
+        >
+        <text x="16" y="111" class="state-diagram__clause"
+          >they cannot leave"</text
+        >
+        <text x="16" y="136" class="state-diagram__state"
+          >Ethotechnic Inversion: Maximum</text
+        >
+        <text x="16" y="156" class="state-diagram__state"
+          >Standing & Reversal Owed</text
+        >
       </g>
 
-      {/* Quadrant I: High Exit Cost, High Substitution Cost (Deep Entrenchment) */}
+      {
+        /* Quadrant I: High Exit Cost, High Substitution Cost (Deep Entrenchment) */
+      }
       <g transform="translate(542, 40)">
-        <rect width="360" height="168" rx="8" fill="var(--surface)" stroke="var(--border)" />
-        <text x="16" y="27" class="state-diagram__state">Mutual Structural Capture</text>
-        <text x="16" y="50" class="state-diagram__label">High substitution cost · High exit cost</text>
-        <text x="16" y="75" class="state-diagram__label">Infrastructure lock-in: both parties</text>
-        <text x="16" y="93" class="state-diagram__label">bound to legacy flow</text>
-        <text x="16" y="118" class="state-diagram__clause">Requires: Reversibility Rehearsal</text>
-        <text x="16" y="136" class="state-diagram__clause">& Contingency Rails</text>
+        <rect
+          width="360"
+          height="168"
+          rx="8"
+          fill="var(--surface)"
+          stroke="var(--border)"></rect>
+        <text x="16" y="27" class="state-diagram__state"
+          >Mutual Structural Capture</text
+        >
+        <text x="16" y="50" class="state-diagram__label"
+          >High substitution cost · High exit cost</text
+        >
+        <text x="16" y="75" class="state-diagram__label"
+          >Infrastructure lock-in: both parties</text
+        >
+        <text x="16" y="93" class="state-diagram__label"
+          >bound to legacy flow</text
+        >
+        <text x="16" y="118" class="state-diagram__clause"
+          >Requires: Reversibility Rehearsal</text
+        >
+        <text x="16" y="136" class="state-diagram__clause"
+          >& Contingency Rails</text
+        >
       </g>
 
-      {/* Quadrant III: Low Exit Cost, Low Substitution Cost (Dispensable / Market) */}
+      {
+        /* Quadrant III: Low Exit Cost, Low Substitution Cost (Dispensable / Market) */
+      }
       <g transform="translate(170, 228)">
-        <rect width="360" height="148" rx="8" fill="var(--surface)" stroke="var(--border)" />
-        <text x="16" y="27" class="state-diagram__state">Symmetric Fluidity</text>
-        <text x="16" y="50" class="state-diagram__label">Low substitution cost · Low exit cost</text>
-        <text x="16" y="75" class="state-diagram__label">Commodity tools: exit is realistic</text>
-        <text x="16" y="93" class="state-diagram__label">and caps error exposure</text>
-        <text x="16" y="118" class="state-diagram__clause">Minimal structural exposure;</text>
-        <text x="16" y="136" class="state-diagram__clause">light governance overhead</text>
+        <rect
+          width="360"
+          height="148"
+          rx="8"
+          fill="var(--surface)"
+          stroke="var(--border)"></rect>
+        <text x="16" y="27" class="state-diagram__state"
+          >Symmetric Fluidity</text
+        >
+        <text x="16" y="50" class="state-diagram__label"
+          >Low substitution cost · Low exit cost</text
+        >
+        <text x="16" y="75" class="state-diagram__label"
+          >Commodity tools: exit is realistic</text
+        >
+        <text x="16" y="93" class="state-diagram__label"
+          >and caps error exposure</text
+        >
+        <text x="16" y="118" class="state-diagram__clause"
+          >Minimal structural exposure;</text
+        >
+        <text x="16" y="136" class="state-diagram__clause"
+          >light governance overhead</text
+        >
       </g>
 
-      {/* Quadrant IV: Low Exit Cost, High Substitution Cost (Vendor Lock-in) */}
+      {
+        /* Quadrant IV: Low Exit Cost, High Substitution Cost (Vendor Lock-in) */
+      }
       <g transform="translate(542, 228)">
-        <rect width="360" height="148" rx="8" fill="var(--surface)" stroke="var(--border)" />
+        <rect
+          width="360"
+          height="148"
+          rx="8"
+          fill="var(--surface)"
+          stroke="var(--border)"></rect>
         <text x="16" y="27" class="state-diagram__state">Operator Capture</text>
-        <text x="16" y="50" class="state-diagram__label">High substitution cost · Low user exit cost</text>
-        <text x="16" y="75" class="state-diagram__label">Institution trapped by proprietary stack</text>
-        <text x="16" y="93" class="state-diagram__label">while users can migrate</text>
-        <text x="16" y="118" class="state-diagram__clause">Requires: Retained Technical</text>
-        <text x="16" y="136" class="state-diagram__clause">Competence (Law V)</text>
+        <text x="16" y="50" class="state-diagram__label"
+          >High substitution cost · Low user exit cost</text
+        >
+        <text x="16" y="75" class="state-diagram__label"
+          >Institution trapped by proprietary stack</text
+        >
+        <text x="16" y="93" class="state-diagram__label"
+          >while users can migrate</text
+        >
+        <text x="16" y="118" class="state-diagram__clause"
+          >Requires: Retained Technical</text
+        >
+        <text x="16" y="136" class="state-diagram__clause"
+          >Competence (Law V)</text
+        >
       </g>
 
       {/* Core Dynamic Vector: runs up the exit-cost axis */}
@@ -123,12 +236,19 @@ const Heading = level;
         stroke="var(--accent)"
         stroke-width="2"
         stroke-dasharray="4 4"
-        marker-end="url(#duty-arrow)"
-      />
-      <text x="134" y="206" text-anchor="end" class="state-diagram__clause">As Exit</text>
-      <text x="134" y="224" text-anchor="end" class="state-diagram__clause">Cost Rises</text>
-      <text x="134" y="244" text-anchor="end" class="state-diagram__label">Obligation</text>
-      <text x="134" y="262" text-anchor="end" class="state-diagram__label">escalates</text>
+        marker-end="url(#duty-arrow)"></line>
+      <text x="134" y="206" text-anchor="end" class="state-diagram__clause"
+        >As Exit</text
+      >
+      <text x="134" y="224" text-anchor="end" class="state-diagram__clause"
+        >Cost Rises</text
+      >
+      <text x="134" y="244" text-anchor="end" class="state-diagram__label"
+        >Obligation</text
+      >
+      <text x="134" y="262" text-anchor="end" class="state-diagram__label"
+        >escalates</text
+      >
     </svg>
   </div>
 </figure>

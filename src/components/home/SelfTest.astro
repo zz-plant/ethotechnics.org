@@ -8,10 +8,7 @@
  * so a "no" lands on evidence rather than on a definition.
  */
 import { cases } from "../../content/casebook";
-import {
-  caseForEachQuestion,
-  selfTestQuestions,
-} from "../../utils/self-test";
+import { caseForEachQuestion, selfTestQuestions } from "../../utils/self-test";
 import StateVariableGlyph from "../StateVariableGlyph.astro";
 
 const caseFor = caseForEachQuestion(cases);
@@ -30,11 +27,10 @@ const choices = [
       When yours is wrong, does anyone have to act?
     </h2>
     <p class="section-lead">
-      Pick one automated decision system in your own
-      organization: one that decides benefits, loans, schedules, or fraud
-      alerts. Answer one question about each of its six safeguards. "Not sure"
-      counts as no. The score reflects your answers; it does not check the
-      system.
+      Pick one automated decision system in your own organization: one that
+      decides benefits, loans, schedules, or fraud alerts. Answer one question
+      about each of its six safeguards. "Not sure" counts as no. The score
+      reflects your answers; it does not check the system.
     </p>
   </div>
 
@@ -81,7 +77,12 @@ const choices = [
     </ol>
   </form>
 
-  <div class="self-test__result" data-self-test-result aria-live="polite" hidden>
+  <div
+    class="self-test__result"
+    data-self-test-result
+    aria-live="polite"
+    hidden
+  >
     <p class="self-test__score">
       <span data-self-test-holding>0</span> of {selfTestQuestions.length} holding
     </p>

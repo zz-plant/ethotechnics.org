@@ -49,14 +49,16 @@ export const navPrimaryLinks: NavLink[] = [
   {
     href: "/mechanisms",
     label: "Mechanisms",
-    description: "Specifications for kill switches, circuit breakers, and appeal controls",
+    description:
+      "Specifications for kill switches, circuit breakers, and appeal controls",
     primary: true,
     mobileFeatured: true,
   },
   {
     href: "/diagnostics",
     label: "Diagnostics",
-    description: "Tools that test a workflow, a decision log, or a set of numbers",
+    description:
+      "Tools that test a workflow, a decision log, or a set of numbers",
     primary: true,
     mobileFeatured: true,
   },
@@ -127,7 +129,8 @@ export const navSections: NavSection[] = [
       {
         href: "/evals",
         label: "Eval suites",
-        description: "Test suites for delegation validity, burden, standing, appeal, and correction",
+        description:
+          "Test suites for delegation validity, burden, standing, appeal, and correction",
       },
       {
         href: "/evals/coverage",
@@ -138,12 +141,14 @@ export const navSections: NavSection[] = [
       {
         href: "/validators",
         label: "Validators",
-        description: "Specifications, each with a working form, for scoring a user journey's time, friction, and delay",
+        description:
+          "Specifications, each with a working form, for scoring a user journey's time, friction, and delay",
       },
       {
         href: "/measurement-tiers",
         label: "Measurement tiers",
-        description: "Levels of evidence, how each is gamed, and how to detect it",
+        description:
+          "Levels of evidence, how each is gamed, and how to detect it",
       },
     ],
   },
@@ -158,7 +163,8 @@ export const navSections: NavSection[] = [
       {
         href: "/diagnostics/delegation-audit",
         label: "Delegation audit",
-        description: "Bring a workflow: should this decision still be automated?",
+        description:
+          "Bring a workflow: should this decision still be automated?",
       },
       {
         href: "/diagnostics/burden-modeler",
@@ -169,8 +175,7 @@ export const navSections: NavSection[] = [
       {
         href: "/diagnostics/record-conformance",
         label: "Record conformance",
-        description:
-          "Bring a decision log: does it meet the level it claims?",
+        description: "Bring a decision log: does it meet the level it claims?",
       },
       {
         href: "/use-cases",
@@ -205,18 +210,19 @@ export const navSections: NavSection[] = [
       {
         href: "/casebook",
         label: "Casebook",
-        description:
-          "Five public failures scored on six safeguards",
+        description: "Five public failures scored on six safeguards",
       },
       {
         href: "/field-notes",
         label: "Field notes",
-        description: "Dated notes on outside changes that bear on the standards",
+        description:
+          "Dated notes on outside changes that bear on the standards",
       },
       {
         href: "/research/theory",
         label: "Theory",
-        description: "Essays on why the laws hold, kept separate from the requirements",
+        description:
+          "Essays on why the laws hold, kept separate from the requirements",
       },
     ],
   },

@@ -11,9 +11,7 @@ const HASH_PREFIX = "#self-test=";
 
 function init(): void {
   const form = document.querySelector<HTMLFormElement>("[data-self-test]");
-  const result = document.querySelector<HTMLElement>(
-    "[data-self-test-result]",
-  );
+  const result = document.querySelector<HTMLElement>("[data-self-test-result]");
   if (!form || !result) return;
 
   const holdingEl = result.querySelector<HTMLElement>(
@@ -28,9 +26,7 @@ function init(): void {
   const shareButton = result.querySelector<HTMLButtonElement>(
     "[data-self-test-share]",
   );
-  const items = [
-    ...form.querySelectorAll<HTMLLIElement>(".self-test__item"),
-  ];
+  const items = [...form.querySelectorAll<HTMLLIElement>(".self-test__item")];
   // The safeguard map beside the questions: one stop per variable, drawn
   // held or broken as each question is answered.
   const mapStops = [

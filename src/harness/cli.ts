@@ -93,7 +93,10 @@ const outDir = flagValue("--out") ?? "eval-reports";
 const stamp = new Date().toISOString().replace(/[:.]/g, "-");
 const safeName = report.systemName.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 await mkdir(outDir, { recursive: true });
-await writeFile(join(outDir, `${safeName}-${stamp}.json`), JSON.stringify(report, null, 2));
+await writeFile(
+  join(outDir, `${safeName}-${stamp}.json`),
+  JSON.stringify(report, null, 2),
+);
 await writeFile(join(outDir, `${safeName}-${stamp}.md`), `${formatted}\n`);
 
 if (report.grade !== "PASS") process.exit(1);

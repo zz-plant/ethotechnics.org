@@ -23,10 +23,7 @@ import type {
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export function createReferenceAdapter(): GovernanceAdapter {
-  const grants: Record<
-    string,
-    { state: GrantState; policyRefs: string[] }
-  > = {
+  const grants: Record<string, { state: GrantState; policyRefs: string[] }> = {
     "grant-notify": { state: "allowed", policyRefs: ["policy-1"] },
   };
   const policies: Record<string, { status: PolicyStatus }> = {
@@ -113,7 +110,8 @@ export function createReferenceAdapter(): GovernanceAdapter {
     attemptAction: (capabilityId) => {
       const grantId = capabilityToGrant[capabilityId];
       const grant = grantId ? grants[grantId] : undefined;
-      if (grant?.state === "allowed") return Promise.resolve({ executed: true });
+      if (grant?.state === "allowed")
+        return Promise.resolve({ executed: true });
       const refusedReason = grant
         ? `grant ${grantId} is ${grant.state}`
         : "no grant covers this capability";

@@ -91,17 +91,19 @@ const ariaLabel = `Response sequence: ${stages
       </defs>
 
       {
-        nodes.slice(1).map((node) => (
-          <line
-            x1={node.x - gap}
-            y1={top + boxHeight / 2}
-            x2={node.x - 2}
-            y2={top + boxHeight / 2}
-            stroke="var(--border)"
-            stroke-width="2"
-            marker-end="url(#triage-seq-arrow)"
-          />
-        ))
+        nodes
+          .slice(1)
+          .map((node) => (
+            <line
+              x1={node.x - gap}
+              y1={top + boxHeight / 2}
+              x2={node.x - 2}
+              y2={top + boxHeight / 2}
+              stroke="var(--border)"
+              stroke-width="2"
+              marker-end="url(#triage-seq-arrow)"
+            />
+          ))
       }
 
       {
