@@ -2,13 +2,15 @@
 /**
  * The lineage argument, in the order it has to be made: what is inherited,
  * where each neighboring field stops, the one question those stops leave
- * open, why it is urgent now, and the theory's names for the mechanism.
+ * open, why it is urgent now, the theory's names for the mechanism, and what
+ * the established fields say back.
  *
  * Rendered on the About page and in the essay "What Ethotechnics is not"
  * from one source (content/lineage.ts), so the two cannot drift. No
  * headings inside: the host section supplies them at its own level.
  */
 import {
+  disputes,
   inheritedTraditions,
   neighboringFields,
   theoryVocabulary,
@@ -120,4 +122,41 @@ import {
       ))
     }
   </ul>
+
+  <p>
+    The claims meet established fields, and the fields push back. Each claim's
+    strongest counter, stated in its own terms, the answer, and the measurement
+    that would settle it:
+  </p>
+  <div class="mapping-table__wrapper">
+    <table class="mapping-table mapping-table--stack lineage__table">
+      <thead>
+        <tr>
+          <th scope="col">Claim</th>
+          <th scope="col">Strongest counter</th>
+          <th scope="col">The answer</th>
+          <th scope="col">What would settle it</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          disputes.map((row) => (
+            <tr>
+              <th scope="row" data-label="Claim">
+                {row.claim}
+                <span class="lineage__works small muted">
+                  {row.counterSource}
+                </span>
+              </th>
+              <td data-label="Strongest counter">{row.counter}</td>
+              <td data-label="The answer">{row.answer}</td>
+              <td data-label="What would settle it">
+                <a href={row.instrumentHref}>{row.instrument}</a>
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
 </div>
