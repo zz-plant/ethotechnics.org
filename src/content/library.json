@@ -1567,6 +1567,70 @@
               "warning": "Reliability of the person is evidence about the system, not about the person."
             }
           ]
+        },
+        {
+          "slug": "procurement-stress-test",
+          "title": "MEC-25 Procurement stress test",
+          "summary": "Evaluate a candidate system before money moves by making frontline personnel run adversarial scenarios, with hard disqualifiers that outrank any composite score.",
+          "filters": ["authority", "evidence"],
+          "glossaryRefs": [
+            "admission-gate",
+            "score-as-acquittal",
+            "compensated-performance"
+          ],
+          "cues": [
+            "Run live scenarios against dirty data instead of accepting a scripted demo.",
+            "Record the labor the evaluation itself consumes, and who is pulled from duty to spend it.",
+            "Let the people who observe a disqualifier trigger it, not a committee that reviews their notes."
+          ],
+          "diagnostics": ["delegation-audit"],
+          "steps": [
+            "Write the scenarios before choosing among vendors, with the failure modes the system is expected to absorb, and keep a rotating variant set for each session.",
+            "State each pass threshold with its evidence, who set it, and its review condition; a number that cannot say why it is the number is a line drawn to fit the answer.",
+            "Declare what the evaluation costs: which staff, how long, who covers their duties, and what happens to the finding when the unit cannot spare them.",
+            "Run each redline as a decision by whoever observed it, with the recording requirement from MEC-24: an occurrence, the labor it cost, and whether the vendor dispute changes the finding.",
+            "Bind every projection the evaluation produces to a post-deployment measurement of the same quantity, with a review condition that reopens the admission when they diverge."
+          ],
+          "policyRequirement": "Policy requirement (MEC-25 Procurement stress test)\n- A candidate system is evaluated through live adversarial scenarios run by frontline personnel, not through vendor-controlled demonstrations.\n- Disqualifier findings recorded by the personnel who observed them trigger the disqualification; a committee may not downgrade an observed occurrence without a recorded reason.\n- Every threshold in the evaluation carries its justification, its author, and a review condition.\n- The evaluation states the labor it consumes and who bears it.\n- Projections made at evaluation time are bound to post-deployment measurement by a review condition.\nReference: https://ethotechn.org/mechanisms/patterns/procurement-stress-test",
+          "productRequirement": "Product requirement (MEC-25)\n- The vendor receives the scenario classes, not the scenario contents, and the rotating set is held by the evaluator.\n- An evaluation artifact records each occurrence observed, the labor spent observing it, and the disqualifier decision.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-25)\n[ ] Scenario set exists, with authorship dates preceding vendor shortlisting.\n[ ] Each threshold carries its evidence and a named author.\n[ ] Evaluation labor is stated: roles, duration, backfill.\n[ ] Redline findings are recorded by observers, not summarized by committee.\n[ ] Every projection has a named post-deployment counterpart and review condition.",
+          "postmortemTrigger": "Postmortem trigger (MEC-25)\nTrigger review when a system admitted through the evaluation shows a burden pattern the evaluation projected would not occur, or when a redline finding was downgraded without a recorded reason.",
+          "artifacts": [
+            {
+              "name": "Scenario set and rotation record",
+              "purpose": "The adversarial scenarios, their authors, dates, and which variant each session used."
+            },
+            {
+              "name": "Threshold register",
+              "purpose": "Every pass threshold with its justification, author, and review condition."
+            },
+            {
+              "name": "Evaluation labor statement",
+              "purpose": "Who ran the evaluation, how long, who covered their duties, and what was skipped when staff could not be spared."
+            },
+            {
+              "name": "Projection-to-measurement ledger",
+              "purpose": "Each evaluation projection, its post-deployment measurement, and the review condition connecting them."
+            }
+          ],
+          "example": {
+            "title": "The demo that rehearsed",
+            "description": "A clinical system passes procurement on a scripted demonstration with clean data and a cooperative chart. The stress test version ingests a chart with two conflicting allergy entries and a stale insurance policy, then issues a corrected biopsy result after staging is complete. The correction requires eleven manual steps across four screens, performed by a physician who is not paid for the time. The scripted demo scored 92. The redline fires on unlogged friction, on the observer's record rather than the committee's summary."
+          },
+          "antiPatterns": [
+            {
+              "title": "The rehearsed demo",
+              "failure": "A vendor-controlled demonstration with clean data and cooperative staff is accepted as evidence the system works.",
+              "counterfactual": "Live adversarial scenarios with dirty data, run by the personnel who will use the system.",
+              "warning": "A demo is a performance. The question is what the system does when the data contradicts itself."
+            },
+            {
+              "title": "Thresholds without provenance",
+              "failure": "Pass marks are set after the first vendor is known, or are cited as if they were measurements.",
+              "counterfactual": "Every threshold carries its evidence, its author, and a review condition, recorded before shortlisting.",
+              "warning": "Criteria fitted to the answer wanted are the gate-as-rubber-stamp failure of the admission gate."
+            }
+          ]
         }
       ]
     },
