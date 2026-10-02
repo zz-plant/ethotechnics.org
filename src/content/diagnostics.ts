@@ -28,6 +28,24 @@ export type DiagnosticValidation = {
   failureModes: string[];
 };
 
+/**
+ * What the instrument costs the person who answers it, stated before they
+ * begin. Law VIII holds that an observation whose collection cost falls on the
+ * people being observed is not evidence. Three of the four instruments here
+ * take respondent labor, so each states the cost and names what the operator's
+ * own records already answer. The fourth reads a record stream and asks no one.
+ */
+export type DiagnosticCollectionCost = {
+  /** The ceiling on respondent labor, before the respondent starts. */
+  respondentLabor: string;
+  /** Who supplies the input, and what the respondent gives up to supply it. */
+  inputSource: string;
+  /** Questions the operator's retained records answer without a respondent. */
+  answeredFromRecords: string[];
+  /** How absence is represented in the readout. */
+  nonResponse: string;
+};
+
 export type DiagnosticReplicability = {
   runSteps: string[];
   exampleOutputs: string[];
@@ -45,6 +63,7 @@ export type DiagnosticTool = {
   methodOverview: DiagnosticMethodOverview;
   instrument: DiagnosticInstrument;
   validation: DiagnosticValidation;
+  collectionCost: DiagnosticCollectionCost;
   replicability: DiagnosticReplicability;
   bestFor: string;
   readiness: string[];
@@ -79,7 +98,7 @@ export const diagnosticsContent: DiagnosticsContent = {
     "Self-serve diagnostics that take one workflow, record stream, or set of figures and return a scored readout you can link, copy, or export.",
   permalink: "/diagnostics",
   published: "2025-12-03T00:00:00Z",
-  updated: "2026-09-29T00:00:00Z",
+  updated: "2026-10-01T00:00:00Z",
   publication: {
     authors: [
       {
@@ -90,12 +109,18 @@ export const diagnosticsContent: DiagnosticsContent = {
     ],
     contact: "hello@ethotechnics.org",
     published: "2025-12-03T00:00:00Z",
-    updated: "2026-09-29T00:00:00Z",
-    version: "v1.4.0",
+    updated: "2026-10-01T00:00:00Z",
+    version: "v1.5.0",
     doi: "Pending Zenodo deposit",
     archiveUrl:
       "https://web.archive.org/web/*/https://ethotechnics.org/diagnostics",
     changelog: [
+      {
+        version: "v1.5.0",
+        date: "2026-10-01",
+        summary:
+          "Each of the four instruments now states the respondent labor it consumes before the respondent begins, what the operator's own retained records already answer without asking a person, and how non-response is represented in the readout. Three instruments take respondent time. Record Conformance reads a record stream and asks no one, and now says so on the page.",
+      },
       {
         version: "v1.4.0",
         date: "2026-09-29",
@@ -254,6 +279,19 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Confusing stewardship with counterfeit buffering: treating human-in-the-loop oversight as a control when the human has no unpenalized override authority and simply acts as a liability sponge for automated outputs.",
         ],
       },
+      collectionCost: {
+        respondentLabor:
+          "Twenty to thirty minutes of one person's time, declared before they begin. Past thirty minutes the readout returns not established rather than a score.",
+        inputSource:
+          "Respondent-supplied. The cost is the attention of whoever holds the answers, which is usually also whoever is audited.",
+        answeredFromRecords: [
+          "Whether each action was authorized at the time, and under which grant, is in the authority grant register.",
+          "Whether records exist for the decisions is in the record stream.",
+          "How hard withdrawal is comes from the dependency record.",
+        ],
+        nonResponse:
+          "An audit nobody runs records no exposure. An institution that cannot name its authorized actions has not passed here; it has not answered.",
+      },
       replicability: {
         runSteps: [
           "Name one workflow and gather the people who know how it runs.",
@@ -373,6 +411,19 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Treating a note as a defect. Most notes are properties of the export, not of the system.",
         ],
       },
+      collectionCost: {
+        respondentLabor:
+          "None. This instrument asks no one anything, and its readout does not move when a person is tired.",
+        inputSource:
+          "Record-supplied. It reads an exported stream and the time the export was taken.",
+        answeredFromRecords: [
+          "Schema validity, hash recomputation, and chain linkage are read from the stream itself.",
+          "The conformance level a system publishes is compared against what its records show.",
+          "Nothing in the readout depends on a person's judgement or memory.",
+        ],
+        nonResponse:
+          "Not applicable. The same stream and the same as-of time give the same readout, so no respondent can change it.",
+      },
       replicability: {
         runSteps: [
           "Export the stream from the emitting system, whole rather than filtered.",
@@ -475,6 +526,19 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Underspecified task volume leads to low-confidence outputs.",
           "High uncertainty if scenario owners are not present for scoring.",
         ],
+      },
+      collectionCost: {
+        respondentLabor:
+          "Ten to fifteen minutes for a group rating together. Past fifteen, the scenario is returned unscored.",
+        inputSource:
+          "Respondent-supplied. The cost falls on the people who do the workflow, which is where the burden already sits.",
+        answeredFromRecords: [
+          "Handoff counts and task volume come from ticketing and workflow logs where they exist.",
+          "Escalation frequency comes from the escalation and appeal record.",
+          "Friction points listed during prep are already documented as institutional debris.",
+        ],
+        nonResponse:
+          "A workflow nobody will rate is not a workflow without burden. The readout records the gap and stops there.",
       },
       replicability: {
         runSteps: [
@@ -594,6 +658,19 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Using model metrics — accuracy, retraining — as evidence of corrective capacity.",
           "Treating human compensation as a free operational buffer: measuring observed throughput without subtracting the manual exception repair that keeps the metrics green.",
         ],
+      },
+      collectionCost: {
+        respondentLabor:
+          "Ten to twelve minutes of respondent time, declared before they begin.",
+        inputSource:
+          "Respondent-supplied. The cost falls on whoever holds the corrective record.",
+        answeredFromRecords: [
+          "Decision volume and automation growth come from the delegation register.",
+          "Reversal latency comes from the reconsideration record.",
+          "Challenge intake comes from the challenge register.",
+        ],
+        nonResponse:
+          "Unstated challenge volume is not low challenge volume. The score is withheld rather than reported as zero.",
       },
       replicability: {
         runSteps: [
