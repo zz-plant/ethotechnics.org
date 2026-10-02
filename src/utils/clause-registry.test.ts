@@ -33,14 +33,14 @@ describe("the clause registry against the normative documents", () => {
     }
   });
 
-  // Known drift, recorded so a reconciliation has to update this test and a
-  // new gap cannot appear silently. While this holds, STD-02 shows no
-  // register and the catalogue counts from the document.
+  // STD-02's Articles VI and VII were registered before they were written;
+  // the reconciliation is complete, and this now guards against a new gap
+  // appearing silently rather than recording an old one.
   it("records where the registry and the document still disagree", () => {
     expect(compareRegistryToDocument("STD-02", bodyFor("STD-02"))).toEqual({
-      registryOnly: ["§6.1", "§6.2", "§6.3", "§7.1", "§7.2", "§7.3"],
+      registryOnly: [],
       documentOnly: [],
-      matches: false,
+      matches: true,
     });
   });
 
