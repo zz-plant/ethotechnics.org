@@ -206,7 +206,15 @@ export type Case = PublishedContent & {
   };
   /** The one thing the standards would have required that was absent. */
   theMissingRecord: string;
+  diagnosticStudy?: DiagnosticStudy;
   sources: Source[];
+};
+
+export type DiagnosticStudy = {
+  title: string;
+  url: string;
+  source: string;
+  summary: string;
 };
 
 export type LearningVerdict = "learned" | "partial" | "absorbed";
@@ -410,6 +418,13 @@ export const cases: Case[] = [
     },
     theMissingRecord:
       "A policy record for income averaging with its provenance and status. The 2014 advice would have been the review trigger; the first adverse tribunal decision would have moved the policy, and every grant citing it, to mandatory review. STD-08 §2.3 sets a deadline for that review.",
+    diagnosticStudy: {
+      title: "The Operational Andon Cord",
+      url: "https://thecrumple.zone/p/the-operational-andon-cord",
+      source: "The Crumple Zone",
+      summary:
+        "Analysis of automated enforcement queues, asymmetric debt raising, and the institutional suppression of frontline dissent signals that allowed Robodebt to persist across four years.",
+    },
     sources: [
       {
         label: "Royal Commission into the Robodebt Scheme, Report",
@@ -575,6 +590,13 @@ export const cases: Case[] = [
     },
     theMissingRecord:
       "A register of who may challenge a fraud flag, what evidence is admissible, and against which standard the challenge is decided. STD-02 §8.2 would have forced the administration to say whether a parent was disputing how the rule was applied or whether the evidence supported it, and to disclose the file either way.",
+    diagnosticStudy: {
+      title: "The Rule Is Never on Trial",
+      url: "https://thecrumple.zone/p/the-rule-is-never-on-trial",
+      source: "The Crumple Zone",
+      summary:
+        "Detailed examination of how individual exceptions in the Dutch childcare benefits scandal were repeatedly treated as claimant fraud rather than evidence against the classification pipeline.",
+    },
     sources: [
       {
         label:
@@ -735,6 +757,13 @@ export const cases: Case[] = [
     },
     theMissingRecord:
       "A published record of how far the Post Office depended on Horizon and what replacing it would cost. The dependence was total, replacing it meant replacing the business, and correcting it took twenty years. STD-06 §5.5 would have barred any widening of the system's authority, including its use as evidence in prosecutions, until the Post Office showed it could reverse course.",
+    diagnosticStudy: {
+      title: "The Corrigible Machine",
+      url: "https://thecrumple.zone/p/the-corrigible-machine",
+      source: "The Crumple Zone",
+      summary:
+        "Operational inquiry into how institutional insulation, presumption of software infallibility, and unrecorded manual database patching turned branch subpostmasters into a human liability buffer.",
+    },
     sources: [
       {
         label:

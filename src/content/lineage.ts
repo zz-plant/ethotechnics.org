@@ -250,6 +250,30 @@ export const neighboringFields: NeighboringField[] = [
       href: "/research/theory/the-consumption-of-adaptive-capacity",
     },
   },
+  {
+    field: "Labor process theory & organizational sociology",
+    works: [
+      {
+        authors: "Michael Burawoy",
+        title: "Manufacturing Consent",
+        year: 1979,
+        form: "book",
+      },
+      {
+        authors: "Arlie Russell Hochschild",
+        title: "The Managed Heart",
+        year: 1983,
+        form: "book",
+      },
+    ],
+    sees: "Workplaces extract uncredited emotional, repair, and adaptive labor while manufacturing ideological consent that frames structural coping as individual virtue.",
+    stops:
+      "It critiques workplace exploitation and character deformation. It does not formalize how informal human compensation blinds institutional telemetry or engineer runtime mechanisms that force organizations to account for the subsidy.",
+    essay: {
+      title: "The human subsidy to institutional continuity",
+      href: "/research/theory/the-human-subsidy",
+    },
+  },
 ];
 
 /** Why the question is urgent now, not only open. */
