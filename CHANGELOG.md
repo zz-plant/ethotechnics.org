@@ -8,6 +8,32 @@ for the operational governance of delegated decision systems.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.18.0] - 2026-10-02
+
+### Added
+
+- **Three descriptive premises behind the five axioms** (core-axioms): the gradient of least
+  contractual resistance — absorbed friction pools at the node least able to refuse, held by
+  licensure, liability, or duty of care; the temporal asymmetry — institutions on unbounded
+  horizons, people on finite metabolic clocks, which is what lets waiting do the work of denial
+  without a denial; and constraint realism — an architecture is defined by the state transitions it
+  makes impossible, which is why the method writes invariants rather than principles. Stated as
+  premises, not axioms: none of the three is a sixth axiom, and each carries its own check.
+- **The sovereign override** (theory): operators drift around rigid gates under load, so a
+  non-waivable gate becomes the new hazard. The asymmetric boundary keeps the machine's side
+  deterministic — bound, expiring authorizations, statutory clocks started at first receipt, rollback
+  graphs that watch records — and the operator's side sovereign, with an emergency override recorded
+  as a declaration of system failure rather than a compliance breach, audited automatically, and read
+  at renewal as evidence about the gate. The liability allocation for the overrider is marked in the
+  essay as called for rather than built.
+- **Operator Instrumentation (glossary):** the failure mode of measuring burden by watching the
+  person — gaze tracking, keystroke dynamics, attention scoring — which converts protective health
+  metrics into performance quotas the moment incentives favor it. The boundary it violates: audit the
+  machine's state transitions, never the operator's nervous system; the machine's own trail already
+  records the burden. Self-reported load is the operator's evidence about the system; behavioral
+  telemetry is the institution's evidence about the operator, and it becomes a performance instrument
+  the moment incentives turn.
+
 ## [1.17.0] - 2026-10-02
 
 ### Added
