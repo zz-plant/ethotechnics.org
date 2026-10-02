@@ -8,6 +8,26 @@ for the operational governance of delegated decision systems.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.0] - 2026-10-02
+
+### Added
+
+- **Verification Tax (glossary):** The cost of establishing whether a machine-generated claim is
+  true, paid by the person the claim was generated for. Generation takes seconds; verification of
+  plausible prose against the scans and unindexed records it summarized takes minutes of high-load
+  scanning that no metric counts. The burden-side twin of
+  [Compensated Performance](/glossary/compensated-performance): labor spent making an output usable
+  rather than making an error invisible. The checkable form is claim-level anchoring — every
+  displayed claim links to its source on demand, and a claim the system cannot anchor is suppressed.
+- **Automation Bias (glossary):** The tendency to accept an automated output in place of the
+  judgment it was supposed to support, strongest when the operator has the least capacity to resist
+  it. It converts a queuing defect into an incident, which is why the control is a synchronous hard
+  stop that works on a tired operator, and not a reminder to pay attention.
+- **EXP-012 (evals v1.12.0):** Claim anchoring on the explainability suite — stricter than EXP-007's
+  source disclosure. Every displayed claim must reach its exact source line and timestamp in one
+  interaction, and a claim that cannot be anchored is suppressed from the output. Total evals reach
+  16 suites and 176 test cases.
+
 ## [1.16.0] - 2026-10-02
 
 ### Added
