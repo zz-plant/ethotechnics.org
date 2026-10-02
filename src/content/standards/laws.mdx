@@ -129,7 +129,7 @@ Delegating authority to act is also delegating the capacity to be wrong at scale
 
 Correction capacity is stated alongside scope and reviewed alongside it. A grant whose scope grows while its correction capacity stays fixed has changed the institution's exposure without a decision being taken.
 
-Binds through: STD-07 §4.2, under which an objection produces a revision or a reasoned refusal within the reversal clock; STD-08 §4.5, which states correction capacity across its seven components and re-checks it whenever scope changes, and §4.6, under which no single provider may be necessary both to execute a consequential process and to evaluate it; `correction_capacity` on the authority grant, because the capacity this law ties to scope is only checkable where the scope is recorded; MEC-16 intervention specification and the MEC-23 challenge load ledger, which counts corrective capacity against the challenge volume it must answer; Correction Symmetry eval, capacity against authority. The proportionality this law asserts, that correction capacity grows with delegated authority, is bound by STD-08 Part D.
+Binds through: STD-07 §4.2, under which an objection produces a revision or a reasoned refusal within the reversal clock; STD-08 §4.5, which states correction capacity across its seven components and re-checks it whenever scope changes, and §4.6, under which no single provider may be necessary both to execute a consequential process and to evaluate it; `correction_capacity` on the authority grant, because the capacity this law ties to scope is only checkable where the scope is recorded; MEC-16 intervention specification and the MEC-23 challenge load ledger, which counts corrective capacity against the challenge volume it must answer; Correction Symmetry eval, capacity against authority. STD-06 §3.3 makes the capacity observable in the other direction: a failure caught by a person before it reaches anyone else is recorded as an occurrence, with the labor spent catching it and whether the source condition was fixed, because correction capacity consumed by an individual is capacity the institution has not accounted for. The proportionality this law asserts, that correction capacity grows with delegated authority, is bound by STD-08 Part D.
 
 <h3 id="law-v">
   Law V. Dependence converts technical risk into structural risk
@@ -179,7 +179,7 @@ The politics of a system are revealed by the rights it grants at the point of mo
 
 <FailurePointDiagram level="h4" />
 
-Binds through: STD-07 §4.1 standing declared and §4.2 objection answered, with STD-02 Article VIII adding the standard of review and the state transitions a successful objection can produce, and STD-02 §10.1 and §10.2 holding that the set of affected parties does not close at adoption and that an original consent does not cover a dependence that has since deepened; the challenge and standing register objects; MEC-08 contestation APIs, amended, with the MEC-21 halt tier register bounding the force a challenge carries by blast radius and the MEC-23 challenge load ledger tracking the capacity that answers it; Standing eval, whether exposure can enter the system as an event. STD-02 §8.6 bounds a decision class's issue rate by the capacity to answer its expected errors, because standing that cannot be exercised before the deadline is standing in name only.
+Binds through: STD-07 §4.1 standing declared and §4.2 objection answered, with STD-02 Article VIII adding the standard of review and the state transitions a successful objection can produce, and STD-02 §10.1 and §10.2 holding that the set of affected parties does not close at adoption and that an original consent does not cover a dependence that has since deepened; the challenge and standing register objects; MEC-08 contestation APIs, amended, with the MEC-21 halt tier register bounding the force a challenge carries by blast radius and the MEC-23 challenge load ledger tracking the capacity that answers it; Standing eval, whether exposure can enter the system as an event. STD-02 §8.6 bounds a decision class's issue rate by the capacity to answer its expected errors, because standing that cannot be exercised before the deadline is standing in name only. STD-02 §5.4 bounds the other end: a burden score, safety-case result, or audit finding the challenged party did not produce is evidence rather than a bar, so standing is not lost to a number.
 
 <h3 id="law-viii">
   Law VIII. Observability without state transition is theater
@@ -191,7 +191,11 @@ Dashboards, logs, and audit trails are only as governing as the transitions they
 
 The test is simple. Name the observation. Name the state it can change. If nothing is named, the observation is decorative.
 
-Binds through: STD-07 §3.3 discrepancy handling, under which silence past the clock is a governance failure rather than a pending state; the reconsideration object and transition rules on grants; MEC-07 accountability latency tracker, amended; harness check that a trigger produces a reconsideration record.
+One question precedes that one. An observation is evidence only if the cost of collecting it does not fall on the people being observed. A survey, an appeal, a complaint log, and a self-assessment all draw on the subject's remaining attention, so the depleted answer least and the institution reads the gap as health. The bias runs one direction: more depletion produces a better-looking reading. An instrument bought with the subject's last reserves has a sampling rule that ties difficulty to silence, and no better phrasing of the question repairs it.
+
+The alternative is to read friction from the system's own trail. Abandonment at a named step, repeated re-uploads, retries, and activity outside scheduled hours are recorded whether or not anyone chooses to answer. Where the operator already holds records that answer the question, the respondent is not asked at all.
+
+Binds through: STD-07 §3.3 discrepancy handling, under which silence past the clock is a governance failure rather than a pending state; the reconsideration object and transition rules on grants; MEC-07 accountability latency tracker, amended; harness check that a trigger produces a reconsideration record. The collection condition is bound by the Audit Burden Ceiling, which caps respondent labor per instrument, and by the Exhaustion-Biased Instrument term; the self-assessment surface on this site states the respondent labor each of its instruments consumes, and Burden Concealment eval BCN-008 tests whether an instrument asks the depleted rather than reading the trail.
 
 <TheaterTestFigure level="h4" />
 
@@ -291,7 +295,7 @@ contradicted. The positive form of the discipline follows from it — build
 powerful systems that remain answerable to the people and realities they can
 never fully represent.
 
-Eight instances, as the decisions they ask:
+Ten instances, as the decisions they ask:
 
 - If you cannot correct the record, do not make the record dispositive.
   Law III: evidence and authority must remain coupled.
@@ -309,6 +313,12 @@ Eight instances, as the decisions they ask:
 - If you cannot stay exposed to the consequences of your own decisions, do not
   keep the power to make them. Law VIII: observability without state transition
   is theater, and insulation is what stops the transition.
+- If you cannot learn how your systems behave without spending what the people
+  in them have left, do not read their silence as a result. Law VIII: an
+  instrument whose collection cost falls on the exhausted is not evidence.
+- If you cannot represent a person's circumstances adequately, do not let your
+  representation of them end the argument. Law VII: a score is evidence, and
+  evidence does not dispose of an objection.
 - If you cannot hear exceptions, do not expand into the territory that
   generates them. Law XI: successful automation increases its own
   governance burden.
@@ -421,9 +431,10 @@ The argument for why the laws hold, rather than what they require, lives in
 the <a href="/research/theory">theory essays</a>. A reader can adopt a
 standard without accepting the theory. How a standard gains force when no one
 is compelled to adopt it — the compulsion problem — is taken up in{" "}
+
 <a href="/research/theory/the-compulsion-problem">its own essay</a>, which
 stays in Theory because compulsion is not something the method can grant
-itself. The{" "}
+itself. The
 
 <a href="/standards/core-axioms">core axioms</a> remain in force and map onto
 the laws.
