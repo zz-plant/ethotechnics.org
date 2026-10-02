@@ -172,8 +172,7 @@ export const failureStates: FailureState[] = [
     shortLabel: "User harmed",
     descriptionLine1:
       "A person was materially harmed, and the organization cannot say what happened, what the person is owed, or how it will be repaired.",
-    descriptionLine2:
-      "The person affected is paying for the failure.",
+    descriptionLine2: "The person affected is paying for the failure.",
     artifactSlugs: [
       "harm-receipt-format",
       "decision-record-template",

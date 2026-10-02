@@ -283,16 +283,15 @@ const scoreDependency = (
   exposure: ExposureScore,
 ): VariableRating => {
   const notes: string[] = [];
-  const rehearsalPoints = (RECENCY_WEIGHT[input.alternativeExercised] ?? 0) * 50;
+  const rehearsalPoints =
+    (RECENCY_WEIGHT[input.alternativeExercised] ?? 0) * 50;
   const bandPoints: Record<ExposureBand, number> = {
     none: 50,
     contained: 40,
     material: 20,
     heavy: 0,
   };
-  const score = clampScore(
-    rehearsalPoints + (bandPoints[exposure.band] ?? 0),
-  );
+  const score = clampScore(rehearsalPoints + (bandPoints[exposure.band] ?? 0));
 
   notes.push(
     `Exposure score ${exposure.score} from depth ${exposure.dependencyDepth} × ${exposure.substitutionCostStaffWeeks} staff-weeks × ${exposure.correctionLatencyHours} hours.`,

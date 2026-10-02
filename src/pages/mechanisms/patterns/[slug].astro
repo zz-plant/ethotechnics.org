@@ -97,12 +97,13 @@ const breadcrumbItems = [
         <ul class="panel__list">
           <li>{stepCount} steps you can check off.</li>
           <li>{assetCount} templates for briefs and runbooks.</li>
-          <li>{snippetCount} blocks of policy, product, audit, and postmortem text to copy.</li>
+          <li>
+            {snippetCount} blocks of policy, product, audit, and postmortem text to
+            copy.
+          </li>
           {
             glossaryAnchors.length > 0 && (
-              <li>
-                {glossaryAnchors.length} linked glossary terms.
-              </li>
+              <li>{glossaryAnchors.length} linked glossary terms.</li>
             )
           }
         </ul>
@@ -161,7 +162,8 @@ const breadcrumbItems = [
   >
     <div class="pattern-detail__step-summary">
       <p class="muted">
-        {stepCount} steps. Check each one off as it is done. The templates below record the work.
+        {stepCount} steps. Check each one off as it is done. The templates below record
+        the work.
       </p>
     </div>
     <div class="pattern-detail__checklist-progress" hidden>

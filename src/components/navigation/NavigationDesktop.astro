@@ -53,7 +53,12 @@ const isStart = normalizePath(currentPath) === "/start";
           data-nav-hash-link={
             isSameDocumentHashLink(link.href) ? "true" : undefined
           }
-          aria-current={getAriaCurrent(link.href, currentPath, currentHash, true)}
+          aria-current={getAriaCurrent(
+            link.href,
+            currentPath,
+            currentHash,
+            true,
+          )}
         >
           {link.label}
         </a>

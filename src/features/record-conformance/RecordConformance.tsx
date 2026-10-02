@@ -241,8 +241,8 @@ function RecordConformance() {
             <p className="record-conformance__empty">
               Paste a stream and run the audit. It checks what the records say
               about each other: whether the hashes hold, whether references
-              resolve, whether each record says what would make it invalid,
-              and whether a discrepancy was ever answered. It does not judge whether
+              resolve, whether each record says what would make it invalid, and
+              whether a discrepancy was ever answered. It does not judge whether
               a belief was correct or an authorization wise, because a stream
               cannot show that.
             </p>

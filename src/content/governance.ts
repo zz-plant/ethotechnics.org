@@ -149,7 +149,8 @@ export const governanceContent: GovernanceContent = {
     },
     {
       id: "DEC-2026-09-02",
-      title: "Resolve lapsed RFC-2026-01 (Recourse escalation SLA for diagnostics)",
+      title:
+        "Resolve lapsed RFC-2026-01 (Recourse escalation SLA for diagnostics)",
       outcome: "Superseded",
       rationale:
         "The review window lapsed without a logged decision. The substance was carried by the diagnostics anti-weaponization constraints (AW-01 to AW-04), which set response-time and ownership targets for contested outcomes. Closed so the open-RFC list stops carrying a decision nobody logged.",

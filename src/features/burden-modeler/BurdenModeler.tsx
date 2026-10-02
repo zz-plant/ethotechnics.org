@@ -434,8 +434,9 @@ export function BurdenModeler() {
               <p className="eyebrow">Outside help</p>
               <h3>Running a healthcare AI system?</h3>
               <p className="muted">
-                If the index reads Overloaded, Ethotechnics Studio&apos;s safeguards review
-                lists the gaps under commission, ranked by the harm they could do.
+                If the index reads Overloaded, Ethotechnics Studio&apos;s
+                safeguards review lists the gaps under commission, ranked by the
+                harm they could do.
               </p>
             </div>
             <a
