@@ -8,6 +8,21 @@ for the operational governance of delegated decision systems.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.20.0] - 2026-10-02
+
+### Changed
+
+- **Four duplicate glossary entries merged into their canonical terms** (389 → 385):
+  `contestability-guarantee` → `contestability`, `structural-corrigibility` → `exception-learning`,
+  `human-override-lanes` → `override-path`, and `utility-expiry` → `constructive-denial`. Nothing
+  was deleted without salvage: design authority moved into contestability's requirements, the
+  capacity framing and the "excellent appeals that change nothing upstream" sentence moved into
+  exception-learning, override-path gained the ethical-interrupt resolution sentence, and
+  constructive-denial now defines utility expiry inline. Seven adjacentTerms lists were updated so
+  every adjacency resolves, two dead links to terms that never existed are gone, and the
+  contestability checklist explainer no longer cites a "Contestability Guarantee standard" that
+  does not exist.
+
 ## [1.19.0] - 2026-10-02
 
 ### Added
