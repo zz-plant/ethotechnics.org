@@ -8,6 +8,30 @@ for the operational governance of delegated decision systems.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.19.0] - 2026-10-02
+
+### Added
+
+- **STD-02 Article VI, The Infrastructure of Review:** the three things a review needs that are
+  easiest to omit, now written into the standard after being registered without document text.
+  §6.1 — human review on request when an automated system denies a claim or takes a consequential
+  action, with no new evidence or form required, because the alternative is that the output becomes
+  final by default. §6.2 — reviewer incentives: an evaluation that rewards upheld denials or closure
+  speed biases against remedies, and the evaluation policy is disclosed to the people whose cases
+  depend on it. §6.3 — tamper-evident retention for the full review period plus the limitation
+  window; a log the operator can silently rewrite is not evidence, it is the operator's account.
+- **STD-02 Article VII, Liability and Capacity:** §7.1 — where automation causes an error or delay,
+  liability rests with the operating institution; that the system acted is a description of the
+  mechanism, not an answer to the person harmed. §7.2 — where a vendor operates the logs or controls,
+  the institution still guarantees access and remedy; a contract with a vendor is not visible to the
+  person the system decided about. §7.3 — review capacity is funded in proportion to throughput, and
+  the capacity plan is part of the deployment's evidence; throughput that outruns review converts the
+  review right into a queue.
+- These six clauses had been registered since the registry was created and had never received
+  document text — the clause-registry test recorded them as known drift. The reconciliation is
+  complete: the registry and every published document now match, and the test that recorded the gap
+  now guards against a new one.
+
 ## [1.18.0] - 2026-10-02
 
 ### Added
