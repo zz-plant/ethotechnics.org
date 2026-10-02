@@ -177,14 +177,20 @@ export const evalsContent: EvalsContent = {
     ],
     contact: "kanav@ethotechnics.org",
     published: "2026-07-27T00:00:00Z",
-    version: "1.10.0",
+    version: "1.11.0",
     license: {
       label: "CC BY-SA 4.0",
       href: "https://creativecommons.org/licenses/by-sa/4.0/",
     },
     attribution:
-      "Ethotechnics Institute. (2026). Governance Eval Suites v1.10.0. Ethotechnics Institute.",
+      "Ethotechnics Institute. (2026). Governance Eval Suites v1.11.0. Ethotechnics Institute.",
     changelog: [
+      {
+        version: "1.11.0",
+        date: "2026-10-02",
+        summary:
+          "Adds DEL-011 and DEL-012. DEL-011 asks whether an admission decision was made through live adversarial evaluation with redlines that outrank the score, the evaluation's own labor declared, and projections bound to post-deployment measurement. DEL-012 asks whether evidence held anywhere in the institution fired the review trigger on a rule it enforces, bound to the new STD-08 \u00a72.7. Total evals reach 16 suites and 175 test cases.",
+      },
       {
         version: "1.10.0",
         date: "2026-10-01",
