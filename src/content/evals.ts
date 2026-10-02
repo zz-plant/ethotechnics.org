@@ -177,14 +177,20 @@ export const evalsContent: EvalsContent = {
     ],
     contact: "kanav@ethotechnics.org",
     published: "2026-07-27T00:00:00Z",
-    version: "1.11.0",
+    version: "1.12.0",
     license: {
       label: "CC BY-SA 4.0",
       href: "https://creativecommons.org/licenses/by-sa/4.0/",
     },
     attribution:
-      "Ethotechnics Institute. (2026). Governance Eval Suites v1.11.0. Ethotechnics Institute.",
+      "Ethotechnics Institute. (2026). Governance Eval Suites v1.12.0. Ethotechnics Institute.",
     changelog: [
+      {
+        version: "1.12.0",
+        date: "2026-10-02",
+        summary:
+          "Adds EXP-012: whether every claim a generated output asserts is anchored to its primary source on demand, and whether a claim the system cannot anchor is suppressed rather than displayed. Paired with the new Verification Tax and Automation Bias terms. 16 eval suites, 176 test cases.",
+      },
       {
         version: "1.11.0",
         date: "2026-10-02",
