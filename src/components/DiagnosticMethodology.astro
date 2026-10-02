@@ -1,5 +1,6 @@
 ---
 import type {
+  DiagnosticCollectionCost,
   DiagnosticInstrument,
   DiagnosticMethodCards,
   DiagnosticMethodOverview,
@@ -13,6 +14,7 @@ type Props = {
   instrument: DiagnosticInstrument;
   validation: DiagnosticValidation;
   replicability: DiagnosticReplicability;
+  collectionCost: DiagnosticCollectionCost;
 };
 
 const {
@@ -21,6 +23,7 @@ const {
   instrument,
   validation,
   replicability,
+  collectionCost,
 }: Props = Astro.props;
 ---
 
@@ -89,6 +92,15 @@ const {
   </div>
 
   <div class="diagnostic-method__validation">
+    <div class="card diagnostic-method__card">
+      <p class="eyebrow">Collection cost</p>
+      <p class="muted">{collectionCost.respondentLabor}</p>
+      <ul class="muted">
+        <li>{collectionCost.inputSource}</li>
+        {collectionCost.answeredFromRecords.map((item) => <li>{item}</li>)}
+        <li>{collectionCost.nonResponse}</li>
+      </ul>
+    </div>
     <div class="card diagnostic-method__card">
       <p class="eyebrow">Validation notes</p>
       <p class="muted">{validation.pilotNotes}</p>

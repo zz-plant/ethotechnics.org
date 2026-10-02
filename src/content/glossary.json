@@ -2361,6 +2361,75 @@
             "maturity": null,
             "clusters": [],
             "legacyTerritory": "failure-modes"
+          },
+          {
+            "id": "exhaustion-biased-instrument",
+            "title": "Exhaustion-Biased Instrument",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>An instrument whose readings improve as the people it observes run down. A survey, an appeal, a complaint log, and a self-assessment all draw their input from the subject&#39;s remaining attention, so the depleted answer least and the institution reads the gap as health. The bias runs one direction: more depletion produces a better-looking reading.</p><p>Law VIII asks whether an observation can change the governing state of a system. This asks the prior question, whether the observation is evidence at all. An instrument bought with the subject&#39;s last reserves has a sampling rule that ties difficulty to silence.</p><p>It co-occurs with <a href=\"/glossary/attrition-as-resolution\">Attrition-as-Resolution</a> and <a href=\"/glossary/endurance-asymmetry\">Endurance Asymmetry</a>. The remedy is to read friction from the system&#39;s own trail — abandonment at a named step, re-uploads, retries, activity outside scheduled hours — rather than to ask a depleted person to describe it.</p>",
+            "scope": "B. Failure modes (why Ethotechnics exists). Recurring ways responsibility dissolves, authority drifts from its evidence, and harm lands on people with no route to challenge it.",
+            "references": [],
+            "domains": [
+              "burden",
+              "structural"
+            ],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "failure-modes",
+            "examples": [
+              "A jurisdiction reports 4% appeal volume and a 96% resolution rate in the same quarter it adds a second documentation requirement. The appeals that stopped arriving appear in neither figure."
+            ],
+            "tags": [
+              "anti-pattern",
+              "measurement",
+              "burden"
+            ],
+            "adjacentTerms": [
+              "attrition-as-resolution",
+              "endurance-asymmetry",
+              "audit-burden-ceiling",
+              "workaround-presumption",
+              "user-burden-ratio"
+            ]
+          },
+          {
+            "id": "score-as-acquittal",
+            "title": "Score as Acquittal",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>An anti-pattern where a metric is treated as settling a question it was built to inform. A burden ratio, a friction budget, a safety-case result, or a diagnostic score records what an instrument observed; it does not establish that the person affected is wrong. Citing a passing score against an objection converts a measurement into a verdict, and the verdict is reached by a party that did not have to live the outcome being measured.</p><p>STD-02 §5.4 holds that a measurement the challenged party did not produce is evidence and not a bar. Where a score and an account conflict, the conflict goes to a named reviewer holding authority to resolve it.</p><p>It is the technocratic failure mode that <a href=\"/glossary/exhaustion-biased-instrument\">Exhaustion-Biased Instrument</a> enables from the other side. That term covers an instrument that under-reports because collecting it cost the subject. This one covers an instrument that is accurate and is then cited as though accuracy ended the argument. An instrument can be well built and still be the wrong authority.</p>",
+            "scope": "B. Failure modes (why Ethotechnics exists). Recurring ways responsibility dissolves, authority drifts from its evidence, and harm lands on people with no route to challenge it.",
+            "references": [],
+            "domains": [
+              "structural",
+              "burden"
+            ],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "failure-modes",
+            "examples": [
+              "A deployment reports a burden ratio of 6.8 against a ceiling of 7.2, and an operator's account of how long a form actually takes is closed on that basis."
+            ],
+            "tags": [
+              "anti-pattern",
+              "measurement",
+              "governance"
+            ],
+            "adjacentTerms": [
+              "exhaustion-biased-instrument",
+              "attrition-as-resolution",
+              "unearned-closure",
+              "dropout-as-legitimation",
+              "compensated-performance",
+              "user-burden-ratio"
+            ]
           }
         ]
       },
@@ -4144,6 +4213,39 @@
             ],
             "termUpdated": "2026-09-22T00:00:00Z",
             "termVersion": "v1.0.0"
+          },
+          {
+            "id": "rescue-register",
+            "title": "Rescue Register",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A record of failures that occurred and were caught by a person before they reached anyone else. Each entry carries the near-miss condition, the person who caught it, the labor spent catching it, and whether the source condition was later fixed.</p><p>An incident count that omits these reports the number of times the institution was not lucky. It is the recording half of <a href=\"/glossary/compensated-performance\">Compensated Performance</a>: where that term names the condition, this names the ledger.</p><p>STD-06 §3.3 requires it as a safety-case artifact, and <a href=\"/glossary/principle-of-non-expropriation-of-resilience\">Non-Expropriation of Resilience</a> is why the entry has to carry the labor. A rescue costs the person who performs it, and an institution that reads the same rescue as evidence of a safe system has booked their compensation as its own performance.</p><p>A rescue that repeats against the same unfixed condition is the strongest signal the register holds. It is evidence about the condition rather than about the competence of whoever keeps catching it.</p>",
+            "scope": "D. System states & architectures. Operating postures, records, and architectures that decide whether an error is contained, recorded, or amplified.",
+            "references": [],
+            "domains": [
+              "structural",
+              "visibility"
+            ],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "system-states",
+            "examples": [
+              "A reconciliation defect produces no incidents for a year because nurses catch every mismatch before dispensing. The register shows 300 rescues against one unfixed interface and 4,000 hours of checking nobody rostered."
+            ],
+            "tags": [
+              "safety",
+              "evidence",
+              "visibility"
+            ],
+            "adjacentTerms": [
+              "compensated-performance",
+              "principle-of-non-expropriation-of-resilience",
+              "compensatory-adaptation",
+              "incident-memory-chains"
+            ]
           }
         ]
       },
@@ -5236,6 +5338,33 @@
             "maturity": null,
             "clusters": [],
             "legacyTerritory": "burden-load"
+          },
+          {
+            "id": "audit-burden-ceiling",
+            "title": "Audit Burden Ceiling",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A hard cap on the human labor a person spends producing evidence for an institution&#39;s own audit. An <a href=\"/glossary/evidence-burden-ceiling\">Evidence Burden Ceiling</a> bounds the labor of proving a claim against a decision; this bounds the labor of describing a system to the party that already owns its records.</p><p><strong>Feeds into:</strong> <a href=\"/glossary/user-burden-ratio\">User Burden Ratio</a>, <a href=\"/glossary/exhaustion-biased-instrument\">Exhaustion-Biased Instrument</a>.</p><p><strong>Targets &amp; breach behavior.</strong> <strong>Measurement window:</strong> one review cycle. <strong>Target / floor / ceiling:</strong> target 20 minutes or less of respondent labor per instrument; floor 30 minutes; ceiling 60 minutes. <strong>Breach action:</strong> the instrument returns <em>not established</em> rather than a score, and the operator&#39;s own records answer the question instead. A respondent who cannot answer inside the ceiling has not failed the audit.</p>",
+            "scope": "F. Burden & load. Who carries the time, cost, and risk when a system runs or fails, and whether that transfer is recorded.",
+            "operationalTests": [
+              "Each instrument states the respondent labor it will consume before the respondent begins.",
+              "Where records the operator already holds can answer the question, the respondent is not asked.",
+              "A non-response is recorded as a gap in the instrument, not as a passing result."
+            ],
+            "references": [],
+            "domains": [
+              "burden"
+            ],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "burden-load",
+            "tags": [
+              "burden",
+              "measurement"
+            ]
           }
         ]
       },
@@ -10617,6 +10746,37 @@
             "maturity": null,
             "clusters": [],
             "legacyTerritory": "decision-states"
+          },
+          {
+            "id": "silence-defaults-to-approval",
+            "title": "Silence Defaults to Approval",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A rule under which an unanswered application, appeal, or prior-authorization request resolves in the applicant&#39;s favor when the institution misses a stated clock. Law VIII already holds that silence past the clock is a governance failure rather than a pending state; this names the state the request enters instead.</p><p>The rule reverses the default. While an institution misses its clock at no cost, delay is an externality carried by the person waiting and latency stays free to the party that caused it. Putting the outcome on the institution&#39;s side of the ledger at a fixed hour is what makes the clock binding.</p><p>Applies beside <a href=\"/glossary/binding-clock\">Binding Clock</a>, <a href=\"/glossary/reversal-sla\">Reversal SLA</a>, and <a href=\"/glossary/slow-redress-fast-execution\">Slow Redress, Fast Execution</a>.</p>",
+            "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
+            "operationalTests": [
+              "A stated clock names the state a request enters when it expires, not only that the institution has failed.",
+              "The clock runs in units a person can read and expires on a date the institution can see coming.",
+              "Where the applicant loses more than the institution by a wrong outcome, the default names an escalation rather than a grant."
+            ],
+            "references": [],
+            "domains": [
+              "temporal"
+            ],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "decision-states",
+            "adjacentTerms": [
+              "binding-clock",
+              "reversal-sla",
+              "slow-redress-fast-execution",
+              "time-to-halt",
+              "care-floor-guarantees",
+              "relief-invariants"
+            ]
           }
         ]
       },

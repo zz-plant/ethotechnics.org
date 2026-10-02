@@ -1509,6 +1509,64 @@
               "warning": "A dashboard that shows only throughput hides the queue; report what has not been answered."
             }
           ]
+        },
+        {
+          "slug": "rescue-register",
+          "title": "MEC-24 Rescue register",
+          "summary": "Record every failure a person caught before it reached someone else, so near-misses become evidence about the condition rather than silence in the incident count.",
+          "filters": ["correction", "evidence"],
+          "glossaryRefs": [
+            "compensated-performance",
+            "principle-of-non-expropriation-of-resilience",
+            "compensatory-adaptation"
+          ],
+          "cues": [
+            "Count a caught failure as an occurrence with a cause, not as an absence of incidents.",
+            "Ask who caught it, what it cost them, and whether the condition is still there.",
+            "Treat repeat rescues against one unfixed condition as the strongest signal the register holds."
+          ],
+          "diagnostics": ["delegation-audit"],
+          "steps": [
+            "Define what counts as a rescue: a failure that occurred, that the system or process would not have caught, and that a person caught before it reached anyone else.",
+            "Capture the near-miss condition, the person who caught it, the labor spent catching it, and whether the source condition was subsequently fixed.",
+            "Report rescues and incidents as one series. A falling incident count alongside a rising rescue count means the system is unchanged and the luck is not."
+          ],
+          "policyRequirement": "Policy requirement (MEC-24 Rescue register)\n- Failures caught by a person before reaching anyone else are recorded as occurrences.\n- Each rescue record names the near-miss condition and whether the source condition was fixed.\n- Rescue counts and incident counts are reviewed together, never separately.\nReference: https://ethotechnics.org/mechanisms/patterns/rescue-register",
+          "productRequirement": "Product requirement (MEC-24)\n- The rescue register is an artifact in the human impact safety case.\n- A rescue record cannot be closed without either a fix or a recorded decision not to fix.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-24)\n[ ] Rescue records exist for the review period.\n[ ] Each names the near-miss condition and the labor spent catching it.\n[ ] Repeat rescues against one unfixed condition appear as a standing item.",
+          "postmortemTrigger": "Postmortem trigger (MEC-24)\nTrigger review when rescues rise while incidents fall, or when the same condition is rescued more than once.",
+          "artifacts": [
+            {
+              "name": "Rescue register",
+              "purpose": "One row per caught failure: near-miss condition, catcher, labor spent, and whether the source was fixed."
+            },
+            {
+              "name": "Repeat-condition list",
+              "purpose": "Conditions that have produced more than one rescue, with the decision taken on each."
+            },
+            {
+              "name": "Rescue and incident series",
+              "purpose": "Both counts on one axis, so a falling incident count cannot hide a rising one."
+            }
+          ],
+          "example": {
+            "title": "Zero incidents, three hundred rescues",
+            "description": "A medication reconciliation defect produces no incidents for a year because nurses catch every mismatch before dispensing. The register shows 300 rescues against the same unfixed interface, 4,000 hours of checking nobody rostered, and an interface the institution decided not to change. The incident count reads zero. The register reads a system held together by people."
+          },
+          "antiPatterns": [
+            {
+              "title": "The lucky safety record",
+              "failure": "A clean incident log is read as a safe system, while the rescues that produced the clean log go unrecorded.",
+              "counterfactual": "Rescues and incidents are one series, and the register is part of the safety case.",
+              "warning": "A falling incident count is good news only when rescues are flat too."
+            },
+            {
+              "title": "Hero accounting",
+              "failure": "Regular rescues against one unfixed condition are praised as reliable staff rather than read as a defect in the condition.",
+              "counterfactual": "A repeat rescue is a standing item against the condition, owned by whoever controls it.",
+              "warning": "Reliability of the person is evidence about the system, not about the person."
+            }
+          ]
         }
       ]
     },
