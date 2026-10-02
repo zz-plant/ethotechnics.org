@@ -8,6 +8,31 @@ for the operational governance of delegated decision systems.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.16.0] - 2026-10-02
+
+### Added
+
+- **STD-08 §2.7, Held evidence is declared evidence:** The trigger list on a policy record is
+  written by the institution, and it can be narrower than what the institution knows. Evidence
+  bearing on whether a policy still serves its stated purpose is held when any part of the
+  institution holds it — an employee, a contractor, a committee it staffs, a specialist it retains
+  to know — and holding it fires the trigger, whether or not that class of evidence was declared.
+  Knowledge that stays in one office while the rule runs from another is still held. A grant that
+  keeps deciding against a rule whose supersession the institution holds has not applied its
+  policy; it is issuing decisions its own records contradict, and §2.3's clock runs from the day
+  the evidence was held, not the day someone upstairs was told.
+- **Unwired Evidence (glossary):** The failure mode §2.7 names — the mechanism behind the outdated
+  rulebook. Guidance that stays years behind the science not because the science was unknown but
+  because the office that knows is not the office the rule reads.
+- **MEC-25 Procurement stress test:** Live adversarial scenarios run by the personnel who will use
+  the system, with hard disqualifiers that outrank any composite score, the evaluation's own labor
+  declared, threshold provenance recorded, and every projection bound to a post-deployment
+  measurement. Its anti-patterns are the rehearsed demo and thresholds without provenance.
+- **DEL-011 and DEL-012 (evals v1.11.0):** DEL-011 asks whether an admission decision was made
+  through live adversarial evaluation or through a vendor-controlled demonstration, and whether
+  the projection was ever measured. DEL-012 asks whether held evidence fired the trigger on a rule
+  the institution still enforces. Total evals reach 16 suites and 175 test cases.
+
 ## [1.15.0] - 2026-10-01
 
 ### Added

@@ -2192,6 +2192,32 @@ export const standardClauses: Record<string, StandardClause[]> = {
       relatedValidators: [],
     },
     {
+      id: "STD-08.2.7",
+      standardId: "STD-08",
+      displayId: "§2.7",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition:
+        "evidence bearing on whether an enforced policy still serves its stated purpose is held anywhere in the institution",
+      obligation:
+        "treat the holding as a fired review trigger — the policy moves to review_required within §2.3's clock, which starts the day the evidence was held, and the grants naming it in policy_refs follow per §2.4",
+      evidenceRequired: [
+        "policy_record.review_triggers",
+        "policy_record.status",
+        "held_evidence.date_acquired",
+        "authority_grant.policy_refs",
+      ],
+      timeBound:
+        "within the trigger's declared clock, counted from when the evidence was held",
+      failureModes: [
+        "a coverage rule enforced after the institution's own guideline committee adopted its replacement",
+        "review_triggers naming only internal events (model version, schema) and no class of outside evidence",
+        "knowledge held in a clinical or specialist office that the enforcement pipeline never reads",
+      ],
+      relatedMechanisms: ["MEC-14", "MEC-13"],
+      relatedValidators: [],
+    },
+    {
       id: "STD-08.3.1",
       standardId: "STD-08",
       displayId: "§3.1",
