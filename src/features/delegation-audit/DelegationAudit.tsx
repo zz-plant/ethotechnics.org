@@ -920,7 +920,9 @@ export function DelegationAudit() {
           </div>
 
           <div className="delegation-audit__step">
-            <h3 className="delegation-audit__step-title">Rating for each question</h3>
+            <h3 className="delegation-audit__step-title">
+              Rating for each question
+            </h3>
             <ul className="delegation-audit__variables">
               {result.variables.map((variable) => (
                 <li

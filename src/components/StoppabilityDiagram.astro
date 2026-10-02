@@ -25,10 +25,13 @@ const steps = [
 <figure class="state-diagram" aria-labelledby="stoppability-diagram-title">
   <figcaption>
     <p class="eyebrow">Mechanism, drawn</p>
-    <Heading id="stoppability-diagram-title">Stop at any step, keep your place</Heading>
+    <Heading id="stoppability-diagram-title"
+      >Stop at any step, keep your place</Heading
+    >
     <p class="muted">
-      A halt control stays visible at every step. Stopping saves the person's place, issues a
-      receipt, and carries no penalty, so they can resume later or walk away.
+      A halt control stays visible at every step. Stopping saves the person's
+      place, issues a receipt, and carries no penalty, so they can resume later
+      or walk away.
     </p>
   </figcaption>
 
@@ -49,7 +52,7 @@ const steps = [
           markerHeight="6"
           orient="auto-start-reverse"
         >
-          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--border)" />
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--border)"></path>
         </marker>
         <marker
           id="stoppability-accent-arrow"
@@ -60,7 +63,7 @@ const steps = [
           markerHeight="6"
           orient="auto-start-reverse"
         >
-          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)" />
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)"></path>
         </marker>
         <marker
           id="stoppability-danger-arrow"
@@ -71,12 +74,18 @@ const steps = [
           markerHeight="6"
           orient="auto-start-reverse"
         >
-          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--status-danger)" />
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--status-danger)"></path>
         </marker>
       </defs>
 
       <text x="30" y="26" class="state-diagram__state">Automated flow</text>
-      <text x="890" y="26" text-anchor="end" class="state-diagram__clause" fill="var(--accent-strong)">
+      <text
+        x="890"
+        y="26"
+        text-anchor="end"
+        class="state-diagram__clause"
+        fill="var(--accent-strong)"
+      >
         Halt control visible at every step
       </text>
 
@@ -93,15 +102,30 @@ const steps = [
             />
             {step.current ? (
               <>
-                <text x="90" y="26" text-anchor="middle" class="state-diagram__state">
+                <text
+                  x="90"
+                  y="26"
+                  text-anchor="middle"
+                  class="state-diagram__state"
+                >
                   {step.label}
                 </text>
-                <text x="90" y="46" text-anchor="middle" class="state-diagram__clause">
+                <text
+                  x="90"
+                  y="46"
+                  text-anchor="middle"
+                  class="state-diagram__clause"
+                >
                   Your place
                 </text>
               </>
             ) : (
-              <text x="90" y="36" text-anchor="middle" class="state-diagram__state">
+              <text
+                x="90"
+                y="36"
+                text-anchor="middle"
+                class="state-diagram__state"
+              >
                 {step.label}
               </text>
             )}
@@ -110,17 +134,19 @@ const steps = [
       }
 
       {
-        steps.slice(0, -1).map((step) => (
-          <line
-            x1={step.x + 180}
-            y1="74"
-            x2={step.x + 218}
-            y2="74"
-            stroke="var(--border)"
-            stroke-width="2"
-            marker-end="url(#stoppability-arrow)"
-          />
-        ))
+        steps
+          .slice(0, -1)
+          .map((step) => (
+            <line
+              x1={step.x + 180}
+              y1="74"
+              x2={step.x + 218}
+              y2="74"
+              stroke="var(--border)"
+              stroke-width="2"
+              marker-end="url(#stoppability-arrow)"
+            />
+          ))
       }
 
       {
@@ -165,8 +191,7 @@ const steps = [
         y2="206"
         stroke="var(--accent)"
         stroke-width="2"
-        marker-end="url(#stoppability-accent-arrow)"
-      />
+        marker-end="url(#stoppability-accent-arrow)"></line>
 
       {/* Resume: back up to the same step. */}
       <path
@@ -175,26 +200,50 @@ const steps = [
         stroke-width="2"
         stroke-dasharray="4 4"
         fill="none"
-        marker-end="url(#stoppability-accent-arrow)"
-      />
-      <text x="482" y="184" text-anchor="end" class="state-diagram__clause" fill="var(--accent-strong)">
+        marker-end="url(#stoppability-accent-arrow)"></path>
+      <text
+        x="482"
+        y="184"
+        text-anchor="end"
+        class="state-diagram__clause"
+        fill="var(--accent-strong)"
+      >
         Resume
       </text>
 
       {/* Stopped state */}
       <g class="state-diagram__node" transform="translate(390, 208)">
-        <rect width="340" height="132" rx="8" fill="var(--panel)" stroke="var(--accent)" stroke-width="2" />
-        <text x="170" y="28" text-anchor="middle" class="state-diagram__state" fill="var(--accent-strong)">
+        <rect
+          width="340"
+          height="132"
+          rx="8"
+          fill="var(--panel)"
+          stroke="var(--accent)"
+          stroke-width="2"></rect>
+        <text
+          x="170"
+          y="28"
+          text-anchor="middle"
+          class="state-diagram__state"
+          fill="var(--accent-strong)"
+        >
           Stopped at once
         </text>
         <text x="170" y="52" text-anchor="middle" class="state-diagram__label">
           Place saved as a resumable snapshot
         </text>
-        <text x="170" y="74" text-anchor="middle" class="state-diagram__label">Receipt issued</text>
+        <text x="170" y="74" text-anchor="middle" class="state-diagram__label"
+          >Receipt issued</text
+        >
         <text x="170" y="96" text-anchor="middle" class="state-diagram__label">
           No penalty, no punitive flags
         </text>
-        <text x="170" y="118" text-anchor="middle" class="state-diagram__clause">
+        <text
+          x="170"
+          y="118"
+          text-anchor="middle"
+          class="state-diagram__clause"
+        >
           Resume later, or walk away
         </text>
       </g>
@@ -206,8 +255,7 @@ const steps = [
         stroke-width="1.5"
         stroke-dasharray="4 4"
         fill="none"
-        marker-end="url(#stoppability-danger-arrow)"
-      />
+        marker-end="url(#stoppability-danger-arrow)"></path>
       <text
         x="185"
         y="180"
@@ -226,9 +274,14 @@ const steps = [
           fill="var(--surface)"
           stroke="var(--status-danger)"
           stroke-width="1.5"
-          stroke-dasharray="6 4"
-        />
-        <text x="165" y="28" text-anchor="middle" class="state-diagram__state" fill="var(--status-danger)">
+          stroke-dasharray="6 4"></rect>
+        <text
+          x="165"
+          y="28"
+          text-anchor="middle"
+          class="state-diagram__state"
+          fill="var(--status-danger)"
+        >
           Failure: a forced tunnel
         </text>
         <text x="165" y="56" text-anchor="middle" class="state-diagram__label">
@@ -237,7 +290,12 @@ const steps = [
         <text x="165" y="80" text-anchor="middle" class="state-diagram__label">
           Progress invalidated after a pause
         </text>
-        <text x="165" y="110" text-anchor="middle" class="state-diagram__clause">
+        <text
+          x="165"
+          y="110"
+          text-anchor="middle"
+          class="state-diagram__clause"
+        >
           The flow still claims stoppability
         </text>
       </g>

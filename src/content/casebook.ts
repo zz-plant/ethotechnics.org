@@ -72,7 +72,8 @@ export const stateVariables: StateVariable[] = [
   {
     id: "standing",
     label: "Standing",
-    question: "Who could challenge a decision, and did the challenge have to be answered?",
+    question:
+      "Who could challenge a decision, and did the challenge have to be answered?",
   },
   {
     id: "correction",

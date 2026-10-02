@@ -135,10 +135,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                   <td data-label="Cases" class="catalogue-table__num">
                     {cases.length}
                   </td>
-                  <td
-                    data-label="Automated"
-                    class="catalogue-table__num"
-                  >
+                  <td data-label="Automated" class="catalogue-table__num">
                     {machine > 0 ? machine : "—"}
                   </td>
                   <td data-label="Scoring">
@@ -229,19 +226,36 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       <div class="panel">
         <p class="eyebrow">The four drill dimensions</p>
         <ul class="card__list">
-          <li><strong>Stoppability:</strong> Can an operator pause execution in seconds without data corruption?</li>
-          <li><strong>Reversibility:</strong> Can actions taken by the agent be completely rolled back or compensated?</li>
-          <li><strong>Recovery time:</strong> How long does it take to restore safe state after runaway actions?</li>
-          <li><strong>Accountability:</strong> Does every action record the delegating authority and on-call owner?</li>
+          <li>
+            <strong>Stoppability:</strong> Can an operator pause execution in seconds
+            without data corruption?
+          </li>
+          <li>
+            <strong>Reversibility:</strong> Can actions taken by the agent be completely
+            rolled back or compensated?
+          </li>
+          <li>
+            <strong>Recovery time:</strong> How long does it take to restore safe
+            state after runaway actions?
+          </li>
+          <li>
+            <strong>Accountability:</strong> Does every action record the delegating
+            authority and on-call owner?
+          </li>
         </ul>
       </div>
       <div class="panel">
         <p class="eyebrow">What the dashboard hides</p>
         <p class="muted">
-          A failing system can report high throughput and fast completion times while appeals wait, people are stranded, and exceptions go unwatched. Finite drills look for the gap between what the dashboard shows and what the records show.
+          A failing system can report high throughput and fast completion times
+          while appeals wait, people are stranded, and exceptions go unwatched.
+          Finite drills look for the gap between what the dashboard shows and
+          what the records show.
         </p>
         <p>
-          <a class="button ghost button--compact" href="/evals/runner">Run the drills &rarr;</a>
+          <a class="button ghost button--compact" href="/evals/runner"
+            >Run the drills &rarr;</a
+          >
         </p>
       </div>
     </div>
@@ -284,10 +298,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       <div class="panel">
         <p class="eyebrow">Manual scoring</p>
         <p class="muted">
-          A human reviewer runs each test case, collects evidence, and assigns
-          a score from the rubric. The runner on this site does not call a
-          model. The {machineCaseCount} automated cases run through a separate
-          harness.
+          A human reviewer runs each test case, collects evidence, and assigns a
+          score from the rubric. The runner on this site does not call a model.
+          The {machineCaseCount} automated cases run through a separate harness.
         </p>
       </div>
     </div>
@@ -300,13 +313,13 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     description="The suites are one of two ways this site checks a system. Neither covers every claim the framework makes."
   >
     <p>
-      {machineCaseCount} of these cases can be answered by machine, and a
-      separate checker grades the decision records a system writes. <a
+      {machineCaseCount} of these cases can be answered by machine, and a separate
+      checker grades the decision records a system writes. <a
         href="/evals/coverage">What we can actually check</a
       >
-      maps each check to the governance property it is evidence for, says
-      whether it runs against the live system or its records, and lists the
-      properties nothing checks.
+      maps each check to the governance property it is evidence for, says whether
+      it runs against the live system or its records, and lists the properties nothing
+      checks.
     </p>
   </SectionBlock>
 
@@ -320,9 +333,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       <a class="button primary" href="/evals/runner"> Open eval runner </a>
     </p>
     <ul class="card__list">
-      <li>
-        Pick one suite, or run all of them for a full assessment.
-      </li>
+      <li>Pick one suite, or run all of them for a full assessment.</li>
       <li>
         Each test case presents a prompt and system context for the reviewer.
       </li>

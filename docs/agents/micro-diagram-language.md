@@ -24,6 +24,7 @@ Each shape keeps one meaning across diagrams:
 ## 3. Coordinate Axes
 
 When illustrating systems with spatial axes:
+
 - **Time (Horizontal, left-to-right):** Start $\to$ completion, with explicit acknowledgment and remedy clock markers.
 - **Authority (Vertical, bottom-to-top):** Affected individual $\to$ automated system $\to$ human steward $\to$ binding authority.
 - **Burden (Weight / Shading):** Line thickness or shaded intervals represent accumulated time tax or user friction.
@@ -31,6 +32,7 @@ When illustrating systems with spatial axes:
 ## 4. State Variable Glyphs
 
 Ethotechnics evaluates six state variables across delegations:
+
 1. `reach` (scale and jurisdiction)
 2. `authority` (binding override capacity)
 3. `reversibility` (ability to rollback state)

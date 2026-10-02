@@ -125,19 +125,19 @@ const tally = verdictTally();
     </div>
     <p class="casebook-legend small muted" aria-label="Legend">
       <VerdictMark verdict="held" labelled /> in place and working ·
-      <VerdictMark verdict="drifted" labelled /> in place but out of step with
-      what it should track ·
-      <VerdictMark verdict="failed" labelled /> absent, or its absence is what
-      the inquiry found
+      <VerdictMark verdict="drifted" labelled /> in place but out of step with what
+      it should track ·
+      <VerdictMark verdict="failed" labelled /> absent, or its absence is what the
+      inquiry found
     </p>
     <p class="small muted">
       <strong>After the failure</strong> — did the institution change?
-      <strong>{learningVerdictLabels.learned}</strong> = it changed the rule,
-      category, or workflow that produced the errors ·{" "}
-      <strong>{learningVerdictLabels.partial}</strong> = some change, late or
-      imposed from outside ·{" "}
-      <strong>{learningVerdictLabels.absorbed}</strong> = the errors were
-      corrected, the process that produced them was not.
+      <strong>{learningVerdictLabels.learned}</strong> = it changed the rule, category,
+      or workflow that produced the errors ·{" "}
+      <strong>{learningVerdictLabels.partial}</strong> = some change, late or imposed
+      from outside ·{" "}
+      <strong>{learningVerdictLabels.absorbed}</strong> = the errors were corrected,
+      the process that produced them was not.
       <a href="/research/theory/exception-learning">Read the theory</a>
     </p>
 
@@ -188,10 +188,19 @@ const tally = verdictTally();
               </div>
             </dl>
             <div class="casebook-list__breakdown">
-              <span class="casebook-list__breakdown-label">Failed or drifted:</span>
-              <div class="casebook-list__verdicts" aria-label="Failed or drifted safeguards">
+              <span class="casebook-list__breakdown-label">
+                Failed or drifted:
+              </span>
+              <div
+                class="casebook-list__verdicts"
+                aria-label="Failed or drifted safeguards"
+              >
                 {entry.findings
-                  .filter((finding) => finding.verdict === "failed" || finding.verdict === "drifted")
+                  .filter(
+                    (finding) =>
+                      finding.verdict === "failed" ||
+                      finding.verdict === "drifted",
+                  )
                   .map((finding) => (
                     <a
                       href={`/casebook/${entry.slug}#${finding.variable}`}
@@ -235,37 +244,41 @@ const tally = verdictTally();
         <dt><VerdictMark verdict="drifted" labelled /></dt>
         <dd>
           The safeguard existed but fell out of step with the one it should
-          track. Authority that outlived the evidence it was issued on. A capability that grew
-          twentyfold while the review capacity beside it stayed still.
+          track. Authority that outlived the evidence it was issued on. A
+          capability that grew twentyfold while the review capacity beside it
+          stayed still.
         </dd>
       </div>
       <div>
         <dt><VerdictMark verdict="failed" labelled /></dt>
         <dd>
-          The safeguard was absent, or its absence is what the inquiry found.
-          A right to challenge that won individual cases but never changed the
-          system that decided them. Evidence that the party relying on it never held.
+          The safeguard was absent, or its absence is what the inquiry found. A
+          right to challenge that won individual cases but never changed the
+          system that decided them. Evidence that the party relying on it never
+          held.
         </dd>
       </div>
     </dl>
     <p>
       Every finding is linked to the clauses it falls under and to the law it
-      applies. The clause links open the register on the
-      standard's page. If a case is scored wrongly, the primary sources are
-      listed on its page; <a href="/participate">tell us</a> which one we misread.
+      applies. The clause links open the register on the standard's page. If a
+      case is scored wrongly, the primary sources are listed on its page; <a
+        href="/participate">tell us</a
+      > which one we misread.
     </p>
     <p>
       The last column is not a safeguard. It records what happened after the
       failure: whether the institution changed the rule, category, or workflow
-      that produced the errors, or corrected the errors and left that process
-      as it was. A case can score badly on the safeguards and still end in
-      change, or score well and still end with the process unchanged. The
-      <a href="/research/theory/exception-learning">theory essay on exception
-      learning</a> explains the difference.
+      that produced the errors, or corrected the errors and left that process as
+      it was. A case can score badly on the safeguards and still end in change,
+      or score well and still end with the process unchanged. The
+      <a href="/research/theory/exception-learning"
+        >theory essay on exception learning</a
+      > explains the difference.
     </p>
     <p class="small muted">
-      For three composite scenarios, written as remediation checklists and
-      drawn from no single institution, see the
+      For three composite scenarios, written as remediation checklists and drawn
+      from no single institution, see the
       <a href="/incidents">composite scenarios</a>.
     </p>
   </SectionBlock>

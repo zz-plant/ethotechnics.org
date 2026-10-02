@@ -68,7 +68,10 @@ export const standardsContent: StandardsContent = {
   anchorLinks: [
     { href: "#register", label: "The register" },
     { href: "#doctrine", label: "Foundations and references" },
-    { href: "#adopted-standards", label: "Where existing frameworks fall short" },
+    {
+      href: "#adopted-standards",
+      label: "Where existing frameworks fall short",
+    },
     { href: "#implementation-examples", label: "Domain-by-domain comparisons" },
     { href: "#referenced-by", label: "Where the standards are cited" },
   ],
@@ -466,7 +469,8 @@ export const standardsContent: StandardsContent = {
     {
       id: "glossary",
       title: "Glossary",
-      description: "Definitions of the terms the standards use, each at a stable URL.",
+      description:
+        "Definitions of the terms the standards use, each at a stable URL.",
       href: "/glossary",
       eyebrow: "Reference",
       ctaLabel: "Browse glossary",

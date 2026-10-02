@@ -5,7 +5,7 @@ Generated: 2026-09-26T19:01:05.608Z
 ## Pages missing BaseLayout title/description props
 
 | Page | Missing |
-| --- | --- |
+| ---- | ------- |
 
 ## Pages without BaseLayout usage
 

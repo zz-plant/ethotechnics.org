@@ -71,7 +71,10 @@ export const calculateBurdenModel = (
           Math.max(
             0,
             Math.round(
-              (driverScores.reduce((sum, driver) => sum + driver.weightedScore, 0) /
+              (driverScores.reduce(
+                (sum, driver) => sum + driver.weightedScore,
+                0,
+              ) /
                 maxWeightedScore) *
                 100,
             ),
@@ -100,7 +103,10 @@ export const calculateBurdenModel = (
         categoryMaxWeight > 0
           ? Math.min(
               100,
-              Math.max(0, Math.round((categoryWeight / categoryMaxWeight) * 100)),
+              Math.max(
+                0,
+                Math.round((categoryWeight / categoryMaxWeight) * 100),
+              ),
             )
           : 0,
     };
