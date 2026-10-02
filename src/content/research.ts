@@ -201,9 +201,27 @@ export const researchContent: ResearchContent = {
       title: "Theory essays",
       type: "Essay series",
       summary:
-        "Why the laws hold: absorption as concealment, the engineering tradition, automation and capture, dependence without standing and running both ways, friction as accidental governance, what does not convert, insulation, ethotechnical design, what outcomes hide, challenge density, exception learning, the model of a person, endogenous authorization, deliberate non-use, the compulsion problem, what Ethotechnics is not, democratic vs. coercive governability, and the consumption of adaptive capacity.",
+        "Why the laws hold: absorption as concealment, the engineering tradition, automation and capture, dependence without standing and running both ways, friction as accidental governance, what does not convert, insulation, ethotechnical design, what outcomes hide, challenge density, exception learning, the model of a person, endogenous authorization, deliberate non-use, the compulsion problem, what Ethotechnics is not, democratic vs. coercive governability, the consumption of adaptive capacity, and the human subsidy to institutional continuity.",
       tags: ["theory", "laws", "doctrine"],
       href: "/research/theory",
+    },
+    {
+      slug: "diagnostic-archive",
+      title: "The Crumple Zone",
+      type: "Diagnostic archive",
+      summary:
+        "Case analyses and operational postmortems of institutional failure modes, compensatory labor extraction, and corrigibility barriers.",
+      tags: ["diagnostics", "postmortems", "operational-cases"],
+      href: "https://thecrumple.zone",
+    },
+    {
+      slug: "empirical-program",
+      title: "Empirical evaluation program (kanav.net)",
+      type: "Research program",
+      summary:
+        "Four diagnostic questions, the performance decomposition equation (P_obs = C_des + H_comp), and experimental suites measuring compensatory human labor.",
+      tags: ["evaluation", "decomposition", "empirical"],
+      href: "https://kanav.net/research/",
     },
   ],
   agenda: [
@@ -263,6 +281,9 @@ export const researchContent: ResearchContent = {
       glossaryRefs: [
         "burden-transfer-event",
         "principle-of-non-expropriation-of-resilience",
+        "manufactured-virtue",
+        "epistemic-erasure-cycle",
+        "compensatory-inputs",
       ],
     },
   ],

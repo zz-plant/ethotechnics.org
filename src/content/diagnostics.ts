@@ -109,12 +109,18 @@ export const diagnosticsContent: DiagnosticsContent = {
     ],
     contact: "hello@ethotechnics.org",
     published: "2025-12-03T00:00:00Z",
-    updated: "2026-10-01T00:00:00Z",
-    version: "v1.5.0",
+    updated: "2026-10-02T00:00:00Z",
+    version: "v1.6.0",
     doi: "Pending Zenodo deposit",
     archiveUrl:
       "https://web.archive.org/web/*/https://ethotechnics.org/diagnostics",
     changelog: [
+      {
+        version: "v1.6.0",
+        date: "2026-10-02",
+        summary:
+          "Codified compensatory labor and shadow subsidy audit checks across the Workload Modeler and corrective capacity self-assessment to identify unrecorded human repair, epistemic erasure, and manufactured virtue.",
+      },
       {
         version: "v1.5.0",
         date: "2026-10-01",
@@ -657,6 +663,8 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Reading a high score as missing information when the institution already has the numbers. Where it holds sole authority and has priced and declined a fix, better measurement will not change the outcome.",
           "Using model metrics — accuracy, retraining — as evidence of corrective capacity.",
           "Treating human compensation as a free operational buffer: measuring observed throughput without subtracting the manual exception repair that keeps the metrics green.",
+          "Epistemic erasure: quiet human workarounds keep defect signals from tripping telemetry alarms, reinforcing the illusion of design soundness.",
+          "Manufactured virtue: praising frontline staff as 'dependable' or 'resilient' while leaving the upstream software or rule defects unaddressed.",
         ],
       },
       collectionCost: {

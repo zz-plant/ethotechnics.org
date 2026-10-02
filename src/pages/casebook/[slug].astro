@@ -50,6 +50,9 @@ const sourceKind = {
       { href: "#scoring", label: "Scoring" },
       { href: "#learning", label: "After the failure" },
       { href: "#missing", label: "The missing record" },
+      ...(entry.diagnosticStudy
+        ? [{ href: "#diagnostic-study", label: "Diagnostic study" }]
+        : []),
       { href: "#sources", label: "Sources" },
     ]}
   >
@@ -184,6 +187,33 @@ const sourceKind = {
   >
     <p class="case-missing">{entry.theMissingRecord}</p>
   </SectionBlock>
+
+  {
+    entry.diagnosticStudy && (
+      <SectionBlock
+        id="diagnostic-study"
+        eyebrow="Diagnostic study"
+        title="Long-form postmortem analysis"
+        description="Companion operational study exploring how this failure mode was stabilized, absorbed, or concealed."
+      >
+        <div class="case-diagnostic-card">
+          <p class="case-diagnostic-card__title">
+            <a
+              href={entry.diagnosticStudy.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <strong>{entry.diagnosticStudy.title}</strong> ·{" "}
+              {entry.diagnosticStudy.source} ↗
+            </a>
+          </p>
+          <p class="case-diagnostic-card__summary">
+            {entry.diagnosticStudy.summary}
+          </p>
+        </div>
+      </SectionBlock>
+    )
+  }
 
   <SectionBlock
     id="sources"
