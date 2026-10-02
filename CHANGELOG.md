@@ -8,6 +8,82 @@ for the operational governance of delegated decision systems.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.15.0] - 2026-10-01
+
+### Added
+
+- **Law VIII collection-cost condition:** The law now asks a prior question to its own test. An
+  observation is evidence only if the cost of collecting it does not fall on the people being
+  observed; a survey, appeal, complaint log, and self-assessment all draw on the subject's remaining
+  attention, so the depleted answer least and the institution reads the gap as health. The bias runs
+  one direction, and no better phrasing of the question repairs it. The alternative is to read
+  friction from the system's own trail — abandonment at a named step, re-uploads, retries, activity
+  outside scheduled hours — which is recorded whether or not anyone is asked. The prohibitions list
+  grows a ninth instance: if you cannot learn how your systems behave without spending what the
+  people in them have left, do not read their silence as a result.
+- **Audit Burden Ceiling (glossary):** The third labor ceiling, beside the existing
+  [Evidence Burden Ceiling](/glossary/evidence-burden-ceiling) (proving a claim) and friction budgets
+  (navigating a system). It bounds the labor a respondent spends producing evidence for the
+  operator's own audit. Breaching it returns _not established_ rather than a score, and the
+  operator's records answer instead. A respondent who cannot answer inside the ceiling has not
+  failed the audit.
+- **Exhaustion-Biased Instrument (glossary):** The failure mode the new condition names. It
+  co-occurs with Attrition-as-Resolution and Endurance Asymmetry and is closed by reading the trail.
+- **Silence Defaults to Approval (glossary) and STD-01 §5.4:** An unanswered application, appeal, or
+  prior-authorization request resolves in the applicant's favor when the stated clock expires, or
+  escalates to a human where the default falls harder on the applicant than on the institution. A
+  clock carrying no stated consequence is not a clock.
+- **STD-02 §4.4, Scope of Remedy:** Where a defect arises from a rule, model, or notice rather than
+  from one decision, the remedy reaches every affected case without a further claim. The institution
+  enumerates the affected population from its own records, corrects those cases, and tells each
+  person what was corrected. §4.2 already made compensation automatic for an established individual
+  claim; it did not reach a systemic defect whose population nobody had enumerated.
+- **Three draft eval cases (v1.9.0):** BCN-008 asks whether an instrument's input costs the depleted
+  and whether the same defect would have gone undetected had the reporting channel been unavailable.
+  BUR-013 puts a ceiling on respondent labor in the operator's own audit. TEM-011 asks whether a
+  published clock carries a consequence at expiry. Total evals reach 16 suites and 172 test cases.
+- **STD-02 §5.4, What a Score May Not Do:** A burden score, safety-case result, audit finding, or any
+  other measurement the challenged party did not produce is evidence and not a bar. It may not dispose
+  of an objection or establish that a person's account is unfounded. Where a score and an account
+  conflict, the conflict goes to a named reviewer holding authority to resolve it.
+- **Score as Acquittal (glossary):** The failure mode §5.4 names. It is what
+  [Exhaustion-Biased Instrument](/glossary/exhaustion-biased-instrument) enables from the other
+  side: an instrument that under-reports because collecting it cost the subject, and an instrument
+  that is accurate and is then cited as though accuracy ended the argument. This site published 16
+  eval suites with a numeric passing score and 9 glossary ceilings with no clause bounding what a
+  passing result may do.
+- **STD-06 §3.3, Rescue Records:** A failure a person caught before it reached anyone else is
+  recorded as an occurrence, with the condition that nearly produced the harm, the person who caught
+  it, the labor spent catching it, and whether the source condition was fixed. An incident count
+  that omits these reports the number of times the institution was not lucky. A rescue that repeats
+  against the same unfixed condition is evidence about the condition, not about the person who keeps
+  catching it. The clause adds a seventh artifact to the human impact safety case, the rescue
+  register, and Law IV's binding names it: correction capacity consumed by an individual is capacity
+  the institution has not accounted for.
+- **MEC-24 Rescue register:** The mechanism behind the clause, with the near-miss condition, the
+  catcher, the labor spent, and fix status as the row, and a rescue and incident series on one axis
+  so a falling incident count cannot hide a rising one. Its two anti-patterns are the lucky safety
+  record and hero accounting — regular rescues against one unfixed condition praised as reliable
+  staff rather than read as a defect in the condition.
+- **Rescue Register (glossary):** The recording half of
+  [Compensated Performance](/glossary/compensated-performance). Where that term names the condition,
+  this names the ledger, and non-expropriation of resilience is why the entry carries the labor.
+- **COR-007 (evals v1.10.0):** Whether the near-miss register exists, whether rescues and incidents
+  are read as one series, and whether a repeat rescue against an unfixed condition becomes a standing
+  item against the condition. Total evals reach 16 suites and 173 test cases.
+
+### Changed
+
+- **Diagnostics self-audit (v1.5.0):** Each of the four instruments now states the respondent labor
+  it consumes before the respondent begins, what the operator's own retained records already answer
+  without asking a person, and how non-response is represented in the readout. Three instruments take
+  respondent time. Record Conformance reads a record stream and asks no one, and now says so on the
+  page rather than leaving the distinction implicit.
+- **Absorption as concealment:** The essay's own measurement proposals were paying in the currency of
+  the people being measured — shadowing staff to count what they fix, asking the clinician with the
+  least capacity how long the workaround takes. A new section names that the instrument repeats
+  absorption one remove out, and that the remedy is to read the system's trail rather than to ask.
+
 ## [1.14.0] - 2026-09-25
 
 ### Changed
