@@ -8,6 +8,27 @@ for the operational governance of delegated decision systems.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.22.0] - 2026-10-02
+
+### Changed
+
+- **The future-concepts territory reconciled against the built layer** (385 → 381 entries, the
+  speculative category down from 38 to 29). Seven entries retired as superseded, each by a built
+  artifact that now carries the same ground: moral-drift-control (STD-08 Part B and MEC-14's review
+  triggers), distributed-accountability-protocols (traceable ownership and obligation continuity),
+  ethotechnic-failure-taxonomy (the glossary's own failure-modes category is the taxonomy),
+  boundary-of-acceptable-harm (STD-06 Article IV's do-not-deploy boundaries),
+  decision-debt-ledger (corrective-debt), moral-feature-gating (MEC-22's admission gate), and
+  pathways-to-restitution (the restitution ladder). Internal references were redirected, not
+  dropped.
+- **Two entries promoted out of future-concepts** because built pages already cite them:
+  ethical-circuit-breakers (referenced from the absorption essay and the STD-03 page) and
+  graceful-rollback-lanes (referenced from the STD-03 page) now sit in governance.
+- **User-state-modeling rewritten to comply with the new Operator Instrumentation boundary:**
+  inference of fatigue, distress, or inattention reads the machine's trail — error streaks, queue
+  depth, after-hours activity — not the person, because a protective signal that watches the
+  operator becomes a quota under incentive pressure.
+
 ## [1.21.0] - 2026-10-02
 
 ### Fixed
