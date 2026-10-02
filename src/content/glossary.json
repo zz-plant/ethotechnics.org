@@ -2687,6 +2687,39 @@
               "review-trigger",
               "non-conversion-principle"
             ]
+          },
+          {
+            "id": "automation-bias",
+            "title": "Automation Bias",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The tendency to accept an automated output in place of the judgment it was supposed to support. It is strongest exactly when the operator has the least capacity to resist it: late in a shift, under volume, when the output is plausible and fluent and appears in a queue that looks pre-screened. The operator glances, assumes the system reconciled the labs, and signs.</p><p>It matters because it converts a queuing defect into an incident. A system that places a dangerous order into a routine signing queue is relying on a person to catch it, and a person at the end of a shift catches it less and less often. The failure is not carelessness; it is the predictable response of a finite operator to a plausible draft. That is why the control is structural and not exhortative: a synchronous hard stop that requires a documented rationale before the order exists works regardless of how tired the operator is, while a reminder to \"pay attention\" does not.</p><p>Law IX already states the shape: human oversight is a control only if the human can alter system state. Automation bias names the load that oversight is placed under, and <a href=\"/glossary/intervention-specification\">Intervention Specification</a> is what the control looks like when it is designed for the tired operator rather than the attentive one.</p>",
+            "scope": "B. Failure modes (why Ethotechnics exists). Recurring ways responsibility dissolves, authority drifts from its evidence, and harm lands on people with no route to challenge it.",
+            "references": [],
+            "domains": [
+              "agency",
+              "structural"
+            ],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "failure-modes",
+            "examples": [
+              "An order set auto-populates with a home medication despite an acute creatinine jump, and sits in a batch the physician reviews at the end of a fourteen-hour shift."
+            ],
+            "tags": [
+              "anti-pattern",
+              "human-factors",
+              "safety"
+            ],
+            "adjacentTerms": [
+              "human-override-lanes",
+              "intervention-specification",
+              "traceable-ownership",
+              "safe-pause"
+            ]
           }
         ]
       },
@@ -5677,6 +5710,39 @@
             "tags": [
               "burden",
               "measurement"
+            ]
+          },
+          {
+            "id": "verification-tax",
+            "title": "Verification Tax",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The cost of establishing whether a machine-generated claim is true, paid by the person the claim was generated for. Generation takes seconds. Verification of plausible prose against its sources takes minutes of high-load scanning — and the sources are frequently the scans, faxes, and unindexed records the system summarized in the first place. A fluent draft that cannot show where it got each claim does not save time; it moves the time onto the reader and hides it inside a metric that only counts generation.</p><p>It is the burden-side twin of <a href=\"/glossary/compensated-performance\">Compensated Performance</a>. That term covers labor spent making a system's errors invisible. This one covers labor spent making its outputs usable — and a system can be well built, fast, and accurate, and still tax its readers, because the tax is levied per claim and no metric counts it.</p><p>It differs from <a href=\"/glossary/verification-harm\">Verification Harm</a>, which is the burden of proving eligibility to an institution. This is the burden of trusting a machine's summary of a record the reader cannot cheaply check. And it differs from <a href=\"/glossary/audit-burden-ceiling\">Audit Burden Ceiling</a>, which caps the labor a respondent spends producing evidence. Here the reader did not choose to verify; the output was presented as if the work were done.</p><p>The checkable form is claim-level anchoring: every displayed claim links to its source on demand, and a claim the system cannot anchor is suppressed rather than shown. The explainability evals test it.</p>",
+            "scope": "F. Burden & load. Who carries the time, cost, and risk when a system runs or fails, and whether that transfer is recorded.",
+            "references": [],
+            "domains": [
+              "burden",
+              "visibility"
+            ],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "burden-load",
+            "examples": [
+              "An AI summary states a documented penicillin allergy. Confirming it against twelve unindexed outside-hospital scans takes eight minutes; the generation took four seconds and is what the metric counted."
+            ],
+            "tags": [
+              "burden",
+              "measurement",
+              "verification"
+            ],
+            "adjacentTerms": [
+              "compensated-performance",
+              "audit-burden-ceiling",
+              "verification-harm",
+              "explainability-for-accountability"
             ]
           }
         ]
