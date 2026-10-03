@@ -8,7 +8,6 @@
  * assistive technology and drawn as marks for everyone else.
  */
 import { cases, stateVariables } from "../../content/casebook";
-import StateVariableGlyph from "../StateVariableGlyph.astro";
 import VerdictMark from "../VerdictMark.astro";
 
 const days = [...cases].sort((a, b) => b.timeToHaltDays - a.timeToHaltDays);
@@ -44,22 +43,24 @@ const haltLabel = (value: number) => {
     </p>
   </div>
 
-  <div class="home-casebook__key" aria-hidden="true">
-    <ul class="home-casebook__legend">
-      {
-        stateVariables.map((variable) => (
-          <li>
-            <StateVariableGlyph variable={variable.id} label={variable.label} />
-          </li>
-        ))
-      }
-    </ul>
-    <p class="home-casebook__verdict-key">
-      <VerdictMark verdict="held" labelled />
-      <VerdictMark verdict="drifted" labelled />
-      <VerdictMark verdict="failed" labelled />
-    </p>
+  <div class="home-casebook__columns" aria-hidden="true">
+    <span class="home-casebook__col home-casebook__col--spacer"></span>
+    {
+      stateVariables.map((variable) => (
+        <span class="home-casebook__col" title={variable.label}>
+          {variable.label.slice(0, 3).toUpperCase()}
+        </span>
+      ))
+    }
+    <span class="home-casebook__col home-casebook__col--halt">
+      Time to halt
+    </span>
   </div>
+  <p class="home-casebook__verdict-key" aria-hidden="true">
+    <VerdictMark verdict="held" labelled />
+    <VerdictMark verdict="drifted" labelled />
+    <VerdictMark verdict="failed" labelled />
+  </p>
 
   <ol class="home-casebook__list">
     {

@@ -1,20 +1,19 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CasebookScorecard from "../components/home/CasebookScorecard.astro";
+import ExceptionLearningFigure from "../components/ExceptionLearningFigure.astro";
 import HeroLedger from "../components/home/HeroLedger.astro";
 import HomeClaims from "../components/home/HomeClaims.astro";
 import HomeRail from "../components/home/HomeRail.astro";
-import MechanismLoop from "../components/home/MechanismLoop.astro";
 import RecordSpine from "../components/home/RecordSpine.astro";
 import SafeguardMap from "../components/home/SafeguardMap.astro";
 import SelfTest from "../components/home/SelfTest.astro";
 import SectionBlock from "../components/SectionBlock.astro";
-import { studioSummary } from "../content/studio";
 
 /**
  * The front door as one story in reading order, told without ever holding
  * the scroll: watch one scheme run (the record), see why rulings did not
- * stop it (the mechanism, where the loop now argues instead of decorating),
+ * stop it (the mechanism),
  * see that it was not special (the casebook), state what the framework adds
  * to the field (the positioning band), test what an institution says about
  * itself (the claims, as clauses with exhibits), then turn to the reader's
@@ -24,9 +23,9 @@ import { studioSummary } from "../content/studio";
  * chrome.
  *
  * Each idea is drawn as well as written, for readers who think in pictures:
- * the hero draws the record's unanswered column, the casebook names its
- * glyph columns before its rows, and the self-test draws the reader's system
- * as a six-node ring, filled in by their answers.
+ * the hero draws the record's unanswered column, the mechanism leads with
+ * the exception-learning drawing that shows both the broken path and the
+ * fix, and the self-test draws the reader's system as a six-node ring.
  */
 const doors = [
   {
@@ -195,35 +194,36 @@ const doors = [
 
   <section
     id="mechanism"
-    class="home-claim home-claim--figure-first stack-md"
+    class="home-claim stack-md"
     aria-labelledby="mechanism-heading"
   >
-    <div class="home-claim__grid">
-      <div class="home-claim__figure" data-reveal="draw">
-        <MechanismLoop />
-      </div>
-      <div class="home-claim__body stack-sm">
+    <div class="home-split-header">
+      <div class="stack-sm">
         <p class="eyebrow">Why the rulings did not stop it</p>
         <h2 id="mechanism-heading" class="section__heading">
           Each ruling fixed one debt. None of them reached the rule.
         </h2>
-        <p class="section-lead">
-          The department treated each ruling as one person's outcome, not as
-          evidence against the scheme, so the rule that raised the debts never
-          had to answer them. The fix is a count: upheld challenges recorded
-          against the rule that produced them, and a set number that sends the
-          rule back to its owner.
-        </p>
-        <p class="small muted">
-          This is Law VIII of the twelve the standards are built on:
-          observability without state transition is theater.
-          <a href="/standards/laws#law-viii">Read Law VIII →</a>
-          <a href="/research/theory/exception-learning"
-            >Read the essay on exception learning →</a
-          >
-        </p>
       </div>
+      <p class="section-lead">
+        The department treated each ruling as one person's outcome, not as
+        evidence against the scheme, so the rule that raised the debts never had
+        to answer them. The fix is a count: upheld challenges recorded against
+        the rule that produced them, and a set number that sends the rule back
+        to its owner.
+      </p>
     </div>
+    <div class="home-draw" data-reveal="draw">
+      <ExceptionLearningFigure level="h3" />
+    </div>
+    <p class="small muted">
+      This is Law VIII of the twelve the standards are built on: observability
+      without state transition is theater. A ruling that changes one case and
+      not the rule is an observation the system never acts on.
+      <a href="/standards/laws#law-viii">Read Law VIII →</a>
+      <a href="/research/theory/exception-learning"
+        >Read the essay on exception learning →</a
+      >
+    </p>
   </section>
 
   <CasebookScorecard />
@@ -336,7 +336,8 @@ const doors = [
         <div>
           <p class="home-colophon__label">Studio</p>
           <p class="home-colophon__text">
-            Evaluating a healthcare AI system? {studioSummary} That work runs through
+            Commissioned safety evaluation for healthcare AI. That work runs
+            through
             <a
               href="https://ethotechnics.com"
               rel="noopener noreferrer"

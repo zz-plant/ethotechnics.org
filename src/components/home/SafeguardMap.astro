@@ -18,15 +18,15 @@ interface Props {
 
 const { class: className }: Props = Astro.props;
 
-// Ring order: correction at the top, then the rest clockwise following the
-// method's chain — standing, evidence, dependency, capability, authority.
+// Ring order: the questions' own order, correction at the top and the rest
+// clockwise — so the ring fills in exactly the order the form is answered.
 const order: StateVariableId[] = [
   "correction",
   "standing",
+  "authority",
   "evidence",
   "dependency",
   "capability",
-  "authority",
 ];
 
 const labelFor = (variable: StateVariableId) =>
