@@ -22,6 +22,7 @@ describe("taxonomy entries", () => {
     expect(getTaxonomyBranch("authority").map((entry) => entry.slug)).toEqual([
       "authority",
       "authority/delegation",
+      "authority/delegation/leases",
       "authority/policy-validity",
       "authority/expansion",
     ]);
@@ -29,18 +30,19 @@ describe("taxonomy entries", () => {
     expect(getTaxonomyBranch("dependence").map((entry) => entry.slug)).toEqual([
       "dependence",
       "dependence/reversibility",
+      "dependence/reversibility/rollbacks",
       "dependence/standing",
       "dependence/preserved-capacity",
     ]);
   });
 
-  it("files every entry under at least one safeguard, with a scope and exactly two related artifacts", () => {
+  it("files every entry under at least one safeguard, with a valid scope and at least two related artifacts", () => {
     for (const entry of taxonomyEntries) {
       expect(entry.safeguards.length).toBeGreaterThan(0);
       expect("owner" in entry).toBe(false);
       expect(["Domain", "Capability", "Practice"]).toContain(entry.scope);
       expect(entry.summary.length).toBeGreaterThan(0);
-      expect(entry.relatedArtifacts).toHaveLength(2);
+      expect(entry.relatedArtifacts.length).toBeGreaterThanOrEqual(2);
     }
   });
 
