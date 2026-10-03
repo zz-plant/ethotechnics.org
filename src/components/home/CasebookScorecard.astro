@@ -47,7 +47,7 @@ const haltLabel = (value: number) => {
     <span class="home-casebook__col home-casebook__col--spacer"></span>
     {
       stateVariables.map((variable) => (
-        <span class="home-casebook__col">
+        <span class="home-casebook__col" title={variable.label}>
           {variable.label.slice(0, 3).toUpperCase()}
         </span>
       ))

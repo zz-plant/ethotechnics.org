@@ -45,36 +45,23 @@
     max-width: 68ch;
   }
 
-  /* The mechanism leads with its drawing: figure left at roughly 60%,
-     the argument's text right. Stacked below 1000px, text first. */
-  .home-claim__grid {
+  /* The record's and the mechanism's headers: heading on the left, lede on
+     the right on a wide screen, so each opens with one band instead of a
+     stack three blocks tall. Stacked below 1000px. */
+  .home-split-header {
     display: grid;
-    gap: var(--space-6);
+    gap: var(--space-heading);
+  }
+
+  .home-split-header > .section-lead {
+    margin: 0;
   }
 
   @media (min-width: 1000px) {
-    .home-claim__grid {
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-      align-items: center;
+    .home-split-header {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      column-gap: clamp(var(--space-6), 4vw, var(--space-8));
     }
-
-    .home-claim__figure {
-      order: -1;
-    }
-  }
-
-  .home-claim .home-draw {
-    width: 100%;
-    max-width: 50rem;
-  }
-
-  /* The colophon: the page closes as a book does - one ruled band for the
-     license and the studio, then a mono strip. Quietest treatment on the
-     page, which is where a footer belongs. */
-  .home-supplement {
-    max-width: var(--content-max);
-    margin-inline: auto;
-    padding: calc(var(--space-section) / 2) 0 var(--space-section);
   }
 
   .home-colophon {

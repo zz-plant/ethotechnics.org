@@ -9,7 +9,6 @@ import RecordSpine from "../components/home/RecordSpine.astro";
 import SafeguardMap from "../components/home/SafeguardMap.astro";
 import SelfTest from "../components/home/SelfTest.astro";
 import SectionBlock from "../components/SectionBlock.astro";
-import { studioSummary } from "../content/studio";
 
 /**
  * The front door as one story in reading order, told without ever holding
@@ -195,37 +194,36 @@ const doors = [
 
   <section
     id="mechanism"
-    class="home-claim home-claim--figure-first stack-md"
+    class="home-claim stack-md"
     aria-labelledby="mechanism-heading"
   >
-    <div class="home-claim__grid">
-      <div class="home-claim__body stack-sm">
+    <div class="home-split-header">
+      <div class="stack-sm">
         <p class="eyebrow">Why the rulings did not stop it</p>
         <h2 id="mechanism-heading" class="section__heading">
           Each ruling fixed one debt. None of them reached the rule.
         </h2>
-        <p class="section-lead">
-          The department treated each ruling as one person's outcome, not as
-          evidence against the scheme, so the rule that raised the debts never
-          had to answer them. The fix is a count: upheld challenges recorded
-          against the rule that produced them, and a set number that sends the
-          rule back to its owner.
-        </p>
-        <p class="small muted">
-          This is Law VIII of the twelve the standards are built on:
-          observability without state transition is theater. A ruling that
-          changes one case and not the rule is an observation the system never
-          acts on.
-          <a href="/standards/laws#law-viii">Read Law VIII →</a>
-          <a href="/research/theory/exception-learning"
-            >Read the essay on exception learning →</a
-          >
-        </p>
       </div>
-      <div class="home-claim__figure home-draw" data-reveal="draw">
-        <ExceptionLearningFigure level="h3" />
-      </div>
+      <p class="section-lead">
+        The department treated each ruling as one person's outcome, not as
+        evidence against the scheme, so the rule that raised the debts never had
+        to answer them. The fix is a count: upheld challenges recorded against
+        the rule that produced them, and a set number that sends the rule back
+        to its owner.
+      </p>
     </div>
+    <div class="home-draw" data-reveal="draw">
+      <ExceptionLearningFigure level="h3" />
+    </div>
+    <p class="small muted">
+      This is Law VIII of the twelve the standards are built on: observability
+      without state transition is theater. A ruling that changes one case and
+      not the rule is an observation the system never acts on.
+      <a href="/standards/laws#law-viii">Read Law VIII →</a>
+      <a href="/research/theory/exception-learning"
+        >Read the essay on exception learning →</a
+      >
+    </p>
   </section>
 
   <CasebookScorecard />
@@ -338,7 +336,8 @@ const doors = [
         <div>
           <p class="home-colophon__label">Studio</p>
           <p class="home-colophon__text">
-            Evaluating a healthcare AI system? {studioSummary} That work runs through
+            Commissioned safety evaluation for healthcare AI. That work runs
+            through
             <a
               href="https://ethotechnics.com"
               rel="noopener noreferrer"
