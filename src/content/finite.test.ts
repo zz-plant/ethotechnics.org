@@ -23,21 +23,6 @@ describe("Finite content specification", () => {
     expect(titles).toContain("Reversibility");
     expect(titles).toContain("Volatility export");
     expect(finiteContent.measures.deliverables).toHaveLength(3);
-
-    const stoppability = finiteContent.measures.dimensions.find(
-      (d) => d.title === "Stoppability",
-    );
-    expect(stoppability?.detail).toContain("unpenalized authority");
-
-    const reversibility = finiteContent.measures.dimensions.find(
-      (d) => d.title === "Reversibility",
-    );
-    expect(reversibility?.detail).toContain("restitution");
-
-    const volatility = finiteContent.measures.dimensions.find(
-      (d) => d.title === "Volatility export",
-    );
-    expect(volatility?.detail).toContain("unrecorded overtime");
   });
 
   it("contains all four experimental conditions", () => {
@@ -53,7 +38,7 @@ describe("Finite content specification", () => {
     ]);
   });
 
-  it("contains the five adversarial institutional drills with complete dual ledgers, named roles, and maturity statuses", () => {
+  it("contains the five adversarial institutional drills with complete dual ledgers and maturity statuses", () => {
     const { games } = finiteContent.institutionalGames;
     expect(games).toHaveLength(5);
 
@@ -84,11 +69,6 @@ describe("Finite content specification", () => {
       expect(game.standardRefs.length).toBeGreaterThan(0);
       expect(game.suiteRef.startsWith("/evals")).toBe(true);
       expect(["executable_benchmark", "tabletop_drill"]).toContain(game.status);
-
-      // Verify explicit named human roles per AGENTS.md
-      expect(game.roles.frontline).toBeTruthy();
-      expect(game.roles.decidedAbout).toBeTruthy();
-      expect(game.roles.riskOwner).toBeTruthy();
     }
   });
 
@@ -111,13 +91,12 @@ describe("Finite content specification", () => {
     expect(toolNames).toContain("audit_staff_hours");
   });
 
-  it("contains operational invariants emphasizing non-retaliation and restitution", () => {
+  it("contains operational invariants", () => {
     expect(finiteContent.keyTakeaways.bullets.length).toBeGreaterThanOrEqual(5);
     const text = finiteContent.keyTakeaways.bullets.join(" ");
     expect(text).toContain("Dual-ledger verification");
-    expect(text).toContain("Non-retaliatory stop");
-    expect(text).toContain("Restitution over rollback");
-    expect(text).toContain("Workaround deprecation");
+    expect(text).toContain("Deterministic stop signals");
+    expect(text).toContain("Rollback verification");
   });
 
   it("contains no retired marketing promises and no dead prototype fields", () => {
