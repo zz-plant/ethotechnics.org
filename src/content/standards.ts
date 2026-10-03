@@ -67,6 +67,8 @@ export const standardsContent: StandardsContent = {
   permalink: "/standards",
   anchorLinks: [
     { href: "#register", label: "The register" },
+    { href: "#code-example", label: "Code & schema example" },
+    { href: "#crosswalks", label: "Regulatory crosswalks" },
     { href: "#doctrine", label: "Foundations and references" },
     {
       href: "#adopted-standards",

@@ -23,6 +23,7 @@ import {
     description={content.description}
     anchorLinks={[
       { href: "#short-answer", label: "The short answer" },
+      { href: "#non-goals", label: "Explicit non-goals" },
       { href: "#test", label: "The test" },
       { href: "#contexts", label: "Six contexts" },
       { href: "#boundaries", label: "Where it does less" },
@@ -46,6 +47,65 @@ import {
         ))
       }
     </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="non-goals"
+    eyebrow="Explicit boundaries"
+    title="Where we decline to operate"
+    description="Ethotechnics is intentionally narrow. It does not govern all software, and it explicitly rejects three common AI governance ambitions."
+  >
+    <div class="grid grid--three">
+      <div class="panel stack-sm">
+        <p class="eyebrow">1. No foundation model benchmarking</p>
+        <p class="small">
+          We do not evaluate foundation models in the abstract, red-team chat
+          interfaces, or benchmark pretraining corpora.
+        </p>
+        <p class="small muted">
+          A model can pass every benchmark and still be deployed under an
+          open-ended delegation nobody can revoke. Ethotechnics only binds the
+          operational delegation once a system holds authority to decide about
+          people.
+        </p>
+        <p class="small">
+          <a href="#model-testing">See model testing boundary &rarr;</a>
+        </p>
+      </div>
+
+      <div class="panel stack-sm">
+        <p class="eyebrow">2. No low-stakes or internal pipeline governance</p>
+        <p class="small">
+          We do not govern build scripts, background database workers, internal
+          analytics, or retail recommendation carousels.
+        </p>
+        <p class="small muted">
+          If an automated process changes no one's status, liberty, money, or
+          livelihood outside the engineering team, receipts and reversal clocks
+          add friction without preventing harm.
+        </p>
+        <p class="small">
+          <a href="#boundaries">See all five boundaries &rarr;</a>
+        </p>
+      </div>
+
+      <div class="panel stack-sm">
+        <p class="eyebrow">3. No substantive moral or political dictation</p>
+        <p class="small">
+          We do not dictate what an institution's political, moral, or business
+          policy goals ought to be.
+        </p>
+        <p class="small muted">
+          The framework enforces procedural answerability: whatever rule is
+          chosen, the institution must operate under an expiring authority
+          lease, deliver causal reasons with decisions, and maintain an
+          unpenalized human who can halt it.
+        </p>
+        <p class="small">
+          <a href="/standards/core-axioms">Read the core axioms &rarr;</a>
+        </p>
+      </div>
+    </div>
   </SectionBlock>
 
   <SectionBlock

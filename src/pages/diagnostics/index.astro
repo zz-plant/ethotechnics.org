@@ -21,6 +21,7 @@ const {
 // The four tool cards sit directly under the intro, so the outline starts
 // with the sections below them.
 const anchorLinks = [
+  { href: "#orientation", label: "Who these tools are for" },
   { href: "#self-defense-tools", label: "Self-defense checks" },
   { href: "#output-baseline", label: "What every output includes" },
   { href: "#how-it-works", label: "Facilitated sessions" },
@@ -143,6 +144,78 @@ const selfDefenseTools = [
       <a class="button ghost" href="/use-cases">Which tool for your system</a>
     </Fragment>
   </PageIntro>
+
+  <section
+    id="orientation"
+    class="section diagnostics-orientation"
+    aria-labelledby="diagnostics-orientation-title"
+  >
+    <h2 id="diagnostics-orientation-title" class="sr-only">
+      Orientation for affected individuals and operational teams
+    </h2>
+    <div class="grid grid--two">
+      <div class="panel stack-sm">
+        <p class="eyebrow">For affected individuals</p>
+        <h3 class="diagnostics-orientation__heading">
+          Harmed by an automated decision?
+        </h3>
+        <p class="small">
+          Ethotechnics is an open standards body, not a legal clinic or advocacy
+          organization. We do not take cases or provide individual legal
+          representation.
+        </p>
+        <p class="small muted">
+          If software denied an application, cut your work shifts, or suspended
+          an account, run our self-defense checks to verify whether the decision
+          gave you proper standing, or use our 30-day remedy notice template to
+          formally demand reasons.
+        </p>
+        <ul class="card__list small">
+          <li>
+            <a href="/diagnostics/self-defense-tools"
+              >Run the 3 self-defense checks &rarr;</a
+            >
+          </li>
+          <li>
+            <a href="/explainers/remedy-essentials"
+              >Download 30-day remedy notice template &rarr;</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div class="panel stack-sm">
+        <p class="eyebrow">For operations managers</p>
+        <h3 class="diagnostics-orientation__heading">
+          Will this burden our support teams?
+        </h3>
+        <p class="small">
+          No. Diagnostics do not generate compliance paperwork or expand ticket
+          backlogs. They measure where an automated system is silently shifting
+          its error costs onto human workers.
+        </p>
+        <p class="small muted">
+          When edge cases fail, human operators often spend unlogged hours in
+          shadow spreadsheets and off-shift triage. Scoring this burden gives
+          team leads the documented evidence needed to throttle decision
+          throughput or require engineering fixes.
+        </p>
+        <ul class="card__list small">
+          <li>
+            <a href="/diagnostics/burden-modeler"
+              >Measure staff burden with Workload Modeler &rarr;</a
+            >
+          </li>
+          <li>
+            <a href="/diagnostics/corrective-debt-calculator"
+              >Check institutional corrective capacity &rarr;</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <section
     id="quick-triage"
     class="section diagnostics-start"

@@ -82,16 +82,38 @@ function checkHtmlHeadings(file: string, content: string): Finding[] {
   const findings: Finding[] = [];
   let previousLevel = 0;
 
+  const matches: { level: number; index: number; snippet: string }[] = [];
+
   for (const match of content.matchAll(HTML_HEADING_REGEX)) {
-    const level = Number(match[1]);
-    const index = match.index ?? 0;
+    matches.push({
+      level: Number(match[1]),
+      index: match.index ?? 0,
+      snippet: normalizeSnippet(match[0]),
+    });
+  }
+
+  if (file.endsWith(".astro")) {
+    for (const match of content.matchAll(/<SectionBlock\b[^>]*>/gims)) {
+      matches.push({
+        level: 2,
+        index: match.index ?? 0,
+        snippet: normalizeSnippet(match[0]),
+      });
+    }
+  }
+
+  matches.sort((a, b) => a.index - b.index);
+
+  for (const match of matches) {
+    const level = match.level;
+    const index = match.index;
 
     if (previousLevel > 0 && level > previousLevel + 1) {
       findings.push({
         file,
         line: getLine(content, index),
         message: `Heading level jumps from h${previousLevel} to h${level}.`,
-        snippet: normalizeSnippet(match[0]),
+        snippet: match.snippet,
       });
     }
 
