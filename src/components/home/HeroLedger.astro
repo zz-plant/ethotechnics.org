@@ -1,7 +1,10 @@
 ---
 /**
  * The hero's ledger, drawn from the casebook: every dated warning the record
- * issued before the halt, beside the response the institution gave.
+ * issued before the halt, beside the response the institution gave. The rows
+ * carry what happened; the record spine below carries what was said,
+ * verbatim, with attribution - same warnings, two registers, so the reader
+ * never reads the same quote twice in a row.
  *
  * The right column is the point, and it is drawn empty on purpose: three
  * "no response" entries that are not placeholders but the finding. The rows
@@ -23,6 +26,11 @@ const haltIndex = timeline.findIndex((event) => event.halt);
 // The rows are the record-side warnings that came before the halt: the
 // advice, the Ombudsman, the tribunal. The launch is not a warning, and the
 // Royal Commission came after the halt, so neither gets a row.
+const firstSentence = (text: string) => {
+  const cut = text.indexOf(". ");
+  return cut > 0 ? text.slice(0, cut + 1) : text;
+};
+
 const warnings = timeline.filter(
   (event, index) =>
     event.evidence && !event.halt && index < haltIndex && event.voice,
@@ -51,9 +59,7 @@ const span =
             <tr>
               <td>
                 <span class="hero-ledger__when">{event.when}</span>
-                <span class="hero-ledger__said">
-                  &ldquo;{event.voice?.said}&rdquo;
-                </span>
+                <span class="hero-ledger__what">{firstSentence(event.what)}</span>
               </td>
               <td class="hero-ledger__blank">no response</td>
             </tr>

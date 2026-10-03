@@ -53,6 +53,12 @@ timeline.forEach((event, index) => {
 });
 
 const warnings = rows.filter((row) => row.state === "unanswered").length;
+
+// The launch is the run's opening beat: it is not a warning, so it sets the
+// scene in a lead rather than taking a rail row.
+const launch = timeline.find(
+  (event) => !event.evidence && !event.halt && !event.voice,
+);
 ---
 
 {
@@ -69,6 +75,15 @@ const warnings = rows.filter((row) => row.state === "unanswered").length;
           {warnings} unanswered · 1 halt
         </p>
       </header>
+
+      {
+        launch && (
+          <p class="record-spine__lead">
+            {launch.what} Every dated warning the record issued follows, with
+            the response each got.
+          </p>
+        )
+      }
 
       <ol class="record-spine__rail">
         {rows.map((row) => (
