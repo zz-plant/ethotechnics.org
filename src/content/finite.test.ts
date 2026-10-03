@@ -95,8 +95,8 @@ describe("Finite content specification", () => {
     expect(finiteContent.keyTakeaways.bullets.length).toBeGreaterThanOrEqual(5);
     const text = finiteContent.keyTakeaways.bullets.join(" ");
     expect(text).toContain("Dual-ledger verification");
-    expect(text).toContain("Deterministic stop signals");
-    expect(text).toContain("Rollback verification");
+    expect(text).toContain("Non-retaliatory stop");
+    expect(text).toContain("Restitution over rollback");
   });
 
   it("contains no retired marketing promises and no dead prototype fields", () => {
