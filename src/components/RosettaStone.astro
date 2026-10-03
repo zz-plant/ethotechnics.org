@@ -1,0 +1,275 @@
+---
+/**
+ * RosettaStone.astro
+ *
+ * Industry vocabulary translation table mapping common enterprise and vendor
+ * AI euphemisms to Ethotechnics constitutional mechanisms and standards.
+ */
+
+interface TranslationRow {
+  industryTerm: string;
+  industryUsage: string;
+  ethotechnicReality: string;
+  constitutionalMechanism: string;
+  governingStandard: { id: string; name: string; href: string };
+  governingLaw: { numeral: string; statement: string; href: string };
+}
+
+const translations: TranslationRow[] = [
+  {
+    industryTerm: "Human-in-the-loop (HITL)",
+    industryUsage:
+      "A human reviewer clicks 'Approve' hundreds of times a day to absorb legal liability for unreviewable model throughput.",
+    ethotechnicReality: "Counterfeit buffering & liability absorption",
+    constitutionalMechanism:
+      "Expiring Authority Leases (STD-08). The human operator is an accountable overseer who can halt the system without penalty, and the grant lapses unless someone renews it on stated evidence.",
+    governingStandard: {
+      id: "STD-08",
+      name: "Delegation",
+      href: "/standards/std-08-delegation",
+    },
+    governingLaw: {
+      numeral: "Law I",
+      statement: "Capability does not imply authority.",
+      href: "/standards/laws#law-i",
+    },
+  },
+  {
+    industryTerm: "Kill switch",
+    industryUsage:
+      "An emergency shutdown button that operators are terrified to press because turning off the model collapses operations.",
+    ethotechnicReality: "Operational hostage / unhedged dependency",
+    constitutionalMechanism:
+      "The right to stop (STD-01). A person can stop a process, and the operator keeps a rehearsed manual path so the pipeline can be halted without the institution stalling.",
+    governingStandard: {
+      id: "STD-01",
+      name: "The Temporal Bill of Rights",
+      href: "/standards/std-01-temporal-rights",
+    },
+    governingLaw: {
+      numeral: "Law V",
+      statement: "Dependence converts technical risk into structural risk.",
+      href: "/standards/laws#law-v",
+    },
+  },
+  {
+    industryTerm: "AI ethics & alignment",
+    industryUsage:
+      "Voluntary corporate principles, red-teaming personas, or aspirational philosophy statements without legal recourse.",
+    ethotechnicReality: "Procedural theater without remedy",
+    constitutionalMechanism:
+      "Contestability & Recourse (STD-02). A principle with no route to challenge changes nothing. The standard asks whether the person an error lands on can challenge it, on a clock, and get a remedy.",
+    governingStandard: {
+      id: "STD-02",
+      name: "Contestability & Recourse",
+      href: "/standards/std-02-contestability-recourse",
+    },
+    governingLaw: {
+      numeral: "Law VII",
+      statement: "Error-bearing parties require standing proportional to exposure.",
+      href: "/standards/laws#law-vii",
+    },
+  },
+  {
+    industryTerm: "Bias audit & fairness metric",
+    industryUsage:
+      "A one-time statistical demographic parity check run before deployment on an offline test benchmark.",
+    ethotechnicReality: "Statistical aggregation concealing individual harm",
+    constitutionalMechanism:
+      "Revisable Delegation Record (STD-07). A system can pass aggregate demographic parity while ruining an innocent individual. We require per-decision causal justification, individual standing, and runtime challenge density monitoring.",
+    governingStandard: {
+      id: "STD-07",
+      name: "Revisable Delegation Record",
+      href: "/standards/std-07-revisable-delegation-record",
+    },
+    governingLaw: {
+      numeral: "Law VII",
+      statement: "Error-bearing parties require standing proportional to exposure.",
+      href: "/standards/laws#law-vii",
+    },
+  },
+  {
+    industryTerm: "Hallucination & model drift",
+    industryUsage:
+      "An inevitable, quirky probabilistic artifact treated as an acceptable cost of generative architectures.",
+    ethotechnicReality: "Decoupled justification / ungrounded claim",
+    constitutionalMechanism:
+      "Renewal on evidence (STD-08). An ungrounded assertion is not a basis for consequential action. A grant whose stated evidence no longer holds is not renewed.",
+    governingStandard: {
+      id: "STD-08",
+      name: "Delegation",
+      href: "/standards/std-08-delegation",
+    },
+    governingLaw: {
+      numeral: "Law II",
+      statement: "Authority decays unless its justification is renewed.",
+      href: "/standards/laws#law-ii",
+    },
+  },
+  {
+    industryTerm: "Worker burnout & change fatigue",
+    industryUsage:
+      "Caseworker stress and cognitive fatigue addressed through resilience training and wellness apps.",
+    ethotechnicReality: "Uncounted compensatory labor subsidy",
+    constitutionalMechanism:
+      "Human Impact Safety Case (STD-06). Burnout is the physical exhaustion of human beings spending unlogged hours repairing defective automated outputs so the system's metrics stay green.",
+    governingStandard: {
+      id: "STD-06",
+      name: "Human Impact Safety Case",
+      href: "/standards/std-06-human-impact-safety-case",
+    },
+    governingLaw: {
+      numeral: "Law IV",
+      statement: "Every consequential delegation creates a correction obligation.",
+      href: "/standards/laws#law-iv",
+    },
+  },
+  {
+    industryTerm: "Compliance checklist & self-attestation",
+    industryUsage:
+      "A document where a project manager signs off that 'risks have been reasonably mitigated' before shipping.",
+    ethotechnicReality: "Ungroundable self-attestation",
+    constitutionalMechanism:
+      "Decision records checked from outside (STD-07). Each record is hash-chained to the last, and an exported stream can be graded in CI by the conformance checker.",
+    governingStandard: {
+      id: "STD-07",
+      name: "Revisable Delegation Record",
+      href: "/standards/std-07-revisable-delegation-record",
+    },
+    governingLaw: {
+      numeral: "Law III",
+      statement: "Evidence and authority must remain coupled.",
+      href: "/standards/laws#law-iii",
+    },
+  },
+];
+---
+
+<div class="rosetta-stone" data-rosetta-stone>
+  <div class="rosetta-grid">
+    {
+      translations.map((row) => (
+        <article class="rosetta-card">
+          <header class="rosetta-card__header">
+            <span class="pill pill--ghost small">Industry term</span>
+            <h3 class="rosetta-card__title">"{row.industryTerm}"</h3>
+            <p class="rosetta-card__euphemism small muted">
+              <strong>Enterprise claim:</strong> {row.industryUsage}
+            </p>
+          </header>
+
+          <div class="rosetta-card__body">
+            <div class="rosetta-reality">
+              <span class="eyebrow warning">What is actually happening</span>
+              <p class="small">
+                <strong>{row.ethotechnicReality}</strong>
+              </p>
+            </div>
+
+            <div class="rosetta-mechanism">
+              <span class="eyebrow">Ethotechnics constitutional mechanism</span>
+              <p class="small">{row.constitutionalMechanism}</p>
+            </div>
+          </div>
+
+          <footer class="rosetta-card__footer">
+            <div class="rosetta-binding">
+              <span class="rosetta-label">Standard:</span>
+              <a href={row.governingStandard.href} class="rosetta-link">
+                <strong>{row.governingStandard.id}:</strong> {row.governingStandard.name}
+              </a>
+            </div>
+            <div class="rosetta-binding">
+              <span class="rosetta-label">Governing law:</span>
+              <a href={row.governingLaw.href} class="rosetta-link">
+                <strong>{row.governingLaw.numeral}:</strong> {row.governingLaw.statement}
+              </a>
+            </div>
+          </footer>
+        </article>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .rosetta-stone {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .rosetta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--space-5);
+  }
+
+  .rosetta-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    display: grid;
+    gap: var(--space-4);
+    align-content: space-between;
+  }
+
+  .rosetta-card__header {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .rosetta-card__title {
+    margin: 0;
+    font-size: var(--text-base);
+    color: var(--text);
+  }
+
+  .rosetta-card__euphemism {
+    margin: 0;
+    line-height: 1.45;
+  }
+
+  .rosetta-card__body {
+    display: grid;
+    gap: var(--space-3);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding-block: var(--space-3);
+  }
+
+  .rosetta-reality p,
+  .rosetta-mechanism p {
+    margin: var(--space-1) 0 0;
+  }
+
+  .rosetta-card__footer {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .rosetta-binding {
+    display: grid;
+    gap: 2px;
+    font-size: var(--text-xs);
+  }
+
+  .rosetta-label {
+    font-family: var(--sans);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-label);
+    color: var(--muted);
+    font-size: var(--text-xs);
+  }
+
+  .rosetta-link {
+    color: var(--text);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .rosetta-link:hover {
+    color: var(--accent);
+  }
+</style>

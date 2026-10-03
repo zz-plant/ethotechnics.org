@@ -255,10 +255,10 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   "named_human_overseer": {
     "role": "Chief Claims Officer",
     "halt_key_id": "key_ed25519_halt_04b",
-    "unpenalized_override_guaranteed": true
+    "override_protection_policy_ref": "POL-2026-NON-RETALIATION-03"
   },
   "inviolable_boundaries": {
-    "max_consecutive_denials": 12,
+    "max_denial_rate_per_100_evaluations": 15,
     "max_cumulative_disbursement_usd": 250000,
     "prohibited_actions": [
       "permanent_account_closure",
@@ -267,6 +267,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   },
   "review_triggers": {
     "upheld_challenge_rate_ceiling": 0.05,
+    "intake_friction_max_minutes": 15,
     "unresolved_appeals_backlog_hours": 48
   },
   "temporal_bounds": {
@@ -292,7 +293,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         <ul class="card__list">
           <li>
             <strong>Art 14 (Human Oversight):</strong> STD-08 defines operational
-            stoppability, override keys, and unpenalized human veto.
+            stoppability, override keys, and unpenalized human veto, rejecting nominal
+            human-in-the-loop arrangements where intervention feasibility approaches
+            zero.
           </li>
           <li>
             <strong>Art 86 (Right to Explanation):</strong> STD-02 requires causal
@@ -329,8 +332,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         <p><strong>Article 22 & Procedural Due Process</strong></p>
         <ul class="card__list">
           <li>
-            <strong>GDPR Art 22 (Automated Decisions):</strong> MVC-01 provides actionable
-            contestability and non-retaliatory review.
+            <strong>GDPR Art 22 (Automated Decisions):</strong> MVC-01 specifies
+            procedural standing, causal decision reasons, and non-retaliatory review.
           </li>
           <li>
             <strong>Right to Standing:</strong> Guarantees that any party bearing

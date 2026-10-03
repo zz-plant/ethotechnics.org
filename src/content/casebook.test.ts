@@ -131,6 +131,24 @@ describe("casebook", () => {
     }
   });
 
+  it("provides remediation guidance for every case with valid internal paths", () => {
+    for (const entry of cases) {
+      expect(entry.remediation).toBeDefined();
+      expect(entry.remediation.diagnostic.name.length).toBeGreaterThan(0);
+      expect(entry.remediation.diagnostic.href.startsWith("/")).toBe(true);
+      expect(entry.remediation.diagnostic.purpose.length).toBeGreaterThan(0);
+
+      expect(entry.remediation.standard.id).toMatch(/^(STD-\d+|MVC-\d+)$/);
+      expect(entry.remediation.standard.name.length).toBeGreaterThan(0);
+      expect(entry.remediation.standard.href).toMatch(/^\/standards\//);
+      expect(entry.remediation.standard.requirement.length).toBeGreaterThan(0);
+
+      expect(entry.remediation.theory.title.length).toBeGreaterThan(0);
+      expect(entry.remediation.theory.href).toMatch(/^\/research\/theory\//);
+      expect(entry.remediation.theory.question.length).toBeGreaterThan(0);
+    }
+  });
+
   it("tallies verdicts per variable", () => {
     const tally = verdictTally();
     for (const variable of stateVariables) {
