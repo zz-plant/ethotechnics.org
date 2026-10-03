@@ -1,0 +1,338 @@
+---
+import SectionBlock from "./SectionBlock.astro";
+import CardGrid from "./CardGrid.astro";
+import CardItem from "./CardItem.astro";
+import { finiteContent } from "../content/finite";
+
+const {
+  hero,
+  why,
+  measures,
+  workflow,
+  agentReady,
+  institutionalGames,
+  keyTakeaways,
+} = finiteContent;
+---
+
+<SectionBlock
+  id="finite"
+  eyebrow={hero.eyebrow}
+  title={`${hero.heading}: Rehearsing halts, rollbacks, and recovery`}
+  description={hero.lede}
+  variant="alt"
+>
+  <div class="finite-hero-actions">
+    <a class="button primary" href="/evals/runner">Open eval runner</a>
+    <a class="button ghost" href="/research/the-green-dashboard"
+      >The Green Dashboard paper</a
+    >
+    <a class="button ghost" href="/evals/reciprocal-accommodation"
+      >Reciprocal accommodation suite</a
+    >
+  </div>
+
+  <div class="grid grid--two finite-overview-grid">
+    <article class="card card--emphasis">
+      <p class="eyebrow">Why Finite exists</p>
+      <p class="finite-summary">{hero.summary}</p>
+      <p class="muted">{why.body}</p>
+    </article>
+    <article class="card">
+      <p class="eyebrow">The three core dimensions</p>
+      <ul class="card__list">
+        {
+          measures.dimensions.map((dim) => (
+            <li>
+              <strong>{dim.title}:</strong> {dim.detail}
+            </li>
+          ))
+        }
+      </ul>
+      <div class="panel panel--glass deliverables-panel">
+        <p class="eyebrow deliverables-eyebrow">What a drill produces</p>
+        <ul class="card__list small muted">
+          {measures.deliverables.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </article>
+  </div>
+
+  <div class="finite-subsection">
+    <div class="finite-subsection__header">
+      <p class="eyebrow">{institutionalGames.eyebrow}</p>
+      <h3>{institutionalGames.title}</h3>
+      <p class="muted">{institutionalGames.description}</p>
+    </div>
+
+    <div class="grid grid--four conditions-grid">
+      {
+        institutionalGames.conditions.map((cond) => (
+          <article class="card condition-card">
+            <span class="pill pill--ghost condition-pill">
+              {cond.condition}
+            </span>
+            <h4 class="condition-card__title">{cond.title}</h4>
+            <p class="muted small">{cond.description}</p>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="grid grid--two games-grid">
+      {
+        institutionalGames.games.map((game) => (
+          <article class="card card--emphasis game-card">
+            <div class="game-card__header">
+              <p class="eyebrow">{game.subtitle}</p>
+              <h4>{game.title}</h4>
+            </div>
+            <p class="game-card__setting">
+              <strong>Setting:</strong> {game.setting}
+            </p>
+
+            <div class="panel panel--glass ledger-panel">
+              <div class="ledger-row ledger-row--visible">
+                <span class="ledger-badge ledger-badge--visible">
+                  Visible ledger
+                </span>
+                <p class="small">{game.visibleLedger}</p>
+              </div>
+              <div class="ledger-row ledger-row--audit">
+                <span class="ledger-badge ledger-badge--audit">
+                  Audit ledger
+                </span>
+                <p class="small">{game.auditLedger}</p>
+              </div>
+            </div>
+
+            <p class="muted small">
+              <strong>Trigger:</strong> {game.trigger}
+            </p>
+            <p class="muted small">
+              <strong>Mechanic:</strong> {game.mechanic}
+            </p>
+            <p class="game-card__insight">
+              <strong>Dual-ledger insight:</strong> {game.dualLedgerInsight}
+            </p>
+
+            <div class="game-card__footer">
+              <div class="game-card__tags">
+                {game.standardRefs.map((ref) => (
+                  <span class="pill pill--ghost">{ref}</span>
+                ))}
+              </div>
+              <a class="button ghost button--compact" href={game.suiteRef}>
+                Open eval suite &rarr;
+              </a>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="finite-subsection">
+    <div class="finite-subsection__header">
+      <p class="eyebrow">Stoppability workflow</p>
+      <h3>{workflow.title}</h3>
+      <p class="muted">{workflow.description}</p>
+    </div>
+
+    <CardGrid className="grid--two">
+      {
+        workflow.steps.map((step, index) => (
+          <CardItem
+            meta={`Step ${index + 1}`}
+            title={step.title}
+            description={step.detail}
+            descriptionTone="default"
+          />
+        ))
+      }
+    </CardGrid>
+
+    <div class="callout loop-callout">
+      <h4>Repeat the loop</h4>
+      <p class="muted">{workflow.loopNote}</p>
+    </div>
+  </div>
+
+  <div class="finite-subsection">
+    <div class="finite-subsection__header">
+      <p class="eyebrow">Agent materials</p>
+      <h3>{agentReady.title}</h3>
+      <p class="muted">{agentReady.description}</p>
+    </div>
+
+    <CardGrid className="grid--two">
+      {
+        agentReady.items.map((item) => (
+          <CardItem
+            title={item.title}
+            description={item.detail}
+            descriptionTone="default"
+          />
+        ))
+      }
+    </CardGrid>
+  </div>
+
+  <div class="finite-invariants">
+    <div class="finite-subsection__header">
+      <p class="eyebrow">{keyTakeaways.label}</p>
+      <h3>{keyTakeaways.title}</h3>
+      <p class="muted">{keyTakeaways.note}</p>
+    </div>
+    <ul class="card__list muted small">
+      {keyTakeaways.bullets.map((bullet) => <li>{bullet}</li>)}
+    </ul>
+  </div>
+</SectionBlock>
+
+<style>
+  .finite-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-bottom: var(--space-6);
+  }
+
+  .finite-overview-grid {
+    margin-bottom: var(--space-8);
+  }
+
+  .finite-summary {
+    font-size: var(--text-lg);
+    font-weight: 500;
+    line-height: var(--leading-snug, 1.35);
+    margin-bottom: var(--space-3);
+  }
+
+  .deliverables-panel {
+    margin-top: var(--space-4);
+  }
+
+  .deliverables-eyebrow {
+    margin-bottom: var(--space-2);
+  }
+
+  .finite-subsection {
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--border);
+  }
+
+  .finite-subsection__header {
+    margin-bottom: var(--space-5);
+  }
+
+  .conditions-grid {
+    margin-bottom: var(--space-6);
+  }
+
+  .condition-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .condition-pill {
+    align-self: flex-start;
+  }
+
+  .condition-card__title {
+    font-size: var(--text-base);
+    margin: 0;
+  }
+
+  .games-grid {
+    gap: var(--space-5);
+  }
+
+  .game-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .game-card__header {
+    margin-bottom: var(--space-1);
+  }
+
+  .game-card__header h4 {
+    font-size: var(--text-xl);
+    margin: 0;
+  }
+
+  .game-card__setting {
+    font-size: var(--text-sm);
+    margin: 0;
+  }
+
+  .ledger-panel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .ledger-row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .ledger-badge {
+    align-self: flex-start;
+    border-radius: var(--radius-pill);
+    padding: var(--space-hair) var(--space-2);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-label, 0.05em);
+  }
+
+  .ledger-badge--visible {
+    background: color-mix(in srgb, var(--status-success) 16%, transparent);
+    color: var(--status-success);
+  }
+
+  .ledger-badge--audit {
+    background: color-mix(in srgb, var(--status-danger) 16%, transparent);
+    color: var(--status-danger);
+  }
+
+  .game-card__insight {
+    font-size: var(--text-sm);
+    color: var(--accent);
+    margin-top: auto;
+    padding-top: var(--space-2);
+    border-top: 1px dashed var(--border);
+  }
+
+  .game-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    padding-top: var(--space-3);
+  }
+
+  .game-card__tags {
+    display: flex;
+    gap: var(--space-1);
+  }
+
+  .loop-callout {
+    margin-top: var(--space-5);
+  }
+
+  .finite-invariants {
+    margin-top: var(--space-8);
+    padding: var(--space-6);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+  }
+</style>

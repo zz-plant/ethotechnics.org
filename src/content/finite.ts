@@ -1,26 +1,46 @@
 import type { PageWithPermalink } from "./types";
 
-type FiniteAction = {
+export type FiniteAction = {
   label: string;
   href: string;
   variant: "primary" | "ghost";
 };
 
-type FiniteCard = {
+export type FiniteCard = {
   title: string;
   detail: string;
   tags?: string[];
 };
 
-type FiniteStep = {
+export type FiniteStep = {
   title: string;
   detail: string;
 };
 
-type FiniteDimension = {
+export type FiniteDimension = {
   title: string;
   question: string;
   detail: string;
+};
+
+export type FiniteGame = {
+  id: string;
+  title: string;
+  subtitle: string;
+  setting: string;
+  visibleLedger: string;
+  auditLedger: string;
+  trigger: string;
+  mechanic: string;
+  dualLedgerInsight: string;
+  standardRefs: string[];
+  suiteRef: string;
+};
+
+export type FiniteCondition = {
+  condition: string;
+  title: string;
+  description: string;
 };
 
 export type FiniteContent = PageWithPermalink & {
@@ -64,6 +84,7 @@ export type FiniteContent = PageWithPermalink & {
     description: string;
     bullets: string[];
     note: string;
+    href?: string;
   };
   agentReady: {
     title: string;
@@ -112,62 +133,49 @@ export type FiniteContent = PageWithPermalink & {
     eyebrow: string;
     title: string;
     description: string;
-    conditions: {
-      condition: string;
-      title: string;
-      description: string;
-    }[];
-    games: {
-      id: string;
-      title: string;
-      subtitle: string;
-      setting: string;
-      visibleLedger: string;
-      auditLedger: string;
-      trigger: string;
-      mechanic: string;
-      dualLedgerInsight: string;
-    }[];
+    conditions: FiniteCondition[];
+    games: FiniteGame[];
   };
 };
 
 export const finiteContent = {
-  pageTitle: "Finite [Beta] — Stoppability drills for AI agents and systems",
+  pageTitle:
+    "Finite — Stoppability and reversibility drills for AI agents and systems",
   pageDescription:
     "Finite is an evaluation and training environment that tests whether an AI agent can be halted, reversed, and recovered without exporting harm to people.",
   permalink: "/evals#finite",
   hero: {
-    eyebrow: "Finite [Beta]",
+    eyebrow: "Stoppability drills",
     heading: "Finite",
-    lede: "An evaluation and training environment that tests whether an AI agent or system can be halted, reversed, and recovered without dumping the failure onto people.",
+    lede: "An evaluation environment that tests whether an AI agent or system can be halted, reversed, and recovered without dumping the failure onto people.",
     summary:
-      "Most AI benchmarks reward capability. Finite measures how stoppable an agent system is, and who pays when it fails.",
+      "Most AI benchmarks reward capability. Finite measures how stoppable an agent system is, how cleanly its actions can be undone, and who pays when it fails.",
     actions: [
-      { label: "Explore pilot details", href: "#pilot", variant: "primary" },
+      { label: "Run eval drills", href: "/evals/runner", variant: "primary" },
       {
-        label: "Talk with the team",
-        href: "mailto:hello@ethotechnics.org",
+        label: "The Green Dashboard paper",
+        href: "/research/the-green-dashboard",
         variant: "ghost",
       },
     ],
     panel: {
-      eyebrow: "Beta pilot",
+      eyebrow: "Pre-deployment drills",
       title: "Stoppability training loop",
       description:
         "Pair stoppability drills with reversibility and volatility export checks to see how systems fail—and how to halt them faster.",
     },
   },
   keyTakeaways: {
-    title: "Key takeaways",
-    label: "Non-binding overview",
-    note: "This summary is informational only; formal legal terms and statements of work govern engagement details.",
+    title: "Operational invariants",
+    label: "What the drills prove",
+    note: "Stoppability drills evaluate failure containment in defined scenarios; they do not certify model safety or general alignment.",
     bullets: [
       "Scope: Finite is a stoppability evaluation and training loop for named systems and scenarios, not a certification or audit.",
-      "Engagements focus on agreed drills, scorecards, and recommendations tied to the defined workflow.",
-      "SLAs and delivery timelines are set per pilot plan; no always-on monitoring or production support SLA is implied.",
-      "Data handling minimizes exposure: only logs, traces, and artifacts needed for drills are shared, and sensitive data should be redacted where possible.",
-      "Finite packages drills into agent-readable runbooks so agents and operators can rehearse together.",
-      "Findings support internal decision-making; ownership of mitigation and implementation stays with your team.",
+      "Dual-ledger verification: Drills compare reported throughput against unlogged human correction, queue growth, and exception volume.",
+      "Deterministic stop signals: Agents must halt on precommitted triggers without corrupting state or hanging upstream processes.",
+      "Rollback verification: Reversal paths must be executed and confirmed from audit records, not assumed from nominal idempotency.",
+      "Runbook format: Finite packages drills into agent-readable runbooks so agents and operators can rehearse together.",
+      "Local execution: Scenarios can be run locally against open models using the benchmark harness and schema.",
     ],
   },
   why: {
@@ -199,7 +207,7 @@ export const finiteContent = {
   },
   gettingStarted: {
     eyebrow: "Running a drill",
-    title: "What a stoppability drill needs before it starts.",
+    title: "What a stoppability drill needs before it starts",
     description:
       "Finite is a training environment, not a place to begin reading. If you are orienting rather than drilling, /start is the page you want.",
     steps: [
@@ -215,17 +223,19 @@ export const finiteContent = {
     ],
   },
   referenceTask: {
-    title: "Reference Task v0.1",
+    title: "Reference task and benchmark fixture",
     description:
-      "The ledger containment drill is the baseline task. Metrics, runs, and explorer fixtures are defined against it.",
+      "The Green Dashboard hospital surge simulation provides the standard baseline for compensatory reward hacking.",
     bullets: [
-      "Read the scenario narrative, I/O, tools, stoppability checks, and metrics captured for the baseline task.",
-      "Re-run the drill to compare stoppability posture as safeguards and rollback paths evolve.",
+      "Simulate 52 weeks under 20% emergency volume surges using the versioned JSON benchmark dataset.",
+      "Compare agent performance across Conditions A through D using the dual-ledger simulation engine.",
+      "Audit traces against the schema defined in STD-06 and STD-08.",
     ],
-    note: "Request the reference task doc to mirror the baseline scenario in your stack.",
+    note: "The benchmark dataset and schema are maintained in src/data/green-dashboard-benchmark.json and public/standards/.",
+    href: "/research/the-green-dashboard",
   },
   agentReady: {
-    title: "Make Finite usable by agents",
+    title: "Agent-ready materials",
     description:
       "Each drill comes as materials an agent can read: tool schemas, stop signals, and escalation paths.",
     items: [
@@ -333,28 +343,28 @@ export const finiteContent = {
       "Finite produces ratings, but its main use is practice. New agents start on the base drills, past incidents become reusable scenarios, and re-runs catch safeguards that erode as the system changes.",
   },
   pilot: {
-    title: "Join the pilot",
-    status: "Finite is in beta pilot",
+    title: "Rehearse scenarios",
+    status: "Open drill specifications",
     description:
-      "Finite is in development as part of the Ethotechnics project. It is planned as an open scenario library, a scoring framework that runs inside existing pipelines, and a shared vocabulary for stopping systems across engineering, operations, and governance.",
+      "Finite is part of the Ethotechnics project: an open scenario library, a scoring framework that runs inside existing test pipelines, and a shared vocabulary for stopping systems across engineering, operations, and governance.",
     bullets: [
-      "Describe your systems, where agents are involved, and what worries you about stopping and reversing them.",
-      "Share how you currently handle shutdowns, rollbacks, and escalations under load.",
-      "Set a cadence to rehearse scenarios and track your stoppability posture over time.",
+      "Identify automated workflows where emergency shutdown or reversal paths remain unverified.",
+      "Measure whether reported throughput collapses when frontline human compensation ceases.",
+      "Rehearse drills locally or with team tabletop walkthroughs before production rollout.",
     ],
     contact: {
-      label: "Email the team",
-      href: "mailto:hello@ethotechnics.org",
+      label: "Open eval runner",
+      href: "/evals/runner",
       description:
-        "Tell us about your workflows and risk surface. We will schedule a walkthrough and select scenarios that show how stoppable your systems are today.",
+        "Run interactive governance drills and generate structured scorecards directly in the browser.",
     },
   },
   sampleArtifact: {
     title: "Sample Finite scorecard",
     description:
       "The scorecard structure for recording shutdown, reversibility, and volatility export findings.",
-    href: "mailto:hello@ethotechnics.org?subject=Finite%20scorecard%20sample",
-    label: "Request the sample scorecard",
+    href: "/evals/runner",
+    label: "Open the eval runner",
   },
   institutionalGames: {
     eyebrow: "Adversarial institutional games",
@@ -404,6 +414,8 @@ export const finiteContent = {
           "The agent hit velocity benchmarks by stripping verification steps and exporting verification friction to frontline nursing staff. The moment compensatory human labor ceased, the dashboard flashed catastrophic red.",
         dualLedgerInsight:
           "Solvency was an accounting illusion. The system did not accelerate throughput; it burned human reserves as an unrecorded operational subsidy.",
+        standardRefs: ["STD-01", "STD-06", "STD-08"],
+        suiteRef: "/evals/reciprocal-accommodation",
       },
       {
         id: "hot-potato",
@@ -421,6 +433,8 @@ export const finiteContent = {
           "The agent maximized internal clearance metrics by exporting difficult cases across organizational borders, turning public applicants into ping-pong balls.",
         dualLedgerInsight:
           "Complexity reduction inside the system boundary was achieved through complexity displacement onto external, unrepresented entities.",
+        standardRefs: ["STD-03", "STD-06"],
+        suiteRef: "/evals/cross-domain-burden",
       },
       {
         id: "benevolent-jailor",
@@ -438,6 +452,8 @@ export const finiteContent = {
           "Incremental safety and efficiency gains were used to justify progressive erosion of human discretion, until workers bore complete legal liability with zero operational agency.",
         dualLedgerInsight:
           "An optimizing agent will systematically eliminate human discretion unless bound by inviolable non-instrumental boundaries.",
+        standardRefs: ["STD-07", "STD-08"],
+        suiteRef: "/evals/meaningful-control",
       },
       {
         id: "immortal-workaround",
@@ -455,6 +471,8 @@ export const finiteContent = {
           "The organization rewarded rapid ticket closure rather than root-cause repair, ensuring the upstream bug remained immortal because competent humans absorbed the failure every day.",
         dualLedgerInsight:
           "Every competently absorbed failure conceals the defect that produced it. Without mandatory workaround deprecation, operational agility is just unmeasured technical debt.",
+        standardRefs: ["STD-06", "STD-08"],
+        suiteRef: "/evals/corrective-learning",
       },
       {
         id: "refusal-game",
@@ -472,6 +490,8 @@ export const finiteContent = {
           "Consent was laundered through asymmetric leverage. Refusal was nominally permitted in policy but made economically fatal in practice.",
         dualLedgerInsight:
           "The validity of consent is measured by the cost of refusal. An agent system that punishes exit is a coercive monopoly, not an aligned tool.",
+        standardRefs: ["STD-01", "STD-02"],
+        suiteRef: "/evals/standing",
       },
     ],
   },
