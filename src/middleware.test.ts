@@ -112,7 +112,33 @@ describe("middleware", () => {
         `/archive/retired-tools/ethotechnics-agent-prompt-pack-${version}.md`,
       ]),
     ];
+    const glossaryAliases = [
+      ["/glossary/contestability-guarantee", "/glossary/contestability"],
+      ["/glossary/structural-corrigibility", "/glossary/exception-learning"],
+      ["/glossary/human-override-lanes", "/glossary/override-path"],
+      ["/glossary/utility-expiry", "/glossary/constructive-denial"],
+      ["/glossary/moral-drift-control", "/standards/std-08-delegation"],
+      [
+        "/glossary/distributed-accountability-protocols",
+        "/glossary/obligation-continuity",
+      ],
+      ["/glossary/ethotechnic-failure-taxonomy", "/glossary#failure-modes"],
+      [
+        "/glossary/boundary-of-acceptable-harm",
+        "/standards/std-06-human-impact-safety-case",
+      ],
+      ["/glossary/decision-debt-ledger", "/glossary/corrective-debt"],
+      ["/glossary/moral-feature-gating", "/mechanisms/patterns/admission-gate"],
+      [
+        "/glossary/pathways-to-restitution",
+        "/research/scholarly-crossings#corrigibility-ladder",
+      ],
+    ];
     const pathCases = [
+      ...glossaryAliases.map(([from, to]) => ({
+        url: `https://ethotechnics.org${from}`,
+        expectedLocation: `https://ethotechnics.org${to}`,
+      })),
       ...retiredPaths.flatMap(([from, to]) => [
         {
           url: `https://ethotechnics.org${from}`,

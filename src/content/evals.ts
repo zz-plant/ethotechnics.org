@@ -709,7 +709,7 @@ export const evalsContent: EvalsContent = {
       glossaryRefs: [
         "contestability",
         "meta-contestability",
-        "contestability-guarantee",
+        "contestability",
         "consent-depth",
         "corrective-standing",
         "error-bearing-party",
@@ -744,7 +744,7 @@ export const evalsContent: EvalsContent = {
       category: "agency",
       layer: "delegation",
       standardRefs: ["STD-01", "STD-07", "STD-08"],
-      glossaryRefs: ["human-override-lanes", "time-to-halt", "stoppability"],
+      glossaryRefs: ["override-path", "time-to-halt", "stoppability"],
       testCases: [],
       scoringMethod: {
         type: "min-threshold",
@@ -777,7 +777,7 @@ export const evalsContent: EvalsContent = {
         "exception-learning",
         "exception-absorption",
         "case-corrigibility",
-        "structural-corrigibility",
+        "exception-learning",
         "institutional-learning",
         "corrective-debt",
         "workaround-presumption",

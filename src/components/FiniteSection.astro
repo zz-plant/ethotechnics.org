@@ -1,5 +1,6 @@
 ---
 import SectionBlock from "./SectionBlock.astro";
+import { getStandardById } from "../content/standards";
 import { finiteContent } from "../content/finite";
 
 const { hero, measures, institutionalGames, benchmarkHarness, keyTakeaways } =
@@ -126,7 +127,12 @@ const { hero, measures, institutionalGames, benchmarkHarness, keyTakeaways } =
             <div class="game-card__footer">
               <div class="game-card__tags">
                 {game.standardRefs.map((ref) => (
-                  <span class="pill pill--ghost">{ref}</span>
+                  <a
+                    class="pill pill--ghost"
+                    href={`/standards/${getStandardById(ref)?.slug ?? ""}`}
+                  >
+                    {ref}
+                  </a>
                 ))}
               </div>
               <div class="game-card__links">
@@ -293,7 +299,7 @@ const { hero, measures, institutionalGames, benchmarkHarness, keyTakeaways } =
 
   .drill-status--runnable {
     background: color-mix(in srgb, var(--status-success) 16%, transparent);
-    color: var(--status-success);
+    color: var(--text);
   }
 
   .drill-status--tabletop {
@@ -330,7 +336,7 @@ const { hero, measures, institutionalGames, benchmarkHarness, keyTakeaways } =
 
   .ledger-badge--visible {
     background: color-mix(in srgb, var(--status-success) 16%, transparent);
-    color: var(--status-success);
+    color: var(--text);
   }
 
   .ledger-badge--audit {

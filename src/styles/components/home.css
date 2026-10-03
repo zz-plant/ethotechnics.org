@@ -1023,10 +1023,8 @@
     color: var(--muted);
   }
 
-  /* On a phone, and beside the hero's drawing on a wide screen, the three
-     links would wrap mid-row and start a line with a separator; they stack
-     instead, one per line. */
-  @media (max-width: 640px), (min-width: 1000px) {
+  /* Stack role links at every width so wrapped rows never start with a separator. */
+  @media (min-width: 0px) {
     .home-doors--strip ul {
       flex-direction: column;
       align-items: flex-start;

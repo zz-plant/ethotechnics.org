@@ -7,6 +7,21 @@ const COM_HOST_RE = /^(www\.)?ethotechnics\.com$/i;
 const WWW_ORG_HOST_RE = /^www\.ethotechnics\.org$/i;
 
 const REDIRECT_MAP: Record<string, string> = {
+  "/glossary/contestability-guarantee": "/glossary/contestability",
+  "/glossary/structural-corrigibility": "/glossary/exception-learning",
+  "/glossary/human-override-lanes": "/glossary/override-path",
+  "/glossary/utility-expiry": "/glossary/constructive-denial",
+  "/glossary/moral-drift-control": "/standards/std-08-delegation",
+  "/glossary/distributed-accountability-protocols":
+    "/glossary/obligation-continuity",
+  "/glossary/ethotechnic-failure-taxonomy": "/glossary#failure-modes",
+  "/glossary/boundary-of-acceptable-harm":
+    "/standards/std-06-human-impact-safety-case",
+  "/glossary/decision-debt-ledger": "/glossary/corrective-debt",
+  "/glossary/moral-feature-gating": "/mechanisms/patterns/admission-gate",
+  "/glossary/pathways-to-restitution":
+    "/research/scholarly-crossings#corrigibility-ladder",
+
   "/start-here": "/start",
   // Seven pages competed to be where a reader begins. Two remain: /method says
   // what this is, /start asks what you should do. The lenses and the four-step

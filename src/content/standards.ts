@@ -67,6 +67,8 @@ export const standardsContent: StandardsContent = {
   permalink: "/standards",
   anchorLinks: [
     { href: "#register", label: "The register" },
+    { href: "#code-example", label: "Code & schema example" },
+    { href: "#crosswalks", label: "Regulatory crosswalks" },
     { href: "#doctrine", label: "Foundations and references" },
     {
       href: "#adopted-standards",
@@ -104,10 +106,16 @@ export const standardsContent: StandardsContent = {
       description:
         "Defines contestability, review, and remedy obligations for consequential systems.",
       status: "Draft",
-      version: "1.2",
+      version: "1.3",
       changelogHref:
         "/standards/std-02-contestability-recourse#publication-history",
       changelogEntries: [
+        {
+          version: "1.3",
+          date: "2026-10-03",
+          summary:
+            "Publishes Articles VI and VII: review infrastructure, liability, and capacity (§6.1–§7.3).",
+        },
         {
           version: "1.2",
           date: "2026-09-22",
