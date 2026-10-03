@@ -63,6 +63,11 @@
     }
   }
 
+  .home-claim .home-draw {
+    width: 100%;
+    max-width: 50rem;
+  }
+
   /* The colophon: the page closes as a book does - one ruled band for the
      license and the studio, then a mono strip. Quietest treatment on the
      page, which is where a footer belongs. */
@@ -574,34 +579,18 @@
     border-bottom: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
   }
 
-  .home-casebook__key {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--space-3) var(--space-5);
-  }
-
-  .home-casebook__legend {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2) var(--space-4);
-    font-family: var(--sans);
-    font-size: var(--text-sm);
-    font-weight: 600;
-  }
-
-  .home-casebook__legend .sv__glyph {
-    color: var(--muted);
+  /* The column header sits directly above the rows and mirrors their
+     grid, so each three-letter label sits over its mark run and the halt
+     label sits over the bar. */
+  .home-casebook__columns {
+    display: none;
   }
 
   .home-casebook__verdict-key {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-1) var(--space-4);
-    margin: 0;
+    margin: 0 0 var(--space-2);
   }
 
   .home-casebook__list {
@@ -652,6 +641,11 @@
     gap: var(--space-2);
   }
 
+  .home-casebook__marks .verdict {
+    width: 1.5rem;
+    justify-content: center;
+  }
+
   .home-casebook__halt {
     display: flex;
     align-items: center;
@@ -682,6 +676,33 @@
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
     min-width: 3.5rem;
+  }
+
+  @media (min-width: 1000px) {
+    .home-casebook__columns {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      gap: var(--space-3) var(--space-6);
+      padding: 0 var(--space-1) var(--space-2);
+      font-family: var(--sans);
+      font-size: var(--text-xs);
+      font-weight: 650;
+      color: var(--muted);
+    }
+
+    .home-casebook__col {
+      width: 1.5rem;
+      text-align: center;
+    }
+
+    .home-casebook__col--spacer {
+      width: auto;
+    }
+
+    .home-casebook__col--halt {
+      width: 13rem;
+      text-align: center;
+    }
   }
 
   @media (max-width: 899px) {
@@ -999,6 +1020,42 @@
     }
   }
 
+  /* The rule-count figure draws itself once its section is in view: the
+     upheld challenges appear, then the arrow and the revised rule draw.
+     Static and complete wherever the script has not run. */
+  [data-reveal-ready] .home-draw .rule-count__marks,
+  [data-reveal-ready] .home-draw .rule-count__late {
+    opacity: 0;
+  }
+
+  [data-reveal-ready] .home-draw .rule-count__draw {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    [data-reveal-ready] .home-draw .rule-count__marks {
+      transition: opacity 0.6s ease;
+    }
+
+    [data-reveal-ready] .home-draw .rule-count__draw {
+      transition: stroke-dashoffset 0.8s var(--ease-out-editorial) 0.7s;
+    }
+
+    [data-reveal-ready] .home-draw .rule-count__late {
+      transition: opacity 0.4s ease 1.3s;
+    }
+
+    [data-reveal-ready] .home-draw.is-inview .rule-count__marks,
+    [data-reveal-ready] .home-draw.is-inview .rule-count__late {
+      opacity: 1;
+    }
+
+    [data-reveal-ready] .home-draw.is-inview .rule-count__draw {
+      stroke-dashoffset: 0;
+    }
+  }
+
   /* The rail: two hairlines at the viewport's left edge. The accent line
      fills with reading progress where scroll-driven animation exists; the
      rust line never moves -- the institution's ledger does not respond.
@@ -1118,91 +1175,6 @@
   }
 
   .hero-ledger__caption {
-    margin-top: var(--space-2);
-  }
-
-  /* The mechanism's loop, compact: four lines and one broken return. */
-  .mech-loop {
-    margin: 0;
-  }
-
-  .mech-loop__svg {
-    width: 100%;
-    max-width: 34rem;
-    height: auto;
-    display: block;
-  }
-
-  .mech-loop__box {
-    fill: var(--surface);
-    stroke-width: 1.5;
-  }
-
-  .mech-loop__box--scheme {
-    stroke: var(--accent);
-  }
-
-  .mech-loop__box--person {
-    stroke: var(--teal);
-  }
-
-  .mech-loop__box--rule {
-    stroke: color-mix(in srgb, var(--border) 60%, var(--muted));
-    stroke-dasharray: 4 3;
-  }
-
-  .mech-loop__svg .mech-loop__title {
-    font-family: var(--serif);
-    font-size: 15px;
-    font-weight: 650;
-    fill: var(--text);
-  }
-
-  .mech-loop__svg .mech-loop__caps {
-    font-family: var(--sans);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    fill: var(--muted);
-  }
-
-  .mech-loop__svg .mech-loop__caps--cut {
-    fill: var(--mark);
-  }
-
-  .mech-loop__flow {
-    stroke-width: 1.5;
-    fill: none;
-  }
-
-  .mech-loop__flow--debts {
-    stroke: var(--accent);
-  }
-
-  .mech-loop__flow--appeal {
-    stroke: var(--teal);
-  }
-
-  .mech-loop__flow--ruling {
-    stroke: var(--muted);
-    stroke-dasharray: 5 4;
-  }
-
-  .mech-loop__flow--cut {
-    stroke: var(--mark);
-    stroke-width: 2;
-    stroke-dasharray: 5 4;
-  }
-
-  .mech-loop__svg .mech-loop__cut {
-    font-family: var(--sans);
-    font-size: 20px;
-    font-weight: 800;
-    fill: var(--mark);
-  }
-
-  .mech-loop__caption {
     margin-top: var(--space-2);
   }
 

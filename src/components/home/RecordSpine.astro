@@ -71,7 +71,13 @@ const launch = timeline.find(
             Watch one scheme run.
           </h2>
         </div>
-        <p class="record-spine__chip">{warnings} unanswered · 1 halt</p>
+        <p
+          class="record-spine__chip"
+          data-spine-chip
+          data-warnings-total={warnings}
+        >
+          {warnings} unanswered · 1 halt
+        </p>
       </header>
 
       {launch && (
@@ -88,6 +94,8 @@ const launch = timeline.find(
               "record-spine__row",
               `record-spine__row--${row.state}`,
             ]}
+            data-spine-row
+            data-state={row.state}
             data-reveal
           >
             <div class="record-spine__quote">
