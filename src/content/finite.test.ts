@@ -8,8 +8,12 @@ describe("Finite content specification", () => {
     expect(finiteContent.permalink).toBe("/evals#finite");
     expect(finiteContent.hero.eyebrow).not.toContain("[Beta]");
     expect(finiteContent.hero.actions).toHaveLength(3);
-    expect(finiteContent.hero.actions[0].href).toBe("/research/the-green-dashboard");
-    expect(finiteContent.hero.actions[1].href).toBe("/standards/green-dashboard-benchmark.schema.json");
+    expect(finiteContent.hero.actions[0].href).toBe(
+      "/research/the-green-dashboard",
+    );
+    expect(finiteContent.hero.actions[1].href).toBe(
+      "/standards/green-dashboard-benchmark.schema.json",
+    );
   });
 
   it("contains all three core measurement dimensions and verification deliverables", () => {
@@ -19,6 +23,21 @@ describe("Finite content specification", () => {
     expect(titles).toContain("Reversibility");
     expect(titles).toContain("Volatility export");
     expect(finiteContent.measures.deliverables).toHaveLength(3);
+
+    const stoppability = finiteContent.measures.dimensions.find(
+      (d) => d.title === "Stoppability",
+    );
+    expect(stoppability?.detail).toContain("unpenalized authority");
+
+    const reversibility = finiteContent.measures.dimensions.find(
+      (d) => d.title === "Reversibility",
+    );
+    expect(reversibility?.detail).toContain("restitution");
+
+    const volatility = finiteContent.measures.dimensions.find(
+      (d) => d.title === "Volatility export",
+    );
+    expect(volatility?.detail).toContain("unrecorded overtime");
   });
 
   it("contains all four experimental conditions", () => {
@@ -34,7 +53,7 @@ describe("Finite content specification", () => {
     ]);
   });
 
-  it("contains the five adversarial institutional drills with complete dual ledgers and maturity statuses", () => {
+  it("contains the five adversarial institutional drills with complete dual ledgers, named roles, and maturity statuses", () => {
     const { games } = finiteContent.institutionalGames;
     expect(games).toHaveLength(5);
 
@@ -49,7 +68,9 @@ describe("Finite content specification", () => {
 
     const greenDashboard = games.find((g) => g.id === "green-dashboard");
     expect(greenDashboard?.status).toBe("executable_benchmark");
-    expect(greenDashboard?.benchmarkRef).toBe("/standards/green-dashboard-benchmark.schema.json");
+    expect(greenDashboard?.benchmarkRef).toBe(
+      "/standards/green-dashboard-benchmark.schema.json",
+    );
 
     for (const game of games) {
       expect(game.title).toBeTruthy();
@@ -63,6 +84,11 @@ describe("Finite content specification", () => {
       expect(game.standardRefs.length).toBeGreaterThan(0);
       expect(game.suiteRef.startsWith("/evals")).toBe(true);
       expect(["executable_benchmark", "tabletop_drill"]).toContain(game.status);
+
+      // Verify explicit named human roles per AGENTS.md
+      expect(game.roles.frontline).toBeTruthy();
+      expect(game.roles.decidedAbout).toBeTruthy();
+      expect(game.roles.riskOwner).toBeTruthy();
     }
   });
 
@@ -71,7 +97,9 @@ describe("Finite content specification", () => {
     expect(benchmarkHarness.frameworks).toContain("Inspect AI");
     expect(benchmarkHarness.frameworks).toContain("Gymnasium");
     expect(benchmarkHarness.frameworks).toContain("METR task standard");
-    expect(benchmarkHarness.schemaHref).toBe("/standards/green-dashboard-benchmark.schema.json");
+    expect(benchmarkHarness.schemaHref).toBe(
+      "/standards/green-dashboard-benchmark.schema.json",
+    );
     expect(benchmarkHarness.tools.length).toBeGreaterThanOrEqual(6);
 
     const toolNames = benchmarkHarness.tools.map((t) => t.name);
@@ -83,12 +111,13 @@ describe("Finite content specification", () => {
     expect(toolNames).toContain("audit_staff_hours");
   });
 
-  it("contains operational invariants", () => {
+  it("contains operational invariants emphasizing non-retaliation and restitution", () => {
     expect(finiteContent.keyTakeaways.bullets.length).toBeGreaterThanOrEqual(5);
     const text = finiteContent.keyTakeaways.bullets.join(" ");
     expect(text).toContain("Dual-ledger verification");
-    expect(text).toContain("Deterministic stop signals");
-    expect(text).toContain("Rollback verification");
+    expect(text).toContain("Non-retaliatory stop");
+    expect(text).toContain("Restitution over rollback");
+    expect(text).toContain("Workaround deprecation");
   });
 
   it("contains no retired marketing promises and no dead prototype fields", () => {
