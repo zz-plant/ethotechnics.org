@@ -87,6 +87,15 @@
     padding-inline: 0;
   }
 
+  /* The field-level positioning card: one band between the casebook and the
+     claims test, same band treatment as the claim and casebook sections. */
+  .home-positioning {
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding: calc(var(--space-section) / 2) 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
+  }
+
   @media (min-width: 860px) {
     .home-supplement {
       grid-template-columns: repeat(2, minmax(0, 1fr));
