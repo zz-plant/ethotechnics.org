@@ -1,0 +1,48 @@
+---
+/**
+ * The scholar-instrument pairings, one row per tradition: what the scholar
+ * holds, the instrument this site supplies for it, and where the instrument
+ * lives. Rendered on the About page and in the research note at
+ * /research/scholarly-crossings, which develops six of the pairings with
+ * worked examples.
+ */
+import { instruments } from "../../content/positioning";
+---
+
+<div class="mapping-table__wrapper">
+  <table
+    class="mapping-table mapping-table--stack mapping-table--compare lineage__table"
+  >
+    <thead>
+      <tr>
+        <th scope="col">Tradition</th>
+        <th scope="col">What it holds</th>
+        <th scope="col">What Ethotechnics supplies</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        instruments.map((row) => (
+          <tr>
+            <th scope="row" data-label="Tradition">
+              {row.tradition}
+              <span class="lineage__works small muted">{row.scholars}</span>
+            </th>
+            <td data-label="What it holds">{row.has}</td>
+            <td data-label="What Ethotechnics supplies">
+              <strong>{row.instrument}.</strong> {row.supplies}
+              <span class="lineage__works small muted">
+                {row.links.map((link, index) => (
+                  <>
+                    <a href={link.href}>{link.label}</a>
+                    {index < row.links.length - 1 && ", "}
+                  </>
+                ))}
+              </span>
+            </td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>

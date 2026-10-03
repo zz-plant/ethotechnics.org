@@ -4,7 +4,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Logo from "../components/Logo.astro";
 import ClaimsTable from "../components/ClaimsTable.astro";
 import IntellectualLineage from "../components/IntellectualLineage.astro";
-import StandardsComparisonTable from "../components/StandardsComparisonTable.astro";
+import AdversariesTable from "../components/positioning/AdversariesTable.astro";
+import CompletionsTable from "../components/positioning/CompletionsTable.astro";
+import InstrumentsTable from "../components/positioning/InstrumentsTable.astro";
 import { cases, type LearningVerdict } from "../content/casebook";
 import { studio, studioSummary } from "../content/studio";
 
@@ -65,46 +67,76 @@ for (const entry of cases) {
     </div>
   </section>
 
-  <section class="stack-sm card">
-    <p class="eyebrow">What existing standards don't cover</p>
-    <h2>The gap Ethotechnics addresses</h2>
+  <section id="scholars" class="stack-sm card">
+    <p class="eyebrow">Instruments</p>
+    <h2>What it gives scholars who already agree</h2>
     <p>
-      The NIST AI RMF tells you to manage risk. The EU AI Act tells you to
-      document compliance and to keep a way to halt a high-risk system. ISO/IEC
-      42001 tells you to build a management system. The OECD AI Principles ask
-      that a harmful system can be overridden or decommissioned. The GDPR gives
-      a person the right to contest one decision. None of them asks whether a
-      challenge that succeeds changes the rule, whether permission to act
-      expires, or who carries the cost of errors while the system runs.
+      The neighboring fields already hold the commitments: contestability,
+      meaningful control, oversight, resilience. What they lack is failure
+      mechanics — a way to state when each value decays, what to measure, and
+      who would have to act.
     </p>
     <p>
-      Existing frameworks govern through what an institution writes down:
-      documents, roles, reviews, and attestations. These drafts specify the
-      records a running system has to keep: grants that expire unless renewed,
-      objections that are owed a revision or a reasoned refusal, a published
-      count of the time the system costs people, and a named person who can halt
-      it.
+      Each pairing below names one scholar's concept and the instrument on this
+      site that measures it. The traditions stay theirs; the instruments are
+      what the values were missing.
     </p>
-    <StandardsComparisonTable />
+    <InstrumentsTable />
     <p class="small muted">
-      Ethotechnics does not compete with these standards on whether governance
-      is "important." It addresses what they leave open:
-      <a href="/standards#comparison">see the full comparison →</a>
+      Six of the instruments have worked versions — the hospital power audit,
+      the corrigibility ladder, the oversight decay test, the role-decomposition
+      matrix, the reserve accounting balance sheet, and the
+      compensated-performance equation — on the{" "}
+      <a href="/research/scholarly-crossings">scholarly crossings</a> page.
+    </p>
+  </section>
+
+  <section id="divergence" class="stack-sm card">
+    <p class="eyebrow">Completions</p>
+    <h2>What it gives governance mechanisms that diverge</h2>
+    <p>
+      Some of the strongest arguments against new governance prefer an existing
+      mechanism: markets, user exit, open models, benefit-cost analysis,
+      industry self-regulation, application-layer rules, institutional
+      adaptation, or management-based regulation.
     </p>
     <p>
-      The differentiation is not only against standards but against four nearby
-      fields. AI ethics asks whether systems are fair, transparent, private, or
-      aligned. Safety engineering asks whether they malfunction. Human-centered
-      design asks whether they work for their users. Governance asks who
-      oversees them. Ethotechnics draws on all four and asks a further question:
-      how should technical systems be built so that increases in capability do
-      not automatically become increases in domination? A system can be
-      accurate, transparent, human-supervised, democratically authorized, and
-      socially beneficial, and still be bad — if its success depends on quietly
-      shifting work and cost onto the people it serves, on appeals nobody can
-      use, or on authority expanded beyond what was justified. What the
-      discipline considers low-leverage is catalogued at{" "}
-      <a href="/low-leverage">low-leverage work</a>.
+      This framework does not replace any of them. It adds one question each
+      mechanism's own theory does not ask: does this mechanism continue to hold
+      effective corrective power after the system has been successful for ten
+      years? The condition matters. Prolonged success changes the mechanism —
+      dependency accumulates, exit narrows, the handler's practice decays — so a
+      mechanism that corrects in year one can be nominal by year ten.
+    </p>
+    <CompletionsTable />
+    <p class="small muted">
+      None of these additions asks anyone to give up the mechanism. Each one
+      names the record that shows whether the mechanism still works.
+    </p>
+  </section>
+
+  <section id="disagreement" class="stack-sm card">
+    <p class="eyebrow">Counterpositions</p>
+    <h2>The real disagreement</h2>
+    <p>
+      The serious opponent of this framework does not defend unaccountable
+      power. The serious opponent holds that competition, exit, reputation, tort
+      liability, sectoral regulation, and ordinary democratic institutions
+      already provide sufficient correction.
+    </p>
+    <p>
+      If that is right, this framework is overhead. Its case rests on there
+      being identifiable, measurable circumstances in which those mechanisms
+      stop providing effective correction as technological dependency grows.
+      Each position below is stated so its holders would accept it, and each row
+      names the empirical question that would settle it.
+    </p>
+    <AdversariesTable />
+    <p class="small muted">
+      The disagreements are empirical, not aesthetic. The{" "}
+      <a href="/research/scholarly-crossings#disagreement"
+        >scholarly crossings</a
+      > note develops each position.
     </p>
   </section>
 
@@ -143,33 +175,6 @@ for (const entry of cases) {
       <a href="/research/theory/the-compulsion-problem"
         >the compulsion problem</a
       >.
-    </p>
-  </section>
-
-  <section class="stack-sm card">
-    <p class="eyebrow">The governance landscape</p>
-    <h2>Where Ethotechnics fits</h2>
-    <p>
-      Enterprises buy compliance platforms, evaluation tools, and guardrail
-      systems to meet new regulatory requirements. Each of those products needs
-      something to be measured against.
-    </p>
-    <p>
-      Ethotechnics is not a product. It publishes benchmarks and test cases that
-      governance platforms can be evaluated against — the role NIST frameworks
-      play for compliance tools, or OWASP standards for security tools. Those
-      bodies hold that role because institutions adopted them. Ethotechnics is
-      proposed for it.
-    </p>
-    <p>
-      The Institute provides the open standards. The Studio provides
-      <a
-        href="https://ethotechnics.com"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        commissioned safety evaluation for healthcare AI →
-      </a>
     </p>
   </section>
 
