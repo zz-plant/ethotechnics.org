@@ -8,6 +8,7 @@ import RobodebtLoop from "../components/home/RobodebtLoop.astro";
 import SafeguardMap from "../components/home/SafeguardMap.astro";
 import SelfTest from "../components/home/SelfTest.astro";
 import ExceptionLearningFigure from "../components/ExceptionLearningFigure.astro";
+import SectionBlock from "../components/SectionBlock.astro";
 import { studioSummary } from "../content/studio";
 
 /**
@@ -96,9 +97,94 @@ const doors = [
           }
         </ul>
       </nav>
+
+      <div class="home-pillars">
+        <a class="home-pillar" href="/standards">
+          <span class="eyebrow">Standards</span>
+          <strong>8 Enforceable Standards</strong>
+          <span class="small muted"
+            >Authority leases, contestability clocks, and JSON schemas.</span
+          >
+        </a>
+        <a class="home-pillar" href="/evals">
+          <span class="eyebrow">Evaluations</span>
+          <strong>16 Suites & Finite Drills</strong>
+          <span class="small muted"
+            >Dual-ledger surge tests and failure containment benchmarks.</span
+          >
+        </a>
+        <a class="home-pillar" href="/diagnostics">
+          <span class="eyebrow">Diagnostics</span>
+          <strong>Free Browser Tools</strong>
+          <span class="small muted"
+            >Audit delegation, calculate debt, and test standing in minutes.</span
+          >
+        </a>
+      </div>
     </div>
     <RobodebtLoop class="institute-hero__figure" />
   </section>
+
+  <SectionBlock
+    id="orientation"
+    eyebrow="Orientation"
+    title="Three things this site answers before you begin"
+    description="The discipline that keeps automated decision systems answerable: when one is wrong, evidence of the harm reaches someone who has to change it."
+    variant="alt"
+  >
+    <div class="grid grid--three">
+      <article class="card stack-sm">
+        <p class="eyebrow">Scope & applicability</p>
+        <h3>What counts as a system under test?</h3>
+        <p>
+          If software takes an action, grants a benefit, denies an application,
+          or allocates work—and a human being has to live with the consequences
+          of an error—this framework applies.
+        </p>
+        <p class="small muted">
+          The object being engineered is the delegation and its authority lease,
+          not model capabilities.
+        </p>
+        <p class="small">
+          <a href="/use-cases">Explore covered use cases &rarr;</a>
+        </p>
+      </article>
+
+      <article class="card stack-sm">
+        <p class="eyebrow">The mechanism</p>
+        <h3>How this differs from "AI Ethics"</h3>
+        <p>
+          We reject "human-in-the-loop" when it means human liability sponging.
+          When upheld challenges cross a precommitted threshold, the automated
+          rule's authority expires until reauthorized.
+        </p>
+        <p class="small muted">
+          Closed feedback loops, not vague principles like "fairness" or
+          "transparency".
+        </p>
+        <p class="small">
+          <a href="/method">See the 7-stage governed chain &rarr;</a>
+        </p>
+      </article>
+
+      <article class="card stack-sm">
+        <p class="eyebrow">Adoption ladder</p>
+        <h3>Start by time available</h3>
+        <p>
+          Spend 5 minutes running a self-test diagnostic, 1 hour evaluating an
+          agent against a Finite dual-ledger surge drill, or 1 sprint adopting
+          machine-readable delegation records.
+        </p>
+        <p class="small muted">
+          Open standards, open data, and open benchmark fixtures licensed under
+          CC BY-SA 4.0.
+        </p>
+        <p class="small">
+          <a href="/start">Pick your entry path &rarr;</a>
+        </p>
+      </article>
+    </div>
+  </SectionBlock>
 
   <RecordSpine />
 
