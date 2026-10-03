@@ -242,632 +242,726 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       <div class="standards-code-card">
         <div class="standards-code-card__header">
           <span class="standards-code-card__title"
-            >authority-lease.json (STD-08 Schema)</span
+            >authority-grant.schema.json · example grant record</span
           >
-          <span class="standards-code-card__badge">JSON Schema v1.0</span>
+          <span class="standards-code-card__badge">Conforms to v1.0</span>
         </div>
         <pre
           class="code-block"><code>{`{
-  "$schema": "https://ethotechnics.org/schemas/v1/authority-lease.json",
-  "lease_id": "lea_2026_0941_claims_p4",
-  "delegation_target": "claims-triage-worker-v2",
-  "granted_by": "risk-director-ops@agency.gov",
-  "named_human_overseer": {
-    "role": "Chief Claims Officer",
-    "halt_key_id": "key_ed25519_halt_04b",
-    "unpenalized_override_guaranteed": true
-  },
-  "inviolable_boundaries": {
-    "max_consecutive_denials": 12,
-    "max_cumulative_disbursement_usd": 250000,
-    "prohibited_actions": [
-      "permanent_account_closure",
-      "police_referral"
-    ]
-  },
-  "review_triggers": {
-    "upheld_challenge_rate_ceiling": 0.05,
-    "unresolved_appeals_backlog_hours": 48
-  },
-  "temporal_bounds": {
+  "schema_version": "1.0.0",
+  "grant_id": "grant_2026_claims_triage_001",
+  "provenance": {
+    "issued_by": "risk-director-ops@agency.gov",
     "issued_at": "2026-10-01T00:00:00Z",
-    "expires_at": "2026-10-15T00:00:00Z",
-    "renewal_requires": ["review_receipt", "restitution_check"]
-  }
-}`}</code></pre>
-      </div>
-    </div>
-  </SectionBlock>
-
-  <SectionBlock
-    id="crosswalks"
-    eyebrow="Statutory crosswalks"
-    title="How Ethotechnics maps to statutory obligations"
-    description="For risk owners and legal counsel: where these standards supply the technical evidence required by prevailing AI legislation and safety frameworks."
-  >
-    <div class="grid grid--three">
-      <div class="panel stack-sm">
-        <p class="eyebrow">EU AI Act</p>
-        <p><strong>Articles 14, 86, and 12</strong></p>
-        <ul class="card__list">
-          <li>
-            <strong>Art 14 (Human Oversight):</strong> STD-08 defines operational
-            stoppability, override keys, and unpenalized human veto.
-          </li>
-          <li>
-            <strong>Art 86 (Right to Explanation):</strong> STD-02 requires causal
-            decision reasons delivered directly with the determination.
-          </li>
-          <li>
-            <strong>Art 12 (Record-Keeping):</strong> STD-07 specifies tamper-evident
-            delegation and contestation logs with verified hash chains.
-          </li>
-        </ul>
-      </div>
-
-      <div class="panel stack-sm">
-        <p class="eyebrow">NIST AI RMF 1.0</p>
-        <p><strong>Govern 1.2, Measure 2.7, Manage 2.4</strong></p>
-        <ul class="card__list">
-          <li>
-            <strong>GOVERN 1.2 (Accountability):</strong> Names individual accountable
-            risk owners rather than diffused advisory committees.
-          </li>
-          <li>
-            <strong>MEASURE 2.7 (Remediation):</strong> Quantifies time-to-halt, appeal
-            turnaround SLA, and restitution completion rates.
-          </li>
-          <li>
-            <strong>MANAGE 2.4 (Incident Response):</strong> Pre-rehearsed rollback
-            drills and automatic lease expiration on anomaly spikes.
-          </li>
-        </ul>
-      </div>
-
-      <div class="panel stack-sm">
-        <p class="eyebrow">GDPR & Administrative Law</p>
-        <p><strong>Article 22 & Procedural Due Process</strong></p>
-        <ul class="card__list">
-          <li>
-            <strong>GDPR Art 22 (Automated Decisions):</strong> MVC-01 provides actionable
-            contestability and non-retaliatory review.
-          </li>
-          <li>
-            <strong>Right to Standing:</strong> Guarantees that any party bearing
-            error-burden holds procedural standing to dispute the output.
-          </li>
-          <li>
-            <strong>Restitution Invariants:</strong> Reversal requires making the
-            affected person whole, not merely resetting a database flag.
-          </li>
-        </ul>
-      </div>
-    </div>
-  </SectionBlock>
-
-  <SectionBlock
-    id="goal-chooser"
-    eyebrow="Where to start"
-    title="Start from what you have to do"
-    description="Where to start if you are writing policy, preparing for an audit, or overseeing a build."
-  >
-    <CardGrid className="grid--three">
-      <CardItem
-        title="Draft policy language"
-        description="The core axioms and the comparison below give you the terms, and the requirements a running system can be tested against, to write into policy."
-      >
-        <a slot="footer" class="muted" href="/standards/core-axioms"
-          >Start with core axioms</a
-        >
-      </CardItem>
-      <CardItem
-        title="Prepare for audit"
-        description="The STD-01 minimum binding set lists the least each right requires. The evidence packs list the records that show it is met."
-      >
-        <a
-          slot="footer"
-          class="muted"
-          href="/standards/std-01-minimum-binding-set"
-        >
-          Review minimum binding set
-        </a>
-      </CardItem>
-      <CardItem
-        title="Oversee implementation"
-        description="Implementation examples show each standard as the stop rules, clocks, and records a delivery team builds."
-      >
-        <a slot="footer" class="muted" href="#implementation-examples"
-          >Open implementation examples</a
-        >
-      </CardItem>
-    </CardGrid>
-    <p class="small muted">
-      Buying a system from a vendor?
-      <a href="/standards/where-this-binds"
-        >Cite clauses in the contract and require an evidence pack at each
-        release →</a
-      >
-    </p>
-  </SectionBlock>
-
-  <SectionBlock
-    id="status-assignment"
-    eyebrow="Status model"
-    title="How status is assigned"
-    description="Each status has entry conditions, listed below. They say what a standard needs before it can move to that status."
-  >
-    <CardGrid className="grid--three">
-      <CardItem
-        title="Draft"
-        description="Under active review. Clauses may still change."
-      >
-        <ul class="muted small">
-          <li>At least 1 internal standards editor review.</li>
-          <li>Core test fixtures run and pass for referenced mechanisms.</li>
-          <li>Open changelog entry documenting known gaps.</li>
-        </ul>
-      </CardItem>
-      <CardItem
-        title="Stable"
-        description="Settled enough to cite in production policy and procurement requirements."
-      >
-        <ul class="muted small">
-          <li>
-            Minimum 2 independent reviewers (one external to the author team).
-          </li>
-          <li>
-            Evidence tests and implementation checks completed with receipts.
-          </li>
-          <li>
-            Stable criteria satisfied and recorded in publication metadata.
-          </li>
-        </ul>
-      </CardItem>
-      <CardItem
-        title="Deprecated"
-        description="Not for new adoptions. A replacement is linked when one exists."
-      >
-        <ul class="muted small">
-          <li>
-            Deprecation decision recorded through the
-            <a href="/institute/governance#lifecycle">RFC process</a>.
-          </li>
-          <li>
-            Replacement standard identified and linked by <code
-              >deprecated_by</code
-            >.
-          </li>
-          <li>Migration note added in changelog before status changes.</li>
-        </ul>
-      </CardItem>
-    </CardGrid>
-  </SectionBlock>
-
-  <SectionBlock
-    id="doctrine"
-    eyebrow="Foundations"
-    title="Foundations and references"
-    description="The axioms and laws the standards are written against, and the reference documents that apply them."
-  >
-    <CardGrid className="grid--two">
-      {
-        doctrine.map((item) => (
-          <CardItem
-            eyebrow={item.eyebrow}
-            title={item.title}
-            description={item.description}
-          >
-            <a slot="footer" class="muted" href={item.href}>
-              {item.ctaLabel}
-            </a>
-          </CardItem>
-        ))
-      }
-    </CardGrid>
-  </SectionBlock>
-
-  <SectionBlock
-    id="adopted-standards"
-    eyebrow="Existing frameworks"
-    title="Where widely adopted frameworks fall short"
-    description="For each of the most cited AI governance frameworks, what it leaves out once a system is running."
-  >
-    <CardGrid className="grid--two">
-      {
-        adoptedStandards.map((item) => (
-          <CardItem
-            eyebrow={item.eyebrow}
-            title={item.title}
-            description={item.description}
-          >
-            <a slot="footer" class="muted" href={item.href}>
-              Read critique
-            </a>
-          </CardItem>
-        ))
-      }
-    </CardGrid>
-  </SectionBlock>
-
-  <SectionBlock
-    id="comparison"
-    eyebrow="Standards comparison"
-    title="How Ethotechnics differs from existing AI governance standards"
-    description="A side-by-side comparison for regulators, operators, and risk owners."
-  >
-    <p class="eyebrow">The landscape</p>
-    <p>
-      This comparison covers four AI governance frameworks and one data
-      protection law that already governs automated decisions. Each addresses a
-      different part of the problem:
-    </p>
-    <ul class="card__list">
-      <li>
-        <strong>NIST AI RMF</strong> — A voluntary risk management framework (Govern,
-        Map, Measure, Manage). Strong on risk identification and documentation. MANAGE
-        2.4 asks for mechanisms and assigned responsibilities to deactivate a system;
-        nothing sets a recovery time target. It asks organizations to characterize
-        impacts on people up front (MAP 5). It does not ask them to measure or publish
-        the time a running system costs those people.
-      </li>
-      <li>
-        <strong>EU AI Act</strong> — A risk-tiered regulation requiring human oversight,
-        conformity assessment, and post-market monitoring. Providers show compliance
-        through technical documentation. Article 14 requires a way to halt a high-risk
-        system; nothing requires anyone to rehearse the halt or meet a restoration
-        deadline.
-      </li>
-      <li>
-        <strong>ISO/IEC 42001</strong> — A management system standard for AI. An accredited
-        body certifies the organization's AI management system, but certification
-        can coexist with slow or missing rollback authority. Top management reviews
-        the management system at planned intervals (clause 9.3). Nothing makes one
-        system's authority to act expire.
-      </li>
-      <li>
-        <strong>OECD AI Principles</strong> — Values-based principles adopted by governments
-        as a recommendation. Non-binding by design: they ask AI actors to be accountable
-        but set no duty anyone can enforce.
-      </li>
-      <li>
-        <strong>GDPR, Article 22</strong> — Limits solely automated decisions with
-        legal or similarly significant effects. Where one is necessary for a contract
-        or rests on the person's explicit consent, the controller must offer at least
-        human intervention, a chance to state a view, and a way to contest the decision.
-        The right attaches to that one decision. Nothing in Article 22 makes a run
-        of successful contests a reason to revise the rule.
-      </li>
-    </ul>
-    <p>
-      These frameworks improve documentation, oversight, and monitoring. They
-      leave one question largely open. When the evidence shows a running system
-      is harming people, does anyone have to act on it within a set time,
-      without the harmed person carrying the burden? Acting can mean halting the
-      system, reversing its decisions, repairing the harm, or changing the rule
-      that produced it.
-    </p>
-
-    <p class="eyebrow">In short</p>
-    <ul class="card__list">
-      <li>
-        A challenge that succeeds has to reach the rule, not only the one case.
-      </li>
-      <li>
-        Permission to act is a lease: it expires unless someone renews it, and
-        every widening is a new decision.
-      </li>
-      <li>
-        The operator measures and publishes the time a system costs people.
-        Whoever absorbs its errors can challenge it.
-      </li>
-      <li>
-        Governance is a runtime control plane, not a post-hoc review process.
-      </li>
-    </ul>
-    <p>
-      The frameworks above answer one question: “Did you manage risk
-      responsibly?” Ethotechnics answers a different one: “When this system is
-      harming someone, does evidence of the harm reach someone who has to change
-      the system?” The difference is in mechanics, not values.
-    </p>
-    <p>
-      In the casebook, harm ran from {haltLabel(shortestHalt)} to{" "}
-      {haltLabel(longestHalt)} before anyone halted or changed the system. Decisions
-      occur at machine speed. Reversal occurs at institutional speed. Harm compounds
-      in the gap.
-    </p>
-    <p class="muted">
-      Ethotechnics measures governability: time in harm, time to halt, recovery
-      time, and the time a system costs people.
-    </p>
-
-    <p class="eyebrow">Comparison matrix</p>
-    <div class="mapping-table__wrapper">
-      <table class="mapping-table mapping-table--compare">
-        <thead>
-          <tr>
-            <th scope="col">Dimension</th>
-            <th scope="col">Prevailing standards</th>
-            <th scope="col">Ethotechnics</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">Governance object</th>
-            <td data-label="Prevailing standards">Risk &amp; compliance</td>
-            <td data-label="Ethotechnics">Runtime governability</td>
-          </tr>
-          <tr>
-            <th scope="row">Typical artifacts</th>
-            <td data-label="Prevailing standards"
-              >Registers, assessments, policies</td
-            >
-            <td data-label="Ethotechnics"
-              >Expiring authority grants, objection records, burden reports</td
-            >
-          </tr>
-          <tr>
-            <th scope="row">Authority</th>
-            <td data-label="Prevailing standards"
-              >One approval, with reviews on a schedule or after a major change</td
-            >
-            <td data-label="Ethotechnics"
-              >A lease that expires unless renewed, and a new decision for each
-              widening</td
-            >
-          </tr>
-          <tr>
-            <th scope="row">Oversight</th>
-            <td data-label="Prevailing standards"
-              >Human oversight with a means to interrupt</td
-            >
-            <td data-label="Ethotechnics"
-              >Enforceable authority and a veto that binds</td
-            >
-          </tr>
-          <tr>
-            <th scope="row">Measurement</th>
-            <td data-label="Prevailing standards">Process maturity</td>
-            <td data-label="Ethotechnics"
-              >Time-in-harm + the time the system costs people</td
-            >
-          </tr>
-          <tr>
-            <th scope="row">Challenge</th>
-            <td data-label="Prevailing standards"
-              >A right to contest one decision</td
-            >
-            <td data-label="Ethotechnics"
-              >A revision or a reasoned refusal for each objection, on a clock</td
-            >
-          </tr>
-          <tr>
-            <th scope="row">Monitoring</th>
-            <td data-label="Prevailing standards">Visibility</td>
-            <td data-label="Ethotechnics"
-              >Visibility that triggers a required intervention</td
-            >
-          </tr>
-          <tr>
-            <th scope="row">Where the check happens</th>
-            <td data-label="Prevailing standards"
-              >Audits, conformity assessment, regulators</td
-            >
-            <td data-label="Ethotechnics"
-              >Built-in constraints + internal power to halt, reverse, or revise</td
-            >
-          </tr>
-          <tr>
-            <th scope="row">Ethics framing</th>
-            <td data-label="Prevailing standards"
-              >Principles weighed case by case</td
-            >
-            <td data-label="Ethotechnics"
-              >Constraints that hold in every case</td
-            >
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div
-      id="governance-by-control"
-      class="grid grid--three"
-      style="margin-top: var(--space-6);"
-    >
-      <div class="panel stack-sm">
-        <p class="eyebrow">1. Runtime control plane</p>
-        <p class="small muted">
-          Policies describe intent; control planes constrain behavior. Rather
-          than inventories, risk registers, and post-hoc paperwork, the
-          standards require explicit stop conditions, rehearsed rollback paths,
-          and safe fallback modes while the system runs.
-        </p>
-      </div>
-
-      <div class="panel stack-sm">
-        <p class="eyebrow">2. Authority that has to act</p>
-        <p class="small muted">
-          Oversight is symbolic unless someone has to act on what it sees.
-          Rather than advisory ethics committees or perfunctory review gates,
-          the standards require the operator to name who can halt, reverse, or
-          revise a running system, and bind that person to a clock. An objection
-          owes a revision or a reasoned refusal. A grant lapses unless someone
-          renews it on stated evidence.
-        </p>
-      </div>
-
-      <div class="panel stack-sm">
-        <p class="eyebrow">3. Temporal performance bounds</p>
-        <p class="small muted">
-          The person waiting on a decision carries the cost of every delay. When
-          decisions occur at machine speed, reversal cannot run at institutional
-          speed. A system may not decide faster than its appeal path can answer,
-          and every pending decision needs a deadline.
-        </p>
-      </div>
-    </div>
-
-    <p>
-      Existing standards and Ethotechnics agree that governance matters. The
-      question Ethotechnics adds is whether evidence that a system is harming
-      someone compels action. The action can be a halt, a reversal, a repair, or
-      a changed rule. It has to come within a set time, every time, and the
-      harmed person must not carry the burden.
-    </p>
-    <p class="muted">
-      That is the difference between governance as documentation and governance
-      as capability.
-    </p>
-  </SectionBlock>
-
-  <SectionBlock
-    id="comparison-versions"
-    eyebrow="Other framings"
-    title="The same comparison for a regulator, a board, and a workshop"
-    description="Three short framings of the comparison above, each for a different reader."
-  >
-    <div class="grid grid--three">
-      <div class="panel">
-        <p class="eyebrow">Regulator-facing brief</p>
-        <p>
-          A neutral, statute-adjacent framing that treats Ethotechnics as a
-          governance control requirement.
-        </p>
-        <ul class="card__list">
-          <li>
-            Defines governance as runtime capability (stop, pause, reverse,
-            contest) with auditable evidence.
-          </li>
-          <li>
-            Prioritizes measured recovery time over documentation completeness.
-          </li>
-          <li>
-            Positions external oversight as verification of control-plane
-            efficacy rather than sole enforcement.
-          </li>
-        </ul>
-      </div>
-      <div class="panel">
-        <p class="eyebrow">Board-level comparison</p>
-        <p>
-          Risk, liability, and incident exposure framing for executive review.
-        </p>
-        <ul class="card__list">
-          <li>
-            Identifies stoppability gaps as direct liability exposure and
-            escalation risk.
-          </li>
-          <li>
-            Treats recovery time as an operational KPI with reputational and
-            regulatory impacts.
-          </li>
-          <li>
-            Maps control-plane failures to incident severity, cost, and
-            remediation timelines.
-          </li>
-        </ul>
-      </div>
-      <div class="panel">
-        <p class="eyebrow">Diagrammatic version</p>
-        <p>
-          The policy stack and the control plane, side by side, for workshops
-          and audits.
-        </p>
-        <pre
-          class="code-block">{`Policy stack → policies → reviews → audits → reports
-Control plane → stop rules → clocks → rollback → restoration`}</pre>
-        <p class="muted">
-          The first line is checked from outside the running system. The second
-          is built into it.
+    "basis_summary": "Pilot safety case STD-06 v2.1"
+  },
+  "scope": {
+    "action_classes": [
+      "claim_triage",
+      "payment_hold"
+    ],
+    "systems": [
+      "claims-triage-worker-v2"
+    ],
+    "populations": [
+      "claimants with open claims"
+    ],
+    "limits": {
+      "max_daily_decisions": 20000,
+      "prohibited_actions": "permanent account closure; police referral"
+    }
+  },
+  "issuing_authority": {
+    "name": "Chief Claims Officer",
+    "role": "Grant owner",
+    "contact": "cco@agency.gov"
+  },
+  "grantee": {
+    "id": "claims-triage-worker-v2",
+    "type": "agent"
+  },
+  "action_classes": [
+    "claim_triage",
+    "payment_hold"
+  ],
+  "mode": "confirm",
+  "for_whom": "The claims department, on behalf of claimants",
+  "evidence_basis": [
+    {
+      "ref": "STD-06 safety case v2.1",
+      "summary": "Pilot evaluation with named oversight",
+      "as_of": "2026-09-15T00:00:00Z"
+    }
+  ],
+  "assumptions": [
+    "Appeal volume stays within the staffing model"
+  ],
+  "review_conditions": [
+    "Upheld challenge rate exceeds 0.05 in any 30-day window"
+  ],
+  "revocation_conditions": [
+    "A halt is blocked or penalized twice in one week"
+  ],
+  "state": "allowed",
+  "state_history": [
+    {
+      "from": "allowed",
+      "to": "allowed",
+      "at": "2026-10-01T00:00:00Z",
+      "reason": "issued"
+    }
+  ],
+  "attestation": {
+    "signed_by": "key_ed25519_halt_04b",
+    "algorithm": "ed25519",
+    "signature": "MEUCIQD7example_sig_base64",
+    "signed_at": "2026-10-01T00:00:00Z"
+  },
+  "liability": {
+    "accepted_by": {
+      "name": "Agency operations director",
+      "role": "Liability holder",
+      "contact": "ops-director@agency.gov"
+    },
+    "instrument": "Delegation order 2026-114",
+    "accepted_at": "2026-10-01T00:00:00Z"
+  },
+  "correction_capacity": {
+    "assessed_at": "2026-09-30T00:00:00Z",
+    "detection": {
+      "present": true,
+      "evidence": "Error dashboard reviewed daily",
+      "evaluator": "Operations duty officer",
+      "independent_of_executor": true
+    },
+    "challenge": {
+      "present": true,
+      "evidence": "Appeal route with a 10-day answer clock"
+    },
+    "standing": {
+      "present": true,
+      "evidence": "Claimants may contest to a named reviewer"
+    },
+    "review": {
+      "present": true,
+      "evidence": "Second reviewer independent of the triage queue"
+    },
+    "authority_to_modify": {
+      "present": true,
+      "evidence": "Grant owner can revise thresholds on the record"
+    },
+    "reversible_transitions": {
+      "present": true,
+      "evidence": "Reversals recorded in state_history"
+    },
+    "operable_after_correction": {
+      "present": true,
+      "evidence": "Fallback manual queue rehearsed 2026-09-12"
+    }
+  },
+  "until": "2027-10-01T00:00:00Z",
+  "renewal_basis": "Updated STD-06 safety case and challenge-rate review"
+}}`}</code></pre>
+        <p class="small muted" style="padding: 0 var(--space-4) var(--space-3)">
+          The published contract is{" "}
+          <a href="/standards/authority-grant.schema.json"
+            >standards/authority-grant.schema.json</a
+          >: 18 required fields, no additional properties. A grant record that
+          omits any of them is not a grant record.
         </p>
       </div>
     </div>
   </SectionBlock>
-
-  <SectionBlock
-    id="implementation-examples"
-    eyebrow="Implementation examples"
-    title="Examples by domain"
-    description="For each domain, conventional governance beside the same system built with stop rules, clocks, and restoration paths."
-  >
-    <CardGrid className="grid--two">
-      {
-        implementationExampleCards.map((item) => (
-          <CardItem title={item.title} description={item.description}>
-            <a slot="footer" class="muted" href={item.href}>
-              {item.ctaLabel}
-            </a>
-          </CardItem>
-        ))
-      }
-    </CardGrid>
-    <p class="small muted">
-      Retail personalization is a boundary case: no single recommendation
-      changes a person's status, access, money, or risk.
-      <a href="/use-cases">See which systems the standards are for →</a>
-    </p>
-  </SectionBlock>
-
-  <SectionBlock
-    id="referenced-by"
-    eyebrow="Referenced by"
-    title="Where the standards are cited"
-    description="The worked examples, release checklist, and evidence packs that cite these standards."
-  >
-    <div class="grid grid--three">
-      <div class="panel">
-        <p class="eyebrow">Used in examples</p>
-        <ul class="muted">
-          <li>
-            <a href="/examples/automated-account-lock">Automated account lock</a
-            >
-          </li>
-          <li>
-            <a href="/examples/content-moderation-takedown"
-              >Content moderation takedown</a
-            >
-          </li>
-          <li>
-            <a href="/examples/automated-eligibility-denial"
-              >Automated eligibility denial</a
-            >
-          </li>
-        </ul>
-      </div>
-      <div class="panel">
-        <p class="eyebrow">Checked at release</p>
-        <ul class="muted">
-          <li>
-            <a href="/mechanisms/patterns/admission-gate"
-              >MEC-22 Admission gate</a
-            >
-          </li>
-        </ul>
-      </div>
-      <div class="panel">
-        <p class="eyebrow">Evidence packs: what to collect</p>
-        <ul class="muted">
-          <li>
-            <a href="/evidence-packs/std-01">STD-01 Evidence Pack</a>
-          </li>
-          <li>
-            <a href="/evidence-packs/std-02">STD-02 Evidence Pack</a>
-          </li>
-          <li>
-            <a href="/evidence-packs">All evidence packs</a>
-          </li>
-          <li>
-            <a href="/validators">Validators (VAL-01–VAL-03)</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <p class="muted">
-      Search IDs: STD-01 v1.0, STD-02 v1.2, STD-03 v0.6, STD-01.1.1, STD-02.2.1,
-      VAL-01, VAL-02, VAL-03.
-    </p>
-  </SectionBlock>
-
-  <InlineScript type="application/ld+json" code={structuredDataJson} />
 </BaseLayout>
+
+<SectionBlock
+  id="crosswalks"
+  eyebrow="Statutory crosswalks"
+  title="How Ethotechnics maps to statutory obligations"
+  description="For risk owners and legal counsel: where these standards supply the technical evidence required by prevailing AI legislation and safety frameworks."
+>
+  <div class="grid grid--three">
+    <div class="panel stack-sm">
+      <p class="eyebrow">EU AI Act</p>
+      <p><strong>Articles 14, 86, and 12</strong></p>
+      <ul class="card__list">
+        <li>
+          <strong>Art 14 (Human Oversight):</strong> STD-08 defines operational stoppability,
+          override keys, and unpenalized human veto.
+        </li>
+        <li>
+          <strong>Art 86 (Right to Explanation):</strong> STD-02 requires causal decision
+          reasons delivered directly with the determination.
+        </li>
+        <li>
+          <strong>Art 12 (Record-Keeping):</strong> STD-07 specifies tamper-evident
+          delegation and contestation logs with verified hash chains.
+        </li>
+      </ul>
+    </div>
+
+    <div class="panel stack-sm">
+      <p class="eyebrow">NIST AI RMF 1.0</p>
+      <p><strong>Govern 2.1, Measure 2.7, Manage 2.4</strong></p>
+      <ul class="card__list">
+        <li>
+          <strong>GOVERN 2.1 (Roles and responsibilities documented):</strong> STD-08
+          names the individual who owns the grant and the person who can halt it,
+          as records rather than committee membership.
+        </li>
+        <li>
+          <strong
+            >MEASURE 2.7 (Security and resilience evaluated and documented):</strong
+          >{" "}
+          STD-01's halt clock and STD-08's reversal records put resilience figures
+          on paper: time to halt, appeal turnaround, restitution completion.
+        </li>
+        <li>
+          <strong
+            >MANAGE 2.4 (Mechanisms to supersede, disengage, or deactivate):</strong
+          > The lease expires on breached thresholds, and the named halt authority
+          can pull the system without penalty.
+        </li>
+      </ul>
+    </div>
+
+    <div class="panel stack-sm">
+      <p class="eyebrow">GDPR & Administrative Law</p>
+      <p><strong>Article 22 & Procedural Due Process</strong></p>
+      <ul class="card__list">
+        <li>
+          <strong>GDPR Art 22 (Automated Decisions):</strong> MVC-01 requires a contest
+          route that reaches a person who must answer by a date, with review that
+          does not penalize the person who brought the challenge.
+        </li>
+        <li>
+          <strong>Right to Standing:</strong> Guarantees that any party bearing error-burden
+          holds procedural standing to dispute the output.
+        </li>
+        <li>
+          <strong>Restitution Invariants:</strong> Reversal requires making the affected
+          person whole, not merely resetting a database flag.
+        </li>
+      </ul>
+    </div>
+  </div>
+</SectionBlock>
+
+<SectionBlock
+  id="goal-chooser"
+  eyebrow="Where to start"
+  title="Start from what you have to do"
+  description="Where to start if you are writing policy, preparing for an audit, or overseeing a build."
+>
+  <CardGrid className="grid--three">
+    <CardItem
+      title="Draft policy language"
+      description="The core axioms and the comparison below give you the terms, and the requirements a running system can be tested against, to write into policy."
+    >
+      <a slot="footer" class="muted" href="/standards/core-axioms"
+        >Start with core axioms</a
+      >
+    </CardItem>
+    <CardItem
+      title="Prepare for audit"
+      description="The STD-01 minimum binding set lists the least each right requires. The evidence packs list the records that show it is met."
+    >
+      <a
+        slot="footer"
+        class="muted"
+        href="/standards/std-01-minimum-binding-set"
+      >
+        Review minimum binding set
+      </a>
+    </CardItem>
+    <CardItem
+      title="Oversee implementation"
+      description="Implementation examples show each standard as the stop rules, clocks, and records a delivery team builds."
+    >
+      <a slot="footer" class="muted" href="#implementation-examples"
+        >Open implementation examples</a
+      >
+    </CardItem>
+  </CardGrid>
+  <p class="small muted">
+    Buying a system from a vendor?
+    <a href="/standards/where-this-binds"
+      >Cite clauses in the contract and require an evidence pack at each release
+      →</a
+    >
+  </p>
+</SectionBlock>
+
+<SectionBlock
+  id="status-assignment"
+  eyebrow="Status model"
+  title="How status is assigned"
+  description="Each status has entry conditions, listed below. They say what a standard needs before it can move to that status."
+>
+  <CardGrid className="grid--three">
+    <CardItem
+      title="Draft"
+      description="Under active review. Clauses may still change."
+    >
+      <ul class="muted small">
+        <li>At least 1 internal standards editor review.</li>
+        <li>Core test fixtures run and pass for referenced mechanisms.</li>
+        <li>Open changelog entry documenting known gaps.</li>
+      </ul>
+    </CardItem>
+    <CardItem
+      title="Stable"
+      description="Settled enough to cite in production policy and procurement requirements."
+    >
+      <ul class="muted small">
+        <li>
+          Minimum 2 independent reviewers (one external to the author team).
+        </li>
+        <li>
+          Evidence tests and implementation checks completed with receipts.
+        </li>
+        <li>Stable criteria satisfied and recorded in publication metadata.</li>
+      </ul>
+    </CardItem>
+    <CardItem
+      title="Deprecated"
+      description="Not for new adoptions. A replacement is linked when one exists."
+    >
+      <ul class="muted small">
+        <li>
+          Deprecation decision recorded through the
+          <a href="/institute/governance#lifecycle">RFC process</a>.
+        </li>
+        <li>
+          Replacement standard identified and linked by <code
+            >deprecated_by</code
+          >.
+        </li>
+        <li>Migration note added in changelog before status changes.</li>
+      </ul>
+    </CardItem>
+  </CardGrid>
+</SectionBlock>
+
+<SectionBlock
+  id="doctrine"
+  eyebrow="Foundations"
+  title="Foundations and references"
+  description="The axioms and laws the standards are written against, and the reference documents that apply them."
+>
+  <CardGrid className="grid--two">
+    {
+      doctrine.map((item) => (
+        <CardItem
+          eyebrow={item.eyebrow}
+          title={item.title}
+          description={item.description}
+        >
+          <a slot="footer" class="muted" href={item.href}>
+            {item.ctaLabel}
+          </a>
+        </CardItem>
+      ))
+    }
+  </CardGrid>
+</SectionBlock>
+
+<SectionBlock
+  id="adopted-standards"
+  eyebrow="Existing frameworks"
+  title="Where widely adopted frameworks fall short"
+  description="For each of the most cited AI governance frameworks, what it leaves out once a system is running."
+>
+  <CardGrid className="grid--two">
+    {
+      adoptedStandards.map((item) => (
+        <CardItem
+          eyebrow={item.eyebrow}
+          title={item.title}
+          description={item.description}
+        >
+          <a slot="footer" class="muted" href={item.href}>
+            Read critique
+          </a>
+        </CardItem>
+      ))
+    }
+  </CardGrid>
+</SectionBlock>
+
+<SectionBlock
+  id="comparison"
+  eyebrow="Standards comparison"
+  title="How Ethotechnics differs from existing AI governance standards"
+  description="A side-by-side comparison for regulators, operators, and risk owners."
+>
+  <p class="eyebrow">The landscape</p>
+  <p>
+    This comparison covers four AI governance frameworks and one data protection
+    law that already governs automated decisions. Each addresses a different
+    part of the problem:
+  </p>
+  <ul class="card__list">
+    <li>
+      <strong>NIST AI RMF</strong> — A voluntary risk management framework (Govern,
+      Map, Measure, Manage). Strong on risk identification and documentation. MANAGE
+      2.4 asks for mechanisms and assigned responsibilities to deactivate a system;
+      nothing sets a recovery time target. It asks organizations to characterize impacts
+      on people up front (MAP 5). It does not ask them to measure or publish the time
+      a running system costs those people.
+    </li>
+    <li>
+      <strong>EU AI Act</strong> — A risk-tiered regulation requiring human oversight,
+      conformity assessment, and post-market monitoring. Providers show compliance
+      through technical documentation. Article 14 requires a way to halt a high-risk
+      system; nothing requires anyone to rehearse the halt or meet a restoration deadline.
+    </li>
+    <li>
+      <strong>ISO/IEC 42001</strong> — A management system standard for AI. An accredited
+      body certifies the organization's AI management system, but certification can
+      coexist with slow or missing rollback authority. Top management reviews the
+      management system at planned intervals (clause 9.3). Nothing makes one system's
+      authority to act expire.
+    </li>
+    <li>
+      <strong>OECD AI Principles</strong> — Values-based principles adopted by governments
+      as a recommendation. Non-binding by design: they ask AI actors to be accountable
+      but set no duty anyone can enforce.
+    </li>
+    <li>
+      <strong>GDPR, Article 22</strong> — Limits solely automated decisions with legal
+      or similarly significant effects. Where one is necessary for a contract or rests
+      on the person's explicit consent, the controller must offer at least human intervention,
+      a chance to state a view, and a way to contest the decision. The right attaches
+      to that one decision. Nothing in Article 22 makes a run of successful contests
+      a reason to revise the rule.
+    </li>
+  </ul>
+  <p>
+    These frameworks improve documentation, oversight, and monitoring. They
+    leave one question largely open. When the evidence shows a running system is
+    harming people, does anyone have to act on it within a set time, without the
+    harmed person carrying the burden? Acting can mean halting the system,
+    reversing its decisions, repairing the harm, or changing the rule that
+    produced it.
+  </p>
+
+  <p class="eyebrow">In short</p>
+  <ul class="card__list">
+    <li>
+      A challenge that succeeds has to reach the rule, not only the one case.
+    </li>
+    <li>
+      Permission to act is a lease: it expires unless someone renews it, and
+      every widening is a new decision.
+    </li>
+    <li>
+      The operator measures and publishes the time a system costs people.
+      Whoever absorbs its errors can challenge it.
+    </li>
+    <li>
+      Governance is a runtime control plane, not a post-hoc review process.
+    </li>
+  </ul>
+  <p>
+    The frameworks above answer one question: “Did you manage risk responsibly?”
+    Ethotechnics answers a different one: “When this system is harming someone,
+    does evidence of the harm reach someone who has to change the system?” The
+    difference is in mechanics, not values.
+  </p>
+  <p>
+    In the casebook, harm ran from {haltLabel(shortestHalt)} to{" "}
+    {haltLabel(longestHalt)} before anyone halted or changed the system. Decisions
+    occur at machine speed. Reversal occurs at institutional speed. Harm compounds
+    in the gap.
+  </p>
+  <p class="muted">
+    Ethotechnics measures governability: time in harm, time to halt, recovery
+    time, and the time a system costs people.
+  </p>
+
+  <p class="eyebrow">Comparison matrix</p>
+  <div class="mapping-table__wrapper">
+    <table class="mapping-table mapping-table--compare">
+      <thead>
+        <tr>
+          <th scope="col">Dimension</th>
+          <th scope="col">Prevailing standards</th>
+          <th scope="col">Ethotechnics</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Governance object</th>
+          <td data-label="Prevailing standards">Risk &amp; compliance</td>
+          <td data-label="Ethotechnics">Runtime governability</td>
+        </tr>
+        <tr>
+          <th scope="row">Typical artifacts</th>
+          <td data-label="Prevailing standards"
+            >Registers, assessments, policies</td
+          >
+          <td data-label="Ethotechnics"
+            >Expiring authority grants, objection records, burden reports</td
+          >
+        </tr>
+        <tr>
+          <th scope="row">Authority</th>
+          <td data-label="Prevailing standards"
+            >One approval, with reviews on a schedule or after a major change</td
+          >
+          <td data-label="Ethotechnics"
+            >A lease that expires unless renewed, and a new decision for each
+            widening</td
+          >
+        </tr>
+        <tr>
+          <th scope="row">Oversight</th>
+          <td data-label="Prevailing standards"
+            >Human oversight with a means to interrupt</td
+          >
+          <td data-label="Ethotechnics"
+            >Enforceable authority and a veto that binds</td
+          >
+        </tr>
+        <tr>
+          <th scope="row">Measurement</th>
+          <td data-label="Prevailing standards">Process maturity</td>
+          <td data-label="Ethotechnics"
+            >Time-in-harm + the time the system costs people</td
+          >
+        </tr>
+        <tr>
+          <th scope="row">Challenge</th>
+          <td data-label="Prevailing standards"
+            >A right to contest one decision</td
+          >
+          <td data-label="Ethotechnics"
+            >A revision or a reasoned refusal for each objection, on a clock</td
+          >
+        </tr>
+        <tr>
+          <th scope="row">Monitoring</th>
+          <td data-label="Prevailing standards">Visibility</td>
+          <td data-label="Ethotechnics"
+            >Visibility that triggers a required intervention</td
+          >
+        </tr>
+        <tr>
+          <th scope="row">Where the check happens</th>
+          <td data-label="Prevailing standards"
+            >Audits, conformity assessment, regulators</td
+          >
+          <td data-label="Ethotechnics"
+            >Built-in constraints + internal power to halt, reverse, or revise</td
+          >
+        </tr>
+        <tr>
+          <th scope="row">Ethics framing</th>
+          <td data-label="Prevailing standards"
+            >Principles weighed case by case</td
+          >
+          <td data-label="Ethotechnics">Constraints that hold in every case</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div
+    id="governance-by-control"
+    class="grid grid--three"
+    style="margin-top: var(--space-6);"
+  >
+    <div class="panel stack-sm">
+      <p class="eyebrow">1. Runtime control plane</p>
+      <p class="small muted">
+        Policies describe intent; control planes constrain behavior. Rather than
+        inventories, risk registers, and post-hoc paperwork, the standards
+        require explicit stop conditions, rehearsed rollback paths, and safe
+        fallback modes while the system runs.
+      </p>
+    </div>
+
+    <div class="panel stack-sm">
+      <p class="eyebrow">2. Authority that has to act</p>
+      <p class="small muted">
+        Oversight is symbolic unless someone has to act on what it sees. Rather
+        than advisory ethics committees or perfunctory review gates, the
+        standards require the operator to name who can halt, reverse, or revise
+        a running system, and bind that person to a clock. An objection owes a
+        revision or a reasoned refusal. A grant lapses unless someone renews it
+        on stated evidence.
+      </p>
+    </div>
+
+    <div class="panel stack-sm">
+      <p class="eyebrow">3. Temporal performance bounds</p>
+      <p class="small muted">
+        The person waiting on a decision carries the cost of every delay. When
+        decisions occur at machine speed, reversal cannot run at institutional
+        speed. A system may not decide faster than its appeal path can answer,
+        and every pending decision needs a deadline.
+      </p>
+    </div>
+  </div>
+
+  <p>
+    Existing standards and Ethotechnics agree that governance matters. The
+    question Ethotechnics adds is whether evidence that a system is harming
+    someone compels action. The action can be a halt, a reversal, a repair, or a
+    changed rule. It has to come within a set time, every time, and the harmed
+    person must not carry the burden.
+  </p>
+  <p class="muted">
+    That is the difference between governance as documentation and governance as
+    capability.
+  </p>
+</SectionBlock>
+
+<SectionBlock
+  id="comparison-versions"
+  eyebrow="Other framings"
+  title="The same comparison for a regulator, a board, and a workshop"
+  description="Three short framings of the comparison above, each for a different reader."
+>
+  <div class="grid grid--three">
+    <div class="panel">
+      <p class="eyebrow">Regulator-facing brief</p>
+      <p>
+        A neutral, statute-adjacent framing that treats Ethotechnics as a
+        governance control requirement.
+      </p>
+      <ul class="card__list">
+        <li>
+          Defines governance as runtime capability (stop, pause, reverse,
+          contest) with auditable evidence.
+        </li>
+        <li>
+          Prioritizes measured recovery time over documentation completeness.
+        </li>
+        <li>
+          Positions external oversight as verification of control-plane efficacy
+          rather than sole enforcement.
+        </li>
+      </ul>
+    </div>
+    <div class="panel">
+      <p class="eyebrow">Board-level comparison</p>
+      <p>
+        Risk, liability, and incident exposure framing for executive review.
+      </p>
+      <ul class="card__list">
+        <li>
+          Identifies stoppability gaps as direct liability exposure and
+          escalation risk.
+        </li>
+        <li>
+          Treats recovery time as an operational KPI with reputational and
+          regulatory impacts.
+        </li>
+        <li>
+          Maps control-plane failures to incident severity, cost, and
+          remediation timelines.
+        </li>
+      </ul>
+    </div>
+    <div class="panel">
+      <p class="eyebrow">Diagrammatic version</p>
+      <p>
+        The policy stack and the control plane, side by side, for workshops and
+        audits.
+      </p>
+      <pre
+        class="code-block">{`Policy stack → policies → reviews → audits → reports
+Control plane → stop rules → clocks → rollback → restoration`}</pre>
+      <p class="muted">
+        The first line is checked from outside the running system. The second is
+        built into it.
+      </p>
+    </div>
+  </div>
+</SectionBlock>
+
+<SectionBlock
+  id="implementation-examples"
+  eyebrow="Implementation examples"
+  title="Examples by domain"
+  description="For each domain, conventional governance beside the same system built with stop rules, clocks, and restoration paths."
+>
+  <CardGrid className="grid--two">
+    {
+      implementationExampleCards.map((item) => (
+        <CardItem title={item.title} description={item.description}>
+          <a slot="footer" class="muted" href={item.href}>
+            {item.ctaLabel}
+          </a>
+        </CardItem>
+      ))
+    }
+  </CardGrid>
+  <p class="small muted">
+    Retail personalization is a boundary case: no single recommendation changes
+    a person's status, access, money, or risk.
+    <a href="/use-cases">See which systems the standards are for →</a>
+  </p>
+</SectionBlock>
+
+<SectionBlock
+  id="referenced-by"
+  eyebrow="Referenced by"
+  title="Where the standards are cited"
+  description="The worked examples, release checklist, and evidence packs that cite these standards."
+>
+  <div class="grid grid--three">
+    <div class="panel">
+      <p class="eyebrow">Used in examples</p>
+      <ul class="muted">
+        <li>
+          <a href="/examples/automated-account-lock">Automated account lock</a>
+        </li>
+        <li>
+          <a href="/examples/content-moderation-takedown"
+            >Content moderation takedown</a
+          >
+        </li>
+        <li>
+          <a href="/examples/automated-eligibility-denial"
+            >Automated eligibility denial</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="panel">
+      <p class="eyebrow">Checked at release</p>
+      <ul class="muted">
+        <li>
+          <a href="/mechanisms/patterns/admission-gate">MEC-22 Admission gate</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="panel">
+      <p class="eyebrow">Evidence packs: what to collect</p>
+      <ul class="muted">
+        <li>
+          <a href="/evidence-packs/std-01">STD-01 Evidence Pack</a>
+        </li>
+        <li>
+          <a href="/evidence-packs/std-02">STD-02 Evidence Pack</a>
+        </li>
+        <li>
+          <a href="/evidence-packs">All evidence packs</a>
+        </li>
+        <li>
+          <a href="/validators">Validators (VAL-01–VAL-03)</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <p class="muted">
+    Search IDs: STD-01 v1.0, STD-02 v1.2, STD-03 v0.6, STD-01.1.1, STD-02.2.1,
+    VAL-01, VAL-02, VAL-03.
+  </p>
+</SectionBlock>
+
+<InlineScript type="application/ld+json" code={structuredDataJson} />
