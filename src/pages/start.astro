@@ -26,6 +26,17 @@ const pageDescription =
           Know the system better than the role?
           <a href="/use-cases">Start from what it decides →</a>
         </p>
+
+        <div class="panel panel--glass start-applicability">
+          <p class="eyebrow">The applicability test</p>
+          <p>
+            <strong>Does Ethotechnics apply to your system?</strong> If software
+            takes an action, grants a benefit, denies an application, or
+            allocates work—and a human being has to live with the consequences of
+            an error—this framework applies. It governs the delegation agreement
+            and authority lease, not model capabilities.
+          </p>
+        </div>
       </div>
     </div>
   </header>
@@ -36,6 +47,58 @@ const pageDescription =
        readers two main landmarks to choose between. */
   }
   <section class="container">
+    <div class="time-ladder stack-sm">
+      <div class="time-ladder__header">
+        <p class="eyebrow">Start by time available</p>
+        <h2>Three immediate ways into the work</h2>
+        <p class="section-lead">
+          Choose the entry path that matches your schedule today.
+        </p>
+      </div>
+      <div class="grid grid--three">
+        <article class="card stack-xs">
+          <span class="pill pill--ghost">5 minutes</span>
+          <h3>60-Second Delegation Audit</h3>
+          <p class="small muted">
+            Answer eight questions about your system to score unwritten
+            assumptions across authority, dependence, and standing.
+          </p>
+          <p class="small">
+            <a href="/diagnostics/delegation-audit">Run audit &rarr;</a>
+          </p>
+        </article>
+        <article class="card stack-xs">
+          <span class="pill pill--ghost">1 hour</span>
+          <h3>Finite Stoppability Drills</h3>
+          <p class="small muted">
+            Evaluate whether your system's apparent throughput collapses when
+            frontline human workarounds and off-shift buffers cease.
+          </p>
+          <p class="small">
+            <a href="/evals#finite">Explore drills &rarr;</a>
+          </p>
+        </article>
+        <article class="card stack-xs">
+          <span class="pill pill--ghost">1 sprint</span>
+          <h3>Revisable Delegation Record</h3>
+          <p class="small muted">
+            Implement STD-07 machine-readable decision records in your agent
+            pipeline to guarantee groundable, contestable audit trails.
+          </p>
+          <p class="small">
+            <a href="/standards/std-07-revisable-delegation-record"
+              >View STD-07 &rarr;</a
+            >
+          </p>
+        </article>
+      </div>
+    </div>
+
+    <div class="stack-xs role-section-header">
+      <p class="eyebrow">Start by role</p>
+      <h2>Find the guidance for your work</h2>
+    </div>
+
     <nav class="role-chips" aria-label="Jump to a role">
       {
         roles.map((role) => (
@@ -783,5 +846,26 @@ const pageDescription =
     font-size: var(--text-xs);
     color: var(--muted);
     line-height: 1.4;
+  }
+
+  .start-applicability {
+    margin-top: var(--space-4);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: var(--space-4);
+  }
+
+  .time-ladder {
+    margin-bottom: var(--space-8);
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .time-ladder__header {
+    margin-bottom: var(--space-4);
+  }
+
+  .role-section-header {
+    margin-bottom: var(--space-4);
   }
 </style>

@@ -1057,6 +1057,35 @@
     border-radius: var(--radius-xs);
   }
 
+  .home-pillars {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--space-3);
+    margin-top: var(--space-3);
+  }
+
+  .home-pillar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    text-decoration: none;
+    color: inherit;
+    padding: var(--space-3);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    transition: border-color var(--transition-fast, 0.15s ease);
+  }
+
+  .home-pillar:hover,
+  .home-pillar:focus-visible {
+    border-color: var(--accent);
+  }
+
+  .home-pillar strong {
+    font-size: var(--text-sm);
+  }
+
   /* Act 1: the record spine. The panel summarizes the event list; sticky
      within its own section only, so it never holds the viewport. */
   .record-spine {
