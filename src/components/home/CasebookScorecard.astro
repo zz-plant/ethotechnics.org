@@ -37,10 +37,10 @@ const haltLabel = (value: number) => {
     </h2>
     <p class="section-lead">
       A court, an inquiry, or a regulator established the facts of each. None
-      was stopped by the organization running it. Apple Card's issuer is the
-      one operator that changed its own process, after a regulator's
-      investigation. Each row: the six safeguards as a verdict barcode, and
-      the time to halt as the bar at the right edge — longest harm first.
+      was stopped by the organization running it. Apple Card's issuer is the one
+      operator that changed its own process, after a regulator's investigation.
+      Each row: the six safeguards as a verdict barcode, and the time to halt as
+      the bar at the right edge — longest harm first.
     </p>
   </div>
 
@@ -102,7 +102,9 @@ const haltLabel = (value: number) => {
                   style={`--halt-share: ${haltShare(entry.timeToHaltDays).toFixed(4)}`}
                 />
               </span>
-              <span class="home-casebook__days">{haltLabel(entry.timeToHaltDays)}</span>
+              <span class="home-casebook__days">
+                {haltLabel(entry.timeToHaltDays)}
+              </span>
             </span>
           </a>
         </li>
@@ -111,8 +113,8 @@ const haltLabel = (value: number) => {
   </ol>
   <p class="small muted">
     Sorted by time to halt, longest first. {shortest.title}:{" "}
-    {haltLabel(shortest.timeToHaltDays)} — at a square-root scale that is a
-    sliver, but the label carries the figure.
+    {haltLabel(shortest.timeToHaltDays)} — at a square-root scale that is a sliver,
+    but the label carries the figure.
   </p>
   <p class="small muted">
     <a href="/casebook">Open the full matrix →</a>

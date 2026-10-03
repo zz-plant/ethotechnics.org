@@ -32,7 +32,6 @@ function init(): void {
   for (const element of revealables) {
     reveal.observe(element);
   }
-
 }
 
 init();

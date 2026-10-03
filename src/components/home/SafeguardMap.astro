@@ -61,50 +61,57 @@ const ring = nodes.map((node) => `${node.x},${node.y}`).join(" ");
       Your system, as six safeguards
     </p>
     <p class="small muted">
-      Each answer fills in its node. A rust node is drift; the center reads
-      what is holding.
+      Each answer fills in its node. A rust node is drift; the center reads what
+      is holding.
     </p>
   </figcaption>
-  <svg
-    class="safeguard-map__svg"
-    viewBox="0 0 360 310"
-    aria-hidden="true"
-  >
-    <polygon class="safeguard-map__ring" points={ring} />
-    {nodes.map((node) => (
-      <line
-        class="safeguard-map__spoke"
-        x1={cx}
-        y1={cy}
-        x2={node.x}
-        y2={node.y}
-      />
-    ))}
-    {nodes.map((node) => (
-      <g
-        class="safeguard-map__node"
-        data-map-variable={node.variable}
-        transform={`translate(${node.x} ${node.y})`}
-      >
-        <circle class="safeguard-map__node-shape" r="13" />
-      </g>
-    ))}
-    {nodes.map((node) => (
-      <text
-        class="safeguard-map__label"
-        x={node.lx}
-        y={node.ly}
-        text-anchor={
-          node.lx < cx - 20 ? "end" : node.lx > cx + 20 ? "start" : "middle"
-        }
-      >
-        {node.label.toUpperCase()}
-      </text>
-    ))}
+  <svg class="safeguard-map__svg" viewBox="0 0 360 310" aria-hidden="true">
+    <polygon class="safeguard-map__ring" points={ring}></polygon>
+    {
+      nodes.map((node) => (
+        <line
+          class="safeguard-map__spoke"
+          x1={cx}
+          y1={cy}
+          x2={node.x}
+          y2={node.y}
+        />
+      ))
+    }
+    {
+      nodes.map((node) => (
+        <g
+          class="safeguard-map__node"
+          data-map-variable={node.variable}
+          transform={`translate(${node.x} ${node.y})`}
+        >
+          <circle class="safeguard-map__node-shape" r="13" />
+        </g>
+      ))
+    }
+    {
+      nodes.map((node) => (
+        <text
+          class="safeguard-map__label"
+          x={node.lx}
+          y={node.ly}
+          text-anchor={
+            node.lx < cx - 20 ? "end" : node.lx > cx + 20 ? "start" : "middle"
+          }
+        >
+          {node.label.toUpperCase()}
+        </text>
+      ))
+    }
     <text class="safeguard-map__score" x={cx} y={cy + 5} text-anchor="middle">
       <tspan data-map-score>–/6</tspan>
     </text>
-    <text class="safeguard-map__score-sub" x={cx} y={cy + 22} text-anchor="middle">
+    <text
+      class="safeguard-map__score-sub"
+      x={cx}
+      y={cy + 22}
+      text-anchor="middle"
+    >
       holding
     </text>
   </svg>

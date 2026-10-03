@@ -71,19 +71,15 @@ const launch = timeline.find(
             Watch one scheme run.
           </h2>
         </div>
-        <p class="record-spine__chip">
-          {warnings} unanswered · 1 halt
-        </p>
+        <p class="record-spine__chip">{warnings} unanswered · 1 halt</p>
       </header>
 
-      {
-        launch && (
-          <p class="record-spine__lead">
-            {launch.what} Every dated warning the record issued follows, with
-            the response each got.
-          </p>
-        )
-      }
+      {launch && (
+        <p class="record-spine__lead">
+          {launch.what} Every dated warning the record issued follows, with the
+          response each got.
+        </p>
+      )}
 
       <ol class="record-spine__rail">
         {rows.map((row) => (
