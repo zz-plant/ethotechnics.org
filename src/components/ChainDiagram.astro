@@ -43,14 +43,22 @@ const loops = [
 ].map((loop) => ({ ...loop, fi: idx(loop.from), ti: idx(loop.to) }));
 ---
 
-<figure class="chain-diagram" data-chain-diagram aria-labelledby="chain-diagram-title">
+<figure
+  class="chain-diagram"
+  data-chain-diagram
+  aria-labelledby="chain-diagram-title"
+>
   <figcaption>
     <div class="chain-diagram__header">
       <div>
         <p class="eyebrow">The chain</p>
         <h3 id="chain-diagram-title">Seven stages and two returns</h3>
       </div>
-      <div class="chain-diagram__pipeline-toggle" role="group" aria-label="Chain view mode">
+      <div
+        class="chain-diagram__pipeline-toggle"
+        role="group"
+        aria-label="Chain view mode"
+      >
         <button
           type="button"
           class="button button--compact chain-diagram__toggle-btn chain-diagram__toggle-btn--active"
@@ -76,8 +84,13 @@ const loops = [
     </p>
   </figcaption>
 
-  <div class="chain-diagram__pipeline-notice chain-diagram__pipeline-notice--hidden" data-pipeline-notice>
-    <strong>The pipeline failure:</strong> Conventional automated decisions stop at Consequence. Without challenge, reconsideration, or return loops, exceptions are externalized as unpaid human compensation and the generating rule never adapts.
+  <div
+    class="chain-diagram__pipeline-notice chain-diagram__pipeline-notice--hidden"
+    data-pipeline-notice
+  >
+    <strong>The pipeline failure:</strong> Conventional automated decisions stop at
+    Consequence. Without challenge, reconsideration, or return loops, exceptions are
+    externalized as unpaid human compensation and the generating rule never adapts.
   </div>
 
   <div class="diagram-scroll">
@@ -218,9 +231,13 @@ const loops = [
           <div class="chain-inspector-card__top">
             <span class="badge small">Stage {i + 1} of 7</span>
             <h4 class="chain-inspector-card__title">{stage.title}</h4>
-            <a href={`#${stage.id}`} class="chain-inspector-card__jump small">Jump to section &darr;</a>
+            <a href={`#${stage.id}`} class="chain-inspector-card__jump small">
+              Jump to section &darr;
+            </a>
           </div>
-          <p class="chain-inspector-card__question"><strong>Governing question:</strong> {stage.question}</p>
+          <p class="chain-inspector-card__question">
+            <strong>Governing question:</strong> {stage.question}
+          </p>
           <div class="chain-inspector-card__links">
             <span class="small muted">Governing instruments:</span>
             <ul class="pill-list pill-list--wrap">
@@ -239,13 +256,20 @@ const loops = [
 
 <script>
   function initChainDiagram() {
-    const containers = document.querySelectorAll<HTMLElement>("[data-chain-diagram]");
+    const containers = document.querySelectorAll<HTMLElement>(
+      "[data-chain-diagram]",
+    );
     containers.forEach((container) => {
-      const modeButtons = container.querySelectorAll<HTMLButtonElement>("[data-chain-mode]");
-      const pipelineNotice = container.querySelector<HTMLElement>("[data-pipeline-notice]");
+      const modeButtons =
+        container.querySelectorAll<HTMLButtonElement>("[data-chain-mode]");
+      const pipelineNotice = container.querySelector<HTMLElement>(
+        "[data-pipeline-notice]",
+      );
       const nodes = container.querySelectorAll<HTMLElement>("[data-stage-id]");
       const returns = container.querySelectorAll<SVGGElement>("[data-loop-id]");
-      const inspectorCards = container.querySelectorAll<HTMLElement>("[data-inspector-stage]");
+      const inspectorCards = container.querySelectorAll<HTMLElement>(
+        "[data-inspector-stage]",
+      );
 
       const setMode = (mode: string) => {
         const isGoverned = mode === "governed";
@@ -258,7 +282,10 @@ const loops = [
 
         container.classList.toggle("chain-diagram--pipeline-mode", !isGoverned);
         if (pipelineNotice) {
-          pipelineNotice.classList.toggle("chain-diagram__pipeline-notice--hidden", isGoverned);
+          pipelineNotice.classList.toggle(
+            "chain-diagram__pipeline-notice--hidden",
+            isGoverned,
+          );
         }
       };
 
@@ -277,14 +304,16 @@ const loops = [
 
         // Highlight matching loops
         returns.forEach((ret) => {
-          const relevant = ret.getAttribute("data-relevant-stages")?.split(" ") || [];
+          const relevant =
+            ret.getAttribute("data-relevant-stages")?.split(" ") || [];
           const matches = relevant.includes(stageId);
           ret.classList.toggle("chain-diagram__return--highlighted", matches);
         });
 
         // Show matching inspector card
         inspectorCards.forEach((card) => {
-          const isCardMatch = card.getAttribute("data-inspector-stage") === stageId;
+          const isCardMatch =
+            card.getAttribute("data-inspector-stage") === stageId;
           card.classList.toggle("chain-inspector-card--active", isCardMatch);
         });
       };
@@ -302,10 +331,13 @@ const loops = [
         node.addEventListener("keydown", (e) => {
           if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
             e.preventDefault();
-            const currentIndex = Number(node.getAttribute("data-stage-index") || "0");
-            const nextIndex = e.key === "ArrowRight"
-              ? (currentIndex + 1) % nodes.length
-              : (currentIndex - 1 + nodes.length) % nodes.length;
+            const currentIndex = Number(
+              node.getAttribute("data-stage-index") || "0",
+            );
+            const nextIndex =
+              e.key === "ArrowRight"
+                ? (currentIndex + 1) % nodes.length
+                : (currentIndex - 1 + nodes.length) % nodes.length;
             const nextNode = nodes[nextIndex];
             if (nextNode) {
               nextNode.focus();
@@ -319,7 +351,9 @@ const loops = [
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initChainDiagram, { once: true });
+    document.addEventListener("DOMContentLoaded", initChainDiagram, {
+      once: true,
+    });
   } else {
     initChainDiagram();
   }

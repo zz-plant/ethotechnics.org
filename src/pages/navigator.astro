@@ -22,28 +22,32 @@ const anchorLinks = [
 const roles = [
   {
     role: "The person decided about",
-    exposure: "Bears the consequence of automated classification, eligibility denial, or fraud hold.",
+    exposure:
+      "Bears the consequence of automated classification, eligibility denial, or fraud hold.",
     right: "Contestability, reasons within clocks, non-retaliation.",
     entryStandard: "STD-02 Contestability & Recourse",
     href: "/standards/std-02-contestability-recourse",
   },
   {
     role: "The frontline operator",
-    exposure: "Pressured into counterfeit buffering (unpaid workarounds that blind telemetry).",
+    exposure:
+      "Pressured into counterfeit buffering (unpaid workarounds that blind telemetry).",
     right: "Unpenalized override authority reached in thirty seconds.",
     entryStandard: "STD-06 Human Impact Safety Case",
     href: "/standards/std-06-human-impact-safety-case",
   },
   {
     role: "The risk owner",
-    exposure: "Holds legal liability for decisions delegated to models and agent chains.",
+    exposure:
+      "Holds legal liability for decisions delegated to models and agent chains.",
     right: "Expiring authority leases with review triggers.",
     entryStandard: "STD-08 Delegation",
     href: "/standards/std-08-delegation",
   },
   {
     role: "The independent regulator",
-    exposure: "Must verify whether observed performance is intrinsic or humanly subsidized.",
+    exposure:
+      "Must verify whether observed performance is intrinsic or humanly subsidized.",
     right: "Immutable decision records with groundable justifications.",
     entryStandard: "STD-07 Revisable Delegation Record",
     href: "/standards/std-07-revisable-delegation-record",
@@ -119,8 +123,12 @@ const roles = [
         roles.map((r) => (
           <div class="card stack-sm">
             <p class="eyebrow">{r.role}</p>
-            <p><strong>Exposure:</strong> {r.exposure}</p>
-            <p class="muted"><strong>Requirement:</strong> {r.right}</p>
+            <p>
+              <strong>Exposure:</strong> {r.exposure}
+            </p>
+            <p class="muted">
+              <strong>Requirement:</strong> {r.right}
+            </p>
             <p class="small">
               <a href={r.href}>{r.entryStandard} &rarr;</a>
             </p>

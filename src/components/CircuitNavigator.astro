@@ -15,7 +15,11 @@ const openCircuit = circuits.find((c) => c.id === "open-circuit")!;
 ---
 
 <div class="circuit-navigator" data-circuit-navigator>
-  <div class="circuit-navigator__controls" role="tablist" aria-label="Select circuit posture">
+  <div
+    class="circuit-navigator__controls"
+    role="tablist"
+    aria-label="Select circuit posture"
+  >
     <button
       type="button"
       role="tab"
@@ -44,11 +48,14 @@ const openCircuit = circuits.find((c) => c.id === "open-circuit")!;
 
   <figure class="circuit-navigator__figure" aria-labelledby="circuit-viz-title">
     <figcaption class="sr-only">
-      <h4 id="circuit-viz-title">Circuit schematic: comparing absorption and correction</h4>
+      <h4 id="circuit-viz-title">
+        Circuit schematic: comparing absorption and correction
+      </h4>
       <p>
-        Schematic showing how friction moves through an automated decision system.
-        In the closed circuit, errors are absorbed by human buffers while telemetry stays green.
-        In the open circuit, standing and appeal paths route evidence back to the generating rule.
+        Schematic showing how friction moves through an automated decision
+        system. In the closed circuit, errors are absorbed by human buffers
+        while telemetry stays green. In the open circuit, standing and appeal
+        paths route evidence back to the generating rule.
       </p>
     </figcaption>
 
@@ -69,7 +76,7 @@ const openCircuit = circuits.find((c) => c.id === "open-circuit")!;
             markerHeight="6"
             orient="auto-start-reverse"
           >
-            <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)" />
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)"></path>
           </marker>
           <marker
             id="circuit-arrow-danger"
@@ -80,7 +87,7 @@ const openCircuit = circuits.find((c) => c.id === "open-circuit")!;
             markerHeight="6"
             orient="auto-start-reverse"
           >
-            <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--status-danger)" />
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--status-danger)"></path>
           </marker>
           <marker
             id="circuit-arrow-muted"
@@ -91,125 +98,258 @@ const openCircuit = circuits.find((c) => c.id === "open-circuit")!;
             markerHeight="6"
             orient="auto-start-reverse"
           >
-            <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--muted)" />
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--muted)"></path>
           </marker>
         </defs>
 
         <!-- SHARED BACKGROUND GRID -->
-        <rect x="10" y="10" width="920" height="300" rx="10" class="circuit-navigator__canvas" />
+        <rect
+          x="10"
+          y="10"
+          width="920"
+          height="300"
+          rx="10"
+          class="circuit-navigator__canvas"></rect>
 
         <!-- CLOSED CIRCUIT OVERLAY -->
         <g class="circuit-layer circuit-layer--closed" data-layer="closed">
           <!-- Flow 1: Decision to Mismatch -->
-          <line x1="170" y1="90" x2="278" y2="90" class="circuit-path circuit-path--normal" marker-end="url(#circuit-arrow-muted)" />
-          
+          <line
+            x1="170"
+            y1="90"
+            x2="278"
+            y2="90"
+            class="circuit-path circuit-path--normal"
+            marker-end="url(#circuit-arrow-muted)"></line>
+
           <!-- Flow 2: Mismatch to Human Buffer -->
-          <line x1="440" y1="90" x2="528" y2="90" class="circuit-path circuit-path--danger" marker-end="url(#circuit-arrow-danger)" />
+          <line
+            x1="440"
+            y1="90"
+            x2="528"
+            y2="90"
+            class="circuit-path circuit-path--danger"
+            marker-end="url(#circuit-arrow-danger)"></line>
 
           <!-- Flow 3: Human Buffer to Green Dashboard -->
-          <line x1="690" y1="90" x2="768" y2="90" class="circuit-path circuit-path--normal" marker-end="url(#circuit-arrow-muted)" />
+          <line
+            x1="690"
+            y1="90"
+            x2="768"
+            y2="90"
+            class="circuit-path circuit-path--normal"
+            marker-end="url(#circuit-arrow-muted)"></line>
 
           <!-- Severed Return Path (Buffer to Rule) -->
           <path
             d="M 610 120 C 610 230 170 230 170 124"
             fill="none"
-            class="circuit-path circuit-path--severed"
-          />
+            class="circuit-path circuit-path--severed"></path>
           <g transform="translate(390, 215)">
-            <rect x="0" y="0" width="160" height="30" rx="6" class="circuit-badge circuit-badge--danger" />
-            <text x="80" y="19" text-anchor="middle" class="circuit-badge__text">Severed feedback</text>
+            <rect
+              x="0"
+              y="0"
+              width="160"
+              height="30"
+              rx="6"
+              class="circuit-badge circuit-badge--danger"></rect>
+            <text x="80" y="19" text-anchor="middle" class="circuit-badge__text"
+              >Severed feedback</text
+            >
           </g>
 
           <!-- Node 1: Consequential Rule & Decision -->
           <g class="circuit-node" transform="translate(30, 60)">
-            <rect width="140" height="60" rx="8" class="circuit-node__box" />
-            <text x="70" y="26" text-anchor="middle" class="circuit-node__title">1. Delegation</text>
-            <text x="70" y="46" text-anchor="middle" class="circuit-node__sub">Acts on reality</text>
+            <rect width="140" height="60" rx="8" class="circuit-node__box"
+            ></rect>
+            <text x="70" y="26" text-anchor="middle" class="circuit-node__title"
+              >1. Delegation</text
+            >
+            <text x="70" y="46" text-anchor="middle" class="circuit-node__sub"
+              >Acts on reality</text
+            >
           </g>
 
           <!-- Node 2: Unhandled Mismatch -->
           <g class="circuit-node" transform="translate(280, 60)">
-            <rect width="160" height="60" rx="8" class="circuit-node__box" />
-            <text x="80" y="26" text-anchor="middle" class="circuit-node__title">2. Mismatch</text>
-            <text x="80" y="46" text-anchor="middle" class="circuit-node__sub">Exception generated</text>
+            <rect width="160" height="60" rx="8" class="circuit-node__box"
+            ></rect>
+            <text x="80" y="26" text-anchor="middle" class="circuit-node__title"
+              >2. Mismatch</text
+            >
+            <text x="80" y="46" text-anchor="middle" class="circuit-node__sub"
+              >Exception generated</text
+            >
           </g>
 
           <!-- Node 3: The Human Buffer -->
-          <g class="circuit-node circuit-node--danger" transform="translate(530, 52)">
-            <rect width="160" height="76" rx="8" class="circuit-node__box circuit-node__box--danger" />
-            <text x="80" y="26" text-anchor="middle" class="circuit-node__title circuit-node__title--danger">3. Human buffer</text>
-            <text x="80" y="44" text-anchor="middle" class="circuit-node__sub">Caseworkers, nurses</text>
-            <text x="80" y="62" text-anchor="middle" class="circuit-node__note">Absorbs 7.5 hrs/wk</text>
+          <g
+            class="circuit-node circuit-node--danger"
+            transform="translate(530, 52)"
+          >
+            <rect
+              width="160"
+              height="76"
+              rx="8"
+              class="circuit-node__box circuit-node__box--danger"></rect>
+            <text
+              x="80"
+              y="26"
+              text-anchor="middle"
+              class="circuit-node__title circuit-node__title--danger"
+              >3. Human buffer</text
+            >
+            <text x="80" y="44" text-anchor="middle" class="circuit-node__sub"
+              >Caseworkers, nurses</text
+            >
+            <text x="80" y="62" text-anchor="middle" class="circuit-node__note"
+              >Absorbs 7.5 hrs/wk</text
+            >
           </g>
 
           <!-- Node 4: Green Dashboard -->
           <g class="circuit-node" transform="translate(770, 60)">
-            <rect width="140" height="60" rx="8" class="circuit-node__box" />
-            <text x="70" y="26" text-anchor="middle" class="circuit-node__title">4. Telemetry</text>
-            <text x="70" y="46" text-anchor="middle" class="circuit-node__sub">Green dashboard</text>
+            <rect width="140" height="60" rx="8" class="circuit-node__box"
+            ></rect>
+            <text x="70" y="26" text-anchor="middle" class="circuit-node__title"
+              >4. Telemetry</text
+            >
+            <text x="70" y="46" text-anchor="middle" class="circuit-node__sub"
+              >Green dashboard</text
+            >
           </g>
 
           <!-- Bottom Formula Callout -->
           <text x="470" y="285" text-anchor="middle" class="circuit-formula">
-            Observed performance = Designed capacity + Unpriced human compensation
+            Observed performance = Designed capacity + Unpriced human
+            compensation
           </text>
         </g>
 
         <!-- OPEN CIRCUIT OVERLAY -->
-        <g class="circuit-layer circuit-layer--open circuit-layer--hidden" data-layer="open">
+        <g
+          class="circuit-layer circuit-layer--open circuit-layer--hidden"
+          data-layer="open"
+        >
           <!-- Flow 1: Decision to Mismatch -->
-          <line x1="170" y1="90" x2="278" y2="90" class="circuit-path circuit-path--normal" marker-end="url(#circuit-arrow-muted)" />
+          <line
+            x1="170"
+            y1="90"
+            x2="278"
+            y2="90"
+            class="circuit-path circuit-path--normal"
+            marker-end="url(#circuit-arrow-muted)"></line>
 
           <!-- Flow 2: Mismatch to Standing / Appeal -->
-          <line x1="440" y1="90" x2="528" y2="90" class="circuit-path circuit-path--accent" marker-end="url(#circuit-arrow-accent)" />
+          <line
+            x1="440"
+            y1="90"
+            x2="528"
+            y2="90"
+            class="circuit-path circuit-path--accent"
+            marker-end="url(#circuit-arrow-accent)"></line>
 
           <!-- Flow 3: Appeal to Reconsideration -->
-          <line x1="690" y1="90" x2="768" y2="90" class="circuit-path circuit-path--accent" marker-end="url(#circuit-arrow-accent)" />
+          <line
+            x1="690"
+            y1="90"
+            x2="768"
+            y2="90"
+            class="circuit-path circuit-path--accent"
+            marker-end="url(#circuit-arrow-accent)"></line>
 
           <!-- Return Flow A: Reconsideration reopens Authority Grant -->
           <path
             d="M 840 120 C 840 210 100 210 100 126"
             fill="none"
             class="circuit-path circuit-path--return"
-            marker-end="url(#circuit-arrow-accent)"
-          />
+            marker-end="url(#circuit-arrow-accent)"></path>
           <g transform="translate(420, 195)">
-            <rect x="0" y="0" width="180" height="28" rx="6" class="circuit-badge circuit-badge--accent" />
-            <text x="90" y="18" text-anchor="middle" class="circuit-badge__text">Reopens authority grant</text>
+            <rect
+              x="0"
+              y="0"
+              width="180"
+              height="28"
+              rx="6"
+              class="circuit-badge circuit-badge--accent"></rect>
+            <text x="90" y="18" text-anchor="middle" class="circuit-badge__text"
+              >Reopens authority grant</text
+            >
           </g>
 
           <!-- Node 1: Governed Rule & Authority Lease -->
-          <g class="circuit-node circuit-node--accent" transform="translate(30, 60)">
-            <rect width="140" height="60" rx="8" class="circuit-node__box circuit-node__box--accent" />
-            <text x="70" y="26" text-anchor="middle" class="circuit-node__title">1. Authority lease</text>
-            <text x="70" y="46" text-anchor="middle" class="circuit-node__sub">STD-08 Revocable</text>
+          <g
+            class="circuit-node circuit-node--accent"
+            transform="translate(30, 60)"
+          >
+            <rect
+              width="140"
+              height="60"
+              rx="8"
+              class="circuit-node__box circuit-node__box--accent"></rect>
+            <text x="70" y="26" text-anchor="middle" class="circuit-node__title"
+              >1. Authority lease</text
+            >
+            <text x="70" y="46" text-anchor="middle" class="circuit-node__sub"
+              >STD-08 Revocable</text
+            >
           </g>
 
           <!-- Node 2: Documented Exception -->
           <g class="circuit-node" transform="translate(280, 60)">
-            <rect width="160" height="60" rx="8" class="circuit-node__box" />
-            <text x="80" y="26" text-anchor="middle" class="circuit-node__title">2. Exception</text>
-            <text x="80" y="46" text-anchor="middle" class="circuit-node__sub">Logged with reasons</text>
+            <rect width="160" height="60" rx="8" class="circuit-node__box"
+            ></rect>
+            <text x="80" y="26" text-anchor="middle" class="circuit-node__title"
+              >2. Exception</text
+            >
+            <text x="80" y="46" text-anchor="middle" class="circuit-node__sub"
+              >Logged with reasons</text
+            >
           </g>
 
           <!-- Node 3: Standing & Contestation -->
-          <g class="circuit-node circuit-node--accent" transform="translate(530, 52)">
-            <rect width="160" height="76" rx="8" class="circuit-node__box circuit-node__box--accent" />
-            <text x="80" y="26" text-anchor="middle" class="circuit-node__title">3. Standing</text>
-            <text x="80" y="44" text-anchor="middle" class="circuit-node__sub">MEC-08 Contestation API</text>
-            <text x="80" y="62" text-anchor="middle" class="circuit-node__note">Procedural force</text>
+          <g
+            class="circuit-node circuit-node--accent"
+            transform="translate(530, 52)"
+          >
+            <rect
+              width="160"
+              height="76"
+              rx="8"
+              class="circuit-node__box circuit-node__box--accent"></rect>
+            <text x="80" y="26" text-anchor="middle" class="circuit-node__title"
+              >3. Standing</text
+            >
+            <text x="80" y="44" text-anchor="middle" class="circuit-node__sub"
+              >MEC-08 Contestation API</text
+            >
+            <text x="80" y="62" text-anchor="middle" class="circuit-node__note"
+              >Procedural force</text
+            >
           </g>
 
           <!-- Node 4: Reconsideration & Repair -->
-          <g class="circuit-node circuit-node--accent" transform="translate(770, 60)">
-            <rect width="140" height="60" rx="8" class="circuit-node__box circuit-node__box--accent" />
-            <text x="70" y="26" text-anchor="middle" class="circuit-node__title">4. Recourse</text>
-            <text x="70" y="46" text-anchor="middle" class="circuit-node__sub">MEC-10 State reversal</text>
+          <g
+            class="circuit-node circuit-node--accent"
+            transform="translate(770, 60)"
+          >
+            <rect
+              width="140"
+              height="60"
+              rx="8"
+              class="circuit-node__box circuit-node__box--accent"></rect>
+            <text x="70" y="26" text-anchor="middle" class="circuit-node__title"
+              >4. Recourse</text
+            >
+            <text x="70" y="46" text-anchor="middle" class="circuit-node__sub"
+              >MEC-10 State reversal</text
+            >
           </g>
 
           <!-- Bottom Formula Callout -->
           <text x="470" y="285" text-anchor="middle" class="circuit-formula">
-            Constitutional friction = Provisioned appeal latency + Redress capacity
+            Constitutional friction = Provisioned appeal latency + Redress
+            capacity
           </text>
         </g>
       </svg>
@@ -230,21 +370,27 @@ const openCircuit = circuits.find((c) => c.id === "open-circuit")!;
         <h3>{closedCircuit.title}</h3>
       </div>
       <p class="circuit-card__description">{closedCircuit.description}</p>
-      
+
       <div class="circuit-card__metrics grid grid--three">
         <div class="circuit-metric">
           <span class="circuit-metric__label">Observed telemetry</span>
-          <strong class="circuit-metric__value circuit-metric__value--neutral">Nominally green</strong>
+          <strong class="circuit-metric__value circuit-metric__value--neutral"
+            >Nominally green</strong
+          >
           <span class="circuit-metric__sub">0 recorded system faults</span>
         </div>
         <div class="circuit-metric">
           <span class="circuit-metric__label">Friction destination</span>
-          <strong class="circuit-metric__value circuit-metric__value--danger">Human crumple zone</strong>
+          <strong class="circuit-metric__value circuit-metric__value--danger"
+            >Human crumple zone</strong
+          >
           <span class="circuit-metric__sub">Unpriced coping labor</span>
         </div>
         <div class="circuit-metric">
           <span class="circuit-metric__label">Generating rule</span>
-          <strong class="circuit-metric__value circuit-metric__value--neutral">Insulated</strong>
+          <strong class="circuit-metric__value circuit-metric__value--neutral"
+            >Insulated</strong
+          >
           <span class="circuit-metric__sub">Zero corrective feedback</span>
         </div>
       </div>
@@ -257,11 +403,13 @@ const openCircuit = circuits.find((c) => c.id === "open-circuit")!;
       <div class="circuit-card__links">
         <span class="small muted">Read the theory:</span>
         <ul class="pill-list pill-list--wrap">
-          {closedCircuit.links.map((link) => (
-            <li>
-              <a href={link.href}>{link.label}</a>
-            </li>
-          ))}
+          {
+            closedCircuit.links.map((link) => (
+              <li>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))
+          }
         </ul>
       </div>
     </div>
@@ -282,17 +430,23 @@ const openCircuit = circuits.find((c) => c.id === "open-circuit")!;
       <div class="circuit-card__metrics grid grid--three">
         <div class="circuit-metric">
           <span class="circuit-metric__label">Observed telemetry</span>
-          <strong class="circuit-metric__value circuit-metric__value--accent">Challenge density</strong>
+          <strong class="circuit-metric__value circuit-metric__value--accent"
+            >Challenge density</strong
+          >
           <span class="circuit-metric__sub">Discrepancies on ledger</span>
         </div>
         <div class="circuit-metric">
           <span class="circuit-metric__label">Friction destination</span>
-          <strong class="circuit-metric__value circuit-metric__value--accent">Constitutional gates</strong>
+          <strong class="circuit-metric__value circuit-metric__value--accent"
+            >Constitutional gates</strong
+          >
           <span class="circuit-metric__sub">Provisioned appeal SLAs</span>
         </div>
         <div class="circuit-metric">
           <span class="circuit-metric__label">Generating rule</span>
-          <strong class="circuit-metric__value circuit-metric__value--accent">Corrigible</strong>
+          <strong class="circuit-metric__value circuit-metric__value--accent"
+            >Corrigible</strong
+          >
           <span class="circuit-metric__sub">Lease reopens on error</span>
         </div>
       </div>
@@ -305,11 +459,13 @@ const openCircuit = circuits.find((c) => c.id === "open-circuit")!;
       <div class="circuit-card__links">
         <span class="small muted">Instruments that open the circuit:</span>
         <ul class="pill-list pill-list--wrap">
-          {openCircuit.links.map((link) => (
-            <li>
-              <a href={link.href}>{link.label}</a>
-            </li>
-          ))}
+          {
+            openCircuit.links.map((link) => (
+              <li>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))
+          }
         </ul>
       </div>
     </div>
@@ -318,9 +474,13 @@ const openCircuit = circuits.find((c) => c.id === "open-circuit")!;
 
 <script>
   function initCircuitNavigator() {
-    const navigators = document.querySelectorAll<HTMLElement>("[data-circuit-navigator]");
+    const navigators = document.querySelectorAll<HTMLElement>(
+      "[data-circuit-navigator]",
+    );
     navigators.forEach((container) => {
-      const tabs = container.querySelectorAll<HTMLButtonElement>("[data-circuit-target]");
+      const tabs = container.querySelectorAll<HTMLButtonElement>(
+        "[data-circuit-target]",
+      );
       const layers = container.querySelectorAll<SVGGElement>("[data-layer]");
       const panels = container.querySelectorAll<HTMLElement>("[data-panel]");
 
@@ -355,9 +515,10 @@ const openCircuit = circuits.find((c) => c.id === "open-circuit")!;
           if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
             e.preventDefault();
             const currentIdx = Array.from(tabs).indexOf(tab);
-            const nextIdx = e.key === "ArrowRight" 
-              ? (currentIdx + 1) % tabs.length 
-              : (currentIdx - 1 + tabs.length) % tabs.length;
+            const nextIdx =
+              e.key === "ArrowRight"
+                ? (currentIdx + 1) % tabs.length
+                : (currentIdx - 1 + tabs.length) % tabs.length;
             const nextTab = tabs[nextIdx];
             if (nextTab) {
               nextTab.focus();
@@ -371,7 +532,9 @@ const openCircuit = circuits.find((c) => c.id === "open-circuit")!;
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initCircuitNavigator, { once: true });
+    document.addEventListener("DOMContentLoaded", initCircuitNavigator, {
+      once: true,
+    });
   } else {
     initCircuitNavigator();
   }
