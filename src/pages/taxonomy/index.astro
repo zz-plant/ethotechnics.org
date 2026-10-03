@@ -65,7 +65,12 @@ const structuredDataJson = JSON.stringify(structuredData);
       { href: "#domains", label: "Domains" },
       { href: "#use", label: "How to use" },
     ]}
-  />
+  >
+    <Fragment slot="actions">
+      <a class="button ghost" href="/navigator#safeguards">Explore safeguards &rarr;</a>
+      <a class="button ghost" href="/navigator">Concept navigator</a>
+    </Fragment>
+  </PageIntro>
 
   <SectionBlock
     id="domains"

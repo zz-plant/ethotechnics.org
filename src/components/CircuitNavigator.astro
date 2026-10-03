@@ -1,0 +1,638 @@
+---
+/**
+ * CircuitNavigator
+ *
+ * Visual switchboard contrasting the Closed Circuit (Absorption) with the
+ * Open Circuit (Correction). Friction does not disappear when a system is
+ * automated; it moves. This component allows the reader to follow where
+ * that friction lands, who absorbs it, and whether it reaches the rule.
+ */
+import { methodContent } from "../content/method";
+
+const circuits = methodContent.circuits;
+const closedCircuit = circuits.find((c) => c.id === "closed-circuit")!;
+const openCircuit = circuits.find((c) => c.id === "open-circuit")!;
+---
+
+<div class="circuit-navigator" data-circuit-navigator>
+  <div class="circuit-navigator__controls" role="tablist" aria-label="Select circuit posture">
+    <button
+      type="button"
+      role="tab"
+      id="tab-closed-circuit"
+      aria-selected="true"
+      aria-controls="panel-closed-circuit"
+      class="circuit-navigator__tab circuit-navigator__tab--active"
+      data-circuit-target="closed"
+    >
+      <span class="circuit-navigator__tab-tag">Absorption</span>
+      <span class="circuit-navigator__tab-title">The closed circuit</span>
+    </button>
+    <button
+      type="button"
+      role="tab"
+      id="tab-open-circuit"
+      aria-selected="false"
+      aria-controls="panel-open-circuit"
+      class="circuit-navigator__tab"
+      data-circuit-target="open"
+    >
+      <span class="circuit-navigator__tab-tag">Correction</span>
+      <span class="circuit-navigator__tab-title">The open circuit</span>
+    </button>
+  </div>
+
+  <figure class="circuit-navigator__figure" aria-labelledby="circuit-viz-title">
+    <figcaption class="sr-only">
+      <h4 id="circuit-viz-title">Circuit schematic: comparing absorption and correction</h4>
+      <p>
+        Schematic showing how friction moves through an automated decision system.
+        In the closed circuit, errors are absorbed by human buffers while telemetry stays green.
+        In the open circuit, standing and appeal paths route evidence back to the generating rule.
+      </p>
+    </figcaption>
+
+    <div class="diagram-scroll">
+      <svg
+        viewBox="0 0 940 320"
+        role="img"
+        class="circuit-navigator__svg"
+        aria-hidden="true"
+      >
+        <defs>
+          <marker
+            id="circuit-arrow-accent"
+            viewBox="0 0 10 10"
+            refX="9"
+            refY="5"
+            markerWidth="6"
+            markerHeight="6"
+            orient="auto-start-reverse"
+          >
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)" />
+          </marker>
+          <marker
+            id="circuit-arrow-danger"
+            viewBox="0 0 10 10"
+            refX="9"
+            refY="5"
+            markerWidth="6"
+            markerHeight="6"
+            orient="auto-start-reverse"
+          >
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--status-danger)" />
+          </marker>
+          <marker
+            id="circuit-arrow-muted"
+            viewBox="0 0 10 10"
+            refX="9"
+            refY="5"
+            markerWidth="6"
+            markerHeight="6"
+            orient="auto-start-reverse"
+          >
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--muted)" />
+          </marker>
+        </defs>
+
+        <!-- SHARED BACKGROUND GRID -->
+        <rect x="10" y="10" width="920" height="300" rx="10" class="circuit-navigator__canvas" />
+
+        <!-- CLOSED CIRCUIT OVERLAY -->
+        <g class="circuit-layer circuit-layer--closed" data-layer="closed">
+          <!-- Flow 1: Decision to Mismatch -->
+          <line x1="170" y1="90" x2="278" y2="90" class="circuit-path circuit-path--normal" marker-end="url(#circuit-arrow-muted)" />
+          
+          <!-- Flow 2: Mismatch to Human Buffer -->
+          <line x1="440" y1="90" x2="528" y2="90" class="circuit-path circuit-path--danger" marker-end="url(#circuit-arrow-danger)" />
+
+          <!-- Flow 3: Human Buffer to Green Dashboard -->
+          <line x1="690" y1="90" x2="768" y2="90" class="circuit-path circuit-path--normal" marker-end="url(#circuit-arrow-muted)" />
+
+          <!-- Severed Return Path (Buffer to Rule) -->
+          <path
+            d="M 610 120 C 610 230 170 230 170 124"
+            fill="none"
+            class="circuit-path circuit-path--severed"
+          />
+          <g transform="translate(390, 215)">
+            <rect x="0" y="0" width="160" height="30" rx="6" class="circuit-badge circuit-badge--danger" />
+            <text x="80" y="19" text-anchor="middle" class="circuit-badge__text">Severed feedback</text>
+          </g>
+
+          <!-- Node 1: Consequential Rule & Decision -->
+          <g class="circuit-node" transform="translate(30, 60)">
+            <rect width="140" height="60" rx="8" class="circuit-node__box" />
+            <text x="70" y="26" text-anchor="middle" class="circuit-node__title">1. Delegation</text>
+            <text x="70" y="46" text-anchor="middle" class="circuit-node__sub">Acts on reality</text>
+          </g>
+
+          <!-- Node 2: Unhandled Mismatch -->
+          <g class="circuit-node" transform="translate(280, 60)">
+            <rect width="160" height="60" rx="8" class="circuit-node__box" />
+            <text x="80" y="26" text-anchor="middle" class="circuit-node__title">2. Mismatch</text>
+            <text x="80" y="46" text-anchor="middle" class="circuit-node__sub">Exception generated</text>
+          </g>
+
+          <!-- Node 3: The Human Buffer -->
+          <g class="circuit-node circuit-node--danger" transform="translate(530, 52)">
+            <rect width="160" height="76" rx="8" class="circuit-node__box circuit-node__box--danger" />
+            <text x="80" y="26" text-anchor="middle" class="circuit-node__title circuit-node__title--danger">3. Human buffer</text>
+            <text x="80" y="44" text-anchor="middle" class="circuit-node__sub">Caseworkers, nurses</text>
+            <text x="80" y="62" text-anchor="middle" class="circuit-node__note">Absorbs 7.5 hrs/wk</text>
+          </g>
+
+          <!-- Node 4: Green Dashboard -->
+          <g class="circuit-node" transform="translate(770, 60)">
+            <rect width="140" height="60" rx="8" class="circuit-node__box" />
+            <text x="70" y="26" text-anchor="middle" class="circuit-node__title">4. Telemetry</text>
+            <text x="70" y="46" text-anchor="middle" class="circuit-node__sub">Green dashboard</text>
+          </g>
+
+          <!-- Bottom Formula Callout -->
+          <text x="470" y="285" text-anchor="middle" class="circuit-formula">
+            Observed performance = Designed capacity + Unpriced human compensation
+          </text>
+        </g>
+
+        <!-- OPEN CIRCUIT OVERLAY -->
+        <g class="circuit-layer circuit-layer--open circuit-layer--hidden" data-layer="open">
+          <!-- Flow 1: Decision to Mismatch -->
+          <line x1="170" y1="90" x2="278" y2="90" class="circuit-path circuit-path--normal" marker-end="url(#circuit-arrow-muted)" />
+
+          <!-- Flow 2: Mismatch to Standing / Appeal -->
+          <line x1="440" y1="90" x2="528" y2="90" class="circuit-path circuit-path--accent" marker-end="url(#circuit-arrow-accent)" />
+
+          <!-- Flow 3: Appeal to Reconsideration -->
+          <line x1="690" y1="90" x2="768" y2="90" class="circuit-path circuit-path--accent" marker-end="url(#circuit-arrow-accent)" />
+
+          <!-- Return Flow A: Reconsideration reopens Authority Grant -->
+          <path
+            d="M 840 120 C 840 210 100 210 100 126"
+            fill="none"
+            class="circuit-path circuit-path--return"
+            marker-end="url(#circuit-arrow-accent)"
+          />
+          <g transform="translate(420, 195)">
+            <rect x="0" y="0" width="180" height="28" rx="6" class="circuit-badge circuit-badge--accent" />
+            <text x="90" y="18" text-anchor="middle" class="circuit-badge__text">Reopens authority grant</text>
+          </g>
+
+          <!-- Node 1: Governed Rule & Authority Lease -->
+          <g class="circuit-node circuit-node--accent" transform="translate(30, 60)">
+            <rect width="140" height="60" rx="8" class="circuit-node__box circuit-node__box--accent" />
+            <text x="70" y="26" text-anchor="middle" class="circuit-node__title">1. Authority lease</text>
+            <text x="70" y="46" text-anchor="middle" class="circuit-node__sub">STD-08 Revocable</text>
+          </g>
+
+          <!-- Node 2: Documented Exception -->
+          <g class="circuit-node" transform="translate(280, 60)">
+            <rect width="160" height="60" rx="8" class="circuit-node__box" />
+            <text x="80" y="26" text-anchor="middle" class="circuit-node__title">2. Exception</text>
+            <text x="80" y="46" text-anchor="middle" class="circuit-node__sub">Logged with reasons</text>
+          </g>
+
+          <!-- Node 3: Standing & Contestation -->
+          <g class="circuit-node circuit-node--accent" transform="translate(530, 52)">
+            <rect width="160" height="76" rx="8" class="circuit-node__box circuit-node__box--accent" />
+            <text x="80" y="26" text-anchor="middle" class="circuit-node__title">3. Standing</text>
+            <text x="80" y="44" text-anchor="middle" class="circuit-node__sub">MEC-08 Contestation API</text>
+            <text x="80" y="62" text-anchor="middle" class="circuit-node__note">Procedural force</text>
+          </g>
+
+          <!-- Node 4: Reconsideration & Repair -->
+          <g class="circuit-node circuit-node--accent" transform="translate(770, 60)">
+            <rect width="140" height="60" rx="8" class="circuit-node__box circuit-node__box--accent" />
+            <text x="70" y="26" text-anchor="middle" class="circuit-node__title">4. Recourse</text>
+            <text x="70" y="46" text-anchor="middle" class="circuit-node__sub">MEC-10 State reversal</text>
+          </g>
+
+          <!-- Bottom Formula Callout -->
+          <text x="470" y="285" text-anchor="middle" class="circuit-formula">
+            Constitutional friction = Provisioned appeal latency + Redress capacity
+          </text>
+        </g>
+      </svg>
+    </div>
+  </figure>
+
+  <!-- SYNCHRONIZED EXPLANATORY PANELS -->
+  <div class="circuit-navigator__panels">
+    <div
+      id="panel-closed-circuit"
+      role="tabpanel"
+      aria-labelledby="tab-closed-circuit"
+      class="circuit-card circuit-card--closed"
+      data-panel="closed"
+    >
+      <div class="circuit-card__header">
+        <span class="eyebrow">{closedCircuit.tag}</span>
+        <h3>{closedCircuit.title}</h3>
+      </div>
+      <p class="circuit-card__description">{closedCircuit.description}</p>
+      
+      <div class="circuit-card__metrics grid grid--three">
+        <div class="circuit-metric">
+          <span class="circuit-metric__label">Observed telemetry</span>
+          <strong class="circuit-metric__value circuit-metric__value--neutral">Nominally green</strong>
+          <span class="circuit-metric__sub">0 recorded system faults</span>
+        </div>
+        <div class="circuit-metric">
+          <span class="circuit-metric__label">Friction destination</span>
+          <strong class="circuit-metric__value circuit-metric__value--danger">Human crumple zone</strong>
+          <span class="circuit-metric__sub">Unpriced coping labor</span>
+        </div>
+        <div class="circuit-metric">
+          <span class="circuit-metric__label">Generating rule</span>
+          <strong class="circuit-metric__value circuit-metric__value--neutral">Insulated</strong>
+          <span class="circuit-metric__sub">Zero corrective feedback</span>
+        </div>
+      </div>
+
+      <div class="circuit-card__cost">
+        <p class="eyebrow">The hidden cost</p>
+        <p class="muted">{closedCircuit.cost}</p>
+      </div>
+
+      <div class="circuit-card__links">
+        <span class="small muted">Read the theory:</span>
+        <ul class="pill-list pill-list--wrap">
+          {closedCircuit.links.map((link) => (
+            <li>
+              <a href={link.href}>{link.label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <div
+      id="panel-open-circuit"
+      role="tabpanel"
+      aria-labelledby="tab-open-circuit"
+      class="circuit-card circuit-card--open circuit-card--hidden"
+      data-panel="open"
+    >
+      <div class="circuit-card__header">
+        <span class="eyebrow">{openCircuit.tag}</span>
+        <h3>{openCircuit.title}</h3>
+      </div>
+      <p class="circuit-card__description">{openCircuit.description}</p>
+
+      <div class="circuit-card__metrics grid grid--three">
+        <div class="circuit-metric">
+          <span class="circuit-metric__label">Observed telemetry</span>
+          <strong class="circuit-metric__value circuit-metric__value--accent">Challenge density</strong>
+          <span class="circuit-metric__sub">Discrepancies on ledger</span>
+        </div>
+        <div class="circuit-metric">
+          <span class="circuit-metric__label">Friction destination</span>
+          <strong class="circuit-metric__value circuit-metric__value--accent">Constitutional gates</strong>
+          <span class="circuit-metric__sub">Provisioned appeal SLAs</span>
+        </div>
+        <div class="circuit-metric">
+          <span class="circuit-metric__label">Generating rule</span>
+          <strong class="circuit-metric__value circuit-metric__value--accent">Corrigible</strong>
+          <span class="circuit-metric__sub">Lease reopens on error</span>
+        </div>
+      </div>
+
+      <div class="circuit-card__cost">
+        <p class="eyebrow">The deliberate cost</p>
+        <p class="muted">{openCircuit.cost}</p>
+      </div>
+
+      <div class="circuit-card__links">
+        <span class="small muted">Instruments that open the circuit:</span>
+        <ul class="pill-list pill-list--wrap">
+          {openCircuit.links.map((link) => (
+            <li>
+              <a href={link.href}>{link.label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initCircuitNavigator() {
+    const navigators = document.querySelectorAll<HTMLElement>("[data-circuit-navigator]");
+    navigators.forEach((container) => {
+      const tabs = container.querySelectorAll<HTMLButtonElement>("[data-circuit-target]");
+      const layers = container.querySelectorAll<SVGGElement>("[data-layer]");
+      const panels = container.querySelectorAll<HTMLElement>("[data-panel]");
+
+      const switchCircuit = (target: string) => {
+        // Update tab states
+        tabs.forEach((tab) => {
+          const isActive = tab.getAttribute("data-circuit-target") === target;
+          tab.classList.toggle("circuit-navigator__tab--active", isActive);
+          tab.setAttribute("aria-selected", String(isActive));
+        });
+
+        // Update SVG layers
+        layers.forEach((layer) => {
+          const isMatch = layer.getAttribute("data-layer") === target;
+          layer.classList.toggle("circuit-layer--hidden", !isMatch);
+        });
+
+        // Update panels
+        panels.forEach((panel) => {
+          const isMatch = panel.getAttribute("data-panel") === target;
+          panel.classList.toggle("circuit-card--hidden", !isMatch);
+        });
+      };
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          const target = tab.getAttribute("data-circuit-target");
+          if (target) switchCircuit(target);
+        });
+
+        tab.addEventListener("keydown", (e) => {
+          if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+            e.preventDefault();
+            const currentIdx = Array.from(tabs).indexOf(tab);
+            const nextIdx = e.key === "ArrowRight" 
+              ? (currentIdx + 1) % tabs.length 
+              : (currentIdx - 1 + tabs.length) % tabs.length;
+            const nextTab = tabs[nextIdx];
+            if (nextTab) {
+              nextTab.focus();
+              const target = nextTab.getAttribute("data-circuit-target");
+              if (target) switchCircuit(target);
+            }
+          }
+        });
+      });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initCircuitNavigator, { once: true });
+  } else {
+    initCircuitNavigator();
+  }
+</script>
+
+<style>
+  .circuit-navigator {
+    display: grid;
+    gap: var(--space-5);
+    margin-block: var(--space-4);
+  }
+
+  .circuit-navigator__controls {
+    display: flex;
+    gap: var(--space-3);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: var(--space-2);
+  }
+
+  .circuit-navigator__tab {
+    appearance: none;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: var(--space-2) var(--space-3);
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    color: var(--muted);
+    transition: all var(--motion-fast) ease;
+    font-family: inherit;
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  }
+
+  .circuit-navigator__tab:hover {
+    color: var(--text);
+    background: color-mix(in srgb, var(--panel) 40%, transparent);
+  }
+
+  .circuit-navigator__tab:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .circuit-navigator__tab--active {
+    color: var(--text);
+    border-bottom-color: var(--accent);
+    background: color-mix(in srgb, var(--panel) 60%, transparent);
+  }
+
+  .circuit-navigator__tab-tag {
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+  }
+
+  .circuit-navigator__tab-title {
+    font-size: var(--text-base);
+    font-weight: 600;
+  }
+
+  .circuit-navigator__figure {
+    margin: 0;
+  }
+
+  .circuit-navigator__canvas {
+    fill: var(--surface);
+    stroke: var(--border);
+    stroke-width: 1px;
+  }
+
+  /* SVG elements */
+  .circuit-path {
+    stroke-width: 2;
+  }
+
+  .circuit-path--normal {
+    stroke: var(--muted);
+  }
+
+  .circuit-path--danger {
+    stroke: var(--status-danger);
+    stroke-dasharray: 4 3;
+  }
+
+  .circuit-path--accent {
+    stroke: var(--accent);
+  }
+
+  .circuit-path--severed {
+    stroke: var(--status-danger);
+    stroke-width: 2;
+    stroke-dasharray: 6 4;
+  }
+
+  .circuit-path--return {
+    stroke: var(--accent);
+    stroke-width: 2.5;
+    stroke-dasharray: 5 3;
+  }
+
+  .circuit-layer {
+    transition: opacity var(--motion-fast) ease;
+  }
+
+  .circuit-layer--closed {
+    display: block;
+  }
+
+  .circuit-layer--open {
+    display: block;
+  }
+
+  .circuit-node {
+    cursor: default;
+  }
+
+  .circuit-node--danger {
+    stroke: var(--status-danger);
+  }
+
+  .circuit-node--accent {
+    stroke: var(--accent);
+  }
+
+  .circuit-node__box {
+    fill: var(--panel);
+    stroke: var(--border);
+    stroke-width: 1.5;
+  }
+
+  .circuit-node__box--danger {
+    stroke: var(--status-danger);
+    fill: color-mix(in srgb, var(--status-danger) 8%, var(--panel));
+  }
+
+  .circuit-node__box--accent {
+    stroke: var(--accent);
+    fill: color-mix(in srgb, var(--accent) 8%, var(--panel));
+  }
+
+  .circuit-navigator__svg .circuit-node__title {
+    font-size: 13px;
+    font-weight: 600;
+    fill: var(--text);
+  }
+
+  .circuit-node__title--danger {
+    fill: var(--status-danger);
+  }
+
+  .circuit-navigator__svg .circuit-node__sub {
+    font-size: 11px;
+    fill: var(--muted);
+  }
+
+  .circuit-navigator__svg .circuit-node__note {
+    font-size: 10px;
+    font-weight: 600;
+    fill: var(--status-danger);
+  }
+
+  .circuit-badge {
+    stroke-width: 1;
+  }
+
+  .circuit-badge--danger {
+    fill: var(--status-danger);
+  }
+
+  .circuit-badge--accent {
+    fill: var(--accent);
+  }
+
+  .circuit-navigator__svg .circuit-badge__text {
+    font-size: 11px;
+    font-weight: 600;
+    fill: #ffffff;
+  }
+
+  .circuit-navigator__svg .circuit-formula {
+    font-size: 13px;
+    font-weight: 600;
+    font-family: ui-monospace, monospace;
+    fill: var(--text);
+  }
+
+  .circuit-layer--hidden {
+    display: none;
+  }
+
+  /* Panels */
+  .circuit-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .circuit-card--hidden {
+    display: none;
+  }
+
+  .circuit-card__header {
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  .circuit-card__metrics {
+    gap: var(--space-3);
+  }
+
+  .circuit-metric {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: var(--space-3);
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  .circuit-metric__label {
+    font-size: var(--text-xs);
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .circuit-metric__value {
+    font-size: var(--text-lg);
+    font-weight: 600;
+  }
+
+  .circuit-metric__value--neutral {
+    color: var(--text);
+  }
+
+  .circuit-metric__value--danger {
+    color: var(--status-danger);
+  }
+
+  .circuit-metric__value--accent {
+    color: var(--accent);
+  }
+
+  .circuit-metric__sub {
+    font-size: var(--text-xs);
+    color: var(--muted);
+  }
+
+  .circuit-card__links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    border-top: 1px solid var(--border);
+    padding-top: var(--space-3);
+  }
+</style>

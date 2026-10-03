@@ -5,17 +5,15 @@
  * An ordered list of seven cards cannot show that Reconsideration reopens
  * Authority, or that Correction produces the Evidence the next decision rests
  * on — and those two return paths are the whole difference between a chain and
- * a pipeline. The stages come from the method content, so a renamed stage
- * renames here.
+ * a pipeline. This component provides both a global schematic and an interactive
+ * stage-by-stage inspector.
  */
 import { methodContent } from "../content/method";
 
 const stages = methodContent.chain;
 const n = stages.length;
-// Wide enough that "Reconsideration" fits its box, and tall enough that the
-// deeper of the two return loops keeps its label inside the canvas.
 const W = 1060;
-const H = 214;
+const H = 224;
 const pad = 32;
 const nodeW = 130;
 const gap = (W - pad * 2 - nodeW * n) / (n - 1);
@@ -27,30 +25,61 @@ const centre = (i: number) => xs[i]! + nodeW / 2;
 
 const loops = [
   {
+    id: "loop-authority",
     from: "reconsideration",
     to: "authority",
     label: "reopens the grant",
     depth: 62,
+    relevantStages: ["reconsideration", "authority"],
   },
   {
+    id: "loop-evidence",
     from: "correction",
     to: "evidence",
     label: "becomes the next decision's evidence",
     depth: 92,
+    relevantStages: ["correction", "evidence"],
   },
 ].map((loop) => ({ ...loop, fi: idx(loop.from), ti: idx(loop.to) }));
 ---
 
-<figure class="chain-diagram" aria-labelledby="chain-diagram-title">
+<figure class="chain-diagram" data-chain-diagram aria-labelledby="chain-diagram-title">
   <figcaption>
-    <p class="eyebrow">The chain</p>
-    <h3 id="chain-diagram-title">Seven stages and two returns</h3>
+    <div class="chain-diagram__header">
+      <div>
+        <p class="eyebrow">The chain</p>
+        <h3 id="chain-diagram-title">Seven stages and two returns</h3>
+      </div>
+      <div class="chain-diagram__pipeline-toggle" role="group" aria-label="Chain view mode">
+        <button
+          type="button"
+          class="button button--compact chain-diagram__toggle-btn chain-diagram__toggle-btn--active"
+          data-chain-mode="governed"
+          aria-pressed="true"
+        >
+          Governed chain
+        </button>
+        <button
+          type="button"
+          class="button button--compact ghost chain-diagram__toggle-btn"
+          data-chain-mode="pipeline"
+          aria-pressed="false"
+        >
+          Unchecked pipeline
+        </button>
+      </div>
+    </div>
     <p class="muted">
       Left to right is one decision. The arrows underneath are what make it
       governed rather than merely logged: a challenge reopens the authority it
       ran under, and a correction is evidence the next decision has to rest on.
     </p>
   </figcaption>
+
+  <div class="chain-diagram__pipeline-notice chain-diagram__pipeline-notice--hidden" data-pipeline-notice>
+    <strong>The pipeline failure:</strong> Conventional automated decisions stop at Consequence. Without challenge, reconsideration, or return loops, exceptions are externalized as unpaid human compensation and the generating rule never adapts.
+  </div>
+
   <div class="diagram-scroll">
     <svg
       viewBox={`0 0 ${W} ${H}`}
@@ -70,8 +99,20 @@ const loops = [
         >
           <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path>
         </marker>
+        <marker
+          id="chain-arrow-accent"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="7"
+          markerHeight="7"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"></path>
+        </marker>
       </defs>
 
+      {/* Forward transition arrows */}
       {
         stages
           .slice(0, -1)
@@ -84,11 +125,13 @@ const loops = [
               stroke="currentColor"
               stroke-width="1.5"
               marker-end="url(#chain-arrow)"
-              class="chain-diagram__forward"
+              class={`chain-diagram__forward ${i >= 3 ? "chain-diagram__governed-only" : ""}`}
+              data-forward-idx={i}
             />
           ))
       }
 
+      {/* Governed return loops */}
       {
         loops.map((loop) => {
           const x1 = centre(loop.fi);
@@ -96,7 +139,11 @@ const loops = [
           const top = y + 24;
           const d = `M ${x1} ${top} C ${x1} ${top + loop.depth} ${x2} ${top + loop.depth} ${x2} ${top + 2}`;
           return (
-            <g class="chain-diagram__return">
+            <g
+              class="chain-diagram__return chain-diagram__governed-only"
+              data-loop-id={loop.id}
+              data-relevant-stages={loop.relevantStages.join(" ")}
+            >
               <path
                 d={d}
                 fill="none"
@@ -104,6 +151,7 @@ const loops = [
                 stroke-width="1.5"
                 stroke-dasharray="5 4"
                 marker-end="url(#chain-arrow)"
+                class="chain-diagram__return-path"
               />
               <text
                 x={(x1 + x2) / 2}
@@ -118,10 +166,25 @@ const loops = [
         })
       }
 
+      {/* Stage Nodes */}
       {
         stages.map((stage, i) => (
-          <a href={`#${stage.id}`} class="chain-diagram__node">
-            <rect x={xs[i]} y={y - 24} width={nodeW} height="48" rx="10" />
+          <a
+            href={`#${stage.id}`}
+            class={`chain-diagram__node ${i >= 4 ? "chain-diagram__governed-only" : ""} ${i === 0 ? "chain-diagram__node--active" : ""}`}
+            data-stage-id={stage.id}
+            data-stage-index={i}
+            role="button"
+            aria-label={`Inspect Stage ${i + 1}: ${stage.title}`}
+          >
+            <rect
+              x={xs[i]}
+              y={y - 24}
+              width={nodeW}
+              height="48"
+              rx="10"
+              class="chain-diagram__rect"
+            />
             <text
               x={centre(i)}
               y={y + 5}
@@ -143,4 +206,263 @@ const loops = [
       }
     </svg>
   </div>
+
+  {/* Interactive Stage Detail Card */}
+  <div class="chain-diagram__inspector" data-chain-inspector aria-live="polite">
+    {
+      stages.map((stage, i) => (
+        <div
+          class={`chain-inspector-card ${i === 0 ? "chain-inspector-card--active" : ""}`}
+          data-inspector-stage={stage.id}
+        >
+          <div class="chain-inspector-card__top">
+            <span class="badge small">Stage {i + 1} of 7</span>
+            <h4 class="chain-inspector-card__title">{stage.title}</h4>
+            <a href={`#${stage.id}`} class="chain-inspector-card__jump small">Jump to section &darr;</a>
+          </div>
+          <p class="chain-inspector-card__question"><strong>Governing question:</strong> {stage.question}</p>
+          <div class="chain-inspector-card__links">
+            <span class="small muted">Governing instruments:</span>
+            <ul class="pill-list pill-list--wrap">
+              {stage.links.map((link) => (
+                <li>
+                  <a href={link.href}>{link.label}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))
+    }
+  </div>
 </figure>
+
+<script>
+  function initChainDiagram() {
+    const containers = document.querySelectorAll<HTMLElement>("[data-chain-diagram]");
+    containers.forEach((container) => {
+      const modeButtons = container.querySelectorAll<HTMLButtonElement>("[data-chain-mode]");
+      const pipelineNotice = container.querySelector<HTMLElement>("[data-pipeline-notice]");
+      const nodes = container.querySelectorAll<HTMLElement>("[data-stage-id]");
+      const returns = container.querySelectorAll<SVGGElement>("[data-loop-id]");
+      const inspectorCards = container.querySelectorAll<HTMLElement>("[data-inspector-stage]");
+
+      const setMode = (mode: string) => {
+        const isGoverned = mode === "governed";
+        modeButtons.forEach((btn) => {
+          const active = btn.getAttribute("data-chain-mode") === mode;
+          btn.classList.toggle("chain-diagram__toggle-btn--active", active);
+          btn.classList.toggle("ghost", !active);
+          btn.setAttribute("aria-pressed", String(active));
+        });
+
+        container.classList.toggle("chain-diagram--pipeline-mode", !isGoverned);
+        if (pipelineNotice) {
+          pipelineNotice.classList.toggle("chain-diagram__pipeline-notice--hidden", isGoverned);
+        }
+      };
+
+      modeButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const mode = btn.getAttribute("data-chain-mode");
+          if (mode) setMode(mode);
+        });
+      });
+
+      const selectStage = (stageId: string) => {
+        nodes.forEach((node) => {
+          const isSelected = node.getAttribute("data-stage-id") === stageId;
+          node.classList.toggle("chain-diagram__node--active", isSelected);
+        });
+
+        // Highlight matching loops
+        returns.forEach((ret) => {
+          const relevant = ret.getAttribute("data-relevant-stages")?.split(" ") || [];
+          const matches = relevant.includes(stageId);
+          ret.classList.toggle("chain-diagram__return--highlighted", matches);
+        });
+
+        // Show matching inspector card
+        inspectorCards.forEach((card) => {
+          const isCardMatch = card.getAttribute("data-inspector-stage") === stageId;
+          card.classList.toggle("chain-inspector-card--active", isCardMatch);
+        });
+      };
+
+      nodes.forEach((node) => {
+        node.addEventListener("click", (e) => {
+          // If clicked normally, activate stage inspector rather than jumping
+          if (!e.metaKey && !e.ctrlKey) {
+            e.preventDefault();
+            const id = node.getAttribute("data-stage-id");
+            if (id) selectStage(id);
+          }
+        });
+
+        node.addEventListener("keydown", (e) => {
+          if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+            e.preventDefault();
+            const currentIndex = Number(node.getAttribute("data-stage-index") || "0");
+            const nextIndex = e.key === "ArrowRight"
+              ? (currentIndex + 1) % nodes.length
+              : (currentIndex - 1 + nodes.length) % nodes.length;
+            const nextNode = nodes[nextIndex];
+            if (nextNode) {
+              nextNode.focus();
+              const id = nextNode.getAttribute("data-stage-id");
+              if (id) selectStage(id);
+            }
+          }
+        });
+      });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initChainDiagram, { once: true });
+  } else {
+    initChainDiagram();
+  }
+</script>
+
+<style>
+  .chain-diagram {
+    display: grid;
+    gap: var(--space-4);
+    margin: 0;
+  }
+
+  .chain-diagram__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+
+  .chain-diagram__pipeline-toggle {
+    display: inline-flex;
+    gap: var(--space-1);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    padding: 2px;
+  }
+
+  .chain-diagram__toggle-btn {
+    border-radius: var(--radius-pill);
+    font-size: var(--text-xs);
+    padding: var(--space-1) var(--space-3);
+  }
+
+  .chain-diagram__toggle-btn--active {
+    background: var(--surface);
+    color: var(--text);
+    border-color: var(--border);
+  }
+
+  .chain-diagram__pipeline-notice {
+    background: color-mix(in srgb, var(--status-warning) 8%, var(--surface));
+    border-left: 3px solid var(--status-warning);
+    padding: var(--space-3);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: var(--text-sm);
+    color: var(--text);
+  }
+
+  .chain-diagram__pipeline-notice--hidden {
+    display: none;
+  }
+
+  /* SVG elements */
+  .chain-diagram__svg {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .chain-diagram__node {
+    cursor: pointer;
+  }
+
+  .chain-diagram__node--active .chain-diagram__rect {
+    stroke: var(--accent) !important;
+    fill: color-mix(in srgb, var(--accent) 14%, var(--panel)) !important;
+    stroke-width: 2.5 !important;
+  }
+
+  .chain-diagram__node--active .chain-diagram__title {
+    font-weight: 700;
+  }
+
+  .chain-diagram__return--highlighted .chain-diagram__return-path {
+    stroke: var(--accent);
+    stroke-width: 2.5;
+  }
+
+  .chain-diagram__return--highlighted .chain-diagram__label {
+    fill: var(--accent);
+    font-weight: 600;
+  }
+
+  /* Pipeline mode dimming */
+  .chain-diagram--pipeline-mode .chain-diagram__governed-only {
+    opacity: 0.22;
+    transition: opacity var(--motion-fast) ease;
+  }
+
+  /* Inspector card */
+  .chain-diagram__inspector {
+    margin-top: var(--space-2);
+  }
+
+  .chain-inspector-card {
+    display: none;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    gap: var(--space-2);
+  }
+
+  .chain-inspector-card--active {
+    display: grid;
+  }
+
+  .chain-inspector-card__top {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .chain-inspector-card__title {
+    margin: 0;
+    font-size: var(--text-lg);
+    flex-grow: 1;
+  }
+
+  .chain-inspector-card__jump {
+    color: var(--muted);
+    text-decoration: underline;
+  }
+
+  .chain-inspector-card__jump:hover {
+    color: var(--text);
+  }
+
+  .chain-inspector-card__question {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--text);
+  }
+
+  .chain-inspector-card__links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+    border-top: 1px solid var(--border);
+    padding-top: var(--space-2);
+  }
+</style>

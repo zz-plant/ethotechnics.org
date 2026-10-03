@@ -7,6 +7,8 @@ import StateVariableGlyph, {
 } from "../components/StateVariableGlyph.astro";
 import { methodContent } from "../content/method";
 import ChainDiagram from "../components/ChainDiagram.astro";
+import CircuitNavigator from "../components/CircuitNavigator.astro";
+import SafeguardEquilibriumDiagram from "../components/SafeguardEquilibriumDiagram.astro";
 import MethodStack from "../components/MethodStack.astro";
 import SpeechBubble from "../components/SpeechBubble.astro";
 
@@ -19,7 +21,6 @@ const {
   unitOfGovernance,
   invariant,
   chain,
-  circuits,
   stateVariables,
   laws,
   lenses,
@@ -124,6 +125,7 @@ const substituteJustifications = [
   >
     <Fragment slot="actions">
       <a class="button primary" href="#sequence">Apply it to one workflow</a>
+      <a class="button ghost" href="/navigator">Concept navigator</a>
       <a class="button ghost" href="/standards">Open the standards</a>
       <a class="button ghost" href="/use-cases">Which systems this is for</a>
     </Fragment>
@@ -235,27 +237,7 @@ const substituteJustifications = [
     description="Friction never disappears from a system that scales beyond what its operators can see. It transfers. Every deployment picks where it lands and whether it is recorded."
     variant="alt"
   >
-    <div class="grid grid--two">
-      {
-        circuits.map((circuit) => (
-          <div class="card stack-sm" id={circuit.id}>
-            <p class="eyebrow">{circuit.tag}</p>
-            <h3>{circuit.title}</h3>
-            <p>{circuit.description}</p>
-            <p class="eyebrow">Where the friction lands</p>
-            <p class="muted">{circuit.cost}</p>
-            <p class="small">
-              {circuit.links.map((link, linkIndex) => (
-                <>
-                  {linkIndex > 0 && <span aria-hidden="true"> · </span>}
-                  <a href={link.href}>{link.label}</a>
-                </>
-              ))}
-            </p>
-          </div>
-        ))
-      }
-    </div>
+    <CircuitNavigator />
     <p class="muted small">
       The same distinction underlies the{" "}
       <a href="/standards/laws#invariant">invariant</a>: agency (the closed
@@ -270,6 +252,7 @@ const substituteJustifications = [
     title="Six things that must stay in step"
     description="A well-built system records each of these explicitly. It becomes unsafe when they drift apart: when it can do more than it is authorized to, or holds authority the evidence no longer supports. The laws call them state variables; the casebook and the self-test call them safeguards."
   >
+    <SafeguardEquilibriumDiagram />
     <div class="mapping-table__wrapper">
       <table class="mapping-table">
         <thead>
