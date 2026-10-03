@@ -59,6 +59,10 @@ const warnings = rows.filter((row) => row.state === "unanswered").length;
 const launch = timeline.find(
   (event) => !event.evidence && !event.halt && !event.voice,
 );
+const launchFact = launch
+  ? launch.what.split(". ")[1]?.charAt(0).toLowerCase() +
+    launch.what.split(". ")[1]?.slice(1)
+  : undefined;
 ---
 
 {
@@ -82,8 +86,8 @@ const launch = timeline.find(
 
       {launch && (
         <p class="record-spine__lead">
-          {launch.what} Every dated warning the record issued follows, with the
-          response each got.
+          At launch, {launchFact} Every dated warning the record issued follows,
+          with the response each got.
         </p>
       )}
 
