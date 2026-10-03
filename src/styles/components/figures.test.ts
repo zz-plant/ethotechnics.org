@@ -32,7 +32,6 @@ describe("the figure stylesheet ships as a link, not an inline style", () => {
       ".absorb",
       ".withdraw",
       ".ratchet",
-      ".rule-count",
       ".chain-pause",
     ]) {
       expect(css).toContain(`${prefix}`);

@@ -5,19 +5,55 @@
  * GDPR, the AI Act, NIST, ISO, and the OECD principles?) and stays on /about
  * and /standards. This answers the question the casebook raises: when an
  * institution describes its system, what would show the description is true?
+ *
+ * Each claim is set as a contract clause with its exhibit: the record an
+ * institution would have to produce. The clauses read the way the standards
+ * read, which is the point — the form previews where the requirements live.
+ * The rows come from content/institutional-claims, which the About page's
+ * table shares, so the two cannot drift.
  */
-import ClaimsTable from "../ClaimsTable.astro";
+import { institutionalClaims } from "../../content/institutional-claims";
 import SectionBlock from "../SectionBlock.astro";
+
+const exhibitFor = (index: number) => String.fromCharCode(65 + index);
 ---
 
 <SectionBlock
   id="claims"
   eyebrow="The test"
   title="A description of a system is a claim. Each claim has a record that would back it."
-  description="If you call a system democratic, show that the people it decides about can make it answer. If you call it efficient, show that the efficiency is not work moved onto people with less power. The standards do not say who should hold power. They hold an institution to what it says about itself."
+  description="The standards do not say who should hold power. They hold an institution to what it says about itself. Each claim below is set as a clause, with the exhibit an institution would have to produce."
   variant="default"
 >
-  <ClaimsTable />
+  <ol class="home-clauses">
+    {
+      institutionalClaims.map((claim, index) => (
+        <li class="home-clauses__clause">
+          <p class="home-clauses__head">
+            <span class="home-clauses__num">§{index + 1}</span>
+            <span class="home-clauses__claim">
+              If the system is called {claim.claim}
+            </span>
+          </p>
+          <p class="home-clauses__exhibit">
+            <span class="home-clauses__exhibit-label">
+              Exhibit {exhibitFor(index)}
+            </span>
+            — {claim.show}
+          </p>
+          <p class="home-clauses__authority small muted">
+            Asked for by{" "}
+            {claim.basis.map((item, basisIndex) => (
+              <>
+                <a href={item.href}>{item.label}</a>
+                {basisIndex < claim.basis.length - 1 && " · "}
+              </>
+            ))}
+          </p>
+        </li>
+      ))
+    }
+  </ol>
   <p class="muted small">
     An election can authorize a program. It does not give the person the program
     decides about a way to contest that decision; standing does. For how these

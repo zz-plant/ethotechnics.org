@@ -45,67 +45,79 @@
     max-width: 68ch;
   }
 
-  /* The record's and the mechanism's headers: heading on the left, lede on
-     the right on a wide screen, so each opens with one band instead of a
-     stack three blocks tall. Stacked below 1000px. */
-  .home-split-header {
+  /* The mechanism leads with its drawing: figure left at roughly 60%,
+     the argument's text right. Stacked below 1000px, text first. */
+  .home-claim__grid {
     display: grid;
-    gap: var(--space-heading);
-    align-items: start;
-  }
-
-  .home-split-header > .section-lead {
-    margin: 0;
+    gap: var(--space-6);
   }
 
   @media (min-width: 1000px) {
-    .home-split-header {
-      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-      column-gap: clamp(var(--space-6), 4vw, var(--space-8));
+    .home-claim__grid {
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      align-items: center;
     }
 
-    .record-spine__header.home-split-header {
-      max-width: none;
+    .home-claim__figure {
+      order: -1;
     }
   }
 
-  /* The figure is two side-by-side charts drawn on a 960-wide canvas. At the
-     full content width it stood 480px tall and pushed the casebook to the
-     fourth screen; capped, it reads the same and the casebook starts on the
-     third. */
-  .home-claim .home-draw {
-    width: 100%;
-    max-width: 50rem;
-  }
-
+  /* The colophon: the page closes as a book does - one ruled band for the
+     license and the studio, then a mono strip. Quietest treatment on the
+     page, which is where a footer belongs. */
   .home-supplement {
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding: calc(var(--space-section) / 2) 0 var(--space-section);
+  }
+
+  .home-colophon {
+    border-top: 2px solid var(--text);
+    padding-top: var(--space-5);
+  }
+
+  .home-colophon__cols {
     display: grid;
-    gap: clamp(var(--space-6), 3.5vw, var(--space-7));
-    max-width: var(--content-max);
-    margin-block: calc(var(--space-section) / 2) var(--space-section);
-    margin-inline: auto;
-    padding-inline: 0;
+    gap: var(--space-5);
   }
 
-  /* The field-level positioning card: one band between the casebook and the
-     claims test, same band treatment as the claim and casebook sections. */
-  .home-positioning {
-    max-width: var(--content-max);
-    margin-inline: auto;
-    padding: calc(var(--space-section) / 2) 0;
-    border-bottom: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
+  .home-colophon__label {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: var(--text-xs);
+    font-weight: 650;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--muted);
   }
 
-  @media (min-width: 860px) {
-    .home-supplement {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      align-items: start;
+  .home-colophon__text {
+    margin: var(--space-2) 0 0;
+    font-size: var(--text-sm);
+    line-height: 1.6;
+  }
+
+  .home-colophon__strip {
+    margin: var(--space-5) 0 0;
+    padding-top: var(--space-3);
+    border-top: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  @media (min-width: 800px) {
+    .home-colophon__cols {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     }
-  }
 
-  .card--accent {
-    background: color-mix(in srgb, var(--accent) 7%, var(--surface));
-    border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
+    .home-colophon__cols > div:last-child {
+      border-left: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+      padding-left: var(--space-6);
+    }
   }
 
   /* The story masthead. The headline is drawn beside it on a wide screen and
@@ -128,160 +140,7 @@
     max-width: 60ch;
   }
 
-  /* The headline as a loop: the scheme in the institution's colour, the
-     tribunal in the record's, and the missing return in the colour the
-     record uses for "unanswered". Drawing units, so px are viewBox units. */
-  .home-loop {
-    margin: 0;
-    display: grid;
-    gap: var(--space-3);
-    max-width: 28rem;
-  }
-
-  .home-loop__svg {
-    display: block;
-    width: 100%;
-    height: auto;
-    overflow: visible;
-  }
-
-  .home-loop__svg .home-loop__box rect {
-    fill: var(--surface);
-    stroke-width: 1.5px;
-  }
-
-  .home-loop__svg .home-loop__box--scheme rect {
-    stroke: var(--status-warning);
-  }
-
-  .home-loop__svg .home-loop__box--record rect {
-    stroke: var(--accent);
-  }
-
-  .home-loop__svg .home-loop__box--scheme .home-loop__dot {
-    fill: var(--status-warning);
-  }
-
-  .home-loop__svg .home-loop__box--record .home-loop__dot {
-    fill: var(--accent);
-  }
-
-  .home-loop__svg .home-loop__caps {
-    font-family: var(--sans);
-    font-size: 13px;
-    font-weight: 650;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    fill: var(--muted);
-  }
-
-  .home-loop__svg .home-loop__title {
-    font-family: var(--serif);
-    font-size: 17px;
-    font-weight: 650;
-    fill: var(--text);
-  }
-
-  .home-loop__svg .home-loop__text {
-    font-family: var(--sans);
-    font-size: 15px;
-    font-weight: 550;
-    fill: var(--text);
-  }
-
-  .home-loop__svg .home-loop__text--muted {
-    font-weight: 450;
-    fill: var(--muted);
-  }
-
-  .home-loop__svg .home-loop__text--cut {
-    font-weight: 650;
-    fill: var(--status-danger);
-  }
-
-  .home-loop__svg .home-loop__flow {
-    fill: none;
-    stroke-width: 2px;
-  }
-
-  .home-loop__svg .home-loop__flow--scheme {
-    stroke: var(--status-warning);
-  }
-
-  .home-loop__svg .home-loop__flow--record {
-    stroke: var(--accent);
-  }
-
-  .home-loop__svg .home-loop__head--scheme {
-    fill: var(--status-warning);
-  }
-
-  .home-loop__svg .home-loop__head--record {
-    fill: var(--accent);
-  }
-
-  .home-loop__svg .home-loop__head--missing {
-    fill: var(--muted);
-  }
-
-  .home-loop__svg .home-loop__person {
-    fill: none;
-    stroke: var(--muted);
-    stroke-width: 1.6px;
-    stroke-linecap: round;
-  }
-
-  .home-loop__svg .home-loop__person--appellant {
-    stroke: var(--accent);
-    stroke-width: 2.2px;
-  }
-
-  .home-loop__svg .home-loop__missing {
-    fill: none;
-    stroke: var(--muted);
-    stroke-width: 1.6px;
-    stroke-dasharray: 5 5;
-  }
-
-  .home-loop__svg .home-loop__cut {
-    fill: none;
-    stroke: var(--status-danger);
-    stroke-width: 2.6px;
-    stroke-linecap: round;
-  }
-
-  .home-loop__caption {
-    margin: 0;
-    max-width: 40ch;
-  }
-
-  .institute-hero__actions {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--space-3) var(--space-4);
-  }
-
-  /* An outlined button beside the one solid button. Triage is for a reader
-     whose system is harming people now; as a plain text link its predicted
-     share of first-screen taps on a phone fell from 15% to 4%. Outlined, it
-     stays second to "Test your system" without disappearing. */
-  .institute-hero__triage-link {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-  }
-
-  .incident-dot {
-    width: 0.55rem;
-    height: 0.55rem;
-    border-radius: 50%;
-    background: var(--status-warning);
-    display: inline-block;
-    flex-shrink: 0;
-  }
-
-  /* Three doors: the reader names who they are before choosing a page. */
+  /* The doors: the reader names who they are before choosing a page. */
   .home-doors {
     max-width: var(--content-max);
     margin-inline: auto;
@@ -307,13 +166,21 @@
     margin-block-end: var(--space-block);
   }
 
+  /* The doors read as a directory: one hairline row per door, role left,
+     destination middle, one arrow right. No boxes: wayfinding, not
+     merchandising. */
   .home-doors__list {
     list-style: none;
     margin: 0;
     padding: 0;
-    display: grid;
-    gap: var(--space-5);
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  }
+
+  .home-doors__list li {
+    border-top: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+  }
+
+  .home-doors__list li:last-child {
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
   }
 
   /* The line under the doors for a reader who has no role yet, only a system. */
@@ -322,53 +189,64 @@
   }
 
   .home-doors__door {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-    height: 100%;
-    padding: var(--space-5) var(--space-5);
-    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-    border-radius: var(--radius-lg);
-    background: var(--surface);
+    display: grid;
+    grid-template-columns: minmax(9rem, 13rem) minmax(0, 1fr) auto;
+    gap: var(--space-2) var(--space-5);
+    align-items: baseline;
+    padding: var(--space-4) var(--space-1);
     color: var(--text);
     text-decoration: none;
-    transition:
-      border-color var(--motion-base) ease,
-      box-shadow var(--motion-base) ease,
-      transform var(--motion-base) var(--ease-out-editorial);
+    transition: background-color var(--motion-base) ease;
   }
 
   .home-doors__door:hover,
   .home-doors__door:focus-visible {
-    border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+    background: color-mix(in srgb, var(--panel) 45%, transparent);
     color: var(--text);
     text-decoration: none;
   }
 
   .home-doors__who {
-    font-family: var(--serif);
-    font-size: var(--text-lg);
+    font-family: var(--sans);
+    font-size: var(--text-base);
     font-weight: 650;
     color: var(--text);
     margin: 0;
   }
 
   .home-doors__what {
-    flex: 1;
     margin: 0;
     line-height: 1.55;
   }
 
   .home-doors__action {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-1);
+    font-family: var(--sans);
     font-size: var(--text-sm);
     font-weight: 600;
     color: var(--link);
-    margin-top: var(--space-1);
+    white-space: nowrap;
   }
 
+  @media (max-width: 639px) {
+    .home-doors__door {
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .home-doors__who {
+      grid-column: 1;
+    }
+
+    .home-doors__action {
+      grid-row: 1;
+      grid-column: 2;
+    }
+
+    .home-doors__what {
+      grid-column: 1 / -1;
+    }
+  }
+
+  /* Self-test. */
   /* Self-test. */
   .home-core__test {
     display: grid;
@@ -594,19 +472,15 @@
     text-decoration: none;
   }
 
-  /* The safeguard map: six stops on one line, and a return path from the
-     last back to the first. Geometry: a 2.25rem node whose centre the
-     connectors run through, and a bracket in the list's left padding that
-     carries the return. Answers arrive as data-answer on each stop. */
+  /* The six-node figure: one ring, six safeguard nodes, the count at
+     center. Answers arrive as data-answer on each node group; the shape is
+     hidden from assistive technology because the form and its result carry
+     the same information. */
   .safeguard-map {
-    --map-line: color-mix(in srgb, var(--border) 75%, var(--muted));
-    --map-node: 2.25rem;
-    --map-half: 1.125rem;
-
     margin: 0;
     display: grid;
-    gap: var(--space-4);
-    padding: var(--space-5);
+    gap: var(--space-3);
+    padding: var(--space-4);
     border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
     border-radius: var(--radius-md);
     background: var(--surface);
@@ -628,188 +502,71 @@
     line-height: 1.25;
   }
 
-  .safeguard-map__stops {
-    position: relative;
-    list-style: none;
-    margin: 0;
-    padding: 0 0 0 var(--space-5);
+  .safeguard-map__svg {
+    width: 100%;
+    max-width: 19rem;
+    margin-inline: auto;
+    display: block;
   }
 
-  /* The return path: down the left from the last row, into the first stop.
-     Its arrowhead is the ::after triangle at the top. */
-  .safeguard-map__stops::before {
-    content: "";
-    position: absolute;
-    top: var(--map-half);
-    bottom: 0;
-    left: 0.25rem;
-    width: calc(1.25rem - 8px);
-    border: 2px solid var(--map-line);
-    border-right: 0;
-    border-radius: var(--radius-md) 0 0 var(--radius-md);
-  }
-
-  .safeguard-map__stops::after {
-    content: "";
-    position: absolute;
-    top: calc(var(--map-half) - 5px);
-    left: calc(1.5rem - 9px);
-    border-block: 6px solid transparent;
-    border-left: 9px solid var(--map-line);
-    transform: translateY(-1px);
-  }
-
-  .safeguard-map__stop,
-  .safeguard-map__return {
-    position: relative;
-    display: grid;
-    grid-template-columns: var(--map-node) minmax(0, 1fr);
-    column-gap: var(--space-3);
-  }
-
-  .safeguard-map__stop {
-    align-items: start;
-    padding-bottom: var(--space-4);
-  }
-
-  /* The line from each stop down to the next. */
-  .safeguard-map__stop::after {
-    content: "";
-    position: absolute;
-    top: var(--map-node);
-    bottom: 0;
-    left: calc(var(--map-half) - 1px);
-    border-left: 2px solid var(--map-line);
-  }
-
-  .safeguard-map__node {
-    position: relative;
-    z-index: 1;
-    display: grid;
-    place-items: center;
-    width: var(--map-node);
-    height: var(--map-node);
-    border: 2px solid var(--map-line);
-    border-radius: 50%;
-    background: var(--surface);
-    color: var(--muted);
-    transition:
-      border-color var(--motion-fast) ease,
-      background-color var(--motion-fast) ease,
-      color var(--motion-fast) ease;
-  }
-
-  .safeguard-map__node svg {
+  .safeguard-map__ring,
+  .safeguard-map__spoke {
     fill: none;
-    stroke: currentColor;
-    stroke-width: 1.7;
-    stroke-linecap: round;
+    stroke: color-mix(in srgb, var(--border) 85%, var(--muted));
+    stroke-width: 1.5;
   }
 
-  .safeguard-map__text {
-    display: grid;
-    gap: var(--space-hair);
-    padding-top: var(--space-hair);
-    font-family: var(--sans);
-    font-size: var(--text-sm);
-    line-height: 1.4;
+  .safeguard-map__svg .safeguard-map__label {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.06em;
+    fill: var(--muted);
   }
 
-  .safeguard-map__label {
-    font-weight: 650;
-    color: var(--text);
+  .safeguard-map__node-shape {
+    fill: var(--surface);
+    stroke: color-mix(in srgb, var(--border) 60%, var(--muted));
+    stroke-width: 2;
+    transition:
+      fill var(--motion-fast) ease,
+      stroke var(--motion-fast) ease;
   }
 
-  .safeguard-map__holds {
-    color: var(--muted);
+  .safeguard-map__node[data-answer="y"] .safeguard-map__node-shape {
+    fill: var(--accent);
+    stroke: var(--accent);
   }
 
-  .safeguard-map__stop--waypoint {
-    align-items: center;
+  .safeguard-map__node:is([data-answer="n"], [data-answer="u"])
+    .safeguard-map__node-shape {
+    fill: var(--status-warning);
+    stroke: var(--status-warning);
   }
 
-  .safeguard-map__stop--waypoint .safeguard-map__node {
-    border-style: dotted;
+  .safeguard-map__svg .safeguard-map__score {
+    font-family: var(--serif);
+    font-size: 34px;
+    font-weight: 700;
+    fill: var(--text);
   }
 
-  .safeguard-map__stop--waypoint .safeguard-map__holds {
-    font-style: italic;
-  }
-
-  /* The last row carries no node: the line from correction runs down past
-     its words and turns left along the list's bottom edge, where the return
-     path starts. Anchored to that edge, so the words may wrap. */
-  .safeguard-map__return {
-    align-items: start;
-    padding-bottom: var(--space-3);
-    font-family: var(--sans);
-    font-size: var(--text-sm);
-    line-height: 1.4;
-  }
-
-  .safeguard-map__return > * {
-    grid-column: 2;
-  }
-
-  .safeguard-map__return::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: -8px;
-    width: calc(var(--map-half) + 9px);
-    border: 0 solid var(--map-line);
-    border-right-width: 2px;
-    border-bottom-width: 2px;
-    border-bottom-right-radius: var(--radius-md);
-  }
-
-  /* Answered: a held stop is drawn solid, a stop that is not holding is
-     drawn broken, and so is the line out of it. */
-  .safeguard-map__stop[data-answer="y"] .safeguard-map__node {
-    border-color: var(--status-success);
-    background: color-mix(in srgb, var(--status-success) 14%, var(--surface));
-    color: var(--status-success);
-  }
-
-  .safeguard-map__stop:is([data-answer="n"], [data-answer="u"])
-    .safeguard-map__node {
-    border-style: dashed;
-    border-color: var(--status-danger);
-    color: var(--status-danger);
-  }
-
-  .safeguard-map__stop:is([data-answer="n"], [data-answer="u"])::after {
-    border-left-style: dashed;
-    border-left-color: var(--status-danger);
-  }
-
-  /* Correction not holding: nothing gets back to the start, the way no
-     ruling got back to Robodebt in the hero. */
-  .safeguard-map__stops:has(
-      [data-map-variable="correction"]:is([data-answer="n"], [data-answer="u"])
-    )::before,
-  .safeguard-map__stops:has(
-      [data-map-variable="correction"]:is([data-answer="n"], [data-answer="u"])
-    )
-    .safeguard-map__return::before {
-    border-style: dashed;
-    border-color: var(--status-danger);
-  }
-
-  .safeguard-map__stops:has(
-      [data-map-variable="correction"]:is([data-answer="n"], [data-answer="u"])
-    )::after {
-    border-left-color: var(--status-danger);
+  .safeguard-map__svg .safeguard-map__score-sub {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    fill: var(--muted);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .safeguard-map__node {
+    .safeguard-map__node-shape {
       transition: none;
     }
   }
 
-  /* Casebook scorecard. */
+  /* Casebook scorecard: barcode rows. One packed row per case, sorted by
+     how long harm ran; the six verdicts read as a mark run, the halt bar
+     sits at the right edge on a square-root scale, and the days label
+     carries the figure so the scale never has to be trusted. */
   .home-casebook {
     max-width: var(--content-max);
     margin-inline: auto;
@@ -817,9 +574,6 @@
     border-bottom: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
   }
 
-  /* The key comes before the rows. Below 1000px a legend names each glyph;
-     from 1000px each column is named above it instead, so the eye goes
-     straight down from a word to its marks. */
   .home-casebook__key {
     display: flex;
     flex-wrap: wrap;
@@ -850,38 +604,6 @@
     margin: 0;
   }
 
-  .home-casebook__columns {
-    display: none;
-  }
-
-  @media (min-width: 1000px) {
-    .home-casebook__legend {
-      display: none;
-    }
-
-    .home-casebook__verdict-key {
-      margin-inline-start: auto;
-    }
-
-    .home-casebook__columns {
-      display: flex;
-      justify-content: flex-end;
-      gap: var(--space-3);
-      padding: 0 var(--space-1) var(--space-2);
-      font-family: var(--sans);
-      font-size: var(--text-xs);
-      font-weight: 650;
-      color: var(--muted);
-    }
-
-    .home-casebook__column,
-    .home-casebook__cell {
-      width: 5.25rem;
-      justify-content: center;
-      text-align: center;
-    }
-  }
-
   .home-casebook__list {
     list-style: none;
     margin: 0;
@@ -891,8 +613,10 @@
 
   .home-casebook__row {
     display: grid;
-    gap: var(--space-1) var(--space-5);
-    padding: var(--space-3) var(--space-1);
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: var(--space-3) var(--space-6);
+    align-items: center;
+    padding: var(--space-4) var(--space-1);
     border-bottom: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
     color: var(--text);
     text-decoration: none;
@@ -905,6 +629,12 @@
     text-decoration: none;
   }
 
+  .home-casebook__name {
+    display: grid;
+    gap: var(--space-hair);
+    min-width: 0;
+  }
+
   .home-casebook__title {
     font-family: var(--serif);
     font-size: var(--text-lg);
@@ -912,43 +642,87 @@
     color: var(--accent);
   }
 
-  .home-casebook__verdicts {
+  .home-casebook__meta {
+    margin: 0;
+  }
+
+  .home-casebook__marks {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
-    gap: var(--space-1) var(--space-3);
+    gap: var(--space-2);
   }
 
-  .home-casebook__cell {
-    display: inline-flex;
+  .home-casebook__halt {
+    display: flex;
     align-items: center;
-    gap: var(--space-hair);
+    gap: var(--space-2);
+  }
+
+  .home-casebook__track {
+    display: block;
+    width: 9rem;
+    height: 0.55rem;
+    border-radius: var(--radius-xs);
+    background: color-mix(in srgb, var(--panel) 80%, transparent);
+    overflow: hidden;
+  }
+
+  .home-casebook__bar {
+    display: block;
+    height: 100%;
+    width: calc(var(--halt-share, 0) * 100%);
+    border-radius: var(--radius-xs);
+    background: var(--accent);
+  }
+
+  .home-casebook__days {
+    font-family: var(--mono);
+    font-size: var(--text-xs);
     color: var(--muted);
-    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    min-width: 3.5rem;
   }
 
-  @media (min-width: 800px) {
+  @media (max-width: 899px) {
     .home-casebook__row {
       grid-template-columns: minmax(0, 1fr) auto;
       grid-template-areas:
-        "title verdicts"
-        "meta verdicts";
-      align-items: center;
-      padding: var(--space-4) var(--space-1);
+        "name marks"
+        "name halt";
     }
 
-    .home-casebook__title {
-      grid-area: title;
+    .home-casebook__name {
+      grid-area: name;
     }
 
-    .home-casebook__meta {
-      grid-area: meta;
+    .home-casebook__marks {
+      grid-area: marks;
+      justify-self: end;
     }
 
-    .home-casebook__verdicts {
-      grid-area: verdicts;
-      flex-wrap: nowrap;
-      gap: var(--space-1) var(--space-3);
+    .home-casebook__halt {
+      grid-area: halt;
+      justify-self: end;
+    }
+
+    .home-casebook__track {
+      width: 6.5rem;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .home-casebook__row {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas:
+        "name"
+        "marks"
+        "halt";
+    }
+
+    .home-casebook__marks,
+    .home-casebook__halt {
+      justify-self: start;
     }
   }
 
@@ -957,14 +731,9 @@
     .self-test__item {
       transition: none;
     }
-
-    .home-doors__door:hover,
-    .home-doors__door:focus-visible {
-      transform: none;
-    }
   }
 
-  /* ── Scrollytelling without capturing scroll ────────────────────────
+  /* ── Scrollytelling without capturing scroll  /* ── Scrollytelling without capturing scroll ────────────────────────
      One observer adds .is-inview; it never touches the scrollbar. The
      hidden state exists only once the script has marked the document, so
      a reader without JavaScript never sees missing content. */
@@ -1084,8 +853,9 @@
     font-size: var(--text-sm);
   }
 
-  /* Act 1: the record spine. The panel summarizes the event list; sticky
-     within its own section only, so it never holds the viewport. */
+  /* Act 1: the record spine as a rail. One row per dated event: quote
+     left, dot on the rail, the institution's response right. Rust dots are
+     warnings the institution never answered; the halt row's dot is ink. */
   .record-spine {
     max-width: var(--content-max);
     margin-inline: auto;
@@ -1094,240 +864,138 @@
   }
 
   .record-spine__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-5);
     max-width: 68ch;
     margin-block-end: var(--space-block);
   }
 
-  .record-spine__grid {
-    display: grid;
-    gap: clamp(var(--space-5), 3vw, var(--space-7));
-    align-items: start;
-  }
-
-  .record-spine__panel {
-    display: grid;
-    gap: var(--space-4);
-    padding: var(--space-container);
-    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-    border-radius: var(--radius-lg);
-    background: color-mix(in srgb, var(--surface) 92%, transparent);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: var(--shadow-xs);
-    transition:
-      border-color var(--motion-base) ease,
-      box-shadow var(--motion-base) ease;
-  }
-
-  .record-spine__panel.is-halted {
-    border-color: color-mix(in srgb, var(--status-success) 45%, var(--border));
-  }
-
-  .record-spine__panel-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-2);
-  }
-
-  .record-spine__panel-badge {
-    flex-shrink: 0;
-    white-space: nowrap;
-    font-family: var(--sans);
-    font-size: var(--text-xs, 0.75rem);
-    font-weight: 650;
-    letter-spacing: var(--tracking-label);
-    text-transform: uppercase;
-    color: var(--muted);
-    padding: var(--space-1) var(--space-2);
+  .record-spine__chip {
+    margin: 0;
+    padding: var(--space-1) var(--space-3);
+    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
     border-radius: var(--radius-pill);
-    background: color-mix(in srgb, var(--panel) 60%, transparent);
-    border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
-    transition:
-      color var(--motion-fast) ease,
-      background-color var(--motion-fast) ease,
-      border-color var(--motion-fast) ease;
-  }
-
-  .record-spine__panel.is-halted .record-spine__panel-badge {
-    color: var(--status-success);
-    background: color-mix(in srgb, var(--status-success) 12%, transparent);
-    border-color: color-mix(in srgb, var(--status-success) 35%, transparent);
-  }
-
-  .record-spine__panel-title {
-    min-width: 0;
-    margin: 0;
+    background: var(--panel);
     font-family: var(--sans);
-    font-size: var(--text-xs, 0.75rem);
-    font-weight: 650;
-    letter-spacing: var(--tracking-label);
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .record-spine__ledger {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: var(--space-2);
-    align-items: start;
-  }
-
-  .record-spine__ledger-dot {
-    width: 0.55rem;
-    height: 0.55rem;
-    margin-block-start: var(--space-1);
-    border-radius: 50%;
-    transition: background-color var(--motion-fast) ease;
-  }
-
-  .record-spine__ledger-dot--record {
-    background: var(--accent);
-  }
-
-  .record-spine__ledger-dot--institution {
-    background: var(--status-warning);
-  }
-
-  .record-spine__ledger-dot--institution[data-state="halted"] {
-    background: var(--status-success);
-  }
-
-  .record-spine__ledger-label {
-    margin: 0;
-    font-family: var(--sans);
-    font-size: var(--text-xs, 0.75rem);
-    font-weight: 650;
-    letter-spacing: var(--tracking-label);
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .record-spine__ledger-value {
-    margin: var(--space-hair) 0 0;
-    font-weight: 600;
-  }
-
-  .record-spine__events {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    border-top: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
-  }
-
-  .record-spine__event {
-    display: grid;
-    grid-template-columns: 7.5rem minmax(0, 1fr);
-    gap: var(--space-4);
-    padding: var(--space-3) var(--space-1);
-    border-bottom: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
-  }
-
-  .record-spine__when {
-    font-family: var(--sans);
-    font-size: var(--text-sm);
-    font-weight: 650;
-    color: var(--muted);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    color: var(--text);
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
 
-  .record-spine__what {
+  .record-spine__lead {
+    margin: 0 0 var(--space-4);
+    max-width: 62ch;
+  }
+
+  .record-spine__rail {
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .record-spine__rail::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    transform: translateX(-50%);
+    background: color-mix(in srgb, var(--border) 70%, transparent);
+  }
+
+  .record-spine__row {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 2.5rem minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .record-spine__quote {
+    padding-right: var(--space-4);
+  }
+
+  .record-spine__said {
     margin: 0;
   }
 
-  .record-spine__event--turn {
-    border-left: 3px solid var(--accent);
-    padding-left: var(--space-4);
-    background: color-mix(in srgb, var(--accent) 4%, transparent);
-    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  .record-spine__note {
+    color: var(--muted);
   }
 
-  .record-spine__event--turn .record-spine__what {
-    font-weight: 650;
+  .record-spine__source {
+    margin: var(--space-1) 0 0;
+    font-family: var(--sans);
+    font-size: var(--text-xs);
+    color: var(--muted);
   }
 
-  .record-spine__event--halt {
-    border-left: 3px solid var(--status-success);
-    padding-left: var(--space-4);
-    background: color-mix(in srgb, var(--status-success) 4%, transparent);
-    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  .record-spine__dot {
+    justify-self: center;
+    align-self: start;
+    margin-top: 0.4em;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background: var(--mark);
+    box-shadow: 0 0 0 3px var(--bg);
   }
 
-  .record-spine__event--halt .record-spine__what {
-    font-weight: 650;
+  .record-spine__row--halt .record-spine__dot {
+    background: var(--text);
+  }
+
+  .record-spine__row--after .record-spine__dot {
+    background: color-mix(in srgb, var(--border) 80%, var(--muted));
+  }
+
+  .record-spine__response {
+    margin: 0.15em 0 0;
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  .record-spine__row--halt .record-spine__response {
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+
+  .record-spine__row--after .record-spine__response {
+    font-style: italic;
   }
 
   .record-spine__foot {
     margin-block-start: var(--space-4);
   }
 
-  .record-spine__foot a {
-    margin-inline-start: var(--space-4);
-  }
-
-  @media (max-width: 899px) {
-    .record-spine__panel {
-      position: sticky;
-      top: 4.25rem;
-      z-index: 10;
-      padding: var(--space-3) var(--space-4);
-      gap: var(--space-3);
-      box-shadow: var(--shadow-float);
-    }
-  }
-
-  @media (min-width: 900px) {
-    .record-spine__grid {
-      grid-template-columns: minmax(16rem, 21rem) minmax(0, 1fr);
+  @media (max-width: 719px) {
+    .record-spine__rail::before {
+      content: none;
     }
 
-    .record-spine__panel {
-      position: sticky;
-      top: 6rem;
-    }
-  }
-
-  @media (max-width: 560px) {
-    .record-spine__event {
-      grid-template-columns: minmax(5.5rem, max-content) minmax(0, 1fr);
-      gap: var(--space-3);
-    }
-  }
-
-  /* The rule-count figure draws itself once its section is in view: the
-     upheld challenges appear, then the arrow and the revised rule draw.
-     Static and complete wherever the script has not run. */
-  [data-reveal-ready] .home-draw .rule-count__marks,
-  [data-reveal-ready] .home-draw .rule-count__late {
-    opacity: 0;
-  }
-
-  [data-reveal-ready] .home-draw .rule-count__draw {
-    stroke-dasharray: 100;
-    stroke-dashoffset: 100;
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    [data-reveal-ready] .home-draw .rule-count__marks {
-      transition: opacity 0.6s ease;
+    .record-spine__row {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-1);
+      padding-block: var(--space-3);
+      border-bottom: 1px solid
+        color-mix(in srgb, var(--border) 60%, transparent);
     }
 
-    [data-reveal-ready] .home-draw .rule-count__draw {
-      transition: stroke-dashoffset 0.8s var(--ease-out-editorial) 0.7s;
+    .record-spine__dot {
+      display: none;
     }
 
-    [data-reveal-ready] .home-draw .rule-count__late {
-      transition: opacity 0.4s ease 1.3s;
-    }
-
-    [data-reveal-ready] .home-draw.is-inview .rule-count__marks,
-    [data-reveal-ready] .home-draw.is-inview .rule-count__late {
-      opacity: 1;
-    }
-
-    [data-reveal-ready] .home-draw.is-inview .rule-count__draw {
-      stroke-dashoffset: 0;
+    .record-spine__quote {
+      padding-right: 0;
     }
   }
 
@@ -1382,5 +1050,268 @@
     to {
       transform: scaleY(1);
     }
+  }
+
+  /* The hero's ledger: the record's warnings beside the response the
+     institution gave. The empty column is drawn as text, not a placeholder. */
+  .hero-ledger {
+    margin: 0;
+  }
+
+  .hero-ledger__runhead {
+    margin: 0 0 var(--space-2);
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .hero-ledger__table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+
+  .hero-ledger__table th {
+    padding: var(--space-2) var(--space-3);
+    border-bottom: 1px solid var(--border);
+    background: var(--panel);
+    font-family: var(--sans);
+    font-size: var(--text-2xs, var(--text-xs));
+    font-weight: 700;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    text-align: left;
+    color: var(--muted);
+  }
+
+  .hero-ledger__table td {
+    padding: var(--space-2) var(--space-3);
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    vertical-align: top;
+    font-size: var(--text-sm);
+  }
+
+  .hero-ledger__table tr:last-child td {
+    border-bottom: 0;
+  }
+
+  .hero-ledger__when {
+    display: block;
+    margin-bottom: 2px;
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .hero-ledger__blank {
+    font-family: var(--sans);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--mark);
+    white-space: nowrap;
+  }
+
+  .hero-ledger__caption {
+    margin-top: var(--space-2);
+  }
+
+  /* The mechanism's loop, compact: four lines and one broken return. */
+  .mech-loop {
+    margin: 0;
+  }
+
+  .mech-loop__svg {
+    width: 100%;
+    max-width: 34rem;
+    height: auto;
+    display: block;
+  }
+
+  .mech-loop__box {
+    fill: var(--surface);
+    stroke-width: 1.5;
+  }
+
+  .mech-loop__box--scheme {
+    stroke: var(--accent);
+  }
+
+  .mech-loop__box--person {
+    stroke: var(--teal);
+  }
+
+  .mech-loop__box--rule {
+    stroke: color-mix(in srgb, var(--border) 60%, var(--muted));
+    stroke-dasharray: 4 3;
+  }
+
+  .mech-loop__svg .mech-loop__title {
+    font-family: var(--serif);
+    font-size: 15px;
+    font-weight: 650;
+    fill: var(--text);
+  }
+
+  .mech-loop__svg .mech-loop__caps {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    fill: var(--muted);
+  }
+
+  .mech-loop__svg .mech-loop__caps--cut {
+    fill: var(--mark);
+  }
+
+  .mech-loop__flow {
+    stroke-width: 1.5;
+    fill: none;
+  }
+
+  .mech-loop__flow--debts {
+    stroke: var(--accent);
+  }
+
+  .mech-loop__flow--appeal {
+    stroke: var(--teal);
+  }
+
+  .mech-loop__flow--ruling {
+    stroke: var(--muted);
+    stroke-dasharray: 5 4;
+  }
+
+  .mech-loop__flow--cut {
+    stroke: var(--mark);
+    stroke-width: 2;
+    stroke-dasharray: 5 4;
+  }
+
+  .mech-loop__svg .mech-loop__cut {
+    font-family: var(--sans);
+    font-size: 20px;
+    font-weight: 800;
+    fill: var(--mark);
+  }
+
+  .mech-loop__caption {
+    margin-top: var(--space-2);
+  }
+
+  /* The positioning band's mechanism columns: four mechanisms handed the
+     same ten-year question, and the framework's own cell asking it of
+     itself. */
+  .home-mechanisms {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3);
+    margin-block-start: var(--space-4);
+  }
+
+  .home-mechanisms__cell {
+    display: grid;
+    align-content: start;
+    gap: var(--space-1);
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+  }
+
+  .home-mechanisms__cell--own {
+    border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+    background: color-mix(in srgb, var(--accent) 6%, var(--surface));
+  }
+
+  .home-mechanisms__name {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: var(--text-xs);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .home-mechanisms__cell--own .home-mechanisms__name {
+    color: var(--accent-strong);
+  }
+
+  .home-mechanisms__question {
+    margin: 0;
+    font-size: var(--text-sm);
+    line-height: 1.5;
+  }
+
+  @media (min-width: 900px) {
+    .home-mechanisms {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+  }
+
+  /* The claims as clauses: numbered like the standards, each with the
+     exhibit an institution would have to produce. */
+  .home-clauses {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+  }
+
+  .home-clauses__clause {
+    display: grid;
+    gap: var(--space-1);
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+  }
+
+  .home-clauses__head {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-1) var(--space-3);
+  }
+
+  .home-clauses__num {
+    font-family: var(--mono);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--mark);
+  }
+
+  .home-clauses__claim {
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--text);
+  }
+
+  .home-clauses__exhibit {
+    margin: 0;
+  }
+
+  .home-clauses__exhibit-label {
+    font-family: var(--sans);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-right: 0.35em;
+  }
+
+  .home-clauses__authority {
+    margin: 0;
   }
 }
