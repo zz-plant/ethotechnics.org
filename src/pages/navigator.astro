@@ -1,0 +1,132 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageIntro from "../components/PageIntro.astro";
+import SectionBlock from "../components/SectionBlock.astro";
+import CircuitNavigator from "../components/CircuitNavigator.astro";
+import ChainDiagram from "../components/ChainDiagram.astro";
+import SafeguardEquilibriumDiagram from "../components/SafeguardEquilibriumDiagram.astro";
+import MethodStack from "../components/MethodStack.astro";
+
+const pageTitle = "Concept Navigator — Ethotechnics Institute";
+const pageDescription =
+  "Visual navigation of the Ethotechnics method: the dual circuits of friction, the seven-stage decision chain, the six safeguards, and the vertical binding stack.";
+
+const anchorLinks = [
+  { href: "#circuits", label: "The two circuits" },
+  { href: "#chain", label: "The 7-stage chain" },
+  { href: "#safeguards", label: "The six safeguards" },
+  { href: "#stack", label: "The binding stack" },
+  { href: "#roles", label: "By role" },
+];
+
+const roles = [
+  {
+    role: "The person decided about",
+    exposure: "Bears the consequence of automated classification, eligibility denial, or fraud hold.",
+    right: "Contestability, reasons within clocks, non-retaliation.",
+    entryStandard: "STD-02 Contestability & Recourse",
+    href: "/standards/std-02-contestability-recourse",
+  },
+  {
+    role: "The frontline operator",
+    exposure: "Pressured into counterfeit buffering (unpaid workarounds that blind telemetry).",
+    right: "Unpenalized override authority reached in thirty seconds.",
+    entryStandard: "STD-06 Human Impact Safety Case",
+    href: "/standards/std-06-human-impact-safety-case",
+  },
+  {
+    role: "The risk owner",
+    exposure: "Holds legal liability for decisions delegated to models and agent chains.",
+    right: "Expiring authority leases with review triggers.",
+    entryStandard: "STD-08 Delegation",
+    href: "/standards/std-08-delegation",
+  },
+  {
+    role: "The independent regulator",
+    exposure: "Must verify whether observed performance is intrinsic or humanly subsidized.",
+    right: "Immutable decision records with groundable justifications.",
+    entryStandard: "STD-07 Revisable Delegation Record",
+    href: "/standards/std-07-revisable-delegation-record",
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  structuredDataType="webpage"
+  publishedTime="2026-10-02T00:00:00.000Z"
+>
+  <PageIntro
+    eyebrow="Navigator"
+    title="Visual concept navigator"
+    description={pageDescription}
+    anchorLinks={anchorLinks}
+  >
+    <Fragment slot="actions">
+      <a class="button primary" href="/method">Read the method</a>
+      <a class="button ghost" href="/standards">Open the standards</a>
+      <a class="button ghost" href="/diagnostics">Run diagnostics</a>
+    </Fragment>
+  </PageIntro>
+
+  <SectionBlock
+    id="circuits"
+    eyebrow="Thermodynamic posture"
+    title="The two circuits"
+    description="Friction does not disappear when a system is engineered to be frictionless. It moves. The closed circuit externalizes errors onto human buffers while telemetry stays green. The open circuit instruments constitutional friction so evidence reaches someone who can revise the rule."
+  >
+    <CircuitNavigator />
+  </SectionBlock>
+
+  <SectionBlock
+    id="chain"
+    eyebrow="Decision lifecycle"
+    title="The seven-stage chain"
+    description="Every consequential decision passes through seven stages. An unchecked pipeline cuts off at Consequence with no recourse. A governed chain builds two return loops: reconsideration reopens the authority lease, and correction feeds the next evidence base."
+    variant="alt"
+  >
+    <ChainDiagram />
+  </SectionBlock>
+
+  <SectionBlock
+    id="safeguards"
+    eyebrow="Dynamic equilibrium"
+    title="The six safeguards and drift vectors"
+    description="Capability, Authority, Evidence, Dependency, Standing, and Correction must remain coupled. When capability outruns authority, or dependence outruns correction, unreviewable institutional power emerges. The twelve laws bind these six failure drifts."
+  >
+    <SafeguardEquilibriumDiagram />
+  </SectionBlock>
+
+  <SectionBlock
+    id="stack"
+    eyebrow="Vertical binding"
+    title="From axiom to artifact"
+    description="Ethotechnics is not a set of abstract principles. It is a vertical stack where every layer turns the one above it into something a running system can fail. Select a vertical trace to follow a single concept from philosophy to runnable code."
+    variant="alt"
+  >
+    <MethodStack />
+  </SectionBlock>
+
+  <SectionBlock
+    id="roles"
+    eyebrow="Asymmetric exposure"
+    title="Navigate by role"
+    description="Ethotechnics names who an automated system affects, rather than appealing to generic 'stakeholders'. Choose a role to see where exposure lands and which standards bind it."
+  >
+    <div class="grid grid--two">
+      {
+        roles.map((r) => (
+          <div class="card stack-sm">
+            <p class="eyebrow">{r.role}</p>
+            <p><strong>Exposure:</strong> {r.exposure}</p>
+            <p class="muted"><strong>Requirement:</strong> {r.right}</p>
+            <p class="small">
+              <a href={r.href}>{r.entryStandard} &rarr;</a>
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </SectionBlock>
+</BaseLayout>

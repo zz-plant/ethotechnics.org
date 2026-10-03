@@ -1,0 +1,461 @@
+---
+/**
+ * SafeguardEquilibriumDiagram
+ *
+ * Interactive visual map of the six safeguards (state variables) and their
+ * six failure drifts. The invariant requires keeping these in step: when one
+ * outruns another, unreviewable institutional power emerges.
+ */
+// 6 drifts linking the state variables
+const drifts = [
+  {
+    id: "drift-cap-auth",
+    from: "Capability",
+    to: "Authority",
+    symptom: "Capability outruns authority",
+    lawRef: "Law I",
+    lawHref: "/standards/laws#law-i",
+    lawStatement: "Capability does not imply authority",
+    diagnostic: "Delegation Audit",
+    diagnosticHref: "/diagnostics/delegation-audit",
+    detail: "A model or agent gains new technical abilities, but no grant authorizer signed off on the wider jurisdiction.",
+  },
+  {
+    id: "drift-auth-evi",
+    from: "Authority",
+    to: "Evidence",
+    symptom: "Authority outlives evidence",
+    lawRef: "Laws II, III",
+    lawHref: "/standards/laws#law-ii",
+    lawStatement: "Authority decays unless its justification is renewed on evidence",
+    diagnostic: "Record Conformance",
+    diagnosticHref: "/diagnostics/record-conformance",
+    detail: "The operational baseline shifted or the population changed, but the grant was renewed without fresh validation.",
+  },
+  {
+    id: "drift-evi-dep",
+    from: "Evidence",
+    to: "Dependency",
+    symptom: "Policy detaches from reality",
+    lawRef: "Law III",
+    lawHref: "/standards/laws#law-iii",
+    lawStatement: "Evidence and authority must remain coupled",
+    diagnostic: "Record Conformance",
+    diagnosticHref: "/diagnostics/record-conformance",
+    detail: "The institution depends entirely on automated throughput while the underlying decision models diverge from actual cases.",
+  },
+  {
+    id: "drift-dep-cor",
+    from: "Dependency",
+    to: "Correction",
+    symptom: "Dependence outruns correction",
+    lawRef: "Laws V, XI",
+    lawHref: "/standards/laws#law-v",
+    lawStatement: "Dependence converts technical risk into structural risk",
+    diagnostic: "Burden Modeler",
+    diagnosticHref: "/diagnostics/burden-modeler",
+    detail: "Manual fallback skills atrophy; shutting down the system would cause operational collapse, making halt impossible.",
+  },
+  {
+    id: "drift-cor-sta",
+    from: "Correction",
+    to: "Standing",
+    symptom: "Observability grows without control",
+    lawRef: "Laws VIII, IX",
+    lawHref: "/standards/laws#law-viii",
+    lawStatement: "Observability without state transition is theater",
+    diagnostic: "Delegation Audit",
+    diagnosticHref: "/diagnostics/delegation-audit",
+    detail: "Operators see errors on telemetry but hold no authority to pause processing, override scores, or issue refunds.",
+  },
+  {
+    id: "drift-sta-cap",
+    from: "Standing",
+    to: "Capability",
+    symptom: "Exposure grows without standing",
+    lawRef: "Law VII",
+    lawHref: "/standards/laws#law-vii",
+    lawStatement: "Error-bearing parties require standing proportional to exposure",
+    diagnostic: "Burden Budget Worksheet",
+    diagnosticHref: "/diagnostics/burden-budget-worksheet",
+    detail: "The system makes millions of high-stakes classifications while the individuals affected cannot demand review or redress.",
+  },
+];
+---
+
+<div class="safeguard-diagram" data-safeguard-diagram>
+  <div class="safeguard-diagram__header">
+    <p class="eyebrow">Dynamic equilibrium</p>
+    <h3>The six safeguards and their failure drifts</h3>
+    <p class="muted">
+      The twelve laws do not forbid delegation; they constrain drift. When any one
+      safeguard outruns its pair, the system degenerates into an unreviewable power trap.
+    </p>
+  </div>
+
+  <div class="diagram-scroll">
+    <svg
+      viewBox="0 0 860 480"
+      role="img"
+      class="safeguard-diagram__svg"
+      aria-label="Hexagonal diagram of the six safeguards: Capability, Authority, Evidence, Dependency, Correction, and Standing, connected by their six failure drifts."
+    >
+      <defs>
+        <marker
+          id="drift-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)" />
+        </marker>
+      </defs>
+
+      <!-- Center Invariant Hub -->
+      <g transform="translate(300, 190)">
+        <rect
+          width="260"
+          height="100"
+          rx="10"
+          class="safeguard-hub__rect"
+        />
+        <text x="130" y="28" text-anchor="middle" class="safeguard-hub__eyebrow">The invariant</text>
+        <text x="130" y="50" text-anchor="middle" class="safeguard-hub__text">Capacity to inspect & revise</text>
+        <text x="130" y="68" text-anchor="middle" class="safeguard-hub__text">must keep pace with agency</text>
+        <text x="130" y="86" text-anchor="middle" class="safeguard-hub__sub">Law IV &bull; Invariant</text>
+      </g>
+
+      <!-- Drift Connection Lines (The perimeter) -->
+      <!-- 1. Capability (430, 45) to Authority (710, 125) -->
+      <path d="M 430 75 L 670 120" class="safeguard-drift-path" data-drift-path="drift-cap-auth" marker-end="url(#drift-arrow)" />
+      <!-- 2. Authority (710, 155) to Evidence (710, 325) -->
+      <path d="M 710 175 L 710 300" class="safeguard-drift-path" data-drift-path="drift-auth-evi" marker-end="url(#drift-arrow)" />
+      <!-- 3. Evidence (670, 355) to Dependency (430, 405) -->
+      <path d="M 670 355 L 470 410" class="safeguard-drift-path" data-drift-path="drift-evi-dep" marker-end="url(#drift-arrow)" />
+      <!-- 4. Dependency (390, 405) to Standing (190, 355) -->
+      <path d="M 390 410 L 200 355" class="safeguard-drift-path" data-drift-path="drift-dep-cor" marker-end="url(#drift-arrow)" />
+      <!-- 5. Standing (150, 325) to Correction (150, 155) -->
+      <path d="M 150 300 L 150 175" class="safeguard-drift-path" data-drift-path="drift-cor-sta" marker-end="url(#drift-arrow)" />
+      <!-- 6. Correction (190, 120) to Capability (390, 75) -->
+      <path d="M 200 120 L 390 75" class="safeguard-drift-path" data-drift-path="drift-sta-cap" marker-end="url(#drift-arrow)" />
+
+      <!-- Nodes -->
+      <!-- Node 1: Capability -->
+      <g
+        class="safeguard-node safeguard-node--active"
+        transform="translate(350, 15)"
+        data-safeguard="Capability"
+        role="button"
+        tabindex="0"
+        aria-label="Inspect Capability safeguard"
+      >
+        <rect width="160" height="60" rx="8" class="safeguard-node__rect" />
+        <text x="80" y="26" text-anchor="middle" class="safeguard-node__title">Capability</text>
+        <text x="80" y="46" text-anchor="middle" class="safeguard-node__sub">What it can do</text>
+      </g>
+
+      <!-- Node 2: Authority -->
+      <g
+        class="safeguard-node"
+        transform="translate(630, 115)"
+        data-safeguard="Authority"
+        role="button"
+        tabindex="0"
+        aria-label="Inspect Authority safeguard"
+      >
+        <rect width="160" height="60" rx="8" class="safeguard-node__rect" />
+        <text x="80" y="26" text-anchor="middle" class="safeguard-node__title">Authority</text>
+        <text x="80" y="46" text-anchor="middle" class="safeguard-node__sub">What is permitted</text>
+      </g>
+
+      <!-- Node 3: Evidence -->
+      <g
+        class="safeguard-node"
+        transform="translate(630, 305)"
+        data-safeguard="Evidence"
+        role="button"
+        tabindex="0"
+        aria-label="Inspect Evidence safeguard"
+      >
+        <rect width="160" height="60" rx="8" class="safeguard-node__rect" />
+        <text x="80" y="26" text-anchor="middle" class="safeguard-node__title">Evidence</text>
+        <text x="80" y="46" text-anchor="middle" class="safeguard-node__sub">Justifying claims</text>
+      </g>
+
+      <!-- Node 4: Dependency -->
+      <g
+        class="safeguard-node"
+        transform="translate(350, 395)"
+        data-safeguard="Dependency"
+        role="button"
+        tabindex="0"
+        aria-label="Inspect Dependency safeguard"
+      >
+        <rect width="160" height="60" rx="8" class="safeguard-node__rect" />
+        <text x="80" y="26" text-anchor="middle" class="safeguard-node__title">Dependency</text>
+        <text x="80" y="46" text-anchor="middle" class="safeguard-node__sub">Cost of withdrawal</text>
+      </g>
+
+      <!-- Node 5: Standing -->
+      <g
+        class="safeguard-node"
+        transform="translate(70, 305)"
+        data-safeguard="Standing"
+        role="button"
+        tabindex="0"
+        aria-label="Inspect Standing safeguard"
+      >
+        <rect width="160" height="60" rx="8" class="safeguard-node__rect" />
+        <text x="80" y="26" text-anchor="middle" class="safeguard-node__title">Standing</text>
+        <text x="80" y="46" text-anchor="middle" class="safeguard-node__sub">Who can contest</text>
+      </g>
+
+      <!-- Node 6: Correction -->
+      <g
+        class="safeguard-node"
+        transform="translate(70, 115)"
+        data-safeguard="Correction"
+        role="button"
+        tabindex="0"
+        aria-label="Inspect Correction safeguard"
+      >
+        <rect width="160" height="60" rx="8" class="safeguard-node__rect" />
+        <text x="80" y="26" text-anchor="middle" class="safeguard-node__title">Correction</text>
+        <text x="80" y="46" text-anchor="middle" class="safeguard-node__sub">Ability to alter state</text>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Synchronized Inspector -->
+  <div class="safeguard-inspector" data-safeguard-inspector aria-live="polite">
+    {
+      drifts.map((drift, i) => (
+        <div
+          class={`safeguard-drift-card ${i === 0 ? "safeguard-drift-card--active" : ""}`}
+          data-drift-card={drift.id}
+          data-related-safeguards={`${drift.from} ${drift.to}`}
+        >
+          <div class="safeguard-drift-card__header">
+            <span class="badge small">{drift.from} &rarr; {drift.to}</span>
+            <span class="eyebrow warning">{drift.symptom}</span>
+          </div>
+          <p class="safeguard-drift-card__detail">{drift.detail}</p>
+          <div class="safeguard-drift-card__bindings">
+            <div>
+              <span class="small muted">Governing law:</span>
+              <p>
+                <a href={drift.lawHref}><strong>{drift.lawRef}:</strong> {drift.lawStatement}</a>
+              </p>
+            </div>
+            <div>
+              <span class="small muted">Test with diagnostic:</span>
+              <p>
+                <a href={drift.diagnosticHref} class="button ghost button--compact">{drift.diagnostic}</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  function initSafeguardDiagram() {
+    const containers = document.querySelectorAll<HTMLElement>("[data-safeguard-diagram]");
+    containers.forEach((container) => {
+      const nodes = container.querySelectorAll<HTMLElement>("[data-safeguard]");
+      const paths = container.querySelectorAll<SVGPathElement>("[data-drift-path]");
+      const cards = container.querySelectorAll<HTMLElement>("[data-drift-card]");
+
+      const selectSafeguard = (safeguardName: string) => {
+        // Highlight active node
+        nodes.forEach((node) => {
+          const isMatch = node.getAttribute("data-safeguard") === safeguardName;
+          node.classList.toggle("safeguard-node--active", isMatch);
+        });
+
+        // Highlight matching drift paths
+        paths.forEach((path) => {
+          const pathId = path.getAttribute("data-drift-path") || "";
+          const isMatch = pathId.toLowerCase().includes(safeguardName.toLowerCase().slice(0, 3));
+          path.classList.toggle("safeguard-drift-path--active", isMatch);
+        });
+
+        // Show matching drift card
+        let shown = false;
+        cards.forEach((card) => {
+          const related = card.getAttribute("data-related-safeguards") || "";
+          const isMatch = related.includes(safeguardName);
+          if (isMatch && !shown) {
+            card.classList.add("safeguard-drift-card--active");
+            shown = true;
+          } else {
+            card.classList.remove("safeguard-drift-card--active");
+          }
+        });
+      };
+
+      nodes.forEach((node) => {
+        node.addEventListener("click", () => {
+          const name = node.getAttribute("data-safeguard");
+          if (name) selectSafeguard(name);
+        });
+
+        node.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            const name = node.getAttribute("data-safeguard");
+            if (name) selectSafeguard(name);
+          }
+        });
+      });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initSafeguardDiagram, { once: true });
+  } else {
+    initSafeguardDiagram();
+  }
+</script>
+
+<style>
+  .safeguard-diagram {
+    display: grid;
+    gap: var(--space-4);
+    margin-block: var(--space-4);
+  }
+
+  .safeguard-diagram__header {
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  .safeguard-diagram__svg {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .safeguard-hub__rect {
+    fill: var(--surface);
+    stroke: var(--accent);
+    stroke-width: 1.5;
+  }
+
+  .safeguard-diagram__svg .safeguard-hub__eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    fill: var(--accent);
+  }
+
+  .safeguard-diagram__svg .safeguard-hub__text {
+    font-size: 13px;
+    font-weight: 600;
+    fill: var(--text);
+  }
+
+  .safeguard-diagram__svg .safeguard-hub__sub {
+    font-size: 11px;
+    fill: var(--muted);
+  }
+
+  .safeguard-drift-path {
+    stroke: var(--border);
+    stroke-width: 2;
+    stroke-dasharray: 4 3;
+    fill: none;
+    transition: all var(--motion-fast) ease;
+  }
+
+  .safeguard-drift-path--active {
+    stroke: var(--accent);
+    stroke-width: 3;
+    stroke-dasharray: none;
+  }
+
+  .safeguard-node {
+    cursor: pointer;
+  }
+
+  .safeguard-node:focus-visible {
+    outline: none;
+  }
+
+  .safeguard-node:focus-visible .safeguard-node__rect {
+    stroke: var(--accent);
+    stroke-width: 2.5;
+  }
+
+  .safeguard-node__rect {
+    fill: var(--panel);
+    stroke: var(--border);
+    stroke-width: 1.5;
+    transition: all var(--motion-fast) ease;
+  }
+
+  .safeguard-node:hover .safeguard-node__rect,
+  .safeguard-node--active .safeguard-node__rect {
+    stroke: var(--accent);
+    fill: color-mix(in srgb, var(--accent) 12%, var(--panel));
+  }
+
+  .safeguard-diagram__svg .safeguard-node__title {
+    font-size: 14px;
+    font-weight: 600;
+    fill: var(--text);
+  }
+
+  .safeguard-diagram__svg .safeguard-node__sub {
+    font-size: 11px;
+    fill: var(--muted);
+  }
+
+  /* Inspector card */
+  .safeguard-inspector {
+    margin-top: var(--space-2);
+  }
+
+  .safeguard-drift-card {
+    display: none;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    gap: var(--space-3);
+  }
+
+  .safeguard-drift-card--active {
+    display: grid;
+  }
+
+  .safeguard-drift-card__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .safeguard-drift-card__detail {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--text);
+  }
+
+  .safeguard-drift-card__bindings {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-3);
+    border-top: 1px solid var(--border);
+    padding-top: var(--space-3);
+  }
+
+  .safeguard-drift-card__bindings p {
+    margin: var(--space-1) 0 0;
+  }
+</style>
