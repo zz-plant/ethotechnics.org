@@ -105,7 +105,7 @@ const drifts = [
   <div class="diagram-scroll">
     <svg
       viewBox="0 0 860 480"
-      role="img"
+      role="group"
       class="safeguard-diagram__svg"
       aria-label="Hexagonal diagram of the six safeguards: Capability, Authority, Evidence, Dependency, Correction, and Standing, connected by their six failure drifts."
     >
@@ -160,19 +160,19 @@ const drifts = [
         class="safeguard-drift-path"
         data-drift-path="drift-evi-dep"
         marker-end="url(#drift-arrow)"></path>
-      <!-- 4. Dependency (390, 405) to Standing (190, 355) -->
+      <!-- 4. Dependency (390, 405) to Correction (190, 355) -->
       <path
         d="M 390 410 L 200 355"
         class="safeguard-drift-path"
         data-drift-path="drift-dep-cor"
         marker-end="url(#drift-arrow)"></path>
-      <!-- 5. Standing (150, 325) to Correction (150, 155) -->
+      <!-- 5. Correction (150, 325) to Standing (150, 155) -->
       <path
         d="M 150 300 L 150 175"
         class="safeguard-drift-path"
         data-drift-path="drift-cor-sta"
         marker-end="url(#drift-arrow)"></path>
-      <!-- 6. Correction (190, 120) to Capability (390, 75) -->
+      <!-- 6. Standing (190, 120) to Capability (390, 75) -->
       <path
         d="M 200 120 L 390 75"
         class="safeguard-drift-path"
@@ -259,7 +259,7 @@ const drifts = [
       <!-- Node 5: Standing -->
       <g
         class="safeguard-node"
-        transform="translate(70, 305)"
+        transform="translate(70, 115)"
         data-safeguard="Standing"
         role="button"
         tabindex="0"
@@ -278,7 +278,7 @@ const drifts = [
       <!-- Node 6: Correction -->
       <g
         class="safeguard-node"
-        transform="translate(70, 115)"
+        transform="translate(70, 305)"
         data-safeguard="Correction"
         role="button"
         tabindex="0"
@@ -368,13 +368,12 @@ const drifts = [
         });
 
         // Show matching drift card
-        let shown = false;
+
         cards.forEach((card) => {
           const related = card.getAttribute("data-related-safeguards") || "";
           const isMatch = related.includes(safeguardName);
-          if (isMatch && !shown) {
+          if (isMatch) {
             card.classList.add("safeguard-drift-card--active");
-            shown = true;
           } else {
             card.classList.remove("safeguard-drift-card--active");
           }
@@ -541,5 +540,13 @@ const drifts = [
 
   .safeguard-drift-card__bindings p {
     margin: var(--space-1) 0 0;
+  }
+</style>
+
+<style>
+  @media (max-width: 640px) {
+    .safeguard-diagram__svg {
+      min-width: 720px;
+    }
   }
 </style>

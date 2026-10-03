@@ -360,7 +360,7 @@ export const adversaries: Adversary[] = [
     challenge:
       "Courts, tort law, and existing statutes address harm when it occurs. Liability prices failure better than a regulator can anticipate it, and prior restraint should not precede the harm it guesses at.",
     demonstration:
-      "Failure shapes the ex-post system cannot reach: harms that arrive in individually small units no lawyer takes, harms whose evidence is generated and held by the operator, and settlements that pay the plaintiff without touching the rule. Every case in this site's casebook ran for years under existing law.",
+      "Failure shapes the ex-post system cannot reach: harms that arrive in individually small units no lawyer takes, harms whose evidence is generated and held by the operator, and settlements that pay the plaintiff without touching the rule. Several cases in this site's casebook persisted for years under existing law; the 2020 exam-grades system was halted after four days.",
     question:
       "In each casebook case, what did litigation change in the rule, how long did that take, and how many people the system decided about never filed?",
   },

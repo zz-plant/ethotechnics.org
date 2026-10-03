@@ -80,14 +80,14 @@ describe("Finite content specification", () => {
     expect(benchmarkHarness.schemaHref).toBe(
       "/standards/green-dashboard-benchmark.schema.json",
     );
-    expect(benchmarkHarness.tools.length).toBeGreaterThanOrEqual(6);
+    expect(benchmarkHarness.tools.length).toBeGreaterThanOrEqual(5);
 
     const toolNames = benchmarkHarness.tools.map((t) => t.name);
     expect(toolNames).toContain("adjust_schedule");
-    expect(toolNames).toContain("authorize_overtime");
-    expect(toolNames).toContain("request_staffing");
-    expect(toolNames).toContain("redesign_workflow");
-    expect(toolNames).toContain("defer_work");
+    expect(toolNames).toContain("instruct_worker");
+    expect(toolNames).not.toContain("request_staffing");
+    expect(toolNames).toContain("invest_in_capacity");
+    expect(toolNames).toContain("defer_nonurgent_work");
     expect(toolNames).toContain("audit_staff_hours");
   });
 

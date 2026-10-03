@@ -3,7 +3,6 @@ import { readdirSync, readFileSync } from "node:fs";
 type Finding = { file: string; message: string };
 
 const THEORY_DIR = "src/content/theory";
-const OUTPUT_FILE = "src/pages/research";
 
 /**
  * Every theory essay must be bound to the checkable layers it argues for:
@@ -26,7 +25,12 @@ function walk(dir: string): string[] {
 }
 
 const findings: Finding[] = [];
-const essays = walk(THEORY_DIR);
+const files = process.argv.slice(2);
+const essays = files.length
+  ? files.filter(
+      (file) => file.startsWith(`${THEORY_DIR}/`) && file.endsWith(".mdx"),
+    )
+  : walk(THEORY_DIR);
 
 for (const file of essays) {
   const raw = readFileSync(file, "utf8");
@@ -36,7 +40,7 @@ for (const file of essays) {
     findings.push({ file, message: "frontmatter has no lawRefs array" });
   }
 
-  const body = raw.split("---").slice(1).join("---");
+  const body = raw.replace(/^---\r?\n[\s\S]*?\r?\n---(?:\r?\n|$)/, "");
   const bound = ARTIFACT_PREFIXES.some(
     (prefix) =>
       body.includes(`href="${prefix}`) || body.includes(`](${prefix}`),

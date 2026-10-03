@@ -12,7 +12,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- **The future-concepts territory reconciled against the built layer** (385 → 381 entries, the
+- **The future-concepts territory reconciled against the built layer** (388 → 381 entries, the
   speculative category down from 38 to 29). Seven entries retired as superseded, each by a built
   artifact that now carries the same ground: moral-drift-control (STD-08 Part B and MEC-14's review
   triggers), distributed-accountability-protocols (traceable ownership and obligation continuity),
