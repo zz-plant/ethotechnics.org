@@ -18,7 +18,8 @@ const drifts = [
     lawStatement: "Capability does not imply authority",
     diagnostic: "Delegation Audit",
     diagnosticHref: "/diagnostics/delegation-audit",
-    detail: "A model or agent gains new technical abilities, but no grant authorizer signed off on the wider jurisdiction.",
+    detail:
+      "A model or agent gains new technical abilities, but no grant authorizer signed off on the wider jurisdiction.",
   },
   {
     id: "drift-auth-evi",
@@ -27,10 +28,12 @@ const drifts = [
     symptom: "Authority outlives evidence",
     lawRef: "Laws II, III",
     lawHref: "/standards/laws#law-ii",
-    lawStatement: "Authority decays unless its justification is renewed on evidence",
+    lawStatement:
+      "Authority decays unless its justification is renewed on evidence",
     diagnostic: "Record Conformance",
     diagnosticHref: "/diagnostics/record-conformance",
-    detail: "The operational baseline shifted or the population changed, but the grant was renewed without fresh validation.",
+    detail:
+      "The operational baseline shifted or the population changed, but the grant was renewed without fresh validation.",
   },
   {
     id: "drift-evi-dep",
@@ -42,7 +45,8 @@ const drifts = [
     lawStatement: "Evidence and authority must remain coupled",
     diagnostic: "Record Conformance",
     diagnosticHref: "/diagnostics/record-conformance",
-    detail: "The institution depends entirely on automated throughput while the underlying decision models diverge from actual cases.",
+    detail:
+      "The institution depends entirely on automated throughput while the underlying decision models diverge from actual cases.",
   },
   {
     id: "drift-dep-cor",
@@ -54,7 +58,8 @@ const drifts = [
     lawStatement: "Dependence converts technical risk into structural risk",
     diagnostic: "Burden Modeler",
     diagnosticHref: "/diagnostics/burden-modeler",
-    detail: "Manual fallback skills atrophy; shutting down the system would cause operational collapse, making halt impossible.",
+    detail:
+      "Manual fallback skills atrophy; shutting down the system would cause operational collapse, making halt impossible.",
   },
   {
     id: "drift-cor-sta",
@@ -66,7 +71,8 @@ const drifts = [
     lawStatement: "Observability without state transition is theater",
     diagnostic: "Delegation Audit",
     diagnosticHref: "/diagnostics/delegation-audit",
-    detail: "Operators see errors on telemetry but hold no authority to pause processing, override scores, or issue refunds.",
+    detail:
+      "Operators see errors on telemetry but hold no authority to pause processing, override scores, or issue refunds.",
   },
   {
     id: "drift-sta-cap",
@@ -75,10 +81,12 @@ const drifts = [
     symptom: "Exposure grows without standing",
     lawRef: "Law VII",
     lawHref: "/standards/laws#law-vii",
-    lawStatement: "Error-bearing parties require standing proportional to exposure",
+    lawStatement:
+      "Error-bearing parties require standing proportional to exposure",
     diagnostic: "Burden Budget Worksheet",
     diagnosticHref: "/diagnostics/burden-budget-worksheet",
-    detail: "The system makes millions of high-stakes classifications while the individuals affected cannot demand review or redress.",
+    detail:
+      "The system makes millions of high-stakes classifications while the individuals affected cannot demand review or redress.",
   },
 ];
 ---
@@ -88,8 +96,9 @@ const drifts = [
     <p class="eyebrow">Dynamic equilibrium</p>
     <h3>The six safeguards and their failure drifts</h3>
     <p class="muted">
-      The twelve laws do not forbid delegation; they constrain drift. When any one
-      safeguard outruns its pair, the system degenerates into an unreviewable power trap.
+      The twelve laws do not forbid delegation; they constrain drift. When any
+      one safeguard outruns its pair, the system degenerates into an
+      unreviewable power trap.
     </p>
   </div>
 
@@ -110,37 +119,65 @@ const drifts = [
           markerHeight="6"
           orient="auto-start-reverse"
         >
-          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)" />
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)"></path>
         </marker>
       </defs>
 
       <!-- Center Invariant Hub -->
       <g transform="translate(300, 190)">
-        <rect
-          width="260"
-          height="100"
-          rx="10"
-          class="safeguard-hub__rect"
-        />
-        <text x="130" y="28" text-anchor="middle" class="safeguard-hub__eyebrow">The invariant</text>
-        <text x="130" y="50" text-anchor="middle" class="safeguard-hub__text">Capacity to inspect & revise</text>
-        <text x="130" y="68" text-anchor="middle" class="safeguard-hub__text">must keep pace with agency</text>
-        <text x="130" y="86" text-anchor="middle" class="safeguard-hub__sub">Law IV &bull; Invariant</text>
+        <rect width="260" height="100" rx="10" class="safeguard-hub__rect"
+        ></rect>
+        <text x="130" y="28" text-anchor="middle" class="safeguard-hub__eyebrow"
+          >The invariant</text
+        >
+        <text x="130" y="50" text-anchor="middle" class="safeguard-hub__text"
+          >Capacity to inspect & revise</text
+        >
+        <text x="130" y="68" text-anchor="middle" class="safeguard-hub__text"
+          >must keep pace with agency</text
+        >
+        <text x="130" y="86" text-anchor="middle" class="safeguard-hub__sub"
+          >Law IV &bull; Invariant</text
+        >
       </g>
 
       <!-- Drift Connection Lines (The perimeter) -->
       <!-- 1. Capability (430, 45) to Authority (710, 125) -->
-      <path d="M 430 75 L 670 120" class="safeguard-drift-path" data-drift-path="drift-cap-auth" marker-end="url(#drift-arrow)" />
+      <path
+        d="M 430 75 L 670 120"
+        class="safeguard-drift-path"
+        data-drift-path="drift-cap-auth"
+        marker-end="url(#drift-arrow)"></path>
       <!-- 2. Authority (710, 155) to Evidence (710, 325) -->
-      <path d="M 710 175 L 710 300" class="safeguard-drift-path" data-drift-path="drift-auth-evi" marker-end="url(#drift-arrow)" />
+      <path
+        d="M 710 175 L 710 300"
+        class="safeguard-drift-path"
+        data-drift-path="drift-auth-evi"
+        marker-end="url(#drift-arrow)"></path>
       <!-- 3. Evidence (670, 355) to Dependency (430, 405) -->
-      <path d="M 670 355 L 470 410" class="safeguard-drift-path" data-drift-path="drift-evi-dep" marker-end="url(#drift-arrow)" />
+      <path
+        d="M 670 355 L 470 410"
+        class="safeguard-drift-path"
+        data-drift-path="drift-evi-dep"
+        marker-end="url(#drift-arrow)"></path>
       <!-- 4. Dependency (390, 405) to Standing (190, 355) -->
-      <path d="M 390 410 L 200 355" class="safeguard-drift-path" data-drift-path="drift-dep-cor" marker-end="url(#drift-arrow)" />
+      <path
+        d="M 390 410 L 200 355"
+        class="safeguard-drift-path"
+        data-drift-path="drift-dep-cor"
+        marker-end="url(#drift-arrow)"></path>
       <!-- 5. Standing (150, 325) to Correction (150, 155) -->
-      <path d="M 150 300 L 150 175" class="safeguard-drift-path" data-drift-path="drift-cor-sta" marker-end="url(#drift-arrow)" />
+      <path
+        d="M 150 300 L 150 175"
+        class="safeguard-drift-path"
+        data-drift-path="drift-cor-sta"
+        marker-end="url(#drift-arrow)"></path>
       <!-- 6. Correction (190, 120) to Capability (390, 75) -->
-      <path d="M 200 120 L 390 75" class="safeguard-drift-path" data-drift-path="drift-sta-cap" marker-end="url(#drift-arrow)" />
+      <path
+        d="M 200 120 L 390 75"
+        class="safeguard-drift-path"
+        data-drift-path="drift-sta-cap"
+        marker-end="url(#drift-arrow)"></path>
 
       <!-- Nodes -->
       <!-- Node 1: Capability -->
@@ -152,9 +189,14 @@ const drifts = [
         tabindex="0"
         aria-label="Inspect Capability safeguard"
       >
-        <rect width="160" height="60" rx="8" class="safeguard-node__rect" />
-        <text x="80" y="26" text-anchor="middle" class="safeguard-node__title">Capability</text>
-        <text x="80" y="46" text-anchor="middle" class="safeguard-node__sub">What it can do</text>
+        <rect width="160" height="60" rx="8" class="safeguard-node__rect"
+        ></rect>
+        <text x="80" y="26" text-anchor="middle" class="safeguard-node__title"
+          >Capability</text
+        >
+        <text x="80" y="46" text-anchor="middle" class="safeguard-node__sub"
+          >What it can do</text
+        >
       </g>
 
       <!-- Node 2: Authority -->
@@ -166,9 +208,14 @@ const drifts = [
         tabindex="0"
         aria-label="Inspect Authority safeguard"
       >
-        <rect width="160" height="60" rx="8" class="safeguard-node__rect" />
-        <text x="80" y="26" text-anchor="middle" class="safeguard-node__title">Authority</text>
-        <text x="80" y="46" text-anchor="middle" class="safeguard-node__sub">What is permitted</text>
+        <rect width="160" height="60" rx="8" class="safeguard-node__rect"
+        ></rect>
+        <text x="80" y="26" text-anchor="middle" class="safeguard-node__title"
+          >Authority</text
+        >
+        <text x="80" y="46" text-anchor="middle" class="safeguard-node__sub"
+          >What is permitted</text
+        >
       </g>
 
       <!-- Node 3: Evidence -->
@@ -180,9 +227,14 @@ const drifts = [
         tabindex="0"
         aria-label="Inspect Evidence safeguard"
       >
-        <rect width="160" height="60" rx="8" class="safeguard-node__rect" />
-        <text x="80" y="26" text-anchor="middle" class="safeguard-node__title">Evidence</text>
-        <text x="80" y="46" text-anchor="middle" class="safeguard-node__sub">Justifying claims</text>
+        <rect width="160" height="60" rx="8" class="safeguard-node__rect"
+        ></rect>
+        <text x="80" y="26" text-anchor="middle" class="safeguard-node__title"
+          >Evidence</text
+        >
+        <text x="80" y="46" text-anchor="middle" class="safeguard-node__sub"
+          >Justifying claims</text
+        >
       </g>
 
       <!-- Node 4: Dependency -->
@@ -194,9 +246,14 @@ const drifts = [
         tabindex="0"
         aria-label="Inspect Dependency safeguard"
       >
-        <rect width="160" height="60" rx="8" class="safeguard-node__rect" />
-        <text x="80" y="26" text-anchor="middle" class="safeguard-node__title">Dependency</text>
-        <text x="80" y="46" text-anchor="middle" class="safeguard-node__sub">Cost of withdrawal</text>
+        <rect width="160" height="60" rx="8" class="safeguard-node__rect"
+        ></rect>
+        <text x="80" y="26" text-anchor="middle" class="safeguard-node__title"
+          >Dependency</text
+        >
+        <text x="80" y="46" text-anchor="middle" class="safeguard-node__sub"
+          >Cost of withdrawal</text
+        >
       </g>
 
       <!-- Node 5: Standing -->
@@ -208,9 +265,14 @@ const drifts = [
         tabindex="0"
         aria-label="Inspect Standing safeguard"
       >
-        <rect width="160" height="60" rx="8" class="safeguard-node__rect" />
-        <text x="80" y="26" text-anchor="middle" class="safeguard-node__title">Standing</text>
-        <text x="80" y="46" text-anchor="middle" class="safeguard-node__sub">Who can contest</text>
+        <rect width="160" height="60" rx="8" class="safeguard-node__rect"
+        ></rect>
+        <text x="80" y="26" text-anchor="middle" class="safeguard-node__title"
+          >Standing</text
+        >
+        <text x="80" y="46" text-anchor="middle" class="safeguard-node__sub"
+          >Who can contest</text
+        >
       </g>
 
       <!-- Node 6: Correction -->
@@ -222,9 +284,14 @@ const drifts = [
         tabindex="0"
         aria-label="Inspect Correction safeguard"
       >
-        <rect width="160" height="60" rx="8" class="safeguard-node__rect" />
-        <text x="80" y="26" text-anchor="middle" class="safeguard-node__title">Correction</text>
-        <text x="80" y="46" text-anchor="middle" class="safeguard-node__sub">Ability to alter state</text>
+        <rect width="160" height="60" rx="8" class="safeguard-node__rect"
+        ></rect>
+        <text x="80" y="26" text-anchor="middle" class="safeguard-node__title"
+          >Correction</text
+        >
+        <text x="80" y="46" text-anchor="middle" class="safeguard-node__sub"
+          >Ability to alter state</text
+        >
       </g>
     </svg>
   </div>
@@ -239,7 +306,9 @@ const drifts = [
           data-related-safeguards={`${drift.from} ${drift.to}`}
         >
           <div class="safeguard-drift-card__header">
-            <span class="badge small">{drift.from} &rarr; {drift.to}</span>
+            <span class="badge small">
+              {drift.from} &rarr; {drift.to}
+            </span>
             <span class="eyebrow warning">{drift.symptom}</span>
           </div>
           <p class="safeguard-drift-card__detail">{drift.detail}</p>
@@ -247,13 +316,20 @@ const drifts = [
             <div>
               <span class="small muted">Governing law:</span>
               <p>
-                <a href={drift.lawHref}><strong>{drift.lawRef}:</strong> {drift.lawStatement}</a>
+                <a href={drift.lawHref}>
+                  <strong>{drift.lawRef}:</strong> {drift.lawStatement}
+                </a>
               </p>
             </div>
             <div>
               <span class="small muted">Test with diagnostic:</span>
               <p>
-                <a href={drift.diagnosticHref} class="button ghost button--compact">{drift.diagnostic}</a>
+                <a
+                  href={drift.diagnosticHref}
+                  class="button ghost button--compact"
+                >
+                  {drift.diagnostic}
+                </a>
               </p>
             </div>
           </div>
@@ -265,11 +341,15 @@ const drifts = [
 
 <script>
   function initSafeguardDiagram() {
-    const containers = document.querySelectorAll<HTMLElement>("[data-safeguard-diagram]");
+    const containers = document.querySelectorAll<HTMLElement>(
+      "[data-safeguard-diagram]",
+    );
     containers.forEach((container) => {
       const nodes = container.querySelectorAll<HTMLElement>("[data-safeguard]");
-      const paths = container.querySelectorAll<SVGPathElement>("[data-drift-path]");
-      const cards = container.querySelectorAll<HTMLElement>("[data-drift-card]");
+      const paths =
+        container.querySelectorAll<SVGPathElement>("[data-drift-path]");
+      const cards =
+        container.querySelectorAll<HTMLElement>("[data-drift-card]");
 
       const selectSafeguard = (safeguardName: string) => {
         // Highlight active node
@@ -281,7 +361,9 @@ const drifts = [
         // Highlight matching drift paths
         paths.forEach((path) => {
           const pathId = path.getAttribute("data-drift-path") || "";
-          const isMatch = pathId.toLowerCase().includes(safeguardName.toLowerCase().slice(0, 3));
+          const isMatch = pathId
+            .toLowerCase()
+            .includes(safeguardName.toLowerCase().slice(0, 3));
           path.classList.toggle("safeguard-drift-path--active", isMatch);
         });
 
@@ -317,7 +399,9 @@ const drifts = [
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initSafeguardDiagram, { once: true });
+    document.addEventListener("DOMContentLoaded", initSafeguardDiagram, {
+      once: true,
+    });
   } else {
     initSafeguardDiagram();
   }

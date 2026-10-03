@@ -163,9 +163,9 @@ export const evalsContent: EvalsContent = {
   anchorLinks: [
     { href: "#stack", label: "Evaluation stack" },
     { href: "#suites", label: "Available suites" },
-    { href: "#finite", label: "Finite drills" },
     { href: "#methodology", label: "Methodology" },
     { href: "#run", label: "Run an eval" },
+    { href: "#finite", label: "Finite drills" },
   ],
   publication: {
     authors: [

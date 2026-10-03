@@ -233,8 +233,8 @@ Detailed, testable expectations for each route. Use these specs when adding cont
 ## Finite (`/evals#finite` / `/finite`)
 
 - **Data sources:** Pulls `finiteContent` from `src/content/finite.ts`.
-- **Layout:** Rendered in `src/pages/evals/index.astro` under `#finite` via `src/components/FiniteSection.astro` (reachable directly via `/evals#finite` and via the `/finite` 301 redirect). Displays the stoppability training loop, the three evaluation dimensions, the four experimental conditions, the five adversarial institutional drills with complete dual-ledger breakdowns, the four-stage rehearsal workflow, agent-ready briefing materials, and operational invariants.
-- **Accessibility:** Preserves semantic heading hierarchy (`h2` for section header, `h3` for subsection titles, `h4` for drill cards and steps); visible and audit ledger rows use distinct high-contrast badge indicators with semantic labels; all action buttons and links provide descriptive target text.
+- **Layout:** Rendered in `src/pages/evals/index.astro` under `#finite` via `src/components/FiniteSection.astro` as a companion benchmark section following the governance suites and runner (reachable directly via `/evals#finite` and via the `/finite` 301 redirect). Displays the evaluation scope, three measurement dimensions, verification deliverables, operational invariants, four experimental conditions, five adversarial institutional drills with dual-ledger breakdowns and maturity badges (executable benchmark vs tabletop drill), and the Green Dashboard runnable benchmark harness with action space tools and JSON schema linkage.
+- **Accessibility:** Preserves semantic heading hierarchy (`h2` for section header, `h3` for subsection titles, `h4` for drill cards and tool cards); visible and audit ledger rows use distinct high-contrast badge indicators with semantic labels; all action buttons and links provide descriptive target text.
 
 ## Donate (`/donate`)
 
