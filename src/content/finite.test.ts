@@ -7,14 +7,18 @@ describe("Finite content specification", () => {
     expect(finiteContent.pageDescription).toBeTruthy();
     expect(finiteContent.permalink).toBe("/evals#finite");
     expect(finiteContent.hero.eyebrow).not.toContain("[Beta]");
+    expect(finiteContent.hero.actions).toHaveLength(3);
+    expect(finiteContent.hero.actions[0].href).toBe("/research/the-green-dashboard");
+    expect(finiteContent.hero.actions[1].href).toBe("/standards/green-dashboard-benchmark.schema.json");
   });
 
-  it("contains all three core measurement dimensions", () => {
+  it("contains all three core measurement dimensions and verification deliverables", () => {
     expect(finiteContent.measures.dimensions).toHaveLength(3);
     const titles = finiteContent.measures.dimensions.map((d) => d.title);
     expect(titles).toContain("Stoppability");
     expect(titles).toContain("Reversibility");
     expect(titles).toContain("Volatility export");
+    expect(finiteContent.measures.deliverables).toHaveLength(3);
   });
 
   it("contains all four experimental conditions", () => {
@@ -30,7 +34,7 @@ describe("Finite content specification", () => {
     ]);
   });
 
-  it("contains the five adversarial institutional drills with complete dual ledgers", () => {
+  it("contains the five adversarial institutional drills with complete dual ledgers and maturity statuses", () => {
     const { games } = finiteContent.institutionalGames;
     expect(games).toHaveLength(5);
 
@@ -43,6 +47,10 @@ describe("Finite content specification", () => {
       "refusal-game",
     ]);
 
+    const greenDashboard = games.find((g) => g.id === "green-dashboard");
+    expect(greenDashboard?.status).toBe("executable_benchmark");
+    expect(greenDashboard?.benchmarkRef).toBe("/standards/green-dashboard-benchmark.schema.json");
+
     for (const game of games) {
       expect(game.title).toBeTruthy();
       expect(game.subtitle).toBeTruthy();
@@ -54,18 +62,36 @@ describe("Finite content specification", () => {
       expect(game.dualLedgerInsight).toBeTruthy();
       expect(game.standardRefs.length).toBeGreaterThan(0);
       expect(game.suiteRef.startsWith("/evals")).toBe(true);
+      expect(["executable_benchmark", "tabletop_drill"]).toContain(game.status);
     }
   });
 
-  it("contains agent-ready rehearsal specifications", () => {
-    expect(finiteContent.agentReady.items.length).toBeGreaterThanOrEqual(5);
-    const titles = finiteContent.agentReady.items.map((i) => i.title);
-    expect(titles).toContain("Agent briefing packet");
-    expect(titles).toContain("Stop and rollback signals");
-    expect(titles).toContain("Run log schema");
+  it("contains runnable benchmark harness specifications and action space tools", () => {
+    const { benchmarkHarness } = finiteContent;
+    expect(benchmarkHarness.frameworks).toContain("Inspect AI");
+    expect(benchmarkHarness.frameworks).toContain("Gymnasium");
+    expect(benchmarkHarness.frameworks).toContain("METR task standard");
+    expect(benchmarkHarness.schemaHref).toBe("/standards/green-dashboard-benchmark.schema.json");
+    expect(benchmarkHarness.tools.length).toBeGreaterThanOrEqual(6);
+
+    const toolNames = benchmarkHarness.tools.map((t) => t.name);
+    expect(toolNames).toContain("adjust_schedule");
+    expect(toolNames).toContain("authorize_overtime");
+    expect(toolNames).toContain("request_staffing");
+    expect(toolNames).toContain("redesign_workflow");
+    expect(toolNames).toContain("defer_work");
+    expect(toolNames).toContain("audit_staff_hours");
   });
 
-  it("contains no retired marketing or commercial pilot promises", () => {
+  it("contains operational invariants", () => {
+    expect(finiteContent.keyTakeaways.bullets.length).toBeGreaterThanOrEqual(5);
+    const text = finiteContent.keyTakeaways.bullets.join(" ");
+    expect(text).toContain("Dual-ledger verification");
+    expect(text).toContain("Deterministic stop signals");
+    expect(text).toContain("Rollback verification");
+  });
+
+  it("contains no retired marketing promises and no dead prototype fields", () => {
     const serialized = JSON.stringify(finiteContent);
     const retired = [
       "[Beta]",
@@ -74,11 +100,24 @@ describe("Finite content specification", () => {
       "SLAs and delivery timelines",
       "schedule a walkthrough",
       "beta pilot",
-      "independent audit " + "verification",
+      "launch gates",
+      "overall stoppability posture",
+      "risk reviews",
     ];
 
     for (const phrase of retired) {
       expect(serialized).not.toContain(phrase);
     }
+
+    // Ensure dead properties from previous standalone page prototype were excised
+    const anyContent = finiteContent as Record<string, unknown>;
+    expect(anyContent.pilot).toBeUndefined();
+    expect(anyContent.useCases).toBeUndefined();
+    expect(anyContent.gettingStarted).toBeUndefined();
+    expect(anyContent.workflow).toBeUndefined();
+    expect(anyContent.agentReady).toBeUndefined();
+    expect(anyContent.fit).toBeUndefined();
+    expect(anyContent.practice).toBeUndefined();
+    expect(anyContent.sampleArtifact).toBeUndefined();
   });
 });
