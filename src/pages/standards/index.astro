@@ -1,4 +1,5 @@
 ---
+import authorityGrantExample from "../../../public/standards/examples/authority-grant.example.json";
 import InlineScript from "../../components/InlineScript.astro";
 import "../../styles/components/standards.css";
 import BaseLayout from "../../layouts/BaseLayout.astro";
@@ -17,7 +18,7 @@ import {
   buildStandardsStructuredDataPayload,
 } from "../../content/page-data/standards-index";
 
-const lastUpdated = "2026-08-14";
+const lastUpdated = "2026-10-03";
 
 // The comparison states how long harm ran in the casebook, so the range comes
 // from the cases and moves when a case is added.
@@ -240,42 +241,22 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </div>
 
       <div class="standards-code-card">
+        <p class="small">
+          <a href="/standards/authority-grant.schema.json"
+            >Published authority-grant schema</a
+          > · <a href="/standards/examples/authority-grant.example.json"
+            >Download example</a
+          >
+        </p>
         <div class="standards-code-card__header">
           <span class="standards-code-card__title"
-            >authority-lease.json (STD-08 Schema)</span
+            >authority-grant.example.json (STD-08 example)</span
           >
-          <span class="standards-code-card__badge">JSON Schema v1.0</span>
+          <span class="standards-code-card__badge">Authority grant example</span
+          >
         </div>
         <pre
-          class="code-block"><code>{`{
-  "$schema": "https://ethotechnics.org/schemas/v1/authority-lease.json",
-  "lease_id": "lea_2026_0941_claims_p4",
-  "delegation_target": "claims-triage-worker-v2",
-  "granted_by": "risk-director-ops@agency.gov",
-  "named_human_overseer": {
-    "role": "Chief Claims Officer",
-    "halt_key_id": "key_ed25519_halt_04b",
-    "override_protection_policy_ref": "POL-2026-NON-RETALIATION-03"
-  },
-  "inviolable_boundaries": {
-    "max_denial_rate_per_100_evaluations": 15,
-    "max_cumulative_disbursement_usd": 250000,
-    "prohibited_actions": [
-      "permanent_account_closure",
-      "police_referral"
-    ]
-  },
-  "review_triggers": {
-    "upheld_challenge_rate_ceiling": 0.05,
-    "intake_friction_max_minutes": 15,
-    "unresolved_appeals_backlog_hours": 48
-  },
-  "temporal_bounds": {
-    "issued_at": "2026-10-01T00:00:00Z",
-    "expires_at": "2026-10-15T00:00:00Z",
-    "renewal_requires": ["review_receipt", "restitution_check"]
-  }
-}`}</code></pre>
+          class="code-block"><code>{JSON.stringify(authorityGrantExample, null, 2)}</code></pre>
       </div>
     </div>
   </SectionBlock>
@@ -283,8 +264,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <SectionBlock
     id="crosswalks"
     eyebrow="Statutory crosswalks"
-    title="How Ethotechnics maps to statutory obligations"
-    description="For risk owners and legal counsel: where these standards supply the technical evidence required by prevailing AI legislation and safety frameworks."
+    title="How to compare the drafts with external frameworks"
+    description="For risk owners and legal counsel: these are proposed technical correspondences, not a determination of legal compliance."
   >
     <div class="grid grid--three">
       <div class="panel stack-sm">
@@ -310,21 +291,29 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 
       <div class="panel stack-sm">
         <p class="eyebrow">NIST AI RMF 1.0</p>
-        <p><strong>Govern 1.2, Measure 2.7, Manage 2.4</strong></p>
+        <p><strong>GOVERN 1.2, MEASURE 2.7, MANAGE 2.4</strong></p>
         <ul class="card__list">
           <li>
-            <strong>GOVERN 1.2 (Accountability):</strong> Names individual accountable
-            risk owners rather than diffused advisory committees.
+            <strong>GOVERN 1.2 (Organizational practices):</strong> Integrates trustworthy-AI
+            characteristics into organizational policies and practices. Named ownership
+            is one part of that work.
           </li>
           <li>
-            <strong>MEASURE 2.7 (Remediation):</strong> Quantifies time-to-halt, appeal
-            turnaround SLA, and restitution completion rates.
+            <strong>MEASURE 2.7 (Security and resilience):</strong> Evaluates AI-system
+            security and resilience. Halt and rollback drills can contribute evidence
+            but do not cover the full outcome.
           </li>
           <li>
-            <strong>MANAGE 2.4 (Incident Response):</strong> Pre-rehearsed rollback
-            drills and automatic lease expiration on anomaly spikes.
+            <strong>MANAGE 2.4 (Disengagement):</strong> Assigns mechanisms and responsibilities
+            to disengage systems whose outcomes conflict with intended use. STD-08's
+            halt roles and authority boundaries address this part.
           </li>
         </ul>
+        <p class="small">
+          <a href="https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+            >NIST AI RMF 1.0</a
+          >
+        </p>
       </div>
 
       <div class="panel stack-sm">
@@ -332,8 +321,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         <p><strong>Article 22 & Procedural Due Process</strong></p>
         <ul class="card__list">
           <li>
-            <strong>GDPR Art 22 (Automated Decisions):</strong> MVC-01 specifies
-            procedural standing, causal decision reasons, and non-retaliatory review.
+            <strong>GDPR Art 22 (Automated Decisions):</strong> MVC-01 provides specific
+            contestability and non-retaliatory review.
           </li>
           <li>
             <strong>Right to Standing:</strong> Guarantees that any party bearing

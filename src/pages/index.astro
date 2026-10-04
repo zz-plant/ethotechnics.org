@@ -1,30 +1,31 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CasebookScorecard from "../components/home/CasebookScorecard.astro";
+import ExceptionLearningFigure from "../components/ExceptionLearningFigure.astro";
+import HeroLedger from "../components/home/HeroLedger.astro";
 import HomeClaims from "../components/home/HomeClaims.astro";
 import HomeRail from "../components/home/HomeRail.astro";
 import RecordSpine from "../components/home/RecordSpine.astro";
-import RobodebtLoop from "../components/home/RobodebtLoop.astro";
 import SafeguardMap from "../components/home/SafeguardMap.astro";
 import SelfTest from "../components/home/SelfTest.astro";
-import ExceptionLearningFigure from "../components/ExceptionLearningFigure.astro";
 import SectionBlock from "../components/SectionBlock.astro";
-import { studioSummary } from "../content/studio";
 
 /**
  * The front door as one story in reading order, told without ever holding
  * the scroll: watch one scheme run (the record), see why rulings did not
- * stop it (the mechanism), see that it was not special (the casebook), state
- * what the framework adds to the field (the positioning band), test what an
- * institution says about itself (the claims), then turn to the reader's own
- * system (the self-test) and the doors out — four of them, the last for the
- * readers who study or govern these systems. The two-ledger rail at the
- * viewport edge is the same grammar, as chrome.
+ * stop it (the mechanism),
+ * see that it was not special (the casebook), state what the framework adds
+ * to the field (the positioning band), test what an institution says about
+ * itself (the claims, as clauses with exhibits), then turn to the reader's
+ * own system (the self-test, scored on the six-node figure) and the doors
+ * out — four of them, the last for the readers who study or govern these
+ * systems. The two-ledger rail at the viewport edge is the same grammar, as
+ * chrome.
  *
  * Each idea is drawn as well as written, for readers who think in pictures:
- * the hero draws the headline as a loop that never closed, the casebook
- * names its glyph columns before its rows, and the self-test draws the
- * reader's system as the same loop, filled in by their answers.
+ * the hero draws the record's unanswered column, the mechanism leads with
+ * the exception-learning drawing that shows both the broken path and the
+ * fix, and the self-test draws the reader's system as a six-node ring.
  */
 const doors = [
   {
@@ -98,25 +99,25 @@ const doors = [
         </ul>
       </nav>
     </div>
-    <RobodebtLoop class="institute-hero__figure" />
+    <HeroLedger class="institute-hero__figure" />
     <div class="home-pillars">
       <a class="home-pillar" href="/standards">
         <span class="eyebrow">Standards</span>
-        <strong>8 Enforceable Standards</strong>
+        <strong>8 draft standards</strong>
         <span class="small muted"
           >Authority leases, contestability clocks, and JSON schemas.</span
         >
       </a>
       <a class="home-pillar" href="/evals">
         <span class="eyebrow">Evaluations</span>
-        <strong>16 Suites & Finite Drills</strong>
+        <strong>16 suites & Finite drills</strong>
         <span class="small muted"
           >Dual-ledger surge tests and failure containment benchmarks.</span
         >
       </a>
       <a class="home-pillar" href="/diagnostics">
         <span class="eyebrow">Diagnostics</span>
-        <strong>Free Browser Tools</strong>
+        <strong>Free browser tools</strong>
         <span class="small muted"
           >Audit delegation, calculate debt, and test standing in minutes.</span
         >
@@ -136,9 +137,11 @@ const doors = [
         <p class="eyebrow">Scope & applicability</p>
         <h3>What counts as a system under test?</h3>
         <p>
-          If software executes a decision or generates outputs that staff adopt
-          without independent reinvestigation—and a person lives with the
-          consequences of an error—this framework applies.
+          If software takes an action, grants a benefit, denies an application,
+          or allocates work—and a human being has to live with the consequences
+          of an error—this is an initial scope filter. The full test also
+          requires adoption without independent review, a viable objection
+          route, and a named accountable institution.
         </p>
         <p class="small muted">
           The object being engineered is the delegation and its authority lease,
@@ -156,7 +159,8 @@ const doors = [
         <p>
           We reject "human-in-the-loop" when it means human liability sponging.
           When upheld challenges cross a precommitted threshold, the automated
-          rule's authority expires until reauthorized.
+          rule goes to its named owner for review, with revision or a reasoned
+          refusal recorded.
         </p>
         <p class="small muted">
           Closed feedback loops, not vague principles like "fairness" or
@@ -225,19 +229,45 @@ const doors = [
   <CasebookScorecard />
 
   <section class="home-positioning" aria-labelledby="home-positioning-heading">
-    <div class="card card--flat stack-sm">
+    <div class="stack-sm">
       <p class="eyebrow">For scholars and governance thinkers</p>
       <h2 id="home-positioning-heading" class="section__heading">
-        A theory of counterpower depreciation
+        Every corrective mechanism itself changes under delegation.
       </h2>
-      <p class="section-lead">
-        Ethotechnics is not another governance ideology. Your preferred
-        corrective mechanism — markets, law, management, technology — itself
-        changes under prolonged delegation. The question the framework asks of
-        each, including its own instruments: does this mechanism continue to
-        possess effective corrective power after the system has been successful
-        for ten years?
-      </p>
+      <div class="home-mechanisms">
+        <div class="home-mechanisms__cell">
+          <p class="home-mechanisms__name">Markets</p>
+          <p class="home-mechanisms__question">
+            After ten years of success, does competition still hold corrective
+            power?
+          </p>
+        </div>
+        <div class="home-mechanisms__cell">
+          <p class="home-mechanisms__name">Law</p>
+          <p class="home-mechanisms__question">
+            After ten years of success, does the ruling still reach the rule?
+          </p>
+        </div>
+        <div class="home-mechanisms__cell">
+          <p class="home-mechanisms__name">Management</p>
+          <p class="home-mechanisms__question">
+            After ten years of success, does the manager still hold authority to
+            correct?
+          </p>
+        </div>
+        <div class="home-mechanisms__cell">
+          <p class="home-mechanisms__name">Technology</p>
+          <p class="home-mechanisms__question">
+            After ten years, does the tool still let people correct the tool?
+          </p>
+        </div>
+        <div class="home-mechanisms__cell home-mechanisms__cell--own">
+          <p class="home-mechanisms__name">This framework</p>
+          <p class="home-mechanisms__question">
+            The same question, asked of its own instruments.
+          </p>
+        </div>
+      </div>
       <p class="small muted">
         <a href="/about#scholars">Shared values, new instruments →</a> ·
         <a href="/about#disagreement">The real disagreement →</a> ·
@@ -271,7 +301,9 @@ const doors = [
             <a class="home-doors__door" href={door.href}>
               <span class="home-doors__who">{door.who}</span>
               <span class="home-doors__what small muted">{door.what}</span>
-              <span class="home-doors__action">View path →</span>
+              <span class="home-doors__action" aria-hidden="true">
+                →
+              </span>
             </a>
           </li>
         ))
@@ -284,43 +316,43 @@ const doors = [
   </nav>
 
   <div class="home-supplement">
-    <section class="stack-sm card card--flat">
-      <p class="eyebrow">Use and cite this work</p>
-      <h2>Free to use, credit, and adapt</h2>
-      <p>
-        Ethotechnics Institute materials are published under
-        <a
-          href="https://creativecommons.org/licenses/by-sa/4.0/"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          CC BY-SA 4.0
-        </a>. Credit the Institute, and publish anything you adapt under the
-        same license.
+    <footer class="home-colophon">
+      <div class="home-colophon__cols">
+        <div>
+          <p class="home-colophon__label">License</p>
+          <p class="home-colophon__text">
+            Ethotechnics Institute materials are published under
+            <a
+              href="https://creativecommons.org/licenses/by-sa/4.0/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              CC BY-SA 4.0
+            </a>. Credit the Institute, and publish anything you adapt under the
+            same license. Entries carry citation metadata, so you can reference
+            exactly what you used.
+          </p>
+        </div>
+        <div>
+          <p class="home-colophon__label">Studio</p>
+          <p class="home-colophon__text">
+            Commissioned safety evaluation for healthcare AI. That work runs
+            through
+            <a
+              href="https://ethotechnics.com"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Ethotechnics Studio →
+            </a>
+          </p>
+        </div>
+      </div>
+      <p class="home-colophon__strip">
+        ethotechnics.org · open standards · scored public failures · free
+        diagnostics
       </p>
-      <p class="small muted">
-        Individual entries and patterns include citation metadata so you can
-        reference exactly what you used.
-      </p>
-    </section>
-
-    <section class="stack-sm card card--accent">
-      <p class="eyebrow">Studio</p>
-      <h2>Evaluating a healthcare AI system?</h2>
-      <p>
-        {studioSummary}
-      </p>
-      <p>
-        <a
-          class="button"
-          href="https://ethotechnics.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Ethotechnics Studio →
-        </a>
-      </p>
-    </section>
+    </footer>
   </div>
 </BaseLayout>
 
