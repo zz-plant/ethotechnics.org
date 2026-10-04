@@ -63,14 +63,19 @@ export type StandardClause = {
 export const standardsContent: StandardsContent = {
   pageTitle: "Standards — Ethotechnics Institute",
   pageDescription:
-    "Proposed standards for consequential decision systems, with status, version, clause counts, and evidence packs. Status marks editorial maturity. Adoption confers authority.",
+    "Draft standards for records a running system must keep: an answer to every objection, authority that expires, a published time cost. None binds until adopted.",
   permalink: "/standards",
   anchorLinks: [
-    { href: "#active", label: "Now active" },
-    { href: "#doctrine", label: "Core doctrine" },
-    { href: "#adopted-standards", label: "Critiques of adopted regimes" },
+    { href: "#register", label: "The register" },
+    { href: "#code-example", label: "Code & schema example" },
+    { href: "#crosswalks", label: "Regulatory crosswalks" },
+    { href: "#doctrine", label: "Foundations and references" },
+    {
+      href: "#adopted-standards",
+      label: "Where existing frameworks fall short",
+    },
     { href: "#implementation-examples", label: "Domain-by-domain comparisons" },
-    { href: "#referenced-by", label: "Where standards are enforced" },
+    { href: "#referenced-by", label: "Where the standards are cited" },
   ],
   standards: [
     {
@@ -78,7 +83,7 @@ export const standardsContent: StandardsContent = {
       slug: "std-01-temporal-rights",
       title: "The Temporal Bill of Rights",
       description:
-        "Defines the seven inalienable rights protecting human time against automated systems.",
+        "Seven rights that protect a person's time from automated systems: to stop a process, to exit, to a bounded wait, to reversal, to wait without coercion, to reach a human, and to see the burden.",
       status: "Draft",
       version: "1.0",
       changelogHref: "/standards/std-01-temporal-rights",
@@ -90,7 +95,7 @@ export const standardsContent: StandardsContent = {
         },
       ],
       stableCriteria:
-        "Requires two independent implementation reports and standards council ratification.",
+        "Requires two independent implementation reports and a decision recorded through the RFC process.",
       effectiveDate: "January 2026",
       published: "2026-01-01",
     },
@@ -101,10 +106,16 @@ export const standardsContent: StandardsContent = {
       description:
         "Defines contestability, review, and remedy obligations for consequential systems.",
       status: "Draft",
-      version: "1.2",
+      version: "1.3",
       changelogHref:
         "/standards/std-02-contestability-recourse#publication-history",
       changelogEntries: [
+        {
+          version: "1.3",
+          date: "2026-10-03",
+          summary:
+            "Publishes Articles VI and VII: review infrastructure, liability, and capacity (§6.1–§7.3).",
+        },
         {
           version: "1.2",
           date: "2026-09-22",
@@ -140,7 +151,9 @@ export const standardsContent: StandardsContent = {
       title: "Minimum viable contestability standard",
       description:
         "A one-page baseline for standing, reasons, records, timelines, remedies, and non-retaliation.",
-      status: "Stable",
+      // Marked Stable at publication, but none of its stable criteria was ever
+      // recorded as met, which the status model requires. Draft until they are.
+      status: "Draft",
       version: "1.0",
       changelogHref: "/standards/minimum-viable-contestability#text",
       changelogEntries: [
@@ -148,11 +161,17 @@ export const standardsContent: StandardsContent = {
           version: "1.0",
           date: "2025-01-01",
           summary:
-            "Initial stable publication for baseline contestability controls.",
+            "Initial publication of baseline contestability controls, then marked stable.",
+        },
+        {
+          version: "1.0",
+          date: "2026-10-01",
+          summary:
+            "Status corrected to Draft. No production deployment report, audit template validation, or approval decision has been recorded. The text is unchanged.",
         },
       ],
       stableCriteria:
-        "Requires one production deployment report, audit template validation, and council approval.",
+        "Requires one production deployment report, audit template validation, and a decision recorded through the RFC process.",
       effectiveDate: "Immediate",
       published: "2025-01-01",
     },
@@ -162,7 +181,9 @@ export const standardsContent: StandardsContent = {
       title: "Institutional Failure Postmortem Template",
       description:
         "A one-page postmortem template grounded in clocks, reversibility, burden allocation, and repair paths.",
-      status: "Stable",
+      // Same correction as MVC-01: stable on release, with no record of the
+      // three retrospectives its criteria ask for.
+      status: "Draft",
       version: "1.0",
       changelogHref: "/standards/pm-01-failure-postmortem-template",
       changelogEntries: [
@@ -170,7 +191,13 @@ export const standardsContent: StandardsContent = {
           version: "1.0",
           date: "2026-04-15",
           summary:
-            "Initial stable release of the institutional postmortem template.",
+            "Initial release of the institutional postmortem template, then marked stable.",
+        },
+        {
+          version: "1.0",
+          date: "2026-10-01",
+          summary:
+            "Status corrected to Draft. No use in three incident retrospectives with governance sign-off has been recorded. The text is unchanged.",
         },
       ],
       stableCriteria:
@@ -316,7 +343,7 @@ export const standardsContent: StandardsContent = {
       slug: "std-08-delegation",
       title: "Delegation",
       description:
-        "The terms a delegation must satisfy while it stands: authority held as a lease, policy kept valid, oversight resolved to an intervention specification, and correction capacity kept proportional to authority.",
+        "What must stay true while an automated system acts for an institution: its authority expires unless renewed, the policies behind it are rechecked when facts change, human oversight names what the human can actually change, and the capacity to correct errors grows with the authority granted.",
       status: "Draft",
       version: "0.3",
       changelogHref: "/standards/std-08-delegation#relationship-to-std-07",
@@ -350,7 +377,7 @@ export const standardsContent: StandardsContent = {
       slug: "std-09-agent-chains",
       title: "Agent Chains",
       description:
-        "The terms a chain of delegations must satisfy when a consequential decision is produced by sub-contracted agents and services that no single human oversees: the chain is itself a delegation, its latency composes, and its correction capacity is its weakest hop.",
+        "What must hold when a consequential decision passes through a chain of agents and services that no single person oversees: the whole chain is treated as one delegation, delays add up across it, and it can correct errors only as well as its weakest link.",
       status: "Draft",
       version: "0.2",
       changelogHref: "/standards/std-09-agent-chains#publication-history",
@@ -379,18 +406,18 @@ export const standardsContent: StandardsContent = {
       id: "core-axioms",
       title: "Core axioms",
       description:
-        "The five axioms every standard rests on: finitude, consent, stewardship, reversibility, and legibility.",
+        "The five axioms every standard rests on: finitude, consent, stewardship, reversibility, and legibility (people can see and audit the burden a system puts on them).",
       href: "/standards/core-axioms",
-      eyebrow: "Doctrine",
+      eyebrow: "Foundations",
       ctaLabel: "View axioms",
     },
     {
       id: "laws",
       title: "Laws for Engineering Delegated Intelligence",
       description:
-        "Twelve laws, the Ethotechnical invariant, and the six state variables the object model tracks.",
+        "The twelve laws the standards enforce, the one-sentence rule that sums them up, and the six things a system must keep in step as it grows.",
       href: "/standards/laws",
-      eyebrow: "Doctrine",
+      eyebrow: "Foundations",
       ctaLabel: "Read the laws",
     },
     {
@@ -406,7 +433,7 @@ export const standardsContent: StandardsContent = {
       id: "std-01-mapping-artifact",
       title: "STD-01 mapping artifact",
       description:
-        "A domain-neutral trace from a harm to the binding change that answers it.",
+        "One invented case traced from each harm to the STD-01 right it breaks, the check that catches it, and the change that fixes it.",
       href: "/standards/std-01-mapping-artifact",
       eyebrow: "STD-01 reference",
       ctaLabel: "Open mapping",
@@ -421,27 +448,19 @@ export const standardsContent: StandardsContent = {
       ctaLabel: "View matrix",
     },
     {
-      id: "micro-diagram-language",
-      title: "Micro-diagram language",
-      description: "Canonical diagram shapes, line styles, and axes.",
-      href: "/standards/micro-diagram-language",
-      eyebrow: "Reference",
-      ctaLabel: "View diagram spec",
-    },
-    {
       id: "std-01-minimum-binding-set",
       title: "STD-01 minimum binding set",
       description:
-        "The least each STD-01 right requires, with clause references.",
+        "The least each STD-01 right requires before a system can claim it, with clause references and examples that fall short.",
       href: "/standards/std-01-minimum-binding-set",
       eyebrow: "STD-01 reference",
       ctaLabel: "Review binding set",
     },
     {
       id: "where-this-binds",
-      title: "Where this binds",
+      title: "Citing the standards in contracts and audits",
       description:
-        "How to cite these standards in contracts, procurement terms, and audits.",
+        "How to write these standards into contracts, procurement terms, and audits.",
       href: "/standards/where-this-binds",
       eyebrow: "Governance",
       ctaLabel: "See guidance",
@@ -450,7 +469,7 @@ export const standardsContent: StandardsContent = {
       id: "enforceable-governance-crosswalks",
       title: "Enforceable governance crosswalks",
       description:
-        "Control mappings linking Ethotechnics obligations to EU AI Act, NIST AI RMF, and ISO/IEC 42001.",
+        "Each Ethotechnics control mapped to the EU AI Act, NIST AI RMF, and ISO/IEC 42001, with the evidence a buyer or auditor should request.",
       href: "/standards/enforceable-governance-crosswalks",
       eyebrow: "Governance",
       ctaLabel: "Open crosswalks",
@@ -458,7 +477,8 @@ export const standardsContent: StandardsContent = {
     {
       id: "glossary",
       title: "Glossary",
-      description: "Canonical definitions for the terms the standards use.",
+      description:
+        "Definitions of the terms the standards use, each at a stable URL.",
       href: "/glossary",
       eyebrow: "Reference",
       ctaLabel: "Browse glossary",
@@ -649,6 +669,21 @@ export const standardClauses: Record<string, StandardClause[]> = {
       timeBound: "five minutes",
       relatedMechanisms: ["MEC-04"],
       relatedValidators: ["VAL-02"],
+    },
+    {
+      id: "STD-01.5.4",
+      standardId: "STD-01",
+      displayId: "§5.4",
+      type: "right",
+      requirementLevel: "MUST",
+      condition:
+        "a stated clock for an application, appeal, or prior-authorization request expires without a decision",
+      obligation:
+        "resolve the request in the applicant's favor, or escalate to a human reviewer where the default outcome falls harder on the applicant than on the institution; a clock with no stated consequence is not a clock",
+      evidenceRequired: ["expiry_rule", "expired_request_log"],
+      timeBound: "at clock expiry",
+      relatedMechanisms: ["MEC-04"],
+      relatedValidators: ["VAL-03"],
     },
     {
       id: "STD-01.6.1",
@@ -885,6 +920,25 @@ export const standardClauses: Record<string, StandardClause[]> = {
       relatedValidators: [],
     },
     {
+      id: "STD-02.4.4",
+      standardId: "STD-02",
+      displayId: "§4.4",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition:
+        "a defect is found to arise from a rule, a model, or a notice rather than from one decision",
+      obligation:
+        "reach every affected case without a further claim; enumerate the affected population from the institution's own records, correct those cases, and tell each person what was corrected",
+      evidenceRequired: [
+        "affected_population",
+        "remediation_log",
+        "notification_log",
+      ],
+      timeBound: "on finding the defect",
+      relatedMechanisms: ["MEC-23"],
+      relatedValidators: [],
+    },
+    {
       id: "STD-02.5.1",
       standardId: "STD-02",
       displayId: "§5.1",
@@ -921,6 +975,25 @@ export const standardClauses: Record<string, StandardClause[]> = {
       evidenceRequired: ["org_chart", "authority_matrix"],
       timeBound: "ongoing",
       relatedMechanisms: ["MEC-01"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-02.5.4",
+      standardId: "STD-02",
+      displayId: "§5.4",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition:
+        "an objection is answered with a burden score, safety-case result, audit finding, or other measurement the challenged party did not produce",
+      obligation:
+        "treat it as evidence and not a bar; do not cite it to dispose of the objection or to establish that the person's account is unfounded; route the conflict between a score and an account to a named reviewer holding authority to resolve it",
+      evidenceRequired: [
+        "objection_record",
+        "review_assignment",
+        "score_provenance",
+      ],
+      timeBound: "at the objection",
+      relatedMechanisms: ["MEC-08"],
       relatedValidators: [],
     },
     {
@@ -1396,6 +1469,25 @@ export const standardClauses: Record<string, StandardClause[]> = {
         "summary written for regulators and not for the people affected",
       ],
       relatedMechanisms: ["MEC-08"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-06.3.3",
+      standardId: "STD-06",
+      displayId: "§3.3",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition:
+        "a failure was caught by a person before it reached anyone else",
+      obligation:
+        "record it as an occurrence with the near-miss condition, the person who caught it, the labor spent catching it, and whether the source condition was later fixed; a repeated rescue against an unfixed condition is evidence about the condition, not about the person catching it",
+      evidenceRequired: [
+        "rescue_register.rescues[]",
+        "near_miss_condition",
+        "source_condition_fixed",
+      ],
+      timeBound: "at each occurrence",
+      relatedMechanisms: ["MEC-24"],
       relatedValidators: [],
     },
     {
@@ -2103,6 +2195,32 @@ export const standardClauses: Record<string, StandardClause[]> = {
         "confidence floor held in a configuration file with no provenance",
         "threshold tuned against one model version and left in force after a silent upgrade",
         "enumerated options reordered without a new policy version",
+      ],
+      relatedMechanisms: ["MEC-14", "MEC-13"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-08.2.7",
+      standardId: "STD-08",
+      displayId: "§2.7",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition:
+        "evidence bearing on whether an enforced policy still serves its stated purpose is held anywhere in the institution",
+      obligation:
+        "treat the holding as a fired review trigger — the policy moves to review_required within §2.3's clock, which starts the day the evidence was held, and the grants naming it in policy_refs follow per §2.4",
+      evidenceRequired: [
+        "policy_record.review_triggers",
+        "policy_record.status",
+        "held_evidence.date_acquired",
+        "authority_grant.policy_refs",
+      ],
+      timeBound:
+        "within the trigger's declared clock, counted from when the evidence was held",
+      failureModes: [
+        "a coverage rule enforced after the institution's own guideline committee adopted its replacement",
+        "review_triggers naming only internal events (model version, schema) and no class of outside evidence",
+        "knowledge held in a clinical or specialist office that the enforcement pipeline never reads",
       ],
       relatedMechanisms: ["MEC-14", "MEC-13"],
       relatedValidators: [],

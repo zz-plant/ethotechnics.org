@@ -3,14 +3,14 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    padding: 0.7rem 1.3rem;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-5);
     min-height: 44px;
     border-radius: var(--radius-md);
     border: 1px solid var(--interactive-border);
     font-weight: 600;
     font-family: var(--sans);
-    font-size: 0.95rem;
+    font-size: var(--text-sm);
     letter-spacing: 0.005em;
     background: var(--interactive-bg);
     box-shadow: var(--card-inner-highlight);
@@ -37,8 +37,7 @@
 
   .button:active {
     transform: translateY(0);
-    box-shadow: inset 0 1px 3px
-      color-mix(in srgb, var(--border) 60%, transparent);
+    box-shadow: none;
   }
 
   a.button,
@@ -87,7 +86,7 @@
   }
 
   .button--compact {
-    padding: 0.55rem 0.95rem;
+    padding: var(--space-2) var(--space-4);
     min-height: 38px;
     font-size: var(--text-sm);
   }
@@ -101,13 +100,13 @@
   @media (min-width: 1280px) and (min-height: 720px) and (hover: none) and (pointer: coarse) {
     .button {
       min-height: 3.4rem;
-      padding: 0.9rem 1.5rem;
-      font-size: 1.02rem;
+      padding: var(--space-4) var(--space-5);
+      font-size: var(--text-base);
     }
 
     .button--compact {
-      padding: 0.75rem 1.15rem;
-      font-size: 0.95rem;
+      padding: var(--space-3) var(--space-4);
+      font-size: var(--text-sm);
     }
   }
 
@@ -123,15 +122,15 @@
   .pill {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    padding: 0.45rem 0.9rem;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
     border-radius: var(--radius-pill);
     border: 1px solid color-mix(in srgb, var(--border) 90%, transparent);
     background: var(--surface);
     color: var(--text);
     font-family: var(--sans);
     font-weight: 600;
-    font-size: 0.88rem;
+    font-size: var(--text-sm);
     transition:
       border-color var(--motion-fast) ease,
       box-shadow var(--motion-fast) ease,
@@ -164,7 +163,7 @@
     border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
     color: var(--text);
     border-radius: var(--radius-md);
-    padding: 0.35rem 0.8rem;
+    padding: var(--space-1) var(--space-3);
     font-weight: 700;
     font-family: var(--sans);
     cursor: pointer;
@@ -193,12 +192,12 @@
   .status-pill {
     display: inline-flex;
     align-items: center;
-    padding: 0.25rem 0.65rem;
+    padding: var(--space-1) var(--space-3);
     border-radius: var(--radius-pill);
     font-family: var(--sans);
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: var(--tracking-label);
     font-size: var(--text-xs);
     border: 1px solid var(--border);
   }
@@ -236,18 +235,18 @@
   .pill-list {
     list-style: none;
     padding: 0;
-    margin: 0.85rem 0 0;
+    margin: var(--space-3) 0 0;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: var(--space-2);
   }
 
   .pill-list--wrap {
-    margin-top: 1.1rem;
+    margin-top: var(--space-4);
   }
 
   .pill-list li {
-    padding: 0.35rem 0.75rem;
+    padding: var(--space-1) var(--space-3);
     background: var(--surface);
     border-radius: var(--radius-pill);
     border: 1px solid color-mix(in srgb, var(--border) 90%, transparent);
@@ -266,7 +265,7 @@
     border: none;
     color: inherit;
     font: inherit;
-    padding: 0.35rem 0.75rem;
+    padding: var(--space-1) var(--space-3);
     margin: 0;
     cursor: pointer;
     display: block;

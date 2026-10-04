@@ -5,7 +5,7 @@ import SectionBlock from "../../components/SectionBlock.astro";
 
 const pageTitle = "Reference API & ontology";
 const pageDescription =
-  "Canonical objects and a read-only API plan for consuming Ethotechnics standards in tools and audits.";
+  "Data objects, JSON schemas, OpenAPI and AsyncAPI specs, and read-only JSON endpoints for Ethotechnics standards, clauses, and mechanisms.";
 const anchorLinks = [
   { href: "#objects", label: "Canonical objects" },
   { href: "#interoperability", label: "Interoperability specs" },
@@ -47,8 +47,7 @@ const canonicalObjects = [
   },
   {
     name: "Evidence pack",
-    description:
-      "Minimum evidence bundles required to verify clause compliance.",
+    description: "The evidence a clause asks a system to be able to show.",
   },
   {
     name: "Crosswalk control",
@@ -160,7 +159,7 @@ const interoperabilitySpecs = [
 const endpoints = [
   {
     path: "/api/agent-index.json",
-    description: "Quick-start index for agent discovery and tooling.",
+    description: "Index for agent discovery and tooling.",
   },
   {
     path: "/api/site-index.json",
@@ -317,10 +316,14 @@ const endpoints = [
         <li>
           <strong>Target:</strong> healthcare payers, providers, regulators.
         </li>
-        <li>If you care about healthcare, this is non-optional.</li>
         <li>
-          <strong>Why:</strong> FHIR is the only sanctioned exchange substrate in
-          U.S. health. TEFCA rides on top of it.
+          <strong>Why:</strong> CMS-0057-F requires Medicare Advantage, Medicaid,
+          and CHIP payers to support FHIR APIs for prior authorization by January
+          2027, so denials and appeals already travel as FHIR.
+        </li>
+        <li>
+          <strong>Status:</strong> the profile set here, STD-04, is deprecated. STD-05
+          carries the same records as W3C Verifiable Credentials.
         </li>
         <li>
           <strong>What to ship:</strong> custom FHIR profiles for:

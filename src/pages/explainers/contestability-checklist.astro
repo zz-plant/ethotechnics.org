@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import NextStep from "../../components/NextStep.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 
@@ -45,9 +46,9 @@ const explainerItems = [
     },
   },
   {
-    title: "What makes an appeal real vs performative",
+    title: "What makes an appeal able to change the outcome",
     body: [
-      "Under the Contestability Guarantee, a person can challenge a decision and have it changed or overturned. It requires wide permission surfaces, high appeal passage rates, and transparent design authority.",
+      "Under contestability, a person can challenge a decision and have it changed or overturned. It requires wide permission surfaces, high appeal passage rates, and transparent design authority.",
       "A real appeal shows its success rate, names who can reverse outcomes, and exposes where evidence is evaluated. Performative appeals hide authority, suppress win rates, or end in untraceable queues.",
     ],
     link: {
@@ -88,8 +89,7 @@ const explainerItems = [
             {checklistItems.map((item) => <li>{item}</li>)}
           </ul>
           <p class="muted contestability-checklist__note">
-            Built from the contestability definition in the glossary and the
-            Contestability Guarantee standard.
+            Built from the contestability definition in the glossary.
             {" "}
             <a href="/glossary/contestability">Glossary term</a>
             {" "}
@@ -128,8 +128,7 @@ const explainerItems = [
         {checklistItems.map((item) => <li>{item}</li>)}
       </ul>
       <p class="muted contestability-checklist__note">
-        Built from the contestability definition in the glossary and the
-        Contestability Guarantee standard.
+        Built from the contestability definition in the glossary.
         {" "}
         <a href="/glossary/contestability">Glossary term</a>
         {" "}
@@ -176,7 +175,9 @@ const explainerItems = [
     </div>
   </SectionBlock>
 
-  <p class="muted" style="margin-top:2rem">
+  <NextStep variable="standing" />
+
+  <p class="muted" style="margin-top:var(--space-6)">
     See also: <a href="/standards">Standards</a> &middot; <a href="/mechanisms"
       >Mechanisms</a
     >
@@ -239,7 +240,7 @@ const explainerItems = [
 
   .contestability-layout {
     display: grid;
-    gap: 1.5rem;
+    gap: var(--space-5);
   }
 
   .contestability-layout__main {
@@ -248,19 +249,19 @@ const explainerItems = [
 
   .contestability-checklist {
     border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
     background: var(--surface);
   }
 
   .contestability-checklist__title {
     font-weight: 600;
-    margin-bottom: 0.75rem;
+    margin-bottom: var(--space-3);
   }
 
   .contestability-checklist ul {
-    margin: 0 0 1rem;
-    padding-left: 1.25rem;
+    margin: 0 0 var(--space-4);
+    padding-left: var(--space-4);
   }
 
   .contestability-checklist__note {
@@ -269,11 +270,11 @@ const explainerItems = [
 
   .contestability-summary {
     border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.25rem;
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
     background: var(--surface);
     display: grid;
-    gap: 0.75rem;
+    gap: var(--space-3);
   }
 
   .contestability-summary__eyebrow {
@@ -291,18 +292,18 @@ const explainerItems = [
 
   .contestability-summary__actions {
     display: grid;
-    gap: 0.5rem;
+    gap: var(--space-2);
   }
 
   .contestability-expanders {
     display: grid;
-    gap: 1rem;
+    gap: var(--space-4);
   }
 
   .contestability-expander {
     border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1rem 1.25rem;
+    border-radius: var(--radius-md);
+    padding: var(--space-4) var(--space-4);
     background: var(--surface);
   }
 
@@ -312,13 +313,13 @@ const explainerItems = [
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
+    gap: var(--space-4);
   }
 
   .contestability-expander__toggle {
-    font-size: 0.85rem;
+    font-size: var(--text-sm);
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: var(--tracking-label);
     color: var(--muted);
   }
 
@@ -336,7 +337,7 @@ const explainerItems = [
   }
 
   .contestability-expander__body {
-    margin-top: 0.75rem;
+    margin-top: var(--space-3);
   }
 
   @media (min-width: 900px) {
@@ -347,7 +348,7 @@ const explainerItems = [
 
     .contestability-summary {
       position: sticky;
-      top: var(--space-4);
+      top: var(--space-5);
     }
   }
 
@@ -369,7 +370,7 @@ const explainerItems = [
     }
 
     .contestability-checklist__note {
-      font-size: 0.9rem;
+      font-size: var(--text-sm);
     }
   }
 </style>

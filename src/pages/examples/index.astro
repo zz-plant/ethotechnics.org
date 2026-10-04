@@ -4,10 +4,11 @@ import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
+import { implementationExamples } from "../../content/implementation-examples";
 
 const pageTitle = "Worked examples — Ethotechnics Institute";
 const pageDescription =
-  "Worked scenarios that follow one automated decision from enforcement to remedy, with the receipt, owner, clocks, and evidence each step produces.";
+  "Six worked scenarios that follow one automated decision from enforcement to remedy, and seven sector comparisons of oversight added on versus built in.";
 
 const examples = [
   {
@@ -35,7 +36,7 @@ const examples = [
     slug: "irreversible-payment-compensation",
     title: "Irreversible payment with compensation",
     summary:
-      "A payment that cannot be reversed, so the receipt binds a compensation commitment and review clocks instead.",
+      "A payment that cannot be reversed, so the receipt commits to compensation and review deadlines instead.",
     tags: ["Irreversible", "Remedy", "Binding"],
   },
   {
@@ -76,6 +77,7 @@ const requiredSignals = [
     description={pageDescription}
     anchorLinks={[
       { href: "#scenarios", label: "Scenarios" },
+      { href: "#domains", label: "Domain comparisons" },
       { href: "#requirements", label: "Required signals" },
       { href: "#how-to-use", label: "How to use" },
     ]}
@@ -145,20 +147,48 @@ const requiredSignals = [
   </SectionBlock>
 
   <SectionBlock
+    id="domains"
+    eyebrow="Domain comparisons"
+    title="Architecture vs standard governance"
+    description="Seven sector comparisons showing how Ethotechnics replaces committee paperwork with runtime controls, intervention velocity, and recovery paths."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      {
+        implementationExamples.map((domain) => (
+          <CardItem
+            id={domain.slug}
+            title={domain.title}
+            description={domain.summary}
+            tags={domain.tags}
+          >
+            <a
+              slot="footer"
+              class="button ghost button--compact"
+              href={`/examples/${domain.slug}`}
+            >
+              View domain comparison
+            </a>
+          </CardItem>
+        ))
+      }
+    </CardGrid>
+    <p class="small muted">
+      Each example ends with the context it belongs to, the standards to bind,
+      and the check to run first. Retail personalization is a boundary case.
+      <a href="/use-cases">See which systems the framework is for →</a>
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
     id="requirements"
     eyebrow="Required signals"
     title="What every worked example must show"
     description="A scenario missing any of these describes a decision. It does not show one that can be enforced or contested."
-    variant="alt"
   >
     <ul class="muted">
       {requiredSignals.map((item) => <li>{item}</li>)}
     </ul>
-    <p class="muted small">
-      Need reference templates? Start with the{" "}
-      <a href="/agent-toolkit/prompt-packs">Agent Prompt & Clause Packs</a> to see
-      how outputs map to receipts, evidence lists, and stakeholder summaries.
-    </p>
   </SectionBlock>
 
   <SectionBlock
@@ -182,13 +212,6 @@ const requiredSignals = [
         <a href="/evidence-packs">Evidence Pack</a>
         {" "}
         requirements before your next audit window.
-      </li>
-      <li>
-        Use the
-        {" "}
-        <a href="/agent-toolkit/prompt-packs">Binding vectors</a>
-        {" "}
-        to tie the example to procurement language, release gates, and runbooks.
       </li>
     </ul>
   </SectionBlock>

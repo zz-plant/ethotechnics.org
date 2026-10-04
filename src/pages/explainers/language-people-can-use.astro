@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import NextStep from "../../components/NextStep.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import PageIntro from "../../components/PageIntro.astro";
@@ -221,7 +222,9 @@ const printSheet = {
     </div>
   </SectionBlock>
 
-  <p class="muted" style="margin-top:2rem">
+  <NextStep variable="standing" />
+
+  <p class="muted" style="margin-top:var(--space-6)">
     See also: <a href="/taxonomy">Taxonomy</a> &middot; <a href="/standards"
       >Standards</a
     >
@@ -251,56 +254,56 @@ const printSheet = {
 
   .language-list {
     list-style: disc;
-    padding-left: 1.2rem;
-    margin: 1rem 0 0;
+    padding-left: var(--space-4);
+    margin: var(--space-4) 0 0;
     display: grid;
-    gap: 0.6rem;
+    gap: var(--space-2);
   }
 
   .language-print {
     border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
     background: var(--surface);
     display: grid;
-    gap: 1.5rem;
+    gap: var(--space-5);
   }
 
   .language-print__panel {
     display: grid;
-    gap: 0.8rem;
+    gap: var(--space-3);
   }
 
   .language-print__preview {
     display: grid;
-    gap: 1rem;
+    gap: var(--space-4);
   }
 
   .language-print__section {
     border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
-    border-radius: 12px;
-    padding: 1rem;
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
   }
 
   .language-print__title {
     font-weight: 600;
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--space-2);
   }
 
   .language-print__note {
-    margin-top: 1.5rem;
+    margin-top: var(--space-5);
   }
 
   .language-print--print {
-    gap: 1rem;
+    gap: var(--space-4);
   }
 
   .language-print--print h2 {
-    margin-bottom: 0.4rem;
+    margin-bottom: var(--space-2);
   }
 
   .language-print--print ul {
-    padding-left: 1.1rem;
+    padding-left: var(--space-4);
   }
 
   @media (min-width: 960px) {

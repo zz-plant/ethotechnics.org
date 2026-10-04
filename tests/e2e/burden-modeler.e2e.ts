@@ -35,7 +35,7 @@ test.describe("Burden Modeler page", () => {
     const widget = page.locator("[data-burden-modeler]");
     await expect(widget).toBeVisible();
     await expect(widget.getByRole("heading", { level: 2 })).toContainText(
-      "Quantify where toil piles up",
+      "See where the workload piles up",
     );
   });
 
@@ -131,7 +131,9 @@ test.describe("Burden Modeler page", () => {
     const firstSlider = page.locator('.slider input[type="range"]').first();
     await firstSlider.fill("9");
 
+    // Reset asks for confirmation once the inputs have changed.
     await page.getByRole("button", { name: "Reset inputs" }).click();
+    await page.getByRole("button", { name: "Confirm reset" }).click();
 
     await expect(page.locator("#scenario-name")).toHaveValue("Baseline");
     // Default rating is 5, not 0
@@ -145,7 +147,7 @@ test.describe("Burden Modeler page", () => {
 
     const [download] = await Promise.all([
       page.waitForEvent("download"),
-      page.getByRole("button", { name: "Export snapshot" }).click(),
+      page.getByRole("button", { name: "Export JSON" }).click(),
     ]);
     expect(download.suggestedFilename()).toMatch(
       /^burden-snapshot-baseline-\d{4}-\d{2}-\d{2}\.json$/,

@@ -30,7 +30,8 @@ const frameworks: FrameworkMatch[] = [
 ];
 
 const pageTitle = `${control.controlId} crosswalk brief`;
-const pageDescription = `${control.controlId} maps one enforceable obligation to EU AI Act, NIST AI RMF, and ISO/IEC 42001 references, plus evidence artifacts and operational surface.`;
+const seoTitle = `${control.controlId} crosswalk: ${control.topic}`;
+const pageDescription = control.metaDescription;
 const permalink = `/standards/crosswalk/${control.controlId.toLowerCase()}`;
 
 const publication = derivePublicationMetadata({
@@ -40,7 +41,7 @@ const publication = derivePublicationMetadata({
 ---
 
 <BaseLayout
-  title={`${pageTitle} — Standards`}
+  title={seoTitle}
   description={pageDescription}
   publishedTime="2025-06-01T00:00:00.000Z"
   structuredDataType="tech-article"
@@ -64,7 +65,10 @@ const publication = derivePublicationMetadata({
     anchorLinks={[
       { href: "#framework-mapping", label: "Framework mapping" },
       { href: "#evidence", label: "Evidence artifacts" },
-      { href: "#operational-surface", label: "Operational surface" },
+      {
+        href: "#operational-surface",
+        label: "Where it shows up in operations",
+      },
     ]}
   />
 
@@ -110,7 +114,7 @@ const publication = derivePublicationMetadata({
 
   <SectionBlock
     id="operational-surface"
-    eyebrow="Operational surface"
+    eyebrow="Where it shows up in operations"
     title="Where this control should live in the system"
     description="The owner-visible control point for day-to-day operations and incident response."
   >

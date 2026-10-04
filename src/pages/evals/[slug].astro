@@ -21,7 +21,7 @@ if (!suite) {
   return new Response("Eval suite not found", { status: 404 });
 }
 
-const pageTitle = `${suite.title} — Governance Evals — Ethotechnics`;
+const pageTitle = `${suite.title} — Ethotechnics`;
 const permalink = `/evals/${suite.slug}`;
 
 const scoringMethodLabel = (() => {
@@ -260,12 +260,12 @@ const standardHref = (ref: string) => {
   .status-badge {
     display: inline-flex;
     align-items: center;
-    border-radius: 999px;
-    padding: 0.1rem 0.55rem;
-    font-size: 0.7rem;
+    border-radius: var(--radius-pill);
+    padding: var(--space-hair) var(--space-2);
+    font-size: var(--text-xs);
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: var(--tracking-label);
     white-space: nowrap;
   }
 
@@ -306,16 +306,16 @@ const standardHref = (ref: string) => {
 
   .eval-test-case {
     border: 1px solid var(--border);
-    border-radius: 0.5rem;
-    margin-bottom: 0.75rem;
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-3);
     overflow: hidden;
   }
 
   .eval-test-case__summary {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem 1rem;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
     cursor: pointer;
     list-style: none;
   }
@@ -327,7 +327,7 @@ const standardHref = (ref: string) => {
   .eval-test-case__id {
     font-family: var(--sans);
     font-weight: 700;
-    font-size: 0.75rem;
+    font-size: var(--text-xs);
     color: var(--muted);
     min-width: 4.5rem;
   }
@@ -338,32 +338,32 @@ const standardHref = (ref: string) => {
   }
 
   .eval-test-case__body {
-    padding: 0 1rem 1rem;
+    padding: 0 var(--space-4) var(--space-4);
     border-top: 1px solid var(--border);
   }
 
   .eval-test-case__sections {
-    margin-top: 1rem;
+    margin-top: var(--space-4);
   }
 
   .eval-test-case__rubric {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.85rem;
-    margin-top: 0.5rem;
+    font-size: var(--text-sm);
+    margin-top: var(--space-2);
   }
 
   .eval-test-case__rubric th,
   .eval-test-case__rubric td {
-    padding: 0.35rem 0.5rem;
+    padding: var(--space-1) var(--space-2);
     text-align: left;
     border-bottom: 1px solid var(--border);
   }
 
   .eval-test-case__rubric th {
     font-weight: 600;
-    font-size: 0.75rem;
+    font-size: var(--text-xs);
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: var(--tracking-label);
   }
 </style>

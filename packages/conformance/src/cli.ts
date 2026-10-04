@@ -10,8 +10,10 @@
  * severity was found, 1 otherwise, 2 for a usage error. `--format github`
  * writes workflow-command annotations so findings land on the pull request.
  */
+import { realpathSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import process from "node:process";
+import { fileURLToPath } from "node:url";
 
 import {
   auditRecords,
@@ -250,10 +252,26 @@ export async function run(argv: string[]): Promise<number> {
   return shouldFail(report, parsed.failOn) ? 1 : 0;
 }
 
-const invokedDirectly =
-  typeof process.argv[1] === "string" &&
-  /cli\.(ts|js)$/.test(process.argv[1]) &&
-  import.meta.url.endsWith(process.argv[1].split("/").pop() ?? "");
+/**
+ * Run only when this file is the entry point, not when a test imports it.
+ * npx and an installed bin start the CLI through a symlink named
+ * `ethotechnics-conformance`, so the entry path has to be resolved before it
+ * is compared. Matching on the file name instead let every such run exit 0
+ * without reading a record, which a CI job would read as a pass.
+ */
+export const isEntryPoint = (
+  entry: string | undefined,
+  moduleUrl: string,
+): boolean => {
+  if (typeof entry !== "string") return false;
+  try {
+    return realpathSync(entry) === realpathSync(fileURLToPath(moduleUrl));
+  } catch {
+    return false;
+  }
+};
+
+const invokedDirectly = isEntryPoint(process.argv[1], import.meta.url);
 
 if (invokedDirectly) {
   run(process.argv.slice(2)).then(

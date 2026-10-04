@@ -5,14 +5,14 @@ import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import { derivePublicationMetadata } from "../../utils/publication";
 
-const pageTitle = "End-to-end mapping artifact (brandless)";
+const pageTitle = "STD-01 mapping artifact: one case, end to end";
 const pageDescription =
-  "A synthetic, brandless walk-through that maps harm to rights, validators, mechanisms, and binding change.";
+  "An invented benefits case traced from each harm to the STD-01 right it breaks, the validator that detects it, the mechanism that addresses it, and the change owed.";
 const permalink = "/standards/std-01-mapping-artifact";
 const anchorLinks = [
-  { href: "#scenario", label: "Scenario snapshot" },
+  { href: "#scenario", label: "The case" },
   { href: "#mapping", label: "Mapping table" },
-  { href: "#references", label: "Validator + mechanism references" },
+  { href: "#references", label: "Validators and mechanisms" },
   { href: "#citations", label: "Citations" },
 ];
 
@@ -20,7 +20,7 @@ const publication = derivePublicationMetadata({
   permalink,
   published: "2026-02-01T00:00:00Z",
   version: "v1.0.0",
-  authorName: "Ethotechnics Standards Office",
+  authorName: "Ethotechnics Institute",
   changelogSummary:
     "Published the brandless mapping table and binding change guidance.",
 });
@@ -75,7 +75,7 @@ const mappingRows = [
     },
     mechanism: {
       title: "MEC-04: The Hard Clock",
-      href: "/mechanisms/mec-04-hard-clock",
+      href: "/mechanisms/patterns/hard-clock",
     },
     bindingChange:
       "Publish queue position + ETA, offer callback, and cap wait times with an escalation clock.",
@@ -93,7 +93,7 @@ const mappingRows = [
     },
     mechanism: {
       title: "MEC-04: The Hard Clock",
-      href: "/mechanisms/mec-04-hard-clock",
+      href: "/mechanisms/patterns/hard-clock",
     },
     bindingChange:
       "Declare expected duration pre-commitment and enforce timeout or human escalation on overrun.",
@@ -105,7 +105,7 @@ const mappingRows = [
   title={pageTitle}
   description={pageDescription}
   permalink={permalink}
-  seoTitle={`${pageTitle} — STD-01`}
+  seoTitle={`${pageTitle} — Standards`}
   eyebrow="STD-01 reference"
   anchorLinks={anchorLinks}
   publishedTime="2025-06-01T00:00:00.000Z"
@@ -116,8 +116,8 @@ const mappingRows = [
   <SectionBlock
     id="scenario"
     eyebrow="Scenario"
-    title="Synthetic eligibility denial snapshot."
-    description="One brandless sequence, kept abstract for reuse across domains."
+    title="An invented eligibility denial."
+    description="One sequence with no organization named, so it applies across domains."
   >
     <ul class="muted">
       <li>A person submits an eligibility request for a public benefit.</li>
@@ -134,16 +134,16 @@ const mappingRows = [
       </li>
     </ul>
     <p class="muted">
-      The mapping below aligns each harm moment to its right, validator,
-      mechanism, and binding change.
+      The table below traces each harm to its right, validator, mechanism, and
+      required change.
     </p>
   </SectionBlock>
 
   <SectionBlock
     id="mapping"
     eyebrow="Mapping"
-    title="Harm → Right → Validator → Mechanism → Binding change."
-    description="Each row is a single end-to-end chain, expressed without personas or branding."
+    title="Harm → Right → Validator → Mechanism → Required change."
+    description="Each row follows one harm from start to finish."
     variant="alt"
   >
     <div class="mapping-table__wrapper">
@@ -154,7 +154,7 @@ const mappingRows = [
             <th>Right (STD-01) →</th>
             <th>Validator →</th>
             <th>Mechanism →</th>
-            <th>Binding change</th>
+            <th>Required change</th>
           </tr>
         </thead>
         <tbody>
@@ -184,7 +184,7 @@ const mappingRows = [
   <SectionBlock
     id="references"
     eyebrow="References"
-    title="Validator and mechanism anchors used in this mapping."
+    title="Validators and mechanisms used in this mapping."
     description="Cross-links to the supporting standard, validators, and mechanisms."
   >
     <div class="reference-grid">
@@ -210,7 +210,8 @@ const mappingRows = [
         <p class="eyebrow">Mechanisms</p>
         <ul>
           <li>
-            <a href="/mechanisms/mec-04-hard-clock">MEC-04 — The Hard Clock</a>
+            <a href="/mechanisms/patterns/hard-clock">MEC-04 — The Hard Clock</a
+            >
           </li>
           <li>
             <a href="/mechanisms/patterns/appeal-paths"
@@ -231,7 +232,7 @@ const mappingRows = [
     id="citations"
     eyebrow="Citations"
     title="Cite this mapping artifact."
-    description="APA and BibTeX are provided for reuse in briefs, audits, and research."
+    description="Citation formats for briefs, audits, and research."
     variant="alt"
   >
     <CitationBlock

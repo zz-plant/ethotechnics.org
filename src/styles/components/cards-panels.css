@@ -1,24 +1,25 @@
 @layer components {
-  /* Surfaces. Two kinds of object sit on the paper: a sheet (white, for
-     content that is an object -- a card, a table, a tool) and a tint (the
-     panel colour, for asides and grounds). Neither casts a shadow at rest;
-     a shadow means the pointer is on it or it floats above the page. */
+  /* Surfaces. Two kinds of object sit on the paper: a sheet (white, with a
+     hairline, for an item a reader chooses between -- a tool, a standard, a
+     case, a mechanism) and a tint (the panel colour, no border, for asides
+     and grounds). Neither casts a shadow; a shadow means something floats
+     above the page. One level of container per section: whatever sits
+     inside a sheet or a tint is a flat block (see "Nesting" below). */
   .panel {
     background: color-mix(in srgb, var(--panel) 70%, var(--surface));
-    padding: 1.6rem;
-    border-radius: var(--radius-lg);
-    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
-    box-shadow: var(--card-inner-highlight);
+    padding: var(--space-container);
+    border-radius: var(--radius-md);
+    border: 0;
     position: relative;
     overflow: hidden;
   }
 
   .panel__list {
-    margin: 0.75rem 0 0;
-    padding-left: 1.1rem;
+    margin: var(--space-3) 0 0;
+    padding-left: var(--space-4);
     color: color-mix(in srgb, var(--muted) 88%, var(--text));
     display: grid;
-    gap: 0.5rem;
+    gap: var(--space-2);
   }
 
   /* The intro aside: a sheet with a sapphire hairline, the one raised object
@@ -31,25 +32,22 @@
   .card {
     position: relative;
     background: var(--surface);
-    border-radius: var(--radius-lg);
-    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    padding: var(--space-container);
     border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-    box-shadow: var(--card-inner-highlight);
     display: grid;
-    gap: 0.65rem;
+    gap: var(--space-3);
     overflow: hidden;
     transition:
       border-color var(--motion-base) ease,
-      box-shadow var(--motion-base) ease,
-      transform var(--motion-base) var(--ease-out-editorial);
+      background-color var(--motion-base) ease;
   }
 
-  .card:hover,
-  .card:focus-within {
+  /* Only a card that is itself a link answers the pointer, and it does not
+     move: the rule darkens. A card that merely holds links stays still. */
+  a.card:hover,
+  a.card:focus-visible {
     border-color: color-mix(in srgb, var(--accent) 36%, var(--border));
-    box-shadow: var(--shadow-sm), var(--card-inner-highlight);
-    transform: translateY(-1px);
-    z-index: var(--z-raised);
   }
 
   .card--emphasis {
@@ -59,14 +57,6 @@
 
   .card--flat {
     border-color: color-mix(in srgb, var(--border) 60%, transparent);
-    transform: none !important;
-  }
-
-  .card--flat:hover,
-  .card--flat:focus-within {
-    transform: none !important;
-    box-shadow: var(--card-inner-highlight);
-    border-color: var(--interactive-border-hover);
   }
 
   .card > * {
@@ -74,13 +64,47 @@
     z-index: var(--z-raised);
   }
 
+  /* Inset. The padding is the whole inset of a sheet or a tint: the first
+     child gives up its top margin and the last its bottom one, so a card
+     that opens on an h3 does not add the heading's own 1em to its 24px.
+     Inside a card, which is a grid, the gap is the only space between
+     children; a bare heading or paragraph drops its margins, while a class
+     that sets its own (a footer pushed down with margin-top: auto) still
+     wins, since :where() carries no specificity. */
+  :where(.card, .panel, .callout, .cta) > :first-child {
+    margin-top: 0;
+  }
+
+  :where(.card, .panel, .callout, .cta) > :last-child {
+    margin-bottom: 0;
+  }
+
+  :where(.card) > * {
+    margin-block: 0;
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .card,
-    .card:hover,
-    .card:focus-within {
-      transform: none !important;
+    .card {
       transition: none;
     }
+  }
+
+  /* Nesting. A sheet inside a tint, a sheet inside a sheet, or a tint inside
+     either used to draw a third and fourth box: /mechanisms ran to about two
+     hundred bordered elements. Anything boxed inside a box now drops its own
+     frame and becomes a block set off by a rule above it. */
+  :is(.panel, .card, .callout, .cta, .section--banded)
+    :is(.card, .panel, .callout) {
+    background: transparent;
+    border: 0;
+    border-top: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    border-radius: 0;
+    padding: var(--space-4) 0 0;
+  }
+
+  :is(.panel, .card, .callout, .cta, .section--banded)
+    :is(.card, .panel, .callout):hover {
+    border-color: color-mix(in srgb, var(--border) 70%, transparent);
   }
 
   .icon {
@@ -91,7 +115,7 @@
     background: color-mix(in srgb, var(--accent) 9%, transparent);
     color: var(--accent);
     border-radius: var(--radius-md);
-    font-size: 1.1rem;
+    font-size: var(--text-lg);
     transition:
       background-color var(--motion-fast) ease,
       color var(--motion-fast) ease;
@@ -103,18 +127,18 @@
     display: block;
   }
 
-  .card:hover .icon,
-  .card:focus-within .icon {
+  a.card:hover .icon,
+  a.card:focus-visible .icon {
     background: color-mix(in srgb, var(--accent) 14%, transparent);
     color: var(--accent-strong);
   }
 
   .card__list {
-    margin: 0.75rem 0 0;
-    padding-left: 1.1rem;
+    margin: var(--space-3) 0 0;
+    padding-left: var(--space-4);
     color: var(--muted);
     display: grid;
-    gap: 0.35rem;
+    gap: var(--space-1);
   }
 
   .card__list a {
@@ -124,7 +148,7 @@
     display: inline-flex;
     align-items: center;
     min-height: 44px;
-    padding: 0.2rem 0.1rem;
+    padding: var(--space-1) var(--space-hair);
     touch-action: manipulation;
   }
 
@@ -141,22 +165,21 @@
   }
 
   .callout {
-    padding: 1.6rem;
+    padding: var(--space-container);
     background: var(--surface);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-    box-shadow: var(--card-inner-highlight);
   }
 
   .summary-callout {
     display: grid;
-    gap: 1.5rem;
-    padding: clamp(1.4rem, 3.2vw, 2.2rem);
+    gap: var(--space-5);
+    padding: var(--space-container);
   }
 
   .summary-callout__intro {
     display: grid;
-    gap: 0.4rem;
+    gap: var(--space-heading);
   }
 
   .summary-callout__intro h2 {
@@ -172,12 +195,12 @@
 
   .summary-callout__body {
     display: grid;
-    gap: 1.4rem;
+    gap: var(--space-5);
   }
 
   .summary-callout__section {
     display: grid;
-    gap: 0.5rem;
+    gap: var(--space-2);
   }
 
   .summary-callout__section .eyebrow {
@@ -186,9 +209,9 @@
 
   .summary-callout__takeaways {
     margin: 0;
-    padding-left: 1.2rem;
+    padding-left: var(--space-4);
     display: grid;
-    gap: 0.45rem;
+    gap: var(--space-2);
     color: var(--muted);
     font-size: var(--text-body);
     line-height: 1.6;
@@ -203,32 +226,32 @@
   .callout__metrics {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 0.6rem;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
   }
 
   .callout h3 {
-    margin: 0.4rem 0;
+    margin: var(--space-2) 0;
   }
 
   .comparison {
-    margin: 2rem 0 3rem;
+    margin: var(--space-6) 0 var(--space-7);
     display: grid;
-    gap: 1rem;
+    gap: var(--space-4);
   }
 
   .comparison__header {
     display: grid;
-    gap: 0.35rem;
+    gap: var(--space-1);
     max-width: 760px;
   }
 
   .comparison__grid {
-    margin-top: 0.5rem;
+    margin-top: var(--space-2);
   }
 
   .comparison__card {
-    gap: 0.4rem;
+    gap: var(--space-2);
   }
 
   .comparison__card h4 {
@@ -236,16 +259,15 @@
   }
 
   .cta {
-    margin: clamp(3.5rem, 6vw, 4.5rem) 0 clamp(4rem, 7vw, 5.5rem);
+    margin: var(--space-section) 0;
     background: color-mix(in srgb, var(--panel) 70%, var(--surface));
-    padding: clamp(1.9rem, 4vw, 2.7rem);
-    border-radius: var(--radius-xl);
-    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    padding: var(--space-container);
+    border-radius: var(--radius-md);
+    border: 0;
     display: grid;
-    gap: 1rem;
+    gap: var(--space-4);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
     align-items: center;
-    box-shadow: var(--card-inner-highlight);
     position: relative;
     overflow: hidden;
   }
@@ -253,7 +275,7 @@
   .standard-status__headline {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.6rem;
+    gap: var(--space-2);
     align-items: center;
   }
 
@@ -261,11 +283,11 @@
     display: inline-flex;
     align-items: center;
     border-radius: var(--radius-pill);
-    padding: 0.25rem 0.65rem;
+    padding: var(--space-1) var(--space-3);
     font-size: var(--text-xs);
     font-family: var(--sans);
     font-weight: 700;
-    letter-spacing: 0.04em;
+    letter-spacing: var(--tracking-label);
     text-transform: uppercase;
   }
 
@@ -289,8 +311,8 @@
 
   .standard-status__changelog {
     margin: 0;
-    padding-left: 1.2rem;
+    padding-left: var(--space-4);
     display: grid;
-    gap: 0.25rem;
+    gap: var(--space-1);
   }
 }

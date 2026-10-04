@@ -38,7 +38,7 @@
 
   .eyebrow {
     text-transform: uppercase;
-    letter-spacing: 0.13em;
+    letter-spacing: var(--tracking-label-wide);
     font-size: var(--text-eyebrow);
     font-family: var(--sans);
     font-weight: 650;
@@ -69,32 +69,32 @@
 
   /* Spacing and Flex Stacks */
   .flow > * + * {
-    margin-top: var(--flow-space, 1rem);
+    margin-top: var(--flow-space, var(--space-4));
   }
 
   .stack-sm {
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
+    gap: var(--space-4);
   }
 
   .stack-md {
     display: flex;
     flex-direction: column;
-    gap: var(--space-4);
+    gap: var(--space-5);
   }
 
   .stack-lg {
     display: flex;
     flex-direction: column;
-    gap: var(--space-5);
+    gap: var(--space-6);
   }
 
   .actions {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.75rem;
+    gap: var(--space-3);
   }
 }
 

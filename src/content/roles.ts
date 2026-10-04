@@ -71,84 +71,88 @@ export const roles: Role[] = [
     label: "Engineering",
     who: "You build or operate the system that makes the decision.",
     tagline:
-      "Build decision systems that can be stopped, explained, and reversed, with the guardrails written as code rather than as policy.",
+      "Build decision systems whose errors reach someone who can change the rule: decision records, expiring grants, answered objections, written as code, not policy.",
     orientation: [
       {
         number: 1,
-        title: "Audit a system spec and generate guardrails",
+        title: "Check what a workflow is allowed to decide",
         description:
-          "Run the System Auditor against a spec to surface failure modes and synthesize TypeScript or Python middleware.",
-        ctaLabel: "Open System Auditor",
-        ctaHref: "/diagnostics/system-auditor",
+          "Take one workflow through six questions. Get back the permissions nobody can justify, and whether its decisions can be undone.",
+        ctaLabel: "Open Delegation Audit",
+        ctaHref: "/diagnostics/delegation-audit",
       },
       {
         number: 2,
-        title: "Enforce STD-01: temporal rights and recourse",
+        title: "Set deadlines for halts and reversals (STD-01)",
         description:
-          "Implement deterministic time-to-halt, reversal SLAs, and the receipt structure a decision has to emit.",
+          "Build in a fixed time to halt, deadlines for reversing a decision, and the receipt each decision has to produce.",
         ctaLabel: "Inspect STD-01",
         ctaHref: "/standards/std-01-temporal-rights",
       },
       {
         number: 3,
-        title: "Model burden and human substitution",
+        title: "Emit a record for every action, and grade it",
         description:
-          "Calculate the load the system pushes onto people, and check review capacity against the ceiling it assumes.",
-        ctaLabel: "Run Burden Modeler",
-        ctaHref: "/diagnostics/burden-modeler",
+          "Write each decision as an STD-07 record that names the grant it ran under, then grade an exported stream against the conformance level you claim.",
+        ctaLabel: "Open Record Conformance",
+        ctaHref: "/diagnostics/record-conformance",
       },
     ],
     guide: {
       focusAreas: [
-        "Instrument systems to surface burden, latency, and escalation signals.",
+        "Log the work the system pushes onto people, how long decisions take, and when cases escalate.",
         "Build policy controls that enforce standards in production.",
-        "Coordinate with stewards on maintenance and rollback readiness.",
+        "Agree with the system's owners who maintains it and who can roll it back.",
       ],
       keyLinks: [
         {
           label: "Standards",
           href: "/standards",
-          note: "Doctrine and rights to codify in system guardrails.",
+          note: "The rules and rights to write into system guardrails.",
         },
         {
           label: "Mechanisms catalog",
           href: "/mechanisms",
-          note: "Spec sheets for governance, friction, and policy controls.",
+          note: "Specifications for controls that pause, slow, route, or reverse a decision.",
         },
         {
           label: "What outcomes hide",
           href: "/research/theory/what-outcomes-hide",
-          note: "Why evaluation needs outcome, adaptation burden, and corrective power.",
+          note: "Why judging a system by outcomes is not enough: also count what people had to adapt to, and whether they could get errors corrected.",
         },
         {
           label: "Validators",
           href: "/validators",
-          note: "Diagnostics that surface operational risk.",
+          note: "Checks that show operational risk.",
         },
         {
           label: "What we can check",
           href: "/evals/coverage",
-          note: "Which governance properties a probe can establish.",
+          note: "Which governance properties an automated test can confirm, and which it cannot.",
         },
       ],
       firstMoves: [
-        "Map existing telemetry to the burden and latency validators.",
-        "Implement a mechanism spec as a feature flag or control rail.",
-        "Partner with stewards to define rollback and escalation ownership.",
+        "Match the logs you already collect to the burden and latency validators.",
+        "Build one mechanism from the catalog as a feature flag or a runtime check.",
+        "Agree with the system's owners who owns rollback and who owns escalation.",
       ],
     },
     adoptionChecklist: [
       "Set explicit action boundaries for high-risk automations.",
       "Require approvals before sensitive sends, deploys, or data writes.",
-      "Instrument rollback paths and verify they are runnable under pressure.",
+      "Test rollback paths and confirm they work under real load.",
       "Log all override actions with named owners and timestamps.",
     ],
     featuredDiagnostics: [
-      "system-auditor",
+      "delegation-audit",
       "burden-modeler",
-      "capacity-forecaster",
+      "record-conformance",
     ],
-    featuredStandards: ["std-01-temporal-rights", "std-02-contestability-recourse"],
+    featuredStandards: [
+      "std-07-revisable-delegation-record",
+      "std-08-delegation",
+      "std-01-temporal-rights",
+    ],
     formerPaths: ["/quick-start/engineers", "/adopt/build"],
   },
   {
@@ -162,38 +166,38 @@ export const roles: Role[] = [
         number: 1,
         title: "Review the regulatory crosswalks",
         description:
-          "Line-by-line mappings between international AI legislation and controls a system can be tested against.",
+          "Line-by-line mappings from the EU AI Act, the NIST AI RMF, and ISO/IEC 42001 to controls a system can be tested against.",
         ctaLabel: "View crosswalk matrix",
         ctaHref: "/standards/enforceable-governance-crosswalks",
       },
       {
         number: 2,
-        title: "Set service-level indicators of justice",
+        title: "Set measurable targets for appeals",
         description:
-          "Define measurable commitments for appeal passage rates and non-retaliation, rather than intentions.",
-        ctaLabel: "Explore SLJ metrics",
-        ctaHref: "/glossary/service-level-indicators",
+          "Commit to numbers: how many appeals get through, how fast, and a promise that appealing carries no penalty.",
+        ctaLabel: "Read STD-03: Justice SLOs",
+        ctaHref: "/standards/std-03-justice-slos",
       },
       {
         number: 3,
-        title: "Export contract clauses",
+        title: "Draft contract clauses",
         description:
-          "Generate vendor agreement terms for third-party AI procurement that a counterparty can be held to.",
-        ctaLabel: "Generate SLA clauses",
-        ctaHref: "/diagnostics/system-auditor",
+          "Write the authority, evidence, and correction terms a vendor agreement has to state before the system is allowed to decide. Cite clause numbers, and require an evidence pack at each release.",
+        ctaLabel: "Cite the standards in a contract",
+        ctaHref: "/standards/where-this-binds",
       },
     ],
     guide: {
       focusAreas: [
         "Define the governing standard and the rights it protects.",
-        "Map enforcement pathways and escalation lanes.",
-        "Prepare public-facing summaries grounded in glossary anchors.",
+        "Set out how each rule is enforced and where escalations go.",
+        "Write public summaries that use the glossary's defined terms.",
       ],
       keyLinks: [
         {
           label: "STD-01: The Temporal Bill of Rights",
           href: "/standards/std-01-temporal-rights",
-          note: "Canonical rights framing to anchor policy language.",
+          note: "The rights to cite in policy language.",
         },
         {
           label: "Mechanisms catalog",
@@ -212,19 +216,22 @@ export const roles: Role[] = [
         },
       ],
       firstMoves: [
-        "Select the standard your policy should reference and cite its glossary anchors.",
+        "Pick the standard your policy should reference and cite its defined terms.",
         "Run a validator to gather baseline risk and burden scores.",
         "Publish policy updates with the same glossary language used in the standards.",
       ],
     },
     adoptionChecklist: [
-      "Bind contestability rights to explicit owner roles and response clocks.",
+      "Give every right to appeal a named owner and a response deadline.",
       "Define restitution pathways for harms that cannot be fully reversed.",
       "Set incident disclosure expectations for high-impact failures.",
-      "Require sign-off authority for resume decisions after a halt.",
+      "Name who must sign off before a halted system restarts.",
     ],
-    featuredDiagnostics: ["system-auditor", "delegation-audit"],
-    featuredStandards: ["std-01-temporal-rights", "std-06-human-impact-safety-case"],
+    featuredDiagnostics: ["delegation-audit", "burden-modeler"],
+    featuredStandards: [
+      "std-01-temporal-rights",
+      "std-06-human-impact-safety-case",
+    ],
     formerPaths: ["/quick-start/policy-makers", "/adopt/policy"],
   },
   {
@@ -232,39 +239,42 @@ export const roles: Role[] = [
     label: "Audit and assurance",
     who: "You verify someone else's claims from the evidence their system emits.",
     tagline:
-      "Check conformance from records, decision objects, and halt logs rather than from assurances.",
+      "Check a system from its records, decisions, and halt logs, not from what its operator says.",
     orientation: [
       {
         number: 1,
-        title: "Inspect the failure taxonomy",
+        title: "Grade a system's decision records",
         description:
-          "Audit systems against observable failure signatures and the behaviours that counterfeit compliance.",
-        ctaLabel: "Explore taxonomy",
-        ctaHref: "/taxonomy",
+          "Check the records a system exports against the conformance level it claims. This is the one tool here that reads evidence rather than answers.",
+        ctaLabel: "Open Record Conformance",
+        ctaHref: "/diagnostics/record-conformance",
       },
       {
         number: 2,
-        title: "Verify evidence receipts",
+        title: "Know what each clause asks you to see",
         description:
-          "Audit decision timestamps, binding clocks, and claimant confirmation records against what was claimed.",
+          "Each evidence pack lists the records a clause needs: decision timestamps, deadlines, and what people received. Check the operator's records against it.",
         ctaLabel: "Inspect evidence packs",
         ctaHref: "/evidence-packs",
       },
       {
         number: 3,
-        title: "Grade a record stream",
+        title: "Read five public failures as worked audits",
         description:
-          "Read an emitted stream against the conformance level its own manifest declares, and see whether it earns it.",
-        ctaLabel: "Open Record Conformance",
-        ctaHref: "/diagnostics/record-conformance",
+          "Each case was established by a court, an inquiry, or a regulator, and each is scored on six safeguards with the clause that names the missing record.",
+        ctaLabel: "Open the casebook",
+        ctaHref: "/casebook",
       },
     ],
     featuredDiagnostics: [
-      "system-auditor",
       "record-conformance",
-      "maintenance-simulator",
+      "delegation-audit",
+      "burden-modeler",
     ],
-    featuredStandards: ["std-01-temporal-rights", "std-02-contestability-recourse"],
+    featuredStandards: [
+      "std-01-temporal-rights",
+      "std-02-contestability-recourse",
+    ],
     formerPaths: [],
   },
   {
@@ -272,19 +282,19 @@ export const roles: Role[] = [
     label: "Operations",
     who: "You run the appeals, the incident response, or the queues where the system's errors land.",
     tagline:
-      "Give escalation a bound and a named owner, so a stalled case surfaces instead of ageing.",
+      "Give escalation a bound and a named owner, so a stalled case comes to someone's attention instead of aging.",
     orientation: [
       {
         number: 1,
-        title: "Forecast the absorption load",
+        title: "Model the load the system pushes onto people",
         description:
-          "Model whether human response capacity grows with the volume the system generates, before the queue becomes the mechanism that hides its errors.",
-        ctaLabel: "Run Capacity Forecaster",
-        ctaHref: "/diagnostics/capacity-forecaster",
+          "Count, in hours, who picks up the extra work a workflow creates, before a growing queue starts hiding its errors.",
+        ctaLabel: "Run the Workload Modeler",
+        ctaHref: "/diagnostics/burden-modeler",
       },
       {
         number: 2,
-        title: "Bind escalation to a clock",
+        title: "Put escalation on a deadline",
         description:
           "Give every stalled case a named owner and a deadline that escalates itself, rather than an inbox that ages quietly.",
         ctaLabel: "Inspect escalation SLAs",
@@ -294,18 +304,18 @@ export const roles: Role[] = [
         number: 3,
         title: "Read the queue as a capacity signal",
         description:
-          "Track challenge volume against the capacity rostered to answer it, and answer congestion with resourcing or scope decisions on the record — never by narrowing who may challenge.",
-        ctaLabel: "Inspect the challenge load ledger",
+          "Compare the number of appeals with the staff assigned to answer them. When the queue backs up, add staff or narrow the system, on the record. Never narrow who may appeal.",
+        ctaLabel: "See the appeal load ledger",
         ctaHref: "/mechanisms/patterns/challenge-load-ledger",
       },
     ],
     adoptionChecklist: [
-      "Define harm intake paths with explicit triage categories.",
+      "Set up a way to report harm, with named triage categories.",
       "Set escalation SLAs by severity and route to named responders.",
       "Track queue age and auto-escalate stalled cases.",
-      "Publish a repair log with remediation status and owner handoffs.",
+      "Publish a repair log showing what has been fixed, what has not, and who owns each item.",
     ],
-    featuredDiagnostics: ["burden-modeler", "capacity-forecaster"],
+    featuredDiagnostics: ["burden-modeler", "corrective-debt-calculator"],
     formerPaths: ["/adopt/ops"],
   },
   {
@@ -313,44 +323,44 @@ export const roles: Role[] = [
     label: "Design",
     who: "You shape the interface where a person meets the decision.",
     tagline:
-      "Turn standards into consent-aware flows, escalation cues, and language a person can act on.",
+      "Turn standards into flows that ask for consent, show people how to escalate, and use words they can act on.",
     orientation: [
       {
         number: 1,
-        title: "Know who is being made to bend",
+        title: "See who the design asks to adapt",
         description:
-          "Read the design stance the discipline is built on: what an arrangement demands of people, who bears those demands, and whether they can force it to change.",
-        ctaLabel: "Read ethotechnical design",
+          "The design stance behind this work: what a system demands of people, who carries those demands, and whether they can make it change.",
+        ctaLabel: "Read the design stance",
         ctaHref: "/research/theory/ethotechnical-design",
       },
       {
         number: 2,
         title: "Model the burden of one flow",
         description:
-          "Score a real journey for time tax, step count, and exit availability, and read the report card as a design brief.",
-        ctaLabel: "Run Burden Modeler",
-        ctaHref: "/diagnostics/burden-modeler",
+          "Score a real user journey for time spent, number of steps, and whether there is a way out. Use the result as a design brief.",
+        ctaLabel: "Run the VAL-01 Burden Modeler",
+        ctaHref: "/validators/burden-modeler",
       },
       {
         number: 3,
         title: "Place the interrupt where the harm is",
         description:
-          "Design the stop, slow, and escalate controls the flow needs when the system is wrong — reachable, not decorative.",
-        ctaLabel: "Read ethical interrupts",
+          "Design the controls that stop, slow, or escalate a flow when the system is wrong, and put them where people can reach them.",
+        ctaLabel: "Read about interrupts",
         ctaHref: "/explainers/ethical-interrupts",
       },
       {
         number: 4,
         title: "Write copy people can act on",
         description:
-          "Use phrases a person can send, file, or read out — contestation language that works without the framework behind it.",
+          "Use phrases a person can send, file, or read out to challenge a decision, without needing to know this framework.",
         ctaLabel: "Open language people can use",
         ctaHref: "/explainers/language-people-can-use",
       },
     ],
     guide: {
       focusAreas: [
-        "Audit UI flows for stoppability, consent, and reversibility signals.",
+        "Check each flow: can a person stop it, did they agree to it, and can it be undone?",
         "Pair mechanism specs with interaction patterns and copy.",
         "Validate workflows with diagnostics before shipping.",
       ],
@@ -358,7 +368,7 @@ export const roles: Role[] = [
         {
           label: "Ethotechnical design",
           href: "/research/theory/ethotechnical-design",
-          note: "The design stance: spend institutional capacity before human adaptive capacity.",
+          note: "The design stance: the institution should adapt before it asks people to.",
         },
         {
           label: "Mechanisms catalog",
@@ -368,7 +378,7 @@ export const roles: Role[] = [
         {
           label: "Field notes",
           href: "/field-notes",
-          note: "Applied examples and facilitation cues.",
+          note: "Applied examples and notes for running workshops.",
         },
         {
           label: "Diagnostics",
@@ -378,13 +388,13 @@ export const roles: Role[] = [
         {
           label: "Glossary",
           href: "/glossary",
-          note: "Interaction language tied to standards.",
+          note: "Defined terms to use in interface copy.",
         },
       ],
       firstMoves: [
         "Select two mechanisms that map to your flow’s risk points.",
-        "Run a diagnostic with the team to surface consent or burden gaps.",
-        "Align UI copy with glossary anchors before release.",
+        "Run a diagnostic with the team to find gaps in consent or in the work the flow asks of people.",
+        "Check interface copy against the glossary's defined terms before release.",
       ],
     },
     featuredDiagnostics: ["burden-modeler"],
@@ -395,13 +405,13 @@ export const roles: Role[] = [
     label: "Research",
     who: "You study these systems and publish about them.",
     tagline:
-      "Ground investigations in the glossary anchors the standards use, so findings can be cited back into them.",
+      "Use the same defined terms the standards use, so your findings can be cited in them.",
     orientation: [
       {
         number: 1,
-        title: "Anchor the question in the doctrine",
+        title: "Tie the question to one of the twelve laws",
         description:
-          "State the claim as one of the twelve laws, so findings cite something a standard binds rather than a mood.",
+          "State the claim as one of the twelve laws, so findings bear on a specific clause.",
         ctaLabel: "Read the laws",
         ctaHref: "/standards/laws",
       },
@@ -409,7 +419,7 @@ export const roles: Role[] = [
         number: 2,
         title: "Read why the laws hold",
         description:
-          "The theory essays carry the argument: dependence, standing, capture, absorption, and the refusals between capability and authority.",
+          "The theory essays make the argument: who depends on whom, who can object, and why being able to do something is not permission to do it.",
         ctaLabel: "Open theory",
         ctaHref: "/research/theory",
       },
@@ -417,7 +427,7 @@ export const roles: Role[] = [
         number: 3,
         title: "Bring a case or a dataset",
         description:
-          "Field studies, incident analyses, and protocols can enter the agenda through the participation intake.",
+          "Send field studies, incident analyses, and protocols through the Participate page.",
         ctaLabel: "Open Participate",
         ctaHref: "/participate",
       },
@@ -425,8 +435,8 @@ export const roles: Role[] = [
     guide: {
       focusAreas: [
         "Align research questions with glossary and standard definitions.",
-        "Publish protocols and artifacts that feed validators and mechanisms.",
-        "Coordinate with the Institute to share datasets and findings.",
+        "Publish protocols and data that the validators and mechanisms can use.",
+        "Send datasets and findings to the Institute through the Participate page.",
       ],
       keyLinks: [
         {
@@ -442,12 +452,12 @@ export const roles: Role[] = [
         {
           label: "Glossary",
           href: "/glossary",
-          note: "Canonical definitions for research protocols.",
+          note: "Defined terms to use in research protocols.",
         },
         {
           label: "Participate",
           href: "/participate",
-          note: "Submit findings and coordinate peer review.",
+          note: "Send findings, cases, and corrections.",
         },
         {
           label: "Field notes",
@@ -456,9 +466,9 @@ export const roles: Role[] = [
         },
       ],
       firstMoves: [
-        "Select glossary anchors for your research framing and cite them consistently.",
-        "Share protocol drafts through the participation intake.",
-        "Publish bridge artifacts that translate findings into mechanisms.",
+        "Pick the glossary terms your research uses and cite them consistently.",
+        "Send protocol drafts through the Participate page.",
+        "Write up how a finding would change a mechanism, and publish it.",
       ],
     },
     formerPaths: ["/quick-start/researchers"],
@@ -468,35 +478,35 @@ export const roles: Role[] = [
     label: "Executive",
     who: "You decide whether to deploy, and you carry the liability when it goes wrong.",
     tagline:
-      "See the failure load a deployment commits the organisation to before it is committed.",
+      "See what failures a deployment will cost the organization before you commit to it.",
     orientation: [
       {
         number: 1,
-        title: "Understand failure load and moral debt",
+        title: "See the cost of failures nobody budgeted for",
         description:
-          "How hidden fragility subsidies and unearned closures compound into liability nobody budgeted for.",
-        ctaLabel: "Read institutional principles",
-        ctaHref: "/about",
+          "Five public failures at their real scale: about A$1.8 billion in Robodebt repayments, wiped debts, and interest; more than 900 Horizon prosecutions; a Dutch cabinet that resigned.",
+        ctaLabel: "Open the casebook",
+        ctaHref: "/casebook",
       },
       {
         number: 2,
-        title: "Forecast maintenance metabolism",
+        title: "Review corrective practices",
         description:
-          "Model whether human capacity grows with the automated volume it is expected to absorb.",
-        ctaLabel: "Run Capacity Forecaster",
-        ctaHref: "/diagnostics/capacity-forecaster",
+          "Five questions: how fast the system's reach grew, and whether challenges are received, reversed, fed back into the rules, and tracked when staff work around it.",
+        ctaLabel: "Run the corrective capacity self-assessment",
+        ctaHref: "/diagnostics/corrective-debt-calculator",
       },
       {
         number: 3,
         title: "Benchmark governance maturity",
         description:
-          "Place the organisation on the scale from baseline pause controls to published service-level indicators of justice and funded maintenance.",
+          "Place the organization on a scale that runs from a basic pause control to published appeal targets and funded maintenance.",
         ctaLabel: "Explore maturity scale",
         ctaHref: "/glossary/ethotechnic-maturity",
       },
     ],
-    featuredDiagnostics: ["capacity-forecaster", "burden-modeler"],
-    featuredStandards: ["std-01-temporal-rights"],
+    featuredDiagnostics: ["corrective-debt-calculator", "delegation-audit"],
+    featuredStandards: ["std-06-human-impact-safety-case", "std-08-delegation"],
     formerPaths: [],
   },
 ];

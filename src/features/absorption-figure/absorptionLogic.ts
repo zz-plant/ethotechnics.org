@@ -91,9 +91,14 @@ export function absorbedShare(
 
 export function simulate(params: Params): MonthPoint[] {
   const points: MonthPoint[] = [];
+  const rawCompetence = Number.isFinite(params.competence)
+    ? params.competence
+    : 0.7;
+  const competence = Math.max(0, Math.min(1, rawCompetence));
+  const safeParams = { ...params, competence };
   for (let month = 0; month <= MONTHS; month += 1) {
     const rate = trueRate(month);
-    const absorbed = absorbedShare(month, params.competence, params);
+    const absorbed = absorbedShare(month, competence, safeParams);
     const reported = rate * (1 - absorbed);
     const monthVolume = volume(month);
     points.push({
@@ -111,8 +116,10 @@ export function simulate(params: Params): MonthPoint[] {
 
 /** The change in the reported rate across the event month, in points. */
 export function eventJump(points: MonthPoint[]): number {
+  if (!points || points.length <= EVENT_MONTH) return 0;
   const before = points[EVENT_MONTH - 1];
   const after = points[EVENT_MONTH];
+  if (!before || !after) return 0;
   return (after.reported - before.reported) * 100;
 }
 

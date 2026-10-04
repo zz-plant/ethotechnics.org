@@ -1,8 +1,8 @@
 @layer components {
   .tag-rail {
     display: grid;
-    gap: var(--space-2);
-    margin-top: var(--space-2);
+    gap: var(--space-3);
+    margin-top: var(--space-3);
   }
 
   .tag-rail__item {
@@ -10,7 +10,7 @@
   }
 
   .tag-rail__description {
-    margin: 0.35rem 0 0;
+    margin: var(--space-1) 0 0;
     line-height: 1.4;
   }
 
@@ -22,7 +22,7 @@
 
   .pattern-filter {
     display: grid;
-    gap: 1.4rem;
+    gap: var(--space-5);
   }
 
   .pattern-filter .card-grid,
@@ -31,31 +31,30 @@
   }
 
   .pattern-filter__controls {
-    display: flex;
-    flex-direction: column;
-    gap: 0.9rem;
-    align-items: flex-start;
-  }
-
-  .pattern-filter__description {
-    margin: 0.35rem 0 0;
-    max-width: 36ch;
+    display: grid;
+    gap: var(--space-3);
   }
 
   .pattern-filter__search {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
+    display: grid;
+    gap: var(--space-2);
+    max-width: 36rem;
+  }
+
+  .pattern-filter__search-label {
+    font-size: var(--text-sm);
+    font-weight: 600;
   }
 
   .pattern-filter__search-input {
     width: 100%;
-    max-width: 360px;
-    padding: 0.65rem 0.85rem;
+    min-height: 44px;
+    padding: var(--space-3) var(--space-3);
     border-radius: var(--radius);
-    border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
-    background: color-mix(in srgb, var(--surface) 94%, transparent);
+    border: 1px solid var(--border);
+    background: var(--surface);
     color: inherit;
+    font: inherit;
   }
 
   .pattern-filter__search-input:focus-visible {
@@ -65,44 +64,127 @@
     box-shadow: var(--focus-ring);
   }
 
+  .pattern-filter__themes {
+    margin: 0;
+  }
+
+  .pattern-filter__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-4);
+  }
+
+  .pattern-filter__meta > p {
+    margin: 0;
+  }
+
   .pattern-filter__saved {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.6rem;
-    align-items: center;
+    align-items: baseline;
+    gap: var(--space-2) var(--space-3);
   }
 
   .pattern-filter__saved .muted {
     margin: 0;
-    flex-basis: 100%;
   }
 
-  .pattern-bundle {
-    width: 100%;
-    padding: 1rem 1.1rem;
-    border-radius: var(--radius-lg);
-    border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
-    background: color-mix(in srgb, var(--surface) 94%, transparent);
+  .pattern-filter__text-button {
+    border: 0;
+    padding: var(--space-1) 0;
+    background: none;
+    color: var(--accent);
+    font: inherit;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    cursor: pointer;
+  }
+
+  .pattern-filter__text-button:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: 2px;
+    border-radius: var(--radius-xs);
+  }
+
+  .pattern-filter__legend {
+    font-size: var(--text-sm);
+  }
+
+  .pattern-filter__legend summary {
+    cursor: pointer;
+    color: var(--muted);
+    width: fit-content;
+  }
+
+  .pattern-filter__legend summary:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: 2px;
+  }
+
+  .pattern-filter__legend dl {
     display: grid;
-    gap: 0.9rem;
+    gap: var(--space-2);
+    margin: var(--space-2) 0 0;
   }
 
-  .pattern-bundle__header {
+  .pattern-filter__legend dt {
+    display: inline;
+    font-weight: 600;
+  }
+
+  .pattern-filter__legend dt::after {
+    content: ": ";
+  }
+
+  .pattern-filter__legend dd {
+    display: inline;
+    margin: 0;
+    color: var(--muted);
+  }
+
+  .pattern-filter__results {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+    align-items: start;
+  }
+
+  .pattern-filter__results > .card {
+    gap: var(--space-2);
+    padding: var(--space-container-compact);
+  }
+
+  /* Shown by pattern-filter.ts once a mechanism is saved. Sticky to the
+     bottom of the viewport while the reader scrolls the catalog. */
+  .pattern-bundle {
+    position: sticky;
+    bottom: var(--space-3);
+    z-index: var(--z-overlay);
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
     align-items: center;
-    justify-content: space-between;
+    gap: var(--space-2) var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-lg);
+    border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--border));
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
   }
 
-  .pattern-bundle__copy h3 {
-    margin: 0.1rem 0;
+  .pattern-bundle__status {
+    margin: 0;
+    font-size: var(--text-sm);
+    font-weight: 600;
   }
 
   .pattern-bundle__actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.6rem;
+    gap: var(--space-2);
     align-items: center;
   }
 
@@ -112,37 +194,89 @@
     cursor: not-allowed;
   }
 
-  .pattern-bundle__email {
-    display: grid;
-    gap: 0.35rem;
+  .pattern-bundle__more {
+    font-size: var(--text-sm);
   }
 
-  .pattern-bundle__email-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
+  .pattern-bundle__more summary {
+    cursor: pointer;
+    color: var(--accent);
+    font-weight: 600;
+    min-height: 44px;
+    display: inline-flex;
     align-items: center;
   }
 
-  .pattern-bundle__email .button {
-    height: 44px;
+  .pattern-bundle__more summary:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: 2px;
+  }
+
+  .pattern-bundle__email {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: var(--space-2) var(--space-3);
+    padding-bottom: var(--space-2);
+  }
+
+  .pattern-bundle__email > p {
+    margin: 0;
+    flex-basis: 100%;
   }
 
   .pattern-bundle__email-label {
     display: grid;
-    gap: 0.35rem;
-    min-width: 260px;
-  }
-
-  .pattern-bundle__hint {
-    margin: 0;
-    display: flex;
-    gap: 0.35rem;
-    align-items: center;
+    gap: var(--space-1);
+    flex: 1 1 14rem;
   }
 
   .pattern-bundle__link {
     font-weight: 700;
+  }
+
+  /* On a phone the bar sits over the cards, so it stays two rows tall:
+     status and email toggle, then the three actions side by side. */
+  @media (max-width: 640px) {
+    .pattern-bundle {
+      gap: 0 var(--space-3);
+      padding: var(--space-2) var(--space-3) var(--space-3);
+    }
+
+    .pattern-bundle__status {
+      flex: 1 1 auto;
+    }
+
+    .pattern-bundle__more {
+      order: 1;
+    }
+
+    .pattern-bundle__more[open] {
+      order: 3;
+      flex-basis: 100%;
+    }
+
+    .pattern-bundle__actions {
+      order: 2;
+      flex-basis: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .pattern-bundle__actions .button {
+      justify-content: center;
+      padding-inline: var(--space-1);
+      font-size: var(--text-xs);
+      white-space: normal;
+      text-align: center;
+      line-height: 1.2;
+    }
+  }
+
+  .pattern-card__heading {
+    margin: 0;
+    font-size: var(--text-lg);
+    line-height: 1.3;
   }
 
   .pattern-card__title {
@@ -155,29 +289,36 @@
     text-decoration: underline;
   }
 
+  .pattern-card__summary {
+    margin: 0;
+  }
+
   .pattern-card__meta {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 0.75rem;
+    gap: var(--space-2) var(--space-3);
     flex-wrap: wrap;
+  }
+
+  .pattern-card__meta > p {
+    margin: 0;
   }
 
   .pattern-card__actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin: 0.35rem 0 0.6rem;
+    gap: var(--space-2);
+    margin: var(--space-2) 0 0;
   }
 
   .pattern-card__select {
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
-    padding: 0.35rem 0.6rem;
-    border-radius: var(--radius-md);
-    border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
-    background: color-mix(in srgb, var(--surface) 92%, transparent);
+    gap: var(--space-1);
+    min-height: 44px;
+    font-size: var(--text-sm);
+    color: var(--muted);
     cursor: pointer;
   }
 
@@ -186,89 +327,92 @@
   }
 
   .pattern-card__select:has(input:checked) {
-    border-color: color-mix(in srgb, var(--accent) 70%, var(--border));
-    background: color-mix(in srgb, var(--accent) 14%, var(--surface));
+    color: var(--accent);
+    font-weight: 600;
   }
 
   .pattern-card__select:focus-within {
-    outline: 2px solid var(--accent);
+    outline: var(--focus-outline);
     outline-offset: 2px;
+    border-radius: var(--radius-xs);
   }
 
+  /* A disclosure inside the card, not a second box: a rule above it
+     separates it from the summary. */
   .pattern-card__teaser {
     display: grid;
-    gap: 0.5rem;
-    padding: 0.65rem 0.75rem;
-    border-radius: var(--radius-md);
-    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-    background: color-mix(in srgb, var(--surface) 94%, transparent);
+    gap: var(--space-3);
+    border-top: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    margin-top: var(--space-2);
   }
 
   .pattern-card__teaser summary {
     cursor: pointer;
-    font-weight: 700;
-    color: var(--text);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--muted);
     min-height: 44px;
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    padding: 0.1rem 0;
   }
 
   .pattern-card__teaser summary:focus-visible {
-    outline: 2px solid var(--accent-strong);
+    outline: var(--focus-outline);
     outline-offset: 2px;
-    box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent);
-  }
-
-  .pattern-card__teaser[open] {
-    background: var(--panel);
   }
 
   .pattern-card__section {
     display: grid;
-    gap: 0.35rem;
+    gap: var(--space-1);
+  }
+
+  .pattern-card__section > p {
+    margin: 0;
   }
 
   .pattern-card__list {
     margin: 0;
-    padding-left: 1.2rem;
+    padding-left: var(--space-4);
     display: grid;
-    gap: 0.35rem;
+    gap: var(--space-1);
   }
 
   .pattern-card__example {
     margin: 0;
   }
 
-  .pattern-card__glossary {
-    margin: 0.2rem 0 0.6rem;
-  }
-
   .pattern-card__glossary a {
-    font-weight: 700;
+    font-weight: 600;
   }
 
   .pattern-card__link {
     font-weight: 700;
   }
 
-  .pattern-card__diagnostics {
-    display: grid;
-    gap: 0.4rem;
-    margin-top: 0.4rem;
-    padding-top: 0.45rem;
-    border-top: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
-  }
-
   .pattern-card__diagnostics-actions {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--space-2);
   }
 
   .pattern-card__diagnostics-actions [data-diagnostic-status] {
     min-height: 1.2rem;
+  }
+
+  .mechanisms__links {
+    margin: 0 0 var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  .mechanisms__links a {
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .mechanisms__links-sep {
+    padding-inline: var(--space-1);
   }
 
   .mechanisms__spec-grid,
@@ -278,7 +422,7 @@
 
   .mechanisms__spec-card {
     display: grid;
-    gap: 0.75rem;
+    gap: var(--space-3);
     align-content: start;
   }
 
@@ -286,19 +430,19 @@
     margin: 0;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: var(--space-2);
   }
   .pattern-detail__steps {
     list-style: none;
     padding: 0;
     margin: 0;
     display: grid;
-    gap: 1rem;
+    gap: var(--space-4);
   }
 
   .pattern-detail__step-summary {
-    margin-bottom: 0.75rem;
-    padding: 0.75rem 1rem;
+    margin-bottom: var(--space-3);
+    padding: var(--space-3) var(--space-4);
     border-radius: var(--radius-md);
     border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
     background: var(--surface);
@@ -308,24 +452,24 @@
     margin: 0;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: var(--space-2);
   }
 
   .pattern-detail__step-card {
     min-height: 180px;
     display: grid;
     align-content: start;
-    gap: 0.4rem;
+    gap: var(--space-2);
   }
 
   .pattern-detail__example {
     display: grid;
-    gap: 1rem;
+    gap: var(--space-4);
   }
 
   .pattern-detail__snippet {
     border-left: 4px solid color-mix(in srgb, var(--accent) 55%, transparent);
-    padding-left: 1.35rem;
+    padding-left: var(--space-5);
   }
 
   .pattern-detail__snippet[data-snippet="product"] {
@@ -345,70 +489,96 @@
   }
 
   .pattern-detail__example-copy {
-    margin: 0.4rem 0 0;
+    margin: var(--space-2) 0 0;
     line-height: 1.6;
   }
 
   .pattern-detail__diagnostics {
     display: grid;
-    gap: 1rem;
+    gap: var(--space-4);
   }
 
   .pattern-detail__diagnostic-list {
     display: grid;
-    gap: 1rem;
+    gap: var(--space-4);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   }
 
   .pattern-detail__diagnostic-card {
     display: grid;
-    gap: 0.45rem;
+    gap: var(--space-2);
   }
 
   .pattern-detail__diagnostic-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 0.5rem;
+    gap: var(--space-2);
   }
 
   .library__recommended {
-    margin-top: 1.5rem;
+    margin-top: var(--space-5);
   }
   .library__recommended-list {
     list-style: none;
-    margin: 1rem 0 0;
+    margin: var(--space-4) 0 0;
     padding: 0;
     display: grid;
-    gap: 1rem;
+    gap: var(--space-4);
   }
 
   .library__role-buttons {
-    display: grid;
-    gap: 1rem;
-    margin-bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-5);
+  }
+
+  .library__role-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    font-family: var(--sans);
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border);
+    background: var(--panel);
+    color: var(--text);
+    text-decoration: none;
+    transition:
+      border-color var(--motion-fast) ease,
+      background-color var(--motion-fast) ease;
+  }
+
+  .library__role-chip:hover,
+  .library__role-chip:focus-visible {
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 10%, var(--panel));
+    text-decoration: none;
   }
 
   .library__role-button {
     width: 100%;
     justify-content: center;
     text-align: center;
-    padding: 1rem 1.6rem;
-    font-size: 1rem;
+    padding: var(--space-4) var(--space-5);
+    font-size: var(--text-base);
   }
 
   .library__role-lists {
     display: grid;
-    gap: 2.5rem;
+    gap: var(--space-7);
   }
 
   .library__role-list h3 {
-    margin-bottom: 0.35rem;
+    margin-bottom: var(--space-1);
   }
 
   .library__role-list > .muted {
     margin-top: 0;
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--space-5);
   }
 
   @media (min-width: 768px) {
@@ -443,7 +613,7 @@
     bottom: 0;
     width: min(100%, 580px);
     background: var(--surface);
-    box-shadow: -8px 0 24px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-float);
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -459,7 +629,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.5rem;
+    padding: var(--space-5);
     border-bottom: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
     background: var(--surface);
   }
@@ -469,7 +639,7 @@
     background: transparent;
     color: var(--text);
     cursor: pointer;
-    padding: 0.5rem;
+    padding: var(--space-2);
     border-radius: var(--radius);
     display: flex;
     align-items: center;
@@ -492,28 +662,28 @@
   .pattern-drawer__body {
     flex: 1;
     overflow-y: auto;
-    padding: 1.75rem;
+    padding: var(--space-5);
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: var(--space-5);
   }
 
   .drawer-section {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: var(--space-2);
   }
 
   .drawer-section h4 {
     margin: 0;
-    font-size: 0.85rem;
+    font-size: var(--text-sm);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: var(--tracking-label);
     color: var(--gold);
   }
 
   .drawer-section p.lede {
-    font-size: 1.05rem;
+    font-size: var(--text-base);
     font-weight: 550;
     color: var(--text);
     margin: 0;
@@ -522,12 +692,12 @@
 
   .drawer-section .panel__list {
     margin: 0;
-    padding-left: 1.25rem;
+    padding-left: var(--space-4);
   }
 
   .drawer-section li {
-    font-size: 0.95rem;
+    font-size: var(--text-sm);
     line-height: 1.4;
-    margin-bottom: 0.4rem;
+    margin-bottom: var(--space-2);
   }
 }

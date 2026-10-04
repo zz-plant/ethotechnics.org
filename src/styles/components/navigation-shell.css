@@ -16,8 +16,10 @@
   .nav__inner {
     display: flex;
     flex-direction: column;
-    padding: clamp(0.55rem, 1.2vw, 0.8rem) var(--space-4);
-    gap: 0.5rem;
+    /* No side padding: .container already holds the page gutter, and the
+       header's edge should be the content's edge. */
+    padding: clamp(var(--space-2), 1.2vw, var(--space-3)) 0;
+    gap: var(--space-2);
     position: relative;
   }
 
@@ -36,7 +38,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
+    gap: var(--space-4);
     min-width: 0;
     width: 100%;
   }
@@ -44,11 +46,14 @@
   .nav__brand {
     display: inline-flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: var(--space-3);
     text-decoration: none;
     color: inherit;
     flex-shrink: 0;
-    padding: 0.3rem 0.5rem;
+    padding: var(--space-1) var(--space-2);
+    /* The padding gives the link a comfortable hit and focus area; pulling
+       it back by the same amount puts the mark on the content edge. */
+    margin-inline-start: calc(var(--space-2) * -1);
     border-radius: var(--radius-md);
     transition:
       opacity var(--motion-fast) ease,
@@ -83,7 +88,7 @@
     display: none;
     flex: 0 1 auto;
     align-items: center;
-    gap: 0.15rem;
+    gap: var(--space-hair);
   }
 
   @media (min-width: 1100px) {
@@ -96,7 +101,7 @@
   .nav__actions-desktop {
     display: none;
     align-items: center;
-    gap: 0.6rem;
+    gap: var(--space-2);
     margin-left: auto;
   }
 
@@ -109,7 +114,7 @@
   .nav__start-btn {
     display: inline-flex;
     align-items: center;
-    padding: 0.45rem 0.85rem;
+    padding: var(--space-2) var(--space-3);
     white-space: nowrap;
     min-height: 38px;
     border-radius: var(--radius-pill);
@@ -205,8 +210,8 @@
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
-      padding: 0.45rem 0;
-      gap: 0.5rem;
+      padding: var(--space-2) 0;
+      gap: var(--space-2);
     }
 
     .nav__bar {
@@ -223,7 +228,7 @@
   .nav__mobile-bar {
     display: flex;
     align-items: center;
-    gap: 0.45rem;
+    gap: var(--space-2);
   }
 
   .nav__search-mobile {
@@ -248,11 +253,47 @@
     display: none;
   }
 
-  .nav__utility-inline {
+  /* With "Start here" in the phone bar, the full wordmark no longer fits
+     beside search and Browse; the mark alone carries the brand there. */
+  @media (max-width: 479px) {
+    .nav__wordmark {
+      display: none;
+    }
+  }
+
+  .nav__mobile-start {
+    display: inline-flex;
+    align-items: center;
+    min-height: 38px;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-pill);
+    background: var(--accent);
+    color: var(--surface);
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    font-weight: 650;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+
+  .nav__mobile-start:hover {
+    background: var(--accent-strong);
+  }
+
+  .nav__mobile-start:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: 2px;
+  }
+
+  .nav__mobile-theme {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
-    flex-shrink: 0;
+    gap: var(--space-2);
+    padding-block: var(--space-2);
+    border-top: 1px solid var(--border);
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    color: var(--muted);
   }
 
   /* --- Mobile Sections Details / Drawer --- */
@@ -263,8 +304,8 @@
   .nav__mobile-sections-summary {
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
-    padding: 0.45rem 0.75rem;
+    gap: var(--space-1);
+    padding: var(--space-2) var(--space-3);
     min-height: 38px;
     border-radius: var(--radius-pill);
     background: var(--surface);
@@ -313,7 +354,7 @@
 
   .nav__mobile-drawer {
     display: grid;
-    gap: 1.25rem;
+    gap: var(--space-5);
     position: absolute;
     top: calc(100% + 0.6rem);
     right: 0;
@@ -323,8 +364,8 @@
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg), var(--card-inner-highlight);
-    padding: 1.25rem;
+    box-shadow: var(--shadow-float);
+    padding: var(--space-4);
     z-index: var(--z-overlay);
     animation: drawerFadeIn 0.22s var(--ease-out-editorial);
   }
@@ -344,7 +385,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.9rem 1.1rem;
+    padding: var(--space-4) var(--space-4);
     border-radius: var(--radius-lg);
     background: color-mix(in srgb, var(--accent) 10%, var(--surface));
     border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border));
@@ -364,7 +405,7 @@
 
   .nav__mobile-featured-content {
     display: grid;
-    gap: 0.2rem;
+    gap: var(--space-1);
   }
 
   .nav__mobile-featured-badge {
@@ -372,12 +413,12 @@
     font-family: var(--sans);
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: var(--tracking-label-wide);
     color: var(--accent-strong);
   }
 
   .nav__mobile-featured-title {
-    font-size: 1.05rem;
+    font-size: var(--text-base);
     font-weight: 750;
     color: var(--text);
   }
@@ -392,17 +433,17 @@
     height: 1.25rem;
     color: var(--accent-strong);
     flex-shrink: 0;
-    margin-left: 0.5rem;
+    margin-left: var(--space-2);
   }
 
   .nav__mobile-section-groups {
     display: grid;
-    gap: 1.15rem;
+    gap: var(--space-4);
   }
 
   .nav__mobile-group {
     display: grid;
-    gap: 0.45rem;
+    gap: var(--space-2);
   }
 
   .nav__mobile-group-title {
@@ -410,18 +451,18 @@
     font-size: var(--text-xs);
     letter-spacing: 0.1em;
     color: var(--muted);
-    padding-left: 0.35rem;
+    padding-left: var(--space-1);
   }
 
   .nav__mobile-group-links {
     display: grid;
-    gap: 0.4rem;
+    gap: var(--space-2);
   }
 
   .nav__mobile-link-card {
     display: grid;
-    gap: 0.15rem;
-    padding: 0.7rem 0.9rem;
+    gap: var(--space-hair);
+    padding: var(--space-3) var(--space-4);
     min-height: 44px;
     border-radius: var(--radius-md);
     background: color-mix(in srgb, var(--panel) 50%, var(--surface));
@@ -453,7 +494,7 @@
   }
 
   .nav__mobile-link-title {
-    font-size: 0.95rem;
+    font-size: var(--text-sm);
     font-weight: 700;
     color: var(--text);
   }
@@ -466,22 +507,22 @@
 
   .nav__mobile-connect {
     display: grid;
-    gap: 0.5rem;
-    padding-top: 0.65rem;
+    gap: var(--space-2);
+    padding-top: var(--space-3);
     border-top: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
   }
 
   .nav__mobile-connect-links {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: var(--space-2);
   }
 
   .nav__mobile-connect-link {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    padding: 0.45rem 0.8rem;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
     min-height: 38px;
     border-radius: var(--radius-pill);
     background: color-mix(in srgb, var(--panel) 65%, transparent);
@@ -527,6 +568,13 @@
       flex: none;
     }
 
+    /* The sections <details> is a column that fills the rest of the bar so
+       the open drawer can grow; its summary would stretch with it into a
+       pill that ran to the gutter. It keeps its own width, at the end. */
+    .nav__mobile-sections-summary {
+      align-self: flex-end;
+    }
+
     .nav__mobile,
     .nav__mobile-row,
     .nav__mobile-sections {
@@ -551,7 +599,7 @@
       min-height: 0;
       overflow-y: auto;
       overscroll-behavior: contain;
-      padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+      padding-bottom: max(var(--space-3), env(safe-area-inset-bottom));
     }
   }
 
@@ -576,15 +624,15 @@
      tighter gap closes it. */
   @media (min-width: 1100px) and (max-width: 1279px) {
     .nav__bar {
-      gap: 0.6rem;
+      gap: var(--space-2);
     }
   }
 
   .nav__browse-summary {
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
-    padding: 0.45rem 0.75rem;
+    gap: var(--space-1);
+    padding: var(--space-2) var(--space-3);
     min-height: 38px;
     border-radius: var(--radius);
     font-family: var(--sans);
@@ -637,11 +685,11 @@
     top: calc(100% + 0.75rem);
     left: 0;
     right: 0;
-    padding: clamp(1.25rem, 2vw, 1.75rem);
+    padding: var(--space-container);
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg), var(--card-inner-highlight);
+    box-shadow: var(--shadow-float);
     z-index: var(--z-overlay);
     /*
      * The panel hangs off a sticky bar, so the document cannot scroll to reveal
@@ -656,22 +704,22 @@
 
   .nav__browse-grid {
     display: grid;
-    gap: clamp(1rem, 2vw, 1.75rem);
+    gap: clamp(var(--space-4), 2vw, var(--space-6));
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .nav__browse-group-title {
-    margin: 0 0 0.2rem;
+    margin: 0 0 var(--space-1);
     font-family: var(--sans);
-    font-size: 0.7rem;
+    font-size: var(--text-xs);
     font-weight: 700;
-    letter-spacing: 0.08em;
+    letter-spacing: var(--tracking-label-wide);
     text-transform: uppercase;
     color: var(--accent-strong);
   }
 
   .nav__browse-group-desc {
-    margin: 0 0 0.7rem;
+    margin: 0 0 var(--space-3);
     font-size: var(--text-xs);
     line-height: 1.45;
     color: var(--muted);
@@ -682,14 +730,14 @@
     margin: 0;
     padding: 0;
     display: grid;
-    gap: 0.15rem;
+    gap: var(--space-hair);
   }
 
   .nav__browse-link {
     display: grid;
-    gap: 0.1rem;
-    padding: 0.4rem 0.5rem;
-    margin-inline: -0.5rem;
+    gap: var(--space-hair);
+    padding: var(--space-2) var(--space-2);
+    margin-inline: calc(-1 * var(--space-2));
     border-radius: var(--radius);
     text-decoration: none;
     color: inherit;

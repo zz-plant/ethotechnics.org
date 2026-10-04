@@ -47,7 +47,7 @@ test.describe("Production scripts", () => {
     await expect(decisionLog).toBeHidden();
 
     await page
-      .getByLabel("Search mechanisms by title, summary, or cue")
+      .getByLabel("Search mechanisms by name or keyword")
       .fill("appeal");
     await expect(filterStatus).toContainText(
       `${countLabel(frictionAppealMechanisms.length)} visible with Friction and search for "appeal".`,
@@ -106,39 +106,15 @@ test.describe("Production scripts", () => {
     await expect(burdenIndex).not.toHaveClass(/is-hidden/);
   });
 
-  test("activates field note tabs when navigating by hash", async ({
-    page,
-  }) => {
-    await page.goto("/field-notes");
-
-    const dispatchTab = page.getByRole("tab", { name: "Dispatches" });
-    const caseStudiesTab = page.getByRole("tab", { name: "Case studies" });
-    const dispatchPanel = page.locator(
-      '[data-field-notes-panel][data-format="dispatch"]',
-    );
-    const caseStudyPanel = page.locator(
-      '[data-field-notes-panel][data-format="case-study"]',
-    );
-
-    await expect(dispatchTab).toHaveAttribute("aria-selected", "true");
-    await expect(dispatchPanel).toBeVisible();
-
-    await caseStudiesTab.click();
-    await expect(caseStudiesTab).toHaveAttribute("aria-selected", "true");
-    await expect(dispatchTab).toHaveAttribute("aria-selected", "false");
-    await expect(caseStudyPanel).toBeVisible();
-    await expect(page).toHaveURL(/\?tab=case-study/);
-    await expect(dispatchPanel).toBeHidden();
-
-    await page.goto("/field-notes#maintenance-drift");
+  test("opens the signals panel at a field note's hash", async ({ page }) => {
+    await page.goto("/field-notes#price-of-a-decision");
     const signalsTab = page.getByRole("tab", { name: "Signals" });
     const signalPanel = page.locator(
       '[data-field-notes-panel][data-format="signal"]',
     );
-    const maintenanceEntry = page.locator("#maintenance-drift");
 
     await expect(signalsTab).toHaveAttribute("aria-selected", "true");
     await expect(signalPanel).toBeVisible();
-    await expect(maintenanceEntry).toBeVisible();
+    await expect(page.locator("#price-of-a-decision")).toBeVisible();
   });
 });

@@ -1,0 +1,181 @@
+---
+/**
+ * The facts for one context on /use-cases: the scored cases from it, the
+ * standards to bind, the check to run first, and the law already in force.
+ *
+ * Props:
+ * - context: A use-case entry from src/content/use-cases.ts.
+ * - compact: Show only cases, standards, and the first check, for the
+ *   worked example pages that link back to the full entry.
+ */
+import { studio, studioSummary } from "../content/studio";
+import {
+  caseLink,
+  standardLink,
+  toolLink,
+  type UseCase,
+} from "../content/use-cases";
+
+interface Props {
+  context: UseCase;
+  compact?: boolean;
+}
+
+const { context, compact = false } = Astro.props;
+const standards = context.bind.map(standardLink);
+const check = toolLink(context.runFirst);
+const scored = context.cases.map(caseLink);
+---
+
+<dl class="fit-facts small">
+  {
+    !compact && (
+      <div>
+        <dt>Systems</dt>
+        <dd>{context.systems}</dd>
+      </div>
+    )
+  }
+  <div>
+    <dt>Scored cases</dt>
+    <dd>
+      {
+        scored.length > 0 ? (
+          <ul class="fit-facts__list">
+            {scored.map((entry) => (
+              <li>
+                <a href={entry.href}>{entry.label}</a>:{" "}
+                <a href={entry.clause.href}>{entry.clause.label}</a> would have
+                caught it
+              </li>
+            ))}
+          </ul>
+        ) : (
+          context.noCaseNote
+        )
+      }
+    </dd>
+  </div>
+  <div>
+    <dt>Bind</dt>
+    <dd>
+      <ul class="fit-facts__list">
+        {
+          standards.map((standard) => (
+            <li>
+              <a href={standard.href}>{standard.label}</a>
+              {standard.status && (
+                <span class="muted"> · {standard.status}</span>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </dd>
+  </div>
+  <div>
+    <dt>Run first</dt>
+    <dd>
+      <a href={check.href}>{check.label}</a>. {context.runFirst.note}
+    </dd>
+  </div>
+  {
+    !compact && (
+      <div>
+        <dt>Worked examples</dt>
+        <dd>
+          {context.examples.length > 0 ? (
+            <ul class="fit-facts__list">
+              {context.examples.map((example) => (
+                <li>
+                  <a href={example.href}>{example.label}</a>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            "None yet."
+          )}
+        </dd>
+      </div>
+    )
+  }
+  {
+    !compact && context.incidents.length > 0 && (
+      <div>
+        <dt>Composite scenarios</dt>
+        <dd>
+          <ul class="fit-facts__list">
+            {context.incidents.map((incident) => (
+              <li>
+                <a href={incident.href}>{incident.label}</a>
+              </li>
+            ))}
+          </ul>
+        </dd>
+      </div>
+    )
+  }
+  {
+    !compact && (
+      <div>
+        <dt>Law in force</dt>
+        <dd>{context.alreadyRequired}</dd>
+      </div>
+    )
+  }
+  {
+    !compact && context.studio && (
+      <div>
+        <dt>Commissioned help</dt>
+        <dd>
+          {studioSummary}{" "}
+          <a href={studio.href} rel="noopener noreferrer" target="_blank">
+            {studio.name} &rarr;
+          </a>
+        </dd>
+      </div>
+    )
+  }
+  {
+    !compact && context.personCanAsk && (
+      <div>
+        <dt>The person decided about can ask</dt>
+        <dd>{context.personCanAsk}</dd>
+      </div>
+    )
+  }
+</dl>
+
+<style>
+  .fit-facts {
+    margin: 0;
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .fit-facts div {
+    display: grid;
+    gap: var(--space-hair);
+  }
+
+  .fit-facts dt {
+    font-family: var(--sans);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-label);
+    color: var(--muted);
+  }
+
+  .fit-facts dd {
+    margin: 0;
+  }
+
+  .fit-facts__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: var(--space-hair);
+  }
+</style>

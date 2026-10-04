@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import NextStep from "../../components/NextStep.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import PageIntro from "../../components/PageIntro.astro";
@@ -101,7 +102,7 @@ const usageSteps = [
 ---
 
 <BaseLayout
-  title={pageTitle}
+  title="Public memory: how AI governance terms drifted, 2019–2024"
   description={pageDescription}
   publishedTime="2025-06-01T00:00:00.000Z"
 >
@@ -125,7 +126,6 @@ const usageSteps = [
         href: "/standards/std-02-contestability-recourse",
         label: "STD-02 contestability",
       },
-      { href: "/agent-toolkit/prompt-packs", label: "Binding vectors" },
       { href: "/evidence-packs", label: "Evidence packs" },
     ]}
   />
@@ -224,7 +224,9 @@ const usageSteps = [
     </div>
   </SectionBlock>
 
-  <p class="muted" style="margin-top:2rem">
+  <NextStep variable="evidence" />
+
+  <p class="muted" style="margin-top:var(--space-6)">
     See also: <a href="/taxonomy">Taxonomy</a> &middot; <a href="/standards"
       >Standards</a
     > &middot; <a href="/examples">Examples</a>

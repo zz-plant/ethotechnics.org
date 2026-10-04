@@ -2,7 +2,9 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import { diagnosticsContent } from "../../content/diagnostics";
 import { getRole, roles, rolePermalink } from "../../content/roles";
+import { getStandardBySlug } from "../../content/standards";
 
 /**
  * Resolved per request rather than prerendered, matching
@@ -35,6 +37,24 @@ const anchorLinks = [
 
 const others = roles.filter((entry) => entry.id !== role.id);
 
+// Design has four first steps, the others three. The heading counts them
+// rather than asserting a number.
+const stepCountWords = ["", "One", "Two", "Three", "Four", "Five", "Six"];
+const stepCount = role.orientation?.length ?? 0;
+const firstMovesTitle =
+  stepCount === 1
+    ? "One step to take first"
+    : `${stepCountWords[stepCount] ?? stepCount} steps, in order`;
+
+const diagnosticTitle = (slug: string) =>
+  diagnosticsContent.tools.find((tool) => tool.slug === slug)?.title ??
+  slug.replaceAll("-", " ");
+
+const standardLabel = (slug: string) => {
+  const standard = getStandardBySlug(slug);
+  return standard ? `${standard.id}: ${standard.title}` : slug;
+};
+
 const breadcrumbItems = [
   { name: "Home", url: "/" },
   { name: "Start", url: "/start" },
@@ -53,15 +73,19 @@ const breadcrumbItems = [
     title={role.label}
     description={role.tagline}
     anchorLinks={anchorLinks}
-  />
+  >
+    <Fragment slot="actions">
+      <a class="button ghost" href="/use-cases">Which systems this is for</a>
+    </Fragment>
+  </PageIntro>
 
   {
     role.orientation?.length && (
       <SectionBlock
         id="first-moves"
         eyebrow="Where to start"
-        title="Three moves, in order"
-        description="Each ends somewhere you can act rather than somewhere you can read."
+        title={firstMovesTitle}
+        description="Each step ends at a tool to run or a document to use, not only something to read."
       >
         <ol class="step-list stack-md">
           {role.orientation.map((step) => (
@@ -86,7 +110,7 @@ const breadcrumbItems = [
         id="tools"
         eyebrow="Tools and standards"
         title="What to run and what to satisfy"
-        description="The diagnostics that surface risk for this role, and the standards that bear on its work."
+        description="The diagnostics that show risk in this role's work, and the standards that apply to it."
       >
         <div class="grid grid--two">
           {role.featuredDiagnostics?.length ? (
@@ -95,7 +119,7 @@ const breadcrumbItems = [
               <ul class="card__list">
                 {role.featuredDiagnostics.map((slug) => (
                   <li>
-                    <a href={`/diagnostics/${slug}`}>{slug.replaceAll("-", " ")}</a>
+                    <a href={`/diagnostics/${slug}`}>{diagnosticTitle(slug)}</a>
                   </li>
                 ))}
               </ul>
@@ -107,7 +131,7 @@ const breadcrumbItems = [
               <ul class="card__list">
                 {role.featuredStandards.map((slug) => (
                   <li>
-                    <a href={`/standards/${slug}`}>{slug.replace(/^std-\d+-/, "STD: ")}</a>
+                    <a href={`/standards/${slug}`}>{standardLabel(slug)}</a>
                   </li>
                 ))}
               </ul>
@@ -123,8 +147,8 @@ const breadcrumbItems = [
       <SectionBlock
         id="focus"
         eyebrow="What to attend to"
-        title="The parts of the method that bear on your work"
-        description="Not everything here is yours. These are the parts that are."
+        title="The parts of the method that apply to your work"
+        description="Not everything on this site is for you. These parts are."
         variant="alt"
       >
         <ul class="card__list">
@@ -151,7 +175,7 @@ const breadcrumbItems = [
             </li>
           ))}
         </ul>
-        <h3>First moves</h3>
+        <h3>What to do first</h3>
         <ol class="stack-sm">
           {role.guide.firstMoves.map((move) => (
             <li>{move}</li>
@@ -167,7 +191,7 @@ const breadcrumbItems = [
         id="adopt"
         eyebrow="Adoption checklist"
         title="What to have in place"
-        description="For a team that has decided to adopt. Each line is a thing that either exists or does not; none of them is a posture."
+        description="For a team that has decided to adopt the standards. Each line is something that either exists or does not."
         variant="alt"
       >
         <ul class="card__list">

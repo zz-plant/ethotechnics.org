@@ -4,8 +4,7 @@ import { diagnosticsContent } from "../../src/content/diagnostics";
 
 // Mirrors the hand-authored hero in src/pages/index.astro. A smoke test should
 // pin the headline: if the front door loses its copy, that is a regression.
-const HERO_HEADING =
-  "Make high-stakes AI easier to stop, explain, appeal, and repair";
+const HERO_HEADING = "The appeals kept winning. The system kept running.";
 // The desktop bar renders the primary links verbatim; the mobile menu does
 // not (see the mobile test below).
 const PRIMARY_NAV_LINKS = navPrimaryLinks.map((link) => link.label);
@@ -40,10 +39,10 @@ test.describe("Homepage smoke", () => {
       page.getByRole("heading", { level: 1, name: HERO_HEADING }),
     ).toBeVisible();
     await expect(
-      page.getByRole("link", { name: "Find your starting path" }),
+      page.getByRole("link", { name: "Test your system in 60 seconds" }),
     ).toBeVisible();
     await expect(
-      page.getByRole("link", { name: "How the method works →" }),
+      page.getByRole("link", { name: "Incident triage →" }),
     ).toBeVisible();
   });
 });
@@ -148,13 +147,10 @@ test.describe("Diagnostics page", () => {
   test("surfaces primary CTAs and example outputs", async ({ page }) => {
     await page.goto("/diagnostics");
 
-    // The page links each tool from several places (the most-used rail, the
-    // comparison table, the tool card), so these names are not unique.
+    // Each tool is listed once, as a question card that links to it. Sample
+    // output lives on the tool's own page.
     await expect(
       page.getByRole("link", { name: BURDEN_TOOL.ctaLabel }).first(),
-    ).toBeVisible();
-    await expect(
-      page.getByRole("link", { name: BURDEN_TOOL.exampleLabel }).first(),
     ).toBeVisible();
     // Every one of them must point at the tool.
     const ctaLinks = page.getByRole("link", { name: BURDEN_TOOL.ctaLabel });
@@ -164,6 +160,10 @@ test.describe("Diagnostics page", () => {
         `/diagnostics/${BURDEN_TOOL.slug}`,
       );
     }
+    await page.goto(`/diagnostics/${BURDEN_TOOL.slug}`);
+    await expect(
+      page.getByRole("link", { name: BURDEN_TOOL.exampleLabel }).first(),
+    ).toBeVisible();
   });
 });
 
@@ -173,6 +173,8 @@ test.describe("Mechanisms library", () => {
   }) => {
     await page.goto("/mechanisms");
 
+    // The links sit in each card's disclosure, below its summary.
+    await page.getByText("Steps, terms, and diagnostics").first().click();
     await expect(
       page.getByRole("button", { name: "Copy diagnostic links" }).first(),
     ).toBeVisible();

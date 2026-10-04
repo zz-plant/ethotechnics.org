@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import UseCaseFit from "../../components/UseCaseFit.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import GlossaryAnchorsBlock from "../../components/GlossaryAnchorsBlock.astro";
@@ -39,6 +40,7 @@ const receiptPayload = `{
       { href: "#exceptions", label: "Exceptions" },
       { href: "#remedy", label: "Remedy" },
       { href: "#bindings", label: "Bindings" },
+      { href: "#fit", label: "Where this fits" },
       { href: "#glossary-anchors", label: "Glossary anchors" },
     ]}
   />
@@ -114,7 +116,8 @@ const receiptPayload = `{
   >
     <ul class="muted">
       <li>
-        Require receipts in <a href="/evidence-packs">release gates</a>.
+        Require receipts in the <a href="/evidence-packs">evidence pack</a> for each
+        release.
       </li>
       <li>
         Link evidence in <a href="/evidence-packs">STD-01 + STD-02 packs</a>.
@@ -126,6 +129,8 @@ const receiptPayload = `{
       </li>
     </ul>
   </SectionBlock>
+
+  <UseCaseFit slug="fraud-hold-delayed-notice" />
 
   <GlossaryAnchorsBlock />
 </BaseLayout>

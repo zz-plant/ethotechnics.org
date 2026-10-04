@@ -5,6 +5,7 @@ export type TestCaseResult = {
   passed: boolean;
   evidence: string;
   notes: string;
+  severity?: "critical" | "high" | "medium" | "low";
 };
 
 export type SuiteRunnerState = {

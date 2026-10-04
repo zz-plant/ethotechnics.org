@@ -91,4 +91,17 @@ describe("the layering point is held to the evaluation stack", () => {
     ).toBe(true);
     expect(LAYER_SEES[ABSORPTION_LAYER]).toContain("shadow");
   });
+
+  it("handles empty/short points arrays and NaN competence safely", () => {
+    expect(eventJump([])).toBe(0);
+    expect(eventJump(null as unknown as [])).toBe(0);
+
+    const points = simulate({ ...DEFAULT_PARAMS, competence: NaN });
+    expect(points).toHaveLength(MONTHS + 1);
+    for (const p of points) {
+      expect(Number.isFinite(p.reported)).toBe(true);
+      expect(Number.isFinite(p.absorbed)).toBe(true);
+      expect(Number.isFinite(p.uncounted)).toBe(true);
+    }
+  });
 });

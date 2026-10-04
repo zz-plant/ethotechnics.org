@@ -18,13 +18,15 @@ const {
 const featuredValidators = validators.slice(0, 2);
 const focusGroups = [
   {
-    title: "Time burden & friction",
-    description: "Constructive denial and friction across a user journey.",
+    title: "Time and friction",
+    description:
+      "Whether a journey costs people so much time and effort that it denies them the service in effect.",
     validators: validators.slice(0, 2),
   },
   {
-    title: "Latency & bounded duration",
-    description: "Declared timeouts, observed latency, and human escalation.",
+    title: "Delays and time limits",
+    description:
+      "Whether the system answers within its declared timeout, and whether a person can escalate to a human.",
     validators: validators.slice(2, 3),
   },
 ];
@@ -62,9 +64,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <PageIntro
     eyebrow="Validators"
     title="Validators"
-    description="Each validator takes three inputs and returns a report card with a status, the implicated clauses, and a corrective mechanism."
+    description="Each validator takes three inputs about a user journey. It returns a red, yellow, or green status, the STD-01 clauses at risk, and a mechanism that would fix the problem."
     anchorLinks={anchorLinks}
-    illustration="validators"
   >
     <Fragment slot="actions">
       {
@@ -83,7 +84,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <SectionBlock
     id="featured"
     eyebrow="Start here"
-    title="Start with the burden validators."
+    title="Start with the burden validators"
     description="VAL-01 and VAL-02 score the time and friction a journey puts on the person using it."
     variant="alt"
   >
@@ -112,7 +113,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     id="register"
     eyebrow="Register"
     title="Every validator, in one table"
-    description="What it checks against, what you feed it, and which clauses and mechanisms it bears on."
+    description="The standard each one checks against, the inputs it takes, and the clauses and mechanisms it points to."
   >
     <div class="mapping-table__wrapper">
       <table class="mapping-table mapping-table--stack catalogue-table">
@@ -159,8 +160,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <SectionBlock
     id="focus"
     eyebrow="Browse by focus"
-    title="Validators grouped by what they check."
-    description="Burden and friction on one side, latency and bounded duration on the other."
+    title="Validators grouped by what they check"
+    description="Time and friction on one side, delays and time limits on the other."
   >
     <CardGrid className="grid--two">
       {
@@ -218,8 +219,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       <p class="eyebrow">From outputs</p>
       <h2>Rights and mechanisms behind the outputs</h2>
       <p class="muted">
-        The STD-01 rights each validator checks, and the mechanisms that carry
-        out remediation.
+        The STD-01 rights each validator checks, and the mechanisms that fix a
+        failing result.
       </p>
     </div>
     <div class="library__role-buttons">

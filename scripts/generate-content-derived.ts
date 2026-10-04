@@ -6,12 +6,6 @@ const rootDir = process.cwd();
 
 const derivedFiles = [
   {
-    sourceJson: "src/content/home.json",
-    targetTs: "src/content/generated/home.generated.ts",
-    constName: "homeContentData",
-    select: "first",
-  },
-  {
     sourceJson: "src/content/glossary.json",
     targetTs: "src/content/generated/glossary.generated.ts",
     constName: "glossaryContentData",

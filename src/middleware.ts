@@ -7,6 +7,21 @@ const COM_HOST_RE = /^(www\.)?ethotechnics\.com$/i;
 const WWW_ORG_HOST_RE = /^www\.ethotechnics\.org$/i;
 
 const REDIRECT_MAP: Record<string, string> = {
+  "/glossary/contestability-guarantee": "/glossary/contestability",
+  "/glossary/structural-corrigibility": "/glossary/exception-learning",
+  "/glossary/human-override-lanes": "/glossary/override-path",
+  "/glossary/utility-expiry": "/glossary/constructive-denial",
+  "/glossary/moral-drift-control": "/standards/std-08-delegation",
+  "/glossary/distributed-accountability-protocols":
+    "/glossary/obligation-continuity",
+  "/glossary/ethotechnic-failure-taxonomy": "/glossary#failure-modes",
+  "/glossary/boundary-of-acceptable-harm":
+    "/standards/std-06-human-impact-safety-case",
+  "/glossary/decision-debt-ledger": "/glossary/corrective-debt",
+  "/glossary/moral-feature-gating": "/mechanisms/patterns/admission-gate",
+  "/glossary/pathways-to-restitution":
+    "/research/scholarly-crossings#corrigibility-ladder",
+
   "/start-here": "/start",
   // Seven pages competed to be where a reader begins. Two remain: /method says
   // what this is, /start asks what you should do. The lenses and the four-step
@@ -42,18 +57,32 @@ const REDIRECT_MAP: Record<string, string> = {
   // report a score, which is what the other instruments do.
   "/tools": "/diagnostics",
   "/tools/burden-budget-worksheet": "/diagnostics/burden-budget-worksheet",
-  "/tools/governance-gap-score": "/diagnostics/governance-gap-score",
+  "/tools/governance-gap-score": "/diagnostics/delegation-audit",
   // "Applications" was a third noun for operating patterns, which
   // /mechanisms/patterns already carries — kill switches, appeal paths,
   // progressive consent. Its index pointed mostly at explainers; its one page
   // of its own moved rather than being dropped.
   "/applications": "/mechanisms",
-  "/applications/moral-circuit-breakers": "/mechanisms/moral-circuit-breakers",
-  "/diy-packs": "/agent-toolkit/prompt-packs",
-  "/bundles": "/agent-toolkit/prompt-packs",
-  "/bundles/diagnostic-export-kit": "/agent-toolkit/prompt-packs",
-  "/bundles/procurement-clause-pack": "/agent-toolkit/prompt-packs",
-  "/bindings": "/agent-toolkit/prompt-packs",
+  "/applications/moral-circuit-breakers":
+    "/mechanisms/patterns/halt-tier-register",
+  "/diy-packs": "/archive/retired-tools",
+  "/bundles": "/archive/retired-tools",
+  "/bundles/diagnostic-export-kit": "/archive/retired-tools",
+  "/bundles/procurement-clause-pack": "/archive/retired-tools",
+  "/bindings": "/archive/retired-tools",
+  "/incompatible": "/method#incompatible",
+  "/failure": "/triage",
+  "/finite": "/evals#finite",
+  "/fast-path": "/start#fast-path",
+  "/syllabus": "/mechanisms#syllabus",
+  "/standards/implementation-examples": "/examples#domains",
+  "/standards/meta-critique": "/standards#governance-by-control",
+  "/standards/micro-diagram-language": "/standards",
+  "/agent-toolkit/prompt-packs": "/archive/retired-tools",
+  "/agent-toolkit/quick-answers": "/archive/retired-tools",
+  "/agent-toolkit/faq": "/archive/retired-tools",
+  "/agent-toolkit/teaching-flows": "/archive/retired-tools",
+  "/agent-toolkit/agent-contract": "/archive/retired-tools",
   "/diagnostics/llm-capacity-benchmark": "/diagnostics",
   "/diagnostics/escalation-coverage-planner": "/diagnostics",
   "/diagnostics/evidence-pack-readiness": "/diagnostics",
@@ -82,8 +111,50 @@ const REDIRECT_MAP: Record<string, string> = {
   // nobody: four role titles and no people behind them. The page that does
   // carry stewardship — owners against decisions — is the governance process.
   "/institute/team": "/institute/governance",
+  // The Institute hub listed programs, stewards, and a publishing pipeline
+  // that the governance log records never existed. What remained true, the
+  // Institute and the Studio and how they differ, is on /about.
+  "/institute": "/about",
   // /agents has one page, the spec. A bare hit on the directory 404ed.
   "/agents": "/agents/spec",
+  "/agent-toolkit": "/archive/retired-tools",
+  "/agent-toolkit/ethotechnics-agent-prompt-pack-v1.0.0.md":
+    "/archive/retired-tools/ethotechnics-agent-prompt-pack-v1.0.0.md",
+  "/agent-toolkit/ethotechnics-agent-prompt-pack-v1.1.0.md":
+    "/archive/retired-tools/ethotechnics-agent-prompt-pack-v1.1.0.md",
+  // Five diagnostics were retired in September 2026. A regex auditor over a
+  // system prompt cannot tell whether the surrounding institution can correct
+  // a decision, and it read as a second opinion next to the Delegation Audit,
+  // which asks that question directly. Capacity planning and maintenance
+  // scheduling are ordinary operational planning. The seven-question
+  // governance score duplicated the Delegation Audit on weaker evidence.
+  // Each answers to the tool that now holds the question.
+  "/diagnostics/system-auditor": "/diagnostics/delegation-audit",
+  "/diagnostics/governance-gap-score": "/diagnostics/delegation-audit",
+  "/diagnostics/capacity-forecaster": "/diagnostics",
+  "/diagnostics/maintenance-simulator": "/diagnostics",
+  "/diagnostics/maintenance-debt-calculator": "/diagnostics",
+  // The Ethics Audit Scorecard was retired on 1 October 2026. Its six
+  // dimensions (transparency, fairness, privacy, sustainability and two more)
+  // were a general ethics checklist, not the six safeguards, and the
+  // diagnostics page described it as scoring the framework's own criteria.
+  // The self-test asks one question per safeguard.
+  "/audit": "/#self-test",
+  // Three research pages retired on 1 October 2026. The agenda studied a
+  // different question from /research ("protected pauses", "stewardship
+  // windows") and promised partner studies nobody ran. CH-01 described a
+  // program Ethotechnics "convenes" and pointed to glossary entries that do
+  // not exist. Bridge artifacts repeated a section of /research.
+  "/research/agenda": "/research#agenda",
+  "/research/temporal-governance-studies": "/research/theory",
+  "/research/bridge-artifacts": "/research#bridge-artifacts",
+  // Two mechanism pages that repeated catalog entries. The MEC-04 sheet
+  // repeated the hard-clock pattern and offered a "facilitation script" PDF
+  // that held only a title line. Moral circuit breakers repeated MEC-05 and
+  // MEC-21 under an older name.
+  "/mechanisms/mec-04-hard-clock": "/mechanisms/patterns/hard-clock",
+  "/mechanisms/moral-circuit-breakers":
+    "/mechanisms/patterns/halt-tier-register",
 };
 
 const resolveLegacyPathRedirect = (url: URL): string | null => {
@@ -151,6 +222,29 @@ const resolveLegacyPathRedirect = (url: URL): string | null => {
   if (normalizedPath.startsWith("/artifact/")) {
     const target = new URL(
       normalizedPath.replace(/^\/artifact/, "/artifacts"),
+      url.origin,
+    );
+    target.search = url.search;
+    return target.toString();
+  }
+
+  // Failure triage rename
+  if (normalizedPath === "/failure" || normalizedPath.startsWith("/failure/")) {
+    const target = new URL(
+      normalizedPath.replace(/^\/failure/, "/triage"),
+      url.origin,
+    );
+    target.search = url.search;
+    return target.toString();
+  }
+
+  // Implementation examples consolidated under /examples
+  if (normalizedPath.startsWith("/standards/implementation-examples/")) {
+    const target = new URL(
+      normalizedPath.replace(
+        /^\/standards\/implementation-examples/,
+        "/examples",
+      ),
       url.origin,
     );
     target.search = url.search;

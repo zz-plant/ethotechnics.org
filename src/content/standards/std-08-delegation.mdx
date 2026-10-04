@@ -1,6 +1,6 @@
 ---
 title: "STD-08 — Delegation"
-description: "The terms a delegation must satisfy while it stands: authority held as a lease, policy kept valid, human oversight resolved to an intervention specification, and correction capacity kept proportional to authority."
+description: "A draft standard for automated systems acting for an institution: authority expires unless renewed, policies are rechecked, and correction grows with authority."
 permalink: "/standards/std-08-delegation"
 eyebrow: "Standard"
 seoTitle: "STD-08 — Delegation"
@@ -13,7 +13,7 @@ anchorLinks:
   - href: "#scope"
     label: "Scope"
   - href: "#objects"
-    label: "Objects this standard uses"
+    label: "Records this standard uses"
   - href: "#part-a"
     label: "Part A: Authority as lease"
   - href: "#part-b"
@@ -162,7 +162,7 @@ export const structuredData = {
   "@id": "https://ethotechnics.org/standards/std-08-delegation",
   headline: "STD-08 — Delegation",
   description:
-    "The terms a delegation must satisfy while it stands: authority as a lease, policy validity, intervention, and correction symmetry.",
+    "What must stay true while an automated system acts for an institution: authority as a lease, policies rechecked when facts change, human oversight that can change the outcome, and correction capacity that grows with authority.",
   url: "https://ethotechnics.org/standards/std-08-delegation",
   datePublished: "2026-09-06",
   dateModified: "2026-09-22",
@@ -232,7 +232,7 @@ export const structuredData = {
           <thead>
             <tr>
               <th scope="col">STD-07 clause</th>
-              <th scope="col">What it already binds</th>
+              <th scope="col">What it already requires</th>
               <th scope="col">How STD-08 uses it</th>
             </tr>
           </thead>
@@ -278,7 +278,7 @@ export const structuredData = {
       </section>
 
       <section id="objects" class="standard-section">
-        <h2>Objects this standard uses</h2>
+        <h2>Records this standard uses</h2>
 
         Each clause names fields on published schemas rather than on a product
         the institution must buy. An institution that keeps the same
@@ -445,6 +445,23 @@ export const structuredData = {
             version, schema, or option order. A threshold applied to a model
             version that is not pinned has already met its trigger, because the
             thing it was calibrated against can change without a record.
+          </li>
+          <li>
+            <span class="standard-clause-id">§2.7</span>
+            Held evidence is declared evidence: The{" "}
+            <code>review_triggers</code> on a policy record name the events
+            that reopen it, and the institution writes that list. The list may
+            not be narrower than what the institution holds. Evidence that
+            bears on whether a policy still serves its stated purpose is held
+            when any part of the institution holds it — an employee, a
+            contractor, a committee it staffs, a specialist it retains to know
+            — and holding it fires the trigger, whether or not that class of
+            evidence was declared. Knowledge that stays in one office while
+            the rule runs from another is still held. A grant that keeps
+            deciding against a rule whose supersession the institution holds
+            has not applied its policy. It is issuing decisions its own
+            records contradict, and §2.3's clock runs from the day the
+            evidence was held, not the day someone upstairs was told.
           </li>
         </ol>
       </section>

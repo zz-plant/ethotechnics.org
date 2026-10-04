@@ -14,9 +14,8 @@ const { links, className, startIndex = 0 } = Astro.props;
   {
     links.map((link, index) => (
       <li>
-        <a href={link.href} class="pill pill--ghost">
-          <span class="page-intro__anchor-index">{startIndex + index + 1}</span>
-          <span>{link.label}</span>
+        <a href={link.href} data-index={startIndex + index + 1}>
+          {link.label}
         </a>
       </li>
     ))

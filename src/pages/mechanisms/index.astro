@@ -66,42 +66,78 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     title="Mechanisms"
     description={pageDescription}
     anchorLinks={[
+      { href: "#mechanisms", label: "Mechanism catalog" },
       { href: "#start-here", label: "Start here" },
-      { href: "#role-pathways", label: "Role-based pathways" },
-      { href: "#browse", label: "Browse by theme" },
-      { href: "#primer", label: "Primer" },
-      { href: "#mechanisms", label: "Mechanism specs" },
       { href: "#syllabus", label: "Syllabus" },
       { href: "#references", label: "References" },
-      { href: "#referenced-by", label: "Referenced by" },
     ]}
-    illustration="mechanisms"
+  />
+  <SectionBlock id="mechanisms" title="Mechanism catalog">
+    <p class="mechanisms__links">
+      New to mechanisms? <a href="#primer">Read the primer</a><span
+        class="mechanisms__links-sep"
+        aria-hidden="true">·</span
+      ><a href="#role-pathways">Guides by role</a><span
+        class="mechanisms__links-sep"
+        aria-hidden="true">·</span
+      ><a href="/standards/std-01-rights-matrix">Rights matrix</a><span
+        class="mechanisms__links-sep"
+        aria-hidden="true">·</span
+      ><a href="/validators">Validators</a>
+    </p>
+    <div class="pattern-filter__anchors" aria-hidden="true">
+      {
+        patterns.filters.map((filter) => (
+          <span class="pattern-filter__anchor" id={filter.slug} />
+        ))
+      }
+    </div>
+    <PatternFilter
+      filters={patterns.filters}
+      entries={patterns.entries}
+      diagnosticTitles={diagnosticTitles}
+    />
+  </SectionBlock>
+
+  <SectionBlock
+    id="primer"
+    eyebrow="Primer"
+    title="What the mechanisms are for"
+    description="Short overviews for onboarding and briefings."
+    variant="alt"
   >
-    <Fragment slot="actions">
-      <a class="button primary" href="#browse"> Browse by theme </a>
-      <a class="button ghost" href="#primer"> Read the primer </a>
-    </Fragment>
-  </PageIntro>
+    <CardGrid>
+      {
+        primer.map((entry) => (
+          <CardItem
+            title={entry.title}
+            description={entry.summary}
+            tags={entry.takeaways}
+          />
+        ))
+      }
+    </CardGrid>
+  </SectionBlock>
+
   <SectionBlock
     id="start-here"
     eyebrow="Start here"
     title="From question to mechanism"
-    description="Choose a theme, read the primer, then check each spec against the rights matrix and the validators."
-    variant="alt"
+    description="Find a mechanism, read the primer, then check each one against the rights it protects and the validators that test it."
   >
     <ol class="card__list">
       <li>
-        <strong>Pick a lens:</strong>{" "}
-        <a href="#browse">browse by theme</a> to scope the catalog.
+        <strong>Find one:</strong>{" "}
+        <a href="#mechanisms">search the catalog</a> for the safeguard you need.
       </li>
       <li>
-        <strong>Share the terms:</strong>{" "}
+        <strong>Learn the terms:</strong>{" "}
         read the <a href="#role-pathways">role pathways</a> and the{" "}
         <a href="#primer">primer</a>.
       </li>
       <li>
-        <strong>Make it enforceable:</strong>{" "}
-        connect specs to the <a href="/standards/std-01-rights-matrix"
+        <strong>Make it testable:</strong>{" "}
+        connect each one to the <a href="/standards/std-01-rights-matrix"
           >rights matrix</a
         >{" "}
         and <a href="/validators">validators</a>.
@@ -109,8 +145,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     </ol>
     <CardGrid className="grid--two">
       <CardItem
-        title="Quick start sequence"
-        description="Four steps from first read to a cited mechanism."
+        title="First four steps"
+        description="From a first read to a mechanism you can cite."
       >
         <ul class="muted">
           {quickStart.map((item) => <li>{item}</li>)}
@@ -135,16 +171,20 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     eyebrow="Role-based pathways"
     title={rolePathways.title}
     description={rolePathways.description}
+    variant="alt"
   >
     <div class="library__role-buttons">
       {
         rolePathways.roles.map((role) => (
-          <a class="button primary library__role-button" href={`#${role.id}`}>
+          <a class="library__role-chip" href={`#${role.id}`}>
             {role.label}
           </a>
         ))
       }
     </div>
+    <p class="muted small" style="margin: var(--space-3) 0 var(--space-5);">
+      <a href="/start">For a full guide by role, see Start here &rarr;</a>
+    </p>
     <div class="library__role-lists">
       {
         rolePathways.roles.map((role) => (
@@ -155,7 +195,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
               {role.items.map((item) => (
                 <CardItem title={item.title} description={item.description}>
                   <a slot="footer" class="muted" href={item.href}>
-                    Open reading
+                    Read
                   </a>
                 </CardItem>
               ))}
@@ -167,83 +207,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   </SectionBlock>
 
   <SectionBlock
-    id="browse"
-    eyebrow="Browse by theme"
-    title="Mechanisms by theme"
-    description="Each tag jumps to the mechanisms filed under it."
-  >
-    <div class="tag-rail">
-      <ul class="pill-list pill-list--wrap">
-        {
-          patterns.filters.map((filter) => (
-            <li class="pill-list__item tag-rail__item">
-              <a
-                class="pill-list__button"
-                href={`#${filter.slug}`}
-                aria-label={`Jump to ${filter.label} materials`}
-              >
-                {filter.label}
-              </a>
-              <p class="muted small tag-rail__description">
-                {filter.description}
-              </p>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </SectionBlock>
-
-  <SectionBlock
-    id="primer"
-    eyebrow="Primer"
-    title="Read this before the mechanisms."
-    description="Short overviews for onboarding and briefings."
-    variant="alt"
-  >
-    <CardGrid>
-      {
-        primer.map((entry) => (
-          <CardItem
-            title={entry.title}
-            description={entry.summary}
-            tags={entry.takeaways}
-          />
-        ))
-      }
-    </CardGrid>
-  </SectionBlock>
-
-  <SectionBlock
-    id="mechanisms"
-    eyebrow="Mechanisms"
-    title="Governance, friction, and policy mechanisms with validator links."
-    description="Filter by theme. Each mechanism links to the diagnostics that check it."
-    variant="alt"
-  >
-    {
-      /* The section already carries id="mechanisms". A second element with
-         the same id made #mechanisms ambiguous and resolved to the section,
-         so this offset anchor never did anything. */
-    }
-    <div class="pattern-filter__anchors" aria-hidden="true">
-      {
-        patterns.filters.map((filter) => (
-          <span class="pattern-filter__anchor" id={filter.slug} />
-        ))
-      }
-    </div>
-    <PatternFilter
-      filters={patterns.filters}
-      entries={patterns.entries}
-      diagnosticTitles={diagnosticTitles}
-    />
-  </SectionBlock>
-
-  <SectionBlock
     id="syllabus"
     eyebrow="Syllabus"
-    title="Guided path for teams adopting the mechanisms."
+    title="Guided path for teams adopting the mechanisms"
     description={syllabus.overview}
   >
     <CardGrid>
@@ -264,8 +230,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <SectionBlock
     id="references"
     eyebrow="References"
-    title="Glossary and machine-readable governance profile"
-    description="Stable terms with per-entry permalinks, plus the Agent Safety Object Model spec."
+    title="Glossary and the Agent Safety Object Model"
+    description="Defined terms, each with its own permalink, and a machine-readable model that ties system actions to the mechanisms that govern them."
   >
     <div class="grid grid--two">
       <div>
@@ -300,9 +266,12 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           ties action classes, receipts, and kill-switch authority to specific mechanisms.
         </p>
         <ul class="muted">
-          <li>Map MEC-01, MEC-05, and MEC-06 into the model.</li>
-          <li>Declare clocks and approvals per action class.</li>
-          <li>Attach evidence packs to validate compliance.</li>
+          <li>
+            Map MEC-01 (decision log), MEC-05 (kill switch), and MEC-06 (appeal
+            paths) into the model.
+          </li>
+          <li>Declare time limits and approvals for each class of action.</li>
+          <li>Attach the evidence pack each clause asks for.</li>
         </ul>
       </div>
     </div>
@@ -311,8 +280,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <SectionBlock
     id="referenced-by"
     eyebrow="Referenced by"
-    title="How mechanisms connect to the rest of the system"
-    description="The examples, bindings, and evidence packs that cite these mechanisms."
+    title="Where these mechanisms are used"
+    description="Worked examples, release and incident checklists, and evidence packs that cite these mechanisms."
     variant="alt"
   >
     <div class="grid grid--three">
@@ -336,7 +305,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         </ul>
       </div>
       <div class="panel">
-        <p class="eyebrow">Required by bindings</p>
+        <p class="eyebrow">Required at release and after incidents</p>
         <ul class="muted">
           <li>
             <a href="/evidence-packs">Release gate checklist</a>
@@ -347,7 +316,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         </ul>
       </div>
       <div class="panel">
-        <p class="eyebrow">Verified by evidence packs</p>
+        <p class="eyebrow">Evidence packs: what to collect</p>
         <ul class="muted">
           <li>
             <a href="/evidence-packs/std-01">STD-01 Evidence Pack</a>
@@ -362,9 +331,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </div>
     </div>
     <p class="muted">
-      Other views:
-      <a href="/mechanisms/moral-circuit-breakers">moral circuit breakers</a>,
-      <a href="/artifacts">governance artifacts</a>.
+      Another view: <a href="/artifacts">governance artifacts</a>.
     </p>
     <p class="muted">
       Search IDs: MEC-01, MEC-03, MEC-05, MEC-06, STD-01.1.1, STD-02.2.1,

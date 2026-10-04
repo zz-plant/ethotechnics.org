@@ -32,6 +32,9 @@ const initializePatternFilter = (root: HTMLElement) => {
   const selectionInputs = Array.from(
     root.querySelectorAll<HTMLInputElement>("[data-pattern-select]"),
   );
+  // The bundle bar stays hidden until a mechanism is saved: with nothing
+  // selected its buttons have nothing to act on.
+  const bundlePanel = root.querySelector<HTMLElement>("[data-pattern-bundle]");
   const bundleLink =
     root.querySelector<HTMLAnchorElement>("[data-bundle-link]");
   const bundleStatus = root.querySelector<HTMLElement>(
@@ -116,6 +119,10 @@ const initializePatternFilter = (root: HTMLElement) => {
   const updateBundleControls = () => {
     const count = selection.size;
     const hasSelection = count > 0;
+
+    if (bundlePanel) {
+      bundlePanel.hidden = !hasSelection;
+    }
 
     [downloadButton, printButton, copyBundleButton, emailSubmit].forEach(
       (button) => {
@@ -407,7 +414,7 @@ const initializePatternFilter = (root: HTMLElement) => {
     if (status) {
       const filterLabel = selectedFilter
         ? getFilterLabel(selectedFilter)
-        : "All themes";
+        : "All safeguards";
       const queryLabel = normalizedQuery
         ? ` and search for "${normalizedQuery}"`
         : "";
@@ -763,7 +770,7 @@ const initializePatternFilter = (root: HTMLElement) => {
       }
 
       bodyHtml += `
-        <div class="drawer-section" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border);">
+        <div class="drawer-section" style="margin-top: var(--space-5); padding-top: var(--space-5); border-top: 1px solid var(--border);">
           <a class="button primary" style="justify-content: center; width: 100%;" href="/mechanisms/patterns/${entry.slug}">View full specification sheet</a>
         </div>
       `;

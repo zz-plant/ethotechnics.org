@@ -211,8 +211,9 @@ export function reduce(state: LoopState, action: LoopAction): LoopState {
 }
 
 const median = (values: number[]): number | null => {
-  if (values.length === 0) return null;
-  const sorted = [...values].sort((a, b) => a - b);
+  const finiteValues = values.filter((v) => Number.isFinite(v));
+  if (finiteValues.length === 0) return null;
+  const sorted = [...finiteValues].sort((a, b) => a - b);
   const mid = Math.floor(sorted.length / 2);
   return sorted.length % 2 === 0
     ? (sorted[mid - 1] + sorted[mid]) / 2

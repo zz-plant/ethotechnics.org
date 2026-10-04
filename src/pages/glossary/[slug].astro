@@ -7,6 +7,7 @@ import { glossaryContent } from "../../content/glossary";
 import { libraryContent } from "../../content/library";
 
 import CitationBlock from "../../components/CitationBlock.astro";
+import NextStep from "../../components/NextStep.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SemanticConnections from "../../components/SemanticConnections.astro";
@@ -66,18 +67,32 @@ const glossaryUrl = Astro.site
   : glossaryPermalink;
 const glossarySetId = `${glossaryUrl}#defined-term-set`;
 const plainDescription = stripHtml(entry.bodyHtml);
-const buildMetaDescription = (value: string): string => {
-  const sentenceMatch = value.match(/[^.!?]+[.!?]+/);
-  const candidate = sentenceMatch ? sentenceMatch[0].trim() : value;
+// Some entries open with a label rather than a definition ("Normative
+// definition.") or with a short lead-in; a description built from that alone
+// says nothing. Skip labels, then take sentences until there is substance.
+const LABEL_SENTENCE = /^(normative|informative) definition\.$/i;
+const buildMetaDescription = (value: string, prefix = ""): string => {
+  const sentences = (value.match(/[^.!?]+[.!?]+/g) ?? [value])
+    .map((sentence) => sentence.trim())
+    .filter((sentence) => sentence && !LABEL_SENTENCE.test(sentence));
+  let candidate = prefix;
+  for (const sentence of sentences) {
+    candidate = candidate ? `${candidate} ${sentence}` : sentence;
+    if (candidate.length - prefix.length >= 60) break;
+  }
 
-  if (candidate.length <= 180) {
+  if (candidate.length <= 160) {
     return candidate;
   }
 
-  return `${candidate.slice(0, 177).trim()}…`;
+  // Cut at a word boundary so a search snippet never ends mid-word.
+  const cut = candidate.slice(0, 157);
+  return `${cut.slice(0, cut.lastIndexOf(" ")).replace(/[,:;]$/, "")}…`;
 };
-const descriptionBase = `Definition of ${entry.title} in the Ethotechnics glossary (${categoryLabel}). ${plainDescription}`;
-const pageDescription = buildMetaDescription(descriptionBase);
+const pageDescription = buildMetaDescription(
+  plainDescription,
+  `${entry.title}:`,
+);
 const introDescription = `Glossary entry in ${categoryLabel}. Definitions, checks, and evidence for ${entry.title}.`;
 const definitionSummary = buildMetaDescription(plainDescription);
 const termUpdated = entry.termUpdated ?? publication.updated;
@@ -706,6 +721,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </aside>
     </div>
   </article>
+
+  <NextStep topic={[entry.title, entry.id, ...(entry.tags ?? [])]} />
 
   <SemanticConnections entityId={entry.id} />
 

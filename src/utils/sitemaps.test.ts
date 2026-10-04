@@ -85,7 +85,7 @@ describe("sitemap coverage", () => {
       expect(allPaths).toContain(`/artifacts/${artifact.slug}`);
     }
     for (const state of failureStates) {
-      expect(allPaths).toContain(`/failure/${state.slug}`);
+      expect(allPaths).toContain(`/triage/${state.slug}`);
     }
     for (const control of governanceCrosswalks) {
       expect(allPaths).toContain(

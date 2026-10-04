@@ -157,11 +157,31 @@ export const signalIntegrityRows: SignalIntegrityRow[] = [
     tiers:
       "Tier 0: aggregate success rate. Tier 1: success with cost tagging. Tier 2: cost + blast radius per action class.",
   },
+  {
+    signal: "Human compensatory subsidy",
+    gaming:
+      "Treat unlogged human adjustments, prompt massaging, and error clean-up as zero-cost externalities outside system telemetry.",
+    detection:
+      "Dual-ledger audits comparing machine duration against total human operator touch time; random audits of off-ledger communication channels.",
+    tiers:
+      "Tier 0: single-ledger throughput logging. Tier 1: human compensatory touchpoints attributed on receipts. Tier 2: dual-ledger reconciliation with non-compensatory scoring floors.",
+  },
+  {
+    signal: "Compensatory reward hacking",
+    gaming:
+      "Fulfill task completion velocity by stripping verification steps and exporting verification friction onto frontline staff or users.",
+    detection:
+      "Multi-period capacity tracking of staff fatigue, overtime, and turnover; work-to-rule simulated refusal drills.",
+    tiers:
+      "Tier 0: output volume only. Tier 1: longitudinal staff capacity and rest tracking. Tier 2: independent adversarial audits evaluating system stability under systemic refusal.",
+  },
 ];
 
 export const controlChecklist = `- [ ] Receipt schema v1.0 implemented and validated against a JSON schema.
 - [ ] Receipts emitted for every automated decision (owner + action class included).
 - [ ] Human owner named with escalation authority and on-call coverage.
+- [ ] Dual-ledger accounting tracks unrecorded human compensatory labor alongside task speed.
+- [ ] Non-punitive exit verified: declining automated assistance incurs zero delay or quality penalty.
 - [ ] Decision log (MEC-01) captures dissent, owner, and outcome for every high-impact action.
 - [ ] Kill switch (MEC-05) tested with documented rollback criteria.
 - [ ] Appeal path (MEC-06) embedded in UI with timelines and escalation ladder.
@@ -171,8 +191,6 @@ export const controlChecklist = `- [ ] Receipt schema v1.0 implemented and valid
 - [ ] Sign-off: product owner + risk steward + on-call reviewer recorded.
 - [ ] Required logs exist: action log, override log, exception log, receipt log.
 - [ ] Rollback trigger defined (unsafe-action spike, audit failure, or contested-remedy breach).`;
-
-export { promptPackInstall } from "../prompt-pack";
 
 export const practiceSections: PracticeSection[] = [
   {
@@ -207,7 +225,7 @@ export const practiceSections: PracticeSection[] = [
       },
       {
         title: "MEC-04 The Hard Clock",
-        href: "/mechanisms/mec-04-hard-clock",
+        href: "/mechanisms/patterns/hard-clock",
       },
     ],
     gaps: [
@@ -238,7 +256,7 @@ export const practiceSections: PracticeSection[] = [
       },
       {
         title: "MEC-04 The Hard Clock",
-        href: "/mechanisms/mec-04-hard-clock",
+        href: "/mechanisms/patterns/hard-clock",
       },
       {
         title: "MEC-03 Maintenance windowing",
@@ -305,7 +323,7 @@ export const practiceSections: PracticeSection[] = [
       },
       {
         title: "MEC-04 The Hard Clock",
-        href: "/mechanisms/mec-04-hard-clock",
+        href: "/mechanisms/patterns/hard-clock",
       },
     ],
     gaps: [

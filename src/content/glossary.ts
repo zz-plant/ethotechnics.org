@@ -103,10 +103,66 @@ export const glossaryContent: GlossaryContent =
 
 export const glossaryTerms: GlossaryTerm[] = [
   {
+    slug: "principle-of-non-expropriation-of-resilience",
+    term: "Principle of Non-Expropriation of Resilience",
+    definition:
+      "The normative principle that an institution loses the moral justification for demanding human compensatory resilience when that resilience serves as a permanent substitute for correctable institutional failure.",
+    appliesTo: ["principles", "governance", "labor"],
+  },
+  {
+    slug: "compensated-performance",
+    term: "Compensated Performance",
+    definition:
+      "An operational condition where an automated system or institution appears to meet service-level agreements and throughput targets only because human operators, caseworkers, or subjects exert unmeasured, uncredited compensatory labor to absorb system errors. The labor can fall on personal time, and its costs can reach the staff members' own households, outside any measure the institution keeps.",
+    appliesTo: ["monitoring", "operations", "failure-modes"],
+  },
+  {
+    slug: "intrinsic-performance",
+    term: "Intrinsic Performance",
+    definition:
+      "The baseline operational effectiveness of an automated system or procedure evaluated without reliance on uncredited human compensation, shadow workarounds, or downstream harm absorption.",
+    appliesTo: ["measures", "evaluations", "benchmarking"],
+  },
+  {
+    slug: "reciprocal-accommodation",
+    term: "Reciprocal Accommodation",
+    definition:
+      "The requirement that an institution adapt its operational cadence, procedures, and expectations to human biological, cognitive, and social constraints, rather than forcing human participants to continually absorb friction and mutilate their own capacities to preserve an unviable operating model.",
+    appliesTo: ["institutions", "workplace", "governance"],
+  },
+  {
+    slug: "extractive-cannibalism",
+    term: "Extractive Cannibalism",
+    definition:
+      "A failure mode where an institution preserves apparent operational stability and output velocity by depleting the unrecorded human capacities—such as health, attention, relationships, and moral integrity—on which that stability fundamentally depends.",
+    appliesTo: ["workplace", "hospitals", "platforms"],
+  },
+  {
+    slug: "green-dashboard-trap",
+    term: "Green Dashboard Trap",
+    definition:
+      "An operational condition where executive instrumentation registers nominal performance and throughput because human workers outside the machine ledger absorb system friction through unpaid labor, manual intervention, and exhaustion.",
+    appliesTo: ["monitoring", "operations", "governance"],
+  },
+  {
+    slug: "dual-ledger-evaluation",
+    term: "Dual-Ledger Evaluation",
+    definition:
+      "An evaluation architecture that pairs visible operational metrics (throughput, resolution speed, and cost per interaction) with an independent audit ledger tracking unrecorded human labor, replenishment rates, and corrective standing.",
+    appliesTo: ["auditing", "evaluations", "benchmarking"],
+  },
+  {
+    slug: "systemic-refusal",
+    term: "Systemic Refusal",
+    definition:
+      "The deliberate collective refusal by human operators, caseworkers, or subjects to absorb automated system failures or perform uncounted compensatory labor, returning the true cost of unviable system operations to the institution in real time.",
+    appliesTo: ["labor", "standing", "correction"],
+  },
+  {
     slug: "ethotechnics",
     term: "Ethotechnics",
     definition:
-      "The engineering discipline that keeps authority, evidence, capability, consequence, and correction coupled so increasing machine agency cannot silently become unreviewable institutional power. Where ethics asks \u201cWhat should we do?\u201d, Ethotechnics designs the mechanisms that make it reliably happen.",
+      "The engineering discipline that keeps capability, authority, evidence, dependency, standing, and correction coupled so increasing machine agency cannot silently become unreviewable institutional power. Where ethics asks \u201cWhat should we do?\u201d, Ethotechnics specifies the mechanisms meant to make it happen and the records that show whether they did.",
     appliesTo: ["hospitals", "platforms", "governance"],
   },
   {
@@ -205,21 +261,21 @@ export const glossaryTerms: GlossaryTerm[] = [
     term: "Extraction by Endurance",
     definition:
       "Systems that depend on workers or users absorbing fragility through burnout, emotional labor, or unpaid cognitive work\u2014often mislabeled as \u201cresilience.\u201d Ethotechnic practice aims to invert this burden with fair burden distribution.",
-    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+    appliesTo: ["B. Failure modes"],
   },
   {
     slug: "drift",
     term: "Drift (System Drift)",
     definition:
       "The natural tendency of systems to externalize harm over time unless constrained by protective friction and moral performance indicators.",
-    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+    appliesTo: ["B. Failure modes"],
   },
   {
     slug: "externalization",
     term: "Externalization",
     definition:
       "Pushing risk, cost, or harm onto other teams, communities, or the future so metrics look clean. Externalization shows up as pollution, shadow labor, or brittle dependencies that live outside audits. Ethotechnics counters it with oversight horizons, MPIs, and transparent repair logs.",
-    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+    appliesTo: ["B. Failure modes"],
   },
   {
     slug: "brittleness",
@@ -233,123 +289,105 @@ export const glossaryTerms: GlossaryTerm[] = [
     term: "Optimization Myopia",
     definition:
       "Metric-chasing that narrows attention to throughput or growth while ignoring MPIs. Myopic optimization erodes contestability, raises failure load, and often fuels extraction.",
-    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+    appliesTo: ["B. Failure modes"],
   },
   {
     slug: "precision-laundering",
     term: "Precision Laundering",
     definition:
       "Using detailed metrics or probabilistic scores to disguise inequity as objectivity. Precision laundering hides burden gradients and externalization behind statistical gloss, undermining explainability for accountability.",
-    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+    appliesTo: ["B. Failure modes"],
   },
   {
     slug: "compliance-collapse",
     term: "Compliance Collapse",
     definition:
       "When rigid policy checklists replace judgment, causing teams to follow rules while harm worsens. Compliance collapses occur when design authority is weak and contestability is low, leaving no path to pause or repair.",
-    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+    appliesTo: ["B. Failure modes"],
   },
   {
     slug: "unseen-harm",
     term: "Unseen Harm",
     definition:
       "Harm that does not produce immediately legible signals—silence, withdrawal, dropout, dissociation—and is therefore misread as “no issue.”",
-    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+    appliesTo: ["B. Failure modes"],
   },
   {
     slug: "ethics-debt",
     term: "Ethics Debt",
     definition:
       "The accumulated gap between capability and governability, whose interest is paid as incidents, backlash, and legal constraint.",
-    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+    appliesTo: ["B. Failure modes"],
   },
   {
     slug: "capability-overhang",
     term: "Capability Overhang",
     definition:
       "A precise mismatch where system power exceeds controls (brakes, owners, audits, reversibility, recourse).",
-    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+    appliesTo: ["B. Failure modes"],
   },
   {
     slug: "stoppability",
     term: "Stoppability",
     definition:
       "A system\u2019s ability to halt harmful processes quickly and automatically\u2014without requiring heroism or escalation.",
-    appliesTo: [
-      "C. Ethotechnic capabilities (what systems must be able to do)",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "reversibility",
     term: "Reversibility",
     definition:
       "The ease with which a system can undo a harmful state change\u2014restore access, correct a record, reverse a flag\u2014without extraordinary effort or power. Reversibility is a governance property: it determines whether mistakes are survivable.",
-    appliesTo: [
-      "C. Ethotechnic capabilities (what systems must be able to do)",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "fair-burden-distribution",
     term: "Fair Burden Distribution",
     definition:
       "Failures do not fall hardest on the most vulnerable. Burden is treated as a design variable and measured via the user burden ratio.",
-    appliesTo: [
-      "C. Ethotechnic capabilities (what systems must be able to do)",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "contestability",
     term: "Contestability",
     definition:
       "The property of a system that allows affected people to force a decision to become a contestable object: something with reasons, a clock, an accountable authority, and a pathway to reversal. A system has contestability when \u201cthat\u2019s wrong\u201d can reliably become \u201chere is the specific decision, here is who can change it, and here is when they must respond.\u201d",
-    appliesTo: [
-      "C. Ethotechnic capabilities (what systems must be able to do)",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "refusability",
     term: "Refusability",
     definition:
       "A system\u2019s ability to let people say \u201cno\u201d without punishment or degradation\u2014including refusing data extraction, risky defaults, or coercive workflows\u2014while still preserving basic access and dignity. Refusability is not \u201copt-out exists\u201d; it\u2019s whether refusal is treated as a legitimate state rather than an error condition.",
-    appliesTo: [
-      "C. Ethotechnic capabilities (what systems must be able to do)",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "explainability-for-accountability",
     term: "Explainability for Accountability",
     definition:
       "Explanations a person can act on, not decorative ones. They reveal who made a decision and how it can be corrected, enabling contestability and audits.",
-    appliesTo: [
-      "C. Ethotechnic capabilities (what systems must be able to do)",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "human-refusal-tolerance",
     term: "Refusal-Tolerant Systems",
     definition:
       "The system remains usable when people opt out, are confused, make mistakes, or withdraw cooperation. Refusal tolerance prevents extraction by endurance by ensuring refusals do not silently convert into extra unpaid work. Called “human” because it protects humans from being turned into the crumple zone when they refuse.",
-    appliesTo: [
-      "C. Ethotechnic capabilities (what systems must be able to do)",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "graceful-degradation",
     term: "Graceful Degradation",
     definition:
       "A design principle where systems degrade safely under stress\u2014reduced capability rather than catastrophic denial\u2014especially under accessibility constraints.",
-    appliesTo: [
-      "C. Ethotechnic capabilities (what systems must be able to do)",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "soft-edges",
     term: "Soft Edges",
     definition:
       "Boundary conditions designed to cushion people instead of penalizing them\u2014graduated responses, warnings before lockouts, and reversible defaults. Soft edges reduce failure load and guard against brittleness.",
-    appliesTo: [
-      "C. Ethotechnic capabilities (what systems must be able to do)",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "fail-safe",
@@ -1231,462 +1269,462 @@ export const glossaryTerms: GlossaryTerm[] = [
     term: "Heroism-Dependent Systems",
     definition:
       "Systems that rely on extraordinary effort, unpaid care, or silent sacrifice to function. They mask poor stoppability and high failure load.",
-    appliesTo: ["K. System patterns & anti-patterns"],
+    appliesTo: ["K. Patterns & anti-patterns"],
   },
   {
     slug: "empathy-surrogacy",
     term: "Empathy Surrogacy",
     definition:
       "Simulated warmth\u2014chatbots, scripted apologies, tone guidelines\u2014used to mask structural harm or delay fixes. Empathy surrogacy diverts attention from repair and weakens contestability by substituting sentiment for remedy.",
-    appliesTo: ["K. System patterns & anti-patterns"],
+    appliesTo: ["K. Patterns & anti-patterns"],
   },
   {
     slug: "error-cascades",
     term: "Error Cascades",
     definition:
       "Small automated mistakes that amplify across the system. Prevented through ethical interrupts and SLJs.",
-    appliesTo: ["K. System patterns & anti-patterns"],
+    appliesTo: ["K. Patterns & anti-patterns"],
   },
   {
     slug: "invisible-fallbacks",
     term: "Invisible Fallbacks",
     definition:
       "Hidden behaviors that appear under stress\u2014shadow queues, silent throttling, or undocumented overrides. Invisible fallbacks obscure ethical load paths and should be surfaced through graceful rollback lanes and rehearsed in maintenance windows.",
-    appliesTo: ["K. System patterns & anti-patterns"],
+    appliesTo: ["K. Patterns & anti-patterns"],
   },
   {
     slug: "dead-user-zones",
     term: "Dead-User Zones",
     definition:
       "Places where people affected by decisions cannot contest, appeal, or exit\u2014opaque rankings, automated bans, or unmoderated queues. Closing dead-user zones requires widening the permission surface and raising appeal passage rates.",
-    appliesTo: ["K. System patterns & anti-patterns"],
+    appliesTo: ["K. Patterns & anti-patterns"],
   },
   {
     slug: "moral-lock-in",
     term: "Moral Lock-In",
     definition:
       "When harmful defaults become entrenched through dependencies, network effects, or contracts that block reform. Moral lock-in is prevented by moral feature gating, contestability, and continuous moral drift control.",
-    appliesTo: ["K. System patterns & anti-patterns"],
+    appliesTo: ["K. Patterns & anti-patterns"],
   },
   {
     slug: "legitimacy-laundering",
     term: "Legitimacy Laundering",
     definition:
       "The process of converting coercive or indifferent outcomes into reputational legitimacy through procedural signals—case IDs, polite updates, “in review”—without delivering binding resolution. The system looks responsible while staying unbound.",
-    appliesTo: ["K. System patterns & anti-patterns"],
+    appliesTo: ["K. Patterns & anti-patterns"],
   },
   {
     slug: "polite-coercion",
     term: "Polite Coercion",
     definition:
       "Coercion delivered through soothing language and “helpful” workflows that make refusal costly or stigmatized. Polite coercion is power that avoids looking like power.",
-    appliesTo: ["K. System patterns & anti-patterns"],
+    appliesTo: ["K. Patterns & anti-patterns"],
   },
   {
     slug: "documentation-loop",
     term: "Documentation Loop / Resubmission Loop",
     definition:
       "A repeating pattern where the system continually requests more evidence or re-uploads without moving toward a binding decision. Often used to shift labor onto claimants and to manufacture dropout.",
-    appliesTo: ["K. System patterns & anti-patterns"],
+    appliesTo: ["K. Patterns & anti-patterns"],
   },
   {
     slug: "precision-demands",
     term: "Precision Demands",
     definition:
       "Requests for ever-greater specificity that function less as truth-seeking and more as denial hooks—ways to keep a case non-objectified or non-decidable. Precision demands are a technique of delay.",
-    appliesTo: ["K. System patterns & anti-patterns"],
+    appliesTo: ["K. Patterns & anti-patterns"],
   },
   {
     slug: "procedural-alibi",
     term: "Procedural Alibi",
     definition:
       "A record of “process” used to defend outcomes (“we followed procedure”) even when the procedure cannot bind the institution to remedy. The alibi is the trace of activity, not accountability.",
-    appliesTo: ["K. System patterns & anti-patterns"],
+    appliesTo: ["K. Patterns & anti-patterns"],
   },
   {
     slug: "tone-policing",
     term: "Tone Policing (as Governance Technology)",
     definition:
       "The use of “appropriate tone” requirements to control access to remedy—penalizing anger, urgency, neurodivergent communication, or exhaustion. Tone policing converts distress into disqualification.",
-    appliesTo: ["K. System patterns & anti-patterns"],
+    appliesTo: ["K. Patterns & anti-patterns"],
   },
   {
     slug: "dropout-as-legitimation",
     term: "Dropout-as-legitimation",
     definition:
       "When systems treat nonresponse, fatigue, or disappearance as consent or closure (“case closed—no reply”), laundering coercion into “resolved.” Dropout becomes the mechanism that protects the institution.",
-    appliesTo: ["K. System patterns & anti-patterns"],
+    appliesTo: ["K. Patterns & anti-patterns"],
   },
   {
     slug: "churn-as-closure",
     term: "Churn (as Closure Mechanism)",
     definition:
       "The engineered cycling of people through forms, queues, and handoffs until they give up, miss a deadline, or become “inactive,” allowing the system to close without settlement.",
-    appliesTo: ["K. System patterns & anti-patterns"],
+    appliesTo: ["K. Patterns & anti-patterns"],
   },
   {
     slug: "paper-compliance",
     term: "Paper Compliance / Checkbox Governance",
     definition:
       "Compliance regimes focused on producing documentation of doing the right thing rather than mechanisms that can prevent harm or force remedy. The paperwork stands in for power.",
-    appliesTo: ["K. System patterns & anti-patterns"],
+    appliesTo: ["K. Patterns & anti-patterns"],
   },
   {
     slug: "transparency-theater",
     term: "Transparency Theater",
     definition:
       "Disclosures that do not increase contestability—more text, more dashboards, more “explanations”—without deadlines, authority, or reversal paths. Visibility substitutes for enforceability.",
-    appliesTo: ["K. System patterns & anti-patterns"],
+    appliesTo: ["K. Patterns & anti-patterns"],
   },
   {
     slug: "explainability-decoy",
     term: "Explainability Decoy",
     definition:
       "A focus on explaining model decisions that distracts from the harder question: can the decision be contested, reversed, and time-bounded? The decoy offers epistemics where governance is needed.",
-    appliesTo: ["K. System patterns & anti-patterns"],
+    appliesTo: ["K. Patterns & anti-patterns"],
   },
   {
     slug: "human-in-the-loop-legitimacy",
     term: "Human-in-the-loop (as Legitimacy Artifact)",
     definition:
       "A human reviewer inserted to create legitimacy while lacking binding authority, deadlines, or meaningful discretion. The loop becomes a comfort signal, not a power shift.",
-    appliesTo: ["K. System patterns & anti-patterns"],
+    appliesTo: ["K. Patterns & anti-patterns"],
   },
   {
     slug: "moral-drift-control",
     term: "Moral Drift Control",
     definition:
       "Instrumentation that detects when a system\u2019s behavior drifts from the baseline its authority was granted against, using MPIs or reports from affected people, and automatically triggers interrupts or design changes.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "structural-gentleness-coefficients",
     term: "Structural Gentleness Coefficients",
     definition:
       "Measures of how much ordinary human variance an infrastructure tolerates before it fails someone: error tolerance, recovery time, and soft edges. Higher coefficients are expected to track lower failure load and safer degradation.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "burden-elasticity",
     term: "Burden Elasticity",
     definition:
       "How effort and risk move between parties when conditions change, and whether they move back afterward. Mapping burden elasticity alongside the burden gradient shows whether a crisis will land on the people with the least power to refuse it.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "care-redundancy",
     term: "Care Redundancy",
     definition:
       "Overlapping routes through people, automated checks, and policy guarantees, so that when one safeguard fails another still catches the person. Care redundancy pairs with graceful degradation to keep failure load low.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "meta-contestability",
     term: "Meta-Contestability",
     definition:
       "Mechanisms that let people challenge the rules of challenge as well as its outcomes: who may appeal, what evidence counts, and who sits on review panels. Meta-contestability keeps contestability from ossifying.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "user-state-modeling",
     term: "User-State Modeling for Harm Prevention",
     definition:
       "Inferring user states such as fatigue, distress, or inattention to slow the pace, add protective friction, or route to a person before harm compounds. The models must respect anticipatory consent and must not create new burden transfers.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "ethical-latency",
     term: "Design for Ethical Latency",
     definition:
       "Designing for the unavoidable delay between an action and its review: staging risky steps, adding velocity friction, or holding care floor guarantees in place until the fuller review is done.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "distributed-accountability-protocols",
     term: "Distributed Accountability Protocols",
     definition:
       "Coordination methods that keep a named owner attached to work as it moves across teams and automation: shared playbooks, auditable handoffs, and repair logs. The protocols prevent accountability diffusion at the handoff.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "ethotechnic-failure-taxonomy",
     term: "Ethotechnic Failure Taxonomy",
     definition:
       "A shared classification of failure modes, such as optimization myopia, brittleness, and extraction, so incidents can be compared across systems, learned from, and prevented.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "adaptive-refusal-pathways",
     term: "Adaptive Refusal Pathways",
     definition:
       "Flows that reroute a task when someone pauses or declines, keeping the case context and imposing no penalty. Adaptive pathways extend refusal budgets and strengthen refusal tolerance.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "aftercare-automation",
     term: "Aftercare Automation",
     definition:
       "Automated follow-up after an incident that checks on the people affected, schedules remedies, and prompts a named person to close the case. Done well, it lowers moral debt without adding moral overhead.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "alignment-dividend",
     term: "Alignment Dividend",
     definition:
       "The measurable gains in trust, retention, and safety when a system serves the people it acts on as intended. Tracking the dividend is the budget argument for sustained funding of MPIs and maintenance metabolism.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "ambiguity-budgets",
     term: "Ambiguity Budgets",
     definition:
       "Explicit allowances for uncertainty that hold back automation or strict enforcement until there is enough context. The budget reserves time, human review, or maintenance windows for the cases that need them.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "anticipatory-consent",
     term: "Anticipatory Consent",
     definition:
       "Consent models that preview future data uses and let people pre-approve, defer, or block them. Anticipatory consent supports rights of exit and counters precision laundering of unclear terms.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "boundary-of-acceptable-harm",
     term: "Boundary of Acceptable Harm",
     definition:
       "Thresholds, revised as conditions change, that mark where harm exceeds the system\u2019s mandate and operations must halt or escalate. Boundaries are tied to SLJs and enforced through ethical circuit breakers.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "care-floor-guarantees",
     term: "Care Floor Guarantees",
     definition:
       "Baseline commitments a service keeps during outages or crises: live support, data export, or safe defaults. Care floors protect users while graceful degradation is active.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "compassion-telemetry",
     term: "Compassion Telemetry",
     definition:
       "Signals about how people are treated in an interaction: response tone, wait times during distress, and whether follow-up happened. They sit beside technical metrics and protect compassion bandwidth.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "conflict-observability",
     term: "Conflict Observability",
     definition:
       "Logging that records a conflict between values when it happens, for example when SLJs are traded against throughput or appeals spike. The record lets the conflict be reviewed before it escalates and lets moral drift control start sooner.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "counter-abuse-guardrails",
     term: "Counter-Abuse Guardrails",
     definition:
       "Limits that stop tools from being repurposed for harassment, exploitation, or coercion: rate limits, anomaly detection, and human override lanes tuned for abuse cases.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "crisis-rehearsal-loops",
     term: "Crisis Rehearsal Loops",
     definition:
       "Regular drills that test how a system responds to harm, as well as whether it stays up. They exercise ethical interrupts, check care floors, and record findings in the repair log.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "data-dignity-budgets",
     term: "Data Dignity Budgets",
     definition:
       "Caps on what data is collected and how it is used, set by context and purpose rather than by what a consent checkbox legally allows. Budgets align with anticipatory consent and guard against extraction.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "decision-debt-ledger",
     term: "Decision Debt Ledger",
     definition:
       "A register of deferred decisions and the harm each one accrues while it waits, reviewed before that harm compounds. The ledger feeds maintenance windows and informs MPIs.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "downstream-equity-buffers",
     term: "Downstream Equity Buffers",
     definition:
       "Design slack that absorbs variance so marginalized groups do not pay first or most when errors occur. Buffers include staggered rollouts, rollback lanes, and targeted support funds.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "ethical-circuit-breakers",
     term: "Ethical Circuit Breakers",
     definition:
       "Automated stops that trip when a risk indicator crosses a set point: a surge in appeals, a bias metric, or rising moral debt. They are the safety counterpart to financial circuit breakers.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "ethical-load-testing",
     term: "Ethical Load Testing",
     definition:
       "Exercises that probe how a system behaves when its safeguards are under stress, such as simulated harassment, mass appeals, or outages, to check that ethical circuit breakers trip and care floors hold.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "exhaustion-triggers",
     term: "Exhaustion Triggers",
     definition:
       "Signals that detect operator or user fatigue, such as error streaks, long queues, and late-night decisions, and automatically slow, pause, or hand off a flow before mistakes multiply. The triggers protect compassion bandwidth.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "friction-budgets",
     term: "Friction Budgets",
     definition:
       "A planned allocation of protective and dignity friction across a workflow, set step by step according to risk, instead of removing friction wherever it slows things down.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "graceful-rollback-lanes",
     term: "Graceful Rollback Lanes",
     definition:
       "Prepared routes to revert harmful decisions while preserving dignity, evidence, and service continuity. Rollback lanes keep irreversibility indices low and shorten time-to-restore.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "harm-amnesty-windows",
     term: "Harm Amnesty Windows",
     definition:
       "Time-boxed periods where people can report or reverse harmful actions without penalty, encouraging disclosure and faster repair. Amnesty windows often follow rehearsal loops or incidents.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "heat-maps-of-refusal",
     term: "Heat Maps of Refusal",
     definition:
       "Maps of where people opt out, churn, or appeal, which show early where refusal is being made costly. They are used to tune refusal budgets and redesign interaction surfaces.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "human-override-lanes",
     term: "Human Override Lanes",
     definition:
       "Guaranteed routes for human judgment to supersede automation when stakes are high or context is missing. Override lanes accompany ethical interrupts and require clear ethical load paths.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "incident-memory-chains",
     term: "Incident Memory Chains",
     definition:
       "Linked records that attach the findings from past incidents to the workflows most like them, so the next team sees them before repeating the failure. Memory chains inform ethical load tests and prevent moral lock-in on bad patterns.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "moral-dry-runs",
     term: "Moral Dry Runs",
     definition:
       "Pre-launch walkthroughs that play out the hard cases a design will meet, such as conflicting obligations or a wrong decision nobody can reverse, before it reaches the public. Dry runs test circuit breakers, rollback lanes, and documentation.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "moral-feature-gating",
     term: "Moral Feature Gating",
     definition:
       "Controls that block a feature launch until readiness criteria are met: oversight plans, contestability pathways, and care floors.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "pathways-to-restitution",
     term: "Pathways to Restitution",
     definition:
       "Documented steps a system must take to repair harm: acknowledgement, remedy, verification, and follow-up. Pathways reduce moral debt and belong in the repair log.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "refusal-aware-routing",
     term: "Refusal-Aware Routing",
     definition:
       "Routing logic that knows who can decline a task and makes sure a refusal is honored without retaliation or a silent penalty. It preserves refusal budgets so that declining stays a real option.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "relief-invariants",
     term: "Relief Invariants",
     definition:
       "Guarantees that relief takes the same predictable effort and support whichever path a person comes in by. Relief invariants are tested in crisis rehearsals and anchored by care floors.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "repair-quorums",
     term: "Repair Quorums",
     definition:
       "Minimum participation rules for authorizing fixes so impacted communities have a seat in deciding remedies. Repair quorums counter accountability diffusion and legitimize restitution.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "rest-cycle-enforcement",
     term: "Rest Cycle Enforcement",
     definition:
       "Built-in mechanisms that enforce rest and recovery\u2014rotation policies, cooldown timers, enforced downtime\u2014so fatigue does not translate into harm. Enforcement protects maintenance metabolism and compassion bandwidth.",
-    appliesTo: ["L. Future concepts / research areas"],
+    appliesTo: ["L. Open research areas"],
   },
   {
     slug: "conservancy-principle",
     term: "The Conservancy Principle",
     definition:
       "Designers hold the people a system affects and the resources it draws on in trust, and must leave systems safer and easier to repair than they found them. Conservancy prioritizes repair, stoppability, and reducing moral debt.",
-    appliesTo: ["M. Foundational Ethotechnic principles"],
+    appliesTo: ["M. Foundational principles"],
   },
   {
     slug: "burden-inversion-rule",
     term: "The Burden Inversion Rule",
     definition:
       "When harm occurs, the system shoulders effort before the person harmed does. Burden inversion lowers the user burden ratio and demands rapid restoration.",
-    appliesTo: ["M. Foundational Ethotechnic principles"],
+    appliesTo: ["M. Foundational principles"],
   },
   {
     slug: "stop-before-explain-rule",
     term: "The Stop-Before-Explain Rule",
     definition:
       "Halt harmful behavior first, then justify or refine it. Systems must trigger ethical interrupts before offering explanations, preserving reversibility.",
-    appliesTo: ["M. Foundational Ethotechnic principles"],
+    appliesTo: ["M. Foundational principles"],
   },
   {
     slug: "maintenance-doctrine",
     term: "The Maintenance Doctrine",
     definition:
       "A system stays safe to rely on only while it is maintained: funded maintenance metabolism, scheduled maintenance windows, and transparent logs.",
-    appliesTo: ["M. Foundational Ethotechnic principles"],
+    appliesTo: ["M. Foundational principles"],
   },
   {
     slug: "low-failure-load-principle",
     term: "The Principle of Low-Failure-Load Design",
     definition:
       "Design so that when failures occur, human impact is contained. This principle motivates graceful degradation, care floors, and low irreversibility indices.",
-    appliesTo: ["M. Foundational Ethotechnic principles"],
+    appliesTo: ["M. Foundational principles"],
   },
   {
     slug: "reversibility-mandate",
     term: "The Reversibility Mandate",
     definition:
       "Critical actions must be undoable or paired with rollback lanes. The mandate aligns with time-to-restore targets and contestability.",
-    appliesTo: ["M. Foundational Ethotechnic principles"],
+    appliesTo: ["M. Foundational principles"],
   },
   {
     slug: "contestability-guarantee",
     term: "The Contestability Guarantee",
     definition:
       "People affected by system decisions can challenge, change, or overturn them, and can win. Guarantees include wide permission surfaces, high appeal passage rates, and transparent design authority.",
-    appliesTo: ["M. Foundational Ethotechnic principles"],
+    appliesTo: ["M. Foundational principles"],
   },
   {
     slug: "complexity-displacement",
     term: "Complexity Displacement",
     definition:
       "Achieving internal process simplification by externalizing friction, edge cases, and ambiguity onto humans without accounting for the transfer. Diagnostic: ask whether the world became simpler or whether people were forced to become more adaptive.",
-    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+    appliesTo: ["B. Failure modes"],
   },
   {
     slug: "closure-without-remainder",
     term: "Closure Without Remainder",
     definition:
       "The technocratic fallacy that what a formal system cannot represent ceases to exist or requires no governance. Countered by the invariant: not represented implies unresolved.",
-    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+    appliesTo: ["B. Failure modes"],
   },
   {
     slug: "residual-complexity",
@@ -1714,7 +1752,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     term: "Post-Optimization Rigor",
     definition:
       "The engineering discipline required after metric optimization reaches its boundary, focusing on independent review, measuring uncounted absorption, and failure-point standing.",
-    appliesTo: ["M. Foundational Ethotechnic principles"],
+    appliesTo: ["M. Foundational principles"],
   },
   {
     slug: "legibility",
@@ -1763,237 +1801,210 @@ export const glossaryTerms: GlossaryTerm[] = [
     term: "Unowned Harm",
     definition:
       "Negative outcomes for which no individual or role is accountable, even though the system caused them. Unowned harm signals accountability diffusion and weak traceable ownership.",
-    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+    appliesTo: ["B. Failure modes"],
   },
   {
     slug: "ethics-theater",
     term: "Ethics Theater",
     definition:
       "Public displays of ethical concern without operational mechanisms that change system behavior. Ethics theater often masks compliance collapse and low contestability.",
-    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+    appliesTo: ["B. Failure modes"],
   },
   {
     slug: "authority-drift",
     term: "Authority Drift",
     definition:
       "The gap that opens when what a system does moves away from what its authority grant permits or its evidence supports. Drift accumulates through steps that each look too small to review.",
-    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+    appliesTo: ["B. Failure modes"],
   },
   {
     slug: "automation-ratchet",
     term: "Automation Ratchet",
     definition:
       "Scope growth by accretion, where each extension of an automated system is too small to trigger review and no single step widens the delegation. The ratchet turns one way only.",
-    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+    appliesTo: ["B. Failure modes"],
   },
   {
     slug: "institutional-capture",
     term: "Institutional Capture",
     definition:
       "The state where a system has absorbed enough of an institution’s capability, staff, and decision paths that the institution can no longer evaluate, constrain, or replace it.",
-    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+    appliesTo: ["B. Failure modes"],
   },
   {
     slug: "rubber-stamp-review",
     term: "Rubber-Stamp Review",
     definition:
       "Review that approves at a rate and speed incompatible with real scrutiny. The artifact of review exists; the control does not.",
-    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+    appliesTo: ["B. Failure modes"],
   },
   {
     slug: "normalized-dependence",
     term: "Normalized Dependence",
     definition:
       "Reliance on a system that has become invisible because it is ordinary: no one records it, no fallback is maintained, and withdrawal is no longer a question anyone asks.",
-    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+    appliesTo: ["B. Failure modes"],
   },
   {
     slug: "capacity-depreciation",
     term: "Capacity Depreciation",
     definition:
       "The decay of correction capacity in the absence of replenishment: experts leave, alternatives lapse, rollback scripts stop being run. The institution becomes less able to correct without any decision causing it.",
-    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+    appliesTo: ["B. Failure modes"],
   },
   {
     slug: "jurisdictional-path-dependence",
     term: "Jurisdictional Path Dependence",
     definition:
       "The condition where the questions an institution asks about a system’s scope come to track the system’s own categories and vocabulary. The system’s answers shape the next question asked.",
-    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+    appliesTo: ["B. Failure modes"],
   },
   {
     slug: "exception-absorption",
     term: "Exception Absorption",
     definition:
       "Handling an exception without changing the rule, category, workflow, or authority that produced it. Each case is closed and nothing upstream changes.",
-    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+    appliesTo: ["B. Failure modes"],
   },
   {
     slug: "workaround-presumption",
     term: "Workaround Presumption",
     definition:
       "The rule that a recurring workaround raises a presumption of upstream design failure. The first reading of repeated improvisation is that the formal system does not fit the world it operates in.",
-    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+    appliesTo: ["B. Failure modes"],
+  },
+  {
+    slug: "preserved-dependence",
+    term: "Preserved Dependence",
+    definition:
+      "An institution's continued reliance on compensatory work it knows about, kept because relying on it costs the institution less than ending it. It is a conflict of interest, not an information gap. Measuring the work more closely does not address it; authority over the conditions that produce the work does.",
+    appliesTo: ["B. Failure modes"],
   },
   {
     slug: "discretion-migration",
     term: "Discretion Migration",
     definition:
       "The pattern where automation relocates rather than removes judgment, reappearing in thresholds, categories, exception rules, and appeal routing—along with authority over it.",
-    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+    appliesTo: ["B. Failure modes"],
   },
   {
     slug: "governability",
     term: "Governability",
     definition:
       "The degree to which a system can be steered, paused, audited, corrected, or shut down after deployment. High governability requires stoppability, reversibility, and durable contestability.",
-    appliesTo: [
-      "C. Ethotechnic capabilities (what systems must be able to do)",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "incident-literacy",
     term: "Incident Literacy",
     definition:
       "The ability to recognize failures as incidents rather than anomalies and respond with containment, logging, escalation, and repair.",
-    appliesTo: [
-      "C. Ethotechnic capabilities (what systems must be able to do)",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "capability-discovery",
     term: "Capability Discovery",
     definition:
       "The practice of finding out what an assembled decision system can do, including reachable tools, side effects, and action classes nobody intended to expose. The output is a catalog, not a permission.",
-    appliesTo: [
-      "C. Ethotechnic capabilities (what systems must be able to do)",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "correction-capacity",
     term: "Correction Capacity",
     definition:
       "The measured ability to intervene: which interventions exist, who may invoke them, how long they take, and how much load the institution can absorb. Counted in people, clocks, and rehearsals, not asserted in policy.",
-    appliesTo: [
-      "C. Ethotechnic capabilities (what systems must be able to do)",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "technical-reversibility",
     term: "Technical Reversibility",
     definition:
       "The first level of the reversibility ladder: the mechanism exists and works, proven on the running version. A floor rather than a finding—a working switch says nothing about the levels above it.",
-    appliesTo: [
-      "C. Ethotechnic capabilities (what systems must be able to do)",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "operational-reversibility",
     term: "Operational Reversibility",
     definition:
       "The second level of the reversibility ladder: people and processes can absorb the correction. Staff know the fallback, queues hold the load, and the manual path has been exercised recently enough to work.",
-    appliesTo: [
-      "C. Ethotechnic capabilities (what systems must be able to do)",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "institutional-reversibility",
     term: "Institutional Reversibility",
     definition:
       "The third level of the reversibility ladder: the organization survives having made the correction. Commitments, contracts, reputations, and budgets stay serviceable after withdrawal.",
-    appliesTo: [
-      "C. Ethotechnic capabilities (what systems must be able to do)",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "intervention-specification",
     term: "Intervention Specification",
     definition:
       "Who may intervene, on what signal, with what information and authority, on what timescale, and what happens on disagreement. It replaces “human in the loop” as a control name.",
-    appliesTo: [
-      "C. Ethotechnic capabilities (what systems must be able to do)",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "prospective-auditability",
     term: "Prospective Auditability",
     definition:
       "Designing a system so audit questions can be answered later by recording evidence, authority, and reasoning at decision time. It cannot be retrofitted onto decisions already made.",
-    appliesTo: [
-      "C. Ethotechnic capabilities (what systems must be able to do)",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "evaluation-independence",
     term: "Evaluation Independence",
     definition:
       "The property that no single provider is necessary to both execute and evaluate a consequential process. A system that grades its own homework has no detection component.",
-    appliesTo: [
-      "C. Ethotechnic capabilities (what systems must be able to do)",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "exception-learning",
     term: "Exception Learning",
     definition:
       "The modification of a system by its own exceptions: a recurring failure changes the rule, category, workflow, or authority that produced it. The counterpart of exception absorption.",
-    appliesTo: [
-      "C. Ethotechnic capabilities (what systems must be able to do)",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "case-corrigibility",
     term: "Case Corrigibility",
     definition:
       "The capacity to fix a particular bad decision: an appeal is heard, a reversal issued, a person restored. Locally corrigible, but the pattern may remain.",
-    appliesTo: [
-      "C. Ethotechnic capabilities (what systems must be able to do)",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "structural-corrigibility",
     term: "Structural Corrigibility",
     definition:
       "The capacity to modify the machinery that keeps producing failures: repeated exceptions change the rule, category, workflow, or authority generating them.",
-    appliesTo: [
-      "C. Ethotechnic capabilities (what systems must be able to do)",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "institutional-learning",
     term: "Institutional Learning",
     definition:
       "Learning that changes what an institution is permitted to do, as distinct from what a model predicts. The test is whether the failure altered the evidentiary rule, authority, or allocation of burden.",
-    appliesTo: [
-      "C. Ethotechnic capabilities (what systems must be able to do)",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "corrective-debt",
     term: "Corrective Debt",
     definition:
       "The accumulated gap between an institution’s capacity to act and its capacity to detect, contest, reverse, and repair errors. Grows as action capacity compounds while correction machinery stays fixed.",
-    appliesTo: [
-      "C. Ethotechnic capabilities (what systems must be able to do)",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "abstention",
     term: "Abstention",
     definition:
       "A positive capability to decline to act in three forms: epistemic (evidence insufficient), jurisdictional (not mine to decide), and remedial (acting now would cause uncorrectable harm).",
-    appliesTo: [
-      "C. Ethotechnic capabilities (what systems must be able to do)",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "constitutional-debt",
     term: "Constitutional Debt",
     definition:
       "The divergence between what a system can technically do and what any recorded justification permits. The automation ratchet is its engine and authority drift is its balance.",
-    appliesTo: [
-      "C. Ethotechnic capabilities (what systems must be able to do)",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "restoration-completeness",
@@ -2328,7 +2339,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "legitimacy-engineering",
     term: "Legitimacy Engineering",
     definition:
-      "Legitimacy defined by stoppability, reversibility, contestability, ownership, and time-bounded repair capacity, treated as measurable requirements.",
+      "Legitimacy treated as measurable requirements: standing and remedy for the people a system decides about, a named authority on stated evidence, a halt path, and time-bounded repair.",
     appliesTo: ["H. Governance & power"],
   },
   {
@@ -2595,69 +2606,69 @@ export const glossaryTerms: GlossaryTerm[] = [
     term: "Withdrawal Rehearsal",
     definition:
       "A scheduled exercise where a system is stood down and the fallback carries real work, producing timings and failures. Evidence, not a claim.",
-    appliesTo: ["K. System patterns & anti-patterns"],
+    appliesTo: ["K. Patterns & anti-patterns"],
   },
   {
     slug: "policy-as-state",
     term: "Policy as State",
     definition:
       "Policy is a state of the running system, not an input consumed at deployment. A policy record has a version, assumptions, an expiry, and a current status.",
-    appliesTo: ["M. Foundational Ethotechnic principles"],
+    appliesTo: ["M. Foundational principles"],
   },
   {
     slug: "meaningful-control",
     term: "Meaningful Control",
     definition:
       "The condition where a human is part of the control system: they can see the problem, hold authority to act, have time, a path to disagree, and incentives permitting disagreement.",
-    appliesTo: ["M. Foundational Ethotechnic principles"],
+    appliesTo: ["M. Foundational principles"],
   },
   {
     slug: "non-conversion-principle",
     term: "The Non-Conversion Principle",
     definition:
       "A fact about a system does not become a fact about its authority on its own. Capability and success are evidence, never a grant; authority changes only through recorded state transitions.",
-    appliesTo: ["M. Foundational Ethotechnic principles"],
+    appliesTo: ["M. Foundational principles"],
   },
   {
     slug: "human-non-substitutability",
     term: "Human Non-Substitutability",
     definition:
       "A model of a person is not the person. No representation acquires automatic authority to extinguish the represented person’s standing against it.",
-    appliesTo: ["M. Foundational Ethotechnic principles"],
+    appliesTo: ["M. Foundational principles"],
   },
   {
     slug: "safe-incompleteness",
     term: "Safe Incompleteness",
     definition:
       "A system should improve its representation of people and preserve their contestation at once. An incomplete and contestable system is safer than a complete and final one.",
-    appliesTo: ["M. Foundational Ethotechnic principles"],
+    appliesTo: ["M. Foundational principles"],
   },
   {
     slug: "anti-conversion-rights",
     term: "Anti-Conversion Rights",
     definition:
       "Rights as interruptions of illegitimate conversions: privacy, due process, consent, appeal, and separation of powers each keep a capability from becoming an authorization.",
-    appliesTo: ["M. Foundational Ethotechnic principles"],
+    appliesTo: ["M. Foundational principles"],
   },
   {
     slug: "excluded-case",
     term: "The Excluded Case",
     definition:
       "The case a representation excludes is potentially evidence about the category, not merely noise. Dissent and standing are epistemic, not only political.",
-    appliesTo: ["M. Foundational Ethotechnic principles"],
+    appliesTo: ["M. Foundational principles"],
   },
   {
     slug: "feedback-proximity",
     term: "Feedback Proximity",
     definition:
       "The causal distance between an institutional error and the actors who can revise the generating rule should stay short. Proximity is not visibility.",
-    appliesTo: ["M. Foundational Ethotechnic principles"],
+    appliesTo: ["M. Foundational principles"],
   },
   {
     slug: "asymmetric-capacity-restraint",
     term: "Asymmetric-Capacity Restraint",
     definition:
       "An institution’s obligations to remain contestable and revisable grow with its capacity to classify, monitor, automate, and scale. Capability may expand only as fast as correction checks it.",
-    appliesTo: ["M. Foundational Ethotechnic principles"],
+    appliesTo: ["M. Foundational principles"],
   },
 ];

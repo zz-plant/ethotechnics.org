@@ -39,8 +39,7 @@ High-level reference for the site’s purpose, structure, and delivery flow.
 ## Feature islands
 
 - Most routes render server-only; islands are limited to diagnostics tooling.
-- `src/features/capacity-forecaster` powers the charting flow documented in
-  [Diagnostics capacity forecaster](diagnostics-capacity-forecaster.md).
+- `src/features/record-conformance` checks delegation record streams.
 
 ## Content model
 

@@ -6,7 +6,7 @@ import { standardClauses } from "../../content/standards";
 
 const pageTitle = "STD-02 Evidence Pack — Ethotechnics Institute";
 const pageDescription =
-  "Tiered evidence requirements for contestability, review, and remedy obligations in STD-02.";
+  "What to show for STD-02 appeals, review clocks, and remedies at three tiers, from a working appeal path to proof under incident load, and what auditors ask.";
 
 const clauses = standardClauses["STD-02"];
 const clauseAnchor = (id: string) =>
@@ -170,13 +170,18 @@ const tiers = [
       <li>
         Show how decision logs reference evidence packs for contested decisions.
       </li>
+      <li>
+        Show, for each decision class, how many appeals were upheld, and what
+        changed in the rule after them, or the STD-07 reconsideration record
+        that kept it.
+      </li>
     </ul>
   </SectionBlock>
 
   <SectionBlock
     id="referenced-by"
     eyebrow="Referenced by"
-    title="Where STD-02 evidence is enforced"
+    title="Where STD-02 evidence is asked for"
     description="The worked examples, bindings, and validators that depend on this evidence."
   >
     <div class="grid grid--three">
@@ -204,7 +209,9 @@ const tiers = [
         <p class="eyebrow">Required by bindings</p>
         <ul class="muted">
           <li>
-            <a href="/evidence-packs">Release gate checklist</a>
+            <a href="/mechanisms/patterns/admission-gate"
+              >MEC-22 Admission gate</a
+            >
           </li>
           <li>
             <a href="/incidents">Incident triggers</a>

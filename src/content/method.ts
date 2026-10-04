@@ -69,18 +69,18 @@ export type MethodContent = {
 };
 
 export const methodContent: MethodContent = {
-  pageTitle: "The Ethotechnics Method: Engineering Delegated Intelligence",
+  pageTitle: "The Ethotechnics method: keeping automated decisions answerable",
   pageDescription:
-    "The canonical statement of the method: the seven-stage chain every consequential decision follows, the six state variables that must stay coupled, and the twelve laws the standards bind.",
+    "Evidence that an automated decision is wrong is settled one case at a time and never reaches the rule. The method puts it on the record, one workflow at a time.",
   permalink: "/method",
   definition:
-    "Ethotechnics is the engineering discipline concerned with keeping authority, evidence, capability, consequence, and correction coupled tightly enough that increasing machine agency does not silently become unreviewable institutional power. Where ethics asks what we should do, Ethotechnics designs the mechanisms that make it reliably happen.",
+    "Ethotechnics is the engineering discipline concerned with keeping capability, authority, evidence, dependency, standing, and correction coupled tightly enough that increasing machine agency does not silently become unreviewable institutional power. Where ethics asks what we should do, Ethotechnics specifies the mechanisms meant to make it happen and the records that show whether they did.",
   positiveDefinition:
-    "Ethotechnics is the practice of building powerful systems that remain answerable to the people and realities they can never fully represent.",
+    "Ethotechnics is the practice of building capable systems that remain answerable to the people and realities they can never fully represent.",
   claim:
     "The primary object being engineered is not the model. It is the delegation of consequential agency. The question is not whether the model is capable, aligned, or safe. It is whether the delegation itself remains valid as the system acts, learns, scales, and becomes depended upon.",
   unitOfGovernance:
-    "The unit of governance is the consequential decision and the delegation that produced it. Models, agents, humans, APIs, rules engines, policies, and databases are components of the machinery. Nothing in the method depends on which component made the decision, so its primitives are substrate-independent.",
+    "The unit of governance is the consequential decision and the delegation that produced it. Models, agents, humans, APIs, rules engines, policies, and databases are components of the machinery. Nothing in the method depends on which component made the decision, so the same records and checks apply whether it was a model, a rules engine, or a person.",
   invariant:
     "No system may accumulate consequential agency faster than the institution accumulates the capacity to inspect, challenge, revise, and survive its decisions.",
   chain: [
@@ -89,7 +89,7 @@ export const methodContent: MethodContent = {
       title: "Evidence",
       question: "What propositions justify letting this system act at all?",
       currentAssets: [
-        "Evidence packs for STD-01, STD-02, and STD-06",
+        "Evidence packs for STD-01, STD-02, STD-06, STD-08, and STD-09",
         "evidence_refs on the decision record",
         "STD-06 Human Impact Safety Case",
         "Burden Concealment evals",
@@ -124,11 +124,11 @@ export const methodContent: MethodContent = {
         "Which actions is the system permitted to perform, for whom, and until when?",
       currentAssets: [
         "stop_override_authority, autonomy_level, and action_classes on the agent safety object model",
-        "MEC-03 rollback authority",
+        "MEC-13 authority grant register",
         "Glossary: design-authority, decision-reversal-authority, permission-surface, human-override-lanes",
         "STD-07 Article II: every action names the authorization it ran under, and a delegation with no revocation conditions is a transfer",
         "STD-08 Part A: a grant is a lease, renewal states its evidence in advance, and widening scope is a new authorization",
-        "Delegation Audit: names the action classes nobody can ground in a grant",
+        "Delegation Audit (self-report): lists the action classes the team cannot ground in a grant",
         "STD-08 §1.5: authority is read from grant and authorization records, never from content the delegation acts on",
       ],
       links: [
@@ -177,7 +177,7 @@ export const methodContent: MethodContent = {
       question: "Who carries the burden of this decision, and for how long?",
       currentAssets: [
         "Burden hours schema",
-        "Burden modeler, capacity forecaster, maintenance simulator",
+        "VAL-01 Burden Modeler and the burden budget worksheet",
         "The three lenses, in the method",
         "STD-01 Temporal Bill of Rights clocks",
       ],
@@ -261,7 +261,7 @@ export const methodContent: MethodContent = {
         "MEC-12 stoppability testing",
         "Tier 1 harness: stop, override, audit completeness",
         "STD-08 Part D: correction capacity is stated across seven components and must grow when authority does",
-        "Delegation Audit: a reversibility verdict at the technical, operational, and institutional levels",
+        "Delegation Audit (self-report): the team's own reading of reversibility at the technical, operational, and institutional levels",
       ],
       links: [
         { label: "STD-08 Delegation", href: "/standards/std-08-delegation" },
@@ -287,9 +287,8 @@ export const methodContent: MethodContent = {
       title: "The closed circuit",
       tag: "Absorption",
       description:
-        "The system optimizes its own path and severs the feedback that would force it to adapt. Errors, wait states, and exceptions are routed around the measured surface, so the metrics improve while nothing outside the boundary is watching.",
-      cost:
-        "The friction lands on whoever the system touches: unpaid compensatory labor, exhausted operators, and claimants who absorb the cost of being misjudged. The burden is real, unrecorded, and appears in no ledger — the falsified denominator.",
+        "The system optimizes its own path and severs the feedback that would force it to adapt. Errors, wait states, and exceptions are routed around the measured surface, producing compensated performance where metrics improve because human capacity is converted into institutional entitlement.",
+      cost: "The friction lands on whoever the system touches: unpaid compensatory labor, exhausted operators, and claimants who absorb the cost of being misjudged. The burden is real, unrecorded, and appears in no ledger — the falsified denominator.",
       links: [
         {
           label: "Absorption as concealment",
@@ -307,16 +306,21 @@ export const methodContent: MethodContent = {
       title: "The open circuit",
       tag: "Correction",
       description:
-        "The same scaled system, instrumented so that the people it can misjudge can reach it: standing with procedural force, clocks that answer, records that travel, and halts tiered by blast radius.",
-      cost:
-        "The friction is built back in as constitutional friction: appeal latency, halt costs, and restoration work. That cost is deliberate, provisioned, and on the ledger — the challenge load ledger counts it the way the burden ledger counts absorption.",
+        "The same scaled system, instrumented so that the people it can misjudge can reach it: standing with procedural force, clocks that answer, records that travel, halts tiered by blast radius, and intrinsic performance that does not rely on expropriating human resilience to stay viable.",
+      cost: "The friction is built back in as constitutional friction: appeal latency, halt costs, and restoration work. That cost is deliberate, provisioned, and on the ledger — the challenge load ledger counts it the way the burden ledger counts absorption.",
       links: [
-        { label: "Challenge density", href: "/research/theory/challenge-density" },
+        {
+          label: "Challenge density",
+          href: "/research/theory/challenge-density",
+        },
         {
           label: "Dependence without standing",
           href: "/research/theory/dependence-without-standing",
         },
-        { label: "STD-02 Contestability", href: "/standards/std-02-contestability-recourse" },
+        {
+          label: "STD-02 Contestability",
+          href: "/standards/std-02-contestability-recourse",
+        },
       ],
     },
   ],
@@ -432,9 +436,9 @@ export const methodContent: MethodContent = {
       id: "burden-accounting",
       title: "Burden accounting",
       question:
-        "What hidden labor does this decision create — triage, rework, apology loops, policy exceptions — and who performs it?",
+        "What hidden labor does this decision create — triage, rework, apology loops, policy exceptions — and does human compensation act as a signal attenuator that blinds telemetry to system defects?",
       example:
-        "A health plan's AI triage tool misroutes 12% of prior auths. Nurses spend 90 minutes per shift re-routing them. That is 7.5 hours of unpaid care-time per week per nurse, and it appears in no budget.",
+        "A health plan's AI triage tool misroutes 12% of prior auths. Nurses spend 90 minutes per shift re-routing them. That is 7.5 hours of unpaid care-time per week per nurse: observed performance (throughput) decomposes into designed capacity plus human compensation. Because the nurses absorb the error silently, the green dashboard blinds management to the tool's actual failure rate.",
     },
     {
       id: "infrastructure-dignity",
@@ -457,7 +461,7 @@ export const methodContent: MethodContent = {
     {
       title: "Select a workflow",
       detail:
-        "Choose a process where system decisions affect people: triage, prior authorization, customer escalation.",
+        "Choose a process where system decisions affect people: a benefit eligibility check, a prior authorization, a fraud hold. The six contexts on /use-cases name the standards and the first check for each.",
     },
     {
       title: "Map burden by role",
@@ -476,5 +480,5 @@ export const methodContent: MethodContent = {
     },
   ],
   optimizationProblem:
-    'The optimization problem is not "how autonomous can the system safely become?" but "how much authority can be delegated without degrading the institution\'s ability to revise that delegation later?"',
+    'Optimization becomes predatory when an institution controls both the objective function and the accounting boundary, while people outside that boundary are required to supply whatever adaptation makes the objective achievable. The legitimate optimization problem is: "how much authority can be delegated without degrading the institution\'s ability to detect failure, account for human burden, and revise that delegation later?"',
 };

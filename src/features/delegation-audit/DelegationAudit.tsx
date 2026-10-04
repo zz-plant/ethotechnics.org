@@ -234,14 +234,14 @@ export function DelegationAudit() {
             </div>
 
             <p className="delegation-audit__note">
-              List each action class: one kind of thing the system does in this
-              workflow.
+              List each kind of action the system takes in this workflow, one
+              per card.
             </p>
             {input.actionClasses.map((entry, index) => (
               <div className="delegation-audit__card" key={entry.id}>
                 <div className="delegation-audit__card-header">
                   <h4 className="delegation-audit__card-title">
-                    Action class {index + 1}
+                    Action {index + 1}
                   </h4>
                   <button
                     type="button"
@@ -635,7 +635,9 @@ export function DelegationAudit() {
           </div>
 
           <div className="delegation-audit__step">
-            <h3 className="delegation-audit__step-title">4. Standing</h3>
+            <h3 className="delegation-audit__step-title">
+              4. Standing: who can challenge it
+            </h3>
             <p className="delegation-audit__step-question">
               {STATE_VARIABLE_QUESTIONS.standing}
             </p>
@@ -819,7 +821,7 @@ export function DelegationAudit() {
                   }
                 >
                   <option value="exercised">
-                    Yes, and they still practise it
+                    Yes, and they still practice it
                   </option>
                   <option value="held">
                     Yes, but they have not used it lately
@@ -918,7 +920,9 @@ export function DelegationAudit() {
           </div>
 
           <div className="delegation-audit__step">
-            <h3 className="delegation-audit__step-title">State variables</h3>
+            <h3 className="delegation-audit__step-title">
+              Rating for each question
+            </h3>
             <ul className="delegation-audit__variables">
               {result.variables.map((variable) => (
                 <li
@@ -953,15 +957,17 @@ export function DelegationAudit() {
           </div>
 
           <div className="delegation-audit__step">
-            <h3 className="delegation-audit__step-title">Ungrounded grants</h3>
+            <h3 className="delegation-audit__step-title">
+              Permissions nobody can justify
+            </h3>
             <p className="delegation-audit__step-question">
-              Action classes with no authorizer, no evidence basis, or nobody
-              named as affected.
+              Actions nobody authorized, with no evidence behind them, or with
+              nobody named as affected.
             </p>
             {result.ungroundedGrants.length === 0 ? (
               <p className="delegation-audit__note">
-                None recorded. Every named action class has an authorizer, an
-                evidence basis, and an affected group.
+                None recorded. Every action listed has someone who authorized
+                it, evidence behind it, and a named affected group.
               </p>
             ) : (
               <ul className="delegation-audit__list">

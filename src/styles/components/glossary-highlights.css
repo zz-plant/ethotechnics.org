@@ -71,14 +71,14 @@
        the gutters, so it forced the overflow it then could not escape. */
     min-width: min(16rem, calc(100vw - 3rem));
     max-width: min(24rem, calc(100vw - 3rem));
-    padding: 0.85rem 1rem;
+    padding: var(--space-3) var(--space-4);
     border-radius: var(--radius-lg);
     border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
     background: var(--surface);
     color: var(--text);
     font-size: var(--text-sm);
     line-height: 1.45;
-    box-shadow: var(--shadow-lg), var(--card-inner-highlight);
+    box-shadow: var(--shadow-float);
     opacity: 0;
     pointer-events: none;
     /* A closed card is out of layout, not merely transparent. Transparent, it
@@ -90,7 +90,7 @@
        transition, and the `@starting-style` block below gives the fade-in
        somewhere to start from. */
     display: none;
-    gap: 0.55rem;
+    gap: var(--space-2);
     text-align: left;
     white-space: normal;
     z-index: var(--z-overlay);
@@ -104,8 +104,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 0.6rem;
-    padding-bottom: 0.35rem;
+    gap: var(--space-2);
+    padding-bottom: var(--space-1);
     border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
   }
 
@@ -120,27 +120,27 @@
   .glossary-peek-card__badge {
     display: inline-flex;
     align-items: center;
-    padding: 0.15rem 0.45rem;
+    padding: var(--space-hair) var(--space-2);
     border-radius: var(--radius-pill);
     background: color-mix(in srgb, var(--accent) 14%, transparent);
     color: var(--accent);
-    font-size: 0.68rem;
+    font-size: var(--text-xs);
     font-weight: 700;
-    letter-spacing: 0.05em;
+    letter-spacing: var(--tracking-label);
     text-transform: uppercase;
     font-family: var(--sans);
   }
 
   .glossary-peek-card__def {
-    font-size: 0.84rem;
+    font-size: var(--text-sm);
     color: color-mix(in srgb, var(--text) 88%, var(--muted));
     line-height: 1.4;
   }
 
   .glossary-peek-card__metrics {
     display: grid;
-    gap: 0.35rem;
-    padding: 0.45rem 0.6rem;
+    gap: var(--space-1);
+    padding: var(--space-2) var(--space-2);
     border-radius: var(--radius-md);
     background: color-mix(in srgb, var(--panel) 85%, var(--surface));
     border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
@@ -150,15 +150,15 @@
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    gap: 0.5rem;
-    font-size: 0.75rem;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
   }
 
   .glossary-peek-card__metric-lbl {
     font-weight: 700;
     font-family: var(--sans);
     color: var(--muted);
-    font-size: 0.68rem;
+    font-size: var(--text-xs);
     letter-spacing: 0.06em;
   }
 
@@ -171,17 +171,17 @@
   .glossary-peek-card__footer {
     display: flex;
     justify-content: flex-end;
-    margin-top: 0.2rem;
+    margin-top: var(--space-1);
   }
 
   .glossary-peek-card__link {
-    font-size: 0.78rem;
+    font-size: var(--text-xs);
     font-weight: 650;
     color: var(--accent);
     text-decoration: none;
     display: inline-flex;
     align-items: center;
-    gap: 0.25rem;
+    gap: var(--space-1);
     transition: color var(--motion-fast) ease;
   }
 

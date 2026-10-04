@@ -14,14 +14,21 @@ const pageDescription =
 
 const anchorLinks = [{ href: "#all-explainers", label: "All explainers" }];
 
+// In the order the argument runs: where the evidence of an error collects,
+// who can challenge it, what authority has to be renewed, and how the repair
+// is recorded.
 const featuredExplainers = [
-  "stoppability",
+  "institutional-debris",
+  "error-bearing-parties",
   "contestability",
-  "safety-valve",
-  "time-to-halt",
-  "ethical-interrupts",
+  "authority-as-lease",
+  "justified-delegation",
   "repair-log",
 ];
+const featured = featuredExplainers.flatMap((id) => {
+  const entry = explainers.find((explainer) => explainer.id === id);
+  return entry ? [entry] : [];
+});
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -36,27 +43,25 @@ const featuredExplainers = [
     id="featured"
     eyebrow="Start here"
     title="Featured explainers"
-    description="These six cover stopping a system, contesting a decision, and recording the repair."
+    description="These six follow the argument: where the evidence of an error collects, who can challenge it, what authority has to be renewed, and how the repair is recorded."
     variant="alt"
   >
     <CardGrid className="grid--three">
       {
-        explainers
-          .filter((e) => featuredExplainers.includes(e.id))
-          .map((entry) => (
-            <CardItem
-              title={entry.data.title}
-              description={entry.data.description}
+        featured.map((entry) => (
+          <CardItem
+            title={entry.data.title}
+            description={entry.data.description}
+          >
+            <a
+              slot="footer"
+              class="button ghost button--compact"
+              href={entry.data.permalink}
             >
-              <a
-                slot="footer"
-                class="button ghost button--compact"
-                href={entry.data.permalink}
-              >
-                Read explainer
-              </a>
-            </CardItem>
-          ))
+              Read explainer
+            </a>
+          </CardItem>
+        ))
       }
     </CardGrid>
   </SectionBlock>
@@ -94,7 +99,7 @@ const featuredExplainers = [
     <CardGrid className="grid--two">
       <CardItem
         title="Governance as operational capability"
-        description="Why governance is something an organisation can be more or less able to do, rather than a document it has."
+        description="Why governance is something an organization can be more or less able to do, rather than a document it has."
       >
         <a slot="footer" class="muted" href="/explainers/governance-capability">
           Read explainer
@@ -143,7 +148,7 @@ const featuredExplainers = [
     </CardGrid>
   </SectionBlock>
 
-  <p class="muted" style="margin-top:2rem">
+  <p class="muted" style="margin-top:var(--space-6)">
     See also: <a href="/taxonomy">Taxonomy</a> &middot; <a href="/standards"
       >Standards</a
     > &middot; <a href="/mechanisms">Mechanisms</a>

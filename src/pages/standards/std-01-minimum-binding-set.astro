@@ -7,7 +7,7 @@ import { derivePublicationMetadata } from "../../utils/publication";
 
 const pageTitle = "STD-01 minimum binding set";
 const pageDescription =
-  "The minimum binding requirements per right for STD-01, including clause references and insufficient implementations.";
+  "The least each STD-01 right requires before a system can claim to meet it, with clause references and examples of implementations that fall short.";
 const permalink = "/standards/std-01-minimum-binding-set";
 const anchorLinks = [
   { href: "#principles", label: "Minimum-binding principles" },
@@ -19,7 +19,7 @@ const publication = derivePublicationMetadata({
   permalink,
   published: "2026-02-01T00:00:00Z",
   version: "v1.0.0",
-  authorName: "Ethotechnics Standards Office",
+  authorName: "Ethotechnics Institute",
   changelogSummary:
     "Published minimum binding sets for all seven temporal rights.",
 });
@@ -129,13 +129,11 @@ const bindingSets = [
   publishedTime="2025-06-01T00:00:00.000Z"
   mainClass="page page--wide"
 >
-  <ScholarlyMeta publication={publication} permalink={permalink} />
-
   <SectionBlock
     id="principles"
     eyebrow="Principles"
-    title="Minimum binding means multiple enforceable commitments."
-    description="Adopting STD-01 means nothing until each right has several enforceable commitments behind it."
+    title="Each right needs several enforceable commitments."
+    description="Adopting STD-01 means nothing until each right has several commitments behind it that someone can enforce."
   >
     <ul class="muted">
       <li>All requirements in a right must be met to claim compliance.</li>
@@ -158,8 +156,8 @@ const bindingSets = [
   <SectionBlock
     id="requirements"
     eyebrow="Per right"
-    title="Minimum binding sets by article."
-    description="Every right requires multiple binding controls, not a single surface fix."
+    title="Minimum requirements, right by right."
+    description="Every right needs several enforceable controls, not a single interface fix."
     variant="alt"
   >
     <div class="binding-grid">
@@ -197,6 +195,7 @@ const bindingSets = [
     title="Cite this minimum binding set."
     description="Use the citation block for audits, procurement, and policy references."
   >
+    <ScholarlyMeta publication={publication} permalink={permalink} />
     <CitationBlock
       title={pageTitle}
       permalink={permalink}
@@ -204,7 +203,7 @@ const bindingSets = [
       citationKey="std_01_minimum_binding_set"
       summaryLabel="Cite this minimum binding set"
     />
-    <p class="muted" style="margin-top:1.5rem">
+    <p class="muted" style="margin-top:var(--space-5)">
       See also: <a href="/standards">Standards</a> &middot; <a
         href="/mechanisms">Mechanisms</a
       >

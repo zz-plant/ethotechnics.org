@@ -22,7 +22,7 @@ if (!tool) {
 
 const { publication } = diagnosticsContent;
 const pageTitle = `${tool.title} — Diagnostics`;
-const pageDescription = tool.description;
+const pageDescription = tool.metaDescription ?? tool.description;
 const permalink = `/diagnostics/${tool.slug}`;
 const anchorLinks = [
   { href: "#overview", label: "Overview" },
@@ -41,15 +41,14 @@ const anchorLinks = [
   <PageIntro
     eyebrow="Diagnostics"
     title={tool.title}
-    description={pageDescription}
+    description={tool.description}
     anchorLinks={anchorLinks}
-    illustration="diagnostics"
   />
 
   <SectionBlock
     id="overview"
     eyebrow="Overview"
-    title="When to use the Corrective Debt Calculator."
+    title="When to use the corrective capacity self-assessment"
     description={tool.bestFor}
   >
     <ul class="muted">
@@ -69,8 +68,8 @@ const anchorLinks = [
   <SectionBlock
     id="methodology"
     eyebrow="Methodology"
-    title="Two axes, one gap."
-    description="Action capacity and corrective capacity are stated separately and compared. The gap between them is the debt."
+    title="What the system can do, and what can be corrected"
+    description="The tool asks about two things separately. Action capacity is how fast the system's power to decide about people is growing. Corrective capacity is how well the institution hears and fixes its mistakes. The gap between them is the corrective debt."
     variant="alt"
   >
     <DiagnosticMethodology
@@ -78,23 +77,25 @@ const anchorLinks = [
       methodOverview={tool.methodOverview}
       instrument={tool.instrument}
       validation={tool.validation}
+      collectionCost={tool.collectionCost}
       replicability={tool.replicability}
     />
     <div class="panel stack-sm">
       <p class="eyebrow">The presumption this tool applies</p>
       <p>
-        A recurring workaround is a <strong>presumption of upstream design
-        failure</strong>, not evidence that adaptable humans can handle the edge
-        cases. The presumption is rebuttable: show that the workaround is a
-        product of preference rather than compensation. Until it is rebutted,
-        repeated adaptation counts as rigidity being subsidized by human
-        flexibility.
+        A recurring workaround is a <strong
+          >presumption of upstream design failure</strong
+        >, not evidence that adaptable humans can handle the edge cases. The
+        presumption is rebuttable: show that the workaround is a product of
+        preference rather than compensation. Until it is rebutted, repeated
+        adaptation counts as people covering for a system that will not change.
       </p>
       <p class="muted small">
         Related:
         <a href="/glossary/workaround-presumption">Workaround presumption</a> ·
         <a href="/glossary/corrective-debt">Corrective debt</a> ·
-        <a href="/glossary/exception-absorption">Exception absorption</a>
+        <a href="/glossary/exception-absorption">Exception absorption</a> ·
+        <a href="/glossary/preserved-dependence">Preserved dependence</a>
       </p>
     </div>
   </SectionBlock>
@@ -102,13 +103,13 @@ const anchorLinks = [
   <SectionBlock
     id="run-tool"
     eyebrow="Run the tool"
-    title="State the two axes for the last twelve months."
-    description="Five inputs: how fast action compounded, and four measures of the capacity to hear from people when it is wrong."
+    title="Answer for the last twelve months"
+    description="Five questions: how fast the system's reach grew, and four on whether the institution hears from people when the system is wrong, and acts on it."
   >
     <form class="intake-form" data-debt-form>
       <fieldset class="intake-form__grid">
         <label class="intake-form__field">
-          Action-capacity growth
+          Growth in what the system decides
           <select id="growth" name="growth" required>
             <option value="compounding">
               Compounding — decisions automated and dependence grew each month
@@ -126,7 +127,7 @@ const anchorLinks = [
           </select>
         </label>
         <label class="intake-form__field">
-          Reversal latency
+          Time to reverse a decision
           <select id="reversal" name="reversal" required>
             <option value="unbounded">Unknown or unbounded</option>
             <option value="slow">Days to weeks</option>
@@ -134,7 +135,7 @@ const anchorLinks = [
           </select>
         </label>
         <label class="intake-form__field">
-          Upstream revision
+          Whether exceptions change the rules
           <select id="revision" name="revision" required>
             <option value="never">
               Handled exceptions never change the rule that produced them
@@ -144,7 +145,7 @@ const anchorLinks = [
           </select>
         </label>
         <label class="intake-form__field">
-          Workaround register
+          Record of staff workarounds
           <select id="workaround" name="workaround" required>
             <option value="none">
               Recurring workarounds are inventoried nowhere
@@ -154,9 +155,45 @@ const anchorLinks = [
           </select>
         </label>
       </fieldset>
+      <fieldset class="intake-form__grid">
+        <legend class="muted small">
+          Optional context. These answers are recorded and never change the
+          score.
+        </legend>
+        <label class="intake-form__field">
+          Authority over the conditions
+          <select id="authority" name="authority">
+            <option value="">Not stated</option>
+            <option value="management">
+              Management alone decides budget, staffing, and priorities for the
+              conditions that produce the workarounds
+            </option>
+            <option value="consulted">
+              Management decides after consulting the people who carry the work
+            </option>
+            <option value="shared">
+              Decisions are shared, and the people who carry the work have a
+              binding say
+            </option>
+          </select>
+        </label>
+        <label class="intake-form__field">
+          Decision on fixing the deficiency
+          <select id="fix" name="fix">
+            <option value="">Not stated</option>
+            <option value="kept">
+              The institution has priced a fix and chose to keep the workaround
+            </option>
+            <option value="unpriced">
+              The institution has not priced a fix
+            </option>
+            <option value="funded">A fix is funded</option>
+          </select>
+        </label>
+      </fieldset>
       <div class="intake-form__actions">
         <button class="button primary" type="submit" data-debt-submit>
-          Calculate corrective debt
+          Score my answers
         </button>
       </div>
     </form>
@@ -165,32 +202,32 @@ const anchorLinks = [
   <SectionBlock
     id="results"
     eyebrow="Results"
-    title="Corrective debt readout."
-    description="Use the shareable link in the expansion review."
+    title="Self-assessment readout."
+    description="These fixed-weight scores summarize your answers. They do not measure a capacity gap, forecast debt, or verify evidence."
     variant="alt"
   >
     <div class="panel" data-debt-results hidden>
-      <p class="muted">Corrective debt score</p>
+      <p class="muted">Concern score, from your answers</p>
       <p class="metric" data-debt-score>--</p>
       <span class="status-pill status-pill--yellow" data-debt-tier
         >Moderate</span
       >
       <p class="muted" data-debt-summary>
-        Complete the form above to generate your corrective debt score.
+        Answer the questions above to see your concern score.
       </p>
       <div class="metrics-grid">
         <div>
-          <p class="muted">Absorption share</p>
-          <p class="metric" data-debt-absorption>--</p>
-        </div>
-        <div>
-          <p class="muted">Debt trajectory</p>
+          <p class="muted">Reported growth in what the system decides</p>
           <p class="metric" data-debt-trajectory>--</p>
         </div>
         <div>
           <p class="muted">Workaround presumption</p>
           <p class="metric" data-debt-presumption>--</p>
         </div>
+      </div>
+      <div class="panel stack-sm" data-debt-context hidden>
+        <p class="eyebrow">Context, not scored</p>
+        <p data-debt-context-text></p>
       </div>
       <label class="intake-form__field intake-form__field--full">
         Shareable link
@@ -225,9 +262,6 @@ const anchorLinks = [
   const tierLabel = document.querySelector<HTMLElement>("[data-debt-tier]");
   const summaryText = document.querySelector<HTMLElement>(
     "[data-debt-summary]",
-  );
-  const absorptionValue = document.querySelector<HTMLElement>(
-    "[data-debt-absorption]",
   );
   const trajectoryValue = document.querySelector<HTMLElement>(
     "[data-debt-trajectory]",
@@ -265,6 +299,59 @@ const anchorLinks = [
   const isWorkaround = (value: string): value is WorkaroundValue =>
     ["none", "informal", "inventoried"].includes(value);
 
+  type AuthorityValue = "management" | "consulted" | "shared";
+  type FixValue = "kept" | "unpriced" | "funded";
+  const isAuthority = (value: string): value is AuthorityValue =>
+    ["management", "consulted", "shared"].includes(value);
+  const isFix = (value: string): value is FixValue =>
+    ["kept", "unpriced", "funded"].includes(value);
+
+  const contextPanel = document.querySelector<HTMLElement>(
+    "[data-debt-context]",
+  );
+  const contextText = document.querySelector<HTMLElement>(
+    "[data-debt-context-text]",
+  );
+
+  /** Optional answers that are recorded and never enter the score. */
+  const readContext = (read: (name: string) => string) => {
+    const authority = read("authority");
+    const fix = read("fix");
+    return {
+      authority: isAuthority(authority) ? authority : undefined,
+      fix: isFix(fix) ? fix : undefined,
+    };
+  };
+
+  const contextSentence = (
+    authority: AuthorityValue | undefined,
+    fix: FixValue | undefined,
+  ) => {
+    const solePower = authority === "management" || authority === "consulted";
+    if (solePower && fix === "kept") {
+      return "These answers describe an institution that has priced a fix, chose to keep the workaround, and holds sole authority over changing it. That is a conflict of interest, not a gap in information. Measuring the workaround more closely will not change who decides. A binding say for the people who carry the work, or pressure from outside the institution, might.";
+    }
+    if (solePower) {
+      return "The people who carry the work have no binding say over the conditions that produce it. Understanding the workaround better will not change that. Check whether the institution knows the cost and has chosen to keep it.";
+    }
+    if (authority === "shared") {
+      return "The people who carry the work have a binding say over these conditions. The score above still applies to the corrective route it describes.";
+    }
+    if (fix === "kept") {
+      return "The institution has priced a fix and chose to keep the workaround. Authority over the decision was not stated.";
+    }
+    return "Authority over the conditions was not stated.";
+  };
+
+  const renderContext = (context: ReturnType<typeof readContext>) => {
+    if (!contextPanel || !contextText) return;
+    const stated = context.authority || context.fix;
+    contextPanel.hidden = !stated;
+    if (stated) {
+      contextText.textContent = contextSentence(context.authority, context.fix);
+    }
+  };
+
   const RAW_MAX = 125;
 
   const scoreMatrix = {
@@ -295,52 +382,34 @@ const anchorLinks = [
     },
   };
 
-  const absorptionMatrix = {
-    intake: {
-      none: 60,
-      shared: 35,
-      dedicated: 10,
-    },
-    revision: {
-      never: 25,
-      occasional: 10,
-      regular: 0,
-    },
-    workaround: {
-      none: 10,
-      informal: 5,
-      inventoried: 0,
-    },
-  };
-
   const tierMap = [
     {
       label: "Critical",
       min: 80,
       status: "red",
       summary:
-        "Corrective debt is critical. Action capacity compounds while the capacity to hear from people is unresourced. Halt expansion until challenge intake, reversal, and revision are funded.",
+        "Your answers fall in the critical concern band. Action capacity compounds while the capacity to hear from people is unresourced. Halt expansion until challenge intake, reversal, and revision are funded.",
     },
     {
       label: "High",
       min: 60,
       status: "red",
       summary:
-        "Corrective debt is high. The institution is acting on people faster than it can hear from them. Fund the corrective axis before the next expansion.",
+        "Your answers fall in the high concern band. The institution is acting on people faster than it can hear from them. Fund challenge intake, reversal, and revision before the next expansion.",
     },
     {
       label: "Moderate",
       min: 40,
       status: "yellow",
       summary:
-        "Corrective debt is moderate. Correction machinery exists but does not match the growth on the action axis. Close the gaps the inputs name.",
+        "Your answers fall in the moderate concern band. There are ways to correct the system, but they have not kept pace with its growth. Close the gaps your answers name.",
     },
     {
       label: "Low",
       min: 0,
       status: "green",
       summary:
-        "Corrective debt is low. Corrective capacity is resourced and exercised. Keep the two axes tracked so the gap stays visible.",
+        "Your answers fall in the low concern band. You report resourced corrective capacity and regular revision; neither is independently verified. Keep tracking growth and correction side by side so a gap shows if it opens.",
     },
   ];
 
@@ -354,6 +423,11 @@ const anchorLinks = [
     none: "Applies — unmeasured",
     informal: "Applies — no register",
     inventoried: "Rebuttable — register held",
+  };
+
+  const readField = (name: string) => {
+    const field = form?.elements.namedItem(name);
+    return field instanceof HTMLSelectElement ? field.value : "";
   };
 
   const clamp = (value: number, min: number, max: number) =>
@@ -372,14 +446,6 @@ const anchorLinks = [
     return Math.round((raw / RAW_MAX) * 100);
   };
 
-  const calculateAbsorption = (values: DebtValues) => {
-    const share =
-      absorptionMatrix.intake[values.intake] +
-      absorptionMatrix.revision[values.revision] +
-      absorptionMatrix.workaround[values.workaround];
-    return clamp(share, 5, 95);
-  };
-
   const setShareUrl = (values: DebtValues, score: number, tier: string) => {
     const url = new URL(window.location.href);
     url.searchParams.set("growth", values.growth);
@@ -389,6 +455,12 @@ const anchorLinks = [
     url.searchParams.set("workaround", values.workaround);
     url.searchParams.set("score", String(score));
     url.searchParams.set("tier", tier.toLowerCase());
+    const context = readContext((name) => readField(name));
+    for (const key of ["authority", "fix"] as const) {
+      const value = context[key];
+      if (value) url.searchParams.set(key, value);
+      else url.searchParams.delete(key);
+    }
     history.replaceState(null, "", url.toString());
     if (shareInput) {
       shareInput.value = url.toString();
@@ -421,7 +493,6 @@ const anchorLinks = [
       !scoreValue ||
       !tierLabel ||
       !summaryText ||
-      !absorptionValue ||
       !trajectoryValue ||
       !presumptionValue
     )
@@ -437,10 +508,10 @@ const anchorLinks = [
     );
     tierLabel.classList.add(`status-pill--${tier.status}`);
     summaryText.textContent = tier.summary;
-    absorptionValue.textContent = `${calculateAbsorption(values)}%`;
     trajectoryValue.textContent = trajectoryLabels[values.growth];
     presumptionValue.textContent = presumptionLabels[values.workaround];
     results.hidden = false;
+    renderContext(readContext(readField));
     setShareUrl(values, score, tier.label);
   };
 
@@ -470,6 +541,11 @@ const anchorLinks = [
       for (const [name, value] of fields) {
         const field = form.elements.namedItem(name);
         if (field instanceof HTMLSelectElement) field.value = value;
+      }
+      const context = readContext((name) => params.get(name) ?? "");
+      for (const [name, value] of Object.entries(context)) {
+        const field = form.elements.namedItem(name);
+        if (field instanceof HTMLSelectElement && value) field.value = value;
       }
       const values: DebtValues = {
         growth,
@@ -506,6 +582,12 @@ const anchorLinks = [
       for (const [name, value] of Object.entries(values)) {
         const field = form.elements.namedItem(name);
         if (field instanceof HTMLSelectElement) field.value = value;
+      }
+      const storedRecord = storedValues as Record<string, string | undefined>;
+      const context = readContext((name) => storedRecord[name] ?? "");
+      for (const [name, value] of Object.entries(context)) {
+        const field = form.elements.namedItem(name);
+        if (field instanceof HTMLSelectElement && value) field.value = value;
       }
       renderResults(values, calculateScore(values));
     }

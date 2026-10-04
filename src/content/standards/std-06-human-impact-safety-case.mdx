@@ -1,6 +1,6 @@
 ---
 title: "STD-06 — Human Impact Safety Case"
-description: "The tests, thresholds, evidence artifacts, and do-not-deploy boundaries that make up a safety case for human impact, with the dependency and reversibility section that keeps the case honest after launch."
+description: "Draft standard for a human impact safety case: tests, thresholds, evidence, and do-not-deploy limits, plus tracking dependence after launch."
 permalink: "/standards/std-06-human-impact-safety-case"
 eyebrow: "Standard"
 seoTitle: "STD-06 — Human Impact Safety Case"
@@ -70,6 +70,11 @@ export const artifacts = [
     artifact: "Dependency ledger",
     contents:
       "Dependents, substitution cost, retained expertise, alternatives, correction latency, and the exposure score.",
+  },
+  {
+    artifact: "Rescue register",
+    contents:
+      "Each failure caught by a person before it reached someone, with the person who caught it, the labor spent catching it, and whether the source condition was later fixed.",
   },
   {
     artifact: "Withdrawal rehearsal report",
@@ -293,6 +298,17 @@ export const structuredData = {
             Freshness: Each artifact carries the date it was last refreshed, and a
             stale artifact is reported as stale rather than presented as
             current.
+          </li>
+          <li>
+            <span class="standard-clause-id">§3.3</span>
+            Rescue Records: A failure that a person caught before it reached
+            someone else is recorded as an occurrence, with the condition that
+            nearly produced the harm, the person who caught it, the labor spent
+            catching it, and whether the source condition was subsequently
+            fixed. An incident count that omits these reports the number of times
+            the institution was not lucky. A rescue that repeats against the same
+            unfixed condition is evidence about the condition, not about the
+            person who keeps catching it.
           </li>
         </ol>
       </section>

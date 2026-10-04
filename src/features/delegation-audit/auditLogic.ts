@@ -27,8 +27,10 @@ const RECENCY_WEIGHT = {
   never: 0,
 } as const;
 
-const clampScore = (value: number) =>
-  Math.max(0, Math.min(100, Math.round(value)));
+const clampScore = (value: number) => {
+  if (!Number.isFinite(value)) return 0;
+  return Math.max(0, Math.min(100, Math.round(value)));
+};
 
 const ratingForScore = (score: number): Rating => {
   if (score >= 70) return "grounded";
@@ -45,7 +47,7 @@ const share = (matching: number, total: number) =>
   total === 0 ? 0 : matching / total;
 
 export const countDependencyDepth = (input: AuditInput): number =>
-  input.dependents.filter(
+  (input.dependents || []).filter(
     (dependent) =>
       dependent.criticality === "high" || dependent.criticality === "critical",
   ).length;
@@ -81,14 +83,24 @@ const BAND_COPY: Record<ExposureBand, { label: string; reading: string }> = {
 };
 
 export const calculateExposureScore = (input: AuditInput): ExposureScore => {
-  const dependencyDepth = countDependencyDepth(input);
+  const dependencyDepth = Math.max(0, countDependencyDepth(input));
   const substitutionCostStaffWeeks = Math.max(
     0,
-    input.substitutionCostStaffWeeks || 0,
+    Number.isFinite(input.substitutionCostStaffWeeks)
+      ? input.substitutionCostStaffWeeks
+      : 0,
   );
-  const correctionLatencyHours = Math.max(0, input.correctionLatencyHours || 0);
-  const score = Math.round(
-    dependencyDepth * substitutionCostStaffWeeks * correctionLatencyHours,
+  const correctionLatencyHours = Math.max(
+    0,
+    Number.isFinite(input.correctionLatencyHours)
+      ? input.correctionLatencyHours
+      : 0,
+  );
+  const score = Math.max(
+    0,
+    Math.round(
+      dependencyDepth * substitutionCostStaffWeeks * correctionLatencyHours,
+    ),
   );
   const band = bandForScore(score);
 
@@ -226,7 +238,7 @@ const scoreEvidence = (input: AuditInput): VariableRating => {
     classes.length === 0
       ? 0
       : classes.reduce(
-          (sum, entry) => sum + RECENCY_WEIGHT[entry.lastChecked],
+          (sum, entry) => sum + (RECENCY_WEIGHT[entry.lastChecked] ?? 0),
           0,
         ) / classes.length;
 
@@ -271,14 +283,15 @@ const scoreDependency = (
   exposure: ExposureScore,
 ): VariableRating => {
   const notes: string[] = [];
-  const rehearsalPoints = RECENCY_WEIGHT[input.alternativeExercised] * 50;
+  const rehearsalPoints =
+    (RECENCY_WEIGHT[input.alternativeExercised] ?? 0) * 50;
   const bandPoints: Record<ExposureBand, number> = {
     none: 50,
     contained: 40,
     material: 20,
     heavy: 0,
   };
-  const score = clampScore(rehearsalPoints + bandPoints[exposure.band]);
+  const score = clampScore(rehearsalPoints + (bandPoints[exposure.band] ?? 0));
 
   notes.push(
     `Exposure score ${exposure.score} from depth ${exposure.dependencyDepth} × ${exposure.substitutionCostStaffWeeks} staff-weeks × ${exposure.correctionLatencyHours} hours.`,
@@ -386,7 +399,7 @@ const scoreCorrection = (input: AuditInput): VariableRating => {
 
   if (input.expertiseRetained === "exercised") {
     score += 30;
-    notes.push("People who can run the alternative are still practising it.");
+    notes.push("People who can run the alternative are still practicing it.");
   } else if (input.expertiseRetained === "held") {
     score += 15;
     notes.push(
@@ -461,7 +474,7 @@ export const assessReversibility = (
     status: operationalStatus,
     reason:
       operationalStatus === "evidenced"
-        ? "The alternative has been run in the last 12 months by people who still practise it."
+        ? "The alternative has been run in the last 12 months by people who still practice it."
         : operationalStatus === "not-feasible"
           ? "Either the alternative has never been run or nobody left can run it."
           : "The alternative exists on paper but has not been exercised recently enough to count as evidence.",
@@ -533,7 +546,7 @@ const buildFindings = (
       variable: "authority",
       title: `${ungrounded.length} action class(es) with no authorizer or no evidence basis`,
       detail:
-        "An ungrounded grant is something to investigate. Either the record is missing or the authority is.",
+        "A permission nobody can justify is something to investigate. Either the record is missing or the authority is.",
       clause: CLAUSE_REFS.renewalBurden,
       mechanism: MECHANISM_REFS.grantRegister,
       evalSuite: EVAL_REFS.delegationValidity,
@@ -563,7 +576,7 @@ const buildFindings = (
       title:
         "The policy behind this workflow is missing a trigger or an expiry",
       detail:
-        "A policy without a review trigger and an expiry cannot move a grant to review, so evidence and authority drift apart quietly.",
+        "A policy without a review trigger and an expiry cannot send a permission back for review, so evidence and authority drift apart quietly.",
       clause:
         input.policyExpiry !== "yes"
           ? CLAUSE_REFS.expiryEndsJustification
@@ -579,7 +592,7 @@ const buildFindings = (
       variable: "evidence",
       title: "The basis for the permission has not been rechecked recently",
       detail:
-        "The absence of an observed failure is not evidence that the grant still holds. Name what was examined and who looked.",
+        "The absence of an observed failure is not evidence that the permission is still justified. Name what was examined and who looked.",
       clause: CLAUSE_REFS.silenceNotRenewal,
       mechanism: MECHANISM_REFS.policyTriggers,
       evalSuite: EVAL_REFS.delegationValidity,
@@ -621,7 +634,7 @@ const buildFindings = (
       variable: "standing",
       title: "The people who bear the errors cannot reach a named responder",
       detail:
-        "Exposure without a route into the system is wasted signal. Name who may challenge, who answers, and by when.",
+        "If the people who bear the errors cannot report them to someone who must answer, the system never hears about them. Name who may challenge, who answers, and by when.",
       clause: CLAUSE_REFS.correctionCapacity,
       mechanism: MECHANISM_REFS.interventionSpec,
       evalSuite: EVAL_REFS.standing,
@@ -632,9 +645,9 @@ const buildFindings = (
     findings.push({
       id: "challenge-no-state-change",
       variable: "standing",
-      title: "A challenge cannot change the system's state",
+      title: "A challenge cannot change how the system works",
       detail:
-        "A challenge that only fixes one case leaves the delegation exactly as it was. Define the state transitions a successful challenge can produce.",
+        "A challenge that only fixes one case leaves the system's permissions as they were. Define what a successful challenge can change.",
       clause: CLAUSE_REFS.interventionSpec,
       mechanism: MECHANISM_REFS.interventionSpec,
       evalSuite: EVAL_REFS.meaningfulControl,
@@ -657,7 +670,7 @@ const buildFindings = (
     findings.push({
       id: "expertise-thin",
       variable: "correction",
-      title: "The expertise to run the alternative is not being practised",
+      title: "The expertise to run the alternative is not being practiced",
       detail:
         "List the capacities kept so the workflow can still be run without this system, and give each one an owner.",
       clause: CLAUSE_REFS.preservedCapacities,
@@ -673,7 +686,7 @@ const buildFindings = (
       title:
         "Correction capacity rests on a stop the institution may not afford",
       detail:
-        "A correction the institution cannot afford to make is not counted as capacity. Evidence the practical ability from the dependency record.",
+        "A correction the institution cannot afford to make is not counted as capacity. Show from the dependency record that the institution can actually afford to make it.",
       clause: CLAUSE_REFS.practicalAbility,
       mechanism: MECHANISM_REFS.dependencyLedger,
       evalSuite: EVAL_REFS.meaningfulControl,
@@ -724,7 +737,7 @@ export const buildReadout = (result: AuditResult, capturedAt: string) => {
     `Depth ${result.exposure.dependencyDepth} high or critical dependents x substitution cost ${result.exposure.substitutionCostStaffWeeks} staff-weeks x correction latency ${result.exposure.correctionLatencyHours} hours.`,
   );
   lines.push("");
-  lines.push("State variables");
+  lines.push("Rating for each question");
   for (const variable of result.variables) {
     lines.push(
       `- ${variable.label}: ${variable.rating} (${variable.score}/100)`,
@@ -734,7 +747,7 @@ export const buildReadout = (result: AuditResult, capturedAt: string) => {
     }
   }
   lines.push("");
-  lines.push("Ungrounded grants");
+  lines.push("Permissions nobody can justify");
   if (result.ungroundedGrants.length === 0) {
     lines.push("- None recorded.");
   } else {
@@ -765,7 +778,7 @@ export const buildReadout = (result: AuditResult, capturedAt: string) => {
   }
   lines.push("");
   lines.push(
-    "This readout records what the team believes. It is not an audit, and an ungrounded grant is a finding to investigate, not a proven violation.",
+    "This readout records what the team believes. It is not an audit, and a permission nobody can justify is a finding to investigate, not a proven violation.",
   );
 
   return lines.join("\n");

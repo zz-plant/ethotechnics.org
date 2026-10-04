@@ -4,7 +4,7 @@
 
   .intake-form {
     display: grid;
-    gap: 2rem;
+    gap: var(--space-6);
     transition:
       opacity var(--motion-base) ease,
       transform var(--motion-base) ease;
@@ -16,13 +16,13 @@
 
   .intake-form__grid {
     display: grid;
-    gap: 1.5rem;
+    gap: var(--space-5);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   }
 
   .intake-form__field {
     display: grid;
-    gap: 0.5rem;
+    gap: var(--space-2);
   }
 
   .intake-form__field--full {
@@ -33,12 +33,12 @@
   .intake-form__field select,
   .intake-form__field textarea {
     width: 100%;
-    padding: 0.85rem 1rem;
+    padding: var(--space-3) var(--space-4);
     border-radius: var(--radius-md);
     border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
     background: var(--surface);
     font-family: var(--sans);
-    font-size: 1rem;
+    font-size: var(--text-base);
     color: var(--text);
     box-shadow: var(--card-inner-highlight);
     transition:
@@ -68,12 +68,12 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 1.5rem;
+    gap: var(--space-5);
   }
 
   .success-message {
     animation: fadeIn 0.4s var(--ease-out-editorial) forwards;
-    padding: 3rem;
+    padding: var(--space-7);
     text-align: center;
     border-radius: var(--radius-lg);
     background: var(--surface);
@@ -89,7 +89,7 @@
 
   .success-message__content {
     display: grid;
-    gap: 1rem;
+    gap: var(--space-4);
     justify-items: center;
     max-width: 400px;
   }
@@ -102,21 +102,21 @@
     color: var(--accent);
     display: grid;
     place-items: center;
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-2);
   }
 
   .success-message h3 {
     margin: 0;
-    font-size: 1.5rem;
+    font-size: var(--text-xl);
   }
 
   .form-message {
-    margin-top: 1rem;
-    padding: 0.75rem;
+    margin-top: var(--space-4);
+    padding: var(--space-3);
     min-height: 2.75rem;
     border-radius: var(--radius-md);
-    font-size: 0.9rem;
+    font-size: var(--text-sm);
     visibility: hidden;
   }
 

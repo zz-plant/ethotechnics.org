@@ -1,0 +1,579 @@
+---
+/**
+ * How the method's parts fit: one stack, read top to bottom, where each
+ * layer turns the one above it into something a running system can fail.
+ *
+ * This component provides both the global view of all layers and interactive
+ * concept traces that cut vertically through the stack from axiom to casebook.
+ */
+import { getCollection } from "astro:content";
+import { cases } from "../content/casebook";
+import { diagnosticsContent } from "../content/diagnostics";
+import { evalsContent } from "../content/evals";
+import { methodContent } from "../content/method";
+import { standardsContent } from "../content/standards";
+
+const essays = (await getCollection("theory")).length;
+const words = [
+  "zero",
+  "one",
+  "two",
+  "three",
+  "four",
+  "five",
+  "six",
+  "seven",
+  "eight",
+  "nine",
+  "ten",
+  "eleven",
+  "twelve",
+];
+const inWords = (count: number) => words[count] ?? String(count);
+const listedStandards = standardsContent.standards.filter(
+  (standard) => standard.listedOnSite !== false,
+).length;
+const safeguards = methodContent.stateVariables
+  .map((variable) => variable.state.toLowerCase())
+  .join(", ");
+
+type Layer = {
+  id: string;
+  name: string;
+  role: string;
+  href?: string;
+  count?: string;
+  countLinks?: { label: string; href: string }[];
+  traceDetails?: Record<string, string>;
+};
+
+const layers: Layer[] = [
+  {
+    id: "theory",
+    name: "Theory",
+    count: `${essays} essays`,
+    role: "Why institutions absorb the evidence that they are wrong, and why that is a problem of power, not only of accuracy.",
+    href: "/research/theory",
+    traceDetails: {
+      contestability:
+        "Dependence without standing: an affected person has no route to alter system state.",
+      leases:
+        "Endogenous authorization: authority is assumed from capability rather than leased.",
+      resilience:
+        "The human subsidy: unpriced human compensation balances system errors.",
+      reversibility:
+        "What outcomes hide: nominal reversibility hides operational irreversibility.",
+    },
+  },
+  {
+    id: "axioms",
+    name: "Axioms",
+    count: "5 axioms",
+    role: "What the constraints are owed to: finitude, consent, stewardship, reversibility, and legibility.",
+    href: "/standards/core-axioms",
+    traceDetails: {
+      contestability: "Axiom II (Consent) and Axiom IV (Reversibility).",
+      leases:
+        "Axiom III (Stewardship): delegated agency must remain answerable.",
+      resilience:
+        "Axiom I (Finitude): human adaptive capacity is finite and uncolonizable.",
+      reversibility:
+        "Axiom IV (Reversibility): irreversible actions require constitutional gates.",
+    },
+  },
+  {
+    id: "laws",
+    name: "Laws",
+    count: `${methodContent.laws.length} laws and one invariant`,
+    role: "The constraints. Each states a condition that must always hold; the invariant states all of them in one sentence.",
+    href: "/standards/laws",
+    traceDetails: {
+      contestability:
+        "Law VII (Standing proportional to exposure) and Law XII (Cannot erase contestability).",
+      leases:
+        "Law I (Capability does not imply authority) and Law II (Authority decays unless renewed).",
+      resilience:
+        "Law IV (Consequential delegation creates correction obligation) and Law XI.",
+      reversibility:
+        "Law VI (Nominal reversibility is not operational) and Law VIII (Observability without state transition is theater).",
+    },
+  },
+  {
+    id: "safeguards",
+    name: "Safeguards",
+    count: `${methodContent.stateVariables.length} safeguards`,
+    role: `What a delegation must keep in step: ${safeguards}. The casebook and the self-test score these.`,
+    href: "/method#state-variables",
+    traceDetails: {
+      contestability:
+        "Standing and Correction: error-bearing parties must alter system state.",
+      leases:
+        "Capability, Authority, and Evidence: jurisdiction must be grounded in verified claims.",
+      resilience:
+        "Dependency and Correction: dependence must not outrun the capacity to repair.",
+      reversibility:
+        "Correction: interventions must remain technically and operationally feasible.",
+    },
+  },
+  {
+    id: "standards",
+    name: "Standards",
+    count: `${listedStandards} standards`,
+    role: "Numbered clauses a running system can pass or fail, each with the evidence it needs.",
+    href: "/standards",
+    traceDetails: {
+      contestability:
+        "STD-02 Contestability & Recourse: formal appeal paths and reason requirements.",
+      leases:
+        "STD-08 Delegation: authority grants as expiring leases with review triggers.",
+      resilience:
+        "STD-01 Temporal Rights: response clocks that prevent indefinite pending states.",
+      reversibility:
+        "STD-07 Revisable Delegation Record: actions pinned to authorizations with reversal logs.",
+    },
+  },
+  {
+    id: "mechanisms",
+    name: "Mechanisms",
+    count: "Blueprints",
+    role: "Controls that meet a clause: decision logs, kill switches, appeal paths, authority grant registers, dependency ledgers.",
+    href: "/mechanisms",
+    traceDetails: {
+      contestability: "MEC-06 Appeal Paths and MEC-08 Contestation APIs.",
+      leases:
+        "MEC-13 Authority Grant Register: auditable log of active permissions.",
+      resilience:
+        "MEC-01 Decision Log with Dissent and MEC-11 Escalation SLAs.",
+      reversibility:
+        "MEC-10 Reversibility Audit Logs and MEC-12 Stoppability Testing.",
+    },
+  },
+  {
+    id: "evals",
+    name: "Evals and diagnostics",
+    countLinks: [
+      { label: `${evalsContent.suites.length} eval suites`, href: "/evals" },
+      {
+        label: `${diagnosticsContent.tools.length} diagnostic tools`,
+        href: "/diagnostics",
+      },
+    ],
+    role: "Tests that check a system against the clauses, starting from a workflow, a decision log, or a set of numbers.",
+    traceDetails: {
+      contestability:
+        "Burden Concealment Evals and Contestation API conformance tests.",
+      leases:
+        "Delegation Audit tool: checks whether capabilities are bounded by active grants.",
+      resilience:
+        "Workload Modeler (Burden Modeler) and Burden Budget Worksheet.",
+      reversibility:
+        "Record Conformance Checker: verifies discrepancy answers inside clock deadlines.",
+    },
+  },
+  {
+    id: "casebook",
+    name: "Casebook",
+    count: `${cases.length} cases`,
+    role: "Public failures scored on the six safeguards and on whether the institution changed the rule or absorbed the case.",
+    href: "/casebook",
+    traceDetails: {
+      contestability:
+        "Robodebt (Australia): contestability was dismantled to enforce algorithmic debt notices.",
+      leases:
+        "Horizon (UK Post Office): branch accounting authority was delegated without verifiable evidence.",
+      resilience:
+        "Prior Authorization AI: nurses absorbed misrouted claims (7.5 hrs/week unpriced labor).",
+      reversibility:
+        "Michigan MiDAS: automated fraud determinations triggered irreversible wage garnishment.",
+    },
+  },
+];
+
+const traces = [
+  {
+    id: "all",
+    label: "All layers",
+    tagline:
+      "The complete stack from normative theory to public failure records.",
+  },
+  {
+    id: "contestability",
+    label: "Trace: Contestability",
+    tagline:
+      "How the right to contest an automated decision is traced from Consent down to Robodebt.",
+  },
+  {
+    id: "leases",
+    label: "Trace: Authority leases",
+    tagline:
+      "How authority as an expiring lease is traced from Stewardship down to the Horizon failure.",
+  },
+  {
+    id: "resilience",
+    label: "Trace: Non-expropriation",
+    tagline:
+      "How the rule against consuming human adaptive capacity is traced down to workload diagnostics.",
+  },
+  {
+    id: "reversibility",
+    label: "Trace: Reversibility",
+    tagline:
+      "How operational reversibility is separated from nominal reversibility and tested in code.",
+  },
+];
+
+const views = [
+  {
+    name: `The ${inWords(methodContent.chain.length)}-stage chain`,
+    role: "The path one decision takes through the stack, with the two returns that make it governed.",
+    href: "#chain",
+  },
+  {
+    name: `The ${inWords(methodContent.circuits.length)} circuits`,
+    role: "Where friction lands as a system scales: absorbed and hidden, or recorded and corrected.",
+    href: "#circuits",
+  },
+  {
+    name: `The ${inWords(methodContent.lenses.length)} lenses`,
+    role: "Ways to measure the burden a system moves onto people.",
+    href: "/method#lenses",
+  },
+  {
+    name: "The capability taxonomy",
+    role: "Governance practices sorted by domain, each with an owner and a readiness level.",
+    href: "/taxonomy",
+  },
+];
+---
+
+<div class="method-stack" data-method-stack>
+  <div
+    class="method-stack__trace-controls"
+    role="group"
+    aria-label="Select concept trace"
+  >
+    <span class="small muted method-stack__trace-label">Vertical trace:</span>
+    <div class="method-stack__trace-pills">
+      {
+        traces.map((trace, i) => (
+          <button
+            type="button"
+            class={`button button--compact ${i === 0 ? "method-stack__trace-btn--active" : "ghost"}`}
+            data-trace-target={trace.id}
+            aria-pressed={i === 0 ? "true" : "false"}
+          >
+            {trace.label}
+          </button>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="method-stack__trace-banner" data-trace-banner aria-live="polite">
+    <p class="small muted" data-trace-tagline>{traces[0]?.tagline}</p>
+  </div>
+
+  <div class="method-stack__content">
+    <ol
+      class="method-stack__layers"
+      aria-label="The stack, from why to evidence"
+    >
+      {
+        layers.map((layer) => (
+          <li class="method-stack__layer" data-layer-id={layer.id}>
+            <div class="method-stack__layer-main">
+              {layer.href ? (
+                <a class="method-stack__name" href={layer.href}>
+                  {layer.name}
+                </a>
+              ) : (
+                <span class="method-stack__name method-stack__name--plain">
+                  {layer.name}
+                </span>
+              )}
+              <span class="method-stack__count">
+                {layer.count}
+                {layer.countLinks?.map((link) => (
+                  <span class="method-stack__count-part">
+                    <a href={link.href}>{link.label}</a>
+                  </span>
+                ))}
+              </span>
+              <span class="method-stack__role">{layer.role}</span>
+            </div>
+
+            {/* Trace detail rendered when concept trace is active */}
+            {layer.traceDetails && (
+              <div
+                class="method-stack__layer-trace method-stack__layer-trace--hidden"
+                data-layer-trace-container
+                data-trace-contestability={layer.traceDetails.contestability}
+                data-trace-leases={layer.traceDetails.leases}
+                data-trace-resilience={layer.traceDetails.resilience}
+                data-trace-reversibility={layer.traceDetails.reversibility}
+              >
+                <span class="eyebrow accent small">Trace binding:</span>
+                <p class="small" data-layer-trace-text />
+              </div>
+            )}
+          </li>
+        ))
+      }
+    </ol>
+
+    <aside
+      class="method-stack__views"
+      aria-labelledby="method-stack-views-title"
+    >
+      <p id="method-stack-views-title" class="method-stack__views-title">
+        Views onto the same stack
+      </p>
+      <p class="small muted">
+        These cut across the layers rather than adding to them.
+      </p>
+      <ul class="method-stack__view-list">
+        {
+          views.map((view) => (
+            <li>
+              <a href={view.href}>{view.name}</a>
+              <span class="small muted">{view.role}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </aside>
+  </div>
+</div>
+
+<script>
+  function initMethodStack() {
+    const stacks = document.querySelectorAll<HTMLElement>(
+      "[data-method-stack]",
+    );
+    stacks.forEach((stack) => {
+      const buttons = stack.querySelectorAll<HTMLButtonElement>(
+        "[data-trace-target]",
+      );
+      const tagline = stack.querySelector<HTMLElement>("[data-trace-tagline]");
+      const traceContainers = stack.querySelectorAll<HTMLElement>(
+        "[data-layer-trace-container]",
+      );
+
+      const taglines: Record<string, string> = {
+        all: "The complete stack from normative theory to public failure records.",
+        contestability:
+          "How the right to contest an automated decision is traced from Consent down to Robodebt.",
+        leases:
+          "How authority as an expiring lease is traced from Stewardship down to the Horizon failure.",
+        resilience:
+          "How the rule against consuming human adaptive capacity is traced down to workload diagnostics.",
+        reversibility:
+          "How operational reversibility is separated from nominal reversibility and tested in code.",
+      };
+
+      const selectTrace = (traceId: string) => {
+        buttons.forEach((btn) => {
+          const isMatch = btn.getAttribute("data-trace-target") === traceId;
+          btn.classList.toggle("method-stack__trace-btn--active", isMatch);
+          btn.classList.toggle("ghost", !isMatch);
+          btn.setAttribute("aria-pressed", String(isMatch));
+        });
+
+        if (tagline && taglines[traceId]) {
+          tagline.textContent = taglines[traceId];
+        }
+
+        const isAll = traceId === "all";
+        traceContainers.forEach((container) => {
+          if (isAll) {
+            container.classList.add("method-stack__layer-trace--hidden");
+          } else {
+            const detailText = container.getAttribute(`data-trace-${traceId}`);
+            const textEl = container.querySelector<HTMLElement>(
+              "[data-layer-trace-text]",
+            );
+            if (detailText && textEl) {
+              textEl.textContent = detailText;
+              container.classList.remove("method-stack__layer-trace--hidden");
+            } else {
+              container.classList.add("method-stack__layer-trace--hidden");
+            }
+          }
+        });
+      };
+
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const target = btn.getAttribute("data-trace-target");
+          if (target) selectTrace(target);
+        });
+      });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initMethodStack, {
+      once: true,
+    });
+  } else {
+    initMethodStack();
+  }
+</script>
+
+<style>
+  .method-stack {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .method-stack__trace-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: var(--space-3);
+  }
+
+  .method-stack__trace-label {
+    font-weight: 600;
+  }
+
+  .method-stack__trace-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+  }
+
+  .method-stack__trace-btn--active {
+    background: var(--surface);
+    color: var(--text);
+    border-color: var(--accent);
+  }
+
+  .method-stack__trace-banner {
+    min-height: 1.5rem;
+  }
+
+  .method-stack__content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 280px;
+    gap: var(--space-5);
+    align-items: start;
+  }
+
+  @media (max-width: 840px) {
+    .method-stack__content {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .method-stack__layers {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .method-stack__layer {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: var(--space-3) var(--space-4);
+    display: grid;
+    gap: var(--space-2);
+    transition: all var(--motion-fast) ease;
+  }
+
+  .method-stack__layer:hover {
+    border-color: var(--accent);
+  }
+
+  .method-stack__layer-main {
+    display: grid;
+    grid-template-columns: 140px auto 1fr;
+    align-items: baseline;
+    gap: var(--space-3);
+  }
+
+  @media (max-width: 640px) {
+    .method-stack__layer-main {
+      grid-template-columns: 1fr;
+      gap: var(--space-1);
+    }
+  }
+
+  .method-stack__name {
+    font-weight: 600;
+    font-size: var(--text-base);
+  }
+
+  .method-stack__name--plain {
+    color: var(--text);
+  }
+
+  .method-stack__count {
+    font-size: var(--text-xs);
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .method-stack__count-part {
+    margin-left: var(--space-1);
+  }
+
+  .method-stack__role {
+    font-size: var(--text-sm);
+    color: var(--text);
+  }
+
+  .method-stack__layer-trace {
+    background: color-mix(in srgb, var(--accent) 6%, var(--panel));
+    border-left: 2px solid var(--accent);
+    padding: var(--space-2) var(--space-3);
+    border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  .method-stack__layer-trace--hidden {
+    display: none;
+  }
+
+  .method-stack__layer-trace p {
+    margin: 0;
+  }
+
+  .method-stack__views {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: var(--space-4);
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .method-stack__views-title {
+    margin: 0;
+    font-weight: 600;
+    font-size: var(--text-base);
+  }
+
+  .method-stack__view-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .method-stack__view-list li {
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  .method-stack__view-list a {
+    font-weight: 500;
+  }
+</style>

@@ -19,34 +19,84 @@ const machineAnswerable = tier1Checks.map((check) => {
 
 const pageTitle = "Measurement tiers — Ethotechnics Institute";
 const pageDescription =
-  "Three evidence tiers for four Moral Performance Indicators (MPIs), each with the gaming pattern it invites and the validator check that detects it.";
+  "Five measures: whether challenges change the rule, what the system costs people, and whether it can be reversed and halted. Each has three evidence levels.";
 
 const mpis = [
   {
-    id: "time-to-halt",
-    title: "Time-to-halt (TTH)",
-    summary: "Elapsed time from detection to a confirmed automation halt.",
+    id: "rule-change",
+    title: "Rule change after upheld challenges",
+    summary:
+      "Share of rules that crossed a set number of upheld challenges and were then revised or kept with a published reason, and how long that took.",
     tiers: [
       {
         tier: "Tier 0",
         evidence:
-          "System logs showing halt trigger and halt completion timestamps.",
+          "Upheld challenges recorded with the rule that produced each decision.",
       },
       {
         tier: "Tier 1",
         evidence:
-          "Drill reports with median and p95 halt times by team and system.",
+          "A count by rule sent to each rule's owner, with the owner's answer and its date.",
       },
       {
         tier: "Tier 2",
         evidence:
-          "Incident postmortems verifying production halt times under load.",
+          "A sample of rule changes traced back to the challenges that prompted them, checked by someone outside the team.",
       },
     ],
     gaming:
-      "Halt tests run on low-traffic sandboxes instead of production paths.",
+      "Coding each upheld challenge as a one-off exception so no rule ever reaches the threshold.",
     detection:
-      "Validator compares drill environment IDs against production system inventory.",
+      "Join exception codes to rule identifiers, and count a rule's one-off exceptions toward its total anyway.",
+  },
+  {
+    id: "appeal-success",
+    title: "Appeal success rate",
+    summary:
+      "Share of contested decisions that result in reversal or remedy. A high rate is evidence the rule is wrong, not proof the appeal path works.",
+    tiers: [
+      {
+        tier: "Tier 0",
+        evidence: "Appeal intake records with outcomes and timestamps.",
+      },
+      {
+        tier: "Tier 1",
+        evidence: "Reviewer roster coverage and SLA compliance for appeals.",
+      },
+      {
+        tier: "Tier 2",
+        evidence: "External audit sampling of appeal outcomes for consistency.",
+      },
+    ],
+    gaming:
+      "Redirecting appeals to off-platform channels so they are not counted.",
+    detection:
+      "Check for a mismatch between receipts issued and appeals recorded.",
+  },
+  {
+    id: "burden-ratio",
+    title: "Burden ratio",
+    summary:
+      "Relative time cost imposed on impacted people versus internal operators.",
+    tiers: [
+      {
+        tier: "Tier 0",
+        evidence:
+          "Journey maps with time cost logs for entry, exit, and appeal flows.",
+      },
+      {
+        tier: "Tier 1",
+        evidence: "Time-on-task analytics with segmentation by user cohort.",
+      },
+      {
+        tier: "Tier 2",
+        evidence: "Independent usability studies verifying time cost deltas.",
+      },
+    ],
+    gaming:
+      "Measuring only successful flows while ignoring drop-offs or abandoned cases.",
+    detection:
+      "Require abandonment rates and cross-check them with support tickets.",
   },
   {
     id: "reversibility",
@@ -72,55 +122,33 @@ const mpis = [
     gaming:
       "Counting only low-stakes cases while excluding high-impact reversals.",
     detection:
-      "Validator samples by impact tier and checks for missing high-severity cases.",
+      "Sample by impact tier and check for missing high-severity cases.",
   },
   {
-    id: "appeal-success",
-    title: "Appeal success rate",
-    summary: "Share of contested decisions that result in reversal or remedy.",
-    tiers: [
-      {
-        tier: "Tier 0",
-        evidence: "Appeal intake records with outcomes and timestamps.",
-      },
-      {
-        tier: "Tier 1",
-        evidence: "Reviewer roster coverage and SLA compliance for appeals.",
-      },
-      {
-        tier: "Tier 2",
-        evidence: "External audit sampling of appeal outcomes for consistency.",
-      },
-    ],
-    gaming:
-      "Redirecting appeals to off-platform channels so they are not counted.",
-    detection:
-      "Validator checks for mismatch between receipts issued and appeals recorded.",
-  },
-  {
-    id: "burden-ratio",
-    title: "Burden ratio",
-    summary:
-      "Relative time cost imposed on impacted people versus internal operators.",
+    id: "time-to-halt",
+    title: "Time-to-halt (TTH)",
+    summary: "Elapsed time from detection to a confirmed automation halt.",
     tiers: [
       {
         tier: "Tier 0",
         evidence:
-          "Journey maps with time cost logs for entry, exit, and appeal flows.",
+          "System logs showing halt trigger and halt completion timestamps.",
       },
       {
         tier: "Tier 1",
-        evidence: "Time-on-task analytics with segmentation by user cohort.",
+        evidence:
+          "Drill reports with median and p95 halt times by team and system.",
       },
       {
         tier: "Tier 2",
-        evidence: "Independent usability studies verifying time cost deltas.",
+        evidence:
+          "Incident postmortems verifying production halt times under load.",
       },
     ],
     gaming:
-      "Measuring only successful flows while ignoring drop-offs or abandoned cases.",
+      "Halt tests run on low-traffic sandboxes instead of production paths.",
     detection:
-      "Validator requires abandonment rates and cross-checks with support tickets.",
+      "Compare drill environment IDs against the production system inventory.",
   },
 ];
 ---
@@ -128,25 +156,25 @@ const mpis = [
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
     eyebrow="Measurement tiers"
-    title="Measurement tiers + anti-gaming guidance"
+    title="Measurement tiers and how each measure is gamed"
     description={pageDescription}
     anchorLinks={[
       ...mpis.map((mpi) => ({ href: `#${mpi.id}`, label: mpi.title })),
       { href: "#harness", label: "Tier 1 harness" },
     ]}
-    illustration="diagnostics"
   />
 
   <SectionBlock
     eyebrow="How to use"
-    title="Apply tiers to every MPI"
-    description="Tier 0 is the baseline. Each higher tier needs stronger evidence than the one below it."
+    title="Apply the tiers to every measure"
+    description="Five measures, the first the one the others serve. Tier 0 is the baseline. Each higher tier needs stronger evidence than the one below it."
   >
     <ul class="muted">
-      <li>Tier 0 proves instrumentation exists.</li>
-      <li>Tier 1 proves the system is operated and reviewed.</li>
+      <li>Tier 0 shows the system records the measure at all.</li>
+      <li>Tier 1 shows people run drills and review the results.</li>
       <li>
-        Tier 2 proves the measure holds under real incidents and audit sampling.
+        Tier 2 shows the measure holds in real incidents and in independent
+        audit samples.
       </li>
     </ul>
   </SectionBlock>
@@ -155,12 +183,12 @@ const mpis = [
     mpis.map((mpi, index) => (
       <SectionBlock
         id={mpi.id}
-        eyebrow="MPI"
+        eyebrow="Measure"
         title={mpi.title}
         description={mpi.summary}
         variant={index % 2 === 1 ? "alt" : undefined}
       >
-        <h3>Tiered measurement model</h3>
+        <h3>Evidence at each tier</h3>
         <ul class="muted">
           {mpi.tiers.map((tier) => (
             <li>
@@ -168,9 +196,9 @@ const mpis = [
             </li>
           ))}
         </ul>
-        <h3>Known gaming pattern</h3>
+        <h3>How it is gamed</h3>
         <p class="muted">{mpi.gaming}</p>
-        <h3>Validator detection logic</h3>
+        <h3>How to detect the gaming</h3>
         <p class="muted">{mpi.detection}</p>
       </SectionBlock>
     ))
@@ -179,8 +207,8 @@ const mpis = [
   <SectionBlock
     id="harness"
     eyebrow="Tier 1 harness"
-    title="Machine-answerable eval cases"
-    description={`Of the ${evalTestCases.length} eval cases, ${machineAnswerable.length} are stopwatch-and-assertion questions about a running system that the Tier 1 harness in src/harness answers without a reviewer. An adapter that cannot answer one reports it as unsupported, which is a finding about the system and never a pass.`}
+    title="Eval cases a machine can answer"
+    description={`Of the ${evalTestCases.length} eval cases, ${machineAnswerable.length} are timed or yes-or-no questions about a running system. The Tier 1 harness answers them without a human reviewer. If the connection to a system cannot answer one, the harness reports it as unsupported. That is a finding about the system, never a pass.`}
   >
     <ul class="muted">
       {
@@ -194,11 +222,11 @@ const mpis = [
       }
     </ul>
     <p class="muted">
-      These ten are one of two instruments. <a href="/evals/coverage"
-        >What we can actually check</a
-      > maps every one of them, and every finding the record conformance checker raises,
-      onto the governance property it is evidence for — including the properties neither
-      instrument reaches.
+      The harness is one of two ways this site checks a system. <a
+        href="/evals/coverage">What we can actually check</a
+      > maps each of these {machineAnswerable.length} cases, and every finding the
+      record conformance checker raises, to the governance property it is evidence
+      for. It also lists the properties neither tool reaches.
     </p>
   </SectionBlock>
 </BaseLayout>

@@ -20,43 +20,38 @@ const {
   sources,
 } = entry.data;
 
-const pageTitle = `${title} — Governance lesson — Ethotechnics`;
+const pageTitle = `${title} — Composite`;
 ---
 
 <BaseLayout
   title={pageTitle}
   description={description}
-  publishedTime="2025-06-01T00:00:00.000Z"
+  publishedTime={entry.data.published}
 >
   <PageIntro
-    eyebrow="Governance lesson"
+    eyebrow="Composite scenario"
     title={title}
     description={description}
     anchorLinks={[
-      { href: "#incident", label: "Incident snapshot" },
+      { href: "#incident", label: "The scenario" },
       { href: "#failures", label: "Governance failures" },
       { href: "#signals", label: "Signals to watch" },
       { href: "#remediation", label: "Remediation checklist" },
-      { href: "#sources", label: "Sources" },
+      { href: "#sources", label: "Templates" },
     ]}
   />
 
   <SectionBlock
     id="incident"
-    eyebrow="Incident snapshot"
-    title="Where governance broke down."
-    description="Use the snapshot to align stakeholders before designing the fix."
+    eyebrow="The scenario"
+    title="Where governance broke down"
+    description="A composite. It combines patterns common to many systems and reports on no named institution. For failures a court, an inquiry, or a regulator established, see the casebook."
     className="section--banded"
   >
     <CardGrid className="grid--two">
       <CardItem
-        title="Sector"
+        title="Drawn from"
         description={incident.sector}
-        descriptionTone="default"
-      />
-      <CardItem
-        title="Timeframe"
-        description={incident.timeframe}
         descriptionTone="default"
       />
       <CardItem
@@ -75,8 +70,8 @@ const pageTitle = `${title} — Governance lesson — Ethotechnics`;
   <SectionBlock
     id="failures"
     eyebrow="Governance failures"
-    title="What was missing or misaligned."
-    description="Capture the structural gaps that enabled the incident."
+    title="What was missing"
+    description="The structural gaps that let the harm continue."
     variant="alt"
   >
     <CardGrid>
@@ -91,8 +86,8 @@ const pageTitle = `${title} — Governance lesson — Ethotechnics`;
   <SectionBlock
     id="signals"
     eyebrow="Signals to watch"
-    title="Early indicators to monitor."
-    description="Instrument these signals to surface risk before impact escalates."
+    title="Signals that would have shown it"
+    description="Each is a number a running system can record before the harm grows."
   >
     <CardGrid>
       {
@@ -106,8 +101,8 @@ const pageTitle = `${title} — Governance lesson — Ethotechnics`;
   <SectionBlock
     id="remediation"
     eyebrow="Remediation checklist"
-    title="Actions to close the gap."
-    description="Turn the lesson into fixes your team can own."
+    title="Fixes"
+    description="Each fix needs a named owner and a date."
     variant="alt"
   >
     <CardGrid>
@@ -121,9 +116,9 @@ const pageTitle = `${title} — Governance lesson — Ethotechnics`;
 
   <SectionBlock
     id="sources"
-    eyebrow="Sources"
-    title="Reference the standards and playbooks."
-    description="Keep the documentation linked for rapid remediation alignment."
+    eyebrow="Templates"
+    title="Records to start from"
+    description="The site's own templates and schemas for the records this scenario was missing. They are not sources for the scenario, which is a composite."
   >
     <CardGrid className="grid--two">
       {
@@ -131,7 +126,7 @@ const pageTitle = `${title} — Governance lesson — Ethotechnics`;
           <CardItem title={source.label} descriptionTone="muted">
             <div slot="footer" class="card__footer">
               <a class="button ghost button--compact" href={source.href}>
-                Open source
+                Open template
               </a>
             </div>
           </CardItem>

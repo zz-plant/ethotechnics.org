@@ -1,7 +1,6 @@
 ---
 import StandardsLayout from "../../components/StandardsLayout.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
-import PromptPackInstallCard from "../../components/PromptPackInstallCard.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import SummaryCallout from "../../components/SummaryCallout.astro";
 import {
@@ -9,7 +8,6 @@ import {
   anchorLinks,
   controlChecklist,
   practiceSections,
-  promptPackInstall,
   signalIntegrityRows,
   summaryRelatedLinks,
   summaryTakeaways,
@@ -467,28 +465,30 @@ const publication = derivePublicationMetadata({
     description="Assume teams will optimize metrics. Instrument what detects gaming."
     variant="alt"
   >
-    <table class="mapping-table">
-      <thead>
-        <tr>
-          <th>Signal</th>
-          <th>How teams fake it</th>
-          <th>Detect gaming</th>
-          <th>Tier 0 / 1 / 2 measurement</th>
-        </tr>
-      </thead>
-      <tbody>
-        {
-          signalIntegrityRows.map((row) => (
-            <tr>
-              <td>{row.signal}</td>
-              <td>{row.gaming}</td>
-              <td>{row.detection}</td>
-              <td>{row.tiers}</td>
-            </tr>
-          ))
-        }
-      </tbody>
-    </table>
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table">
+        <thead>
+          <tr>
+            <th>Signal</th>
+            <th>How teams fake it</th>
+            <th>Detect gaming</th>
+            <th>Tier 0 / 1 / 2 measurement</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            signalIntegrityRows.map((row) => (
+              <tr>
+                <td>{row.signal}</td>
+                <td>{row.gaming}</td>
+                <td>{row.detection}</td>
+                <td>{row.tiers}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
     <p class="muted">
       Pair with
       {" "}
@@ -581,13 +581,6 @@ const publication = derivePublicationMetadata({
         for machine-verifiable controls.
       </li>
     </ol>
-    <p class="muted">
-      Keep onboarding and diagnostics prompts versioned alongside your
-      integration checklist.
-    </p>
-    <div class="grid grid--two">
-      <PromptPackInstallCard {...promptPackInstall} />
-    </div>
   </SectionBlock>
 
   <SectionBlock
@@ -620,11 +613,8 @@ const publication = derivePublicationMetadata({
         <p class="eyebrow">Required by bindings</p>
         <ul class="muted">
           <li>
-            <a href="/evidence-packs">Release gate checklist</a>
-          </li>
-          <li>
-            <a href="/agent-toolkit/prompt-packs#clause-kits"
-              >Procurement clauses</a
+            <a href="/mechanisms/patterns/admission-gate"
+              >MEC-22 Admission gate</a
             >
           </li>
         </ul>

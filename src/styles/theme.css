@@ -46,32 +46,34 @@
   --status-danger-border: #fecaca;
 
   /* Geometry & Radius */
+  /* Three radii: small for chips, marks and focus outlines; medium for
+     every box (card, panel, input, table); pill for buttons and badges. The
+     other names are kept as aliases so the stylesheets did not churn. */
   --radius-xs: 3px;
-  --radius: 6px;
+  --radius-sm: var(--radius-xs);
   --radius-md: 8px;
-  --radius-lg: 10px;
-  --radius-xl: 14px;
+  --radius: var(--radius-md);
+  --radius-lg: var(--radius-md);
+  --radius-xl: var(--radius-md);
   --radius-pill: 999px;
 
-  /* Elevation. Resting surfaces carry none; a shadow means something floats
-     (a menu, a dialog) or is being pointed at. */
-  --shadow-color: rgba(28, 25, 23, 0.08);
+  /* Elevation. Two values: none, and one float shadow for what sits above
+     the page -- a menu, a popover, a dialog, a sticky bar. Cards and panels
+     carry none; they are told apart by a hairline or a tint. The older names
+     are aliases so no call site had to change. */
+  --shadow-color: rgba(28, 25, 23, 0.1);
   --shadow-color-soft: rgba(28, 25, 23, 0.04);
-  --shadow-xs: 0 1px 2px var(--shadow-color-soft);
-  --shadow-sm:
-    0 1px 2px var(--shadow-color-soft), 0 4px 12px var(--shadow-color-soft);
-  --shadow: 0 5px 14px var(--shadow-color), 0 1px 3px var(--shadow-color-soft);
-  --shadow-md:
-    0 8px 20px var(--shadow-color), 0 2px 5px var(--shadow-color-soft);
-  --shadow-lg:
-    0 14px 30px var(--shadow-color), 0 4px 8px var(--shadow-color-soft);
-  --shadow-panel: none;
   --shadow-float:
-    0 6px 18px var(--shadow-color), 0 1px 3px var(--shadow-color-soft);
-  --shadow-float-strong:
-    0 12px 32px var(--shadow-color), 0 3px 8px var(--shadow-color-soft);
-  --shadow-tight: 0 2px 5px var(--shadow-color);
-  --shadow-accent: 0 4px 14px color-mix(in srgb, var(--accent) 14%, transparent);
+    0 8px 24px var(--shadow-color), 0 1px 3px var(--shadow-color-soft);
+  --shadow-float-strong: var(--shadow-float);
+  --shadow-xs: none;
+  --shadow-sm: none;
+  --shadow: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+  --shadow-panel: none;
+  --shadow-tight: none;
+  --shadow-accent: none;
 
   /* Z-Index Hierarchy */
   --z-underlay: -1;
@@ -81,22 +83,60 @@
   --z-overlay-top: 11;
   --z-skip-link: 20;
 
-  /* Spacing Scale */
-  --space-1: 0.4rem;
-  --space-2: 0.75rem;
-  --space-3: 1.15rem;
-  --space-4: 1.6rem;
-  --space-5: 2rem;
-  --space-6: 2.5rem;
-  --space-7: 3.2rem;
-  --space-8: 4.5rem;
+  /* Spacing scale. The one set of distances the site uses. Every margin,
+     padding and gap outside this file names one of these steps
+     (src/styles/spacing.test.ts fails the build otherwise). Pages used to
+     declare ~440 distinct raw values against an irregular token set, so the
+     gap between sections, the gap under a heading and the padding inside a
+     card all changed from component to component.
 
-  /* Layout Containers */
+     Steps sit on a 4px grid:
+       hair  2px -- chip and badge padding, optical nudges; never layout
+       1     4px -- label to value, icon to text
+       2     8px -- items in a tight list, pill padding
+       3    12px -- eyebrow, heading and lede; control padding
+       4    16px -- items in a list of cards; compact row padding
+       5    24px -- grid gaps; card and panel padding
+       6    32px -- a section header to its body
+       7    48px -- large blocks inside a section
+       8    64px
+       9    96px -- between top-level sections
+
+     One fluid rule, and no per-breakpoint overrides: steps 1-5 are fixed,
+     and each large step (6-9) eases down to the step below it between a
+     1200px and a 480px viewport. On a phone a section gap is 64px, not 96px,
+     while a card's 24px padding stays 24px. */
+  --space-hair: 0.125rem;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: clamp(1.5rem, 1.1667rem + 1.1111vw, 2rem);
+  --space-7: clamp(2rem, 1.3333rem + 2.2222vw, 3rem);
+  --space-8: clamp(3rem, 2.3333rem + 2.2222vw, 4rem);
+  --space-9: clamp(4rem, 2.6667rem + 4.4444vw, 6rem);
+
+  /* Rhythm. Rules set spacing by role through these, not by step:
+       section         -- between top-level sections. The one gap; a
+                          section with a rule puts half above it and half
+                          below (see sections.css).
+       block           -- a section header to its body, and between the
+                          block-level groups inside a section.
+       heading         -- between an eyebrow, a heading and a lede.
+       container       -- inside a card, a panel or a tool sheet.
+       container-compact -- inside a compact list row or a small tile. */
+  --space-section: var(--space-9);
+  --space-block: var(--space-6);
+  --space-heading: var(--space-3);
+  --space-container: var(--space-5);
+  --space-container-compact: var(--space-4);
+
+  /* Layout Containers. The gutter is the page's one side margin: 16px at
+     the narrowest phone, never less. */
   --content-max: 1180px;
   --content-max-wide: 1420px;
-  --page-gutter: clamp(1rem, 2.4vw, 2.75rem);
-  --section-padding: clamp(1.6rem, 4vw, 3.5rem);
-  --section-gap: clamp(1.25rem, 2.4vw, 2.2rem);
+  --page-gutter: clamp(1rem, 5vw, 4rem);
 
   /* Semantic Color Aliases */
   --color-surface: var(--surface);
@@ -115,25 +155,44 @@
   --surface-emphasis: color-mix(in srgb, var(--panel) 55%, var(--surface));
   --surface-accent-edge: color-mix(in srgb, var(--accent) 25%, var(--border));
 
-  /* Fluid Typography Scale */
-  --text-xs: 0.72rem;
-  --text-sm: 0.84rem;
-  --text-eyebrow: 0.74rem;
-  --text-body: clamp(0.96rem, 0.3vw + 0.95rem, 1.1rem);
-  --text-lede: clamp(1.05rem, 0.6vw + 0.95rem, 1.25rem);
+  /* Type scale. The one set of sizes the site uses. Every font-size outside
+     this file names one of these steps (src/styles/type-scale.test.ts fails
+     the build otherwise). Pages used to declare ~67 distinct sizes, so mono
+     labels, serif body and sans UI competed at near-identical sizes and
+     nothing read as secondary. Seven steps, plus one display size:
+       xs   -- uppercase mono labels, eyebrows, metadata
+       sm   -- secondary UI text: buttons, captions, table cells, notes
+       base -- body copy and form fields
+       lg   -- lede, h4, card titles
+       xl   -- h3
+       2xl  -- h2, section titles, big numbers
+       3xl  -- h1
+     The upper steps are fluid; the ratio between levels holds near 1.3. */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: clamp(1rem, 0.3vw + 0.95rem, 1.1rem);
+  --text-lg: clamp(1.1rem, 1rem + 0.35vw, 1.25rem);
+  --text-xl: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+  --text-2xl: clamp(1.55rem, 1.25rem + 1.05vw, 2.05rem);
+  --text-3xl: clamp(2.1rem, 1.55rem + 2vw, 3.1rem);
+  /* Display size: the home hero and the 404 only. */
   --text-hero: clamp(2.1rem, 3.2vw + 1rem, 3.9rem);
-  --font-size-sm: 0.9rem;
 
-  /* Heading scale. Nothing set a font-size on h1-h6, so every heading fell
-     back to the UA defaults -- 2em / 1.5em / 1.17em of the body size. At
-     1440px that put h3 at 20.59px against a 20px lede and 17.6px body: a
-     section heading and a paragraph were the same size, and the whole page
-     read flat. These steps hold a ~1.4 ratio between levels and keep h3
-     clearly above the lede. */
-  --text-h1: clamp(2.1rem, 1.55rem + 2vw, 3.1rem);
-  --text-h2: clamp(1.5rem, 1.25rem + 1.05vw, 2.05rem);
-  --text-h3: clamp(1.2rem, 1.1rem + 0.42vw, 1.45rem);
-  --text-h4: clamp(1.05rem, 1rem + 0.22vw, 1.18rem);
+  /* Role aliases. Kept so existing rules read by purpose; each is a step
+     above, never a new size. Headings: nothing set a font-size on h1-h6
+     once, so h3 fell to the UA 1.17em and sat level with the lede. */
+  --text-eyebrow: var(--text-xs);
+  --text-body: var(--text-base);
+  --text-lede: var(--text-lg);
+  --font-size-sm: var(--text-sm);
+  --text-h1: var(--text-3xl);
+  --text-h2: var(--text-2xl);
+  --text-h3: var(--text-xl);
+  --text-h4: var(--text-lg);
+
+  /* Letter-spacing for uppercase labels: one tight, one wide. */
+  --tracking-label: 0.05em;
+  --tracking-label-wide: 0.08em;
 
   /* Motion & Easing */
   --motion-fast: 150ms;
@@ -185,7 +244,7 @@
 /* --- Dark theme: warm obsidian ---
    The ground used to be zinc (#18181b, a cool grey) under warm brown-black
    surfaces, so cards and page were two colour temperatures. Everything here is
-   one warm ramp. Elevation is a step in lightness plus a hairline rim light;
+   one warm ramp. Elevation is a step in lightness;
    the big blurred shadows are gone because a shadow on a near-black ground
    reads as a smudge, not depth.
    The block is written twice -- once for the system preference, once for the
@@ -245,25 +304,11 @@
 
     --shadow-color: rgba(0, 0, 0, 0.45);
     --shadow-color-soft: rgba(0, 0, 0, 0.3);
-    --shadow-xs: 0 1px 2px var(--shadow-color-soft);
-    --shadow-sm:
-      0 1px 2px var(--shadow-color), 0 4px 12px var(--shadow-color-soft);
-    --shadow:
-      0 6px 16px var(--shadow-color), 0 1px 3px var(--shadow-color-soft);
-    --shadow-md:
-      0 8px 20px var(--shadow-color), 0 2px 5px var(--shadow-color-soft);
-    --shadow-lg:
-      0 14px 30px var(--shadow-color), 0 3px 8px var(--shadow-color-soft);
-    --shadow-panel: none;
-    --shadow-float: 0 6px 18px var(--shadow-color);
-    --shadow-float-strong: 0 12px 32px var(--shadow-color);
-    --shadow-tight: 0 2px 5px var(--shadow-color);
-    --shadow-accent: 0 4px 14px
-      color-mix(in srgb, var(--accent) 18%, transparent);
+    --shadow-float:
+      0 8px 24px var(--shadow-color), 0 1px 3px var(--shadow-color-soft);
 
     --glass-bg: color-mix(in srgb, var(--bg) 95%, transparent);
     --glass-border: color-mix(in srgb, var(--border) 80%, transparent);
-    --card-inner-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.045);
 
     --surface-flat: var(--surface);
     --surface-raised: var(--card);
@@ -326,23 +371,11 @@
 
   --shadow-color: rgba(0, 0, 0, 0.45);
   --shadow-color-soft: rgba(0, 0, 0, 0.3);
-  --shadow-xs: 0 1px 2px var(--shadow-color-soft);
-  --shadow-sm:
-    0 1px 2px var(--shadow-color), 0 4px 12px var(--shadow-color-soft);
-  --shadow: 0 6px 16px var(--shadow-color), 0 1px 3px var(--shadow-color-soft);
-  --shadow-md:
-    0 8px 20px var(--shadow-color), 0 2px 5px var(--shadow-color-soft);
-  --shadow-lg:
-    0 14px 30px var(--shadow-color), 0 3px 8px var(--shadow-color-soft);
-  --shadow-panel: none;
-  --shadow-float: 0 6px 18px var(--shadow-color);
-  --shadow-float-strong: 0 12px 32px var(--shadow-color);
-  --shadow-tight: 0 2px 5px var(--shadow-color);
-  --shadow-accent: 0 4px 14px color-mix(in srgb, var(--accent) 18%, transparent);
+  --shadow-float:
+    0 8px 24px var(--shadow-color), 0 1px 3px var(--shadow-color-soft);
 
   --glass-bg: color-mix(in srgb, var(--bg) 95%, transparent);
   --glass-border: color-mix(in srgb, var(--border) 80%, transparent);
-  --card-inner-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.045);
 
   --surface-flat: var(--surface);
   --surface-raised: var(--card);
@@ -354,33 +387,17 @@
   :root {
     --content-max: 1400px;
   }
-
-  .container {
-    width: min(var(--content-max), calc(100% - (var(--page-gutter) * 2)));
-  }
 }
 
 @media (min-width: 2000px) {
   :root {
     --content-max: 1560px;
     --content-max-wide: 1880px;
-    --page-gutter: clamp(1.5rem, 3vw, 4rem);
-    --section-padding: clamp(2.2rem, 4vw, 4.5rem);
-    --section-gap: clamp(1.6rem, 2.8vw, 2.8rem);
-    --space-4: 1.85rem;
-    --space-6: 2.8rem;
   }
 }
 
 @media (min-width: 1280px) and (min-height: 720px) and (hover: none) and (pointer: coarse) {
   :root {
-    --page-gutter: clamp(1.6rem, 3.2vw, 4.2rem);
-    --section-padding: clamp(2.4rem, 4.8vw, 4.8rem);
-    --section-gap: clamp(1.6rem, 3vw, 3rem);
-    --space-2: 0.9rem;
-    --space-3: 1.3rem;
-    --space-4: 1.9rem;
-    --space-6: 3rem;
     --font-size-sm: 1rem;
   }
 
@@ -394,11 +411,6 @@
   :root {
     --content-max: 1760px;
     --content-max-wide: 2120px;
-    --page-gutter: clamp(2rem, 3.6vw, 4.8rem);
-    --section-padding: clamp(2.6rem, 4.5vw, 5.2rem);
-    --section-gap: clamp(1.9rem, 3vw, 3.2rem);
-    --space-4: 2rem;
-    --space-6: 3.2rem;
   }
 
   body {
@@ -407,24 +419,13 @@
 }
 
 /* 400px was below every phone this site is read on. A Pixel and most Galaxy
-   handsets report 412px, an iPhone Pro Max 430px, so the whole narrow-screen
-   block below — a smaller gutter, tighter section padding, a compressed space
-   scale — never applied to any of them and they got the tablet spacing on a
-   phone: 147px of a 412px viewport went to horizontal chrome, leaving a
-   260px column for text. 30rem clears the widest phone in portrait and stays
-   well below any tablet. The height arm is unchanged; it is for landscape. */
+   handsets report 412px, an iPhone Pro Max 430px, so a narrow-screen block
+   capped at 400px never applied to any of them. 30rem clears the widest
+   phone in portrait and stays well below any tablet. The height arm is for
+   landscape. Spacing needs no override here: the gutter and the large space
+   steps are fluid (see the spacing scale above), so a phone already gets the
+   16px gutter and the smaller section gap. */
 @media (max-width: 30rem), (max-height: 400px) {
-  :root {
-    --page-gutter: 0.75rem;
-    --section-padding: clamp(1.1rem, 5vw, 1.8rem);
-    --section-gap: clamp(0.85rem, 3vw, 1.3rem);
-    --space-1: 0.35rem;
-    --space-2: 0.6rem;
-    --space-3: 0.9rem;
-    --space-4: 1.2rem;
-    --space-6: 1.8rem;
-  }
-
   body {
     font-size: clamp(0.9rem, 0.6vw + 0.82rem, 1rem);
     line-height: 1.55;

@@ -1,0 +1,283 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import FitFacts from "../../components/FitFacts.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import {
+  boundaries,
+  useCases,
+  useCasesContent as content,
+} from "../../content/use-cases";
+---
+
+<BaseLayout
+  title={content.pageTitle}
+  description={content.pageDescription}
+  publishedTime="2026-10-01T00:00:00.000Z"
+>
+  <PageIntro
+    eyebrow={content.eyebrow}
+    title={content.title}
+    description={content.description}
+    anchorLinks={[
+      { href: "#short-answer", label: "The short answer" },
+      { href: "#non-goals", label: "Explicit non-goals" },
+      { href: "#test", label: "The test" },
+      { href: "#contexts", label: "Six contexts" },
+      { href: "#boundaries", label: "Where it does less" },
+      { href: "#tooling", label: "What runs today" },
+    ]}
+  />
+
+  <SectionBlock id="short-answer" title="The short answer">
+    <CardGrid className="grid--three">
+      {
+        content.shortAnswer.map((item) => (
+          <CardItem
+            title={item.title}
+            description={item.description}
+            descriptionTone="default"
+          >
+            <a slot="footer" href={item.link.href}>
+              {item.link.label} &rarr;
+            </a>
+          </CardItem>
+        ))
+      }
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="non-goals"
+    eyebrow="Explicit boundaries"
+    title="Where we decline to operate"
+    description="Ethotechnics is intentionally narrow. It does not govern all software, and it explicitly rejects three common AI governance ambitions."
+  >
+    <div class="grid grid--three">
+      <div class="panel stack-sm">
+        <p class="eyebrow">1. No foundation model benchmarking</p>
+        <p class="small">
+          We do not evaluate foundation models in the abstract, red-team chat
+          interfaces, or benchmark pretraining corpora.
+        </p>
+        <p class="small muted">
+          A model can pass every benchmark and still be deployed under an
+          open-ended delegation nobody can revoke. Ethotechnics only binds the
+          operational delegation once a system holds authority to decide about
+          people.
+        </p>
+        <p class="small">
+          <a href="#model-testing">See model testing boundary &rarr;</a>
+        </p>
+      </div>
+
+      <div class="panel stack-sm">
+        <p class="eyebrow">2. No low-stakes or internal pipeline governance</p>
+        <p class="small">
+          We do not govern build scripts, background database workers, internal
+          analytics, or retail recommendation carousels.
+        </p>
+        <p class="small muted">
+          If an automated process changes no one's status, liberty, money, or
+          livelihood outside the engineering team, receipts and reversal clocks
+          add friction without preventing harm.
+        </p>
+        <p class="small">
+          <a href="#boundaries">See all five boundaries &rarr;</a>
+        </p>
+      </div>
+
+      <div class="panel stack-sm">
+        <p class="eyebrow">3. No substantive moral or political dictation</p>
+        <p class="small">
+          We do not dictate what an institution's political, moral, or business
+          policy goals ought to be.
+        </p>
+        <p class="small muted">
+          The framework enforces procedural answerability: whatever rule is
+          chosen, the institution must operate under an expiring authority
+          lease, deliver causal reasons with decisions, and maintain an
+          unpenalized human who can halt it.
+        </p>
+        <p class="small">
+          <a href="/standards/core-axioms">Read the core axioms &rarr;</a>
+        </p>
+      </div>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="test"
+    title="The test"
+    description={content.test.lead}
+    variant="alt"
+  >
+    <div class="stack-sm">
+      <ol class="fit-test">
+        {content.test.conditions.map((condition) => <li>{condition}</li>)}
+      </ol>
+      <p class="muted">{content.test.after}</p>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="contexts"
+    title="Six contexts"
+    description="Each names what the system decides, the scored cases that came from it, the standards to bind, and the check to run first."
+  >
+    <div class="fit-contexts">
+      {
+        useCases.map((context) => (
+          <CardItem id={context.id} title={context.title}>
+            <div class="fit-context">
+              <div class="fit-context__lead">
+                <p>{context.decides}</p>
+                <p class="muted">{context.why}</p>
+                <p class="fit-context__defense small">
+                  <span class="fit-context__defense-label">
+                    The usual defense:
+                  </span>
+                  "{context.defense.said}" {context.defense.answer}
+                </p>
+              </div>
+              <FitFacts context={context} />
+            </div>
+          </CardItem>
+        ))
+      }
+    </div>
+    <p class="small muted">
+      "Law in force" names rules that already ask for the same evidence. It is
+      not legal advice, and meeting a standard here does not show that a system
+      complies with any of them.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="boundaries"
+    title="Where it does less"
+    description="Five kinds of system where one of the four conditions fails, and what still applies."
+    variant="alt"
+  >
+    <CardGrid className="grid--three">
+      {
+        boundaries.map((boundary) => (
+          <CardItem
+            id={boundary.id}
+            title={boundary.title}
+            description={boundary.why}
+            descriptionTone="default"
+          >
+            {(boundary.link || boundary.examples.length > 0) && (
+              <p slot="footer" class="small">
+                {[
+                  ...(boundary.link ? [boundary.link] : []),
+                  ...boundary.examples,
+                ].map((link, index) => (
+                  <>
+                    {index > 0 && " · "}
+                    <a href={link.href}>{link.label} &rarr;</a>
+                  </>
+                ))}
+              </p>
+            )}
+          </CardItem>
+        ))
+      }
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="tooling"
+    title="What runs, what is self-report, what is proposed"
+    description="A tool that checks evidence and a tool that scores answers are different instruments. So is a standard nobody has adopted yet."
+  >
+    <CardGrid className="grid--three">
+      {
+        content.tooling.map((item) => (
+          <CardItem
+            title={item.title}
+            description={item.description}
+            descriptionTone="default"
+          >
+            <p slot="footer" class="small">
+              {item.links.map((link, index) => (
+                <>
+                  {index > 0 && " · "}
+                  <a href={link.href}>{link.label}</a>
+                </>
+              ))}
+            </p>
+          </CardItem>
+        ))
+      }
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="next"
+    title="If your system fits"
+    description="Start with one workflow. The Delegation Audit takes it through six questions and names the actions nobody can ground in a grant."
+    variant="alt"
+  >
+    <div class="actions">
+      <a class="button primary" href="/diagnostics/delegation-audit">
+        Open the Delegation Audit
+      </a>
+      <a class="button ghost" href="/#self-test">Take the 60-second self-test</a
+      >
+      <a class="button ghost" href="/start">Find your role</a>
+    </div>
+  </SectionBlock>
+</BaseLayout>
+
+<style>
+  .fit-contexts {
+    display: grid;
+    gap: var(--space-5);
+    margin-top: var(--space-block);
+  }
+
+  .fit-context {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .fit-context__lead {
+    display: grid;
+    gap: var(--space-3);
+    align-content: start;
+  }
+
+  .fit-context__lead p {
+    margin: 0;
+  }
+
+  /* The defense an institution in this context usually offers, set off from
+     the description above it so it reads as the claim the standards answer. */
+  .fit-context__defense {
+    padding-inline-start: var(--space-3);
+    border-inline-start: 2px solid var(--border);
+  }
+
+  .fit-context__defense-label {
+    font-weight: 650;
+  }
+
+  @media (min-width: 860px) {
+    .fit-context {
+      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+      gap: var(--space-6);
+    }
+  }
+
+  .fit-test {
+    margin: 0;
+    padding-inline-start: 1.25em;
+    display: grid;
+    gap: var(--space-2);
+    max-width: 68ch;
+  }
+</style>

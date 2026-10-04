@@ -24,7 +24,7 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
 ---
 
 <BaseLayout
-  title="VAL-01 Burden Modeler — the validator specification"
+  title="VAL-01 Burden Modeler — validator specification"
   description="The VAL-01 specification: the inputs, thresholds, and report card for scoring time tax and constructive-denial risk in a user journey against STD-01."
   mainClass="page page--wide"
   breadcrumbItems={breadcrumbItems}
@@ -38,9 +38,10 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
         <h1>VAL-01 Burden Modeler — specification</h1>
         <p class="muted">
           The assertion, its inputs, and what a conforming implementation must
-          return — not the tool. To model a workflow,
+          return, with a form below that scores one journey. To rate the
+          workload a system creates for the team that runs it, use the
           <a href="/diagnostics/burden-modeler"
-            >open the Burden Modeler diagnostic &rarr;</a
+            >Workload Modeler, a different tool &rarr;</a
           >
         </p>
       </div>
@@ -102,7 +103,7 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
         </output>
       </div>
       <p class="validator__recommendation">
-        Fix this using <a href="/mechanisms/mec-04-hard-clock"
+        Fix this using <a href="/mechanisms/patterns/hard-clock"
           >MEC-04: The Hard Clock</a
         >.
       </p>

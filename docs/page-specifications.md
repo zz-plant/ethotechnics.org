@@ -110,28 +110,6 @@ Detailed, testable expectations for each route. Use these specs when adding cont
   - Lists of readiness and outputs remain semantic `<ul>` groups.
   - Off-ramp copy includes an inline link to the pattern language with descriptive text.
 
-## Governance Gap Score (`/tools/governance-gap-score`)
-
-- **Data sources:** Static copy in the page; results are derived from form inputs and query params.
-- **Layout:**
-  - `PageIntro` includes anchors for Assessment and Results plus a panel CTA to Diagnostics.
-  - Assessment section presents a 7-step intake form with Next/Back navigation and a single submit
-    action on the final step. Steps 5 to 7 cover Authority (who authorized each automated action and
-    when it ends), Dependence (whether the work has been run without the system in the last 12
-    months), and Standing (whether the people who bear the errors reach a named responder on a
-    deadline).
-  - Results section uses `GovernanceGapResults` to show score summary, disclaimer, a card explaining
-    the Authority, Dependence, and Standing dimensions in one sentence each, and next-step CTAs to
-    Diagnostics and Evidence Packs.
-- **Behavior:**
-  - Update query params (`owner`, `evidence`, `escalation`, `audit`, `authority`, `dependence`,
-    `standing`, `score`, `tier`) after completion so results are shareable and render on load.
-  - Each dimension scores 0 to 100 and the overall score is the rounded mean of the seven dimensions.
-  - Provide JSON export for the computed score and inputs.
-- **Accessibility:**
-  - Each step uses a labeled form control with required validation on step advance.
-  - Results content remains navigable with visible focus states on share/export actions.
-
 ## Diagnostics — Delegation Audit (`/diagnostics/delegation-audit`)
 
 - **Data sources:** Reads the `delegation-audit` entry from `diagnosticsContent.tools` in `src/content/diagnostics.ts` and mounts the React island at `src/features/delegation-audit/DelegationAudit` with `client:load`. Scoring lives in `src/features/delegation-audit/auditLogic.ts`; question copy and clause, mechanism, and eval references live in `config.ts`.
@@ -147,14 +125,6 @@ Detailed, testable expectations for each route. Use these specs when adding cont
   - Every input and select has a visible `<label>` bound by `htmlFor`; the exposure score is a `role="status"` region with `aria-live="polite"`.
   - Headings run `h1` (PageIntro), `h2` (SectionBlock), `h3` for each question group and readout block, `h4` for individual action class, dependent, and finding cards.
   - The methodology "Does not measure" card states that the tool records what the team believes, is not an audit, and treats an ungrounded grant as a finding to investigate.
-
-## Diagnostics — Technical Capacity Forecaster (`/diagnostics/capacity-forecaster`)
-
-- **Data sources:** Uses the React widget at `src/features/capacity-forecaster/CapacityForecaster` with static header copy in the page frontmatter.
-- **Layout:** Single `section` with `section__header` for eyebrow, `<h1>`, two muted paragraphs (tool purpose and modeling assumptions link), and a permanent-link paragraph followed by the widget.
-- **Accessibility:**
-  - Ensure the external modeling guide link stays descriptive and opens in the same tab (no `target` override).
-  - The widget must retain keyboard support for sliders and export actions per the feature tests; keep it wrapped in the section for landmark navigation.
 
 ## Library (`/library`)
 
@@ -260,11 +230,11 @@ Detailed, testable expectations for each route. Use these specs when adding cont
   - Anchor IDs match intro links; steward cards keep names as headings with roles in `meta`.
   - Contact links are descriptive (no bare URLs); list items remain `<li>` elements for screen-reader grouping.
 
-## Finite (`/finite`)
+## Finite (`/evals#finite` / `/finite`)
 
-- **Data sources:** Renders static legal and policy copy from `src/content/finite.ts`.
-- **Layout:** Single-page content structured with `PageIntro` and subsequent sections for service scope, SLAs, and data handling; keep ordered/unordered lists as authored.
-- **Accessibility:** Preserve heading levels as written (`<h1>` in intro, `<h2>` per section); ensure any email or link text is descriptive.
+- **Data sources:** Pulls `finiteContent` from `src/content/finite.ts`.
+- **Layout:** Rendered in `src/pages/evals/index.astro` under `#finite` via `src/components/FiniteSection.astro` as a companion benchmark section following the governance suites and runner (reachable directly via `/evals#finite` and via the `/finite` 301 redirect). Displays the evaluation scope, three measurement dimensions, verification deliverables, operational invariants, four experimental conditions, five adversarial institutional drills with dual-ledger breakdowns and maturity badges (executable benchmark vs tabletop drill), and the Green Dashboard runnable benchmark harness with action space tools and JSON schema linkage.
+- **Accessibility:** Preserves semantic heading hierarchy (`h2` for section header, `h3` for subsection titles, `h4` for drill cards and tool cards); visible and audit ledger rows use distinct high-contrast badge indicators with semantic labels; all action buttons and links provide descriptive target text.
 
 ## Donate (`/donate`)
 

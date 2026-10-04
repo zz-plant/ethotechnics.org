@@ -9,7 +9,7 @@ import { postMarketWorkflow } from "../../content/crosswalks";
 
 const { pageTitle, pageDescription, eyebrow, title, description } =
   incidentLessonsIntro;
-const enhancedDescription = `${description} The workflow below also serves post-market monitoring and incident reporting.`;
+const enhancedDescription = description;
 ---
 
 <BaseLayout
@@ -27,13 +27,46 @@ const enhancedDescription = `${description} The workflow below also serves post-
     title={title}
     description={enhancedDescription}
     anchorLinks={[
-      { href: "#post-market-workflow", label: "Post-market workflow" },
       ...incidentLessons.map((lesson) => ({
         href: `#${lesson.slug}`,
         label: lesson.title,
       })),
+      { href: "#post-market-workflow", label: "Post-market workflow" },
     ]}
   />
+
+  <SectionBlock
+    id="retrospectives"
+    eyebrow="Composite scenarios"
+    title="Three patterns"
+    description="Each card names the setting the pattern is drawn from. The scenario page holds the missing controls and the fixes."
+    className="section--banded"
+  >
+    <CardGrid className="grid--two">
+      {
+        incidentLessons.map((lesson) => (
+          <CardItem
+            id={lesson.slug}
+            title={lesson.title}
+            description={lesson.summary}
+            descriptionTone="default"
+          >
+            <ul class="muted">
+              <li>Drawn from: {lesson.incident.sector.toLowerCase()}</li>
+            </ul>
+            <div slot="footer" class="card__footer">
+              <a
+                class="button ghost button--compact"
+                href={`/incidents/${lesson.slug}`}
+              >
+                Open scenario
+              </a>
+            </div>
+          </CardItem>
+        ))
+      }
+    </CardGrid>
+  </SectionBlock>
 
   <SectionBlock
     id="post-market-workflow"
@@ -58,38 +91,5 @@ const enhancedDescription = `${description} The workflow below also serves post-
         >/api/post-market-monitoring.json</a
       >.
     </p>
-  </SectionBlock>
-
-  <SectionBlock
-    eyebrow="Incident lessons"
-    title="Browse the retrospectives."
-    description="Each card gives the headline, sector, and timeframe. The lesson page holds the full remediation checklist."
-    className="section--banded"
-  >
-    <CardGrid className="grid--two">
-      {
-        incidentLessons.map((lesson) => (
-          <CardItem
-            id={lesson.slug}
-            title={lesson.title}
-            description={lesson.summary}
-            descriptionTone="default"
-          >
-            <ul class="muted">
-              <li>{lesson.incident.sector}</li>
-              <li>{lesson.incident.timeframe}</li>
-            </ul>
-            <div slot="footer" class="card__footer">
-              <a
-                class="button ghost button--compact"
-                href={`/incidents/${lesson.slug}`}
-              >
-                Open lesson
-              </a>
-            </div>
-          </CardItem>
-        ))
-      }
-    </CardGrid>
   </SectionBlock>
 </BaseLayout>

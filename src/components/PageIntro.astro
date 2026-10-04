@@ -1,9 +1,6 @@
 ---
 import PageIntroAnchorList from "./PageIntroAnchorList.astro";
 import SectionNav from "./SectionNav.astro";
-import SectionIllustration, {
-  type SectionIllustrationId,
-} from "./SectionIllustration.astro";
 
 export interface AnchorLink {
   href: string;
@@ -19,7 +16,6 @@ export interface Props {
   anchorLinksSummary?: string;
   version?: string;
   lastUpdated?: string;
-  illustration?: SectionIllustrationId;
 }
 
 const {
@@ -31,11 +27,13 @@ const {
   anchorLinksSummary = "Show full outline",
   version,
   lastUpdated,
-  illustration,
 } = Astro.props;
 const hasCustomAside = Astro.slots.has("aside");
 const hasActions = Astro.slots.has("actions");
-const hasAsideContent = hasCustomAside || Boolean(illustration);
+const hasAsideContent = hasCustomAside;
+// An outline earns its place only on a long page. Below five sections the
+// headings are a scroll away and a numbered box above them is chrome.
+const showOutline = anchorLinks.length >= 5;
 
 const HeadingTag = `h${titleLevel}` as const;
 
@@ -51,8 +49,13 @@ const resolvedEyebrow =
     : trimmedEyebrow;
 ---
 
-{anchorLinks.length >= 4 && <SectionNav links={anchorLinks} />}
-<section class:list={["section page-intro", { "page-intro--has-aside": hasAsideContent }]}>
+{showOutline && <SectionNav links={anchorLinks} />}
+<section
+  class:list={[
+    "section page-intro",
+    { "page-intro--has-aside": hasAsideContent },
+  ]}
+>
   <div class="page-intro__grid">
     <div class="page-intro__lead">
       <div class="page-intro__meta">
@@ -81,24 +84,18 @@ const resolvedEyebrow =
     {
       hasAsideContent && (
         <div class="page-intro__aside">
-          {hasCustomAside ? (
-            <div class="page-intro__aside-custom">
-              <slot name="aside" />
-            </div>
-          ) : illustration ? (
-            <div class="page-intro__aside-illustration">
-              <SectionIllustration section={illustration} />
-            </div>
-          ) : null}
+          <div class="page-intro__aside-custom">
+            <slot name="aside" />
+          </div>
         </div>
       )
     }
   </div>
 
   {
-    anchorLinks.length > 1 && (
+    showOutline && (
       <nav aria-label="On-page links" class="page-intro__anchors">
-        <p class="eyebrow page-intro__anchors-title">Jump to</p>
+        <p class="page-intro__anchors-title">On this page</p>
         <div class="page-intro__anchors-list page-intro__anchors-list--desktop">
           <PageIntroAnchorList links={anchorLinks} />
         </div>

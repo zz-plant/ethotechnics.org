@@ -5,19 +5,19 @@
   }
   .diagnostics__filters {
     display: grid;
-    gap: 0.75rem;
-    margin-bottom: 1.5rem;
+    gap: var(--space-3);
+    margin-bottom: var(--space-5);
   }
   .diagnostics__process {
     list-style: none;
     padding: 0;
-    margin: 1.6rem 0 0.5rem;
+    margin: var(--space-5) 0 var(--space-2);
     display: grid;
-    gap: 1rem;
+    gap: var(--space-4);
   }
 
   .diagnostics__process-step {
-    padding: 1.2rem 1.35rem;
+    padding: var(--space-4) var(--space-5);
     background: var(--surface);
     border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
     border-radius: var(--radius-lg);
@@ -25,11 +25,11 @@
   }
 
   .diagnostics__process-step .eyebrow {
-    margin-bottom: 0.35rem;
+    margin-bottom: var(--space-1);
   }
 
   .diagnostics__footnote {
-    margin-top: 1rem;
+    margin-top: var(--space-4);
   }
 
   @media (min-width: 780px) {
@@ -47,8 +47,8 @@
 
   .diagnostics__card-body {
     display: grid;
-    gap: 1rem;
-    margin-top: 1rem;
+    gap: var(--space-4);
+    margin-top: var(--space-4);
   }
 
   .diagnostics__best-for {
@@ -60,121 +60,78 @@
     padding: 0;
     margin: 0;
     display: grid;
-    gap: 1rem;
+    gap: var(--space-4);
   }
 
   .diagnostics__summary .pill-list {
-    margin-top: 0.8rem;
+    margin-top: var(--space-3);
   }
 
   .diagnostics__label {
     letter-spacing: 0.03em;
     text-transform: uppercase;
-    font-size: 0.9rem;
+    font-size: var(--text-sm);
   }
 
   .diagnostics__card-footer {
-    display: grid;
-    gap: 0.75rem;
-    margin-top: 1.4rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4);
+    margin-top: var(--space-5);
   }
 
-  .diagnostics__artifact-bridge {
-    margin: 0;
-  }
-
-  .diagnostics__artifact-bridge ul {
-    margin: 0;
-    padding-left: 1.1rem;
-  }
-
-  .diagnostics__sticky-jump {
-    position: fixed;
-    left: 0.75rem;
-    right: 0.75rem;
-    bottom: calc(0.75rem + env(safe-area-inset-bottom));
-    z-index: var(--z-overlay-top);
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0.3rem;
-    margin: 0;
-    padding: 0.6rem;
-    border-radius: var(--radius-md);
-    border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+  .diagnostics__output-box {
+    padding: var(--space-2) var(--space-3);
     background: var(--panel);
-    box-shadow: var(--shadow-md);
+    border-left: 2px solid var(--accent);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   }
 
-  .diagnostics__sticky-jump .button {
-    min-height: 2.35rem;
-    justify-content: center;
-    width: 100%;
-    font-size: 0.9rem;
+  .diagnostics__output-box .eyebrow {
+    margin: 0 0 var(--space-1);
+    font-size: var(--text-eyebrow);
   }
 
-  .diagnostics__sticky-jump .button.is-active {
-    border-color: color-mix(in srgb, var(--accent) 44%, var(--border));
-    background: color-mix(in srgb, var(--accent) 12%, var(--surface));
-    color: var(--accent-strong);
-  }
-
-  .diagnostics__sticky-link {
-    text-align: center;
-    text-decoration: none;
-    padding: 0.1rem 0.4rem 0;
-  }
-
-  .diagnostics__sticky-link.is-active {
-    color: var(--accent-strong);
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
-  }
-
-  @media (min-width: 900px) {
-    .diagnostics__sticky-jump {
-      position: static;
-      grid-template-columns: minmax(0, 1fr);
-      margin: 1rem 0 1.25rem;
-    }
-
-    body:has(.diagnostics__sticky-jump) .page-shell__content {
-      padding-bottom: clamp(1.2rem, 2.5vw, 2.5rem);
-    }
-  }
-
-  .diagnostics__mobile-disclosure {
+  .diagnostics__output-box p {
     margin: 0;
+  }
+
+  .diagnostics__method-link {
+    font-size: var(--text-sm);
+    font-weight: 650;
+    color: var(--accent);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .diagnostics__method-link:hover {
+    text-decoration: underline;
+    color: var(--accent-strong);
   }
 
   @media (max-width: 899px) {
     #diagnostic-tools {
       scroll-margin-bottom: 7rem;
     }
-
-    .diagnostics__sticky-jump + * {
-      margin-top: 0;
-    }
-
-    body:has(.diagnostics__sticky-jump) .page-shell__content {
-      padding-bottom: clamp(5.8rem, 18vw, 7.2rem);
-    }
   }
 
   .diagnostics__comparison {
     display: grid;
-    gap: 0.9rem;
-    margin-bottom: 1.2rem;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
   }
 
   .diagnostics__comparison-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
-    gap: 0.8rem;
+    gap: var(--space-3);
   }
 
   .diagnostics__comparison-card {
     display: grid;
-    gap: 0.8rem;
+    gap: var(--space-3);
   }
 
   .diagnostics__comparison-card h3 {
@@ -184,12 +141,12 @@
   .diagnostics__comparison-meta {
     margin: 0;
     display: grid;
-    gap: 0.55rem;
+    gap: var(--space-2);
   }
 
   .diagnostics__comparison-meta div {
     display: grid;
-    gap: 0.15rem;
+    gap: var(--space-hair);
   }
 
   .diagnostics__comparison-meta dt {
@@ -206,7 +163,7 @@
      gives the same fact a shape, so the reader can see how much is left. */
   .intake-form__progress {
     display: grid;
-    gap: 0.45rem;
+    gap: var(--space-2);
   }
 
   .intake-form__progress p {
@@ -215,7 +172,7 @@
 
   .intake-form__steps {
     display: flex;
-    gap: 0.3rem;
+    gap: var(--space-1);
     margin: 0;
     padding: 0;
     list-style: none;
@@ -246,25 +203,25 @@
     margin: 0;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
-    gap: 1rem 1.5rem;
+    gap: var(--space-4) var(--space-5);
   }
 
   .readout-factors dt {
     font-family: var(--sans);
     font-size: var(--text-eyebrow);
-    letter-spacing: 0.08em;
+    letter-spacing: var(--tracking-label-wide);
     text-transform: uppercase;
     color: var(--muted);
     font-weight: 650;
   }
 
   .readout-factors dd {
-    margin: 0.25rem 0 0;
+    margin: var(--space-1) 0 0;
     font-size: var(--text-sm);
   }
 
   .readout-factors > div[data-status] {
-    padding-left: 0.8rem;
+    padding-left: var(--space-3);
     border-left: 3px solid var(--border);
   }
 
@@ -287,17 +244,17 @@
     margin: 0;
     padding: 0;
     display: grid;
-    gap: 0.9rem;
+    gap: var(--space-4);
   }
 
   .readout-variable {
-    padding: 0.8rem 1rem;
+    padding: var(--space-3) var(--space-4);
     border: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
     border-left-width: 3px;
     border-radius: var(--radius-md);
     background: var(--surface);
     display: grid;
-    gap: 0.45rem;
+    gap: var(--space-2);
   }
 
   .readout-variable[data-rating="grounded"] {
@@ -316,7 +273,7 @@
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    gap: 0.75rem;
+    gap: var(--space-3);
   }
 
   .readout-variable__head h3 {
@@ -336,21 +293,21 @@
 
   .readout-variable__notes {
     margin: 0;
-    padding-left: 1.1rem;
+    padding-left: var(--space-4);
     font-size: var(--text-sm);
     color: var(--muted);
     display: grid;
-    gap: 0.2rem;
+    gap: var(--space-1);
   }
 
   .readout-grants li,
   .readout-findings li {
-    padding: 0.8rem 0;
+    padding: var(--space-3) 0;
     border-top: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
   }
 
   .readout-findings h3 {
-    margin: 0 0 0.3rem;
+    margin: 0 0 var(--space-1);
     font-size: var(--text-h3);
   }
 
@@ -361,19 +318,184 @@
   .readout-findings__refs {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem 1rem;
-    margin-top: 0.5rem;
+    gap: var(--space-2) var(--space-4);
+    margin-top: var(--space-2);
     font-family: var(--sans);
     font-size: var(--text-sm);
   }
 
   .readout-provenance {
     max-width: var(--content-max);
-    margin: 2rem auto 0;
-    padding-inline: var(--page-gutter);
+    margin: var(--space-6) auto 0;
+    padding-inline: 0;
   }
 
   .readout-provenance code {
     word-break: break-all;
+  }
+}
+
+/* /diagnostics opens on the four tools. Each card is one link: the tool name
+   is the link text, and its ::after covers the card so the whole card is the
+   click target without nesting a heading inside an anchor. */
+@layer components {
+  .page-intro + .diagnostics-start {
+    margin-top: var(--space-5);
+  }
+
+  .diagnostics-start__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 720px) {
+    .diagnostics-start__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .diagnostics-start__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-container-compact);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    scroll-margin-top: var(--space-6);
+    transition:
+      border-color var(--motion-fast) ease,
+      box-shadow var(--motion-fast) ease;
+  }
+
+  .diagnostics-start__card:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .diagnostics-start__card:has(.diagnostics-start__link:focus-visible) {
+    outline: var(--focus-outline);
+    outline-offset: 2px;
+  }
+
+  .diagnostics-start__meta {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: var(--text-eyebrow);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .diagnostics-start__question {
+    margin: 0;
+    font-size: var(--text-h3);
+    line-height: 1.25;
+  }
+
+  .diagnostics-start__description {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  .diagnostics-start__link {
+    margin-top: auto;
+    padding-top: var(--space-2);
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    font-weight: 650;
+    color: var(--link);
+    text-decoration: none;
+  }
+
+  .diagnostics-start__link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+
+  .diagnostics-start__card:hover .diagnostics-start__link {
+    color: var(--link-hover);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  /* The card draws the focus ring; the link's own outline would sit inside it. */
+  .diagnostics-start__link:focus-visible {
+    outline: none;
+    text-decoration: underline;
+  }
+
+  .diagnostics-map {
+    margin: var(--space-5) 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: var(--space-3) 0;
+  }
+
+  .diagnostics-map > summary {
+    cursor: pointer;
+    font-family: var(--sans);
+    font-weight: 650;
+    padding: var(--space-2) 0;
+  }
+
+  .diagnostics-map > summary:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: 2px;
+    border-radius: var(--radius-xs);
+  }
+
+  .diagnostics-map__list {
+    list-style: none;
+    margin: var(--space-3) 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 720px) {
+    .diagnostics-map__list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .diagnostics-map__tool {
+    margin: 0 0 var(--space-2);
+    font-weight: 650;
+  }
+
+  .diagnostics-map__facts {
+    margin: 0;
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  .diagnostics-map__facts div {
+    display: grid;
+    grid-template-columns: 5.5rem minmax(0, 1fr);
+    gap: var(--space-2);
+  }
+
+  .diagnostics-map__facts dt {
+    font-weight: 600;
+  }
+
+  .diagnostics-map__facts dd {
+    margin: 0;
+  }
+
+  .diagnostics-orientation {
+    margin-bottom: var(--space-6);
+  }
+
+  .diagnostics-orientation__heading {
+    font-size: var(--text-lg);
+    margin-top: 0;
   }
 }

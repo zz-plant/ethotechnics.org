@@ -4,61 +4,61 @@
 
   .stat-cluster {
     display: grid;
-    gap: var(--space-3);
+    gap: var(--space-4);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
     margin: 0;
   }
 
   .stat-cluster__item {
-    padding: var(--space-2);
+    padding: var(--space-3);
     border-radius: var(--radius-md);
     border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
     background: var(--surface);
     display: grid;
-    gap: 0.4rem;
+    gap: var(--space-2);
   }
 
   .stat-cluster__label {
     margin: 0;
-    font-size: 0.85rem;
-    letter-spacing: 0.08em;
+    font-size: var(--text-sm);
+    letter-spacing: var(--tracking-label-wide);
     text-transform: uppercase;
     color: color-mix(in srgb, var(--text) 70%, var(--border));
   }
 
   .stat-cluster__value {
     margin: 0;
-    font-size: clamp(1.6rem, 1vw + 1.4rem, 2.2rem);
+    font-size: var(--text-2xl);
     font-weight: 700;
     color: var(--text);
   }
 
   .stat-cluster__detail {
     margin: 0;
-    font-size: 0.9rem;
+    font-size: var(--text-sm);
   }
 
   .quote-highlight {
     margin: 0;
-    padding: var(--space-3);
+    padding: var(--space-4);
     border-radius: var(--radius-lg);
     border-left: 4px solid var(--accent);
     background: var(--surface);
     display: grid;
-    gap: 1rem;
+    gap: var(--space-4);
   }
 
   .quote-highlight blockquote {
     margin: 0;
-    font-size: 1.1rem;
+    font-size: var(--text-lg);
     line-height: 1.6;
   }
 
   .quote-highlight figcaption {
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
-    font-size: 0.95rem;
+    gap: var(--space-1);
+    font-size: var(--text-sm);
     color: color-mix(in srgb, var(--text) 70%, var(--border));
   }
 
@@ -69,29 +69,29 @@
 
   .feedback-ribbon {
     display: grid;
-    gap: var(--space-3);
-    padding: var(--space-3);
-    border-radius: calc(var(--radius-lg) + 2px);
+    gap: var(--space-4);
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
     border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--border));
     background: var(--surface);
   }
 
   .feedback-ribbon__lead h3 {
-    margin: 0.4rem 0 0.6rem;
+    margin: var(--space-2) 0 var(--space-2);
   }
 
   .feedback-ribbon__actions {
     display: grid;
-    gap: 1rem;
+    gap: var(--space-4);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
   }
 
   .feedback-ribbon__card {
     display: grid;
-    gap: 0.75rem;
+    gap: var(--space-3);
     align-items: center;
     grid-template-columns: auto 1fr;
-    padding: 1rem;
+    padding: var(--space-container-compact);
     border-radius: var(--radius-md);
     background: var(--surface);
     border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
@@ -106,8 +106,6 @@
   .feedback-ribbon__card:hover,
   .feedback-ribbon__card:focus-visible {
     border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
-    box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
   }
 
   .feedback-ribbon__icon {
@@ -118,18 +116,18 @@
     border-radius: var(--radius-pill);
     background: color-mix(in srgb, var(--accent) 10%, transparent);
     color: var(--accent);
-    font-size: 1.1rem;
+    font-size: var(--text-lg);
   }
 
   .feedback-ribbon__copy {
     display: grid;
-    gap: 0.2rem;
+    gap: var(--space-1);
   }
 
   .feedback-ribbon__label {
-    font-size: 0.85rem;
+    font-size: var(--text-sm);
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: var(--tracking-label-wide);
     color: color-mix(in srgb, var(--text) 70%, var(--border));
   }
 
@@ -138,7 +136,7 @@
   }
 
   .feedback-ribbon__detail {
-    font-size: 0.85rem;
+    font-size: var(--text-sm);
     color: color-mix(in srgb, var(--text) 70%, var(--border));
   }
 
@@ -151,10 +149,10 @@
 
   .institute-banner {
     margin: 0 auto;
-    padding: 0.65rem 0;
+    padding: var(--space-3) 0;
     text-align: center;
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: var(--text-sm);
   }
 
   /* The home masthead: type on the paper, closed by one rule. The starter
@@ -162,14 +160,8 @@
   .institute-hero {
     max-width: var(--content-max);
     margin-inline: auto;
-    padding: clamp(0.5rem, 1.5vw, 1.25rem) 0 clamp(2rem, 3.5vw, 3rem);
+    padding: var(--space-4) 0 calc(var(--space-section) / 2);
     border-bottom: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
-  }
-
-  .institute-hero__layout {
-    display: grid;
-    gap: clamp(1.6rem, 3vw, 2.5rem);
-    align-items: center;
   }
 
   .institute-hero__main {
@@ -184,61 +176,7 @@
   }
 
   .institute-hero__actions {
-    margin-block: 0.4rem;
-  }
-
-  .institute-hero__side {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-  }
-
-  .institute-hero__starter {
-    border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--border));
-    border-radius: var(--radius-lg);
-    padding: 1rem 1.2rem;
-    background: var(--surface);
-    box-shadow: var(--shadow-xs);
-  }
-
-  .institute-hero__starter-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
-  }
-
-  .institute-hero__starter-links {
-    display: grid;
-    gap: 0.6rem;
-  }
-
-  .institute-hero__starter-item {
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
-    padding: 0.5rem 0.65rem;
-    border-radius: var(--radius);
-    text-decoration: none;
-    background: color-mix(in srgb, var(--panel) 40%, var(--surface));
-    border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
-    transition: background var(--motion-fast) ease, border-color var(--motion-fast) ease;
-  }
-
-  .institute-hero__starter-item:hover,
-  .institute-hero__starter-item:focus-visible {
-    background: color-mix(in srgb, var(--panel) 80%, var(--surface));
-    border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
-    text-decoration: none;
-  }
-
-  .institute-hero__starter-name {
-    font-weight: 650;
-    font-family: var(--sans);
-    font-size: var(--text-sm);
-    color: var(--accent);
+    margin-block: var(--space-2);
   }
 
   #failure-intake {
@@ -269,7 +207,7 @@
     padding: 0;
     display: grid;
     grid-template-columns: repeat(1, minmax(0, 1fr));
-    gap: 1rem;
+    gap: var(--space-4);
     align-items: stretch;
   }
 
@@ -283,8 +221,8 @@
     justify-content: space-between;
     align-items: flex-start;
     text-align: left;
-    padding: 1.1rem 1.25rem;
-    gap: 0.72rem;
+    padding: var(--space-4) var(--space-4);
+    gap: var(--space-3);
     min-height: 5.8rem;
     border-radius: var(--radius-lg);
     background: var(--surface-raised);
@@ -299,10 +237,8 @@
 
   .failure-grid__button:hover,
   .failure-grid__button:focus-visible {
-    transform: translateY(-2px);
     border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
     background: color-mix(in srgb, var(--surface-raised) 96%, var(--accent) 4%);
-    box-shadow: var(--shadow-float), var(--card-inner-highlight);
   }
 
   .failure-grid__button:active {
@@ -316,14 +252,14 @@
 
   .failure-grid__label {
     display: grid;
-    gap: 0.2rem;
+    gap: var(--space-1);
     min-width: 0;
   }
 
   .failure-grid__title {
     display: inline-flex;
     align-items: flex-start;
-    gap: 0.5rem;
+    gap: var(--space-2);
     min-width: 0;
     font-weight: 650;
   }
@@ -333,9 +269,9 @@
     align-items: center;
     width: fit-content;
     margin-left: 0;
-    margin-top: 0.3rem;
+    margin-top: var(--space-1);
     line-height: 1.25;
-    padding: 0.2rem 0.55rem;
+    padding: var(--space-1) var(--space-2);
     border-radius: var(--radius-pill);
     border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--border));
     background: color-mix(in srgb, var(--accent) 6%, var(--surface));
@@ -398,7 +334,7 @@
   .artifact-grid {
     display: grid;
     grid-template-columns: repeat(1, minmax(0, 1fr));
-    gap: 1rem;
+    gap: var(--space-4);
     list-style: none;
     margin: 0;
     padding: 0;
@@ -410,21 +346,17 @@
 
   @media (max-width: 899px) {
     .institute-hero {
-      margin-top: 0.1rem;
+      margin-top: var(--space-hair);
     }
 
     .institute-hero h1 {
-      margin-bottom: 0.5rem;
-      font-size: clamp(1.72rem, 8vw, 2.12rem);
+      margin-bottom: var(--space-2);
+      font-size: var(--text-2xl);
       line-height: 1.08;
     }
 
     .institute-hero__main .section-lead {
-      margin-bottom: 0.65rem;
-    }
-
-    .institute-hero__starter {
-      padding: 0.72rem 0.8rem;
+      margin-bottom: var(--space-3);
     }
   }
 
@@ -435,12 +367,6 @@
   }
 
   @media (min-width: 900px) {
-    .institute-hero__layout {
-      grid-template-columns: minmax(0, 1.25fr) minmax(20rem, 0.95fr);
-      align-items: center;
-      gap: 2.2rem;
-    }
-
     .failure-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
       grid-auto-rows: 1fr;
@@ -455,29 +381,6 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
-
-  .standards-filter__controls {
-    display: grid;
-    gap: 0.75rem;
-    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-  }
-
-  .standards-filter__controls label {
-    display: grid;
-    gap: 0.35rem;
-    font-weight: 600;
-  }
-
-  .standards-filter__controls select {
-    width: 100%;
-    min-height: 2.6rem;
-    border-radius: var(--radius-md);
-    border: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
-    background: var(--surface);
-    color: var(--text);
-    padding: 0.45rem 0.65rem;
-    font: inherit;
-  }
 }
 
 @layer components {
@@ -486,9 +389,9 @@
      is the thing that tells them apart, so the card shows that instead. */
   .artifact-grid__enforces {
     margin: 0;
-    padding-left: 1.1rem;
+    padding-left: var(--space-4);
     display: grid;
-    gap: 0.3rem;
+    gap: var(--space-1);
     font-size: var(--text-sm);
     color: var(--muted);
   }
@@ -496,7 +399,7 @@
   .artifact-template {
     overflow-x: auto;
     overscroll-behavior-x: contain;
-    padding: 1rem 1.15rem;
+    padding: var(--space-4) var(--space-4);
     border-radius: var(--radius-lg);
     border: 1px solid var(--border);
     background: var(--panel);
@@ -510,27 +413,27 @@
   /* Four stages of one sequence, not four lists that happen to sit together. */
   .operating-model {
     display: grid;
-    gap: 1rem;
+    gap: var(--space-4);
     margin: 0;
     /* The page puts this straight under the hero's button row, which left the
        first stage card touching it. Padding rather than margin: the unlayered
        `.stack-lg > * { margin-block: 0 }` utility outranks any layered rule. */
-    padding: 2.2rem 0 0;
+    padding: var(--space-6) 0 0;
     list-style: none;
   }
 
   @media (min-width: 900px) {
     .operating-model {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1.1rem;
+      gap: var(--space-4);
     }
   }
 
   .operating-model__stage {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
-    gap: 0.9rem;
-    padding: 1.1rem 1.2rem;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-4);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     background: var(--surface);
@@ -561,8 +464,8 @@
 
   .operating-model ul {
     margin: 0;
-    padding-left: 1.1rem;
+    padding-left: var(--space-4);
     display: grid;
-    gap: 0.35rem;
+    gap: var(--space-1);
   }
 }

@@ -1,0 +1,93 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+
+const title = "Retired tools";
+const description =
+  "Historical source for the diagnostics and agent prompt packs retired on September 26, 2026, and the ethics scorecard retired on October 1.";
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  breadcrumbItems={[
+    { name: "Home", url: "/" },
+    { name: "Diagnostics", url: "/diagnostics" },
+    { name: title, url: "/archive/retired-tools" },
+  ]}
+>
+  <PageIntro
+    eyebrow="Archive"
+    title={title}
+    description={description}
+    anchorLinks={[]}
+  />
+  <section class="stack-md" aria-labelledby="retirement-reason">
+    <h2 id="retirement-reason">Why these tools were retired</h2>
+    <p>
+      The System Auditor reviewed prompt text with regular expressions. Its
+      score could not establish whether an institution could correct a decision.
+      The Governance Gap Score duplicated the Delegation Audit with fewer
+      questions. Both now redirect to the <a
+        href="/diagnostics/delegation-audit">Delegation Audit</a
+      >, which records self-reported answers and does not verify them.
+    </p>
+    <p>
+      The Capacity Forecaster, Maintenance Simulator, and Maintenance Debt
+      Calculator modeled general operational planning. Their URLs now redirect
+      to
+      <a href="/diagnostics">Diagnostics</a>. The general agent prompt packs and
+      installation interface are also retired.
+    </p>
+    <p>
+      The Ethics Audit Scorecard was retired on October 1, 2026. It scored
+      transparency, accountability, fairness, privacy, sustainability, and
+      power. That is a general ethics checklist, not the six safeguards this
+      site measures. Its URL now opens the <a href="/#self-test">self-test</a>,
+      which asks one question for each safeguard. Its source remains in the
+      public repository's history.
+    </p>
+    <p>
+      These materials remain available for historical reference. They are not
+      maintained tools or evidence that a deployment has effective corrective
+      authority. The <a href="/diagnostics/record-conformance"
+        >Record Conformance Checker</a
+      >
+      remains available to check specific properties of a record stream.
+    </p>
+  </section>
+  <section class="stack-md" aria-labelledby="historical-source">
+    <h2 id="historical-source">Historical source and downloads</h2>
+    <p>
+      The source archive preserves the retired applications, tests, prompt
+      packs, and their original catalogue entries at commit
+      <code>c1b3f00fd0b2e9c589f45baeb6a43d0609d72142</code>. It also includes
+      glossary and mechanism snapshots so removed references can be interpreted
+      in their original context.
+    </p>
+    <ul>
+      <li>
+        <a href="/archive/retired-tools/source.tar.gz" download
+          >Download source archive</a
+        >
+      </li>
+      <li>
+        <a href="/archive/retired-tools/manifest.json"
+          >Archive manifest and SHA-256 checksum</a
+        >
+      </li>
+      <li>
+        <a
+          href="/archive/retired-tools/ethotechnics-agent-prompt-pack-v1.0.0.md"
+          download>Historical prompt pack v1.0.0</a
+        >
+      </li>
+      <li>
+        <a
+          href="/archive/retired-tools/ethotechnics-agent-prompt-pack-v1.1.0.md"
+          download>Historical prompt pack v1.1.0</a
+        >
+      </li>
+    </ul>
+  </section>
+</BaseLayout>

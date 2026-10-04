@@ -6,18 +6,60 @@ import CardItem from "../../../components/CardItem.astro";
 import PageIntro from "../../../components/PageIntro.astro";
 import SectionBlock from "../../../components/SectionBlock.astro";
 
-const lastmod = "2026-09-18T00:00:00.000Z";
+import {
+  safeguardsInTaxonomy,
+  getTheoryQuestionsBySafeguard,
+} from "../../../content/theory-taxonomy";
+
+const published = "2026-09-18T00:00:00.000Z";
+const modified = "2026-10-02T00:00:00.000Z";
 const essays = (await getCollection("theory")).sort((a, b) =>
   a.data.title.localeCompare(b.data.title, "en", { sensitivity: "base" }),
 );
 
 const pageTitle = "Theory — Ethotechnics Institute";
 const pageDescription =
-  "Essays on why the laws hold. Theory motivates the method and is never cited as a requirement.";
+  "Essays on one claim: institutions absorb the evidence that their automated systems are wrong. Start with insulation. No standard cites one as a requirement.";
 const anchorLinks = [
-  { href: "#essays", label: "Essays" },
+  { href: "#start", label: "Reading order" },
+  { href: "#questions", label: "Questions by safeguard" },
+  { href: "#essays", label: "All essays" },
   { href: "#layering", label: "Theory and method" },
 ];
+
+// The essays are listed A to Z below, which puts the one that states the
+// mechanism fourteenth. This order reads them as one argument: the
+// mechanism, how it hides, who carries it, why fixing cases does not fix the
+// rule, and where the argument comes from.
+const readingOrder = [
+  {
+    slug: "insulation",
+    why: "The mechanism. The evidence that a decision is wrong lands on people who cannot change the rule. Several of the other essays describe its channels.",
+  },
+  {
+    slug: "absorption-as-concealment",
+    why: "How the people who absorb a failure improve the metric that should have caught it.",
+  },
+  {
+    slug: "dependence-without-standing",
+    why: "Why the people who correct a system need a route into the rule, and what the institution loses when they have none.",
+  },
+  {
+    slug: "exception-learning",
+    why: "Why fixing each case, even thousands of them, leaves the rule that produces them in place.",
+  },
+  {
+    slug: "what-ethotechnics-is-not",
+    why: "What the discipline does not claim, where its argument comes from, and where each neighboring field stops.",
+  },
+].map((step) => {
+  const essay = essays.find(
+    (entry) => entry.data.permalink === `/research/theory/${step.slug}`,
+  );
+  if (!essay)
+    throw new Error(`Reading order names a missing essay: ${step.slug}`);
+  return { ...step, title: essay.data.title, href: essay.data.permalink };
+});
 const formatLawRefs = (refs: string[]) =>
   refs.length > 0 ? `Laws ${refs.join(", ")}` : "No law references";
 ---
@@ -25,8 +67,8 @@ const formatLawRefs = (refs: string[]) =>
 <BaseLayout
   title={pageTitle}
   description={pageDescription}
-  publishedTime={lastmod}
-  modifiedTime={lastmod}
+  publishedTime={published}
+  modifiedTime={modified}
 >
   <PageIntro
     eyebrow="Research"
@@ -36,10 +78,68 @@ const formatLawRefs = (refs: string[]) =>
   />
 
   <SectionBlock
+    id="start"
+    eyebrow="Reading order"
+    title="Start with these five"
+    description="Read in this order, they state the argument the laws rest on: the mechanism, how it hides, who carries it, why fixing cases leaves it in place, and where the argument comes from."
+  >
+    <ol class="step-list stack-md">
+      {
+        readingOrder.map((step) => (
+          <li class="card stack-sm">
+            <h3>
+              <a href={step.href}>{step.title}</a>
+            </h3>
+            <p>{step.why}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </SectionBlock>
+
+  <SectionBlock
+    id="questions"
+    eyebrow="Taxonomy"
+    title="Questions by safeguard"
+    description="Every essay addresses one structural question about automated authority, evidence concealment, or human subsidy. Organized under the six safeguards the method names."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      {
+        safeguardsInTaxonomy.map((safeguard) => {
+          const items = getTheoryQuestionsBySafeguard(safeguard);
+          return (
+            <article class="card stack-sm">
+              <div class="stack-xs">
+                <p class="eyebrow">{safeguard}</p>
+                <p class="small muted">
+                  {items.length} {items.length === 1 ? "inquiry" : "inquiries"}
+                </p>
+              </div>
+              <ul class="step-list stack-xs">
+                {items.map((item) => (
+                  <li>
+                    <p>
+                      <a href={item.href}>
+                        <strong>{item.title}:</strong>
+                      </a>{" "}
+                      <em>{item.question}</em>
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          );
+        })
+      }
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
     id="essays"
-    eyebrow="Essays"
-    title="Why the laws hold"
-    description="Argumentative prose. None of it carries requirements language, and no standard cites it as a clause."
+    eyebrow="All essays"
+    title={`All ${essays.length} essays, A to Z`}
+    description="Arguments, not requirements. No essay uses requirements language, and no standard cites one as a clause."
   >
     <CardGrid className="grid--two">
       {
@@ -50,6 +150,12 @@ const formatLawRefs = (refs: string[]) =>
             description={essay.data.summary}
             descriptionTone="default"
           >
+            <div class="stack-xs">
+              <p class="eyebrow">Central question</p>
+              <p class="small muted">
+                <em>{essay.data.question}</em>
+              </p>
+            </div>
             <div slot="footer" class="card__footer">
               <a
                 class="button ghost button--compact"
@@ -69,19 +175,20 @@ const formatLawRefs = (refs: string[]) =>
     eyebrow="Layering"
     title="Theory and method"
     description="How the site separates the argument from the requirement."
-    variant="alt"
   >
     <p>
       The site has three layers. Theory says why the laws hold. Method states
-      the laws, their invariants, and the standards, objects, mechanisms, and
-      evals that bind them. Instruments are the diagnostics, validators, and
-      APIs that apply the method to a deployment.
+      the laws, the condition each one requires, and the
+      <a href="/standards">standards</a>, <a href="/mechanisms">mechanisms</a>,
+      and <a href="/evals">evals</a> that enforce them. Tools are the
+      <a href="/diagnostics">diagnostics</a>, validators, and APIs that apply
+      the method to a deployed system.
     </p>
     <p>
       A Method page may cite an essay here as motivation. It may not cite one as
       a requirement. The <a href="/standards/laws">laws</a> and the{" "}
-      <a href="/standards/core-axioms">core axioms</a> are the doctrine a standard
-      binds; the essays are the reasons a reader might accept it.
+      <a href="/standards/core-axioms">core axioms</a> are what a standard enforces.
+      The essays are the reasons a reader might accept them.
     </p>
   </SectionBlock>
 </BaseLayout>

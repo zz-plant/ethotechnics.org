@@ -11,9 +11,12 @@
 </p>
 
 This repository powers [ethotechnics.org](https://ethotechnics.org), the home of Ethotechnics.
-Ethotechnics is the engineering discipline concerned with keeping authority, evidence, capability,
-consequence, and correction coupled tightly enough that increasing machine agency does not silently
-become unreviewable institutional power. The site publishes proposed standards, mechanisms,
+Ethotechnics is the engineering discipline concerned with keeping capability, authority, evidence,
+dependency, standing, and correction coupled tightly enough that increasing machine agency does not silently
+become unreviewable institutional power. Its central claim: institutions absorb the evidence that
+their automated systems are wrong (a worker quietly fixes the error, an appeal settles one case, and
+the rule never changes). Ethotechnics names that mechanism, scores it in public cases, and specifies
+the records that carry the evidence back to the rule in any institution that adopts them. The site publishes proposed standards, mechanisms,
 diagnostics, and a glossary that make those states explicit and reviewable. The project favors
 lean, fast-loading pages and clear storytelling.
 
@@ -29,8 +32,8 @@ lean, fast-loading pages and clear storytelling.
   switches, appeal paths, authority grant registers, dependency ledgers.
 - **Evals.** Governability evaluation suites and test cases that ask whether a deployed system is
   correctable, not whether a model is capable.
-- **Diagnostics.** Interactive tools that score a real deployment: delegation audit, burden modeler,
-  capacity forecaster, system auditor.
+- **Diagnostics.** Delegation self-assessment, record conformance checking, and burden measurement.
+  The self-reported audit does not verify the evidence.
 - **Glossary and taxonomy.** Canonical definitions and a branch structure for authority, dependence,
   governance, delivery, assurance, and experience.
 - **A machine-readable API.** JSON and JSONL surfaces at `/api`, JSON Schemas under
@@ -50,6 +53,7 @@ lean, fast-loading pages and clear storytelling.
 - [Documentation map](#documentation-map)
 - [Project structure](#project-structure)
 - [Contributing](#contributing)
+- [Changelog](CHANGELOG.md)
 - [License](#license)
 
 ## Highlights
@@ -61,9 +65,9 @@ lean, fast-loading pages and clear storytelling.
 
 ## Support the project
 
-- ⭐ Star the repo to help others discover ethical technology and human-centered design resources.
+- ⭐ Star the repo to help others discover sociotechnical governance and operational accountability resources.
 - Share the live site with teammates or students who care about responsible technology practice.
-  - X: <https://twitter.com/intent/tweet?text=Ethotechnics%3A%20ethical%20technology%20and%20human-centered%20design&url=https%3A%2F%2Fethotechnics.org>
+  - X: <https://twitter.com/intent/tweet?text=Ethotechnics%3A%20sociotechnical%20governance%20and%20operational%20accountability&url=https%3A%2F%2Fethotechnics.org>
   - LinkedIn: <https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fethotechnics.org>
 - Subscribe to Field Notes via RSS: <https://ethotechnics.org/field-notes/rss.xml>.
 - Follow updates on GitHub to track new essays, research notes, and design references.
@@ -257,6 +261,7 @@ Session storage is not enabled by default; if you add it later, define the KV bi
 - CI mirrors `bun run check` on pull requests via the Site checks workflow.
 - Read [`AGENTS.md`](AGENTS.md), [`docs/README.md`](docs/README.md), and
   [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) before making larger updates.
+- Track version history and release notes in [`CHANGELOG.md`](CHANGELOG.md).
 
 ## License
 

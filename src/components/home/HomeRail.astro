@@ -1,0 +1,15 @@
+---
+/**
+ * The home page's chrome: two hairlines down the viewport's left edge. The
+ * accent line fills as the reader moves through the record; the rust line
+ * stays inert -- the grammar the record-spine panel explains in words.
+ * Purely decorative: aria-hidden, pointer-inert, and it never intercepts
+ * scroll. It only animates with CSS scroll-driven animation, where the
+ * browser ties the fill to reading progress; everywhere else it is static.
+ */
+---
+
+<div class="home-rail" aria-hidden="true">
+  <span class="home-rail__line home-rail__line--record"></span>
+  <span class="home-rail__line home-rail__line--institution"></span>
+</div>

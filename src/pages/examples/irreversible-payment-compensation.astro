@@ -2,13 +2,14 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import UseCaseFit from "../../components/UseCaseFit.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import GlossaryAnchorsBlock from "../../components/GlossaryAnchorsBlock.astro";
 
 const pageTitle = "Irreversible payment with compensation — Worked example";
 const pageDescription =
-  "A payout that cannot be reversed. The receipt is issued before release and binds 1, 8, and 48-hour clocks and a compensation commitment.";
+  "A payout that cannot be reversed. The receipt is issued before release and commits to 1, 8, and 48-hour clocks and to compensation if the payout was wrong.";
 
 const receiptPayload = `{
   "schema_version": "1.0.0",
@@ -38,6 +39,7 @@ const receiptPayload = `{
       { href: "#exceptions", label: "Exceptions" },
       { href: "#remedy", label: "Remedy" },
       { href: "#bindings", label: "Bindings" },
+      { href: "#fit", label: "Where this fits" },
       { href: "#glossary-anchors", label: "Glossary anchors" },
     ]}
   />
@@ -126,6 +128,8 @@ const receiptPayload = `{
       </li>
     </ul>
   </SectionBlock>
+
+  <UseCaseFit slug="irreversible-payment-compensation" />
 
   <GlossaryAnchorsBlock />
 </BaseLayout>

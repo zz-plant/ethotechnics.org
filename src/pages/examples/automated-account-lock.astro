@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import UseCaseFit from "../../components/UseCaseFit.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import GlossaryAnchorsBlock from "../../components/GlossaryAnchorsBlock.astro";
@@ -119,6 +120,7 @@ const artifacts = [
       { href: "#exceptions", label: "Exception handling" },
       { href: "#remedy", label: "Remedy path" },
       { href: "#artifacts", label: "Generated artifacts" },
+      { href: "#fit", label: "Where this fits" },
       { href: "#glossary-anchors", label: "Glossary anchors" },
     ]}
   />
@@ -270,6 +272,8 @@ const artifacts = [
       }
     </CardGrid>
   </SectionBlock>
+
+  <UseCaseFit slug="automated-account-lock" />
 
   <GlossaryAnchorsBlock />
 </BaseLayout>

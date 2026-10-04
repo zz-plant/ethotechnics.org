@@ -8,7 +8,18 @@ export type ImplementationExample = {
   cardDescription: string;
 };
 
+// Strongest fit first, by /use-cases: benefits, credit, health, agents, and
+// the one boundary case last.
 export const implementationExamples: ImplementationExample[] = [
+  {
+    slug: "public-services",
+    title: "Government public services",
+    summary:
+      "Benefits and civic service automation that require community authority in the runtime.",
+    tags: ["Design authority", "Contestability", "Recovery"],
+    cardDescription:
+      "Public sector automation with community veto authority and rapid restoration.",
+  },
   {
     slug: "loan-approval",
     title: "Loan approval systems",
@@ -17,6 +28,15 @@ export const implementationExamples: ImplementationExample[] = [
     tags: ["Stoppability", "Contestability", "Time-to-halt"],
     cardDescription:
       "Credit scoring and eligibility workflows with enforceable stop authority.",
+  },
+  {
+    slug: "financial-fraud-detection",
+    title: "Financial fraud detection",
+    summary:
+      "Real-time account protection that must restore legitimate access on a deadline and on the record.",
+    tags: ["Time-to-restore", "Receipt", "Repair log"],
+    cardDescription:
+      "Account protection systems that measure recovery time alongside detection.",
   },
   {
     slug: "healthcare-diagnostics",
@@ -46,15 +66,6 @@ export const implementationExamples: ImplementationExample[] = [
       "High-volume support automation with guaranteed exit and recovery paths.",
   },
   {
-    slug: "financial-fraud-detection",
-    title: "Financial fraud detection",
-    summary:
-      "Real-time account protection that must restore legitimate access quickly and on the record.",
-    tags: ["Time-to-restore", "Receipt", "Repair log"],
-    cardDescription:
-      "Account protection systems that measure recovery time alongside detection.",
-  },
-  {
     slug: "retail-personalization",
     title: "Retail personalization",
     summary:
@@ -63,15 +74,6 @@ export const implementationExamples: ImplementationExample[] = [
     cardDescription:
       "Recommendation systems that users can halt, with a direct halt path for advocates.",
   },
-  {
-    slug: "public-services",
-    title: "Government public services",
-    summary:
-      "Benefits and civic service automation that require community authority in the runtime.",
-    tags: ["Design authority", "Contestability", "Recovery"],
-    cardDescription:
-      "Public sector automation with community veto authority and rapid restoration.",
-  },
 ];
 
 export const implementationExampleAnchorLinks: AnchorLink[] = [
@@ -79,6 +81,7 @@ export const implementationExampleAnchorLinks: AnchorLink[] = [
   { href: "#standard", label: "Standard governance" },
   { href: "#ethotechnics", label: "Ethotechnics implementation" },
   { href: "#checklist", label: "Implementation checklist" },
+  { href: "#fit", label: "Where this fits" },
   { href: "#citations", label: "Cite this page" },
 ];
 
@@ -88,12 +91,12 @@ export const createImplementationPublication = (
 ): PublicationMetadata => ({
   authors: [
     {
-      name: "Ethotechnics Standards Office",
+      name: "Ethotechnics Institute",
       affiliation: "Ethotechnics Institute",
-      email: "standards@ethotechnics.org",
+      email: "hello@ethotechnics.org",
     },
   ],
-  contact: "standards@ethotechnics.org",
+  contact: "hello@ethotechnics.org",
   published: "2025-02-01T00:00:00Z",
   updated: "2025-02-01T00:00:00Z",
   version: "v1.0.0",
@@ -111,5 +114,5 @@ export const createImplementationPublication = (
     href: "https://creativecommons.org/licenses/by-sa/4.0/",
   },
   attribution:
-    "Credit Ethotechnics Institute Standards Office, include page title + version, and link to the canonical permalink.",
+    "Credit the Ethotechnics Institute, include page title + version, and link to the canonical permalink.",
 });

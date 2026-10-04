@@ -6,7 +6,7 @@ import { standardClauses } from "../../content/standards";
 
 const pageTitle = "STD-01 Evidence Pack — Ethotechnics Institute";
 const pageDescription =
-  "Tiered evidence requirements for the Temporal Bill of Rights with anti-fraud and audit guidance.";
+  "What to show for each STD-01 temporal right at three tiers, from instrumented logs to stress-tested proof, with how teams fake it and what auditors ask.";
 
 const clauses = standardClauses["STD-01"];
 const clauseAnchor = (id: string) =>
@@ -74,7 +74,7 @@ const tiers = [
     id="clauses"
     eyebrow="Clause evidence list"
     title="Evidence packs per clause"
-    description="Each clause lists the minimum evidence bundle required for proof-carrying compliance."
+    description="Each clause lists the minimum evidence an operator would show to meet it, once the standard is adopted."
     variant="alt"
   >
     <ul class="standard-clauses">
@@ -171,7 +171,7 @@ const tiers = [
   <SectionBlock
     id="referenced-by"
     eyebrow="Referenced by"
-    title="Where STD-01 evidence is enforced"
+    title="Where STD-01 evidence is asked for"
     description="The worked examples, bindings, and validators that depend on this evidence."
   >
     <div class="grid grid--three">
@@ -198,11 +198,8 @@ const tiers = [
         <p class="eyebrow">Required by bindings</p>
         <ul class="muted">
           <li>
-            <a href="/evidence-packs">Release gate checklist</a>
-          </li>
-          <li>
-            <a href="/agent-toolkit/prompt-packs#clause-kits"
-              >Procurement clauses</a
+            <a href="/mechanisms/patterns/admission-gate"
+              >MEC-22 Admission gate</a
             >
           </li>
         </ul>

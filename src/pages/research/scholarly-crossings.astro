@@ -1,0 +1,694 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import AdversariesTable from "../../components/positioning/AdversariesTable.astro";
+import CompletionsTable from "../../components/positioning/CompletionsTable.astro";
+import InstrumentsTable from "../../components/positioning/InstrumentsTable.astro";
+import { methodContent } from "../../content/method";
+import {
+  convergence,
+  embeddedPolitics,
+  positioning,
+} from "../../content/positioning";
+import { derivePublicationMetadata } from "../../utils/publication";
+
+const note = positioning;
+const pageTitle = `${note.title} — Ethotechnics`;
+const pageDescription =
+  "What Ethotechnics supplies to scholars who already hold the values, to governance mechanisms it does not replace, and to the counterpositions that would make it unnecessary overhead. A dated research note with six worked examples.";
+const publishedTime = `${note.published}T00:00:00.000Z`;
+const publication = derivePublicationMetadata({
+  permalink: note.permalink,
+  published: publishedTime,
+  authorName: "Kanav Jain",
+  version: "1.0.0",
+  changelogSummary:
+    "Initial note: the nine instrument crossings, six worked examples, the eight governance-mechanism completions, five counterpositions, and the twelve political translations of the laws.",
+});
+const anchorLinks = [
+  { href: "#what-this-is", label: "What this note is" },
+  { href: "#convergence", label: "Where the instruments converge" },
+  { href: "#crossings", label: "Crossings" },
+  { href: "#hospital-power-audit", label: "1. The hospital power audit" },
+  { href: "#corrigibility-ladder", label: "2. The corrigibility ladder" },
+  { href: "#oversight-decay-test", label: "3. The oversight decay test" },
+  {
+    href: "#role-decomposition-matrix",
+    label: "4. The role-decomposition matrix",
+  },
+  {
+    href: "#reserve-accounting",
+    label: "5. The reserve accounting balance sheet",
+  },
+  {
+    href: "#compensated-performance",
+    label: "6. The compensated-performance equation",
+  },
+  { href: "#completions", label: "Completions" },
+  { href: "#disagreement", label: "The real disagreement" },
+  { href: "#embedded-politics", label: "The politics in the language" },
+  { href: "#status", label: "Status and sources" },
+];
+// The embedded-politics table renders each law's statement from the method's
+// canonical list, so the twelve translations carry one copy of the statements.
+const lawByNumeral = new Map(
+  methodContent.laws.map((law) => [law.numeral, law]),
+);
+const publishedLabel = new Date(
+  `${note.published}T00:00:00Z`,
+).toLocaleDateString("en-US", {
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+});
+const staleLabel = new Date(
+  `${note.staleAfter}-01T00:00:00Z`,
+).toLocaleDateString("en-US", { month: "long", year: "numeric" });
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime={publishedTime}
+  modifiedTime={publishedTime}
+  mainClass="page page--wide"
+>
+  <PageIntro
+    eyebrow="Research note · October 2026"
+    title={note.title}
+    description={pageDescription}
+    anchorLinks={anchorLinks}
+    version="1.0.0"
+    lastUpdated="October 3, 2026"
+  />
+
+  <SectionBlock
+    id="what-this-is"
+    eyebrow="Read this first"
+    title="What this note is, and what it is not"
+    description={note.scope}
+  >
+    <aside class="callout callout--emphasis" aria-label="Reading limits">
+      <p class="eyebrow">Reading limits</p>
+      <ul>
+        {note.disclaimer.map((line) => <li>{line}</li>)}
+      </ul>
+    </aside>
+    <p>
+      The name of the note: crossings, because each row is a place where this
+      framework meets work that already exists. At each crossing it supplies an
+      instrument, a completion, or a concession about where the argument is
+      weakest.
+    </p>
+    <p>
+      One term does the binding work. Counterpower is the capacity that keeps
+      delegated power correctable — the ability, held by someone other than the
+      operator, to halt, reverse, repair, or change what the system does. The
+      framework's claim is not that institutions lack governance. It is that
+      counterpower depreciates: every mechanism that provides it is itself
+      changed by the dependency that prolonged delegation creates, and the
+      depreciation is measurable.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="convergence"
+    eyebrow="Five capacities"
+    title="Where the instruments converge"
+    description="Nine crossings, five capacities. Each instrument is a measurement for one of them."
+    variant="alt"
+  >
+    <CardGrid className="grid--three">
+      {
+        convergence.map((item) => (
+          <CardItem title={item.name} description={item.statement}>
+            <p class="small muted">
+              <em>{item.question}</em>
+            </p>
+          </CardItem>
+        ))
+      }
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="crossings"
+    eyebrow="Crossings"
+    title="What each tradition takes from this site"
+    description="Nine scholar-instrument pairings. The traditions are the scholars' own; the instruments are what the values were missing."
+  >
+    <InstrumentsTable />
+  </SectionBlock>
+
+  <SectionBlock
+    id="hospital-power-audit"
+    eyebrow="Worked example 1 · Effective-power audit"
+    title="The hospital power audit"
+    description="Formal authority against practical capacity, role by role, in one emergency department."
+    variant="alt"
+  >
+    <p>
+      An emergency department has run an AI triage assistant for four years. The
+      assistant proposes an acuity level for every arriving patient. The policy
+      adopted at launch says a nurse may override any proposal. The policy has
+      never been amended.
+    </p>
+    <p>
+      The audit separates formal authority from effective power. Formal
+      authority is what the policy grants. Effective power is what a role can do
+      inside its shift, with its tools, within its working day. The audit maps
+      both, and the gap between them is the finding.
+    </p>
+    <p>
+      Four questions, each answerable from records the hospital already keeps:
+    </p>
+    <ol class="step-list stack-sm">
+      <li>
+        <strong>Can the role see the problem?</strong> The nurse sees the patient.
+        The vendor sees the model. The committee that owns the acuity thresholds sees
+        quarterly aggregate reports. Each holds real evidence, and none of them sees
+        what the others see.
+      </li>
+      <li>
+        <strong>Can the role act inside the shift?</strong> An override takes eleven
+        screens, a supervisor code, and a free-text justification that is later sampled
+        for audit. The median override takes four minutes. A nurse triaging a queue
+        does not spend four minutes per patient on overrides, so the authority is
+        exercised where the queue allows it — which is not the same as where it is
+        needed.
+      </li>
+      <li>
+        <strong>Can the role act after the fact?</strong> Changing yesterday's acuity
+        level is logged as a policy exception and counted against the nurse's override
+        rate. The record that should serve the patient now serves the compliance system.
+      </li>
+      <li>
+        <strong>Can the role change the rule?</strong> No bedside role can. The thresholds
+        sit in a vendor-managed configuration file. The committee reviews them quarterly,
+        using the vendor's evaluation report.
+      </li>
+    </ol>
+    <p>
+      The finding the audit exists to catch: authority that reconcentrates
+      without a single amendment to the constitution. Four years of small,
+      individually reasonable decisions — a vendor contract here, an
+      audit-sampling rule there — moved the thresholds into a file no nurse can
+      read, reviewed by a committee that depends on the vendor's own analysis.
+      The policy still says the nurses govern the acuity levels.
+    </p>
+    <p>
+      The audit's measure: formal authority and effective power scored
+      separately for each role, and the widening between them read over time. A
+      one-time audit shows the gap. Repeated audits show whether the gap widens
+      — the reconcentration the constitutional language cannot see.
+    </p>
+    <p class="small muted">
+      Constructed scenario. The records it reads are ordinary: override logs,
+      screen-flow timings, committee minutes, and the vendor's configuration
+      history.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="corrigibility-ladder"
+    eyebrow="Worked example 2 · Corrigibility ladder"
+    title="The corrigibility ladder"
+    description="Six rungs from voice to structural change, and the efficacy gradient between them."
+  >
+    <p>
+      A benefits agency automates its initial eligibility decisions. A claimant
+      receives a denial that is wrong. The ladder asks how far her correction
+      can travel, and what each rung changes.
+    </p>
+    <ol class="step-list stack-sm">
+      <li>
+        <strong>Voice.</strong> Her complaint is received and counted. Nothing else
+        changes. The rung converts her loss into a record she does not control.
+      </li>
+      <li>
+        <strong>Hearing.</strong> A caseworker reviews the file. If the caseworker
+        reads the same features the model read, the hearing restates the model.
+      </li>
+      <li>
+        <strong>Review.</strong> A second reader, independent of the first decision.
+        Independence is a property of inputs: the reviewer sees the claimant's evidence,
+        or the model's summary of the claimant's evidence.
+      </li>
+      <li>
+        <strong>State change.</strong> Her decision is reversed. The harm stops. The
+        rule that produced it does not.
+      </li>
+      <li>
+        <strong>Repair.</strong> The error is paid for: back pay, a corrected record,
+        fees returned. Repair prices the past. It does not protect the next claimant.
+      </li>
+      <li>
+        <strong>Structural change.</strong> The rule, threshold, or feature weights
+        change, so this class of error stops. The only rung whose benefit reaches
+        people she will never meet.
+      </li>
+    </ol>
+    <p>
+      The gradient: each rung costs her more time than the last, and each rung's
+      benefit shrinks. Rung four is what most institutions call contestability.
+      The ladder's measure is the gap between the rung a policy promises and the
+      rung a claimant can reach.
+    </p>
+    <p>
+      The casebook supplies the public case. At Robodebt, the tribunal ruled
+      dozens of individual debts unlawful between 2017 and 2019. Each ruling
+      reached rung four: the individual debt was fixed. Repayments are
+      documented for the later 2021 class-action settlement. No ruling reached
+      rung six. The scheme ran until November 2019, when the government conceded
+      a Federal Court case it was about to lose.
+    </p>
+    <p class="small muted">
+      Constructed scenario; the public case is not.{" "}
+      <a href="/casebook/robodebt">Robodebt in the casebook →</a>
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="oversight-decay-test"
+    eyebrow="Worked example 3 · Oversight depreciation"
+    title="The oversight decay test"
+    description="Four oversight capacities, measured at year one and again at year five."
+    variant="alt"
+  >
+    <p>
+      A radiology department has run an AI interpretation assistant for five
+      years. Its error rate at year one was high. At year five it is low. The
+      oversight arrangement has not changed: a radiologist reviews every report
+      the assistant drafts. The test asks what that arrangement contains at year
+      five.
+    </p>
+    <p>
+      Oversight is read as a function of time under reliable automation, not as
+      a property of the org chart. Four capacities, measured at year one and
+      again at year five:
+    </p>
+    <ol class="step-list stack-sm">
+      <li>
+        <strong>Knowledge.</strong> Can the reviewer form an independent judgment
+        of the output? The practice that sustains judgment is daily correction of
+        imperfect systems. As the assistant improves, the reviewer's read happens
+        after the machine's suggestion, and the suggestion anchors it.
+      </li>
+      <li>
+        <strong>Observation.</strong> What does the reviewer actually look at? The
+        assistant's highlighted region receives the attention. Observing the machine's
+        output is not observing the case.
+      </li>
+      <li>
+        <strong>Control.</strong> If the reviewer disagrees, what changes? She can
+        reject the read and produce her own. Control over the report is real. Control
+        over the system's behavior on the next thousand reports is not hers.
+      </li>
+      <li>
+        <strong>Timely intervention.</strong> The intervention sits inside the workflow's
+        latency. This is the capacity that survives, and it survives in almost every
+        deployed system, which is why oversight reviews find it and stop there.
+      </li>
+    </ol>
+    <p>
+      The mechanism the test is built to catch: reliability consumes oversight.
+      A system that is right 99% of the time for three years reshapes the humans
+      around it — the confirmatory read becomes a skim, the disagreement becomes
+      a workflow exception, and the skill that made disagreement possible thins
+      from disuse. The oversight in the diagram is not the oversight in the
+      department.
+    </p>
+    <p>
+      The test's measure: at year five, seed the review queue with cases the
+      assistant got wrong, and record whether the reviewer catches them, how
+      long the catch takes, and what her flag changes downstream. That
+      experiment has not been run. The test specifies what would count as
+      evidence.
+    </p>
+    <p class="small muted">
+      Constructed scenario. The four capacities follow the oversight
+      decomposition in the crossings table above.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="role-decomposition-matrix"
+    eyebrow="Worked example 4 · Power-responsibility matrix"
+    title="The role-decomposition matrix"
+    description="Six variables mapped separately for each role around one near-miss."
+  >
+    <p>
+      An early-warning system scores every admitted patient for deterioration
+      risk. During one night shift, a patient's condition worsened while her
+      score stayed low. The bedside nurse escalated her manually, and she
+      recovered. Nobody was harmed. The hospital's incident review opens.
+    </p>
+    <p>
+      The matrix asks one question per cell: at the moment of failure, who held
+      what? Rows are the roles around the failure. Columns are the six variables
+      the casebook scores.
+    </p>
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table mapping-table--stack lineage__table">
+        <thead>
+          <tr>
+            <th scope="col">Role</th>
+            <th scope="col">Capability</th>
+            <th scope="col">Authority</th>
+            <th scope="col">Evidence</th>
+            <th scope="col">Dependency</th>
+            <th scope="col">Standing</th>
+            <th scope="col">Correction</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row" data-label="Role">Bedside nurse</th>
+            <td data-label="Capability">Sees the patient</td>
+            <td data-label="Authority">Care only</td>
+            <td data-label="Evidence">Holds the ground truth</td>
+            <td data-label="Dependency">Works around the false lows daily</td>
+            <td data-label="Standing">None</td>
+            <td data-label="Correction">The case, not the rule</td>
+          </tr>
+          <tr>
+            <th scope="row" data-label="Role">Attending physician</th>
+            <td data-label="Capability">Sees the chart</td>
+            <td data-label="Authority">Care and staffing</td>
+            <td data-label="Evidence">Sees the score</td>
+            <td data-label="Dependency">Treats the score as baseline</td>
+            <td data-label="Standing">Committee seat</td>
+            <td data-label="Correction">Slow</td>
+          </tr>
+          <tr>
+            <th scope="row" data-label="Role">Informatics team</th>
+            <td data-label="Capability">Sees the model</td>
+            <td data-label="Authority">Configuration only</td>
+            <td data-label="Evidence">System logs</td>
+            <td data-label="Dependency">Owns the integration</td>
+            <td data-label="Standing">Escalates to vendor</td>
+            <td data-label="Correction">Patches</td>
+          </tr>
+          <tr>
+            <th scope="row" data-label="Role">Vendor</th>
+            <td data-label="Capability">The model only</td>
+            <td data-label="Authority">The thresholds</td>
+            <td data-label="Evidence">Aggregate statistics</td>
+            <td data-label="Dependency">None in this hospital</td>
+            <td data-label="Standing">The contract</td>
+            <td data-label="Correction">The next release</td>
+          </tr>
+          <tr>
+            <th scope="row" data-label="Role">Hospital board</th>
+            <td data-label="Capability">Aggregate reports</td>
+            <td data-label="Authority">Policy and contract</td>
+            <td data-label="Evidence">Committee minutes</td>
+            <td data-label="Dependency">Contractual, not clinical</td>
+            <td data-label="Standing">None</td>
+            <td data-label="Correction">Committee cycle</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>The pathologies the matrix surfaces:</p>
+    <ul>
+      <li>
+        <strong>Responsibility without authority.</strong> The review asks why the
+        nurse did not escalate sooner. Escalation was the only lever she held, and
+        the rule that set the score was never hers.
+      </li>
+      <li>
+        <strong>Authority without exposure.</strong> The vendor owns the thresholds
+        and bears none of the missed flags. Its contractual obligation runs to uptime.
+      </li>
+      <li>
+        <strong>Evidence without standing.</strong> The nurses' workaround log describes
+        the false lows in detail. No role is obliged to read it.
+      </li>
+      <li>
+        <strong>Standing without correction.</strong> The family can complain, and
+        the complaint reaches the patient-relations office. From there, nothing changes
+        the score.
+      </li>
+    </ul>
+    <p>
+      The matrix's point is not that anyone behaved badly. A system failure
+      names six different failures with six different owners, and an inquiry
+      that collapses them into one verdict files them all under the role nearest
+      the bed. That is the crumple zone, produced structurally rather than
+      rhetorically.
+    </p>
+    <p class="small muted">
+      Constructed scenario. The variables are the casebook's six: capability,
+      authority, evidence, dependency, standing, and correction.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="reserve-accounting"
+    eyebrow="Worked example 5 · Reserve accounting"
+    title="The reserve accounting balance sheet"
+    description="Adaptive capacity consumed against regenerated, for one cutover quarter."
+    variant="alt"
+  >
+    <p>
+      A hospital replaced its laboratory information system in one quarter. The
+      lab met its turnaround targets through the cutover. The board's report
+      reads: migration successful, targets met. The balance sheet asks what the
+      targets were met with.
+    </p>
+    <p>
+      Adaptive capacity — the spare capacity people spend absorbing surprises —
+      is treated as an account. Withdrawals on one side. Deposits on the other.
+    </p>
+    <div class="grid grid--two">
+      <article class="card">
+        <p class="eyebrow">Withdrawals</p>
+        <h3>Consumed in the quarter</h3>
+        <ul>
+          <li>
+            Unpaid overtime: senior technicians worked about 180 hours beyond
+            roster.
+          </li>
+          <li>
+            Borrowed capacity: two technicians pulled from the training rotation
+            to cover the queue.
+          </li>
+          <li>
+            Suspended checks: manual double-verification added 40 minutes per
+            run, then stopped in week six when the queue made it unaffordable.
+          </li>
+          <li>
+            Absorbed errors: about 300 specimens re-keyed by hand after
+            interface faults.
+          </li>
+        </ul>
+      </article>
+      <article class="card">
+        <p class="eyebrow">Deposits</p>
+        <h3>Regenerated in the quarter</h3>
+        <ul>
+          <li>None scheduled.</li>
+          <li>
+            The staffing plan absorbed the extra hours as the new baseline.
+          </li>
+          <li>The training rotation stays suspended.</li>
+        </ul>
+      </article>
+    </div>
+    <p>
+      The balance sheet's measure: reserve drawn against reserve rebuilt. In
+      this quarter, about 180 hours drawn and none rebuilt, and the deposit
+      mechanism — the training rotation — is what the quarter suspended. The
+      turnaround metric reports full target attainment. The balance sheet
+      reports a reserve consumed faster than it regenerates.
+    </p>
+    <p>
+      The two reports recommend different actions. The metric says repeat the
+      approach. The balance sheet says rebuild the reserve before the next
+      surprise, because a reserve drawn down and not refilled converts
+      resilience into a countdown. The department is now betting on a quarter
+      without surprises.
+    </p>
+    <p>
+      This is adaptive capacity theory as an instrument. The capacity is real,
+      finite, and invisible until the surprise that needs it. The balance sheet
+      makes the withdrawal visible at withdrawal, not at collapse.
+    </p>
+    <p class="small muted">
+      Constructed scenario. Adaptive capacity, its finiteness, and its
+      invisibility are the resilience-engineering findings; the account form is
+      this site's.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="compensated-performance"
+    eyebrow="Worked example 6 · Compensated performance"
+    title="The compensated-performance equation"
+    description="What the measured number is made of."
+  >
+    <p>
+      A clinic deploys a documentation assistant. Six months later, a note takes
+      six minutes, down from ten. The pilot reports success.
+    </p>
+    <p>
+      The equation decomposes the measured number into the performance the
+      system produces and the performance produced by the human work that
+      compensates for it:
+    </p>
+    <blockquote><code>P_obs = C_des + H_comp</code></blockquote>
+    <ul>
+      <li>
+        <strong>P_obs</strong> — observed performance. Thirty drafted notes an hour
+        reach the clinic's standard, measured inside the window.
+      </li>
+      <li>
+        <strong>C_des</strong> — intrinsic performance. What the system produces to
+        standard on its own: twenty-two of the thirty.
+      </li>
+      <li>
+        <strong>H_comp</strong> — human compensation. The eight that reach the standard
+        only because a clinician catches and repairs what the draft got wrong. Five
+        of the eight are repaired inside the encounter; three after hours, outside
+        the measurement window.
+      </li>
+    </ul>
+    <p>
+      The measured number is real. The equation's question is what it is made
+      of. Without an H_comp record, the clinic cannot tell a thirty it is buying
+      from a twenty-two it is subsidizing — and the assistant works, and the
+      assistant works when clinicians repair it, are different procurement
+      decisions.
+    </p>
+    <p>
+      The three repaired after hours have a location and a cost, and neither
+      appears in the pilot's numbers. That absence is the mechanism this
+      framework names: the metric improves because someone caught it, and the
+      catching is on no ledger.
+    </p>
+    <p>
+      Administrative burden theory prices the costs a process imposes on the
+      people it serves. The equation turns the same measurement on the
+      institution's own performance: the burden is what keeps the number green.
+      The equation is stated formally in the essay on the consumption of
+      adaptive capacity, and the record that would carry H_comp is specified in
+      the burden dashboard pattern.
+    </p>
+    <p class="small muted">
+      Constructed scenario. The equation and the record are this site's:
+      <a href="/glossary/performance-decomposition">performance decomposition</a
+      >,{" "}
+      <a href="/research/theory/the-consumption-of-adaptive-capacity"
+        >the consumption of adaptive capacity</a
+      >, and{" "}
+      <a href="/mechanisms/patterns/burden-dashboards">burden dashboards</a>.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="completions"
+    title="Completions, not refutations"
+    description="Eight pairings for people whose preferred corrective mechanism differs. Each addition states what the mechanism's own theory leaves unmeasured, and the record that would show whether it still works."
+    variant="alt"
+  >
+    <p>
+      A mechanism that corrects in year one can be nominal by year ten, because
+      the dependency that prolonged delegation creates changes the mechanism
+      itself. Each completion below supplies the record that would show which of
+      the two is happening.
+    </p>
+    <CompletionsTable />
+  </SectionBlock>
+
+  <SectionBlock
+    id="disagreement"
+    eyebrow="Counterpositions"
+    title="The real disagreement"
+    description="Five positions, each stated in its own terms, each with the measurement that would settle it."
+  >
+    <p>
+      An opponent worth engaging does not defend unaccountable power. The
+      opponent holds that competition, exit, reputation, tort liability,
+      sectoral regulation, and ordinary democratic institutions already correct
+      these systems, and that a new framework is overhead.
+    </p>
+    <p>
+      The framework's case does not need every mechanism to fail. It needs the
+      failure conditions to be identifiable and measurable where they exist. If
+      no such conditions exist, this note should be read as the framework's
+      falsification condition.
+    </p>
+    <AdversariesTable />
+  </SectionBlock>
+
+  <SectionBlock
+    id="embedded-politics"
+    eyebrow="Translations"
+    title="The politics in the language"
+    description="Each law carries a political proposition. The translations are stated so that a reader who rejects the politics can see which engineering record they are rejecting."
+    variant="alt"
+  >
+    <p>
+      The engineering vocabulary is not a retreat from politics. Each law
+      encodes a proposition about how power should be held, and the records
+      enforce the proposition whether or not a reader notices it. The twelve
+      translations:
+    </p>
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table mapping-table--stack lineage__table">
+        <thead>
+          <tr>
+            <th scope="col">Law</th>
+            <th scope="col">Political proposition</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            embeddedPolitics.map((entry) => {
+              const law = lawByNumeral.get(entry.numeral);
+              return (
+                <tr>
+                  <th scope="row" data-label="Law">
+                    {entry.numeral}.{" "}
+                    {law ? (
+                      <a href={law.href}>{law.statement}</a>
+                    ) : (
+                      entry.numeral
+                    )}
+                  </th>
+                  <td data-label="Political proposition">
+                    {entry.proposition}
+                  </td>
+                </tr>
+              );
+            })
+          }
+        </tbody>
+      </table>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="status"
+    eyebrow="Status"
+    title="Status and sources"
+    description="What the note rests on, and when to treat it as stale."
+  >
+    <p>{note.sourcesNote}</p>
+    <p>
+      Published {publishedLabel}. If no revision has been published by{" "}
+      {staleLabel}, treat the note as stale.
+    </p>
+  </SectionBlock>
+
+  <CitationBlock
+    title={note.title}
+    permalink={note.permalink}
+    publication={publication}
+  />
+</BaseLayout>

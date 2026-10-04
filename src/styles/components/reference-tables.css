@@ -6,7 +6,7 @@
   /* --- Laws grid --- */
   .laws-grid__table th[scope="row"] a {
     display: grid;
-    gap: 0.15rem;
+    gap: var(--space-hair);
     text-decoration: none;
     color: inherit;
   }
@@ -42,14 +42,14 @@
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.3rem;
+    gap: var(--space-1);
   }
 
   .laws-grid__variables li {
     font-family: var(--sans);
     font-size: var(--text-xs);
     font-weight: 600;
-    padding: 0.15rem 0.5rem;
+    padding: var(--space-hair) var(--space-2);
     border-radius: var(--radius-pill);
     background: color-mix(in srgb, var(--accent) 12%, transparent);
     color: var(--accent-strong);
@@ -80,13 +80,13 @@
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.3rem;
+    gap: var(--space-1);
   }
 
   .laws-grid__refs li {
     font-family: var(--mono, ui-monospace, monospace);
     font-size: var(--text-xs);
-    padding: 0.15rem 0.45rem;
+    padding: var(--space-hair) var(--space-2);
     border-radius: var(--radius);
     background: var(--panel);
     border: 1px solid var(--border);
@@ -103,7 +103,7 @@
   }
 
   .laws-grid__more {
-    margin-top: 0.5rem;
+    margin-top: var(--space-2);
     font-size: var(--text-xs);
   }
 
@@ -115,15 +115,15 @@
   }
 
   .laws-grid__more p {
-    margin: 0.35rem 0 0;
+    margin: var(--space-1) 0 0;
     color: var(--muted);
     line-height: 1.45;
   }
 
   /* --- Clause register --- */
   .clause-register__part {
-    margin: 0 0 0.5rem;
-    font-size: 1rem;
+    margin: 0 0 var(--space-2);
+    font-size: var(--text-base);
   }
 
   .clause-register__table th[scope="row"] {
@@ -132,7 +132,7 @@
 
   .clause-register__level {
     display: block;
-    margin-top: 0.2rem;
+    margin-top: var(--space-1);
     font-family: var(--sans);
     font-size: var(--text-xs);
     font-weight: 700;
@@ -151,7 +151,7 @@
     padding: 0;
     list-style: none;
     display: grid;
-    gap: 0.2rem;
+    gap: var(--space-1);
     font-size: var(--text-xs);
   }
 
@@ -169,7 +169,7 @@
 
   .coverage-matrix__probe {
     display: grid;
-    gap: 0.15rem;
+    gap: var(--space-hair);
   }
 
   .coverage-matrix__probe code {
@@ -199,11 +199,11 @@
 
   .coverage-matrix__badge {
     display: inline-block;
-    margin-top: 0.3rem;
+    margin-top: var(--space-1);
     font-family: var(--sans);
     font-size: var(--text-xs);
     font-weight: 700;
-    letter-spacing: 0.05em;
+    letter-spacing: var(--tracking-label);
     text-transform: uppercase;
     color: var(--muted);
   }
@@ -223,7 +223,7 @@
     font-family: var(--sans);
     font-size: var(--text-xs);
     font-weight: 700;
-    letter-spacing: 0.05em;
+    letter-spacing: var(--tracking-label);
     text-transform: uppercase;
   }
 
@@ -245,7 +245,7 @@
   .state-diagram {
     margin: 0;
     display: grid;
-    gap: 1rem;
+    gap: var(--space-4);
     color: var(--text);
   }
 
@@ -256,30 +256,74 @@
     overflow: visible;
   }
 
-  /* On a phone a 720–1060-unit drawing squeezed to 350px shrinks its 12px
-     labels to 4–6px. Below 720px the drawing keeps a readable width and the
-     figure scrolls sideways instead, the way the wide tables do. */
+  /* On a phone a 720–1060-unit drawing squeezed to the column shrinks its
+     labels to 4–6px. Below 720px the drawing keeps a width at which its
+     smallest label still renders at 11px, and the figure scrolls sideways.
+     The scroller breaks out of the article column to the screen edges: three
+     nested gutters leave the column 263px wide on a 375px phone, and a
+     diagram needs every pixel of the screen more than the prose does. The
+     edge shadows say there is more to the side; they scroll away as the
+     reader reaches each end. */
   @media (max-width: 719.98px) {
-    .diagram-scroll {
+    .diagram-scroll,
+    .standard-diagram {
+      width: 100vw;
+      margin-inline: calc(50% - 50vw);
+      padding-inline: var(--page-gutter, 1rem);
       overflow-x: auto;
       overscroll-behavior-x: contain;
       -webkit-overflow-scrolling: touch;
+      background:
+        linear-gradient(to right, var(--bg), transparent) left / 1.5rem 100%
+          no-repeat local,
+        linear-gradient(to left, var(--bg), transparent) right / 1.5rem 100%
+          no-repeat local,
+        radial-gradient(
+            farthest-side at 0 50%,
+            color-mix(in srgb, var(--text) 18%, transparent),
+            transparent
+          )
+          left / 0.75rem 100% no-repeat scroll,
+        radial-gradient(
+            farthest-side at 100% 50%,
+            color-mix(in srgb, var(--text) 18%, transparent),
+            transparent
+          )
+          right / 0.75rem 100% no-repeat scroll;
     }
 
     .state-diagram__svg {
-      min-width: 640px;
+      min-width: 760px;
     }
 
     .chain-diagram__svg {
-      min-width: 880px;
+      min-width: 900px;
     }
+
+    .standard-diagram svg {
+      min-width: 800px;
+    }
+  }
+
+  /* The state-diagram defaults skip any element that sets its own fill or
+     stroke. A presentation attribute loses to every author rule, so an
+     unconditional default here turned each diagram's red boxes and titles
+     back to the neutral palette. */
+  .chain-diagram__node rect,
+  .state-diagram__node rect:not([fill]),
+  .state-diagram__node circle:not([fill]) {
+    fill: var(--panel);
+  }
+
+  .chain-diagram__node rect,
+  .state-diagram__node rect:not([stroke]),
+  .state-diagram__node circle:not([stroke]) {
+    stroke: var(--border);
   }
 
   .chain-diagram__node rect,
   .state-diagram__node rect,
   .state-diagram__node circle {
-    fill: var(--panel);
-    stroke: var(--border);
     stroke-width: 1.5;
     transition:
       fill var(--motion-fast) ease,
@@ -292,8 +336,11 @@
     fill: color-mix(in srgb, var(--accent) 12%, var(--panel));
   }
 
-  .state-diagram__node--active rect {
+  .state-diagram__node--active rect:not([fill]) {
     fill: color-mix(in srgb, var(--accent) 16%, var(--panel));
+  }
+
+  .state-diagram__node--active rect:not([stroke]) {
     stroke: var(--accent);
   }
 
@@ -307,12 +354,16 @@
     font-family: var(--sans);
     font-size: 13px;
     font-weight: 650;
+  }
+
+  .chain-diagram__title,
+  .state-diagram__state:not([fill]) {
     fill: var(--text);
   }
 
   .chain-diagram__index {
     font-family: var(--sans);
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 700;
     fill: var(--accent-strong);
     letter-spacing: 0.08em;
@@ -322,7 +373,6 @@
   .state-diagram__label {
     font-family: var(--sans);
     font-size: 11px;
-    fill: var(--muted);
     /* A halo in the page colour keeps a label legible where it crosses an
        edge, which in the state diagram several of them have to. */
     paint-order: stroke;
@@ -331,9 +381,33 @@
     stroke-linejoin: round;
   }
 
+  /* A clause label is a label with emphasis. It used to set only its colour,
+     so it inherited the body serif at body size and ran out of its box in
+     every diagram that used it. */
   .state-diagram__clause {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 650;
+    paint-order: stroke;
+    stroke: var(--surface);
+    stroke-width: 4px;
+    stroke-linejoin: round;
+  }
+
+  /* The halo is for labels that cross an edge. Inside a node there is no
+     edge to cross, and a halo in the page colour showed as a pale band
+     against the node's panel fill. */
+  .state-diagram__node :is(.state-diagram__label, .state-diagram__clause) {
+    stroke: none;
+  }
+
+  .chain-diagram__label,
+  .state-diagram__label:not([fill]) {
+    fill: var(--muted);
+  }
+
+  .state-diagram__clause:not([fill]) {
     fill: var(--accent-strong);
-    font-weight: 600;
   }
 
   .chain-diagram__return {
@@ -344,14 +418,35 @@
     color: color-mix(in srgb, var(--muted) 70%, var(--text));
   }
 
-  @media (max-width: 640px) {
+  /* The chain is 1060 units wide and renders at ~990px on the method page,
+     so its return labels need 12px to stay above 11px there. */
+  .chain-diagram__svg .chain-diagram__label {
+    font-size: 12px;
+  }
+
+  /* Under 720px the drawing is held at 900px (scale 0.85). The shared
+     15.5px state title would push "Reconsideration" past its 130-unit box,
+     so the chain keeps 14px titles and raises its step numbers instead. */
+  @media (max-width: 719.98px) {
+    .chain-diagram__svg .chain-diagram__title {
+      font-size: 14px;
+    }
+
+    .chain-diagram__svg .chain-diagram__label,
+    .chain-diagram__index {
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 719.98px) {
     .chain-diagram__title,
     .state-diagram__state {
-      font-size: 15px;
+      font-size: 15.5px;
     }
     .chain-diagram__label,
-    .state-diagram__label {
-      font-size: 13px;
+    .state-diagram__label,
+    .state-diagram__clause {
+      font-size: 14px;
     }
   }
 }
@@ -363,12 +458,12 @@
     margin: 0;
     padding: 0;
     display: grid;
-    gap: 0.35rem 1.5rem;
+    gap: var(--space-1) var(--space-5);
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
   }
 
   .glossary-compact__item {
-    padding: 0.55rem 0;
+    padding: var(--space-2) 0;
     border-top: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
     scroll-margin-top: 1rem;
   }
@@ -386,7 +481,7 @@
   }
 
   .glossary-compact__summary {
-    margin: 0.15rem 0 0;
+    margin: var(--space-hair) 0 0;
     font-size: var(--text-sm);
     line-height: 1.45;
   }
@@ -397,17 +492,222 @@
      three thousand words of doctrine a rhythm: twelve one-line claims a reader
      can scan, with the argument for each beneath. */
   .laws-essay h3 + blockquote {
-    margin: 1rem 0 1.5rem;
-    padding: 1rem 1.25rem;
+    margin: var(--space-4) 0 var(--space-5);
+    padding: var(--space-4) var(--space-4);
     border-left: 4px solid var(--accent);
     border-radius: 0 var(--radius-md) var(--radius-md) 0;
     background: color-mix(in srgb, var(--accent) 7%, var(--surface));
-    font-size: clamp(1.05rem, 0.5vw + 0.95rem, 1.2rem);
+    font-size: var(--text-lg);
     font-style: italic;
     line-height: 1.5;
   }
 
   .laws-essay h3 + blockquote p {
     margin: 0;
+  }
+}
+
+@layer components {
+  /* The method stack: the layers of one argument, read top to bottom, with
+     the views that cut across them set beside it. Each layer is a band; the
+     arrow between bands reads "made checkable by". */
+  .method-stack {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 1000px) {
+    .method-stack {
+      grid-template-columns: minmax(0, 2fr) minmax(16rem, 1fr);
+      align-items: start;
+    }
+  }
+
+  .method-stack__layers {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .method-stack__layer {
+    position: relative;
+    display: grid;
+    gap: var(--space-1) var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+  }
+
+  .method-stack__layer + .method-stack__layer::before {
+    content: "↓";
+    position: absolute;
+    bottom: 100%;
+    left: 1.5rem;
+    height: var(--space-5);
+    display: flex;
+    align-items: center;
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    line-height: 1;
+    color: var(--muted);
+  }
+
+  @media (min-width: 640px) {
+    .method-stack__layer {
+      grid-template-columns: minmax(10rem, 13rem) minmax(0, 1fr);
+      align-items: baseline;
+    }
+
+    .method-stack__name {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .method-stack__count {
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    .method-stack__role {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+    }
+  }
+
+  .method-stack__name {
+    font-family: var(--serif);
+    font-size: var(--text-lg);
+    font-weight: 650;
+    color: var(--link);
+    text-decoration: none;
+  }
+
+  .method-stack__name:hover,
+  .method-stack__name:focus-visible {
+    text-decoration: underline;
+  }
+
+  .method-stack__name--plain {
+    color: var(--text);
+  }
+
+  .method-stack__count a {
+    color: var(--link);
+  }
+
+  /* A layer that spans two pages lists one link per page. As flex items the
+     links ignore the markup's whitespace, so the comma sits against the
+     first label. */
+  .method-stack__count:has(.method-stack__count-part) {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: var(--space-1);
+  }
+
+  .method-stack__count-part {
+    display: inline-flex;
+  }
+
+  .method-stack__count-part:not(:last-child)::after {
+    content: ",";
+  }
+
+  .method-stack__count {
+    font-family: var(--sans);
+    font-size: var(--text-xs);
+    font-weight: 650;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .method-stack__role {
+    font-size: var(--text-sm);
+    line-height: 1.5;
+  }
+
+  .method-stack__views {
+    display: grid;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-5);
+    border: 1px dashed color-mix(in srgb, var(--border) 90%, var(--muted));
+    border-radius: var(--radius-md);
+  }
+
+  .method-stack__views > p {
+    margin: 0;
+  }
+
+  .method-stack__views-title {
+    font-family: var(--serif);
+    font-size: var(--text-lg);
+    font-weight: 650;
+  }
+
+  .method-stack__view-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .method-stack__view-list li {
+    display: grid;
+    gap: var(--space-hair);
+  }
+
+  .method-stack__view-list a {
+    font-weight: 600;
+  }
+}
+
+@layer components {
+  /* The lineage table: each neighboring field with its works under the name,
+     and the essay that develops where it stops at the end of that cell. */
+  .lineage__table tbody th[scope="row"] {
+    min-width: 14rem;
+    font-size: var(--text-sm);
+    font-weight: 650;
+    letter-spacing: normal;
+    text-transform: none;
+  }
+
+  .lineage__works {
+    display: block;
+    margin-top: var(--space-1);
+    font-weight: 400;
+    line-height: 1.45;
+  }
+
+  .lineage__essay {
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+}
+
+@layer components {
+  /* The claims test. The record column carries the comparison table's
+     emphasis; where the standards ask for it sits under it at body weight,
+     one source after another. */
+  .claims-table__basis {
+    display: block;
+    margin-top: var(--space-2);
+    font-weight: 400;
+  }
+
+  /* Each source is its own inline-flex box, so the markup's whitespace
+     around a link cannot land before the comma after it, and the comma
+     belongs to the link it follows: a wrap never starts a line with one. */
+  .claims-table__source {
+    display: inline-flex;
+  }
+
+  .claims-table__source:not(:last-child)::after {
+    content: ",";
+    margin-inline-end: var(--space-1);
   }
 }

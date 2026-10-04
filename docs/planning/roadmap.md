@@ -177,12 +177,16 @@ future updates can build on what already shipped.
 
 ### Capacity forecaster v2 (scenario compare)
 
+Retired September 26, 2026. See the [retirement record](pass-1-retirement-2026-09.md).
+
 - **Outcome:** Shipped compare mode with paired scenario controls, delta highlights, side-by-side
   table output, reset-to-single flow, and JSON exports for both single and compare views.
 - **Notes:** Delivered via `src/features/capacity-forecaster/*` with compare view state,
   delta summaries, and export actions.
 
 ### Maintenance simulator v2 (risk thresholds)
+
+Retired September 26, 2026. See the [retirement record](pass-1-retirement-2026-09.md).
 
 - **Outcome:** Added threshold presets with labeled score bands, current tier indicators,
   recommendation messaging, and explicit watch/act-now guidance.

@@ -6,15 +6,15 @@ import agentSafetyObjectModel from "../../data/agents-spec.json";
 
 const pageTitle = "Agent Safety Object Model";
 const pageDescription =
-  "A machine-readable agent governance profile for autonomy, action classes, and override authority.";
-const version = "v1.1.0";
-const lastUpdated = "2026-02-22";
+  "A JSON schema that declares an AI agent's autonomy level, action classes, override authority, receipts, and clocks, with what breaks when a field is missing.";
+const version = "v1.1.1";
+const lastUpdated = "2026-10-01";
 const anchorLinks = [
   { href: "#overview", label: "Overview" },
   { href: "#example", label: "Example model" },
   { href: "#fields", label: "Field guide" },
   { href: "#failure-modes", label: "What breaks if missing" },
-  { href: "#schema", label: "JSON schema" },
+  { href: "#schema", label: "Full example (1.1.0)" },
   { href: "#usage", label: "Usage" },
   { href: "#referenced-by", label: "Referenced by" },
 ];
@@ -102,7 +102,8 @@ const fieldGuide = [
     field: "stop_override_authority",
     example: "Risk Operations / Risk Steward",
     purpose: "Names the owner, on-call role, and kill switch authority.",
-    failure: "No one can halt automation quickly during incidents.",
+    failure:
+      "No one can halt automation inside the halt deadline during an incident.",
   },
   {
     field: "receipt_schema",
@@ -149,7 +150,7 @@ const failureModes = [
 // There is no /agents index; the default crumbs would link one.
 const breadcrumbItems = [
   { name: "Home", url: "/" },
-  { name: "Agent teaching toolkit", url: "/agent-toolkit/" },
+  { name: "Standards", url: "/standards" },
   { name: pageTitle, url: "/agents/spec" },
 ];
 ---
@@ -167,7 +168,16 @@ const breadcrumbItems = [
     anchorLinks={anchorLinks}
     version={version}
     lastUpdated={lastUpdated}
-  />
+  >
+    <Fragment slot="actions">
+      <a class="button ghost" href="/use-cases#agents"
+        >Standards and checks for agents</a
+      >
+      <a class="button ghost" href="/standards/std-08-delegation"
+        >STD-08 Delegation</a
+      >
+    </Fragment>
+  </PageIntro>
 
   <SectionBlock
     id="overview"
@@ -180,7 +190,14 @@ const breadcrumbItems = [
         Spec page: <a href="/agents/spec">/agents/spec</a>
       </li>
       <li>
-        JSON schema: <a href="/agents/spec.json">/agents/spec.json</a>
+        Object model schema, version 2.0.0:
+        <a href="/standards/agent-safety-object-model.schema.json"
+          >/standards/agent-safety-object-model.schema.json</a
+        >
+      </li>
+      <li>
+        This page's example object as JSON:
+        <a href="/agents/spec.json">/agents/spec.json</a>
       </li>
     </ul>
   </SectionBlock>
@@ -194,8 +211,9 @@ const breadcrumbItems = [
   >
     <pre class="code-block">{exampleModel}</pre>
     <p class="muted">
-      Every field is machine-validated. Keep the JSON human-readable so
-      reviewers can inspect it in change requests and audits.
+      Every field has a type in the JSON Schema, so a validator can check it in
+      CI. Keep the JSON human-readable so reviewers can inspect it in change
+      requests and audits.
     </p>
   </SectionBlock>
 
@@ -245,9 +263,9 @@ const breadcrumbItems = [
 
   <SectionBlock
     id="schema"
-    eyebrow="Schema"
-    title="Machine-readable JSON"
-    description="Enforce agent governance in CI and linting pipelines."
+    eyebrow="Example"
+    title="The full example object, in the 1.1.0 shape"
+    description="This instance predates version 2.0.0 of the schema, which replaces approval_required with a grant reference for each action class and stop_override_authority with an intervention reference. Validate against the schema, not this example."
   >
     <pre class="code-block">{agentSafetyObjectModelText}</pre>
   </SectionBlock>
@@ -261,9 +279,8 @@ const breadcrumbItems = [
   >
     <ul class="muted">
       <li>
-        Validate new agent releases with <a href="/evidence-packs"
-          >release gates</a
-        >.
+        Record the decision to deploy each agent release with the
+        <a href="/mechanisms/patterns/admission-gate">MEC-22 admission gate</a>.
       </li>
       <li>
         Map action classes to <a href="/standards/ethotechnics-for-agents"
@@ -280,7 +297,7 @@ const breadcrumbItems = [
   <SectionBlock
     id="referenced-by"
     eyebrow="Referenced by"
-    title="Where this spec is enforced"
+    title="Where this spec is used"
     description="The examples, bindings, and evidence packs that use this spec."
   >
     <div class="grid grid--three">
@@ -307,17 +324,14 @@ const breadcrumbItems = [
         <p class="eyebrow">Required by bindings</p>
         <ul class="muted">
           <li>
-            <a href="/evidence-packs">Release gate checklist</a>
-          </li>
-          <li>
-            <a href="/agent-toolkit/prompt-packs#clause-kits"
-              >Procurement clauses</a
+            <a href="/mechanisms/patterns/admission-gate"
+              >MEC-22 Admission gate</a
             >
           </li>
         </ul>
       </div>
       <div class="panel">
-        <p class="eyebrow">Verified by evidence packs</p>
+        <p class="eyebrow">Evidence packs: what to collect</p>
         <ul class="muted">
           <li>
             <a href="/evidence-packs/std-01">STD-01 Evidence Pack</a>

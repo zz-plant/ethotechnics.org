@@ -1,357 +1,361 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import HeroIllustration from "../components/home/HeroIllustration.astro";
-import HomeDifference from "../components/home/HomeDifference.astro";
-import RatchetFigure from "../components/RatchetFigure.astro";
-import StateVariableGlyph, {
-  type StateVariableGlyphId,
-} from "../components/StateVariableGlyph.astro";
-import { failureStates } from "../content/institute-site";
-import { methodContent } from "../content/method";
-import { recentReleases } from "../content/recent-releases";
+import CasebookScorecard from "../components/home/CasebookScorecard.astro";
+import ExceptionLearningFigure from "../components/ExceptionLearningFigure.astro";
+import HeroLedger from "../components/home/HeroLedger.astro";
+import HomeClaims from "../components/home/HomeClaims.astro";
+import HomeRail from "../components/home/HomeRail.astro";
+import RecordSpine from "../components/home/RecordSpine.astro";
+import SafeguardMap from "../components/home/SafeguardMap.astro";
+import SelfTest from "../components/home/SelfTest.astro";
+import SectionBlock from "../components/SectionBlock.astro";
 
-const { stateVariables } = methodContent;
-
-// The method table's questions are precise but formal. The home page restates
-// them in the words a newcomer would use; the card falls back to the formal
-// question if a variable is ever added without a plain phrasing.
-const plainSpineQuestions: Record<string, string> = {
-  capability: "What can the system do?",
-  authority: "What is it allowed to do, for whom, and until when?",
-  evidence: "What evidence justifies that permission?",
-  dependency: "How hard is it to switch off or replace?",
-  standing: "Who can challenge a decision, and with what force?",
-  correction: "What can still be fixed, and how fast?",
-};
-
-// The drift column ("Capability outruns authority") is the method's shorthand.
-// The home page states what each drift actually means; the method table keeps
-// the formal pairings.
-const plainSpineDrifts: Record<string, string> = {
-  capability: "the system doing more than it was ever approved to do",
-  authority: "permission lasting longer than the reasons for it",
-  evidence: "the rule no longer matching what is true",
-  dependency: "being too hard to switch off to fix in time",
-  standing: "more people affected than anyone can challenge",
-  correction: "being able to see the harm but not able to stop it",
-};
-
-const failureChoiceLabels: Record<string, string> = {
-  "decision-appealed": "Decision appealed",
-  "model-wrong": "Model made a harmful error",
-  "queue-stuck": "Appeals or reviews are stuck",
-  "user-harmed": "A user was harmed",
-  "no-owner": "No owner is assigned",
-  "cant-explain": "Decision cannot be clearly explained",
-  "cant-stop": "System cannot be quickly stopped or rolled back",
-};
-
-const failurePriorityBadges: Record<string, string> = {
-  "decision-appealed": "High · Owner in 24h",
-  "model-wrong": "Critical · Pause authority needed",
-  "queue-stuck": "High · Escalate in 4h",
-  "user-harmed": "Critical · Human response now",
-  "no-owner": "High · Assign owner",
-  "cant-explain": "Medium · Review evidence",
-  "cant-stop": "Critical · Activate hard halt",
-};
-
-// The badges already lead with a severity word; this is what lets the grid
-// show it. Seven triage cards whose whole job is "how bad is this" rendered
-// Critical, High and Medium in identical neutral grey, so severity was
-// legible only by reading each card.
-const failureSeverity = (badge?: string): string | undefined => {
-  const level = badge?.split("·")[0]?.trim().toLowerCase();
-  return level === "critical" || level === "high" || level === "medium"
-    ? level
-    : undefined;
-};
-
-const failureChoiceIcons: Record<string, string[]> = {
-  "decision-appealed": [
-    "M4 5.5h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H8l-4 3v-3",
-    "M8.5 10h7",
-    "M8.5 13h4.5",
-  ],
-  "model-wrong": ["M10 4.5l6.8 11.8H3.2z", "M10 8.5v3.5", "M10 14.3h.01"],
-  "queue-stuck": ["M10 5a5 5 0 1 1-5 5", "M10 7.5v3", "M10 10.5h2.2"],
-  "user-harmed": [
-    "M10 16.5s-5.5-3.1-5.5-7a3.2 3.2 0 0 1 5.5-2.3 3.2 3.2 0 0 1 5.5 2.3c0 3.9-5.5 7-5.5 7",
-    "M7.9 9.4l4.2 4.2",
-    "M12.1 9.4 7.9 13.6",
-  ],
-  "no-owner": [
-    "M10 11a2.2 2.2 0 1 0-2.2-2.2A2.2 2.2 0 0 0 10 11z",
-    "M5.5 15.5a4.5 4.5 0 0 1 9 0",
-    "M14.2 5.8l3.2 3.2",
-    "M17.4 5.8l-3.2 3.2",
-  ],
-  "cant-explain": [
-    "M10 16.5a7 7 0 1 0-7-7",
-    "M10 12.4v-.4a2 2 0 1 1 2-2",
-    "M10 14.7h.01",
-  ],
-  "cant-stop": ["M4.5 4.5h11v11h-11z", "M8 8h4v4H8z"],
-};
+/**
+ * The front door as one story in reading order, told without ever holding
+ * the scroll: watch one scheme run (the record), see why rulings did not
+ * stop it (the mechanism),
+ * see that it was not special (the casebook), state what the framework adds
+ * to the field (the positioning band), test what an institution says about
+ * itself (the claims, as clauses with exhibits), then turn to the reader's
+ * own system (the self-test, scored on the six-node figure) and the doors
+ * out — four of them, the last for the readers who study or govern these
+ * systems. The two-ledger rail at the viewport edge is the same grammar, as
+ * chrome.
+ *
+ * Each idea is drawn as well as written, for readers who think in pictures:
+ * the hero draws the record's unanswered column, the mechanism leads with
+ * the exception-learning drawing that shows both the broken path and the
+ * fix, and the self-test draws the reader's system as a six-node ring.
+ */
+const doors = [
+  {
+    href: "/roles/engineering",
+    who: "I build these systems",
+    what: "The checks a system has to pass before it ships, and the tools that run them.",
+  },
+  {
+    href: "/roles/audit",
+    who: "I audit or regulate them",
+    what: "Citable clauses, scored public cases, and the evidence each clause needs.",
+  },
+  {
+    href: "/diagnostics/self-defense-tools",
+    who: "A system decided something about me",
+    what: "Three checks: can this decision be challenged, can the appeal change the outcome, and who holds power here?",
+  },
+  {
+    href: "/research/scholarly-crossings",
+    who: "I study or govern these systems",
+    what: "What the framework adds to adjacent theory, what it asks of rival mechanisms, and where the argument is contestable.",
+  },
+];
 ---
 
 <BaseLayout
-  title="Ethotechnics Institute — Open commons for accountable AI governance"
-  description="Open-access Ethotechnics standards, ontology, glossary, and diagnostics for teams that build or audit AI systems making consequential decisions."
+  title="Ethotechnics Institute — who has to act when a system is wrong?"
+  description="Open standards, scored public failures, and free diagnostics for one question: when an automated decision system is wrong, does anyone have to change it?"
   structuredDataType="collection"
 >
-  <section class="institute-hero stack-lg">
-    <div class="institute-hero__layout">
-      <div class="institute-hero__main stack-lg">
-        <p class="institute-hero__eyebrow">
-          Ethotechnics Institute · Open Commons
-        </p>
-        <h1 class="balanced-headline">
-          Make high-stakes AI easier to stop, explain, appeal, and repair
-        </h1>
-        <p class="section-lead">
-          Standards, an ontology, and diagnostics for governing decisions that
-          have been delegated to machines. Other frameworks check whether risk
-          was managed on paper. These check whether a running system can be
-          halted, challenged, and reversed under stress.
-        </p>
-        <div class="institute-hero__actions actions" aria-label="Primary site actions">
-          <a class="button primary" href="/start">Find your starting path</a>
-          <a class="button ghost" href="/diagnostics/delegation-audit">Run delegation audit</a>
-          <a class="button ghost" href="/standards">Explore standards</a>
-        </div>
-        <p class="small muted">
-          Built from public failures such as Robodebt, where 470,000 unlawful automated debts ran for three years because each appeal fixed one case and none halted the system.
-          <a href="/method">How the method works →</a>
-          <a href="/casebook">Five public failures, scored →</a>
-        </p>
-      </div>
+  <HomeRail />
 
-      <div class="institute-hero__side stack-md">
-        <HeroIllustration />
-        <aside
-          class="institute-hero__starter panel stack-sm"
-          aria-label="Quick jump"
-        >
-          <div class="institute-hero__starter-header">
-            <span class="eyebrow">Check a system</span>
-            <span class="small muted">Tools and doctrine</span>
-          </div>
-          <div class="institute-hero__starter-links">
-            <a href="/diagnostics" class="institute-hero__starter-item">
-              <span class="institute-hero__starter-name">Diagnostics Suite</span>
-              <span class="small muted">Test halt readiness and drift between the six state variables</span>
-            </a>
-            <a href="/standards/laws" class="institute-hero__starter-item">
-              <span class="institute-hero__starter-name">The Twelve Laws</span>
-              <span class="small muted">Each law and the invariant a clause has to bind</span>
-            </a>
-          </div>
-        </aside>
+  <section class="institute-hero institute-hero--story">
+    <div class="institute-hero__main stack-lg">
+      <p class="institute-hero__eyebrow">Ethotechnics Institute</p>
+      <h1 class="balanced-headline">
+        The appeals kept winning. The system kept running.
+      </h1>
+      <p class="section-lead">
+        That was Robodebt, Australia's automated welfare-debt scheme. We publish
+        open standards, public case scores, and diagnostics for one question:
+        when an automated decision system is hurting people, does evidence of
+        the harm reach someone who has to change the system?
+      </p>
+      <div class="institute-hero__actions actions">
+        <a class="button primary" href="#self-test">
+          Test your system in 60 seconds
+        </a>
+        <a class="button ghost institute-hero__triage-link" href="/triage">
+          <span class="incident-dot" aria-hidden="true"></span>
+          Incident triage →
+        </a>
       </div>
+      <nav
+        class="home-doors home-doors--strip"
+        aria-labelledby="home-doors-strip-label"
+      >
+        <span class="home-doors__strip-label" id="home-doors-strip-label"
+          >Start by role:</span
+        >
+        <ul>
+          {
+            doors.map((door) => (
+              <li>
+                <a class="home-doors__strip-link" href={door.href}>
+                  {door.who}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div class="home-pillars">
+        <a class="home-pillar" href="/standards">
+          <span class="eyebrow">Standards</span>
+          <strong>8 draft standards</strong>
+          <span class="small muted"
+            >Authority leases, contestability clocks, and JSON schemas.</span
+          >
+        </a>
+        <a class="home-pillar" href="/evals">
+          <span class="eyebrow">Evaluations</span>
+          <strong>16 suites & Finite drills</strong>
+          <span class="small muted"
+            >Dual-ledger surge tests and failure containment benchmarks.</span
+          >
+        </a>
+        <a class="home-pillar" href="/diagnostics">
+          <span class="eyebrow">Diagnostics</span>
+          <strong>Free browser tools</strong>
+          <span class="small muted"
+            >Audit delegation, calculate debt, and test standing in minutes.</span
+          >
+        </a>
+      </div>
+    </div>
+    <HeroLedger class="institute-hero__figure" />
+  </section>
+
+  <SectionBlock
+    id="orientation"
+    eyebrow="Orientation"
+    title="Three things this site answers before you begin"
+    description="The discipline that keeps automated decision systems answerable: when one is wrong, evidence of the harm reaches someone who has to change it."
+    variant="alt"
+  >
+    <div class="grid grid--three">
+      <article class="card stack-sm">
+        <p class="eyebrow">Scope & applicability</p>
+        <h3>What counts as a system under test?</h3>
+        <p>
+          If software takes an action, grants a benefit, denies an application,
+          or allocates work—and a human being has to live with the consequences
+          of an error—this is an initial scope filter. The full test also
+          requires adoption without independent review, a viable objection
+          route, and a named accountable institution.
+        </p>
+        <p class="small muted">
+          The object being engineered is the delegation and its authority lease,
+          not model capabilities.
+        </p>
+        <p class="small">
+          <a href="/use-cases">Explore covered use cases &rarr;</a>
+        </p>
+      </article>
+
+      <article class="card stack-sm">
+        <p class="eyebrow">The mechanism</p>
+        <h3>How this differs from "AI Ethics"</h3>
+        <p>
+          We reject "human-in-the-loop" when it means human liability sponging.
+          When upheld challenges cross a precommitted threshold, the automated
+          rule goes to its named owner for review, with revision or a reasoned
+          refusal recorded.
+        </p>
+        <p class="small muted">
+          Closed feedback loops, not vague principles like "fairness" or
+          "transparency".
+        </p>
+        <p class="small">
+          <a href="/method">See the 7-stage governed chain &rarr;</a>
+        </p>
+      </article>
+
+      <article class="card stack-sm">
+        <p class="eyebrow">Adoption ladder</p>
+        <h3>Start by time available</h3>
+        <p>
+          Spend 5 minutes running a self-test diagnostic, 1 hour evaluating an
+          agent against a Finite dual-ledger surge drill, or 1 sprint adopting
+          machine-readable delegation records.
+        </p>
+        <p class="small muted">
+          Open standards, open data, and open benchmark fixtures licensed under
+          CC BY-SA 4.0.
+        </p>
+        <p class="small">
+          <a href="/start">Pick your entry path &rarr;</a>
+        </p>
+      </article>
+    </div>
+  </SectionBlock>
+
+  <RecordSpine />
+
+  <section
+    id="mechanism"
+    class="home-claim stack-md"
+    aria-labelledby="mechanism-heading"
+  >
+    <div class="home-split-header">
+      <div class="stack-sm">
+        <p class="eyebrow">Why the rulings did not stop it</p>
+        <h2 id="mechanism-heading" class="section__heading">
+          Each ruling fixed one debt. None of them reached the rule.
+        </h2>
+      </div>
+      <p class="section-lead">
+        The department treated each ruling as one person's outcome, not as
+        evidence against the scheme, so the rule that raised the debts never had
+        to answer them. The fix is a count: upheld challenges recorded against
+        the rule that produced them, and a set number that sends the rule back
+        to its owner.
+      </p>
+    </div>
+    <div class="home-draw" data-reveal="draw">
+      <ExceptionLearningFigure level="h3" />
+    </div>
+    <p class="small muted">
+      This is Law VIII of the twelve the standards are built on: observability
+      without state transition is theater. A ruling that changes one case and
+      not the rule is an observation the system never acts on.
+      <a href="/standards/laws#law-viii">Read Law VIII →</a>
+      <a href="/research/theory/exception-learning"
+        >Read the essay on exception learning →</a
+      >
+    </p>
+  </section>
+
+  <CasebookScorecard />
+
+  <section class="home-positioning" aria-labelledby="home-positioning-heading">
+    <div class="stack-sm">
+      <p class="eyebrow">For scholars and governance thinkers</p>
+      <h2 id="home-positioning-heading" class="section__heading">
+        Every corrective mechanism itself changes under delegation.
+      </h2>
+      <div class="home-mechanisms">
+        <div class="home-mechanisms__cell">
+          <p class="home-mechanisms__name">Markets</p>
+          <p class="home-mechanisms__question">
+            After ten years of success, does competition still hold corrective
+            power?
+          </p>
+        </div>
+        <div class="home-mechanisms__cell">
+          <p class="home-mechanisms__name">Law</p>
+          <p class="home-mechanisms__question">
+            After ten years of success, does the ruling still reach the rule?
+          </p>
+        </div>
+        <div class="home-mechanisms__cell">
+          <p class="home-mechanisms__name">Management</p>
+          <p class="home-mechanisms__question">
+            After ten years of success, does the manager still hold authority to
+            correct?
+          </p>
+        </div>
+        <div class="home-mechanisms__cell">
+          <p class="home-mechanisms__name">Technology</p>
+          <p class="home-mechanisms__question">
+            After ten years, does the tool still let people correct the tool?
+          </p>
+        </div>
+        <div class="home-mechanisms__cell home-mechanisms__cell--own">
+          <p class="home-mechanisms__name">This framework</p>
+          <p class="home-mechanisms__question">
+            The same question, asked of its own instruments.
+          </p>
+        </div>
+      </div>
+      <p class="small muted">
+        <a href="/about#scholars">Shared values, new instruments →</a> ·
+        <a href="/about#disagreement">The real disagreement →</a> ·
+        <a href="/research/scholarly-crossings">Scholarly crossings →</a>
+      </p>
     </div>
   </section>
 
-  <section
-    id="state-variables"
-    class="home-spine"
-    aria-labelledby="spine-heading"
-  >
-    <div class="section__header">
-      <p class="eyebrow">The method, in six questions</p>
-      <h2 id="spine-heading" class="section__heading">
-        Six questions to keep answering when software decides.
-      </h2>
-      <p class="muted">
-        Software decides who gets a loan, a shift, a benefit, or a refund. A
-        system becomes unsafe when these six drift apart — each card names the
-        failure it catches.
+  <HomeClaims />
+
+  <div class="home-core">
+    <div class="home-core__test">
+      <SelfTest />
+      <SafeguardMap class="home-core__figure" />
+    </div>
+  </div>
+
+  <nav class="home-doors" aria-labelledby="home-doors-heading">
+    <div class="home-doors__header">
+      <p class="eyebrow">Start from where you are</p>
+      <h2 id="home-doors-heading" class="section__heading">Four ways in.</h2>
+      <p class="section-lead">
+        Pick the one that fits. Each leads to the standards, tools, cases, and
+        theory that apply to you.
       </p>
     </div>
-    <ul class="home-spine__grid" aria-labelledby="spine-heading">
+    <ul class="home-doors__list">
       {
-        stateVariables.map((variable) => (
+        doors.map((door) => (
           <li>
-            <a class="home-spine__card" href="/method#state-variables">
-              <span class="home-spine__head">
-                <span class="home-spine__chip">
-                  <StateVariableGlyph
-                    variable={
-                      variable.state.toLowerCase() as StateVariableGlyphId
-                    }
-                    size="1.1rem"
-                  />
-                </span>
-                <span class="home-spine__name">{variable.state}</span>
-              </span>
-              <span class="home-spine__question">
-                {plainSpineQuestions[variable.state.toLowerCase()] ??
-                  variable.question}
-              </span>
-              <span class="home-spine__meta small muted">
-                Catches:{" "}
-                {plainSpineDrifts[variable.state.toLowerCase()] ??
-                  variable.drift}
+            <a class="home-doors__door" href={door.href}>
+              <span class="home-doors__who">{door.who}</span>
+              <span class="home-doors__what small muted">{door.what}</span>
+              <span class="home-doors__action" aria-hidden="true">
+                →
               </span>
             </a>
           </li>
         ))
       }
     </ul>
-    <p class="small muted">
-      Each of these maps to one of the twelve laws.
-      <a href="/method#state-variables">Read the method →</a>
+    <p class="home-doors__fit small muted">
+      Not sure the framework applies to your system?
+      <a href="/use-cases">See which systems it is for →</a>
     </p>
-  </section>
-
-  <div class="home-core">
-    <section id="failure-intake" class="stack-lg">
-      <p class="eyebrow">Incident triage</p>
-      <h2 id="failure-intake-heading" class="section__heading">
-        What is going wrong right now?
-      </h2>
-      <p class="section-lead">
-        Choose the closest failure mode. Each path starts with what to do now,
-        then names who should own follow-up and what evidence to collect.
-      </p>
-      <ul class="failure-grid" aria-labelledby="failure-intake-heading">
-        {
-          failureStates.map((state) => {
-            const iconPaths = failureChoiceIcons[state.slug] ?? [
-              "M5 10h10",
-              "M11 6l4 4-4 4",
-            ];
-            return (
-              <li>
-                <a
-                  class="button failure-grid__button"
-                  href={`/failure/${state.slug}`}
-                >
-                  <span class="failure-grid__label">
-                    <span class="failure-grid__title">
-                      <span class="failure-grid__state-icon" aria-hidden="true">
-                        <svg
-                          viewBox="0 0 20 20"
-                          role="presentation"
-                          focusable="false"
-                        >
-                          {iconPaths.map((pathValue) => (
-                            <path d={pathValue} />
-                          ))}
-                        </svg>
-                      </span>
-                      <span>
-                        {failureChoiceLabels[state.slug] ?? state.shortLabel}
-                      </span>
-                    </span>
-                    <span
-                      class="failure-grid__priority small"
-                      data-severity={failureSeverity(
-                        failurePriorityBadges[state.slug],
-                      )}
-                    >
-                      {failurePriorityBadges[state.slug] ?? "Review now"}
-                    </span>
-                  </span>
-                </a>
-              </li>
-            );
-          })
-        }
-      </ul>
-      <p class="small muted">
-        These routes are for a live case: a person, a queue, or a decision
-        that needs attention now.
-      </p>
-    </section>
-  </div>
-
-  <section
-    id="ratchet"
-    class="home-claim stack-lg"
-    aria-labelledby="ratchet-heading"
-  >
-    <p class="eyebrow">The claim, in one figure</p>
-    <h2 id="ratchet-heading" class="section__heading">
-      A delegation can double without anyone deciding that it should.
-    </h2>
-    <p class="section-lead">
-      Both grants below grow by the same two percent a month. One is reviewed
-      only when a single step is large enough to notice, so it is never
-      reviewed. The other treats every widening as a fresh authorization, so it
-      can be read, questioned, and reversed. That difference is what the
-      standards on this site are for.
-    </p>
-    <RatchetFigure level="h3" />
-    <p class="small muted">
-      This is Law XI of twelve. <a href="/standards/laws">Read the laws →</a>
-      <a href="/standards/std-08-delegation">See what STD-08 requires →</a>
-    </p>
-  </section>
-
-  <HomeDifference />
+  </nav>
 
   <div class="home-supplement">
-    <section class="stack-sm card card--flat">
-      <p class="eyebrow">Use and cite this work</p>
-      <h2>Free to use with attribution</h2>
-      <p>
-        Ethotechnics Institute materials are published under
-        <a
-          href="https://creativecommons.org/licenses/by-sa/4.0/"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          CC BY-SA 4.0
-        </a>.
+    <footer class="home-colophon">
+      <div class="home-colophon__cols">
+        <div>
+          <p class="home-colophon__label">License</p>
+          <p class="home-colophon__text">
+            Ethotechnics Institute materials are published under
+            <a
+              href="https://creativecommons.org/licenses/by-sa/4.0/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              CC BY-SA 4.0
+            </a>. Credit the Institute, and publish anything you adapt under the
+            same license. Entries carry citation metadata, so you can reference
+            exactly what you used.
+          </p>
+        </div>
+        <div>
+          <p class="home-colophon__label">Studio</p>
+          <p class="home-colophon__text">
+            Commissioned safety evaluation for healthcare AI. That work runs
+            through
+            <a
+              href="https://ethotechnics.com"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Ethotechnics Studio →
+            </a>
+          </p>
+        </div>
+      </div>
+      <p class="home-colophon__strip">
+        ethotechnics.org · open standards · scored public failures · free
+        diagnostics
       </p>
-      <p class="small muted">
-        Individual entries and patterns include citation metadata so you can
-        reference exactly what you used.
-      </p>
-    </section>
-
-    <section
-      id="recently-published"
-      class="stack-sm card card--flat"
-      aria-labelledby="recently-published-heading"
-    >
-      <p class="eyebrow">New and updated</p>
-      <h2 id="recently-published-heading">Recent releases</h2>
-      <ul class="recent-releases">
-        {
-          recentReleases.map((release) => (
-            <li>
-              <a href={release.href}>
-                {release.area} {release.version}
-              </a>{" "}
-              <span class="muted">
-                · <time datetime={release.date}>{release.date}</time>
-              </span>
-              <p class="muted small">{release.summary}</p>
-            </li>
-          ))
-        }
-      </ul>
-    </section>
-
-    <section class="stack-sm card card--accent">
-      <p class="eyebrow">Studio</p>
-      <h2>Need hands-on help?</h2>
-      <p>
-        Ethotechnics Studio provides commissioned support for clinical AI safety
-        evaluation, diligence, governance design, and implementation work.
-      </p>
-      <p>
-        <a
-          class="button"
-          href="https://ethotechnics.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Ethotechnics Studio →
-        </a>
-      </p>
-    </section>
+    </footer>
   </div>
 </BaseLayout>
+
+<script>
+  import "../scripts/home-reveal.ts";
+</script>

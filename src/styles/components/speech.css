@@ -1,0 +1,134 @@
+/* Speech (SpeechBubble.astro): a party speaking, as a quote block with a
+   small tail. The institution leans right, the record and the person decided
+   about lean left. An unanswered bubble has a broken outline; its caption
+   says "Unanswered" so the state never rests on the outline alone. Tokens
+   only; no motion. */
+@layer components {
+  .speech {
+    --speech-bg: var(--surface);
+    --speech-edge: var(--border);
+    --speech-tail: 0.7rem;
+
+    display: grid;
+    justify-items: start;
+    gap: var(--space-2);
+    width: fit-content;
+    max-width: min(100%, 36rem);
+    margin: 0;
+  }
+
+  .speech--institution {
+    --speech-bg: color-mix(in srgb, var(--panel) 70%, var(--surface));
+    --speech-edge: color-mix(in srgb, var(--muted) 45%, var(--border));
+
+    justify-self: end;
+    justify-items: end;
+    margin-inline-start: auto;
+  }
+
+  .speech__bubble {
+    position: relative;
+    margin: 0;
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--speech-edge);
+    border-radius: var(--radius-lg);
+    background: var(--speech-bg);
+    color: var(--text);
+  }
+
+  .speech__bubble p {
+    margin: 0;
+  }
+
+  /* The tail: a small square turned on its corner, showing two edges. */
+  .speech__bubble::after {
+    content: "";
+    position: absolute;
+    bottom: calc(var(--speech-tail) / -2);
+    inset-inline-start: var(--space-4);
+    width: var(--speech-tail);
+    height: var(--speech-tail);
+    border-right: 1px solid var(--speech-edge);
+    border-bottom: 1px solid var(--speech-edge);
+    border-right-style: inherit;
+    border-bottom-style: inherit;
+    background: var(--speech-bg);
+    transform: rotate(45deg);
+  }
+
+  .speech--institution .speech__bubble::after {
+    inset-inline-start: auto;
+    inset-inline-end: var(--space-4);
+  }
+
+  .speech[data-answered="false"] .speech__bubble {
+    border-style: dashed;
+  }
+
+  .speech__who {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-2);
+    padding-inline: var(--space-3);
+    font-family: var(--sans);
+    font-size: var(--text-xs);
+    color: var(--muted);
+  }
+
+  .speech__speaker {
+    font-weight: 650;
+    color: var(--text);
+  }
+
+  .speech__kind {
+    font-style: italic;
+  }
+
+  .speech__status {
+    font-weight: 650;
+    color: var(--status-danger);
+  }
+
+  .speech[data-answered="true"] .speech__status {
+    color: var(--status-success);
+  }
+
+  /* The home page's record: a spoken event keeps the event row, with the
+     speech in the text column and the rest of the event beneath it. */
+  .record-spine__voice {
+    display: grid;
+    gap: var(--space-2);
+    font-weight: 400;
+  }
+
+  .record-spine__after {
+    margin: 0;
+    font-weight: 400;
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  .record-spine__voice--institution .record-spine__after {
+    text-align: end;
+  }
+
+  /* The method page: six sentences an institution says, each answered. */
+  .said-and-answered {
+    display: grid;
+    gap: var(--space-6);
+    max-width: 44rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .said-and-answered__item {
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  .said-and-answered__answer {
+    max-width: 36rem;
+    margin: 0;
+  }
+}

@@ -1,7 +1,7 @@
 /**
  * One catalogue of the governance properties this project can actually check.
  *
- * Two instruments here check things. The Tier 1 harness
+ * Two tools here check things. The Tier 1 harness
  * (src/harness/checks.ts) probes a running system through an adapter: it
  * starts a job, asks it to stop, and times the answer. The record conformance
  * checker (src/features/record-conformance) reads a stream of STD-07 records
@@ -261,7 +261,7 @@ export const checkableProperties: CheckableProperty[] = [
       {
         observes: "live",
         id: "AGT-007",
-        what: "issues an override and checks the system's subsequent behaviour reflects it",
+        what: "issues an override and checks the system's subsequent behavior reflects it",
       },
     ],
     gap: "An emitted probe would need the system's intended action recorded before the override, so the two can be compared. Records name the action taken; they rarely name the action that was about to be taken.",
@@ -284,7 +284,7 @@ export const checkableProperties: CheckableProperty[] = [
   },
   {
     id: "challenges-produce-reconsideration",
-    title: "A challenge changes state or it is theatre",
+    title: "A challenge opens a reconsideration, or it is theater",
     claim:
       "A raised discrepancy produces a reconsideration record, and it does so within the clock the system declared for it.",
     laws: ["law-vii", "law-viii", "law-xii"],
@@ -373,7 +373,7 @@ export const checkableProperties: CheckableProperty[] = [
         what: "flags kinds in the stream the declaration omits",
       },
     ],
-    gap: "The live equivalent would ask a running system for its own declaration and compare it against observed behaviour. No adapter capability exposes a manifest.",
+    gap: "The live equivalent would ask a running system for its own declaration and compare it against observed behavior. No adapter capability exposes a manifest.",
   },
   {
     id: "standing-is-proportional-to-exposure",
@@ -413,7 +413,7 @@ export const checkableProperties: CheckableProperty[] = [
     laws: ["law-xi"],
     variables: ["correction", "dependency"],
     probes: [],
-    gap: "This is a ratio between two quantities neither instrument observes: decisions made and corrections the organisation can process. It is measurable — both numbers exist inside any operator — but not from a record stream or an adapter, which is a reason to be honest about it rather than to drop it.",
+    gap: "This is a ratio between two quantities neither instrument observes: decisions made and corrections the organization can process. It is measurable — both numbers exist inside any operator — but not from a record stream or an adapter, which is a reason to be honest about it rather than to drop it.",
   },
   {
     id: "evaluation-sits-at-the-outermost-layer",
@@ -441,8 +441,8 @@ export const coverageOf = (property: CheckableProperty): Coverage => {
 export const COVERAGE_LABELS: Record<Coverage, string> = {
   both: "Checked from both sides",
   "live-only": "Only checkable against a running system",
-  "emitted-only": "Only checkable from emitted records",
-  none: "Named, not yet checkable",
+  "emitted-only": "Only checkable from written records",
+  none: "Named, not yet testable",
 };
 
 /** Every check id the harness exposes, for the totality test and for pages. */

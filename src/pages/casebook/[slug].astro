@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import CaseTimeline from "../../components/CaseTimeline.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import StateVariableGlyph from "../../components/StateVariableGlyph.astro";
@@ -9,6 +10,7 @@ import {
   casesBySlug,
   clauseHref,
   clauseObligation,
+  learningVerdictLabels,
   stateVariables,
 } from "../../content/casebook";
 
@@ -34,7 +36,7 @@ const sourceKind = {
 
 <BaseLayout
   title={`${entry.title} — Casebook — Ethotechnics`}
-  description={entry.summary}
+  description={entry.metaDescription ?? entry.summary}
   publishedTime={entry.published}
   modifiedTime={entry.updated ?? entry.published}
   structuredDataType="tech-article"
@@ -46,8 +48,11 @@ const sourceKind = {
     anchorLinks={[
       { href: "#record", label: "The record" },
       { href: "#scoring", label: "Scoring" },
-      { href: "#learning", label: "Learning outcome" },
+      { href: "#learning", label: "After the failure" },
       { href: "#missing", label: "The missing record" },
+      ...(entry.diagnosticStudy
+        ? [{ href: "#diagnostic-study", label: "Diagnostic study" }]
+        : []),
       { href: "#sources", label: "Sources" },
     ]}
   >
@@ -77,6 +82,14 @@ const sourceKind = {
           <dt>Halted by</dt>
           <dd>{entry.haltedBy}</dd>
         </div>
+        <div>
+          <dt>After the failure</dt>
+          <dd>
+            <a href="#learning">
+              {learningVerdictLabels[entry.learningOutcome.verdict]}
+            </a>
+          </dd>
+        </div>
       </dl>
     </Fragment>
   </PageIntro>
@@ -87,6 +100,9 @@ const sourceKind = {
     title="What happened"
     description="From the primary sources listed at the end. Where a finding is quoted, it is the inquiry's, not ours."
   >
+    <div class="case-page__timeline">
+      <CaseTimeline entry={entry} />
+    </div>
     <div class="case-narrative">
       {entry.narrative.map((paragraph) => <p>{paragraph}</p>)}
     </div>
@@ -95,8 +111,8 @@ const sourceKind = {
   <SectionBlock
     id="scoring"
     eyebrow="Scoring"
-    title="The six state variables"
-    description="One finding per variable, with the clauses whose obligation it falls under and the law it instantiates."
+    title="The six safeguards"
+    description="One finding per safeguard, with the clauses it falls under and the law it applies."
     variant="alt"
   >
     <ol class="case-findings">
@@ -146,37 +162,64 @@ const sourceKind = {
 
   <SectionBlock
     id="learning"
-    eyebrow="Learning outcome"
-    title="Where the failure trajectory ended"
-    description="Handled or learned: did the sequence from failure to challenge end in case resolution, or did the exception change the machinery that produced it?"
+    eyebrow="After the failure"
+    title="Did the institution change?"
+    description="Whether the institution changed the rule, category, or workflow that produced the errors, or corrected the errors and left that process as it was."
   >
     <p class="case-learning__verdict">
-      <strong>{entry.learningOutcome.verdict}</strong>
-      {" "}
-      <span class="muted small">— exception absorption versus exception learning</span>
+      <strong>{learningVerdictLabels[entry.learningOutcome.verdict]}</strong>
     </p>
     <p class="case-learning">{entry.learningOutcome.finding}</p>
     <p class="small muted">
-      <a href="/research/theory/exception-learning">Read the theory: exception learning</a>
+      <a href="/research/theory/exception-learning"
+        >Read the theory: exception learning</a
+      >
       {" "}
-      · <a href="/evals/corrective-learning">Corrective Learning eval suite</a>
+      · <a href="/evals/corrective-learning">Corrective learning eval suite</a>
     </p>
   </SectionBlock>
 
   <SectionBlock
     id="missing"
     eyebrow="The missing record"
-    title="The one object that was not there"
+    title="The record that was not there"
     description="Every case reduces to a record the standards require and the operator did not hold. This is that record."
   >
     <p class="case-missing">{entry.theMissingRecord}</p>
   </SectionBlock>
 
+  {
+    entry.diagnosticStudy && (
+      <SectionBlock
+        id="diagnostic-study"
+        eyebrow="Diagnostic study"
+        title="Long-form postmortem analysis"
+        description="Companion operational study exploring how this failure mode was stabilized, absorbed, or concealed."
+      >
+        <div class="case-diagnostic-card">
+          <p class="case-diagnostic-card__title">
+            <a
+              href={entry.diagnosticStudy.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <strong>{entry.diagnosticStudy.title}</strong> ·{" "}
+              {entry.diagnosticStudy.source} ↗
+            </a>
+          </p>
+          <p class="case-diagnostic-card__summary">
+            {entry.diagnosticStudy.summary}
+          </p>
+        </div>
+      </SectionBlock>
+    )
+  }
+
   <SectionBlock
     id="sources"
     eyebrow="Sources"
     title="The primary record"
-    description="Courts, statutory inquiries, regulators, and parliaments, in that order of weight. No press coverage."
+    description="Courts, statutory inquiries, regulators, and parliaments, in that order of weight. Operator and NGO documents appear only where they record what the primary record established. No press coverage."
     variant="alt"
   >
     <ol class="case-sources">

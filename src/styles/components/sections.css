@@ -1,6 +1,29 @@
 @layer components {
+  /* Section rhythm. One visible gap between top-level sections:
+     --space-section, from the last line of one to the first line of the
+     next. It used to be three rules stacked -- a clamp margin, the banded
+     sections' own padding on top of it, and a masthead margin that the
+     "tighten" rule below it could never win against (collapsing margins take
+     the larger) -- so the same page measured gaps from 52px to 188px.
+
+     A plain section carries the gap as margin, and neighbouring margins
+     collapse into one. Where a rule divides two sections (the masthead's
+     rule under it, a banded section's rule above it) the gap is split: half
+     above the rule, half below. */
   .section {
-    margin: clamp(2.2rem, 3.8vw, 3.8rem) 0;
+    margin: var(--space-section) 0;
+  }
+
+  /* A hidden sibling (a <datalist>, a <template>) can sit between two
+     sections without breaking the adjacency. */
+  .section:is(
+    :has(+ :is(.section--alt, .section--banded)),
+    :has(
+      + :is(datalist, template, script, style)
+        + :is(.section--alt, .section--banded)
+    )
+  ) {
+    margin-bottom: calc(var(--space-section) / 2);
   }
 
   /* The between-sections rhythm does not belong above the first one. With the
@@ -15,36 +38,51 @@
      sheets in it. */
   .section:first-of-type,
   .page-breadcrumbs + .section {
-    margin-top: clamp(0.75rem, 1.5vw, 1.25rem);
-    padding: clamp(1.25rem, 2.6vw, 2.25rem) 0 clamp(1.9rem, 3.4vw, 2.9rem);
+    margin-top: var(--space-4);
+    margin-bottom: calc(var(--space-section) / 2);
+    padding: var(--space-5) 0 calc(var(--space-section) / 2);
     border-bottom: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
     position: relative;
-    scroll-margin-top: 1rem;
+    scroll-margin-top: var(--space-4);
   }
 
-  /* Tighten spacing between a prominent page-intro/hero card and the subsequent section */
+  /* The masthead's padding already holds the half of the gap above its rule,
+     so a trailing paragraph margin would add to it. */
+  :is(.section:first-of-type, .page-breadcrumbs + .section) > :last-child {
+    margin-bottom: 0;
+  }
+
   .section:first-of-type + .section,
   .page-intro + .section {
-    margin-top: clamp(1.8rem, 3vw, 2.6rem);
+    margin-top: calc(var(--space-section) / 2);
   }
 
-  .section--alt {
-    padding: var(--section-padding);
-    border-radius: var(--radius-lg);
-    background: color-mix(in srgb, var(--panel) 70%, var(--surface));
-    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
-  }
-
+  /* An alternate or banded section used to be a tinted or white box around
+     the section, so its cards were a box in a box. It is now whitespace and
+     one rule above; the cards it holds are the only frames in it. The rule
+     sits in the middle of the section gap: half the gap is margin above it,
+     half is padding below it. */
+  .section--alt,
   .section--banded {
-    padding: var(--section-padding);
-    border-radius: var(--radius-lg);
-    background: var(--surface);
-    border: 1px solid color-mix(in srgb, var(--accent) 15%, var(--border));
+    margin-top: calc(var(--space-section) / 2);
+    padding: calc(var(--space-section) / 2) 0 0;
+    border-radius: 0;
+    background: none;
+    border: 0;
+    border-top: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
+  }
+
+  /* The masthead already closes with a rule; a second one under it would
+     draw two lines with nothing between them. */
+  :is(.section:first-of-type, .page-breadcrumbs + .section, .page-intro)
+    + :is(.section--alt, .section--banded) {
+    border-top: 0;
+    padding-top: 0;
   }
 
   .section--aside {
     display: grid;
-    gap: 2rem;
+    gap: var(--space-6);
     align-items: start;
   }
 
@@ -61,41 +99,53 @@
     background: none;
     border: none;
     box-shadow: none;
-    padding: 2rem 0;
+    padding: var(--space-6) 0;
   }
 
   .section--quote blockquote {
     margin: 0;
     font-family: var(--serif);
-    font-size: clamp(1.3rem, 2vw, 1.7rem);
+    font-size: var(--text-xl);
     font-style: italic;
     line-height: 1.5;
     color: var(--text);
-    padding-left: 1.2rem;
+    padding-left: var(--space-4);
     border-left: 3px solid color-mix(in srgb, var(--accent) 50%, transparent);
   }
 
   .section--quote cite {
     display: block;
-    margin-top: 0.8rem;
+    margin-top: var(--space-3);
     font-style: normal;
-    font-size: 0.9rem;
+    font-size: var(--text-sm);
     color: var(--muted);
   }
 
+  /* A section header is one stack: eyebrow, heading and lede sit
+     --space-heading apart, and the section body starts --space-block below
+     the header. The children's own margins are reset so the gap is the whole
+     contract -- a lede's paragraph margin used to add 10px under some headers
+     and not others. */
   .section__header {
     max-width: 780px;
     display: grid;
-    gap: 0.6rem;
+    gap: var(--space-heading);
     position: relative;
-    padding: 0.5rem 0 0.35rem;
+  }
+
+  .section__header > * {
+    margin: 0;
+  }
+
+  .section:not(.section--aside) > .section__header + * {
+    margin-top: var(--space-block);
   }
 
   .section__actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-top: 0.65rem;
+    gap: var(--space-3);
+    margin-top: var(--space-3);
   }
 
   /* The rule-mark. A short rust rule ahead of the label that opens a
@@ -109,7 +159,7 @@
   .summary-callout__intro > .eyebrow {
     display: flex;
     align-items: flex-start;
-    gap: 0.6rem;
+    gap: var(--space-2);
   }
 
   /* Sits on the first line's centre when the label wraps. */
@@ -134,7 +184,7 @@
        Ethotechnics asks: ..." is twenty-one words -- then set 32px type in a
        260px column on a phone and ran 362px tall, most of the screen for one
        heading. 1.5rem lets it come down where there is no room. */
-    font-size: clamp(1.5rem, 2.4vw + 1rem, 2.65rem);
+    font-size: var(--text-2xl);
     letter-spacing: -0.02em;
     line-height: 1.22;
     /* Long words in a narrow column would otherwise push a horizontal
@@ -145,7 +195,7 @@
   .section__anchor {
     display: inline-flex;
     align-items: baseline;
-    gap: 0.45rem;
+    gap: var(--space-2);
     color: inherit;
     text-decoration: none;
     border-radius: var(--radius-md);
@@ -179,7 +229,7 @@
   }
 
   .section__header .muted {
-    font-size: 1.05rem;
+    font-size: var(--text-base);
     line-height: 1.7;
   }
 
@@ -189,7 +239,7 @@
 
   .page-intro__grid {
     display: grid;
-    gap: 1.8rem;
+    gap: var(--space-6);
     align-items: start;
   }
 
@@ -197,24 +247,31 @@
     /* Only establish two columns if an aside (custom or illustration) is present */
     .page-intro--has-aside .page-intro__grid {
       grid-template-columns: minmax(0, 1.45fr) minmax(0, 0.85fr);
-      gap: 2.4rem;
+      gap: var(--space-6);
       align-items: center;
     }
   }
 
+  /* The masthead's eyebrow, h1 and lede are the same stack as a section
+     header, at the same --space-heading. The actions row keeps one extra
+     step above it so the buttons read as a row of their own. */
   .page-intro__lead {
     display: grid;
-    gap: 0.65rem;
+    gap: var(--space-heading);
     align-content: start;
   }
 
+  .page-intro__lead > *,
   .page-intro__lead h1,
   .page-intro__lead h2 {
-    margin: 0.15rem 0 0;
+    margin: 0;
+  }
+
+  .page-intro__lead > .section__actions {
+    margin-top: var(--space-3);
   }
 
   .page-intro__lede {
-    margin: 0.2rem 0 0;
     max-width: 62ch;
   }
 
@@ -238,7 +295,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.25rem;
+    gap: var(--space-1);
   }
 
   .breadcrumbs li {
@@ -248,7 +305,7 @@
 
   .breadcrumbs li::after {
     content: "/";
-    margin-inline: 0.45rem;
+    margin-inline: var(--space-2);
     color: color-mix(in srgb, var(--border) 60%, var(--muted));
     font-size: 0.82em;
     font-weight: 400;
@@ -262,13 +319,13 @@
   .breadcrumbs__link {
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
+    gap: var(--space-1);
     color: var(--muted);
     font-weight: 500;
     text-decoration: none;
     border-radius: var(--radius-xs);
-    padding: 0.15rem 0.35rem;
-    margin: -0.15rem -0.35rem;
+    padding: var(--space-hair) var(--space-1);
+    margin: calc(-1 * var(--space-hair)) calc(-1 * var(--space-1));
     transition:
       color var(--motion-fast) ease,
       background-color var(--motion-fast) ease;
@@ -289,14 +346,14 @@
   }
 
   .page-breadcrumbs {
-    margin-block: var(--space-2) var(--space-2);
+    margin-block: var(--space-3) var(--space-3);
   }
 
   .page-intro__meta {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.4rem 0.75rem;
+    gap: var(--space-2) var(--space-3);
   }
 
   /* Rendered even when the page has no eyebrow and no version line, where it
@@ -307,118 +364,106 @@
 
   .page-intro__aside {
     display: grid;
-    gap: 0.9rem;
+    gap: var(--space-4);
     align-content: center;
-  }
-
-  .page-intro__aside-illustration {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
   }
 
   @media (max-width: 899px) {
     .page-intro--has-aside .page-intro__aside {
-      margin-top: 0.25rem;
-    }
-    .page-intro__aside-illustration {
-      max-width: 220px;
-      margin-inline: auto;
+      margin-top: var(--space-1);
     }
   }
 
   .page-intro__aside-custom {
     display: grid;
-    gap: 0.75rem;
+    gap: var(--space-3);
   }
 
   .page-intro__search-panel {
     display: grid;
-    gap: 0.65rem;
+    gap: var(--space-3);
   }
 
   .page-intro__search-panel .site-search__input {
     background: var(--surface);
   }
 
-  /* The outline is a strip under the hero rather than a column in its rail:
-     see the note in PageIntro.astro. On a phone it stays a disclosure, since
-     a dozen wrapped pills above the first paragraph is its own wall. */
+  /* The outline is one quiet row under the hero: a label and the section
+     names as plain links, no box, no numbers. It renders only on pages with
+     five or more sections (see PageIntro.astro). On a phone it stays a
+     disclosure, since a wrapped row above the first paragraph is its own
+     wall. */
   .page-intro__anchors {
     display: grid;
     grid-template-columns: 1fr;
-    align-items: start;
-    gap: 0.35rem;
-    margin-top: 1.6rem;
-    padding: 0.95rem 1.1rem 0.6rem;
-    border-radius: var(--radius-lg);
-    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
-    background: color-mix(in srgb, var(--panel) 70%, var(--surface));
+    gap: var(--space-1);
+    margin-top: var(--space-5);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--border);
+    font-family: var(--sans);
+    font-size: var(--text-sm);
   }
 
   .page-intro__anchors ul {
-    display: grid;
-    gap: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-4);
     padding: 0;
     margin: 0;
     list-style: none;
   }
 
-  .page-intro__anchors li + li {
-    border-top: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
+  .page-intro__anchors a {
+    color: var(--muted);
+    font-weight: 500;
+    text-decoration: none;
+    text-underline-offset: 0.2em;
+  }
+
+  .page-intro__anchors a:hover,
+  .page-intro__anchors a:focus-visible {
+    color: var(--accent);
+    text-decoration: underline;
+  }
+
+  .page-intro__anchors-title {
+    margin: 0;
+    color: var(--muted);
+    font-weight: 600;
+    white-space: nowrap;
   }
 
   @media (min-width: 900px) {
     .page-intro__anchors {
       grid-template-columns: auto minmax(0, 1fr);
       align-items: baseline;
-      gap: 0.35rem 1rem;
-      padding: 0.8rem 1.1rem;
-    }
-
-    .page-intro__anchors-title {
-      margin: 0;
-      white-space: nowrap;
-    }
-
-    .page-intro__anchors-list--desktop ul {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.3rem 0.45rem;
-    }
-
-    .page-intro__anchors-list--desktop li + li {
-      border-top: 0;
-    }
-
-    .page-intro__anchors-list--desktop .pill {
-      padding-block: 0.3rem;
+      gap: var(--space-1) var(--space-4);
     }
   }
 
   .page-intro__anchors-disclosure {
     display: grid;
-    gap: 0.55rem;
+    gap: var(--space-2);
   }
 
   .page-intro__anchors-disclosure summary {
     cursor: pointer;
     font-weight: 600;
-    color: var(--color-foreground);
+    color: var(--muted);
   }
 
   .page-intro__anchors-disclosure summary:hover,
   .page-intro__anchors-disclosure summary:focus-visible {
-    color: color-mix(in srgb, var(--accent) 65%, var(--color-foreground));
+    color: var(--accent);
   }
 
-  .page-intro__anchors-disclosure[open] summary {
-    margin-bottom: 0.35rem;
+  .page-intro__anchors-disclosure ul {
+    display: grid;
+    gap: var(--space-2);
   }
 
   .page-intro__anchors-list--desktop {
-    display: grid;
+    display: block;
   }
 
   .page-intro__anchors-disclosure--mobile {
@@ -426,57 +471,14 @@
   }
 
   @media (max-width: 720px) {
-    .page-intro__anchors-list--desktop {
+    .page-intro__anchors-list--desktop,
+    .page-intro__anchors > .page-intro__anchors-title {
       display: none;
     }
 
     .page-intro__anchors-disclosure--mobile {
       display: grid;
     }
-  }
-
-  .page-intro__anchors-title {
-    margin: 0;
-  }
-
-  .page-intro__anchors .pill {
-    display: flex;
-    align-items: baseline;
-    gap: 0.7rem;
-    width: 100%;
-    min-height: 2.5rem;
-    padding: 0.5rem 0.2rem;
-    border: 0;
-    border-radius: var(--radius-xs);
-    background: none;
-    box-shadow: none;
-    color: var(--color-foreground);
-    font-family: var(--sans);
-    font-size: var(--text-sm);
-    font-weight: 600;
-    line-height: 1.35;
-    transform: none;
-    transition: color 0.2s ease;
-  }
-
-  .page-intro__anchors .pill:hover,
-  .page-intro__anchors .pill:focus-visible {
-    color: var(--accent);
-    background: none;
-    border: 0;
-    box-shadow: none;
-    transform: none;
-  }
-
-  .page-intro__anchor-index {
-    flex: 0 0 auto;
-    min-width: 1.2rem;
-    font-family: var(--mono);
-    font-size: var(--text-xs);
-    font-weight: 500;
-    color: var(--muted);
-    text-align: right;
-    font-variant-numeric: tabular-nums;
   }
 
   /* An absolutely-positioned ::after laid two colour blobs -- accent at 24%/20%
@@ -487,13 +489,23 @@
 
   .grid {
     display: grid;
-    gap: 1.25rem;
-    margin-top: 2rem;
+    gap: var(--space-5);
+    margin-top: var(--space-block);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
   }
 
   .grid--two {
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  }
+
+  .grid--three {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  }
+
+  @media (min-width: 960px) {
+    .grid--three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
   }
 
   .step-list {
@@ -508,7 +520,7 @@
   .step-list > li {
     counter-increment: step;
     position: relative;
-    padding-left: 2.5rem;
+    padding-left: var(--space-7);
   }
 
   .step-list > li::before {
@@ -531,17 +543,17 @@
   /* Layout lives on .actions in utilities.css; this only sets the rhythm
      around an action row inside a section. */
   .actions {
-    margin: clamp(1.4rem, 3vw, 1.8rem) 0 0.4rem;
+    margin: clamp(var(--space-5), 3vw, var(--space-6)) 0 var(--space-2);
   }
 
   .copy-popover {
     position: fixed;
     inset: auto 1.5rem 1.5rem auto;
-    padding: 0.5rem 0.85rem;
+    padding: var(--space-2) var(--space-3);
     border-radius: var(--radius-pill);
     border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
     background: var(--surface);
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-float);
     color: var(--text);
     font-size: var(--text-xs);
     font-weight: 600;
@@ -551,7 +563,34 @@
 
   @media (max-width: 640px) {
     .nav__inner {
-      padding: 0.75rem 0;
+      padding: var(--space-3) 0;
     }
+  }
+  /* Diagnostic tool pages: the method sits below the tool, folded. */
+  .diagnostic-tool__jump a {
+    color: var(--accent);
+  }
+
+  .diagnostic-tool__method {
+    border-top: 1px solid var(--border);
+    padding-top: var(--space-4);
+  }
+
+  .diagnostic-tool__method > summary {
+    cursor: pointer;
+    font-family: var(--sans);
+    font-weight: 600;
+    color: var(--accent);
+    width: fit-content;
+  }
+
+  .diagnostic-tool__method > summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: var(--radius-xs);
+  }
+
+  .diagnostic-tool__method[open] > summary {
+    margin-bottom: var(--space-5);
   }
 }

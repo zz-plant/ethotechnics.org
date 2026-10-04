@@ -5,7 +5,6 @@ import { join, relative } from "node:path";
 
 const contentDir = new URL("./", import.meta.url).pathname;
 const repoRoot = new URL("../../", import.meta.url).pathname;
-const promptPackDir = join(repoRoot, "public/agent-toolkit");
 const scannedExtensions = [".ts", ".json", ".mdx"];
 const mechanismReference = /MEC-(\d\d) ([^"\n<]+)/g;
 
@@ -80,7 +79,6 @@ describe("mechanism names", () => {
 
     const files = [
       ...(await collectFiles(contentDir, scannedExtensions)),
-      ...(await collectFiles(promptPackDir, [".md"])),
     ].filter((file) => !file.endsWith("mechanism-names.test.ts"));
 
     const mismatches: string[] = [];

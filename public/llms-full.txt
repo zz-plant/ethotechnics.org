@@ -1,6 +1,6 @@
 # Ethotechnics Institute — Complete LLM Reference Index
 
-Ethotechnics publishes open standards, mechanisms, diagnostics, and a glossary for organizations that let software make consequential decisions: who gets a loan, a shift, a benefit, or a refund. It is the engineering discipline concerned with keeping authority, evidence, capability, consequence, and correction coupled tightly enough that increasing machine agency does not silently become unreviewable institutional power. The invariant: No system may accumulate consequential agency faster than the institution accumulates the capacity to inspect, challenge, revise, and survive its decisions. This document provides a complete plain-text index for AI agents, crawlers, and researchers. The method is stated at https://ethotechnics.org/method.
+Ethotechnics publishes open standards, mechanisms, diagnostics, and a glossary for organizations that let software make consequential decisions: who gets a loan, a shift, a benefit, or a refund. It is the engineering discipline concerned with keeping capability, authority, evidence, dependency, standing, and correction coupled tightly enough that increasing machine agency does not silently become unreviewable institutional power. Its central claim: institutions absorb the evidence that their automated systems are wrong (a worker quietly fixes the error, an appeal settles one case, and the rule never changes). Ethotechnics names that mechanism, scores it in public cases, and specifies the records that carry the evidence back to the rule in any institution that adopts them. The invariant: No system may accumulate consequential agency faster than the institution accumulates the capacity to inspect, challenge, revise, and survive its decisions. This document provides a complete plain-text index for AI agents, crawlers, and researchers. The method is stated at https://ethotechnics.org/method.
 
 Canonical URL: https://ethotechnics.org
 License: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
@@ -68,11 +68,16 @@ The site separates three layers so a reader can adopt a standard without accepti
 
 - **Theory** (https://ethotechnics.org/research/theory): why the laws hold. Cited as motivation, never as a requirement.
 - **Method** (https://ethotechnics.org/method, /standards, /standards/laws, /mechanisms, /evals, /glossary): the laws, standards, objects, mechanisms, evals.
-- **Instruments** (/diagnostics, /validators, /tools, /agent-toolkit, /api): diagnostics, validators, worksheets, prompt packs, APIs.
+- **Instruments** (/diagnostics, /validators, /tools, /api): diagnostics, validators, worksheets, APIs.
 
 ---
 
 ## 3. Framework Navigation & Primary Resources
+
+### Which systems this is for
+- **Use cases**: https://ethotechnics.org/use-cases
+  - Six decision contexts the standards are built for: public benefits and debt recovery; credit, payments, and account holds; AI agents that take actions; health coverage and care decisions; platform enforcement; grading people and judging their work. Each names the scored cases from it, the standards to bind, the first check to run, and law already in force that asks for the same evidence.
+  - Five boundaries where the framework does less: recommendations and personalization, testing a model before deployment, tools that inform a person who decides each case, low-volume committee decisions, and automation that touches no one outside the team.
 
 ### Doctrine
 - **Method**: https://ethotechnics.org/method
@@ -85,6 +90,7 @@ The site separates three layers so a reader can adopt a standard without accepti
 
 ### Standards & Compliance
 - **Standards Catalogue**: https://ethotechnics.org/standards
+  - Status: every standard is a draft, apart from STD-04, the FHIR profile set, which is deprecated. None has force until an organization adopts it or a contract cites it.
   - STD-01: Temporal Bill of Rights (clocks, deadlines, exit)
   - STD-02: Contestability and Recourse
   - STD-03: Justice SLOs
@@ -121,14 +127,17 @@ The site separates three layers so a reader can adopt a standard without accepti
   - Belief level. Walks a delegation against the six state variables and reports where they have drifted apart. It records what a team believes and verifies none of it.
 - **Record Conformance Checker**: https://ethotechnics.org/diagnostics/record-conformance
   - Evidence level. Parses a stream of STD-07 records, validates the schema, recomputes the hashes, and returns the conformance level the stream earns against the level its emitter declares.
-- **Burden Modeler**: https://ethotechnics.org/diagnostics/burden-modeler
-  - Quantifies human operator workload, cognitive overhead, and burnout thresholds.
-- **Maintenance Simulator**: https://ethotechnics.org/diagnostics/maintenance-simulator
-  - Simulates operational coverage, out-of-hours escalations, and incident triage branches.
-- **Capacity Forecaster**: https://ethotechnics.org/diagnostics/capacity-forecaster
-  - Projects long-term system stability, metric decay, and remediation timing.
+- **Workload Modeler**: https://ethotechnics.org/diagnostics/burden-modeler
+  - Belief level. Scores seven workload drivers a team rates (interruptions, handoffs, tooling, runbooks, incidents, coverage, decision debt) and ranks where load concentrates. Distinct from VAL-01, the Burden Modeler at /validators/burden-modeler, which scores the time a user journey takes from the affected person.
+- **Corrective capacity self-assessment**: https://ethotechnics.org/diagnostics/corrective-debt-calculator
+  - Belief level. Scores five self-reported answers on whether the institution can correct what it decides.
 - **Finite Loop**: https://ethotechnics.org/finite
   - Training loop for rehearsing stoppability and rollback protocols.
+
+### Retired tools
+- **Retired-tools archive**: https://ethotechnics.org/archive/retired-tools
+  - Retired September 26, 2026: System Auditor, Governance Gap Score, Capacity Forecaster, Maintenance Simulator, Maintenance Debt Calculator, and Agent Toolkit. Historical source and prompt-pack downloads are preserved but are not maintained.
+  - System Auditor and Governance Gap Score redirect to the Delegation Audit. The other retired diagnostics redirect to Diagnostics. Agent Toolkit routes redirect to the archive.
 
 ### Taxonomy
 - **Taxonomy index**: https://ethotechnics.org/taxonomy
@@ -136,19 +145,11 @@ The site separates three layers so a reader can adopt a standard without accepti
   - Dependence branch: /taxonomy/dependence, with reversibility, standing, and preserved-capacity.
   - Plus governance, delivery, assurance, and experience.
 
-### AI Agent Toolkit
-- **Agent Toolkit Home**: https://ethotechnics.org/agent-toolkit
-- **Agent Contract**: https://ethotechnics.org/agent-toolkit/agent-contract
-  - Formal protocol defining how autonomous agents apply standards, cite mechanisms, and declare limitations.
-- **Prompt Packs**: https://ethotechnics.org/agent-toolkit/prompt-packs
-- **Teaching Flows**: https://ethotechnics.org/agent-toolkit/teaching-flows
-- **Agent Spec**: https://ethotechnics.org/agents/spec.json
-
 ### Shared Taxonomy & Glossary
 - **Glossary**: https://ethotechnics.org/glossary
   - Defines core vocabulary: Authority Grant, Burden, Capability Catalog, Contestability, Dependency Record, Escalation Clock, Evidence Pack, Intervention Specification, Legibility, Policy Record, Preserved Capacity, Repair Authority, Revisable Delegation, Reversibility Ladder, Standing, Stoppability, Substrate Profile, Validator.
 
-### Research & Thought Leadership
+### Research
 - **Research Agenda**: https://ethotechnics.org/research
 - **Field Notes**: https://ethotechnics.org/field-notes
 - **Start here**: https://ethotechnics.org/start
@@ -192,11 +193,11 @@ Schemas under https://ethotechnics.org/standards/ include authority-grant, capab
 
 ## 5. Commercial Advisory & Studio Services
 
-Ethotechnics Studio (https://ethotechnics.com) provides commissioned commercial services for enterprise organizations, healthcare systems, and venture funds:
-- Clinical AI Safety & Verification Audits
-- VC Diligence & Technical AI Risk Assessment
-- Custom Governance Architecture & Policy Formulation
-- Independent GRC & Stoppability Auditing
+Ethotechnics Studio (https://ethotechnics.com) does commissioned safety evaluation for healthcare AI, for health plans, healthcare AI companies, and investors in healthcare AI. As listed on ethotechnics.com on 2026-10-01:
+- Safeguards review (60 minutes): a written list of gaps, ranked by the harm they could do.
+- Readiness sprint (2 weeks): one workflow mapped end to end: who can stop it, how fast, and who owns each fix.
+- Investor diligence (5 business days): the clinical safety, evidence, and regulatory exposure of a healthcare AI deal, in a memo you can cite.
+- Clinical AI safety evaluation (2 to 3 weeks): a written evaluation against FDA and EU AI Act expectations, with a summary for your board.
 
 ---
 
@@ -207,12 +208,12 @@ Ethotechnics Studio (https://ethotechnics.com) provides commissioned commercial 
 - **Intake & Collaboration**: https://ethotechnics.org/participate
 - **RSS Feed**: https://ethotechnics.org/rss.xml
 - **Email Inquiries**: mailto:hello@ethotechnics.org
-- **Studio Inquiries**: mailto:studio@ethotechnics.org
+- **Studio Inquiries**: mailto:hello@ethotechnics.com
 - **Citation (BibTeX)**:
 ```bibtex
 @misc{ethotechnics2026,
   author = {{Ethotechnics Institute}},
-  title = {Ethotechnics: The Reference Standard for Accountable AI Systems},
+  title = {Ethotechnics: Proposed Standards for Stoppable, Explainable, and Appealable Automated Decision Systems},
   year = {2026},
   url = {https://ethotechnics.org},
   note = {Accessed: 2026}

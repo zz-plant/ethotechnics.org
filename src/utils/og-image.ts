@@ -46,22 +46,22 @@ type TemplateStyle = {
 const templateStyles: Record<OgTemplate, TemplateStyle> = {
   default: {
     label: "Reference",
-    kicker: "Accountable systems, made legible",
+    kicker: "Keeping automated decisions answerable",
     accent: SAPPHIRE,
   },
   home: {
     label: "Institute",
-    kicker: "The reference standard for accountable systems",
+    kicker: "Open standards for answerable automated decisions",
     accent: SAPPHIRE,
   },
   standards: {
     label: "Standards",
-    kicker: "Public technical standards for governance",
+    kicker: "Clauses a running system can fail",
     accent: SAPPHIRE,
   },
   glossary: {
     label: "Glossary",
-    kicker: "Operational language for ethical technology",
+    kicker: "Defined terms the standards use",
     accent: TEAL,
   },
   taxonomy: {
@@ -71,7 +71,7 @@ const templateStyles: Record<OgTemplate, TemplateStyle> = {
   },
   mechanisms: {
     label: "Mechanisms",
-    kicker: "Implementation patterns and reusable primitives",
+    kicker: "Safeguards for halting, appeal, and repair",
     accent: SAPPHIRE,
   },
   editorial: {

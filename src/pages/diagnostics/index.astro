@@ -5,11 +5,9 @@ import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
 import PageIntro from "../../components/PageIntro.astro";
-import SectionActions from "../../components/SectionActions.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
-import StudioBadge from "../../components/StudioBadge.astro";
-import DiagnosticRouterDiagram from "../../components/DiagnosticRouterDiagram.astro";
 import { diagnosticsContent } from "../../content/diagnostics";
+import { studioSummary } from "../../content/studio";
 
 const {
   pageTitle,
@@ -20,52 +18,105 @@ const {
   facilitation,
   publication,
 } = diagnosticsContent;
+// The four tool cards sit directly under the intro, so the outline starts
+// with the sections below them.
 const anchorLinks = [
-  { href: "#quick-triage", label: "Choose a tool" },
+  { href: "#orientation", label: "Who these tools are for" },
+  { href: "#self-defense-tools", label: "Self-defense checks" },
   { href: "#output-baseline", label: "What every output includes" },
   { href: "#how-it-works", label: "Facilitated sessions" },
-  { href: "#self-defense-tools", label: "Self-defense checks" },
-  { href: "#diagnostic-tools", label: "All tools" },
   { href: "#referenced-by", label: "Where diagnostics are cited" },
 ];
 const introDescription =
-  "For operators, governance teams, and auditors. " + pageDescription;
+  "For operators, governance teams, and auditors. Three of the four tools score what you enter about a workflow. The Record Conformance Checker grades the records a system exports.";
+// The page's one list of tools. Each card is a single link to the tool; the
+// card id keeps the /diagnostics#<slug> links from other pages working.
 const quickTriagePrompts = [
   {
+    slug: "burden-modeler",
     question: "Is workload concentrating on a few people or steps?",
-    description: "Score task load and rank where relief would help most.",
-    href: "/diagnostics/burden-modeler",
-    label: "Run Burden Modeler",
+    description:
+      "Rate seven sources of workload with the team and see where it concentrates.",
   },
   {
-    question: "Are you rehearsing outage coverage or escalation ownership?",
+    slug: "delegation-audit",
+    question: "Is the system still justified in making this decision?",
     description:
-      "Run the outage and maintenance branches and list who owns each step.",
-    href: "/diagnostics/maintenance-simulator",
-    label: "Run Maintenance Simulator",
+      "Take one workflow through six questions and list the permissions your team cannot ground in a grant.",
   },
   {
-    question: "Are you modeling capacity decay or saturation risk over time?",
+    slug: "record-conformance",
+    question: "Do your decision records meet the level you claim?",
     description:
-      "Project capacity decay over 24 months and when remediation has to start.",
-    href: "/diagnostics/capacity-forecaster",
-    label: "Run Capacity Forecaster",
+      "Check the records a system exports against the published schema, and recompute the hash chain that links them.",
+  },
+  {
+    slug: "corrective-debt-calculator",
+    question: "Can the institution correct what it can decide?",
+    description:
+      "Answer five questions about how the system has grown and how the institution fixes its mistakes.",
+  },
+];
+const toolCards = quickTriagePrompts.flatMap((prompt) => {
+  const tool = tools.find((entry) => entry.slug === prompt.slug);
+  if (!tool) {
+    return [];
+  }
+  return [
+    {
+      ...prompt,
+      href: tool.ctaHref,
+      label: tool.ctaLabel,
+      meta: [tool.tier, tool.estimatedTime].filter(Boolean).join(" · "),
+    },
+  ];
+});
+// Carried over from the decision-tree figure that used to sit beside the
+// cards: the symptom each tool answers and the standard it reports against.
+const standardsMap = [
+  {
+    tool: "Workload Modeler",
+    symptom:
+      "Silent absorption: staff burnout, manual overrides, uncounted workaround labor.",
+    output: "Burden score and hotspot ranking",
+    standard: "STD-02 / Law IV",
+  },
+  {
+    tool: "Delegation Audit",
+    symptom:
+      "Escalation vacuum: outage ownership unclear, fallback routes unrehearsed.",
+    output: "Ungrounded grants",
+    standard: "STD-08 / Law VI",
+  },
+  {
+    tool: "Corrective capacity self-assessment",
+    symptom:
+      "Atrophy and saturation: reserve declining over time, growing lock-in risk.",
+    output: "Self-reported concern score",
+    standard: "STD-08 / Law IV",
+  },
+  {
+    tool: "Record Conformance Checker",
+    symptom:
+      "Opaque authority: do the records say who authorized each action, and whether a person can contest it?",
+    output: "Conformance level earned",
+    standard: "STD-07 / Law VII",
   },
 ];
 const selfDefenseTools = [
   {
-    title: "Is this system governable?",
+    title: "Can this decision be challenged?",
     description:
-      "Seven yes/no checks on whether the decision can be contested.",
+      "Seven yes/no checks on whether you can challenge the decision.",
     href: "/diagnostics/self-defense-tools#governable",
-    label: "Run governability diagnostic",
+    label: "Check the decision",
   },
   {
-    title: "Is this appeal real?",
+    title: "Can this appeal change the outcome?",
     description:
       "Checks whether an appeal can change the outcome or only records it.",
     href: "/diagnostics/self-defense-tools#appeal-real",
-    label: "Run appeal diagnostic",
+    label: "Check the appeal",
   },
   {
     title: "Who holds power?",
@@ -74,17 +125,6 @@ const selfDefenseTools = [
     label: "Map power",
   },
 ];
-const mostUsedToolSlugs = [
-  "system-auditor",
-  "burden-modeler",
-  "capacity-forecaster",
-  "maintenance-simulator",
-  "maintenance-debt-calculator",
-];
-const mostUsedTools = mostUsedToolSlugs
-  .map((slug) => tools.find((tool) => tool.slug === slug))
-  .filter((tool): tool is (typeof tools)[number] => Boolean(tool));
-const comparisonTools = mostUsedTools.slice(0, 3);
 ---
 
 <BaseLayout
@@ -99,210 +139,113 @@ const comparisonTools = mostUsedTools.slice(0, 3);
     description={introDescription}
     anchorLinks={anchorLinks}
     anchorLinksSummary="More anchors"
-    illustration="diagnostics"
-  />
-  <div class="panel diagnostics__artifact-bridge stack-sm">
-    <p class="eyebrow">Next required artifact</p>
-    <p class="muted">
-      Run one diagnostic, then attach its primary output to your incident or
-      audit packet before moving on.
-    </p>
-    <ul class="muted small">
-      <li>Burden Modeler → Burden evidence table</li>
-      <li>Maintenance Simulator → Escalation coverage report</li>
-      <li>Evidence-Pack Readiness → Standards evidence checklist</li>
-    </ul>
-  </div>
-  <nav
-    class="diagnostics__sticky-jump"
-    aria-label="Diagnostics quick navigation"
   >
-    <a
-      class="button primary"
-      href="#quick-triage"
-      data-route-action="diagnostics-choose"
-      data-sticky-link="#quick-triage">Choose a tool</a
-    >
-    <a
-      class="diagnostics__sticky-link muted small"
-      href="#diagnostic-tools"
-      data-route-action="diagnostics-open-menu"
-      data-sticky-link="#diagnostic-tools">All tools</a
-    >
-  </nav>
-  <SectionActions>
-    <StudioBadge />
-  </SectionActions>
+    <Fragment slot="actions">
+      <a class="button ghost" href="/use-cases">Which tool for your system</a>
+    </Fragment>
+  </PageIntro>
 
-  <SectionBlock
+  <section
+    id="orientation"
+    class="section diagnostics-orientation"
+    aria-labelledby="diagnostics-orientation-title"
+  >
+    <h2 id="diagnostics-orientation-title" class="sr-only">
+      Orientation for affected individuals and operational teams
+    </h2>
+    <div class="grid grid--two">
+      <div class="panel stack-sm">
+        <p class="eyebrow">For affected individuals</p>
+        <h3 class="diagnostics-orientation__heading">
+          Harmed by an automated decision?
+        </h3>
+        <p class="small">
+          Ethotechnics is an open standards body, not a legal clinic or advocacy
+          organization. We do not take cases or provide individual legal
+          representation.
+        </p>
+        <p class="small muted">
+          If software denied an application, cut your work shifts, or suspended
+          an account, use the self-report checklist to assess whether a
+          challenge route appears to exist. The remedy explainer describes
+          review and repair requirements. These draft standards have no legal
+          force.
+        </p>
+        <ul class="card__list small">
+          <li>
+            <a href="/diagnostics/self-defense-tools"
+              >Run the 3 self-defense checks &rarr;</a
+            >
+          </li>
+          <li>
+            <a href="/explainers/remedy-essentials"
+              >Read the remedy explainer and deployment checklist &rarr;</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div class="panel stack-sm">
+        <p class="eyebrow">For operations managers</p>
+        <h3 class="diagnostics-orientation__heading">
+          Will this burden our support teams?
+        </h3>
+        <p class="small">
+          No. Diagnostics do not generate compliance paperwork or expand ticket
+          backlogs. They measure where an automated system is silently shifting
+          its error costs onto human workers.
+        </p>
+        <p class="small muted">
+          When edge cases fail, human operators often spend unlogged hours in
+          shadow spreadsheets and off-shift triage. Scoring this burden gives
+          team leads the documented evidence needed to throttle decision
+          throughput or require engineering fixes.
+        </p>
+        <ul class="card__list small">
+          <li>
+            <a href="/diagnostics/burden-modeler"
+              >Measure staff burden with Workload Modeler &rarr;</a
+            >
+          </li>
+          <li>
+            <a href="/diagnostics/corrective-debt-calculator"
+              >Check institutional corrective capacity &rarr;</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section
     id="quick-triage"
-    eyebrow="Quick triage"
-    title="Three questions that route to a tool."
-    description="Each question points to one diagnostic. The most-run tools follow."
-    variant="alt"
+    class="section diagnostics-start"
+    aria-labelledby="quick-triage-title"
   >
-    <div class="panel stack-sm">
-      <p class="eyebrow">Sequence</p>
-      <ol class="muted">
-        <li>
-          Pick the question below that matches the decision in front of you.
-        </li>
-        <li>
-          Compare two candidate tools on delivery mode, prep, and outputs.
-        </li>
-        <li>Run one diagnostic and send the readout link to the owners.</li>
-      </ol>
-    </div>
-    <CardGrid className="grid--three">
+    <h2 id="quick-triage-title" class="sr-only">
+      Four questions, one tool each
+    </h2>
+    <ul class="diagnostics-start__grid">
       {
-        quickTriagePrompts.map((prompt) => (
-          <CardItem
-            title={prompt.question}
-            description={prompt.description}
-            descriptionTone="default"
-          >
-            <a slot="footer" class="muted" href={prompt.href}>
-              {prompt.label}
+        toolCards.map((card) => (
+          <li id={card.slug} class="diagnostics-start__card">
+            {card.meta && <p class="diagnostics-start__meta">{card.meta}</p>}
+            <h3 class="diagnostics-start__question">{card.question}</h3>
+            <p class="diagnostics-start__description">{card.description}</p>
+            <a class="diagnostics-start__link" href={card.href}>
+              {card.label}
+              <span aria-hidden="true"> &rarr;</span>
             </a>
-          </CardItem>
-        ))
-      }
-    </CardGrid>
-    <DiagnosticRouterDiagram />
-    <div class="pattern-filter__anchors" aria-hidden="true">
-      <span class="pattern-filter__anchor" id="most-used"></span>
-    </div>
-    <h3>The diagnostics run most often.</h3>
-    <p class="muted">If no question above fits, start with one of these.</p>
-    <CardGrid className="grid--three">
-      {
-        mostUsedTools.map((tool) => (
-          <CardItem
-            meta={tool.tier}
-            title={tool.title}
-            description={tool.description}
-            descriptionTone="default"
-          >
-            <p class="muted small">Best for: {tool.bestFor}</p>
-            <a slot="footer" class="muted" href={tool.ctaHref}>
-              {tool.ctaLabel}
-            </a>
-          </CardItem>
-        ))
-      }
-    </CardGrid>
-  </SectionBlock>
-
-  <SectionBlock
-    id="output-baseline"
-    eyebrow="What you get"
-    title="What every diagnostic output includes."
-    description="Every output carries the same baseline and passes the same anti-weaponization checks."
-  >
-    <CardGrid>
-      {
-        valueProps.map((item) => (
-          <CardItem title={item.title} description={item.description} />
-        ))
-      }
-    </CardGrid>
-    <details
-      class="chunked-section diagnostics__mobile-disclosure"
-      data-collapse-mobile
-      open
-    >
-      <summary class="chunked-section__summary"
-        >Open output baseline details</summary
-      >
-      <div class="chunked-section__body stack-sm">
-        <ul class="muted">
-          <li>Linkable results page and a shareable PDF summary.</li>
-          <li>References to the mechanisms each mitigation comes from.</li>
-          <li>
-            A facilitated follow-up when the question or the risk stays unclear.
-          </li>
-        </ul>
-        <p class="muted">
-          Before you publish an output about appeals or reversals, run the
-          {" "}
-          <a href="/explainers/contestability-checklist"
-            >contestability checklist</a
-          >
-          {" "}
-          against the appeal path it describes.
-        </p>
-        <StudioBadge />
-      </div>
-    </details>
-    <div class="pattern-filter__anchors" aria-hidden="true">
-      <span class="pattern-filter__anchor" id="anti-weaponization"></span>
-    </div>
-    <details
-      class="chunked-section diagnostics__mobile-disclosure"
-      data-collapse-mobile
-      open
-    >
-      <summary class="chunked-section__summary"
-        >Open anti-weaponization checklist</summary
-      >
-      <div class="chunked-section__body stack-sm">
-        <ul class="muted">
-          <li>
-            AW-01: Burden metrics include a remediation plan and staffing
-            allocation.
-          </li>
-          <li>
-            AW-02: Appeal paths are tested for non-regression and public
-            replacement windows.
-          </li>
-          <li>
-            AW-03: Downgrades or eligibility changes always emit receipts and
-            clocks.
-          </li>
-          <li>
-            AW-04: High-burden flows include assisted channels or human
-            escalation.
-          </li>
-        </ul>
-        <p class="muted">
-          Reference:
-          {" "}
-          <a href="/anti-weaponization">Anti-weaponization constraints</a>
-          {" "}
-          and the
-          {" "}
-          <a href="/evidence-packs/std-02#anti-weaponization"
-            >evidence requirements</a
-          >.
-        </p>
-      </div>
-    </details>
-  </SectionBlock>
-
-  <SectionBlock
-    id="how-it-works"
-    eyebrow="Facilitated sessions"
-    title={facilitation.title}
-    description={facilitation.description}
-    variant="alt"
-  >
-    <ol class="diagnostics__process">
-      {
-        facilitation.steps.map((step) => (
-          <li class="diagnostics__process-step">
-            <p class="eyebrow">{step.title}</p>
-            <p class="muted">{step.detail}</p>
           </li>
         ))
       }
-    </ol>
-    <p class="muted diagnostics__footnote">{facilitation.note}</p>
-  </SectionBlock>
+    </ul>
+  </section>
 
   <SectionBlock
     id="self-defense-tools"
-    eyebrow="Self-defense diagnostics"
-    title="Short checks for appeal, governability, and power."
+    eyebrow="If a system decided about you"
+    title="Short checks: can you challenge it, can the appeal work, who can reverse it"
     description="Three checks for the person on the receiving end of a decision, to run before escalating."
   >
     <CardGrid className="grid--three">
@@ -322,206 +265,123 @@ const comparisonTools = mostUsedTools.slice(0, 3);
     </CardGrid>
   </SectionBlock>
 
-  <SectionBlock
-    id="diagnostic-tools"
-    eyebrow="Diagnostics menu"
-    title="All diagnostics."
-    description="Every diagnostic returns a linkable result and cites the mechanisms behind its recommendations."
-  >
-    <div class="diagnostics__comparison" aria-label="Quick comparison">
-      <p class="muted small">Compare three tools</p>
-      <div class="diagnostics__comparison-grid">
-        {
-          comparisonTools.map((tool) => (
-            <article class="panel diagnostics__comparison-card">
-              <h3>{tool.title}</h3>
-              <dl class="diagnostics__comparison-meta muted small">
-                <div>
-                  <dt>Time</dt>
-                  <dd>{tool.estimatedTime}</dd>
-                </div>
-                <div>
-                  <dt>Effort</dt>
-                  <dd>
-                    {tool.deliveryType === "studio"
-                      ? "Studio-facilitated"
-                      : "Self-serve"}
-                  </dd>
-                </div>
-                <div>
-                  <dt>Output</dt>
-                  <dd>{tool.outputs[0]}</dd>
-                </div>
-              </dl>
-              <a class="button ghost" href={tool.ctaHref}>
-                {tool.ctaLabel}
-              </a>
-            </article>
-          ))
-        }
-      </div>
-    </div>
-    <div class="diagnostics__filters" data-diagnostics-filters>
-      <p class="muted">Filter by delivery type</p>
-      <p class="muted small">Jump to a tool</p>
-      <ul
-        class="pill-list pill-list--wrap"
-        aria-label="Diagnostic intent shortcuts"
-      >
-        <li>
-          <a class="pill-list__button" href="/diagnostics/burden-modeler"
-            >Burden modeling</a
-          >
-        </li>
-        <li>
-          <a class="pill-list__button" href="/diagnostics/system-auditor"
-            >System audit</a
-          >
-        </li>
-        <li>
-          <a class="pill-list__button" href="/diagnostics/maintenance-simulator"
-            >Outage simulation</a
-          >
-        </li>
-      </ul>
-      <ul
-        class="pill-list pill-list--wrap"
-        role="group"
-        aria-label="Diagnostic delivery filters"
-      >
-        <li class="pill-list__item pill-list__item--active">
-          <button
-            class="pill-list__button"
-            type="button"
-            data-delivery-filter="all"
-            aria-pressed="true"
-          >
-            All diagnostics
-          </button>
-        </li>
-        <li class="pill-list__item">
-          <button
-            class="pill-list__button"
-            type="button"
-            data-delivery-filter="self-serve"
-            aria-pressed="false"
-          >
-            Self-serve
-          </button>
-        </li>
-        <li class="pill-list__item">
-          <button
-            class="pill-list__button"
-            type="button"
-            data-delivery-filter="studio"
-            aria-pressed="false"
-          >
-            Studio-facilitated
-          </button>
-        </li>
-      </ul>
-      <p class="muted small" data-delivery-status>Showing all diagnostics.</p>
-    </div>
-    <CardGrid className="diagnostics__tool-grid" data-diagnostics-grid>
+  <details class="diagnostics-map" id="standards-map">
+    <summary>How the tools map to standards</summary>
+    <ul class="diagnostics-map__list">
       {
-        tools.map((tool) => {
-          const isStudio = tool.deliveryType === "studio";
-          const deliveryLabel = isStudio
-            ? "Studio-facilitated session"
-            : "Self-serve tool";
-          const deliveryDetail = isStudio
-            ? "Runs only in a facilitated session. Request one to use it."
-            : "Runs in the browser and returns a linkable readout.";
-          const primaryCtaLabel = tool.ctaLabel;
+        standardsMap.map((row) => (
+          <li>
+            <p class="diagnostics-map__tool">{row.tool}</p>
+            <dl class="diagnostics-map__facts muted small">
+              <div>
+                <dt>Symptom</dt>
+                <dd>{row.symptom}</dd>
+              </div>
+              <div>
+                <dt>Output</dt>
+                <dd>{row.output}</dd>
+              </div>
+              <div>
+                <dt>Standard</dt>
+                <dd>{row.standard}</dd>
+              </div>
+            </dl>
+          </li>
+        ))
+      }
+    </ul>
+  </details>
 
-          return (
-            <CardItem
-              id={tool.slug}
-              eyebrow="Diagnostic tool"
-              title={tool.title}
-              description={tool.description}
-              headingLevel="h2"
-              dataDelivery={tool.deliveryType}
-            >
-              <div class="diagnostics__card-body">
-                <div>
-                  <p class="muted small">{deliveryLabel}</p>
-                  <p class="muted small">{deliveryDetail}</p>
-                  <p class="muted small">
-                    Estimated time: {tool.estimatedTime}
-                  </p>
-                </div>
-                <p class="muted small diagnostics__best-for">{tool.bestFor}</p>
-                <p class="muted small">
-                  <strong>When to use:</strong> {tool.bestFor}
-                </p>
-                <p class="muted small">
-                  <strong>When to skip:</strong>{" "}
-                  {isStudio
-                    ? "Pick a self-serve diagnostic if you need the output today without a session."
-                    : "Pick a facilitated diagnostic when nobody can say who owns the decision or what it is."}
-                </p>
-                <ul class="diagnostics__summary">
-                  <li>
-                    <p class="muted diagnostics__label">Use this when</p>
-                    <ul class="pill-list pill-list--wrap">
-                      {tool.readiness.map((item) => (
-                        <li>{item}</li>
-                      ))}
-                    </ul>
-                  </li>
-                  <li>
-                    <p class="muted diagnostics__label">What you receive</p>
-                    <ul class="pill-list pill-list--wrap">
-                      {tool.outputs.map((item) => (
-                        <li>{item}</li>
-                      ))}
-                    </ul>
-                  </li>
-                  <li>
-                    <p class="muted diagnostics__label">Prep checklist</p>
-                    <ul class="pill-list pill-list--wrap">
-                      {tool.prepChecklist.map((item) => (
-                        <li>{item}</li>
-                      ))}
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-              <div class="diagnostics__card-footer">
-                <SectionActions>
-                  <a
-                    class="button primary"
-                    href={tool.ctaHref}
-                    aria-label={tool.ctaAriaLabel ?? primaryCtaLabel}
-                  >
-                    {primaryCtaLabel}
-                  </a>
-                  <a class="button ghost" href={`/diagnostics/${tool.slug}`}>
-                    Method details
-                  </a>
-                  <a
-                    class="button ghost"
-                    href={tool.exampleHref}
-                    aria-label={`${tool.exampleLabel} for ${tool.title}`}
-                  >
-                    {tool.exampleLabel}
-                  </a>
-                </SectionActions>
-              </div>
-            </CardItem>
-          );
-        })
+  <SectionBlock
+    id="output-baseline"
+    eyebrow="What you get"
+    title="What every diagnostic output includes"
+    description="Every output carries the same baseline and passes the same anti-weaponization checks."
+  >
+    <CardGrid>
+      {
+        valueProps.map((item) => (
+          <CardItem title={item.title} description={item.description} />
+        ))
       }
     </CardGrid>
+
+    <div class="grid grid--two" style="margin-top: var(--space-5);">
+      <div class="panel stack-sm">
+        <p class="eyebrow">Deliverable baseline</p>
+        <ul class="muted small">
+          <li>
+            Results you can copy, link to, or export, depending on the tool.
+          </li>
+          <li>References to the mechanisms each mitigation comes from.</li>
+          <li>
+            Facilitated follow-up when the question or risk stays unclear.
+          </li>
+        </ul>
+        <p class="muted small">
+          Before publishing an output about appeals or reversals, run the{" "}
+          <a href="/explainers/contestability-checklist"
+            >contestability checklist</a
+          >{" "}
+          against the appeal path it describes.
+        </p>
+      </div>
+
+      <div class="panel stack-sm" id="anti-weaponization">
+        <p class="eyebrow">Anti-weaponization verification</p>
+        <ul class="muted small">
+          <li>
+            <strong>AW-01:</strong> Burden metrics include a remediation plan and
+            staffing allocation.
+          </li>
+          <li>
+            <strong>AW-02:</strong> Appeal paths are tested for non-regression and
+            public replacement windows.
+          </li>
+          <li>
+            <strong>AW-03:</strong> Downgrades or eligibility changes always emit
+            receipts and clocks.
+          </li>
+          <li>
+            <strong>AW-04:</strong> High-burden flows include assisted channels or
+            human escalation.
+          </li>
+        </ul>
+        <p class="muted small">
+          Reference: <a href="/anti-weaponization"
+            >Anti-weaponization constraints</a
+          > and the <a href="/evidence-packs/std-02#anti-weaponization"
+            >evidence requirements</a
+          >.
+        </p>
+      </div>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="how-it-works"
+    eyebrow="Facilitated sessions"
+    title={facilitation.title}
+    description={facilitation.description}
+  >
+    <ol class="diagnostics__process">
+      {
+        facilitation.steps.map((step) => (
+          <li class="diagnostics__process-step">
+            <p class="eyebrow">{step.title}</p>
+            <p class="muted">{step.detail}</p>
+          </li>
+        ))
+      }
+    </ol>
+    <p class="muted diagnostics__footnote">{facilitation.note}</p>
   </SectionBlock>
 
   <SectionBlock
     id="referenced-by"
     eyebrow="Referenced by"
-    title="Where diagnostics connect to enforcement"
+    title="Where diagnostics connect to the standards"
     description="The examples, bindings, and evidence packs that cite a diagnostic output."
-    variant="alt"
   >
     <div class="grid grid--three">
       <div class="panel">
@@ -570,13 +430,6 @@ const comparisonTools = mostUsedTools.slice(0, 3);
       </div>
     </div>
     <p class="muted">
-      Toolkit:
-      {" "}
-      <a href="/agent-toolkit/prompt-packs">Agent Prompt & Clause Packs</a>
-      {" "}
-      for stakeholder summaries, audit prompts, and procurement follow-through.
-    </p>
-    <p class="muted">
       Search IDs: AW-01, AW-02, AW-03, AW-04, VAL-01, VAL-02, VAL-03,
       STD-02.2.1, STD-02.3.1.
     </p>
@@ -584,16 +437,12 @@ const comparisonTools = mostUsedTools.slice(0, 3);
 
   <section
     class="cta stack-md"
-    aria-label="Commercial advisory and custom audits"
+    aria-label="Commissioned evaluation by Ethotechnics Studio"
   >
     <div class="stack-sm">
       <p class="eyebrow">Ethotechnics Studio</p>
-      <h2>Custom risk modeling and commissioned diligence</h2>
-      <p class="muted">
-        Ethotechnics Studio runs clinical AI safety evaluations, VC portfolio
-        diligence, custom governance tooling, and independent audit
-        verification.
-      </p>
+      <h2>Commissioned evaluation of healthcare AI</h2>
+      <p class="muted">{studioSummary}</p>
     </div>
     <div class="actions">
       <a
@@ -612,22 +461,14 @@ const comparisonTools = mostUsedTools.slice(0, 3);
 
   <section id="scorecards" class="section">
     <div class="section__header">
-      <p class="eyebrow">Scorecards</p>
-      <h2>Instruments that take numbers rather than a workflow</h2>
+      <p class="eyebrow">Worksheet</p>
+      <h2>An instrument that takes numbers rather than a workflow</h2>
       <p class="muted">
-        These three ask for figures you already have and return a score you can
-        argue with.
+        It asks for figures you already have and returns a ceiling you can argue
+        with.
       </p>
     </div>
     <ul class="card__list">
-      <li>
-        <a href="/audit">Ethics audit scorecard</a> — score a system against the framework's
-        own criteria and see where the gaps are.
-      </li>
-      <li>
-        <a href="/diagnostics/governance-gap-score">Governance gap score</a> — the
-        distance between the governance a system has and the governance its risk implies.
-      </li>
       <li>
         <a href="/diagnostics/burden-budget-worksheet"
           >Burden budget worksheet</a
@@ -648,7 +489,9 @@ const comparisonTools = mostUsedTools.slice(0, 3);
   </script>
 
   <script>
-    import "../../scripts/diagnostics-filter.ts";
     import "../../scripts/route-metrics.ts";
   </script>
+  <p class="muted">
+    <a href="/archive/retired-tools">Retired tools and historical source</a>
+  </p>
 </BaseLayout>

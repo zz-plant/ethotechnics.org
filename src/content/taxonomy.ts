@@ -6,14 +6,26 @@ export type TaxonomyArtifact = {
   type: string;
 };
 
+/**
+ * The six safeguards the method names. Each taxonomy entry says which of them
+ * it serves, so the taxonomy's six domains read as a way of filing practices
+ * under the safeguards rather than as a second, competing six.
+ */
+export type Safeguard =
+  | "Capability"
+  | "Authority"
+  | "Evidence"
+  | "Dependency"
+  | "Standing"
+  | "Correction";
+
 export type TaxonomyEntry = {
   id: string;
   title: string;
   slug: string;
   summary: string;
-  owner: string;
   scope: string;
-  readiness: "draft" | "alpha" | "beta" | "stable";
+  safeguards: Safeguard[];
   relatedArtifacts: TaxonomyArtifact[];
 };
 

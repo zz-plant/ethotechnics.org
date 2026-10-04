@@ -117,26 +117,26 @@ if (!hasConnections) {
 
 <style>
   .semantic-connections {
-    margin: 3.5rem 0 2rem;
-    padding: clamp(1.25rem, 2.5vw, 1.75rem);
+    margin: var(--space-8) 0 var(--space-6);
+    padding: clamp(var(--space-4), 2.5vw, var(--space-5));
     border-radius: var(--radius-lg);
     border: 1px solid var(--border);
     background: var(--surface-emphasis);
     box-shadow: var(--shadow-sm), var(--card-inner-highlight);
     display: grid;
-    gap: 1.25rem;
+    gap: var(--space-5);
   }
 
   .semantic-connections__header {
     display: grid;
-    gap: 0.35rem;
+    gap: var(--space-1);
     border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
-    padding-bottom: 0.75rem;
+    padding-bottom: var(--space-3);
   }
 
   .semantic-connections__title {
     margin: 0;
-    font-size: 1.15rem;
+    font-size: var(--text-lg);
     font-family: var(--sans);
     font-weight: 750;
     color: var(--text);
@@ -144,34 +144,34 @@ if (!hasConnections) {
 
   .semantic-connections__grid {
     display: grid;
-    gap: 1.25rem;
+    gap: var(--space-5);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   }
 
   .semantic-connections__column {
     display: grid;
-    gap: 0.6rem;
+    gap: var(--space-2);
     align-content: start;
   }
 
   .semantic-connections__label {
-    font-size: 0.72rem;
+    font-size: var(--text-xs);
     font-family: var(--sans);
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: var(--tracking-label);
     color: var(--muted);
   }
 
   .semantic-connections__list {
     display: grid;
-    gap: 0.65rem;
+    gap: var(--space-3);
   }
 
   .semantic-connections__card {
     display: grid;
-    gap: 0.3rem;
-    padding: 0.75rem 0.9rem;
+    gap: var(--space-1);
+    padding: var(--space-container-compact);
     border-radius: var(--radius-md);
     border: 1px solid var(--border);
     background: var(--surface);
@@ -181,12 +181,10 @@ if (!hasConnections) {
 
   .semantic-connections__card:hover {
     border-color: var(--accent);
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-xs);
   }
 
   .semantic-connections__card-title {
-    font-size: 0.85rem;
+    font-size: var(--text-sm);
     font-family: var(--sans);
     font-weight: 700;
     color: var(--text);
@@ -194,7 +192,7 @@ if (!hasConnections) {
 
   .semantic-connections__card-desc {
     margin: 0;
-    font-size: 0.76rem;
+    font-size: var(--text-xs);
     color: var(--muted);
     line-height: 1.4;
     display: -webkit-box;
@@ -204,9 +202,9 @@ if (!hasConnections) {
   }
 
   .semantic-connections__card-action {
-    font-size: 0.72rem;
+    font-size: var(--text-xs);
     font-weight: 650;
     color: var(--accent);
-    margin-top: 0.15rem;
+    margin-top: var(--space-hair);
   }
 </style>

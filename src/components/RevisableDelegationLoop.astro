@@ -1,3 +1,8 @@
+---
+// The record-diagram classes (.chip, .label, .small …) live in figures.css.
+import "../styles/components/figures.css";
+---
+
 <figure class="standard-diagram">
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -12,58 +17,6 @@
       revision. Revision returns to belief, so the sequence closes rather than
       ending. Each kind carries the question it answers.
     </desc>
-
-    <style>
-      .ink {
-        fill: var(--text, #1f2937);
-      }
-      .muted {
-        fill: var(--muted, #6b7280);
-      }
-      .line {
-        stroke: var(--border, #374151);
-        stroke-width: 2;
-        fill: none;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-      }
-      .chip {
-        fill: var(--surface, #ffffff);
-        stroke: var(--border, #374151);
-        stroke-width: 2;
-      }
-      .fill-border {
-        fill: var(--border, #374151);
-      }
-      .chip-state {
-        rx: 10;
-        ry: 10;
-      }
-      .small {
-        font:
-          500 11px ui-sans-serif,
-          system-ui,
-          -apple-system,
-          Segoe UI,
-          Roboto;
-      }
-      .label {
-        font:
-          600 12.5px ui-sans-serif,
-          system-ui,
-          -apple-system,
-          Segoe UI,
-          Roboto;
-      }
-      .title {
-        font:
-          650 14px ui-sans-serif,
-          system-ui,
-          -apple-system,
-          Segoe UI,
-          Roboto;
-      }
-    </style>
 
     <ellipse cx="480" cy="245" rx="300" ry="175" class="line"></ellipse>
 
@@ -130,7 +83,7 @@
       >what is delegated</text
     >
 
-    <rect x="607" y="346" width="170" height="46" class="chip chip-state"
+    <rect x="570" y="346" width="244" height="46" class="chip chip-state"
     ></rect>
     <text x="692" y="365" text-anchor="middle" class="label ink">action</text>
     <text x="692" y="383" text-anchor="middle" class="small muted"
@@ -144,7 +97,7 @@
       >what it produced</text
     >
 
-    <rect x="183" y="346" width="170" height="46" class="chip chip-state"
+    <rect x="146" y="346" width="244" height="46" class="chip chip-state"
     ></rect>
     <text x="268" y="365" text-anchor="middle" class="label ink"
       >discrepancy</text
@@ -160,7 +113,7 @@
       >who challenged it</text
     >
 
-    <rect x="183" y="98" width="170" height="46" class="chip chip-state"></rect>
+    <rect x="170" y="98" width="196" height="46" class="chip chip-state"></rect>
     <text x="268" y="117" text-anchor="middle" class="label ink">revision</text>
     <text x="268" y="135" text-anchor="middle" class="small muted"
       >what we changed, and why</text
