@@ -124,8 +124,11 @@
     }
   }
 
-  .institute-hero--story .section-lead {
+  .institute-hero__lede {
+    font-size: var(--text-lede);
+    line-height: 1.62;
     max-width: 60ch;
+    color: var(--text);
   }
 
   /* The headline as a loop: the scheme in the institution's colour, the
@@ -319,6 +322,11 @@
   /* The line under the doors for a reader who has no role yet, only a system. */
   .home-doors__fit {
     margin: var(--space-5) 0 0;
+  }
+
+  .home-doors__fit a {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
   }
 
   .home-doors__door {
@@ -1059,9 +1067,10 @@
 
   .home-pillars {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-column: 1 / -1;
     gap: var(--space-3);
-    margin-top: var(--space-3);
+    margin-top: 0;
   }
 
   .home-pillar {
@@ -1070,20 +1079,46 @@
     gap: var(--space-1);
     text-decoration: none;
     color: inherit;
-    padding: var(--space-3);
+    padding: var(--space-container-compact);
     border-radius: var(--radius-sm);
     border: 1px solid var(--border);
     background: var(--surface);
-    transition: border-color var(--transition-fast, 0.15s ease);
+    transition:
+      border-color var(--motion-fast) ease,
+      background-color var(--motion-fast) ease;
   }
 
   .home-pillar:hover,
   .home-pillar:focus-visible {
     border-color: var(--accent);
+    background: var(--surface-emphasis);
   }
 
   .home-pillar strong {
-    font-size: var(--text-sm);
+    font-family: var(--sans);
+    font-size: var(--text-base);
+  }
+
+  @media (max-width: 639px) {
+    .home-pillars {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  @media (any-pointer: coarse) {
+    .home-doors__strip-link,
+    .self-test__role-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+    }
+
+    .self-test__choice span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+    }
   }
 
   /* Act 1: the record spine. The panel summarizes the event list; sticky
