@@ -6,7 +6,7 @@ import { derivePublicationMetadata } from "../../utils/publication";
 
 const pageTitle = "OECD AI Principles";
 const pageDescription =
-  "Ethotechnics-style critique of the OECD AI Principles and principles-based responsible AI programs.";
+  "An Ethotechnics critique of the OECD AI Principles: non-binding by design, they ask AI actors to be accountable and set no duty anyone can enforce.";
 const permalink = "/standards/oecd-ai-principles";
 const anchorLinks = [
   { href: "#overview", label: "What they are" },
@@ -16,6 +16,9 @@ const anchorLinks = [
 const publication = derivePublicationMetadata({
   permalink,
   published: "2025-06-01T00:00:00Z",
+  updated: "2026-10-01T00:00:00Z",
+  changelogSummary:
+    "Stated the critique in the page description and replaced the stop-first failure mode with uncorrected errors.",
 });
 ---
 
@@ -27,14 +30,8 @@ const publication = derivePublicationMetadata({
   eyebrow="Adopted standard"
   anchorLinks={anchorLinks}
   publishedTime="2025-06-01T00:00:00.000Z"
-  panelCopy={{
-    eyebrow: "Ethotechnics read",
-    title: "Failure-mode diagnostics",
-    description:
-      "Principles do not automatically create stop authority, clocks, or rollback guarantees.",
-  }}
+  modifiedTime="2026-10-01T00:00:00.000Z"
 >
-
   <SectionBlock
     id="overview"
     eyebrow="Overview"
@@ -42,8 +39,9 @@ const publication = derivePublicationMetadata({
     description="Values-based principles and recommendations adopted by governments and industry."
   >
     <p>
-      OECD AI Principles are intentionally flexible, values-oriented guidelines that
-      governments and organizations adopt to shape “responsible AI” programs.
+      OECD AI Principles are intentionally flexible, values-oriented guidelines
+      that governments and organizations adopt to shape “responsible AI”
+      programs.
     </p>
   </SectionBlock>
 
@@ -59,13 +57,13 @@ const publication = derivePublicationMetadata({
         and almost any program can claim alignment after harm.
       </li>
       <li>
-        <strong>No allocation of power:</strong> The principles rarely specify who
-        can halt a system, under what triggers, or on what clock.
+        <strong>No allocation of power:</strong> The principles rarely say who must
+        answer a challenge, who can halt a system, or on what clock.
       </li>
       <li>
         <strong>Intervention without mechanism:</strong> “Human intervention where
-        necessary” gestures at action but does not require tested stop paths,
-        restoration SLAs, or bounded pending states.
+        necessary” gestures at action but does not require tested stop paths, restoration
+        SLAs, or bounded pending states.
       </li>
     </ul>
   </SectionBlock>
@@ -73,13 +71,17 @@ const publication = derivePublicationMetadata({
   <SectionBlock
     id="failure-mode"
     eyebrow="Failure mode"
-    title="Legible virtue + unstoppable systems"
-    description="Good narratives and training without reliable brakes."
+    title="Legible virtue + uncorrected errors"
+    description="Good narratives and training, and no one bound to act on what goes wrong."
   >
     <p>
-      The dominant failure mode is a system that sounds responsible on paper yet
-      cannot be interrupted quickly when harm emerges.
+      The dominant failure mode is a system that sounds responsible on paper
+      while the evidence of its errors reaches no one who has to change it.
     </p>
   </SectionBlock>
-  <CitationBlock title={pageTitle} permalink={permalink} publication={publication} />
+  <CitationBlock
+    title={pageTitle}
+    permalink={permalink}
+    publication={publication}
+  />
 </StandardsLayout>

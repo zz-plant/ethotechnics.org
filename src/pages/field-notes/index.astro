@@ -1,4 +1,6 @@
 ---
+import "../../styles/components/field-notes.css";
+import "../../styles/components/field-notes-animations.css";
 import { getEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
@@ -8,7 +10,6 @@ const fieldNotesEntry = (await getEntry("fieldNotes", "field-notes"))!;
 const {
   pageTitle,
   pageDescription,
-  permalink,
   sections,
   entries,
   latestUpdate,
@@ -19,6 +20,10 @@ const anchorLinks = sections.map((section) => ({
   href: `#${section.format}`,
   label: section.title,
 }));
+const latestUpdateLabel = new Date(latestUpdate).toLocaleDateString("en-US", {
+  month: "short",
+  year: "numeric",
+});
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -27,32 +32,16 @@ const anchorLinks = sections.map((section) => ({
       rel="alternate"
       type="application/rss+xml"
       href="/field-notes/rss.xml"
-      title="Field Notes RSS"
+      title="Field notes RSS"
     />
   </Fragment>
   <PageIntro
-    eyebrow="Field Notes"
-    title="Field Notes"
+    eyebrow="Field notes"
+    title="Field notes"
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={anchorLinks}
-    panelCopy={{
-      eyebrow: "Glossary cross-links",
-      title: "Every note links back to Library terms.",
-      description:
-        "Dispatches, case studies, and signals point to glossary anchors so teams can reuse definitions across research and diagnostics.",
-    }}
+    lastUpdated={latestUpdateLabel}
   />
-  <p class="muted small">
-    Latest update{" "}
-    {
-      new Date(latestUpdate).toLocaleDateString("en-US", {
-        month: "short",
-        year: "numeric",
-      })
-    }
-    .
-  </p>
   <p class="muted small">{cadenceNote}</p>
   <div class="callout field-notes__highlight">
     <p class="eyebrow">Latest highlight</p>
@@ -71,21 +60,19 @@ const anchorLinks = sections.map((section) => ({
     aria-labelledby="field-notes-paths-title"
   >
     <p class="eyebrow">Reading paths</p>
-    <h2 id="field-notes-paths-title">
-      Pick a guided path before browsing tabs.
-    </h2>
+    <h2 id="field-notes-paths-title">Or start from the task in front of you</h2>
     <div class="field-notes__path-grid">
       <a class="field-notes__path-item" href="/diagnostics#quick-triage">
         <span class="field-notes__path-label">Incident response path</span>
         <strong>Start with diagnostics triage</strong>
       </a>
-      <a class="field-notes__path-item" href="/mechanisms#patterns">
+      <a class="field-notes__path-item" href="/mechanisms#mechanisms">
         <span class="field-notes__path-label">Policy drafting path</span>
-        <strong>Review mechanisms and pattern language</strong>
+        <strong>Browse the mechanisms catalog</strong>
       </a>
       <a class="field-notes__path-item" href="/glossary">
         <span class="field-notes__path-label">Shared language path</span>
-        <strong>Anchor decisions in glossary definitions</strong>
+        <strong>Use the glossary's definitions</strong>
       </a>
     </div>
   </section>

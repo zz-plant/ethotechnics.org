@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import NextStep from "../../components/NextStep.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import PageIntro from "../../components/PageIntro.astro";
@@ -7,7 +8,7 @@ import SectionBlock from "../../components/SectionBlock.astro";
 
 const pageTitle = "Language people can use";
 const pageDescription =
-  "Copy-ready phrases for demanding contestability, escalation clarity, and real remedy.";
+  "Phrases to send when an automated decision affects you. Each asks for the decision record, the owner, the review clock, or the remedy.";
 const permalink = "/explainers/language-people-can-use";
 
 const anchorLinks = [
@@ -28,9 +29,9 @@ const phrases = [
       "Use when you are asked to accept an outcome without a clear appeal route.",
   },
   {
-    title: "Please provide the decision record, timestamps, and accountable owner.",
-    description:
-      "Use to request a contestable object you can track and share.",
+    title:
+      "Please provide the decision record, timestamps, and accountable owner.",
+    description: "Use to request a contestable object you can track and share.",
   },
   {
     title: "I need the review clock and the deadline for a final response.",
@@ -39,13 +40,12 @@ const phrases = [
   },
   {
     title: "Who can override this decision and how do I reach them?",
-    description:
-      "Use when escalation authority is implied but unnamed.",
+    description: "Use when escalation authority is implied but unnamed.",
   },
   {
     title: "If this cannot be reversed, state that in writing.",
     description:
-      "Use to clarify finality and make accountability explicit.",
+      "Use to put finality on the record, with someone answerable for it.",
   },
 ];
 
@@ -85,7 +85,7 @@ const contextBlocks = [
 const printSheet = {
   title: "Language people can use",
   intro:
-    "Use these phrases to demand contestability, escalation clarity, and enforceable remedy.",
+    "Each phrase asks for one thing: the decision record, the owner, the review clock, or the remedy.",
   sections: [
     {
       title: "Core phrases",
@@ -107,36 +107,34 @@ const printSheet = {
 };
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Explainer"
     title={pageTitle}
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={anchorLinks}
-    panelCopy={{
-      eyebrow: "Contestability",
-      title: "Make accountability verbal and concrete",
-      description:
-        "These phrases translate contestability into plain language so people can ask for reasons, clocks, and remedies without legalese.",
-      link: { label: "Read STD-02", href: "/standards/std-02-contestability-recourse" },
-    }}
   />
 
   <SectionBlock
     id="phrases"
     eyebrow="Copy-ready"
-    title="Six phrases that surface accountability"
+    title="Six phrases that ask for the record"
     description="Use these in email, chat, or intake forms to demand a contestable record."
   >
     <CardGrid className="grid--two">
-      {phrases.map((phrase) => (
-        <CardItem
-          title={phrase.title}
-          description={phrase.description}
-          descriptionTone="default"
-        />
-      ))}
+      {
+        phrases.map((phrase) => (
+          <CardItem
+            title={phrase.title}
+            description={phrase.description}
+            descriptionTone="default"
+          />
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -144,23 +142,25 @@ const printSheet = {
     id="contexts"
     eyebrow="Context blocks"
     title="Adapt the language to your setting"
-    description="Each block includes a short explanation and ready-to-send phrasing."
+    description="Workplace systems, public services, and platforms each get three phrases to send as written."
     variant="alt"
   >
     <CardGrid className="grid--two">
-      {contextBlocks.map((block) => (
-        <CardItem
-          title={block.title}
-          description={block.description}
-          descriptionTone="default"
-        >
-          <ul class="language-list">
-            {block.phrases.map((phrase) => (
-              <li>{phrase}</li>
-            ))}
-          </ul>
-        </CardItem>
-      ))}
+      {
+        contextBlocks.map((block) => (
+          <CardItem
+            title={block.title}
+            description={block.description}
+            descriptionTone="default"
+          >
+            <ul class="language-list">
+              {block.phrases.map((phrase) => (
+                <li>{phrase}</li>
+              ))}
+            </ul>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -182,7 +182,28 @@ const printSheet = {
         </div>
       </div>
       <div class="language-print__preview" aria-label="Printable preview">
-        {printSheet.sections.map((section) => (
+        {
+          printSheet.sections.map((section) => (
+            <div class="language-print__section">
+              <p class="language-print__title">{section.title}</p>
+              <ul>
+                {section.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+    <div
+      class="language-print language-print--print print-only"
+      aria-label="Printable sheet"
+    >
+      <h2>{printSheet.title}</h2>
+      <p>{printSheet.intro}</p>
+      {
+        printSheet.sections.map((section) => (
           <div class="language-print__section">
             <p class="language-print__title">{section.title}</p>
             <ul>
@@ -191,30 +212,22 @@ const printSheet = {
               ))}
             </ul>
           </div>
-        ))}
-      </div>
-    </div>
-    <div class="language-print language-print--print print-only" aria-label="Printable sheet">
-      <h2>{printSheet.title}</h2>
-      <p>{printSheet.intro}</p>
-      {printSheet.sections.map((section) => (
-        <div class="language-print__section">
-          <p class="language-print__title">{section.title}</p>
-          <ul>
-            {section.items.map((item) => (
-              <li>{item}</li>
-            ))}
-          </ul>
-        </div>
-      ))}
+        ))
+      }
       <p class="muted language-print__note">
-        Source: Ethotechnics contestability guidance · <a href={permalink}>{permalink}</a>
+        Source: Ethotechnics contestability guidance · <a href={permalink}
+          >{permalink}</a
+        >
       </p>
     </div>
   </SectionBlock>
 
-  <p class="muted" style="margin-top:2rem">
-    See also: <a href="/taxonomy">Taxonomy</a> &middot; <a href="/standards">Standards</a>
+  <NextStep variable="standing" />
+
+  <p class="muted" style="margin-top:var(--space-6)">
+    See also: <a href="/taxonomy">Taxonomy</a> &middot; <a href="/standards"
+      >Standards</a
+    >
   </p>
 </BaseLayout>
 
@@ -241,56 +254,56 @@ const printSheet = {
 
   .language-list {
     list-style: disc;
-    padding-left: 1.2rem;
-    margin: 1rem 0 0;
+    padding-left: var(--space-4);
+    margin: var(--space-4) 0 0;
     display: grid;
-    gap: 0.6rem;
+    gap: var(--space-2);
   }
 
   .language-print {
     border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
     background: var(--surface);
     display: grid;
-    gap: 1.5rem;
+    gap: var(--space-5);
   }
 
   .language-print__panel {
     display: grid;
-    gap: 0.8rem;
+    gap: var(--space-3);
   }
 
   .language-print__preview {
     display: grid;
-    gap: 1rem;
+    gap: var(--space-4);
   }
 
   .language-print__section {
     border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
-    border-radius: 12px;
-    padding: 1rem;
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
   }
 
   .language-print__title {
     font-weight: 600;
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--space-2);
   }
 
   .language-print__note {
-    margin-top: 1.5rem;
+    margin-top: var(--space-5);
   }
 
   .language-print--print {
-    gap: 1rem;
+    gap: var(--space-4);
   }
 
   .language-print--print h2 {
-    margin-bottom: 0.4rem;
+    margin-bottom: var(--space-2);
   }
 
   .language-print--print ul {
-    padding-left: 1.1rem;
+    padding-left: var(--space-4);
   }
 
   @media (min-width: 960px) {

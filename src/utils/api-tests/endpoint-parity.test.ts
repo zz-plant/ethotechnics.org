@@ -3,7 +3,21 @@ import { join } from "node:path";
 
 import { describe, expect, test } from "bun:test";
 
+import {
+  endpointConfig,
+  getEndpointsForVariant,
+} from "../../pages/api/endpoint-config";
 import { assertEndpointParity } from "../../pages/api/endpoint-parity";
+
+const DELEGATION_ENDPOINTS = [
+  "capabilities.json",
+  "grants.json",
+  "policies.json",
+  "dependencies.json",
+  "standing.json",
+  "interventions.json",
+  "substrate-profiles.json",
+];
 
 const endpointFiles = (directory: string) =>
   readdirSync(directory)
@@ -11,36 +25,34 @@ const endpointFiles = (directory: string) =>
     .map((file) => file.replace(/\.ts$/, ""));
 
 describe("API endpoint parity", () => {
-  test("shared config matches unversioned and versioned endpoint files", () => {
-    const unversioned = endpointFiles(join(import.meta.dir, "..", "..", "pages", "api"));
-    const versioned = endpointFiles(
-      join(import.meta.dir, "..", "..", "pages", "api", "v", "2026.01"),
+  test("shared config matches unversioned endpoint files", () => {
+    const unversioned = endpointFiles(
+      join(import.meta.dir, "..", "..", "pages", "api"),
     );
 
-    expect(() =>
-      assertEndpointParity({ unversioned, versioned }),
-    ).not.toThrow();
+    expect(() => assertEndpointParity({ unversioned })).not.toThrow();
   });
 
-  test("fails when a versioned endpoint file is missing", () => {
-    const unversioned = endpointFiles(join(import.meta.dir, "..", "..", "pages", "api"));
-    const versioned = endpointFiles(
-      join(import.meta.dir, "..", "..", "pages", "api", "v", "2026.01"),
+  test("delegation state endpoints are registered and have route files", () => {
+    const unversioned = endpointFiles(
+      join(import.meta.dir, "..", "..", "pages", "api"),
     );
+    const configured = getEndpointsForVariant("unversioned");
 
-    const brokenVersioned = versioned.filter(
-      (file) => file !== "findings.json",
-    );
+    for (const endpoint of DELEGATION_ENDPOINTS) {
+      expect(configured).toContain(endpoint);
+      expect(unversioned).toContain(endpoint);
+    }
+  });
 
-    expect(() =>
-      assertEndpointParity({ unversioned, versioned: brokenVersioned }),
-    ).toThrow(/Missing versioned endpoints:\n- findings\.json/);
+  test("every configured slug maps back to a unique endpoint id", () => {
+    const slugs = Object.values(endpointConfig).map((config) => config.slug);
+    expect(new Set(slugs).size).toBe(slugs.length);
   });
 
   test("fails when an unversioned endpoint file is missing", () => {
-    const unversioned = endpointFiles(join(import.meta.dir, "..", "..", "pages", "api"));
-    const versioned = endpointFiles(
-      join(import.meta.dir, "..", "..", "pages", "api", "v", "2026.01"),
+    const unversioned = endpointFiles(
+      join(import.meta.dir, "..", "..", "pages", "api"),
     );
 
     const brokenUnversioned = unversioned.filter(
@@ -48,7 +60,7 @@ describe("API endpoint parity", () => {
     );
 
     expect(() =>
-      assertEndpointParity({ unversioned: brokenUnversioned, versioned }),
+      assertEndpointParity({ unversioned: brokenUnversioned }),
     ).toThrow(/Missing unversioned endpoints:\n- research\.json/);
   });
 });

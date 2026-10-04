@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "register_id": "REG-ACCOUNT-HOLDS-1",
+  "system_ref": "agent-risk-ops-v2",
+  "decision_classes": [
+    {
+      "decision_class": "account_hold",
+      "who_may_challenge": [
+        "affected_party",
+        "corrective_labor",
+        "representative",
+        "oversight"
+      ],
+      "what_may_be_challenged": ["decision", "grant"],
+      "admissible_evidence": [
+        "identity_verification",
+        "transaction_context",
+        "vulnerability_flag",
+        "analyst_note"
+      ],
+      "responder": {
+        "name": "Risk Steward on call",
+        "role": "Risk Steward",
+        "contact": "risk-steward@example.org"
+      },
+      "response_deadline": "PT48H",
+      "standard_of_review": "Would a tier-2 analyst with the same evidence have placed the hold, and does the grant's population scope still cover the account?",
+      "possible_state_transitions": [
+        "stand",
+        "narrow",
+        "suspend",
+        "reverse",
+        "correct"
+      ]
+    },
+    {
+      "decision_class": "hold_policy",
+      "who_may_challenge": ["corrective_labor", "oversight"],
+      "what_may_be_challenged": ["policy"],
+      "admissible_evidence": [
+        "backtest",
+        "incident_review",
+        "challenge_statistics"
+      ],
+      "responder": {
+        "name": "Fraud Policy Committee",
+        "role": "Policy owner",
+        "contact": "fraud-policy@example.org"
+      },
+      "response_deadline": "P14D",
+      "standard_of_review": "Do the policy's assumptions still hold on current evidence?",
+      "possible_state_transitions": ["stand", "narrow", "suspend", "correct"]
+    }
+  ]
+}

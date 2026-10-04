@@ -6,6 +6,14 @@ It consolidates references that were previously spread across multiple index sec
 ## Core planning docs
 
 - [`roadmap.md`](roadmap.md): canonical sequencing, status, and completion checkoffs.
+- [`ia-refactor-proposal-2026-09.md`](ia-refactor-proposal-2026-09.md): proposed route and
+  navigation reorganization; measured route inventory, the seven-front-doors finding, and the
+  decisions it defers.
+- [`reconstruction-plan-2026-09.md`](reconstruction-plan-2026-09.md): the doctrine and object-model
+  rebuild around justified delegation; workstreams, sequencing, and open decisions.
+- [`compensatory-work-protocol-2026-09.md`](compensatory-work-protocol-2026-09.md): proposed
+  ledger, classification test, and removal-versus-accommodation test for the compensatory work
+  research strand, with a study design and hypotheses that could fail.
 - [`mini-prds.md`](mini-prds.md): scoped proposals for near-term initiatives.
 - [`issue-templates.md`](issue-templates.md): reusable issue definitions for project work.
 - [`full-refactor-plan.md`](full-refactor-plan.md): end-to-end refactor strategy and milestones.
@@ -14,32 +22,38 @@ It consolidates references that were previously spread across multiple index sec
 
 - [`user-journey-critique.md`](user-journey-critique.md): representative journey walkthrough and
   recommendations.
-- [`new-user-routes-critique-2026-02.md`](new-user-routes-critique-2026-02.md):
-  two-route first-session critique constrained to remove/rebuild/modify actions.
-- [`mobile-ux-critique-2026-02.md`](mobile-ux-critique-2026-02.md): mobile-focused UX
-  critique with prioritized improvements and refreshed recommendations.
-- [`weakest-features-triage-2026-03.md`](weakest-features-triage-2026-03.md):
-  remove-vs-improve decisions and phased execution order for current weakest UX surfaces.
-- [`ux-audit-kondo-series-2026.md`](ux-audit-kondo-series-2026.md):
-  consolidated findings and action backlog from the prior multi-round Kondo UX audits.
 
-- [`site-description-alignment-audit.md`](site-description-alignment-audit.md):
-  publication-readiness review for external site summaries.
-- [`open-source-citizenship-audit-2026-02.md`](open-source-citizenship-audit-2026-02.md):
-  repository community-health review against open-source citizenship norms.
-- [`copywriting-plain-language-audit-2026-02.md`](copywriting-plain-language-audit-2026-02.md):
-  plain-language audit of high-friction site copy with rewrite recommendations.
-- [`outside-the-box-applications-ia-2026-03.md`](outside-the-box-applications-ia-2026-03.md):
-  IA recommendations for positioning ethotechnics as deployable moral infrastructure patterns.
+## Signal assessments
+
+- [`jev-signal-assessment-2026-09.md`](jev-signal-assessment-2026-09.md): what TypeSafe's Jev
+  decision model means for the standards, the problem spaces it opens, and how the project could
+  respond.
+- [`jev-outreach-drafts-2026-09.md`](jev-outreach-drafts-2026-09.md): unsent drafts to Pydantic
+  AI, LangChain, and TypeSafe offering the decision-record mapping for typed decision models.
 
 ## Technical strategy tracks
 
-- Tech stack evolution:
-  - [`tech-stack-capabilities-scan-2026.md`](tech-stack-capabilities-scan-2026.md)
-  - [`tech-stack-upgrade-actions-2026.md`](tech-stack-upgrade-actions-2026.md)
-  - [`tech-debt-inventory-2026-02.md`](tech-debt-inventory-2026-02.md)
 - Interop and toolkit planning:
   - [`python-evaluation-toolkit.md`](python-evaluation-toolkit.md)
+
+## Archived audits
+
+One-off dated audits are kept in [`archive/`](archive/) for reference. They are not active
+planning documents.
+
+- [`archive/copywriting-plain-language-audit-2026-02.md`](archive/copywriting-plain-language-audit-2026-02.md)
+- [`archive/mobile-ux-critique-2026-02.md`](archive/mobile-ux-critique-2026-02.md)
+- [`archive/new-user-routes-critique-2026-02.md`](archive/new-user-routes-critique-2026-02.md)
+- [`archive/open-source-citizenship-audit-2026-02.md`](archive/open-source-citizenship-audit-2026-02.md)
+- [`archive/outside-the-box-applications-ia-2026-03.md`](archive/outside-the-box-applications-ia-2026-03.md)
+- [`archive/outstanding-issues-audit-2026-03-02.md`](archive/outstanding-issues-audit-2026-03-02.md)
+- [`archive/refactor-trawl-2026-03-01.md`](archive/refactor-trawl-2026-03-01.md)
+- [`archive/site-description-alignment-audit.md`](archive/site-description-alignment-audit.md)
+- [`archive/tech-debt-inventory-2026-02.md`](archive/tech-debt-inventory-2026-02.md)
+- [`archive/tech-stack-capabilities-scan-2026.md`](archive/tech-stack-capabilities-scan-2026.md)
+- [`archive/tech-stack-upgrade-actions-2026.md`](archive/tech-stack-upgrade-actions-2026.md)
+- [`archive/ux-audit-kondo-series-2026.md`](archive/ux-audit-kondo-series-2026.md)
+- [`archive/weakest-features-triage-2026-03.md`](archive/weakest-features-triage-2026-03.md)
 
 ## How to keep this hub useful
 

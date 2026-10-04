@@ -1,0 +1,143 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import UseCaseFit from "../../components/UseCaseFit.astro";
+import {
+  createImplementationPublication,
+  implementationExampleAnchorLinks,
+} from "../../content/implementation-examples";
+
+const pageTitle = "Loan approval systems: implementation comparison";
+const pageDescription =
+  "Credit scoring and loan approval governed two ways: oversight added on top, or halt authority, reversal targets, and named appeal owners built into the system.";
+const permalink = "/examples/loan-approval";
+const anchorLinks = implementationExampleAnchorLinks;
+const publication = createImplementationPublication(
+  permalink,
+  "Published the loan approval implementation comparison.",
+);
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
+  <PageIntro
+    eyebrow="Implementation example"
+    title={pageTitle}
+    description={pageDescription}
+    anchorLinks={anchorLinks}
+  />
+
+  <SectionBlock
+    id="overview"
+    eyebrow="Overview"
+    title="Where governance breaks down"
+    description="Loan approval systems are fast, consequential, and hard to contest once downstream damage starts."
+  >
+    <p>
+      Standard governance focuses on fairness audits, documentation, and
+      periodic review. In the <a href="/casebook/apple-card">Apple Card case</a
+      >, the model was examined and cleared. The failure was elsewhere:
+      applicants had no reasons and no route to challenge a limit. Ethotechnics
+      asks whether an applicant gets reasons and an answer to a challenge by a
+      set date, and whether a pattern of upheld challenges changes the scoring
+      rule.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="standard"
+    eyebrow="Standard governance"
+    title="What standard AI governance implements"
+    description="Oversight layers that sit on top of existing credit scoring pipelines."
+    variant="alt"
+  >
+    <ul class="card__list">
+      <li>
+        Quarterly bias and fairness audits against protected characteristics.
+      </li>
+      <li>
+        Governance committee reviews, documentation, and compliance sign-offs.
+      </li>
+      <li>Manual review for high-risk or edge-case applications.</li>
+      <li>
+        Explainability outputs showing key factors (income, credit history,
+        DTI).
+      </li>
+      <li>Audit trails and reporting for regulatory readiness.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="ethotechnics"
+    eyebrow="Ethotechnics implementation"
+    title="What changes when governance becomes infrastructure"
+    description="Control authority and recovery time are built into the runtime, not layered on later."
+  >
+    <ul class="card__list">
+      <li>
+        Structural veto lanes let community representatives, legal oversight,
+        and adversarial reviewers pause approvals in real time.
+      </li>
+      <li>
+        <a href="/glossary/stoppability">Stoppability</a> drills test how fast approvals
+        can be frozen once discriminatory patterns emerge.
+      </li>
+      <li>
+        <a href="/explainers/time-to-halt">Time-to-halt</a> and
+        <a href="/glossary/reversibility">reversibility</a> targets measure how quickly
+        denied applicants can challenge outcomes before harm compounds.
+      </li>
+      <li>
+        Recovery metrics track restoration completeness, including whether
+        missed housing opportunities or credit damage are reversed.
+      </li>
+      <li>
+        <a href="/glossary/contestability">Contestability</a> is enforced with named
+        owners, clocks, and a visible path to override.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="checklist"
+    eyebrow="Implementation checklist"
+    title="Signals to verify before launch"
+    description="Each check confirms that approvals can be halted and reversed on a clock."
+  >
+    <ul class="muted">
+      <li>Document who can halt approvals and how their veto is triggered.</li>
+      <li>
+        Define p95 and p99 time-to-halt targets for discriminatory patterns.
+      </li>
+      <li>
+        Provide applicants a direct contestability path with an owned response
+        clock.
+      </li>
+      <li>
+        Publish recovery steps that restore credit and reverse downstream harm.
+      </li>
+      <li>
+        Log stoppability drills and publish results in the
+        <a href="/glossary/repair-log"> repair log</a>.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <UseCaseFit slug="loan-approval" />
+
+  <div id="citations">
+    <ScholarlyMeta publication={publication} permalink={permalink} />
+    <CitationBlock
+      title={pageTitle}
+      permalink={permalink}
+      publication={publication}
+      summaryLabel="Cite this implementation example"
+    />
+  </div>
+</BaseLayout>

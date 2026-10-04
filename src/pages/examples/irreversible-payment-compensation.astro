@@ -2,14 +2,14 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import UseCaseFit from "../../components/UseCaseFit.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import GlossaryAnchorsBlock from "../../components/GlossaryAnchorsBlock.astro";
 
 const pageTitle = "Irreversible payment with compensation — Worked example";
 const pageDescription =
-  "An irreversible payment flow that binds receipts, clocks, and compensation commitments.";
-const permalink = "/examples/irreversible-payment-compensation";
+  "A payout that cannot be reversed. The receipt is issued before release and commits to 1, 8, and 48-hour clocks and to compensation if the payout was wrong.";
 
 const receiptPayload = `{
   "schema_version": "1.0.0",
@@ -24,33 +24,31 @@ const receiptPayload = `{
 }`;
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Worked example"
     title="Irreversible payment with compensation"
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={[
       { href: "#receipt", label: "Receipt" },
       { href: "#clocks", label: "Clocks" },
       { href: "#exceptions", label: "Exceptions" },
       { href: "#remedy", label: "Remedy" },
       { href: "#bindings", label: "Bindings" },
+      { href: "#fit", label: "Where this fits" },
       { href: "#glossary-anchors", label: "Glossary anchors" },
     ]}
-    panelCopy={{
-      eyebrow: "Scenario",
-      title: "Irreversible actions still need remedy paths",
-      description:
-        "When actions cannot be rolled back, compensation and review clocks become non-negotiable.",
-    }}
   />
 
   <SectionBlock
     id="receipt"
     eyebrow="Receipt"
     title="Receipt issued before release"
-    description="Irreversible actions must emit a receipt before execution."
+    description="An irreversible action emits its receipt before it executes."
   >
     <pre class="code-block">{receiptPayload}</pre>
   </SectionBlock>
@@ -59,18 +57,24 @@ const receiptPayload = `{
     id="clocks"
     eyebrow="Clocks"
     title="Short review windows for irreversible actions"
-    description="Clocks ensure review and remedy timelines are explicit."
+    description="Each clock states when review and remedy are due."
     variant="alt"
   >
     <CardGrid className="grid--three">
       <CardItem title="Ack clock" description="1 hour">
-        <p class="muted">Owner acknowledges the payout and names the reviewer.</p>
+        <p class="muted">
+          Owner acknowledges the payout and names the reviewer.
+        </p>
       </CardItem>
       <CardItem title="Review clock" description="8 hours">
-        <p class="muted">Human review checks for fraud, sanctions, or payout errors.</p>
+        <p class="muted">
+          Human review checks for fraud, sanctions, or payout errors.
+        </p>
       </CardItem>
       <CardItem title="Remedy clock" description="48 hours">
-        <p class="muted">Compensation, reversal substitute, or dispute resolution begins.</p>
+        <p class="muted">
+          Compensation, reversal substitute, or dispute resolution begins.
+        </p>
       </CardItem>
     </CardGrid>
   </SectionBlock>
@@ -79,13 +83,15 @@ const receiptPayload = `{
     id="exceptions"
     eyebrow="Exceptions"
     title="Exceptions require immediate logging"
-    description="AML or legal holds cannot erase receipts or clocks."
+    description="An AML or legal hold leaves the receipt and the clocks in place."
   >
     <ul class="muted">
       <li>Legal holds can pause payout but must keep clocks active.</li>
       <li>Security escalations require steward sign-off and audit trace.</li>
       <li>
-        Exception entries live in the <a href="/exceptions">Exceptions framework</a>.
+        Exception entries live in the <a href="/exceptions"
+          >Exceptions framework</a
+        >.
       </li>
     </ul>
   </SectionBlock>
@@ -94,7 +100,7 @@ const receiptPayload = `{
     id="remedy"
     eyebrow="Remedy"
     title="Compensation is the default fallback"
-    description="Irreversible actions must guarantee a compensation path."
+    description="A payout that cannot be undone must have a compensation path."
     variant="alt"
   >
     <ul class="muted">
@@ -108,11 +114,11 @@ const receiptPayload = `{
     id="bindings"
     eyebrow="Bindings"
     title="Bind the payout to enforceable artifacts"
-    description="Release gates and evidence packs keep the flow auditable."
+    description="Release gates and evidence packs give an auditor the record of each payout."
   >
     <ul class="muted">
       <li>
-        Add payout checks to <a href="/bindings#release-gates">release gates</a>.
+        Add payout checks to <a href="/evidence-packs">release gates</a>.
       </li>
       <li>
         Attach <a href="/evidence-packs">evidence packs</a> to payout receipts.
@@ -122,6 +128,8 @@ const receiptPayload = `{
       </li>
     </ul>
   </SectionBlock>
+
+  <UseCaseFit slug="irreversible-payment-compensation" />
 
   <GlossaryAnchorsBlock />
 </BaseLayout>

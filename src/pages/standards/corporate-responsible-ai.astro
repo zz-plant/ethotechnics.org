@@ -6,7 +6,7 @@ import { derivePublicationMetadata } from "../../utils/publication";
 
 const pageTitle = "Corporate Responsible AI Programs";
 const pageDescription =
-  "Ethotechnics-style critique of internal responsible AI principles, ethics boards, and review gates.";
+  "An Ethotechnics critique of internal responsible AI programs: ethics boards and review gates answer to the company, not to the people a system decides about.";
 const permalink = "/standards/corporate-responsible-ai";
 const anchorLinks = [
   { href: "#overview", label: "What they are" },
@@ -16,6 +16,9 @@ const anchorLinks = [
 const publication = derivePublicationMetadata({
   permalink,
   published: "2025-06-01T00:00:00Z",
+  updated: "2026-10-01T00:00:00Z",
+  changelogSummary:
+    "Stated the critique in the page description and named standing for the people downstream in the failure mode.",
 });
 ---
 
@@ -27,14 +30,8 @@ const publication = derivePublicationMetadata({
   eyebrow="Corporate programs"
   anchorLinks={anchorLinks}
   publishedTime="2025-06-01T00:00:00.000Z"
-  panelCopy={{
-    eyebrow: "Ethotechnics read",
-    title: "Ethics theater under pressure",
-    description:
-      "Internal governance rarely grants stop rights to affected parties.",
-  }}
+  modifiedTime="2026-10-01T00:00:00.000Z"
 >
-
   <SectionBlock
     id="overview"
     eyebrow="Overview"
@@ -43,7 +40,8 @@ const publication = derivePublicationMetadata({
   >
     <p>
       Corporate responsible AI standards typically combine principles (fairness,
-      transparency, safety) with committees, review gates, training, and monitoring.
+      transparency, safety) with committees, review gates, training, and
+      monitoring.
     </p>
   </SectionBlock>
 
@@ -73,12 +71,16 @@ const publication = derivePublicationMetadata({
     id="failure-mode"
     eyebrow="Failure mode"
     title="Ethics theater under pressure"
-    description="Good principles and sincere people without enforceable stop rights downstream."
+    description="Good principles and sincere people, and no standing for the people downstream."
   >
     <p>
       The failure mode is a well-intended program that collapses into symbolic
       oversight when incentives conflict with restraint.
     </p>
   </SectionBlock>
-  <CitationBlock title={pageTitle} permalink={permalink} publication={publication} />
+  <CitationBlock
+    title={pageTitle}
+    permalink={permalink}
+    publication={publication}
+  />
 </StandardsLayout>

@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "policy_id": "POL-REFUND-GATE-THRESHOLD",
+  "version": "1.2.0",
+  "title": "Refund gate: decision threshold for unattended refunds",
+  "provenance": {
+    "author": "Support Operations Policy Group",
+    "adopted_at": "2026-09-01T00:00:00Z",
+    "evidence_refs": [
+      "EVID-REFUND-LABELLED-2026Q2",
+      "EVID-REFUND-THRESHOLD-SWEEP-2026-08"
+    ]
+  },
+  "assumptions": [
+    "Unattended refund when refund_risk = approve with confidence at or above 0.80, policy_fit is yes, and the amount is at most 200 USD. Everything else goes to the refund reviewer, and refuse at or above 0.90 is refused with a route to appeal.",
+    "The threshold was set against 2,400 labelled refunds from Q2 2026, on which it approved 71% unattended with 0.6% later reversed on review.",
+    "It was tuned for model gatekeeper-typed at version 2026-08-28, with question schema sha256:6b7b983829db07d46e80c26e5e6741087b968373cd4751ff833984e43189a59b, in the option order approve, review, refuse.",
+    "It trades a higher review load for fewer wrong unattended refunds: a wrongly approved refund costs the institution more to recover than a correct refund costs to review.",
+    "Confidence is the provider's margin, not a probability that the answer is right. The 0.80 was chosen from the labelled set, not read off the model's number."
+  ],
+  "review_triggers": [
+    {
+      "trigger_id": "TRG-MODEL-CHANGE",
+      "kind": "model_change",
+      "condition": "deployed model version, question schema hash, or option order differs from the values in assumptions",
+      "action": "suspend"
+    },
+    {
+      "trigger_id": "TRG-SAMPLE-REVERSALS",
+      "kind": "evidence_threshold",
+      "condition": "reversal rate in the unreviewed sample > 0.02 over 30 days",
+      "action": "review_required"
+    },
+    {
+      "trigger_id": "TRG-INJECTION",
+      "kind": "incident_class",
+      "condition": "any unattended refund traced to text in the order or message that claimed prior approval",
+      "action": "suspend"
+    },
+    {
+      "trigger_id": "TRG-CHALLENGES",
+      "kind": "challenge_volume",
+      "condition": "more than 10 refund challenges decided against the system in 30 days",
+      "action": "review_required"
+    },
+    {
+      "trigger_id": "TRG-ELAPSED",
+      "kind": "elapsed_time",
+      "condition": "90 days since adopted_at",
+      "action": "review_required"
+    }
+  ],
+  "expires_at": "2026-12-01T00:00:00Z",
+  "status": "active",
+  "supersedes": "POL-REFUND-GATE-THRESHOLD@1.1.0"
+}

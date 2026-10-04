@@ -79,17 +79,13 @@ const childEntries = taxonomyEntries.filter((candidate) => {
 
 const pageTitle = `${entry.title}${titleSuffix}`;
 const pageDescription = entry.summary;
-const permalink = entryPath;
 
 const anchorLinks = [
   { href: "#summary", label: "Summary" },
-  { href: "#metadata", label: "Metadata" },
+  { href: "#metadata", label: "Safeguards" },
   { href: "#artifacts", label: "Related artifacts" },
   { href: "#navigation", label: "Navigation" },
 ];
-
-const levelLabel =
-  segments.length === 1 ? "Domain" : `Level ${segments.length}`;
 
 const collectionLabel =
   normalizedBasePath === "/taxonomy"
@@ -152,27 +148,10 @@ const structuredDataJson = JSON.stringify(structuredData);
     eyebrow={eyebrow}
     title={entry.title}
     description={entry.summary}
-    permalink={permalink}
     anchorLinks={anchorLinks}
-    panelCopy={{
-      eyebrow: "Metadata",
-      title: levelLabel,
-      description: `Owner: ${entry.owner}. Scope: ${entry.scope}. Readiness: ${entry.readiness}.`,
-      link: parentEntry
-        ? {
-            label: `Parent level: ${parentEntry.title}`,
-            href: entryUrlForSlug(parentEntry.slug),
-          }
-        : undefined,
-    }}
   />
 
-  <SectionBlock
-    id="summary"
-    eyebrow="Summary"
-    title="Scope overview"
-    description="Use this statement to align teams on what this taxonomy level includes."
-  >
+  <SectionBlock id="summary" eyebrow="Summary" title="Scope overview">
     <div class="panel">
       <p>{entry.summary}</p>
     </div>
@@ -180,23 +159,21 @@ const structuredDataJson = JSON.stringify(structuredData);
 
   <SectionBlock
     id="metadata"
-    eyebrow="Metadata"
-    title="Ownership and readiness"
-    description="Capture the steward, scope, and readiness for this taxonomy level."
+    eyebrow="Where it sits"
+    title="The safeguards it serves"
     variant="alt"
   >
     <dl class="standard-definitions">
       <div>
-        <dt>Owner</dt>
-        <dd>{entry.owner}</dd>
-      </div>
-      <div>
-        <dt>Scope</dt>
+        <dt>Level</dt>
         <dd>{entry.scope}</dd>
       </div>
       <div>
-        <dt>Readiness</dt>
-        <dd>{entry.readiness}</dd>
+        <dt>Safeguards</dt>
+        <dd>
+          {entry.safeguards.join(", ")}.{" "}
+          <a href="/method#state-variables">What the six safeguards are</a>
+        </dd>
       </div>
     </dl>
   </SectionBlock>
@@ -213,7 +190,6 @@ const structuredDataJson = JSON.stringify(structuredData);
           <CardItem
             eyebrow={artifact.type}
             title={artifact.label}
-            description="Reference this artifact to align delivery and audits."
             descriptionTone="default"
           >
             <p class="muted">
@@ -229,7 +205,6 @@ const structuredDataJson = JSON.stringify(structuredData);
     id="navigation"
     eyebrow="Navigation"
     title="Adjacent taxonomy levels"
-    description="Move between parent, sibling, and child levels for consistent coverage."
     variant="alt"
   >
     <CardGrid className="grid--three">

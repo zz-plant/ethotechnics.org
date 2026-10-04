@@ -5,7 +5,7 @@ const ROUTES_TO_TEST = [
   "/",
   "/standards/std-01-temporal-rights",
   "/validators/latency-audit",
-  "/institute",
+  "/about",
   "/start-here",
 ];
 

@@ -8,7 +8,7 @@ import { taxonomyEntries } from "../../content/taxonomy";
 
 const pageTitle = "Taxonomy — Ethotechnics Institute";
 const pageDescription =
-  "Taxonomy-driven domains and capabilities that anchor governance, delivery, assurance, and experience.";
+  "Twenty-two governance practices in six domains, each filed under the safeguards it serves, with the artifacts that apply.";
 const permalink = "/taxonomy";
 
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
@@ -45,7 +45,11 @@ const structuredData = {
 const structuredDataJson = JSON.stringify(structuredData);
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} structuredDataType="collection">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  structuredDataType="collection"
+>
   <Fragment slot="head">
     <script
       type="application/ld+json"
@@ -57,69 +61,80 @@ const structuredDataJson = JSON.stringify(structuredData);
     eyebrow="Taxonomy"
     title="Ethotechnics taxonomy"
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={[
       { href: "#domains", label: "Domains" },
       { href: "#use", label: "How to use" },
     ]}
-    panelCopy={{
-      eyebrow: "SEO signal",
-      title: "Every level is a crawlable, linkable page.",
-      description:
-        "Use the domain pages to group assets, then drill into capability and practice levels for programmatic SEO coverage.",
-    }}
-  />
+  >
+    <Fragment slot="actions">
+      <a class="button ghost" href="/navigator#safeguards"
+        >Explore safeguards &rarr;</a
+      >
+      <a class="button ghost" href="/navigator">Concept navigator</a>
+    </Fragment>
+  </PageIntro>
 
   <SectionBlock
     id="domains"
     eyebrow="Domains"
     title="Start with the top-level domains"
-    description="Each domain page connects standards, mechanisms, validators, and supporting artifacts."
+    description="The domains are a way of filing practices. The safeguards are what the practices serve. Each card names both."
   >
     <CardGrid className="grid--two">
-      {topLevelEntries.map((entry) => {
-        const childEntries = childEntriesFor(entry.slug);
+      {
+        topLevelEntries.map((entry) => {
+          const childEntries = childEntriesFor(entry.slug);
 
-        return (
-          <CardItem
-            title={entry.title}
-            description={entry.summary}
-            descriptionTone="default"
-          >
-            {childEntries.length > 0 && (
-              <ul class="pill-list pill-list--wrap">
-                {childEntries.map((child) => (
-                  <li>
-                    <a href={`/taxonomy/${child.slug}`}>{child.title}</a>
-                  </li>
-                ))}
-              </ul>
-            )}
-            <div slot="footer" class="card__footer">
-              <a class="button ghost button--compact" href={`/${entry.slug}`}>
-                Open domain page
-              </a>
-              <a class="muted" href={`/taxonomy/${entry.slug}`}>
-                View taxonomy entry
-              </a>
-            </div>
-          </CardItem>
-        );
-      })}
+          return (
+            <CardItem
+              title={entry.title}
+              description={entry.summary}
+              descriptionTone="default"
+            >
+              <p class="small muted">Serves: {entry.safeguards.join(", ")}</p>
+              {childEntries.length > 0 && (
+                <ul class="pill-list pill-list--wrap">
+                  {childEntries.map((child) => (
+                    <li>
+                      <a href={`/taxonomy/${child.slug}`}>{child.title}</a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <div slot="footer" class="card__footer">
+                <a
+                  class="button ghost button--compact"
+                  href={`/taxonomy/${entry.slug}`}
+                >
+                  Explore {entry.title.toLowerCase()}
+                </a>
+              </div>
+            </CardItem>
+          );
+        })
+      }
     </CardGrid>
   </SectionBlock>
 
   <SectionBlock
     id="use"
     eyebrow="How to use"
-    title="Turn the taxonomy into SEO coverage"
-    description="These steps keep internal linking consistent across domains and artifacts."
+    title="Reading the taxonomy"
+    description="Three levels: domain, capability, and practice. Every entry names the safeguards it serves and the artifacts that apply."
     variant="alt"
   >
     <ol class="muted">
-      <li>Link every standard, mechanism, and validator back to its domain page.</li>
-      <li>Use the capability and practice pages for programmatic templates and FAQs.</li>
-      <li>Keep related artifacts on each level updated as new content ships.</li>
+      <li>
+        Start at a domain to see its capabilities and the artifacts filed under
+        it.
+      </li>
+      <li>
+        Open a capability or practice page for the narrower level and its
+        related artifacts.
+      </li>
+      <li>
+        Move between parent, sibling, and child levels from any entry page.
+      </li>
     </ol>
   </SectionBlock>
 </BaseLayout>

@@ -1,0 +1,82 @@
+---
+slug: "std-06"
+title: "STD-06 Evidence Pack"
+description: "The evidence an STD-06 human impact safety case must carry: eight portable artifacts, test battery results, three tiers of proof, and what auditors ask."
+permalink: "/evidence-packs/std-06"
+eyebrow: "Evidence Pack"
+standardId: "STD-06"
+standardTitle: "Human Impact Safety Case"
+published: "2025-06-01"
+updated: "2026-09-06"
+sections:
+  - title: "Tiered evidence model"
+    content: |
+      **Tier 0 (minimum):** Proof the test battery and safety case are recorded. Evidence: Safety case summary, threshold dashboard, receipt payloads.
+
+      **Tier 1 (operational):** Proof the controls are used with real people. Evidence: Halt drill receipts, remedy ledger entries, disclosure packets.
+
+      **Tier 2 (resilient):** Proof the controls hold during incidents. Evidence: Incident memos, regulator-ready exports, remedy verification logs.
+    required: true
+  - title: "Artifact inventory"
+    content: |
+      **Safety case summary:** Scope, impact class, and test battery results with timestamps.
+
+      **Kill authority roster:** Named halt owners, delegation basis, and coverage schedule.
+
+      **Remedy obligations ledger:** Owner, clock status, and resolution proof for each harm class.
+
+      **Disclosure packet:** Receipt, reason, appeal path, and clock visibility for affected people.
+
+      **Do-not-deploy boundary register:** Active boundary breaches and the last remediation review date.
+
+      **Dependency ledger:** Dependents with criticality, substitution cost and its basis, retained expertise with the date it was last exercised, alternatives with their status, correction latency, and the exposure score with each of its inputs.
+
+      **Silent-harm discovery report:** Error, reversal, and remedy rates per affected population, with the cadence and the records they were computed from (§2.4).
+
+      **Withdrawal rehearsal report:** Date, scope, participants, outcome, and what the rehearsal showed at the technical, operational, and institutional levels of reversibility.
+    required: true
+  - title: "Test battery evidence"
+    content: |
+      - Time-to-halt logs + halt receipts with stopwatch measurement.
+      - Time-to-remedy tracking with evidence of verification and follow-up.
+      - Contestability access audit (1-step test, no-paywall).
+      - Burden ceiling measurements with UX flow maps.
+      - Disclosure latency report with receipt delivery timestamps.
+      - Withdrawal rehearsal with measured correction latency and a report per reversibility level.
+    required: true
+  - title: "Portability checklist"
+    content: |
+      - Artifacts exportable as PDF + JSON/CSV with stable IDs.
+      - Time-stamped, signed, and linked to receipt IDs.
+      - Plain-language summary included for impacted people.
+      - Retention policy documented and published in the safety case.
+    required: true
+  - title: "What auditors ask"
+    content: |
+      - Show the latest safety case summary and its test battery results.
+      - Provide the last three halt drill receipts with time-to-halt measurements.
+      - Demonstrate remedy clock compliance with verification evidence.
+      - Show the public-facing disclosure packet used for affected people.
+      - Show the dependency ledger and how the exposure score moved since the last refresh.
+      - Show the last withdrawal rehearsal report and what it found at the institutional level.
+    required: true
+  - title: "Dependency and reversibility checklist"
+    content: |
+      Evidence for STD-06 Article V. Each line maps to a clause.
+
+      - Dependency record populated with dependents, substitution cost, retained expertise, alternatives, last rehearsal, and correction latency (§5.1).
+      - Exposure score published with dependency depth, substitution cost, and correction latency shown separately (§5.2).
+      - Reversibility evidenced at all three levels, with unevidenced levels marked not evidenced rather than feasible (§5.3).
+      - Preserved capacities listed with a reason and a named owner, and any erosion recorded as a governance event (§5.4).
+      - No expansion of scope, population, or authority while institutional reversibility is unevidenced (§5.5).
+      - Withdrawal rehearsed on the published cadence, at least annually where exposure is non-trivial, and before any expansion (§5.6).
+      - Dependency record refreshed before any renewal or expansion decision that cites it (§5.7).
+    required: true
+checklists:
+  - title: "Referenced by"
+    items:
+      - "Standard: STD-06 Safety Case"
+      - "Required by bindings: Safety case bindings"
+      - "Verified by: Validators (VAL-01–VAL-03)"
+      - "Correction symmetry: STD-08 Part D and the STD-08 Evidence Pack"
+---

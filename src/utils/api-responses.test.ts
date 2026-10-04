@@ -1,6 +1,9 @@
 import { describe, expect, it } from "bun:test";
 
 import {
+  applyApiCaching,
+  createRagCorpusResponse,
+  resolveCorpusLayer,
   createBadgesResponse,
   createChangelogResponse,
   createCrosswalksResponse,
@@ -51,7 +54,7 @@ type PostMarketMonitoringPayload = {
 };
 
 const parseJson = async <T>(response: Response): Promise<T> =>
-  (await response.json());
+  await response.json();
 
 describe("createValidatorsResponse", () => {
   it("returns validators payload with shared metadata", async () => {
@@ -107,9 +110,9 @@ describe("createBadgesResponse", () => {
   it("includes repository metadata and workflow badge links", async () => {
     const payload = await parseJson<BadgesPayload>(createBadgesResponse());
 
-    expect(payload.meta.repo).toBe("zz-plant/ethotechnics");
+    expect(payload.meta.repo).toBe("zz-plant/ethotechnics.org");
     expect(payload.badges.siteChecks.href).toContain(
-      "github.com/zz-plant/ethotechnics/actions/workflows/site-checks.yml",
+      "github.com/zz-plant/ethotechnics.org/actions/workflows/site-checks.yml",
     );
   });
 });
@@ -142,5 +145,80 @@ describe("createPostMarketMonitoringResponse", () => {
     expect(payload.stages[0]?.stage.length).toBeGreaterThan(0);
     expect(payload.stages[0]?.refs.length).toBeGreaterThan(0);
     expect(payload.stages[0]?.href).toBe("/incidents");
+  });
+});
+
+describe("applyApiCaching", () => {
+  it("adds a stable ETag and answers matching conditional requests", async () => {
+    const first = await applyApiCaching(
+      new Request("https://ethotechnics.org/api/validators.json"),
+      createValidatorsResponse(),
+    );
+    const etag = first.headers.get("ETag");
+
+    expect(etag).toBeTruthy();
+    expect(first.headers.get("Cache-Control")).toContain("s-maxage=3600");
+
+    const conditional = await applyApiCaching(
+      new Request("https://ethotechnics.org/api/validators.json", {
+        headers: { "If-None-Match": etag ?? "" },
+      }),
+      createValidatorsResponse(),
+    );
+    expect(conditional.status).toBe(304);
+  });
+
+  it("uses immutable caching for a versioned response", async () => {
+    const response = await applyApiCaching(
+      new Request("https://ethotechnics.org/api/v/2026.01/validators.json"),
+      createValidatorsResponse(),
+      true,
+    );
+
+    expect(response.headers.get("Cache-Control")).toContain("immutable");
+  });
+});
+
+describe("resolveCorpusLayer", () => {
+  it("marks theory essays as theory", () => {
+    expect(resolveCorpusLayer("/research/theory")).toBe("theory");
+    expect(resolveCorpusLayer("/research/theory/automation-and-capture")).toBe(
+      "theory",
+    );
+  });
+
+  it("marks diagnostics, validators, and tools as instruments", () => {
+    expect(resolveCorpusLayer("/diagnostics/delegation-audit")).toBe(
+      "instrument",
+    );
+    expect(resolveCorpusLayer("/validators")).toBe("instrument");
+    expect(resolveCorpusLayer("/diagnostics/burden-budget-worksheet")).toBe(
+      "instrument",
+    );
+  });
+
+  it("marks everything else, including documents with no href, as method", () => {
+    expect(resolveCorpusLayer("/standards/laws")).toBe("method");
+    expect(resolveCorpusLayer("/glossary#authority")).toBe("method");
+    expect(resolveCorpusLayer(undefined)).toBe("method");
+  });
+
+  it("does not treat a lookalike prefix as an instrument", () => {
+    expect(resolveCorpusLayer("/toolsmith")).toBe("method");
+  });
+});
+
+describe("createRagCorpusResponse", () => {
+  it("gives every document a layer", async () => {
+    const body = await createRagCorpusResponse(50).text();
+    const docs = body
+      .split("\n")
+      .filter(Boolean)
+      .map((line) => JSON.parse(line) as { layer?: string });
+
+    expect(docs.length).toBeGreaterThan(0);
+    for (const doc of docs) {
+      expect(["theory", "method", "instrument"]).toContain(doc.layer);
+    }
   });
 });

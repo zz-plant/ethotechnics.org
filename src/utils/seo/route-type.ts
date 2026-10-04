@@ -7,11 +7,7 @@ export type RouteType =
   | "article";
 
 export type StructuredDataMode =
-  | "auto"
-  | "collection"
-  | "webpage"
-  | "defined-term"
-  | "tech-article";
+  "auto" | "collection" | "webpage" | "defined-term" | "tech-article";
 
 const UTILITY_ROUTES = new Set([
   "/",

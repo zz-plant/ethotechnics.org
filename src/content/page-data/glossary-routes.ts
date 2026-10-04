@@ -1,4 +1,7 @@
-import { normalizeGlossaryHeading, stripHtml } from "../../utils/glossary-helpers";
+import {
+  normalizeGlossaryHeading,
+  stripHtml,
+} from "../../utils/glossary-helpers";
 import { glossaryEntryPermalink } from "../../utils/glossary";
 
 export type GlossaryIndexSourceEntry = {
@@ -165,21 +168,27 @@ export const buildGlossaryStructuredDataPayload = (input: {
   );
 
   const glossaryPublished = input.publication.published ?? null;
-  const glossaryUpdated = input.publication.updated ?? input.publication.published ?? null;
+  const glossaryUpdated =
+    input.publication.updated ?? input.publication.published ?? null;
   const glossaryKeywords = Array.from(
     new Set([
       "Ethotechnics glossary",
-      "ethical technology",
       "AI governance",
-      "human-centered design",
+      "automated decision systems",
       "algorithmic accountability",
-      "consent frameworks",
-      "safety and stewardship",
-      ...input.categories.map((category) => normalizeGlossaryHeading(category.heading)),
+      "contestability",
+      "right to appeal",
+      ...input.categories.map((category) =>
+        normalizeGlossaryHeading(category.heading),
+      ),
     ]),
   );
   const glossaryAbout = Array.from(
-    new Set(input.categories.map((category) => normalizeGlossaryHeading(category.heading))),
+    new Set(
+      input.categories.map((category) =>
+        normalizeGlossaryHeading(category.heading),
+      ),
+    ),
   );
   const glossarySetId = `${pageUrl}#defined-term-set`;
 
@@ -188,6 +197,8 @@ export const buildGlossaryStructuredDataPayload = (input: {
     "@graph": [
       {
         "@type": "CollectionPage",
+        // The layout emits the breadcrumb list; the page references it.
+        breadcrumb: { "@id": `${pageUrl}#breadcrumb` },
         "@id": pageUrl,
         name: input.pageTitle,
         description: input.pageDescription,
@@ -230,23 +241,6 @@ export const buildGlossaryStructuredDataPayload = (input: {
           target: `${pageUrl}?query={search_term_string}`,
           "query-input": "required name=search_term_string",
         },
-      },
-      {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Home",
-            item: new URL("/", input.siteBase).toString(),
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "Glossary",
-            item: pageUrl,
-          },
-        ],
       },
     ],
   };

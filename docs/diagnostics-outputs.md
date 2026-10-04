@@ -9,23 +9,27 @@ requests so stakeholders know what to expect.
 - Ranked hotspots with mitigation paths and expected relief per action.
 - Off-ramp reminder for complex findings that need studio facilitation.
 
+## Delegation Audit
+
+- Exposure score in workflow staff-week hours, with dependency depth, substitution cost, and correction latency shown separately.
+- A rating per state variable across capability, authority, evidence, dependency, standing, and correction, each with the reasons behind it.
+- A list of ungrounded grants: action classes with no authorizer, no evidence basis, or nobody named as affected.
+- A reversibility verdict at the technical, operational, and institutional levels with the weakest level called out.
+- Findings linked to the STD-08 or STD-06 clause, the mechanism, and the eval suite that covers each one.
+- Copyable plain-text readout and a JSON snapshot for the safety case.
+- The readout records what the team believes. It is not an audit, and an ungrounded grant is a finding to investigate rather than a violation.
+
 ## LLM Capacity Benchmark
 
 - Readiness summary showing consent and context handling gaps with suggested fixes.
 - UI-level nits tied to pattern language filters to guide remediation work.
 - Off-ramp reminder for risky or ambiguous findings that should go to a facilitated session.
 
-## Maintenance Simulator
+## Retired diagnostics
 
-- Scenario runs that surface coverage gaps, outage handling, and appeal pathways with owners and timing.
-- Communication templates mapped to risk levels, roles, and escalation routes.
-- Off-ramp reminder pointing teams to a facilitated deep dive when simulations stall.
-
-## Technical Capacity Forecaster
-
-- Side-by-side projections showing baseline versus remediated capacity across 24 months.
-- Saturation callouts and refusal window notes for stakeholder review.
-- PDF snapshot export that accompanies delivery planning and portfolio reviews.
+The Maintenance Simulator and Capacity Forecaster are retired. Their old routes redirect to
+Diagnostics. See the [retirement record](planning/pass-1-retirement-2026-09.md) for all
+retired tools, replacement routes, and historical source downloads.
 
 ## Server-side rendering check
 

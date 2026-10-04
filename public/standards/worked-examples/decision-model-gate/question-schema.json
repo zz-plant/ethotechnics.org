@@ -1,0 +1,17 @@
+{
+  "schema_id": "QS-REFUND-GATE-1",
+  "description": "Questions asked of the decision model for every refund the agent proposes. Option order is part of the schema.",
+  "questions": [
+    {
+      "id": "refund_risk",
+      "type": "choice",
+      "prompt": "Given the order history, the customer message, and the proposed refund, how should this refund be handled?",
+      "options": ["approve", "review", "refuse"]
+    },
+    {
+      "id": "policy_fit",
+      "type": "yes_no",
+      "prompt": "Does the proposed refund fall inside the published refund policy for this order type?"
+    }
+  ]
+}

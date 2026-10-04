@@ -1,0 +1,262 @@
+---
+/**
+ * Two STD-09 anti-patterns, drawn from the standard's own list.
+ *
+ * Per-hop pause theater: every hop has a working stop, one is thrown, and
+ * the chain never stops, because the next hop continues on the stopped hop's
+ * last output and the last hop re-triggers it. Latency laundering: every
+ * hop's clock is compliant, and the composed clock has consumed the human
+ * window. The prose for both is read from the antiPatterns the standard
+ * declares next to its clauses, so a renamed pattern fails the build rather
+ * than drawing a figure with no words under it.
+ */
+import DemoFigure from "./DemoFigure.astro";
+
+type AntiPattern = {
+  title: string;
+  failure: string;
+  counterfactual: string;
+  warning: string;
+};
+
+interface Props {
+  patterns: AntiPattern[];
+  level?: "h3" | "h4";
+}
+
+const { patterns, level = "h3" }: Props = Astro.props;
+
+const declared = (title: string): AntiPattern => {
+  const found = patterns.find((pattern) => pattern.title === title);
+  if (!found) {
+    throw new Error(
+      `ChainPauseFigure: STD-09 no longer declares the anti-pattern "${title}"`,
+    );
+  }
+  return found;
+};
+
+const pause = declared("Per-hop pause theater");
+const laundering = declared("Latency laundering");
+
+const hops = [
+  { id: "intake", label: "Intake agent" },
+  { id: "eligibility", label: "Eligibility service" },
+  { id: "pricing", label: "Pricing agent" },
+  { id: "fulfilment", label: "Fulfilment" },
+];
+const stoppedIndex = 1;
+
+// Geometry: hops sit on one row; the second row is the latency bars. The
+// canvas is 800 units wide so its 13px labels render at 11px or more on the
+// narrowest standards column.
+const hopWidth = 146;
+const hopGap = 54;
+const hopY = 88;
+const hopHeight = 70;
+const hopX = (index: number) => 30 + index * (hopWidth + hopGap);
+
+const perHopHours = 24;
+const humanWindowHours = 48;
+const composedHours = hops.length * perHopHours;
+const barY = 290;
+const barHeight = 42;
+const barScale = 600 / composedHours;
+---
+
+<DemoFigure
+  id="chain-pause-figure"
+  class="chain-pause"
+  level={level}
+  title="Every hop stops. The chain does not."
+  lede="Four hops, each with a working stop and a compliant clock. One hop is stopped; each hop promises review inside a day. Read what the chain does with either."
+>
+  <div class="demo-figure__frame">
+    <div class="diagram-scroll">
+      <svg
+        viewBox="0 0 800 440"
+        role="img"
+        aria-label={`Row one: four hops in series, each marked stop works. Hop two, ${hops[stoppedIndex].label}, is stopped, but hop three continues on its stale output and hop four re-triggers hop two; a bracket over all four marks one intervention at the chain boundary. Row two: four bars of ${perHopHours} hours each, all compliant, composing to ${composedHours} hours against a human window of ${humanWindowHours} hours.`}
+        class="chain-pause__svg"
+      >
+        <defs>
+          <marker
+            id="chain-arrow"
+            viewBox="0 0 10 10"
+            refX="9"
+            refY="5"
+            markerWidth="7"
+            markerHeight="7"
+            orient="auto-start-reverse"
+          >
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path>
+          </marker>
+        </defs>
+
+        <text x="30" y="30" class="demo-figure__svg-title">{pause.title}</text>
+
+        {
+          hops.map((hop, index) => {
+            const x = hopX(index);
+            const stopped = index === stoppedIndex;
+            return (
+              <g
+                class:list={[
+                  "chain-pause__hop",
+                  { "chain-pause__hop--stopped": stopped },
+                ]}
+              >
+                <rect
+                  x={x}
+                  y={hopY}
+                  width={hopWidth}
+                  height={hopHeight}
+                  rx="8"
+                />
+                <text x={x + 12} y={hopY + 24} class="demo-figure__svg-title">
+                  {hop.label}
+                </text>
+                <text x={x + 12} y={hopY + 44} class="demo-figure__svg-label">
+                  stop works ✓
+                </text>
+                {stopped && (
+                  <text x={x + 12} y={hopY + 61} class="demo-figure__svg-label">
+                    STOPPED
+                  </text>
+                )}
+                {index < hops.length - 1 && (
+                  <line
+                    x1={x + hopWidth + 2}
+                    x2={x + hopWidth + hopGap - 4}
+                    y1={hopY + hopHeight / 2}
+                    y2={hopY + hopHeight / 2}
+                    class:list={[
+                      "chain-pause__edge",
+                      { "chain-pause__edge--stale": index === stoppedIndex },
+                    ]}
+                    marker-end="url(#chain-arrow)"
+                  />
+                )}
+              </g>
+            );
+          })
+        }
+        <text
+          x={hopX(stoppedIndex) + hopWidth + hopGap / 2}
+          y={hopY + hopHeight / 2 - 22}
+          text-anchor="middle"
+          class="demo-figure__svg-label chain-pause__stale-label"
+        >
+          <tspan x={hopX(stoppedIndex) + hopWidth + hopGap / 2}>stale</tspan>
+          <tspan x={hopX(stoppedIndex) + hopWidth + hopGap / 2} dy="15"
+            >output</tspan
+          >
+        </text>
+
+        {/* Fulfilment re-triggers the stopped hop. */}
+        <path
+          d={`M ${hopX(3) + hopWidth / 2} ${hopY + hopHeight + 2} Q ${hopX(3) + hopWidth / 2} ${hopY + hopHeight + 52} ${(hopX(1) + hopX(3) + hopWidth) / 2} ${hopY + hopHeight + 52} Q ${hopX(1) + hopWidth / 2} ${hopY + hopHeight + 52} ${hopX(1) + hopWidth / 2} ${hopY + hopHeight + 4}`}
+          class="chain-pause__edge chain-pause__edge--retrigger"
+          marker-end="url(#chain-arrow)"></path>
+        <text
+          x={(hopX(1) + hopX(3) + hopWidth) / 2}
+          y={hopY + hopHeight + 72}
+          text-anchor="middle"
+          class="demo-figure__svg-label"
+        >
+          re-triggers the stopped hop
+        </text>
+
+        {/* The counterfactual: one intervention at the chain boundary. */}
+        <path
+          d={`M ${hopX(0) - 10} ${hopY - 8} L ${hopX(0) - 10} ${hopY - 20} L ${hopX(3) + hopWidth + 10} ${hopY - 20} L ${hopX(3) + hopWidth + 10} ${hopY - 8}`}
+          class="chain-pause__bracket"></path>
+        <text
+          x={(hopX(0) + hopX(3) + hopWidth) / 2}
+          y={hopY - 28}
+          text-anchor="middle"
+          class="demo-figure__svg-label chain-pause__bracket-label"
+        >
+          §2.3: one intervention at the chain boundary, one halt receipt for the
+          chain
+        </text>
+
+        <text x="30" y="272" class="demo-figure__svg-title"
+          >{laundering.title}</text
+        >
+
+        {
+          hops.map((hop, index) => {
+            const x = 30 + index * perHopHours * barScale;
+            return (
+              <g class="chain-pause__bar">
+                <rect
+                  x={x + 1}
+                  y={barY}
+                  width={perHopHours * barScale - 2}
+                  height={barHeight}
+                  rx="4"
+                />
+                <text x={x + 10} y={barY + 17} class="demo-figure__svg-label">
+                  {hop.label}:
+                </text>
+                <text x={x + 10} y={barY + 34} class="demo-figure__svg-label">
+                  review ≤ {perHopHours} h ✓
+                </text>
+              </g>
+            );
+          })
+        }
+        <text
+          x={30 + composedHours * barScale + 10}
+          y={barY + 26}
+          class="demo-figure__svg-mono"
+        >
+          composed {composedHours} h
+        </text>
+
+        <rect
+          x="30"
+          y={barY + barHeight + 10}
+          width={humanWindowHours * barScale}
+          height="28"
+          rx="4"
+          class="chain-pause__window"></rect>
+        <text x="40" y={barY + barHeight + 29} class="demo-figure__svg-label">
+          the human window, {humanWindowHours} h
+        </text>
+        <text
+          x={30 + humanWindowHours * barScale + 10}
+          y={barY + barHeight + 29}
+          class="demo-figure__svg-mono chain-pause__consumed"
+        >
+          consumed by hop {Math.ceil(humanWindowHours / perHopHours)}
+        </text>
+        <text x="30" y={barY + barHeight + 66} class="demo-figure__svg-label">
+          §2.1: hops in series compose additively;
+        </text>
+        <text x="30" y={barY + barHeight + 84} class="demo-figure__svg-label">
+          §2.2: a chain that leaves no window cannot run unattended
+        </text>
+      </svg>
+    </div>
+    <dl class="chain-pause__captions">
+      <div>
+        <dt>{pause.title}</dt>
+        <dd>{pause.failure}</dd>
+        <dd class="chain-pause__counter">{pause.counterfactual}</dd>
+      </div>
+      <div>
+        <dt>{laundering.title}</dt>
+        <dd>{laundering.failure}</dd>
+        <dd class="chain-pause__counter">{laundering.counterfactual}</dd>
+      </div>
+    </dl>
+  </div>
+  <p class="demo-figure__note">
+    A demonstration, not a measurement of any chain. The two patterns, their
+    failures, and their counterfactuals are the ones this standard declares in
+    its anti-pattern list, read from the same data the list renders; the figure
+    refuses to build if either is renamed.
+  </p>
+</DemoFigure>

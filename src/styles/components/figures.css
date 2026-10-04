@@ -1,0 +1,1599 @@
+/* Demonstration figures.
+ *
+ * A demonstration is neither a static diagram nor a diagnostic. It makes one
+ * claim felt by letting the reader move a control, and every control it
+ * offers is a field on a published object. These are the styles the
+ * demonstrations share: the frame, the caption, the controls, the meters, and
+ * the record a demonstration emits, followed by each figure's own rules.
+ *
+ * Every figure's CSS lives in this one file on purpose. The figures render
+ * through MDX content, and a stylesheet small enough for Astro to inline
+ * (under 4 KB) arrives on those pages as a <style> element whose hash never
+ * reaches the Content-Security-Policy header, so the browser drops it. One
+ * stylesheet, well above the inline limit, ships as a <link> that
+ * `style-src 'self'` allows. A test holds the file above the limit.
+ */
+@layer components {
+  .demo-figure {
+    margin: var(--space-6) 0;
+    display: grid;
+    gap: var(--space-4);
+    min-width: 0;
+    /* A wide drawing scrolls inside its frame at every viewport. Without
+       this, the drawing's min-width travels up through every flex and grid
+       ancestor as a content-based minimum and pushes the standards column
+       under its sidebar. Inline-size containment stops it at the figure. */
+    contain: inline-size;
+    color: var(--text);
+    font-family: var(--sans);
+  }
+
+  .demo-figure__frame,
+  .demo-figure__frame > * {
+    min-width: 0;
+  }
+
+  .demo-figure .diagram-scroll {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .demo-figure figcaption {
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  .demo-figure figcaption h3,
+  .demo-figure figcaption h4 {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: var(--text-h3);
+    letter-spacing: -0.01em;
+  }
+
+  .demo-figure figcaption p {
+    margin: 0;
+  }
+
+  .demo-figure__frame {
+    display: grid;
+    gap: var(--space-4);
+    padding: clamp(var(--space-4), 2vw, var(--space-5));
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+  }
+
+  .demo-figure__note {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  .demo-figure__note code,
+  .demo-figure code {
+    font-family: var(--mono);
+    font-size: 0.92em;
+  }
+
+  /* --- Controls --- */
+
+  .demo-button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius-pill);
+    background: var(--accent);
+    color: var(--surface);
+    font: inherit;
+    font-size: var(--text-sm);
+    font-weight: 650;
+    cursor: pointer;
+    transition:
+      background var(--motion-fast) ease,
+      color var(--motion-fast) ease;
+  }
+
+  .demo-button:hover {
+    background: var(--accent-strong);
+  }
+
+  .demo-button[aria-pressed="true"] {
+    background: var(--surface);
+    color: var(--accent);
+  }
+
+  .demo-button--quiet {
+    background: transparent;
+    color: var(--accent);
+  }
+
+  .demo-button--quiet:hover {
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+  }
+
+  .demo-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .demo-field {
+    display: grid;
+    gap: var(--space-1);
+    min-width: 0;
+  }
+
+  .demo-field__label {
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .demo-field__hint {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  .demo-select,
+  .demo-input {
+    width: 100%;
+    padding: var(--space-2) var(--space-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--panel);
+    color: var(--text);
+    font: inherit;
+    font-size: var(--text-sm);
+  }
+
+  .demo-range {
+    width: 100%;
+    accent-color: var(--accent);
+  }
+
+  /* A switch: a checkbox whose label names the object field it stands for. */
+  .demo-switch {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-hair) var(--space-3);
+    align-items: start;
+    padding: var(--space-3) var(--space-3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--panel);
+    cursor: pointer;
+  }
+
+  /* The checkbox sits in the first column for every line of text after it,
+     so a switch is written flat: input, name, question, description. */
+  .demo-switch input {
+    grid-row: 1 / span 4;
+    margin: var(--space-1) 0 0;
+    accent-color: var(--accent);
+  }
+
+  .demo-switch--on {
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+    background: color-mix(in srgb, var(--accent) 8%, var(--panel));
+  }
+
+  .demo-switch__field {
+    display: block;
+    font-family: var(--mono);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .demo-switch__text {
+    margin: var(--space-hair) 0 0;
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  /* --- Readouts --- */
+
+  .demo-meters {
+    display: grid;
+    gap: var(--space-2);
+    margin: 0;
+  }
+
+  .demo-meter {
+    display: grid;
+    grid-template-columns: minmax(6.5rem, 9rem) 1fr auto;
+    gap: var(--space-2);
+    align-items: center;
+    font-size: var(--text-sm);
+  }
+
+  .demo-meter__label {
+    font-weight: 650;
+  }
+
+  .demo-meter__track {
+    display: block;
+    position: relative;
+    height: 0.6rem;
+    border-radius: var(--radius-pill);
+    background: var(--panel);
+    overflow: hidden;
+  }
+
+  .demo-meter__fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    border-radius: inherit;
+    background: var(--accent);
+    transition: width var(--motion-base) ease;
+  }
+
+  .demo-meter__fill--bad {
+    background: var(--status-danger);
+  }
+
+  .demo-meter__value {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    color: var(--muted);
+    min-width: 3ch;
+    text-align: right;
+  }
+
+  .demo-stat {
+    display: grid;
+    gap: var(--space-hair);
+  }
+
+  .demo-stat dt,
+  .demo-stat dd {
+    margin: 0;
+  }
+
+  .demo-stat__label {
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .demo-stat__value {
+    font-family: var(--mono);
+    font-size: var(--text-lg);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .demo-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+    gap: var(--space-3) var(--space-4);
+  }
+
+  .demo-verdict {
+    margin: 0;
+    padding: var(--space-3) var(--space-4);
+    border-left: 3px solid var(--accent);
+    background: color-mix(in srgb, var(--accent) 7%, var(--surface));
+    font-size: var(--text-sm);
+  }
+
+  .demo-verdict--bad {
+    border-left-color: var(--status-danger);
+    background: color-mix(in srgb, var(--status-danger) 8%, var(--surface));
+  }
+
+  .demo-verdict--warn {
+    border-left-color: var(--status-warning);
+    background: color-mix(in srgb, var(--status-warning) 9%, var(--surface));
+  }
+
+  .demo-verdict--good {
+    border-left-color: var(--status-success);
+    background: color-mix(in srgb, var(--status-success) 8%, var(--surface));
+  }
+
+  .demo-pre {
+    margin: 0;
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--panel);
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    line-height: 1.5;
+    overflow-x: auto;
+    white-space: pre;
+  }
+
+  .demo-status {
+    display: inline-block;
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    background: var(--status-success);
+    vertical-align: 0.05rem;
+  }
+
+  .demo-status--bad {
+    background: var(--status-danger);
+  }
+
+  .demo-figure svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .demo-figure__svg-label {
+    font-family: var(--sans);
+    font-size: 11px;
+    fill: var(--muted);
+  }
+
+  .demo-figure__svg-title {
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 650;
+    fill: var(--text);
+  }
+
+  .demo-figure__svg-mono {
+    font-family: var(--mono);
+    font-size: 11px;
+    fill: var(--text);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .demo-meter__fill,
+    .demo-button {
+      transition: none;
+    }
+  }
+
+  /* --- Beside the loop (STD-08 Part C) --- */
+
+  .loop {
+    display: grid;
+    gap: var(--space-4);
+    font-family: var(--sans);
+  }
+
+  .loop__grid {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 900px) {
+    .loop__grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+      align-items: start;
+    }
+  }
+
+  .loop__panel,
+  .loop__measures {
+    display: grid;
+    gap: var(--space-3);
+    align-content: start;
+    padding: var(--space-container);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+  }
+
+  .loop__panel-title {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: var(--text-base);
+    font-weight: 700;
+  }
+
+  .loop__switches {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .loop__switch-question {
+    display: block;
+    margin-top: var(--space-hair);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .loop__pace {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .loop__item {
+    display: grid;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-4);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--panel);
+  }
+
+  .loop__item--done {
+    border-style: dashed;
+  }
+
+  .loop__item-head {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .loop__item-id {
+    font-family: var(--mono);
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  .loop__chip {
+    padding: var(--space-hair) var(--space-2);
+    border-radius: var(--radius-pill);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  .loop__chip--consequential {
+    border-color: color-mix(in srgb, var(--status-warning) 50%, var(--border));
+    color: var(--status-warning);
+  }
+
+  .loop__item-summary {
+    margin: 0;
+    font-size: var(--text-base);
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  .loop__status,
+  .loop__record-hint {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  .loop__status--executed {
+    color: var(--status-danger);
+  }
+
+  .loop__record {
+    display: grid;
+    gap: var(--space-1);
+    padding: var(--space-3) var(--space-3);
+    border-left: 3px solid var(--accent);
+    background: var(--surface);
+    border-radius: 0 var(--radius) var(--radius) 0;
+  }
+
+  .loop__record-label {
+    margin: 0;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .loop__record-text {
+    margin: 0;
+    font-size: var(--text-sm);
+  }
+
+  .loop__record-flag {
+    margin: 0;
+    font-size: var(--text-sm);
+    font-weight: 650;
+    color: var(--status-danger);
+  }
+
+  .loop__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .loop__approve-rest {
+    margin-left: auto;
+  }
+
+  .loop__justify {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .loop__textarea {
+    resize: vertical;
+    min-height: 4.5rem;
+  }
+
+  .loop__findings {
+    margin: 0;
+    padding: 0 0 0 var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--status-danger);
+  }
+
+  .loop__findings li + li {
+    margin-top: var(--space-1);
+  }
+
+  .loop__recorded summary {
+    cursor: pointer;
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  .loop__recorded[open] summary {
+    margin-bottom: var(--space-2);
+  }
+
+  /* --- Friction (theory essay) --- */
+
+  .friction {
+    display: grid;
+    gap: var(--space-4);
+    font-family: var(--sans);
+  }
+
+  .friction__panel {
+    display: grid;
+    gap: var(--space-3);
+    padding: var(--space-container);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+  }
+
+  .friction__panel-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-4);
+  }
+
+  .friction__panel-title {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: var(--text-base);
+    font-weight: 700;
+  }
+
+  .friction__presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .friction__chain {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-2);
+    counter-reset: step;
+  }
+
+  @media (min-width: 720px) {
+    .friction__chain {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .friction__step {
+    position: relative;
+    display: grid;
+    gap: var(--space-1);
+    align-content: start;
+    padding: var(--space-3) var(--space-3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--panel);
+    counter-increment: step;
+    transition:
+      border-color var(--motion-base) ease,
+      background var(--motion-base) ease;
+  }
+
+  .friction__step::before {
+    content: counter(step);
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    color: var(--muted);
+  }
+
+  .friction__step--agent {
+    border-style: dashed;
+    border-color: color-mix(in srgb, var(--status-warning) 55%, var(--border));
+    background: color-mix(in srgb, var(--status-warning) 6%, var(--panel));
+  }
+
+  .friction__step-title {
+    margin: 0;
+    font-size: var(--text-sm);
+    font-weight: 650;
+    line-height: 1.3;
+  }
+
+  .friction__step-party {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  .friction__step--agent .friction__step-party {
+    color: var(--status-warning);
+    font-weight: 600;
+  }
+
+  .friction__step-toggle {
+    margin-top: var(--space-1);
+    padding: var(--space-1) var(--space-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    background: var(--surface);
+    color: var(--accent);
+    font: inherit;
+    font-size: var(--text-xs);
+    font-weight: 650;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .friction__step-toggle:hover {
+    border-color: var(--accent);
+  }
+
+  .friction__speed {
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--border);
+  }
+
+  .friction__meters {
+    gap: var(--space-3);
+  }
+
+  .friction__meter {
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  .friction__meter-track {
+    margin: 0;
+    min-width: 0;
+  }
+
+  .friction__meter .demo-meter__value {
+    margin: 0;
+  }
+
+  .friction__fill--rebuilt {
+    background: var(--status-success);
+  }
+
+  .friction__meter-text {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  .friction__switches {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  @media (min-width: 900px) {
+    .friction__switches {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .friction__switch-name {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 700;
+  }
+
+  /* --- Absorption (theory essay) --- */
+
+  .absorb {
+    display: grid;
+    gap: var(--space-4);
+    font-family: var(--sans);
+  }
+
+  .absorb__grid {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 960px) {
+    .absorb__grid {
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+      align-items: start;
+    }
+  }
+
+  .absorb__panel {
+    display: grid;
+    gap: var(--space-3);
+    align-content: start;
+    padding: var(--space-container);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+  }
+
+  .absorb__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-4);
+  }
+
+  .absorb__title {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: var(--text-base);
+    font-weight: 700;
+  }
+
+  .absorb__reveal {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .absorb__reveal input {
+    accent-color: var(--accent);
+  }
+
+  .absorb__chart {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .absorb__grid-line {
+    stroke: var(--border);
+    stroke-width: 1;
+  }
+
+  .absorb__dependence {
+    fill: color-mix(in srgb, var(--muted) 12%, transparent);
+    stroke: none;
+  }
+
+  .absorb__reported {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 2.5;
+    stroke-linejoin: round;
+  }
+
+  .absorb__true {
+    fill: none;
+    stroke: var(--status-danger);
+    stroke-width: 2;
+    stroke-dasharray: 6 4;
+  }
+
+  .absorb__true-label {
+    fill: var(--status-danger);
+  }
+
+  .absorb__event {
+    stroke: var(--status-warning);
+    stroke-width: 1.5;
+    stroke-dasharray: 3 3;
+  }
+
+  .absorb__shadow-dot {
+    fill: var(--surface);
+    stroke: var(--text);
+    stroke-width: 2;
+  }
+
+  .absorb__events {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .absorb__events > .demo-field__label {
+    margin: 0;
+  }
+
+  .absorb__switch-name {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 700;
+  }
+
+  .absorb__layers {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2);
+    counter-reset: layer;
+  }
+
+  @media (min-width: 720px) {
+    .absorb__layers {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+  }
+
+  .absorb__layer {
+    display: grid;
+    gap: var(--space-1);
+    align-content: start;
+    padding: var(--space-3) var(--space-3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--panel);
+    counter-increment: layer;
+  }
+
+  .absorb__layer::before {
+    content: counter(layer);
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    color: var(--muted);
+  }
+
+  .absorb__layer--sees {
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 9%, var(--panel));
+  }
+
+  .absorb__layer-title {
+    margin: 0;
+    font-size: var(--text-sm);
+    font-weight: 700;
+  }
+
+  .absorb__layer-question {
+    margin: 0;
+    font-size: var(--text-xs);
+    color: var(--muted);
+  }
+
+  .absorb__layer-sees {
+    margin: 0;
+    font-size: var(--text-xs);
+    line-height: 1.45;
+  }
+
+  /* --- Withdrawal (STD-06 Article V) --- */
+
+  .withdraw {
+    display: grid;
+    gap: var(--space-4);
+    font-family: var(--sans);
+  }
+
+  .withdraw__grid {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 900px) {
+    .withdraw__grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+      align-items: start;
+    }
+  }
+
+  .withdraw__panel {
+    display: grid;
+    gap: var(--space-3);
+    align-content: start;
+    padding: var(--space-container);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+  }
+
+  .withdraw__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-4);
+  }
+
+  .withdraw__title {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: var(--text-base);
+    font-weight: 700;
+  }
+
+  .withdraw__presets,
+  .withdraw__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .withdraw__panel .demo-field__label {
+    font-family: var(--mono);
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  .withdraw__rehearsal {
+    margin: 0;
+    font-size: var(--text-sm);
+  }
+
+  .withdraw__switch-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  /* A stop button is red in both themes. The dark theme's danger token is a
+     pale red meant for text on a dark ground, so the button names its own
+     colour and keeps white text legible on it. */
+  .withdraw__switch {
+    flex: none;
+    width: 5.5rem;
+    height: 5.5rem;
+    border: 4px solid color-mix(in srgb, #b91c1c 45%, var(--border));
+    border-radius: 50%;
+    background: #b91c1c;
+    color: #fff;
+    font: inherit;
+    font-size: var(--text-base);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--motion-fast) ease;
+  }
+
+  .withdraw__switch:hover {
+    transform: scale(1.03);
+  }
+
+  .withdraw__switch[aria-pressed="true"] {
+    background: #7f1d1d;
+    box-shadow: none;
+  }
+
+  .withdraw__switch-text {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  .withdraw__levels {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .withdraw__level {
+    display: grid;
+    gap: var(--space-1);
+    padding: var(--space-3) var(--space-3);
+    border: 1px solid var(--border);
+    border-left-width: 3px;
+    border-radius: var(--radius-md);
+    background: var(--panel);
+  }
+
+  .withdraw__level--ok {
+    border-left-color: var(--status-success);
+  }
+
+  .withdraw__level--fail {
+    border-left-color: var(--status-danger);
+  }
+
+  .withdraw__level-head {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .withdraw__level-name {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-transform: capitalize;
+  }
+
+  .withdraw__level-field {
+    font-size: var(--text-xs);
+    color: var(--muted);
+  }
+
+  .withdraw__level-question {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  .withdraw__conditions {
+    margin: 0;
+    padding: 0 0 0 var(--space-4);
+    font-size: var(--text-sm);
+  }
+
+  .withdraw__conditions li + li {
+    margin-top: var(--space-1);
+  }
+
+  .withdraw__condition--fail {
+    color: var(--status-danger);
+  }
+
+  .withdraw__excerpt summary {
+    cursor: pointer;
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  .withdraw__excerpt[open] summary {
+    margin-bottom: var(--space-2);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .withdraw__switch {
+      transition: none;
+    }
+
+    .withdraw__switch:hover {
+      transform: none;
+    }
+  }
+
+  /* --- Theater test (Law VIII) --- */
+
+  .theater__bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3) var(--space-5);
+  }
+
+  .theater__count {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  .theater__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+    gap: var(--space-3);
+  }
+
+  .theater__tile {
+    display: grid;
+    gap: var(--space-1);
+    align-content: start;
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--panel);
+    transition:
+      opacity var(--motion-base) ease,
+      border-color var(--motion-base) ease;
+  }
+
+  .theater__tile-title {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .theater__tile-reading {
+    margin: 0;
+    font-family: var(--mono);
+    font-size: var(--text-xl);
+    font-variant-numeric: tabular-nums;
+    line-height: 1.1;
+  }
+
+  .theater__tile-reading--stream {
+    font-size: var(--text-lg);
+  }
+
+  .theater__tile-detail {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  .theater__stream {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    line-height: 1.45;
+    color: var(--muted);
+    overflow: hidden;
+  }
+
+  .theater__stream li {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .theater__tile-wire {
+    margin: var(--space-1) 0 0;
+    padding-top: var(--space-2);
+    border-top: 1px dashed var(--border);
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  .theater__tile-wire span {
+    font-family: var(--mono);
+  }
+
+  /* Tested and unwired: a record of what happened, dimmed to say so. */
+  .theater--tested .theater__tile:not(.theater__tile--wired) {
+    opacity: 0.5;
+  }
+
+  .theater--tested .theater__tile:not(.theater__tile--wired) .demo-status {
+    background: var(--border);
+  }
+
+  .theater__tile--wired {
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 8%, var(--panel));
+  }
+
+  .theater__tile--wired .theater__tile-wire {
+    color: var(--accent-strong);
+    font-weight: 600;
+  }
+
+  .theater__form {
+    display: grid;
+    gap: var(--space-3);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--border);
+  }
+
+  .theater__form-lede,
+  .theater__record-title {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  .theater__form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    gap: var(--space-3);
+    align-items: end;
+  }
+
+  .theater__form-action {
+    align-self: end;
+    justify-items: start;
+  }
+
+  .theater__record {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  /* --- Ratchet (Law XI) --- */
+
+  .ratchet__svg {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  /* The standards column narrows well before the phone breakpoint, and
+     11px labels in a 960-unit drawing are unreadable below ~800px of width.
+     Under 1100px the drawing keeps a readable width and scrolls. */
+  @media (max-width: 1100px) {
+    .ratchet__svg {
+      min-width: 800px;
+    }
+  }
+
+  /* The shared 11px labels render at 8.7px once 960 units squeeze into
+     800px; this drawing sets its own so the smallest stays above 11px from
+     the phone scroller up to the full standards column. */
+  .ratchet__svg .demo-figure__svg-label,
+  .ratchet__svg .demo-figure__svg-mono {
+    font-size: 14px;
+  }
+
+  .ratchet__svg .demo-figure__svg-title {
+    font-size: 16.5px;
+  }
+
+  .ratchet__grid {
+    stroke: var(--border);
+    stroke-width: 1;
+  }
+
+  .ratchet__stairs {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 2;
+    stroke-linejoin: round;
+  }
+
+  .ratchet__decision {
+    fill: var(--surface);
+    stroke: var(--accent-strong);
+    stroke-width: 1.5;
+  }
+
+  .ratchet__threshold {
+    stroke: var(--status-warning);
+    stroke-width: 2;
+    stroke-dasharray: 4 3;
+  }
+
+  /* --- Rule count (exception learning, Law VIII, MEC-14) --- */
+
+  /* Two drawings, side by side where there is room and stacked on a phone,
+     so the second one, which carries the point, is never off-screen. */
+  .rule-count__panels {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  @media (min-width: 760px) {
+    .rule-count__panels {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .rule-count__svg {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  /* Each 480-unit drawing renders at roughly 360px on a phone, so the
+     labels are set large enough to stay above 11px there. */
+  .rule-count__svg .demo-figure__svg-label,
+  .rule-count__svg .demo-figure__svg-mono {
+    font-size: 15px;
+  }
+
+  .rule-count__svg .demo-figure__svg-title {
+    font-size: 18px;
+  }
+
+  /* The rule is the institution's, drawn in the rust the home rail uses for
+     the institution's ledger. Revised, it takes the record's accent. */
+  .rule-count__rule {
+    stroke: var(--status-warning);
+    stroke-width: 6;
+    stroke-linecap: round;
+  }
+
+  .rule-count__rule--revised {
+    stroke: var(--accent);
+  }
+
+  .rule-count__axis {
+    stroke: var(--border);
+    stroke-width: 1;
+  }
+
+  .rule-count__challenge {
+    fill: var(--surface);
+    stroke: var(--accent-strong);
+    stroke-width: 1.5;
+  }
+
+  .rule-count__svg .rule-count__count {
+    fill: var(--text);
+    font-size: 12px;
+    font-weight: 650;
+  }
+
+  .rule-count__to-case {
+    stroke: var(--muted);
+    stroke-width: 1;
+  }
+
+  .rule-count__case {
+    fill: var(--muted);
+  }
+
+  .rule-count__to-rule {
+    fill: none;
+    stroke: var(--accent-strong);
+    stroke-width: 2;
+  }
+
+  .rule-count__arrowhead {
+    fill: var(--accent-strong);
+  }
+
+  /* --- Chain pause (STD-09 Part B) --- */
+
+  .chain-pause__svg {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    color: var(--text);
+  }
+
+  /* The drawing is 800 units wide. Its labels are 13px so they render at
+     11px or more on a 748px standards column; under 1100px the drawing
+     keeps its full width and scrolls. */
+  @media (max-width: 1100px) {
+    .chain-pause__svg {
+      min-width: 800px;
+    }
+  }
+
+  .chain-pause__svg .demo-figure__svg-label,
+  .chain-pause__svg .demo-figure__svg-mono {
+    font-size: 13px;
+  }
+
+  .chain-pause__svg .demo-figure__svg-title {
+    font-size: 15px;
+  }
+
+  .chain-pause__hop .demo-figure__svg-title {
+    font-size: 14px;
+  }
+
+  .chain-pause__hop rect {
+    fill: var(--panel);
+    stroke: var(--border);
+    stroke-width: 1.5;
+  }
+
+  .chain-pause__hop--stopped rect {
+    stroke: var(--status-danger);
+    stroke-dasharray: 5 3;
+  }
+
+  .chain-pause__hop--stopped .demo-figure__svg-label {
+    fill: var(--status-danger);
+    font-weight: 650;
+  }
+
+  .chain-pause__edge {
+    stroke: currentColor;
+    stroke-width: 1.5;
+    fill: none;
+  }
+
+  .chain-pause__edge--stale {
+    stroke: var(--status-warning);
+    stroke-dasharray: 4 3;
+  }
+
+  .chain-pause__edge--retrigger {
+    stroke: var(--status-warning);
+  }
+
+  .chain-pause__stale-label {
+    fill: var(--status-warning);
+  }
+
+  .chain-pause__bracket {
+    fill: none;
+    stroke: var(--accent-strong);
+    stroke-width: 1.5;
+  }
+
+  .chain-pause__bracket-label {
+    fill: var(--accent-strong);
+    font-weight: 600;
+  }
+
+  .chain-pause__bar rect {
+    fill: color-mix(in srgb, var(--status-success) 18%, var(--panel));
+    stroke: var(--status-success);
+    stroke-width: 1;
+  }
+
+  .chain-pause__window {
+    fill: color-mix(in srgb, var(--status-danger) 14%, var(--panel));
+    stroke: var(--status-danger);
+    stroke-width: 1;
+  }
+
+  .chain-pause__consumed {
+    fill: var(--status-danger);
+  }
+
+  .chain-pause__captions {
+    display: grid;
+    gap: var(--space-4);
+    margin: 0;
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--border);
+  }
+
+  @media (min-width: 720px) {
+    .chain-pause__captions {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .chain-pause__captions dt {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    margin: 0 0 var(--space-1);
+  }
+
+  .chain-pause__captions dd {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  .chain-pause__captions dd.chain-pause__counter {
+    margin-top: var(--space-1);
+    color: var(--text);
+  }
+
+  /* --- Record diagrams (STD-01, STD-07, validators) ---
+     These six drawings share one small vocabulary of classes. Each used to
+     carry it in a <style> element inside its SVG; an inline <style> has no
+     hash in the Content-Security-Policy header, so production dropped it and
+     the drawings rendered as black shapes in the body serif. The classes are
+     generic, so every rule is scoped to the two diagram frames. Sizes are set
+     so the smallest label still renders at 11px on a 798px standards column. */
+  :is(.standard-diagram, .validator-diagram) svg {
+    font-family: var(--sans);
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg .ink {
+    fill: var(--text);
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg .muted {
+    fill: var(--muted);
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg :is(.line, .line-strong) {
+    stroke: var(--border);
+    stroke-width: 2;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg .line-strong {
+    stroke-width: 3.5;
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg .dash {
+    stroke-dasharray: 6 6;
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg .dot {
+    stroke-dasharray: 2 6;
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg :is(.band, .band-a) {
+    fill: var(--surface);
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg .band-b {
+    fill: var(--panel);
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg :is(.chip, .chip-dashed) {
+    fill: var(--surface);
+    stroke: var(--border);
+    stroke-width: 2;
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg .chip-dashed {
+    stroke-dasharray: 6 6;
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg .fill-border {
+    fill: var(--border);
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg .chip-state {
+    rx: 10;
+    ry: 10;
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg .chip-badge {
+    rx: 8;
+    ry: 8;
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg .chip-agent {
+    rx: 999;
+    ry: 999;
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg .small {
+    font: 500 13.5px var(--sans);
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg .label {
+    font: 600 14px var(--sans);
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg .title {
+    font: 650 15.5px var(--sans);
+  }
+
+  /* The validator pages do not load standards.css, so the cap lives here.
+     A 360-unit drawing across a 1000px column would set its labels at 50px. */
+  .validator-diagram > svg {
+    display: block;
+    width: 100%;
+    max-width: 34rem;
+    height: auto;
+  }
+
+  /* The utility .small (0.84rem) outranks these rules by layer, so a phone
+     cannot get larger small text from here. Instead a 960-unit record drawing
+     keeps the width it has on a desktop column, where 13.4px text renders at
+     11px, and scrolls. The validator drawing is short enough to widen to the
+     screen edges instead: at the 263px article column its text is 9px. */
+  @media (max-width: 719.98px) {
+    .standard-diagram > svg {
+      min-width: 800px;
+    }
+
+    .validator-diagram {
+      width: 100vw;
+      margin-inline: calc(50% - 50vw);
+      padding-inline: var(--page-gutter, 1rem);
+    }
+  }
+}

@@ -1,7 +1,9 @@
 import { describe, expect, it } from "bun:test";
 
 const loadAstroConfig = async () => {
-  const configModule = await import(new URL("../astro.config.mjs", import.meta.url).href);
+  const configModule = await import(
+    new URL("../astro.config.mjs", import.meta.url).href
+  );
 
   return configModule.default as {
     site?: string;
@@ -15,7 +17,7 @@ describe("deployment configuration", () => {
 
     expect(config.site).toBe("https://ethotechnics.org");
     expect(config.output).toBe("server");
-  });
+  }, 15000);
 
   it("has the expected Worker name and no legacy entrypoint", async () => {
     const wranglerText = await Bun.file("wrangler.toml").text();
@@ -35,12 +37,43 @@ describe("deployment configuration", () => {
     const packageJson = (await Bun.file("package.json").json()) as {
       scripts?: Record<string, string>;
     };
-    const deployWorkflow = await Bun.file(".github/workflows/deploy.yml").text();
 
-    expect(packageJson.scripts?.deploy).toContain("--config dist/server/wrangler.json");
-    expect(packageJson.scripts?.["deploy:preview"]).toContain("--config dist/server/wrangler.json");
-    expect(packageJson.scripts?.["preview:cf"]).toContain("--config dist/server/wrangler.json");
+    expect(packageJson.scripts?.deploy).toContain(
+      "--config dist/server/wrangler.json",
+    );
+    expect(packageJson.scripts?.["deploy:preview"]).toContain(
+      "--config dist/server/wrangler.json",
+    );
+    expect(packageJson.scripts?.["preview:cf"]).toContain(
+      "--config dist/server/wrangler.json",
+    );
     expect(packageJson.scripts?.build).toContain("bun run patch:cf-worker");
-    expect(deployWorkflow).toContain("wrangler deploy --config dist/server/wrangler.json");
+
+    // Deployment is manual via `bun run deploy`; there is no legacy GitHub
+    // Actions workflow in this repo.
+    expect(await Bun.file(".github/workflows/deploy.yml").exists()).toBe(false);
+  });
+});
+
+describe("src/pages holds routes and nothing else", () => {
+  // subscribe.test.ts sat next to the endpoint it tested. Astro routes every
+  // .ts file under src/pages, so the test shipped to production as
+  // /api/subscribe.test, where it answered 500, and Vite pulled bun:test into
+  // the worker bundle to get there.
+  it("contains no test files", async () => {
+    const { readdirSync, statSync } = await import("node:fs");
+    const { join } = await import("node:path");
+
+    const walk = (dir: string): string[] =>
+      readdirSync(dir).flatMap((entry) => {
+        const path = join(dir, entry);
+        return statSync(path).isDirectory() ? walk(path) : [path];
+      });
+
+    const tests = walk("src/pages").filter((path) =>
+      /\.(test|spec)\.[cm]?[jt]sx?$/.test(path),
+    );
+
+    expect(tests).toEqual([]);
   });
 });

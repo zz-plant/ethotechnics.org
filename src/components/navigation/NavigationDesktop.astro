@@ -1,10 +1,10 @@
 ---
 import Logo from "../Logo.astro";
-import NavUtilityLinks from "../NavUtilityLinks.astro";
 import Wordmark from "../Wordmark.astro";
 import Search from "../Search.astro";
 import { Icon } from "astro-icon/components";
 import type { NavLink } from "../../content/navigation";
+import { navSections } from "../../content/navigation";
 import {
   getAriaCurrent,
   isHashLink,
@@ -20,6 +20,7 @@ interface Props {
 
 const { currentPath, currentHash = "", desktopLinks }: Props = Astro.props;
 const isHome = normalizePath(currentPath) === "/";
+const isStart = normalizePath(currentPath) === "/start";
 ---
 
 <div class="nav__bar">
@@ -44,9 +45,20 @@ const isHome = normalizePath(currentPath) === "/";
               ? `${link.label}, jumps to a homepage section`
               : link.label
           }
-          title={isHashLink(link.href) ? "Jumps to a section on the homepage" : undefined}
-          data-nav-hash-link={isSameDocumentHashLink(link.href) ? "true" : undefined}
-          aria-current={getAriaCurrent(link.href, currentPath, currentHash)}
+          title={
+            isHashLink(link.href)
+              ? "Jumps to a section on the homepage"
+              : undefined
+          }
+          data-nav-hash-link={
+            isSameDocumentHashLink(link.href) ? "true" : undefined
+          }
+          aria-current={getAriaCurrent(
+            link.href,
+            currentPath,
+            currentHash,
+            true,
+          )}
         >
           {link.label}
         </a>
@@ -54,20 +66,86 @@ const isHome = normalizePath(currentPath) === "/";
     }
   </nav>
 
-  <div class="nav__search-desktop">
-    <Search scope="desktop" label="Search standards, diagnostics, and guides" />
-  </div>
+  {
+    /*
+    The four sections and their twenty described links used to render only in
+    the mobile drawer, so the widest viewport saw the least: five bare labels
+    and no descriptions. This panel puts the same map on desktop without
+    hiding the primary links behind a hover menu — the bar stays a fast path,
+    this is the full view. A <details> element carries the open state, so it
+    works from the keyboard and before any script runs, which is the pattern
+    the mobile drawer already uses.
+  */
+  }
+  <details class="nav__browse" data-nav-browse>
+    <summary class="nav__browse-summary">
+      <span>Browse</span>
+      <Icon name="lucide:chevron-down" class="nav__browse-chevron" />
+    </summary>
 
-  <div class="nav__utility nav__utility--desktop">
-    <NavUtilityLinks currentPath={currentPath} />
+    <div class="nav__browse-panel">
+      <div class="nav__browse-grid">
+        {
+          navSections.map((section) => (
+            <div class="nav__browse-group">
+              <p class="nav__browse-group-title">{section.heading}</p>
+              <p class="nav__browse-group-desc">{section.description}</p>
+              <ul class="nav__browse-links">
+                {section.links.map((link) => (
+                  <li>
+                    <a
+                      class="nav__browse-link"
+                      href={link.href}
+                      aria-current={getAriaCurrent(
+                        link.href,
+                        currentPath,
+                        currentHash,
+                      )}
+                    >
+                      <span class="nav__browse-link-title">{link.label}</span>
+                      {link.description && (
+                        <span class="nav__browse-link-desc">
+                          {link.description}
+                        </span>
+                      )}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </details>
+
+  <div class="nav__actions-desktop">
+    <a
+      href="/start"
+      class:list={["nav__start-btn", { "nav__start-btn--active": isStart }]}
+      aria-current={isStart ? "page" : undefined}
+    >
+      <span>Start here</span>
+    </a>
+
+    <div class="nav__search-desktop">
+      <Search scope="desktop" label="Search" shortcut="⌘K" />
+    </div>
+
     <button
       class="theme-toggle"
       data-theme-toggle
       aria-label="Toggle theme"
       type="button"
     >
-      <Icon name="lucide:sun" class="theme-toggle__icon theme-toggle__icon--sun" />
-      <Icon name="lucide:moon" class="theme-toggle__icon theme-toggle__icon--moon" />
+      <Icon
+        name="lucide:sun"
+        class="theme-toggle__icon theme-toggle__icon--sun"
+      />
+      <Icon
+        name="lucide:moon"
+        class="theme-toggle__icon theme-toggle__icon--moon"
+      />
     </button>
   </div>
 </div>

@@ -5,8 +5,7 @@ import SectionBlock from "../../components/SectionBlock.astro";
 
 const pageTitle = "Reference API & ontology";
 const pageDescription =
-  "Canonical objects and a read-only API plan for consuming Ethotechnics standards in tools and audits.";
-const permalink = "/api";
+  "Data objects, JSON schemas, OpenAPI and AsyncAPI specs, and read-only JSON endpoints for Ethotechnics standards, clauses, and mechanisms.";
 const anchorLinks = [
   { href: "#objects", label: "Canonical objects" },
   { href: "#interoperability", label: "Interoperability specs" },
@@ -23,39 +22,47 @@ const canonicalObjects = [
   },
   {
     name: "Clause",
-    description: "Atomic right requirement with a stable clause ID (e.g., \u00a73.2).",
+    description:
+      "Atomic right requirement with a stable clause ID (e.g., \u00a73.2).",
   },
   {
     name: "Mechanism",
-    description: "Reusable enforcement spec with tags, artifacts, and implementation notes.",
+    description:
+      "Reusable enforcement spec with tags, artifacts, and implementation notes.",
   },
   {
     name: "Validator",
-    description: "Diagnostic definition with inputs, thresholds, and output schema.",
+    description:
+      "Diagnostic definition with inputs, thresholds, and output schema.",
   },
   {
     name: "Finding",
-    description: "Canonical diagnostic artifact linking gaps to clauses and fixes.",
+    description:
+      "Canonical diagnostic artifact linking gaps to clauses and fixes.",
   },
   {
     name: "Diagnostic result",
-    description: "Generated report card, risk statement, and remediation recommendations.",
+    description:
+      "Generated report card, risk statement, and remediation recommendations.",
   },
   {
     name: "Evidence pack",
-    description: "Minimum evidence bundles required to verify clause compliance.",
+    description: "The evidence a clause asks a system to be able to show.",
   },
   {
     name: "Crosswalk control",
-    description: "Control-level mapping across EU AI Act, NIST AI RMF, and ISO/IEC 42001.",
+    description:
+      "Control-level mapping across EU AI Act, NIST AI RMF, and ISO/IEC 42001.",
   },
   {
     name: "Post-market stage",
-    description: "Operational incident reporting stages with expected outcomes and references.",
+    description:
+      "Operational incident reporting stages with expected outcomes and references.",
   },
   {
     name: "Anti-pattern",
-    description: "Negative examples that look compliant but fail the clause intent.",
+    description:
+      "Negative examples that look compliant but fail the clause intent.",
   },
   {
     name: "Diagram",
@@ -64,7 +71,73 @@ const canonicalObjects = [
   {
     name: "Agent safety object model",
     description:
-      "Machine-readable profile for autonomy level, action classes, override authority, and receipts.",
+      "Machine-readable profile for autonomy level, action classes, and receipts; 2.0.0 points each action class at its authority grant.",
+  },
+  {
+    name: "Capability catalog",
+    description:
+      "What a grantee can discover it could do. Confers no authority and contains no permission fields.",
+  },
+  {
+    name: "Authority grant",
+    description:
+      "A lease on consequential action: scope, evidence basis, state (allowed, review_required, suspended, revoked), and state history.",
+  },
+  {
+    name: "Policy record",
+    description:
+      "Versioned evidence behind a grant, with assumptions, review triggers, expiry, and status.",
+  },
+  {
+    name: "Dependency record",
+    description:
+      "How hard withdrawal or substitution has become: dependents, reversibility at three levels, preserved capacities, and exposure score.",
+  },
+  {
+    name: "Standing register and challenge",
+    description:
+      "Who may challenge which decision classes, with what evidence and procedural force; a challenge is one exercise of that standing.",
+  },
+  {
+    name: "Intervention spec and reconsideration",
+    description:
+      "What a human can see, prevent, and alter (replacing 'human in the loop'), and the record of an observation changing state.",
+  },
+  {
+    name: "Substrate profile",
+    description:
+      "Nine-property classification of a deployment that replaces open-versus-closed.",
+  },
+];
+
+const delegationSchemas = [
+  {
+    href: "/standards/capability-catalog.schema.json",
+    label: "Capability catalog",
+  },
+  { href: "/standards/authority-grant.schema.json", label: "Authority grant" },
+  { href: "/standards/policy-record.schema.json", label: "Policy record" },
+  {
+    href: "/standards/dependency-record.schema.json",
+    label: "Dependency record",
+  },
+  {
+    href: "/standards/standing-register.schema.json",
+    label: "Standing register",
+  },
+  { href: "/standards/challenge.schema.json", label: "Challenge" },
+  {
+    href: "/standards/intervention-spec.schema.json",
+    label: "Intervention spec",
+  },
+  { href: "/standards/reconsideration.schema.json", label: "Reconsideration" },
+  {
+    href: "/standards/substrate-profile.schema.json",
+    label: "Substrate profile",
+  },
+  {
+    href: "/standards/agent-safety-object-model.schema.json",
+    label: "Agent safety object model 2.0.0",
   },
 ];
 
@@ -73,20 +146,20 @@ const interoperabilitySpecs = [
     name: "Control plane OpenAPI",
     href: "/standards/ethotechnics-control-plane.openapi.yaml",
     description:
-      "Decision retrieval and appeal intake endpoints aligned to the agent receipt schema.",
+      "Decision retrieval, appeal intake, and (0.3.0) capability, grant, policy, dependency, standing, challenge, and reconsideration endpoints.",
   },
   {
     name: "Events AsyncAPI",
     href: "/standards/ethotechnics-events.asyncapi.yaml",
     description:
-      "Deadline and repair log events for clocked governance and remediation workflows.",
+      "Deadline and repair log events, plus (0.3.0) grant, policy, dependency, challenge, and reconsideration state events.",
   },
 ];
 
 const endpoints = [
   {
     path: "/api/agent-index.json",
-    description: "Quick-start index for agent discovery and tooling.",
+    description: "Index for agent discovery and tooling.",
   },
   {
     path: "/api/site-index.json",
@@ -98,7 +171,8 @@ const endpoints = [
   },
   {
     path: "/api/clauses.json",
-    description: "Clause-level obligations with evidence requirements and mappings.",
+    description:
+      "Clause-level obligations with evidence requirements and mappings.",
   },
   {
     path: "/api/mechanisms.json",
@@ -106,7 +180,8 @@ const endpoints = [
   },
   {
     path: "/api/validators.json",
-    description: "Validator definitions with inputs, thresholds, and clause mappings.",
+    description:
+      "Validator definitions with inputs, thresholds, and clause mappings.",
   },
   {
     path: "/api/anti-patterns.json",
@@ -118,11 +193,13 @@ const endpoints = [
   },
   {
     path: "/api/crosswalks.json",
-    description: "Control crosswalks with framework mappings and evidence artifacts.",
+    description:
+      "Control crosswalks with framework mappings and evidence artifacts.",
   },
   {
     path: "/api/post-market-monitoring.json",
-    description: "Post-market monitoring and incident reporting workflow stages.",
+    description:
+      "Post-market monitoring and incident reporting workflow stages.",
   },
   {
     path: "/api/findings.json",
@@ -135,7 +212,7 @@ const endpoints = [
   {
     path: "/api/rag-corpus.jsonl?limit=200",
     description:
-      "JSONL corpus for retrieval pipelines (add a limit query param for previews).",
+      "JSONL corpus for retrieval pipelines. Every document carries a layer field: theory, method, or instrument. Add a limit query param for previews.",
   },
   {
     path: "/api/glossary.json",
@@ -150,25 +227,53 @@ const endpoints = [
     description: "Versioned release index for stable citations.",
   },
   {
-    path: "/api/v/2026.01/",
-    description: "Versioned snapshot endpoints for reproducible analysis.",
+    path: "/api/capabilities.json",
+    description:
+      "Example capability catalog: what the worked-example agent can reach, with no permission fields.",
+  },
+  {
+    path: "/api/grants.json",
+    description:
+      "Example authority grant with scope, evidence basis, and state history including a narrowing.",
+  },
+  {
+    path: "/api/policies.json",
+    description: "Example policy record with review triggers and expiry.",
+  },
+  {
+    path: "/api/dependencies.json",
+    description:
+      "Example dependency record with three-level reversibility and exposure score.",
+  },
+  {
+    path: "/api/standing.json",
+    description:
+      "Example standing register with its challenge and the reconsideration it triggered.",
+  },
+  {
+    path: "/api/interventions.json",
+    description:
+      "Example intervention spec: what the steward can see, prevent, and alter.",
+  },
+  {
+    path: "/api/substrate-profiles.json",
+    description:
+      "Example substrate profile with the 2.0.0 agent safety object model attached.",
   },
 ];
 ---
 
-<BaseLayout title={`${pageTitle} — Ethotechnics`} description={pageDescription} mainClass="page page--wide" structuredDataType="collection">
+<BaseLayout
+  title={`${pageTitle} — Ethotechnics`}
+  description={pageDescription}
+  mainClass="page page--wide"
+  structuredDataType="collection"
+>
   <PageIntro
     eyebrow="Reference API"
     title={pageTitle}
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={anchorLinks}
-    panelCopy={{
-      eyebrow: "Machine-readable",
-      title: "Plan for programmatic access.",
-      description:
-        "The goal is a stable object model that tools can cite, cache, and validate against.",
-    }}
   />
 
   <SectionBlock
@@ -178,11 +283,13 @@ const endpoints = [
     description="Use these names in integrations and audit tooling."
   >
     <ul class="muted">
-      {canonicalObjects.map((object) => (
-        <li>
-          <strong>{object.name}:</strong> {object.description}
-        </li>
-      ))}
+      {
+        canonicalObjects.map((object) => (
+          <li>
+            <strong>{object.name}:</strong> {object.description}
+          </li>
+        ))
+      }
     </ul>
   </SectionBlock>
 
@@ -190,15 +297,17 @@ const endpoints = [
     id="interoperability"
     eyebrow="Interoperability specs"
     title="Draft contracts for decision and repair workflows."
-    description="Use these specs to wire decisions, appeals, and clock events into tooling."
+    description="Specs that wire decisions, appeals, and clock events into tooling."
   >
     <ul class="muted">
-      {interoperabilitySpecs.map((spec) => (
-        <li>
-          <strong>{spec.name}:</strong>{" "}
-          <a href={spec.href}>{spec.href}</a> — {spec.description}
-        </li>
-      ))}
+      {
+        interoperabilitySpecs.map((spec) => (
+          <li>
+            <strong>{spec.name}:</strong> <a href={spec.href}>{spec.href}</a> —{" "}
+            {spec.description}
+          </li>
+        ))
+      }
     </ul>
     <div>
       <p class="eyebrow">FHIR resources</p>
@@ -207,10 +316,14 @@ const endpoints = [
         <li>
           <strong>Target:</strong> healthcare payers, providers, regulators.
         </li>
-        <li>If you care about healthcare, this is non-optional.</li>
         <li>
-          <strong>Why:</strong> FHIR is the only sanctioned exchange substrate in
-          U.S. health. TEFCA rides on top of it.
+          <strong>Why:</strong> CMS-0057-F requires Medicare Advantage, Medicaid,
+          and CHIP payers to support FHIR APIs for prior authorization by January
+          2027, so denials and appeals already travel as FHIR.
+        </li>
+        <li>
+          <strong>Status:</strong> the profile set here, STD-04, is deprecated. STD-05
+          carries the same records as W3C Verifiable Credentials.
         </li>
         <li>
           <strong>What to ship:</strong> custom FHIR profiles for:
@@ -231,9 +344,23 @@ const endpoints = [
       </li>
       <li>Appeal submission: <code>POST /api/appeals</code></li>
       <li>
+        Grant lease and transitions: <code>GET /api/grants/{`{grant_id}`}</code
+        >,{" "}
+        <code>POST /api/grants/{`{grant_id}`}/state</code>
+      </li>
+      <li>
+        Standing and reconsideration: <code>GET /api/standing</code>,{" "}
+        <code>POST /api/challenges</code>,{" "}
+        <code>POST /api/reconsiderations</code>
+      </li>
+      <li>
         Events: <code>decision.deadline.reminder</code>,{" "}
         <code>appeal.deadline.breached</code>,{" "}
-        <code>repair.log.updated</code>
+        <code>repair.log.updated</code>, <code>grant.state.changed</code>,{" "}
+        <code>policy.review.triggered</code>,{" "}
+        <code>dependency.threshold.crossed</code>,{" "}
+        <code>challenge.opened</code>,{" "}
+        <code>reconsideration.completed</code>
       </li>
     </ul>
   </SectionBlock>
@@ -260,33 +387,75 @@ const endpoints = [
         Receipt and remedy schemas:
         <ul>
           <li>
-            <a href="/standards/agent-receipt-schema.json">/standards/agent-receipt-schema.json</a>
+            <a href="/standards/agent-receipt-schema.json"
+              >/standards/agent-receipt-schema.json</a
+            >
           </li>
           <li>
-            <a href="/standards/decision-record.schema.json">/standards/decision-record.schema.json</a>
+            <a href="/standards/decision-record.schema.json"
+              >/standards/decision-record.schema.json</a
+            >
           </li>
           <li>
-            <a href="/standards/appeal-event.schema.json">/standards/appeal-event.schema.json</a>
+            <a href="/standards/appeal-event.schema.json"
+              >/standards/appeal-event.schema.json</a
+            >
           </li>
           <li>
-            <a href="/standards/pause-reversal.schema.json">/standards/pause-reversal.schema.json</a>
+            <a href="/standards/pause-reversal.schema.json"
+              >/standards/pause-reversal.schema.json</a
+            >
           </li>
           <li>
-            <a href="/standards/burden-hours.schema.json">/standards/burden-hours.schema.json</a>
+            <a href="/standards/burden-hours.schema.json"
+              >/standards/burden-hours.schema.json</a
+            >
           </li>
           <li>
-            <a href="/standards/repair-sla.schema.json">/standards/repair-sla.schema.json</a>
+            <a href="/standards/repair-sla.schema.json"
+              >/standards/repair-sla.schema.json</a
+            >
+          </li>
+          <li>
+            <a href="/api/schema/revisable-delegation-record.schema.json"
+              >/api/schema/revisable-delegation-record.schema.json</a
+            >
+            (STD-07)
           </li>
         </ul>
       </li>
     </ul>
+    <div>
+      <p class="eyebrow">Delegation state</p>
+      <h3>Object model v2 schemas</h3>
+      <p class="muted">
+        One JSON Schema per state variable (capability, authority, evidence,
+        dependency, standing, correction), each with a validating example under
+        <code>/standards/examples/</code> that together describe one delegation scenario.
+        The 1.1.0 instance at
+        <a href="/standards/agent-safety-object-model.json"
+          >/standards/agent-safety-object-model.json</a
+        >
+        stays served unchanged.
+      </p>
+      <ul class="muted">
+        {
+          delegationSchemas.map((schema) => (
+            <li>
+              <strong>{schema.label}:</strong>{" "}
+              <a href={schema.href}>{schema.href}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
   </SectionBlock>
 
   <SectionBlock
     id="endpoints"
     eyebrow="Read-only endpoints"
     title="Current machine-readable exports."
-    description="These endpoints are stable exports for tooling, audits, and archival use."
+    description="Stable exports for tooling, audits, and archival use."
     variant="alt"
   >
     <div class="mapping-table__wrapper">
@@ -298,14 +467,16 @@ const endpoints = [
           </tr>
         </thead>
         <tbody>
-          {endpoints.map((endpoint) => (
-            <tr>
-              <td>
-                <a href={endpoint.path}>{endpoint.path}</a>
-              </td>
-              <td>{endpoint.description}</td>
-            </tr>
-          ))}
+          {
+            endpoints.map((endpoint) => (
+              <tr>
+                <td>
+                  <a href={endpoint.path}>{endpoint.path}</a>
+                </td>
+                <td>{endpoint.description}</td>
+              </tr>
+            ))
+          }
         </tbody>
       </table>
     </div>
@@ -320,8 +491,10 @@ const endpoints = [
     <ul class="muted">
       <li>Semantic versioning for standards, mechanisms, and validators.</li>
       <li>Immutable permalinks for citations in contracts and audit logs.</li>
-      <li>Changelogs that describe material changes to rights or thresholds.</li>
-      <li>Snapshot endpoints under /api/v/ to pin analyses in time.</li>
+      <li>
+        Changelogs that describe material changes to rights or thresholds.
+      </li>
+      <li>Release index and schema hashes under /api/releases.json.</li>
     </ul>
   </SectionBlock>
 

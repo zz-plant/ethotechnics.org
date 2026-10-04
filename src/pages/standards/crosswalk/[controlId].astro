@@ -1,6 +1,4 @@
 ---
-import type { GetStaticPaths } from "astro";
-
 import PageIntro from "../../../components/PageIntro.astro";
 import CitationBlock from "../../../components/CitationBlock.astro";
 import SectionBlock from "../../../components/SectionBlock.astro";
@@ -13,18 +11,16 @@ type FrameworkMatch = {
   citation: string;
 };
 
-export const prerender = true;
-
-export const getStaticPaths = (() =>
-  governanceCrosswalks.map((control) => ({
-    params: { controlId: control.controlId.toLowerCase() },
-    props: { control },
-  }))) satisfies GetStaticPaths;
-
-const { control } = Astro.props;
+// Server-rendered like the other detail routes: prerendering under the
+// Cloudflare adapter writes "[object Object]" in place of the page
+// (docs/planning/prerender-finding-2026-09.md).
+const control = governanceCrosswalks.find(
+  (candidate) =>
+    candidate.controlId.toLowerCase() === Astro.params.controlId?.toLowerCase(),
+);
 
 if (!control) {
-  throw new Error("Crosswalk control data is required for this route.");
+  return new Response("Crosswalk control not found", { status: 404 });
 }
 
 const frameworks: FrameworkMatch[] = [
@@ -34,7 +30,8 @@ const frameworks: FrameworkMatch[] = [
 ];
 
 const pageTitle = `${control.controlId} crosswalk brief`;
-const pageDescription = `${control.controlId} maps one enforceable obligation to EU AI Act, NIST AI RMF, and ISO/IEC 42001 references, plus evidence artifacts and operational surface.`;
+const seoTitle = `${control.controlId} crosswalk: ${control.topic}`;
+const pageDescription = control.metaDescription;
 const permalink = `/standards/crosswalk/${control.controlId.toLowerCase()}`;
 
 const publication = derivePublicationMetadata({
@@ -44,7 +41,7 @@ const publication = derivePublicationMetadata({
 ---
 
 <BaseLayout
-  title={`${pageTitle} — Standards`}
+  title={seoTitle}
   description={pageDescription}
   publishedTime="2025-06-01T00:00:00.000Z"
   structuredDataType="tech-article"
@@ -53,7 +50,10 @@ const publication = derivePublicationMetadata({
     { name: "Standards", url: new URL("/standards", Astro.url).toString() },
     {
       name: "Framework map for buyers and auditors",
-      url: new URL("/standards/enforceable-governance-crosswalks", Astro.url).toString(),
+      url: new URL(
+        "/standards/enforceable-governance-crosswalks",
+        Astro.url,
+      ).toString(),
     },
     { name: control.controlId, url: Astro.url.toString() },
   ]}
@@ -62,22 +62,14 @@ const publication = derivePublicationMetadata({
     eyebrow="Crosswalk control"
     title={`${control.controlId} implementation brief`}
     description={control.obligation}
-    permalink={permalink}
     anchorLinks={[
       { href: "#framework-mapping", label: "Framework mapping" },
       { href: "#evidence", label: "Evidence artifacts" },
-      { href: "#operational-surface", label: "Operational surface" },
-    ]}
-    panelCopy={{
-      eyebrow: "Use in procurement and audits",
-      title: "One control, cross-framework evidence.",
-      description:
-        "Use this brief as a procurement insert, audit prep checklist, or implementation handoff for control ownership.",
-      link: {
-        label: "Back to full crosswalk",
-        href: "/standards/enforceable-governance-crosswalks",
+      {
+        href: "#operational-surface",
+        label: "Where it shows up in operations",
       },
-    }}
+    ]}
   />
 
   <SectionBlock
@@ -122,11 +114,15 @@ const publication = derivePublicationMetadata({
 
   <SectionBlock
     id="operational-surface"
-    eyebrow="Operational surface"
+    eyebrow="Where it shows up in operations"
     title="Where this control should live in the system"
-    description="Use this surface as the owner-visible control point for day-to-day operations and incident response."
+    description="The owner-visible control point for day-to-day operations and incident response."
   >
     <p>{control.operationalSurface}</p>
   </SectionBlock>
-  <CitationBlock title={pageTitle} permalink={permalink} publication={publication} />
+  <CitationBlock
+    title={pageTitle}
+    permalink={permalink}
+    publication={publication}
+  />
 </BaseLayout>

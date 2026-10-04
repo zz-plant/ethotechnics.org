@@ -1,0 +1,651 @@
+---
+import "../../styles/components/diagnostics.css";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
+import DiagnosticMethodology from "../../components/DiagnosticMethodology.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import ReferenceCallout from "../../components/ReferenceCallout.astro";
+import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import { diagnosticsStudioOffRampCallout } from "../../content/callouts";
+import { diagnosticsContent } from "../../content/diagnostics";
+
+const tool = diagnosticsContent.tools.find(
+  (entry) => entry.slug === "corrective-debt-calculator",
+);
+
+if (!tool) {
+  return new Response("Diagnostic not found", {
+    status: 404,
+  });
+}
+
+const { publication } = diagnosticsContent;
+const pageTitle = `${tool.title} — Diagnostics`;
+const pageDescription = tool.metaDescription ?? tool.description;
+const permalink = `/diagnostics/${tool.slug}`;
+const anchorLinks = [
+  { href: "#overview", label: "Overview" },
+  { href: "#methodology", label: "Methodology" },
+  { href: "#run-tool", label: "Run the tool" },
+  { href: "#results", label: "Results" },
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2026-09-18T00:00:00.000Z"
+  mainClass="page page--wide"
+>
+  <PageIntro
+    eyebrow="Diagnostics"
+    title={tool.title}
+    description={tool.description}
+    anchorLinks={anchorLinks}
+  />
+
+  <SectionBlock
+    id="overview"
+    eyebrow="Overview"
+    title="When to use the corrective capacity self-assessment"
+    description={tool.bestFor}
+  >
+    <ul class="muted">
+      {tool.prepChecklist.map((item) => <li>{item}</li>)}
+    </ul>
+    <p class="muted">Estimated time: {tool.estimatedTime}</p>
+    <ReferenceCallout
+      title={diagnosticsStudioOffRampCallout.title}
+      summary={diagnosticsStudioOffRampCallout.summary}
+      href={diagnosticsStudioOffRampCallout.href}
+      linkLabel={diagnosticsStudioOffRampCallout.linkLabel}
+      ariaLabel={diagnosticsStudioOffRampCallout.ariaLabel}
+    />
+    {tool.studioNote && <p class="muted small">{tool.studioNote}</p>}
+  </SectionBlock>
+
+  <SectionBlock
+    id="methodology"
+    eyebrow="Methodology"
+    title="What the system can do, and what can be corrected"
+    description="The tool asks about two things separately. Action capacity is how fast the system's power to decide about people is growing. Corrective capacity is how well the institution hears and fixes its mistakes. The gap between them is the corrective debt."
+    variant="alt"
+  >
+    <DiagnosticMethodology
+      methodCards={tool.methodCards}
+      methodOverview={tool.methodOverview}
+      instrument={tool.instrument}
+      validation={tool.validation}
+      collectionCost={tool.collectionCost}
+      replicability={tool.replicability}
+    />
+    <div class="panel stack-sm">
+      <p class="eyebrow">The presumption this tool applies</p>
+      <p>
+        A recurring workaround is a <strong
+          >presumption of upstream design failure</strong
+        >, not evidence that adaptable humans can handle the edge cases. The
+        presumption is rebuttable: show that the workaround is a product of
+        preference rather than compensation. Until it is rebutted, repeated
+        adaptation counts as people covering for a system that will not change.
+      </p>
+      <p class="muted small">
+        Related:
+        <a href="/glossary/workaround-presumption">Workaround presumption</a> ·
+        <a href="/glossary/corrective-debt">Corrective debt</a> ·
+        <a href="/glossary/exception-absorption">Exception absorption</a> ·
+        <a href="/glossary/preserved-dependence">Preserved dependence</a>
+      </p>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="run-tool"
+    eyebrow="Run the tool"
+    title="Answer for the last twelve months"
+    description="Five questions: how fast the system's reach grew, and four on whether the institution hears from people when the system is wrong, and acts on it."
+  >
+    <form class="intake-form" data-debt-form>
+      <fieldset class="intake-form__grid">
+        <label class="intake-form__field">
+          Growth in what the system decides
+          <select id="growth" name="growth" required>
+            <option value="compounding">
+              Compounding — decisions automated and dependence grew each month
+            </option>
+            <option value="steady">Steady — some growth, reviewed</option>
+            <option value="flat">Flat — no material growth</option>
+          </select>
+        </label>
+        <label class="intake-form__field">
+          Challenge intake
+          <select id="intake" name="intake" required>
+            <option value="none">No named route for challenges</option>
+            <option value="shared">Shared inbox or queue</option>
+            <option value="dedicated">Dedicated, resourced team</option>
+          </select>
+        </label>
+        <label class="intake-form__field">
+          Time to reverse a decision
+          <select id="reversal" name="reversal" required>
+            <option value="unbounded">Unknown or unbounded</option>
+            <option value="slow">Days to weeks</option>
+            <option value="fast">Same day</option>
+          </select>
+        </label>
+        <label class="intake-form__field">
+          Whether exceptions change the rules
+          <select id="revision" name="revision" required>
+            <option value="never">
+              Handled exceptions never change the rule that produced them
+            </option>
+            <option value="occasional">Occasionally change a rule</option>
+            <option value="regular">Regularly feed policy review</option>
+          </select>
+        </label>
+        <label class="intake-form__field">
+          Record of staff workarounds
+          <select id="workaround" name="workaround" required>
+            <option value="none">
+              Recurring workarounds are inventoried nowhere
+            </option>
+            <option value="informal">Known informally, not reviewed</option>
+            <option value="inventoried">Inventoried and investigated</option>
+          </select>
+        </label>
+      </fieldset>
+      <fieldset class="intake-form__grid">
+        <legend class="muted small">
+          Optional context. These answers are recorded and never change the
+          score.
+        </legend>
+        <label class="intake-form__field">
+          Authority over the conditions
+          <select id="authority" name="authority">
+            <option value="">Not stated</option>
+            <option value="management">
+              Management alone decides budget, staffing, and priorities for the
+              conditions that produce the workarounds
+            </option>
+            <option value="consulted">
+              Management decides after consulting the people who carry the work
+            </option>
+            <option value="shared">
+              Decisions are shared, and the people who carry the work have a
+              binding say
+            </option>
+          </select>
+        </label>
+        <label class="intake-form__field">
+          Decision on fixing the deficiency
+          <select id="fix" name="fix">
+            <option value="">Not stated</option>
+            <option value="kept">
+              The institution has priced a fix and chose to keep the workaround
+            </option>
+            <option value="unpriced">
+              The institution has not priced a fix
+            </option>
+            <option value="funded">A fix is funded</option>
+          </select>
+        </label>
+      </fieldset>
+      <div class="intake-form__actions">
+        <button class="button primary" type="submit" data-debt-submit>
+          Score my answers
+        </button>
+      </div>
+    </form>
+  </SectionBlock>
+
+  <SectionBlock
+    id="results"
+    eyebrow="Results"
+    title="Self-assessment readout."
+    description="These fixed-weight scores summarize your answers. They do not measure a capacity gap, forecast debt, or verify evidence."
+    variant="alt"
+  >
+    <div class="panel" data-debt-results hidden>
+      <p class="muted">Concern score, from your answers</p>
+      <p class="metric" data-debt-score>--</p>
+      <span class="status-pill status-pill--yellow" data-debt-tier
+        >Moderate</span
+      >
+      <p class="muted" data-debt-summary>
+        Answer the questions above to see your concern score.
+      </p>
+      <div class="metrics-grid">
+        <div>
+          <p class="muted">Reported growth in what the system decides</p>
+          <p class="metric" data-debt-trajectory>--</p>
+        </div>
+        <div>
+          <p class="muted">Workaround presumption</p>
+          <p class="metric" data-debt-presumption>--</p>
+        </div>
+      </div>
+      <div class="panel stack-sm" data-debt-context hidden>
+        <p class="eyebrow">Context, not scored</p>
+        <p data-debt-context-text></p>
+      </div>
+      <label class="intake-form__field intake-form__field--full">
+        Shareable link
+        <input
+          type="text"
+          readonly
+          data-debt-share
+          aria-label="Shareable results link"
+        />
+      </label>
+      <div class="intake-form__actions">
+        <button class="button ghost" type="button" data-debt-copy>
+          Copy share link
+        </button>
+      </div>
+    </div>
+  </SectionBlock>
+
+  <ScholarlyMeta publication={publication} permalink={permalink} />
+  <CitationBlock
+    title={tool.title}
+    permalink={permalink}
+    publication={publication}
+    citationKey={`diagnostic_${tool.slug}`}
+  />
+</BaseLayout>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("[data-debt-form]");
+  const results = document.querySelector<HTMLElement>("[data-debt-results]");
+  const scoreValue = document.querySelector<HTMLElement>("[data-debt-score]");
+  const tierLabel = document.querySelector<HTMLElement>("[data-debt-tier]");
+  const summaryText = document.querySelector<HTMLElement>(
+    "[data-debt-summary]",
+  );
+  const trajectoryValue = document.querySelector<HTMLElement>(
+    "[data-debt-trajectory]",
+  );
+  const presumptionValue = document.querySelector<HTMLElement>(
+    "[data-debt-presumption]",
+  );
+  const shareInput =
+    document.querySelector<HTMLInputElement>("[data-debt-share]");
+  const copyButton =
+    document.querySelector<HTMLButtonElement>("[data-debt-copy]");
+  const STORAGE_KEY = "corrective-debt-calculator";
+
+  type GrowthValue = "compounding" | "steady" | "flat";
+  type IntakeValue = "none" | "shared" | "dedicated";
+  type ReversalValue = "unbounded" | "slow" | "fast";
+  type RevisionValue = "never" | "occasional" | "regular";
+  type WorkaroundValue = "none" | "informal" | "inventoried";
+  type DebtValues = {
+    growth: GrowthValue;
+    intake: IntakeValue;
+    reversal: ReversalValue;
+    revision: RevisionValue;
+    workaround: WorkaroundValue;
+  };
+
+  const isGrowth = (value: string): value is GrowthValue =>
+    ["compounding", "steady", "flat"].includes(value);
+  const isIntake = (value: string): value is IntakeValue =>
+    ["none", "shared", "dedicated"].includes(value);
+  const isReversal = (value: string): value is ReversalValue =>
+    ["unbounded", "slow", "fast"].includes(value);
+  const isRevision = (value: string): value is RevisionValue =>
+    ["never", "occasional", "regular"].includes(value);
+  const isWorkaround = (value: string): value is WorkaroundValue =>
+    ["none", "informal", "inventoried"].includes(value);
+
+  type AuthorityValue = "management" | "consulted" | "shared";
+  type FixValue = "kept" | "unpriced" | "funded";
+  const isAuthority = (value: string): value is AuthorityValue =>
+    ["management", "consulted", "shared"].includes(value);
+  const isFix = (value: string): value is FixValue =>
+    ["kept", "unpriced", "funded"].includes(value);
+
+  const contextPanel = document.querySelector<HTMLElement>(
+    "[data-debt-context]",
+  );
+  const contextText = document.querySelector<HTMLElement>(
+    "[data-debt-context-text]",
+  );
+
+  /** Optional answers that are recorded and never enter the score. */
+  const readContext = (read: (name: string) => string) => {
+    const authority = read("authority");
+    const fix = read("fix");
+    return {
+      authority: isAuthority(authority) ? authority : undefined,
+      fix: isFix(fix) ? fix : undefined,
+    };
+  };
+
+  const contextSentence = (
+    authority: AuthorityValue | undefined,
+    fix: FixValue | undefined,
+  ) => {
+    const solePower = authority === "management" || authority === "consulted";
+    if (solePower && fix === "kept") {
+      return "These answers describe an institution that has priced a fix, chose to keep the workaround, and holds sole authority over changing it. That is a conflict of interest, not a gap in information. Measuring the workaround more closely will not change who decides. A binding say for the people who carry the work, or pressure from outside the institution, might.";
+    }
+    if (solePower) {
+      return "The people who carry the work have no binding say over the conditions that produce it. Understanding the workaround better will not change that. Check whether the institution knows the cost and has chosen to keep it.";
+    }
+    if (authority === "shared") {
+      return "The people who carry the work have a binding say over these conditions. The score above still applies to the corrective route it describes.";
+    }
+    if (fix === "kept") {
+      return "The institution has priced a fix and chose to keep the workaround. Authority over the decision was not stated.";
+    }
+    return "Authority over the conditions was not stated.";
+  };
+
+  const renderContext = (context: ReturnType<typeof readContext>) => {
+    if (!contextPanel || !contextText) return;
+    const stated = context.authority || context.fix;
+    contextPanel.hidden = !stated;
+    if (stated) {
+      contextText.textContent = contextSentence(context.authority, context.fix);
+    }
+  };
+
+  const RAW_MAX = 125;
+
+  const scoreMatrix = {
+    growth: {
+      compounding: 30,
+      steady: 18,
+      flat: 8,
+    },
+    intake: {
+      none: 30,
+      shared: 20,
+      dedicated: 8,
+    },
+    reversal: {
+      unbounded: 25,
+      slow: 15,
+      fast: 5,
+    },
+    revision: {
+      never: 25,
+      occasional: 15,
+      regular: 5,
+    },
+    workaround: {
+      none: 15,
+      informal: 10,
+      inventoried: 3,
+    },
+  };
+
+  const tierMap = [
+    {
+      label: "Critical",
+      min: 80,
+      status: "red",
+      summary:
+        "Your answers fall in the critical concern band. Action capacity compounds while the capacity to hear from people is unresourced. Halt expansion until challenge intake, reversal, and revision are funded.",
+    },
+    {
+      label: "High",
+      min: 60,
+      status: "red",
+      summary:
+        "Your answers fall in the high concern band. The institution is acting on people faster than it can hear from them. Fund challenge intake, reversal, and revision before the next expansion.",
+    },
+    {
+      label: "Moderate",
+      min: 40,
+      status: "yellow",
+      summary:
+        "Your answers fall in the moderate concern band. There are ways to correct the system, but they have not kept pace with its growth. Close the gaps your answers name.",
+    },
+    {
+      label: "Low",
+      min: 0,
+      status: "green",
+      summary:
+        "Your answers fall in the low concern band. You report resourced corrective capacity and regular revision; neither is independently verified. Keep tracking growth and correction side by side so a gap shows if it opens.",
+    },
+  ];
+
+  const trajectoryLabels: Record<GrowthValue, string> = {
+    compounding: "Compounding",
+    steady: "Steady",
+    flat: "Flat",
+  };
+
+  const presumptionLabels: Record<WorkaroundValue, string> = {
+    none: "Applies — unmeasured",
+    informal: "Applies — no register",
+    inventoried: "Rebuttable — register held",
+  };
+
+  const readField = (name: string) => {
+    const field = form?.elements.namedItem(name);
+    return field instanceof HTMLSelectElement ? field.value : "";
+  };
+
+  const clamp = (value: number, min: number, max: number) =>
+    Math.min(Math.max(value, min), max);
+
+  const getTier = (score: number) =>
+    tierMap.find((tier) => score >= tier.min) ?? tierMap[tierMap.length - 1];
+
+  const calculateScore = (values: DebtValues) => {
+    const raw =
+      scoreMatrix.growth[values.growth] +
+      scoreMatrix.intake[values.intake] +
+      scoreMatrix.reversal[values.reversal] +
+      scoreMatrix.revision[values.revision] +
+      scoreMatrix.workaround[values.workaround];
+    return Math.round((raw / RAW_MAX) * 100);
+  };
+
+  const setShareUrl = (values: DebtValues, score: number, tier: string) => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("growth", values.growth);
+    url.searchParams.set("intake", values.intake);
+    url.searchParams.set("reversal", values.reversal);
+    url.searchParams.set("revision", values.revision);
+    url.searchParams.set("workaround", values.workaround);
+    url.searchParams.set("score", String(score));
+    url.searchParams.set("tier", tier.toLowerCase());
+    const context = readContext((name) => readField(name));
+    for (const key of ["authority", "fix"] as const) {
+      const value = context[key];
+      if (value) url.searchParams.set(key, value);
+      else url.searchParams.delete(key);
+    }
+    history.replaceState(null, "", url.toString());
+    if (shareInput) {
+      shareInput.value = url.toString();
+    }
+  };
+
+  const saveDraft = () => {
+    if (!form || typeof sessionStorage === "undefined") return;
+    const data = new FormData(form);
+    const payload = Object.fromEntries(data.entries());
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+  };
+
+  const restoreDraft = () => {
+    if (!form || typeof sessionStorage === "undefined") return null;
+    const saved = sessionStorage.getItem(STORAGE_KEY);
+    if (!saved) return null;
+    try {
+      const parsed = JSON.parse(saved) as Partial<DebtValues>;
+      return parsed;
+    } catch (error) {
+      console.error("Unable to restore corrective debt draft", error);
+      return null;
+    }
+  };
+
+  const renderResults = (values: DebtValues, score: number) => {
+    if (
+      !results ||
+      !scoreValue ||
+      !tierLabel ||
+      !summaryText ||
+      !trajectoryValue ||
+      !presumptionValue
+    )
+      return;
+
+    const tier = getTier(score);
+    scoreValue.textContent = `${score} / 100`;
+    tierLabel.textContent = tier.label;
+    tierLabel.classList.remove(
+      "status-pill--green",
+      "status-pill--yellow",
+      "status-pill--red",
+    );
+    tierLabel.classList.add(`status-pill--${tier.status}`);
+    summaryText.textContent = tier.summary;
+    trajectoryValue.textContent = trajectoryLabels[values.growth];
+    presumptionValue.textContent = presumptionLabels[values.workaround];
+    results.hidden = false;
+    renderContext(readContext(readField));
+    setShareUrl(values, score, tier.label);
+  };
+
+  const applyParams = () => {
+    if (!form) return;
+    const params = new URLSearchParams(window.location.search);
+    const growth = params.get("growth") ?? "";
+    const intake = params.get("intake") ?? "";
+    const reversal = params.get("reversal") ?? "";
+    const revision = params.get("revision") ?? "";
+    const workaround = params.get("workaround") ?? "";
+
+    if (
+      isGrowth(growth) &&
+      isIntake(intake) &&
+      isReversal(reversal) &&
+      isRevision(revision) &&
+      isWorkaround(workaround)
+    ) {
+      const fields = [
+        ["growth", growth],
+        ["intake", intake],
+        ["reversal", reversal],
+        ["revision", revision],
+        ["workaround", workaround],
+      ] as const;
+      for (const [name, value] of fields) {
+        const field = form.elements.namedItem(name);
+        if (field instanceof HTMLSelectElement) field.value = value;
+      }
+      const context = readContext((name) => params.get(name) ?? "");
+      for (const [name, value] of Object.entries(context)) {
+        const field = form.elements.namedItem(name);
+        if (field instanceof HTMLSelectElement && value) field.value = value;
+      }
+      const values: DebtValues = {
+        growth,
+        intake,
+        reversal,
+        revision,
+        workaround,
+      };
+      renderResults(values, calculateScore(values));
+      return;
+    }
+
+    const stored = restoreDraft();
+    const storedValues = stored ?? undefined;
+    if (
+      storedValues?.growth &&
+      storedValues.intake &&
+      storedValues.reversal &&
+      storedValues.revision &&
+      storedValues.workaround &&
+      isGrowth(storedValues.growth) &&
+      isIntake(storedValues.intake) &&
+      isReversal(storedValues.reversal) &&
+      isRevision(storedValues.revision) &&
+      isWorkaround(storedValues.workaround)
+    ) {
+      const values: DebtValues = {
+        growth: storedValues.growth,
+        intake: storedValues.intake,
+        reversal: storedValues.reversal,
+        revision: storedValues.revision,
+        workaround: storedValues.workaround,
+      };
+      for (const [name, value] of Object.entries(values)) {
+        const field = form.elements.namedItem(name);
+        if (field instanceof HTMLSelectElement) field.value = value;
+      }
+      const storedRecord = storedValues as Record<string, string | undefined>;
+      const context = readContext((name) => storedRecord[name] ?? "");
+      for (const [name, value] of Object.entries(context)) {
+        const field = form.elements.namedItem(name);
+        if (field instanceof HTMLSelectElement && value) field.value = value;
+      }
+      renderResults(values, calculateScore(values));
+    }
+  };
+
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!form) return;
+
+    if (!form.reportValidity()) {
+      const firstInvalid = form.querySelector<HTMLElement>(":invalid");
+      firstInvalid?.focus();
+      return;
+    }
+    const data = new FormData(form);
+    const growth = String(data.get("growth") ?? "");
+    const intake = String(data.get("intake") ?? "");
+    const reversal = String(data.get("reversal") ?? "");
+    const revision = String(data.get("revision") ?? "");
+    const workaround = String(data.get("workaround") ?? "");
+
+    if (
+      isGrowth(growth) &&
+      isIntake(intake) &&
+      isReversal(reversal) &&
+      isRevision(revision) &&
+      isWorkaround(workaround)
+    ) {
+      const values: DebtValues = {
+        growth,
+        intake,
+        reversal,
+        revision,
+        workaround,
+      };
+      renderResults(values, calculateScore(values));
+      results?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
+
+  copyButton?.addEventListener("click", async () => {
+    if (!(shareInput instanceof HTMLInputElement)) return;
+    shareInput.select();
+    try {
+      await navigator.clipboard.writeText(shareInput.value);
+      const originalText = copyButton.textContent;
+      copyButton.textContent = "Copied!";
+      copyButton.setAttribute("aria-live", "polite");
+      setTimeout(() => {
+        copyButton.textContent = originalText;
+        copyButton.removeAttribute("aria-live");
+      }, 2500);
+    } catch {
+      // fall back to manual copy
+    }
+  });
+
+  applyParams();
+  form?.addEventListener("input", saveDraft);
+  form?.addEventListener("blur", saveDraft, true);
+</script>

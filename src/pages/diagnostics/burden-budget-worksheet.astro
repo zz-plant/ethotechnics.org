@@ -1,0 +1,694 @@
+---
+import "../../styles/components/intake-form.css";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const pageTitle = "Burden budget worksheet";
+const pageDescription =
+  "A one-page worksheet that records burden ceilings, the enforcement trigger that fires when one is exceeded, and the repair path with its owner.";
+const anchorLinks = [
+  { href: "#overview", label: "Overview" },
+  { href: "#downloads", label: "Template downloads" },
+  { href: "#generator", label: "Generator" },
+  { href: "#example", label: "Worked example" },
+  { href: "#faq", label: "FAQ" },
+  { href: "#changelog", label: "Changelog" },
+];
+
+const downloads = [
+  {
+    label: "PDF template",
+    detail: "Printable worksheet template.",
+    href: "/burden-budget/burden-budget-worksheet.pdf",
+  },
+  {
+    label: "Markdown",
+    detail: "Copy-ready template for repos and docs.",
+    href: "/burden-budget/burden-budget-worksheet.md",
+  },
+  {
+    label: "CSV",
+    detail: "Tabular worksheet for spreadsheets.",
+    href: "/burden-budget/burden-budget-worksheet.csv",
+  },
+  {
+    label: "JSON",
+    detail: "Machine-readable template aligned to the worksheet fields.",
+    href: "/burden-budget/burden-budget-worksheet.json",
+  },
+];
+
+const exampleSummary = [
+  "System action: Automated benefits eligibility decisioning.",
+  "Worst-case error: Denies eligible households for 21 days.",
+  "Harmed roles: Applicants, caretakers, frontline caseworkers.",
+  "Burden ceiling: 4 hours, $150, 7 days, ordinal 3+ thresholds.",
+  "Enforcement trigger: Auto-pause when delay exceeds 5 days.",
+  "Cost of governability: contestation staffing and discovery duty priced against the claimed saving; unfunded lines named.",
+];
+
+const faqItems = [
+  {
+    question: "What counts as burden?",
+    answer:
+      "Burden covers time, money, delay, risk exposure, humiliation, and cognitive load required to reverse, contest, or survive an error.",
+  },
+  {
+    question: "How should ceilings be set?",
+    answer:
+      "Set ceilings at the maximum cost a normal person should face before enforcement actions begin. Use ranges and document assumptions.",
+  },
+  {
+    question: "What if a field is unknown?",
+    answer:
+      "Leave it blank, note the gap in the assumptions field, and schedule the next review cadence to close it.",
+  },
+  {
+    question: "Is this a risk register?",
+    answer:
+      "No. A risk register scores the likelihood of internal loss. This records who pays when the system is wrong: affected parties in sections 4–9, and, since v1.1.0, the deployer's own governability costs in section 11, priced against the automation's claimed saving.",
+  },
+];
+
+const changelog = [
+  {
+    version: "v1.1.0",
+    date: "2026-09-11",
+    summary:
+      "Adds section 11, deployer-side cost of governability: contestation, reversal, discovery, and liability lines priced against the automation's claimed saving.",
+  },
+  {
+    version: "v0.1",
+    date: "2026-05-01",
+    summary: "Initial worksheet template, generator, and export bundle.",
+  },
+];
+---
+
+<BaseLayout
+  title={`${pageTitle} — Diagnostics`}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
+  <PageIntro
+    eyebrow="Binding artifact"
+    title={pageTitle}
+    description={pageDescription}
+    anchorLinks={anchorLinks}
+  />
+
+  <SectionBlock
+    id="overview"
+    eyebrow="Overview"
+    title="Make burden ceilings explicit."
+    description="Capture who is harmed, the burden they carry, and what enforcement must occur."
+  >
+    <div class="grid grid--two">
+      <div class="panel">
+        <p class="eyebrow">Purpose</p>
+        <ul class="muted">
+          <li>
+            Record burden in time, money, delay, risk, humiliation, and load.
+          </li>
+          <li>Set maximum acceptable burden before enforcement activates.</li>
+          <li>Define repair pathways with owners and review cadence.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">What this is not</p>
+        <ul class="muted">
+          <li>Not a general ethics framework or values statement.</li>
+          <li>Not a postmortem or internal risk register.</li>
+          <li>Not a compliance checklist or narrative summary.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="muted">
+      The worksheet is a single-page accounting object. Keep language factual
+      and avoid narrative framing.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="downloads"
+    eyebrow="Template downloads"
+    title="Download the worksheet template."
+    description="Exports are available without using the generator."
+    variant="alt"
+  >
+    <div class="grid grid--two">
+      {
+        downloads.map((download) => (
+          <article class="panel">
+            <h3>{download.label}</h3>
+            <p class="muted">{download.detail}</p>
+            <a class="button ghost" href={download.href}>
+              Download
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="generator"
+    eyebrow="Generator"
+    title="Create a worksheet and export it."
+    description="Fill the worksheet, then export to PDF, Markdown, CSV, or JSON."
+    className="diagnostic-tool__form"
+  >
+    <form class="intake-form" data-burden-form>
+      <fieldset class="intake-form__grid">
+        <label class="intake-form__field">
+          System name
+          <input type="text" name="system_name" data-field="system_name" />
+        </label>
+        <label class="intake-form__field">
+          System action
+          <input type="text" name="system_action" data-field="system_action" />
+        </label>
+        <label class="intake-form__field">
+          Worst-case error
+          <input
+            type="text"
+            name="worst_case_error"
+            data-field="worst_case_error"
+          />
+        </label>
+        <label class="intake-form__field intake-form__field--full">
+          Assumptions (global)
+          <textarea name="assumptions" rows="3" data-field="assumptions"
+          ></textarea>
+        </label>
+      </fieldset>
+
+      <div class="panel">
+        <p class="eyebrow">Harmed roles</p>
+        <div class="intake-form__grid" data-role-list></div>
+        <div class="intake-form__actions">
+          <button class="button ghost" type="button" data-add-role>
+            Add harmed role
+          </button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <p class="eyebrow">Burden estimates per role</p>
+        <div class="intake-form__grid" data-burden-list></div>
+        <div class="intake-form__actions">
+          <button class="button ghost" type="button" data-add-burden>
+            Add burden estimate
+          </button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <p class="eyebrow">Optional burden totals</p>
+        <div class="intake-form__grid" data-total-list></div>
+        <div class="intake-form__actions">
+          <button class="button ghost" type="button" data-add-total>
+            Add burden total
+          </button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <p class="eyebrow">Who absorbs the burden</p>
+        <div class="intake-form__grid" data-absorber-list></div>
+        <div class="intake-form__actions">
+          <button class="button ghost" type="button" data-add-absorber>
+            Add absorber mapping
+          </button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <p class="eyebrow">Burden ceiling</p>
+        <div class="intake-form__grid" data-ceiling-list></div>
+        <div class="intake-form__actions">
+          <button class="button ghost" type="button" data-add-ceiling>
+            Add ceiling threshold
+          </button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <p class="eyebrow">Enforcement trigger</p>
+        <div class="intake-form__grid" data-trigger-list></div>
+        <div class="intake-form__actions">
+          <button class="button ghost" type="button" data-add-trigger>
+            Add enforcement trigger
+          </button>
+        </div>
+      </div>
+
+      <fieldset class="intake-form__grid">
+        <label class="intake-form__field">
+          Repair entry points
+          <textarea name="repair_entry" rows="3" data-field="repair_entry"
+          ></textarea>
+        </label>
+        <label class="intake-form__field">
+          Required documents
+          <textarea
+            name="repair_documents"
+            rows="3"
+            data-field="repair_documents"></textarea>
+        </label>
+        <label class="intake-form__field">
+          Promised turnaround
+          <input type="text" name="repair_sla" data-field="repair_sla" />
+        </label>
+        <label class="intake-form__field">
+          Interim protections
+          <textarea name="repair_interim" rows="3" data-field="repair_interim"
+          ></textarea>
+        </label>
+      </fieldset>
+
+      <fieldset class="intake-form__grid">
+        <label class="intake-form__field">
+          Owner
+          <input type="text" name="owner" data-field="owner" />
+        </label>
+        <label class="intake-form__field">
+          Review cadence
+          <input
+            type="text"
+            name="review_cadence"
+            data-field="review_cadence"
+          />
+        </label>
+        <label class="intake-form__field">
+          Revision number
+          <input
+            type="text"
+            name="revision"
+            placeholder="1"
+            data-field="revision"
+          />
+        </label>
+        <label class="intake-form__field">
+          Worksheet version
+          <input
+            type="text"
+            name="version"
+            placeholder="1.1.0"
+            data-field="version"
+          />
+        </label>
+        <label class="intake-form__field intake-form__field--full">
+          Changelog entry
+          <textarea name="changelog" rows="2" data-field="changelog"></textarea>
+        </label>
+      </fieldset>
+
+      <div class="panel">
+        <p class="eyebrow">Deployer-side cost of governability</p>
+        <p class="muted">
+          The mirror of the burden sections: what the deploying institution pays
+          to hold the burden it would otherwise transfer.
+        </p>
+        <div class="intake-form__grid" data-cost-list></div>
+        <div class="intake-form__actions">
+          <button class="button ghost" type="button" data-add-cost>
+            Add cost line
+          </button>
+        </div>
+        <fieldset class="intake-form__grid">
+          <label class="intake-form__field intake-form__field--full">
+            Automation's claimed saving vs. the cost lines above
+            <textarea name="claimed_saving" rows="2" data-field="claimed_saving"
+            ></textarea>
+          </label>
+          <label class="intake-form__field intake-form__field--full">
+            Cost lines that, if unfunded, shift burden back to sections 4–6
+            <textarea name="unfunded_lines" rows="2" data-field="unfunded_lines"
+            ></textarea>
+          </label>
+        </fieldset>
+      </div>
+
+      <div class="panel">
+        <p class="eyebrow">Exports</p>
+        <p class="muted">
+          Data stays in your browser. Avoid pasting sensitive information.
+        </p>
+        <div class="intake-form__actions">
+          <button class="button primary" type="button" data-export="pdf">
+            Export PDF
+          </button>
+          <button class="button ghost" type="button" data-export="md">
+            Export Markdown
+          </button>
+          <button class="button ghost" type="button" data-export="csv">
+            Export CSV
+          </button>
+          <button class="button ghost" type="button" data-export="json">
+            Export JSON
+          </button>
+        </div>
+        <p class="muted" data-export-status aria-live="polite">
+          Complete the worksheet to generate exports.
+        </p>
+      </div>
+    </form>
+
+    <div class="panel" data-compare-panel>
+      <p class="eyebrow">Compare revisions</p>
+      <p class="muted">
+        Paste a previous JSON export to highlight changes against the current
+        worksheet fields.
+      </p>
+      <div class="intake-form__grid">
+        <label class="intake-form__field intake-form__field--full">
+          Previous worksheet JSON
+          <textarea
+            rows="6"
+            data-compare-input
+            placeholder='{"artifact_id":"...","system_name":"..."}'></textarea>
+        </label>
+      </div>
+      <div class="intake-form__actions">
+        <button class="button ghost" type="button" data-compare-button>
+          Compare
+        </button>
+      </div>
+      <div class="panel" data-compare-results hidden aria-live="polite">
+        <p class="muted">Detected changes</p>
+        <ul class="muted" data-compare-list></ul>
+      </div>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="example"
+    eyebrow="Worked example"
+    title="Hypothetical worksheet summary."
+    description="This example is fictional and provided for structure only."
+  >
+    <div class="panel">
+      <p class="eyebrow">Summary</p>
+      <ul class="muted">
+        {exampleSummary.map((line) => <li>{line}</li>)}
+      </ul>
+      <p class="muted">
+        Example library (hypothetical): benefits denial, identity verification
+        lockout, content moderation appeal, medical prior authorization.
+      </p>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="faq"
+    eyebrow="FAQ"
+    title="Common questions."
+    description="What the worksheet counts, how to set ceilings, and what it is not."
+    variant="alt"
+  >
+    <dl class="standard-definitions">
+      {
+        faqItems.map((item) => (
+          <div>
+            <dt>{item.question}</dt>
+            <dd>{item.answer}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </SectionBlock>
+
+  <SectionBlock
+    id="changelog"
+    eyebrow="Changelog"
+    title="Release notes."
+    description="Changes to the worksheet format, by version."
+  >
+    <div class="panel">
+      <ul class="muted">
+        {
+          changelog.map((entry) => (
+            <li>
+              <strong>{entry.version}</strong> — {entry.date}: {entry.summary}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </SectionBlock>
+
+  <template data-role-template>
+    <fieldset class="intake-form__grid" data-role-row>
+      <label class="intake-form__field">
+        Role label
+        <input type="text" data-field="role" />
+      </label>
+      <label class="intake-form__field">
+        Role description
+        <input type="text" data-field="description" />
+      </label>
+      <div class="intake-form__field">
+        <span class="visually-hidden">Remove</span>
+        <button class="button ghost" type="button" data-remove-row>
+          Remove
+        </button>
+      </div>
+    </fieldset>
+  </template>
+
+  <template data-burden-template>
+    <fieldset class="intake-form__grid" data-burden-row>
+      <label class="intake-form__field">
+        Role
+        <input type="text" data-field="role" />
+      </label>
+      <label class="intake-form__field">
+        Burden type
+        <select data-field="type">
+          <option value="">Select</option>
+          <option value="time">Time</option>
+          <option value="money">Money</option>
+          <option value="delay">Delay</option>
+          <option value="cognitive">Cognitive load</option>
+          <option value="humiliation">Humiliation</option>
+          <option value="risk">Risk exposure</option>
+        </select>
+      </label>
+      <label class="intake-form__field">
+        Min
+        <input type="text" data-field="min" />
+      </label>
+      <label class="intake-form__field">
+        Likely
+        <input type="text" data-field="likely" />
+      </label>
+      <label class="intake-form__field">
+        Max
+        <input type="text" data-field="max" />
+      </label>
+      <label class="intake-form__field">
+        Unit
+        <input type="text" data-field="unit" />
+      </label>
+      <label class="intake-form__field intake-form__field--full">
+        Assumptions
+        <input type="text" data-field="assumptions" />
+      </label>
+      <div class="intake-form__field">
+        <span class="visually-hidden">Remove</span>
+        <button class="button ghost" type="button" data-remove-row>
+          Remove
+        </button>
+      </div>
+    </fieldset>
+  </template>
+
+  <template data-total-template>
+    <fieldset class="intake-form__grid" data-total-row>
+      <label class="intake-form__field">
+        Role
+        <input type="text" data-field="role" />
+      </label>
+      <label class="intake-form__field">
+        Time (hours)
+        <input type="text" data-field="time" />
+      </label>
+      <label class="intake-form__field">
+        Money ($)
+        <input type="text" data-field="money" />
+      </label>
+      <label class="intake-form__field">
+        Delay (days)
+        <input type="text" data-field="delay" />
+      </label>
+      <label class="intake-form__field">
+        Cognitive load (1–5)
+        <input type="text" data-field="cognitive" />
+      </label>
+      <label class="intake-form__field">
+        Humiliation (1–5)
+        <input type="text" data-field="humiliation" />
+      </label>
+      <label class="intake-form__field">
+        Risk exposure (1–5)
+        <input type="text" data-field="risk" />
+      </label>
+      <label class="intake-form__field intake-form__field--full">
+        Risk rationale
+        <input type="text" data-field="rationale" />
+      </label>
+      <div class="intake-form__field">
+        <span class="visually-hidden">Remove</span>
+        <button class="button ghost" type="button" data-remove-row>
+          Remove
+        </button>
+      </div>
+    </fieldset>
+  </template>
+
+  <template data-absorber-template>
+    <fieldset class="intake-form__grid" data-absorber-row>
+      <label class="intake-form__field">
+        Role
+        <input type="text" data-field="role" />
+      </label>
+      <label class="intake-form__field">
+        Burden type
+        <select data-field="type">
+          <option value="">Select</option>
+          <option value="time">Time</option>
+          <option value="money">Money</option>
+          <option value="delay">Delay</option>
+          <option value="cognitive">Cognitive load</option>
+          <option value="humiliation">Humiliation</option>
+          <option value="risk">Risk exposure</option>
+        </select>
+      </label>
+      <label class="intake-form__field">
+        Absorber
+        <select data-field="absorber">
+          <option value="">Select</option>
+          <option value="user">User</option>
+          <option value="institution">Institution</option>
+          <option value="third-party">Third party</option>
+        </select>
+      </label>
+      <label class="intake-form__field intake-form__field--full">
+        Notes
+        <input type="text" data-field="notes" />
+      </label>
+      <div class="intake-form__field">
+        <span class="visually-hidden">Remove</span>
+        <button class="button ghost" type="button" data-remove-row>
+          Remove
+        </button>
+      </div>
+    </fieldset>
+  </template>
+
+  <template data-ceiling-template>
+    <fieldset class="intake-form__grid" data-ceiling-row>
+      <label class="intake-form__field">
+        Role
+        <input type="text" data-field="role" />
+      </label>
+      <label class="intake-form__field">
+        Burden type
+        <select data-field="type">
+          <option value="">Select</option>
+          <option value="time">Time</option>
+          <option value="money">Money</option>
+          <option value="delay">Delay</option>
+          <option value="cognitive">Cognitive load</option>
+          <option value="humiliation">Humiliation</option>
+          <option value="risk">Risk exposure</option>
+        </select>
+      </label>
+      <label class="intake-form__field">
+        Threshold
+        <input type="text" data-field="threshold" />
+      </label>
+      <label class="intake-form__field">
+        Unit
+        <input type="text" data-field="unit" />
+      </label>
+      <label class="intake-form__field intake-form__field--full">
+        Condition
+        <input type="text" data-field="condition" />
+      </label>
+      <div class="intake-form__field">
+        <span class="visually-hidden">Remove</span>
+        <button class="button ghost" type="button" data-remove-row>
+          Remove
+        </button>
+      </div>
+    </fieldset>
+  </template>
+
+  <template data-trigger-template>
+    <fieldset class="intake-form__grid" data-trigger-row>
+      <label class="intake-form__field">
+        Role
+        <input type="text" data-field="role" />
+      </label>
+      <label class="intake-form__field">
+        Threshold condition
+        <input type="text" data-field="threshold" />
+      </label>
+      <label class="intake-form__field">
+        Mandated action
+        <input type="text" data-field="action" />
+      </label>
+      <label class="intake-form__field">
+        Action owner
+        <input type="text" data-field="owner" />
+      </label>
+      <label class="intake-form__field">
+        Action timeframe
+        <input type="text" data-field="timeframe" />
+      </label>
+      <div class="intake-form__field">
+        <span class="visually-hidden">Remove</span>
+        <button class="button ghost" type="button" data-remove-row>
+          Remove
+        </button>
+      </div>
+    </fieldset>
+  </template>
+  <template data-cost-template>
+    <fieldset class="intake-form__grid" data-cost-row>
+      <label class="intake-form__field">
+        Cost line
+        <input type="text" data-field="line" />
+      </label>
+      <label class="intake-form__field">
+        Basis
+        <input type="text" data-field="basis" />
+      </label>
+      <label class="intake-form__field">
+        Estimate and unit
+        <input type="text" data-field="estimate" />
+      </label>
+      <label class="intake-form__field">
+        Measured or assumed
+        <select data-field="measured">
+          <option value="">Select</option>
+          <option value="measured">Measured</option>
+          <option value="assumed">Assumed</option>
+        </select>
+      </label>
+      <div class="intake-form__field">
+        <span class="visually-hidden">Remove</span>
+        <button class="button ghost" type="button" data-remove-row>
+          Remove
+        </button>
+      </div>
+    </fieldset>
+  </template>
+</BaseLayout>
+
+<script>
+  import "../../scripts/burden-budget-worksheet.ts";
+</script>

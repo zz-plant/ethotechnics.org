@@ -1,0 +1,192 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import { governanceContent } from "../../content/governance";
+import { readReviewWindow, todayIso } from "../../utils/review-window";
+
+const {
+  pageTitle,
+  pageDescription,
+  anchorLinks,
+  lifecycle,
+  rfcs,
+  decisions,
+  failureLog,
+  quarterlyUpdates,
+} = governanceContent;
+
+const openRfcStatuses = new Set(["proposal", "review", "decision"]);
+const today = todayIso();
+// RFC-2026-01 and RFC-2026-02 sat under "active review windows" for seven
+// months after their windows closed; the September 2026 update closed them.
+// The clock is in the data, so the page reads it rather than leaving the
+// reader to.
+const openRfcs = rfcs
+  .filter((entry) => openRfcStatuses.has(entry.status))
+  .map((entry) => ({
+    ...entry,
+    review: readReviewWindow(entry.reviewWindow, today),
+  }));
+const lapsedRfcs = openRfcs.filter((entry) => entry.review.lapsed).length;
+const rfcSectionDescription =
+  lapsedRfcs === 0
+    ? "Open RFCs show the status, owners, reviewer roles, and active review windows before decisions are logged."
+    : `Open RFCs show the status, owners, and reviewer roles before decisions are logged. ${lapsedRfcs} of ${openRfcs.length} have passed their stated review window without a decision being logged.`;
+
+// The page used to promise a quarterly cadence it did not keep. It reports
+// the date of the most recent update and leaves the reader to judge the gap,
+// which is the same test Law II applies to a grant: silence is not renewal.
+const latestGovernanceUpdate = [...quarterlyUpdates]
+  .map((entry) => entry.date)
+  .sort()
+  .at(-1);
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  structuredDataType="collection"
+  breadcrumbItems={[
+    { name: "Home", url: "/" },
+    { name: "About", url: "/about" },
+    { name: "Governance process", url: "/institute/governance" },
+  ]}
+>
+  <PageIntro
+    eyebrow="Governance"
+    title="Governance process"
+    description={pageDescription}
+    anchorLinks={anchorLinks}
+  />
+
+  <SectionBlock
+    id="lifecycle"
+    eyebrow="Process"
+    title="RFC lifecycle"
+    description="Every policy change passes four stages, and each leaves a record: the RFC, a dated review window, a logged decision, and a linked release."
+    className="section--banded"
+  >
+    <CardGrid>
+      {
+        lifecycle.map((step, index) => (
+          <CardItem
+            title={`${index + 1}. ${step.stage}`}
+            description={step.detail}
+          />
+        ))
+      }
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="open-rfcs"
+    eyebrow="Current work"
+    title="Current/open RFCs"
+    description={rfcSectionDescription}
+  >
+    <CardGrid>
+      {
+        openRfcs.map((rfc) => (
+          <CardItem
+            title={`${rfc.id}: ${rfc.title}`}
+            meta={`Status: ${rfc.status}`}
+            description={rfc.summary}
+          >
+            <p class="muted small">Opened: {rfc.openedOn}</p>
+            <p class="muted small">
+              Review window: {rfc.reviewWindow}
+              {rfc.review.lapsed && (
+                <strong>
+                  {" "}
+                  — closed {rfc.review.closesOn}, no decision logged
+                </strong>
+              )}
+            </p>
+            <p class="muted small">Owner: {rfc.owner}</p>
+            <p class="muted small">
+              {rfc.reviewerRoles.length > 0
+                ? `Reviewer roles: ${rfc.reviewerRoles.join(", ")}`
+                : "No outside reviewers recorded."}
+            </p>
+          </CardItem>
+        ))
+      }
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="decision-log"
+    eyebrow="Receipts"
+    title="Decision log"
+    description="Every decision includes date, accountable owner, rationale, and release linkage."
+    className="section--banded"
+  >
+    <CardGrid>
+      {
+        decisions.map((record) => (
+          <CardItem
+            title={`${record.id}: ${record.title}`}
+            meta={`${record.outcome} • ${record.date}`}
+            description={record.rationale}
+          >
+            <p class="muted small">Owner: {record.owner}</p>
+            <a slot="footer" href={record.releaseHref}>
+              Linked release: {record.releaseVersion}
+            </a>
+          </CardItem>
+        ))
+      }
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="failure-archive"
+    eyebrow="Failure archive"
+    title="Where this framework's own instruments failed"
+    description="The framework asks institutions to be changed by evidence of their own inadequacy. The same record is kept of the framework itself: what failed, when it was detected, and what changed because of it. An empty archive would mean the instruments had never been wrong, which is a claim no instrument earns."
+    className="section--banded"
+  >
+    <CardGrid>
+      {
+        failureLog.map((entry) => (
+          <CardItem
+            title={`${entry.id}: ${entry.title}`}
+            meta={`Detected ${entry.detected}`}
+            description={entry.detail}
+          >
+            <p class="muted small">
+              <strong>Changed because of it:</strong> {entry.revision}
+            </p>
+          </CardItem>
+        ))
+      }
+    </CardGrid>
+    <p class="muted small">
+      Reading institutions through their failure histories applies to the
+      framework too: the archive is part of the evidence, and{" "}
+      <a href="/participate">contestations of the framework</a> belong in it.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="governance-updates"
+    eyebrow="Update log"
+    title="Governance updates"
+    description={`Dated updates summarize what shipped in governance operations. The most recent was published ${latestGovernanceUpdate}.`}
+  >
+    <CardGrid>
+      {
+        quarterlyUpdates.map((entry) => (
+          <CardItem
+            title={entry.title}
+            meta={entry.date}
+            description={entry.summary}
+          />
+        ))
+      }
+    </CardGrid>
+  </SectionBlock>
+</BaseLayout>

@@ -10,6 +10,7 @@ Use this map before adding or editing docs so guidance stays easy to find and ma
 - [`local-development.md`](local-development.md): setup, scripts, and troubleshooting.
 - [`manual-qa.md`](manual-qa.md): manual browser checks for visual and interaction changes.
 - [`deployment.md`](deployment.md): deploy flow and post-deploy verification.
+- [`../CHANGELOG.md`](../CHANGELOG.md): dated version history and release notes.
 
 ### Agent contributors
 
@@ -23,23 +24,31 @@ Use this map before adding or editing docs so guidance stays easy to find and ma
 ### Architecture and implementation references
 
 - [`architecture.md`](architecture.md), [`specifications.md`](specifications.md), and
-  [`page-specifications.md`](page-specifications.md): routing and implementation expectations.
+  [`page-specifications.md`](page-specifications.md): routing, content layers, and implementation
+  expectations.
 - [`content-data.md`](content-data.md), [`bundles.md`](bundles.md),
   [`content-components.md`](content-components.md): data and content systems.
 - [`agent-metadata.md`](agent-metadata.md): public JSON-LD and machine-readable APIs.
+- [`ci-search-index.md`](ci-search-index.md): Pagefind index generation and the RAG corpus layer
+  field.
 
 ### QA, diagnostics, and performance
 
 - [`testing-todos.md`](testing-todos.md): coverage status and follow-up work.
 - [`performance-guardrails.md`](performance-guardrails.md): CWV budgets and Playwright checks.
 - [`cloudflare-playwright.md`](cloudflare-playwright.md): Playwright in Cloudflare builds.
-- [`diagnostics-outputs.md`](diagnostics-outputs.md) and
-  [`diagnostics-capacity-forecaster.md`](diagnostics-capacity-forecaster.md): diagnostics tooling.
+- [`diagnostics-outputs.md`](diagnostics-outputs.md): diagnostics tooling.
+- [`planning/pass-1-retirement-2026-09.md`](planning/pass-1-retirement-2026-09.md): retired tools and source archives.
 
 ### Planning and roadmap docs
 
+- [`planning/research-positioning-2026-09.md`](planning/research-positioning-2026-09.md): proposed
+  positioning, prior-work attribution, and research contribution changes.
+
 - [`planning/planning-and-audits.md`](planning/planning-and-audits.md): consolidated hub for roadmap, PRDs, UX
   audits, and long-range strategy tracks.
+- [`planning/reconstruction-plan-2026-09.md`](planning/reconstruction-plan-2026-09.md): the
+  delegated-intelligence rebuild, its layering decision, and the workstreams.
 
 ## Documentation standards
 

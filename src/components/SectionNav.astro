@@ -1,0 +1,37 @@
+---
+/**
+ * A section map that stays with the reader.
+ *
+ * Long pages here already list their sections in the intro, and then the
+ * intro scrolls away: on a thirty-screen page that is a map you can only read
+ * at the entrance. This is the same list, fixed under the site header, shown
+ * once the intro's own links have left the viewport, with the current section
+ * marked. Fixed rather than sticky so it can live inside the intro component
+ * and still follow the page.
+ */
+import type { AnchorLink } from "./PageIntro.astro";
+
+interface Props {
+  links: AnchorLink[];
+  label?: string;
+}
+
+const { links, label = "On this page" } = Astro.props;
+---
+
+<nav class="section-nav" aria-label={label} data-section-nav hidden>
+  <div class="section-nav__inner container">
+    <span class="section-nav__label">{label}</span>
+    <ul class="section-nav__list">
+      {
+        links.map((link) => (
+          <li>
+            <a href={link.href} data-section-link={link.href.replace(/^#/, "")}>
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</nav>

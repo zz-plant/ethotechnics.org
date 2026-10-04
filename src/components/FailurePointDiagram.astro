@@ -1,0 +1,246 @@
+---
+/**
+ * Failure Point Diagnostic Flow Diagram.
+ *
+ * Visualizes the Seven Questions of the Failure Point (Law VII),
+ * tracing the transition from an unrepresented model collision to a binding institutional correction.
+ */
+interface Props {
+  level?: "h3" | "h4";
+}
+
+const { level = "h4" }: Props = Astro.props;
+const Heading = level;
+---
+
+<figure class="state-diagram" aria-labelledby="failure-point-title">
+  <figcaption>
+    <p class="eyebrow">Law VII, drawn</p>
+    <Heading id="failure-point-title">
+      The Seven Questions of the Failure Point
+    </Heading>
+    <p class="muted">
+      The politics of a system are revealed by the rights it grants at the point
+      where formal representation fails.
+    </p>
+  </figcaption>
+
+  <div class="diagram-scroll">
+    <svg
+      viewBox="0 0 940 272"
+      role="img"
+      class="state-diagram__svg"
+      aria-label="Seven questions of the failure point: 1 Encounter, 2 Residual, 3 Visibility, 4 Instrument, 5 State Transition, 6 Compelled Correction, 7 Economic Incidence."
+    >
+      <defs>
+        <marker
+          id="fp-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--border)"></path>
+        </marker>
+        <marker
+          id="fp-arrow-accent"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)"></path>
+        </marker>
+      </defs>
+
+      {/* Connecting Path Top Row */}
+      <line
+        x1="218"
+        y1="64"
+        x2="246"
+        y2="64"
+        stroke="var(--border)"
+        stroke-width="2"
+        marker-end="url(#fp-arrow)"></line>
+      <line
+        x1="456"
+        y1="64"
+        x2="484"
+        y2="64"
+        stroke="var(--border)"
+        stroke-width="2"
+        marker-end="url(#fp-arrow)"></line>
+      <line
+        x1="694"
+        y1="64"
+        x2="722"
+        y2="64"
+        stroke="var(--border)"
+        stroke-width="2"
+        marker-end="url(#fp-arrow)"></line>
+
+      {/* Transition Path Down to Row 2 */}
+      <path
+        d="M 827 108 L 827 136 L 113 136 L 113 164"
+        stroke="var(--accent)"
+        stroke-width="2"
+        marker-end="url(#fp-arrow-accent)"
+        fill="none"></path>
+
+      {/* Connecting Path Bottom Row */}
+      <line
+        x1="218"
+        y1="208"
+        x2="246"
+        y2="208"
+        stroke="var(--border)"
+        stroke-width="2"
+        marker-end="url(#fp-arrow)"></line>
+      <line
+        x1="456"
+        y1="208"
+        x2="484"
+        y2="208"
+        stroke="var(--border)"
+        stroke-width="2"
+        marker-end="url(#fp-arrow)"></line>
+
+      {/* Q1: Encounter */}
+      <g class="state-diagram__node" transform="translate(8, 20)">
+        <rect width="210" height="88" rx="8"></rect>
+        <text x="105" y="28" text-anchor="middle" class="state-diagram__clause"
+          >1. The Encounter</text
+        >
+        <text x="105" y="50" text-anchor="middle" class="state-diagram__state"
+          >Model Collision</text
+        >
+        <text x="105" y="71" text-anchor="middle" class="state-diagram__label"
+          >What cannot be represented?</text
+        >
+      </g>
+
+      {/* Q2: Residual */}
+      <g
+        class="state-diagram__node state-diagram__node--active"
+        transform="translate(246, 20)"
+      >
+        <rect width="210" height="88" rx="8"></rect>
+        <text x="105" y="28" text-anchor="middle" class="state-diagram__clause"
+          >2. The Residual</text
+        >
+        <text
+          x="105"
+          y="50"
+          text-anchor="middle"
+          class="state-diagram__state"
+          fill="var(--accent-strong)">Burden Allocation</text
+        >
+        <text x="105" y="71" text-anchor="middle" class="state-diagram__label"
+          >Who absorbs the mismatch?</text
+        >
+      </g>
+
+      {/* Q3: Visibility */}
+      <g class="state-diagram__node" transform="translate(484, 20)">
+        <rect width="210" height="88" rx="8"></rect>
+        <text x="105" y="28" text-anchor="middle" class="state-diagram__clause"
+          >3. Visibility</text
+        >
+        <text x="105" y="50" text-anchor="middle" class="state-diagram__state"
+          >Audit vs Concealment</text
+        >
+        <text x="105" y="71" text-anchor="middle" class="state-diagram__label"
+          >Can the bearer see it?</text
+        >
+      </g>
+
+      {/* Q4: The Instrument */}
+      <g class="state-diagram__node" transform="translate(722, 20)">
+        <rect width="210" height="88" rx="8"></rect>
+        <text x="105" y="28" text-anchor="middle" class="state-diagram__clause"
+          >4. The Instrument</text
+        >
+        <text x="105" y="50" text-anchor="middle" class="state-diagram__state"
+          >Reachable Recourse</text
+        >
+        <text x="105" y="71" text-anchor="middle" class="state-diagram__label"
+          >Actionable challenge path?</text
+        >
+      </g>
+
+      {/* Q5: State Transition */}
+      <g class="state-diagram__node" transform="translate(8, 164)">
+        <rect width="210" height="88" rx="8"></rect>
+        <text x="105" y="28" text-anchor="middle" class="state-diagram__clause"
+          >5. State Transition</text
+        >
+        <text x="105" y="50" text-anchor="middle" class="state-diagram__state"
+          >Procedural Force</text
+        >
+        <text x="105" y="71" text-anchor="middle" class="state-diagram__label"
+          >Enters as event, not friction</text
+        >
+      </g>
+
+      {/* Q6: Compelled Correction */}
+      <g class="state-diagram__node" transform="translate(246, 164)">
+        <rect width="210" height="88" rx="8"></rect>
+        <text x="105" y="28" text-anchor="middle" class="state-diagram__clause"
+          >6. Compelled Correction</text
+        >
+        <text x="105" y="50" text-anchor="middle" class="state-diagram__state"
+          >Authority Review</text
+        >
+        <text x="105" y="71" text-anchor="middle" class="state-diagram__label"
+          >Can policy or grant change?</text
+        >
+      </g>
+
+      {/* Q7: Economic Incidence */}
+      <g
+        class="state-diagram__node state-diagram__node--active"
+        transform="translate(484, 164)"
+      >
+        <rect width="210" height="88" rx="8"></rect>
+        <text x="105" y="28" text-anchor="middle" class="state-diagram__clause"
+          >7. Economic Incidence</text
+        >
+        <text
+          x="105"
+          y="50"
+          text-anchor="middle"
+          class="state-diagram__state"
+          fill="var(--accent-strong)">Cost & Remedy</text
+        >
+        <text x="105" y="71" text-anchor="middle" class="state-diagram__label"
+          >Who pays vs who gained?</text
+        >
+      </g>
+
+      {/* Summary Invariant Badge */}
+      <g transform="translate(722, 164)">
+        <rect
+          width="210"
+          height="88"
+          rx="8"
+          fill="var(--surface)"
+          stroke="var(--accent)"
+          stroke-width="1.5"
+          stroke-dasharray="4 4"></rect>
+        <text x="105" y="30" text-anchor="middle" class="state-diagram__clause"
+          >Constitutional Invariant</text
+        >
+        <text x="105" y="52" text-anchor="middle" class="state-diagram__label"
+          >Force, not veto</text
+        >
+        <text x="105" y="71" text-anchor="middle" class="state-diagram__label"
+          >Standing tracks exposure</text
+        >
+      </g>
+    </svg>
+  </div>
+</figure>

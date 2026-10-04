@@ -1,334 +1,391 @@
 :root {
   color-scheme: light dark;
-  --bg: #f7f4ee;
-  --surface: #fbf8f3;
-  --panel: #f3eee3;
-  --card: #f0e8da;
-  --border: #ded4c4;
-  --text: #2a2621;
-  --muted: #6d6357;
-  --accent: #6b3e35;
-  --accent-strong: #542e27;
-  --gold: #a8844f;
-  --teal: #6d7a70;
-  --radius: 4px;
-  --radius-md: 6px;
-  --radius-lg: 8px;
-  --radius-xl: 12px;
-  --shadow-color: rgba(42, 38, 33, 0.065);
-  --shadow-color-soft: rgba(42, 38, 33, 0.035);
-  --shadow: 0 8px 18px var(--shadow-color), 0 1px 4px var(--shadow-color-soft);
-  --shadow-xs: 0 1px 3px var(--shadow-color-soft);
-  --shadow-sm: 0 4px 10px var(--shadow-color), 0 1px 4px var(--shadow-color-soft);
-  --shadow-panel: 0 8px 20px rgba(64, 52, 40, 0.05);
-  --shadow-float: 0 12px 24px rgba(64, 52, 40, 0.1);
-  --shadow-float-strong: 0 20px 50px rgba(64, 52, 40, 0.12);
+
+  /* --- Palette (light): paper, sheet, sapphire ink --- */
+  /* The ground is a step deeper than the sheet so a white surface reads as
+     raised on its own. It used to sit two points below white, which is why
+     every card needed a border and a shadow to be seen at all. */
+  --bg: #f5f3ee;
+  --surface: #ffffff;
+  --panel: #ece8df;
+  --card: #ffffff;
+  --border: #dcd6cb;
+  --text: #1c1917;
+  --muted: #5b554f;
+  --accent: #1e3a5f;
+  --accent-strong: #142842;
+  --gold: #b5481f;
+  --teal: #2e5266;
+
+  /* Two inks. The accent is the sapphire everything is set in -- buttons,
+     eyebrow labels, headings that carry colour. Used alone it is dark enough
+     to read as blue-black, so the site came out near-greyscale in light mode
+     and inline links sank into the body text. Two aliases pull it apart:
+     --link is a step lighter than the accent so a link registers as one
+     without leaning on its underline; --mark is the one warm colour on the
+     sheet, reserved for the short rule-marks (the eyebrow dash, the current
+     nav item) -- the red margin line of ruled paper. It is rust rather than
+     the amber of --status-warning so a margin mark and a "deprecated" chip
+     never share a hue. Dark mode collapses --link back onto the accent,
+     which is already a light blue there. */
+  --link: #2a5089;
+  --link-hover: var(--accent-strong);
+  --mark: var(--gold);
+
+  /* Status Colors */
+  --status-success: #15803d;
+  --status-success-bright: #16a34a;
+  --status-success-deep: #14532d;
+  --status-warning: #b45309;
+  --status-warning-bright: #d97706;
+  --status-warning-deep: #78350f;
+  --status-danger: #b91c1c;
+  --status-danger-bright: #dc2626;
+  --status-danger-deep: #7f1d1d;
+  --status-danger-wash: #fef2f2;
+  --status-danger-border: #fecaca;
+
+  /* Geometry & Radius */
+  /* Three radii: small for chips, marks and focus outlines; medium for
+     every box (card, panel, input, table); pill for buttons and badges. The
+     other names are kept as aliases so the stylesheets did not churn. */
+  --radius-xs: 3px;
+  --radius-sm: var(--radius-xs);
+  --radius-md: 8px;
+  --radius: var(--radius-md);
+  --radius-lg: var(--radius-md);
+  --radius-xl: var(--radius-md);
+  --radius-pill: 999px;
+
+  /* Elevation. Two values: none, and one float shadow for what sits above
+     the page -- a menu, a popover, a dialog, a sticky bar. Cards and panels
+     carry none; they are told apart by a hairline or a tint. The older names
+     are aliases so no call site had to change. */
+  --shadow-color: rgba(28, 25, 23, 0.1);
+  --shadow-color-soft: rgba(28, 25, 23, 0.04);
+  --shadow-float:
+    0 8px 24px var(--shadow-color), 0 1px 3px var(--shadow-color-soft);
+  --shadow-float-strong: var(--shadow-float);
+  --shadow-xs: none;
+  --shadow-sm: none;
+  --shadow: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+  --shadow-panel: none;
+  --shadow-tight: none;
+  --shadow-accent: none;
+
+  /* Z-Index Hierarchy */
   --z-underlay: -1;
   --z-base: 0;
   --z-raised: 1;
   --z-overlay: 10;
   --z-overlay-top: 11;
   --z-skip-link: 20;
-  --space-1: 0.4rem;
-  --space-2: 0.75rem;
-  --space-3: 1.15rem;
-  --space-4: 1.6rem;
-  --space-6: 2.4rem;
+
+  /* Spacing scale. The one set of distances the site uses. Every margin,
+     padding and gap outside this file names one of these steps
+     (src/styles/spacing.test.ts fails the build otherwise). Pages used to
+     declare ~440 distinct raw values against an irregular token set, so the
+     gap between sections, the gap under a heading and the padding inside a
+     card all changed from component to component.
+
+     Steps sit on a 4px grid:
+       hair  2px -- chip and badge padding, optical nudges; never layout
+       1     4px -- label to value, icon to text
+       2     8px -- items in a tight list, pill padding
+       3    12px -- eyebrow, heading and lede; control padding
+       4    16px -- items in a list of cards; compact row padding
+       5    24px -- grid gaps; card and panel padding
+       6    32px -- a section header to its body
+       7    48px -- large blocks inside a section
+       8    64px
+       9    96px -- between top-level sections
+
+     One fluid rule, and no per-breakpoint overrides: steps 1-5 are fixed,
+     and each large step (6-9) eases down to the step below it between a
+     1200px and a 480px viewport. On a phone a section gap is 64px, not 96px,
+     while a card's 24px padding stays 24px. */
+  --space-hair: 0.125rem;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: clamp(1.5rem, 1.1667rem + 1.1111vw, 2rem);
+  --space-7: clamp(2rem, 1.3333rem + 2.2222vw, 3rem);
+  --space-8: clamp(3rem, 2.3333rem + 2.2222vw, 4rem);
+  --space-9: clamp(4rem, 2.6667rem + 4.4444vw, 6rem);
+
+  /* Rhythm. Rules set spacing by role through these, not by step:
+       section         -- between top-level sections. The one gap; a
+                          section with a rule puts half above it and half
+                          below (see sections.css).
+       block           -- a section header to its body, and between the
+                          block-level groups inside a section.
+       heading         -- between an eyebrow, a heading and a lede.
+       container       -- inside a card, a panel or a tool sheet.
+       container-compact -- inside a compact list row or a small tile. */
+  --space-section: var(--space-9);
+  --space-block: var(--space-6);
+  --space-heading: var(--space-3);
+  --space-container: var(--space-5);
+  --space-container-compact: var(--space-4);
+
+  /* Layout Containers. The gutter is the page's one side margin: 16px at
+     the narrowest phone, never less. */
   --content-max: 1180px;
   --content-max-wide: 1420px;
-  --page-gutter: clamp(1rem, 2.4vw, 2.75rem);
-  --section-padding: clamp(1.6rem, 4vw, 3.5rem);
-  --section-gap: clamp(1.25rem, 2.4vw, 2.2rem);
+  --page-gutter: clamp(1rem, 5vw, 4rem);
+
+  /* Semantic Color Aliases */
   --color-surface: var(--surface);
   --color-border-subtle: color-mix(in srgb, var(--border) 60%, transparent);
   --color-foreground: var(--text);
   --color-foreground-muted: var(--muted);
-  --glow-wash: radial-gradient(
-    circle at 50% -20%,
-    color-mix(in srgb, var(--accent) 14%, transparent) 0%,
-    color-mix(in srgb, var(--gold) 6%, transparent) 45%,
-    transparent 75%
-  );
-  --grain-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.5'/%3E%3C/svg%3E");
-  --halftone: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--text) 11%, transparent) 1px, transparent 0);
-  --shadow-accent: 0 4px 16px color-mix(in srgb, var(--accent) 12%, transparent);
-  --shadow-tight: 0 2px 6px var(--shadow-color);
-  --surface-flat: var(--surface);
-  --surface-raised: linear-gradient(140deg, color-mix(in srgb, var(--surface) 95%, white 5%), color-mix(in srgb, var(--panel) 92%, white 8%));
-  --surface-emphasis: linear-gradient(145deg, color-mix(in srgb, var(--panel) 95%, white 5%), color-mix(in srgb, var(--surface) 88%, white 12%));
-  --surface-accent-edge: color-mix(in srgb, var(--accent) 35%, var(--border));
-  --radius-pill: 999px;
-  --text-xs: 0.7rem;
-  --text-sm: 0.82rem;
-  --text-eyebrow: 0.78rem;
-  --text-body: clamp(0.96rem, 0.3vw + 0.95rem, 1.1rem);
-  --text-lede: clamp(1rem, 0.6vw + 0.95rem, 1.2rem);
-  --text-hero: clamp(2rem, 3vw + 1rem, 3.8rem);
 
-  --font-size-sm: 0.9rem;
-  --motion-fast: 0.16s;
-  --motion-base: 0.24s;
-  --motion-slow: 0.32s;
-  --focus-ring: 0 0 0 3px color-mix(in srgb, var(--gold) 55%, transparent);
-  --focus-outline: 2px solid var(--accent-strong);
+  /* Glass chrome (the sticky header, the floating back-to-top) */
+  --glass-bg: color-mix(in srgb, var(--bg) 92%, transparent);
+  --glass-border: color-mix(in srgb, var(--border) 80%, transparent);
+  --glass-blur: blur(14px);
+  --card-inner-highlight: none;
+
+  --surface-flat: var(--surface);
+  --surface-raised: var(--surface);
+  --surface-emphasis: color-mix(in srgb, var(--panel) 55%, var(--surface));
+  --surface-accent-edge: color-mix(in srgb, var(--accent) 25%, var(--border));
+
+  /* Type scale. The one set of sizes the site uses. Every font-size outside
+     this file names one of these steps (src/styles/type-scale.test.ts fails
+     the build otherwise). Pages used to declare ~67 distinct sizes, so mono
+     labels, serif body and sans UI competed at near-identical sizes and
+     nothing read as secondary. Seven steps, plus one display size:
+       xs   -- uppercase mono labels, eyebrows, metadata
+       sm   -- secondary UI text: buttons, captions, table cells, notes
+       base -- body copy and form fields
+       lg   -- lede, h4, card titles
+       xl   -- h3
+       2xl  -- h2, section titles, big numbers
+       3xl  -- h1
+     The upper steps are fluid; the ratio between levels holds near 1.3. */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: clamp(1rem, 0.3vw + 0.95rem, 1.1rem);
+  --text-lg: clamp(1.1rem, 1rem + 0.35vw, 1.25rem);
+  --text-xl: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+  --text-2xl: clamp(1.55rem, 1.25rem + 1.05vw, 2.05rem);
+  --text-3xl: clamp(2.1rem, 1.55rem + 2vw, 3.1rem);
+  /* Display size: the home hero and the 404 only. */
+  --text-hero: clamp(2.1rem, 3.2vw + 1rem, 3.9rem);
+
+  /* Role aliases. Kept so existing rules read by purpose; each is a step
+     above, never a new size. Headings: nothing set a font-size on h1-h6
+     once, so h3 fell to the UA 1.17em and sat level with the lede. */
+  --text-eyebrow: var(--text-xs);
+  --text-body: var(--text-base);
+  --text-lede: var(--text-lg);
+  --font-size-sm: var(--text-sm);
+  --text-h1: var(--text-3xl);
+  --text-h2: var(--text-2xl);
+  --text-h3: var(--text-xl);
+  --text-h4: var(--text-lg);
+
+  /* Letter-spacing for uppercase labels: one tight, one wide. */
+  --tracking-label: 0.05em;
+  --tracking-label-wide: 0.08em;
+
+  /* Motion & Easing */
+  --motion-fast: 150ms;
+  --motion-base: 240ms;
+  --motion-slow: 360ms;
+  --ease-out-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Interactive States & Focus Rings */
+  --focus-ring:
+    0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent),
+    0 0 0 1px var(--accent);
+  --focus-outline: 2px solid var(--accent);
   --focus-outline-offset: 2px;
-  --interactive-border: color-mix(in srgb, var(--border) 80%, transparent);
-  --interactive-bg: color-mix(in srgb, var(--surface) 96%, white 4%);
-  --interactive-bg-hover: color-mix(in srgb, var(--surface) 92%, white 8%);
-  --interactive-border-hover: color-mix(in srgb, var(--accent) 24%, var(--border));
-  --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --serif: "Iowan Old Style", "Apple Garamond", "Palatino Linotype", "Times New Roman", serif;
-  --mono: "IBM Plex Mono", "Courier Prime", "Courier New", monospace;
+  --interactive-border: color-mix(in srgb, var(--border) 85%, transparent);
+  --interactive-bg: var(--surface);
+  --interactive-bg-hover: color-mix(in srgb, var(--surface) 80%, var(--panel));
+  --interactive-border-hover: color-mix(
+    in srgb,
+    var(--accent) 35%,
+    var(--border)
+  );
+
+  /* Button Specific Tokens */
+  --btn-primary-bg: #1e3a5f;
+  --btn-primary-text: #ffffff;
+  --btn-primary-border: #142842;
+  --btn-primary-hover-bg: #142842;
+  --btn-primary-hover-text: #ffffff;
+  --btn-ghost-color: var(--text);
+  --btn-ghost-border: color-mix(in srgb, var(--border) 90%, transparent);
+
+  /* Font Stacks. No webfonts ship (font-src is 'self' and nothing is
+     self-hosted), so each stack names a real face on each platform: Iowan
+     on Apple, Palatino on Windows, Charter/Georgia where those are missing.
+     The mono stack used to name IBM Plex Mono and Courier Prime, which no
+     platform has, and so every identifier rendered in Courier New. */
+  --sans:
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --serif:
+    "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Charter,
+    Georgia, "Times New Roman", serif;
+  --mono:
+    ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono",
+    "DejaVu Sans Mono", monospace;
 }
 
+/* --- Dark theme: warm obsidian ---
+   The ground used to be zinc (#18181b, a cool grey) under warm brown-black
+   surfaces, so cards and page were two colour temperatures. Everything here is
+   one warm ramp. Elevation is a step in lightness;
+   the big blurred shadows are gone because a shadow on a near-black ground
+   reads as a smudge, not depth.
+   The block is written twice -- once for the system preference, once for the
+   stored choice -- and the two must stay identical. */
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
-    --bg: #1a1714;
-    --surface: #24201c;
-    --panel: #2d2823;
-    --card: #322c26;
-    --border: #3d3630;
-    --text: #e8e0d4;
-    --muted: #a0988a;
-    --accent: #c48474;
-    --accent-strong: #d69a8a;
-    --gold: #c8a46f;
-    --teal: #8da898;
-    --shadow-color: rgba(0, 0, 0, 0.25);
-    --shadow-color-soft: rgba(0, 0, 0, 0.15);
-    --shadow: 0 8px 18px var(--shadow-color), 0 1px 4px var(--shadow-color-soft);
-    --shadow-xs: 0 1px 3px var(--shadow-color-soft);
-    --shadow-sm: 0 4px 10px var(--shadow-color), 0 1px 4px var(--shadow-color-soft);
-    --shadow-panel: 0 8px 20px rgba(0, 0, 0, 0.2);
-    --shadow-float: 0 12px 24px rgba(0, 0, 0, 0.25);
-    --glow-wash: radial-gradient(
-      circle at 50% -20%,
-      color-mix(in srgb, var(--accent) 20%, transparent) 0%,
-      color-mix(in srgb, var(--gold) 10%, transparent) 45%,
-      transparent 75%
+    --bg: #171412;
+    --surface: #1f1b18;
+    --panel: #282320;
+    --card: #221e1b;
+    --border: #3a332d;
+    --text: #f1ece3;
+    --muted: #a69f95;
+    --accent: #93b8dc;
+    --accent-strong: #bfd6ee;
+    --gold: #e6996e;
+    --teal: #8da9c4;
+    --link: var(--accent);
+    --link-hover: var(--accent-strong);
+
+    --btn-primary-bg: #2e6093;
+    --btn-primary-text: #ffffff;
+    --btn-primary-border: #4d86c2;
+    --btn-primary-hover-bg: #3d72a7;
+    --btn-primary-hover-text: #ffffff;
+    --btn-ghost-color: var(--text);
+    --btn-ghost-border: color-mix(in srgb, var(--border) 90%, transparent);
+
+    --interactive-border: color-mix(in srgb, var(--border) 90%, transparent);
+    --interactive-border-hover: color-mix(
+      in srgb,
+      var(--accent) 45%,
+      var(--border)
     );
-    --grain-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.35'/%3E%3C/svg%3E");
-    --halftone: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--text) 8%, transparent) 1px, transparent 0);
-    --shadow-accent: 0 4px 16px color-mix(in srgb, var(--accent) 16%, transparent);
-    --shadow-tight: 0 2px 6px var(--shadow-color);
+    --interactive-bg: var(--surface);
+    --interactive-bg-hover: var(--panel);
+
+    --status-success: #22c55e;
+    --status-success-bright: #4ade80;
+    --status-success-deep: #86efac;
+    --status-warning: #f59e0b;
+    --status-warning-bright: #fbbf24;
+    --status-warning-deep: #fde68a;
+    --status-danger: #f87171;
+    --status-danger-bright: #f87171;
+    --status-danger-deep: #fca5a5;
+    --status-danger-wash: color-mix(
+      in srgb,
+      var(--status-danger) 16%,
+      transparent
+    );
+    --status-danger-border: color-mix(
+      in srgb,
+      var(--status-danger) 45%,
+      transparent
+    );
+
+    --shadow-color: rgba(0, 0, 0, 0.45);
+    --shadow-color-soft: rgba(0, 0, 0, 0.3);
+    --shadow-float:
+      0 8px 24px var(--shadow-color), 0 1px 3px var(--shadow-color-soft);
+
+    --glass-bg: color-mix(in srgb, var(--bg) 95%, transparent);
+    --glass-border: color-mix(in srgb, var(--border) 80%, transparent);
+
     --surface-flat: var(--surface);
-    --surface-raised: linear-gradient(140deg, color-mix(in srgb, var(--surface) 95%, white 5%), color-mix(in srgb, var(--panel) 92%, white 8%));
-    --surface-emphasis: linear-gradient(145deg, color-mix(in srgb, var(--panel) 95%, white 5%), color-mix(in srgb, var(--surface) 88%, white 12%));
-    --surface-accent-edge: color-mix(in srgb, var(--accent) 35%, var(--border));
-    --radius-pill: 999px;
-    --text-xs: 0.7rem;
-    --text-sm: 0.82rem;
-    --text-eyebrow: 0.78rem;
-    --text-body: clamp(0.96rem, 0.3vw + 0.95rem, 1.1rem);
-    --text-lede: clamp(1rem, 0.6vw + 0.95rem, 1.2rem);
-    --text-hero: clamp(2rem, 3vw + 1rem, 3.8rem);
+    --surface-raised: var(--card);
+    --surface-emphasis: var(--panel);
+    --surface-accent-edge: color-mix(in srgb, var(--accent) 25%, var(--border));
   }
 }
 
 :root.dark {
-  --bg: #1a1714;
-  --surface: #24201c;
-  --panel: #2d2823;
-  --card: #322c26;
-  --border: #3d3630;
-  --text: #e8e0d4;
-  --muted: #a0988a;
-  --accent: #c48474;
-  --accent-strong: #d69a8a;
-  --gold: #c8a46f;
-  --teal: #8da898;
-  --shadow-color: rgba(0, 0, 0, 0.25);
-  --shadow-color-soft: rgba(0, 0, 0, 0.15);
-  --shadow: 0 8px 18px var(--shadow-color), 0 1px 4px var(--shadow-color-soft);
-  --shadow-xs: 0 1px 3px var(--shadow-color-soft);
-  --shadow-sm: 0 4px 10px var(--shadow-color), 0 1px 4px var(--shadow-color-soft);
-  --shadow-panel: 0 8px 20px rgba(0, 0, 0, 0.2);
-  --shadow-float: 0 12px 24px rgba(0, 0, 0, 0.25);
-  --glow-wash: radial-gradient(
-    circle at 50% -20%,
-    color-mix(in srgb, var(--accent) 20%, transparent) 0%,
-    color-mix(in srgb, var(--gold) 10%, transparent) 45%,
-    transparent 75%
+  --bg: #171412;
+  --surface: #1f1b18;
+  --panel: #282320;
+  --card: #221e1b;
+  --border: #3a332d;
+  --text: #f1ece3;
+  --muted: #a69f95;
+  --accent: #93b8dc;
+  --accent-strong: #bfd6ee;
+  --gold: #e6996e;
+  --teal: #8da9c4;
+  --link: var(--accent);
+  --link-hover: var(--accent-strong);
+
+  --btn-primary-bg: #2e6093;
+  --btn-primary-text: #ffffff;
+  --btn-primary-border: #4d86c2;
+  --btn-primary-hover-bg: #3d72a7;
+  --btn-primary-hover-text: #ffffff;
+  --btn-ghost-color: var(--text);
+  --btn-ghost-border: color-mix(in srgb, var(--border) 90%, transparent);
+
+  --interactive-border: color-mix(in srgb, var(--border) 90%, transparent);
+  --interactive-border-hover: color-mix(
+    in srgb,
+    var(--accent) 45%,
+    var(--border)
   );
-  --grain-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.35'/%3E%3C/svg%3E");
-  --halftone: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--text) 8%, transparent) 1px, transparent 0);
-  --shadow-accent: 0 4px 16px color-mix(in srgb, var(--accent) 16%, transparent);
-  --shadow-tight: 0 2px 6px var(--shadow-color);
+  --interactive-bg: var(--surface);
+  --interactive-bg-hover: var(--panel);
+
+  --status-success: #22c55e;
+  --status-success-bright: #4ade80;
+  --status-success-deep: #86efac;
+  --status-warning: #f59e0b;
+  --status-warning-bright: #fbbf24;
+  --status-warning-deep: #fde68a;
+  --status-danger: #f87171;
+  --status-danger-bright: #f87171;
+  --status-danger-deep: #fca5a5;
+  --status-danger-wash: color-mix(
+    in srgb,
+    var(--status-danger) 16%,
+    transparent
+  );
+  --status-danger-border: color-mix(
+    in srgb,
+    var(--status-danger) 45%,
+    transparent
+  );
+
+  --shadow-color: rgba(0, 0, 0, 0.45);
+  --shadow-color-soft: rgba(0, 0, 0, 0.3);
+  --shadow-float:
+    0 8px 24px var(--shadow-color), 0 1px 3px var(--shadow-color-soft);
+
+  --glass-bg: color-mix(in srgb, var(--bg) 95%, transparent);
+  --glass-border: color-mix(in srgb, var(--border) 80%, transparent);
+
   --surface-flat: var(--surface);
-  --surface-raised: linear-gradient(140deg, color-mix(in srgb, var(--surface) 95%, white 5%), color-mix(in srgb, var(--panel) 92%, white 8%));
-  --surface-emphasis: linear-gradient(145deg, color-mix(in srgb, var(--panel) 95%, white 5%), color-mix(in srgb, var(--surface) 88%, white 12%));
-  --surface-accent-edge: color-mix(in srgb, var(--accent) 35%, var(--border));
-  --radius-pill: 999px;
-  --text-xs: 0.7rem;
-  --text-sm: 0.82rem;
-  --text-eyebrow: 0.78rem;
-  --text-body: clamp(0.96rem, 0.3vw + 0.95rem, 1.1rem);
-  --text-lede: clamp(1rem, 0.6vw + 0.95rem, 1.2rem);
-  --text-hero: clamp(2rem, 3vw + 1rem, 3.8rem);
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: var(--serif);
-  font-optical-sizing: auto;
-  font-kerning: normal;
-  text-rendering: optimizeLegibility;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  line-height: 1.7;
-  letter-spacing: 0.01em;
-  font-size: clamp(0.98rem, 0.3vw + 0.95rem, 1.1rem);
-  -webkit-font-smoothing: antialiased;
-  position: relative;
-}
-
-@supports (height: 100svh) {
-  body {
-    min-height: 100svh;
-  }
-}
-
-@supports (height: 100dvh) {
-  body {
-    min-height: 100dvh;
-  }
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(
-      circle at 15% 15%,
-      color-mix(in srgb, var(--accent) 8%, transparent) 0%,
-      transparent 60%
-    ),
-    radial-gradient(
-      circle at 85% 25%,
-      color-mix(in srgb, var(--gold) 6%, transparent) 0%,
-      transparent 60%
-    );
-  opacity: 0.8;
-  pointer-events: none;
-  z-index: var(--z-underlay);
-  transition: background var(--motion-slow) ease;
-}
-
-::selection {
-  background: color-mix(in srgb, var(--accent) 22%, transparent);
-  color: var(--text);
-}
-
-h1,
-h2,
-h3 {
-  font-family: var(--serif);
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  font-optical-sizing: auto;
-  color: var(--text);
-  text-wrap: balance;
-}
-
-p {
-  color: var(--text);
-  margin: 0 0 0.5rem;
-  text-wrap: pretty;
-}
-
-li {
-  text-wrap: pretty;
-}
-
-a {
-  color: var(--accent);
-  text-decoration: none;
-  background-image: linear-gradient(var(--accent), var(--accent));
-  background-size: 0 2px;
-  background-repeat: no-repeat;
-  background-position: 0 100%;
-  padding-bottom: 2px; /* Breathing room for the underline */
-  transition: background-size 0.3s cubic-bezier(0.25, 1, 0.5, 1), color 0.2s ease;
-}
-
-a:hover,
-a:focus-visible {
-  color: var(--accent-strong);
-  background-size: 100% 2px;
-}
-
-a:focus-visible {
-  outline: var(--focus-outline);
-  outline-offset: 3px;
-  border-radius: var(--radius);
-}
-
-/* Navigation links — no animated underline, clean hover */
-nav a {
-  background-image: none;
-  padding-bottom: 0;
-  transition: color 0.2s ease;
-}
-
-nav a:hover,
-nav a:focus-visible {
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
-  background-size: 0;
-}
-
-/* Footer links — static underline, no animation */
-footer a,
-.footer a {
-  background-image: none;
-  padding-bottom: 0;
-  transition: color 0.2s ease;
-  text-decoration: underline;
-  text-decoration-color: color-mix(in srgb, var(--muted) 40%, transparent);
-  text-underline-offset: 0.25em;
-}
-
-footer a:hover,
-.footer a:hover {
-  text-decoration-color: var(--muted);
-  color: var(--accent-strong);
-  background-size: 0;
-}
-
-/* Card/panel links — thinner underline */
-.card a:not(.button):not(.pill):not([role]),
-.panel a:not(.button):not(.pill):not([role]) {
-  background-size: 0 1px;
-}
-
-.card a:not(.button):not(.pill):not([role]):hover,
-.panel a:not(.button):not(.pill):not([role]):hover {
-  background-size: 100% 1px;
-}
-
-img,
-svg {
-  max-width: 100%;
-}
-
-.container {
-  width: min(var(--content-max), calc(100% - (var(--page-gutter) * 2)));
-  margin: 0 auto;
+  --surface-raised: var(--card);
+  --surface-emphasis: var(--panel);
+  --surface-accent-edge: color-mix(in srgb, var(--accent) 25%, var(--border));
 }
 
 @media (min-width: 1600px) {
   :root {
     --content-max: 1400px;
-  }
-
-  .container {
-    width: min(var(--content-max), calc(100% - (var(--page-gutter) * 2)));
   }
 }
 
@@ -336,23 +393,11 @@ svg {
   :root {
     --content-max: 1560px;
     --content-max-wide: 1880px;
-    --page-gutter: clamp(1.5rem, 3vw, 4rem);
-    --section-padding: clamp(2.2rem, 4vw, 4.5rem);
-    --section-gap: clamp(1.6rem, 2.8vw, 2.8rem);
-    --space-4: 1.85rem;
-    --space-6: 2.8rem;
   }
 }
 
 @media (min-width: 1280px) and (min-height: 720px) and (hover: none) and (pointer: coarse) {
   :root {
-    --page-gutter: clamp(1.6rem, 3.2vw, 4.2rem);
-    --section-padding: clamp(2.4rem, 4.8vw, 4.8rem);
-    --section-gap: clamp(1.6rem, 3vw, 3rem);
-    --space-2: 0.9rem;
-    --space-3: 1.3rem;
-    --space-4: 1.9rem;
-    --space-6: 3rem;
     --font-size-sm: 1rem;
   }
 
@@ -366,11 +411,6 @@ svg {
   :root {
     --content-max: 1760px;
     --content-max-wide: 2120px;
-    --page-gutter: clamp(2rem, 3.6vw, 4.8rem);
-    --section-padding: clamp(2.6rem, 4.5vw, 5.2rem);
-    --section-gap: clamp(1.9rem, 3vw, 3.2rem);
-    --space-4: 2rem;
-    --space-6: 3.2rem;
   }
 
   body {
@@ -378,20 +418,16 @@ svg {
   }
 }
 
-@media (max-width: 400px), (max-height: 400px) {
-  :root {
-    --page-gutter: 0.7rem;
-    --section-padding: clamp(1.1rem, 5vw, 1.8rem);
-    --section-gap: clamp(0.85rem, 3vw, 1.3rem);
-    --space-1: 0.35rem;
-    --space-2: 0.6rem;
-    --space-3: 0.9rem;
-    --space-4: 1.2rem;
-    --space-6: 1.8rem;
-  }
-
+/* 400px was below every phone this site is read on. A Pixel and most Galaxy
+   handsets report 412px, an iPhone Pro Max 430px, so a narrow-screen block
+   capped at 400px never applied to any of them. 30rem clears the widest
+   phone in portrait and stays well below any tablet. The height arm is for
+   landscape. Spacing needs no override here: the gutter and the large space
+   steps are fluid (see the spacing scale above), so a phone already gets the
+   16px gutter and the smaller section gap. */
+@media (max-width: 30rem), (max-height: 400px) {
   body {
-    font-size: clamp(0.88rem, 0.6vw + 0.82rem, 0.98rem);
-    line-height: 1.5;
+    font-size: clamp(0.9rem, 0.6vw + 0.82rem, 1rem);
+    line-height: 1.55;
   }
 }

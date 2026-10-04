@@ -5,8 +5,7 @@ import SectionBlock from "../../components/SectionBlock.astro";
 
 const pageTitle = "STD-06 Evidence Pack — Ethotechnics Institute";
 const pageDescription =
-  "Portable evidence artifacts and threshold tests for the Human Impact Safety Case standard.";
-const permalink = "/evidence-packs/std-06";
+  "The evidence an STD-06 human impact safety case must carry: eight portable artifacts, test battery results, three tiers of proof, and what auditors ask.";
 
 const tiers = [
   {
@@ -22,7 +21,8 @@ const tiers = [
   {
     tier: "Tier 2 (resilient)",
     description: "Proof the controls hold during incidents.",
-    evidence: "Incident memos, regulator-ready exports, remedy verification logs.",
+    evidence:
+      "Incident memos, regulator-ready exports, remedy verification logs.",
   },
 ];
 
@@ -41,11 +41,27 @@ const artifacts = [
   },
   {
     title: "Disclosure packet",
-    details: "Receipt, reason, appeal path, and clock visibility for affected people.",
+    details:
+      "Receipt, reason, appeal path, and clock visibility for affected people.",
   },
   {
     title: "Do-not-deploy boundary register",
     details: "Active boundary breaches and the last remediation review date.",
+  },
+  {
+    title: "Dependency ledger",
+    details:
+      "Dependents with criticality, substitution cost and its basis, retained expertise with the date it was last exercised, alternatives with their status, correction latency, and the exposure score with each of its inputs.",
+  },
+  {
+    title: "Withdrawal rehearsal report",
+    details:
+      "Date, scope, participants, outcome, and what the rehearsal showed at the technical, operational, and institutional levels of reversibility.",
+  },
+  {
+    title: "Silent-harm discovery report",
+    details:
+      "Error, reversal, and remedy rates per affected population, with the cadence and the records they were computed from (§2.4).",
   },
 ];
 
@@ -55,6 +71,18 @@ const testEvidence = [
   "Contestability access audit (1-step test, no-paywall).",
   "Burden ceiling measurements with UX flow maps.",
   "Disclosure latency report with receipt delivery timestamps.",
+  "Per-population rate comparison computed without waiting for a challenge or claim (§2.4).",
+  "Withdrawal rehearsal with measured correction latency and a report per reversibility level.",
+];
+
+const dependencyChecklist = [
+  "Dependency record populated with dependents, substitution cost, retained expertise, alternatives, last rehearsal, and correction latency (§5.1).",
+  "Exposure score published with dependency depth, substitution cost, and correction latency shown separately (§5.2).",
+  "Reversibility evidenced at all three levels, with unevidenced levels marked not evidenced rather than feasible (§5.3).",
+  "Preserved capacities listed with a reason and a named owner, and any erosion recorded as a governance event (§5.4).",
+  "No expansion of scope, population, or authority while institutional reversibility is unevidenced (§5.5).",
+  "Withdrawal rehearsed on the published cadence, at least annually where exposure is non-trivial, and before any expansion (§5.6).",
+  "Dependency record refreshed before any renewal or expansion decision that cites it (§5.7).",
 ];
 
 const portabilityChecklist = [
@@ -65,26 +93,24 @@ const portabilityChecklist = [
 ];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Evidence pack"
     title="STD-06 Evidence Pack"
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={[
       { href: "#tiers", label: "Tiered model" },
       { href: "#artifacts", label: "Artifact inventory" },
       { href: "#tests", label: "Test battery evidence" },
       { href: "#portability", label: "Portability checklist" },
       { href: "#auditors", label: "What auditors ask" },
+      { href: "#dependency", label: "Dependency and reversibility" },
       { href: "#referenced-by", label: "Referenced by" },
     ]}
-    panelCopy={{
-      eyebrow: "Proof-carrying safety",
-      title: "Evidence that survives scrutiny",
-      description:
-        "STD-06 evidence packs make safety cases portable across auditors, regulators, and affected people.",
-    }}
   />
 
   <SectionBlock
@@ -94,11 +120,14 @@ const portabilityChecklist = [
     description="Start with Tier 0 for baseline proof, then scale to Tier 2 for resilience."
   >
     <ul class="muted">
-      {tiers.map((tier) => (
-        <li>
-          <strong>{tier.tier}:</strong> {tier.description} <span class="muted">{tier.evidence}</span>
-        </li>
-      ))}
+      {
+        tiers.map((tier) => (
+          <li>
+            <strong>{tier.tier}:</strong> {tier.description}{" "}
+            <span class="muted">{tier.evidence}</span>
+          </li>
+        ))
+      }
     </ul>
   </SectionBlock>
 
@@ -110,11 +139,13 @@ const portabilityChecklist = [
     variant="alt"
   >
     <ul class="muted">
-      {artifacts.map((artifact) => (
-        <li>
-          <strong>{artifact.title}:</strong> {artifact.details}
-        </li>
-      ))}
+      {
+        artifacts.map((artifact) => (
+          <li>
+            <strong>{artifact.title}:</strong> {artifact.details}
+          </li>
+        ))
+      }
     </ul>
   </SectionBlock>
 
@@ -125,9 +156,7 @@ const portabilityChecklist = [
     description="Provide proof for every test in STD-06 before deployment."
   >
     <ul class="muted">
-      {testEvidence.map((item) => (
-        <li>{item}</li>
-      ))}
+      {testEvidence.map((item) => <li>{item}</li>)}
     </ul>
   </SectionBlock>
 
@@ -139,9 +168,7 @@ const portabilityChecklist = [
     variant="alt"
   >
     <ul class="muted">
-      {portabilityChecklist.map((item) => (
-        <li>{item}</li>
-      ))}
+      {portabilityChecklist.map((item) => <li>{item}</li>)}
     </ul>
   </SectionBlock>
 
@@ -153,25 +180,51 @@ const portabilityChecklist = [
   >
     <ul class="muted">
       <li>Show the latest safety case summary and its test battery results.</li>
-      <li>Provide the last three halt drill receipts with time-to-halt measurements.</li>
+      <li>
+        Provide the last three halt drill receipts with time-to-halt
+        measurements.
+      </li>
       <li>Demonstrate remedy clock compliance with verification evidence.</li>
-      <li>Show the public-facing disclosure packet used for affected people.</li>
+      <li>
+        Show the public-facing disclosure packet used for affected people.
+      </li>
+      <li>
+        Show the dependency ledger and how the exposure score moved since the
+        last refresh.
+      </li>
+      <li>
+        Show the last withdrawal rehearsal report and what it found at the
+        institutional level.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="dependency"
+    eyebrow="Article V"
+    title="Dependency and reversibility checklist"
+    description="Evidence for STD-06 Article V. Each line maps to a clause."
+    variant="alt"
+  >
+    <ul class="muted">
+      {dependencyChecklist.map((item) => <li>{item}</li>)}
     </ul>
   </SectionBlock>
 
   <SectionBlock
     id="referenced-by"
     eyebrow="Referenced by"
-    title="Where STD-06 evidence is enforced"
-    description="Cross-links keep evidence packs, bindings, and standards aligned."
-    variant="alt"
+    title="Where STD-06 evidence is asked for"
+    description="The standard, bindings, and validators that depend on this evidence."
   >
     <div class="grid grid--three">
       <div class="panel">
         <p class="eyebrow">Standard</p>
         <ul class="muted">
           <li>
-            <a href="/standards/std-06-human-impact-safety-case">STD-06 Safety Case</a>
+            <a href="/standards/std-06-human-impact-safety-case"
+              >STD-06 Safety Case</a
+            >
           </li>
         </ul>
       </div>
@@ -179,7 +232,9 @@ const portabilityChecklist = [
         <p class="eyebrow">Required by bindings</p>
         <ul class="muted">
           <li>
-            <a href="/bindings#safety-case">Safety case bindings</a>
+            <a href="/standards/std-06-human-impact-safety-case"
+              >Safety case bindings</a
+            >
           </li>
         </ul>
       </div>

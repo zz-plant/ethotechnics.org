@@ -1,5 +1,6 @@
 import { describe, expect, it } from "bun:test";
 
+import { glossaryContent } from "../glossary";
 import {
   buildGlossaryIndexEntries,
   buildGlossaryStructuredDataPayload,
@@ -49,7 +50,11 @@ describe("buildGlossaryIndexEntries", () => {
   it("sorts entries stably when titles collide", () => {
     const index = buildGlossaryIndexEntries([...categories]);
 
-    expect(index.map((entry) => entry.id)).toEqual(["alpha", "alpha-2", "beta"]);
+    expect(index.map((entry) => entry.id)).toEqual([
+      "alpha",
+      "alpha-2",
+      "beta",
+    ]);
   });
 
   it("supports empty and single-item datasets", () => {
@@ -79,14 +84,12 @@ describe("filterGlossaryIndexEntries", () => {
   it("applies case-insensitive query semantics", () => {
     const index = buildGlossaryIndexEntries([...categories]);
 
-    expect(filterGlossaryIndexEntries(index, "ALPHA").map((entry) => entry.id)).toEqual([
-      "alpha",
-      "alpha-2",
-    ]);
+    expect(
+      filterGlossaryIndexEntries(index, "ALPHA").map((entry) => entry.id),
+    ).toEqual(["alpha", "alpha-2"]);
     expect(filterGlossaryIndexEntries(index, "")).toHaveLength(index.length);
   });
 });
-
 
 describe("buildGlossaryStructuredDataPayload", () => {
   it("creates defined-term set payload with expected counts", () => {
@@ -104,8 +107,51 @@ describe("buildGlossaryStructuredDataPayload", () => {
 
     expect(setNode).toBeDefined();
     expect(setNode?.numberOfItems).toBe(3);
-    expect((setNode as { hasDefinedTerm: Array<{ name: string }> }).hasDefinedTerm[0]?.name).toBe(
-      "Alpha",
-    );
+    expect(
+      (setNode as { hasDefinedTerm: Array<{ name: string }> }).hasDefinedTerm[0]
+        ?.name,
+    ).toBe("Alpha");
+  });
+});
+
+describe("published glossary content", () => {
+  const index = buildGlossaryIndexEntries(glossaryContent.categories);
+  const ids = new Set(index.map((entry) => entry.id));
+
+  it("indexes the delegation-era terms", () => {
+    for (const id of [
+      "delegated-agency",
+      "consequential-decision",
+      "justified-delegation",
+      "authority-grant",
+      "authority-lease",
+      "grant-state",
+      "dependency-state",
+      "exposure-score",
+      "substitution-cost",
+      "technical-reversibility",
+      "operational-reversibility",
+      "institutional-reversibility",
+      "corrective-standing",
+      "standing-mechanism",
+      "procedural-force",
+      "intervention-specification",
+      "meaningful-control",
+      "expansion-decision",
+      "substrate-profile",
+      "evaluation-layer",
+    ]) {
+      expect(ids.has(id)).toBe(true);
+    }
+  });
+
+  it("keeps every indexed id unique", () => {
+    expect(ids.size).toBe(index.length);
+  });
+
+  it("finds authority terms through the index filter", () => {
+    expect(
+      filterGlossaryIndexEntries(index, "authority").map((entry) => entry.id),
+    ).toContain("authority-grant");
   });
 });

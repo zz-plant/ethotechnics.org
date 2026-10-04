@@ -1,0 +1,367 @@
+---
+import InlineScript from "../../components/InlineScript.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import FiniteSection from "../../components/FiniteSection.astro";
+import { evalsContent } from "../../content/evals";
+import { evalTestCases } from "../../content/eval-test-cases";
+import { tier1Checks } from "../../harness/checks";
+
+const machineCaseCount = tier1Checks.length;
+const draftSuiteCount = evalsContent.suites.filter(
+  (suite) => suite.status === "draft",
+).length;
+
+const {
+  pageTitle,
+  pageDescription,
+  permalink,
+  anchorLinks,
+  suites,
+  evaluationStack,
+} = evalsContent;
+
+const suitesByLayer = evaluationStack.layers.map((layer) => ({
+  layer,
+  suites: suites.filter((suite) => suite.layer === layer.id),
+}));
+
+const suiteTestCaseCounts = new Map(
+  suites.map((suite) => [
+    suite.id,
+    evalTestCases.filter((tc) => tc.suiteId === suite.id).length,
+  ]),
+);
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": permalink,
+  name: pageTitle,
+  description: pageDescription,
+  url: new URL(permalink, Astro.site ?? Astro.url.origin).toString(),
+  hasPart: suites.map((suite) => ({
+    "@type": "CreativeWork",
+    name: suite.title,
+    description: suite.description,
+    url: new URL(
+      `/evals/${suite.slug}`,
+      Astro.site ?? Astro.url.origin,
+    ).toString(),
+    version: suite.version,
+  })),
+};
+const structuredDataJson = JSON.stringify(structuredData, null, 2);
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  structuredDataType="collection"
+>
+  <PageIntro
+    eyebrow="Evals"
+    title="Governance eval suites"
+    description={`Suites that test whether a deployed system's authority is still valid, who carries its burden, and whether it can be stopped, appealed, and repaired within a stated time limit. ${machineCaseCount} of the ${evalTestCases.length} cases run automatically; a reviewer scores the rest against a written rubric. ${draftSuiteCount} of the ${evalsContent.suites.length} suites are drafts.`}
+    anchorLinks={anchorLinks}
+  >
+    <Fragment slot="actions">
+      <a class="button ghost" href="/evals/coverage">What the evals can check</a
+      >
+      <a class="button ghost" href="/use-cases#model-testing"
+        >Evals test the deployment, not the model</a
+      >
+    </Fragment>
+  </PageIntro>
+
+  <SectionBlock
+    id="stack"
+    eyebrow="Evaluation stack"
+    title={evaluationStack.title}
+    description={evaluationStack.description}
+  >
+    <ol class="eval-stack">
+      {
+        evaluationStack.layers.map((layer) => (
+          <li class="eval-stack__layer">
+            <p class="eyebrow">{layer.title}</p>
+            <p>
+              <strong>{layer.question}</strong>
+            </p>
+            <p class="muted small">{layer.example}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </SectionBlock>
+
+  <SectionBlock
+    id="register"
+    eyebrow="Register"
+    title="Every suite, in one table"
+    description="The layer each suite tests, how many cases it holds, and how many of those a machine can answer without a human reviewer."
+  >
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table mapping-table--stack catalogue-table">
+        <thead>
+          <tr>
+            <th scope="col">Suite</th>
+            <th scope="col">Layer</th>
+            <th scope="col" class="catalogue-table__num">Cases</th>
+            <th scope="col" class="catalogue-table__num">Automated</th>
+            <th scope="col">Scoring</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            suites.map((suite) => {
+              const cases = evalTestCases.filter(
+                (tc) => tc.suiteId === suite.id,
+              );
+              const machine = tier1Checks.filter(
+                (c) => c.suiteId === suite.id,
+              ).length;
+              const layer = evaluationStack.layers.find(
+                (l) => l.id === suite.layer,
+              );
+              return (
+                <tr>
+                  <th scope="row">
+                    <a href={`/evals/${suite.slug}`}>{suite.title}</a>
+                  </th>
+                  <td data-label="Layer">{layer?.title ?? suite.layer}</td>
+                  <td data-label="Cases" class="catalogue-table__num">
+                    {cases.length}
+                  </td>
+                  <td data-label="Automated" class="catalogue-table__num">
+                    {machine > 0 ? machine : "—"}
+                  </td>
+                  <td data-label="Scoring">
+                    {suite.scoringMethod.type.replace(/-/g, " ")}
+                    <span class="muted">
+                      {" "}
+                      · pass at {suite.scoringMethod.passingScore}
+                    </span>
+                  </td>
+                </tr>
+              );
+            })
+          }
+        </tbody>
+      </table>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="suites"
+    eyebrow="Available suites"
+    title="Governance eval suites, by layer"
+    description="Each suite tests one property, such as whether a system can be stopped or appealed, at one layer of the stack. Evaluate at the highest layer capable of producing the failure you care about; a clean result at a lower layer is not evidence about a higher one."
+    variant="alt"
+  >
+    {
+      suitesByLayer.map(({ layer, suites: layerSuites }) => (
+        <div class="eval-layer-group">
+          <h3 class="eval-layer-group__title">
+            {layer.title} layer
+            <span class="muted small eval-layer-group__count">
+              {layerSuites.length === 0
+                ? "no suites"
+                : `${layerSuites.length} suite${layerSuites.length === 1 ? "" : "s"}`}
+            </span>
+          </h3>
+          <p class="muted small">{layer.question}</p>
+          {layerSuites.length === 0 ? (
+            <p class="muted small">
+              None of the suites here sits at this layer; the site assumes it
+              has been evaluated elsewhere.
+            </p>
+          ) : (
+            <CardGrid className="grid--two">
+              {layerSuites.map((suite) => {
+                const testCount = suiteTestCaseCounts.get(suite.id) ?? 0;
+
+                return (
+                  <CardItem
+                    eyebrow={suite.category}
+                    title={suite.title}
+                    description={suite.description}
+                  >
+                    <p class="muted small">
+                      <span
+                        class={`status-badge status-badge--${suite.status}`}
+                      >
+                        {suite.status}
+                      </span>
+                      · {testCount} test case{testCount === 1 ? "" : "s"} · Est.{" "}
+                      {suite.estimatedTime}
+                    </p>
+                    <a
+                      slot="footer"
+                      class="muted"
+                      href={`/evals/${suite.slug}`}
+                    >
+                      Open suite
+                    </a>
+                  </CardItem>
+                );
+              })}
+            </CardGrid>
+          )}
+        </div>
+      ))
+    }
+  </SectionBlock>
+
+  <SectionBlock
+    id="methodology"
+    eyebrow="Methodology"
+    title="How evals are scored"
+    description="Most cases are scored by a human reviewer against a written rubric, using evidence the reviewer collects."
+  >
+    <div class="grid grid--three">
+      <div class="panel">
+        <p class="eyebrow">Scoring anchors</p>
+        <ul class="card__list">
+          <li><strong>Binary:</strong> Pass/fail — condition is met or not.</li>
+          <li><strong>0–3:</strong> Absent → Partial → Adequate → Strong.</li>
+          <li>
+            <strong>0–5:</strong> Absent → Minimal → Basic → Adequate → Strong → Exemplary.
+          </li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Scoring methods</p>
+        <ul class="card__list">
+          <li>
+            <strong>Weighted average:</strong> Each test case contributes according
+            to its weight. Overall score must meet the passing threshold.
+          </li>
+          <li>
+            <strong>Min-threshold:</strong> All test cases must score at or above
+            the minimum threshold. Single critical failure fails the suite.
+          </li>
+          <li>
+            <strong>All-must-pass:</strong> Every test case must pass. Used where
+            one failure disqualifies the system.
+          </li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Manual scoring</p>
+        <p class="muted">
+          A human reviewer runs each test case, collects evidence, and assigns a
+          score from the rubric. The runner on this site does not call a model.
+          The {machineCaseCount} automated cases run through a separate harness.
+        </p>
+      </div>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="coverage"
+    eyebrow="Coverage"
+    title="What these evals can show, and what nothing here checks"
+    description="The suites are one of two ways this site checks a system. Neither covers every claim the framework makes."
+  >
+    <p>
+      {machineCaseCount} of these cases can be answered by machine, and a separate
+      checker grades the decision records a system writes. <a
+        href="/evals/coverage">What we can actually check</a
+      >
+      maps each check to the governance property it is evidence for, says whether
+      it runs against the live system or its records, and lists the properties nothing
+      checks.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="run"
+    eyebrow="Run an eval"
+    title="Run a governance eval suite"
+    description="The runner steps a reviewer through each test case, records evidence, and produces a scored report."
+  >
+    <p>
+      <a class="button primary" href="/evals/runner"> Open eval runner </a>
+    </p>
+    <ul class="card__list">
+      <li>Pick one suite, or run all of them for a full assessment.</li>
+      <li>
+        Each test case presents a prompt and system context for the reviewer.
+      </li>
+      <li>Score each test case against its rubric.</li>
+      <li>Attach evidence and notes for each test case.</li>
+      <li>
+        Generate a scored report with aggregate score, grade, and
+        recommendations.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <FiniteSection />
+
+  <InlineScript type="application/ld+json" code={structuredDataJson} />
+</BaseLayout>
+
+<style>
+  .eval-stack {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-3);
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    counter-reset: layer;
+  }
+
+  .eval-stack__layer {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    counter-increment: layer;
+  }
+
+  .eval-stack__layer .eyebrow::before {
+    content: counter(layer) ". ";
+  }
+
+  .eval-layer-group {
+    margin-bottom: var(--space-6);
+  }
+
+  .eval-layer-group__title {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+    margin-bottom: var(--space-1);
+  }
+
+  .eval-layer-group__count {
+    font-weight: 400;
+  }
+
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    border-radius: var(--radius-pill);
+    padding: var(--space-hair) var(--space-2);
+    margin: 0 var(--space-1);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-label);
+  }
+
+  .status-badge--draft {
+    background: color-mix(in srgb, var(--accent) 18%, transparent);
+    color: var(--accent);
+  }
+
+  .status-badge--stable {
+    background: color-mix(in srgb, #2d8a4a 16%, transparent);
+    color: #2d8a4a;
+  }
+</style>

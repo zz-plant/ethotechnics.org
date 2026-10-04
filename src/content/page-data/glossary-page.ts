@@ -1,83 +1,100 @@
-export const summaryLinks = [
-  { href: "#starter-terms", label: "Starter terms" },
-  { href: "#glossary-pathways", label: "Glossary pathways" },
-  { href: "#explainer-links", label: "Explainers" },
-  { href: "#glossary-index", label: "A–Z index" },
-  { href: "#territory-map", label: "Territory map" },
-];
-
-export const summaryRelatedLinks = [
-  { href: "/mechanisms", label: "Mechanisms" },
-  { href: "/standards", label: "Standards" },
-  { href: "/research", label: "Research" },
-];
-
-export const summaryTakeaways = [
-  "Every term links to a permalink so citations stay stable.",
-  "Territory maps cluster definitions for faster scanning.",
-  "Related mechanisms connect definitions to implementation work.",
-];
-
 export const explainerLinks = [
   {
+    title: "Contestability",
+    description:
+      "How people challenge an automated decision and get it reversed.",
+    href: "/explainers/contestability",
+    glossarySlug: "contestability",
+  },
+  {
+    title: "Error-bearing parties",
+    description: "Name who absorbs a system's errors before granting standing.",
+    href: "/explainers/error-bearing-parties",
+    glossarySlug: "error-bearing-party",
+  },
+  {
+    title: "Intervention specification",
+    description: "Replace human in the loop with six answerable questions.",
+    href: "/explainers/intervention-specification",
+    glossarySlug: "intervention-specification",
+  },
+  {
+    title: "Justified delegation",
+    description:
+      "Check whether a delegation is still justified today, not at launch.",
+    href: "/explainers/justified-delegation",
+    glossarySlug: "justified-delegation",
+  },
+  {
+    title: "Authority as a lease",
+    description: "Hold authority for a term against a renewable justification.",
+    href: "/explainers/authority-as-lease",
+    glossarySlug: "authority-lease",
+  },
+  {
+    title: "Three kinds of reversibility",
+    description:
+      "Separate technical, operational, and institutional reversibility.",
+    href: "/explainers/three-kinds-of-reversibility",
+    glossarySlug: "institutional-reversibility",
+  },
+  {
+    title: "Permission surface",
+    description:
+      "See the set of authority grants in force, with evidence and expiry.",
+    href: "/explainers/permission-surface",
+    glossarySlug: "permission-surface",
+  },
+  {
+    title: "Burden index",
+    description: "Quantify the time tax systems impose on people.",
+    href: "/explainers/burden-index",
+    glossarySlug: "burden-index",
+  },
+  {
+    title: "Repair log",
+    description: "Track remediation actions with receipts and owners.",
+    href: "/explainers/repair-log",
+    glossarySlug: "repair-log",
+  },
+  {
+    title: "Design authority",
+    description:
+      "The owner who sets a system's constraints and funds their enforcement.",
+    href: "/explainers/design-authority",
+    glossarySlug: "design-authority",
+  },
+  {
+    title: "Safety valve",
+    description:
+      "Release points that let people slow, pause, or reroute automation.",
+    href: "/explainers/safety-valve",
+    glossarySlug: "safety-valve",
+  },
+  {
     title: "Stoppability",
-    description: "Learn how halt controls protect people from forced tunnels.",
+    description:
+      "How halt controls let an operator or a person stop an automated process.",
     href: "/explainers/stoppability",
     glossarySlug: "stoppability",
   },
   {
-    title: "Time-to-Halt (TTH)",
+    title: "Time-to-halt (TTH)",
     description: "Define the latency budget for stopping automated actions.",
     href: "/explainers/time-to-halt",
     glossarySlug: "time-to-halt",
   },
   {
-    title: "Ethical Interrupts",
+    title: "Ethical interrupts",
     description:
       "Pause automation at risk thresholds with accountable checkpoints.",
     href: "/explainers/ethical-interrupts",
     glossarySlug: "ethical-interrupts",
   },
   {
-    title: "Consent Journey",
+    title: "Consent journey",
     description: "Map consent across onboarding, renewal, and revocation.",
     href: "/explainers/consent-journey",
     glossarySlug: "consent-journey",
-  },
-  {
-    title: "Safety Valve",
-    description: "Build fallbacks that release pressure without harm.",
-    href: "/explainers/safety-valve",
-    glossarySlug: "safety-valve",
-  },
-  {
-    title: "Repair Log",
-    description: "Track remediation actions with receipts and owners.",
-    href: "/explainers/repair-log",
-    glossarySlug: "repair-log",
-  },
-  {
-    title: "Contestability",
-    description: "Ensure people can challenge and reverse automated decisions.",
-    href: "/explainers/contestability",
-    glossarySlug: "contestability",
-  },
-  {
-    title: "Design Authority",
-    description: "Assign accountable owners with governance power.",
-    href: "/explainers/design-authority",
-    glossarySlug: "design-authority",
-  },
-  {
-    title: "Burden Index",
-    description: "Quantify the time tax systems impose on people.",
-    href: "/explainers/burden-index",
-    glossarySlug: "burden-index",
-  },
-  {
-    title: "Permission Surface",
-    description: "Map every permission and access point over time.",
-    href: "/explainers/permission-surface",
-    glossarySlug: "permission-surface",
   },
 ];

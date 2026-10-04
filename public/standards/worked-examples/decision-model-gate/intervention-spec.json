@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "spec_id": "INT-REFUND-REVIEW-1",
+  "system_ref": "agent-refunds-v3",
+  "owner": {
+    "name": "Refund reviewer on shift",
+    "role": "Refund Reviewer",
+    "contact": "refund-review@example.org"
+  },
+  "information_available": [
+    "The proposed refund, order history, and customer message",
+    "The decision model's answer, distribution, and confidence for routed cases",
+    "Whether the case was routed by the threshold or drawn in the unreviewed sample",
+    "The threshold policy version in force"
+  ],
+  "actions_preventable": ["WRITE"],
+  "states_alterable": [
+    "decision.status (issued -> reversed, corrected)",
+    "grant.state (allowed -> review_required)"
+  ],
+  "on_disagreement": "The reviewer's decision stands. A reversal in the unreviewed sample counts toward the threshold policy's TRG-SAMPLE-REVERSALS trigger.",
+  "incentives": "Reviewers are measured on reversal accuracy and challenge answers, not on queue throughput or refund cost.",
+  "cost_to_exercise": "A reversal is one action with no approval needed.",
+  "reach_time_target": "PT4H",
+  "non_retaliation": {
+    "policy_ref": "https://policies.example.org/non-retaliation-2026",
+    "attested": true
+  },
+  "mechanism": "narrow",
+  "routing": {
+    "threshold_policy_ref": "POL-REFUND-GATE-THRESHOLD@1.2.0",
+    "score_shown_to_owner": true,
+    "unreviewed_sample": {
+      "share": 0.02,
+      "cadence": "Drawn daily; approval and reversal rates reported weekly, apart from the routed queue."
+    }
+  }
+}

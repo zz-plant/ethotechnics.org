@@ -1,0 +1,80 @@
+---
+/**
+ * The end of a deep page: one public case where the page's idea broke, and
+ * one action. Readers who arrive from search on a glossary entry, an
+ * explainer, or a failure page otherwise reach the footer with nowhere to go.
+ *
+ * The case and the law come from src/utils/next-step.ts, which maps the
+ * topic text to a state variable. Pass `variable` to skip the keyword match.
+ */
+import "../styles/components/next-step.css";
+
+import { getEntry } from "astro:content";
+import VerdictMark from "./VerdictMark.astro";
+import { stateVariables, type StateVariableId } from "../content/casebook";
+import { extractLaws } from "../utils/laws";
+import { pickCase, variableForTopic } from "../utils/next-step";
+
+interface Props {
+  /** Page title, slug, tags: any text that names the page's subject. */
+  topic?: (string | undefined | null)[];
+  /** Set when the page's variable is known; overrides `topic`. */
+  variable?: StateVariableId;
+  class?: string;
+}
+
+const { topic = [], variable, class: className }: Props = Astro.props;
+
+const { entry, finding, law } = pickCase(
+  variable ?? variableForTopic(...topic),
+);
+const variableLabel =
+  stateVariables.find((item) => item.id === finding.variable)?.label ??
+  finding.variable;
+
+const lawsEntry = await getEntry("standards", "laws");
+const lawRow = lawsEntry?.body
+  ? extractLaws(lawsEntry.body).find((row) => row.numeral === law)
+  : undefined;
+const lawHref = `/standards/laws#${lawRow?.id ?? `law-${law.toLowerCase()}`}`;
+---
+
+<aside
+  class:list={["next-step", className]}
+  aria-labelledby="next-step-case-title"
+>
+  <div class="next-step__case">
+    <p class="eyebrow">Where this broke in public</p>
+    <h2 id="next-step-case-title" class="next-step__title">
+      {entry.title}
+    </h2>
+    <p class="next-step__verdict">
+      <span>{variableLabel}</span>
+      <VerdictMark verdict={finding.verdict} labelled />
+    </p>
+    <p class="small muted next-step__hook">
+      {entry.period}. Time to halt: {entry.timeToHalt}
+    </p>
+    <a class="next-step__case-link" href={`/casebook/${entry.slug}`}>
+      Read the full case <span aria-hidden="true">&rarr;</span>
+    </a>
+  </div>
+  <div class="next-step__action">
+    <p class="eyebrow">Do this next</p>
+    <p class="next-step__law">
+      {
+        lawRow ? (
+          <>
+            Check your system against the law this case broke:{" "}
+            <strong>{lawRow.title}.</strong>
+          </>
+        ) : (
+          <>Check your system against the law this case broke.</>
+        )
+      }
+    </p>
+    <a class="button primary next-step__button" href={lawHref}>
+      Read Law {law}
+    </a>
+  </div>
+</aside>

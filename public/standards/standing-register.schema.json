@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethotechnics.org/standards/standing-register.schema.json",
+  "title": "Standing Register",
+  "description": "The Standing state variable: who can challenge which decisions or delegations, with what procedural force. Exposure to system failure generates standing to initiate correction; standing is procedural force, not veto (Law VII). The register lists, per decision class, who may challenge, what may be challenged, what evidence is admissible, who must respond and by when, the standard of review, and the state transitions a challenge can force.",
+  "type": "object",
+  "required": ["schema_version", "register_id", "decision_classes"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "title": "Schema version",
+      "description": "Version of this schema the register conforms to.",
+      "type": "string",
+      "pattern": "^1\\.\\d+\\.\\d+$"
+    },
+    "register_id": {
+      "title": "Register identifier",
+      "description": "Stable identifier for the register, referenced by challenges.",
+      "type": "string"
+    },
+    "system_ref": {
+      "title": "System reference",
+      "description": "Identifier of the system whose decisions this register governs.",
+      "type": "string"
+    },
+    "decision_classes": {
+      "title": "Decision classes",
+      "description": "One entry per class of consequential decision.",
+      "type": "array",
+      "items": {
+        "title": "Decision class entry",
+        "description": "Standing rules for one decision class.",
+        "type": "object",
+        "required": [
+          "decision_class",
+          "who_may_challenge",
+          "what_may_be_challenged",
+          "admissible_evidence",
+          "responder",
+          "response_deadline",
+          "standard_of_review",
+          "possible_state_transitions"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "decision_class": {
+            "title": "Decision class",
+            "description": "Name of the decision class, matching the action class or decision type used in decision records.",
+            "type": "string"
+          },
+          "who_may_challenge": {
+            "title": "Who may challenge",
+            "description": "Parties with standing, proportional to their exposure: affected parties, corrective labor, representatives, oversight bodies.",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "affected_party",
+                "corrective_labor",
+                "representative",
+                "oversight"
+              ]
+            }
+          },
+          "what_may_be_challenged": {
+            "title": "What may be challenged",
+            "description": "Which objects a challenge may target: a decision, the grant behind it, or the policy behind the grant.",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["decision", "grant", "policy"]
+            }
+          },
+          "admissible_evidence": {
+            "title": "Admissible evidence",
+            "description": "Kinds of evidence a challenger may submit.",
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "responder": {
+            "title": "Responder",
+            "description": "The accountable person or role who must answer the challenge.",
+            "type": "object",
+            "required": ["name", "role", "contact"],
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "title": "Name",
+                "description": "Name of the responder.",
+                "type": "string"
+              },
+              "role": {
+                "title": "Role",
+                "description": "Role of the responder.",
+                "type": "string"
+              },
+              "contact": {
+                "title": "Contact",
+                "description": "How to reach the responder.",
+                "type": "string"
+              }
+            }
+          },
+          "response_deadline": {
+            "title": "Response deadline",
+            "description": "Maximum time to respond, as an ISO 8601 duration such as P5D or PT48H.",
+            "type": "string",
+            "pattern": "^P(?!$)(\\d+Y)?(\\d+M)?(\\d+W)?(\\d+D)?(T(?=\\d)(\\d+H)?(\\d+M)?(\\d+S)?)?$"
+          },
+          "standard_of_review": {
+            "title": "Standard of review",
+            "description": "The test the responder applies when deciding whether the challenged object still deserves to stand.",
+            "type": "string"
+          },
+          "possible_state_transitions": {
+            "title": "Possible state transitions",
+            "description": "Outcomes a challenge can force, matching reconsideration outcomes. This is the procedural force standing carries.",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "stand",
+                "narrow",
+                "suspend",
+                "reverse",
+                "correct",
+                "expand"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

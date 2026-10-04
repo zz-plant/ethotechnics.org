@@ -1,0 +1,191 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethotechnics.org/standards/challenge.schema.json",
+  "title": "Challenge",
+  "description": "An instance of standing being exercised: a party listed in a standing register contests a decision, a grant, or a policy. A challenge is how exposure enters the system as an event (Law VII) and what forces a reconsideration.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "challenge_id",
+    "register_ref",
+    "decision_class",
+    "subject",
+    "challenger",
+    "opened_at",
+    "evidence",
+    "responder",
+    "deadline",
+    "status"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "title": "Schema version",
+      "description": "Version of this schema the challenge conforms to.",
+      "type": "string",
+      "pattern": "^1\\.\\d+\\.\\d+$"
+    },
+    "challenge_id": {
+      "title": "Challenge identifier",
+      "description": "Stable identifier for the challenge.",
+      "type": "string"
+    },
+    "register_ref": {
+      "title": "Register reference",
+      "description": "Identifier of the standing register entry that grants the challenger standing.",
+      "type": "string"
+    },
+    "decision_class": {
+      "title": "Decision class",
+      "description": "The decision class in the register under which the challenge is brought.",
+      "type": "string"
+    },
+    "subject": {
+      "title": "Subject",
+      "description": "What is being challenged.",
+      "type": "object",
+      "required": ["kind", "ref"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "title": "Kind",
+          "description": "Whether the challenge targets a decision, a grant, or a policy.",
+          "type": "string",
+          "enum": ["decision", "grant", "policy"]
+        },
+        "ref": {
+          "title": "Reference",
+          "description": "Identifier of the decision record, grant, or policy record.",
+          "type": "string"
+        }
+      }
+    },
+    "challenger": {
+      "title": "Challenger",
+      "description": "Who brought the challenge and on what basis they have standing.",
+      "type": "object",
+      "required": ["standing_basis"],
+      "additionalProperties": false,
+      "properties": {
+        "standing_basis": {
+          "title": "Standing basis",
+          "description": "The exposure that gives the challenger standing.",
+          "type": "string",
+          "enum": [
+            "affected_party",
+            "corrective_labor",
+            "representative",
+            "oversight"
+          ]
+        },
+        "id": {
+          "title": "Challenger identifier",
+          "description": "Identifier of the challenger, if disclosed.",
+          "type": "string"
+        }
+      }
+    },
+    "opened_at": {
+      "title": "Opened at",
+      "description": "When the challenge was opened.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "evidence": {
+      "title": "Evidence",
+      "description": "Evidence submitted with the challenge.",
+      "type": "array",
+      "items": {
+        "title": "Evidence item",
+        "description": "One piece of submitted evidence.",
+        "type": "object",
+        "required": ["type", "href"],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "title": "Type",
+            "description": "Kind of evidence, matching an admissible_evidence entry in the register.",
+            "type": "string"
+          },
+          "href": {
+            "title": "Link",
+            "description": "Where the evidence can be retrieved.",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "description": "Plain-language summary of the evidence.",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "responder": {
+      "title": "Responder",
+      "description": "The accountable person or role who must answer.",
+      "type": "object",
+      "required": ["name", "role", "contact"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "title": "Name",
+          "description": "Name of the responder.",
+          "type": "string"
+        },
+        "role": {
+          "title": "Role",
+          "description": "Role of the responder.",
+          "type": "string"
+        },
+        "contact": {
+          "title": "Contact",
+          "description": "How to reach the responder.",
+          "type": "string"
+        }
+      }
+    },
+    "deadline": {
+      "title": "Deadline",
+      "description": "When the responder must answer, computed from the register's response_deadline.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "title": "Status",
+      "description": "Lifecycle status of the challenge.",
+      "type": "string",
+      "enum": ["open", "under_review", "decided", "withdrawn"]
+    },
+    "reconsideration_ref": {
+      "title": "Reconsideration reference",
+      "description": "Identifier of the reconsideration record the challenge triggered.",
+      "type": "string"
+    },
+    "outcome": {
+      "title": "Outcome",
+      "description": "How the challenge was decided.",
+      "type": "object",
+      "required": ["transition", "reason", "decided_at"],
+      "additionalProperties": false,
+      "properties": {
+        "transition": {
+          "title": "Transition",
+          "description": "The state transition the challenge produced, matching reconsideration outcomes.",
+          "type": "string",
+          "enum": ["stand", "narrow", "suspend", "reverse", "correct", "expand"]
+        },
+        "reason": {
+          "title": "Reason",
+          "description": "Plain-language reason for the outcome.",
+          "type": "string"
+        },
+        "decided_at": {
+          "title": "Decided at",
+          "description": "When the outcome was recorded.",
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

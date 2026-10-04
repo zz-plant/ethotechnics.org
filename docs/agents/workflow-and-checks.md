@@ -15,6 +15,11 @@ Run focused checks as you iterate:
 - `bun run lint`.
 - `bun run typecheck`.
 - `bun run test:unit`.
+
+The unit command covers tests colocated under `src/` plus top-level `tests/*.test.ts` and
+`tests/*.spec.ts`. Browser suites remain isolated under `tests/e2e/**/*.e2e.ts` and run only
+through Playwright.
+
 - `bun run content:generate` after editing canonical `src/content/*.json` domains.
 - `bun run content:check` to catch stale generated content wrappers.
 - `bun run validate:json` when JSON/content schemas change.
@@ -41,6 +46,11 @@ Run `bun run check:review-guardrails:staged` for a fast pre-commit pass on stage
 Install local pre-commit automation once per clone with `bun run hooks:install` (or run `bun run setup:codex`, which installs hooks automatically).
 
 `bun run check:full` adds the SEO audit and coverage unit test run.
+
+Two checks need a served build (`bun run preview:cf -- --port 4321`, or any base URL) and run
+inside the Playwright suite: `bun run check:reachability <baseUrl>` fails on a static route
+nobody can click to and on any internal link that does not lead to a page, and
+`bun run check:sitemap <baseUrl>` fails on any sitemap URL that does not answer 200.
 
 For docs-only changes:
 

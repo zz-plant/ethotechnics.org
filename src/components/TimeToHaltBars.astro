@@ -1,0 +1,80 @@
+---
+/**
+ * Time to halt, one bar per case, all on one linear scale of years. The
+ * point is the contrast: four days beside twenty years. A bar too short to
+ * see is drawn at a minimum width, and the prose label beside every bar
+ * carries the figure. The list is the content; the bars and the axis are
+ * aria-hidden.
+ */
+import { cases } from "../content/casebook";
+
+interface Props {
+  level?: "h2" | "h3";
+  /** Prefix for the heading id, so the figure can appear twice on a site. */
+  id?: string;
+}
+
+const { level = "h3", id = "time-to-halt" }: Props = Astro.props;
+const Heading = level;
+
+const yearDays = 365.25;
+const longest = Math.max(...cases.map((entry) => entry.timeToHaltDays));
+const scaleYears = Math.ceil(longest / yearDays);
+const scaleDays = scaleYears * yearDays;
+const ticks = [0, 5, 10, 15, 20, 25, 30].filter((year) => year <= scaleYears);
+const lastTick = ticks[ticks.length - 1];
+
+const rows = cases.map((entry) => ({
+  entry,
+  share: entry.timeToHaltDays / scaleDays,
+  label: entry.timeToHalt.split(";")[0],
+}));
+const shortest = rows.reduce((min, row) => (row.share < min.share ? row : min));
+---
+
+<figure class="halt-bars" aria-labelledby={`${id}-title`}>
+  <figcaption class="halt-bars__caption">
+    <Heading id={`${id}-title`} class="halt-bars__title">
+      Time to halt, drawn to one scale
+    </Heading>
+    <p class="small muted">
+      Each bar runs from first harm to the halt, on a linear scale of years.
+      {shortest.entry.title}: {shortest.label.toLowerCase()}. At this scale that
+      is too short to see, so its bar is drawn at the minimum width. Where the
+      record dates an end only to the year or month, the bar measures from the
+      middle of it.
+    </p>
+  </figcaption>
+  <ol class="halt-bars__list">
+    {
+      rows.map(({ entry, share, label }) => (
+        <li class="halt-bars__row">
+          <span class="halt-bars__name">{entry.title}</span>
+          <span class="halt-bars__value">{label}</span>
+          <span class="halt-bars__track" aria-hidden="true">
+            <span
+              class="halt-bars__bar"
+              style={`--halt-share: ${share.toFixed(5)}`}
+            />
+          </span>
+        </li>
+      ))
+    }
+  </ol>
+  <div class="halt-bars__axis" aria-hidden="true">
+    {
+      ticks.map((year) => (
+        <span
+          class:list={[
+            "halt-bars__tick",
+            { "halt-bars__tick--end": year === lastTick },
+          ]}
+          style={`--tick-at: ${((year * yearDays) / scaleDays).toFixed(4)}`}
+        >
+          {year}
+          {year === lastTick && <span class="halt-bars__unit"> years</span>}
+        </span>
+      ))
+    }
+  </div>
+</figure>

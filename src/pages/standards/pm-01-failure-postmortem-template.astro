@@ -7,7 +7,7 @@ import { derivePublicationMetadata } from "../../utils/publication";
 
 const pageTitle = "PM-01 — Institutional Failure Postmortem Template";
 const pageDescription =
-  "A one-page failure postmortem template for governance and harm, grounded in Ethotechnics primitives.";
+  "A one-page postmortem template for institutional failures, built on clocks, reversibility, burden allocation, and repair paths.";
 const permalink = "/standards/pm-01-failure-postmortem-template";
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
 const breadcrumbItems = [
@@ -23,7 +23,7 @@ const publication = derivePublicationMetadata({
   permalink,
   published: "2026-04-15T00:00:00Z",
   version: "v1.0",
-  authorName: "Ethotechnics Standards Council",
+  authorName: "Ethotechnics Institute",
   changelogSummary: "Initial release of the PM-01 failure postmortem template.",
 });
 
@@ -149,7 +149,6 @@ const workedExample = `Worked example (hypothetical, anonymized)
 >
   <StandardStatusSummary slug="pm-01-failure-postmortem-template" />
 
-
   <article class="standard-document">
     <header class="standard-header">
       <div>
@@ -183,10 +182,10 @@ const workedExample = `Worked example (hypothetical, anonymized)
         <section class="standard-section">
           <h2>Standard intent</h2>
           <p>
-            This template documents institutional failures with enforceable clocks,
-            reversibility analysis, burden allocation, and repair paths. It is
-            designed for governance, compliance, and safety teams who need a
-            cite-ready artifact rather than narrative commentary.
+            This template documents institutional failures with enforceable
+            clocks, reversibility analysis, burden allocation, and repair paths.
+            It is for governance, compliance, and safety teams that need a
+            citable record rather than narrative commentary.
           </p>
         </section>
 
@@ -211,7 +210,9 @@ const workedExample = `Worked example (hypothetical, anonymized)
           <h2>Required primitives</h2>
           <ul class="muted">
             <li>Time-in-harm clocks with halt and restore timestamps.</li>
-            <li>Reversibility analysis for actions that could not be undone.</li>
+            <li>
+              Reversibility analysis for actions that could not be undone.
+            </li>
             <li>Burden allocation by group with quantified impact.</li>
             <li>Repair paths with owners, dates, and verification.</li>
           </ul>
@@ -248,8 +249,10 @@ const workedExample = `Worked example (hypothetical, anonymized)
         </section>
 
         <ScholarlyMeta publication={publication} permalink={permalink} />
-        <p class="muted" style="margin-top:1.5rem">
-          See also: <a href="/standards">Standards</a> &middot; <a href="/mechanisms">Mechanisms</a>
+        <p class="muted" style="margin-top:var(--space-5)">
+          See also: <a href="/standards">Standards</a> &middot; <a
+            href="/mechanisms">Mechanisms</a
+          >
         </p>
       </div>
     </div>

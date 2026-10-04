@@ -1,40 +1,23 @@
 @layer components {
-  @property --glow-opacity {
-    syntax: "<number>";
-    inherits: true;
-    initial-value: 0.14;
-  }
-
-  @property --glow-scale {
-    syntax: "<number>";
-    inherits: true;
-    initial-value: 1;
-  }
-
-  @property --glow-rotation {
-    syntax: "<angle>";
-    inherits: true;
-    initial-value: 0deg;
-  }
-
   .skip-link {
     position: absolute;
     left: 0.75rem;
     top: 0.75rem;
-    padding: 0.75rem 1rem;
+    padding: var(--space-3) var(--space-4);
     background: var(--accent-strong);
-    color: var(--surface);
+    color: #fff;
     border: 2px solid transparent;
     border-radius: var(--radius-pill);
     font-weight: 700;
+    font-family: var(--sans);
     text-decoration: none;
     transform: translateY(-200%);
     opacity: 0;
     transition:
-      transform 0.18s ease,
-      opacity 0.18s ease,
-      box-shadow 0.18s ease;
-    box-shadow: 0 10px 24px rgba(4, 16, 28, 0.22);
+      transform var(--motion-fast) ease,
+      opacity var(--motion-fast) ease,
+      box-shadow var(--motion-fast) ease;
+    box-shadow: var(--shadow-float);
     z-index: var(--z-skip-link);
   }
 
@@ -42,10 +25,10 @@
   .skip-link:focus-visible {
     transform: translateY(0);
     opacity: 1;
-    outline: 3px solid color-mix(in srgb, var(--gold) 80%, white 20%);
+    outline: 3px solid var(--gold);
     outline-offset: 3px;
     box-shadow:
-      0 16px 30px rgba(4, 16, 28, 0.28),
+      var(--shadow-float),
       0 0 0 6px color-mix(in srgb, var(--surface) 70%, transparent);
   }
 
@@ -56,8 +39,11 @@
     overflow: hidden;
   }
 
+  /* The top padding was 5vw (68px on a laptop) on top of the masthead's own
+     margin and padding: the title of every hub page sat under a blank band. */
   .page {
-    padding: clamp(2rem, 6vw, 5.5rem) 0 clamp(2rem, 4.5vw, 3.5rem);
+    padding: clamp(var(--space-3), 2vw, var(--space-5)) 0
+      clamp(var(--space-6), 4.5vw, var(--space-7));
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -66,30 +52,32 @@
     }
 
     ::view-transition-old(page) {
-      animation: page-exit 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+      animation: page-exit 0.35s var(--ease-out-editorial) both;
     }
 
     ::view-transition-new(page) {
-      animation: page-enter 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+      animation: page-enter 0.35s var(--ease-out-editorial) both;
     }
 
     @keyframes page-exit {
       to {
-        transform: translateY(-20px);
+        transform: translateY(-12px);
         opacity: 0;
       }
     }
 
     @keyframes page-enter {
       from {
-        transform: translateY(20px);
+        transform: translateY(12px);
         opacity: 0;
       }
     }
   }
 
+  /* Wide pages share the header's width. At the wider measure their text
+     started 30px left of the logo on a laptop and never lined up with it. */
   .page--wide {
-    width: min(var(--content-max-wide), calc(100% - (var(--page-gutter) * 2)));
+    width: min(var(--content-max), calc(100% - (var(--page-gutter) * 2)));
     margin: 0 auto;
   }
 
@@ -97,10 +85,28 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: clamp(1rem, 2vw, 1.4rem);
+    gap: clamp(var(--space-4), 2vw, var(--space-5));
     min-height: 100vh;
-    padding: 0 0 clamp(2.4rem, 5vw, 3.2rem);
+    padding: 0 0 clamp(var(--space-6), 5vw, var(--space-7));
     isolation: isolate;
+  }
+
+  /* A shallow wash under the masthead, deeper than the paper at the top and
+     gone within the first screen, so the page reads as lit from above. It
+     replaces two fixed radial blobs at 4% that were never visible and cost a
+     compositing layer on every scroll. */
+  .page-shell::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: clamp(18rem, 40vh, 26rem);
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--panel) 55%, var(--bg)) 0%,
+      var(--bg) 100%
+    );
+    pointer-events: none;
+    z-index: var(--z-underlay);
   }
 
   @supports (height: 100svh) {
@@ -115,80 +121,24 @@
     }
   }
 
-  .page-shell::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.2),
-      transparent 55%
-    );
-    opacity: 0.08;
-    pointer-events: none;
-    z-index: var(--z-base);
-  }
-
-  .page-shell::after {
-    content: "";
-    position: absolute;
-    inset: 12% 4% auto 4%;
-    height: 42%;
-    border-radius: calc(var(--radius-lg) + 8px);
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.12),
-      transparent 68%
-    );
-    mask: linear-gradient(180deg, rgba(0, 0, 0, 0.4), transparent 74%);
-    box-shadow: 0 18px 56px rgba(64, 52, 40, 0.03);
-    opacity: 0.12;
-    pointer-events: none;
-    z-index: var(--z-base);
-  }
-
-  .page-shell__canvas {
+  /* The content column takes the page gutter once. It used to take it
+     three times -- its own width, its own padding, and the .container on
+     <main> inside it -- so a phone gave 36px a side to chrome while the
+     header above sat at 12px, and the two edges never lined up. */
+  .page-shell__content {
     position: relative;
-    padding: 0 0 2.6rem;
     z-index: var(--z-raised);
-  }
-
-  .page-shell__panel {
-    position: relative;
-    width: min(var(--content-max-wide), calc(100% - (var(--page-gutter) * 2)));
+    width: min(calc(var(--content-max-wide) + (var(--page-gutter) * 2)), 100%);
     margin: 0 auto;
-    padding: clamp(1.2rem, 2.5vw, 2.5rem);
-    border: 1px solid color-mix(in srgb, var(--border) 72%, transparent);
-    border-radius: var(--radius-lg);
-    background: color-mix(in srgb, var(--surface) 97%, white 3%);
-    box-shadow: var(--shadow-panel);
-    backdrop-filter: none;
-    overflow: hidden;
-    overflow: clip;
+    padding: 0 var(--page-gutter) var(--space-7);
   }
 
-  .page-shell__panel::before,
-  .page-shell__panel::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
+  .page-shell__content > .container {
+    width: min(var(--content-max), 100%);
   }
 
-  .page-shell__panel::before {
-    background: linear-gradient(
-      120deg,
-      rgba(255, 255, 255, 0.18),
-      rgba(255, 255, 255, 0)
-    );
-    mix-blend-mode: screen;
-    opacity: 0.12;
-  }
-
-  .page-shell__panel::after {
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.025), transparent 40%);
-    mask: linear-gradient(180deg, rgba(0, 0, 0, 0.25), transparent 65%);
-    opacity: 0.2;
+  .page-shell__content > .page--wide {
+    width: min(var(--content-max), 100%);
   }
 
   .site-header {
@@ -198,63 +148,102 @@
     gap: 0;
   }
 
+  /* --- Site Footer --- */
+  /*
+   * Two bands, not one grid. Every section used to share a single auto-fit
+   * track, so the identity block and the newsletter competed with the link
+   * columns for width: four sections landed on the first row and two were
+   * stranded on a second beside a large empty area. The identity now holds a
+   * rail of its own, the link columns share the remaining width, and the
+   * newsletter gets a full band under a rule.
+   */
   .footer {
-    border-top: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-    padding: clamp(2rem, 4vw, 2.4rem) 0 clamp(3rem, 6vw, 4.2rem);
+    border-top: 1px solid color-mix(in srgb, var(--border) 90%, transparent);
+    padding: clamp(var(--space-6), 5vw, var(--space-8)) 0
+      clamp(var(--space-6), 4vw, var(--space-7));
     display: grid;
-    gap: 1.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
-    background: color-mix(in srgb, var(--surface) 92%, white 8%);
-    border-radius: calc(var(--radius) + 2px);
-    box-shadow: 0 -8px 28px rgba(64, 52, 40, 0.08);
+    gap: clamp(var(--space-6), 4vw, var(--space-7));
+    background: transparent;
+    margin-top: clamp(var(--space-6), 5vw, var(--space-8));
   }
 
-  .footer__section {
+  .footer__top {
     display: grid;
-    gap: 0.8rem;
+    gap: clamp(var(--space-6), 5vw, var(--space-8));
+    grid-template-columns: minmax(14rem, 17rem) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .footer__identity-block {
+    display: grid;
+    gap: var(--space-4);
     align-content: start;
-  }
-
-  .footer__identity {
-    display: grid;
-    gap: 0.6rem;
-  }
-
-  .footer__cta {
-    padding: 1.1rem;
-    border-radius: var(--radius-lg);
-    border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--border));
-    background: color-mix(in srgb, var(--surface) 94%, white 6%);
-    box-shadow: 0 14px 28px rgba(64, 52, 40, 0.08);
-  }
-
-  .footer__cta-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-  }
-
-  .footer__cta-actions .button {
-    min-width: 9rem;
   }
 
   .footer__brand {
     display: inline-flex;
-    gap: 0.75rem;
+    gap: var(--space-3);
     align-items: center;
     font-weight: 600;
     text-decoration: none;
+    color: inherit;
+    transition: opacity var(--motion-fast) ease;
+  }
+
+  .footer__brand:hover {
+    opacity: 0.9;
   }
 
   .footer__wordmark {
-    width: clamp(9.5rem, 18vw, 12rem);
+    width: clamp(9.5rem, 18vw, 11rem);
     height: auto;
     display: block;
   }
 
   .footer__logo {
-    width: 2.4rem;
-    height: 2.4rem;
+    width: 2.2rem;
+    height: 2.2rem;
+    display: block;
+  }
+
+  .footer__description {
+    margin: 0;
+    color: var(--muted);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    max-width: 34ch;
+  }
+
+  .footer__license {
+    font-size: var(--text-sm);
+    color: var(--muted);
+    justify-self: start;
+  }
+
+  /*
+   * The link columns size themselves, so a section gained or lost does not
+   * strand a row. Four fit at desktop widths and they reflow to two, then one.
+   */
+  .footer__nav {
+    display: grid;
+    gap: clamp(var(--space-5), 3vw, var(--space-7));
+    grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  }
+
+  .footer__column {
+    display: grid;
+    gap: var(--space-2);
+    align-content: start;
+  }
+
+  .footer__heading {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: var(--tracking-label-wide);
+    text-transform: uppercase;
+    color: var(--accent);
   }
 
   .footer__list {
@@ -262,98 +251,239 @@
     padding: 0;
     margin: 0;
     display: grid;
-    gap: 0.4rem;
+    gap: var(--space-hair);
   }
 
+  /*
+   * A 44px touch target is right for a finger and wrong for a mouse: it spread
+   * seven links over 350px of footer. Coarse pointers keep the target; fine
+   * pointers get a readable rhythm.
+   */
   .footer__link {
-    color: inherit;
-    text-decoration: none;
+    color: var(--text);
     display: inline-flex;
     align-items: center;
-    min-height: 44px;
-    padding: 0.2rem 0;
+    padding: var(--space-1) 0;
+    font-size: var(--text-sm);
+    line-height: 1.4;
+    text-decoration: none;
     touch-action: manipulation;
-    text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
-    text-underline-offset: 0.2em;
-    text-decoration-thickness: 1.5px;
-    transition:
-      color 0.2s ease,
-      text-decoration-color 0.2s ease;
+    transition: color var(--motion-fast) ease;
+  }
+
+  @media (pointer: coarse) {
+    .footer__link {
+      min-height: 44px;
+      padding: var(--space-2) 0;
+    }
   }
 
   .footer__link:hover,
   .footer__link:focus-visible {
+    color: var(--accent-strong);
     text-decoration: underline;
-    text-decoration-color: color-mix(in srgb, var(--accent) 80%, transparent);
+    text-decoration-color: currentColor;
+    text-underline-offset: 0.25em;
   }
 
-  .footer__badge {
+  .footer__subscribe {
+    border-top: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+    padding-top: clamp(var(--space-5), 3vw, var(--space-6));
+  }
+
+  .footer__subscribe .newsletter-signup__form {
+    display: grid;
+    gap: var(--space-2);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 24rem);
+    align-items: end;
+  }
+
+  .footer__subscribe .newsletter-signup__form > h3,
+  .footer__subscribe .newsletter-signup__form > p {
+    grid-column: 1;
+    margin: 0;
+    max-width: 46ch;
+  }
+
+  .footer__subscribe .newsletter-signup__row {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: center;
+  }
+
+  .footer__subscribe .newsletter-signup__status {
+    grid-column: 1 / -1;
+  }
+
+  @media (max-width: 720px) {
+    .footer__subscribe .newsletter-signup__form {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .footer__subscribe .newsletter-signup__row {
+      grid-column: 1;
+      grid-row: auto;
+    }
+  }
+
+  .theme-toggle {
     display: inline-flex;
     align-items: center;
-    width: fit-content;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border: 1px solid color-mix(in srgb, var(--border) 90%, transparent);
+    background: var(--surface);
+    border-radius: var(--radius-pill);
+    color: var(--text);
+    cursor: pointer;
+    touch-action: manipulation;
+    transition:
+      background-color var(--motion-fast) ease,
+      border-color var(--motion-fast) ease,
+      color var(--motion-fast) ease,
+      transform var(--motion-fast) ease,
+      box-shadow var(--motion-fast) ease;
   }
 
-  .footer__badge img {
+  .theme-toggle:hover {
+    background: var(--interactive-bg-hover);
+    border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-xs);
+  }
+
+  .theme-toggle:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: 2px;
+  }
+
+  .theme-toggle__icon {
+    width: 1.15rem;
+    height: 1.15rem;
+    display: none;
+  }
+
+  .theme-toggle__icon--moon {
     display: block;
-    height: 31px;
-    width: auto;
+  }
+
+  .theme-toggle__icon--sun {
+    display: none;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light) .theme-toggle__icon--moon {
+      display: none;
+    }
+    :root:not(.light) .theme-toggle__icon--sun {
+      display: block;
+    }
+  }
+
+  :root.dark .theme-toggle__icon--moon {
+    display: none;
+  }
+
+  :root.dark .theme-toggle__icon--sun {
+    display: block;
+  }
+
+  input[type="checkbox"]:focus-visible {
+    outline: var(--focus-outline) !important;
+    outline-offset: 2px !important;
+  }
+
+  @media (max-width: 900px) {
+    .footer__top {
+      grid-template-columns: minmax(0, 1fr);
+    }
   }
 
   @media (max-width: 640px) {
-    .page {
-      padding-top: clamp(3rem, 8vw, 3.5rem);
-    }
-
-    .page-shell__panel {
-      padding: 1rem;
-    }
-
-    .footer {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 1.2rem;
-    }
-
-    .footer__cta-actions {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-    }
-
-    .footer__cta-actions .button {
-      width: 100%;
-    }
-
     .footer__wordmark {
       width: clamp(8.5rem, 36vw, 10.5rem);
     }
   }
 
-  @media (max-width: 360px), (max-height: 360px) {
-    .page {
-      padding: 2.4rem 0 2rem;
-    }
+  /* --- Code Block Copy Button --- */
+  pre {
+    position: relative;
+  }
 
-    .page-shell {
-      gap: 0.75rem;
-      padding-bottom: 1.6rem;
-    }
+  .code-copy-btn {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--text-xs);
+    font-family: var(--mono);
+    font-weight: 500;
+    color: var(--muted);
+    background: var(--surface);
+    border: 1px solid color-mix(in srgb, var(--border) 90%, transparent);
+    border-radius: var(--radius);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    transition:
+      opacity var(--motion-fast) ease,
+      color var(--motion-fast) ease,
+      background-color var(--motion-fast) ease,
+      border-color var(--motion-fast) ease;
+    /* The resting state fades the button, and opacity composites the text
+       toward the background. At 0.6 that put --muted at 2.9:1 on light
+       surfaces, below WCAG AA. 0.85 keeps the fade and clears 4.5:1 in both
+       themes; do not lower it without rechecking contrast. */
+    opacity: 0.85;
+    z-index: 2;
+  }
 
-    .page-shell__canvas {
-      padding-bottom: 1.6rem;
-    }
+  pre:hover .code-copy-btn,
+  .code-copy-btn:focus-visible {
+    opacity: 1;
+  }
 
-    .page-shell__panel {
-      padding: 1rem;
-      border-radius: var(--radius-md);
-    }
+  .code-copy-btn:hover {
+    color: var(--text);
+    background: var(--surface);
+    border-color: var(--accent);
+    opacity: 1;
+  }
 
-    .footer {
-      padding: 1.4rem 0 2rem;
-      gap: 1rem;
-    }
+  .code-copy-btn:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: 2px;
+  }
 
-    .footer__logo {
-      width: 2rem;
-      height: 2rem;
-    }
+  .code-copy-btn--copied {
+    color: var(--status-success) !important;
+    border-color: var(--status-success) !important;
+    background: color-mix(
+      in srgb,
+      var(--surface) 95%,
+      var(--status-success) 5%
+    ) !important;
+    opacity: 1 !important;
+  }
+}
+
+/* The six state-variable glyphs (SvgDefs #sv-*). Inline with text, sized by
+   the element's font, coloured by currentColor. */
+@layer components {
+  .sv {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    vertical-align: -0.1em;
+  }
+
+  .sv__glyph {
+    flex: none;
+    display: block;
   }
 }

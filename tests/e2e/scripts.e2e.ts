@@ -1,44 +1,76 @@
 import { expect, test } from "@playwright/test";
 
+import { libraryContent } from "../../src/content/library";
+import { buildPatternSearchText } from "../../src/utils/pattern-search";
+
+// Expected counts come from the same data and search index the page renders,
+// so adding a mechanism does not silently break this test.
+const frictionMechanisms = libraryContent.patterns.entries.filter((pattern) =>
+  pattern.filters.includes("friction"),
+);
+const frictionAppealMechanisms = frictionMechanisms.filter((pattern) =>
+  buildPatternSearchText(pattern).includes("appeal"),
+);
+const countLabel = (count: number) =>
+  `${count} ${count === 1 ? "mechanism" : "mechanisms"}`;
+
 test.describe("Production scripts", () => {
-  test("keeps the pattern filter and bundle controls working", async ({
+  test("keeps the mechanism filter and bundle controls working", async ({
     page,
   }) => {
     await page.goto("/library#patterns");
     await page.waitForSelector("[data-pattern-filter]");
 
-    const designEthics = page.getByRole("button", { name: "Design ethics" });
+    const filterStatus = page.locator("[data-filter-status]");
+    // The mechanism filter boots lazily once the section scrolls into view;
+    // the status line switches to a live count when the script takes over.
+    await page.locator("[data-pattern-filter]").scrollIntoViewIfNeeded();
+    await expect(filterStatus).toContainText(
+      /mechanisms visible with All themes\./,
+    );
+
+    const friction = page.getByRole("button", {
+      name: "Filter mechanisms by Friction and update visible results",
+    });
+    // MEC-01 is Governance + Policy, MEC-06 is Friction + Governance,
+    // MEC-02 is Friction + Policy.
     const decisionLog = page.locator("#decision-log");
     const appealPaths = page.locator("#appeal-paths");
     const progressiveConsent = page.locator("#progressive-consent");
-    const filterStatus = page.locator("[data-filter-status]");
 
-    await designEthics.click();
-    await expect(filterStatus).toContainText(/Design ethics/);
-    await expect(decisionLog).toBeHidden();
+    await friction.click();
+    await expect(friction).toHaveAttribute("aria-pressed", "true");
+    await expect(filterStatus).toContainText(
+      `${countLabel(frictionMechanisms.length)} visible with Friction.`,
+    );
     await expect(appealPaths).toBeVisible();
+    await expect(decisionLog).toBeHidden();
 
     await page
-      .getByLabel("Search patterns by title, summary, or cue")
+      .getByLabel("Search mechanisms by name or keyword")
       .fill("appeal");
-    await expect(filterStatus).toContainText(/appeal/);
+    await expect(filterStatus).toContainText(
+      `${countLabel(frictionAppealMechanisms.length)} visible with Friction and search for "appeal".`,
+    );
     await expect(appealPaths).toBeVisible();
     await expect(progressiveConsent).toBeHidden();
 
     const bundleStatus = page.locator("[data-selection-status]");
-    await expect(bundleStatus).toContainText("No patterns selected yet.");
+    await expect(bundleStatus).toContainText("No mechanisms selected yet.");
 
     await page
-      .getByLabel("Save Appeal paths inside the UI to your bundle")
+      .getByLabel("Save MEC-06 Appeal paths inside the UI to your bundle")
       .check();
 
-    await expect(bundleStatus).toContainText("1 pattern saved");
+    await expect(bundleStatus).toContainText(
+      "1 mechanism saved for your bundle.",
+    );
     await expect(
       page.getByRole("button", { name: "Download markdown" }),
-    ).toBeEnabled();
+    ).toHaveAttribute("aria-disabled", "false");
     await expect(
       page.getByRole("button", { name: "Copy bundle link" }),
-    ).toBeEnabled();
+    ).toHaveAttribute("aria-disabled", "false");
   });
 
   test("filters glossary entries and restores the full index", async ({
@@ -46,9 +78,7 @@ test.describe("Production scripts", () => {
   }) => {
     await page.goto("/glossary");
 
-    const input = page.getByPlaceholder(
-      "Start typing to narrow the index (e.g., consent)",
-    );
+    const input = page.getByLabel("Filter glossary terms", { exact: true });
     const count = page.locator(".glossary-filter__count");
     const empty = page.locator(".glossary-index__empty");
     const consentJourney = page
@@ -76,38 +106,15 @@ test.describe("Production scripts", () => {
     await expect(burdenIndex).not.toHaveClass(/is-hidden/);
   });
 
-  test("activates field note tabs when navigating by hash", async ({
-    page,
-  }) => {
-    await page.goto("/field-notes");
-
-    const dispatchTab = page.getByRole("tab", { name: "Dispatches" });
-    const caseStudiesTab = page.getByRole("tab", { name: "Case studies" });
-    const dispatchPanel = page.locator(
-      '[data-field-notes-panel][data-format="dispatch"]',
-    );
-    const caseStudyPanel = page.locator(
-      '[data-field-notes-panel][data-format="case-study"]',
-    );
-
-    await expect(dispatchTab).toHaveAttribute("aria-selected", "true");
-    await expect(dispatchPanel).toBeVisible();
-
-    await caseStudiesTab.click();
-    await expect(caseStudiesTab).toHaveAttribute("aria-selected", "true");
-    await expect(caseStudyPanel).toBeVisible();
-    await expect(dispatchPanel).toBeHidden();
-    await expect(page).toHaveURL(/#case-study/);
-
-    await page.goto("/field-notes#maintenance-drift");
+  test("opens the signals panel at a field note's hash", async ({ page }) => {
+    await page.goto("/field-notes#price-of-a-decision");
     const signalsTab = page.getByRole("tab", { name: "Signals" });
     const signalPanel = page.locator(
       '[data-field-notes-panel][data-format="signal"]',
     );
-    const maintenanceEntry = page.locator("#maintenance-drift");
 
     await expect(signalsTab).toHaveAttribute("aria-selected", "true");
     await expect(signalPanel).toBeVisible();
-    await expect(maintenanceEntry).toBeVisible();
+    await expect(page.locator("#price-of-a-decision")).toBeVisible();
   });
 });

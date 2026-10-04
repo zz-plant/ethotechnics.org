@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "spec_id": "INT-RISK-STEWARD-1",
+  "system_ref": "agent-risk-ops-v2",
+  "owner": {
+    "name": "Risk Steward on call",
+    "role": "Risk Steward",
+    "contact": "risk-steward@example.org"
+  },
+  "information_available": [
+    "Live hold queue with reason codes and the decision record for each hold",
+    "Rolling 30-day false-positive hold rate",
+    "Grant GRANT-2026-0142 state and state history",
+    "Open challenges and their deadlines"
+  ],
+  "actions_preventable": ["WRITE"],
+  "states_alterable": [
+    "decision.status (issued -> paused, reversed)",
+    "grant.state (allowed -> review_required, suspended)",
+    "hold release on any account"
+  ],
+  "on_disagreement": "The steward's decision prevails immediately; the hold is released or the grant moved to review_required, and the disagreement is logged as a reconsideration trigger of kind incident for the Risk Governance Board.",
+  "incentives": "Steward performance is measured on challenge resolution time and reversal accuracy, not on hold volume or fraud-loss targets.",
+  "cost_to_exercise": "One steward-hour per intervention; no approval required from Fraud Operations management.",
+  "reach_time_target": "PT2H",
+  "non_retaliation": {
+    "policy_ref": "https://policies.example.org/non-retaliation-2025",
+    "attested": true
+  },
+  "mechanism": "narrow"
+}

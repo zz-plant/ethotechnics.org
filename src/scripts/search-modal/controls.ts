@@ -301,11 +301,6 @@ export const bindSearchInstance = (
       return;
     }
 
-    if (event.key === "ArrowUp" && currentIndex === 0) {
-      input.focus();
-      return;
-    }
-
     const prevIndex = currentIndex - 1;
     (focusable[prevIndex] ?? focusable[focusable.length - 1]).focus();
   });
@@ -362,7 +357,7 @@ export const bindGlobalSearchListeners = ({
 
   document.addEventListener("click", (event) => {
     const target = event.target;
-    if (!(target instanceof HTMLElement)) {
+    if (!(target instanceof Element)) {
       return;
     }
 

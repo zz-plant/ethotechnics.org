@@ -14,7 +14,13 @@ export type PrimerSection = {
 };
 
 export type PatternFilter = {
-  slug: "governance" | "friction" | "policy";
+  slug:
+    | "capability"
+    | "authority"
+    | "evidence"
+    | "dependency"
+    | "standing"
+    | "correction";
   label: string;
   description: string;
 };

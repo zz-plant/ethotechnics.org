@@ -1,0 +1,125 @@
+/* Time to halt, drawn to one scale (TimeToHaltBars.astro). One bar per case
+   on a shared linear axis. Each bar's length comes from `--halt-share`, the
+   case's days over the scale's days, set on the element. A bar too short to
+   see keeps a minimum width; the prose label beside it carries the figure. */
+@layer components {
+  .halt-bars {
+    display: grid;
+    gap: var(--space-3);
+    margin: 0;
+    min-width: 0;
+    color: var(--text);
+  }
+
+  .halt-bars__caption {
+    display: grid;
+    gap: var(--space-2);
+    max-width: 68ch;
+  }
+
+  .halt-bars__title {
+    margin: 0;
+    font-size: var(--text-h4);
+  }
+
+  .halt-bars__caption p {
+    margin: 0;
+  }
+
+  .halt-bars__list {
+    display: grid;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Name and value share a line where they fit; the value wraps below the
+     name, still right-aligned, where they do not. */
+  .halt-bars__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-1) var(--space-3);
+  }
+
+  .halt-bars__name {
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    font-weight: 650;
+  }
+
+  .halt-bars__value {
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    color: var(--muted);
+    margin-inline-start: auto;
+    text-align: end;
+  }
+
+  .halt-bars__track {
+    flex: 1 0 100%;
+    display: block;
+    height: var(--space-3);
+    border-radius: var(--radius-xs);
+    background: color-mix(in srgb, var(--border) 45%, transparent);
+  }
+
+  .halt-bars__bar {
+    display: block;
+    height: 100%;
+    width: max(0.2rem, calc(var(--halt-share, 0) * 100%));
+    border-radius: var(--radius-xs);
+    background: var(--accent);
+  }
+
+  .halt-bars__axis {
+    position: relative;
+    height: 1.9em;
+    border-top: 1px solid var(--border);
+    font-family: var(--sans);
+    font-size: var(--text-xs);
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .halt-bars__tick {
+    position: absolute;
+    top: 0.25em;
+    left: calc(var(--tick-at, 0) * 100%);
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+
+  .halt-bars__tick:first-child {
+    transform: none;
+  }
+
+  .halt-bars__tick--end {
+    transform: translateX(-100%);
+  }
+
+  .halt-bars__tick::before {
+    content: "";
+    position: absolute;
+    top: -0.3em;
+    left: 50%;
+    width: 1px;
+    height: 0.25em;
+    background: var(--border);
+  }
+
+  .halt-bars__tick:first-child::before {
+    left: 0;
+  }
+
+  .halt-bars__tick--end::before {
+    left: 100%;
+  }
+
+  @media (max-width: 480px) {
+    .halt-bars__unit {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,85 @@
+---
+// The record-diagram classes (.chip, .label, .small …) live in figures.css.
+import "../styles/components/figures.css";
+---
+
+<figure class="standard-diagram">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 960 356"
+    role="img"
+    aria-labelledby="rdr-conformance-title rdr-conformance-desc"
+  >
+    <title id="rdr-conformance-title">
+      The four conformance levels as a ladder
+    </title>
+    <desc id="rdr-conformance-desc">
+      Four ascending steps. Level 0 emitting, level 1 append-only, level 2
+      dependent, and level 3 contestable. Each step names what it adds to the
+      one below it.
+    </desc>
+
+    <text x="14" y="30" class="title ink"
+      >Each rung adds one thing to the one below</text
+    >
+    <rect x="14" y="198" width="206" height="80" class="chip chip-state"></rect>
+    <text x="117" y="223" text-anchor="middle" class="label ink"
+      >Level 0 · Emitting</text
+    >
+    <text x="117" y="245" text-anchor="middle" class="small muted"
+      >valid records, with as_of</text
+    >
+    <text x="117" y="262" text-anchor="middle" class="small muted"
+      >kept apart from recorded_at</text
+    >
+    <line x1="220" y1="228" x2="240" y2="202" class="line dash"></line>
+
+    <rect x="240" y="148" width="206" height="80" class="chip chip-state"
+    ></rect>
+    <text x="343" y="173" text-anchor="middle" class="label ink"
+      >Level 1 · Append-only</text
+    >
+    <text x="343" y="195" text-anchor="middle" class="small muted"
+      >nothing edited; every record</text
+    >
+    <text x="343" y="212" text-anchor="middle" class="small muted"
+      >hashed and chained</text
+    >
+    <line x1="446" y1="178" x2="466" y2="152" class="line dash"></line>
+
+    <rect x="466" y="98" width="246" height="80" class="chip chip-state"></rect>
+    <text x="589" y="123" text-anchor="middle" class="label ink"
+      >Level 2 · Dependent</text
+    >
+    <text x="589" y="145" text-anchor="middle" class="small muted"
+      >depends_on and invalidated_by</text
+    >
+    <text x="589" y="162" text-anchor="middle" class="small muted"
+      >populated; discrepancies answered</text
+    >
+    <line x1="712" y1="128" x2="732" y2="102" class="line dash"></line>
+
+    <rect x="732" y="48" width="214" height="80" class="chip chip-state"></rect>
+    <text x="839" y="73" text-anchor="middle" class="label ink"
+      >Level 3 · Contestable</text
+    >
+    <text x="839" y="95" text-anchor="middle" class="small muted"
+      >standing declared; objections</text
+    >
+    <text x="839" y="112" text-anchor="middle" class="small muted"
+      >answered within a clock</text
+    >
+
+    <text x="14" y="308" class="small muted">
+      A system declares the highest level every record it emits satisfies, and a
+      consumer reads that as a floor
+    </text>
+    <text x="14" y="326" class="small muted">
+      rather than a promise about any one record. Declaring Level 0 honestly is
+      conformance.
+    </text>
+    <text x="14" y="344" class="small muted">
+      Declaring Level 2 over a log that never populates invalidated_by is not.
+    </text>
+  </svg>
+</figure>

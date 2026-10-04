@@ -24,7 +24,8 @@ export type StandardsGroupModel = StandardsGroupDefinition & {
   items: StandardEntry[];
 };
 
-export type StandardsFilterOption = "all" | "core" | "implementation" | "reference";
+export type StandardsFilterOption =
+  "all" | "core" | "implementation" | "reference";
 
 export type StandardsGroupingModel = {
   activeStandards: StandardEntry[];
@@ -42,51 +43,52 @@ const adoptedStandards: StandardsCardModel[] = [
     eyebrow: "OECD",
     title: "OECD AI Principles",
     description:
-      "Principles-based guidance that lacks binding stop authority and time-bounded remediation.",
+      "Non-binding principles: they ask for accountability and set no duty anyone can enforce.",
     href: "/standards/oecd-ai-principles",
   },
   {
     eyebrow: "NIST",
     title: "NIST AI RMF 1.0",
     description:
-      "Risk management maturity without mandatory rollback, halt, or restoration guarantees.",
+      "Voluntary risk management that asks for feedback and impact mapping, and lets the operator decide what counts as done.",
     href: "/standards/nist-ai-rmf",
   },
   {
     eyebrow: "ISO",
     title: "ISO/IEC 42001",
     description:
-      "Management-system certification that can miss runtime stoppability requirements.",
+      "Certifies the management system. Nothing makes one system's authority to act expire.",
     href: "/standards/iso-iec-42001",
   },
   {
     eyebrow: "EU",
     title: "EU AI Act",
     description:
-      "Regulatory compliance framework where enforcement is slower than machine-speed harm.",
+      "Most high-risk systems are self-assessed before release, and their authority does not lapse. A challenge need not reach the system.",
     href: "/standards/eu-ai-act",
   },
   {
     eyebrow: "Corporate",
     title: "Responsible AI programs",
     description:
-      "Internal principles and review boards that rarely grant stop rights to the affected.",
+      "Internal boards and review gates that answer to the company, not to the people a system decides about.",
     href: "/standards/corporate-responsible-ai",
   },
   {
     eyebrow: "Meta-critique",
     title: "Governance by control",
     description:
-      "The core Ethotechnics critique: representation without enforceable control planes.",
-    href: "/standards/meta-critique",
+      "The general critique: frameworks that govern through documents, roles, and reviews, not through records a running system has to keep.",
+    href: "/standards#governance-by-control",
   },
 ];
 
 const groupingDefinitions: StandardsGroupDefinition[] = [
   {
     title: "Core",
-    description: "Foundational rights and contestability requirements to start with.",
-    ids: ["STD-01", "STD-02", "MVC-01"],
+    description:
+      "Foundational rights, contestability requirements, and the terms a delegation must satisfy.",
+    ids: ["STD-01", "STD-02", "STD-08", "MVC-01"],
   },
   {
     title: "Implementation",
@@ -98,7 +100,7 @@ const groupingDefinitions: StandardsGroupDefinition[] = [
     title: "Reference",
     description:
       "Interoperability and record-format specifications used across ecosystems.",
-    ids: ["STD-04", "STD-05"],
+    ids: ["STD-04", "STD-05", "STD-07", "STD-09"],
   },
 ];
 
@@ -113,8 +115,13 @@ export const buildStandardsCardViewModels = (input: {
   implementationExamples: ImplementationExample[];
 }) => {
   const featuredStandardIds = ["STD-01", "STD-02"];
-  const featuredStandards = mapStandardsByIds(input.standards, featuredStandardIds);
-  const coreDoctrine = input.doctrine.find((item) => item.title === "Core axioms");
+  const featuredStandards = mapStandardsByIds(
+    input.standards,
+    featuredStandardIds,
+  );
+  const coreDoctrine = input.doctrine.find(
+    (item) => item.title === "Core axioms",
+  );
 
   const starterCards: StandardsCardModel[] = [
     ...featuredStandards.map((standard) => ({
@@ -141,14 +148,14 @@ export const buildStandardsCardViewModels = (input: {
     {
       title: "Implementation examples overview",
       description:
-        "Domain-by-domain comparisons showing how Ethotechnics changes system architecture.",
-      href: "/standards/implementation-examples",
+        "How the same system is built differently in each domain once it has to be stoppable and reversible.",
+      href: "/examples#domains",
       ctaLabel: "Read guide",
     },
     ...input.implementationExamples.map((example) => ({
       title: example.title,
       description: example.cardDescription,
-      href: `/standards/implementation-examples/${example.slug}`,
+      href: `/examples/${example.slug}`,
       ctaLabel: "Read example",
     })),
   ];
@@ -163,27 +170,39 @@ export const buildStandardsCardViewModels = (input: {
 export const buildStandardsGroupingAndFilters = (
   standards: StandardEntry[],
 ): StandardsGroupingModel => {
+  const listedStandards = standards.filter(
+    (standard) => standard.listedOnSite !== false,
+  );
   const mostCitedStandardIds = ["STD-01", "STD-02", "MVC-01"];
-  const activeStandards = standards.filter((standard) => standard.status !== "Deprecated");
-  const mostCitedStandards = mapStandardsByIds(standards, mostCitedStandardIds);
-  const recentlyUpdatedStandards = [...standards]
+  const activeStandards = listedStandards.filter(
+    (standard) => standard.status !== "Deprecated",
+  );
+  const mostCitedStandards = mapStandardsByIds(
+    listedStandards,
+    mostCitedStandardIds,
+  );
+  const recentlyUpdatedStandards = [...listedStandards]
     .map((standard, index) => ({ standard, index }))
     .sort((left, right) => {
-      const publishedDelta = Date.parse(right.standard.published) - Date.parse(left.standard.published);
+      const publishedDelta =
+        Date.parse(right.standard.published) -
+        Date.parse(left.standard.published);
       return publishedDelta === 0 ? left.index - right.index : publishedDelta;
     })
     .map((item) => item.standard)
     .slice(0, 3);
 
-  const standardsGrouping: StandardsGroupModel[] = groupingDefinitions.map((group) => {
-    const lane = group.title.toLowerCase() as StandardsGroupModel["lane"];
+  const standardsGrouping: StandardsGroupModel[] = groupingDefinitions.map(
+    (group) => {
+      const lane = group.title.toLowerCase() as StandardsGroupModel["lane"];
 
-    return {
-      ...group,
-      lane,
-      items: mapStandardsByIds(standards, group.ids),
-    };
-  });
+      return {
+        ...group,
+        lane,
+        items: mapStandardsByIds(listedStandards, group.ids),
+      };
+    },
+  );
 
   const standardsFilterOptions: StandardsFilterOption[] = [
     "all",
@@ -192,16 +211,22 @@ export const buildStandardsGroupingAndFilters = (
     "reference",
   ];
   const standardsLaneById = new Map(
-    standardsGrouping.flatMap((group) => group.ids.map((id) => [id, group.lane] as const)),
+    standardsGrouping.flatMap((group) =>
+      group.ids.map((id) => [id, group.lane] as const),
+    ),
   );
 
   const standardsLaneCounts: Record<StandardsFilterOption, number> = {
     all: activeStandards.length,
-    core: activeStandards.filter((standard) => standardsLaneById.get(standard.id) === "core").length,
+    core: activeStandards.filter(
+      (standard) => standardsLaneById.get(standard.id) === "core",
+    ).length,
     implementation: activeStandards.filter(
       (standard) => standardsLaneById.get(standard.id) === "implementation",
     ).length,
-    reference: activeStandards.filter((standard) => standardsLaneById.get(standard.id) === "reference").length,
+    reference: activeStandards.filter(
+      (standard) => standardsLaneById.get(standard.id) === "reference",
+    ).length,
   };
 
   return {
@@ -217,7 +242,10 @@ export const buildStandardsGroupingAndFilters = (
 };
 
 export const buildStandardsStructuredDataPayload = (input: {
-  standardsContent: Pick<StandardsContent, "pageTitle" | "pageDescription" | "permalink" | "standards" | "doctrine">;
+  standardsContent: Pick<
+    StandardsContent,
+    "pageTitle" | "pageDescription" | "permalink" | "standards" | "doctrine"
+  >;
   adoptedStandards: StandardsCardModel[];
   siteUrl?: URL;
 }) => {
@@ -237,26 +265,32 @@ export const buildStandardsStructuredDataPayload = (input: {
     description: input.standardsContent.pageDescription,
     url: pageUrl,
     hasPart: [
-      ...input.standardsContent.standards.map((standard) => ({
-        "@type": "CreativeWork",
-        name: `${standard.id} — ${standard.title}`,
-        description: standard.description,
-        url: standardsUrl(standard.slug),
-        identifier: standard.id,
-        version: standard.version,
-        datePublished: standard.published,
-      })),
+      ...input.standardsContent.standards
+        .filter((standard) => standard.listedOnSite !== false)
+        .map((standard) => ({
+          "@type": "CreativeWork",
+          name: `${standard.id} — ${standard.title}`,
+          description: standard.description,
+          url: standardsUrl(standard.slug),
+          identifier: standard.id,
+          version: standard.version,
+          datePublished: standard.published,
+        })),
       ...input.standardsContent.doctrine.map((item) => ({
         "@type": "CreativeWork",
         name: item.title,
         description: item.description,
-        url: input.siteUrl ? new URL(item.href, input.siteUrl).toString() : item.href,
+        url: input.siteUrl
+          ? new URL(item.href, input.siteUrl).toString()
+          : item.href,
       })),
       ...input.adoptedStandards.map((item) => ({
         "@type": "CreativeWork",
         name: item.title,
         description: item.description,
-        url: input.siteUrl ? new URL(item.href, input.siteUrl).toString() : item.href,
+        url: input.siteUrl
+          ? new URL(item.href, input.siteUrl).toString()
+          : item.href,
       })),
     ],
   };

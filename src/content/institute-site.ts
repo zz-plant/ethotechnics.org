@@ -4,7 +4,6 @@ export interface InstituteArtifact {
   description: string[];
   enforcesBullets: string[];
   howToSteps: string[];
-  downloadUrl: string;
   finalLine: string;
 }
 
@@ -22,7 +21,7 @@ export const artifactFinalLine =
   "If a field is hard to fill, that is the governance gap this artifact exposes.";
 
 export const failureFooterLine =
-  "If a field is hard to fill, that is the governance question this artifact is designed to surface.";
+  "If a field in these templates is hard to fill in, that field is the gap this failure exposes.";
 
 export const artifacts: InstituteArtifact[] = [
   {
@@ -30,7 +29,7 @@ export const artifacts: InstituteArtifact[] = [
     slug: "decision-record-template",
     description: [
       "Assigns a named decision owner, reversal power, burden limit, and appeal path.",
-      "Prevents anonymous system outputs from escaping accountability.",
+      "No system output goes out without someone who answers for it.",
     ],
     enforcesBullets: [
       "Every decision has a named owner.",
@@ -42,7 +41,6 @@ export const artifacts: InstituteArtifact[] = [
       "Publish the contestability path in the user-facing flow.",
       "Treat the reversal clock as an operational commitment, not a target.",
     ],
-    downloadUrl: "#",
     finalLine: artifactFinalLine,
   },
   {
@@ -55,14 +53,13 @@ export const artifacts: InstituteArtifact[] = [
     enforcesBullets: [
       "Error states must be recoverable within bounded time.",
       "Escalation is clock-driven, not discretionary.",
-      "\"Pending\" cannot be unbounded.",
+      '"Pending" cannot be unbounded.',
     ],
     howToSteps: [
       "Set a reversal clock for each decision class.",
       "Define escalation steps when clocks are missed.",
       "Publish internal dashboards for reversal latency and time-in-harm.",
     ],
-    downloadUrl: "#",
     finalLine: artifactFinalLine,
   },
   {
@@ -70,7 +67,7 @@ export const artifacts: InstituteArtifact[] = [
     slug: "escalation-ladder-freeze-authority",
     description: [
       "Defines who can freeze what, under which conditions, and on what timeline.",
-      "Stoppability is operationalized as an enforceable authority.",
+      "Stoppability becomes an authority a named role holds and can use.",
     ],
     enforcesBullets: [
       "Freeze authority is explicit and role-bound.",
@@ -82,7 +79,6 @@ export const artifacts: InstituteArtifact[] = [
       "Define kill-switch criteria for each failure state.",
       "Run a tabletop where the first move is a freeze.",
     ],
-    downloadUrl: "#",
     finalLine: artifactFinalLine,
   },
   {
@@ -98,11 +94,10 @@ export const artifacts: InstituteArtifact[] = [
       "Time bounds are binding.",
     ],
     howToSteps: [
-      "Define \"appeal\" in operational terms.",
+      'Define "appeal" in operational terms.',
       "Set evidence rules that do not require perfect legibility.",
       "Bind the appeals queue to the reversal SLA clock.",
     ],
-    downloadUrl: "#",
     finalLine: artifactFinalLine,
   },
   {
@@ -122,19 +117,19 @@ export const artifacts: InstituteArtifact[] = [
       "Include remedy path, time bounds, and escalation contact.",
       "Log harm receipts as governance events, not support tickets.",
     ],
-    downloadUrl: "#",
     finalLine: artifactFinalLine,
   },
 ];
 
 export const failureStates: FailureState[] = [
   {
-    title: "Failure state: Decision appealed",
+    title: "A decision has been appealed",
     slug: "decision-appealed",
     shortLabel: "Decision appealed",
     descriptionLine1:
-      "A decision has been contested and the system cannot clearly explain, reverse, or resolve it within bounded time.",
-    descriptionLine2: "The time burden of unresolved contestation falls on the claimant.",
+      "Someone has challenged a decision, and the system cannot explain, reverse, or resolve it within a set time.",
+    descriptionLine2:
+      "While the appeal waits, the person who appealed carries the cost of the delay.",
     artifactSlugs: [
       "decision-record-template",
       "contestability-appeals-playbook",
@@ -143,12 +138,13 @@ export const failureStates: FailureState[] = [
     footerLine: failureFooterLine,
   },
   {
-    title: "Failure state: Model wrong",
+    title: "The model made a harmful error",
     slug: "model-wrong",
     shortLabel: "Model wrong",
     descriptionLine1:
-      "The model output is wrong in a way that matters, and the organization cannot reliably detect, correct, or reverse the downstream effects within bounded time.",
-    descriptionLine2: "The primary failure is detection and recovery, not accuracy.",
+      "The model's output is wrong in a way that matters, and the organization cannot reliably find, correct, or reverse its effects within a set time.",
+    descriptionLine2:
+      "The main failure is finding and recovering from the error, not the model's accuracy.",
     artifactSlugs: [
       "reversal-sla-template",
       "escalation-ladder-freeze-authority",
@@ -157,12 +153,12 @@ export const failureStates: FailureState[] = [
     footerLine: failureFooterLine,
   },
   {
-    title: "Failure state: Queue stuck",
+    title: "Appeals or reviews are stuck",
     slug: "queue-stuck",
     shortLabel: "Queue stuck",
     descriptionLine1:
-      "Work is accumulating without bounded resolution. \"Pending\" has become an unpriced outcome.",
-    descriptionLine2: "Delay in processing becomes a form of ongoing harm.",
+      'Work is piling up with no deadline for resolving it. "Pending" has become an outcome in its own right, and nobody has counted its cost.',
+    descriptionLine2: "The delay itself is doing harm, and keeps doing it.",
     artifactSlugs: [
       "escalation-ladder-freeze-authority",
       "reversal-sla-template",
@@ -171,22 +167,27 @@ export const failureStates: FailureState[] = [
     footerLine: failureFooterLine,
   },
   {
-    title: "Failure state: User harmed",
+    title: "A person was harmed",
     slug: "user-harmed",
     shortLabel: "User harmed",
     descriptionLine1:
-      "A user experienced material harm and the system cannot clearly acknowledge what happened, what is owed, or how repair will occur.",
-    descriptionLine2: "The cost of the failure is externalized to the affected user.",
-    artifactSlugs: ["harm-receipt-format", "decision-record-template", "reversal-sla-template"],
+      "A person was materially harmed, and the organization cannot say what happened, what the person is owed, or how it will be repaired.",
+    descriptionLine2: "The person affected is paying for the failure.",
+    artifactSlugs: [
+      "harm-receipt-format",
+      "decision-record-template",
+      "reversal-sla-template",
+    ],
     footerLine: failureFooterLine,
   },
   {
-    title: "Failure state: No owner",
+    title: "Nobody owns the failure",
     slug: "no-owner",
     shortLabel: "No owner",
     descriptionLine1:
-      "A failure has occurred and nobody can be named with authority to reverse, compensate, or close the loop.",
-    descriptionLine2: "Without assigned ownership, harm has no designated resolution path.",
+      "Something has failed, and nobody can be named who has the authority to reverse it, compensate for it, or close it out.",
+    descriptionLine2:
+      "Without an owner, nobody is responsible for resolving the harm.",
     artifactSlugs: [
       "decision-record-template",
       "escalation-ladder-freeze-authority",
@@ -195,12 +196,13 @@ export const failureStates: FailureState[] = [
     footerLine: failureFooterLine,
   },
   {
-    title: "Failure state: Can’t explain",
+    title: "The decision cannot be explained",
     slug: "cant-explain",
     shortLabel: "Can’t explain",
     descriptionLine1:
-      "The system cannot provide a bounded explanation that enables contestability, oversight, or repair.",
-    descriptionLine2: "Unexplainable decisions create an ungovernable system state.",
+      "The system cannot give an explanation specific enough for someone to challenge the decision, oversee it, or repair it.",
+    descriptionLine2:
+      "Without reasons specific to the case, the person cannot challenge it and nobody can tell whether the rule is wrong.",
     artifactSlugs: [
       "decision-record-template",
       "contestability-appeals-playbook",
@@ -209,12 +211,13 @@ export const failureStates: FailureState[] = [
     footerLine: failureFooterLine,
   },
   {
-    title: "Failure state: Can’t stop",
+    title: "The system cannot be stopped",
     slug: "cant-stop",
     shortLabel: "Can’t stop",
     descriptionLine1:
-      "A harmful process cannot be frozen, paused, or rolled back quickly, even when operators recognize it is wrong.",
-    descriptionLine2: "Built-in stoppability mechanisms are absent or untested.",
+      "A harmful process cannot be paused or rolled back quickly, even when operators can see it is wrong.",
+    descriptionLine2:
+      "The controls to stop it are missing or have never been tested.",
     artifactSlugs: [
       "escalation-ladder-freeze-authority",
       "reversal-sla-template",

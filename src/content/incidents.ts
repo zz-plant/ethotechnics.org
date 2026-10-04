@@ -1,4 +1,8 @@
-import type { GlossaryLinked, PageWithPermalink, PublishedContent } from "./types";
+import type {
+  GlossaryLinked,
+  PageWithPermalink,
+  PublishedContent,
+} from "./types";
 
 export type IncidentLesson = GlossaryLinked &
   PublishedContent & {
@@ -24,14 +28,14 @@ export type IncidentLessonsIntro = PageWithPermalink & {
 };
 
 export const incidentLessonsIntro: IncidentLessonsIntro = {
-  pageTitle: "Governance lessons — Ethotechnics",
+  pageTitle: "Three composite failure patterns — Ethotechnics",
   pageDescription:
-    "Incident retrospectives that map governance failures to concrete remediation checklists.",
+    "Three composite scenarios, from an appeals backlog to unlogged overrides. None reports on a named institution. Each names the missing control and the fix.",
   permalink: "/incidents",
-  eyebrow: "Governance lessons",
-  title: "Incident retrospectives with remediation receipts.",
+  eyebrow: "Composite scenarios",
+  title: "Three failure patterns, each drawn from many systems.",
   description:
-    "Each entry distills the governance failure, the signals that could have been monitored, and the fixes to prioritize next.",
+    "These are composites. None reports on a named institution or a dated event. Each names the control that was missing, the signal that would have shown it, and the fix. For failures a court, an inquiry, or a regulator established, see the casebook.",
 };
 
 export const incidentLessons: IncidentLesson[] = [
@@ -47,7 +51,7 @@ export const incidentLessons: IncidentLesson[] = [
       headline: "Appeal triage delay compounded user burden.",
       impact: "Prolonged access suspension and inconsistent communications.",
       sector: "Financial services",
-      timeframe: "2026 Q1",
+      timeframe: "Composite, not a dated event",
     },
     governanceFailures: [
       "No automated escalation when repair SLAs crossed risk thresholds.",
@@ -80,7 +84,7 @@ export const incidentLessons: IncidentLesson[] = [
       headline: "Manual decisions skipped decision-log capture.",
       impact: "Inconsistent outcomes and incomplete accountability trails.",
       sector: "Public benefits",
-      timeframe: "2025 Q4",
+      timeframe: "Composite, not a dated event",
     },
     governanceFailures: [
       "Decision record capture did not include human override flows.",
@@ -98,8 +102,11 @@ export const incidentLessons: IncidentLesson[] = [
       "Sample override outcomes in monthly audits.",
     ],
     sources: [
-      { label: "Decision record schema", href: "/standards/decision-record.schema.json" },
-      { label: "Audit playbook", href: "/library/diagnostics" },
+      {
+        label: "Decision record schema",
+        href: "/standards/decision-record.schema.json",
+      },
+      { label: "Audit playbook", href: "/diagnostics" },
     ],
   },
   {
@@ -113,7 +120,7 @@ export const incidentLessons: IncidentLesson[] = [
       headline: "Resolution closed before repair tasks were complete.",
       impact: "User outcomes never corrected despite approved appeals.",
       sector: "Healthcare",
-      timeframe: "2025 Q4",
+      timeframe: "Composite, not a dated event",
     },
     governanceFailures: [
       "No confirmation loop between appeal resolution and delivery teams.",
@@ -131,7 +138,10 @@ export const incidentLessons: IncidentLesson[] = [
       "Track repair completions against appeal outcomes.",
     ],
     sources: [
-      { label: "Appeal event schema", href: "/standards/appeal-event.schema.json" },
+      {
+        label: "Appeal event schema",
+        href: "/standards/appeal-event.schema.json",
+      },
       { label: "Remedy essentials", href: "/explainers/remedy-essentials" },
     ],
   },

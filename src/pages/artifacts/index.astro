@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { artifacts } from "../../content/institute-site";
+---
+
+<BaseLayout
+  title="Governance artifacts you can adopt as-is"
+  description="Five templates that set operational defaults for a named decision owner, a reversal clock, freeze authority, appeals, and harm receipts."
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
+  <section class="stack-lg institute-screen">
+    <h1>Governance artifacts you can adopt as-is</h1>
+    <p>
+      These are operational defaults, not guidance.<br />
+      Each artifact assigns ownership, enforces reversibility, and limits claimant
+      burden.
+    </p>
+    <ul class="artifact-grid">
+      {
+        artifacts.map((artifact) => (
+          <li class="card stack-sm">
+            <h2>
+              <a href={`/artifacts/${artifact.slug}`}>{artifact.name}</a>
+            </h2>
+            <p class="muted small">{artifact.description[0]}</p>
+            <ul class="artifact-grid__enforces">
+              {artifact.enforcesBullets.map((bullet) => (
+                <li>{bullet}</li>
+              ))}
+            </ul>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>

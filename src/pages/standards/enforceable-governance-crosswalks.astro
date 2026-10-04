@@ -24,7 +24,7 @@ type FrameworkCard = {
 
 const pageTitle = "Framework map for buyers and auditors";
 const pageDescription =
-  "A specific, current crosswalk from Ethotechnics controls to framework obligations, buyer checks, and evidence requests.";
+  "Ethotechnics controls mapped to EU AI Act, NIST AI RMF, ISO/IEC, SOC 2, and IEC 61508 obligations, with buyer checks and evidence requests.";
 const permalink = "/standards/enforceable-governance-crosswalks";
 
 const publication = derivePublicationMetadata({
@@ -32,13 +32,15 @@ const publication = derivePublicationMetadata({
   published: "2026-02-15T00:00:00Z",
   updated: "2026-02-22T00:00:00Z",
   version: "v0.3.0",
-  authorName: "Ethotechnics Governance Council",
+  authorName: "Ethotechnics Institute",
   changelogSummary:
-    "Added framework-specific checks, concrete first moves, and implementation-ready evidence asks for buyer and audit workflows.",
+    "Added framework-specific checks, first moves, and implementation-ready evidence asks for buyer and audit workflows.",
 });
 
 const findControl = (controlId: string) => {
-  const control = governanceCrosswalks.find((entry) => entry.controlId === controlId);
+  const control = governanceCrosswalks.find(
+    (entry) => entry.controlId === controlId,
+  );
   if (!control) {
     throw new Error(`Missing control mapping for ${controlId}`);
   }
@@ -63,7 +65,8 @@ const frameworkCards: FrameworkCard[] = [
       "Decision-level records retained with version context.",
       "Documented stop authority and oversight rota for high-risk actions.",
     ],
-    firstMove: "Run a release-readiness review against incident reporting clocks and escalation ownership.",
+    firstMove:
+      "Run a release-readiness review against incident reporting clocks and escalation ownership.",
     detailedLinks: [
       { label: "EU AI Act explainer", href: "/standards/eu-ai-act" },
       { label: "Incident lessons hub", href: "/incidents" },
@@ -82,9 +85,13 @@ const frameworkCards: FrameworkCard[] = [
       "Validation thresholds defined before launch (not after incidents).",
       "Mitigation backlog includes due dates and accountable humans.",
     ],
-    firstMove: "Use the risk radar and burden modeler before every high-stakes launch decision.",
+    firstMove:
+      "Run the risk radar and burden modeler before every consequential launch decision.",
     detailedLinks: [
-      { label: "NIST AI RMF implementation page", href: "/standards/nist-ai-rmf" },
+      {
+        label: "NIST AI RMF implementation page",
+        href: "/standards/nist-ai-rmf",
+      },
       { label: "Risk radar validator", href: "/validators/risk-radar" },
     ],
   },
@@ -95,16 +102,17 @@ const frameworkCards: FrameworkCard[] = [
     standardReference: "Clause 6.1, 8.1, 8.2, 9.1, 10.1",
     status: "Ready now",
     whatEthotechnicsCovers:
-      "AIMS-aligned lifecycle controls for planning, operation, monitoring, and continual improvement.",
+      "Lifecycle controls for an AI management system (AIMS): planning, operation, monitoring, and continual improvement.",
     buyerAuditorChecks: [
-      "Policy record references concrete operational controls and review cadence.",
+      "Policy record references operational controls and review cadence.",
       "Internal audits sample real evidence artifacts, not only policy PDFs.",
       "Corrective actions are linked to incident and remediation logs.",
     ],
-    firstMove: "Cross-check your AIMS internal-audit scope against evidence-pack artifacts and owners.",
+    firstMove:
+      "Cross-check your AIMS internal-audit scope against evidence-pack artifacts and owners.",
     detailedLinks: [
       { label: "ISO/IEC 42001 overview", href: "/standards/iso-iec-42001" },
-      { label: "Evidence pack readiness", href: "/diagnostics/evidence-pack-readiness" },
+      { label: "Evidence packs", href: "/evidence-packs" },
     ],
   },
   {
@@ -120,9 +128,13 @@ const frameworkCards: FrameworkCard[] = [
       "Retention periods in Ethotechnics records align with ISMS policy.",
       "Exception handling is approved and logged with expiry dates.",
     ],
-    firstMove: "Map Ethotechnics decision records into your existing Annex A control matrix.",
+    firstMove:
+      "Map Ethotechnics decision records into your existing Annex A control matrix.",
     detailedLinks: [
-      { label: "Governance capability explainer", href: "/explainers/governance-capability" },
+      {
+        label: "Governance capability explainer",
+        href: "/explainers/governance-capability",
+      },
       { label: "Mechanisms catalog", href: "/mechanisms" },
     ],
   },
@@ -139,10 +151,17 @@ const frameworkCards: FrameworkCard[] = [
       "Change approvals include model-version context and rollback path.",
       "Audit trail supports challenge-response testing during fieldwork.",
     ],
-    firstMove: "Bind oversight drill records to your SOC 2 control narratives before the next audit cycle.",
+    firstMove:
+      "Bind oversight drill records to your SOC 2 control narratives before the next audit cycle.",
     detailedLinks: [
-      { label: "Where this binds", href: "/standards/where-this-binds" },
-      { label: "Failure postmortem template", href: "/standards/pm-01-failure-postmortem-template" },
+      {
+        label: "Citing the standards in contracts",
+        href: "/standards/where-this-binds",
+      },
+      {
+        label: "Failure postmortem template",
+        href: "/standards/pm-01-failure-postmortem-template",
+      },
     ],
   },
   {
@@ -158,18 +177,22 @@ const frameworkCards: FrameworkCard[] = [
       "Escalation paths define human authority at each hazard tier.",
       "Post-incident closure includes residual risk statement.",
     ],
-    firstMove: "Use Ethotechnics controls as governance overlays inside your existing safety lifecycle artifacts.",
+    firstMove:
+      "Use Ethotechnics controls as governance overlays inside your existing safety lifecycle artifacts.",
     detailedLinks: [
-      { label: "STD-06 human-impact safety case", href: "/standards/std-06-human-impact-safety-case" },
+      {
+        label: "STD-06 human-impact safety case",
+        href: "/standards/std-06-human-impact-safety-case",
+      },
       { label: "Incident memo template", href: "/standards/incident-memo" },
     ],
   },
 ];
 
 const keyTakeaways = [
-  "This crosswalk is reviewed against current Ethotechnics controls and release evidence (updated 2026-02-22).",
-  "Rows separate controls that are immediately usable from controls that require local framework extensions.",
-  "Every framework row includes concrete buyer/auditor checks and a specific first move.",
+  "This crosswalk was last checked against the Ethotechnics controls on 2026-02-22.",
+  "Ready now means the Ethotechnics controls cover the framework clauses listed. Needs local extension means your organization has to add its own controls to close the gap.",
+  "Every framework row gives the checks a buyer or auditor should run and a first step to take.",
 ];
 ---
 
@@ -189,23 +212,12 @@ const keyTakeaways = [
   ]}
   publishedTime="2025-06-01T00:00:00.000Z"
   jsonAlternates={[{ href: "/api/crosswalks.json", title: "Crosswalks JSON" }]}
-  panelCopy={{
-    eyebrow: "Buyer + auditor use",
-    title: "Know what Ethotechnics can and cannot do.",
-    description:
-      "Start with the quick scan table, then open only the framework detail card you need for evidence collection.",
-    link: {
-      label: "Start here",
-      href: "#guide",
-    },
-  }}
 >
-
   <SectionBlock
     id="guide"
     eyebrow="Start here"
     title="Plain-language guide"
-    description="Use this page when you need procurement-ready or audit-ready answers without reading every standards document first."
+    description="Answers for procurement and audit, without reading every standards document first."
   >
     <ul>
       {keyTakeaways.map((item) => <li>{item}</li>)}
@@ -216,16 +228,22 @@ const keyTakeaways = [
     id="summary"
     eyebrow="Summary"
     title="How to use this page"
-    description="Pick a framework, verify the status, run the first move, then request the listed evidence artifacts."
+    description="Pick a framework, check its status, take the first step, then request the listed evidence."
     variant="alt"
   >
     <div class="framework-summary-grid">
       <div>
-        <p class="eyebrow">Quick process</p>
+        <p class="eyebrow">Steps</p>
         <ol>
-          <li>Check whether the row is <strong>Ready now</strong> or <strong>Needs local extension</strong>.</li>
-          <li>Assign the accountable owner for the first move.</li>
-          <li>Request evidence artifacts before contract sign-off or audit close.</li>
+          <li>
+            Check whether the row is <strong>Ready now</strong> or <strong
+              >Needs local extension</strong
+            >.
+          </li>
+          <li>Name the person accountable for the first step.</li>
+          <li>
+            Request evidence artifacts before contract sign-off or audit close.
+          </li>
         </ol>
       </div>
       <div>
@@ -245,9 +263,9 @@ const keyTakeaways = [
 
   <SectionBlock
     id="controls"
-    eyebrow="Quick scan"
-    title="Framework-by-framework implementation crosswalk"
-    description="This table is specific to current Ethotechnics controls and highlights what still requires local implementation work."
+    eyebrow="Overview"
+    title="Framework-by-framework crosswalk"
+    description="One row per framework: the Ethotechnics control it maps to, what that control covers, and whether your organization must add its own controls."
   >
     <div class="table-wrap">
       <table>
@@ -255,10 +273,10 @@ const keyTakeaways = [
           <tr>
             <th scope="col">Framework</th>
             <th scope="col">Status</th>
-            <th scope="col">Mapped control + reference</th>
+            <th scope="col">Ethotechnics control and framework clauses</th>
             <th scope="col">What Ethotechnics covers</th>
-            <th scope="col">Recommended first move</th>
-            <th scope="col">Detailed links</th>
+            <th scope="col">First step</th>
+            <th scope="col">Details</th>
           </tr>
         </thead>
         <tbody>
@@ -271,16 +289,18 @@ const keyTakeaways = [
                     class:list={{
                       badge: true,
                       "badge--ready": framework.status === "Ready now",
-                      "badge--extend": framework.status === "Needs local extension",
+                      "badge--extend":
+                        framework.status === "Needs local extension",
                     }}
                   >
                     {framework.status}
                   </span>
                 </td>
                 <td>
-                  <strong>{framework.mappedControlId}</strong>
+                  <strong>{framework.mappedControlId}</strong>:{" "}
+                  {findControl(framework.mappedControlId).obligation}
                   <br />
-                  {framework.standardReference}
+                  <span class="muted">{framework.standardReference}</span>
                 </td>
                 <td>{framework.whatEthotechnicsCovers}</td>
                 <td>{framework.firstMove}</td>
@@ -301,19 +321,27 @@ const keyTakeaways = [
 
   <SectionBlock
     id="framework-cards"
-    eyebrow="Deep dive"
-    title="Framework details (expand what you need)"
-    description="Each card includes concrete checks and evidence asks you can use in procurement packets or audit walkthroughs."
+    eyebrow="Details"
+    title="Framework details"
+    description="Each card lists the checks and evidence requests to put in a procurement packet or an audit walkthrough."
     variant="alt"
   >
     <div class="framework-details">
       {
         frameworkCards.map((item) => {
-          const mappedControls = (item.mappedControlIds ?? [item.mappedControlId]).map((controlId) =>
-            findControl(controlId),
-          );
-          const evidenceArtifacts = [...new Set(mappedControls.flatMap((control) => control.evidenceArtifacts))];
-          const operationalSurfaces = [...new Set(mappedControls.map((control) => control.operationalSurface))];
+          const mappedControls = (
+            item.mappedControlIds ?? [item.mappedControlId]
+          ).map((controlId) => findControl(controlId));
+          const evidenceArtifacts = [
+            ...new Set(
+              mappedControls.flatMap((control) => control.evidenceArtifacts),
+            ),
+          ];
+          const operationalSurfaces = [
+            ...new Set(
+              mappedControls.map((control) => control.operationalSurface),
+            ),
+          ];
           return (
             <details id={item.anchor.replace("#", "")}>
               <summary>{item.framework}</summary>
@@ -336,19 +364,23 @@ const keyTakeaways = [
               </p>
               <p>{item.whatEthotechnicsCovers}</p>
               <p>
-                <strong>Buyer/auditor checks:</strong>
+                <strong>What a buyer or auditor should check:</strong>
               </p>
               <ul>
-                {item.buyerAuditorChecks.map((check) => <li>{check}</li>)}
+                {item.buyerAuditorChecks.map((check) => (
+                  <li>{check}</li>
+                ))}
               </ul>
               <p>
                 <strong>Evidence to request first:</strong>
               </p>
               <ul>
-                {evidenceArtifacts.map((artifact) => <li>{artifact}</li>)}
+                {evidenceArtifacts.map((artifact) => (
+                  <li>{artifact}</li>
+                ))}
               </ul>
               <p>
-                <strong>Operational surface:</strong>{" "}
+                <strong>Where it shows up in operations:</strong>{" "}
                 {operationalSurfaces.map((surface, index) => (
                   <>
                     <a href="/mechanisms">{surface}</a>
@@ -357,7 +389,7 @@ const keyTakeaways = [
                 ))}
               </p>
               <p>
-                <strong>Detailed links:</strong>{" "}
+                <strong>Related pages:</strong>{" "}
                 {item.detailedLinks.map((link, index) => (
                   <>
                     <a href={link.href}>{link.label}</a>
@@ -371,16 +403,16 @@ const keyTakeaways = [
       }
     </div>
     <p>
-      Pair these controls with the <a href="/diagnostics/evidence-pack-readiness">evidence pack readiness</a>
-      diagnostic before launch and after any major incident.
+      Pair these controls with the <a href="/evidence-packs">evidence packs</a>
+      before launch and after any major incident.
     </p>
   </SectionBlock>
 
   <SectionBlock
     id="post-market"
-    eyebrow="Ops loop"
-    title="Incident reporting as a first-class governance flow"
-    description="Post-market work should be routable, time-bound, and exportable rather than buried in retrospectives."
+    eyebrow="Post-market"
+    title="Incident reporting as its own governance process"
+    description="Monitoring after release needs a route, a clock, and an export to the regulator. Without them it ends up buried in retrospectives."
   >
     <ol>
       {
@@ -391,7 +423,7 @@ const keyTakeaways = [
         ))
       }
     </ol>
-    <p><strong>Core evidence pack minimum:</strong></p>
+    <p><strong>Evidence pack minimum:</strong></p>
     <ul>
       {evidencePackMinimumSet.map((item) => <li>{item}</li>)}
     </ul>
@@ -401,12 +433,18 @@ const keyTakeaways = [
     id="citations"
     eyebrow="Citation"
     title="Reference this crosswalk"
-    description="Use the canonical permalink and version in policy, procurement, and audit artifacts."
+    description="Cite the permalink and version in policy, procurement, and audit documents, so they point at a fixed text."
     variant="alt"
   >
-    <CitationBlock title={pageTitle} permalink={permalink} publication={publication} />
-    <p class="muted" style="margin-top:1.5rem">
-      See also: <a href="/standards">Standards</a> &middot; <a href="/mechanisms">Mechanisms</a>
+    <CitationBlock
+      title={pageTitle}
+      permalink={permalink}
+      publication={publication}
+    />
+    <p class="muted" style="margin-top:var(--space-5)">
+      See also: <a href="/standards">Standards</a> &middot; <a
+        href="/mechanisms">Mechanisms</a
+      >
     </p>
   </SectionBlock>
 </StandardsLayout>
@@ -414,7 +452,7 @@ const keyTakeaways = [
 <style>
   .framework-summary-grid {
     display: grid;
-    gap: 1.25rem;
+    gap: var(--space-5);
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   }
 
@@ -423,23 +461,23 @@ const keyTakeaways = [
     margin: 0;
     padding: 0;
     display: grid;
-    gap: 0.55rem;
+    gap: var(--space-2);
   }
 
   .framework-link-list a {
     display: block;
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
-    padding: 0.45rem 0.65rem;
+    padding: var(--space-2) var(--space-3);
     text-decoration: none;
   }
 
   .badge {
     display: inline-block;
-    border-radius: 999px;
-    padding: 0.2rem 0.55rem;
+    border-radius: var(--radius-pill);
+    padding: var(--space-1) var(--space-2);
     border: 1px solid var(--border);
-    font-size: 0.8rem;
+    font-size: var(--text-xs);
     font-weight: 600;
     white-space: nowrap;
   }
@@ -456,14 +494,14 @@ const keyTakeaways = [
 
   .framework-details {
     display: grid;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
   }
 
   .framework-details details {
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
-    padding: 0.85rem;
+    padding: var(--space-3);
     background: color-mix(in srgb, var(--surface) 95%, white 5%);
   }
 

@@ -1,17 +1,10 @@
 ---
+import PageIntroAnchorList from "./PageIntroAnchorList.astro";
+import SectionNav from "./SectionNav.astro";
+
 export interface AnchorLink {
   href: string;
   label: string;
-}
-
-export interface PanelCopy {
-  eyebrow?: string;
-  title: string;
-  description: string;
-  link?: {
-    label: string;
-    href: string;
-  };
 }
 
 export interface Props {
@@ -19,11 +12,7 @@ export interface Props {
   title: string;
   titleLevel?: 1 | 2 | 3 | 4 | 5 | 6;
   description: string;
-  permalink: string;
   anchorLinks: AnchorLink[];
-  panelCopy?: PanelCopy;
-  collapseAnchorLinks?: boolean;
-  collapseAnchorLinksOnMobile?: boolean;
   anchorLinksSummary?: string;
   version?: string;
   lastUpdated?: string;
@@ -34,35 +23,43 @@ const {
   title,
   titleLevel = 1,
   description,
-  permalink,
   anchorLinks,
-  panelCopy,
-  collapseAnchorLinks = false,
-  collapseAnchorLinksOnMobile = false,
   anchorLinksSummary = "Show full outline",
   version,
   lastUpdated,
 } = Astro.props;
 const hasCustomAside = Astro.slots.has("aside");
 const hasActions = Astro.slots.has("actions");
-
-const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
-const normalizedPermalink = permalink?.trim();
-const permalinkUrl = normalizedPermalink
-  ? new URL(normalizedPermalink, siteBase)
-  : null;
-const abbreviatedPermalink = permalinkUrl
-  ? `${permalinkUrl.pathname}${permalinkUrl.hash}`
-  : normalizedPermalink;
+const hasAsideContent = hasCustomAside;
+// An outline earns its place only on a long page. Below five sections the
+// headings are a scroll away and a numbered box above them is chrome.
+const showOutline = anchorLinks.length >= 5;
 
 const HeadingTag = `h${titleLevel}` as const;
+
+// The eyebrow is meant to say what kind of page this is. On the section hubs
+// several pages fed it the section name itself, so the page rendered a label
+// on a label: STANDARDS over *Standards*, FINITE [BETA] over *Finite [Beta]*.
+// Drop it when it adds nothing.
+const norm = (value?: string) => value?.trim().toLowerCase() ?? "";
+const trimmedEyebrow = eyebrow?.trim();
+const resolvedEyebrow =
+  !trimmedEyebrow || norm(trimmedEyebrow) === norm(title)
+    ? undefined
+    : trimmedEyebrow;
 ---
 
-<section class="section page-intro">
+{showOutline && <SectionNav links={anchorLinks} />}
+<section
+  class:list={[
+    "section page-intro",
+    { "page-intro--has-aside": hasAsideContent },
+  ]}
+>
   <div class="page-intro__grid">
     <div class="page-intro__lead">
       <div class="page-intro__meta">
-        <p class="eyebrow">{eyebrow}</p>
+        {resolvedEyebrow && <p class="eyebrow">{resolvedEyebrow}</p>}
         {
           (version || lastUpdated) && (
             <p class="page-intro__versioning" aria-label="Document metadata">
@@ -72,27 +69,6 @@ const HeadingTag = `h${titleLevel}` as const;
             </p>
           )
         }
-        <p class="page-intro__permalink">
-          <span class="page-intro__permalink-icon" aria-hidden="true">↺</span>
-          <span class="page-intro__permalink-label">Permanent link</span>
-          <a class="page-intro__permalink-path" href={permalink}>
-            {abbreviatedPermalink}
-          </a>
-          <button
-            class="copy-button page-intro__permalink-copy"
-            type="button"
-            data-permalink-copy
-            data-copy-value={permalinkUrl?.toString() ?? normalizedPermalink}
-            aria-label="Copy permanent link to this page"
-          >
-            Copy link
-          </button>
-          <span
-            class="page-intro__permalink-status"
-            data-permalink-status
-            role="status"
-            aria-live="polite"></span>
-        </p>
       </div>
       <HeadingTag>{title}</HeadingTag>
       <p class="muted page-intro__lede">{description}</p>
@@ -105,128 +81,29 @@ const HeadingTag = `h${titleLevel}` as const;
       }
     </div>
 
-    <div class="page-intro__aside">
-      {
-        panelCopy && (
-          <div class="panel panel--glass page-intro__panel">
-            {panelCopy.eyebrow && <p class="muted">{panelCopy.eyebrow}</p>}
-            <h2>{panelCopy.title}</h2>
-            <p>{panelCopy.description}</p>
-            {panelCopy.link && (
-              <p>
-                <a href={panelCopy.link.href}>{panelCopy.link.label}</a>
-              </p>
-            )}
-          </div>
-        )
-      }
-
-      {
-        hasCustomAside && (
+    {
+      hasAsideContent && (
+        <div class="page-intro__aside">
           <div class="page-intro__aside-custom">
             <slot name="aside" />
           </div>
-        )
-      }
-
-      {
-        anchorLinks.length > 0 && (
-          <nav aria-label="On-page links" class="page-intro__anchors">
-            <div>
-              <p class="muted">Jump to</p>
-              <p class="page-intro__anchors-title">Key sections</p>
-            </div>
-            {collapseAnchorLinks ? (
-              <details class="page-intro__anchors-disclosure">
-                <summary>{anchorLinksSummary}</summary>
-                <ul>
-                  {anchorLinks.map((link, index) => (
-                    <li>
-                      <a href={link.href} class="pill pill--ghost">
-                        <span class="page-intro__anchor-index">{index + 1}</span>
-                        <span>{link.label}</span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </details>
-            ) : collapseAnchorLinksOnMobile ? (
-              <>
-                <ul class="page-intro__anchors-list page-intro__anchors-list--desktop">
-                  {anchorLinks.map((link, index) => (
-                    <li>
-                      <a href={link.href} class="pill pill--ghost">
-                        <span class="page-intro__anchor-index">{index + 1}</span>
-                        <span>{link.label}</span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-                <details class="page-intro__anchors-disclosure page-intro__anchors-disclosure--mobile">
-                  <summary>{anchorLinksSummary}</summary>
-                  <ul>
-                    {anchorLinks.map((link, index) => (
-                      <li>
-                        <a href={link.href} class="pill pill--ghost">
-                          <span class="page-intro__anchor-index">{index + 1}</span>
-                          <span>{link.label}</span>
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </details>
-              </>
-            ) : (
-              <ul class="page-intro__anchors-list">
-                {anchorLinks.map((link, index) => (
-                  <li>
-                    <a href={link.href} class="pill pill--ghost">
-                      <span class="page-intro__anchor-index">{index + 1}</span>
-                      <span>{link.label}</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </nav>
-        )
-      }
-    </div>
-  </div>
-</section>
-
-<script is:inline>
-  const copyButtons = Array.from(
-    document.querySelectorAll("[data-permalink-copy]"),
-  );
-
-  copyButtons.forEach((button) => {
-    const status = button
-      .closest(".page-intro__permalink")
-      ?.querySelector("[data-permalink-status]");
-    const value = button.getAttribute("data-copy-value");
-
-    if (!status || !value) {
-      return;
+        </div>
+      )
     }
+  </div>
 
-    let resetTimer;
-
-    button.addEventListener("click", async () => {
-      try {
-        await navigator.clipboard.writeText(value);
-        status.textContent = "Copied";
-        status.classList.add("is-visible");
-      } catch (error) {
-        status.textContent = "Copy failed";
-        status.classList.add("is-visible");
-      }
-
-      clearTimeout(resetTimer);
-      resetTimer = window.setTimeout(() => {
-        status.textContent = "";
-        status.classList.remove("is-visible");
-      }, 2000);
-    });
-  });
-</script>
+  {
+    showOutline && (
+      <nav aria-label="On-page links" class="page-intro__anchors">
+        <p class="page-intro__anchors-title">On this page</p>
+        <div class="page-intro__anchors-list page-intro__anchors-list--desktop">
+          <PageIntroAnchorList links={anchorLinks} />
+        </div>
+        <details class="page-intro__anchors-disclosure page-intro__anchors-disclosure--mobile">
+          <summary>{anchorLinksSummary}</summary>
+          <PageIntroAnchorList links={anchorLinks} />
+        </details>
+      </nav>
+    )
+  }
+</section>

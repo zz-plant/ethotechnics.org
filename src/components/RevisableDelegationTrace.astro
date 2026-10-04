@@ -1,0 +1,123 @@
+---
+// The record-diagram classes (.chip, .label, .small …) live in figures.css.
+import "../styles/components/figures.css";
+---
+
+<figure class="standard-diagram">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 960 364"
+    role="img"
+    aria-labelledby="rdr-trace-title rdr-trace-desc"
+  >
+    <title id="rdr-trace-title">
+      A worked trace through five linked records
+    </title>
+    <desc id="rdr-trace-desc">
+      An action record depends on an authorization record, which depends on a
+      belief record. The belief carries an invalidation condition. A discrepancy
+      record matches that condition, and a revision record supersedes the
+      belief. Three line weights distinguish the three reference types: solid
+      for depends_on, dashed for invalidated_by, and heavy for supersedes.
+    </desc>
+
+    <rect x="24" y="80" width="890" height="176" class="band-a" rx="14"></rect>
+    <text x="40" y="40" class="title ink">One decision, written down</text>
+    <text x="40" y="62" class="small muted"
+      >Read the arrows as references, not as time: each record names what it
+      rests on.</text
+    >
+
+    <rect x="40" y="96" width="214" height="52" class="chip chip-state"></rect>
+    <text x="147" y="117" text-anchor="middle" class="label ink">belief</text>
+    <text x="147" y="136" text-anchor="middle" class="small muted"
+      >the regime read at the time</text
+    >
+
+    <text x="308" y="110" text-anchor="middle" class="small muted"
+      >depends_on</text
+    >
+    <line x1="356" y1="122" x2="268" y2="122" class="line"></line>
+    <path d="M254 122 L268 115 L268 129 Z" class="fill-border"></path>
+
+    <rect x="362" y="96" width="214" height="52" class="chip chip-state"></rect>
+    <text x="469" y="117" text-anchor="middle" class="label ink"
+      >authorization</text
+    >
+    <text x="469" y="136" text-anchor="middle" class="small muted"
+      >hold hiring, confirm mode</text
+    >
+
+    <text x="630" y="110" text-anchor="middle" class="small muted"
+      >depends_on</text
+    >
+    <line x1="678" y1="122" x2="590" y2="122" class="line"></line>
+    <path d="M576 122 L590 115 L590 129 Z" class="fill-border"></path>
+
+    <rect x="684" y="96" width="214" height="52" class="chip chip-state"></rect>
+    <text x="791" y="117" text-anchor="middle" class="label ink">action</text>
+    <text x="791" y="136" text-anchor="middle" class="small muted"
+      >requisitions paused</text
+    >
+
+    <path d="M791 200 L791 172 L147 172 L147 150" class="line-strong"></path>
+    <path d="M147 148 L140 162 L154 162 Z" class="fill-border"></path>
+    <text x="469" y="166" text-anchor="middle" class="small muted"
+      >supersedes</text
+    >
+
+    <rect x="40" y="200" width="214" height="46" class="chip-dashed chip-state"
+    ></rect>
+    <text x="147" y="219" text-anchor="middle" class="small ink"
+      >invalidated_by</text
+    >
+    <text x="147" y="236" text-anchor="middle" class="small muted"
+      >tightness falls below 60</text
+    >
+
+    <line x1="356" y1="223" x2="268" y2="223" class="line dash"></line>
+    <path d="M254 223 L268 216 L268 230 Z" class="fill-border"></path>
+    <text x="308" y="212" text-anchor="middle" class="small muted">matches</text
+    >
+
+    <rect x="362" y="200" width="214" height="46" class="chip chip-state"
+    ></rect>
+    <text x="469" y="219" text-anchor="middle" class="label ink"
+      >discrepancy</text
+    >
+    <text x="469" y="236" text-anchor="middle" class="small muted"
+      >observed 58, clock P7D</text
+    >
+
+    <line x1="678" y1="223" x2="590" y2="223" class="line"></line>
+    <path d="M576 223 L590 216 L590 230 Z" class="fill-border"></path>
+    <text x="630" y="212" text-anchor="middle" class="small muted"
+      >triggered_by</text
+    >
+
+    <rect x="684" y="200" width="214" height="46" class="chip chip-state"
+    ></rect>
+    <text x="791" y="219" text-anchor="middle" class="label ink">revision</text>
+    <text x="791" y="236" text-anchor="middle" class="small muted"
+      >a new belief, the old one kept</text
+    >
+
+    <line x1="40" y1="300" x2="80" y2="300" class="line"></line>
+    <text x="92" y="304" class="small muted"
+      >depends_on — what this record rests on. Follow it back to find the
+      justification.</text
+    >
+
+    <line x1="40" y1="326" x2="80" y2="326" class="line dash"></line>
+    <text x="92" y="330" class="small muted"
+      >invalidated_by — the checkable condition that would end it. Empty means
+      nothing would change its mind.</text
+    >
+
+    <line x1="40" y1="352" x2="80" y2="352" class="line-strong"></line>
+    <text x="92" y="356" class="small muted"
+      >supersedes — the record this replaces. The replaced record stays
+      readable; nothing is edited away.</text
+    >
+  </svg>
+</figure>

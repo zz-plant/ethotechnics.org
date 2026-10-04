@@ -1,5 +1,8 @@
 # Mini-PRDs: accountability tools series
 
+Historical planning document. The [September 26 retirement record](pass-1-retirement-2026-09.md)
+supersedes proposals here for the retired diagnostics and Agent Toolkit.
+
 Developer-facing draft to align copy, UX, and implementation planning for the four feature narratives
 requested for the site. Keep tone in "the workshop" and avoid moralizing. Each PRD includes a
 positioning line, core hooks, and concrete delivery steps.

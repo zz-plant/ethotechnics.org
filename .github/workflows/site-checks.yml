@@ -1,0 +1,48 @@
+name: Site checks
+
+# Runs the same suite contributors run locally (`bun run check`): lint, type
+# checks, Astro checks, content and JSON validation, and unit tests. The
+# participate page and the /api badges manifest link to this workflow.
+#
+# format:check runs here too, and not in `bun run check`, because the two
+# caught different halves of a problem: 87 files had drifted past Prettier
+# while CI stayed green because nothing here invoked it. Keep this step in
+# sync with the formatter's ignore list; a file listed in .prettierignore
+# cannot be checked here.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: package.json
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Check formatting
+        run: bun run format:check
+        # Fast, and it fails the job before the ~1m check below.
+
+      - name: Run checks
+        run: bun run check

@@ -1,32 +1,70 @@
-# Ethotechnics
+# Ethotechnics Institute
 
-## Summary
-Ethotechnics is a content-driven site focused on ethical technology, human-centered design, and
-sociotechnical systems. It offers diagnostics, frameworks, and guides for assessing risk, guiding
-AI-enabled systems, and making governance decisions.
+> Ethotechnics is the engineering discipline concerned with keeping capability, authority, evidence, dependency, standing, and correction coupled tightly enough that increasing machine agency does not silently become unreviewable institutional power.
 
-## Primary content
-- /start-here: Orientation and navigation to the main frameworks and tools.
-- /diagnostics: Diagnostic tools, method cards, and decision-ready outputs.
-- /finite: Finite, a stoppability training loop for AI-enabled systems.
-- /agent-toolkit: Practical guidance for using agents responsibly.
-- /library: Open templates, prompts, and guides.
-- /research: Research agenda and published work.
-- /field-notes: Essays and updates.
-- /glossary: Shared definitions for key terms.
-- /institute: Institute programs, governance, and contact paths.
-- /participate: Ways to collaborate or get involved.
+## Overview
+The central claim: institutions absorb the evidence that their automated systems are wrong (a worker quietly fixes the error, an appeal settles one case, and the rule never changes). Ethotechnics names that mechanism, scores it in public cases, and specifies the records that carry the evidence back to the rule in any institution that adopts them. Ethotechnics publishes open standards, mechanisms, diagnostics, and a glossary for organizations that let software make consequential decisions: who gets a loan, a shift, a benefit, or a refund. The object being engineered is the handover of authority, not the model. The practical questions are who authorized this class of decision, on what evidence, until when, who is allowed to object, and what actually changes when they do. The invariant: No system may accumulate consequential agency faster than the institution accumulates the capacity to inspect, challenge, revise, and survive its decisions. The method (https://ethotechnics.org/method) states the seven-stage chain (evidence, authority, decision, consequence, challenge, reconsideration, correction), the six state variables, and the twelve laws that the standards bind.
 
-## Key concepts and terms
-- Diagnostics: Quick, scoped tools that produce a risk map, mitigations, and escalation paths.
-- Stoppability: The ability to halt or roll back AI-enabled systems safely and quickly.
-- Governance forums: Lightweight decision reviews with documented stewardship.
-- Pattern language: Shared terms and frameworks used across diagnostics and guides.
+## The Twelve Laws
+Each law states an invariant the standards bind. Full text: https://ethotechnics.org/standards/laws
+1. Capability does not imply authority.
+2. Authority decays unless its justification is renewed.
+3. Evidence and authority must remain coupled.
+4. Every consequential delegation creates a correction obligation.
+5. Dependence converts technical risk into structural risk.
+6. Nominal reversibility is not operational reversibility.
+7. Error-bearing parties require standing proportional to exposure.
+8. Observability without state transition is theater.
+9. Human oversight is a control only if the human can alter system state.
+10. The relevant eval sits at the highest layer where harm can emerge.
+11. Successful automation increases its own governance burden.
+12. No system may erase the conditions of its own contestability.
 
-## Licensing and reuse
-- Site content is generally CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/
-- Diagnostics reference CC BY 4.0 on their publication details: https://creativecommons.org/licenses/by/4.0/
+## The Chain
+Every consequential decision is one link in a governed chain, and each stage has objects, clauses, mechanisms, and evals behind it:
+evidence -> authority -> decision -> consequence -> challenge -> reconsideration -> correction
 
-## Contact
-- Institute and Studio: mailto:studio@ethotechnics.org
-- General inquiries: mailto:hello@ethotechnics.org
+## Doctrine and Method
+- [Which systems this is for](https://ethotechnics.org/use-cases): Six decision contexts the standards are built for (public benefits, credit and account holds, AI agents that take actions, health coverage, platform enforcement, grading and workplace records), the standards and first check for each, five boundaries where the framework does less, and which tools check evidence versus score a self-report.
+- [Method](https://ethotechnics.org/method): The chain, the six state variables (capability, authority, evidence, dependency, standing, correction), and where each law is bound.
+- [Laws](https://ethotechnics.org/standards/laws): The twelve laws with their invariants.
+- [STD-08 Delegation](https://ethotechnics.org/standards/std-08-delegation): Authority as a lease, policy validity, intervention specification, correction symmetry. Evidence pack: https://ethotechnics.org/evidence-packs/std-08
+- [STD-09 Agent Chains](https://ethotechnics.org/standards/std-09-agent-chains): The chain is itself a delegation, composed latency, counterparty answerability, weakest-link correction capacity. Evidence pack: https://ethotechnics.org/evidence-packs/std-09
+- [STD-06 Human Impact Safety Case](https://ethotechnics.org/standards/std-06-human-impact-safety-case): Dependency, the reversibility ladder, preserved capacities, and silent-harm discovery.
+- [STD-07 Revisable Delegation Record](https://ethotechnics.org/standards/std-07-revisable-delegation-record): The record format over belief, capability, authorization, action, discrepancy, revision, and objection.
+- [Theory](https://ethotechnics.org/research/theory): Why the laws hold. Motivation, never a requirement.
+- [Frontier Doctrine Scan](https://ethotechnics.org/research/frontier-doctrine-scan): Ten labs scored against the twelve laws, dated 2026-09.
+
+## Core Frameworks & Standards
+- [Standards & Mechanisms](https://ethotechnics.org/standards): Draft standard clauses, obligations, and patterns mapped to NIST AI RMF, EU AI Act, and ISO standards. STD-01 to STD-09 are drafts; none has force until adopted.
+- [Diagnostics & Triage](https://ethotechnics.org/diagnostics): Scoped risk models, burden calculators, and incident triage paths.
+- [Delegation Audit](https://ethotechnics.org/diagnostics/delegation-audit): Belief level. A facilitated self-report on one workflow: exposure score, grants nobody can ground, reversibility at three levels.
+- [Record Conformance Checker](https://ethotechnics.org/diagnostics/record-conformance): Evidence level. Grades an exported stream of STD-07 records against the schema and the hash chain, and returns the conformance level it earns.
+- [Finite Stoppability Loop](https://ethotechnics.org/finite): Stoppability and graceful rollback training loop for autonomous systems.
+- [Evaluation Suites](https://ethotechnics.org/evals): Governance benchmark suites, failure modes, and test cases, including delegation-validity, dependence-reversibility, standing, and meaningful-control.
+- [Glossary & Taxonomy](https://ethotechnics.org/glossary): Canonical definitions for burden, contestability, repair, and stoppability.
+- [Field Notes](https://ethotechnics.org/field-notes): In-depth essays and research dispatches on sociotechnical AI governance.
+- [Research Agenda](https://ethotechnics.org/research): Active academic research lines, focus areas, and bridge artifacts.
+
+## Machine-Readable APIs
+- [Standards API (JSON)](https://ethotechnics.org/api/standards.json): Full machine-readable catalogue of standard clauses, mechanisms, and validators.
+- [Glossary API (JSON)](https://ethotechnics.org/api/glossary.json): Canonical term definitions and semantic cross-references.
+- [RAG Corpus (JSONL)](https://ethotechnics.org/api/rag-corpus.jsonl): Full retrieval corpus for AI search and embeddings. Every document carries a layer field: theory, method, or instrument.
+- [Site Index (JSON)](https://ethotechnics.org/api/site-index.json): Complete route and entity index.
+- [Crosswalks API (JSON)](https://ethotechnics.org/api/crosswalks.json): Regulatory mapping between Ethotechnics, NIST AI RMF, and EU AI Act.
+- Delegation state (JSON): /api/grants.json, /api/policies.json, /api/dependencies.json, /api/standing.json, /api/interventions.json, /api/capabilities.json, /api/substrate-profiles.json. One worked example across the six state variables.
+
+## Key Concepts
+- **Stoppability**: The engineering and organizational capacity to safely halt, pause, or roll back an automated decision system when harm occurs.
+- **Evidence Packs**: For each standard, the records a system must be able to show to demonstrate a clause is met. They list what to collect; they do not check it.
+- **Repair Authority**: Named individuals with organizational power and budget to remediate harm within bounded escalation clocks.
+- **Contestability**: Explicit channels allowing affected people to understand, appeal, and reverse automated decisions.
+
+## Commercial Engagements
+- [Ethotechnics Studio](https://ethotechnics.com): Commissioned safety evaluation for healthcare AI: a safeguards review, a readiness sprint on one workflow, investor diligence on a healthcare AI deal, or a clinical AI safety evaluation against FDA and EU AI Act expectations.
+
+## Contact & Feeds
+- Intake & Collaboration: https://ethotechnics.org/participate
+- RSS Feed: https://ethotechnics.org/rss.xml
+- General Inquiries: mailto:hello@ethotechnics.org
+- Ethotechnics Studio: mailto:hello@ethotechnics.com

@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethotechnics.org/standards/reconsideration.schema.json",
+  "title": "Reconsideration",
+  "description": "The record that an observation changed the governing state of the system. A reconsideration is triggered by a challenge, a policy review trigger, changed evidence, elapsed time, an incident, or an expansion request, and ends with a stated outcome for the decision, grant, or policy it concerned. Observability without state transition is theater (Law VIII); this object is the state transition.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "reconsideration_id",
+    "trigger",
+    "subject",
+    "opened_at",
+    "outcome",
+    "evidence_delta",
+    "decided_by"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "title": "Schema version",
+      "description": "Version of this schema the record conforms to.",
+      "type": "string",
+      "pattern": "^1\\.\\d+\\.\\d+$"
+    },
+    "reconsideration_id": {
+      "title": "Reconsideration identifier",
+      "description": "Stable identifier for the reconsideration.",
+      "type": "string"
+    },
+    "trigger": {
+      "title": "Trigger",
+      "description": "What caused the reconsideration.",
+      "type": "object",
+      "required": ["kind", "ref"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "title": "Kind",
+          "description": "The class of event that triggered reconsideration.",
+          "type": "string",
+          "enum": [
+            "challenge",
+            "review_trigger",
+            "evidence_changed",
+            "elapsed_time",
+            "incident",
+            "expansion_request"
+          ]
+        },
+        "ref": {
+          "title": "Reference",
+          "description": "Identifier of the challenge, review trigger, evidence item, incident, or expansion request.",
+          "type": "string"
+        }
+      }
+    },
+    "subject": {
+      "title": "Subject",
+      "description": "The object whose validity is being reconsidered.",
+      "type": "object",
+      "required": ["kind", "ref"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "title": "Kind",
+          "description": "Whether a decision, a grant, or a policy is being reconsidered.",
+          "type": "string",
+          "enum": ["decision", "grant", "policy"]
+        },
+        "ref": {
+          "title": "Reference",
+          "description": "Identifier of the decision record, grant, or policy record.",
+          "type": "string"
+        }
+      }
+    },
+    "opened_at": {
+      "title": "Opened at",
+      "description": "When the reconsideration was opened.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "decided_at": {
+      "title": "Decided at",
+      "description": "When the outcome was recorded.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "outcome": {
+      "title": "Outcome",
+      "description": "What happened to the subject: it stands, is narrowed, suspended, reversed, corrected, or expanded. Pending reconsiderations use pending.",
+      "type": "string",
+      "enum": [
+        "pending",
+        "stand",
+        "narrow",
+        "suspend",
+        "reverse",
+        "correct",
+        "expand"
+      ]
+    },
+    "evidence_delta": {
+      "title": "Evidence delta",
+      "description": "Plain-language statement of how the evidentiary state changed between the original decision and this reconsideration.",
+      "type": "string"
+    },
+    "decided_by": {
+      "title": "Decided by",
+      "description": "The accountable person or body that recorded the outcome.",
+      "type": "string"
+    },
+    "resulting_refs": {
+      "title": "Resulting references",
+      "description": "Identifiers of records the outcome produced or changed, such as a new grant version or a decision reversal.",
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

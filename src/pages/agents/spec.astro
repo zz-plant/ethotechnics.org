@@ -2,31 +2,35 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
-import { readFile } from "node:fs/promises";
+import agentSafetyObjectModel from "../../data/agents-spec.json";
 
 const pageTitle = "Agent Safety Object Model";
 const pageDescription =
-  "A machine-readable agent governance profile for autonomy, action classes, and override authority.";
-const permalink = "/agents/spec";
-const version = "v1.1.0";
-const lastUpdated = "2026-02-22";
+  "A JSON schema that declares an AI agent's autonomy level, action classes, override authority, receipts, and clocks, with what breaks when a field is missing.";
+const version = "v1.1.1";
+const lastUpdated = "2026-10-01";
 const anchorLinks = [
   { href: "#overview", label: "Overview" },
   { href: "#example", label: "Example model" },
   { href: "#fields", label: "Field guide" },
   { href: "#failure-modes", label: "What breaks if missing" },
-  { href: "#schema", label: "JSON schema" },
+  { href: "#schema", label: "Full example (1.1.0)" },
   { href: "#usage", label: "Usage" },
   { href: "#referenced-by", label: "Referenced by" },
 ];
 
-const agentSafetyObjectModel = await readFile(
-  new URL("../../../public/agents/spec.json", import.meta.url),
-  "utf-8",
-);
-
 const exampleModel = `{
   "schema_version": "1.1.0",
+  "doctrine": {
+    "method": "/method",
+    "laws": "/standards/laws",
+    "standards": [
+      "/standards/std-06-human-impact-safety-case",
+      "/standards/std-07-revisable-delegation-record",
+      "/standards/std-08-delegation",
+      "/standards/std-09-agent-chains"
+    ]
+  },
   "agent_id": "agent-risk-ops-v2",
   "autonomy_level": {
     "level": "execute_with_guardrails",
@@ -57,48 +61,63 @@ const exampleModel = `{
   ]
 }`;
 
+const agentSafetyObjectModelText = JSON.stringify(
+  agentSafetyObjectModel,
+  null,
+  2,
+);
+
 const fieldGuide = [
   {
     field: "schema_version",
     example: "1.1.0",
-    purpose: "Version the contract so CI, validators, and auditors parse it consistently.",
+    purpose:
+      "Version the contract so CI, validators, and auditors parse it consistently.",
     failure: "Tooling cannot validate or diff the model when versions drift.",
   },
   {
     field: "agent_id",
     example: "agent-risk-ops-v2",
-    purpose: "A stable identifier that ties receipts, incidents, and evidence packs to one system.",
-    failure: "Evidence is orphaned; audits cannot trace decisions back to the agent.",
+    purpose:
+      "A stable identifier that ties receipts, incidents, and evidence packs to one system.",
+    failure:
+      "Evidence is orphaned; audits cannot trace decisions back to the agent.",
   },
   {
     field: "autonomy_level",
     example: "execute_with_guardrails",
-    purpose: "Defines whether the agent drafts, recommends, or executes actions.",
-    failure: "Release gates cannot infer approval requirements or escalation scope.",
+    purpose:
+      "Defines whether the agent drafts, recommends, or executes actions.",
+    failure:
+      "Release gates cannot infer approval requirements or escalation scope.",
   },
   {
     field: "action_classes",
     example: "READ / WRITE / TRANSFER",
     purpose: "Allowed actions and reversibility with default approvals.",
-    failure: "Receipts are ambiguous and controls cannot bind to irreversible actions.",
+    failure:
+      "Receipts are ambiguous and controls cannot bind to irreversible actions.",
   },
   {
     field: "stop_override_authority",
     example: "Risk Operations / Risk Steward",
     purpose: "Names the owner, on-call role, and kill switch authority.",
-    failure: "No one can halt automation quickly during incidents.",
+    failure:
+      "No one can halt automation inside the halt deadline during an incident.",
   },
   {
     field: "receipt_schema",
     example: "/standards/agent-receipt-schema.json",
     purpose: "Specifies the receipt contract emitted by tools.",
-    failure: "Receipts become incomparable, breaking audits and evidence packs.",
+    failure:
+      "Receipts become incomparable, breaking audits and evidence packs.",
   },
   {
     field: "clocks",
     example: "ack 2h / review 24h / remedy 72h",
     purpose: "Publishes acknowledgment, review, and remedy timers.",
-    failure: "Contestability becomes unenforceable without time-bound obligations.",
+    failure:
+      "Contestability becomes unenforceable without time-bound obligations.",
   },
   {
     field: "evidence_pack_references",
@@ -116,7 +135,8 @@ const fieldGuide = [
     field: "mapped_mechanisms",
     example: "MEC-01, MEC-05, MEC-06",
     purpose: "Connects the model to enforced mechanisms and runbooks.",
-    failure: "Controls exist only on paper; mechanisms are not operationalized.",
+    failure:
+      "Controls exist only on paper, and no mechanism runs in production.",
   },
 ];
 
@@ -126,29 +146,43 @@ const failureModes = [
   "Missing receipt schema version breaks downstream parsers and evidence pack validators.",
   "Missing clocks removes enforceable time bounds for acknowledgment, review, and remedy.",
 ];
+
+// There is no /agents index; the default crumbs would link one.
+const breadcrumbItems = [
+  { name: "Home", url: "/" },
+  { name: "Standards", url: "/standards" },
+  { name: pageTitle, url: "/agents/spec" },
+];
 ---
 
-<BaseLayout title={`${pageTitle} — Ethotechnics`} description={pageDescription} publishedTime="2026-02-22T00:00:00.000Z">
+<BaseLayout
+  title={`${pageTitle} — Ethotechnics`}
+  description={pageDescription}
+  publishedTime="2026-02-22T00:00:00.000Z"
+  breadcrumbItems={breadcrumbItems}
+>
   <PageIntro
     eyebrow="Agent specification"
     title={pageTitle}
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={anchorLinks}
     version={version}
     lastUpdated={lastUpdated}
-    panelCopy={{
-      eyebrow: "Machine-readable",
-      title: "Treat this like infrastructure",
-      description:
-        "This model gives CI systems, auditors, and agents a shared contract for governance controls.",
-    }}
-  />
+  >
+    <Fragment slot="actions">
+      <a class="button ghost" href="/use-cases#agents"
+        >Standards and checks for agents</a
+      >
+      <a class="button ghost" href="/standards/std-08-delegation"
+        >STD-08 Delegation</a
+      >
+    </Fragment>
+  </PageIntro>
 
   <SectionBlock
     id="overview"
     eyebrow="Overview"
-    title="A concrete schema for agent governance"
+    title="A schema for agent governance"
     description="Publish this file so automated systems can validate agent controls and evidence."
   >
     <ul class="muted">
@@ -156,7 +190,14 @@ const failureModes = [
         Spec page: <a href="/agents/spec">/agents/spec</a>
       </li>
       <li>
-        JSON schema: <a href="/agents/spec.json">/agents/spec.json</a>
+        Object model schema, version 2.0.0:
+        <a href="/standards/agent-safety-object-model.schema.json"
+          >/standards/agent-safety-object-model.schema.json</a
+        >
+      </li>
+      <li>
+        This page's example object as JSON:
+        <a href="/agents/spec.json">/agents/spec.json</a>
       </li>
     </ul>
   </SectionBlock>
@@ -165,13 +206,14 @@ const failureModes = [
     id="example"
     eyebrow="Example"
     title="Example Agent Safety Object Model"
-    description="Use this as a starting point, then replace IDs and clocks with your system values."
+    description="A starting point: replace IDs and clocks with your system values."
     variant="alt"
   >
     <pre class="code-block">{exampleModel}</pre>
     <p class="muted">
-      Every field is machine-validated. Keep the JSON human-readable so reviewers can inspect it in
-      change requests and audits.
+      Every field has a type in the JSON Schema, so a validator can check it in
+      CI. Keep the JSON human-readable so reviewers can inspect it in change
+      requests and audits.
     </p>
   </SectionBlock>
 
@@ -179,7 +221,7 @@ const failureModes = [
     id="fields"
     eyebrow="Field guide"
     title="Field-level explanations"
-    description="Each field includes an example and a concrete failure mode when omitted."
+    description="Each field includes an example and the failure mode when omitted."
   >
     <div class="mapping-table__wrapper">
       <table class="mapping-table">
@@ -192,14 +234,16 @@ const failureModes = [
           </tr>
         </thead>
         <tbody>
-          {fieldGuide.map((item) => (
-            <tr>
-              <td>{item.field}</td>
-              <td>{item.purpose}</td>
-              <td>{item.example}</td>
-              <td>{item.failure}</td>
-            </tr>
-          ))}
+          {
+            fieldGuide.map((item) => (
+              <tr>
+                <td>{item.field}</td>
+                <td>{item.purpose}</td>
+                <td>{item.example}</td>
+                <td>{item.failure}</td>
+              </tr>
+            ))
+          }
         </tbody>
       </table>
     </div>
@@ -209,23 +253,21 @@ const failureModes = [
     id="failure-modes"
     eyebrow="Failure modes"
     title="What breaks if you omit fields"
-    description="These are the most common causes of failed audits and release gate rollbacks."
+    description="Each omission leaves an audit or a release gate with nothing to check."
     variant="alt"
   >
     <ul class="muted">
-      {failureModes.map((item) => (
-        <li>{item}</li>
-      ))}
+      {failureModes.map((item) => <li>{item}</li>)}
     </ul>
   </SectionBlock>
 
   <SectionBlock
     id="schema"
-    eyebrow="Schema"
-    title="Machine-readable JSON"
-    description="Use this schema in CI and linting pipelines to enforce agent governance."
+    eyebrow="Example"
+    title="The full example object, in the 1.1.0 shape"
+    description="This instance predates version 2.0.0 of the schema, which replaces approval_required with a grant reference for each action class and stop_override_authority with an intervention reference. Validate against the schema, not this example."
   >
-    <pre class="code-block">{agentSafetyObjectModel}</pre>
+    <pre class="code-block">{agentSafetyObjectModelText}</pre>
   </SectionBlock>
 
   <SectionBlock
@@ -237,13 +279,17 @@ const failureModes = [
   >
     <ul class="muted">
       <li>
-        Validate new agent releases with <a href="/bindings#release-gates">release gates</a>.
+        Record the decision to deploy each agent release with the
+        <a href="/mechanisms/patterns/admission-gate">MEC-22 admission gate</a>.
       </li>
       <li>
-        Map action classes to <a href="/standards/ethotechnics-for-agents">agent standards</a>.
+        Map action classes to <a href="/standards/ethotechnics-for-agents"
+          >agent standards</a
+        >.
       </li>
       <li>
-        Link receipts and clocks to <a href="/evidence-packs">evidence packs</a> for audits.
+        Link receipts and clocks to <a href="/evidence-packs">evidence packs</a> for
+        audits.
       </li>
     </ul>
   </SectionBlock>
@@ -251,18 +297,21 @@ const failureModes = [
   <SectionBlock
     id="referenced-by"
     eyebrow="Referenced by"
-    title="Where this spec is enforced"
-    description="Cross-links keep audits, bindings, and examples aligned."
+    title="Where this spec is used"
+    description="The examples, bindings, and evidence packs that use this spec."
   >
     <div class="grid grid--three">
       <div class="panel">
         <p class="eyebrow">Used in examples</p>
         <ul class="muted">
           <li>
-            <a href="/examples/automated-account-lock">Automated account lock</a>
+            <a href="/examples/automated-account-lock">Automated account lock</a
+            >
           </li>
           <li>
-            <a href="/examples/fraud-hold-delayed-notice">Fraud hold with delayed notice</a>
+            <a href="/examples/fraud-hold-delayed-notice"
+              >Fraud hold with delayed notice</a
+            >
           </li>
           <li>
             <a href="/examples/irreversible-payment-compensation">
@@ -275,18 +324,14 @@ const failureModes = [
         <p class="eyebrow">Required by bindings</p>
         <ul class="muted">
           <li>
-            <a href="/bindings#release-gates">Release gate checklist</a>
-          </li>
-          <li>
-            <a href="/bindings#procurement">Procurement clauses</a>
-          </li>
-          <li>
-            <a href="/bindings#runbooks">Runbook snippets</a>
+            <a href="/mechanisms/patterns/admission-gate"
+              >MEC-22 Admission gate</a
+            >
           </li>
         </ul>
       </div>
       <div class="panel">
-        <p class="eyebrow">Verified by evidence packs</p>
+        <p class="eyebrow">Evidence packs: what to collect</p>
         <ul class="muted">
           <li>
             <a href="/evidence-packs/std-01">STD-01 Evidence Pack</a>
@@ -301,7 +346,7 @@ const failureModes = [
       </div>
     </div>
     <p class="muted">
-      Search IDs: ASOM 1.1.0, STD-01 v1.0, STD-02 v0.9, STD-01.1.1, STD-02.2.1,
+      Search IDs: ASOM 1.1.0, STD-01 v1.0, STD-02 v1.2, STD-01.1.1, STD-02.2.1,
       MEC-01, MEC-05, MEC-06, VAL-01, VAL-02, VAL-03.
     </p>
   </SectionBlock>

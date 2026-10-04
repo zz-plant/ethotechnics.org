@@ -1,0 +1,208 @@
+---
+/**
+ * The automation ratchet, drawn: the same growth twice.
+ *
+ * On the left, scope grows by a step too small to open a review, month after
+ * month, and the grant's history holds one entry from the day it was issued.
+ * On the right, the same steps under STD-08 Part A: every widening is its own
+ * authorization and lands in state_history as an expansion. The two curves
+ * are identical. The difference is whether anyone decided.
+ */
+import DemoFigure from "./DemoFigure.astro";
+import { accrete, authorizedHistory, RATCHET } from "../utils/ratchet";
+
+interface Props {
+  level?: "h3" | "h4";
+}
+
+const { level = "h3" }: Props = Astro.props;
+
+const { scope, reviewsFired, finalScope } = accrete(RATCHET);
+const history = authorizedHistory(RATCHET);
+
+// Two identical plots on one 960×420 canvas. The y range starts at ×1 so the
+// staircase fills its panel, and tops out just above the final scope.
+const panelWidth = 416;
+const plotTop = 84;
+const plotBottom = 300;
+const yMax = 2.2;
+const panels = [
+  {
+    x0: 44,
+    title: "Grows unnoticed",
+    kicker: `reviewed only after a single ${RATCHET.reviewThresholdPct}% step`,
+  },
+  {
+    x0: 524,
+    title: "Grows by decision",
+    kicker: "every step approved (STD-08)",
+  },
+] as const;
+
+const xAt = (x0: number, month: number) =>
+  x0 + (panelWidth * month) / RATCHET.months;
+const yAt = (value: number) =>
+  plotBottom - ((plotBottom - plotTop) * (value - 1)) / (yMax - 1);
+
+/** A staircase: hold the month's scope, then step up at the next month. */
+const staircase = (x0: number) =>
+  scope
+    .map((value, month) => {
+      const x = xAt(x0, month);
+      const y = yAt(value);
+      if (month === 0) return `M ${x.toFixed(1)} ${y.toFixed(1)}`;
+      const previousY = yAt(scope[month - 1]);
+      return `L ${x.toFixed(1)} ${previousY.toFixed(1)} L ${x.toFixed(1)} ${y.toFixed(1)}`;
+    })
+    .join(" ");
+
+const gridValues = [1, 1.5, 2];
+const expansions = history.length - 1;
+---
+
+<DemoFigure
+  id="ratchet-figure"
+  class="ratchet"
+  level={level}
+  title="The same growth, approved and unapproved"
+  lede={`Two systems widen their reach by ${RATCHET.stepPct}% a month for ${RATCHET.months / 12} years. The left one is reviewed only when a single step reaches ${RATCHET.reviewThresholdPct}%. The right one records every step as an approval.`}
+>
+  <div class="demo-figure__frame">
+    <div class="diagram-scroll">
+      <svg
+        viewBox="0 0 960 420"
+        role="img"
+        aria-label={`Two identical staircases rising from reach times one to times ${finalScope.toFixed(2)} over ${RATCHET.months} months. Left: ${reviewsFired} reviews, one record. Right: ${history.length} records, the original approval and ${expansions} approved expansions.`}
+        class="ratchet__svg"
+      >
+        {
+          panels.map((panel, index) => (
+            <g>
+              <text x={panel.x0} y={34} class="demo-figure__svg-title">
+                {panel.title}
+              </text>
+              <text x={panel.x0} y={56} class="demo-figure__svg-label">
+                {panel.kicker}
+              </text>
+              {gridValues.map((value) => (
+                <g>
+                  <line
+                    x1={panel.x0}
+                    x2={panel.x0 + panelWidth}
+                    y1={yAt(value)}
+                    y2={yAt(value)}
+                    class="ratchet__grid"
+                  />
+                  <text
+                    x={panel.x0 - 6}
+                    y={yAt(value) + 5}
+                    text-anchor="end"
+                    class="demo-figure__svg-label"
+                  >
+                    ×{value.toFixed(1)}
+                  </text>
+                </g>
+              ))}
+              {[0, 12, 24, 36].map((month) => (
+                <text
+                  x={xAt(panel.x0, month)}
+                  y={plotBottom + 20}
+                  text-anchor="middle"
+                  class="demo-figure__svg-label"
+                >
+                  {month === 0 ? "month 0" : month}
+                </text>
+              ))}
+              <path d={staircase(panel.x0)} class="ratchet__stairs" />
+              {index === 1 &&
+                scope
+                  .slice(1)
+                  .map((value, i) => (
+                    <circle
+                      cx={xAt(panel.x0, i + 1)}
+                      cy={yAt(value)}
+                      r="2.6"
+                      class="ratchet__decision"
+                    />
+                  ))}
+              {index === 0 && (
+                <g>
+                  <line
+                    x1={panel.x0 + 16}
+                    x2={panel.x0 + 60}
+                    y1={yAt(1.95)}
+                    y2={yAt(1.95)}
+                    class="ratchet__threshold"
+                  />
+                  <text
+                    x={panel.x0 + 66}
+                    y={yAt(1.95) + 5}
+                    class="demo-figure__svg-label"
+                  >
+                    the step that would open a review, ×1.05
+                  </text>
+                  <line
+                    x1={panel.x0 + 16}
+                    x2={panel.x0 + 60}
+                    y1={yAt(1.95) + 20}
+                    y2={yAt(1.95) + 20}
+                    class="ratchet__stairs"
+                  />
+                  <text
+                    x={panel.x0 + 66}
+                    y={yAt(1.95) + 25}
+                    class="demo-figure__svg-label"
+                  >
+                    each real step, ×1.02
+                  </text>
+                </g>
+              )}
+              <text
+                x={xAt(panel.x0, RATCHET.months)}
+                y={yAt(finalScope) - 10}
+                text-anchor="end"
+                class="demo-figure__svg-mono"
+              >
+                ×{finalScope.toFixed(2)}
+              </text>
+              <text
+                x={panel.x0}
+                y={plotBottom + 52}
+                class="demo-figure__svg-mono"
+              >
+                {index === 0
+                  ? `reviews: ${reviewsFired}`
+                  : `approved expansions: ${expansions}`}
+              </text>
+              <text
+                x={panel.x0}
+                y={plotBottom + 74}
+                class="demo-figure__svg-mono"
+              >
+                {index === 0
+                  ? "records: 1 (the original approval)"
+                  : `records: ${history.length}`}
+              </text>
+              <text
+                x={panel.x0}
+                y={plotBottom + 96}
+                class="demo-figure__svg-label"
+              >
+                {index === 0
+                  ? "nothing to review, because nobody decided anything"
+                  : "each with its evidence and a check that it can still be undone"}
+              </text>
+            </g>
+          ))
+        }
+      </svg>
+    </div>
+  </div>
+  <p class="demo-figure__note">
+    A demonstration, not a measurement of any real system. The record format is
+    the published
+    <a href="/standards/authority-grant.schema.json">authority grant schema</a>.
+    A reviewer can read the right-hand record step by step. The left-hand system
+    leaves nothing to read.
+  </p>
+</DemoFigure>

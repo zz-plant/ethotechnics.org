@@ -1,6 +1,17 @@
-import { expect, test } from "@playwright/test";
+import { expect, type Page, test } from "@playwright/test";
 
 const BURDEN_URL = "/diagnostics/burden-modeler";
+
+// The widget is a `client:visible` island, so it only hydrates once it is
+// scrolled into view. Interacting before that lands on the SSR markup and the
+// input is thrown away when hydration replaces it.
+const hydrateWidget = async (page: Page) => {
+  const island = page.locator("astro-island", {
+    has: page.locator("[data-burden-modeler]"),
+  });
+  await island.scrollIntoViewIfNeeded();
+  await expect(island).not.toHaveAttribute("ssr", /.*/);
+};
 
 test.describe("Burden Modeler page", () => {
   test("responds with status 200", async ({ request }) => {
@@ -11,9 +22,10 @@ test.describe("Burden Modeler page", () => {
   test("has proper title and description", async ({ page }) => {
     await page.goto(BURDEN_URL);
     await expect(page).toHaveTitle(/Burden Modeler.+Diagnostics/);
-    await expect(
-      page.locator('meta[name="description"]'),
-    ).toHaveAttribute("content", /.+/);
+    await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+      "content",
+      /.+/,
+    );
   });
 
   test("renders the widget with header content", async ({ page }) => {
@@ -23,7 +35,7 @@ test.describe("Burden Modeler page", () => {
     const widget = page.locator("[data-burden-modeler]");
     await expect(widget).toBeVisible();
     await expect(widget.getByRole("heading", { level: 2 })).toContainText(
-      "Quantify where toil piles up",
+      "See where the workload piles up",
     );
   });
 
@@ -35,18 +47,27 @@ test.describe("Burden Modeler page", () => {
     await expect(scenarioInput).toBeVisible();
     await expect(scenarioInput).toHaveValue("Baseline");
 
-    await expect(page.getByText("0 = resting, 10 = unsustainable")).toBeVisible();
-    await expect(page.getByRole("button", { name: "Reset inputs" })).toBeVisible();
+    await expect(
+      page.getByText("0 = resting, 10 = unsustainable"),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: "Reset inputs" }),
+    ).toBeVisible();
   });
 
-  test("changes scenario name updates the burden meter title", async ({ page }) => {
+  test("changes scenario name updates the burden meter title", async ({
+    page,
+  }) => {
     await page.goto(BURDEN_URL);
     await page.waitForLoadState("networkidle");
+    await hydrateWidget(page);
 
     await page.locator("#scenario-name").fill("Q3 Release");
-    await expect(
-      page.locator("[data-burden-modeler] .eyebrow").first(),
-    ).toHaveText("Q3 Release");
+
+    const burdenCard = page
+      .locator("[data-burden-modeler] .result-card")
+      .filter({ has: page.getByRole("heading", { name: "Burden index" }) });
+    await expect(burdenCard.locator(".eyebrow")).toHaveText("Q3 Release");
   });
 
   test("slider interaction updates the rating descriptor", async ({ page }) => {
@@ -71,8 +92,12 @@ test.describe("Burden Modeler page", () => {
     expect(Number(indexValue)).toBeGreaterThanOrEqual(0);
 
     await expect(page.locator(".burden-meter__badge")).toBeVisible();
-    await expect(page.getByText("Average rating", { exact: false })).toBeVisible();
-    await expect(page.getByText("Top category", { exact: false })).toBeVisible();
+    await expect(
+      page.getByText("Average rating", { exact: false }),
+    ).toBeVisible();
+    await expect(
+      page.getByText("Top category", { exact: false }),
+    ).toBeVisible();
     await expect(page.getByText("Top driver", { exact: false })).toBeVisible();
   });
 
@@ -106,7 +131,9 @@ test.describe("Burden Modeler page", () => {
     const firstSlider = page.locator('.slider input[type="range"]').first();
     await firstSlider.fill("9");
 
+    // Reset asks for confirmation once the inputs have changed.
     await page.getByRole("button", { name: "Reset inputs" }).click();
+    await page.getByRole("button", { name: "Confirm reset" }).click();
 
     await expect(page.locator("#scenario-name")).toHaveValue("Baseline");
     // Default rating is 5, not 0
@@ -116,11 +143,14 @@ test.describe("Burden Modeler page", () => {
   test("exports snapshot triggers a download", async ({ page }) => {
     await page.goto(BURDEN_URL);
     await page.waitForLoadState("networkidle");
+    await hydrateWidget(page);
 
     const [download] = await Promise.all([
       page.waitForEvent("download"),
-      page.getByRole("button", { name: "Export snapshot" }).click(),
+      page.getByRole("button", { name: "Export JSON" }).click(),
     ]);
-    expect(download.suggestedFilename()).toContain("burden-snapshot");
+    expect(download.suggestedFilename()).toMatch(
+      /^burden-snapshot-baseline-\d{4}-\d{2}-\d{2}\.json$/,
+    );
   });
 });

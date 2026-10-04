@@ -1,4 +1,4 @@
-export type BurdenCategoryId = 'task-load' | 'cognitive-load' | 'risk-exposure';
+export type BurdenCategoryId = "task-load" | "cognitive-load" | "risk-exposure";
 
 export type BurdenCategory = {
   id: BurdenCategoryId;
@@ -8,13 +8,13 @@ export type BurdenCategory = {
 
 export type BurdenDriver = {
   id:
-    | 'interruptions'
-    | 'handoffs'
-    | 'tooling'
-    | 'runbooks'
-    | 'incidents'
-    | 'coverage'
-    | 'decision-debt';
+    | "interruptions"
+    | "handoffs"
+    | "tooling"
+    | "runbooks"
+    | "incidents"
+    | "coverage"
+    | "decision-debt";
   label: string;
   prompt: string;
   category: BurdenCategoryId;
@@ -22,10 +22,10 @@ export type BurdenDriver = {
   mitigations: string[];
 };
 
-export type BurdenRatings = Record<BurdenDriver['id'], number>;
+export type BurdenRatings = Record<BurdenDriver["id"], number>;
 
 export type DriverScore = {
-  id: BurdenDriver['id'];
+  id: BurdenDriver["id"];
   label: string;
   category: BurdenCategoryId;
   rating: number;
@@ -46,7 +46,7 @@ export type SegmentImpact = CategoryScore;
 
 export type BurdenModelResult = {
   burdenIndex: number;
-  burdenLevel: 'Healthy' | 'Watch' | 'Overloaded';
+  burdenLevel: "Healthy" | "Watch" | "Overloaded";
   categoryScores: CategoryScore[];
   hotspots: DriverScore[];
   topSegments: SegmentImpact[];

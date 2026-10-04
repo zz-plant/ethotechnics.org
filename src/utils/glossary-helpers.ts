@@ -1,12 +1,16 @@
 import type {
   GlossaryCategory,
   GlossaryEntry,
+  GlossaryMinimumEvidence,
   GlossaryResource,
 } from "../content/glossary";
 import type { PublicationMetadata } from "../content/types";
 
 export const stripHtml = (value: string): string =>
-  value.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+  value
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 
 export const normalizeGlossaryHeading = (heading: string): string =>
   heading.replace(/^[A-Z]\.\s*/, "");
@@ -15,14 +19,18 @@ export const getGlossaryAuthor = (publication: PublicationMetadata): string =>
   publication.authors.map((author) => author.name).join(", ") ||
   "Ethotechnics Institute";
 
+/**
+ * An entry's recorded evidence, and nothing where none is recorded.
+ *
+ * This used to fill the gap with three sentences built from the term itself
+ * ("Artifact documenting how X is expected, enforced, or governed"), which
+ * read as evidence while saying the same thing about all 261 terms. A term
+ * with no evidence behind it is listed under the entry's completeness notes
+ * instead, which is the claim the site can actually support.
+ */
 export const getMinimumEvidenceDefaults = (
   entry: Pick<GlossaryEntry, "minimumEvidence" | "title">,
-) =>
-  entry.minimumEvidence ?? {
-    artifact: `Artifact documenting how ${entry.title} is expected, enforced, or governed.`,
-    behavior: `Observed behavior showing ${entry.title} in practice during real use or drills.`,
-    metric: `Metric tracked to monitor ${entry.title} performance over time.`,
-  };
+): GlossaryMinimumEvidence => entry.minimumEvidence ?? {};
 
 export const buildGlossaryEntrySearchText = (
   entry: GlossaryEntry,
@@ -50,13 +58,15 @@ export const getGlossaryEntryDefaults = (
   adjacentTerms: string[];
   operationalTests: string[];
   commonCounterfeits: string[];
-  minimumEvidence: GlossaryEntry["minimumEvidence"];
+  minimumEvidence: GlossaryMinimumEvidence;
   genealogy?: string;
   references: GlossaryResource[];
 } => {
   const categoryLabel = normalizeGlossaryHeading(category.heading);
   const scopeText = entry.scope ?? "";
-  const adjacentTerms = entry.adjacentTerms ?? entry.tags ?? [];
+  // Adjacent terms are entry ids and render as links; tags are keywords and
+  // never resolve to an entry, so they cannot stand in.
+  const adjacentTerms = entry.adjacentTerms ?? [];
   const operationalTests = entry.operationalTests ?? [];
   const commonCounterfeits = entry.commonCounterfeits ?? [];
   const minimumEvidence = getMinimumEvidenceDefaults(entry);

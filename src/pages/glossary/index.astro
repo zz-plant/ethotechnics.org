@@ -1,29 +1,21 @@
 ---
+import InlineScript from "../../components/InlineScript.astro";
+import "../../styles/components/glossary.css";
 import { getEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import CardGrid from "../../components/CardGrid.astro";
-import CardItem from "../../components/CardItem.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
-import SummaryCallout from "../../components/SummaryCallout.astro";
-import NewsletterSignup from "../../components/NewsletterSignup.astro";
-import glossaryFilterScript from "../../scripts/glossary-filter.ts?url";
 import { glossaryEntryPermalink } from "../../utils/glossary";
-import { getGlossaryAuthor, getGlossaryEntryDefaults } from "../../utils/glossary-helpers";
+import { stripHtml } from "../../utils/glossary-helpers";
 import {
   buildGlossaryIndexEntries,
   buildGlossaryIndexFacets,
   buildGlossaryStructuredDataPayload,
   filterGlossaryIndexEntries,
 } from "../../content/page-data/glossary-routes";
-import {
-  explainerLinks,
-  summaryLinks,
-  summaryRelatedLinks,
-  summaryTakeaways,
-} from "../../content/page-data/glossary-page";
+import { explainerLinks } from "../../content/page-data/glossary-page";
 import {
   glossaryDomainFilters,
   glossaryMeasurabilityFilters,
@@ -31,7 +23,6 @@ import {
 } from "../../utils/glossary-metadata";
 
 const glossaryEntry = (await getEntry("glossary", "glossary"))!;
-const libraryEntry = (await getEntry("library", "library"))!;
 
 const {
   pageTitle,
@@ -43,37 +34,33 @@ const {
   starterTerms,
   categoryHighlights,
 } = glossaryEntry.data;
-const libraryContent = libraryEntry.data;
-const patternIndex = new Map(
-  libraryContent.patterns.entries.map((pattern) => [pattern.slug, pattern]),
-);
-const patternFilterLabels = Object.fromEntries(
-  libraryContent.patterns.filters.map((filter) => [filter.slug, filter.label]),
-);
-type GlossaryRelatedPattern = {
-  title: string;
-  href: string;
-  filterLabels: string[];
-};
+// The page's four parts. The thirteen category sections used to be listed
+// here too, which made the intro's map read "4 + 13 more sections"; the
+// territory map is the section that lists them, with counts.
 const anchorLinks = [
-  { href: "#glossary-pathways", label: "Glossary pathways" },
   { href: "#glossary-index", label: "A–Z index" },
+  { href: "#glossary-pathways", label: "Where terms are used" },
   { href: "#explainer-links", label: "Explainers" },
-  { href: "#territory-map", label: "Territory map" },
-  ...categories.map((category) => ({
-    href: `#${category.id}`,
-    label: category.heading,
-  })),
+  { href: "#territory-map", label: "Sections" },
 ];
-const entryLabelIndex = new Map(
-  categories.flatMap((category) =>
-    category.entries.map((entry) => [entry.id, entry.title] as const),
-  ),
-);
 const domainFilters = glossaryDomainFilters;
 const phaseFilters = glossaryPhaseFilters;
 const measurabilityFilters = glossaryMeasurabilityFilters;
 const entryIndex = buildGlossaryIndexEntries(categories);
+const entryLetter = (title: string) => title.trim().charAt(0).toUpperCase();
+// The A–Z index renders as letter groups; entryIndex is already sorted.
+const letterGroups = entryIndex.reduce<
+  { letter: string; entries: typeof entryIndex }[]
+>((groups, entry) => {
+  const letter = entryLetter(entry.title);
+  const last = groups.at(-1);
+  if (last && last.letter === letter) {
+    last.entries.push(entry);
+  } else {
+    groups.push({ letter, entries: [entry] });
+  }
+  return groups;
+}, []);
 const { statusFilters, glossarySuggestions, glossaryLetters, territoryCounts } =
   buildGlossaryIndexFacets(categories, entryIndex);
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
@@ -87,32 +74,32 @@ const explainerLinksWithGlossary = explainerLinks.map((link) => ({
 }));
 const glossaryPathways = [
   {
-    title: "Ethical technology standards",
+    title: "Standards",
     description:
-      "Use glossary definitions when drafting AI governance requirements, accountability checkpoints, and consent safeguards.",
+      "The standards state AI governance requirements as numbered clauses. The glossary defines the terms those clauses use.",
     href: "/standards",
-    linkLabel: "Explore ethical technology standards",
+    linkLabel: "Read the standards",
   },
   {
-    title: "Human-centered design research",
+    title: "Research and theory",
     description:
-      "Pair field research and diagnostics with stable terminology for human-centered design and moral system reviews.",
+      "Theory essays and research notes that argue for these terms, and the diagnostics that apply them.",
     href: "/research",
-    linkLabel: "Browse human-centered design research",
+    linkLabel: "Browse the research",
   },
   {
     title: "Mechanisms and controls library",
     description:
-      "Jump from glossary terms to implementation mechanisms like stoppability, safety valves, and contestability patterns.",
+      "The mechanisms that implement glossary terms, such as stop controls, safety valves, and appeal paths.",
     href: "/mechanisms",
     linkLabel: "Review AI governance mechanisms",
   },
   {
     title: "Field notes and practice briefs",
     description:
-      "Trace how glossary anchors show up in real-world audits, incident reviews, and remediation playbooks.",
+      "Audits, incident reviews, and remediation playbooks that apply these terms to specific cases.",
     href: "/field-notes",
-    linkLabel: "Read ethical tech field notes",
+    linkLabel: "Read the field notes",
   },
 ];
 const searchQuery = Astro.url.searchParams.get("query")?.trim() ?? "";
@@ -133,12 +120,9 @@ const structuredData = buildGlossaryStructuredDataPayload({
 const glossaryKeywordsNode = structuredData["@graph"].find(
   (item) => item["@type"] === "CollectionPage",
 ) as { keywords?: string[] } | undefined;
-const glossaryKeywordsContent = glossaryKeywordsNode?.keywords?.join(", ") ?? "";
+const glossaryKeywordsContent =
+  glossaryKeywordsNode?.keywords?.join(", ") ?? "";
 const structuredDataJson = JSON.stringify(structuredData, null, 2);
-const citationYear = new Date(
-  publication.updated ?? publication.published,
-).getFullYear();
-const glossaryAuthor = getGlossaryAuthor(publication);
 ---
 
 <BaseLayout
@@ -146,6 +130,7 @@ const glossaryAuthor = getGlossaryAuthor(publication);
   description={pageDescription}
   enableGlossaryHighlights={false}
   jsonAlternates={[{ href: "/api/glossary.json", title: "Glossary JSON" }]}
+  pageSchema="route"
 >
   <Fragment slot="head">
     <meta name="keywords" content={glossaryKeywordsContent} />
@@ -154,320 +139,260 @@ const glossaryAuthor = getGlossaryAuthor(publication);
     eyebrow="Glossary"
     title="Ethotechnics glossary"
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={anchorLinks}
-    panelCopy={{
-      eyebrow: "Using the glossary",
-      title: "Stable anchors for Ethotechnic language.",
-      description:
-        "Each term is a mechanism card with related mechanism specs and ready-to-copy citations. Use the permalinks to keep reports, diagnostics, and briefs aligned on exact definitions.",
-    }}
   />
-  <SummaryCallout
-    title="Glossary wayfinding at a glance"
-    description="Use this index to align language quickly, then jump straight to the sections that match your research or review window."
-    takeaways={summaryTakeaways}
-    relatedLinks={summaryRelatedLinks}
-    jumpLinks={summaryLinks}
-  />
-  <div class="callout glossary__starter" id="starter-terms">
-    <h3>Start with these terms</h3>
-    <p class="muted">
-      New to the glossary? These anchors provide the shared vocabulary most
-      teams cite first.
-    </p>
-    <ul class="glossary__starter-list">
-      {
-        starterTerms.map((term) => (
-          <li>
-            <a href={glossaryEntryUrl(term.id)}>{term.label}</a>
-            <p class="muted small">{term.description}</p>
-          </li>
-        ))
-      }
-    </ul>
-  </div>
-  <SectionBlock
-    id="glossary-pathways"
-    eyebrow="Pathways"
-    title="Glossary pathways for ethical technology teams"
-    description="Start with shared definitions, then follow the glossary into AI governance standards, research artifacts, and human-centered design mechanisms."
-    variant="alt"
-  >
-    <CardGrid className="grid--two">
-      {
-        glossaryPathways.map((pathway) => (
-          <CardItem title={pathway.title} description={pathway.description}>
-            <p slot="footer">
-              <a class="button ghost button--compact" href={pathway.href}>
-                {pathway.linkLabel}
-              </a>
-            </p>
-          </CardItem>
-        ))
-      }
-    </CardGrid>
-  </SectionBlock>
-  <ScholarlyMeta publication={publication} permalink={permalink} />
-  <CitationBlock
-    title={pageTitle}
-    permalink={permalink}
-    publication={publication}
-    variant="compact"
-  />
-  <div class="glossary-filter">
-    <div class="glossary-filter__controls">
-      <label class="glossary-filter__label" for="glossary-filter">
-        <span class="visually-hidden">Filter glossary terms</span>
-        <input
-          id="glossary-filter"
-          name="query"
-          type="search"
-          inputmode="search"
-          placeholder="Filter terms (e.g., consent)"
-          autocomplete="off"
-          list="glossary-filter-suggestions"
-          value={searchQuery}
-        />
-      </label>
-      <div class="glossary-filter__tabs" role="tablist">
-        <button
-          class="glossary-filter__tab is-active"
-          type="button"
-          role="tab"
-          aria-selected="true"
-          data-glossary-tab="all"
-        >
-          All entries <span data-glossary-total>{totalEntries}</span>
-        </button>
-        <button
-          class="glossary-filter__tab"
-          type="button"
-          role="tab"
-          aria-selected="false"
-          data-glossary-tab="domains"
-        >
-          By Domain
-        </button>
-        <button
-          class="glossary-filter__tab"
-          type="button"
-          role="tab"
-          aria-selected="false"
-          data-glossary-tab="phases"
-        >
-          By Phase
-        </button>
-        <button
-          class="glossary-filter__tab"
-          type="button"
-          role="tab"
-          aria-selected="false"
-          data-glossary-tab="measurability"
-        >
-          By Measurability
-        </button>
-      </div>
-    </div>
-    <div class="glossary-filter__panels">
-      <div
-        class="glossary-filter__panel"
-        role="tabpanel"
-        data-glossary-panel="all"
-      >
-        <p class="muted">Currently viewing: All entries</p>
-      </div>
-      <fieldset
-        class="glossary-filter__panel"
-        role="tabpanel"
-        data-glossary-panel="domains"
-        hidden
-      >
-        <legend>Filter by domain</legend>
-        <div class="glossary-filter__chips">
-          {domainFilters.map((domain) => (
-            <label class="glossary-filter__chip">
-              <input
-                type="checkbox"
-                value={domain.id}
-                data-glossary-filter="domains"
-                data-glossary-label={domain.label}
-              />
-              <span class="glossary-filter__chip-label">{domain.label}</span>
-              <span class="glossary-filter__chip-count" data-glossary-count />
-            </label>
-          ))}
-        </div>
-      </fieldset>
-      <fieldset
-        class="glossary-filter__panel"
-        role="tabpanel"
-        data-glossary-panel="phases"
-        hidden
-      >
-        <legend>Filter by phase</legend>
-        <div class="glossary-filter__chips">
-          {phaseFilters.map((phase) => (
-            <label class="glossary-filter__chip">
-              <input
-                type="checkbox"
-                value={phase.id}
-                data-glossary-filter="phases"
-                data-glossary-label={phase.label}
-              />
-              <span class="glossary-filter__chip-label">{phase.label}</span>
-              <span class="glossary-filter__chip-count" data-glossary-count />
-            </label>
-          ))}
-        </div>
-      </fieldset>
-      <fieldset
-        class="glossary-filter__panel"
-        role="tabpanel"
-        data-glossary-panel="measurability"
-        hidden
-      >
-        <legend>Filter by measurability</legend>
-        <div class="glossary-filter__chips">
-          {measurabilityFilters.map((option) => (
-            <label class="glossary-filter__chip">
-              <input
-                type="checkbox"
-                value={option.id}
-                data-glossary-filter="measurability"
-                data-glossary-label={option.label}
-              />
-              <span class="glossary-filter__chip-label">
-                {option.label}
-              </span>
-              <span class="glossary-filter__chip-count" data-glossary-count />
-            </label>
-          ))}
-        </div>
-      </fieldset>
-      {statusFilters.length > 0 && (
-        <fieldset
-          class="glossary-filter__panel glossary-filter__panel--status"
-          role="tabpanel"
-          data-glossary-panel="status"
-        >
-          <legend>Filter by status</legend>
-          <div class="glossary-filter__chips">
-            {statusFilters.map((status) => (
-              <label class="glossary-filter__chip">
-                <input
-                  type="checkbox"
-                  value={status}
-                  data-glossary-filter="status"
-                  data-glossary-label={status}
-                />
-                <span class="glossary-filter__chip-label">{status}</span>
-                <span class="glossary-filter__chip-count" data-glossary-count />
-              </label>
-            ))}
-          </div>
-        </fieldset>
-      )}
-    </div>
-    <div class="glossary-filter__active" data-glossary-active hidden>
-      <p class="muted">Active filters:</p>
-      <div class="glossary-filter__active-chips"></div>
-    </div>
-    <div class="glossary-filter__actions">
-      <button
-        class="button ghost button--compact glossary-filter__clear"
-        type="button"
-        data-clear-filter
-      >
-        Clear filter
-      </button>
-      <button
-        class="button ghost button--compact"
-        type="button"
-        data-glossary-expand
-      >
-        Expand sections
-      </button>
-      <button
-        class="button ghost button--compact"
-        type="button"
-        data-glossary-collapse
-      >
-        Collapse sections
-      </button>
-    </div>
-    <p class="muted glossary-filter__hint">
-      Search across all terms or narrow by domain, phase, or measurability.
-    </p>
-    <p
-      class="muted glossary-filter__count"
-      aria-live="polite"
-      aria-atomic="true"
-      data-total={totalEntries}
-    >
-      Showing {visibleEntries} of {totalEntries} terms
-      {hasSearchQuery && ` for “${searchQuery}”`}
-    </p>
-    <p class="muted glossary-index__empty" hidden={visibleEntries > 0}>
-      No entries match that search or filter. Try another keyword or browse the
-      territory map for nearby concepts.
-    </p>
-  </div>
-  <datalist id="glossary-filter-suggestions">
-    {glossarySuggestions.map((suggestion) => <option value={suggestion} />)}
-  </datalist>
-  <SectionBlock
-    id="explainer-links"
-    eyebrow="Explainers"
-    title="High-intent glossary explainers"
-    description="Short, reusable definitions with examples and next-step artifacts."
-    variant="alt"
-  >
-    <CardGrid className="grid--three">
-      {
-        explainerLinksWithGlossary.map((explainer) => (
-          <CardItem title={explainer.title} description={explainer.description}>
-            <p slot="footer">
-              <a class="button ghost button--compact" href={explainer.href}>
-                Read explainer
-              </a>
-              <span class="muted">
-                {" "}
-                • <a href={explainer.glossaryHref}>Glossary entry</a>
-              </span>
-            </p>
-          </CardItem>
-        ))
-      }
-    </CardGrid>
-  </SectionBlock>
-
   <SectionBlock
     id="glossary-index"
-    eyebrow="Index"
-    title="A–Z of Ethotechnic terms"
-    description={`Alphabetical list with ${entryIndex.length} definitions ready to link directly.`}
+    title="All terms, A to Z"
+    description={`${entryIndex.length} terms, each with its own page.`}
+    className="glossary-catalog"
   >
-    <div class="glossary-index__toolbar">
-      <div>
-        <p class="eyebrow">Quick jump</p>
-        <p class="muted glossary-index__hint">
-          Filter by letter to scan faster, then open a term for full citations.
-        </p>
+    <div class="glossary-filter">
+      <div class="glossary-filter__controls">
+        <label class="glossary-filter__label" for="glossary-filter">
+          <span class="glossary-filter__label-text">Filter glossary terms</span>
+          <input
+            id="glossary-filter"
+            name="query"
+            type="search"
+            inputmode="search"
+            placeholder="Filter terms (e.g., consent)"
+            autocomplete="off"
+            list="glossary-filter-suggestions"
+            value={searchQuery}
+          />
+        </label>
+        <div class="glossary-filter__tabs" role="tablist">
+          <button
+            class="glossary-filter__tab is-active"
+            type="button"
+            role="tab"
+            aria-selected="true"
+            data-glossary-tab="all"
+          >
+            All entries <span data-glossary-total>{totalEntries}</span>
+          </button>
+          <button
+            class="glossary-filter__tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            data-glossary-tab="domains"
+          >
+            By domain
+          </button>
+          <button
+            class="glossary-filter__tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            data-glossary-tab="phases"
+          >
+            By phase
+          </button>
+          <button
+            class="glossary-filter__tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            data-glossary-tab="measurability"
+          >
+            By measurability
+          </button>
+        </div>
       </div>
-      <nav
-        class="glossary-index__letters"
-        aria-label="Filter by letter"
-      >
-        <button
-          class="pill pill--ghost is-active"
-          type="button"
-          data-glossary-letter="all"
-          aria-pressed="true"
+      <p class="glossary-filter__starters" id="starter-terms">
+        <span class="muted">Start with</span>
+        {
+          starterTerms.map((term, index) => (
+            <>
+              <a href={glossaryEntryUrl(term.id)} title={term.description}>
+                {term.label}
+              </a>
+              {index < starterTerms.length - 1 && (
+                <span class="glossary-filter__sep" aria-hidden="true">
+                  ·
+                </span>
+              )}
+            </>
+          ))
+        }
+      </p>
+      <div class="glossary-filter__panels">
+        <div
+          class="glossary-filter__panel"
+          role="tabpanel"
+          data-glossary-panel="all"
         >
-          All
-        </button>
-        {glossaryLetters.map((letter) => (
+          <p class="muted small">
+            Search across all terms or narrow by domain, phase, or
+            measurability.
+          </p>
+        </div>
+        <fieldset
+          class="glossary-filter__panel"
+          role="tabpanel"
+          data-glossary-panel="domains"
+          hidden
+        >
+          <legend>Filter by domain</legend>
+          <div class="glossary-filter__chips">
+            {
+              domainFilters.map((domain) => (
+                <label class="glossary-filter__chip">
+                  <input
+                    type="checkbox"
+                    value={domain.id}
+                    data-glossary-filter="domains"
+                    data-glossary-label={domain.label}
+                  />
+                  <span class="glossary-filter__chip-label">
+                    {domain.label}
+                  </span>
+                  <span
+                    class="glossary-filter__chip-count"
+                    data-glossary-count
+                  />
+                </label>
+              ))
+            }
+          </div>
+        </fieldset>
+        <fieldset
+          class="glossary-filter__panel"
+          role="tabpanel"
+          data-glossary-panel="phases"
+          hidden
+        >
+          <legend>Filter by phase</legend>
+          <div class="glossary-filter__chips">
+            {
+              phaseFilters.map((phase) => (
+                <label class="glossary-filter__chip">
+                  <input
+                    type="checkbox"
+                    value={phase.id}
+                    data-glossary-filter="phases"
+                    data-glossary-label={phase.label}
+                  />
+                  <span class="glossary-filter__chip-label">{phase.label}</span>
+                  <span
+                    class="glossary-filter__chip-count"
+                    data-glossary-count
+                  />
+                </label>
+              ))
+            }
+          </div>
+        </fieldset>
+        <fieldset
+          class="glossary-filter__panel"
+          role="tabpanel"
+          data-glossary-panel="measurability"
+          hidden
+        >
+          <legend>Filter by measurability</legend>
+          <div class="glossary-filter__chips">
+            {
+              measurabilityFilters.map((option) => (
+                <label class="glossary-filter__chip">
+                  <input
+                    type="checkbox"
+                    value={option.id}
+                    data-glossary-filter="measurability"
+                    data-glossary-label={option.label}
+                  />
+                  <span class="glossary-filter__chip-label">
+                    {option.label}
+                  </span>
+                  <span
+                    class="glossary-filter__chip-count"
+                    data-glossary-count
+                  />
+                </label>
+              ))
+            }
+          </div>
+        </fieldset>
+        {
+          statusFilters.length > 0 && (
+            <fieldset
+              class="glossary-filter__panel glossary-filter__panel--status"
+              role="tabpanel"
+              data-glossary-panel="status"
+            >
+              <legend>Filter by status</legend>
+              <div class="glossary-filter__chips">
+                {statusFilters.map((status) => (
+                  <label class="glossary-filter__chip">
+                    <input
+                      type="checkbox"
+                      value={status}
+                      data-glossary-filter="status"
+                      data-glossary-label={status}
+                    />
+                    <span class="glossary-filter__chip-label">{status}</span>
+                    <span
+                      class="glossary-filter__chip-count"
+                      data-glossary-count
+                    />
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+          )
+        }
+      </div>
+      <div class="glossary-filter__active" data-glossary-active hidden>
+        <p class="muted">Active filters:</p>
+        <div class="glossary-filter__active-chips"></div>
+      </div>
+      <div class="glossary-filter__status">
+        <p
+          class="muted small glossary-filter__count"
+          aria-live="polite"
+          aria-atomic="true"
+          data-total={totalEntries}
+        >
+          Showing {visibleEntries} of {totalEntries} terms
+          {hasSearchQuery && ` for “${searchQuery}”`}
+        </p>
+        <div class="glossary-filter__actions">
+          <button
+            class="glossary-filter__text-button glossary-filter__clear"
+            type="button"
+            data-clear-filter
+          >
+            Clear filter
+          </button>
+          <button
+            class="glossary-filter__text-button"
+            type="button"
+            data-glossary-expand
+          >
+            Expand sections
+          </button>
+          <button
+            class="glossary-filter__text-button"
+            type="button"
+            data-glossary-collapse
+          >
+            Collapse sections
+          </button>
+        </div>
+      </div>
+    </div>
+    <nav class="glossary-index__letters" aria-label="Filter by letter">
+      <button
+        class="pill pill--ghost is-active"
+        type="button"
+        data-glossary-letter="all"
+        aria-pressed="true"
+      >
+        All
+      </button>
+      {
+        glossaryLetters.map((letter) => (
           <button
             class="pill pill--ghost"
             type="button"
@@ -476,57 +401,114 @@ const glossaryAuthor = getGlossaryAuthor(publication);
           >
             {letter}
           </button>
-        ))}
-      </nav>
-    </div>
-    <nav class="glossary-index" aria-label="Glossary index">
-      {
-        entryIndex.map((entry) => {
-          const matchesQuery = entry.searchText.includes(normalizedQuery);
-          const entryClasses = [
-            "glossary-index__item",
-            ...(hasSearchQuery && !matchesQuery ? ["is-hidden"] : []),
-          ].join(" ");
-
-          return (
-            <a
-              class={entryClasses}
-              href={glossaryEntryUrl(entry.id)}
-              data-glossary-entry-link
-              data-title={entry.title}
-              data-category={entry.categoryLabel}
-              data-category-id={entry.categoryId}
-              data-tags={entry.tags.join(" ")}
-              data-domains={entry.domains.join(" ")}
-              data-phases={entry.phases.join(" ")}
-              data-measurability={entry.measurability}
-              data-maturity={entry.maturity}
-              data-scale={entry.scale}
-              data-status={entry.status ?? ""}
-              data-letter={entry.title.trim().charAt(0).toUpperCase()}
-              data-search={entry.searchText}
-            >
-              <span class="glossary-index__term">{entry.title}</span>
-              <span class="muted glossary-index__category">
-                {entry.categoryLabel}
-              </span>
-            </a>
-          );
-        })
+        ))
       }
     </nav>
-    <p class="glossary__cta muted">Index links jump to canonical permalinks.</p>
+    <nav class="glossary-index" aria-label="Glossary index">
+      {
+        letterGroups.map((group) => (
+          <section
+            class="glossary-index__group"
+            data-glossary-group={group.letter}
+            aria-labelledby={`glossary-letter-${group.letter}`}
+          >
+            <h3
+              class="glossary-index__letter"
+              id={`glossary-letter-${group.letter}`}
+            >
+              {group.letter}
+            </h3>
+            {group.entries.map((entry) => {
+              const matchesQuery = entry.searchText.includes(normalizedQuery);
+              const entryClasses = [
+                "glossary-index__item",
+                ...(hasSearchQuery && !matchesQuery ? ["is-hidden"] : []),
+              ].join(" ");
+
+              return (
+                <a
+                  class={entryClasses}
+                  href={glossaryEntryUrl(entry.id)}
+                  data-glossary-entry-link
+                  data-title={entry.title}
+                  data-category={entry.categoryLabel}
+                  data-category-id={entry.categoryId}
+                  data-tags={entry.tags.join(" ")}
+                  data-domains={entry.domains.join(" ")}
+                  data-phases={entry.phases.join(" ")}
+                  data-measurability={entry.measurability}
+                  data-maturity={entry.maturity}
+                  data-scale={entry.scale}
+                  data-status={entry.status ?? ""}
+                  data-letter={entryLetter(entry.title)}
+                  data-search={entry.searchText}
+                >
+                  <span class="glossary-index__term">{entry.title}</span>
+                  <span class="glossary-index__category">
+                    {entry.categoryLabel}
+                  </span>
+                </a>
+              );
+            })}
+          </section>
+        ))
+      }
+    </nav>
+    <p class="muted glossary-index__empty" hidden={visibleEntries > 0}>
+      No entries match that search or filter. Try another keyword or browse the
+      territory map for nearby concepts.
+    </p>
+  </SectionBlock>
+  <datalist id="glossary-filter-suggestions">
+    {glossarySuggestions.map((suggestion) => <option value={suggestion} />)}
+  </datalist>
+  <SectionBlock
+    id="glossary-pathways"
+    title="Where the glossary terms are used"
+    description="The same terms appear in the standards, the research, the mechanisms library, and the field notes."
+    variant="alt"
+  >
+    <ul class="glossary-links">
+      {
+        glossaryPathways.map((pathway) => (
+          <li>
+            <a href={pathway.href}>{pathway.linkLabel}</a>
+            <span class="muted small">{pathway.description}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </SectionBlock>
+  <SectionBlock
+    id="explainer-links"
+    eyebrow="Explainers"
+    title="Glossary explainers"
+    description="Longer explanations of selected terms, each linked back to its glossary entry."
+  >
+    <ul class="glossary-links glossary-links--columns">
+      {
+        explainerLinksWithGlossary.map((explainer) => (
+          <li>
+            <a href={explainer.href}>{explainer.title}</a>
+            <span class="muted small">
+              {explainer.description}{" "}
+              <a href={explainer.glossaryHref}>Glossary entry</a>
+            </span>
+          </li>
+        ))
+      }
+    </ul>
   </SectionBlock>
 
   <SectionBlock
     id="territory-map"
     eyebrow="Map"
-    title="Territory map"
-    description="Browse glossary areas with entry counts."
+    title="Glossary sections"
+    description={`The glossary's ${categories.length} sections, with the number of terms in each.`}
     variant="alt"
   >
     <details>
-      <summary>Open the territory map</summary>
+      <summary>Show all sections</summary>
       <div class="glossary__categories">
         {
           categoryHighlights.map((category) => (
@@ -593,265 +575,49 @@ const glossaryAuthor = getGlossaryAuthor(publication);
               class="glossary-section__description"
               set:html={category.descriptionHtml}
             />
-            <div class="glossary-grid">
+            {/*
+              Every one of these terms has its own page with the full entry,
+              citations and tests. Rendering all 252 full entries here as well
+              put fifty-four thousand words on one route, most of it inside
+              collapsed sections nobody could search. Each row keeps the id so
+              /glossary#term still lands on the term, and links to the page
+              that carries the rest.
+            */}
+            <ul class="glossary-compact">
               {category.entries.map((entry) => {
-                const entryClasses = [
-                  "glossary-entry",
-                  ...(entry.classes ?? []),
-                ].join(" ");
-                const entryUrl = glossaryEntryUrl(entry.id);
-                const citationApa = `${glossaryAuthor}. (${citationYear}). ${entry.title}. In Ethotechnics glossary. ${entryUrl}`;
-                const citationMla = `${glossaryAuthor}. "${entry.title}." Ethotechnics glossary, ${citationYear}, ${entryUrl}.`;
-                const citationChicago = `${glossaryAuthor}. "${entry.title}." Ethotechnics glossary. ${citationYear}. ${entryUrl}.`;
-                const citationBibtex = `@misc{ethotechnics_${entry.id}_${citationYear}, title={${entry.title}}, author={${glossaryAuthor}}, year={${citationYear}}, howpublished={Ethotechnics glossary}, url={${entryUrl}}}`;
-                const citationRis = [
-                  "TY  - WEB",
-                  `TI  - ${entry.title}`,
-                  ...publication.authors.map(
-                    (author) => `AU  - ${author.name}`,
-                  ),
-                  `PY  - ${citationYear}`,
-                  `UR  - ${entryUrl}`,
-                  "ER  -",
-                ].join("\n");
-                const {
-                  scopeText,
-                  adjacentTerms,
-                  operationalTests,
-                  commonCounterfeits,
-                  genealogy,
-                  references,
-                } = getGlossaryEntryDefaults(entry, category);
-                const relatedPatterns: GlossaryRelatedPattern[] = (
-                  entry.relatedPatterns ?? []
-                )
-                  .map((slug) => {
-                    const pattern = patternIndex.get(slug);
-
-                    if (!pattern) {
-                      return null;
-                    }
-
-                    return {
-                      title: pattern.title,
-                      href: `/mechanisms/patterns/${pattern.slug}`,
-                      filterLabels: pattern.filters.map(
-                        (filter) => patternFilterLabels[filter] ?? filter,
-                      ),
-                    } satisfies GlossaryRelatedPattern;
-                  })
-                  .filter((pattern): pattern is GlossaryRelatedPattern =>
-                    Boolean(pattern),
-                  );
+                const summary = stripHtml(entry.bodyHtml)
+                  .split(/(?<=[.!?])\s+/)[0]
+                  ?.trim();
                 return (
-                  <article
-                    id={entry.id}
-                    class={entryClasses}
-                    itemscope
-                    itemtype="https://schema.org/DefinedTerm"
-                  >
-                    <meta itemprop="url" content={entryUrl} />
-                    <meta itemprop="inDefinedTermSet" content={permalink} />
-                    <header class="glossary-entry__header">
-                      <div>
-                        <p class="eyebrow">Glossary term</p>
-                        <h3 itemprop="name">{entry.title}</h3>
-                      </div>
-                      <div class="glossary-entry__actions">
-                        <a
-                          class="glossary-entry__permalink"
-                          href={entryUrl}
-                          data-glossary-entry-link
-                          aria-label={`Permalink to ${entry.title}`}
-                          rel="bookmark"
-                          itemprop="mainEntityOfPage"
-                        >
-                          Permalink
-                        </a>
-                        <div
-                          class="glossary-entry__citation-buttons"
-                          aria-label={`Copy citation for ${entry.title}`}
-                        >
-                          <button
-                            class="copy-button"
-                            type="button"
-                            data-citation-text={citationApa}
-                            data-citation-format="apa"
-                            aria-label={`Copy APA citation for ${entry.title}`}
-                          >
-                            Copy citation (APA)
-                          </button>
-                          <button
-                            class="copy-button"
-                            type="button"
-                            data-citation-text={citationMla}
-                            data-citation-format="mla"
-                            aria-label={`Copy MLA citation for ${entry.title}`}
-                          >
-                            Copy MLA
-                          </button>
-                          <button
-                            class="copy-button"
-                            type="button"
-                            data-citation-text={citationChicago}
-                            data-citation-format="chicago"
-                            aria-label={`Copy Chicago citation for ${entry.title}`}
-                          >
-                            Copy Chicago
-                          </button>
-                          <button
-                            class="copy-button"
-                            type="button"
-                            data-citation-text={citationBibtex}
-                            data-citation-format="bibtex"
-                            aria-label={`Copy BibTeX citation for ${entry.title}`}
-                          >
-                            Copy citation (BibTeX)
-                          </button>
-                          <button
-                            class="copy-button"
-                            type="button"
-                            data-citation-text={citationRis}
-                            data-citation-format="ris"
-                            aria-label={`Copy RIS citation for ${entry.title}`}
-                          >
-                            Copy RIS
-                          </button>
-                        </div>
-                      </div>
-                    </header>
-                    <div class="glossary-entry__block">
-                      <p class="eyebrow">Definition</p>
-                      <div
-                        class="glossary-entry__body"
-                        set:html={entry.bodyHtml}
-                        itemprop="description"
-                      />
-                    </div>
-                    {scopeText && (
-                      <div class="glossary-entry__block">
-                        <p class="eyebrow">Scope</p>
-                        <p class="muted">{scopeText}</p>
-                      </div>
+                  <li class="glossary-compact__item" id={entry.id}>
+                    <a
+                      class="glossary-compact__term"
+                      href={glossaryEntryUrl(entry.id)}
+                    >
+                      {entry.title}
+                    </a>
+                    {summary && (
+                      <p class="glossary-compact__summary muted">{summary}</p>
                     )}
-                    {adjacentTerms.length > 0 && (
-                      <div class="glossary-entry__block">
-                        <p class="eyebrow">Adjacent terms</p>
-                        <div class="pill-row">
-                          {adjacentTerms.map((term) => (
-                            <a
-                              class="pill pill--muted"
-                              href={glossaryEntryUrl(term)}
-                              itemprop="keywords"
-                            >
-                              {entryLabelIndex.get(term) ?? term}
-                            </a>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                    {operationalTests.length > 0 && (
-                      <div class="glossary-entry__block">
-                        <p class="eyebrow">Operational tests</p>
-                        <ul class="muted">
-                          {operationalTests.map((test) => (
-                            <li>{test}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                    {commonCounterfeits.length > 0 && (
-                      <div class="glossary-entry__block">
-                        <p class="eyebrow">Common counterfeits</p>
-                        <ul class="muted">
-                          {commonCounterfeits.map((counterfeit) => (
-                            <li>{counterfeit}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                    {genealogy && (
-                      <div class="glossary-entry__block">
-                        <p class="eyebrow">Genealogy</p>
-                        <p class="muted">{genealogy}</p>
-                      </div>
-                    )}
-                    {relatedPatterns.length > 0 && (
-                      <div class="glossary-entry__block glossary-entry__block--patterns">
-                        <p class="eyebrow">Related mechanisms</p>
-                        <ul class="glossary-entry__patterns-list">
-                          {relatedPatterns.map((relatedPattern) => (
-                            <li class="glossary-entry__pattern-card">
-                              <a
-                                class="glossary-entry__pattern-link"
-                                href={relatedPattern.href}
-                              >
-                                <span class="glossary-entry__pattern-title">
-                                  {relatedPattern.title}
-                                </span>
-                                <span class="muted small">
-                                  {relatedPattern.filterLabels.join(", ")}
-                                </span>
-                              </a>
-                            </li>
-                          ))}
-                        </ul>
-                        <p class="muted small glossary-entry__patterns-hint">
-                          See the full mechanisms catalog.
-                        </p>
-                      </div>
-                    )}
-                    {entry.examples && entry.examples.length > 0 && (
-                      <div class="glossary-entry__block">
-                        <p class="eyebrow">Example corpus</p>
-                        <ul class="muted">
-                          {entry.examples.map((example) => (
-                            <li>{example}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                    {references.length > 0 && (
-                      <div class="glossary-entry__block">
-                        <p class="eyebrow">References</p>
-                        <ul class="muted glossary-entry__resources">
-                          {references.map((resource) => (
-                            <li>
-                              <a href={resource.href}>{resource.label}</a>
-                              {resource.type && (
-                                <span class="muted"> · {resource.type}</span>
-                              )}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                  </article>
+                  </li>
                 );
               })}
-            </div>
+            </ul>
           </div>
         </details>
       </SectionBlock>
     ))
   }
 
-  <SectionBlock
-    id="glossary-subscription"
-    eyebrow="Newsletter"
-    title="Stay updated on terms & ontology"
-    description="Receive notifications about new definitions, revisions, and taxonomy updates."
-    variant="alt"
-  >
-    <div style="max-width: 600px; margin: 0 auto;">
-      <NewsletterSignup />
-    </div>
-  </SectionBlock>
-
-  <script
-    type="application/ld+json"
-    set:html={structuredDataJson}
-    is:inline
+  <ScholarlyMeta publication={publication} permalink={permalink} />
+  <CitationBlock
+    title={pageTitle}
+    permalink={permalink}
+    publication={publication}
+    variant="compact"
   />
-  <script type="module" src={glossaryFilterScript} is:inline></script>
+  <InlineScript type="application/ld+json" code={structuredDataJson} />
+  <script>
+    import "../../scripts/glossary-filter.ts";
+  </script>
 </BaseLayout>

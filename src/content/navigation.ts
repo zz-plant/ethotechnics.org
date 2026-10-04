@@ -32,105 +32,217 @@ export interface NavUtilityLink {
 
 export const navPrimaryLinks: NavLink[] = [
   {
-    href: "/start-here",
-    label: "Start here",
-    description: "Find the right resource fast",
+    href: "/method",
+    label: "Method",
+    description:
+      "The seven-stage chain, the six safeguards, and the twelve laws",
     primary: true,
     mobileFeatured: true,
   },
   {
     href: "/standards",
     label: "Standards",
-    description: "Use citable requirements",
+    description: "Citable normative specifications, clauses, and crosswalks",
+    primary: true,
+    mobileFeatured: true,
+  },
+  {
+    href: "/mechanisms",
+    label: "Mechanisms",
+    description:
+      "Specifications for kill switches, circuit breakers, and appeal controls",
     primary: true,
     mobileFeatured: true,
   },
   {
     href: "/diagnostics",
-    label: "Tools",
-    description: "Run a practical check",
+    label: "Diagnostics",
+    description:
+      "Tools that test a workflow, a decision log, or a set of numbers",
     primary: true,
     mobileFeatured: true,
   },
   {
-    href: "/examples",
-    label: "Examples",
-    description: "See worked examples",
+    href: "/casebook",
+    label: "Casebook",
+    description: "Scored public failures established by courts and regulators",
     primary: true,
-  },
-  {
-    href: "/about",
-    label: "About",
-    description: "Who maintains this work",
-    primary: true,
+    mobileFeatured: true,
   },
 ];
 
+/**
+ * The mega menu, named for the three layers the content model already has.
+ *
+ * Theory says why the laws hold, method says what must be true, instruments
+ * check whether it is. The old headings ("Standards & Specifications",
+ * "Diagnostics & Workbench") described file types rather than layers, which is
+ * why every new page had to argue for a slot instead of falling into one.
+ *
+ * The five-link ceiling stays. It is not a display constraint — it is the only
+ * thing forcing a decision about what a section is for.
+ */
 export const navSections: NavSection[] = [
   {
-    heading: "Institute",
-    description: "Core institute routes.",
-    links: navPrimaryLinks,
+    heading: "Method",
+    description:
+      "What must be true when a system decides for an institution: the chain, the laws, and the draft specifications that bind them.",
+    links: [
+      {
+        href: "/method",
+        label: "The method",
+        description:
+          "The seven-stage chain, the six safeguards, and the twelve laws",
+      },
+      {
+        href: "/standards/laws",
+        label: "The twelve laws",
+        description: "Each law and the condition a clause binds",
+      },
+      {
+        href: "/standards",
+        label: "Standards",
+        description: "Citable clauses, stated so a system can fail them",
+      },
+      {
+        href: "/standards/enforceable-governance-crosswalks",
+        label: "Regulatory crosswalks",
+        description: "EU AI Act, NIST AI RMF, and ISO 42001 alignment",
+      },
+      {
+        href: "/evidence-packs",
+        label: "Evidence packs",
+        description: "What a clause needs you to be able to show",
+      },
+    ],
+  },
+  {
+    heading: "Mechanisms and evals",
+    description:
+      "How the requirements are built, and how a built system is scored against them.",
+    links: [
+      {
+        href: "/mechanisms",
+        label: "Mechanisms catalog",
+        description: "Kill switches, appeals queues, and safe state controls",
+      },
+      {
+        href: "/evals",
+        label: "Eval suites",
+        description:
+          "Test suites for delegation validity, burden, standing, appeal, and correction",
+      },
+      {
+        href: "/evals/coverage",
+        label: "What we can check",
+        description:
+          "Each check and the claim it tests, plus the claims no check covers yet",
+      },
+      {
+        href: "/validators",
+        label: "Validators",
+        description:
+          "Specifications, each with a working form, for scoring a user journey's time, friction, and delay",
+      },
+      {
+        href: "/measurement-tiers",
+        label: "Measurement tiers",
+        description:
+          "Levels of evidence, how each is gamed, and how to detect it",
+      },
+    ],
+  },
+  {
+    // Ordered by what you have to bring, not by tool name. "Which one do I
+    // want" is answerable from the input; it is not answerable from a list of
+    // product names.
+    heading: "Tools",
+    description:
+      "Ordered by what you bring: a workflow, workload ratings, a decision log, or the decision your system makes.",
+    links: [
+      {
+        href: "/diagnostics/delegation-audit",
+        label: "Delegation audit",
+        description:
+          "Bring a workflow: should this decision still be automated?",
+      },
+      {
+        href: "/diagnostics/burden-modeler",
+        label: "Workload modeler",
+        description:
+          "Bring workload ratings: where the work a system creates concentrates",
+      },
+      {
+        href: "/diagnostics/record-conformance",
+        label: "Record conformance",
+        description: "Bring a decision log: does it meet the level it claims?",
+      },
+      {
+        href: "/use-cases",
+        label: "Which tool for your system",
+        description:
+          "Bring the decision it makes: six contexts, each with the check to run first",
+      },
+      {
+        href: "/diagnostics",
+        label: "All tools",
+        description:
+          "Also the corrective capacity self-assessment and checks for a person a system decided about",
+      },
+    ],
+  },
+  {
+    heading: "Knowledge",
+    description:
+      "Terms, scored public failures, and the theory behind the laws.",
+    links: [
+      {
+        href: "/glossary",
+        label: "Glossary",
+        description: "Defined terms, each at a stable URL you can cite",
+      },
+      {
+        href: "/taxonomy",
+        label: "Practice taxonomy",
+        description:
+          "Governance practices by domain, each filed under the safeguards it serves",
+      },
+      {
+        href: "/casebook",
+        label: "Casebook",
+        description: "Five public failures scored on six safeguards",
+      },
+      {
+        href: "/field-notes",
+        label: "Field notes",
+        description:
+          "Dated notes on outside changes that bear on the standards",
+      },
+      {
+        href: "/research/theory",
+        label: "Theory",
+        description:
+          "Essays on why the laws hold, kept separate from the requirements",
+      },
+    ],
   },
 ];
 
-const startHereUtilityLink: NavUtilityLink = {
-  href: "/start-here",
+export const startHereCta: NavLink = {
+  href: "/start",
   label: "Start here",
-  class: "nav__utility-link nav__utility-link--primary",
-  icon: "lucide:arrow-right",
+  description: "Find the right resource",
+  primary: true,
+  mobileFeatured: true,
 };
 
-export const navUtilityDesktopLinks: NavUtilityLink[] = [
-  startHereUtilityLink,
-  {
-    href: "/applications",
-    label: "Applications",
-    class: "nav__utility-link nav__utility-link--quiet",
-  },
-  {
-    href: "/bindings",
-    label: "Adopt",
-    class: "nav__utility-link nav__utility-link--quiet",
-  },
-  {
-    href: "https://github.com/zz-plant/ethotechnics",
-    label: "GitHub",
-    class: "nav__utility-link nav__utility-link--quiet",
-    rel: "noopener noreferrer",
-    target: "_blank",
-    icon: "lucide:github",
-  },
-  {
-    href: "/participate#feedback",
-    label: "Feedback",
-    class: "nav__utility-link nav__utility-link--quiet",
-    icon: "lucide:message-circle",
-  },
-  {
-    href: "/participate",
-    label: "Contact",
-    class: "nav__utility-link nav__utility-link--quiet",
-    icon: "lucide:mail",
-  },
-  {
-    href: "/security/vulnerability-disclosure",
-    label: "Security",
-    class: "nav__utility-link nav__utility-link--quiet",
-    icon: "lucide:shield",
-  },
-  {
-    href: "https://ethotechnics.com/studio/",
-    label: "Ethotechnics Studio",
-    class: "nav__utility-link",
-    rel: "noopener noreferrer",
-    target: "_blank",
-    icon: "lucide:arrow-up-right",
-  },
-];
-
 export const navUtilityMobilePrimaryLinks: NavUtilityLink[] = [
-  startHereUtilityLink,
+  {
+    href: "/start",
+    label: "Start here",
+    class: "nav__utility-link nav__utility-link--primary",
+    icon: "lucide:arrow-right",
+  },
 ];
 
 export const navActions: NavAction[] = [];

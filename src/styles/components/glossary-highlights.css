@@ -1,0 +1,244 @@
+/* Glossary term highlighting and hover cards.
+   `glossary-highlights.ts` runs from BaseLayout on every page, so these rules
+   have to load site-wide, not only on the /glossary routes. */
+@layer components {
+  /* A term marker sits inside running prose, so it has to behave like a word.
+     This was `display: inline-flex` with a filled background and 0.3rem of
+     side padding, which cost it on three counts: the flex box detached
+     trailing punctuation, so "burden, contestability, repair" rendered with a
+     visible gap before its comma; the fill read as a highlighter or redaction
+     block rather than a link, and /standards/ carries 49 of them; and an
+     inline-flex box cannot be broken across lines the way a word can.
+     `display: inline` restores normal text flow, and a dotted underline --
+     the long-standing convention for "there is a definition here", cf. abbr
+     -- carries the affordance without staining the paragraph. The fill is now
+     a hover/focus state, where it reads as feedback instead of decoration. */
+  .glossary-highlight {
+    position: relative;
+    display: inline;
+    border-radius: var(--radius-xs);
+    background: transparent;
+    text-decoration: underline dotted
+      color-mix(in srgb, var(--accent) 55%, transparent);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 0.22em;
+    color: inherit;
+    cursor: help;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    transition:
+      background-color var(--motion-fast) ease,
+      text-decoration-color var(--motion-fast) ease;
+  }
+
+  .glossary-highlight:hover,
+  .glossary-highlight:focus-visible {
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    text-decoration-color: var(--accent);
+    text-decoration-style: solid;
+  }
+
+  body.disable-glossary-highlights .glossary-highlight {
+    background: transparent !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    text-decoration: none !important;
+    cursor: text !important;
+  }
+
+  body.disable-glossary-highlights .glossary-highlight .glossary-peek-card {
+    display: none !important;
+    opacity: 0 !important;
+  }
+
+  .glossary-peek-card {
+    position: absolute;
+    bottom: 100%;
+    /* Centred on the term, then nudged by however much `glossary-highlights.ts`
+       measured it hanging off the edge of the screen. Nothing used to do that,
+       so the card was centred on the term and left there: on a 412px phone all
+       eleven cards on the home page fell outside the viewport, by as much as
+       66px, and the reader saw a definition with its first words cut off. */
+    --peek-shift: 0px;
+    /* The correction rides on `left`, which is not transitioned, while the
+       transform keeps only the vertical lift that is. Folding the shift into
+       the transform instead made the card fade in and then visibly slide up to
+       a hundred pixels sideways into place. */
+    left: calc(50% + var(--peek-shift));
+    transform: translate(-50%, -0.5rem);
+    width: max-content;
+    /* A fixed 16rem floor is wider than the space a small phone has left after
+       the gutters, so it forced the overflow it then could not escape. */
+    min-width: min(16rem, calc(100vw - 3rem));
+    max-width: min(24rem, calc(100vw - 3rem));
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-lg);
+    border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
+    background: var(--surface);
+    color: var(--text);
+    font-size: var(--text-sm);
+    line-height: 1.45;
+    box-shadow: var(--shadow-float);
+    opacity: 0;
+    pointer-events: none;
+    /* A closed card is out of layout, not merely transparent. Transparent, it
+       still had a box, centred on its term and up to 24rem wide, and the boxes
+       of the cards near the right edge widened the page: with every card
+       closed, /standards scrolled sideways by 44px on a 360px phone.
+       `visibility: hidden` does not help, a hidden box still counts. The fade
+       survives because `display` transitions discretely at the end of the
+       transition, and the `@starting-style` block below gives the fade-in
+       somewhere to start from. */
+    display: none;
+    gap: var(--space-2);
+    text-align: left;
+    white-space: normal;
+    z-index: var(--z-overlay);
+    transition:
+      opacity var(--motion-fast) ease,
+      transform var(--motion-fast) var(--ease-out-editorial),
+      display var(--motion-fast) allow-discrete;
+  }
+
+  .glossary-peek-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    padding-bottom: var(--space-1);
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  }
+
+  .glossary-peek-card__title {
+    font-weight: 700;
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    color: var(--text);
+    letter-spacing: 0.01em;
+  }
+
+  .glossary-peek-card__badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-hair) var(--space-2);
+    border-radius: var(--radius-pill);
+    background: color-mix(in srgb, var(--accent) 14%, transparent);
+    color: var(--accent);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    font-family: var(--sans);
+  }
+
+  .glossary-peek-card__def {
+    font-size: var(--text-sm);
+    color: color-mix(in srgb, var(--text) 88%, var(--muted));
+    line-height: 1.4;
+  }
+
+  .glossary-peek-card__metrics {
+    display: grid;
+    gap: var(--space-1);
+    padding: var(--space-2) var(--space-2);
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--panel) 85%, var(--surface));
+    border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+  }
+
+  .glossary-peek-card__metric-item {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+  }
+
+  .glossary-peek-card__metric-lbl {
+    font-weight: 700;
+    font-family: var(--sans);
+    color: var(--muted);
+    font-size: var(--text-xs);
+    letter-spacing: 0.06em;
+  }
+
+  .glossary-peek-card__metric-val {
+    font-weight: 600;
+    color: var(--text);
+    text-align: right;
+  }
+
+  .glossary-peek-card__footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: var(--space-1);
+  }
+
+  .glossary-peek-card__link {
+    font-size: var(--text-xs);
+    font-weight: 650;
+    color: var(--accent);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    transition: color var(--motion-fast) ease;
+  }
+
+  .glossary-peek-card__link:hover {
+    color: var(--accent-strong);
+    text-decoration: underline;
+  }
+
+  /* Flipped below the term when there is no room above it -- a term in the
+     first line of a page had its card open upwards into the header. */
+  .glossary-peek-card[data-peek-placement="below"] {
+    bottom: auto;
+    top: 100%;
+    transform: translate(-50%, 0.5rem);
+  }
+
+  /* Hover only where hovering is real. A touch tap leaves :hover stuck on the
+     term it opened, so tapping a second term showed two cards at once, one
+     over the other. Touch gets the focus rule below instead, which a tap
+     elsewhere clears. */
+  @media (hover: hover) and (pointer: fine) {
+    .glossary-highlight:hover .glossary-peek-card {
+      display: grid;
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate(-50%, -0.75rem);
+    }
+
+    .glossary-highlight:hover .glossary-peek-card[data-peek-placement="below"] {
+      transform: translate(-50%, 0.75rem);
+    }
+  }
+
+  .glossary-highlight:focus-within .glossary-peek-card {
+    display: grid;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -0.75rem);
+  }
+
+  .glossary-highlight:focus-within
+    .glossary-peek-card[data-peek-placement="below"] {
+    transform: translate(-50%, 0.75rem);
+  }
+
+  /* Where the fade-in starts when a card goes from display: none to grid. */
+  @starting-style {
+    .glossary-highlight:hover .glossary-peek-card,
+    .glossary-highlight:focus-within .glossary-peek-card {
+      opacity: 0;
+      transform: translate(-50%, -0.5rem);
+    }
+
+    .glossary-highlight:hover .glossary-peek-card[data-peek-placement="below"],
+    .glossary-highlight:focus-within
+      .glossary-peek-card[data-peek-placement="below"] {
+      transform: translate(-50%, 0.5rem);
+    }
+  }
+}

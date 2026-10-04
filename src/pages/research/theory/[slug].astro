@@ -1,0 +1,100 @@
+---
+import { getCollection, render } from "astro:content";
+import "../../../styles/components/standards.css";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import CitationBlock from "../../../components/CitationBlock.astro";
+import PageIntro from "../../../components/PageIntro.astro";
+import { derivePublicationMetadata } from "../../../utils/publication";
+
+const entry = (await getCollection("theory")).find(
+  (candidate) => candidate.id === Astro.params.slug,
+);
+if (!entry) return new Response("Not found", { status: 404 });
+const { Content, headings } = await render(entry);
+const data = entry.data;
+
+const anchorLinks = headings
+  .filter((heading) => heading.depth === 2)
+  .map((heading) => ({ href: `#${heading.slug}`, label: heading.text }));
+
+const toDateTime = (value: string) =>
+  value.includes("T") ? value : `${value}T00:00:00.000Z`;
+const publishedTime = toDateTime(data.published);
+const modifiedTime = toDateTime(data.updated ?? data.published);
+
+const publication = derivePublicationMetadata({
+  permalink: data.permalink,
+  published: publishedTime,
+  updated: modifiedTime,
+  version: "1.0.0",
+  authorName: "Ethotechnics Institute",
+});
+
+const breadcrumbItems = [
+  { name: "Home", url: "/" },
+  { name: "Research", url: "/research" },
+  { name: "Theory", url: "/research/theory" },
+  { name: data.title, url: data.permalink },
+];
+---
+
+<BaseLayout
+  title={`${data.title} — Ethotechnics Institute`}
+  description={data.description}
+  publishedTime={publishedTime}
+  modifiedTime={modifiedTime}
+  mainClass="page container standard-document"
+  breadcrumbItems={breadcrumbItems}
+>
+  {
+    /*
+    The lede is the thesis (`summary`), not the abstract (`description`): the
+    abstract ran to 74 words on one essay and sat beside a panel that carried
+    the thesis, so the intro held two summaries before the essay began. The
+    abstract still serves as the page's meta description. The layer note that
+    used to follow as a third block -- theory, not a requirement; argues for
+    these laws -- is the panel now.
+  */
+  }
+  <PageIntro
+    eyebrow={data.eyebrow}
+    title={data.title}
+    description={data.summary}
+    anchorLinks={anchorLinks}
+    lastUpdated={data.updated ?? data.published}
+  >
+    <div slot="aside" class="card stack-xs">
+      <p class="eyebrow">Central question</p>
+      <p><strong>{data.question}</strong></p>
+      {
+        data.lawRefs.length > 0 && (
+          <p class="small muted">
+            Argues for{" "}
+            {data.lawRefs.map((law, idx) => (
+              <>
+                <a href={`/standards/laws#law-${law.toLowerCase()}`}>
+                  Law {law}
+                </a>
+                {idx < data.lawRefs.length - 1 ? ", " : ""}
+              </>
+            ))}
+          </p>
+        )
+      }
+    </div>
+  </PageIntro>
+
+  <article class="theory-essay stack-md">
+    <Content />
+  </article>
+
+  <p class="muted">
+    <a href="/research/theory">All theory essays</a>
+  </p>
+
+  <CitationBlock
+    title={data.title}
+    permalink={data.permalink}
+    publication={publication}
+  />
+</BaseLayout>

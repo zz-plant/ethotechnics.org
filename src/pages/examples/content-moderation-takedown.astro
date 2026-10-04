@@ -2,14 +2,14 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import UseCaseFit from "../../components/UseCaseFit.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import GlossaryAnchorsBlock from "../../components/GlossaryAnchorsBlock.astro";
 
 const pageTitle = "Content moderation takedown — Worked example";
 const pageDescription =
-  "A rapid content removal flow with receipts, clocks, exceptions, and remedy commitments.";
-const permalink = "/examples/content-moderation-takedown";
+  "A rapid content takedown that issues a receipt, runs 2, 24, and 72-hour clocks, bounds its exceptions, and restores content when overturned.";
 
 const receiptPayload = `{
   "schema_version": "1.0.0",
@@ -24,26 +24,24 @@ const receiptPayload = `{
 }`;
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Worked example"
     title="Content moderation takedown"
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={[
       { href: "#receipt", label: "Receipt" },
       { href: "#clocks", label: "Clocks" },
       { href: "#exceptions", label: "Exceptions" },
       { href: "#remedy", label: "Remedy" },
       { href: "#bindings", label: "Bindings" },
+      { href: "#fit", label: "Where this fits" },
       { href: "#glossary-anchors", label: "Glossary anchors" },
     ]}
-    panelCopy={{
-      eyebrow: "Scenario",
-      title: "High-velocity takedown with contestability",
-      description:
-        "Content removals must be fast, but still provide receipts, clocks, and remedy paths.",
-    }}
   />
 
   <SectionBlock
@@ -59,18 +57,24 @@ const receiptPayload = `{
     id="clocks"
     eyebrow="Clocks"
     title="Acknowledgment, review, and remedy clocks"
-    description="Clocks stay visible even during high-volume enforcement."
+    description="The clocks stay visible when enforcement volume spikes."
     variant="alt"
   >
     <CardGrid className="grid--three">
       <CardItem title="Ack clock" description="2 hours">
-        <p class="muted">Owner confirms the case is assigned and publishes review ETA.</p>
+        <p class="muted">
+          Owner confirms the case is assigned and publishes review ETA.
+        </p>
       </CardItem>
       <CardItem title="Review clock" description="24 hours">
-        <p class="muted">Human review confirms the removal or restores the content.</p>
+        <p class="muted">
+          Human review confirms the removal or restores the content.
+        </p>
       </CardItem>
       <CardItem title="Remedy clock" description="72 hours">
-        <p class="muted">Restoration, explanation, or alternative remedy is delivered.</p>
+        <p class="muted">
+          Restoration, explanation, or alternative remedy is delivered.
+        </p>
       </CardItem>
     </CardGrid>
   </SectionBlock>
@@ -83,13 +87,17 @@ const receiptPayload = `{
   >
     <ul class="muted">
       <li>
-        Safety escalation can delay restoration, but the review clock must still complete.
+        Safety escalation can delay restoration, but the review clock must still
+        complete.
       </li>
       <li>
-        Legal hold allows temporary suppression, but the appeal path remains open.
+        Legal hold allows temporary suppression, but the appeal path remains
+        open.
       </li>
       <li>
-        Exceptions are logged in the <a href="/exceptions">Exceptions register</a>.
+        Exceptions are logged in the <a href="/exceptions"
+          >Exceptions register</a
+        >.
       </li>
     </ul>
   </SectionBlock>
@@ -98,13 +106,15 @@ const receiptPayload = `{
     id="remedy"
     eyebrow="Remedy"
     title="Restore, explain, or compensate"
-    description="Remedy paths are visible to the impacted creator or user."
+    description="The creator or user whose content was removed can see the remedy path."
     variant="alt"
   >
     <ul class="muted">
       <li>Restore content if the takedown is overturned.</li>
       <li>Provide a clear explanation and evidence bundle when upheld.</li>
-      <li>Offer an expedited appeal review when removal impacts income or access.</li>
+      <li>
+        Offer an expedited appeal review when removal impacts income or access.
+      </li>
     </ul>
   </SectionBlock>
 
@@ -112,20 +122,20 @@ const receiptPayload = `{
     id="bindings"
     eyebrow="Bindings"
     title="Bind the scenario to enforceable controls"
-    description="Use release gates and evidence packs to make this repeatable."
+    description="Release gates and evidence packs make every takedown run the same way."
   >
     <ul class="muted">
       <li>
-        Attach receipts to <a href="/bindings#release-gates">release gate checklists</a>.
+        Attach receipts to the <a href="/evidence-packs">evidence pack</a> for each
+        release.
       </li>
       <li>
         Map to <a href="/evidence-packs">evidence packs</a> for STD-01 and STD-02.
       </li>
-      <li>
-        Add procurement language from <a href="/bindings#procurement">binding vectors</a>.
-      </li>
     </ul>
   </SectionBlock>
+
+  <UseCaseFit slug="content-moderation-takedown" />
 
   <GlossaryAnchorsBlock />
 </BaseLayout>

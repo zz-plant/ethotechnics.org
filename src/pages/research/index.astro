@@ -1,4 +1,6 @@
 ---
+import InlineScript from "../../components/InlineScript.astro";
+import "../../styles/components/research.css";
 import PageIntro from "../../components/PageIntro.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import CardGrid from "../../components/CardGrid.astro";
@@ -6,14 +8,15 @@ import CardItem from "../../components/CardItem.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
-import SummaryCallout from "../../components/SummaryCallout.astro";
 import {
   getGlossaryDefinition,
   getGlossaryLabel,
   glossaryEntryPermalink,
 } from "../../utils/glossary";
+import { getCollection } from "astro:content";
 import { researchContent } from "../../content/research";
-import researchFilterScript from "../../scripts/research-filter.ts?url";
+import { cases } from "../../content/casebook";
+import { getLawAverage } from "../../content/frontier-doctrine-scan";
 
 const {
   pageTitle,
@@ -21,7 +24,6 @@ const {
   permalink,
   publication,
   anchorLinks,
-  panelCopy,
   standardsTimeline,
   orientationCards,
   bridgeArtifacts,
@@ -32,18 +34,51 @@ const {
   updateCadence,
 } = researchContent;
 const priorityAgenda = agenda.slice(0, 3);
+const essayCount = (await getCollection("theory")).length;
+
+// What the research has produced so far, read from the data each result
+// rests on, so a new case or a refreshed scan updates the sentence.
+const counted = ["none", "one", "two", "three", "four", "five", "six"];
+const inWords = (count: number) => counted[count] ?? String(count);
+const heldIn = (variable: "standing" | "correction") =>
+  cases.filter(
+    (entry) =>
+      entry.findings.find((finding) => finding.variable === variable)
+        ?.verdict === "held",
+  ).length;
+const results = [
+  {
+    meta: `Casebook · ${cases.length} cases`,
+    title: `Standing held in ${inWords(heldIn("standing"))} of the ${inWords(cases.length)} cases`,
+    description: `Each case was established by a court, an inquiry, or a regulator, and scored on six safeguards. Standing, the right of the people affected to challenge a decision and be answered, held in ${inWords(heldIn("standing"))}. Correction held in ${inWords(heldIn("correction"))}.`,
+    href: "/casebook",
+    label: "Read the casebook",
+  },
+  {
+    meta: "Frontier doctrine scan · 2026-09",
+    title: "Lab doctrine covers the first-generation laws, not the second",
+    description: `Ten frontier labs' public doctrine, scored 0 to 4 against the twelve laws. "Capability does not imply authority" averages ${getLawAverage("I")}. Dependence averages ${getLawAverage("V")}, standing ${getLawAverage("VII")}, and contestability ${getLawAverage("XII")}. Per-cell sources are pending.`,
+    href: "/research/frontier-doctrine-scan",
+    label: "Read the scan",
+  },
+  {
+    meta: "Working paper · v0.2",
+    title: "The Green Dashboard",
+    description:
+      "A benchmark proposal: do AI agents meet their targets by using up human effort their metrics do not count? It defines the measure and states falsifiable hypotheses. No experiments have been run.",
+    href: "/research/the-green-dashboard",
+    label: "Read the working paper",
+  },
+  {
+    meta: `Theory · ${essayCount} essays`,
+    title: "Why institutions absorb the evidence",
+    description:
+      "The argument behind the laws. Start with insulation, the essay that names the mechanism the others describe.",
+    href: "/research/theory",
+    label: "Read the theory",
+  },
+];
 const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
-const summaryLinks = anchorLinks.slice(0, 5);
-const summaryRelatedLinks = [
-  { href: "/glossary", label: "Glossary" },
-  { href: "/standards", label: "Standards" },
-  { href: "/mechanisms", label: "Mechanisms" },
-];
-const summaryTakeaways = [
-  "Every research line is linked back to glossary anchors.",
-  "Bridge artifacts translate field work into citable outputs.",
-  "Publications surface data, ethics, and structured abstracts.",
-];
 const researchTags = Array.from(
   new Set([
     ...bridgeArtifacts.flatMap((artifact) => artifact.tags),
@@ -107,15 +142,17 @@ const structuredData = {
         : artifact.href,
       keywords: artifact.tags,
     })),
-    ...publications.map((publication) => ({
-      "@type": "Report",
-      name: publication.title,
-      description: publication.summary,
-      url: Astro.site
-        ? new URL(publication.href, Astro.site).toString()
-        : publication.href,
-      keywords: publication.tags,
-    })),
+    ...publications
+      .filter((publication) => publication.status === "published")
+      .map((publication) => ({
+        "@type": "Report",
+        name: publication.title,
+        description: publication.summary,
+        url: Astro.site
+          ? new URL(publication.href, Astro.site).toString()
+          : publication.href,
+        keywords: publication.tags,
+      })),
   ],
 };
 const structuredDataJson = JSON.stringify(structuredData, null, 2);
@@ -131,31 +168,41 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     eyebrow="Research"
     title="Research"
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={anchorLinks}
-    panelCopy={panelCopy}
   >
     <Fragment slot="actions">
-      <a class="button primary" href="#agenda">
-        View research agenda
-      </a>
-      <a class="button ghost" href="#publications">
-        Browse publications
-      </a>
+      <a class="button primary" href="#results">See the results</a>
+      <a class="button ghost" href="#agenda">View research agenda</a>
     </Fragment>
   </PageIntro>
-  <SummaryCallout
-    title="Research wayfinding at a glance"
-    description="Start with the orientation, then scan active agendas and focus areas to see what is in flight and ready to cite."
-    takeaways={summaryTakeaways}
-    relatedLinks={summaryRelatedLinks}
-    jumpLinks={summaryLinks}
-  />
+  <SectionBlock
+    id="results"
+    eyebrow="Results so far"
+    title="What the research has produced"
+    description="Two results, one proposal, and the argument they test. Each says what it rests on."
+  >
+    <CardGrid className="grid--two research-results">
+      {
+        results.map((result) => (
+          <CardItem
+            meta={result.meta}
+            title={result.title}
+            description={result.description}
+            descriptionTone="default"
+          >
+            <a slot="footer" href={result.href}>
+              {result.label} →
+            </a>
+          </CardItem>
+        ))
+      }
+    </CardGrid>
+  </SectionBlock>
   <SectionBlock
     id="priorities"
     eyebrow="Current priorities"
-    title="Three agenda lines to start with."
-    description="Begin here if you want the most active research questions in motion."
+    title="Agenda lines in progress"
+    description="The open lines of inquiry, each with its first goal."
     variant="alt"
   >
     <CardGrid className="grid--two">
@@ -175,51 +222,10 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     </CardGrid>
   </SectionBlock>
   <SectionBlock
-    id="research-start"
-    eyebrow="Start here"
-    title="Three entry points for new readers."
-    description="Use the orientation cards, then scan the agenda and publications to find what to cite."
-    variant="alt"
-  >
-    <CardGrid className="grid--two">
-      <CardItem
-        title="Orientation"
-        description="How the research program runs and how findings turn into standards."
-      >
-        <a slot="footer" class="muted" href="#orientation">
-          Open orientation
-        </a>
-      </CardItem>
-      <CardItem
-        title="Agenda"
-        description="In-flight lines of inquiry tied to glossary anchors."
-      >
-        <a slot="footer" class="muted" href="#agenda">
-          View agenda
-        </a>
-      </CardItem>
-      <CardItem
-        title="Publications"
-        description="Protocols, decks, and reports with structured abstracts."
-      >
-        <a slot="footer" class="muted" href="#publications">
-          Browse publications
-        </a>
-      </CardItem>
-    </CardGrid>
-  </SectionBlock>
-  <ScholarlyMeta publication={publication} permalink={permalink} />
-  <CitationBlock
-    title={pageTitle}
-    permalink={permalink}
-    publication={publication}
-    variant="compact"
-  />
-  <SectionBlock
     id="standards-timeline"
     eyebrow="Timeline"
-    title="Research contributions to standards"
-    description="Milestones that connect field work to STD-01 clauses."
+    title="Standards milestones"
+    description="Dated releases of the standards this research informs."
     variant="alt"
   >
     <ol class="standards-timeline" aria-label="Standards research timeline">
@@ -317,8 +323,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       {researchSuggestions.map((suggestion) => <option value={suggestion} />)}
     </datalist>
     <p class="muted research-filter__hint">
-      Search across research entries, use section filters for roadmap items, and
-      tags to find related publications and artifacts.
+      Search matches titles, summaries, and tags. The section filter narrows to
+      one part of the page; the tag filter finds related publications and
+      artifacts.
     </p>
     <p
       class="muted research-filter__count"
@@ -346,8 +353,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <SectionBlock
     id="orientation"
     eyebrow="Orientation"
-    title="How we run the work."
-    description="The research backlog combines field-ready protocols with governance anchors so findings travel cleanly into diagnostics and delivery."
+    title="How we run the work"
+    description="How questions, methods, and results are published here."
     className="section--banded"
   >
     <details class="chunked-section" open data-default-open="true">
@@ -386,8 +393,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <SectionBlock
     id="bridge-artifacts"
     eyebrow="Bridge artifacts"
-    title="Whitepaper-style artifacts academics can cite."
-    description="Frameworks, taxonomies, instruments, and case series that sit between practice and scholarship."
+    title="Research notes and essays you can cite"
+    description="Dated research notes and the theory essays behind the laws."
     variant="alt"
   >
     <details class="chunked-section" data-default-open="false">
@@ -422,6 +429,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                     <a
                       class="button ghost button--compact"
                       href={artifact.href}
+                      {...(artifact.href.startsWith("http")
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
                     >
                       View artifact
                     </a>
@@ -438,8 +448,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <SectionBlock
     id="agenda"
     eyebrow="Agenda"
-    title="In-flight lines of inquiry."
-    description="Each line links to glossary terms you can reference in protocols and design docs."
+    title="Open questions"
+    description="Two questions the results so far leave open, the work each needs, and the glossary terms it uses."
     variant="alt"
   >
     <details class="chunked-section" data-default-open="false">
@@ -483,8 +493,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <SectionBlock
     id="focus-areas"
     eyebrow="Focus areas"
-    title="Where we spend our attention."
-    description="Use these anchors to align research, Field Notes, and diagnostics around the same questions."
+    title="Three areas"
+    description="Two of the six safeguards, standing and correction, and the cost they keep with the institution: the work of correcting the system."
   >
     <details class="chunked-section" data-default-open="false">
       <summary class="chunked-section__summary">
@@ -528,8 +538,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <SectionBlock
     id="publications"
     eyebrow="Publications"
-    title="Protocols, decks, and reports."
-    description="Each entry is tagged with glossary links to help readers dig deeper in the Library."
+    title="Planned studies and working materials"
+    description="Each entry states its question, method, and status. A planned study has not been run and reports no results."
     variant="alt"
   >
     <details class="chunked-section" data-default-open="false">
@@ -555,7 +565,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                 )}
               >
                 <CardItem
-                  meta={publication.type}
+                  meta={`${publication.type} · ${publication.status}`}
                   title={publication.title}
                   description={publication.summary}
                   descriptionTone="default"
@@ -604,14 +614,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                         <li>{note}</li>
                       ))}
                     </ul>
-                    <p class="eyebrow">References</p>
-                    <ul class="muted">
-                      {publication.references.map((reference) => (
-                        <li>
-                          <a href={reference.href}>{reference.label}</a>
-                        </li>
-                      ))}
-                    </ul>
                   </div>
                   <div slot="footer" class="card__footer">
                     <a
@@ -629,10 +631,15 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </div>
     </details>
   </SectionBlock>
-  <script
-    type="application/ld+json"
-    set:html={structuredDataJson}
-    is:inline
+  <ScholarlyMeta publication={publication} permalink={permalink} />
+  <CitationBlock
+    title={pageTitle}
+    permalink={permalink}
+    publication={publication}
+    variant="compact"
   />
-  <script type="module" src={researchFilterScript} is:inline></script>
+  <InlineScript type="application/ld+json" code={structuredDataJson} />
+  <script>
+    import "../../scripts/research-filter.ts";
+  </script>
 </BaseLayout>

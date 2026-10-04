@@ -16,7 +16,7 @@ const breadcrumbItems = [
   { name: "Home", url: new URL("/", siteBase).toString() },
   { name: "Validators", url: new URL("/validators", siteBase).toString() },
   {
-    name: "Burden Modeler",
+    name: "VAL-01 Burden Modeler",
     url: new URL("/validators/burden-modeler", siteBase).toString(),
   },
 ];
@@ -24,8 +24,8 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
 ---
 
 <BaseLayout
-  title="Burden Modeler Validator — Score Time Tax and Denial Risk"
-  description="Quantify time tax, interaction friction, and constructive-denial risk in user journeys, then output a remediation report aligned to Ethotechnics standards."
+  title="VAL-01 Burden Modeler — validator specification"
+  description="The VAL-01 specification: the inputs, thresholds, and report card for scoring time tax and constructive-denial risk in a user journey against STD-01."
   mainClass="page page--wide"
   breadcrumbItems={breadcrumbItems}
   structuredDataType="webpage"
@@ -35,10 +35,14 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
     <header class="validator__header">
       <div>
         <p class="validator__id">VAL-01</p>
-        <h1>Burden Modeler</h1>
+        <h1>VAL-01 Burden Modeler — specification</h1>
         <p class="muted">
-          Estimate time tax and surface constructive denial risk in a single
-          report card.
+          The assertion, its inputs, and what a conforming implementation must
+          return, with a form below that scores one journey. To rate the
+          workload a system creates for the team that runs it, use the
+          <a href="/diagnostics/burden-modeler"
+            >Workload Modeler, a different tool &rarr;</a
+          >
         </p>
       </div>
       <a class="validator__standard" href="/standards/std-01-temporal-rights">
@@ -99,7 +103,7 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
         </output>
       </div>
       <p class="validator__recommendation">
-        Fix this using <a href="/mechanisms/mec-04-hard-clock"
+        Fix this using <a href="/mechanisms/patterns/hard-clock"
           >MEC-04: The Hard Clock</a
         >.
       </p>
@@ -108,7 +112,9 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
       </button>
     </div>
     <p class="muted validator__see-also">
-      See also: <a href="/standards">Standards</a> &middot; <a href="/mechanisms">Mechanisms</a>
+      See also: <a href="/standards">Standards</a> &middot; <a
+        href="/mechanisms">Mechanisms</a
+      >
     </p>
   </section>
 </BaseLayout>

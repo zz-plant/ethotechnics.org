@@ -1,4 +1,5 @@
 ---
+import InlineScript from "../../components/InlineScript.astro";
 import { getEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
@@ -8,7 +9,6 @@ import CitationBlock from "../../components/CitationBlock.astro";
 import PatternFilter from "../../components/PatternFilter.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
-import SummaryCallout from "../../components/SummaryCallout.astro";
 import { diagnosticsContent } from "../../content/diagnostics";
 import { glossaryEntryPermalink } from "../../utils/glossary";
 
@@ -32,7 +32,6 @@ const glossaryEntry = (await getEntry("glossary", "glossary"))!;
 const glossaryContent = glossaryEntry.data;
 const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
 type GlossaryStarterTerm = (typeof glossaryContent.starterTerms)[number];
-const quickFilters = patterns.filters.slice(0, 6);
 const pageUrl = Astro.site
   ? new URL(permalink, Astro.site).toString()
   : permalink;
@@ -60,181 +59,94 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   title={pageTitle}
   description={pageDescription}
   jsonAlternates={[{ href: "/api/mechanisms.json", title: "Mechanisms JSON" }]}
+  pageSchema="route"
 >
   <PageIntro
     eyebrow="Mechanisms"
     title="Mechanisms"
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={[
-      { href: "#quick-filters", label: "Quick filters" },
-      { href: "#navigator", label: "Navigator" },
-      { href: "#themes", label: "Browse by theme" },
-      { href: "#role-pathways", label: "Role-based pathways" },
-      { href: "#primer", label: "Primer" },
-      { href: "#safety-object-model", label: "Agent safety object model" },
-      { href: "#glossary", label: "Glossary" },
-      { href: "#mechanisms", label: "Mechanism specs" },
+      { href: "#mechanisms", label: "Mechanism catalog" },
+      { href: "#start-here", label: "Start here" },
       { href: "#syllabus", label: "Syllabus" },
-      { href: "#referenced-by", label: "Referenced by" },
-    ]}
-    panelCopy={{
-      eyebrow: "How to use this shelf",
-      title: "Structured, linkable specifications",
-      description:
-        "Stable permalinks and filters keep standards, mechanisms, and validators aligned.",
-    }}
-  >
-    <Fragment slot="actions">
-      <a class="button primary" href="#quick-filters"> Browse quick filters </a>
-      <a class="button ghost" href="#primer"> Read the primer </a>
-    </Fragment>
-  </PageIntro>
-  <SummaryCallout
-    title="Start with filters, then deepen with primers and specs"
-    description="Use the quick filters to pick a lens, then follow the primer and mechanism specs to implement."
-    takeaways={[
-      "Role pathways surface the highest-signal mechanisms.",
-      "Quick filters help you jump into governance, friction, or policy lenses.",
-      "Mechanism specs link directly to validators and evidence packs.",
-    ]}
-    relatedLinks={[
-      { href: "#quick-filters", label: "Quick filters" },
-      { href: "#primer", label: "Primer" },
-      { href: "#mechanisms", label: "Mechanism specs" },
-    ]}
-    jumpLinks={[
-      { href: "#role-pathways", label: "Role pathways" },
-      { href: "#themes", label: "Browse by theme" },
-      { href: "#syllabus", label: "Syllabus" },
+      { href: "#references", label: "References" },
     ]}
   />
+  <SectionBlock id="mechanisms" title="Mechanism catalog">
+    <p class="mechanisms__links">
+      New to mechanisms? <a href="#primer">Read the primer</a><span
+        class="mechanisms__links-sep"
+        aria-hidden="true">·</span
+      ><a href="#role-pathways">Guides by role</a><span
+        class="mechanisms__links-sep"
+        aria-hidden="true">·</span
+      ><a href="/standards/std-01-rights-matrix">Rights matrix</a><span
+        class="mechanisms__links-sep"
+        aria-hidden="true">·</span
+      ><a href="/validators">Validators</a>
+    </p>
+    <div class="pattern-filter__anchors" aria-hidden="true">
+      {
+        patterns.filters.map((filter) => (
+          <span class="pattern-filter__anchor" id={filter.slug} />
+        ))
+      }
+    </div>
+    <PatternFilter
+      filters={patterns.filters}
+      entries={patterns.entries}
+      diagnosticTitles={diagnosticTitles}
+    />
+  </SectionBlock>
+
   <SectionBlock
-    id="navigator"
-    eyebrow="Navigator"
-    title="Move from question to mechanism in minutes."
-    description="Use this guided flow to land on the right specs, then loop back into validators."
+    id="primer"
+    eyebrow="Primer"
+    title="What the mechanisms are for"
+    description="Short overviews for onboarding and briefings."
     variant="alt"
   >
-    <div class="panel stack-sm">
-      <p class="eyebrow">Recommended first action</p>
-      <h3>Start with quick filters, then open one mechanism spec.</h3>
-      <p class="muted">
-        If you are unsure where to begin, pick one filter, review the top
-        matching mechanism, and then validate with a linked diagnostic.
-      </p>
-      <p>
-        <a class="button primary" href="#quick-filters"
-          >Start with quick filters</a
-        >
-      </p>
-    </div>
+    <CardGrid>
+      {
+        primer.map((entry) => (
+          <CardItem
+            title={entry.title}
+            description={entry.summary}
+            tags={entry.takeaways}
+          />
+        ))
+      }
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="start-here"
+    eyebrow="Start here"
+    title="From question to mechanism"
+    description="Find a mechanism, read the primer, then check each one against the rights it protects and the validators that test it."
+  >
     <ol class="card__list">
       <li>
-        <strong>Pick a lens:</strong>{" "}
-        <a href="#quick-filters">use quick filters</a> or{" "}
-        <a href="#themes">browse by theme</a> to scope the catalog.
+        <strong>Find one:</strong>{" "}
+        <a href="#mechanisms">search the catalog</a> for the safeguard you need.
       </li>
       <li>
-        <strong>Align the team:</strong>{" "}
-        <a href="#role-pathways">role pathways</a> plus the{" "}
-        <a href="#primer">primer</a> create shared language.
+        <strong>Learn the terms:</strong>{" "}
+        read the <a href="#role-pathways">role pathways</a> and the{" "}
+        <a href="#primer">primer</a>.
       </li>
       <li>
-        <strong>Make it enforceable:</strong>{" "}
-        connect specs to the <a href="/standards/std-01-rights-matrix"
+        <strong>Make it testable:</strong>{" "}
+        connect each one to the <a href="/standards/std-01-rights-matrix"
           >rights matrix</a
         >{" "}
         and <a href="/validators">validators</a>.
       </li>
     </ol>
-    <div class="library__role-buttons">
-      <a class="button primary library__role-button" href="#quick-filters">
-        Browse filters
-      </a>
-      <a class="button ghost library__role-button" href="#mechanisms">
-        Mechanism specs
-      </a>
-      <a class="button ghost library__role-button" href="#start-here">
-        Quick start
-      </a>
-    </div>
-  </SectionBlock>
-  <ScholarlyMeta publication={publication} permalink={permalink} />
-  <CitationBlock
-    title={pageTitle}
-    permalink={permalink}
-    publication={publication}
-    variant="compact"
-  />
-  <SectionBlock
-    id="quick-filters"
-    eyebrow="Quick filters"
-    title="Jump into the most-used mechanism lenses."
-    description="Start with a targeted filter before exploring the full catalog."
-    variant="alt"
-  >
-    <ul class="pill-list pill-list--wrap">
-      {
-        quickFilters.map((filter) => (
-          <li>
-            <a
-              class="pill-list__button"
-              href={`/mechanisms?filter=${filter.slug}`}
-            >
-              {filter.label}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </SectionBlock>
-  <SectionBlock
-    id="role-pathways"
-    eyebrow="Role-based pathways"
-    title={rolePathways.title}
-    description={rolePathways.description}
-  >
-    <div class="library__role-buttons">
-      {
-        rolePathways.roles.map((role) => (
-          <a class="button primary library__role-button" href={`#${role.id}`}>
-            {role.label}
-          </a>
-        ))
-      }
-    </div>
-    <div class="library__role-lists">
-      {
-        rolePathways.roles.map((role) => (
-          <div class="library__role-list" id={role.id}>
-            <h3>{role.label}</h3>
-            <p class="muted">{role.summary}</p>
-            <CardGrid>
-              {role.items.map((item) => (
-                <CardItem title={item.title} description={item.description}>
-                  <a slot="footer" class="muted" href={item.href}>
-                    Open reading
-                  </a>
-                </CardItem>
-              ))}
-            </CardGrid>
-          </div>
-        ))
-      }
-    </div>
-  </SectionBlock>
-  <SectionBlock
-    id="start-here"
-    eyebrow="Start here"
-    title="A quick route into the mechanisms catalog."
-    description="Use the quick start and recommended stack to prioritize what to read first."
-    variant="alt"
-  >
     <CardGrid className="grid--two">
       <CardItem
-        title="Quick start sequence"
-        description="Use this sequence if you need a fast on-ramp."
+        title="First four steps"
+        description="From a first read to a mechanism you can cite."
       >
         <ul class="muted">
           {quickStart.map((item) => <li>{item}</li>)}
@@ -254,129 +166,50 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </CardItem>
     </CardGrid>
   </SectionBlock>
-
   <SectionBlock
-    id="safety-object-model"
-    eyebrow="Agent Safety Object Model"
-    title="Link mechanisms to a machine-readable governance profile"
-    description="Publish the spec so mechanisms map to enforceable controls."
+    id="role-pathways"
+    eyebrow="Role-based pathways"
+    title={rolePathways.title}
+    description={rolePathways.description}
     variant="alt"
   >
-    <p class="muted">
-      The
-      {" "}
-      <a href="/agents/spec">Agent Safety Object Model</a>
-      {" "}
-      ties action classes, receipts, and kill-switch authority to specific mechanisms.
-    </p>
-    <ul class="muted">
-      <li>Map MEC-01, MEC-05, and MEC-06 into the model.</li>
-      <li>Declare clocks and approvals per action class.</li>
-      <li>Attach evidence packs to validate compliance.</li>
-    </ul>
-  </SectionBlock>
-
-  <SectionBlock
-    id="themes"
-    eyebrow="Browse by theme"
-    title="Jump directly to the work you need."
-    description="Use tags to pre-filter the mechanisms catalog."
-  >
-    <div class="tag-rail">
-      <ul class="pill-list pill-list--wrap">
-        {
-          patterns.filters.map((filter) => (
-            <li class="pill-list__item tag-rail__item">
-              <a
-                class="pill-list__button"
-                href={`#${filter.slug}`}
-                aria-label={`Jump to ${filter.label} materials`}
-              >
-                {filter.label}
-              </a>
-              <p class="muted small tag-rail__description">
-                {filter.description}
-              </p>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </SectionBlock>
-
-  <SectionBlock
-    id="primer"
-    eyebrow="Primer"
-    title="Start here before diving into mechanisms."
-    description="Short overviews for onboarding and briefings."
-    variant="alt"
-  >
-    <CardGrid>
+    <div class="library__role-buttons">
       {
-        primer.map((entry) => (
-          <CardItem
-            title={entry.title}
-            description={entry.summary}
-            tags={entry.takeaways}
-          />
-        ))
-      }
-    </CardGrid>
-  </SectionBlock>
-
-  <SectionBlock
-    id="glossary"
-    eyebrow="Glossary"
-    title="Stable terms with per-entry permalinks."
-    description="Use these anchors across Field Notes, Research, and Diagnostics."
-  >
-    <CardGrid>
-      {
-        glossaryContent.starterTerms.map((term: GlossaryStarterTerm) => (
-          <CardItem
-            id={term.id}
-            eyebrow="Glossary term"
-            title={term.label}
-            description={term.description}
-          >
-            <a slot="footer" class="muted" href={glossaryHref(term.id)}>
-              Permalink to {term.label}
-            </a>
-          </CardItem>
-        ))
-      }
-    </CardGrid>
-    <p class="muted glossary__cta">
-      Full glossary: <a href={glossaryContent.permalink}>/glossary</a>
-    </p>
-  </SectionBlock>
-
-  <SectionBlock
-    id="mechanisms"
-    eyebrow="Mechanisms"
-    title="Governance, friction, and policy mechanisms with validator links."
-    description="Filters route work quickly and keep validators in reach."
-    variant="alt"
-  >
-    <div class="pattern-filter__anchors" aria-hidden="true">
-      <span class="pattern-filter__anchor" id="mechanisms"></span>
-      {
-        patterns.filters.map((filter) => (
-          <span class="pattern-filter__anchor" id={filter.slug} />
+        rolePathways.roles.map((role) => (
+          <a class="library__role-chip" href={`#${role.id}`}>
+            {role.label}
+          </a>
         ))
       }
     </div>
-    <PatternFilter
-      filters={patterns.filters}
-      entries={patterns.entries}
-      diagnosticTitles={diagnosticTitles}
-    />
+    <p class="muted small" style="margin: var(--space-3) 0 var(--space-5);">
+      <a href="/start">For a full guide by role, see Start here &rarr;</a>
+    </p>
+    <div class="library__role-lists">
+      {
+        rolePathways.roles.map((role) => (
+          <div class="library__role-list" id={role.id}>
+            <h3>{role.label}</h3>
+            <p class="muted">{role.summary}</p>
+            <CardGrid>
+              {role.items.map((item) => (
+                <CardItem title={item.title} description={item.description}>
+                  <a slot="footer" class="muted" href={item.href}>
+                    Read
+                  </a>
+                </CardItem>
+              ))}
+            </CardGrid>
+          </div>
+        ))
+      }
+    </div>
   </SectionBlock>
 
   <SectionBlock
     id="syllabus"
     eyebrow="Syllabus"
-    title="Guided path for teams adopting the mechanisms."
+    title="Guided path for teams adopting the mechanisms"
     description={syllabus.overview}
   >
     <CardGrid>
@@ -395,10 +228,60 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   </SectionBlock>
 
   <SectionBlock
+    id="references"
+    eyebrow="References"
+    title="Glossary and the Agent Safety Object Model"
+    description="Defined terms, each with its own permalink, and a machine-readable model that ties system actions to the mechanisms that govern them."
+  >
+    <div class="grid grid--two">
+      <div>
+        <p class="eyebrow">Glossary starter terms</p>
+        <CardGrid>
+          {
+            glossaryContent.starterTerms.map((term: GlossaryStarterTerm) => (
+              <CardItem
+                id={term.id}
+                eyebrow="Glossary term"
+                title={term.label}
+                description={term.description}
+              >
+                <a slot="footer" class="muted" href={glossaryHref(term.id)}>
+                  Permalink to {term.label}
+                </a>
+              </CardItem>
+            ))
+          }
+        </CardGrid>
+        <p class="muted glossary__cta">
+          Full glossary: <a href={glossaryContent.permalink}>/glossary</a>
+        </p>
+      </div>
+      <div>
+        <p class="eyebrow">Agent Safety Object Model</p>
+        <p class="muted">
+          The
+          {" "}
+          <a href="/agents/spec">Agent Safety Object Model</a>
+          {" "}
+          ties action classes, receipts, and kill-switch authority to specific mechanisms.
+        </p>
+        <ul class="muted">
+          <li>
+            Map MEC-01 (decision log), MEC-05 (kill switch), and MEC-06 (appeal
+            paths) into the model.
+          </li>
+          <li>Declare time limits and approvals for each class of action.</li>
+          <li>Attach the evidence pack each clause asks for.</li>
+        </ul>
+      </div>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
     id="referenced-by"
     eyebrow="Referenced by"
-    title="How mechanisms connect to the rest of the system"
-    description="Cross-links keep mechanisms, standards, and audits aligned."
+    title="Where these mechanisms are used"
+    description="Worked examples, release and incident checklists, and evidence packs that cite these mechanisms."
     variant="alt"
   >
     <div class="grid grid--three">
@@ -422,21 +305,18 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         </ul>
       </div>
       <div class="panel">
-        <p class="eyebrow">Required by bindings</p>
+        <p class="eyebrow">Required at release and after incidents</p>
         <ul class="muted">
           <li>
-            <a href="/bindings#release-gates">Release gate checklist</a>
+            <a href="/evidence-packs">Release gate checklist</a>
           </li>
           <li>
-            <a href="/bindings#incidents">Incident triggers</a>
-          </li>
-          <li>
-            <a href="/bindings#runbooks">Runbook snippets</a>
+            <a href="/incidents">Incident triggers</a>
           </li>
         </ul>
       </div>
       <div class="panel">
-        <p class="eyebrow">Verified by evidence packs</p>
+        <p class="eyebrow">Evidence packs: what to collect</p>
         <ul class="muted">
           <li>
             <a href="/evidence-packs/std-01">STD-01 Evidence Pack</a>
@@ -451,13 +331,20 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </div>
     </div>
     <p class="muted">
+      Another view: <a href="/artifacts">governance artifacts</a>.
+    </p>
+    <p class="muted">
       Search IDs: MEC-01, MEC-03, MEC-05, MEC-06, STD-01.1.1, STD-02.2.1,
       VAL-01, VAL-02, VAL-03.
     </p>
   </SectionBlock>
-  <script
-    type="application/ld+json"
-    set:html={structuredDataJson}
-    is:inline
+
+  <ScholarlyMeta publication={publication} permalink={permalink} />
+  <CitationBlock
+    title={pageTitle}
+    permalink={permalink}
+    publication={publication}
+    variant="compact"
   />
+  <InlineScript type="application/ld+json" code={structuredDataJson} />
 </BaseLayout>

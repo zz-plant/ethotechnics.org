@@ -1,0 +1,566 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethotechnics.org/standards/authority-grant.schema.json",
+  "title": "Authority Grant",
+  "description": "The Authority state variable, modeled as a lease on consequential action: which actions a grantee is currently permitted to perform, for whom, on what evidence, and until when. A grant is an explicit state transition, never a side effect of capability (Law I). It decays unless its justification is renewed (Law II) and becomes eligible for reconsideration when its evidence basis changes (Law III). Expansion of scope is a new authorization decision recorded in state_history (Law XI). Every grant carries an attestation binding it to a named key holder and a liability record naming the party that answers for its latency and errors.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "grant_id",
+    "provenance",
+    "scope",
+    "issuing_authority",
+    "grantee",
+    "action_classes",
+    "mode",
+    "for_whom",
+    "evidence_basis",
+    "assumptions",
+    "review_conditions",
+    "revocation_conditions",
+    "state",
+    "state_history",
+    "attestation",
+    "liability",
+    "correction_capacity"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "title": "Schema version",
+      "description": "Version of this schema the grant conforms to.",
+      "type": "string",
+      "pattern": "^1\\.\\d+\\.\\d+$"
+    },
+    "grant_id": {
+      "title": "Grant identifier",
+      "description": "Stable identifier for the grant, referenced by decision records, challenges, and reconsiderations.",
+      "type": "string"
+    },
+    "provenance": {
+      "title": "Provenance",
+      "description": "Who issued the grant, when, and the summary of the basis on which it was issued.",
+      "type": "object",
+      "required": ["issued_by", "issued_at", "basis_summary"],
+      "additionalProperties": false,
+      "properties": {
+        "issued_by": {
+          "title": "Issued by",
+          "description": "Identifier of the person or body that issued the grant.",
+          "type": "string"
+        },
+        "issued_at": {
+          "title": "Issued at",
+          "description": "When the grant was issued.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "basis_summary": {
+          "title": "Basis summary",
+          "description": "Plain-language summary of why this delegation was justified at issue time.",
+          "type": "string"
+        }
+      }
+    },
+    "scope": {
+      "title": "Scope",
+      "description": "The boundary of the lease: which action classes, on which systems, over which populations, within which limits.",
+      "type": "object",
+      "required": ["action_classes", "systems", "populations", "limits"],
+      "additionalProperties": false,
+      "properties": {
+        "action_classes": {
+          "title": "Scoped action classes",
+          "description": "Action classes the grant covers, matching the catalog's action_class values.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "systems": {
+          "title": "Systems",
+          "description": "Systems or resources the grantee may act on under this grant.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "populations": {
+          "title": "Populations",
+          "description": "Populations of subjects the grantee may act upon.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "limits": {
+          "title": "Limits",
+          "description": "Quantitative or qualitative limits on the lease, such as rate, value, or duration caps, keyed by limit name.",
+          "type": "object",
+          "additionalProperties": {
+            "type": ["string", "number", "boolean"]
+          }
+        }
+      }
+    },
+    "issuing_authority": {
+      "title": "Issuing authority",
+      "description": "The accountable owner of the grant who can be reached to renew, narrow, or revoke it.",
+      "$ref": "#/$defs/contact"
+    },
+    "grantee": {
+      "title": "Grantee",
+      "description": "The component that holds the lease.",
+      "type": "object",
+      "required": ["id", "type"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Grantee identifier",
+          "description": "Stable identifier of the grantee.",
+          "type": "string"
+        },
+        "type": {
+          "title": "Grantee type",
+          "description": "What kind of component the grantee is.",
+          "type": "string",
+          "enum": ["agent", "role", "system", "human"]
+        }
+      }
+    },
+    "action_classes": {
+      "title": "Action classes",
+      "description": "The consequential action classes this grant currently authorizes. Must be a subset of scope.action_classes.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "for_whom": {
+      "title": "For whom",
+      "description": "Who the delegation serves: the principal on whose behalf the grantee acts.",
+      "type": "string"
+    },
+    "evidence_basis": {
+      "title": "Evidence basis",
+      "description": "The propositions that justify this authority, as references to policy records or evidence items. When these change materially the grant becomes eligible for reconsideration (Law III).",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidenceRef"
+      }
+    },
+    "assumptions": {
+      "title": "Assumptions",
+      "description": "Conditions assumed true at issue time. A falsified assumption is grounds for review.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "review_conditions": {
+      "title": "Review conditions",
+      "description": "Conditions under which the grant moves to review_required.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "revocation_conditions": {
+      "title": "Revocation conditions",
+      "description": "Conditions under which the grant moves to suspended or revoked.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "correction_capacity": {
+      "title": "Correction capacity",
+      "description": "STD-08 §4.1: the seven components of correction this grant can show, each with its evidence. Law IV asserts a proportionality, not a checklist: capacity is stated alongside scope and reviewed whenever scope changes, so a grant whose scope grows while capacity stays fixed has moved the institution's exposure without a decision. Under §4.2 an expansion with no matching expansion of capacity is refused or the scope is narrowed to what the existing capacity covers; under §4.3 capacity that has degraded since the last assessment moves the grant to review_required. Each component is recorded as a present/evidence pair rather than a claim: present says whether the institution has the component now, evidence names what shows it.",
+      "type": "object",
+      "required": [
+        "assessed_at",
+        "detection",
+        "challenge",
+        "standing",
+        "review",
+        "authority_to_modify",
+        "reversible_transitions",
+        "operable_after_correction"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "assessed_at": {
+          "title": "Assessed at",
+          "description": "When correction capacity was last assessed. Capacity is a state variable like the grant itself: an assessment older than the scope it is supposed to cover is not a statement about the grant as it now stands (§4.3).",
+          "type": "string",
+          "format": "date-time"
+        },
+        "detection": {
+          "title": "Detection",
+          "description": "STD-08 §4.1, first component: that a wrong action can be noticed. The component also names who evaluates and whether that party is independent of the party that executes, because if the party that executes a consequential process is also the only party that evaluates it, the detection component is compromised however well it is instrumented.",
+          "type": "object",
+          "required": [
+            "present",
+            "evidence",
+            "evaluator",
+            "independent_of_executor"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "present": {
+              "title": "Present",
+              "description": "Whether a wrong action under this grant can in fact be noticed today.",
+              "type": "boolean"
+            },
+            "evidence": {
+              "title": "Evidence",
+              "description": "What shows detection works, for example a monitor with a measured detection rate or an incident that was caught by it rather than reported from outside.",
+              "type": "string"
+            },
+            "evaluator": {
+              "title": "Evaluator",
+              "description": "The named party that evaluates whether actions under this grant were wrong.",
+              "type": "string"
+            },
+            "independent_of_executor": {
+              "title": "Independent of executor",
+              "description": "Whether the evaluator is independent of the party that executes the process. False is a recordable state, not a validation error: it says the detection component rests on self-assessment, which is the condition STD-08 §4.1 requires to be visible rather than assumed away.",
+              "type": "boolean"
+            }
+          }
+        },
+        "challenge": {
+          "title": "Challenge",
+          "description": "STD-08 §4.1, second component: that a wrong action can be raised. A route that exists but has never carried a challenge is evidence of a route, not of a challenge.",
+          "$ref": "#/$defs/correctionComponent"
+        },
+        "standing": {
+          "title": "Standing",
+          "description": "STD-08 §4.1, third component: that someone with exposure may raise it. Standing held only by parties inside the operating team is not standing for the exposed.",
+          "$ref": "#/$defs/correctionComponent"
+        },
+        "review": {
+          "title": "Review",
+          "description": "STD-08 §4.1, fourth component: that a raised challenge will be examined by a named party within a clock. Both the party and the clock must be nameable for the component to be present.",
+          "$ref": "#/$defs/correctionComponent"
+        },
+        "authority_to_modify": {
+          "title": "Authority to modify",
+          "description": "STD-08 §4.1, fifth component: that the examiner can change the grant or the decision. An examiner who can only recommend is advisory, and recording advice as capacity is the anti-pattern STD-08 Part C names.",
+          "$ref": "#/$defs/correctionComponent"
+        },
+        "reversible_transitions": {
+          "title": "Reversible state transitions",
+          "description": "STD-08 §4.1, sixth component: that the affected state can be returned. The evidence is a reversal that was actually performed, not a code path that exists.",
+          "$ref": "#/$defs/correctionComponent"
+        },
+        "operable_after_correction": {
+          "title": "Practical ability to operate after correction",
+          "description": "STD-08 §4.1, seventh component: that the institution can absorb the reversal and keep operating. Per §4.4 this SHOULD be evidenced from the deployment's dependency record under STD-06, using correction_latency and the institutional level of reversibility. A correction the institution cannot afford to make is not counted as capacity.",
+          "$ref": "#/$defs/correctionComponent"
+        }
+      }
+    },
+    "mode": {
+      "title": "Mode",
+      "description": "How much autonomy the delegation carries: the same field STD-07 §2.2 records on an authorization record, with the same values. unattended: the grantee acts without a human in the path. confirm: a named human must confirm each action before it takes effect. forbidden: the delegation is recorded but no action may be taken under it. Mode is not state: mode says how much autonomy the delegation carries when it is in force, state says whether it is in force at all. The two vary independently — a grant may be mode unattended and state suspended. A grant with mode confirm MUST carry intervention_ref (STD-08 §3.2).",
+      "type": "string",
+      "enum": ["unattended", "confirm", "forbidden"]
+    },
+    "state": {
+      "title": "State",
+      "description": "Current lease state: whether the grant is in force right now. Only allowed grants authorize action; review_required means the burden of proof has shifted back to the issuer. State is not mode: state says whether the delegation is in force, mode says how much autonomy it carries while it is. A grant in state allowed with mode confirm is in force but requires human confirmation per action; a grant in state suspended with mode unattended authorizes nothing at all.",
+      "type": "string",
+      "enum": ["allowed", "review_required", "suspended", "revoked"]
+    },
+    "state_history": {
+      "title": "State history",
+      "description": "Every transition the grant has undergone, including issue, renewal, and expansion. Expansion is recorded as its own transition because success is not the default reward (Law XI).",
+      "type": "array",
+      "items": {
+        "title": "State transition",
+        "description": "One transition between grant states.",
+        "type": "object",
+        "required": ["from", "to", "at", "reason"],
+        "additionalProperties": false,
+        "properties": {
+          "from": {
+            "title": "From state",
+            "description": "State before the transition. Use none for the issuing transition.",
+            "type": "string",
+            "enum": [
+              "none",
+              "allowed",
+              "review_required",
+              "suspended",
+              "revoked"
+            ]
+          },
+          "to": {
+            "title": "To state",
+            "description": "State after the transition.",
+            "type": "string",
+            "enum": ["allowed", "review_required", "suspended", "revoked"]
+          },
+          "at": {
+            "title": "At",
+            "description": "When the transition took effect.",
+            "type": "string",
+            "format": "date-time"
+          },
+          "reason": {
+            "title": "Reason",
+            "description": "Why the transition happened.",
+            "type": "string",
+            "enum": [
+              "issued",
+              "renewal",
+              "expansion",
+              "evidence_changed",
+              "policy_review",
+              "challenge",
+              "incident",
+              "expiry",
+              "manual"
+            ]
+          },
+          "evidence_ref": {
+            "title": "Evidence reference",
+            "description": "Identifier of the reconsideration, challenge, incident, or evidence item that caused the transition.",
+            "type": "string"
+          },
+          "note": {
+            "title": "Note",
+            "description": "Plain-language note on the transition, for example what was narrowed.",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "attestation": {
+      "title": "Attestation",
+      "description": "The signature binding this grant record to a named key holder. Authority that cannot be attributed to a key holder is indistinguishable from authority nobody signed, which is how delegation becomes orphaned: capability exercises it and no one answers for it. signed_by names the key holder, not necessarily the accountable person; the accountable person is named in liability. A transition recorded after signed_at makes the attestation stale, and the grant is re-attested at renewal.",
+      "type": "object",
+      "required": ["signed_by", "algorithm", "signature", "signed_at"],
+      "additionalProperties": false,
+      "properties": {
+        "signed_by": {
+          "title": "Signed by",
+          "description": "Identifier of the key holder whose signature covers the grant record.",
+          "type": "string"
+        },
+        "algorithm": {
+          "title": "Algorithm",
+          "description": "The signature or hash algorithm used, for example ed25519 or sha256-with-rsa.",
+          "type": "string"
+        },
+        "signature": {
+          "title": "Signature",
+          "description": "The signature value itself, verifiable against the key named in signed_by.",
+          "type": "string"
+        },
+        "signed_at": {
+          "title": "Signed at",
+          "description": "When the signature was produced. A signature older than the last state transition covers a record that no longer exists.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "payload_digest": {
+          "title": "Payload digest",
+          "description": "Digest of the exact payload signed, so the signed content can be reproduced and checked.",
+          "type": "string"
+        }
+      }
+    },
+    "liability": {
+      "title": "Liability",
+      "description": "STD-01 §6.2: a system may not hide behind algorithmic error, and the operating institution accepts full liability for the latency and errors of its automated agents. This object names the party that has accepted that liability for actions under this grant and the instrument that binds them. Carve-outs are recorded on the record rather than assembled after an incident: a limitation the issuer knows about is priced before deployment, not discovered by the harmed party in a dispute.",
+      "type": "object",
+      "required": ["accepted_by", "instrument", "accepted_at"],
+      "additionalProperties": false,
+      "properties": {
+        "accepted_by": {
+          "title": "Accepted by",
+          "description": "The named party that accepts liability for actions taken under this grant.",
+          "$ref": "#/$defs/contact"
+        },
+        "instrument": {
+          "title": "Instrument",
+          "description": "The contract, policy, insurance instrument, or statutory basis under which the liability is accepted.",
+          "type": "string"
+        },
+        "accepted_at": {
+          "title": "Accepted at",
+          "description": "When the liability acceptance was recorded.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "carve_outs": {
+          "title": "Carve-outs",
+          "description": "Exclusions, caps, or conditions the accepting party claims against the liability. Recorded so the residual risk carried by everyone else is visible before an incident rather than argued after one.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "until": {
+      "title": "Until",
+      "description": "When the lease lapses: either a date-time or a plain-language condition. Absence of observed failure is not renewal.",
+      "oneOf": [
+        {
+          "title": "Expiry timestamp",
+          "description": "The grant lapses at this time unless renewed.",
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "title": "Expiry condition",
+          "description": "The grant lapses when this condition holds.",
+          "type": "string",
+          "pattern": "^(?!\\d{4}-\\d{2}-\\d{2}T)"
+        }
+      ]
+    },
+    "renewal_basis": {
+      "title": "Renewal basis",
+      "description": "What evidence must be produced to renew the lease. The burden rises with duration and consequence (Law II).",
+      "type": "string"
+    },
+    "policy_refs": {
+      "title": "Policy references",
+      "description": "The policy records this grant depends on, each pinned to a version (STD-08 §2.2). An unpinned reference is a reference to whatever the policy has since become.",
+      "type": "array",
+      "items": {
+        "title": "Pinned policy reference",
+        "description": "One policy record and the version of it this grant rests on.",
+        "type": "object",
+        "required": ["policy_id", "version"],
+        "additionalProperties": false,
+        "properties": {
+          "policy_id": {
+            "title": "Policy identifier",
+            "description": "Stable identifier of the policy record, matching policy_id in policy-record.schema.json.",
+            "type": "string"
+          },
+          "version": {
+            "title": "Policy version",
+            "description": "The version of that policy record this grant was justified against, matching version in policy-record.schema.json. A later version is a new evidentiary state and does not inherit this grant's justification.",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "intervention_ref": {
+      "title": "Intervention reference",
+      "description": "Identifier of the intervention spec that says who can halt, narrow, or revoke this grant.",
+      "type": "string"
+    },
+    "chain": {
+      "title": "Delegation chain",
+      "description": "For a decision produced by a chain of delegations (STD-09 §1.1): the grant ids of every contributing delegation in execution order, carried on the head grant. Each id resolves to an authority grant record with its own mode, liability, and correction capacity. A chain whose members cannot be enumerated is a chain that cannot be paused, challenged, or attributed, and under STD-09 §2.2 it may not run unattended.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "capability_catalog_ref": {
+      "title": "Capability catalog reference",
+      "description": "Identifier of the capability catalog this grant selects from.",
+      "type": "string"
+    },
+    "dependency_ref": {
+      "title": "Dependency reference",
+      "description": "Identifier of the dependency record for the system holding this grant.",
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "contact": {
+      "title": "Contact",
+      "description": "A reachable, accountable person or role.",
+      "type": "object",
+      "required": ["name", "role", "contact"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "title": "Name",
+          "description": "Name of the person or body.",
+          "type": "string"
+        },
+        "role": {
+          "title": "Role",
+          "description": "Role held.",
+          "type": "string"
+        },
+        "contact": {
+          "title": "Contact",
+          "description": "How to reach them.",
+          "type": "string"
+        }
+      }
+    },
+    "evidenceRef": {
+      "title": "Evidence reference",
+      "description": "A pointer to a policy record or evidence item with its summary and freshness.",
+      "type": "object",
+      "required": ["ref", "summary", "as_of"],
+      "additionalProperties": false,
+      "properties": {
+        "ref": {
+          "title": "Reference",
+          "description": "Identifier or URL of the policy record or evidence item.",
+          "type": "string"
+        },
+        "summary": {
+          "title": "Summary",
+          "description": "Plain-language summary of what the evidence establishes.",
+          "type": "string"
+        },
+        "as_of": {
+          "title": "As of",
+          "description": "When the evidence was last confirmed.",
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "correctionComponent": {
+      "title": "Correction component",
+      "description": "One of the seven components of correction capacity in STD-08 §4.1, recorded as whether it is present and what shows it. A component asserted with no evidence is a claim about the institution, not a property of the delegation.",
+      "type": "object",
+      "required": ["present", "evidence"],
+      "additionalProperties": false,
+      "properties": {
+        "present": {
+          "title": "Present",
+          "description": "Whether the institution has this component for this grant now.",
+          "type": "boolean"
+        },
+        "evidence": {
+          "title": "Evidence",
+          "description": "What shows the component holds, for example a rehearsal, a decided challenge, a measured clock, or a named authority that exercised it.",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "title": "Confirm mode requires an intervention specification",
+      "description": "STD-08 §3.2: every delegation recorded under STD-07 §2.2 with mode confirm must carry intervention_ref pointing at that specification. A confirm mode with no specification behind it is recorded as unattended, because that is how it behaves.",
+      "if": {
+        "required": ["mode"],
+        "properties": {
+          "mode": {
+            "const": "confirm"
+          }
+        }
+      },
+      "then": {
+        "required": ["intervention_ref"]
+      }
+    }
+  ]
+}

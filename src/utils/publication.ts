@@ -5,7 +5,7 @@ export function derivePublicationMetadata({
   published,
   updated,
   version = "Draft",
-  authorName = "Ethotechnics Standards Working Group",
+  authorName = "Ethotechnics Institute",
   changelogSummary = "Published.",
 }: {
   permalink: string;
@@ -23,15 +23,15 @@ export function derivePublicationMetadata({
       {
         name: authorName,
         affiliation: "Ethotechnics Institute",
-        email: "standards@ethotechnics.org",
+        email: "hello@ethotechnics.org",
       },
     ],
-    contact: "standards@ethotechnics.org",
+    contact: "hello@ethotechnics.org",
     published,
     updated: resolvedUpdated,
     version,
     doi: "Pending Zenodo deposit",
-    archiveUrl: `https://web.archive.org/save/https://ethotechnics.org${permalink}`,
+    archiveUrl: `https://web.archive.org/web/*/https://ethotechnics.org${permalink}`,
     changelog: [
       {
         version,
@@ -40,8 +40,8 @@ export function derivePublicationMetadata({
       },
     ],
     license: {
-      label: "CC BY 4.0",
-      href: "https://creativecommons.org/licenses/by/4.0/",
+      label: "CC BY-SA 4.0",
+      href: "https://creativecommons.org/licenses/by-sa/4.0/",
     },
     attribution: `Credit Ethotechnics Institute ${authorName}, include the page title + version, and link to the canonical permalink.`,
   };

@@ -30,6 +30,70 @@ const {
   layout = "stack",
   className,
 } = props;
+// An eyebrow earns its place when it says something the heading does not: an
+// identifier (STD-01, P1), a pairing (Standard governance / Ethotechnics
+// implementation), a date. A generic section word over a heading that already
+// names the section is a second label on the same thing; /standards carried 54
+// of them and they pulled fixations off the headings they sat on.
+const GENERIC_EYEBROWS = new Set([
+  "overview",
+  "summary",
+  "methodology",
+  "method",
+  "sources",
+  "references",
+  "referenced by",
+  "citation",
+  "citations",
+  "register",
+  "start here",
+  "where to start",
+  "search",
+  "index",
+  "explainers",
+  "mechanisms",
+  "diagnostics",
+  "standards",
+  "validators",
+  "research",
+  "definition",
+  "faq",
+  "how to use",
+  "when to use",
+  "orientation",
+  "contact",
+  "programs",
+  "institute",
+  "governance",
+  "worked examples",
+  "sample output",
+  "run the tool",
+  "triage",
+  "casebook",
+  "pathways",
+  "primer",
+  "foundations",
+  "status model",
+  "current standards",
+  "what you get",
+  "facilitated sessions",
+]);
+const words = (value: string) =>
+  value
+    .toLowerCase()
+    .split(/[^a-z0-9]+/)
+    .filter((word) => word.length > 2);
+const shownEyebrow = (() => {
+  const text = eyebrow?.trim();
+  if (!text) return undefined;
+  if (GENERIC_EYEBROWS.has(text.toLowerCase())) return undefined;
+  const titleWords = new Set(words(title));
+  const eyebrowWords = words(text);
+  if (eyebrowWords.length > 0 && eyebrowWords.every((w) => titleWords.has(w)))
+    return undefined;
+  return text;
+})();
+
 const sectionClass = [
   "section",
   layout === "aside" ? "section--aside" : "",
@@ -44,12 +108,15 @@ const sectionClass = [
 
 <section id={id} class={sectionClass}>
   <div class="section__header">
-    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    {shownEyebrow && <p class="eyebrow">{shownEyebrow}</p>}
     <h2 class="section__heading">
       {
         id ? (
           <a class="section__anchor" href={`#${id}`}>
-            {title}
+            <span>{title}</span>
+            <span class="section__anchor-icon" aria-hidden="true">
+              #
+            </span>
           </a>
         ) : (
           title

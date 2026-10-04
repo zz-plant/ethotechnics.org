@@ -32,6 +32,9 @@ const initializePatternFilter = (root: HTMLElement) => {
   const selectionInputs = Array.from(
     root.querySelectorAll<HTMLInputElement>("[data-pattern-select]"),
   );
+  // The bundle bar stays hidden until a mechanism is saved: with nothing
+  // selected its buttons have nothing to act on.
+  const bundlePanel = root.querySelector<HTMLElement>("[data-pattern-bundle]");
   const bundleLink =
     root.querySelector<HTMLAnchorElement>("[data-bundle-link]");
   const bundleStatus = root.querySelector<HTMLElement>(
@@ -116,6 +119,10 @@ const initializePatternFilter = (root: HTMLElement) => {
   const updateBundleControls = () => {
     const count = selection.size;
     const hasSelection = count > 0;
+
+    if (bundlePanel) {
+      bundlePanel.hidden = !hasSelection;
+    }
 
     [downloadButton, printButton, copyBundleButton, emailSubmit].forEach(
       (button) => {
@@ -302,7 +309,7 @@ const initializePatternFilter = (root: HTMLElement) => {
     printWindow.document.write(html);
     printWindow.document.close();
     printWindow.focus();
-    
+
     // Brief timeout so styles compile/render before print runs
     setTimeout(() => {
       printWindow.print();
@@ -407,7 +414,7 @@ const initializePatternFilter = (root: HTMLElement) => {
     if (status) {
       const filterLabel = selectedFilter
         ? getFilterLabel(selectedFilter)
-        : "All themes";
+        : "All safeguards";
       const queryLabel = normalizedQuery
         ? ` and search for "${normalizedQuery}"`
         : "";
@@ -704,10 +711,16 @@ const initializePatternFilter = (root: HTMLElement) => {
     });
 
     /* Drawer implementation */
-    const drawer = root.querySelector<HTMLDialogElement>("[data-pattern-drawer]");
-    const drawerTitle = drawer?.querySelector<HTMLElement>("[data-drawer-title]");
+    const drawer = root.querySelector<HTMLDialogElement>(
+      "[data-pattern-drawer]",
+    );
+    const drawerTitle = drawer?.querySelector<HTMLElement>(
+      "[data-drawer-title]",
+    );
     const drawerBody = drawer?.querySelector<HTMLElement>("[data-drawer-body]");
-    const drawerClose = drawer?.querySelector<HTMLButtonElement>("[data-drawer-close]");
+    const drawerClose = drawer?.querySelector<HTMLButtonElement>(
+      "[data-drawer-close]",
+    );
 
     const openDrawer = (entry: PatternBundleEntry) => {
       if (!drawer || !drawerTitle || !drawerBody) return;
@@ -757,7 +770,7 @@ const initializePatternFilter = (root: HTMLElement) => {
       }
 
       bodyHtml += `
-        <div class="drawer-section" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border);">
+        <div class="drawer-section" style="margin-top: var(--space-5); padding-top: var(--space-5); border-top: 1px solid var(--border);">
           <a class="button primary" style="justify-content: center; width: 100%;" href="/mechanisms/patterns/${entry.slug}">View full specification sheet</a>
         </div>
       `;
@@ -765,7 +778,9 @@ const initializePatternFilter = (root: HTMLElement) => {
       drawerBody.innerHTML = bodyHtml;
       drawer.showModal();
       requestAnimationFrame(() => {
-        drawer.querySelector(".pattern-drawer__content")?.classList.add("is-open");
+        drawer
+          .querySelector(".pattern-drawer__content")
+          ?.classList.add("is-open");
       });
     };
 
@@ -774,7 +789,7 @@ const initializePatternFilter = (root: HTMLElement) => {
       if (content) {
         content.classList.remove("is-open");
         setTimeout(() => {
-          drawer.close();
+          drawer?.close();
         }, 240);
       } else {
         drawer?.close();

@@ -4,7 +4,8 @@ import CitationBlock from "../../components/CitationBlock.astro";
 import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
 import { derivePublicationMetadata } from "../../utils/publication";
 
-const pageTitle = "STD-03 — Justice SLOs (Targets, Budgets, and Breach Actions)";
+const pageTitle =
+  "STD-03 — Justice SLOs (Targets, Budgets, and Breach Actions)";
 const permalink = "/standards/std-03-justice-slos";
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
 const breadcrumbItems = [
@@ -134,14 +135,14 @@ const publication = derivePublicationMetadata({
 
 <BaseLayout
   title="STD-03 — Justice SLOs (Targets, Budgets, and Breach Actions)"
-  description="A standard defining how justice metrics tie to targets, budgets, and breach actions."
+  description="A draft standard: each justice metric, such as time-to-halt, needs a target, a measurement window, a breach action, and a named owner."
   publishedTime="2025-06-01T00:00:00.000Z"
   mainClass="page page--wide standard-document"
   enableGlossaryHighlights={false}
   breadcrumbItems={breadcrumbItems}
+  pageSchema="route"
 >
   <StandardStatusSummary slug="std-03-justice-slos" />
-
 
   <article class="standard-document">
     <header class="standard-header">
@@ -231,11 +232,13 @@ const publication = derivePublicationMetadata({
             immediately when thresholds are missed.
           </p>
           <div class="grid grid--two">
-            {breachPlaybook.map((action) => (
-              <div class="panel">
-                <p>{action}</p>
-              </div>
-            ))}
+            {
+              breachPlaybook.map((action) => (
+                <div class="panel">
+                  <p>{action}</p>
+                </div>
+              ))
+            }
           </div>
         </section>
 
@@ -264,7 +267,9 @@ const publication = derivePublicationMetadata({
           <p class="standard-sidebar__eyebrow">Key terms</p>
           <ul>
             <li>
-              <a href="/glossary/irreversibility-budget">Irreversibility Budget</a>
+              <a href="/glossary/irreversibility-budget"
+                >Irreversibility Budget</a
+              >
             </li>
             <li>
               <a href="/glossary/burden-ceiling">Burden Ceiling</a>
@@ -284,10 +289,10 @@ const publication = derivePublicationMetadata({
       </aside>
     </div>
   </article>
-  <script
-    type="application/ld+json"
-    set:html={structuredDataJson}
-    is:inline
+  <script type="application/ld+json" set:html={structuredDataJson} is:inline />
+  <CitationBlock
+    title={pageTitle}
+    permalink={permalink}
+    publication={publication}
   />
-  <CitationBlock title={pageTitle} permalink={permalink} publication={publication} />
 </BaseLayout>

@@ -28,6 +28,24 @@ export type DiagnosticValidation = {
   failureModes: string[];
 };
 
+/**
+ * What the instrument costs the person who answers it, stated before they
+ * begin. Law VIII holds that an observation whose collection cost falls on the
+ * people being observed is not evidence. Three of the four instruments here
+ * take respondent labor, so each states the cost and names what the operator's
+ * own records already answer. The fourth reads a record stream and asks no one.
+ */
+export type DiagnosticCollectionCost = {
+  /** The ceiling on respondent labor, before the respondent starts. */
+  respondentLabor: string;
+  /** Who supplies the input, and what the respondent gives up to supply it. */
+  inputSource: string;
+  /** Questions the operator's retained records answer without a respondent. */
+  answeredFromRecords: string[];
+  /** How absence is represented in the readout. */
+  nonResponse: string;
+};
+
 export type DiagnosticReplicability = {
   runSteps: string[];
   exampleOutputs: string[];
@@ -36,11 +54,16 @@ export type DiagnosticReplicability = {
 export type DiagnosticTool = {
   slug: string;
   title: string;
+  /** Measurement tier the tool reports at ("Belief level", "Evidence level"). */
+  tier?: string;
   description: string;
+  /** Shorter page meta description, when `description` runs past ~160 characters. */
+  metaDescription?: string;
   methodCards: DiagnosticMethodCards;
   methodOverview: DiagnosticMethodOverview;
   instrument: DiagnosticInstrument;
   validation: DiagnosticValidation;
+  collectionCost: DiagnosticCollectionCost;
   replicability: DiagnosticReplicability;
   bestFor: string;
   readiness: string[];
@@ -72,26 +95,56 @@ export type DiagnosticsContent = PageWithPermalink &
 export const diagnosticsContent: DiagnosticsContent = {
   pageTitle: "Diagnostics — Ethotechnics",
   pageDescription:
-    "Pick a diagnostic, arrive with a question, and leave with a decision-ready summary.",
+    "Self-serve diagnostics that take one workflow, record stream, or set of figures and return a scored readout you can link, copy, or export.",
   permalink: "/diagnostics",
   published: "2025-12-03T00:00:00Z",
-  updated: "2026-01-09T00:00:00Z",
+  updated: "2026-10-01T00:00:00Z",
   publication: {
     authors: [
       {
         name: "Ethotechnics Institute Diagnostics Lab",
         affiliation: "Ethotechnics Institute",
-        email: "diagnostics@ethotechnics.org",
+        email: "hello@ethotechnics.org",
       },
     ],
-    contact: "diagnostics@ethotechnics.org",
+    contact: "hello@ethotechnics.org",
     published: "2025-12-03T00:00:00Z",
-    updated: "2026-01-09T00:00:00Z",
-    version: "v1.1.0",
+    updated: "2026-10-02T00:00:00Z",
+    version: "v1.6.0",
     doi: "Pending Zenodo deposit",
     archiveUrl:
-      "https://web.archive.org/save/https://ethotechnics.org/diagnostics",
+      "https://web.archive.org/web/*/https://ethotechnics.org/diagnostics",
     changelog: [
+      {
+        version: "v1.6.0",
+        date: "2026-10-02",
+        summary:
+          "Codified compensatory labor and shadow subsidy audit checks across the Workload Modeler and corrective capacity self-assessment to identify unrecorded human repair, epistemic erasure, and manufactured virtue.",
+      },
+      {
+        version: "v1.5.0",
+        date: "2026-10-01",
+        summary:
+          "Each of the four instruments now states the respondent labor it consumes before the respondent begins, what the operator's own retained records already answer without asking a person, and how non-response is represented in the readout. Three instruments take respondent time. Record Conformance reads a record stream and asks no one, and now says so on the page.",
+      },
+      {
+        version: "v1.4.0",
+        date: "2026-09-29",
+        summary:
+          "Added two optional context questions to the corrective capacity self-assessment: who holds authority over the conditions that produce workarounds, and whether the institution has priced a fix. They record a possible conflict of interest and do not change the score.",
+      },
+      {
+        version: "v1.3.0",
+        date: "2026-09-18",
+        summary:
+          "Added a self-assessment of action-capacity growth, challenge intake, reversal, revision, and workarounds using fixed categorical weights.",
+      },
+      {
+        version: "v1.2.0",
+        date: "2026-09-06",
+        summary:
+          "Added the Delegation Audit, which takes one workflow through six questions.",
+      },
       {
         version: "v1.1.0",
         date: "2026-01-09",
@@ -105,58 +158,321 @@ export const diagnosticsContent: DiagnosticsContent = {
       },
     ],
     license: {
-      label: "CC BY 4.0",
-      href: "https://creativecommons.org/licenses/by/4.0/",
+      label: "CC BY-SA 4.0",
+      href: "https://creativecommons.org/licenses/by-sa/4.0/",
     },
     attribution:
       "Credit Ethotechnics Institute Diagnostics Lab, include tool name + version, and link to the canonical permalink.",
   },
   valueProps: [
     {
-      title: "Decide quickly",
+      title: "One question per tool",
       description:
-        "Each diagnostic is scoped to a single question so you can share a concise readout with executives, regulators, or partners.",
+        "Each diagnostic answers one question about one workflow, and its method card states what it does not measure.",
     },
     {
-      title: "Shareable outputs",
+      title: "A readout you can file",
       description:
-        "Every tool produces a linkable report you can pass to leadership, regulators, or partners.",
+        "Every tool returns a readout you can link, copy, or export and keep with the decision it informed.",
     },
     {
-      title: "Link to shared language",
+      title: "Named mechanisms",
       description:
-        "Recommendations connect to the mechanism language so product, policy, and ops teams can move together.",
+        "Recommendations use the mechanism names from the library, so the team that acts on a finding and the team that reviews it use the same terms.",
     },
   ],
   facilitation: {
-    title: "You bring the scenario, we guide the decision.",
+    title: "You bring one scenario and the decision it feeds.",
     description:
-      "Sessions are lightweight and focused. We keep the scope tight so you can move work forward without adding overhead.",
+      "A facilitated session covers one scenario. It ends when the decision it was framed around has an answer or a named blocker.",
     steps: [
       {
         title: "Frame the question",
         detail:
-          "We define what a good answer looks like and what needs to be decided after the diagnostic.",
+          "We agree what a usable answer looks like and which decision it feeds.",
       },
       {
         title: "Run the tool together",
         detail:
-          "You walk through prompts, inputs, and trade-offs while we map gaps and risks.",
+          "You answer the prompts and supply the inputs. We record each gap and who owns it.",
       },
       {
         title: "Leave with a next step",
         detail:
-          "You get a linkable readout, mechanism references, and a next-step path.",
+          "You leave with a linkable readout, the mechanisms it cites, and one named next step.",
       },
     ],
-    note: "Diagnostics are written for visitors: no prior relationship needed, and every tool is CC BY through the Institute.",
+    note: "Every diagnostic runs without a prior relationship, and the Institute publishes each one under CC BY-SA 4.0.",
   },
   tools: [
     {
-      slug: "burden-modeler",
-      title: "Burden Modeler",
+      slug: "delegation-audit",
+      title: "Delegation Audit",
+      tier: "Belief level",
       description:
-        "Quantifies task load, cognitive friction, and risk exposure so you can reroute toil before it burns people out.",
+        "Walks a team through one workflow against six questions and returns an exposure score, the permissions nobody can justify, and whether its decisions can be undone. Start here when the system keeps no decision records yet; use the Record Conformance Checker once it does.",
+      metaDescription:
+        "Six questions about one workflow return an exposure score, unjustified permissions, and whether its decisions can be undone. For systems that keep no decision records.",
+      methodCards: {
+        measures: [
+          "Whether each action class has an identifiable authorizer, evidence basis, and end condition.",
+          "Exposure from dependency depth, substitution cost, and correction latency.",
+          "Reversibility at the technical, operational, and institutional levels.",
+        ],
+        doesNotMeasure: [
+          "It records what the team in the room believes. It does not verify any of it.",
+          "It is not an audit. Nothing here is evidence, and no finding is a compliance verdict.",
+          "A permission nobody can justify is a finding to investigate, not a proven violation.",
+        ],
+        assumptions: [
+          "The scope is one named workflow, not a whole system or product.",
+          "Substitution cost and correction latency are stated in staff-weeks and hours.",
+          "The people answering can name who authorized each action class, or admit that nobody can.",
+        ],
+      },
+      methodOverview: {
+        inputs: [
+          "The name of one workflow the system takes part in.",
+          "Each action class with its authorizer, evidence basis, affected people, and end condition.",
+          "Dependents with criticality, substitution cost in staff-weeks, and correction latency in hours.",
+          "Standing and correction answers: who bears errors, who answers, what can be stopped.",
+        ],
+        procedure: [
+          "Answer the six questions in order, in plain language.",
+          "Read the exposure score with its three factors shown separately.",
+          "Review the permissions nobody can justify, then the three reversibility levels, weakest first.",
+          "Copy the readout or export the JSON snapshot for the record.",
+        ],
+        outputs: [
+          "Exposure score in workflow staff-week hours with its three inputs.",
+          "A rating for each of the six questions, with the reasons behind it.",
+          "A list of permissions nobody can justify, and whether decisions can be undone at three levels: technical, operational, and institutional.",
+          "Findings linked to the STD-08 and STD-06 clause, the mechanism, and the eval suite.",
+        ],
+      },
+      instrument: {
+        prompts: [
+          "What can this system do in this workflow, and is that list separate from what it may do?",
+          "For each action class: who authorized it, on what evidence, for whom, and until when?",
+          "Does the policy it applies have a review trigger and an expiry, and when was it last reviewed?",
+          "What depends on this system, how long would the workflow take without it, and when was the alternative last run?",
+          "Who bears the errors, can they raise one, who must answer, and by when?",
+          "Can you stop it, can the institution keep functioning if you do, and does anyone still hold the expertise?",
+        ],
+        rubric: [
+          "Grounded: 70 or above out of 100 on that question.",
+          "Partial: 40 to 69.",
+          "Weak: below 40.",
+          "Reversibility at each level is evidenced, not evidenced, or not feasible. An unevidenced level is never recorded as feasible.",
+        ],
+        scoringLogic: [
+          "Exposure score = dependency depth (count of high and critical dependents) x substitution cost (staff-weeks) x correction latency (hours).",
+          "Authority = share of action classes with an authorizer (60) plus a weighted end-condition share (40).",
+          "Evidence = share with an evidence basis (50) plus recency weight (30) plus policy trigger (10) plus policy expiry (10).",
+          "The weakest reversibility level sets the verdict, and the institutional level breaks ties.",
+        ],
+      },
+      validation: {
+        pilotNotes:
+          "Built against the STD-08 clauses and the STD-06 Article V dependency record so every finding maps to a clause that already exists.",
+        reliability:
+          "Answers are self-reported, so two teams describing the same workflow can score differently. Re-run it with the people who hold the answers rather than the people who own the system.",
+        failureModes: [
+          "Scoping the audit to a whole product instead of one workflow.",
+          "Estimating substitution cost without having run the alternative.",
+          "Recording an untested stop as working reversibility.",
+          "Treating a permission nobody can justify as a violation instead of an open question.",
+          "Confusing stewardship with counterfeit buffering: treating human-in-the-loop oversight as a control when the human has no unpenalized override authority and simply acts as a liability sponge for automated outputs.",
+        ],
+      },
+      collectionCost: {
+        respondentLabor:
+          "Twenty to thirty minutes of one person's time, declared before they begin. Past thirty minutes the readout returns not established rather than a score.",
+        inputSource:
+          "Respondent-supplied. The cost is the attention of whoever holds the answers, which is usually also whoever is audited.",
+        answeredFromRecords: [
+          "Whether each action was authorized at the time, and under which grant, is in the authority grant register.",
+          "Whether records exist for the decisions is in the record stream.",
+          "How hard withdrawal is comes from the dependency record.",
+        ],
+        nonResponse:
+          "An audit nobody runs records no exposure. An institution that cannot name its authorized actions has not passed here; it has not answered.",
+      },
+      replicability: {
+        runSteps: [
+          "Name one workflow and gather the people who know how it runs.",
+          "Answer the six sections in order without skipping the blanks.",
+          "Export the JSON snapshot and keep it with the safety case.",
+          "Re-run after the next expansion decision and compare exposure scores.",
+        ],
+        exampleOutputs: [
+          "Exposure score with dependency depth, substitution cost, and correction latency stated.",
+          "List of permissions nobody can justify, with the reason for each.",
+          "Reversibility verdict naming the weakest of the three levels.",
+        ],
+      },
+      bestFor:
+        "Teams who need to know whether the system's permission to decide is still justified, not whether the model is accurate.",
+      readiness: [
+        "Run before an expansion decision, at renewal, or after an incident that a human was supposed to catch.",
+        "Bring the person who authorized the system and the person who cleans up after it.",
+      ],
+      outputs: [
+        "Exposure score with its three factors and the units on screen.",
+        "A rating for each of capability, authority, evidence, dependency, standing (who can challenge a decision), and correction.",
+        "Permissions nobody can justify, and a reversibility verdict at three levels with the weakest called out.",
+      ],
+      estimatedTime: "20-30 minutes",
+      prepChecklist: [
+        "One named workflow, not a system or a product.",
+        "The list of actions the system takes in it.",
+        "Who authorized each one, if anyone can be named.",
+        "A rough count of staff-weeks to run the workflow without it.",
+      ],
+      ctaLabel: "Start the Delegation Audit",
+      ctaHref: "/diagnostics/delegation-audit",
+      ctaAriaLabel: "Start the Delegation Audit diagnostic tool",
+      exampleLabel: "View sample output",
+      exampleHref:
+        "https://github.com/zz-plant/ethotechnics.org/blob/main/docs/diagnostics-outputs.md#delegation-audit",
+      deliveryType: "self-serve",
+    },
+    {
+      slug: "record-conformance",
+      title: "Record Conformance Checker",
+      tier: "Evidence level",
+      description:
+        "Reads a system's STD-07 decision records, checks them against the schema, recomputes the hashes, and compares the conformance level the records earn with the level the system claims. Use it when a system already produces records; use the Delegation Audit when it does not.",
+      metaDescription:
+        "Checks a system's STD-07 decision records against the schema, recomputes their hashes, and compares the conformance level they earn with the level it claims.",
+      methodCards: {
+        measures: [
+          "Whether every record validates against the published STD-07 schema.",
+          "Whether the hashes recompute and the prior_hash chain links, so a removed or edited record shows.",
+          "Whether beliefs, authorizations and actions state what would end them, and whether a discrepancy was ever answered inside its clock.",
+          "Whether the emitter's own manifest agrees with its stream: the level it declares, and the record kinds it claims to emit.",
+        ],
+        doesNotMeasure: [
+          "It cannot tell whether a belief was correct or an authorization wise. A stream does not contain that, and scoring it anyway would make this tool the safeguard-on-paper it exists to catch.",
+          "It reads what the records say about each other, not what the system did. A conforming log can describe a badly run institution.",
+          "A dangling reference is usually a partial export, not a defect.",
+        ],
+        assumptions: [
+          "The stream is the emitter's own output, exported whole rather than filtered.",
+          "Clocks are judged against the export time, not against when the page is opened.",
+          "The declared level is what the emitter publishes in its own manifest, read from the manifest itself when one is supplied.",
+        ],
+      },
+      methodOverview: {
+        inputs: [
+          "A record stream as newline-delimited JSON, a JSON array, or an object with a records array.",
+          "Optionally the emitter's manifest, whatever its shape: the declaration is found by its fields rather than by a fixed path.",
+          "The conformance level the emitter declares, if it declares one.",
+          "The moment to judge clocks against, defaulting to now.",
+        ],
+        procedure: [
+          "Paste or load the stream. Nothing is uploaded; the audit runs in the page.",
+          "Set the declared level so an overclaim can be contradicted.",
+          "Read the findings blocking first, then the note-level observations.",
+          "Copy the readout and keep it with whatever the emitter published.",
+        ],
+        outputs: [
+          "The level the stream earns, and what holds it below the next one.",
+          "Findings graded blocking, finding, or note, each citing the clause it comes from.",
+          "The record ids each finding applies to.",
+          "A contradiction when the declared level is higher than the earned level.",
+        ],
+      },
+      instrument: {
+        prompts: [
+          "Does every record validate against the schema the standard publishes?",
+          "Do the hashes recompute, and does each record chain to the one before it?",
+          "Does every belief, authorization and action say what would end it?",
+          "Was every discrepancy answered by a revision or an objection, inside the clock the record declared?",
+          "Does every record say who has standing to object, and has an objection ever been accepted?",
+          "Is the level the emitter declares the level this stream supports?",
+        ],
+        rubric: [
+          "Level 0: every record validates, with as_of kept apart from recorded_at.",
+          "Level 1: Level 0, and nothing edited — every record hashed, and chained through prior_hash.",
+          "Level 2: Level 1, and beliefs, authorizations and actions carry invalidated_by, with every discrepancy answered inside its clock.",
+          "Level 3: Level 2, and standing declared on every record, with at least one objection accepted and answered.",
+        ],
+        scoringLogic: [
+          "Blocking: an invalid record, a hash that does not recompute, a broken chain, a discrepancy never answered, or a declared level above the earned one.",
+          "Finding: an ungrounded grant, an answer that arrived after the clock, or records hashed but not chained.",
+          "Note: a reference resolving outside the stream, a root record resting on nothing, or a condition with no clock to be judged against.",
+          "The earned level is the highest whose requirements carry no blocking finding.",
+        ],
+      },
+      validation: {
+        pilotNotes:
+          "Built against the two systems that emit the shape today, using the exported output of one of them as the worked example rather than a fixture written to pass.",
+        reliability:
+          "Deterministic. The same stream and the same as-of time give the same readout, because every check is mechanical and none of them asks for a judgement.",
+        failureModes: [
+          "Auditing a filtered export and reading the resulting chain break as tampering.",
+          "Judging clocks against now rather than the export time, which fails a record for the reviewer's lateness.",
+          "Reading a clean readout as evidence the institution is well run. It is evidence the log is well formed.",
+          "Treating a note as a defect. Most notes are properties of the export, not of the system.",
+        ],
+      },
+      collectionCost: {
+        respondentLabor:
+          "None. This instrument asks no one anything, and its readout does not move when a person is tired.",
+        inputSource:
+          "Record-supplied. It reads an exported stream and the time the export was taken.",
+        answeredFromRecords: [
+          "Schema validity, hash recomputation, and chain linkage are read from the stream itself.",
+          "The conformance level a system publishes is compared against what its records show.",
+          "Nothing in the readout depends on a person's judgement or memory.",
+        ],
+        nonResponse:
+          "Not applicable. The same stream and the same as-of time give the same readout, so no respondent can change it.",
+      },
+      replicability: {
+        runSteps: [
+          "Export the stream from the emitting system, whole rather than filtered.",
+          "Load it here and set the level that system declares.",
+          "Set the as-of time to the export time if any clock is close.",
+          "Copy the readout and file it beside the emitter's own conformance claim.",
+        ],
+        exampleOutputs: [
+          "Level 2 earned, Level 2 declared, and no blocking findings.",
+          "Level 3 blocked because no objection appears in the stream, so acceptance from outside cannot be observed.",
+          "A contradiction naming the earned level when the declaration is higher.",
+        ],
+      },
+      bestFor:
+        "Anyone holding a conformance claim they cannot currently check, including the team that published it.",
+      readiness: [
+        "Run it on your own stream before publishing a level, and on someone else's before relying on one.",
+        "Re-run after any change to how records are serialized; a format can drift while every field stays right.",
+      ],
+      outputs: [
+        "The earned conformance level and what blocks the next one.",
+        "Findings by severity, each citing its clause and the records it applies to.",
+        "A copyable readout to keep beside the emitter's declaration.",
+      ],
+      estimatedTime: "5 minutes",
+      prepChecklist: [
+        "A record stream exported from the system that emits it.",
+        "The conformance level that system publishes, if any.",
+        "The time the export was taken.",
+      ],
+      ctaLabel: "Open the Record Conformance Checker",
+      ctaHref: "/diagnostics/record-conformance",
+      ctaAriaLabel: "Open the Record Conformance Checker diagnostic tool",
+      exampleLabel: "Read STD-07",
+      exampleHref: "/standards/std-07-revisable-delegation-record",
+      deliveryType: "self-serve",
+    },
+    {
+      slug: "burden-modeler",
+      title: "Workload Modeler",
+      tier: "Belief level",
+      description:
+        "Rate seven sources of workload, such as interruptions, handoffs, and incidents. Get a burden score out of 100 and the three places where reducing load would help most.",
       methodCards: {
         measures: [
           "Task load volume across roles and handoffs.",
@@ -181,9 +497,9 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Known friction points and escalation paths.",
         ],
         procedure: [
-          "Weight task load, friction, and risk sliders with the scenario team.",
-          "Review the computed burden index and hotspot ranking.",
-          "Select mitigation paths and estimate relief impact.",
+          "Rate each driver with the people who carry the work.",
+          "Read the burden index and the hotspot ranking.",
+          "Pick mitigations and read the relief estimate for each.",
         ],
         outputs: [
           "Burden index score with plain-language findings.",
@@ -194,38 +510,48 @@ export const diagnosticsContent: DiagnosticsContent = {
       instrument: {
         prompts: [
           "Scenario name and workflow summary.",
-          "Weekly task volume or queue size.",
-          "Number of handoffs or escalation checkpoints.",
-          "Friction rating (1–5) for key steps.",
-          "Risk exposure rating (1–5) for each stage.",
+          "A rating from 0 to 10 for each of seven drivers: interruptions, handoffs, tooling, runbooks, incidents, coverage, and decision debt.",
         ],
         rubric: [
-          "Task load, friction, and risk scored on 1–5 scales.",
-          "Risk weights adjusted via criticality slider.",
+          "Each driver carries a fixed weight, from 1.0 for decision debt to 1.4 for interruptions.",
+          "Drivers roll up into three categories: task load, cognitive friction, and risk exposure.",
         ],
         scoringLogic: [
-          "Burden index = weighted average of load, friction, and risk.",
-          "Hotspots rank by combined load and risk scores.",
-          "Relief estimate computed from mitigations selected.",
+          "Burden index = weighted sum of the ratings over the maximum possible, as a score out of 100. Below 35 is Healthy, below 70 is Watch, and 70 or more is Overloaded.",
+          "Hotspots are the three drivers with the highest weighted scores.",
+          "Each driver shows a relief estimate, scaled from its rating and weight and capped at 30 points.",
         ],
       },
       validation: {
         pilotNotes:
-          "Piloted across support, operations, and research scenarios to calibrate weights and language.",
+          "Driver weights are fixed in the tool, from 1.0 for decision debt to 1.4 for interruptions. Change them only in the source, where the change is visible.",
         reliability:
-          "Inter-rater alignment improves after a shared calibration pass; variance shrinks on second runs.",
+          "Ratings are self-reported, so two groups rating the same workflow can score it differently. Rate together and record the reason for each rating.",
         failureModes: [
           "Over-weighting a single friction point can skew results.",
           "Underspecified task volume leads to low-confidence outputs.",
           "High uncertainty if scenario owners are not present for scoring.",
         ],
       },
+      collectionCost: {
+        respondentLabor:
+          "Ten to fifteen minutes for a group rating together. Past fifteen, the scenario is returned unscored.",
+        inputSource:
+          "Respondent-supplied. The cost falls on the people who do the workflow, which is where the burden already sits.",
+        answeredFromRecords: [
+          "Handoff counts and task volume come from ticketing and workflow logs where they exist.",
+          "Escalation frequency comes from the escalation and appeal record.",
+          "Friction points listed during prep are already documented as institutional debris.",
+        ],
+        nonResponse:
+          "A workflow nobody will rate is not a workflow without burden. The readout records the gap and stops there.",
+      },
       replicability: {
         runSteps: [
           "Gather a cross-functional scoring group.",
           "Use the prompt list and rubric to score the scenario.",
           "Record weighting decisions and rationale.",
-          "Compare output against historical incidents for calibration.",
+          "Check the hotspots against the incidents the team has already had.",
         ],
         exampleOutputs: [
           "Sample burden index readout with hotspots and relief estimates.",
@@ -233,15 +559,15 @@ export const diagnosticsContent: DiagnosticsContent = {
         ],
       },
       bestFor:
-        "Best for leaders who need a fast workload snapshot before teams hit a burnout threshold.",
+        "Leads who need to see where workload concentrates before a team runs past its capacity.",
       readiness: [
-        "Run when leaders need to see how burden accumulates across roles or release cycles.",
-        "Pair with support and operations partners to weight inputs and confirm where friction is worst.",
+        "Run when burden is rising across roles or release cycles and nobody has named where.",
+        "Rate with the support and operations staff who handle the escalations.",
       ],
       outputs: [
         "Burden index score with plain-language findings tied to your scenario.",
         "Ranked hotspots with mitigation paths and expected relief per action.",
-        "PDF summary built for quick stakeholder forwarding.",
+        "JSON export of the index, hotspots, and mitigations.",
       ],
       estimatedTime: "10–15 minutes",
       prepChecklist: [
@@ -249,635 +575,146 @@ export const diagnosticsContent: DiagnosticsContent = {
         "Rough task volume or handoff counts.",
         "Known friction points or escalation paths.",
       ],
-      ctaLabel: "Start the Burden Modeler",
+      ctaLabel: "Start the Workload Modeler",
       ctaHref: "/diagnostics/burden-modeler",
-      ctaAriaLabel: "Start the Burden Modeler diagnostic tool",
+      ctaAriaLabel: "Start the Workload Modeler diagnostic tool",
       exampleLabel: "View sample output",
       exampleHref:
-        "https://github.com/zz-plant/ethotechnics/blob/main/docs/diagnostics-outputs.md#burden-modeler",
+        "https://github.com/zz-plant/ethotechnics.org/blob/main/docs/diagnostics-outputs.md#burden-modeler",
       deliveryType: "self-serve",
     },
     {
-      slug: "llm-capacity-benchmark",
-      title: "LLM Capacity Benchmark",
+      slug: "corrective-debt-calculator",
+      title: "Corrective capacity self-assessment",
+      tier: "Belief level",
       description:
-        "Lightweight evaluation to check if a model and its surrounding UI respect consent and context limits.",
+        "Scores five self-reported answers: how fast the system's reach grew, how challenges are received, how fast decisions are reversed, whether exceptions change the rules, and whether staff workarounds are tracked. The score is a starting point for discussion, not a measurement of the institution's ability to correct itself.",
+      metaDescription:
+        "Five self-reported questions on how an institution handles challenges, reversals, and staff workarounds. The score opens a discussion; it is not a measurement.",
       methodCards: {
         measures: [
-          "Consent and disclosure coverage across the user journey.",
-          "Context boundary alignment between model behavior and UI framing.",
-          "User control availability and visibility in the flow.",
+          "The action-capacity growth band selected by the operator.",
+          "Reported challenge intake, reversal latency, upstream revision, and workaround handling.",
+          "A fixed-weight concern score derived from those answers.",
         ],
         doesNotMeasure: [
-          "Model accuracy, toxicity, or bias metrics.",
-          "Infrastructure performance or latency.",
-          "Legal review of terms or policy compliance.",
+          "Exact financial exposure or legal liability.",
+          "Whether any single past decision was right or wrong.",
+          "Model quality: retraining and accuracy are action capacity, not correction.",
+          "Whether the institution has an interest in keeping the arrangement. Two optional context questions record it and do not enter the score.",
         ],
         assumptions: [
-          "Prompts and scenarios are representative of real use.",
-          "Consent copy and disclosure states are production-ready.",
-          "Reviewers have access to product and policy context.",
+          "Inputs describe the last twelve months, not the deployment plan.",
+          "Corrective capacity is measured where challenges arrive, not where the org chart says they should.",
+          "A recurring workaround is a presumption of upstream design failure, which the inputs treat as evidence.",
         ],
       },
       methodOverview: {
         inputs: [
-          "Representative prompt set and usage flows.",
-          "Current consent and disclosure copy.",
-          "Stakeholder context for model limitations and risks.",
+          "Action-capacity growth band for the last year.",
+          "How challenges and exceptions are received and answered.",
+          "Reversal latency from challenge to restored state.",
+          "Whether handled exceptions ever change the rule that produced them.",
+          "Whether recurring workarounds are inventoried and reviewed.",
         ],
         procedure: [
-          "Run prompts through the interface and capture disclosures.",
-          "Score consent journey checkpoints against rubric.",
-          "Document gaps and map recommendations to mechanism language.",
+          "Score action-capacity growth and each corrective-capacity component.",
+          "Normalize the fixed category weights to a 0–100 concern score.",
+          "Display the reported growth band alongside the concern score.",
         ],
         outputs: [
-          "Readiness summary highlighting consent gaps.",
-          "UI and governance mitigation guidance.",
-          "Escalation note with studio facilitation path.",
+          "Heuristic concern score and tier.",
+          "The five answers used to derive the score.",
+          "Reported action-capacity growth: compounding, steady, or flat.",
         ],
       },
       instrument: {
         prompts: [
-          "User prompt set with context variants.",
-          "Disclosure checkpoints and UI states list.",
-          "Consent copy and opt-out flows.",
+          "Action-capacity growth: compounding, steady, or flat over twelve months.",
+          "Challenge intake: dedicated resourced team, shared inbox, or no route.",
+          "Reversal latency: same day, days to weeks, unknown or unbounded.",
+          "Upstream revision: never, occasionally, or regularly.",
+          "Workaround register: inventoried and reviewed, informal only, or none.",
+          "Optional, not scored: who holds authority over budget, staffing, and priorities for the conditions that produce the workarounds.",
+          "Optional, not scored: whether the institution has priced fixing the underlying deficiency, and what it decided.",
         ],
         rubric: [
-          "Consent clarity score (1–5) per checkpoint.",
-          "Context alignment score (1–5) for model outputs.",
-          "Control visibility score (1–5) for exit paths.",
+          "Growth scored on compounding / steady / flat.",
+          "Intake scored on none / shared inbox / dedicated team.",
+          "Reversal scored on unbounded / days-to-weeks / same-day.",
+          "Revision scored on never / occasionally / regularly.",
+          "Workarounds scored on none / informal / inventoried.",
         ],
         scoringLogic: [
-          "Aggregate checkpoint scores into readiness tiers.",
-          "Flag any score ≤2 as a mandatory mitigation.",
-          "Summarize recommendations by mechanism category.",
+          "Each component contributes its band weight; the total normalizes to 0–100.",
+          "Tiers: critical, high, moderate, low.",
+          "The score does not estimate how much extra work staff take on to cover for the system, financial cost, or a future trajectory.",
+          "The two context questions never change the score. They add a readout line that says whether the answers describe an institution that lacks information or one that holds sole authority and has chosen to keep the arrangement.",
         ],
       },
       validation: {
         pilotNotes:
-          "Piloted with early-stage AI pilots and consent-heavy workflows to refine rubric language.",
+          "Each band carries a fixed weight in the calculator. The score is only as sound as the bands chosen, so record the figures behind each choice.",
         reliability:
-          "Paired reviewers reconcile scores in a short calibration session; discrepancies drop after alignment.",
+          "No empirical calibration or predictive validity is established for these weights.",
         failureModes: [
-          "Scoring drifts if reviewers lack model context.",
-          "Missing edge cases can inflate readiness scores.",
-          "UI copy changes after scoring can invalidate results.",
+          "Counting the appeals queue as corrective capacity when it resolves cases and changes nothing upstream.",
+          "Reading workarounds as resilience, and scaling the system on staff quietly covering for it.",
+          "Reading a high score as missing information when the institution already has the numbers. Where it holds sole authority and has priced and declined a fix, better measurement will not change the outcome.",
+          "Using model metrics — accuracy, retraining — as evidence of corrective capacity.",
+          "Treating human compensation as a free operational buffer: measuring observed throughput without subtracting the manual exception repair that keeps the metrics green.",
+          "Epistemic erasure: quiet human workarounds keep defect signals from tripping telemetry alarms, reinforcing the illusion of design soundness.",
+          "Manufactured virtue: praising frontline staff as 'dependable' or 'resilient' while leaving the upstream software or rule defects unaddressed.",
         ],
+      },
+      collectionCost: {
+        respondentLabor:
+          "Ten to twelve minutes of respondent time, declared before they begin.",
+        inputSource:
+          "Respondent-supplied. The cost falls on whoever holds the corrective record.",
+        answeredFromRecords: [
+          "Decision volume and automation growth come from the delegation register.",
+          "Reversal latency comes from the reconsideration record.",
+          "Challenge intake comes from the challenge register.",
+        ],
+        nonResponse:
+          "Unstated challenge volume is not low challenge volume. The score is withheld rather than reported as zero.",
       },
       replicability: {
         runSteps: [
-          "Compile prompt set and UI flow map.",
-          "Run the rubric with two reviewers.",
-          "Document scores and differences in a shared sheet.",
-          "Publish the summary with linked mechanism recommendations.",
+          "Collect the growth band and the four corrective-capacity bands.",
+          "State challenge volume and correction staffing for the same period.",
+          "Record the selected answers and concern tier, with the evidence needed to check them.",
+          "Re-run after a scope expansion and compare answers.",
         ],
         exampleOutputs: [
-          "Consent checkpoint scorecard with mitigation notes.",
-          "Anonymized readiness summary deck excerpt.",
+          "Self-assessment with a concern tier and reported growth band.",
+          "An explicit limit: it does not measure how much of the system's failure staff cover for.",
         ],
       },
       bestFor:
-        "Best for teams validating consent, disclosure, and context limits before an AI pilot.",
+        "Governance leads comparing what a system can do to people with what people can do back, before the next expansion decision.",
       readiness: [
-        "Run before piloting a new model-powered feature with real people.",
-        "Pair with progressive consent prompts to keep expectations clear.",
+        "Use before approving a scope expansion or an automation increase.",
+        "Pair with the exception-learning eval to trace whether any challenge changed an upstream rule.",
       ],
       outputs: [
-        "Readiness summary that highlights consent journey gaps.",
-        "UI nits and mitigation guidance tied to mechanism language filters.",
-        "Tiered scorecard that clarifies the readiness ceiling.",
+        "Heuristic concern tier from self-reported answers.",
+        "Reported growth band and workaround-register status.",
+        "Shareable link for the expansion review.",
       ],
-      estimatedTime: "30–45 minutes",
+      estimatedTime: "10–12 minutes",
       prepChecklist: [
-        "Sample prompts or flows to benchmark.",
-        "Current consent or disclosure copy.",
-        "Stakeholder who owns model and UI decisions.",
+        "Decision volume and automation growth for the last year.",
+        "Challenge intake route, staffing, and reversal latency.",
+        "The last time a handled exception changed an upstream rule.",
       ],
-      ctaLabel: "Request LLM Capacity Benchmark",
-      ctaHref: "https://ethotechnics.com/studio/",
+      studioNote:
+        "For a healthcare AI system, Ethotechnics Studio's readiness sprint maps one workflow end to end: who can stop it, how fast, and who owns each fix.",
+      ctaLabel: "Start the corrective capacity self-assessment",
+      ctaHref: "/diagnostics/corrective-debt-calculator",
       ctaAriaLabel:
-        "Request the LLM Capacity Benchmark diagnostic session",
-      exampleLabel: "View sample output",
-      exampleHref:
-        "https://github.com/zz-plant/ethotechnics/blob/main/docs/diagnostics-outputs.md#llm-capacity-benchmark",
-      deliveryType: "studio",
-    },
-    {
-      slug: "maintenance-simulator",
-      title: "Maintenance Simulator",
-      description:
-        "Tabletop simulation that plays through outages, maintenance windows, and handoffs to stress-test coverage.",
-      methodCards: {
-        measures: [
-          "Ownership clarity across outage and maintenance branches.",
-          "Time-to-halt readiness for escalations.",
-          "Communication cadence readiness by risk level.",
-        ],
-        doesNotMeasure: [
-          "Actual system uptime or performance metrics.",
-          "Incident response SLA compliance in production.",
-          "Staffing coverage outside the simulated scenario.",
-        ],
-        assumptions: [
-          "Scenario reflects likely outage or maintenance conditions.",
-          "Participants represent core escalation roles.",
-          "Communication templates align with current policy.",
-        ],
-      },
-      methodOverview: {
-        inputs: [
-          "Scenario description and stress level.",
-          "Escalation owners and comms partners.",
-          "Known dependencies and rollback paths.",
-        ],
-        procedure: [
-          "Run tabletop branches for outage or maintenance.",
-          "Log ownership, escalation, and timing decisions.",
-          "Capture gaps and draft mitigation actions.",
-        ],
-        outputs: [
-          "Scenario walkthrough with ownership gaps.",
-          "Communication templates aligned to risk levels.",
-          "Coverage and escalation summary for follow-up.",
-        ],
-      },
-      instrument: {
-        prompts: [
-          "Scenario selection and risk level.",
-          "Escalation owner confirmation.",
-          "Rollback and communication template prompts.",
-        ],
-        rubric: [
-          "Ownership clarity score (1–5).",
-          "Escalation readiness score (1–5).",
-          "Communication readiness score (1–5).",
-        ],
-        scoringLogic: [
-          "Average readiness score across the three rubric areas.",
-          "Flag any score ≤2 as a critical mitigation item.",
-          "Summarize follow-ups by escalation owner.",
-        ],
-      },
-      validation: {
-        pilotNotes:
-          "Piloted with operations and support partners to ensure coverage gaps surfaced in tabletop runs.",
-        reliability:
-          "Facilitator notes are reconciled post-run; agreement improves with standardized templates.",
-        failureModes: [
-          "Skipping escalation owners leads to incomplete coverage maps.",
-          "Outdated communication templates skew readiness scores.",
-          "Unrealistic scenarios understate actual risk.",
-        ],
-      },
-      replicability: {
-        runSteps: [
-          "Select a scenario and risk level.",
-          "Confirm escalation owners and comms partners.",
-          "Run the tabletop and capture decisions in the log.",
-          "Export the summary and share with stakeholders.",
-        ],
-        exampleOutputs: [
-          "Maintenance run log with ownership notes.",
-          "Communication template pack for a high-risk window.",
-        ],
-      },
-      bestFor:
-        "Best for operations leaders rehearsing outage response and escalation ownership.",
-      readiness: [
-        "Use during planning to negotiate coverage, escalation, and staffing constraints with partners.",
-        "Stress-test appeal paths, safety valves, and service-level guarantees before launch.",
-      ],
-      outputs: [
-        "Scenario runs with clear ownership, mitigation branches, and time-to-halt expectations.",
-        "Communication templates mapped to risk levels, roles, and escalation routes.",
-        "Coverage map that highlights readiness gaps per team.",
-      ],
-      estimatedTime: "20–30 minutes",
-      prepChecklist: [
-        "Upcoming maintenance or outage scenario.",
-        "Named escalation owner and comms partner.",
-        "Known dependency or rollback risks.",
-      ],
-      ctaLabel: "Start the Maintenance Simulator",
-      ctaHref: "/diagnostics/maintenance-simulator",
-      ctaAriaLabel: "Start the Maintenance Simulator diagnostic tool",
-      exampleLabel: "View sample output",
-      exampleHref:
-        "https://github.com/zz-plant/ethotechnics/blob/main/docs/diagnostics-outputs.md#maintenance-simulator",
-      deliveryType: "self-serve",
-    },
-    {
-      slug: "maintenance-debt-calculator",
-      title: "Maintenance Debt Calculator",
-      description:
-        "Maps decision speed, intervention readiness, and revenue exposure to quantify maintenance debt risk.",
-      methodCards: {
-        measures: [
-          "Decision speed relative to escalation capacity.",
-          "Intervention readiness and recovery coverage.",
-          "Revenue exposure if uncontrolled actions occur.",
-        ],
-        doesNotMeasure: [
-          "Exact financial outcomes or legal liability.",
-          "Market share shifts unrelated to the incident.",
-          "Individual or team performance accountability.",
-        ],
-        assumptions: [
-          "Inputs reflect realistic ranges for the scenario.",
-          "Revenue exposure estimates are directional, not audited.",
-          "Intervention coverage mirrors current runbooks.",
-        ],
-      },
-      methodOverview: {
-        inputs: [
-          "Decision speed band for the system.",
-          "Intervention readiness and response window.",
-          "Revenue exposure tier and recovery cost.",
-        ],
-        procedure: [
-          "Score decision speed, readiness, and exposure.",
-          "Calculate maintenance debt risk tier.",
-          "Generate cost delta between uncontrolled and stoppable actions.",
-        ],
-        outputs: [
-          "Maintenance debt score and tier.",
-          "Estimated uncontrolled action cost range.",
-          "Shareable summary link for budget discussions.",
-        ],
-      },
-      instrument: {
-        prompts: [
-          "Decision speed band (milliseconds, seconds, minutes).",
-          "Intervention readiness coverage.",
-          "Escalation response window.",
-          "Revenue exposure tier.",
-        ],
-        rubric: [
-          "Decision speed scored on rapid / steady / deliberate.",
-          "Readiness scored on limited / partial / comprehensive.",
-          "Response window scored on under 5 minutes / 15–60 minutes / over 1 hour.",
-          "Revenue exposure scored on low / medium / high.",
-        ],
-        scoringLogic: [
-          "Total score combines speed, readiness, response window, and exposure.",
-          "Debt tier mapped to score thresholds.",
-          "Cost delta derived from exposure tier multiplied by debt factor.",
-        ],
-      },
-      validation: {
-        pilotNotes:
-          "Calibrated with budget planning sessions and post-incident finance reviews.",
-        reliability:
-          "Scores stabilize when scenario owners align on exposure ranges and response windows.",
-        failureModes: [
-          "Overstated revenue exposure inflates cost deltas.",
-          "Understated response windows hide readiness gaps.",
-          "Outdated runbooks skew intervention readiness inputs.",
-        ],
-      },
-      replicability: {
-        runSteps: [
-          "Collect decision speed and response window inputs.",
-          "Confirm intervention readiness with operations leads.",
-          "Estimate revenue exposure tier and recovery costs.",
-          "Share the readout with finance or governance partners.",
-        ],
-        exampleOutputs: [
-          "Maintenance debt scorecard with cost delta.",
-          "Budget-ready summary slide for leadership.",
-        ],
-      },
-      bestFor:
-        "Best for ethics leads and executives translating maintenance debt into budget-ready risk language.",
-      readiness: [
-        "Use before budgeting cycles to size safety engineering investment.",
-        "Pair with incident retrospectives to calibrate exposure assumptions.",
-      ],
-      outputs: [
-        "Maintenance debt tier with CFO-ready language.",
-        "Estimated cost delta between uncontrolled and stoppable actions.",
-        "Shareable link for budget and governance briefs.",
-      ],
-      estimatedTime: "10–12 minutes",
-      prepChecklist: [
-        "Decision speed estimates for the system.",
-        "Runbook response window and escalation plan.",
-        "Revenue exposure range or recovery cost estimate.",
-      ],
-      studioNote:
-        "Studio support can help translate debt tiers into funding scenarios.",
-      ctaLabel: "Start the Maintenance Debt Calculator",
-      ctaHref: "/diagnostics/maintenance-debt-calculator",
-      ctaAriaLabel: "Start the Maintenance Debt Calculator diagnostic tool",
-      exampleLabel: "View sample output",
-      exampleHref: "/diagnostics#output-baseline",
-      deliveryType: "self-serve",
-    },
-    {
-      slug: "capacity-forecaster",
-      title: "Technical Capacity Forecaster",
-      description:
-        "Charts compound decay against refusal windows to spot saturation risk across a 24-month horizon.",
-      methodCards: {
-        measures: [
-          "Projected capacity decay over a 24-month horizon.",
-          "Impact of remediation timing on saturation risk.",
-          "Effect of refusal windows on delivery throughput.",
-        ],
-        doesNotMeasure: [
-          "Real-time operational performance or incident rates.",
-          "Budget constraints outside the modeled inputs.",
-          "External market or policy changes affecting demand.",
-        ],
-        assumptions: [
-          "Baseline capacity is stable absent remediation.",
-          "Refusal windows accurately represent pause periods.",
-          "Remediation effects scale linearly over time.",
-        ],
-      },
-      methodOverview: {
-        inputs: [
-          "Baseline capacity and delivery targets.",
-          "Remediation timing and intensity.",
-          "Refusal windows and recovery assumptions.",
-        ],
-        procedure: [
-          "Model baseline and remediated trajectories.",
-          "Compare saturation points across scenarios.",
-          "Export PDF summary with callouts.",
-        ],
-        outputs: [
-          "Baseline vs. remediated capacity curves.",
-          "Saturation risk callouts for decision points.",
-          "Stakeholder-ready PDF snapshot.",
-        ],
-      },
-      instrument: {
-        prompts: [
-          "Baseline capacity and decay rate.",
-          "Remediation schedule and effect size.",
-          "Refusal window timing and duration.",
-        ],
-        rubric: [
-          "Capacity scales normalized to 0–100.",
-          "Remediation impact scored as low/medium/high.",
-        ],
-        scoringLogic: [
-          "Projected capacity = baseline - decay + remediation offsets.",
-          "Saturation flagged when capacity drops below threshold.",
-          "PDF summary generated from projection tables.",
-        ],
-      },
-      validation: {
-        pilotNotes:
-          "Benchmarked against historical delivery timelines to calibrate decay and remediation curves.",
-        reliability:
-          "Scenario comparisons align when baseline data is consistent; variability rises with uncertain inputs.",
-        failureModes: [
-          "Overly optimistic remediation inputs understate saturation.",
-          "Incomplete refusal windows distort capacity troughs.",
-          "Baseline data drift makes longitudinal comparisons unreliable.",
-        ],
-      },
-      replicability: {
-        runSteps: [
-          "Collect baseline capacity and delivery targets.",
-          "Input remediation timing and refusal windows.",
-          "Run simulations for baseline and mitigation cases.",
-          "Export PDF summary and archive inputs.",
-        ],
-        exampleOutputs: [
-          "Capacity forecast PDF with saturation callouts.",
-          "Scenario comparison table used in stakeholder review.",
-        ],
-      },
-      bestFor:
-        "Best for delivery leaders aligning long-term stability plans with capacity constraints.",
-      readiness: [
-        "Use when delivery teams need to visualize stability trade-offs with remediation paths.",
-        "Pair with portfolio reviews to align refusal policies with operational bandwidth.",
-      ],
-      outputs: [
-        "Side-by-side baseline and remediated capacity projections.",
-        "PDF export with saturation callouts for stakeholder sharing.",
-        "Scenario table that clarifies timing trade-offs for leadership.",
-      ],
-      estimatedTime: "15–20 minutes",
-      prepChecklist: [
-        "Current capacity baseline or recent burn rates.",
-        "Known remediation options or refusal windows.",
-        "Stakeholder who needs the output PDF.",
-      ],
-      ctaLabel: "Start the Technical Capacity Forecaster",
-      ctaHref: "/diagnostics/capacity-forecaster",
-      ctaAriaLabel: "Start the Technical Capacity Forecaster diagnostic tool",
-      exampleLabel: "View sample output",
-      exampleHref:
-        "https://github.com/zz-plant/ethotechnics/blob/main/docs/diagnostics-outputs.md#technical-capacity-forecaster",
-      deliveryType: "self-serve",
-    },
-    {
-      slug: "escalation-coverage-planner",
-      title: "Escalation Coverage Planner",
-      description:
-        "Scores escalation readiness so you can see where owners, on-call coverage, and drill cadence are still thin.",
-      methodCards: {
-        measures: [
-          "Ownership coverage across systems and routes.",
-          "On-call coverage windows for escalation.",
-          "Drill cadence for testing and response readiness.",
-        ],
-        doesNotMeasure: [
-          "Incident volume or severity forecasts.",
-          "Legal compliance posture.",
-          "Individual performance assessments.",
-        ],
-        assumptions: [
-          "Escalation ownership is documented and current.",
-          "Coverage windows reflect actual staffing.",
-          "Drills are comparable across teams.",
-        ],
-      },
-      methodOverview: {
-        inputs: [
-          "Ownership model for escalations.",
-          "Coverage window for escalation response.",
-          "Drill cadence for escalation paths.",
-        ],
-        procedure: [
-          "Score each input against the readiness rubric.",
-          "Generate a coverage score and tier.",
-          "Export the shareable link for audits.",
-        ],
-        outputs: [
-          "Coverage score out of 100 with tier label.",
-          "Priority notes for addressing weak coverage.",
-          "Shareable URL for reviews and runbooks.",
-        ],
-      },
-      instrument: {
-        prompts: [
-          "Ownership model for escalations.",
-          "Coverage window for response.",
-          "Drill cadence for escalation paths.",
-        ],
-        rubric: [
-          "Ownership scored on dedicated/shared/none.",
-          "Coverage scored on 24/7, business-hours, ad hoc.",
-          "Drills scored on quarterly, annual, never.",
-        ],
-        scoringLogic: [
-          "Total score combines ownership, coverage, and drill cadence.",
-          "Tier labels map to score thresholds.",
-        ],
-      },
-      validation: {
-        pilotNotes:
-          "Calibrated against escalation readiness reviews in incident retrospectives.",
-        reliability:
-          "Scores align when multiple stakeholders confirm coverage windows.",
-        failureModes: [
-          "Missing ownership records skew coverage scores downward.",
-          "Overstated coverage hours inflate readiness.",
-          "Drill cadence definitions vary across teams.",
-        ],
-      },
-      replicability: {
-        runSteps: [
-          "Confirm escalation owners and coverage windows.",
-          "Enter the current drill cadence.",
-          "Review the readiness tier and share the link.",
-        ],
-        exampleOutputs: [
-          "Coverage scorecard with tier and readiness notes.",
-          "Audit-ready link for escalation evidence packs.",
-        ],
-      },
-      bestFor:
-        "Best for governance teams validating escalation coverage before launch or policy changes.",
-      readiness: [
-        "Run before launches or policy shifts to verify on-call coverage.",
-        "Use during audits to confirm escalation paths are tested.",
-      ],
-      outputs: [
-        "Escalation coverage score with tier label.",
-        "Linkable results page for audit trails.",
-        "Priority notes for tightening coverage gaps.",
-      ],
-      estimatedTime: "8–10 minutes",
-      prepChecklist: [
-        "Named escalation owners.",
-        "Current on-call coverage window.",
-        "Recent drill or tabletop cadence.",
-      ],
-      studioNote:
-        "Use the Studio handoff if ownership or coverage changes are contested.",
-      ctaLabel: "Start the Escalation Coverage Planner",
-      ctaHref: "/diagnostics/escalation-coverage-planner",
-      ctaAriaLabel: "Start the Escalation Coverage Planner diagnostic tool",
-      exampleLabel: "View sample output",
-      exampleHref: "/diagnostics#output-baseline",
-      deliveryType: "self-serve",
-    },
-    {
-      slug: "evidence-pack-readiness",
-      title: "Evidence Pack Readiness",
-      description:
-        "Benchmarks evidence pack maturity so teams can prioritize what is missing before audits.",
-      methodCards: {
-        measures: [
-          "Evidence cadence coverage for releases.",
-          "Artifact completeness across standards.",
-          "Audit response timing confidence.",
-        ],
-        doesNotMeasure: [
-          "Legal conclusions or policy compliance.",
-          "Individual accountability assessments.",
-          "External regulator outcomes.",
-        ],
-        assumptions: [
-          "Artifact inventories are up to date.",
-          "Cadence reflects actual release rhythm.",
-          "Teams agree on audit response targets.",
-        ],
-      },
-      methodOverview: {
-        inputs: [
-          "Evidence cadence and artifact completeness.",
-          "Audit response timing target.",
-          "Known gaps by standard.",
-        ],
-        procedure: [
-          "Score evidence cadence, completeness, and response timing.",
-          "Generate a readiness tier and checklist.",
-          "Share the readout with governance partners.",
-        ],
-        outputs: [
-          "Readiness score and tier label.",
-          "Checklist of missing artifacts.",
-          "Shareable summary link.",
-        ],
-      },
-      instrument: {
-        prompts: [
-          "Evidence cadence for releases.",
-          "Percent of required artifacts ready.",
-          "Audit response time target.",
-        ],
-        rubric: [
-          "Cadence scored on release/quarterly/ad hoc.",
-          "Completeness scored on >90%, 70–90%, <70%.",
-          "Response timing scored on <5 days, 1–4 weeks, >1 month.",
-        ],
-        scoringLogic: [
-          "Total score combines cadence, completeness, and response timing.",
-          "Tier labels map to score thresholds.",
-        ],
-      },
-      validation: {
-        pilotNotes:
-          "Aligned with evidence pack reviews and release gate retrospectives.",
-        reliability:
-          "Scores stabilize when evidence inventories are reviewed quarterly.",
-        failureModes: [
-          "Incomplete inventories understate readiness.",
-          "Overstated completeness inflates scores.",
-          "Response timing assumptions vary by regulator.",
-        ],
-      },
-      replicability: {
-        runSteps: [
-          "Confirm evidence cadence and artifact inventory.",
-          "Score readiness across cadence, completeness, timing.",
-          "Share the readout with audit partners.",
-        ],
-        exampleOutputs: [
-          "Evidence pack readiness scorecard.",
-          "Checklist of missing evidence artifacts.",
-        ],
-      },
-      bestFor:
-        "Best for teams preparing evidence packs before audits or procurement reviews.",
-      readiness: [
-        "Run before audits to confirm artifact readiness.",
-        "Use for procurement or vendor checks to validate evidence cadence.",
-      ],
-      outputs: [
-        "Evidence readiness score and tier.",
-        "Checklist for missing artifacts and timing gaps.",
-        "Linkable summary for audits or procurement.",
-      ],
-      estimatedTime: "10–12 minutes",
-      prepChecklist: [
-        "Latest evidence pack inventory.",
-        "Release cadence or audit schedule.",
-        "Audit response target window.",
-      ],
-      studioNote:
-        "Studio support is recommended if evidence gaps affect launch readiness.",
-      ctaLabel: "Start the Evidence Pack Readiness",
-      ctaHref: "/diagnostics/evidence-pack-readiness",
-      ctaAriaLabel: "Start the Evidence Pack Readiness diagnostic tool",
+        "Start the corrective capacity self-assessment diagnostic tool",
       exampleLabel: "View sample output",
       exampleHref: "/diagnostics#output-baseline",
       deliveryType: "self-serve",

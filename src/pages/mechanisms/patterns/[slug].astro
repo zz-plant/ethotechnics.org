@@ -9,12 +9,15 @@ import ScholarlyMeta from "../../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../../components/SectionBlock.astro";
 import type { DiagnosticTool } from "../../../content/diagnostics";
 import { diagnosticsContent } from "../../../content/diagnostics";
-import { getGlossaryLabel, glossaryEntryPermalink } from "../../../utils/glossary";
+import {
+  getGlossaryLabel,
+  glossaryEntryPermalink,
+} from "../../../utils/glossary";
 
 const { slug } = Astro.params;
 const libraryEntry = (await getEntry("library", "library"))!;
 const pattern = libraryEntry.data.patterns.entries.find(
-  (entry) => entry.slug === slug
+  (entry) => entry.slug === slug,
 );
 const libraryContent = libraryEntry.data;
 const publication = libraryContent.publication;
@@ -26,11 +29,11 @@ if (!pattern) {
 }
 
 const filterLabels = Object.fromEntries(
-  libraryContent.patterns.filters.map((filter) => [filter.slug, filter.label])
+  libraryContent.patterns.filters.map((filter) => [filter.slug, filter.label]),
 );
 const validatorLinks = pattern.diagnostics
   .map((diagnosticSlug) =>
-    diagnosticsContent.tools.find((tool) => tool.slug === diagnosticSlug)
+    diagnosticsContent.tools.find((tool) => tool.slug === diagnosticSlug),
   )
   .filter((tool): tool is DiagnosticTool => Boolean(tool));
 const stepCount = pattern.steps.length;
@@ -45,13 +48,10 @@ const glossaryAnchors = pattern.glossaryRefs.map((slug) => ({
 const pageTitle = `${pattern.title} — Mechanism specification`;
 const pageDescription = pattern.summary;
 const permalink = `/mechanisms/patterns/${pattern.slug}`;
-const panelDescription = `Tagged for ${pattern.filters
-  .map((filter) => filterLabels[filter] ?? filter)
-  .join(", ")} with validator handshakes. Includes ${stepCount} steps, ${assetCount} reusable assets, and ${snippetCount} snippet blocks.`;
 const hasAntiPatterns = (pattern.antiPatterns?.length ?? 0) > 0;
 const anchorLinks = [
   ...(glossaryAnchors.length
-    ? [{ href: "#glossary", label: "Glossary anchors" }]
+    ? [{ href: "#glossary", label: "Terms used" }]
     : []),
   { href: "#overview", label: "Overview" },
   { href: "#steps", label: "Steps" },
@@ -63,56 +63,59 @@ const anchorLinks = [
     : []),
   { href: "#validators", label: "Validators" },
 ];
+
+const breadcrumbItems = [
+  { name: "Home", url: "/" },
+  { name: "Mechanisms", url: "/mechanisms" },
+  { name: pattern.title, url: permalink },
+];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+  breadcrumbItems={breadcrumbItems}
+>
   <PageIntro
     eyebrow="Specification sheet"
     title={pattern.title}
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={anchorLinks}
-    panelCopy={{
-      eyebrow: "Where it fits",
-      title: "Filters and handoffs",
-      description: panelDescription,
-    }}
-  />
-  <ScholarlyMeta publication={publication} permalink={permalink} />
-  <CitationBlock
-    title={pattern.title}
-    permalink={permalink}
-    publication={publication}
-    citationKey={`mechanism_${pattern.slug}`}
   />
   <SectionBlock
     id="overview"
     eyebrow="Specification overview"
-    title="At-a-glance details for planning and handoffs."
-    description="Capture the scope, assets, and validator handshakes before diving into the steps."
+    title="What the mechanism includes and where it sits."
+    description="The scope, assets, and linked validators, before the steps."
     variant="alt"
   >
     <div class="grid grid--two mechanisms__spec-grid">
       <div class="panel mechanisms__spec-card">
         <p class="eyebrow">Spec essentials</p>
-        <h3>What ships with this mechanism</h3>
+        <h3>What this mechanism includes</h3>
         <ul class="panel__list">
-          <li>{stepCount} steps with checklist-ready owners.</li>
-          <li>{assetCount} reusable assets for briefs and runbooks.</li>
-          <li>{snippetCount} reuse-ready snippet blocks.</li>
+          <li>{stepCount} steps you can check off.</li>
+          <li>{assetCount} templates for briefs and runbooks.</li>
+          <li>
+            {snippetCount} blocks of policy, product, audit, and postmortem text to
+            copy.
+          </li>
           {
             glossaryAnchors.length > 0 && (
-              <li>{glossaryAnchors.length} glossary anchors for shared terms.</li>
+              <li>{glossaryAnchors.length} linked glossary terms.</li>
             )
           }
         </ul>
       </div>
       <div class="panel mechanisms__spec-card">
-        <p class="eyebrow">Filters & validators</p>
+        <p class="eyebrow">Filters and validators</p>
         <h3>Where this spec sits in the system</h3>
         <p class="muted">
-          Tagged in {pattern.filters.length} filters with {validatorCount} linked
-          validators.
+          Tagged in {pattern.filters.length}{" "}
+          {pattern.filters.length === 1 ? "filter" : "filters"}, with{" "}
+          {validatorCount} linked{" "}
+          {validatorCount === 1 ? "validator" : "validators"}.
         </p>
         <ul class="pill-list pill-list--wrap mechanisms__spec-filters">
           {
@@ -133,7 +136,7 @@ const anchorLinks = [
     glossaryAnchors.length > 0 && (
       <SectionBlock
         id="glossary"
-        eyebrow="Glossary anchors"
+        eyebrow="Terms used"
         title="Link back to the definitions."
         description="Jump to the glossary terms that frame this mechanism."
         variant="alt"
@@ -155,12 +158,12 @@ const anchorLinks = [
     id="steps"
     eyebrow="Steps"
     title="Put the mechanism in motion."
-    description="Start with the field cues, then use the assets to keep the work legible."
+    description="Do these in order."
   >
     <div class="pattern-detail__step-summary">
       <p class="muted">
-        {stepCount} steps with checklist-ready owners, plus linked assets for
-        handoffs.
+        {stepCount} steps. Check each one off as it is done. The templates below record
+        the work.
       </p>
     </div>
     <div class="pattern-detail__checklist-progress" hidden>
@@ -176,7 +179,6 @@ const anchorLinks = [
         pattern.steps.map((step, index) => (
           <li>
             <label class="card card--emphasis pattern-detail__step-card is-interactive">
-              <div class="card__glow" aria-hidden="true" />
               <div class="pattern-detail__step-header">
                 <p class="muted">Step {index + 1}</p>
                 <input
@@ -196,8 +198,8 @@ const anchorLinks = [
   <SectionBlock
     id="assets"
     eyebrow="Assets"
-    title="Keep outputs reusable."
-    description="Link or copy these assets into design docs, runbooks, and briefs so the mechanism travels with the work."
+    title="Templates this mechanism produces."
+    description="Copy these into design docs, runbooks, and briefs, with the mechanism permalink."
     variant="alt"
   >
     <CardGrid className="grid--two">
@@ -239,11 +241,10 @@ const anchorLinks = [
     id="example"
     eyebrow="Example usage"
     title={pattern.example.title}
-    description="A concrete scenario to help teams see how the pieces fit together."
+    description="One scenario with each part of the mechanism in place."
   >
     <div class="pattern-detail__example">
       <div class="card card--emphasis">
-        <div class="card__glow" aria-hidden="true"></div>
         <p class="muted">How it plays out</p>
         <p class="pattern-detail__example-copy">
           {pattern.example.description}
@@ -258,7 +259,7 @@ const anchorLinks = [
         id="anti-patterns"
         eyebrow="Anti-patterns"
         title="Common failure cases and counterfactuals"
-        description="Use these to avoid superficial compliance and clarify what success requires."
+        description="Each case passes on paper and fails in operation. The counterfactual shows what would have worked."
         variant="alt"
       >
         <CardGrid className="grid--two">
@@ -281,8 +282,8 @@ const anchorLinks = [
   <SectionBlock
     id="validators"
     eyebrow="Validators"
-    title="Pair validators with this mechanism."
-    description="Use these tools to size risk and keep the stewardship path visible."
+    title="Validators for this mechanism."
+    description="Tools that size the risk this mechanism addresses."
     variant="alt"
   >
     <div class="pattern-detail__diagnostics">
@@ -305,7 +306,6 @@ const anchorLinks = [
               class="card pattern-detail__diagnostic-card"
               id={tool.slug}
             >
-              <div class="card__glow" aria-hidden="true" />
               <div class="pattern-detail__diagnostic-header">
                 <div>
                   <p class="muted">Validator</p>
@@ -327,6 +327,14 @@ const anchorLinks = [
       </div>
     </div>
   </SectionBlock>
+
+  <ScholarlyMeta publication={publication} permalink={permalink} />
+  <CitationBlock
+    title={pattern.title}
+    permalink={permalink}
+    publication={publication}
+    citationKey={`mechanism_${pattern.slug}`}
+  />
 </BaseLayout>
 
 <script>
@@ -365,12 +373,12 @@ const anchorLinks = [
 
   // Checklist logic
   const checkboxes = document.querySelectorAll(
-    ".pattern-detail__step-checkbox"
+    ".pattern-detail__step-checkbox",
   );
   const countSpan = document.getElementById("checklist-count");
   const progressBar = document.getElementById("checklist-bar");
   const progressContainer = document.querySelector(
-    ".pattern-detail__checklist-progress"
+    ".pattern-detail__checklist-progress",
   );
 
   if (checkboxes.length > 0 && progressContainer) {
@@ -378,7 +386,7 @@ const anchorLinks = [
 
     const updateProgress = () => {
       const checked = Array.from(checkboxes).filter(
-        (cb) => (cb as HTMLInputElement).checked
+        (cb) => (cb as HTMLInputElement).checked,
       ).length;
       if (countSpan) countSpan.textContent = checked.toString();
       if (progressBar)
@@ -400,7 +408,6 @@ const anchorLinks = [
   }
 
   .pattern-detail__step-card.is-interactive:hover {
-    transform: translateY(-2px);
     border-color: var(--color-primary, #007bff);
   }
 
@@ -408,7 +415,7 @@ const anchorLinks = [
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--space-2);
   }
 
   .pattern-detail__step-checkbox {
@@ -418,18 +425,18 @@ const anchorLinks = [
   }
 
   .pattern-detail__checklist-progress {
-    margin-bottom: 2rem;
+    margin-bottom: var(--space-6);
     background: var(--color-surface-dim, #f8f9fa);
-    padding: 1rem;
-    border-radius: 8px;
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
   }
 
   .progress-bar {
     width: 100%;
     height: 8px;
     background: var(--color-border, #e9ecef);
-    border-radius: 4px;
-    margin-top: 0.5rem;
+    border-radius: var(--radius-xs);
+    margin-top: var(--space-2);
     overflow: hidden;
   }
 

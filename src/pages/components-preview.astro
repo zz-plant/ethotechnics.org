@@ -1,0 +1,69 @@
+---
+import CardItem from "../components/CardItem.astro";
+import PageIntro from "../components/PageIntro.astro";
+import Layout from "../layouts/BaseLayout.astro";
+
+// This page is for Playwright visual testing only.
+// It renders components in various states.
+const isLocalPreview = ["localhost", "127.0.0.1"].includes(Astro.url.hostname);
+if (!isLocalPreview) return new Response("Not found", { status: 404 });
+---
+
+<Layout
+  title="Component Preview"
+  description="Reference renderings used for component visual regression checks."
+  robots="noindex, nofollow"
+>
+  <div class="wrapper">
+    <h1>Component Preview</h1>
+
+    <section id="page-intro">
+      <h2>PageIntro</h2>
+      <PageIntro
+        eyebrow="Preview"
+        title="Component Visual Testing"
+        description="A kitchen sink page for Playwright to verify component rendering."
+        anchorLinks={[
+          { label: "Card Item", href: "#card-item" },
+          { label: "Other", href: "#other" },
+        ]}
+      />
+    </section>
+
+    <hr />
+
+    <section id="card-item" class="component-preview__grid">
+      <h2>CardItem</h2>
+
+      <CardItem
+        title="Default Card"
+        description="This is a standard card with a description."
+        icon="lucide:box"
+      />
+
+      <CardItem
+        title="Card with Tags"
+        description="This card has tags and a muted description."
+        tags={["Tag A", "Tag B", "Tag C"]}
+        descriptionTone="muted"
+      />
+
+      <CardItem
+        title="Glossary Card"
+        description="This card has glossary links."
+        glossaryLinks={[
+          { label: "Term 1", href: "#" },
+          { label: "Term 2", href: "#" },
+        ]}
+      />
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .component-preview__grid {
+    display: grid;
+    gap: var(--space-6);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+</style>

@@ -1,7 +1,9 @@
 ---
+import InlineScript from "./InlineScript.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CardGrid from "./CardGrid.astro";
 import CardItem from "./CardItem.astro";
+import NextStep from "./NextStep.astro";
 import PageIntro from "./PageIntro.astro";
 import SectionBlock from "./SectionBlock.astro";
 import { getExplainerSeoMetadata } from "../utils/explainer-metadata";
@@ -37,6 +39,7 @@ interface Props {
   distinctSignals: DistinctSignal[];
   ctas: CtaLink[];
   faqs: FaqItem[];
+  hasDiagram?: boolean;
 }
 
 const {
@@ -49,10 +52,12 @@ const {
   distinctSignals,
   ctas,
   faqs,
+  hasDiagram = false,
 }: Props = Astro.props;
 const explainerSeoMetadata = getExplainerSeoMetadata(permalink);
 const anchorLinks = [
   { href: "#definition", label: "Definition" },
+  ...(hasDiagram ? [{ href: "#mechanism", label: "Visual Model" }] : []),
   { href: "#example", label: "Example use case" },
   { href: "#distinct-signals", label: "Distinct implementation signals" },
   { href: "#artifacts", label: "Related artifacts" },
@@ -65,7 +70,10 @@ const pageUrl = Astro.site
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "@id": pageUrl,
+  // The layout's WebPage owns the page URL as its @id. Reusing it here gave
+  // one entity two types.
+  "@id": `${pageUrl}#faq`,
+  mainEntityOfPage: { "@id": pageUrl },
   mainEntity: faqs.map((faq) => ({
     "@type": "Question",
     name: faq.question,
@@ -89,18 +97,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     eyebrow="Explainer"
     title={title}
     description={description}
-    permalink={permalink}
     anchorLinks={anchorLinks}
-    panelCopy={{
-      eyebrow: "Glossary anchor",
-      title: glossary.label,
-      description:
-        "Connect the explainer to the canonical definition for citations and shared language.",
-      link: {
-        label: "Open glossary entry",
-        href: glossary.href,
-      },
-    }}
   />
 
   <SectionBlock
@@ -110,14 +107,25 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     description="Two-to-four sentences you can drop into briefs or specs."
   >
     {definition.map((paragraph) => <p>{paragraph}</p>)}
+    <p class="small muted">
+      Canonical entry: <a href={glossary.href}>{glossary.label}</a> in the glossary.
+    </p>
   </SectionBlock>
+
+  {
+    hasDiagram && (
+      <section id="mechanism" class="section section--alt">
+        <slot />
+      </section>
+    )
+  }
 
   <SectionBlock
     id="example"
     eyebrow="Example"
     title="Example use case"
-    description="A concrete scenario to ground the term in operations."
-    variant="alt"
+    description="A scenario to ground the term in operations."
+    variant={hasDiagram ? "default" : "alt"}
   >
     <p>{example}</p>
   </SectionBlock>
@@ -126,12 +134,16 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     id="distinct-signals"
     eyebrow="Implementation"
     title="Distinct implementation signals"
-    description="Unique operational detail to help this concept stand on its own in policy, procurement, and review workflows."
+    description="Unique operational detail so this concept stands on its own in policy, procurement, and review workflows."
   >
     <CardGrid className="grid--three">
       {
         distinctSignals.map((signal) => (
-          <CardItem title={signal.title} description={signal.detail} descriptionTone="default" />
+          <CardItem
+            title={signal.title}
+            description={signal.detail}
+            descriptionTone="default"
+          />
         ))
       }
     </CardGrid>
@@ -182,9 +194,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     </CardGrid>
   </SectionBlock>
 
-  <script
-    type="application/ld+json"
-    set:html={structuredDataJson}
-    is:inline
-  />
+  <NextStep topic={[title, permalink]} />
+
+  <InlineScript type="application/ld+json" code={structuredDataJson} />
 </BaseLayout>

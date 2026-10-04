@@ -7,7 +7,7 @@ import { derivePublicationMetadata } from "../../utils/publication";
 
 const pageTitle = "STD-01 rights \u2192 validators \u2192 mechanisms matrix";
 const pageDescription =
-  "A reference matrix linking STD-01 temporal rights to validator coverage and enforcement mechanisms.";
+  "Each of the seven STD-01 rights, the validators that test it, and the mechanisms that implement it.";
 const permalink = "/standards/std-01-rights-matrix";
 const anchorLinks = [
   { href: "#matrix", label: "Matrix" },
@@ -38,9 +38,13 @@ const matrix = [
     ],
     mechanisms: [
       { label: "MEC-05 Kill switch", href: "/mechanisms/patterns/kill-switch" },
-      { label: "MEC-01 Decision log with dissent", href: "/mechanisms/patterns/decision-log" },
+      {
+        label: "MEC-01 Decision log with dissent",
+        href: "/mechanisms/patterns/decision-log",
+      },
     ],
-    notes: "Use halt controls plus decision logging to make stoppability enforceable.",
+    notes:
+      "Use halt controls plus decision logging to make stoppability enforceable.",
   },
   {
     right: "Exit / Resignation (STD-01 \u00a72)",
@@ -49,8 +53,14 @@ const matrix = [
       { label: "VAL-02 Risk Radar", href: "/validators/risk-radar" },
     ],
     mechanisms: [
-      { label: "MEC-02 Progressive consent", href: "/mechanisms/patterns/progressive-consent" },
-      { label: "MEC-06 Appeal paths", href: "/mechanisms/patterns/appeal-paths" },
+      {
+        label: "MEC-02 Progressive consent",
+        href: "/mechanisms/patterns/progressive-consent",
+      },
+      {
+        label: "MEC-06 Appeal paths",
+        href: "/mechanisms/patterns/appeal-paths",
+      },
     ],
     notes: "Model time-to-exit and enforce clear resignation paths in the UI.",
   },
@@ -60,10 +70,14 @@ const matrix = [
       { label: "VAL-03 Latency Audit", href: "/validators/latency-audit" },
     ],
     mechanisms: [
-      { label: "MEC-04 Hard Clock", href: "/mechanisms/mec-04-hard-clock" },
-      { label: "MEC-03 Maintenance windowing", href: "/mechanisms/patterns/maintenance-windowing" },
+      { label: "MEC-04 Hard Clock", href: "/mechanisms/patterns/hard-clock" },
+      {
+        label: "MEC-03 Maintenance windowing",
+        href: "/mechanisms/patterns/maintenance-windowing",
+      },
     ],
-    notes: "Every state needs a deadline, escalation path, and declared window.",
+    notes:
+      "Every state needs a deadline, escalation path, and declared window.",
   },
   {
     right: "Reversibility (STD-01 \u00a74)",
@@ -72,10 +86,17 @@ const matrix = [
       { label: "VAL-02 Risk Radar", href: "/validators/risk-radar" },
     ],
     mechanisms: [
-      { label: "MEC-02 Progressive consent", href: "/mechanisms/patterns/progressive-consent" },
-      { label: "MEC-01 Decision log with dissent", href: "/mechanisms/patterns/decision-log" },
+      {
+        label: "MEC-02 Progressive consent",
+        href: "/mechanisms/patterns/progressive-consent",
+      },
+      {
+        label: "MEC-01 Decision log with dissent",
+        href: "/mechanisms/patterns/decision-log",
+      },
     ],
-    notes: "Guard irreversible actions with rollback windows and decision traceability.",
+    notes:
+      "Guard irreversible actions with rollback windows and decision traceability.",
   },
   {
     right: "Non-coercive waiting (STD-01 \u00a75)",
@@ -84,10 +105,17 @@ const matrix = [
       { label: "VAL-01 Burden Modeler", href: "/validators/burden-modeler" },
     ],
     mechanisms: [
-      { label: "MEC-03 Maintenance windowing", href: "/mechanisms/patterns/maintenance-windowing" },
-      { label: "MEC-02 Progressive consent", href: "/mechanisms/patterns/progressive-consent" },
+      {
+        label: "MEC-03 Maintenance windowing",
+        href: "/mechanisms/patterns/maintenance-windowing",
+      },
+      {
+        label: "MEC-02 Progressive consent",
+        href: "/mechanisms/patterns/progressive-consent",
+      },
     ],
-    notes: "Expose wait-time truth and provide alternate paths for long delays.",
+    notes:
+      "Expose wait-time truth and provide alternate paths for long delays.",
   },
   {
     right: "Human override (STD-01 \u00a76)",
@@ -96,10 +124,17 @@ const matrix = [
       { label: "VAL-01 Burden Modeler", href: "/validators/burden-modeler" },
     ],
     mechanisms: [
-      { label: "MEC-06 Appeal paths", href: "/mechanisms/patterns/appeal-paths" },
-      { label: "MEC-01 Decision log with dissent", href: "/mechanisms/patterns/decision-log" },
+      {
+        label: "MEC-06 Appeal paths",
+        href: "/mechanisms/patterns/appeal-paths",
+      },
+      {
+        label: "MEC-01 Decision log with dissent",
+        href: "/mechanisms/patterns/decision-log",
+      },
     ],
-    notes: "Ensure escalations route to accountable humans with visible ownership.",
+    notes:
+      "Ensure escalations route to accountable humans with visible ownership.",
   },
   {
     right: "Transparent burden (STD-01 \u00a77)",
@@ -108,8 +143,14 @@ const matrix = [
       { label: "VAL-02 Risk Radar", href: "/validators/risk-radar" },
     ],
     mechanisms: [
-      { label: "MEC-01 Decision log with dissent", href: "/mechanisms/patterns/decision-log" },
-      { label: "MEC-03 Maintenance windowing", href: "/mechanisms/patterns/maintenance-windowing" },
+      {
+        label: "MEC-01 Decision log with dissent",
+        href: "/mechanisms/patterns/decision-log",
+      },
+      {
+        label: "MEC-03 Maintenance windowing",
+        href: "/mechanisms/patterns/maintenance-windowing",
+      },
     ],
     notes: "Publish time tax metrics and bind remediation to logged decisions.",
   },
@@ -151,24 +192,12 @@ const mechanisms = collectUnique(matrix.flatMap((row) => row.mechanisms));
   anchorLinks={anchorLinks}
   publishedTime="2025-06-01T00:00:00.000Z"
   mainClass="page page--wide"
-  panelCopy={{
-    eyebrow: "Why this exists",
-    title: "One lookup table for triage.",
-    description:
-      "Use this matrix to locate the right validator and mechanism before you open the full standard.",
-    link: {
-      label: "Open the mapping artifact",
-      href: "/standards/std-01-mapping-artifact",
-    },
-  }}
 >
-
-  <ScholarlyMeta publication={publication} permalink={permalink} />
-
   <div class="callout">
-    <h3>Move fast between rights, validators, and mechanisms</h3>
+    <h3>Rights, validators, and mechanisms</h3>
     <p class="muted">
-      Use the full catalogs to jump from each right to diagnostic outputs and enforcement patterns.
+      The full catalogs link each right to the validators that test it and the
+      mechanisms that implement it.
     </p>
     <div class="library__role-buttons">
       <a class="button primary library__role-button" href="/validators">
@@ -196,11 +225,17 @@ const mechanisms = collectUnique(matrix.flatMap((row) => row.mechanisms));
       <div class="glossary-filter__controls">
         <label class="glossary-filter__facet">
           <span class="glossary-filter__label">STD-01 right</span>
-          <select class="glossary-filter__select" name="right" data-matrix-select="right">
+          <select
+            class="glossary-filter__select"
+            name="right"
+            data-matrix-select="right"
+          >
             <option value="all">All rights</option>
-            {rights.map((right) => (
-              <option value={right.slug}>{right.label}</option>
-            ))}
+            {
+              rights.map((right) => (
+                <option value={right.slug}>{right.label}</option>
+              ))
+            }
           </select>
         </label>
         <label class="glossary-filter__facet">
@@ -211,9 +246,13 @@ const mechanisms = collectUnique(matrix.flatMap((row) => row.mechanisms));
             data-matrix-select="validator"
           >
             <option value="all">All validators</option>
-            {validators.map((validator) => (
-              <option value={slugify(validator.label)}>{validator.label}</option>
-            ))}
+            {
+              validators.map((validator) => (
+                <option value={slugify(validator.label)}>
+                  {validator.label}
+                </option>
+              ))
+            }
           </select>
         </label>
         <label class="glossary-filter__facet">
@@ -224,9 +263,13 @@ const mechanisms = collectUnique(matrix.flatMap((row) => row.mechanisms));
             data-matrix-select="mechanism"
           >
             <option value="all">All mechanisms</option>
-            {mechanisms.map((mechanism) => (
-              <option value={slugify(mechanism.label)}>{mechanism.label}</option>
-            ))}
+            {
+              mechanisms.map((mechanism) => (
+                <option value={slugify(mechanism.label)}>
+                  {mechanism.label}
+                </option>
+              ))
+            }
           </select>
         </label>
         <div class="glossary-filter__actions">
@@ -239,17 +282,23 @@ const mechanisms = collectUnique(matrix.flatMap((row) => row.mechanisms));
           </button>
         </div>
       </div>
-      <p class="glossary-filter__count muted" data-matrix-status aria-live="polite">
+      <p
+        class="glossary-filter__count muted"
+        data-matrix-status
+        aria-live="polite"
+      >
         Showing all {matrix.length} rights.
       </p>
       <div class="rights-matrix__jump">
-        <span class="glossary-filter__label">Quick jump</span>
+        <span class="glossary-filter__label">Jump to a right</span>
         <div class="glossary-filter__chips">
-          {rights.map((right) => (
-            <a class="glossary-filter__chip" href={`#${right.id}`}>
-              {right.label}
-            </a>
-          ))}
+          {
+            rights.map((right) => (
+              <a class="glossary-filter__chip" href={`#${right.id}`}>
+                {right.label}
+              </a>
+            ))
+          }
         </div>
       </div>
     </div>
@@ -264,39 +313,45 @@ const mechanisms = collectUnique(matrix.flatMap((row) => row.mechanisms));
           </tr>
         </thead>
         <tbody>
-          {matrix.map((row, index) => (
-            <tr
-              id={rights[index].id}
-              class="rights-matrix__row"
-              data-matrix-row
-              data-right={rights[index].slug}
-              data-validators={row.validators.map((validator) => slugify(validator.label)).join("|")}
-              data-mechanisms={row.mechanisms.map((mechanism) => slugify(mechanism.label)).join("|")}
-            >
-              <td>
-                <strong>{row.right}</strong>
-              </td>
-              <td>
-                <ul>
-                  {row.validators.map((validator) => (
-                    <li>
-                      <a href={validator.href}>{validator.label}</a>
-                    </li>
-                  ))}
-                </ul>
-              </td>
-              <td>
-                <ul>
-                  {row.mechanisms.map((mechanism) => (
-                    <li>
-                      <a href={mechanism.href}>{mechanism.label}</a>
-                    </li>
-                  ))}
-                </ul>
-              </td>
-              <td>{row.notes}</td>
-            </tr>
-          ))}
+          {
+            matrix.map((row, index) => (
+              <tr
+                id={rights[index].id}
+                class="rights-matrix__row"
+                data-matrix-row
+                data-right={rights[index].slug}
+                data-validators={row.validators
+                  .map((validator) => slugify(validator.label))
+                  .join("|")}
+                data-mechanisms={row.mechanisms
+                  .map((mechanism) => slugify(mechanism.label))
+                  .join("|")}
+              >
+                <td>
+                  <strong>{row.right}</strong>
+                </td>
+                <td>
+                  <ul>
+                    {row.validators.map((validator) => (
+                      <li>
+                        <a href={validator.href}>{validator.label}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </td>
+                <td>
+                  <ul>
+                    {row.mechanisms.map((mechanism) => (
+                      <li>
+                        <a href={mechanism.href}>{mechanism.label}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </td>
+                <td>{row.notes}</td>
+              </tr>
+            ))
+          }
         </tbody>
       </table>
     </div>
@@ -330,7 +385,8 @@ const mechanisms = collectUnique(matrix.flatMap((row) => row.mechanisms));
             const matchesMechanism =
               state.mechanism === "all" ||
               row.dataset.mechanisms?.split("|").includes(state.mechanism);
-            const matches = matchesRight && matchesValidator && matchesMechanism;
+            const matches =
+              matchesRight && matchesValidator && matchesMechanism;
 
             row.classList.toggle("is-highlighted", active && matches);
             row.classList.toggle("is-dimmed", active && !matches);
@@ -386,22 +442,23 @@ const mechanisms = collectUnique(matrix.flatMap((row) => row.mechanisms));
   <SectionBlock
     id="notes"
     eyebrow="Coverage notes"
-    title="The matrix is additive, not exhaustive."
-    description="Use the minimum binding set and mapping artifact to confirm clause-level coverage."
+    title="The matrix is a starting point, not a complete list."
+    description="Use the minimum binding set and the mapping artifact to confirm coverage clause by clause."
     variant="alt"
   >
     <ul class="muted">
       <li>
-        The same validator may cover multiple rights; use the diagnostics output to confirm specific
-        clause gaps.
+        The same validator may cover multiple rights; use the diagnostics output
+        to confirm specific clause gaps.
       </li>
       <li>
-        Mechanisms listed here are primary enforcers. Pair them with additional governance or policy
-        mechanisms as needed.
+        Mechanisms listed here are primary enforcers. Pair them with additional
+        governance or policy mechanisms as needed.
       </li>
       <li>
-        Review the <a href="/standards/std-01-minimum-binding-set">minimum binding set</a> for
-        per-right requirements and insufficiencies.
+        Review the <a href="/standards/std-01-minimum-binding-set"
+          >minimum binding set</a
+        > for per-right requirements and insufficiencies.
       </li>
     </ul>
   </SectionBlock>
@@ -410,8 +467,13 @@ const mechanisms = collectUnique(matrix.flatMap((row) => row.mechanisms));
     id="citations"
     eyebrow="Citations"
     title="Reference this matrix in audits and work plans."
-    description="Use the permalink and version to keep audit trails consistent."
+    description="Cite the permalink and version so the audit trail points at a fixed text."
   >
-    <CitationBlock title={pageTitle} permalink={permalink} publication={publication} />
+    <ScholarlyMeta publication={publication} permalink={permalink} />
+    <CitationBlock
+      title={pageTitle}
+      permalink={permalink}
+      publication={publication}
+    />
   </SectionBlock>
 </StandardsLayout>

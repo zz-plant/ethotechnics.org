@@ -3,182 +3,680 @@
     "id": "tax-governance",
     "title": "Governance",
     "slug": "governance",
-    "summary": "Structures for policy, authority, and oversight that keep accountability explicit.",
-    "owner": "Institute Governance",
+    "summary": "Policy, authority, and oversight structures that name who is accountable for each decision.",
     "scope": "Domain",
-    "readiness": "beta",
+    "safeguards": ["Authority", "Correction"],
     "relatedArtifacts": [
-      { "label": "Standards catalog", "href": "/standards", "type": "catalog" },
-      { "label": "Binding vectors", "href": "/bindings", "type": "playbook" }
+      {
+        "label": "Standards catalog",
+        "href": "/standards",
+        "type": "catalog"
+      },
+      {
+        "label": "Delegation Audit",
+        "href": "/diagnostics/delegation-audit",
+        "type": "diagnostic"
+      },
+      {
+        "label": "Casebook: Post Office Horizon",
+        "href": "/casebook/post-office-horizon",
+        "type": "casebook"
+      },
+      {
+        "label": "Theory: Democratic vs. coercive governability",
+        "href": "/research/theory/democratic-vs-coercive-governability",
+        "type": "theory"
+      }
     ]
   },
   {
     "id": "tax-governance-policy",
     "title": "Policy",
     "slug": "governance/policy",
-    "summary": "Decision rules and thresholds that bind teams to specific ethical obligations.",
-    "owner": "Policy Stewardship",
+    "summary": "Authoritative decision rules, constraints, and operational bounds that bind automated execution to checkable institutional commitments.",
     "scope": "Capability",
-    "readiness": "alpha",
+    "safeguards": ["Authority", "Evidence"],
     "relatedArtifacts": [
-      { "label": "STD-01 temporal rights", "href": "/standards/std-01-temporal-rights", "type": "standard" },
-      { "label": "Anti-weaponization constraints", "href": "/anti-weaponization", "type": "doctrine" }
+      {
+        "label": "STD-01 temporal rights",
+        "href": "/standards/std-01-temporal-rights",
+        "type": "standard"
+      },
+      {
+        "label": "Core axioms",
+        "href": "/standards/core-axioms",
+        "type": "doctrine"
+      },
+      {
+        "label": "Theory: Endogenous authorization",
+        "href": "/research/theory/endogenous-authorization",
+        "type": "theory"
+      }
     ]
   },
   {
     "id": "tax-governance-oversight",
     "title": "Oversight",
     "slug": "governance/oversight",
-    "summary": "Review bodies and escalation paths that keep power contestable.",
-    "owner": "Oversight Council",
+    "summary": "Review bodies, escalation paths, and independent challenge circuits that keep operational power contestable.",
     "scope": "Capability",
-    "readiness": "beta",
+    "safeguards": ["Standing", "Correction"],
     "relatedArtifacts": [
-      { "label": "STD-02 contestability recourse", "href": "/standards/std-02-contestability-recourse", "type": "standard" },
-      { "label": "Validators", "href": "/validators", "type": "tools" }
+      {
+        "label": "STD-02 contestability and recourse",
+        "href": "/standards/std-02-contestability-recourse",
+        "type": "standard"
+      },
+      {
+        "label": "Validators",
+        "href": "/validators",
+        "type": "tools"
+      },
+      {
+        "label": "Casebook: Robodebt",
+        "href": "/casebook/robodebt",
+        "type": "casebook"
+      },
+      {
+        "label": "Theory: Insulation",
+        "href": "/research/theory/insulation",
+        "type": "theory"
+      }
     ]
   },
   {
-    "id": "tax-governance-audits",
+    "id": "tax-governance-oversight-audits",
     "title": "Audits",
     "slug": "governance/oversight/audits",
-    "summary": "Evidence-backed reviews that verify policy adherence and remediation follow-through.",
-    "owner": "Audit Program",
+    "summary": "Periodic independent inspections comparing recorded decisions against evidentiary baselines and statutory grounds.",
     "scope": "Practice",
-    "readiness": "draft",
+    "safeguards": ["Evidence", "Correction"],
     "relatedArtifacts": [
-      { "label": "Diagnostics", "href": "/diagnostics", "type": "workflow" },
-      { "label": "Evidence packs", "href": "/evidence-packs", "type": "reference" }
+      {
+        "label": "Evidence packs",
+        "href": "/evidence-packs",
+        "type": "reference"
+      },
+      {
+        "label": "Record Conformance Checker",
+        "href": "/diagnostics/record-conformance",
+        "type": "diagnostic"
+      },
+      {
+        "label": "Theory: An engineering tradition",
+        "href": "/research/theory/an-engineering-tradition",
+        "type": "theory"
+      }
     ]
   },
   {
     "id": "tax-delivery",
     "title": "Delivery",
     "slug": "delivery",
-    "summary": "Operational pathways for shipping and maintaining ethical systems under load.",
-    "owner": "Delivery Practice",
+    "summary": "Technical architecture, ingestion, and operational pipelines that execute delegations in live environments.",
     "scope": "Domain",
-    "readiness": "stable",
+    "safeguards": ["Capability", "Correction"],
     "relatedArtifacts": [
-      { "label": "Quick start", "href": "/quick-start", "type": "guide" },
-      { "label": "Field notes", "href": "/field-notes", "type": "research" }
+      {
+        "label": "Mechanisms catalog",
+        "href": "/mechanisms",
+        "type": "catalog"
+      },
+      {
+        "label": "Workload Modeler",
+        "href": "/diagnostics/burden-modeler",
+        "type": "diagnostic"
+      },
+      {
+        "label": "Theory: Ethotechnical design",
+        "href": "/research/theory/ethotechnical-design",
+        "type": "theory"
+      }
     ]
   },
   {
     "id": "tax-delivery-intake",
     "title": "Intake",
     "slug": "delivery/intake",
-    "summary": "Front-door criteria that align new work with standards, scope, and readiness.",
-    "owner": "Delivery Intake",
+    "summary": "Validation, canonical schema mapping, and verification boundaries at the point of request entry.",
     "scope": "Capability",
-    "readiness": "beta",
+    "safeguards": ["Capability", "Evidence"],
     "relatedArtifacts": [
-      { "label": "Diagnostics intake", "href": "/diagnostics", "type": "workflow" },
-      { "label": "Institute participation", "href": "/participate", "type": "program" }
+      {
+        "label": "STD-01 minimum binding set",
+        "href": "/standards/std-01-minimum-binding-set",
+        "type": "standard"
+      },
+      {
+        "label": "W3C VC Schemas",
+        "href": "/standards/w3c-vc-schemas",
+        "type": "standard"
+      },
+      {
+        "label": "Theory: Friction as accidental governance",
+        "href": "/research/theory/friction-as-accidental-governance",
+        "type": "theory"
+      }
     ]
   },
   {
     "id": "tax-delivery-operations",
     "title": "Operations",
     "slug": "delivery/operations",
-    "summary": "Live operations patterns for sustaining stoppability and care.",
-    "owner": "Operations Team",
+    "summary": "Runtime orchestration, compensatory labor accounting, and exception routing across deployed automated workflows.",
     "scope": "Capability",
-    "readiness": "beta",
+    "safeguards": ["Correction", "Dependency"],
     "relatedArtifacts": [
-      { "label": "Finite measurement tiers", "href": "/measurement-tiers", "type": "framework" },
-      { "label": "Validators", "href": "/validators", "type": "tools" }
+      {
+        "label": "Workload Modeler",
+        "href": "/diagnostics/burden-modeler",
+        "type": "diagnostic"
+      },
+      {
+        "label": "Theory: The human subsidy to institutional continuity",
+        "href": "/research/theory/the-human-subsidy",
+        "type": "theory"
+      },
+      {
+        "label": "Casebook: England's 2020 exam grades",
+        "href": "/casebook/ofqual-2020-grades",
+        "type": "casebook"
+      }
     ]
   },
   {
-    "id": "tax-delivery-escalation",
+    "id": "tax-delivery-operations-escalation",
     "title": "Escalation",
     "slug": "delivery/operations/escalation",
-    "summary": "Defined halt and escalation paths that keep ethical load paths visible.",
-    "owner": "Incident Response",
+    "summary": "Automated interrupts and stop-the-line triggers that transfer execution authority to humans when operational safety thresholds trip.",
     "scope": "Practice",
-    "readiness": "alpha",
+    "safeguards": ["Correction"],
     "relatedArtifacts": [
-      { "label": "Mechanisms catalog", "href": "/mechanisms", "type": "catalog" },
-      { "label": "Bindings", "href": "/bindings", "type": "policy" }
+      {
+        "label": "Incident memo",
+        "href": "/standards/incident-memo",
+        "type": "standard"
+      },
+      {
+        "label": "Casebook: Apple Card credit limits",
+        "href": "/casebook/apple-card",
+        "type": "casebook"
+      },
+      {
+        "label": "Theory: The sovereign override",
+        "href": "/research/theory/the-sovereign-override",
+        "type": "theory"
+      }
     ]
   },
   {
     "id": "tax-assurance",
     "title": "Assurance",
     "slug": "assurance",
-    "summary": "Signals, measurements, and reviews that prove moral performance over time.",
-    "owner": "Assurance Lab",
+    "summary": "Continuous verification, drift telemetry, and empirical stress testing that confirm systems behave within authorized limits.",
     "scope": "Domain",
-    "readiness": "beta",
+    "safeguards": ["Evidence"],
     "relatedArtifacts": [
-      { "label": "Standards", "href": "/standards", "type": "catalog" },
-      { "label": "Diagnostics", "href": "/diagnostics", "type": "workflow" }
+      {
+        "label": "Finite measurement tiers",
+        "href": "/measurement-tiers",
+        "type": "framework"
+      },
+      {
+        "label": "The Green Dashboard working paper",
+        "href": "/research/the-green-dashboard",
+        "type": "protocol"
+      },
+      {
+        "label": "Theory: What outcomes hide",
+        "href": "/research/theory/what-outcomes-hide",
+        "type": "theory"
+      }
     ]
   },
   {
     "id": "tax-assurance-monitoring",
     "title": "Monitoring",
     "slug": "assurance/monitoring",
-    "summary": "Ongoing telemetry for burden, contestability, and recovery signals.",
-    "owner": "Assurance Lab",
+    "summary": "Live telemetry and discrepancy tracking comparing predicted performance against realized outcomes and human rescue rates.",
     "scope": "Capability",
-    "readiness": "beta",
+    "safeguards": ["Evidence", "Correction"],
     "relatedArtifacts": [
-      { "label": "Validators", "href": "/validators", "type": "tools" },
-      { "label": "Measurement tiers", "href": "/measurement-tiers", "type": "framework" }
+      {
+        "label": "Theory: Absorption as concealment",
+        "href": "/research/theory/absorption-as-concealment",
+        "type": "theory"
+      },
+      {
+        "label": "Theory: The antihuman metric",
+        "href": "/research/theory/the-antihuman-metric",
+        "type": "theory"
+      },
+      {
+        "label": "Casebook: Post Office Horizon",
+        "href": "/casebook/post-office-horizon",
+        "type": "casebook"
+      }
+    ]
+  },
+  {
+    "id": "tax-assurance-monitoring-telemetry",
+    "title": "Telemetry",
+    "slug": "assurance/monitoring/telemetry",
+    "summary": "Structured logging of decision premises, inference confidence scores, and operator workarounds for offline auditing.",
+    "scope": "Practice",
+    "safeguards": ["Evidence"],
+    "relatedArtifacts": [
+      {
+        "label": "Evidence packs",
+        "href": "/evidence-packs",
+        "type": "reference"
+      },
+      {
+        "label": "Theory: What outcomes hide",
+        "href": "/research/theory/what-outcomes-hide",
+        "type": "theory"
+      }
     ]
   },
   {
     "id": "tax-assurance-red-teaming",
     "title": "Red Teaming",
     "slug": "assurance/red-teaming",
-    "summary": "Adversarial evaluation that pressures systems before harm reaches the public.",
-    "owner": "Assurance Lab",
+    "summary": "Empirical failure induction and adversarial evaluation testing whether an automated system can be halted under stress.",
     "scope": "Capability",
-    "readiness": "alpha",
+    "safeguards": ["Evidence", "Capability"],
     "relatedArtifacts": [
-      { "label": "Research agenda", "href": "/research", "type": "agenda" },
-      { "label": "Field notes", "href": "/field-notes", "type": "research" }
+      {
+        "label": "Delegation validity eval",
+        "href": "/evals/delegation-validity",
+        "type": "eval"
+      },
+      {
+        "label": "Frontier doctrine scan",
+        "href": "/research/frontier-doctrine-scan",
+        "type": "research"
+      },
+      {
+        "label": "Theory: An engineering tradition",
+        "href": "/research/theory/an-engineering-tradition",
+        "type": "theory"
+      }
+    ]
+  },
+  {
+    "id": "tax-assurance-red-teaming-drills",
+    "title": "Stoppability Drills",
+    "slug": "assurance/red-teaming/drills",
+    "summary": "Scheduled injection of synthetic edge cases and invalid authorizations to verify fail-closed behavior and alert routing.",
+    "scope": "Practice",
+    "safeguards": ["Evidence", "Capability"],
+    "relatedArtifacts": [
+      {
+        "label": "Stoppability evals",
+        "href": "/evals/stoppability",
+        "type": "eval"
+      },
+      {
+        "label": "Finite measurement tiers",
+        "href": "/measurement-tiers",
+        "type": "framework"
+      }
     ]
   },
   {
     "id": "tax-experience",
     "title": "Experience",
     "slug": "experience",
-    "summary": "User-facing moments where burden, consent, and recourse are felt.",
-    "owner": "Experience Design",
+    "summary": "The rights, notices, and procedural interfaces provided to the individuals and populations decided about.",
     "scope": "Domain",
-    "readiness": "beta",
+    "safeguards": ["Standing"],
     "relatedArtifacts": [
-      { "label": "Glossary", "href": "/glossary", "type": "reference" },
-      { "label": "Start here", "href": "/start-here", "type": "guide" }
+      {
+        "label": "Start here",
+        "href": "/start",
+        "type": "guide"
+      },
+      {
+        "label": "STD-02 contestability and recourse",
+        "href": "/standards/std-02-contestability-recourse",
+        "type": "standard"
+      },
+      {
+        "label": "Casebook: Childcare benefits scandal",
+        "href": "/casebook/toeslagenaffaire",
+        "type": "casebook"
+      }
     ]
   },
   {
     "id": "tax-experience-consent",
     "title": "Consent",
     "slug": "experience/consent",
-    "summary": "Clear permission surfaces, refusals, and safe exits for every touchpoint.",
-    "owner": "Experience Design",
+    "summary": "Explicit, revokable agreements governing whether an individual's data or profile may be subjected to automated evaluation.",
     "scope": "Capability",
-    "readiness": "beta",
+    "safeguards": ["Standing", "Dependency"],
     "relatedArtifacts": [
-      { "label": "STD-01 minimum binding set", "href": "/standards/std-01-minimum-binding-set", "type": "standard" },
-      { "label": "Mechanisms", "href": "/mechanisms", "type": "catalog" }
+      {
+        "label": "Error-bearing parties",
+        "href": "/explainers/error-bearing-parties",
+        "type": "explainer"
+      },
+      {
+        "label": "Theory: Dependence runs both ways",
+        "href": "/research/theory/dependence-runs-both-ways",
+        "type": "theory"
+      },
+      {
+        "label": "STD-01 temporal rights",
+        "href": "/standards/std-01-temporal-rights",
+        "type": "standard"
+      }
+    ]
+  },
+  {
+    "id": "tax-experience-consent-revocation",
+    "title": "Consent Revocation",
+    "slug": "experience/consent/revocation",
+    "summary": "Executable mechanisms for withdrawing consent without incurring punitive friction or losing essential public services.",
+    "scope": "Practice",
+    "safeguards": ["Standing", "Dependency"],
+    "relatedArtifacts": [
+      {
+        "label": "STD-01 temporal rights",
+        "href": "/standards/std-01-temporal-rights",
+        "type": "standard"
+      },
+      {
+        "label": "Theory: The model of a person is not the person",
+        "href": "/research/theory/model-of-a-person",
+        "type": "theory"
+      }
     ]
   },
   {
     "id": "tax-experience-recourse",
     "title": "Recourse",
     "slug": "experience/recourse",
-    "summary": "Appeals, reversals, and human-assisted paths when automation fails.",
-    "owner": "Experience Design",
+    "summary": "The operational intake channels, evidence review windows, and stop-the-line triggers through which affected people dispute decisions.",
     "scope": "Capability",
-    "readiness": "beta",
+    "safeguards": ["Standing", "Correction"],
     "relatedArtifacts": [
-      { "label": "STD-02 contestability recourse", "href": "/standards/std-02-contestability-recourse", "type": "standard" },
-      { "label": "Diagnostics", "href": "/diagnostics", "type": "workflow" }
+      {
+        "label": "STD-02 contestability and recourse",
+        "href": "/standards/std-02-contestability-recourse",
+        "type": "standard"
+      },
+      {
+        "label": "Theory: Challenge density",
+        "href": "/research/theory/challenge-density",
+        "type": "theory"
+      },
+      {
+        "label": "Casebook: Robodebt",
+        "href": "/casebook/robodebt",
+        "type": "casebook"
+      }
+    ]
+  },
+  {
+    "id": "tax-experience-recourse-appeals",
+    "title": "Appeals Tracks",
+    "slug": "experience/recourse/appeals",
+    "summary": "Independent dispute tracks staffed by human decision-makers who hold the authority to stay execution and modify records.",
+    "scope": "Practice",
+    "safeguards": ["Standing", "Correction"],
+    "relatedArtifacts": [
+      {
+        "label": "STD-02 contestability and recourse",
+        "href": "/standards/std-02-contestability-recourse",
+        "type": "standard"
+      },
+      {
+        "label": "Theory: Exception learning",
+        "href": "/research/theory/exception-learning",
+        "type": "theory"
+      }
+    ]
+  },
+  {
+    "id": "tax-authority",
+    "title": "Authority",
+    "slug": "authority",
+    "summary": "The formal grants, statutory mandates, and legal boundaries that define what automated systems are permitted to do.",
+    "scope": "Domain",
+    "safeguards": ["Authority", "Capability"],
+    "relatedArtifacts": [
+      {
+        "label": "Authority as a lease",
+        "href": "/explainers/authority-as-lease",
+        "type": "explainer"
+      },
+      {
+        "label": "Laws for engineering delegated intelligence",
+        "href": "/standards/laws",
+        "type": "doctrine"
+      },
+      {
+        "label": "Theory: What does not convert",
+        "href": "/research/theory/what-does-not-convert",
+        "type": "theory"
+      }
+    ]
+  },
+  {
+    "id": "tax-authority-delegation",
+    "title": "Delegation",
+    "slug": "authority/delegation",
+    "summary": "Explicit, time-bounded allocations of institutional decision-making authority transferred to technical delegates.",
+    "scope": "Capability",
+    "safeguards": ["Authority"],
+    "relatedArtifacts": [
+      {
+        "label": "Delegation Audit",
+        "href": "/diagnostics/delegation-audit",
+        "type": "diagnostic"
+      },
+      {
+        "label": "Justified delegation",
+        "href": "/explainers/justified-delegation",
+        "type": "explainer"
+      },
+      {
+        "label": "Theory: What does not convert",
+        "href": "/research/theory/what-does-not-convert",
+        "type": "theory"
+      }
+    ]
+  },
+  {
+    "id": "tax-authority-delegation-leases",
+    "title": "Delegation Leases",
+    "slug": "authority/delegation/leases",
+    "summary": "Machine-readable delegation tokens specifying non-waivable expiration dates, scope boundaries, and renewal conditions.",
+    "scope": "Practice",
+    "safeguards": ["Authority", "Capability"],
+    "relatedArtifacts": [
+      {
+        "label": "STD-07 Revisable Delegation Record",
+        "href": "/standards/std-07-revisable-delegation-record",
+        "type": "standard"
+      },
+      {
+        "label": "Authority as a lease",
+        "href": "/explainers/authority-as-lease",
+        "type": "explainer"
+      }
+    ]
+  },
+  {
+    "id": "tax-authority-policy-validity",
+    "title": "Policy Validity",
+    "slug": "authority/policy-validity",
+    "summary": "Automated attestation and runtime checking that an active delegation has not expired, exceeded scope, or lost legal backing.",
+    "scope": "Capability",
+    "safeguards": ["Evidence", "Authority"],
+    "relatedArtifacts": [
+      {
+        "label": "Core axioms",
+        "href": "/standards/core-axioms",
+        "type": "doctrine"
+      },
+      {
+        "label": "Delegation validity eval",
+        "href": "/evals/delegation-validity",
+        "type": "eval"
+      },
+      {
+        "label": "Theory: Endogenous authorization",
+        "href": "/research/theory/endogenous-authorization",
+        "type": "theory"
+      }
+    ]
+  },
+  {
+    "id": "tax-authority-expansion",
+    "title": "Expansion",
+    "slug": "authority/expansion",
+    "summary": "Treating each widening of operational scope or delegate mandate as a de novo authorization rather than a reward for past success.",
+    "scope": "Capability",
+    "safeguards": ["Capability", "Authority"],
+    "relatedArtifacts": [
+      {
+        "label": "Justified delegation",
+        "href": "/explainers/justified-delegation",
+        "type": "explainer"
+      },
+      {
+        "label": "Core axioms",
+        "href": "/standards/core-axioms",
+        "type": "doctrine"
+      },
+      {
+        "label": "Theory: What does not convert",
+        "href": "/research/theory/what-does-not-convert",
+        "type": "theory"
+      }
+    ]
+  },
+  {
+    "id": "tax-dependence",
+    "title": "Dependence",
+    "slug": "dependence",
+    "summary": "Managing systemic reliance, exit costs, and reversibility to prevent institutional capture and subject lock-in.",
+    "scope": "Domain",
+    "safeguards": ["Dependency"],
+    "relatedArtifacts": [
+      {
+        "label": "Three kinds of reversibility",
+        "href": "/explainers/three-kinds-of-reversibility",
+        "type": "explainer"
+      },
+      {
+        "label": "Laws for engineering delegated intelligence",
+        "href": "/standards/laws",
+        "type": "doctrine"
+      },
+      {
+        "label": "Theory: Automation and capture",
+        "href": "/research/theory/automation-and-capture",
+        "type": "theory"
+      }
+    ]
+  },
+  {
+    "id": "tax-dependence-reversibility",
+    "title": "Reversibility",
+    "slug": "dependence/reversibility",
+    "summary": "The technical and organizational ability to unwind system state, nullify erroneous transactions, and restore prior conditions.",
+    "scope": "Capability",
+    "safeguards": ["Correction", "Dependency"],
+    "relatedArtifacts": [
+      {
+        "label": "Three kinds of reversibility",
+        "href": "/explainers/three-kinds-of-reversibility",
+        "type": "explainer"
+      },
+      {
+        "label": "Dependence and reversibility eval",
+        "href": "/evals/dependence-reversibility",
+        "type": "eval"
+      },
+      {
+        "label": "Theory: The sovereign override",
+        "href": "/research/theory/the-sovereign-override",
+        "type": "theory"
+      }
+    ]
+  },
+  {
+    "id": "tax-dependence-reversibility-rollbacks",
+    "title": "Rollback Graphs",
+    "slug": "dependence/reversibility/rollbacks",
+    "summary": "Automated transaction rollback graphs and restitution workflows that trigger when an underlying decision premise is refuted.",
+    "scope": "Practice",
+    "safeguards": ["Correction", "Dependency"],
+    "relatedArtifacts": [
+      {
+        "label": "Three kinds of reversibility",
+        "href": "/explainers/three-kinds-of-reversibility",
+        "type": "explainer"
+      },
+      {
+        "label": "STD-02 contestability and recourse",
+        "href": "/standards/std-02-contestability-recourse",
+        "type": "standard"
+      }
+    ]
+  },
+  {
+    "id": "tax-dependence-standing",
+    "title": "Standing",
+    "slug": "dependence/standing",
+    "summary": "Legal and procedural standing granted to captive populations who cannot exit a decision system at acceptable cost.",
+    "scope": "Capability",
+    "safeguards": ["Standing", "Dependency"],
+    "relatedArtifacts": [
+      {
+        "label": "Standing eval",
+        "href": "/evals/standing",
+        "type": "eval"
+      },
+      {
+        "label": "Theory: Dependence without standing",
+        "href": "/research/theory/dependence-without-standing",
+        "type": "theory"
+      },
+      {
+        "label": "Theory: Dependence runs both ways",
+        "href": "/research/theory/dependence-runs-both-ways",
+        "type": "theory"
+      }
+    ]
+  },
+  {
+    "id": "tax-dependence-preserved-capacity",
+    "title": "Preserved Capacity",
+    "slug": "dependence/preserved-capacity",
+    "summary": "Naming, funding, and exercising the non-automated institutional capacities needed to question, replace, or halt a system.",
+    "scope": "Capability",
+    "safeguards": ["Dependency"],
+    "relatedArtifacts": [
+      {
+        "label": "Error-bearing parties",
+        "href": "/explainers/error-bearing-parties",
+        "type": "explainer"
+      },
+      {
+        "label": "Laws for engineering delegated intelligence",
+        "href": "/standards/laws",
+        "type": "doctrine"
+      },
+      {
+        "label": "Theory: The consumption of adaptive capacity",
+        "href": "/research/theory/the-consumption-of-adaptive-capacity",
+        "type": "theory"
+      }
     ]
   }
 ]

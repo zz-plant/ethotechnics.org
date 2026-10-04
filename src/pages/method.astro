@@ -1,0 +1,396 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageIntro from "../components/PageIntro.astro";
+import SectionBlock from "../components/SectionBlock.astro";
+import StateVariableGlyph, {
+  type StateVariableGlyphId,
+} from "../components/StateVariableGlyph.astro";
+import { methodContent } from "../content/method";
+import ChainDiagram from "../components/ChainDiagram.astro";
+import CircuitNavigator from "../components/CircuitNavigator.astro";
+import SafeguardEquilibriumDiagram from "../components/SafeguardEquilibriumDiagram.astro";
+import MethodStack from "../components/MethodStack.astro";
+import SpeechBubble from "../components/SpeechBubble.astro";
+
+const {
+  pageTitle,
+  pageDescription,
+  definition,
+  positiveDefinition,
+  claim,
+  unitOfGovernance,
+  invariant,
+  chain,
+  stateVariables,
+  laws,
+  lenses,
+  applicationSequence,
+  optimizationProblem,
+} = methodContent;
+
+const anchorLinks = [
+  { href: "#definition", label: "Definition" },
+  { href: "#stack", label: "How the parts fit" },
+  { href: "#sequence", label: "Applying it" },
+  { href: "#chain", label: "The chain" },
+  { href: "#circuits", label: "The two circuits" },
+  { href: "#state-variables", label: "The six safeguards" },
+  { href: "#laws", label: "The twelve laws" },
+  { href: "#incompatible", label: "Sentences that block repair" },
+  { href: "#lenses", label: "The three lenses" },
+  { href: "#optimization", label: "The optimization problem" },
+];
+
+const chainSummary = chain.map((stage) => stage.title).join(" → ");
+
+/** Sentences institutions say, each with the method's answer. */
+const incompatibleSentences = [
+  {
+    said: "We meant well.",
+    answer: "Good intent does not substitute for state reversal or redress.",
+  },
+  {
+    said: "Edge cases are acceptable.",
+    answer: "High-impact harm often concentrates in the tails.",
+  },
+  {
+    said: "We’ll fix it later.",
+    answer: "Irreversible damage occurs while fixes are scheduled.",
+  },
+  {
+    said: "We can’t tell you why.",
+    answer: "Decisions without reasons violate basic contestability.",
+  },
+  {
+    said: "The model decided.",
+    answer:
+      "Systems have human and organizational owners; models do not hold legal liability.",
+  },
+  {
+    said: "It’s still pending.",
+    answer: "A hold with no clock is an outcome, and it destroys recourse.",
+  },
+];
+
+/**
+ * Sentences that offer a system's success as the reason it may keep acting.
+ * Each is true of some systems and settles nothing, because each turns a fact
+ * about the system into a fact about its authority, which the laws refuse.
+ */
+const substituteJustifications = [
+  {
+    said: "The model is accurate.",
+    answer:
+      "Accuracy is evidence for a decision. It is not permission to make it (Law I).",
+  },
+  {
+    said: "The pilot succeeded.",
+    answer:
+      "Success is not a license to expand. Each widening is its own authorization (Law XI).",
+  },
+  {
+    said: "We have had few complaints.",
+    answer:
+      "Few complaints can mean people absorbed the errors. The absence of observed failure does not renew authority (Law II).",
+  },
+  {
+    said: "A human is in the loop.",
+    answer:
+      "A person who sees a decision but cannot change it is observing, not governing (Law VIII).",
+  },
+  {
+    said: "It passed the audit.",
+    answer:
+      "Conformance shows how a delegation is run. It does not show the power should be held.",
+  },
+  {
+    said: "We have used it for years.",
+    answer:
+      "Authority decays unless its justification is renewed on evidence (Law II).",
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  structuredDataType="webpage"
+  publishedTime="2026-09-06T00:00:00.000Z"
+>
+  <PageIntro
+    eyebrow="Method"
+    title="The Ethotechnics method"
+    description={pageDescription}
+    anchorLinks={anchorLinks}
+  >
+    <Fragment slot="actions">
+      <a class="button primary" href="#sequence">Apply it to one workflow</a>
+      <a class="button ghost" href="/navigator">Concept navigator</a>
+      <a class="button ghost" href="/standards">Open the standards</a>
+      <a class="button ghost" href="/use-cases">Which systems this is for</a>
+    </Fragment>
+  </PageIntro>
+
+  <SectionBlock
+    id="definition"
+    eyebrow="Definition"
+    title="What Ethotechnics is"
+    description={definition}
+  >
+    <div class="grid grid--two">
+      <div class="card stack-sm">
+        <p class="eyebrow">The claim</p>
+        <p>{claim}</p>
+      </div>
+      <div class="card stack-sm">
+        <p class="eyebrow">The unit of governance</p>
+        <p>{unitOfGovernance}</p>
+      </div>
+    </div>
+    <div class="panel stack-sm">
+      <p class="eyebrow">The positive form</p>
+      <p><strong>{positiveDefinition}</strong></p>
+      <p class="muted small">
+        The definition above states what the discipline keeps tied together;
+        this states what it is for. The same idea as prohibitions is in the{" "}
+        <a href="/standards/laws#spine">laws restated as rules</a>.
+      </p>
+    </div>
+    <div class="panel stack-sm">
+      <p class="eyebrow">The invariant</p>
+      <p><strong>{invariant}</strong></p>
+      <p class="muted small">
+        The invariant is the twelve laws in one sentence. Every standard clause,
+        mechanism, and eval on this site specifies or checks some part of it.
+      </p>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="stack"
+    eyebrow="How the parts fit"
+    title="One claim, one stack"
+    description="The object is the delegation. The failure is absorption: evidence that a delegation is wrong gets settled case by case and never reaches the rule. The instrument is the record. Read the stack from the top: each layer turns the one above it into something a running system can fail."
+  >
+    <MethodStack />
+  </SectionBlock>
+
+  <SectionBlock
+    id="sequence"
+    eyebrow="Applying it"
+    title="Four steps, one workflow at a time"
+    description="The method is not adopted at the scale of an organization. It is adopted one workflow at a time, and a different workflow each week produces a cross-section of where burden lands."
+  >
+    <ol class="step-list stack-sm">
+      {
+        applicationSequence.map((step) => (
+          <li>
+            <strong>{step.title}.</strong> {step.detail}
+          </li>
+        ))
+      }
+    </ol>
+    <p class="small muted">
+      Step three uses one of the <a href="#lenses">three lenses</a> described further
+      down. The rest of this page is the reasoning behind the steps.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="chain"
+    eyebrow="The chain"
+    title="Seven stages every consequential decision passes through"
+    description={`Every consequential decision is one link in a governed chain: ${chainSummary}. Each stage has a question the institution must be able to answer, and the standards, records, and tools on this site that address it.`}
+    variant="alt"
+  >
+    <ChainDiagram />
+    <ol class="step-list stack-md">
+      {
+        chain.map((stage) => (
+          <li id={stage.id} class="card stack-sm">
+            <h3>{stage.title}</h3>
+            <p>{stage.question}</p>
+            <p class="eyebrow">What answers it today</p>
+            <ul class="card__list">
+              {stage.currentAssets.map((asset) => (
+                <li>{asset}</li>
+              ))}
+            </ul>
+            <p class="small">
+              {stage.links.map((link, linkIndex) => (
+                <>
+                  {linkIndex > 0 && <span aria-hidden="true"> · </span>}
+                  <a href={link.href}>{link.label}</a>
+                </>
+              ))}
+            </p>
+          </li>
+        ))
+      }
+    </ol>
+  </SectionBlock>
+
+  <SectionBlock
+    id="circuits"
+    eyebrow="The two circuits"
+    title="Where a scaled system's friction lands"
+    description="Friction never disappears from a system that scales beyond what its operators can see. It transfers. Every deployment picks where it lands and whether it is recorded."
+    variant="alt"
+  >
+    <CircuitNavigator />
+    <p class="muted small">
+      The same distinction underlies the{" "}
+      <a href="/standards/laws#invariant">invariant</a>: agency (the closed
+      circuit's throughput) may not accumulate faster than inspect, challenge,
+      revise, and survive (the open circuit's verbs).
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="state-variables"
+    eyebrow="The six safeguards"
+    title="Six things that must stay in step"
+    description="A well-built system records each of these explicitly. It becomes unsafe when they drift apart: when it can do more than it is authorized to, or holds authority the evidence no longer supports. The laws call them state variables; the casebook and the self-test call them safeguards."
+  >
+    <SafeguardEquilibriumDiagram />
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table">
+        <thead>
+          <tr>
+            <th scope="col">State</th>
+            <th scope="col">Question</th>
+            <th scope="col">Drift it detects</th>
+            <th scope="col">Law</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            stateVariables.map((variable) => (
+              <tr>
+                <th scope="row">
+                  <StateVariableGlyph
+                    variable={
+                      variable.state.toLowerCase() as StateVariableGlyphId
+                    }
+                    label={variable.state}
+                  />
+                </th>
+                <td>{variable.question}</td>
+                <td>{variable.drift}</td>
+                <td>{variable.lawRefs}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="laws"
+    eyebrow="Laws"
+    title="The twelve laws"
+    description="Each law states a condition that must always hold. Each link opens the law and the standard clauses that make it checkable."
+    variant="alt"
+  >
+    <div class="card">
+      <ul class="card__list">
+        {
+          laws.map((law) => (
+            <li>
+              <a href={law.href}>
+                Law {law.numeral}: {law.statement}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <p class="small muted">
+      Full statements and arguments: <a href="/standards/laws"
+        >Laws for Engineering Delegated Intelligence</a
+      >. The five axioms that motivate them: <a href="/standards/core-axioms"
+        >Core axioms</a
+      >. The sentences that quietly break them: <a href="#incompatible"
+        >Sentences incompatible with Ethotechnics</a
+      >.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="incompatible"
+    eyebrow="Non-negotiable"
+    title="Sentences incompatible with Ethotechnics"
+    description="Each is common in well-intentioned institutions. Each is incompatible with the method when it delays repair or stands in for a justification."
+  >
+    <h3>Sentences that delay repair</h3>
+    <ul class="said-and-answered">
+      {
+        incompatibleSentences.map((item) => (
+          <li class="said-and-answered__item">
+            <SpeechBubble side="institution" speaker="An institution" verbatim>
+              {item.said}
+            </SpeechBubble>
+            <p class="said-and-answered__answer">{item.answer}</p>
+          </li>
+        ))
+      }
+    </ul>
+    <h3>Sentences that stand in for a justification</h3>
+    <ul class="said-and-answered">
+      {
+        substituteJustifications.map((item) => (
+          <li class="said-and-answered__item">
+            <SpeechBubble side="institution" speaker="An institution" verbatim>
+              {item.said}
+            </SpeechBubble>
+            <p class="said-and-answered__answer">{item.answer}</p>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="small">
+      <strong
+        >If a sentence prevents repair, or offers success as permission, it is
+        incompatible with Ethotechnics.</strong
+      >
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="lenses"
+    eyebrow="The three lenses"
+    title="Three ways to account for who carries the burden"
+    description="The chain says a consequential decision must account for who carries its burden. The lenses are how that accounting is done: each takes one workflow and asks one question about it. Apply one at a time."
+  >
+    <div class="grid grid--three">
+      {
+        lenses.map((lens) => (
+          <div class="card stack-sm" id={lens.id}>
+            <h3>{lens.title}</h3>
+            <p>{lens.question}</p>
+            <blockquote>{lens.example}</blockquote>
+          </div>
+        ))
+      }
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="optimization"
+    eyebrow="The optimization problem"
+    title="What the method optimizes"
+    description={optimizationProblem}
+  >
+    <p>
+      Many familiar projects make an institution better at deciding without
+      asking whether it should decide: fairer scores, better explanations,
+      faster appeals that still fix one case at a time.
+      <a href="/low-leverage">Eleven of them, and what replaces each</a>.
+    </p>
+    <div class="section__actions">
+      <a class="button primary" href="#lenses">Apply the lenses</a>
+      <a class="button ghost" href="/start">Pick a path</a>
+    </div>
+  </SectionBlock>
+</BaseLayout>

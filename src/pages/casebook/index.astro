@@ -1,0 +1,285 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import StateVariableGlyph from "../../components/StateVariableGlyph.astro";
+import VerdictMark from "../../components/VerdictMark.astro";
+import CasebookFailureChart from "../../components/CasebookFailureChart.astro";
+import TimeToHaltBars from "../../components/TimeToHaltBars.astro";
+import {
+  casebookContent,
+  cases,
+  learningVerdictLabels,
+  stateVariables,
+  verdictTally,
+} from "../../content/casebook";
+
+const { pageTitle, pageDescription, eyebrow, title, description } =
+  casebookContent;
+const tally = verdictTally();
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  structuredDataType="collection"
+>
+  <PageIntro
+    eyebrow={eyebrow}
+    title={title}
+    description={description}
+    anchorLinks={[
+      { href: "#matrix", label: "The scores" },
+      { href: "#cases", label: "The cases" },
+      { href: "#reading", label: "How to read a score" },
+    ]}
+  >
+    <Fragment slot="actions">
+      <a class="button ghost" href="/use-cases"
+        >Which systems these cases point to</a
+      >
+    </Fragment>
+  </PageIntro>
+
+  <SectionBlock
+    id="matrix"
+    eyebrow="Six safeguards, five cases"
+    title="Where the safeguards broke"
+    description="Read down a column to see which safeguard fails most often. Read across a row to see the shape of one case. Standing, the right of the people affected to challenge a decision and be answered, held in none of the five. Correction held once, and only because the system was halted before people came to depend on it. The last column asks whether the institution changed the process that produced the errors, or corrected them and left it as it was."
+    variant="alt"
+  >
+    <div class="table-responsive">
+      <table class="casebook-matrix">
+        <thead>
+          <tr>
+            <th scope="col">Case</th>
+            {
+              stateVariables.map((variable) => (
+                <th scope="col" title={variable.question}>
+                  <StateVariableGlyph
+                    variable={variable.id}
+                    label={variable.label}
+                  />
+                </th>
+              ))
+            }
+            <th scope="col">Time to halt</th>
+            <th scope="col">After the failure</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            cases.map((entry) => (
+              <tr>
+                <th scope="row">
+                  <a href={`/casebook/${entry.slug}`}>{entry.title}</a>
+                  <span class="casebook-matrix__meta">
+                    {entry.jurisdiction.split(" · ")[0]} · {entry.period}
+                  </span>
+                </th>
+                {stateVariables.map((variable) => {
+                  const finding = entry.findings.find(
+                    (item) => item.variable === variable.id,
+                  );
+                  return (
+                    <td data-variable={variable.id}>
+                      {finding && (
+                        <a
+                          href={`/casebook/${entry.slug}#${variable.id}`}
+                          class="casebook-matrix__cell"
+                          aria-label={`${entry.title}, ${variable.label}: ${finding.verdict}`}
+                        >
+                          <VerdictMark verdict={finding.verdict} />
+                        </a>
+                      )}
+                    </td>
+                  );
+                })}
+                <td class="casebook-matrix__halt">{entry.timeToHalt}</td>
+                <td class="casebook-matrix__learning">
+                  <a href={`/casebook/${entry.slug}#learning`}>
+                    {learningVerdictLabels[entry.learningOutcome.verdict]}
+                  </a>
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+        <tfoot>
+          <tr>
+            <th scope="row">Failed, of {cases.length}</th>
+            {
+              stateVariables.map((variable) => (
+                <td>
+                  <span class="casebook-matrix__count">
+                    {tally[variable.id].failed}
+                  </span>
+                </td>
+              ))
+            }
+            <td></td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <p class="casebook-legend small muted" aria-label="Legend">
+      <VerdictMark verdict="held" labelled /> in place and working ·
+      <VerdictMark verdict="drifted" labelled /> in place but out of step with what
+      it should track ·
+      <VerdictMark verdict="failed" labelled /> absent, or its absence is what the
+      inquiry found
+    </p>
+    <p class="small muted">
+      <strong>After the failure</strong> — did the institution change?
+      <strong>{learningVerdictLabels.learned}</strong> = it changed the rule, category,
+      or workflow that produced the errors ·{" "}
+      <strong>{learningVerdictLabels.partial}</strong> = some change, late or imposed
+      from outside ·{" "}
+      <strong>{learningVerdictLabels.absorbed}</strong> = the errors were corrected,
+      the process that produced them was not.
+      <a href="/research/theory/exception-learning">Read the theory</a>
+    </p>
+
+    <TimeToHaltBars />
+
+    <CasebookFailureChart />
+  </SectionBlock>
+
+  <SectionBlock
+    id="cases"
+    eyebrow="The cases"
+    title="What the record established"
+    description="Each case opens with the system in one line, the scale the inquiry found, and who finally made it stop."
+  >
+    <ol class="casebook-list">
+      {
+        cases.map((entry) => (
+          <li class="casebook-list__item" id={entry.slug}>
+            <div class="casebook-list__head">
+              <h3>
+                <a href={`/casebook/${entry.slug}`}>{entry.title} &rarr;</a>
+              </h3>
+              <p class="casebook-list__meta small muted">
+                {entry.jurisdiction} · {entry.period}
+              </p>
+            </div>
+            <p class="casebook-list__system">{entry.system}</p>
+            <dl class="casebook-list__facts">
+              <div>
+                <dt>Scale</dt>
+                <dd>{entry.scale}</dd>
+              </div>
+              <div>
+                <dt>Time to halt</dt>
+                <dd>{entry.timeToHalt}</dd>
+              </div>
+              <div>
+                <dt>Halted by</dt>
+                <dd>{entry.haltedBy}</dd>
+              </div>
+              <div>
+                <dt>After the failure</dt>
+                <dd>
+                  <a href={`/casebook/${entry.slug}#learning`}>
+                    {learningVerdictLabels[entry.learningOutcome.verdict]}
+                  </a>
+                </dd>
+              </div>
+            </dl>
+            <div class="casebook-list__breakdown">
+              <span class="casebook-list__breakdown-label">
+                Failed or drifted:
+              </span>
+              <div
+                class="casebook-list__verdicts"
+                aria-label="Failed or drifted safeguards"
+              >
+                {entry.findings
+                  .filter(
+                    (finding) =>
+                      finding.verdict === "failed" ||
+                      finding.verdict === "drifted",
+                  )
+                  .map((finding) => (
+                    <a
+                      href={`/casebook/${entry.slug}#${finding.variable}`}
+                      class={`casebook-list__verdict casebook-list__verdict--${finding.verdict}`}
+                    >
+                      <VerdictMark verdict={finding.verdict} />
+                      <span>
+                        {
+                          stateVariables.find(
+                            (variable) => variable.id === finding.variable,
+                          )?.label
+                        }
+                      </span>
+                    </a>
+                  ))}
+              </div>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </SectionBlock>
+
+  <SectionBlock
+    id="reading"
+    eyebrow="Method"
+    title="How to read a score"
+    description="A score is a claim about one safeguard at the time of the harm, made from the primary record. It is not a finding of fault, and it is not a measurement of the system today."
+    variant="alt"
+  >
+    <dl class="casebook-reading">
+      <div>
+        <dt><VerdictMark verdict="held" labelled /></dt>
+        <dd>
+          The safeguard was explicit in the record and stayed in step with the
+          others. Capability was declared; authority named its limits; the
+          evidence was the kind that could justify the action taken.
+        </dd>
+      </div>
+      <div>
+        <dt><VerdictMark verdict="drifted" labelled /></dt>
+        <dd>
+          The safeguard existed but fell out of step with the one it should
+          track. Authority that outlived the evidence it was issued on. A
+          capability that grew twentyfold while the review capacity beside it
+          stayed still.
+        </dd>
+      </div>
+      <div>
+        <dt><VerdictMark verdict="failed" labelled /></dt>
+        <dd>
+          The safeguard was absent, or its absence is what the inquiry found. A
+          right to challenge that won individual cases but never changed the
+          system that decided them. Evidence that the party relying on it never
+          held.
+        </dd>
+      </div>
+    </dl>
+    <p>
+      Every finding is linked to the clauses it falls under and to the law it
+      applies. The clause links open the register on the standard's page. If a
+      case is scored wrongly, the primary sources are listed on its page; <a
+        href="/participate">tell us</a
+      > which one we misread.
+    </p>
+    <p>
+      The last column is not a safeguard. It records what happened after the
+      failure: whether the institution changed the rule, category, or workflow
+      that produced the errors, or corrected the errors and left that process as
+      it was. A case can score badly on the safeguards and still end in change,
+      or score well and still end with the process unchanged. The
+      <a href="/research/theory/exception-learning"
+        >theory essay on exception learning</a
+      > explains the difference.
+    </p>
+    <p class="small muted">
+      For three composite scenarios, written as remediation checklists and drawn
+      from no single institution, see the
+      <a href="/incidents">composite scenarios</a>.
+    </p>
+  </SectionBlock>
+</BaseLayout>

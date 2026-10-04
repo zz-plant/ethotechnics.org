@@ -6,24 +6,27 @@ import { derivePublicationMetadata } from "../../utils/publication";
 
 const pageTitle = "EU AI Act";
 const pageDescription =
-  "Ethotechnics-style critique of the EU AI Act\u2019s risk-tiered regulatory regime.";
+  "An Ethotechnics critique of the EU AI Act: most high-risk systems are self-assessed, their authority does not lapse, and a challenge need not reach them.";
 const permalink = "/standards/eu-ai-act";
 const publishedTime = "2026-02-15T00:00:00Z";
-const modifiedTime = "2026-03-04T00:00:00Z";
-const lastUpdated = "2026-05-20";
+const modifiedTime = "2026-10-01T00:00:00Z";
+const timelineReviewed = "2026-05-20";
+const critiqueRevised = "2026-10-01";
 const anchorLinks = [
   { href: "#overview", label: "What it is" },
-  { href: "#timeline", label: "Timeline status" },
-  { href: "#implications-now", label: "Implications now" },
-  { href: "#implementation-cluster", label: "Implementation controls path" },
   { href: "#critique", label: "Ethotechnics critique" },
   { href: "#failure-mode", label: "Failure mode" },
+  { href: "#implementation-cluster", label: "Implementation controls path" },
+  { href: "#timeline", label: "Timeline status" },
+  { href: "#implications-now", label: "Implications now" },
   { href: "#keep-current", label: "How we keep this current" },
 ];
 const publication = derivePublicationMetadata({
   permalink,
   published: publishedTime,
   updated: modifiedTime,
+  changelogSummary:
+    "Rewrote the critique around authority that does not lapse, challenges that need not reach the system, and cost that is assessed but not counted, and moved it ahead of the timeline.",
 });
 ---
 
@@ -31,19 +34,12 @@ const publication = derivePublicationMetadata({
   title={pageTitle}
   description={pageDescription}
   permalink={permalink}
-  seoTitle="EU AI Act implementation controls | Ethotechnics"
+  seoTitle="EU AI Act: critique and implementation controls — Standards"
   eyebrow="Regulatory regime"
   anchorLinks={anchorLinks}
   publishedTime={publishedTime}
   modifiedTime={modifiedTime}
-  panelCopy={{
-    eyebrow: "Ethotechnics read",
-    title: "Compliance vs. machine-speed harm",
-    description:
-      "Documentation and enforcement matter, but they are not the primary brake.",
-  }}
 >
-
   <SectionBlock
     id="overview"
     eyebrow="Overview"
@@ -51,103 +47,55 @@ const publication = derivePublicationMetadata({
     description="A legal regime with risk-tiering, conformity assessment, and market surveillance."
   >
     <p>
-      The EU AI Act establishes obligations for high-risk systems, requires human
-      oversight, and enforces compliance through EU and national authorities.
-    </p>
-    <p><strong>Resource status:</strong> reviewed and updated {lastUpdated}.</p>
-  </SectionBlock>
-
-  <SectionBlock
-    id="implementation-cluster"
-    eyebrow="Implementation controls"
-    title="Follow the implementation path from explainer to clinic"
-    description="Move through one sequence: explain the requirement, deploy the mechanism template, export the artifact, then escalate to clinic support."
-  >
-    <ol class="muted">
-      <li>
-        <strong>Explainer:</strong> <a href="/standards/eu-ai-act">EU AI Act</a>
-        baseline and implementation timing.
-      </li>
-      <li>
-        <strong>Mechanism template:</strong>
-        <a href="/standards/enforceable-governance-crosswalks"
-          >Control crosswalk workbook</a
-        >
-        to map obligations to accountable controls.
-      </li>
-      <li>
-        <strong>Downloadable artifact:</strong>
-        <a href="/bundles/procurement-clause-pack">Procurement clause pack</a>
-        for policy, legal, and vendor implementation.
-      </li>
-      <li>
-        <strong>Clinic/signup:</strong> <a href="/participate">Book a clinic</a>
-        for implementation review and evidence-pack planning.
-      </li>
-    </ol>
-  </SectionBlock>
-
-  <SectionBlock
-    id="timeline"
-    eyebrow="Timeline status"
-    title="Direction is stable; dates can still move"
-    variant="alt"
-  >
-    <p>
-      We treat the Commission timeline as the canonical baseline: entry into force,
-      phased obligations, and later applicability windows for some categories.
+      The EU AI Act establishes obligations for high-risk systems, requires
+      human oversight, and enforces compliance through EU and national
+      authorities.
     </p>
     <p>
-      We also track live policy updates (including proposals that could shift parts
-      of implementation timing). This means schedule details are politically live,
-      even while the governance direction remains consistent.
+      <strong>Resource status:</strong> critique revised {critiqueRevised};
+      timeline status reviewed {timelineReviewed}.
     </p>
-  </SectionBlock>
-
-  <SectionBlock
-    id="implications-now"
-    eyebrow="Implications"
-    title="What organizations should optimize for right now"
-    description="Prepare for converging governance expectations, not a single date bet."
-  >
-    <ul class="card__list">
-      <li>
-        <strong>Prioritize auditability primitives:</strong> receipts, decision records,
-        evidence packs, and repair logs that survive policy edits.
-      </li>
-      <li>
-        <strong>Operationalize time bounds:</strong> define and test time-to-human,
-        time-to-remedy, and escalation paths with named authority.
-      </li>
-      <li>
-        <strong>Design for contestability:</strong> include standing, non-retaliation,
-        and reliable recourse pathways that can be verified in an audit.
-      </li>
-      <li>
-        <strong>Crosswalk controls:</strong> map one control library across EU AI Act,
-        NIST AI RMF, and ISO/IEC 42001 so readiness does not hinge on one regime.
-      </li>
-    </ul>
   </SectionBlock>
 
   <SectionBlock
     id="critique"
     eyebrow="Ethotechnics critique"
     title="Where the regime falls short"
+    description="The Act requires assessment before release and monitoring after it (Art. 72). The gaps are in what the running system owes the people it decides about."
     variant="alt"
   >
     <ul class="card__list">
       <li>
-        <strong>Compliance is document-mediated:</strong> Conformity assessment and
-        technical documentation improve accountability but do not ensure fast intervention.
+        <strong>Self-assessed authority does not expire.</strong> Most high-risk systems
+        listed in Annex III are assessed by their own provider before release (Art.
+        43(2)), and assessed again only after a substantial modification (Art. 43(4)).
+        A notified body's certificate lapses after at most four or five years (Art.
+        44(2)); a provider's own assessment does not, and nothing requires it to be
+        renewed on evidence.
       </li>
       <li>
-        <strong>Human oversight is underspecified:</strong> Oversight obligations do not
-        impose recovery-time targets or stoppability drills.
+        <strong>A challenge does not have to reach the system.</strong> A person affected
+        by a high-risk system's decision can ask the deployer to explain it (Art.
+        86), and anyone can complain to a market surveillance authority that the Act
+        was breached (Art. 85). The Act gives no route to contest the decision itself;
+        that comes from other law, such as GDPR Article 22. No provision in either
+        ties a contest that succeeds to a change in the system.
       </li>
       <li>
-        <strong>External enforcement is slower than harm:</strong> Market surveillance can
-        deter and punish, but it is not a primary braking system for compounding harm.
+        <strong
+          >Cost to people is assessed before use, not counted after.</strong
+        >
+        Public bodies, private entities providing public services, and deployers that
+        score credit or price life and health insurance assess the impact on fundamental
+        rights before first use, and update the assessment when its elements change
+        (Art. 27). Nothing requires a measure of what the running system costs the
+        people it decides about, such as the time they spend correcting its errors.
+      </li>
+      <li>
+        <strong>A halt is required; rehearsing it is not.</strong> Human oversight
+        must, as appropriate and proportionate, let a person interrupt a high-risk
+        system so it halts in a safe state (Art. 14(4)(e)). Nothing requires anyone
+        to rehearse the halt or meet a recovery deadline.
       </li>
     </ul>
   </SectionBlock>
@@ -165,10 +113,81 @@ const publication = derivePublicationMetadata({
   </SectionBlock>
 
   <SectionBlock
+    id="implementation-cluster"
+    eyebrow="Implementation controls"
+    title="Follow the implementation path from explainer to review"
+    description="Three steps in order: understand the requirement, map it to controls, and get an outside review if you need one."
+    variant="alt"
+  >
+    <ol class="muted">
+      <li>
+        <strong>Explainer:</strong>
+        <a href="#timeline">the timeline status</a> on this page, for what is in force
+        and what is scheduled.
+      </li>
+      <li>
+        <strong>Mechanism template:</strong>
+        <a href="/standards/enforceable-governance-crosswalks"
+          >Control crosswalk workbook</a
+        >
+        to map obligations to accountable controls.
+      </li>
+      <li>
+        <strong>Outside review:</strong>
+        <a href="/participate#peer-review">Commission a review</a> of your implementation
+        and evidence pack from Ethotechnics Studio.
+      </li>
+    </ol>
+  </SectionBlock>
+
+  <SectionBlock
+    id="timeline"
+    eyebrow="Timeline status"
+    title="Direction is stable; dates can still move"
+  >
+    <p>
+      We treat the Commission timeline as the canonical baseline: entry into
+      force, phased obligations, and later applicability windows for some
+      categories.
+    </p>
+    <p>
+      We also track live policy updates (including proposals that could shift
+      parts of implementation timing). This means schedule details are
+      politically live, even while the governance direction remains consistent.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="implications-now"
+    eyebrow="Implications"
+    title="What organizations should optimize for right now"
+    description="Prepare for converging governance expectations, not a single date bet."
+    variant="alt"
+  >
+    <ul class="card__list">
+      <li>
+        <strong>Prioritize auditability primitives:</strong> receipts, decision records,
+        evidence packs, and repair logs that survive policy edits.
+      </li>
+      <li>
+        <strong>Operationalize time bounds:</strong> define and test time-to-human,
+        time-to-remedy, and escalation paths with named authority.
+      </li>
+      <li>
+        <strong>Design for contestability:</strong> include standing, non-retaliation,
+        and reliable recourse pathways that can be verified in an audit.
+      </li>
+      <li>
+        <strong>Crosswalk controls:</strong> map one control library across EU AI
+        Act, NIST AI RMF, and ISO/IEC 42001 so readiness does not hinge on one regime.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
     id="keep-current"
     eyebrow="Maintenance"
     title="How this resource stays current"
-    variant="alt"
   >
     <ul class="card__list">
       <li>
@@ -180,8 +199,8 @@ const publication = derivePublicationMetadata({
         obligation scopes, or enforcement mechanics materially change.
       </li>
       <li>
-        <strong>Language guardrail:</strong> avoid "locked date" claims; state what is
-        in force now, what is scheduled, and what is proposed.
+        <strong>Language guardrail:</strong> avoid "locked date" claims; state what
+        is in force now, what is scheduled, and what is proposed.
       </li>
       <li>
         <strong>Review cadence:</strong> reassess quarterly and after major Commission,
@@ -189,5 +208,9 @@ const publication = derivePublicationMetadata({
       </li>
     </ul>
   </SectionBlock>
-  <CitationBlock title={pageTitle} permalink={permalink} publication={publication} />
+  <CitationBlock
+    title={pageTitle}
+    permalink={permalink}
+    publication={publication}
+  />
 </StandardsLayout>

@@ -1,33 +1,70 @@
 import { Glob } from "bun";
 
 const WORKER_GLOB = "dist/server/chunks/worker-entry_*.mjs";
-const STREAMING_BOOTSTRAP = "const app = createApp();";
-const BUFFERED_BOOTSTRAP = "const app = createApp({ streaming: false });";
 
-export async function patchCloudflareWorkerStreaming(root = "."): Promise<string> {
-  const glob = new Glob(WORKER_GLOB);
-  const files = Array.from(glob.scanSync({ cwd: root, absolute: false }));
+export async function patchCloudflareWorkerStreaming(
+  root = ".",
+): Promise<string> {
+  const cleanRoot = root.replace(/\/$/, "");
+  const entryFile = `${cleanRoot}/dist/server/entry.mjs`;
+  let targetPath: string;
 
-  if (files.length !== 1) {
-    throw new Error(`Expected one generated Cloudflare worker entry matching ${WORKER_GLOB}, found ${files.length}.`);
+  if (await Bun.file(entryFile).exists()) {
+    targetPath = entryFile;
+  } else {
+    const glob = new Glob(WORKER_GLOB);
+    const files = Array.from(glob.scanSync({ cwd: root, absolute: false }));
+    if (files.length !== 1) {
+      throw new Error(
+        `Expected one generated Cloudflare worker entry matching ${WORKER_GLOB}, found ${files.length}.`,
+      );
+    }
+    targetPath = `${cleanRoot}/${files[0]}`;
   }
 
-  const workerPath = `${root.replace(/\/$/, "")}/${files[0]}`;
-  const worker = await Bun.file(workerPath).text();
+  const worker = await Bun.file(targetPath).text();
 
-  if (worker.includes(BUFFERED_BOOTSTRAP)) {
-    return workerPath;
+  if (
+    worker.includes("createApp({ streaming: false })") ||
+    worker.includes("createApp$1({ streaming: false })")
+  ) {
+    return targetPath;
   }
 
-  if (!worker.includes(STREAMING_BOOTSTRAP)) {
-    throw new Error(`Could not find Cloudflare worker bootstrap in ${files[0]}.`);
+  const patched = worker
+    .replace(
+      "const app = createApp();",
+      "const app = createApp({ streaming: false });",
+    )
+    .replace(
+      "var app = createApp();",
+      "var app = createApp({ streaming: false });",
+    );
+
+  if (patched === worker) {
+    throw new Error(
+      `Could not find Cloudflare worker bootstrap in ${targetPath}.`,
+    );
   }
 
-  await Bun.write(workerPath, worker.replace(STREAMING_BOOTSTRAP, BUFFERED_BOOTSTRAP));
-  return workerPath;
+  const wranglerJsonPath = `${cleanRoot}/dist/server/wrangler.json`;
+  if (await Bun.file(wranglerJsonPath).exists()) {
+    try {
+      const wranglerJson = JSON.parse(await Bun.file(wranglerJsonPath).text());
+      if ("legacy_env" in wranglerJson) {
+        delete wranglerJson.legacy_env;
+        await Bun.write(wranglerJsonPath, JSON.stringify(wranglerJson));
+      }
+    } catch {
+      // ignore
+    }
+  }
+
+  await Bun.write(targetPath, patched);
+  return targetPath;
 }
 
 if (import.meta.main) {
   const workerPath = await patchCloudflareWorkerStreaming();
-  console.log(`Patched Cloudflare worker streaming mode: ${workerPath}`);
+  console.warn(`Patched Cloudflare worker streaming mode: ${workerPath}`);
 }

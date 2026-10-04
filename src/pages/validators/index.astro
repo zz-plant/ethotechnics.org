@@ -1,9 +1,9 @@
 ---
+import InlineScript from "../../components/InlineScript.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
-import SummaryCallout from "../../components/SummaryCallout.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import { validatorsContent } from "../../content/validators";
 
@@ -12,22 +12,21 @@ const {
   pageDescription,
   permalink,
   anchorLinks,
-  panelCopy,
   validators,
   method,
 } = validatorsContent;
 const featuredValidators = validators.slice(0, 2);
 const focusGroups = [
   {
-    title: "Time burden & friction",
+    title: "Time and friction",
     description:
-      "Validators that surface constructive denial and high-friction risk.",
+      "Whether a journey costs people so much time and effort that it denies them the service in effect.",
     validators: validators.slice(0, 2),
   },
   {
-    title: "Latency & bounded duration",
+    title: "Delays and time limits",
     description:
-      "Validators that confirm time limits and escalation readiness.",
+      "Whether the system answers within its declared timeout, and whether a person can escalate to a human.",
     validators: validators.slice(2, 3),
   },
 ];
@@ -65,10 +64,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <PageIntro
     eyebrow="Validators"
     title="Validators"
-    description="Run diagnostic validators that output report cards and corrective mechanisms."
-    permalink={permalink}
+    description="Each validator takes three inputs about a user journey. It returns a red, yellow, or green status, the STD-01 clauses at risk, and a mechanism that would fix the problem."
     anchorLinks={anchorLinks}
-    panelCopy={panelCopy}
   >
     <Fragment slot="actions">
       {
@@ -84,59 +81,11 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       <a class="button ghost" href="#tools"> Browse all validators </a>
     </Fragment>
   </PageIntro>
-  <SummaryCallout
-    title="Run one validator before you run them all"
-    description="Start with a featured validator to get a report card, then expand into the full menu for deeper coverage."
-    takeaways={[
-      "Validators translate standards into scorecards and remediation steps.",
-      "Each tool links to the mechanisms that close the gap.",
-      "Start with the validator that matches your highest-risk touchpoint.",
-    ]}
-    relatedLinks={[
-      { href: "/standards/std-01-temporal-rights", label: "STD-01" },
-      { href: "/mechanisms", label: "Mechanisms" },
-      { href: "/diagnostics", label: "Diagnostics" },
-    ]}
-    jumpLinks={[
-      { href: "#featured", label: "Featured validators" },
-      { href: "#tools", label: "All validators" },
-      { href: "#method", label: "Method" },
-    ]}
-  />
-  <p class="muted small">
-    Diagnostics help you explore system conditions; validators score those
-    conditions against standards and return a pass/fail-style report card.
-  </p>
-  <div class="callout">
-    <h3>Cross-link to rights and mechanisms</h3>
-    <p class="muted">
-      Jump from validator outputs to the rights they protect and the mechanisms
-      that enforce remediation.
-    </p>
-    <div class="library__role-buttons">
-      <a
-        class="button primary library__role-button"
-        href="/standards/std-01-rights-matrix"
-      >
-        Open the rights matrix
-      </a>
-      <a class="button primary library__role-button" href="/mechanisms">
-        Browse mechanisms
-      </a>
-      <a
-        class="button primary library__role-button"
-        href="/standards/std-01-temporal-rights"
-      >
-        Review the rights
-      </a>
-    </div>
-  </div>
-
   <SectionBlock
     id="featured"
     eyebrow="Start here"
-    title="Featured validators for a fast report card."
-    description="Run one of these first to get a quick score and remediation path."
+    title="Start with the burden validators"
+    description="VAL-01 and VAL-02 score the time and friction a journey puts on the person using it."
     variant="alt"
   >
     <CardGrid className="grid--two">
@@ -161,10 +110,58 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   </SectionBlock>
 
   <SectionBlock
+    id="register"
+    eyebrow="Register"
+    title="Every validator, in one table"
+    description="The standard each one checks against, the inputs it takes, and the clauses and mechanisms it points to."
+  >
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table mapping-table--stack catalogue-table">
+        <thead>
+          <tr>
+            <th scope="col">Validator</th>
+            <th scope="col">Standard</th>
+            <th scope="col">Inputs</th>
+            <th scope="col">Clauses</th>
+            <th scope="col">Mechanisms</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            validators.map((validator) => (
+              <tr>
+                <th scope="row">
+                  <a href={`/validators/${validator.slug}`}>
+                    {validator.id} {validator.title}
+                  </a>
+                </th>
+                <td data-label="Standard">{validator.standardRef}</td>
+                <td data-label="Inputs">
+                  {validator.inputs.map((i) => i.label).join("; ")}
+                </td>
+                <td data-label="Clauses">
+                  {validator.clauseRefs.length
+                    ? validator.clauseRefs.join(", ")
+                    : "—"}
+                </td>
+                <td data-label="Mechanisms">
+                  {validator.mechanismRefs.length
+                    ? validator.mechanismRefs.join(", ")
+                    : "—"}
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
     id="focus"
     eyebrow="Browse by focus"
-    title="Pick the validator that matches your highest-risk touchpoint."
-    description="Use these focus groups to scan the right validator quickly."
+    title="Validators grouped by what they check"
+    description="Time and friction on one side, delays and time limits on the other."
   >
     <CardGrid className="grid--two">
       {
@@ -217,9 +214,33 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       {method.steps.map((step) => <li>{step}</li>)}
     </ul>
   </section>
-  <script
-    type="application/ld+json"
-    set:html={structuredDataJson}
-    is:inline
-  />
+  <section id="from-outputs" class="section">
+    <div class="section__header">
+      <p class="eyebrow">From outputs</p>
+      <h2>Rights and mechanisms behind the outputs</h2>
+      <p class="muted">
+        The STD-01 rights each validator checks, and the mechanisms that fix a
+        failing result.
+      </p>
+    </div>
+    <div class="library__role-buttons">
+      <a
+        class="button ghost library__role-button"
+        href="/standards/std-01-rights-matrix"
+      >
+        Open the rights matrix
+      </a>
+      <a class="button ghost library__role-button" href="/mechanisms">
+        Browse mechanisms
+      </a>
+      <a
+        class="button ghost library__role-button"
+        href="/standards/std-01-temporal-rights"
+      >
+        Review the rights
+      </a>
+    </div>
+  </section>
+
+  <InlineScript type="application/ld+json" code={structuredDataJson} />
 </BaseLayout>

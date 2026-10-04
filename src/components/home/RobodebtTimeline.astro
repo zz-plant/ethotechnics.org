@@ -1,0 +1,23 @@
+---
+/**
+ * The masthead's evidence: Robodebt as dated facts. It is the clearest proof
+ * of the site's claim that winning appeals is not the same as stopping a
+ * system. The events are the casebook entry's own timeline, which cites the
+ * Royal Commission and the Federal Court.
+ */
+import CaseTimeline from "../CaseTimeline.astro";
+import { casesBySlug } from "../../content/casebook";
+
+const robodebt = casesBySlug.get("robodebt");
+---
+
+{
+  robodebt && (
+    <CaseTimeline
+      entry={robodebt}
+      eyebrow="Robodebt · Australia"
+      showHalt
+      showLink
+    />
+  )
+}

@@ -5,24 +5,26 @@ import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import { derivePublicationMetadata } from "../../utils/publication";
 
-const pageTitle = "Where this binds";
+const pageTitle = "Citing the standards in contracts and audits";
 const pageDescription =
-  "A non-authoritative guide to citing Ethotechnics standards in contracts, procurement language, and audits.";
+  "How to write Ethotechnics standards into contracts, procurement language, and audits. This is guidance: it adds no requirements and is not legal advice.";
 const permalink = "/standards/where-this-binds";
 const anchorLinks = [
+  { href: "#language", label: "Sample language" },
   { href: "#contracts", label: "Contracts" },
   { href: "#procurement", label: "Procurement" },
   { href: "#audits", label: "Audits" },
-  { href: "#language", label: "Sample language" },
   { href: "#citations", label: "Citations" },
 ];
 
 const publication = derivePublicationMetadata({
   permalink,
   published: "2026-03-01T00:00:00Z",
-  version: "v1.0.0",
-  authorName: "Ethotechnics Governance Council",
-  changelogSummary: "Published a governance-oriented guide to binding language.",
+  updated: "2026-10-01T00:00:00Z",
+  version: "v1.1.0",
+  authorName: "Ethotechnics Institute",
+  changelogSummary:
+    "Opened with a sample clause binding STD-07 §4.2, STD-08 §1.1 to §1.3, STD-01 §7.1, and STD-02 §8.4, and generalized the guidance beyond STD-01.",
 });
 ---
 
@@ -33,31 +35,47 @@ const publication = derivePublicationMetadata({
   seoTitle={`${pageTitle} — Standards`}
   anchorLinks={anchorLinks}
   publishedTime="2025-06-01T00:00:00.000Z"
+  modifiedTime="2026-10-01T00:00:00.000Z"
   mainClass="page page--wide"
-  panelCopy={{
-    eyebrow: "Non-authoritative",
-    title: "Translate standards into binding language.",
-    description:
-      "These examples are meant for orientation and should be adapted with counsel for your jurisdiction.",
-    link: {
-      label: "Review STD-01",
-      href: "/standards/std-01-temporal-rights",
-    },
-  }}
 >
+  <SectionBlock
+    id="language"
+    eyebrow="Sample language"
+    title="A starting clause."
+    description="It binds four obligations: an answer to every objection, authority renewed only on evidence, a published time cost, and standing for the people who absorb the errors. Adapt it with counsel to your jurisdiction."
+  >
+    <pre
+      class="binding-clause">
+Supplier will meet the following clauses of the Ethotechnics Institute standards, at the versions named, for the system described in Schedule A.
 
-  <ScholarlyMeta publication={publication} permalink={permalink} />
+- STD-07 v0.1 §4.2: every objection accepted on the declared channel produces a revision or a reasoned refusal, on the record, within the stated reversal clock.
+- STD-08 v0.3 §1.1 to §1.3: the system's grant of authority states in advance the evidence its renewal requires; a renewal that rests only on the absence of observed failure is not a renewal; and any widening of the grant's scope is a new authorization with its own evidence.
+- STD-01 v1.0 §7.1: Supplier measures and publishes the time the system costs the people it decides about.
+- STD-02 v1.2 §8.4: the people who absorb the system's errors, including the staff who handle its exceptions, have standing to challenge it.
+
+Supplier will provide the records each clause names on request. These standards are drafts; the versions above are fixed for the term of this agreement.
+    </pre>
+  </SectionBlock>
 
   <SectionBlock
     id="contracts"
     eyebrow="Contracts"
     title="Reference the standard in agreements and SOWs."
     description="Use stable IDs and clause references so obligations remain clear over time."
+    variant="alt"
   >
     <ul class="muted">
-      <li>Reference STD-01 by ID, version, and permalink in the contract appendix.</li>
-      <li>List the specific rights and clauses that apply to the engagement scope.</li>
-      <li>Require evidence artifacts (validator outputs, logs, or mechanism checklists).</li>
+      <li>
+        Reference each standard by ID, version, and permalink in the contract
+        appendix.
+      </li>
+      <li>
+        List the specific rights and clauses that apply to the engagement scope.
+      </li>
+      <li>
+        Require evidence artifacts (validator outputs, logs, or mechanism
+        checklists).
+      </li>
     </ul>
   </SectionBlock>
 
@@ -66,12 +84,16 @@ const publication = derivePublicationMetadata({
     eyebrow="Procurement"
     title="Use the standards as requirement language."
     description="Procurement language should specify which validators and mechanisms are expected."
-    variant="alt"
   >
     <ul class="muted">
-      <li>Ask vendors to submit validator results aligned to STD-01 rights.</li>
-      <li>Specify required mechanisms (e.g., hard clocks, appeal paths) in RFPs.</li>
-      <li>Require remediation timelines when validator scores fall below thresholds.</li>
+      <li>Ask vendors to submit validator results for the clauses in scope.</li>
+      <li>
+        Specify required mechanisms (e.g., hard clocks, appeal paths) in RFPs.
+      </li>
+      <li>
+        Require remediation timelines when validator scores fall below
+        thresholds.
+      </li>
     </ul>
   </SectionBlock>
 
@@ -80,38 +102,46 @@ const publication = derivePublicationMetadata({
     eyebrow="Audits"
     title="Anchor audits to validator outputs and mechanism evidence."
     description="Audits should pair the standard text with measurable evidence."
-  >
-    <ul class="muted">
-      <li>Use validator report cards as audit artifacts, not just narrative summaries.</li>
-      <li>Crosswalk audit findings to STD-01 clause IDs and mechanism coverage.</li>
-      <li>Retain permalinks in audit logs to maintain versioned evidence chains.</li>
-    </ul>
-  </SectionBlock>
-
-  <SectionBlock
-    id="language"
-    eyebrow="Sample language"
-    title="Use this as a starting point."
-    description="Adapt with counsel and ensure it aligns to your jurisdiction."
     variant="alt"
   >
-    <pre>
-Supplier will maintain compliance with Ethotechnics Institute Standard STD-01 v1.0.0, including
-the rights to Stoppability, Exit, and Bounded Duration. Supplier will provide validator outputs
-for VAL-01, VAL-02, and VAL-03 upon request, and will document remediation mechanisms aligned to
-the Institute's mechanisms catalog.
-    </pre>
+    <ul class="muted">
+      <li>
+        Enter validator report cards as audit artifacts. A narrative summary
+        alone is not evidence.
+      </li>
+      <li>Crosswalk audit findings to clause IDs and mechanism coverage.</li>
+      <li>
+        Retain permalinks in audit logs to maintain versioned evidence chains.
+      </li>
+    </ul>
   </SectionBlock>
 
   <SectionBlock
     id="citations"
     eyebrow="Citations"
     title="Reference this guidance."
-    description="Use the canonical permalink so governance documents stay aligned."
+    description="Cite the canonical permalink and version, so the governance document points at a fixed text."
   >
-    <CitationBlock title={pageTitle} permalink={permalink} publication={publication} />
-    <p class="muted" style="margin-top:1.5rem">
-      See also: <a href="/standards">Standards</a> &middot; <a href="/mechanisms">Mechanisms</a>
+    <ScholarlyMeta publication={publication} permalink={permalink} />
+    <CitationBlock
+      title={pageTitle}
+      permalink={permalink}
+      publication={publication}
+    />
+    <p class="muted" style="margin-top:var(--space-5)">
+      See also: <a href="/standards">Standards</a> &middot; <a
+        href="/mechanisms">Mechanisms</a
+      >
     </p>
   </SectionBlock>
 </StandardsLayout>
+
+<style>
+  /* A contract clause is read, not scanned like code: wrap it to the column
+     instead of scrolling it sideways, and keep the first line clear of the
+     copy button. */
+  .binding-clause {
+    white-space: pre-wrap;
+    padding-top: var(--space-7);
+  }
+</style>

@@ -1,0 +1,91 @@
+---
+title: "Absorption as concealment"
+description: "When people quietly work around a system's errors, the errors never reach its metrics. The more the institution relies on the system, the more reliable it looks."
+permalink: "/research/theory/absorption-as-concealment"
+eyebrow: "Theory"
+published: "2026-09-06"
+question: "How does human absorption of operational errors conceal system defects from performance metrics?"
+lawRefs: ["V", "VIII", "X"]
+summary: "Every absorbed failure improves the metric that should have caught it. Reliability that rests on absorption is not reliability; it is concealment that has not yet been measured."
+---
+
+import DemoFigure from "../../components/DemoFigure.astro";
+import AbsorptionFigure from "../../features/absorption-figure/AbsorptionFigure";
+
+An institution learns about its systems through instruments: error rates, escalation counts, time to resolution, satisfaction scores. The instruments are designed to register failure. This essay is about the failures they cannot register, because someone dealt with them first, and about why that class of failure grows exactly when a system becomes important.
+
+## The mechanism
+
+A failure that reaches an instrument has to survive long enough to be seen. Between the moment a system produces a wrong output and the moment any instrument looks, there is a gap, and the gap is populated by people. A colleague reroutes the task. A supervisor overrides the flag. The person on the receiving end works around the problem and does not report it, because reporting takes longer than working around.
+
+Each of these acts is competent. Each of them is also an act of erasure. The failure occurred, a person absorbed it, and the instrument recorded nothing. The metric that should have captured the failure improves because it was caught. The institution then reads the metric and concludes the system is performing well.
+
+This is not a measurement error in the ordinary sense. An ordinary measurement error is noise; more samples reduce it. Absorption is a bias, and it runs in one direction. Every absorbed failure makes the system look better than it is, and the more competent the surrounding people, the larger the bias. A system deployed among skilled staff will report a lower error rate than the same system deployed among novices, not because it errs less but because more of its errors are caught before they are counted.
+
+## Why absorption grows with importance
+
+One might hope absorption stays small. It does not, for a structural reason. As a system becomes more central to a workflow, more people organize their work around it, and more people are positioned to catch its errors. Their catching becomes routine. Routine catching is invisible catching: nobody writes an incident report for something they fix ten times a day.
+
+At the same time, the cost of a visible failure rises. When a system is peripheral, a failure that reaches an instrument is a minor data point. When the system is central, a failure that reaches an instrument is an event, with meetings and explanations attached. The incentive to absorb rather than report grows with the stakes. So the share of failures that never reach an instrument rises as the system becomes important, which is precisely when the institution most needs to know how it is performing.
+
+The result is a system whose reported health improves as its actual dependence deepens. The two curves are not independent. The second drives the first.
+
+## What this does to reliability claims
+
+The standard argument for expanding a system's authority is that it has proven reliable. The argument has the form: the system has been running for a period, the instruments show few failures, therefore the system can be trusted with more. Absorption breaks the second premise. The instruments show few failures because failures are being absorbed, and the rate of absorption is unmeasured.
+
+This does not mean the system is unreliable. It means the institution does not know whether it is. A claim of reliability that rests on instruments subject to absorption bias is a claim about the combined performance of the system and the people around it, attributed to the system alone. When the institution then expands the system's authority on the strength of that claim, it is expanding on the strength of labor it has not counted and cannot see.
+
+This exposes the accounting distortion at the heart of automated efficiency: the **falsified denominator**. An engineering dashboard measures processing latency in milliseconds and throughput in requests per second. Inside that machine boundary, the automation appears extraordinarily lean. But this denominator counts only internal computational cost. It omits the twenty minutes a user spends navigating a broken flow, the hours spent in an appeal queue, and the manual clean-up shifts worked by operational staff to fix malformed outputs. By treating human time and corrective labor outside the system boundary as zero-cost externalities, the system manufactures an illusion of velocity.
+
+What is celebrated as complexity reduction is almost always **complexity displacement**:
+
+> Whenever a system claims dramatic operational simplification, ask whether the world became simpler or whether someone else was forced to become more adaptive.
+
+The system did not eliminate complexity; it simplified its internal model and pushed the residual burden onto the surrounding human environment.
+
+The failure mode is easy to describe and hard to notice from inside. The system is extended into a context where the absorbing people are absent, or where the absorbed errors have larger consequences, and the true error rate appears for the first time. The institution experiences this as a sudden decline in a previously reliable system. Nothing declined. The concealment ended.
+
+<DemoFigure
+  id="absorption-figure"
+  title="An instrument that improves as the system becomes harder to lose"
+  lede="Thirty-six months of a system whose true error rate barely moves. Read the reported rate the way a governance board would, then extend the system to a second site, cut the staff, or overlay the truth."
+>
+  <AbsorptionFigure client:visible />
+</DemoFigure>
+
+## Measuring what hides
+
+If absorption is a bias rather than noise, it can be measured only by an instrument designed for it. The ordinary instruments will not do, because they are the ones being biased. The question such an instrument has to answer is: how far does the reported performance of this system depend on corrections that are not being counted?
+
+There are ways to get at this. Shadow the people around the system and count what they fix. Compare performance across contexts where the absorbing capacity differs. Remove the absorbing people from a bounded sample and see what the instruments do. None of these is free, and each of them produces a number that the institution may not want. But the alternative is to keep reading the biased instrument and calling the result health.
+
+The number matters for the argument about standing as well. Where the absorbed share is large, the people doing the absorbing are performing the institution's safety function, and the case that they should hold standing over the system is correspondingly strong. Where the absorbed share is small, the case is weaker, and the institution can say so on the basis of evidence.
+
+## The instrument has the same defect
+
+The ways of measuring absorption just listed share a property with the instruments they are meant to correct: they are paid in the currency of the people being measured. Shadowing the people around the system spends their time. Asking a clinician how long the workaround takes asks the person with the least of it. A survey of the exhausted returns the views of the rested, and the institution reads the absence as absence of harm.
+
+The bias has a direction. An instrument drawing on discretionary effort will under-report the depleted, so a low reading is compatible with a severe problem while a high reading is no evidence of a mild one. Asking the question more carefully does not repair this, because the defect sits in the sampling rule rather than in the wording. It is absorption again, one level earlier: the institution reads a quiet sensor as a healthy system.
+
+The alternative is to stop asking. The system's own trail already records what people were made to do. Abandonment at a named form step. Documents uploaded twice. Queries retried. Activity outside scheduled hours. A shadow spreadsheet only one person knows how to update. Each is recorded whether or not anyone is asked, and none of them requires a depleted person to spend anything to be counted. An institution that can only see burden by requesting it is measuring its own willingness to spend someone's reserves, not the burden.
+
+This gives the ordering the essay has been arguing toward. Absorption persists because the cost of a failure lands on someone who cannot decline it. The instrument repeats the arrangement one remove out, because the cost of observing the failure lands on the same person. Both are corrected the same way, by moving the cost onto the party that caused it. An [ethical circuit breaker](/glossary/ethical-circuit-breakers) does that to a failure; a record-derived reading does it to an observation. An [exhaustion-biased instrument](/glossary/exhaustion-biased-instrument) is not a weak measurement to be improved. It is not a measurement.
+
+## When the institution knows
+
+The argument so far assumes the institution cannot see what its people absorb. Sometimes it can. A hospital can know to the hour how much unpaid effort its clinicians spend covering for a broken system and still find that continuing to depend on that effort is cheaper than fixing the system. Then the instrument is not biased into silence. The number is read, priced, and kept.
+
+Measurement does not help in that case. The institution already has the number, and better coordination of the workaround serves the institution's interest as well as the workers'. What is missing is not information but authority: the people who carry the cost have no say over the budget, the staffing, or the priorities that would end it. Whether an institution is blind or is choosing is an empirical question, and the two need different remedies. Blindness calls for an instrument. Choice calls for standing, leverage from outside, or both. Do not treat the second case as the first because the first is easier to say to the institution.
+
+## The layering point
+
+There is a general lesson here about where evaluation belongs. A model can be evaluated in isolation, and the evaluation will be accurate about the model. It will say nothing about what happens when the model's outputs pass through an agent, a workflow, a set of people, and an institution before they reach the world. Each layer can add failures the layer below cannot produce, and each layer can hide failures the layer below did produce.
+
+Absorption is the hiding. It happens at the layers where people are, which are the layers above the model and below the consequence. An evaluation that stops at the model will not see it. An evaluation that starts at the consequence will see its effects but may not know their cause. The evaluation that can see absorption is the one placed at the layer where the absorbing happens, which is the institution, and it has to be designed to look for something that is by nature not being reported.
+
+## What the laws take from this
+
+The method takes three constraints from the argument. Dependence is a state variable, because dependence is what drives absorption and absorption is what corrupts every other measurement; an institution that does not track dependence cannot interpret its own instruments. Observability without state transition is theater, because an instrument that can be biased into silence by competent staff is not observing anything the institution can act on. And the relevant evaluation sits at the highest layer where harm can emerge, because the layers where absorption happens are the layers a model evaluation does not reach.
+
+The narrowest form of the claim needs no theory of what institutions owe the people who absorb their failures. An institution which cannot see its failures does not know how its systems perform, and expanding on the strength of what it cannot see is a decision it is making blind. That form covers only the case where the institution cannot see. Where it can, the argument about standing is the one that applies.

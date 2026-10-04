@@ -1,0 +1,8 @@
+# Bundled by scripts/build-conformance-action.ts and checked byte for byte;
+# formatting it would fail conformance:action:check.
+packages/conformance/action/
+
+# The glossary is the one content data file not written in prettier's JSON style.
+# Its arrays are expanded by JSON.stringify(_, null, 2); prettier collapses the
+# short ones, which rewrites thousands of unrelated lines and buries real edits.
+src/content/glossary.json

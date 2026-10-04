@@ -1,9 +1,12 @@
 import { expect, test } from "@playwright/test";
-import { navPrimaryLinks } from "../../src/content/navigation";
+import { navPrimaryLinks, navSections } from "../../src/content/navigation";
 import { diagnosticsContent } from "../../src/content/diagnostics";
 
-const HERO_HEADING =
-  "Technology should serve people — not the other way around.";
+// Mirrors the hand-authored hero in src/pages/index.astro. A smoke test should
+// pin the headline: if the front door loses its copy, that is a regression.
+const HERO_HEADING = "The appeals kept winning. The system kept running.";
+// The desktop bar renders the primary links verbatim; the mobile menu does
+// not (see the mobile test below).
 const PRIMARY_NAV_LINKS = navPrimaryLinks.map((link) => link.label);
 const PRIMARY_NAV_TARGET = navPrimaryLinks[0];
 const BURDEN_TOOL = diagnosticsContent.tools.find(
@@ -20,6 +23,14 @@ if (!BURDEN_TOOL) {
   );
 }
 
+const LAST_NAV_SECTION = navSections[navSections.length - 1];
+const LAST_DRAWER_LINK =
+  LAST_NAV_SECTION?.links[LAST_NAV_SECTION.links.length - 1];
+
+if (!LAST_DRAWER_LINK) {
+  throw new Error("Navigation sections are missing; check navSections.");
+}
+
 test.describe("Homepage smoke", () => {
   test("shows the primary hero content", async ({ page }) => {
     await page.goto("/");
@@ -27,9 +38,11 @@ test.describe("Homepage smoke", () => {
     await expect(
       page.getByRole("heading", { level: 1, name: HERO_HEADING }),
     ).toBeVisible();
-    await expect(page.getByRole("link", { name: "Get updates" })).toBeVisible();
     await expect(
-      page.getByRole("link", { name: "Explore focus areas" }),
+      page.getByRole("link", { name: "Test your system in 60 seconds" }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: "Incident triage →" }),
     ).toBeVisible();
   });
 });
@@ -51,20 +64,26 @@ test.describe("Navigation", () => {
     await page.setViewportSize({ width: 480, height: 900 });
     await page.goto("/");
 
-    const navContent = page.locator(".nav__content");
-    const html = page.locator("html");
-    await expect(navContent).not.toHaveClass(/is-open/);
-    await expect(html).not.toHaveClass(/nav-locked/);
+    const mobileNav = page.locator("[data-mobile-nav]");
+    await expect(mobileNav).not.toHaveAttribute("open", "");
 
-    await page.getByRole("button", { name: /open navigation/i }).click();
-    await expect(navContent).toHaveClass(/is-open/);
-    await expect(html).toHaveClass(/nav-locked/);
+    await page.locator(".nav__mobile-sections-summary").click();
+    await expect(mobileNav).toHaveAttribute("open", "");
 
-    for (const label of PRIMARY_NAV_LINKS) {
-      await expect(page.getByRole("link", { name: label })).toBeVisible();
+    // The mobile menu renders navSections, whose link labels are more specific
+    // than the primary bar’s ("Knowledge" appears as "Glossary").
+    // Assert every primary DESTINATION is reachable, which is the property
+    // that matters, rather than that its label is repeated verbatim.
+    for (const link of navPrimaryLinks) {
+      await expect(
+        mobileNav.locator(`a[href^="${link.href}"]`).first(),
+      ).toBeVisible();
     }
 
-    await page.getByRole("link", { name: PRIMARY_NAV_TARGET.label }).click();
+    await mobileNav
+      .locator(`a[href^="${PRIMARY_NAV_TARGET.href}"]`)
+      .first()
+      .click();
     await page.waitForURL(PRIMARY_NAV_TARGET.href);
 
     await expect(
@@ -73,22 +92,54 @@ test.describe("Navigation", () => {
         name: new RegExp(PRIMARY_NAV_TARGET.label, "i"),
       }),
     ).toBeVisible();
-    await expect(page.locator(".nav__content")).not.toHaveClass(/is-open/);
-    await expect(html).not.toHaveClass(/nav-locked/);
   });
 
-  test("shows top destinations on desktop without opening the menu", async ({
+  test("keeps every drawer destination reachable on a phone", async ({
+    page,
+  }) => {
+    const viewport = { width: 375, height: 812 };
+    await page.setViewportSize(viewport);
+    await page.goto("/");
+
+    await page.locator(".nav__mobile-sections-summary").click();
+    const drawer = page.locator(".nav__mobile-drawer");
+    await expect(drawer).toBeVisible();
+
+    /* The open drawer locks page scroll, so the header has to stay inside the
+       viewport and the drawer has to carry its own scroll -- otherwise the
+       sections below the fold cannot be reached at all. */
+    const navHeight = await page
+      .locator(".nav")
+      .evaluate((el) => el.getBoundingClientRect().height);
+    expect(navHeight).toBeLessThanOrEqual(viewport.height + 1);
+
+    const lastLink = drawer.getByRole("link", {
+      name: LAST_DRAWER_LINK.label,
+    });
+    await lastLink.scrollIntoViewIfNeeded();
+
+    const withinViewport = await lastLink.evaluate((el) => {
+      const rect = el.getBoundingClientRect();
+      return rect.top >= 0 && rect.bottom <= window.innerHeight;
+    });
+    expect(withinViewport).toBe(true);
+  });
+
+  test("shows top destinations on desktop without opening a menu", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto("/");
 
-    const quickNav = page.locator(".nav__quick");
-    await expect(quickNav).toBeVisible();
+    const desktopNav = page.locator(".nav__links--desktop");
+    await expect(desktopNav).toBeVisible();
 
     for (const label of PRIMARY_NAV_LINKS) {
-      await expect(quickNav.getByRole("link", { name: label })).toBeVisible();
+      await expect(desktopNav.getByRole("link", { name: label })).toBeVisible();
     }
+
+    const startBtn = page.locator(".nav__start-btn");
+    await expect(startBtn).toBeVisible();
   });
 });
 
@@ -96,11 +147,22 @@ test.describe("Diagnostics page", () => {
   test("surfaces primary CTAs and example outputs", async ({ page }) => {
     await page.goto("/diagnostics");
 
+    // Each tool is listed once, as a question card that links to it. Sample
+    // output lives on the tool's own page.
     await expect(
-      page.getByRole("link", { name: BURDEN_TOOL.ctaLabel }),
+      page.getByRole("link", { name: BURDEN_TOOL.ctaLabel }).first(),
     ).toBeVisible();
+    // Every one of them must point at the tool.
+    const ctaLinks = page.getByRole("link", { name: BURDEN_TOOL.ctaLabel });
+    for (let i = 0; i < (await ctaLinks.count()); i++) {
+      await expect(ctaLinks.nth(i)).toHaveAttribute(
+        "href",
+        `/diagnostics/${BURDEN_TOOL.slug}`,
+      );
+    }
+    await page.goto(`/diagnostics/${BURDEN_TOOL.slug}`);
     await expect(
-      page.getByRole("link", { name: BURDEN_TOOL.exampleLabel }),
+      page.getByRole("link", { name: BURDEN_TOOL.exampleLabel }).first(),
     ).toBeVisible();
   });
 });
@@ -111,6 +173,8 @@ test.describe("Mechanisms library", () => {
   }) => {
     await page.goto("/mechanisms");
 
+    // The links sit in each card's disclosure, below its summary.
+    await page.getByText("Steps, terms, and diagnostics").first().click();
     await expect(
       page.getByRole("button", { name: "Copy diagnostic links" }).first(),
     ).toBeVisible();

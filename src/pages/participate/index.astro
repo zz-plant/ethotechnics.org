@@ -1,4 +1,5 @@
 ---
+import "../../styles/components/intake-form.css";
 import { getEntry } from "astro:content";
 import { Icon } from "astro-icon/components";
 
@@ -13,7 +14,6 @@ const participationEntry = (await getEntry("participation", "participation"))!;
 const {
   pageTitle,
   pageDescription,
-  permalink,
   hero,
   pathways,
   openSource,
@@ -35,14 +35,7 @@ const intakeFieldAutocompleteMap: Record<string, string> = {
   "participant-summary": "off",
 };
 type InputMode =
-  | "none"
-  | "text"
-  | "tel"
-  | "url"
-  | "email"
-  | "numeric"
-  | "decimal"
-  | "search";
+  "none" | "text" | "tel" | "url" | "email" | "numeric" | "decimal" | "search";
 const intakeFieldInputModeMap: Record<string, InputMode> = {
   "participant-email": "email",
 };
@@ -63,35 +56,23 @@ const resolveIntakeFieldAutocapitalize = (fieldId: string) =>
   intakeFieldAutocapitalizeMap[fieldId] ?? "sentences";
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} structuredDataType="collection">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  structuredDataType="collection"
+>
   <PageIntro
     eyebrow={hero.eyebrow}
     title={hero.heading}
     description={hero.description}
-    permalink={permalink}
     anchorLinks={hero.anchorLinks}
-    panelCopy={hero.panel}
   />
-
-
-  <SectionBlock
-    id="security-reporting"
-    eyebrow="Security"
-    title="Reporting a vulnerability?"
-    description="Use our dedicated disclosure process for security findings so reports are triaged on explicit clocks."
-    variant="alt"
-  >
-    <p>
-      Start with <a href="/security/vulnerability-disclosure">the vulnerability disclosure policy</a>
-      and the canonical <a href="/.well-known/security.txt">security.txt record</a>.
-    </p>
-  </SectionBlock>
 
   <SectionBlock
     id="field-reports"
     eyebrow="Contribute"
-    title="Share the work that should be in the mechanisms catalog"
-    description="Send concrete stories, drafts, and experiments so we can publish what teams actually need."
+    title="Send a failure that belongs in the casebook"
+    description="Send postmortems, rulings, and inquiry findings from systems you have worked on or followed. The casebook scores failures a court, an inquiry, or a regulator established; the mechanisms catalog needs evidence of fixes working and failing."
     className="section--banded"
   >
     <CardGrid className="grid--three">
@@ -130,40 +111,6 @@ const resolveIntakeFieldAutocapitalize = (fieldId: string) =>
   </SectionBlock>
 
   <SectionBlock
-    id={openSource.id}
-    eyebrow={openSource.eyebrow}
-    title={openSource.title}
-    description={openSource.description}
-    variant="alt"
-  >
-    <CardGrid className="grid--two">
-      {
-        openSource.items.map((item) => (
-          <CardItem title={item.title} description={item.description}>
-            <ul class="card__list">
-              {item.actions.map((action) => (
-                <li>
-                  <a
-                    href={action.href}
-                    aria-label={action.ariaLabel ?? action.label}
-                    rel={
-                      action.href.startsWith("http")
-                        ? "noopener noreferrer"
-                        : undefined
-                    }
-                  >
-                    {action.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </CardItem>
-        ))
-      }
-    </CardGrid>
-  </SectionBlock>
-
-  <SectionBlock
     id="intake"
     eyebrow={intake.eyebrow}
     title={intake.title}
@@ -177,14 +124,19 @@ const resolveIntakeFieldAutocapitalize = (fieldId: string) =>
       <form
         id="intake-form"
         class="intake-form"
-        method="POST"
+        action={intake.form.action}
+        method="post"
+        enctype="text/plain"
+        data-mailto={intake.form.action}
         aria-describedby="intake-format-note intake-response-note intake-timeline-note intake-privacy-note"
       >
         <div class="intake-form__grid">
           {
             intake.form.fields.map((field) => {
               const fieldName = resolveIntakeFieldName(field.id);
-              const fieldAutocomplete = resolveIntakeFieldAutocomplete(field.id);
+              const fieldAutocomplete = resolveIntakeFieldAutocomplete(
+                field.id,
+              );
               const fieldInputMode = resolveIntakeFieldInputMode(field.id);
               const fieldAutocapitalize = resolveIntakeFieldAutocapitalize(
                 field.id,
@@ -246,7 +198,8 @@ const resolveIntakeFieldAutocapitalize = (fieldId: string) =>
           role="status"
           aria-live="polite"
           aria-atomic="true"
-        ></div>
+        >
+        </div>
       </form>
 
       <div
@@ -260,18 +213,29 @@ const resolveIntakeFieldAutocapitalize = (fieldId: string) =>
           <div class="success-message__icon">
             <Icon name="lucide:check" />
           </div>
-          <h3>Received</h3>
-          <p>Thank you for your submission. We'll be in touch soon.</p>
+          <h3>Your email is drafted</h3>
+          <p>
+            Your email app should now show a message to hello@ethotechnics.org
+            with your details filled in. Nothing is sent until you send it from
+            there.
+          </p>
+          <p class="small muted">
+            No draft opened? Email <a
+              href="mailto:hello@ethotechnics.org?subject=Participation%20intake"
+              >hello@ethotechnics.org</a
+            > directly with the same details.
+          </p>
           <button class="button ghost" id="reset-btn" type="button">
-            Send another submission
+            Start another request
           </button>
         </div>
       </div>
     </div>
 
     <script>
-      import { actions } from "astro:actions";
-
+      // The intake form drafts an email in the visitor's own mail app. Nothing
+      // is sent to or stored on this site, so the confirmation must not say
+      // the request was received.
       const form = document.getElementById("intake-form") as HTMLFormElement;
       const submitBtn = document.getElementById(
         "submit-btn",
@@ -315,12 +279,34 @@ const resolveIntakeFieldAutocapitalize = (fieldId: string) =>
           }
         };
 
+        const labelFor = (field: HTMLInputElement | HTMLTextAreaElement) =>
+          form
+            .querySelector(`label[for="${field.id}"] span`)
+            ?.textContent?.trim() ?? field.name;
+
+        const buildMailto = () => {
+          const base =
+            form.dataset.mailto ??
+            "mailto:hello@ethotechnics.org?subject=Participation%20intake";
+          const lines = Array.from(
+            form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>(
+              "input, textarea",
+            ),
+          )
+            .filter((field) => field.value.trim().length > 0)
+            .map((field) => `${labelFor(field)}: ${field.value.trim()}`);
+          const separator = base.includes("?") ? "&" : "?";
+          return `${base}${separator}body=${encodeURIComponent(lines.join("\n\n"))}`;
+        };
+
         restoreDraft();
         form.addEventListener("input", saveDraft);
         form.addEventListener("blur", saveDraft, true);
 
-        form.addEventListener("submit", async (e) => {
+        form.addEventListener("submit", (e) => {
           e.preventDefault();
+          messageDiv.textContent = "";
+          messageDiv.className = "form-message";
 
           if (!form.reportValidity()) {
             const firstInvalid = form.querySelector<HTMLElement>(":invalid");
@@ -328,37 +314,9 @@ const resolveIntakeFieldAutocapitalize = (fieldId: string) =>
             return;
           }
 
-          // Reset previous states
-          messageDiv.textContent = "";
-          messageDiv.className = "form-message";
-          submitBtn.disabled = true;
-          const originalBtnText = submitBtn.textContent;
-          submitBtn.textContent = "Sending...";
-
-          const formData = new FormData(form);
-
-          // Map fields if necessary to match action schema
-          // The form fields in content might not match exactly what our action expects
-          // We'll trust the form content matches or is close enough, checking specific overrides
-
-          const result = await actions.intake(formData);
-
-          submitBtn.disabled = false;
-          submitBtn.textContent = originalBtnText;
-
-          if (!result.error) {
-            // Success
-            form.hidden = true;
-            successDiv.hidden = false;
-            form.reset();
-            localStorage.removeItem(storageKey);
-          } else {
-            // Error
-            messageDiv.textContent =
-              result.error.message ||
-              "Something went wrong. Please try again or use the feedback inbox below.";
-            messageDiv.classList.add("error");
-          }
+          window.location.href = buildMailto();
+          form.hidden = true;
+          successDiv.hidden = false;
         });
 
         resetBtn.addEventListener("click", () => {
@@ -374,11 +332,44 @@ const resolveIntakeFieldAutocapitalize = (fieldId: string) =>
   </SectionBlock>
 
   <SectionBlock
+    id={openSource.id}
+    eyebrow={openSource.eyebrow}
+    title={openSource.title}
+    description={openSource.description}
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      {
+        openSource.items.map((item) => (
+          <CardItem title={item.title} description={item.description}>
+            <ul class="card__list">
+              {item.actions.map((action) => (
+                <li>
+                  <a
+                    href={action.href}
+                    aria-label={action.ariaLabel ?? action.label}
+                    rel={
+                      action.href.startsWith("http")
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
+                  >
+                    {action.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </CardItem>
+        ))
+      }
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
     id="feedback"
     eyebrow={feedback.eyebrow}
     title={feedback.title}
     description={feedback.description}
-    variant="alt"
   >
     <FeedbackRibbon
       eyebrow="Feedback inboxes"
@@ -386,5 +377,26 @@ const resolveIntakeFieldAutocapitalize = (fieldId: string) =>
       description="Share unclear steps, missing citations, or examples you want us to add."
       actions={feedback.actions}
     />
+    <p class="small muted">
+      This inbox is for fixing the site's content. To challenge a decision an
+      institution made about you, use that institution's appeal route, not this
+      inbox — see{" "}
+      <a href="/standards/laws#law-vii">Law VII</a>.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="security-reporting"
+    eyebrow="Security"
+    title="Reporting a vulnerability?"
+    description="Security findings go through a separate disclosure process, not this page."
+    variant="alt"
+  >
+    <p>
+      Start with <a href="/security/vulnerability-disclosure"
+        >the vulnerability disclosure policy</a
+      >
+      and the <a href="/.well-known/security.txt">security.txt file</a>.
+    </p>
   </SectionBlock>
 </BaseLayout>

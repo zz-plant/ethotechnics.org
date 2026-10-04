@@ -1,0 +1,226 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import { diagnosticsContent } from "../../content/diagnostics";
+import { getRole, roles, rolePermalink } from "../../content/roles";
+import { getStandardBySlug } from "../../content/standards";
+
+/**
+ * Resolved per request rather than prerendered, matching
+ * /mechanisms/patterns/[slug]. Under `output: "server"` the prerendered
+ * dynamic routes on this site currently build to a placeholder rather than
+ * their HTML (see docs/planning/prerender-finding-2026-09.md); this route
+ * takes the shape that is known to serve correctly.
+ */
+const role = getRole(Astro.params.role ?? "");
+if (!role) return new Response("Role not found", { status: 404 });
+
+// "Research — Ethotechnics" was also the research programme's title. A role
+// page is a path through the material, and its title now says so.
+const pageTitle = `${role.label} — Ethotechnics role path`;
+const pageDescription = role.tagline;
+
+const anchorLinks = [
+  role.orientation?.length
+    ? { href: "#first-moves", label: "Where to start" }
+    : null,
+  role.featuredDiagnostics?.length || role.featuredStandards?.length
+    ? { href: "#tools", label: "Tools and standards" }
+    : null,
+  role.guide ? { href: "#focus", label: "What to attend to" } : null,
+  role.guide ? { href: "#reads", label: "What to open" } : null,
+  role.adoptionChecklist?.length
+    ? { href: "#adopt", label: "Adoption checklist" }
+    : null,
+].filter((link): link is { href: string; label: string } => link !== null);
+
+const others = roles.filter((entry) => entry.id !== role.id);
+
+// Design has four first steps, the others three. The heading counts them
+// rather than asserting a number.
+const stepCountWords = ["", "One", "Two", "Three", "Four", "Five", "Six"];
+const stepCount = role.orientation?.length ?? 0;
+const firstMovesTitle =
+  stepCount === 1
+    ? "One step to take first"
+    : `${stepCountWords[stepCount] ?? stepCount} steps, in order`;
+
+const diagnosticTitle = (slug: string) =>
+  diagnosticsContent.tools.find((tool) => tool.slug === slug)?.title ??
+  slug.replaceAll("-", " ");
+
+const standardLabel = (slug: string) => {
+  const standard = getStandardBySlug(slug);
+  return standard ? `${standard.id}: ${standard.title}` : slug;
+};
+
+const breadcrumbItems = [
+  { name: "Home", url: "/" },
+  { name: "Start", url: "/start" },
+  { name: role.label, url: rolePermalink(role.id) },
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2026-09-07T00:00:00.000Z"
+  breadcrumbItems={breadcrumbItems}
+>
+  <PageIntro
+    eyebrow="For your role"
+    title={role.label}
+    description={role.tagline}
+    anchorLinks={anchorLinks}
+  >
+    <Fragment slot="actions">
+      <a class="button ghost" href="/use-cases">Which systems this is for</a>
+    </Fragment>
+  </PageIntro>
+
+  {
+    role.orientation?.length && (
+      <SectionBlock
+        id="first-moves"
+        eyebrow="Where to start"
+        title={firstMovesTitle}
+        description="Each step ends at a tool to run or a document to use, not only something to read."
+      >
+        <ol class="step-list stack-md">
+          {role.orientation.map((step) => (
+            <li class="card stack-sm">
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+              <p>
+                <a class="button ghost button--compact" href={step.ctaHref}>
+                  {step.ctaLabel}
+                </a>
+              </p>
+            </li>
+          ))}
+        </ol>
+      </SectionBlock>
+    )
+  }
+
+  {
+    (role.featuredDiagnostics?.length || role.featuredStandards?.length) && (
+      <SectionBlock
+        id="tools"
+        eyebrow="Tools and standards"
+        title="What to run and what to satisfy"
+        description="The diagnostics that show risk in this role's work, and the standards that apply to it."
+      >
+        <div class="grid grid--two">
+          {role.featuredDiagnostics?.length ? (
+            <div class="card stack-sm">
+              <p class="eyebrow">Diagnostics</p>
+              <ul class="card__list">
+                {role.featuredDiagnostics.map((slug) => (
+                  <li>
+                    <a href={`/diagnostics/${slug}`}>{diagnosticTitle(slug)}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {role.featuredStandards?.length ? (
+            <div class="card stack-sm">
+              <p class="eyebrow">Standards</p>
+              <ul class="card__list">
+                {role.featuredStandards.map((slug) => (
+                  <li>
+                    <a href={`/standards/${slug}`}>{standardLabel(slug)}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+        </div>
+      </SectionBlock>
+    )
+  }
+
+  {
+    role.guide && (
+      <SectionBlock
+        id="focus"
+        eyebrow="What to attend to"
+        title="The parts of the method that apply to your work"
+        description="Not everything on this site is for you. These parts are."
+        variant="alt"
+      >
+        <ul class="card__list">
+          {role.guide.focusAreas.map((area) => (
+            <li>{area}</li>
+          ))}
+        </ul>
+      </SectionBlock>
+    )
+  }
+
+  {
+    role.guide && (
+      <SectionBlock
+        id="reads"
+        eyebrow="What to open"
+        title="Where the material is"
+      >
+        <ul class="card__list">
+          {role.guide.keyLinks.map((link) => (
+            <li>
+              <a href={link.href}>{link.label}</a>
+              {link.note && <span class="muted"> — {link.note}</span>}
+            </li>
+          ))}
+        </ul>
+        <h3>What to do first</h3>
+        <ol class="stack-sm">
+          {role.guide.firstMoves.map((move) => (
+            <li>{move}</li>
+          ))}
+        </ol>
+      </SectionBlock>
+    )
+  }
+
+  {
+    role.adoptionChecklist?.length && (
+      <SectionBlock
+        id="adopt"
+        eyebrow="Adoption checklist"
+        title="What to have in place"
+        description="For a team that has decided to adopt the standards. Each line is something that either exists or does not."
+        variant="alt"
+      >
+        <ul class="card__list">
+          {role.adoptionChecklist.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </SectionBlock>
+    )
+  }
+
+  <SectionBlock
+    eyebrow="Other roles"
+    title="If that was not you"
+    description="Seven audiences, one page each. Picking the wrong one costs a click, not a detour."
+  >
+    <ul class="card__list">
+      {
+        others.map((entry) => (
+          <li>
+            <a href={rolePermalink(entry.id)}>{entry.label}</a>
+            <span class="muted"> — {entry.who}</span>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="small muted">
+      Or go back to <a href="/start">Start</a>, which asks the same question
+      with all seven answers on one screen.
+    </p>
+  </SectionBlock>
+</BaseLayout>

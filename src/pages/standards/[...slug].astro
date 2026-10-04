@@ -1,8 +1,16 @@
 ---
+import "../../styles/components/standards.css";
 import { getEntry, render } from "astro:content";
 import CitationBlock from "../../components/CitationBlock.astro";
+import SemanticConnections from "../../components/SemanticConnections.astro";
 import StandardsLayout from "../../components/StandardsLayout.astro";
+import LawsGrid from "../../components/LawsGrid.astro";
+import ClauseRegister from "../../components/ClauseRegister.astro";
+import GrantStateDiagram from "../../components/GrantStateDiagram.astro";
+import StandardPager from "../../components/StandardPager.astro";
+import { standardsContent } from "../../content/standards";
 import { derivePublicationMetadata } from "../../utils/publication";
+import { compareRegistryToDocument } from "../../utils/clause-registry";
 
 const { slug } = Astro.params;
 const slugStr = Array.isArray(slug) ? slug.join("/") : String(slug ?? "");
@@ -13,7 +21,39 @@ if (!entry) {
 }
 
 const { Content } = await render(entry);
+// A standards document that emits its own TechArticle JSON-LD describes the
+// page itself, so the layout must not add a second WebPage and Article.
+const pageSchema = entry.body?.includes("application/ld+json")
+  ? "route"
+  : "layout";
 const data = entry.data;
+
+/**
+ * Structured views that sit above the normative prose. Each is derived from
+ * the same source the prose is — the MDX body, the clause registry, the
+ * object schema — so none of them can say something the text does not.
+ */
+const isLaws = slugStr === "laws";
+// Frontmatter carries no id; the registry keyed by slug is the one place a
+// standard's identifier is declared.
+const standardId = standardsContent.standards.find(
+  (standard) => standard.slug === slugStr,
+)?.id;
+const clausePartLabels: Record<string, Record<string, string>> = {
+  "STD-07": {
+    "1": "Article I: Time and immutability",
+    "2": "Article II: Authority",
+    "3": "Article III: Dependence and invalidation",
+    "4": "Article IV: Standing and contest",
+    "5": "Article V: Integrity",
+  },
+  "STD-08": {
+    "1": "Part A: Authority as lease",
+    "2": "Part B: Policy validity",
+    "3": "Part C: Intervention",
+    "4": "Part D: Correction symmetry",
+  },
+};
 
 const publication = derivePublicationMetadata({
   permalink: data.permalink,
@@ -21,6 +61,23 @@ const publication = derivePublicationMetadata({
   updated: data.modifiedTime ?? data.publishedTime ?? undefined,
   version: data.version,
 });
+
+const hasClauseRegister = Boolean(
+  standardId &&
+  entry.body &&
+  compareRegistryToDocument(standardId, entry.body).matches,
+);
+
+const resolvedAnchorLinks = [...(data.anchorLinks ?? [])];
+if (
+  hasClauseRegister &&
+  !resolvedAnchorLinks.some((link) => link.href === "#clause-register")
+) {
+  resolvedAnchorLinks.unshift({
+    href: "#clause-register",
+    label: "Clause register",
+  });
+}
 ---
 
 <StandardsLayout
@@ -28,15 +85,42 @@ const publication = derivePublicationMetadata({
   description={data.description}
   permalink={data.permalink}
   eyebrow={data.eyebrow}
-  anchorLinks={data.anchorLinks}
+  anchorLinks={resolvedAnchorLinks}
   version={data.version}
   lastUpdated={data.lastUpdated}
-  panelCopy={data.panelCopy}
   seoTitle={data.seoTitle}
   publishedTime={data.publishedTime}
   modifiedTime={data.modifiedTime}
+  pageSchema={pageSchema}
   mainClass={data.mainClass}
 >
-  <Content />
-  <CitationBlock title={data.title} permalink={data.permalink} publication={publication} />
+  {isLaws && entry.body && <LawsGrid body={entry.body} />}
+  {standardId === "STD-08" && <GrantStateDiagram />}
+  {
+    hasClauseRegister && entry.body && standardId && (
+      <ClauseRegister
+        standardId={standardId}
+        body={entry.body}
+        parts={clausePartLabels[standardId] ?? {}}
+      />
+    )
+  }
+  {
+    /* The laws page gets a class so its lifted invariants can read as pull-quotes. */
+  }
+  <div class:list={{ "laws-essay": isLaws }}>
+    <Content />
+  </div>
+  <SemanticConnections entityId={slugStr} />
+  <StandardPager
+    currentSlug={slugStr}
+    standards={standardsContent.standards.filter(
+      (standard) => standard.listedOnSite !== false,
+    )}
+  />
+  <CitationBlock
+    title={data.title}
+    permalink={data.permalink}
+    publication={publication}
+  />
 </StandardsLayout>

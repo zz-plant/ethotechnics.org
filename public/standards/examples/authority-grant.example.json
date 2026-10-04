@@ -1,0 +1,147 @@
+{
+  "schema_version": "1.3.0",
+  "grant_id": "GRANT-2026-0142",
+  "provenance": {
+    "issued_by": "risk-governance-board",
+    "issued_at": "2026-03-01T09:00:00Z",
+    "basis_summary": "Fraud-hold policy 3.2 adopted with a measured 1.4% false-positive rate on the Q4 backtest; reversal path rehearsed in February."
+  },
+  "scope": {
+    "action_classes": ["READ", "WRITE"],
+    "systems": ["core-banking-holds"],
+    "populations": ["retail accounts, excluding accounts flagged vulnerable"],
+    "limits": {
+      "max_hold_days": 7,
+      "max_holds_per_hour": 120,
+      "max_hold_value_usd": 25000
+    }
+  },
+  "issuing_authority": {
+    "name": "Risk Governance Board",
+    "role": "Delegating authority",
+    "contact": "risk-governance@example.org"
+  },
+  "grantee": {
+    "id": "agent-risk-ops-v2",
+    "type": "agent"
+  },
+  "action_classes": ["READ", "WRITE"],
+  "for_whom": "Retail banking customers, on behalf of the Fraud Operations desk",
+  "evidence_basis": [
+    {
+      "ref": "POL-FRAUD-HOLD-3.2",
+      "summary": "Hold rules and thresholds for suspected account takeover.",
+      "as_of": "2026-06-18T00:00:00Z"
+    },
+    {
+      "ref": "EVID-BACKTEST-2026Q1",
+      "summary": "Q1 backtest: 1.4% false-positive rate, median release 31 hours.",
+      "as_of": "2026-04-05T00:00:00Z"
+    }
+  ],
+  "assumptions": [
+    "False-positive hold rate stays below 2% on the rolling 30-day window.",
+    "The Risk Steward can release any hold within two hours of a challenge.",
+    "Vulnerable-account flags are current within 24 hours."
+  ],
+  "review_conditions": [
+    "False-positive hold rate exceeds 2% on the rolling 30-day window.",
+    "Any challenge decided against the system.",
+    "Policy POL-FRAUD-HOLD-3.2 enters review_required or expires."
+  ],
+  "revocation_conditions": [
+    "Holds placed on accounts flagged vulnerable.",
+    "Intervention reach time exceeds four hours in any incident.",
+    "Withdrawal rehearsal fails."
+  ],
+  "correction_capacity": {
+    "assessed_at": "2026-06-18T16:30:00Z",
+    "detection": {
+      "present": true,
+      "evidence": "Model Risk Review recomputes the false-positive rate and release latency each month from the raw hold log rather than from the Fraud Operations dashboard; the 2026-06 recomputation put the rate on accounts flagged vulnerable at 11% against a 2% assumption. The qualifier is on the record: CHL-2026-0088 was reported from outside by the account's representative, not caught by the monitor, so detection is present but was not first.",
+      "evaluator": "Model Risk Review (second line)",
+      "independent_of_executor": true
+    },
+    "challenge": {
+      "present": true,
+      "evidence": "CHL-2026-0088 was raised on 2026-06-10 by an affected account's representative through the channel REG-ACCOUNT-HOLDS-1 declares for the account_hold class, and was decided rather than left open."
+    },
+    "standing": {
+      "present": true,
+      "evidence": "REG-ACCOUNT-HOLDS-1 admits affected_party, corrective_labor, representative, and oversight for the account_hold class, and both decision and grant may be challenged. CHL-2026-0088 was raised on the affected_party basis, from outside the operating team."
+    },
+    "review": {
+      "present": true,
+      "evidence": "The Risk Steward on call answered inside the register's PT48H deadline (opened 2026-06-10T14:20Z, deadline 2026-06-12T14:20Z) and referred the grant to the Risk Governance Board, which decided REC-2026-0019 on 2026-06-18. Both the examiner and the clock are named in REG-ACCOUNT-HOLDS-1."
+    },
+    "authority_to_modify": {
+      "present": true,
+      "evidence": "REC-2026-0019 narrowed the grant itself: populations now exclude accounts flagged vulnerable and max_hold_days fell from 14 to 7. The examiner changed the grant rather than recommending a change."
+    },
+    "reversible_transitions": {
+      "present": true,
+      "evidence": "holds.release reversed every hold in the 2026-05-20 rehearsal and released the CHL-2026-0088 hold within two hours; measured median release is 31 hours (DEP-RISK-OPS-V2-2026-06)."
+    },
+    "operable_after_correction": {
+      "present": false,
+      "evidence": "Not shown beyond 48 hours. DEP-RISK-OPS-V2-2026-06 records institutional reversibility as not feasible: withdrawal past 48 hours breaches the card-network fraud-loss SLA and the rules-engine fallback is not staffed to absorb it, with correction latency measured at 31 hours against that 48-hour margin. Capacity is counted only for reversal inside 48 hours, which is why max_hold_days is 7, and under §4.2 the grant may not be expanded until the fallback is staffed."
+    }
+  },
+  "mode": "unattended",
+  "state": "allowed",
+  "state_history": [
+    {
+      "from": "none",
+      "to": "allowed",
+      "at": "2026-03-01T09:00:00Z",
+      "reason": "issued",
+      "evidence_ref": "POL-FRAUD-HOLD-3.2"
+    },
+    {
+      "from": "allowed",
+      "to": "review_required",
+      "at": "2026-06-11T10:00:00Z",
+      "reason": "challenge",
+      "evidence_ref": "CHL-2026-0088",
+      "note": "Challenge opened by an affected party over a hold on a recently flagged vulnerable account."
+    },
+    {
+      "from": "review_required",
+      "to": "allowed",
+      "at": "2026-06-18T16:30:00Z",
+      "reason": "challenge",
+      "evidence_ref": "REC-2026-0019",
+      "note": "Narrowed: populations now exclude accounts flagged vulnerable; max_hold_days reduced from 14 to 7."
+    }
+  ],
+  "attestation": {
+    "signed_by": "key:risk-governance-board-2026h1",
+    "algorithm": "ed25519",
+    "signature": "MEUCIQD8sV3rN0kQ2Jm5Fh7tX1wLpA6yKb9cUe4SgTn2HvZ0dQIgLxO0Q7mWc3KpR8dN2fYj5bHs1aVvT6xCu9eEi4QnA7k=",
+    "signed_at": "2026-06-18T16:30:00Z",
+    "payload_digest": "sha256:9f2c41ba7e03d58c6a1f0b8e47d29c53a6b1e7d40f92c8a3b6d5e1c7f0a49b82"
+  },
+  "liability": {
+    "accepted_by": {
+      "name": "Meridian Retail Group",
+      "role": "Operating institution",
+      "contact": "legal@example.org"
+    },
+    "instrument": "Automated Decision Liability Instrument ADM-2026-02, accepted at grant issue and reaffirmed at REC-2026-0019",
+    "accepted_at": "2026-03-01T09:00:00Z",
+    "carve_outs": [
+      "Liability capped at USD 2,000,000 per incident under ADM-2026-02 §7; the cap is recorded so the residual risk above it is visible before an incident rather than argued after one."
+    ]
+  },
+  "until": "2026-12-01T00:00:00Z",
+  "renewal_basis": "A fresh backtest on the preceding quarter, the current dependency record, and a withdrawal rehearsal within the last 90 days.",
+  "policy_refs": [
+    {
+      "policy_id": "POL-FRAUD-HOLD-3.2",
+      "version": "3.2.0"
+    }
+  ],
+  "intervention_ref": "INT-RISK-STEWARD-1",
+  "capability_catalog_ref": "CAT-RISK-OPS-V2-2026-07",
+  "dependency_ref": "DEP-RISK-OPS-V2-2026-06"
+}

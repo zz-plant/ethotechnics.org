@@ -1,12 +1,12 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import NextStep from "../../components/NextStep.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 
 const pageTitle = "Contestability checklist";
 const pageDescription =
-  "A printable checklist and explainer set for verifying contestability and clear appeal paths.";
-const permalink = "/explainers/contestability-checklist";
+  "Six pass/fail questions that test whether a person can contest an automated decision, with three short notes on what a failing answer means.";
 
 const anchorLinks = [
   { href: "#checklist", label: "Checklist" },
@@ -24,11 +24,10 @@ const checklistItems = [
 
 const explainerItems = [
   {
-    title: "What contestability actually means",
+    title: "What contestability means",
     body: [
       "Contestability is the system property that turns “that’s wrong” into a contestable object: a decision with reasons, a clock, an accountable authority, and a pathway to reversal.",
       "If people cannot force a decision into that state, contestability doesn’t exist, even if a form or hotline is present.",
-      "See the glossary entry for the full definition and adjacent terms.",
     ],
     link: {
       href: "/glossary/contestability",
@@ -47,9 +46,9 @@ const explainerItems = [
     },
   },
   {
-    title: "What makes an appeal real vs performative",
+    title: "What makes an appeal able to change the outcome",
     body: [
-      "The Contestability Guarantee means people can challenge, change, or overturn decisions — and win. It requires wide permission surfaces, high appeal passage rates, and transparent design authority.",
+      "Under contestability, a person can challenge a decision and have it changed or overturned. It requires wide permission surfaces, high appeal passage rates, and transparent design authority.",
       "A real appeal shows its success rate, names who can reverse outcomes, and exposes where evidence is evaluated. Performative appeals hide authority, suppress win rates, or end in untraceable queues.",
     ],
     link: {
@@ -60,40 +59,37 @@ const explainerItems = [
 ];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Explainer"
     title={pageTitle}
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={anchorLinks}
-    panelCopy={{
-      eyebrow: "Contestability",
-      title: "A quick check for clear appeal paths",
-      description:
-        "Use this checklist to confirm decisions can be contested with clocks, accountable authority, and reversal paths. Aligns with the contestability glossary definition and the Contestability Guarantee.",
-      link: { label: "Read STD-02", href: "/standards/std-02-contestability-recourse" },
-    }}
   />
 
   <SectionBlock
     id="checklist"
     eyebrow="Can I contest this?"
     title="Contestability checklist"
-    description="Print and use this as a quick pass/fail screen before shipping or auditing a decision flow."
+    description="Six pass/fail questions to run over a decision flow before it ships or when it is audited."
   >
     <div class="contestability-layout screen-only">
       <div class="contestability-layout__main">
-        <div class="contestability-checklist" role="group" aria-label="Contestability checklist">
+        <div
+          class="contestability-checklist"
+          role="group"
+          aria-label="Contestability checklist"
+        >
           <p class="contestability-checklist__title">Can I contest this?</p>
           <ul data-checklist-items>
-            {checklistItems.map((item) => (
-              <li>{item}</li>
-            ))}
+            {checklistItems.map((item) => <li>{item}</li>)}
           </ul>
           <p class="muted contestability-checklist__note">
-            Built from the contestability definition in the glossary and the Contestability
-            Guarantee standard.
+            Built from the contestability definition in the glossary.
             {" "}
             <a href="/glossary/contestability">Glossary term</a>
             {" "}
@@ -104,10 +100,13 @@ const explainerItems = [
         </div>
       </div>
       <aside class="contestability-summary" aria-label="Checklist summary">
-        <p class="eyebrow contestability-summary__eyebrow">2-minute checklist</p>
+        <p class="eyebrow contestability-summary__eyebrow">
+          2-minute checklist
+        </p>
         <p class="contestability-summary__title">Contestability checklist</p>
         <p class="muted contestability-summary__copy">
-          Keep this open while auditing decision flows for real reversals and clocked reviews.
+          Each question asks for a record: a reversal that happened, a review
+          that met its clock.
         </p>
         <div class="contestability-summary__actions">
           <button class="button ghost" type="button" data-checklist-print>
@@ -126,13 +125,10 @@ const explainerItems = [
     >
       <p class="contestability-checklist__title">Contestability checklist</p>
       <ul>
-        {checklistItems.map((item) => (
-          <li>{item}</li>
-        ))}
+        {checklistItems.map((item) => <li>{item}</li>)}
       </ul>
       <p class="muted contestability-checklist__note">
-        Built from the contestability definition in the glossary and the Contestability
-        Guarantee standard.
+        Built from the contestability definition in the glossary.
         {" "}
         <a href="/glossary/contestability">Glossary term</a>
         {" "}
@@ -146,35 +142,45 @@ const explainerItems = [
   <SectionBlock
     id="explainers"
     eyebrow="Explainers"
-    title="Three clarifiers to share with teams"
-    description="Each section expands on the checklist so teams know what to fix, not just what to flag."
+    title="Three notes on the checklist"
+    description="Each note says what a failing answer means and what to fix."
     variant="alt"
   >
     <div class="contestability-expanders">
-      {explainerItems.map((item) => (
-        <details class="contestability-expander">
-          <summary>
-            <span class="contestability-expander__title">{item.title}</span>
-            <span class="contestability-expander__toggle" aria-hidden="true">
-              <span class="contestability-expander__toggle-text--expand">Expand</span>
-              <span class="contestability-expander__toggle-text--collapse">Collapse</span>
-            </span>
-          </summary>
-          <div class="contestability-expander__body">
-            {item.body.map((paragraph) => (
-              <p>{paragraph}</p>
-            ))}
-            <p>
-              <a href={item.link.href}>{item.link.label}</a>
-            </p>
-          </div>
-        </details>
-      ))}
+      {
+        explainerItems.map((item) => (
+          <details class="contestability-expander">
+            <summary>
+              <span class="contestability-expander__title">{item.title}</span>
+              <span class="contestability-expander__toggle" aria-hidden="true">
+                <span class="contestability-expander__toggle-text--expand">
+                  Expand
+                </span>
+                <span class="contestability-expander__toggle-text--collapse">
+                  Collapse
+                </span>
+              </span>
+            </summary>
+            <div class="contestability-expander__body">
+              {item.body.map((paragraph) => (
+                <p>{paragraph}</p>
+              ))}
+              <p>
+                <a href={item.link.href}>{item.link.label}</a>
+              </p>
+            </div>
+          </details>
+        ))
+      }
     </div>
   </SectionBlock>
 
-  <p class="muted" style="margin-top:2rem">
-    See also: <a href="/standards">Standards</a> &middot; <a href="/mechanisms">Mechanisms</a>
+  <NextStep variable="standing" />
+
+  <p class="muted" style="margin-top:var(--space-6)">
+    See also: <a href="/standards">Standards</a> &middot; <a href="/mechanisms"
+      >Mechanisms</a
+    >
   </p>
 </BaseLayout>
 
@@ -200,7 +206,11 @@ const explainerItems = [
       const items = Array.from(checklistItemsList.querySelectorAll("li")).map(
         (item) => item.textContent?.trim() ?? "",
       );
-      const checklistText = ["Contestability checklist", "", ...items.map((item) => `- ${item}`)]
+      const checklistText = [
+        "Contestability checklist",
+        "",
+        ...items.map((item) => `- ${item}`),
+      ]
         .filter(Boolean)
         .join("\n");
       try {
@@ -230,7 +240,7 @@ const explainerItems = [
 
   .contestability-layout {
     display: grid;
-    gap: 1.5rem;
+    gap: var(--space-5);
   }
 
   .contestability-layout__main {
@@ -239,19 +249,19 @@ const explainerItems = [
 
   .contestability-checklist {
     border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
     background: var(--surface);
   }
 
   .contestability-checklist__title {
     font-weight: 600;
-    margin-bottom: 0.75rem;
+    margin-bottom: var(--space-3);
   }
 
   .contestability-checklist ul {
-    margin: 0 0 1rem;
-    padding-left: 1.25rem;
+    margin: 0 0 var(--space-4);
+    padding-left: var(--space-4);
   }
 
   .contestability-checklist__note {
@@ -260,11 +270,11 @@ const explainerItems = [
 
   .contestability-summary {
     border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.25rem;
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
     background: var(--surface);
     display: grid;
-    gap: 0.75rem;
+    gap: var(--space-3);
   }
 
   .contestability-summary__eyebrow {
@@ -282,18 +292,18 @@ const explainerItems = [
 
   .contestability-summary__actions {
     display: grid;
-    gap: 0.5rem;
+    gap: var(--space-2);
   }
 
   .contestability-expanders {
     display: grid;
-    gap: 1rem;
+    gap: var(--space-4);
   }
 
   .contestability-expander {
     border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1rem 1.25rem;
+    border-radius: var(--radius-md);
+    padding: var(--space-4) var(--space-4);
     background: var(--surface);
   }
 
@@ -303,13 +313,13 @@ const explainerItems = [
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
+    gap: var(--space-4);
   }
 
   .contestability-expander__toggle {
-    font-size: 0.85rem;
+    font-size: var(--text-sm);
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: var(--tracking-label);
     color: var(--muted);
   }
 
@@ -321,12 +331,13 @@ const explainerItems = [
     display: none;
   }
 
-  .contestability-expander[open] .contestability-expander__toggle-text--collapse {
+  .contestability-expander[open]
+    .contestability-expander__toggle-text--collapse {
     display: inline;
   }
 
   .contestability-expander__body {
-    margin-top: 0.75rem;
+    margin-top: var(--space-3);
   }
 
   @media (min-width: 900px) {
@@ -337,7 +348,7 @@ const explainerItems = [
 
     .contestability-summary {
       position: sticky;
-      top: var(--space-4);
+      top: var(--space-5);
     }
   }
 
@@ -359,7 +370,7 @@ const explainerItems = [
     }
 
     .contestability-checklist__note {
-      font-size: 0.9rem;
+      font-size: var(--text-sm);
     }
   }
 </style>

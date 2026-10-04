@@ -1,0 +1,310 @@
+---
+/**
+ * Ethical Interrupt Circuit Breaker Diagram (STD-01).
+ *
+ * Visualizes the 3-tier interrupt taxonomy (Soft Prompt, Hard Stop, Mandatory Escalation)
+ * and the state machine governing automated halting, reviewer SLA clocks,
+ * and immutable interrupt receipts.
+ */
+interface Props {
+  level?: "h2" | "h3";
+}
+
+const { level = "h3" }: Props = Astro.props;
+const Heading = level;
+---
+
+<figure class="state-diagram" aria-labelledby="ethical-interrupt-title">
+  <figcaption>
+    <p class="eyebrow">Mechanism, drawn</p>
+    <Heading id="ethical-interrupt-title">
+      Ethical Interrupt Circuit Breaker Architecture
+    </Heading>
+    <p class="muted">
+      Deliberate friction at quantified risk boundaries. Interrupts halt
+      execution, issue receipts, and route to named human authorities before
+      harm becomes irreversible.
+    </p>
+  </figcaption>
+
+  <div class="diagram-scroll">
+    <svg
+      viewBox="0 0 920 425"
+      role="img"
+      class="state-diagram__svg"
+      aria-label="State diagram of an ethical interrupt circuit breaker showing automated execution, risk trigger, hard stop state, reviewer SLA triage, and auditable resolution."
+    >
+      <defs>
+        <marker
+          id="ei-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--border)"></path>
+        </marker>
+        <marker
+          id="ei-accent-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)"></path>
+        </marker>
+        <marker
+          id="ei-danger-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--status-danger)"></path>
+        </marker>
+      </defs>
+
+      {/* Main Flow: Left to Right */}
+      {/* State 1: Autonomous Execution */}
+      <g class="state-diagram__node" transform="translate(30, 90)">
+        <rect width="170" height="85" rx="8"></rect>
+        <text x="85" y="30" text-anchor="middle" class="state-diagram__state"
+          >1. Normal Flow</text
+        >
+        <text x="85" y="51" text-anchor="middle" class="state-diagram__label"
+          >Autonomous execution</text
+        >
+        <text x="85" y="69" text-anchor="middle" class="state-diagram__clause"
+          >Within standard bounds</text
+        >
+      </g>
+
+      {/* Arrow 1 -> Decision */}
+      <line
+        x1="200"
+        y1="132"
+        x2="245"
+        y2="132"
+        stroke="var(--border)"
+        stroke-width="2"
+        marker-end="url(#ei-arrow)"></line>
+
+      {/* Decision: Risk Threshold Tripped */}
+      <g class="state-diagram__node" transform="translate(245, 87)">
+        <polygon
+          points="90,0 180,45 90,90 0,45"
+          fill="var(--panel)"
+          stroke="var(--status-danger)"
+          stroke-width="1.5"></polygon>
+        <text
+          x="90"
+          y="40"
+          text-anchor="middle"
+          class="state-diagram__state"
+          fill="var(--status-danger)">Threshold</text
+        >
+        <text x="90" y="59" text-anchor="middle" class="state-diagram__clause"
+          >Breached?</text
+        >
+      </g>
+
+      {/* Tripped Arrow -> State 2 */}
+      <line
+        x1="425"
+        y1="132"
+        x2="470"
+        y2="132"
+        stroke="var(--status-danger)"
+        stroke-width="2"
+        marker-end="url(#ei-danger-arrow)"></line>
+
+      {/* State 2: Interrupt Engaged */}
+      <g
+        class="state-diagram__node state-diagram__node--active"
+        transform="translate(470, 80)"
+      >
+        <rect
+          width="200"
+          height="105"
+          rx="8"
+          fill="var(--panel)"
+          stroke="var(--status-danger)"
+          stroke-width="2"></rect>
+        <text
+          x="100"
+          y="28"
+          text-anchor="middle"
+          class="state-diagram__state"
+          fill="var(--status-danger)">2. Interrupt Tripped</text
+        >
+        <text x="100" y="49" text-anchor="middle" class="state-diagram__clause"
+          >Execution Suspended</text
+        >
+        <text x="100" y="69" text-anchor="middle" class="state-diagram__label"
+          >Halt receipt published</text
+        >
+        <text x="100" y="87" text-anchor="middle" class="state-diagram__label"
+          >State checkpointed</text
+        >
+      </g>
+
+      {/* Escalation Ladder Arrow -> State 3 */}
+      <line
+        x1="670"
+        y1="132"
+        x2="715"
+        y2="132"
+        stroke="var(--accent)"
+        stroke-width="2"
+        marker-end="url(#ei-accent-arrow)"></line>
+
+      {/* State 3: Human Adjudication */}
+      <g class="state-diagram__node" transform="translate(715, 80)">
+        <rect
+          width="175"
+          height="105"
+          rx="8"
+          fill="var(--panel)"
+          stroke="var(--accent)"
+          stroke-width="1.5"></rect>
+        <text
+          x="87.5"
+          y="28"
+          text-anchor="middle"
+          class="state-diagram__state"
+          fill="var(--accent-strong)">3. Human Review</text
+        >
+        <text x="87.5" y="49" text-anchor="middle" class="state-diagram__label"
+          >Named on-call owner</text
+        >
+        <text x="87.5" y="67" text-anchor="middle" class="state-diagram__label"
+          >Enforceable SLA clock</text
+        >
+        <text x="87.5" y="87" text-anchor="middle" class="state-diagram__clause"
+          >Reversal ready</text
+        >
+      </g>
+
+      {/* Branch Out of Review: down to Revoke/Remediate */}
+      <line
+        x1="802.5"
+        y1="185"
+        x2="802.5"
+        y2="213"
+        stroke="var(--status-danger)"
+        stroke-width="2"
+        marker-end="url(#ei-danger-arrow)"></line>
+      <g transform="translate(470, 215)">
+        <rect
+          width="420"
+          height="62"
+          rx="6"
+          fill="var(--surface)"
+          stroke="var(--status-danger)"
+          stroke-width="1"></rect>
+        <text
+          x="210"
+          y="25"
+          text-anchor="middle"
+          class="state-diagram__state"
+          fill="var(--status-danger)"
+          >Risk Confirmed: Rollback &amp; Compensate</text
+        >
+        <text x="210" y="46" text-anchor="middle" class="state-diagram__label"
+          >State reverted; harm bounded; incident logged</text
+        >
+      </g>
+
+      {/* Loop Back: Safe Override -> Resume */}
+      <path
+        d="M 802.5 80 L 802.5 42 L 115 42 L 115 88"
+        stroke="var(--accent)"
+        stroke-width="2"
+        stroke-dasharray="4 4"
+        fill="none"
+        marker-end="url(#ei-accent-arrow)"></path>
+      <text
+        x="460"
+        y="30"
+        text-anchor="middle"
+        class="state-diagram__clause"
+        fill="var(--accent-strong)"
+        >Verified Safe: Signed Override Resumes Execution</text
+      >
+
+      {/* Bottom Row: 3 Tiers of Interrupts */}
+      <g transform="translate(30, 307)">
+        <rect
+          width="255"
+          height="98"
+          rx="6"
+          fill="var(--surface)"
+          stroke="var(--border)"></rect>
+        <text x="16" y="26" class="state-diagram__state"
+          >Tier 1: Soft Prompt</text
+        >
+        <text x="16" y="47" class="state-diagram__label"
+          >Advisory warning; user confirms</text
+        >
+        <text x="16" y="67" class="state-diagram__clause"
+          >Low consequence ·</text
+        >
+        <text x="16" y="85" class="state-diagram__clause">Fast friction</text>
+      </g>
+
+      <g transform="translate(299, 307)">
+        <rect
+          width="255"
+          height="98"
+          rx="6"
+          fill="var(--panel)"
+          stroke="var(--accent)"
+          stroke-width="1.5"></rect>
+        <text
+          x="16"
+          y="26"
+          class="state-diagram__state"
+          fill="var(--accent-strong)">Tier 2: Hard Stop</text
+        >
+        <text x="16" y="47" class="state-diagram__label"
+          >Execution paused pending review</text
+        >
+        <text x="16" y="67" class="state-diagram__clause">Confidence dip ·</text
+        >
+        <text x="16" y="85" class="state-diagram__clause"
+          >Irreversible action</text
+        >
+      </g>
+
+      <g transform="translate(568, 307)">
+        <rect
+          width="322"
+          height="98"
+          rx="6"
+          fill="var(--surface)"
+          stroke="var(--status-danger)"
+          stroke-width="1.5"></rect>
+        <text
+          x="16"
+          y="26"
+          class="state-diagram__state"
+          fill="var(--status-danger)">Tier 3: Mandatory Escalation</text
+        >
+        <text x="16" y="47" class="state-diagram__label"
+          >Emergency circuit trip; leadership alerted</text
+        >
+        <text x="16" y="67" class="state-diagram__clause"
+          >Severe demographic harm ·</text
+        >
+        <text x="16" y="85" class="state-diagram__clause">Systematic drift</text
+        >
+      </g>
+    </svg>
+  </div>
+</figure>

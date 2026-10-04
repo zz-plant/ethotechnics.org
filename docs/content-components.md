@@ -10,8 +10,8 @@ component is for and where it appears.
 
 ## PageIntro.astro
 
-- Usage: Renders the page eyebrow, heading, summary, permalink, and optional breadcrumb JSON-LD.
-- Reference: `src/pages/library/index.astro`.
+- Usage: Renders the page eyebrow, heading, lede, optional actions and aside panel, and the on-page anchor list (with the sticky section bar when there are four or more anchors).
+- Reference: `src/pages/mechanisms/index.astro`.
 
 ## SectionBlock.astro
 
@@ -52,17 +52,6 @@ component is for and where it appears.
   - Default slot appears after the description (useful for extra paragraphs or metadata).
   - `footer` slot renders after tags and glossary links for permalinks or calls to action.
 
-## PromptPackInstallCard.astro
-
-- Usage: Reusable install card for the agent prompt pack download, path, and invocation steps.
-- Reference: `src/pages/agent-toolkit/prompt-packs.astro`.
-- Props:
-  - `title`: Card heading text.
-  - `version`: Display version for the prompt pack.
-  - `downloadUrl`: Public asset URL for the downloadable file.
-  - `pathSnippet`: Repository path snippet where the pack should live.
-  - `invokeExample`: Single-line invocation example that matches the pack name.
-
 ## Illustration.astro
 
 - Usage: Figure wrapper with a framed image, halo treatment, and optional caption.
@@ -76,12 +65,69 @@ component is for and where it appears.
 ## CitationBlock.astro
 
 - Usage: Expandable citation formats with copy buttons for APA/MLA/Chicago/BibTeX/RIS.
-- Reference: `src/pages/library/cite.astro`.
+- Reference: `src/pages/mechanisms/cite.astro`.
 
 ## ScholarlyMeta.astro
 
-- Usage: Authorship, publication details, license, and changelog callout for published content.
+- Usage: Authorship, publication details, license, and changelog callout for published content. End-matter: place it (with `CitationBlock`) after the page's last content section, not under the intro.
 - Reference: `src/pages/diagnostics/llm-capacity-benchmark.astro`.
+
+## DemoFigure.astro
+
+- Usage: The frame every demonstration figure sits in: eyebrow, a title at the heading level of
+  wherever the figure is placed, a lede that says what to do, and a slot for the figure itself. A
+  demonstration is neither a static diagram nor a diagnostic: it makes one claim felt by letting
+  the reader move a control, and it is embedded next to the paragraph that makes the claim.
+- Reference: `src/content/standards/std-08-delegation.mdx` (Part C), `src/content/standards/laws.mdx`
+  (Laws VIII and XI), `src/content/theory/friction-as-accidental-governance.mdx`.
+- Props: `id`, `title`, `lede`, `level` (`"h3"` by default, `"h4"` under a law heading), `eyebrow`,
+  `class`.
+- Rules the demonstrations follow:
+  - Every control is a field on a published object, and a co-located test holds the figure to the
+    schema (`src/utils/theater-test.test.ts`, `src/features/beside-the-loop/loopLogic.test.ts`,
+    `src/features/withdrawal-figure/withdrawalLogic.test.ts`, `src/utils/ratchet.test.ts`).
+    Prose the figure needs is declared next to the essay as an `export const` and checked at build
+    (`src/features/friction-figure/frictionLogic.ts`, `src/components/ChainPauseFigure.astro`).
+  - Toggle-only figures are `.astro` components with a plain bundled `<script>`
+    (`src/components/TheaterTestFigure.astro`); stateful ones follow the diagnostics layout under
+    `src/features/<name>/` with pure logic in a tested module and a thin React island hydrated with
+    `client:visible`. Nothing is timed or random: runs are turn-based and seeded so they replay.
+  - The frame carries `data-glossary-ignore`, because glossary highlighting rewrites text nodes
+    before an island hydrates and React then finds markup the server never sent. A `<pre>` inside
+    an island carries `data-copy-attached="true"` for the same reason.
+  - Each figure ends with one sentence saying what it is not: a measurement of any deployment.
+    It carries no method cards; those belong to diagnostics that score real systems.
+  - All figure CSS, shared and per-figure, lives in `src/styles/components/figures.css`, and no
+    figure ships a stylesheet of its own. The figures render through MDX content, and a stylesheet
+    small enough for Astro to inline (under 4 KB) reaches those pages as a `<style>` element whose
+    hash is missing from the Content-Security-Policy header, so the browser drops it in
+    production; one linked stylesheet is allowed by `style-src 'self'`. `figures.test.ts` holds the
+    file above the limit. A wide drawing scrolls inside the frame at every viewport
+    (`contain: inline-size` on the figure keeps its min-width from widening the standards column).
+
+## Static diagrams (`*Diagram.astro`, STD-07 and validator drawings)
+
+- Usage: a hand-drawn SVG inside a `<figure class="state-diagram">` (explainers, theory essays,
+  standards) or `<figure class="standard-diagram">` (STD-01, STD-07), with a `figcaption` or an
+  SVG `<title>`/`<desc>` and `role="img"`.
+- Rules:
+  - Text uses the shared classes: `.state-diagram__state` (title), `.state-diagram__label`, and
+    `.state-diagram__clause` (emphasized label), in `src/styles/components/reference-tables.css`.
+    Record drawings use the scoped vocabulary (`.title`, `.label`, `.small`, `.ink`, `.muted`,
+    `.chip`…) at the end of `figures.css`, and each one imports that stylesheet in its
+    frontmatter, because the pages they sit on do not load it otherwise. Avoid `font-size`
+    attributes on `<text>`; the class sizes override them. A `fill` or `stroke` attribute on a
+    node or label does win: the shared defaults only apply where the drawing sets none.
+  - Every label renders at 11px or larger at desktop width and on a 375px phone. Below 720px a
+    diagram does not shrink: it keeps a minimum width (state 760px, chain 900px, record 800px)
+    and scrolls sideways in a scroller that breaks out to the screen edges. Labels are larger
+    there (14px), so leave line pitch for them.
+  - No `<style>` inside an `<svg>`: it reaches the page inline with no Content-Security-Policy
+    hash, and production drops it. Colors come from theme tokens (`--text`, `--muted`,
+    `--accent`, `--accent-strong`, `--border`, `--panel`, `--surface`, `--status-danger`…), never
+    from a custom property no stylesheet defines.
+  - `src/components/__tests__/diagram-sources.test.ts` enforces the last two rules and checks
+    that every class drawn with is defined somewhere.
 
 ## DiagnosticMethodology.astro
 
@@ -98,7 +144,7 @@ component is for and where it appears.
 - Usage: Filter, search, and bundle controls for library pattern listings.
 - Notes: Bundle actions stay enabled; when nothing is selected, actions prompt via the bundle status
   line and focus the first mechanism checkbox.
-- Reference: `src/pages/library/index.astro`.
+- Reference: `src/pages/mechanisms/index.astro`.
 
 ## Navigation.astro
 

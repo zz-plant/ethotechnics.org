@@ -1,0 +1,175 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import {
+  COVERAGE_LABELS,
+  checkableProperties,
+  coverageOf,
+  type Coverage,
+} from "../../content/checkable-properties";
+
+const pageTitle = "What we can actually check — Ethotechnics";
+const pageDescription =
+  "Each governance property this site claims to check, which of its two checkers can observe it, and which properties nothing checks yet.";
+
+const ORDER: Coverage[] = ["both", "live-only", "emitted-only", "none"];
+
+const counted = (coverage: Coverage) =>
+  checkableProperties.filter((property) => coverageOf(property) === coverage)
+    .length;
+
+const probeCount = checkableProperties.reduce(
+  (total, property) => total + property.probes.length,
+  0,
+);
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  mainClass="page page--wide"
+  publishedTime="2026-09-07T00:00:00.000Z"
+>
+  <section class="stack-lg">
+    <p class="eyebrow">Coverage</p>
+    <h1>What we can actually check</h1>
+    <p class="section-lead">
+      Two tools on this site check systems. The Tier 1 harness tests a running
+      system through an adapter that connects the two. The record conformance
+      checker reads the decision records a system has already written. They were
+      built separately and they overlap, so this page lists the claims rather
+      than the tools: {checkableProperties.length} governance properties, {
+        probeCount
+      } individual checks (probes) between them, and {counted("none")} properties
+      with no check at all.
+    </p>
+    <p class="muted">
+      Which side a property can be checked from matters. A live probe is
+      available only to the operator of the system. A record probe is available
+      to whoever holds the records, such as an auditor or a regulator. A
+      property that can only be checked from inside is one everyone else has to
+      take on trust.
+    </p>
+  </section>
+
+  <section
+    class="stack-md coverage-matrix"
+    aria-labelledby="coverage-matrix-title"
+  >
+    <h2 id="coverage-matrix-title">Every property, checked from each side</h2>
+    <p class="muted">
+      One row per claim. A filled cell is a probe that exists. An empty cell is
+      a side nobody can check from. Rows with neither are shaded. They are
+      claims the framework argues for but this site cannot yet test.
+    </p>
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table mapping-table--stack coverage-matrix__table">
+        <thead>
+          <tr>
+            <th scope="col">Property</th>
+            <th scope="col"
+              >Live probe<br /><span class="muted"
+                >against a running system</span
+              ></th
+            >
+            <th scope="col"
+              >Record probes<br /><span class="muted">from written records</span
+              ></th
+            >
+            <th scope="col">Laws</th>
+            <th scope="col">What the missing side would need</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            ORDER.flatMap((coverage) =>
+              checkableProperties
+                .filter((property) => coverageOf(property) === coverage)
+                .map((property) => {
+                  const live = property.probes.filter(
+                    (p) => p.observes === "live",
+                  );
+                  const emitted = property.probes.filter(
+                    (p) => p.observes === "emitted",
+                  );
+                  return (
+                    <tr id={property.id} data-coverage={coverage}>
+                      <th scope="row">
+                        <strong>{property.title}</strong>
+                        <span class="coverage-matrix__badge">
+                          {COVERAGE_LABELS[coverage]}
+                        </span>
+                      </th>
+                      <td data-label="Live probe">
+                        {live.length > 0 ? (
+                          live.map((probe) => (
+                            <div class="coverage-matrix__probe">
+                              <code>{probe.id}</code>
+                              <span class="coverage-matrix__probe-what">
+                                {probe.what}
+                              </span>
+                            </div>
+                          ))
+                        ) : (
+                          <span class="coverage-matrix__empty">none</span>
+                        )}
+                      </td>
+                      <td data-label="Record probes">
+                        {emitted.length > 0 ? (
+                          emitted.map((probe) => (
+                            <div class="coverage-matrix__probe">
+                              <code>{probe.id}</code>
+                              <span class="coverage-matrix__probe-what">
+                                {probe.what}
+                              </span>
+                            </div>
+                          ))
+                        ) : (
+                          <span class="coverage-matrix__empty">none</span>
+                        )}
+                      </td>
+                      <td data-label="Laws">
+                        <p class="pill-list pill-list--wrap">
+                          {property.laws.map((law) => (
+                            <a
+                              class="pill pill--ghost"
+                              href={`/standards/laws#${law}`}
+                            >
+                              {law.replace("law-", "").toUpperCase()}
+                            </a>
+                          ))}
+                        </p>
+                      </td>
+                      <td
+                        data-label="What the missing side would need"
+                        class="coverage-matrix__gap"
+                      >
+                        {property.gap ?? "—"}
+                      </td>
+                    </tr>
+                  );
+                }),
+            )
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="stack-lg">
+    <h2>Why this page exists</h2>
+    <p>
+      A check that nobody can map back to a claim is only a number. A claim
+      nobody can map to a check is only an assertion. A test enforces the list
+      behind this page: every harness check and every conformance finding must
+      belong to exactly one property here, or the site does not build. A new
+      check cannot be added without saying what it shows. A property cannot be
+      dropped quietly because nothing checks it.
+    </p>
+    <p class="muted">
+      The list is in the site's <a
+        href="https://github.com/zz-plant/ethotechnics.org/blob/main/src/content/checkable-properties.ts"
+        >public source code</a
+      >.
+    </p>
+  </section>
+</BaseLayout>

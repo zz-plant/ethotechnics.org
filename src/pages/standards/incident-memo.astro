@@ -7,7 +7,7 @@ import { derivePublicationMetadata } from "../../utils/publication";
 
 const pageTitle = "Incident memo template";
 const pageDescription =
-  "A governance-ready memo structure for documenting incidents, timelines, impacts, and remediation commitments.";
+  "A memo template for documenting an incident in an automated system: summary, UTC timeline, impact, root cause, and the remediation owners and deadlines.";
 const permalink = "/standards/incident-memo";
 const publishedTime = "2026-03-01T00:00:00Z";
 const modifiedTime = "2026-03-04T00:00:00Z";
@@ -23,7 +23,7 @@ const publication = derivePublicationMetadata({
   permalink,
   published: "2026-03-01T00:00:00Z",
   version: "v0.1.0",
-  authorName: "Ethotechnics Governance Council",
+  authorName: "Ethotechnics Institute",
   changelogSummary: "Initial incident memo template for governance reporting.",
 });
 
@@ -75,35 +75,24 @@ const incidentTemplate = `Incident memo (Template)
   title={pageTitle}
   description={pageDescription}
   permalink={permalink}
-  seoTitle="AI incident response workflow template | Ethotechnics"
+  seoTitle="Incident memo template — Standards"
   eyebrow="Standards"
   anchorLinks={anchorLinks}
   publishedTime={publishedTime}
   modifiedTime={modifiedTime}
-  panelCopy={{
-    eyebrow: "Governance artifact",
-    title: "Keep incident reporting consistent.",
-    description:
-      "Use this memo to align governance, legal, and operational teams on incident impact, accountability, and remediation.",
-    link: {
-      label: "See incident lessons",
-      href: "/incidents",
-    },
-  }}
 >
-
-  <ScholarlyMeta publication={publication} permalink={permalink} />
-
   <SectionBlock
     id="when-to-use"
     eyebrow="When to use"
     title="Document incidents with a shared structure."
-    description="Use this memo after any material harm, breach, or escalation so follow-up work is traceable and auditable."
+    description="Write one after any material harm, breach, or escalation, so follow-up work can be traced and audited."
   >
     <ul class="muted">
       <li>Attach the memo to incident tickets, postmortems, and audit logs.</li>
       <li>Publish a redacted version if external transparency is required.</li>
-      <li>Link to mechanism evidence and diagnostics outputs for remediation.</li>
+      <li>
+        Link to mechanism evidence and diagnostics outputs for remediation.
+      </li>
     </ul>
   </SectionBlock>
 
@@ -111,13 +100,17 @@ const incidentTemplate = `Incident memo (Template)
     id="structure"
     eyebrow="Structure"
     title="Cover impact, root cause, and remediation."
-    description="Keep sections short and factual so the memo can ship quickly while remaining evidence-ready."
+    description="Keep each section short and factual, and link each claim to its evidence."
     variant="alt"
   >
     <ul class="muted">
       <li>Lead with a one-paragraph summary and the affected population.</li>
-      <li>Use a timestamped timeline to remove ambiguity about actions taken.</li>
-      <li>Close with remediation owners and deadlines to enforce accountability.</li>
+      <li>
+        Use a timestamped timeline to remove ambiguity about actions taken.
+      </li>
+      <li>
+        Close with remediation owners and deadlines to enforce accountability.
+      </li>
     </ul>
   </SectionBlock>
 
@@ -130,7 +123,6 @@ const incidentTemplate = `Incident memo (Template)
     <pre class="code-block">{incidentTemplate}</pre>
   </SectionBlock>
 
-
   <SectionBlock
     id="workflow-cluster"
     eyebrow="Workflow path"
@@ -141,23 +133,20 @@ const incidentTemplate = `Incident memo (Template)
     <ol class="muted">
       <li>
         <strong>Explainer:</strong>
-        <a href="/standards/incident-memo">Incident memo workflow</a> for shared
-        response framing.
+        <a href="/standards/incident-memo">Incident memo workflow</a> for shared response
+        framing.
       </li>
       <li>
         <strong>Mechanism template:</strong>
-        <a href="/standards/pm-01-failure-postmortem-template">Failure postmortem template</a>
+        <a href="/standards/pm-01-failure-postmortem-template"
+          >Failure postmortem template</a
+        >
         to route triage and stabilization responsibilities.
       </li>
       <li>
-        <strong>Downloadable artifact:</strong>
-        <a href="/bundles/diagnostic-export-kit">Download diagnostic export kit</a>
-        for shareable readouts and response evidence.
-      </li>
-      <li>
-        <strong>Clinic/signup:</strong>
-        <a href="/participate">Contact the clinic</a> for live response coaching and
-        evidence review.
+        <strong>Outside review:</strong>
+        <a href="/participate#peer-review">Commission a review</a> of an incident
+        response and its evidence from Ethotechnics Studio.
       </li>
     </ol>
   </SectionBlock>
@@ -166,9 +155,14 @@ const incidentTemplate = `Incident memo (Template)
     id="citations"
     eyebrow="Citations"
     title="Reference this template."
-    description="Use the canonical permalink and version to keep incident documentation aligned."
+    description="Cite the canonical permalink and version in incident documentation."
     variant="alt"
   >
-    <CitationBlock title={pageTitle} permalink={permalink} publication={publication} />
+    <ScholarlyMeta publication={publication} permalink={permalink} />
+    <CitationBlock
+      title={pageTitle}
+      permalink={permalink}
+      publication={publication}
+    />
   </SectionBlock>
 </StandardsLayout>

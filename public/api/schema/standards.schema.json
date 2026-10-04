@@ -19,7 +19,15 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "type", "title", "description", "version", "href", "clauses"],
+        "required": [
+          "id",
+          "type",
+          "title",
+          "description",
+          "version",
+          "href",
+          "clauses"
+        ],
         "properties": {
           "id": { "type": "string" },
           "type": { "type": "string" },
@@ -32,7 +40,9 @@
           "href": { "type": "string" },
           "clauses": {
             "type": "array",
-            "items": { "$ref": "https://ethotechnics.org/api/schema/clauses.schema.json#/definitions/clause" }
+            "items": {
+              "$ref": "https://ethotechnics.org/api/schema/clauses.schema.json#/definitions/clause"
+            }
           },
           "clause_ids": { "type": "array", "items": { "type": "string" } },
           "refs": { "type": "array", "items": { "type": "string" } },

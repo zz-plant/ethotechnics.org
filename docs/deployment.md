@@ -45,9 +45,15 @@ whose body is the literal string `[object Object]`.
 
 ## Current binding posture
 
-- Current binding usage is intentionally minimal: only `[assets]` with the `ASSETS` binding.
-- The Worker currently does **not** declare KV, D1, R2, Queues, Durable Objects, or AI bindings.
-- Revisit this section when introducing new platform services so deploy reviews catch binding drift.
+- `[assets]` with the `ASSETS` binding for static output.
+- `READOUTS` KV namespace backs shareable diagnostic readouts
+  (`/api/readouts`, `/readouts/[id]`). The namespace id in `wrangler.toml` is
+  live; creating it was required before the first deploy carrying the
+  readouts feature.
+- `NEWSLETTER_RATE_LIMITER` and `READOUT_RATE_LIMITER` rate-limit bindings
+  (declared as experimental `unsafe.bindings`).
+- Revisit this section when introducing new platform services so deploy
+  reviews catch binding drift.
 
 ## Rollback and recovery
 
@@ -66,3 +72,11 @@ whose body is the literal string `[object Object]`.
   that the adapter settings in `astro.config.mjs` match the deployment target.
 - For Playwright failures in CI, see `docs/cloudflare-playwright.md` for Cloudflare Pages
   specifics.
+
+# Newsletter configuration
+
+The subscription endpoint forwards validated addresses to a durable provider rather than
+retaining personal data in the Worker. Configure `NEWSLETTER_WEBHOOK_URL` as a Worker secret
+or environment variable and, when required by the provider, configure
+`NEWSLETTER_WEBHOOK_TOKEN` with `wrangler secret put`. The webhook must accept a JSON object
+with `email` and `source` fields. Without a webhook URL the endpoint fails closed with HTTP 503.

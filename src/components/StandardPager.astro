@@ -1,0 +1,59 @@
+---
+import type { StandardEntry } from "../content/standards";
+
+interface Props {
+  currentSlug: string;
+  standards: StandardEntry[];
+}
+
+const { currentSlug, standards } = Astro.props;
+const currentIndex = standards.findIndex((s) => s.slug === currentSlug);
+
+const prev = currentIndex > 0 ? standards[currentIndex - 1] : null;
+const next =
+  currentIndex >= 0 && currentIndex < standards.length - 1
+    ? standards[currentIndex + 1]
+    : null;
+---
+
+{
+  (prev || next) && (
+    <nav class="standard-pager" aria-label="Standards pagination">
+      {prev ? (
+        <a
+          href={`/standards/${prev.slug}`}
+          class="standard-pager__card standard-pager__card--prev"
+          rel="prev"
+        >
+          <span class="standard-pager__direction" aria-hidden="true">
+            &larr; Previous Standard
+          </span>
+          <div class="standard-pager__body">
+            <span class="standard-pager__badge">{prev.id}</span>
+            <span class="standard-pager__title">{prev.title}</span>
+          </div>
+        </a>
+      ) : (
+        <div class="standard-pager__placeholder" aria-hidden="true" />
+      )}
+
+      {next ? (
+        <a
+          href={`/standards/${next.slug}`}
+          class="standard-pager__card standard-pager__card--next"
+          rel="next"
+        >
+          <span class="standard-pager__direction" aria-hidden="true">
+            Next Standard &rarr;
+          </span>
+          <div class="standard-pager__body">
+            <span class="standard-pager__badge">{next.id}</span>
+            <span class="standard-pager__title">{next.title}</span>
+          </div>
+        </a>
+      ) : (
+        <div class="standard-pager__placeholder" aria-hidden="true" />
+      )}
+    </nav>
+  )
+}

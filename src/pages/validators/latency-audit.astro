@@ -24,8 +24,8 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
 ---
 
 <BaseLayout
-  title="Latency Audit Validator — Verify Bounded Duration Compliance"
-  description="Compare declared timeouts against observed latency and escalation readiness to verify bounded-duration compliance for high-stakes automated decisions."
+  title="VAL-03 Latency Audit — validator specification"
+  description="Compares a declared timeout with observed maximum latency and checks for a human escalation path, testing the bounded-duration rule in STD-01 Article III."
   mainClass="page page--wide"
   breadcrumbItems={breadcrumbItems}
   structuredDataType="webpage"
@@ -99,7 +99,7 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
         </output>
       </div>
       <p class="validator__recommendation">
-        Fix this using <a href="/mechanisms/mec-04-hard-clock"
+        Fix this using <a href="/mechanisms/patterns/hard-clock"
           >MEC-04: The Hard Clock</a
         >.
       </p>
@@ -108,7 +108,9 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
       </button>
     </div>
     <p class="muted validator__see-also">
-      See also: <a href="/standards">Standards</a> &middot; <a href="/mechanisms">Mechanisms</a>
+      See also: <a href="/standards">Standards</a> &middot; <a
+        href="/mechanisms">Mechanisms</a
+      >
     </p>
   </section>
 </BaseLayout>

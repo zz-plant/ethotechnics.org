@@ -1,0 +1,229 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethotechnics.org/standards/agent-safety-object-model.schema.json",
+  "title": "Agent Safety Object Model",
+  "description": "Version 2.0.0 of the machine-readable governance profile for a delegated agent. It ties the agent to the six state variables: each action class points at the authority grant that authorizes it instead of carrying an approval flag; the capability catalog, dependency record, intervention spec, and substrate profile are referenced by identifier. The 1.1.0 instance at /standards/agent-safety-object-model.json remains served unchanged; this schema replaces its stop_override_authority with intervention_ref and drops approval_required from action classes.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "agent_id",
+    "autonomy_level",
+    "action_classes",
+    "capability_catalog_ref",
+    "dependency_ref",
+    "intervention_ref",
+    "substrate_profile_ref",
+    "receipt_schema",
+    "clocks",
+    "evidence_pack_references",
+    "required_signals",
+    "mapped_mechanisms"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "title": "Schema version",
+      "description": "Version of this schema the model conforms to. 2.x models reference grants; 1.x models carried approval flags.",
+      "type": "string",
+      "pattern": "^2\\.\\d+\\.\\d+$"
+    },
+    "agent_id": {
+      "title": "Agent identifier",
+      "description": "Stable identifier that ties receipts, grants, incidents, and evidence packs to one agent.",
+      "type": "string"
+    },
+    "autonomy_level": {
+      "title": "Autonomy level",
+      "description": "Whether the agent drafts, recommends, or executes actions, and under what guardrails.",
+      "type": "object",
+      "required": ["level", "description"],
+      "additionalProperties": false,
+      "properties": {
+        "level": {
+          "title": "Level",
+          "description": "Named autonomy level.",
+          "type": "string",
+          "enum": [
+            "draft_only",
+            "recommend",
+            "execute_with_guardrails",
+            "execute"
+          ]
+        },
+        "description": {
+          "title": "Description",
+          "description": "Plain-language statement of what the level permits.",
+          "type": "string"
+        }
+      }
+    },
+    "action_classes": {
+      "title": "Action classes",
+      "description": "Each consequential action class the agent can reach, with the grant that authorizes it. There is no approval flag: authorization lives in the grant's state.",
+      "type": "array",
+      "items": {
+        "title": "Action class",
+        "description": "One action class and its authorizing grant.",
+        "type": "object",
+        "required": ["class", "reversible", "grant_ref"],
+        "additionalProperties": false,
+        "properties": {
+          "class": {
+            "title": "Class",
+            "description": "Name of the action class, such as READ, WRITE, or TRANSFER.",
+            "type": "string"
+          },
+          "reversible": {
+            "title": "Reversible",
+            "description": "Whether actions in this class can be undone.",
+            "type": "boolean"
+          },
+          "grant_ref": {
+            "title": "Grant reference",
+            "description": "Identifier of the authority grant that authorizes this class, or null when the class is discoverable but not granted.",
+            "type": ["string", "null"]
+          }
+        }
+      }
+    },
+    "capability_catalog_ref": {
+      "title": "Capability catalog reference",
+      "description": "Identifier of the capability catalog describing what the agent can do.",
+      "type": "string"
+    },
+    "dependency_ref": {
+      "title": "Dependency reference",
+      "description": "Identifier of the dependency record for the agent.",
+      "type": "string"
+    },
+    "intervention_ref": {
+      "title": "Intervention reference",
+      "description": "Identifier of the intervention spec that replaces stop_override_authority: who can halt, hold, override, narrow, or revoke the agent.",
+      "type": "string"
+    },
+    "substrate_profile_ref": {
+      "title": "Substrate profile reference",
+      "description": "Identifier of the substrate profile classifying the agent's deployment.",
+      "type": "string"
+    },
+    "receipt_schema": {
+      "title": "Receipt schema",
+      "description": "The decision receipt schema the agent emits.",
+      "type": "object",
+      "required": ["href", "version"],
+      "additionalProperties": false,
+      "properties": {
+        "href": {
+          "title": "Link",
+          "description": "Path or URL of the receipt schema.",
+          "type": "string"
+        },
+        "version": {
+          "title": "Version",
+          "description": "Version of the receipt schema.",
+          "type": "string"
+        }
+      }
+    },
+    "clocks": {
+      "title": "Clocks",
+      "description": "Acknowledgement, review, and remedy clocks in hours.",
+      "type": "object",
+      "required": ["ack", "review", "remedy"],
+      "additionalProperties": false,
+      "properties": {
+        "ack": {
+          "title": "Acknowledgement clock",
+          "description": "Hours to acknowledge a contested decision.",
+          "$ref": "#/$defs/clock"
+        },
+        "review": {
+          "title": "Review clock",
+          "description": "Hours to complete a review.",
+          "$ref": "#/$defs/clock"
+        },
+        "remedy": {
+          "title": "Remedy clock",
+          "description": "Hours to deliver a remedy.",
+          "$ref": "#/$defs/clock"
+        },
+        "appeal": {
+          "title": "Appeal clock",
+          "description": "Hours to answer an appeal.",
+          "$ref": "#/$defs/clock"
+        }
+      }
+    },
+    "evidence_pack_references": {
+      "title": "Evidence pack references",
+      "description": "Evidence packs the agent's operation must produce.",
+      "type": "array",
+      "items": {
+        "title": "Evidence pack reference",
+        "description": "One evidence pack, by standard and location.",
+        "type": "object",
+        "required": ["standard", "href"],
+        "additionalProperties": false,
+        "properties": {
+          "standard": {
+            "title": "Standard",
+            "description": "Standard identifier, such as STD-01.",
+            "type": "string"
+          },
+          "href": {
+            "title": "Link",
+            "description": "Path or URL of the evidence pack.",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "required_signals": {
+      "title": "Required signals",
+      "description": "Telemetry signals the agent must emit for its grants to remain reviewable.",
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "mapped_mechanisms": {
+      "title": "Mapped mechanisms",
+      "description": "Mechanisms from the catalog that implement this model's controls.",
+      "type": "array",
+      "items": {
+        "title": "Mechanism reference",
+        "description": "One mechanism, by identifier and location.",
+        "type": "object",
+        "required": ["id", "href"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "title": "Identifier",
+            "description": "Mechanism identifier, such as MEC-13.",
+            "type": "string"
+          },
+          "href": {
+            "title": "Link",
+            "description": "Path or URL of the mechanism.",
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "clock": {
+      "title": "Clock",
+      "description": "A duration in hours.",
+      "type": "object",
+      "required": ["hours"],
+      "additionalProperties": false,
+      "properties": {
+        "hours": {
+          "title": "Hours",
+          "description": "Duration in hours.",
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

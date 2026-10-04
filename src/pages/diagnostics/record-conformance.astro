@@ -1,0 +1,68 @@
+---
+import "../../styles/components/diagnostics.css";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import DiagnosticToolPage from "../../components/DiagnosticToolPage.astro";
+import { diagnosticsStudioOffRampCallout } from "../../content/callouts";
+import { diagnosticsContent } from "../../content/diagnostics";
+import RecordConformanceWidget from "../../features/record-conformance/RecordConformance";
+
+const tool = diagnosticsContent.tools.find(
+  (entry) => entry.slug === "record-conformance",
+);
+
+if (!tool) {
+  return new Response("Diagnostic not found", {
+    status: 404,
+  });
+}
+
+const { publication } = diagnosticsContent;
+const pageTitle = `${tool.title} — Diagnostics`;
+const pageDescription = tool.metaDescription ?? tool.description;
+const permalink = `/diagnostics/${tool.slug}`;
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2026-09-06T00:00:00.000Z"
+  mainClass="page page--wide"
+>
+  <DiagnosticToolPage
+    tool={tool}
+    publication={publication}
+    permalink={permalink}
+    overviewTitle="When to use the Record Conformance Checker"
+    methodologyDescription="What the checker verifies from a stream, what it cannot tell you, and how the earned level is computed."
+    sampleOutputTitle="Preview the conformance readout"
+    sampleOutputDescription="The earned level, what holds it below the next one, and findings graded blocking, finding, or note with the clause each comes from."
+    runSectionTitle="Check a record stream"
+    runSectionDescription="Paste or load a stream, set the level the system claims, and see the level it earns. Nothing is uploaded."
+    studioOffRamp={diagnosticsStudioOffRampCallout}
+  >
+    <RecordConformanceWidget client:load />
+    <aside class="callout stack-sm" aria-labelledby="conformance-ci-title">
+      <p class="eyebrow">Run it in CI</p>
+      <h3 id="conformance-ci-title">The same checker, as a command</h3>
+      <p>
+        The GitHub Action <code>zz-plant/ethotechnics.org</code> runs this checker
+        on a record stream in CI, fails the job when the stream earns less than it
+        declares, and annotates each finding with its clause. It runs from its own
+        checkout with the runner's Node and installs nothing, so pin it to a commit.
+      </p>
+      <p>
+        From a clone of the repository,
+        <code
+          >node packages/conformance/action/cli.mjs records.jsonl --manifest
+          manifest.json</code
+        > does the same from the shell. The npm package is not published yet.
+      </p>
+      <p class="small muted">
+        <a
+          href="https://github.com/zz-plant/ethotechnics.org/tree/main/packages/conformance"
+          rel="noopener noreferrer">Package and action documentation →</a
+        >
+      </p>
+    </aside>
+  </DiagnosticToolPage>
+</BaseLayout>

@@ -1,0 +1,1276 @@
+@layer components {
+  /* Full-bleed band. Its own padding provides the separation from the spine,
+     and the grid gap is the only thing spacing the sections inside it. It now
+     holds only the incident triage -- the working surface of the page.
+
+     The home page's bands are divided by rules, so each one takes half the
+     section gap above its content and half below (see the rhythm note in
+     sections.css): rule to text is always half a gap, text to text a whole
+     one. They sit inside <main>, which already holds the page gutter, so
+     they add no side padding of their own; they used to add a second gutter,
+     and their text sat 12-33px in from the hero's. The tinted core is a
+     sheet, so its content takes the container inset. */
+  .home-core {
+    display: grid;
+    gap: var(--space-7);
+    margin-block-start: calc(var(--space-section) / 2);
+    padding-block: calc(var(--space-section) / 2);
+    background: color-mix(in srgb, var(--panel) 45%, var(--bg));
+    border-top: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  }
+
+  /* A plain section between two ruled bands takes half a gap on each side,
+     so it sits the same distance from each rule as the bands' own text. */
+  .home-casebook + .section {
+    margin-block: calc(var(--space-section) / 2);
+  }
+
+  .home-core > * {
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding-inline: var(--space-container);
+  }
+
+  /* The claim section: back on the paper, carrying the figure that argues
+     the thesis. Its rule closes the section as the masthead's rule opens it. */
+  .home-claim {
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding: calc(var(--space-section) / 2) 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
+  }
+
+  .home-claim .section-lead {
+    max-width: 68ch;
+  }
+
+  /* The record's and the mechanism's headers: heading on the left, lede on
+     the right on a wide screen, so each opens with one band instead of a
+     stack three blocks tall. Stacked below 1000px. */
+  .home-split-header {
+    display: grid;
+    gap: var(--space-heading);
+  }
+
+  .home-split-header > .section-lead {
+    margin: 0;
+  }
+
+  @media (min-width: 1000px) {
+    .home-split-header {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      column-gap: clamp(var(--space-6), 4vw, var(--space-8));
+    }
+  }
+
+  .home-colophon {
+    border-top: 2px solid var(--text);
+    padding-top: var(--space-5);
+  }
+
+  .home-colophon__cols {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .home-colophon__label {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: var(--text-xs);
+    font-weight: 650;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .home-colophon__text {
+    margin: var(--space-2) 0 0;
+    font-size: var(--text-sm);
+    line-height: 1.6;
+  }
+
+  .home-colophon__strip {
+    margin: var(--space-5) 0 0;
+    padding-top: var(--space-3);
+    border-top: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  @media (min-width: 800px) {
+    .home-colophon__cols {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+
+    .home-colophon__cols > div:last-child {
+      border-left: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+      padding-left: var(--space-6);
+    }
+  }
+
+  /* The story masthead. The headline is drawn beside it on a wide screen and
+     under it on a phone, after the buttons, so the first tap target stays
+     on the first screen. */
+  .institute-hero--story {
+    display: grid;
+    gap: var(--space-7);
+  }
+
+  @media (min-width: 1000px) {
+    .institute-hero--story {
+      grid-template-columns: minmax(0, 1fr) minmax(20rem, 28rem);
+      column-gap: clamp(var(--space-6), 4vw, var(--space-8));
+      align-items: center;
+    }
+  }
+
+  .institute-hero--story .section-lead {
+    max-width: 60ch;
+  }
+
+  /* The doors: the reader names who they are before choosing a page. */
+  .home-doors {
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding: calc(var(--space-section) / 2) 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
+  }
+
+  /* Eyebrow, heading and lede: the section-header stack, at the same
+     --space-heading apart, with the children's own margins reset. */
+  .home-doors__header,
+  .self-test__header {
+    display: grid;
+    gap: var(--space-heading);
+  }
+
+  .home-doors__header > *,
+  .self-test__header > * {
+    margin: 0;
+  }
+
+  .home-doors__header {
+    max-width: 68ch;
+    margin-block-end: var(--space-block);
+  }
+
+  /* The doors read as a directory: one hairline row per door, role left,
+     destination middle, one arrow right. No boxes: wayfinding, not
+     merchandising. */
+  .home-doors__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .home-doors__list li {
+    border-top: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+  }
+
+  .home-doors__list li:last-child {
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+  }
+
+  /* The line under the doors for a reader who has no role yet, only a system. */
+  .home-doors__fit {
+    margin: var(--space-5) 0 0;
+  }
+
+  .home-doors__door {
+    display: grid;
+    grid-template-columns: minmax(9rem, 13rem) minmax(0, 1fr) auto;
+    gap: var(--space-2) var(--space-5);
+    align-items: baseline;
+    padding: var(--space-4) var(--space-1);
+    color: var(--text);
+    text-decoration: none;
+    transition: background-color var(--motion-base) ease;
+  }
+
+  .home-doors__door:hover,
+  .home-doors__door:focus-visible {
+    background: color-mix(in srgb, var(--panel) 45%, transparent);
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .home-doors__who {
+    font-family: var(--sans);
+    font-size: var(--text-base);
+    font-weight: 650;
+    color: var(--text);
+    margin: 0;
+  }
+
+  .home-doors__what {
+    margin: 0;
+    line-height: 1.55;
+  }
+
+  .home-doors__action {
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--link);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 639px) {
+    .home-doors__door {
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .home-doors__who {
+      grid-column: 1;
+    }
+
+    .home-doors__action {
+      grid-row: 1;
+      grid-column: 2;
+    }
+
+    .home-doors__what {
+      grid-column: 1 / -1;
+    }
+  }
+
+  /* Self-test. */
+  /* Self-test. */
+  .home-core__test {
+    display: grid;
+    gap: var(--space-6, 2rem);
+    align-items: start;
+  }
+
+  /* The safeguard map sits beside the questions on a wide screen, held in
+     view while the reader answers, and follows them on a phone, where it
+     reads as the picture of the answers above it. */
+  @media (min-width: 1000px) {
+    .home-core__test {
+      grid-template-columns: minmax(0, 1.5fr) minmax(18rem, 0.8fr);
+    }
+
+    .home-core__figure {
+      position: sticky;
+      top: 6rem;
+    }
+  }
+
+  .self-test {
+    scroll-margin-top: 5rem;
+  }
+
+  .self-test__header {
+    max-width: 62ch;
+    margin-bottom: var(--space-block);
+  }
+
+  .self-test__questions {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-3);
+    counter-reset: self-test;
+  }
+
+  .self-test__item {
+    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    border-left: 3px solid color-mix(in srgb, var(--border) 80%, transparent);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    transition: border-color var(--motion-base) ease;
+  }
+
+  .self-test__item[data-answer="y"] {
+    border-left-color: var(--status-success);
+  }
+
+  .self-test__item[data-answer="n"],
+  .self-test__item[data-answer="u"] {
+    border-left-color: var(--status-danger);
+  }
+
+  /* A legend cannot be a grid item, so the question and its choices stack
+     inside a plain fieldset rather than sitting side by side. */
+  .self-test__fieldset {
+    margin: 0;
+    padding: var(--space-4) var(--space-4);
+    border: 0;
+    min-width: 0;
+  }
+
+  .self-test__legend {
+    float: left;
+    width: 100%;
+    padding: 0;
+    margin-bottom: var(--space-3);
+  }
+
+  .self-test__legend + * {
+    clear: both;
+  }
+
+  .self-test__variable {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--sans);
+    font-size: var(--text-xs, 0.75rem);
+    font-weight: 650;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .self-test__question {
+    display: block;
+    margin-top: var(--space-1);
+    font-family: var(--serif);
+    font-size: var(--text-base);
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .self-test__choices {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .self-test__choice {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .self-test__choice input {
+    position: absolute;
+    opacity: 0;
+    inset: 0;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  .self-test__choice span {
+    display: inline-block;
+    min-width: 3.4rem;
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-align: center;
+    background: var(--bg);
+  }
+
+  .self-test__choice input:focus-visible + span {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .self-test__choice input:checked + span {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--surface);
+  }
+
+  .self-test__result {
+    margin-top: var(--space-5);
+    padding: var(--space-4) var(--space-5);
+    border-radius: var(--radius-lg);
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border));
+    background: color-mix(in srgb, var(--accent) 6%, var(--surface));
+  }
+
+  .self-test__score {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .self-test__verdict {
+    margin: var(--space-2) 0 var(--space-2);
+    font-weight: 600;
+  }
+
+  .self-test__drift {
+    margin: 0 0 var(--space-4);
+    padding-left: var(--space-4);
+    display: grid;
+    gap: var(--space-1);
+    font-size: var(--text-sm);
+  }
+
+  .self-test__drift:empty {
+    display: none;
+  }
+
+  .self-test__roles {
+    margin-top: var(--space-5);
+    padding-top: var(--space-4);
+    border-top: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .self-test__roles-prompt {
+    font-size: var(--text-xs);
+    font-weight: 650;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-label);
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .self-test__roles-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-3);
+  }
+
+  .self-test__role-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-pill);
+    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    background: color-mix(in srgb, var(--surface) 90%, transparent);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--text);
+    text-decoration: none;
+    transition:
+      border-color var(--motion-fast) ease,
+      background-color var(--motion-fast) ease;
+  }
+
+  .self-test__role-link span {
+    font-weight: 450;
+    color: var(--muted);
+  }
+
+  .self-test__role-link:hover,
+  .self-test__role-link:focus-visible {
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+    background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+    text-decoration: none;
+  }
+
+  /* The six-node figure: one ring, six safeguard nodes, the count at
+     center. Answers arrive as data-answer on each node group; the shape is
+     hidden from assistive technology because the form and its result carry
+     the same information. */
+  .safeguard-map {
+    margin: 0;
+    display: grid;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+  }
+
+  .safeguard-map__caption {
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  .safeguard-map__caption > * {
+    margin: 0;
+  }
+
+  .safeguard-map__title {
+    font-family: var(--serif);
+    font-size: var(--text-lg);
+    font-weight: 650;
+    line-height: 1.25;
+  }
+
+  .safeguard-map__svg {
+    width: 100%;
+    max-width: 19rem;
+    margin-inline: auto;
+    display: block;
+  }
+
+  .safeguard-map__ring,
+  .safeguard-map__spoke {
+    fill: none;
+    stroke: color-mix(in srgb, var(--border) 85%, var(--muted));
+    stroke-width: 1.5;
+  }
+
+  .safeguard-map__svg .safeguard-map__label {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.06em;
+    fill: var(--muted);
+  }
+
+  .safeguard-map__node-shape {
+    fill: var(--surface);
+    stroke: color-mix(in srgb, var(--border) 60%, var(--muted));
+    stroke-width: 2;
+    transition:
+      fill var(--motion-fast) ease,
+      stroke var(--motion-fast) ease;
+  }
+
+  .safeguard-map__node[data-answer="y"] .safeguard-map__node-shape {
+    fill: var(--accent);
+    stroke: var(--accent);
+  }
+
+  .safeguard-map__node:is([data-answer="n"], [data-answer="u"])
+    .safeguard-map__node-shape {
+    fill: var(--status-warning);
+    stroke: var(--status-warning);
+  }
+
+  .safeguard-map__svg .safeguard-map__score {
+    font-family: var(--serif);
+    font-size: 34px;
+    font-weight: 700;
+    fill: var(--text);
+  }
+
+  .safeguard-map__svg .safeguard-map__score-sub {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    fill: var(--muted);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .safeguard-map__node-shape {
+      transition: none;
+    }
+  }
+
+  /* Casebook scorecard: barcode rows. One packed row per case, sorted by
+     how long harm ran; the six verdicts read as a mark run, the halt bar
+     sits at the right edge on a square-root scale, and the days label
+     carries the figure so the scale never has to be trusted. */
+  .home-casebook {
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding: calc(var(--space-section) / 2) 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
+  }
+
+  /* The column header sits directly above the rows and mirrors their
+     grid, so each three-letter label sits over its mark run and the halt
+     label sits over the bar. */
+  .home-casebook__columns {
+    display: none;
+  }
+
+  .home-casebook__verdict-key {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-4);
+    margin: 0 0 var(--space-2);
+  }
+
+  .home-casebook__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+  }
+
+  .home-casebook__row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: var(--space-3) var(--space-6);
+    align-items: center;
+    padding: var(--space-4) var(--space-1);
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .home-casebook__row:hover,
+  .home-casebook__row:focus-visible {
+    background: color-mix(in srgb, var(--panel) 45%, transparent);
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .home-casebook__name {
+    display: grid;
+    gap: var(--space-hair);
+    min-width: 0;
+  }
+
+  .home-casebook__title {
+    font-family: var(--serif);
+    font-size: var(--text-lg);
+    font-weight: 650;
+    color: var(--accent);
+  }
+
+  .home-casebook__meta {
+    margin: 0;
+  }
+
+  .home-casebook__marks {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .home-casebook__marks .verdict {
+    width: 1.5rem;
+    justify-content: center;
+  }
+
+  .home-casebook__halt {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .home-casebook__track {
+    display: block;
+    width: 9rem;
+    height: 0.55rem;
+    border-radius: var(--radius-xs);
+    background: color-mix(in srgb, var(--panel) 80%, transparent);
+    overflow: hidden;
+  }
+
+  .home-casebook__bar {
+    display: block;
+    height: 100%;
+    width: calc(var(--halt-share, 0) * 100%);
+    border-radius: var(--radius-xs);
+    background: var(--accent);
+  }
+
+  .home-casebook__days {
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    min-width: 3.5rem;
+  }
+
+  @media (min-width: 1000px) {
+    .home-casebook__columns {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      gap: var(--space-3) var(--space-6);
+      padding: 0 var(--space-1) var(--space-2);
+      font-family: var(--sans);
+      font-size: var(--text-xs);
+      font-weight: 650;
+      color: var(--muted);
+    }
+
+    .home-casebook__col {
+      width: 1.5rem;
+      text-align: center;
+    }
+
+    .home-casebook__col--spacer {
+      width: auto;
+    }
+
+    .home-casebook__col--halt {
+      width: 13rem;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 899px) {
+    .home-casebook__row {
+      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-areas:
+        "name marks"
+        "name halt";
+    }
+
+    .home-casebook__name {
+      grid-area: name;
+    }
+
+    .home-casebook__marks {
+      grid-area: marks;
+      justify-self: end;
+    }
+
+    .home-casebook__halt {
+      grid-area: halt;
+      justify-self: end;
+    }
+
+    .home-casebook__track {
+      width: 6.5rem;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .home-casebook__row {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas:
+        "name"
+        "marks"
+        "halt";
+    }
+
+    .home-casebook__marks,
+    .home-casebook__halt {
+      justify-self: start;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .home-doors__door,
+    .self-test__item {
+      transition: none;
+    }
+  }
+
+  /* ── Scrollytelling without capturing scroll  /* ── Scrollytelling without capturing scroll ────────────────────────
+     One observer adds .is-inview; it never touches the scrollbar. The
+     hidden state exists only once the script has marked the document, so
+     a reader without JavaScript never sees missing content. */
+  [data-reveal-ready] [data-reveal] {
+    opacity: 0;
+    transform: translateY(0.9rem);
+  }
+
+  [data-reveal-ready] [data-reveal].is-inview {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    [data-reveal-ready] [data-reveal] {
+      transition:
+        opacity 0.55s ease,
+        transform 0.55s var(--ease-out-editorial);
+    }
+  }
+
+  /* The hero's role links: a labeled row at body size, styled as links.
+     They were 12px pills, the least legible thing in the hero, though they
+     are the clearest way in for two of the three readers. */
+  .home-doors--strip {
+    max-width: none;
+    padding: 0;
+    border-bottom: 0;
+    margin: var(--space-1) 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-1) var(--space-2);
+    font-size: var(--text-body);
+    line-height: 1.5;
+  }
+
+  .home-doors__strip-label {
+    font-weight: 650;
+    color: var(--text);
+  }
+
+  .home-doors--strip ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-1) 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  .home-doors--strip li + li::before {
+    content: "·";
+    margin-inline: var(--space-2);
+    color: var(--muted);
+  }
+
+  /* Stack role links at every width so wrapped rows never start with a separator. */
+  @media (min-width: 0px) {
+    .home-doors--strip ul {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .home-doors--strip li + li::before {
+      content: none;
+    }
+  }
+
+  .home-doors__strip-link {
+    color: var(--link);
+    font-weight: 550;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+
+  .home-doors__strip-link:hover {
+    color: var(--link-hover);
+    text-decoration-thickness: 2px;
+  }
+
+  .home-doors__strip-link:focus-visible,
+  .institute-hero__triage-link:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
+    border-radius: var(--radius-xs);
+  }
+
+  .home-pillars {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--space-3);
+    margin-top: var(--space-3);
+  }
+
+  .home-pillar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    text-decoration: none;
+    color: inherit;
+    padding: var(--space-3);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    transition: border-color var(--transition-fast, 0.15s ease);
+  }
+
+  .home-pillar:hover,
+  .home-pillar:focus-visible {
+    border-color: var(--accent);
+  }
+
+  .home-pillar strong {
+    font-size: var(--text-sm);
+  }
+
+  /* Act 1: the record spine as a rail. One row per dated event: quote
+     left, dot on the rail, the institution's response right. Rust dots are
+     warnings the institution never answered; the halt row's dot is ink. */
+  .record-spine {
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding: calc(var(--space-section) / 2) 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
+  }
+
+  .record-spine__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-5);
+    max-width: 68ch;
+    margin-block-end: var(--space-block);
+  }
+
+  .record-spine__chip {
+    margin: 0;
+    padding: var(--space-1) var(--space-3);
+    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    border-radius: var(--radius-pill);
+    background: var(--panel);
+    font-family: var(--sans);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .record-spine__lead {
+    margin: 0 0 var(--space-4);
+    max-width: 62ch;
+  }
+
+  .record-spine__rail {
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .record-spine__rail::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    transform: translateX(-50%);
+    background: color-mix(in srgb, var(--border) 70%, transparent);
+  }
+
+  .record-spine__row {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 2.5rem minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .record-spine__quote {
+    padding-right: var(--space-4);
+  }
+
+  .record-spine__said {
+    margin: 0;
+  }
+
+  .record-spine__note {
+    color: var(--muted);
+  }
+
+  .record-spine__source {
+    margin: var(--space-1) 0 0;
+    font-family: var(--sans);
+    font-size: var(--text-xs);
+    color: var(--muted);
+  }
+
+  .record-spine__dot {
+    justify-self: center;
+    align-self: start;
+    margin-top: 0.4em;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background: var(--mark);
+    box-shadow: 0 0 0 3px var(--bg);
+  }
+
+  .record-spine__row--halt .record-spine__dot {
+    background: var(--text);
+  }
+
+  .record-spine__row--after .record-spine__dot {
+    background: color-mix(in srgb, var(--border) 80%, var(--muted));
+  }
+
+  .record-spine__response {
+    margin: 0.15em 0 0;
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  .record-spine__row--halt .record-spine__response {
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+
+  .record-spine__row--after .record-spine__response {
+    font-style: italic;
+  }
+
+  .record-spine__foot {
+    margin-block-start: var(--space-4);
+  }
+
+  @media (max-width: 719px) {
+    .record-spine__rail::before {
+      content: none;
+    }
+
+    .record-spine__row {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-1);
+      padding-block: var(--space-3);
+      border-bottom: 1px solid
+        color-mix(in srgb, var(--border) 60%, transparent);
+    }
+
+    .record-spine__dot {
+      display: none;
+    }
+
+    .record-spine__quote {
+      padding-right: 0;
+    }
+  }
+
+  /* The rule-count figure draws itself once its section is in view: the
+     upheld challenges appear, then the arrow and the revised rule draw.
+     Static and complete wherever the script has not run. */
+  [data-reveal-ready] .home-draw .rule-count__marks,
+  [data-reveal-ready] .home-draw .rule-count__late {
+    opacity: 0;
+  }
+
+  [data-reveal-ready] .home-draw .rule-count__draw {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    [data-reveal-ready] .home-draw .rule-count__marks {
+      transition: opacity 0.6s ease;
+    }
+
+    [data-reveal-ready] .home-draw .rule-count__draw {
+      transition: stroke-dashoffset 0.8s var(--ease-out-editorial) 0.7s;
+    }
+
+    [data-reveal-ready] .home-draw .rule-count__late {
+      transition: opacity 0.4s ease 1.3s;
+    }
+
+    [data-reveal-ready] .home-draw.is-inview .rule-count__marks,
+    [data-reveal-ready] .home-draw.is-inview .rule-count__late {
+      opacity: 1;
+    }
+
+    [data-reveal-ready] .home-draw.is-inview .rule-count__draw {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  /* The rail: two hairlines at the viewport's left edge. The accent line
+     fills with reading progress where scroll-driven animation exists; the
+     rust line never moves -- the institution's ledger does not respond.
+     Decorative only: hidden from assistive technology, inert to pointers. */
+  .home-rail {
+    display: none;
+  }
+
+  @media (min-width: 1200px) {
+    .home-rail {
+      display: grid;
+      gap: var(--space-1);
+      position: fixed;
+      left: 0.55rem;
+      top: 14vh;
+      bottom: 14vh;
+      width: 0.6rem;
+      pointer-events: none;
+      z-index: 1;
+    }
+  }
+
+  .home-rail__line {
+    display: block;
+    width: 2px;
+    border-radius: var(--radius-xs);
+  }
+
+  .home-rail__line--record {
+    background: color-mix(in srgb, var(--accent) 55%, transparent);
+  }
+
+  .home-rail__line--institution {
+    background: color-mix(in srgb, var(--status-warning) 45%, transparent);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: scroll()) {
+      .home-rail__line--record {
+        transform: scaleY(0);
+        transform-origin: top;
+        animation: home-rail-record linear both;
+        animation-timeline: scroll(root);
+      }
+    }
+  }
+
+  @keyframes home-rail-record {
+    to {
+      transform: scaleY(1);
+    }
+  }
+
+  /* The hero's ledger: the record's warnings beside the response the
+     institution gave. The empty column is drawn as text, not a placeholder. */
+  .hero-ledger {
+    margin: 0;
+  }
+
+  .hero-ledger__runhead {
+    margin: 0 0 var(--space-2);
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .hero-ledger__table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+
+  .hero-ledger__table th {
+    padding: var(--space-2) var(--space-3);
+    border-bottom: 1px solid var(--border);
+    background: var(--panel);
+    font-family: var(--sans);
+    font-size: var(--text-2xs, var(--text-xs));
+    font-weight: 700;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    text-align: left;
+    color: var(--muted);
+  }
+
+  .hero-ledger__table td {
+    padding: var(--space-2) var(--space-3);
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    vertical-align: top;
+    font-size: var(--text-sm);
+  }
+
+  .hero-ledger__table tr:last-child td {
+    border-bottom: 0;
+  }
+
+  .hero-ledger__when {
+    display: block;
+    margin-bottom: 2px;
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .hero-ledger__blank {
+    font-family: var(--sans);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--mark);
+    white-space: nowrap;
+  }
+
+  .hero-ledger__caption {
+    margin-top: var(--space-2);
+  }
+
+  /* The positioning band's mechanism columns: four mechanisms handed the
+     same ten-year question, and the framework's own cell asking it of
+     itself. */
+  .home-mechanisms {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3);
+    margin-block-start: var(--space-4);
+  }
+
+  .home-mechanisms__cell {
+    display: grid;
+    align-content: start;
+    gap: var(--space-1);
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+  }
+
+  .home-mechanisms__cell--own {
+    border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+    background: color-mix(in srgb, var(--accent) 6%, var(--surface));
+  }
+
+  .home-mechanisms__name {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: var(--text-xs);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .home-mechanisms__cell--own .home-mechanisms__name {
+    color: var(--accent-strong);
+  }
+
+  .home-mechanisms__question {
+    margin: 0;
+    font-size: var(--text-sm);
+    line-height: 1.5;
+  }
+
+  @media (min-width: 900px) {
+    .home-mechanisms {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+  }
+
+  /* The claims as clauses: numbered like the standards, each with the
+     exhibit an institution would have to produce. */
+  .home-clauses {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+  }
+
+  .home-clauses__clause {
+    display: grid;
+    gap: var(--space-1);
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+  }
+
+  .home-clauses__head {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-1) var(--space-3);
+  }
+
+  .home-clauses__num {
+    font-family: var(--mono);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--mark);
+  }
+
+  .home-clauses__claim {
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--text);
+  }
+
+  .home-clauses__exhibit {
+    margin: 0;
+  }
+
+  .home-clauses__exhibit-label {
+    font-family: var(--sans);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-right: 0.35em;
+  }
+
+  .home-clauses__authority {
+    margin: 0;
+  }
+}

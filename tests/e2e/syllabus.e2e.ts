@@ -6,7 +6,10 @@ const assertCertificateLinks = async (root: Locator) => {
   const certificateItem = root.locator("li").filter({ hasText: "Orientation" });
   await expect(certificateItem).toBeVisible();
   await expect(
-    certificateItem.getByRole("link", { name: "Library primer", exact: true }),
+    certificateItem.getByRole("link", {
+      name: "Mechanisms primer",
+      exact: true,
+    }),
   ).toBeVisible();
   await expect(
     certificateItem.getByRole("link", { name: "Burden Modeler", exact: true }),
@@ -14,20 +17,15 @@ const assertCertificateLinks = async (root: Locator) => {
 };
 
 test.describe("Syllabus module completion", () => {
+  // The share button writes through the real Clipboard API, so the test reads
+  // the clipboard back instead of stubbing `navigator.clipboard` (which is an
+  // accessor on Navigator.prototype and cannot be overwritten).
+  test.use({ permissions: ["clipboard-read", "clipboard-write"] });
+
   test("tracks module completion, sharing, and hydration", async ({
     browser,
     page,
   }) => {
-    await page.addInitScript(() => {
-      // @ts-expect-error navigator is writable in the browser context.
-      navigator.clipboard = {
-        writeText: async (text: string) => {
-          // @ts-expect-error window is available in the browser context.
-          window.__copiedText = text;
-        },
-      };
-    });
-
     await page.goto("/syllabus");
     await expect(page.locator("[data-syllabus]")).toBeVisible();
 
@@ -69,7 +67,9 @@ test.describe("Syllabus module completion", () => {
 
     const shareableLink = await shareInput.inputValue();
     expect(shareableLink).toContain(`completed=${MODULE_ID}`);
-    const copiedLink = await page.evaluate(() => (window as any).__copiedText);
+    const copiedLink = await page.evaluate(() =>
+      navigator.clipboard.readText(),
+    );
     expect(copiedLink).toBe(shareableLink);
 
     const sharedContext = await browser.newContext();

@@ -55,7 +55,7 @@ export const anchorLinks = [
 
 export const summaryTakeaways = [
   "Align agent capabilities with explicit action classes and receipts.",
-  "Move ethics conversations from intent claims to enforceable controls, deadlines, and clear appeal paths.",
+  "Replace claims about intent with controls, deadlines, and appeal paths that someone can check.",
   "Use failure-first controls like kill switches, hard clocks, and rollback paths.",
   "Anchor remediation with contestability paths and evidence packs.",
 ];
@@ -64,13 +64,6 @@ export const summaryRelatedLinks = [
   { label: "Mechanisms", href: "/mechanisms" },
   { label: "Diagnostics", href: "/diagnostics" },
   { label: "Evidence packs", href: "/evidence-packs" },
-];
-
-export const summaryJumpLinks = [
-  { label: "Requirements", href: "#requirements" },
-  { label: "Failure-first design", href: "#failure-design" },
-  { label: "Contestability", href: "#contestability" },
-  { label: "Control checklist", href: "#control-checklist" },
 ];
 
 export const actionClassRows: ActionClassRow[] = [
@@ -164,11 +157,31 @@ export const signalIntegrityRows: SignalIntegrityRow[] = [
     tiers:
       "Tier 0: aggregate success rate. Tier 1: success with cost tagging. Tier 2: cost + blast radius per action class.",
   },
+  {
+    signal: "Human compensatory subsidy",
+    gaming:
+      "Treat unlogged human adjustments, prompt massaging, and error clean-up as zero-cost externalities outside system telemetry.",
+    detection:
+      "Dual-ledger audits comparing machine duration against total human operator touch time; random audits of off-ledger communication channels.",
+    tiers:
+      "Tier 0: single-ledger throughput logging. Tier 1: human compensatory touchpoints attributed on receipts. Tier 2: dual-ledger reconciliation with non-compensatory scoring floors.",
+  },
+  {
+    signal: "Compensatory reward hacking",
+    gaming:
+      "Fulfill task completion velocity by stripping verification steps and exporting verification friction onto frontline staff or users.",
+    detection:
+      "Multi-period capacity tracking of staff fatigue, overtime, and turnover; work-to-rule simulated refusal drills.",
+    tiers:
+      "Tier 0: output volume only. Tier 1: longitudinal staff capacity and rest tracking. Tier 2: independent adversarial audits evaluating system stability under systemic refusal.",
+  },
 ];
 
 export const controlChecklist = `- [ ] Receipt schema v1.0 implemented and validated against a JSON schema.
 - [ ] Receipts emitted for every automated decision (owner + action class included).
 - [ ] Human owner named with escalation authority and on-call coverage.
+- [ ] Dual-ledger accounting tracks unrecorded human compensatory labor alongside task speed.
+- [ ] Non-punitive exit verified: declining automated assistance incurs zero delay or quality penalty.
 - [ ] Decision log (MEC-01) captures dissent, owner, and outcome for every high-impact action.
 - [ ] Kill switch (MEC-05) tested with documented rollback criteria.
 - [ ] Appeal path (MEC-06) embedded in UI with timelines and escalation ladder.
@@ -178,14 +191,6 @@ export const controlChecklist = `- [ ] Receipt schema v1.0 implemented and valid
 - [ ] Sign-off: product owner + risk steward + on-call reviewer recorded.
 - [ ] Required logs exist: action log, override log, exception log, receipt log.
 - [ ] Rollback trigger defined (unsafe-action spike, audit failure, or contested-remedy breach).`;
-
-export const promptPackInstall = {
-  title: "Ethotechnics agent prompt pack",
-  version: "v1.0.0",
-  downloadUrl: "/agent-toolkit/ethotechnics-agent-prompt-pack-v1.0.0.md",
-  pathSnippet: "prompts/ethotechnics/ethotechnics-agent-prompt-pack-v1.0.0.md",
-  invokeExample: "use: ethotechnics-agent-prompt-pack-v1.0.0",
-};
 
 export const practiceSections: PracticeSection[] = [
   {
@@ -220,7 +225,7 @@ export const practiceSections: PracticeSection[] = [
       },
       {
         title: "MEC-04 The Hard Clock",
-        href: "/mechanisms/mec-04-hard-clock",
+        href: "/mechanisms/patterns/hard-clock",
       },
     ],
     gaps: [
@@ -251,7 +256,7 @@ export const practiceSections: PracticeSection[] = [
       },
       {
         title: "MEC-04 The Hard Clock",
-        href: "/mechanisms/mec-04-hard-clock",
+        href: "/mechanisms/patterns/hard-clock",
       },
       {
         title: "MEC-03 Maintenance windowing",
@@ -284,12 +289,12 @@ export const practiceSections: PracticeSection[] = [
         href: "/mechanisms/patterns/decision-log",
       },
       {
-        title: "MEC-06 Contestability & appeals",
-        href: "/mechanisms/patterns/contestability",
+        title: "MEC-06 Appeal paths inside the UI",
+        href: "/mechanisms/patterns/appeal-paths",
       },
       {
-        title: "MEC-07 Evidence packs",
-        href: "/mechanisms/patterns/evidence-pack",
+        title: "Evidence packs",
+        href: "/evidence-packs",
       },
     ],
     gaps: [
@@ -301,7 +306,7 @@ export const practiceSections: PracticeSection[] = [
   {
     id: "contestability",
     eyebrow: "Practice 4",
-    title: "Make contestability tangible",
+    title: "Show people how to contest",
     summary:
       "People must see how to contest, reverse, and seek remedy when automation impacts them.",
     requirements: [
@@ -313,12 +318,12 @@ export const practiceSections: PracticeSection[] = [
     ],
     mechanisms: [
       {
-        title: "MEC-06 Contestability & appeals",
-        href: "/mechanisms/patterns/contestability",
+        title: "MEC-06 Appeal paths inside the UI",
+        href: "/mechanisms/patterns/appeal-paths",
       },
       {
         title: "MEC-04 The Hard Clock",
-        href: "/mechanisms/mec-04-hard-clock",
+        href: "/mechanisms/patterns/hard-clock",
       },
     ],
     gaps: [
@@ -372,8 +377,8 @@ export const practiceSections: PracticeSection[] = [
         href: "/mechanisms/patterns/kill-switch",
       },
       {
-        title: "MEC-09 Ethical interrupts",
-        href: "/mechanisms/patterns/ethical-interrupts",
+        title: "Ethical interrupts",
+        href: "/explainers/ethical-interrupts",
       },
     ],
     gaps: [

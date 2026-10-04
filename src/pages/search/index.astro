@@ -6,7 +6,7 @@ import { diagnosticsContent } from "../../content/diagnostics";
 import { fieldNotesContent } from "../../content/fieldNotes";
 import { glossaryTerms } from "../../content/glossary";
 import { navSections } from "../../content/navigation";
-import siteSearchScript from "../../scripts/site-search.ts?url";
+import { hasGlossaryEntryPage } from "../../utils/glossary";
 
 const pageTitle = "Site search — Ethotechnics";
 const pageDescription =
@@ -36,13 +36,16 @@ const diagnosticEntries: SearchEntry[] = diagnosticsContent.tools.map(
     tags: [tool.deliveryType, tool.estimatedTime],
   }),
 );
-const glossaryEntries: SearchEntry[] = glossaryTerms.map((term) => ({
-  title: term.term,
-  description: term.definition,
-  href: `/glossary/${term.slug}`,
-  category: "Glossary",
-  tags: term.appliesTo,
-}));
+// A result is a page. Terms with only a tooltip definition have none.
+const glossaryEntries: SearchEntry[] = glossaryTerms
+  .filter((term) => hasGlossaryEntryPage(term.slug))
+  .map((term) => ({
+    title: term.term,
+    description: term.definition,
+    href: `/glossary/${term.slug}`,
+    category: "Glossary",
+    tags: term.appliesTo,
+  }));
 const fieldNoteEntries: SearchEntry[] = fieldNotesContent.entries.map(
   (entry) => ({
     title: entry.title,
@@ -124,14 +127,7 @@ const buildSearchText = (entry: SearchEntry) =>
       eyebrow="Search"
       title="Search the site"
       description={pageDescription}
-      permalink="/search"
       anchorLinks={[{ href: "#search", label: "Search" }]}
-      panelCopy={{
-        eyebrow: "Scope",
-        title: "One search bar for the full catalog.",
-        description:
-          "Search standards, diagnostics, the glossary, and field notes with URL-based queries for easy sharing.",
-      }}
     >
       <div slot="aside" class="panel page-intro__search-panel">
         <p class="muted">Quick search</p>
@@ -159,7 +155,7 @@ const buildSearchText = (entry: SearchEntry) =>
     <SectionBlock
       id="search"
       eyebrow="Search"
-      title="Find standards, diagnostics, and field notes."
+      title="Find standards, diagnostics, and field notes"
       description="Search is URL-based, so you can share queries with ?q= in the address bar."
     >
       <div class="site-search">
@@ -199,7 +195,10 @@ const buildSearchText = (entry: SearchEntry) =>
               {
                 starterQueries.map((query) => (
                   <li>
-                    <a class="pill-list__button" href={`/search?q=${encodeURIComponent(query)}`}>
+                    <a
+                      class="pill-list__button"
+                      href={`/search?q=${encodeURIComponent(query)}`}
+                    >
                       {query}
                     </a>
                   </li>
@@ -265,7 +264,6 @@ const buildSearchText = (entry: SearchEntry) =>
                 data-category={entry.category}
                 data-tags={entry.tags?.join(" ").toLowerCase() ?? ""}
               >
-                <div class="card__glow" aria-hidden="true" />
                 <p class="eyebrow site-search__item-meta">
                   <span>{entry.category}</span>
                   <span
@@ -296,11 +294,16 @@ const buildSearchText = (entry: SearchEntry) =>
         </div>
       </div>
     </SectionBlock>
-    <script type="module" src={siteSearchScript} is:inline></script>
+    <script>
+      import "../../scripts/site-search.ts";
+    </script>
     <noscript>
-      <p class="card card--flat" style="margin-top: 1rem; padding: 1.5rem;">
-        Search filtering requires JavaScript. All {searchEntries.length} results are shown below.
-        Use your browser's find (⌘F / Ctrl+F) to search.
+      <p
+        class="card card--flat"
+        style="margin-top: var(--space-4); padding: var(--space-5);"
+      >
+        Search filtering requires JavaScript. All {searchEntries.length} results are
+        shown below. Use your browser's find (⌘F / Ctrl+F) to search.
       </p>
     </noscript>
   </div>

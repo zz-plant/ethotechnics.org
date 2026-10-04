@@ -1,23 +1,36 @@
-import { burdenCategories, burdenDrivers, MAX_DRIVER_SCORE, SEGMENT_IMBALANCE_THRESHOLD } from './config';
+import {
+  burdenCategories,
+  burdenDrivers,
+  MAX_DRIVER_SCORE,
+  SEGMENT_IMBALANCE_THRESHOLD,
+} from "./config";
 import type {
   BurdenCategoryId,
   BurdenModelResult,
   BurdenRatings,
   CategoryScore,
   DriverScore,
-} from './types';
+} from "./types";
 
-const clampRating = (value: number) => Math.min(Math.max(value, 0), MAX_DRIVER_SCORE);
+const clampRating = (value: number) => {
+  if (!Number.isFinite(value)) return 0;
+  return Math.min(Math.max(value, 0), MAX_DRIVER_SCORE);
+};
 
-const burdenLevelForIndex = (burdenIndex: number): BurdenModelResult['burdenLevel'] => {
-  if (burdenIndex < 35) return 'Healthy';
-  if (burdenIndex < 70) return 'Watch';
-  return 'Overloaded';
+const burdenLevelForIndex = (
+  burdenIndex: number,
+): BurdenModelResult["burdenLevel"] => {
+  if (burdenIndex < 35) return "Healthy";
+  if (burdenIndex < 70) return "Watch";
+  return "Overloaded";
 };
 
 const reliefEstimate = (rating: number, weight: number) => {
   const ceiling = 30;
-  return Math.min(ceiling, Math.round((rating / MAX_DRIVER_SCORE) * weight * 10 + 6));
+  return Math.min(
+    ceiling,
+    Math.round((rating / MAX_DRIVER_SCORE) * weight * 10 + 6),
+  );
 };
 
 export const buildDefaultRatings = (): BurdenRatings => {
@@ -27,8 +40,13 @@ export const buildDefaultRatings = (): BurdenRatings => {
   }, {} as BurdenRatings);
 };
 
-export const calculateBurdenModel = (ratings: BurdenRatings): BurdenModelResult => {
-  const totalWeight = burdenDrivers.reduce((sum, driver) => sum + driver.weight, 0);
+export const calculateBurdenModel = (
+  ratings: BurdenRatings,
+): BurdenModelResult => {
+  const totalWeight = burdenDrivers.reduce(
+    (sum, driver) => sum + driver.weight,
+    0,
+  );
   const maxWeightedScore = totalWeight * MAX_DRIVER_SCORE;
 
   const driverScores: DriverScore[] = burdenDrivers.map((driver) => {
@@ -46,13 +64,34 @@ export const calculateBurdenModel = (ratings: BurdenRatings): BurdenModelResult 
     };
   });
 
-  const burdenIndex = Math.round(
-    (driverScores.reduce((sum, driver) => sum + driver.weightedScore, 0) / maxWeightedScore) * 100,
-  );
+  const burdenIndex =
+    maxWeightedScore > 0
+      ? Math.min(
+          100,
+          Math.max(
+            0,
+            Math.round(
+              (driverScores.reduce(
+                (sum, driver) => sum + driver.weightedScore,
+                0,
+              ) /
+                maxWeightedScore) *
+                100,
+            ),
+          ),
+        )
+      : 0;
 
-  const rawCategoryScores = burdenCategories.map<Omit<CategoryScore, 'delta' | 'isImbalanced'>>((category) => {
-    const categoryDrivers = driverScores.filter((driver) => driver.category === category.id);
-    const categoryWeight = categoryDrivers.reduce((sum, driver) => sum + driver.weightedScore, 0);
+  const rawCategoryScores = burdenCategories.map<
+    Omit<CategoryScore, "delta" | "isImbalanced">
+  >((category) => {
+    const categoryDrivers = driverScores.filter(
+      (driver) => driver.category === category.id,
+    );
+    const categoryWeight = categoryDrivers.reduce(
+      (sum, driver) => sum + driver.weightedScore,
+      0,
+    );
     const categoryMaxWeight = burdenDrivers
       .filter((driver) => driver.category === category.id)
       .reduce((sum, driver) => sum + driver.weight * MAX_DRIVER_SCORE, 0);
@@ -60,11 +99,23 @@ export const calculateBurdenModel = (ratings: BurdenRatings): BurdenModelResult 
     return {
       id: category.id,
       label: category.label,
-      value: Math.round((categoryWeight / categoryMaxWeight) * 100),
+      value:
+        categoryMaxWeight > 0
+          ? Math.min(
+              100,
+              Math.max(
+                0,
+                Math.round((categoryWeight / categoryMaxWeight) * 100),
+              ),
+            )
+          : 0,
     };
   });
   const averageCategoryValue =
-    rawCategoryScores.reduce((sum, score) => sum + score.value, 0) / rawCategoryScores.length;
+    rawCategoryScores.length > 0
+      ? rawCategoryScores.reduce((sum, score) => sum + score.value, 0) /
+        rawCategoryScores.length
+      : 0;
   const categoryScores = rawCategoryScores.map<CategoryScore>((score) => {
     const delta = Math.round(score.value - averageCategoryValue);
     return {
@@ -94,4 +145,5 @@ export const calculateBurdenModel = (ratings: BurdenRatings): BurdenModelResult 
 };
 
 export const categoryDescription = (categoryId: BurdenCategoryId) =>
-  burdenCategories.find((category) => category.id === categoryId)?.description ?? '';
+  burdenCategories.find((category) => category.id === categoryId)
+    ?.description ?? "";

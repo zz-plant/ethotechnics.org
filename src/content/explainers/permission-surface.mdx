@@ -1,0 +1,67 @@
+---
+title: "What is a permission surface?"
+description: "The permission surface is the set of authority grants in force, each with an evidence basis, a scope, a state, and an expiry."
+permalink: "/explainers/permission-surface"
+eyebrow: "Explainer"
+glossaryRef: "permission-surface"
+definition:
+  - "The permission surface is the set of authority grants in force for a system at a given moment. Each grant on the surface carries four properties: the evidence basis that justifies it, the scope it covers, the state it currently sits in, and the date it expires."
+  - "Describing the surface by authority rather than by access points changes what it can be used for. An unused grant is still part of the surface, a reachable capability with no grant behind it is not part of it, and the whole surface can be compared against the capability catalog to see whether capability has outrun permission."
+example: "An operations agent's surface holds three grants: read customer records until the quarterly access review, issue refunds up to 200 currency units in confirm mode, and restart a queue worker unattended. Each names its evidence basis, and the refund grant drops to review_required when the fraud-rate policy record lapses."
+distinctSignals:
+  - title: "What to check"
+    detail: "Every grant on the surface names a holder, a ceiling, an evidence basis, a state, and an expiry. A grant with no revocation conditions is a transfer wearing a delegation's name."
+  - title: "Common failure pattern"
+    detail: "The surface is inventoried as OAuth scopes and admin roles. That records what is reachable, not what is authorized, so nothing on the list can be reviewed, narrowed, or allowed to lapse."
+  - title: "Evidence to ship"
+    detail: "Publish the count of live grants, the share carrying a non-null expiry, and the reconciliation report listing action classes observed in production that no live grant covers."
+ctas:
+  - eyebrow: "Standard"
+    title: "STD-07 Revisable Delegation Record"
+    description: "The record shape behind each grant on the surface, including expiry and revocation conditions."
+    href: "/standards/std-07-revisable-delegation-record"
+    ctaLabel: "Read STD-07"
+  - eyebrow: "Doctrine"
+    title: "Law I: capability does not imply authority"
+    description: "Why the catalog of what a system can do is kept separate from the surface of what it may do."
+    href: "/standards/laws"
+    ctaLabel: "Read the laws"
+  - eyebrow: "Taxonomy"
+    title: "Authority: delegation"
+    description: "The capability branch covering grant records, holders, ceilings, and states."
+    href: "/taxonomy/authority/delegation"
+    ctaLabel: "Open the branch"
+faqs:
+  - question: "How is this different from an access inventory?"
+    answer: "An access inventory lists what is reachable. The permission surface lists what is authorized, with the evidence that justifies it and the date it expires, so each element can be narrowed or withdrawn."
+  - question: "How does the surface relate to consent?"
+    answer: "Consent is part of the evidence basis for grants that act on a person's behalf. When consent is withdrawn, the evidence basis lapses and the grant becomes eligible for reconsideration."
+published: "2025-06-01"
+updated: "2026-09-06"
+publication:
+  authors:
+    - name: "Ethotechnics Institute"
+      affiliation: "Ethotechnics Institute"
+      email: "hello@ethotechnics.org"
+  contact: "hello@ethotechnics.org"
+  published: "2025-06-01"
+  updated: "2026-09-06"
+  version: "v2.0.0"
+  doi: "Pending Zenodo deposit"
+  archiveUrl: "https://web.archive.org/web/*/https://ethotechnics.org/explainers/permission-surface"
+  changelog:
+    - version: "v2.0.0"
+      date: "2026-09-06"
+      summary: "Recast the permission surface around authority grants rather than access points."
+    - version: "v1.0.0"
+      date: "2025-06-01"
+      summary: "Initial explainer publication."
+  license:
+    label: "CC BY-SA 4.0"
+    href: "https://creativecommons.org/licenses/by-sa/4.0/"
+  attribution: "Credit Ethotechnics Institute, include explainer title + version, and link to the canonical permalink."
+---
+
+import PermissionSurfaceDiagram from "../../components/PermissionSurfaceDiagram.astro";
+
+<PermissionSurfaceDiagram />

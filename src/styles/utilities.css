@@ -1,38 +1,58 @@
 @layer utilities {
   .text-hero {
     font-size: var(--text-hero);
-    line-height: 1.05;
+    line-height: 1.08;
     text-wrap: balance;
+    letter-spacing: -0.015em;
   }
 
   .text-lede {
     font-size: var(--text-lede);
-    text-wrap: balance;
+    line-height: 1.55;
+    text-wrap: pretty;
   }
 
   .text-body {
     font-size: var(--text-body);
+    line-height: 1.68;
   }
 
-  .u-ink-text {
-    filter: url("#ink-bleed");
+  .small {
+    font-size: var(--text-sm);
+    line-height: 1.5;
+  }
+
+  .balanced-headline {
+    text-wrap: balance;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .section-lead {
+    font-size: var(--text-lede);
+    line-height: 1.62;
+    max-width: 68ch;
+    color: color-mix(in srgb, var(--text) 92%, var(--border));
+    text-wrap: pretty;
   }
 
   .eyebrow {
     text-transform: uppercase;
-    letter-spacing: 0.24em;
+    letter-spacing: var(--tracking-label-wide);
     font-size: var(--text-eyebrow);
+    font-family: var(--sans);
+    font-weight: 650;
+    line-height: 1.3;
     color: var(--accent);
     margin: 0;
   }
 
   .muted {
     color: var(--muted);
-    margin: 0.2rem 0 0;
   }
 
   .is-hidden {
-    display: none;
+    display: none !important;
   }
 
   .sr-only {
@@ -47,7 +67,49 @@
     border: 0;
   }
 
+  /* Spacing and Flex Stacks */
   .flow > * + * {
-    margin-top: var(--flow-space, 1rem);
+    margin-top: var(--flow-space, var(--space-4));
   }
+
+  .stack-sm {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .stack-md {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .stack-lg {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+  }
+}
+
+/* The gap is the whole spacing contract for a stack. Without this reset a
+   heading or paragraph adds its own block margin on top of the gap, so one
+   declared value renders as three different distances (an eyebrow/h2/p stack at
+   gap 12px measured 44 / 34 / 22 apart). The stack gaps above are one step
+   wider than they used to be to absorb the margins this removes.
+
+   It sits outside @layer utilities on purpose: theme.css styles bare `p` and
+   headings without a layer, and unlayered rules beat every layer. */
+.stack-xs > *,
+.stack-sm > *,
+.stack-md > *,
+.stack-lg > *,
+.stack-xl > * {
+  margin-block: 0;
 }

@@ -25,10 +25,7 @@ const baseInput = {
 const buildForRoute = (route: {
   canonical: string;
   structuredDataType:
-    | "collection"
-    | "webpage"
-    | "defined-term"
-    | "tech-article";
+    "collection" | "webpage" | "defined-term" | "tech-article";
   openGraphType: "article" | "website";
   breadcrumbs: Array<{ name: string; absoluteUrl: string }>;
 }) =>
@@ -122,5 +119,29 @@ describe("buildSchemaGraph", () => {
     );
     expect(webpage?.["@type"]).toBe("WebPage");
     expect(graph.some((node) => node["@type"] === "Article")).toBeTrue();
+  });
+});
+
+describe("buildSchemaGraph with a route-supplied page node", () => {
+  it("keeps site nodes and the breadcrumb but leaves the page node to the route", () => {
+    const canonical = "https://ethotechnics.org/glossary/decision-threshold";
+    const graph = buildSchemaGraph({
+      ...baseInput,
+      canonical,
+      webpageId: canonical,
+      primaryImageId: `${canonical}#primaryimage`,
+      structuredDataType: "defined-term",
+      openGraphType: "article",
+      breadcrumbs: [
+        { name: "Home", absoluteUrl: "https://ethotechnics.org/" },
+        { name: "Glossary", absoluteUrl: "https://ethotechnics.org/glossary" },
+        { name: "Decision Threshold", absoluteUrl: canonical },
+      ],
+      pageNode: "route",
+    });
+
+    const types = graph.map((node) => node["@type"]);
+    expect(types).toEqual(["Organization", "WebSite", "BreadcrumbList"]);
+    expect(graph.some((node) => node["@id"] === canonical)).toBeFalse();
   });
 });

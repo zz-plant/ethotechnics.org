@@ -59,6 +59,12 @@ export const glossaryPhaseFilters: GlossaryFilterOption[] = [
 
 export const glossaryMeasurabilityFilters: GlossaryFilterOption[] = [
   { id: "qualitative", label: glossaryMeasurabilityLabels.qualitative },
-  { id: "semi_quantitative", label: glossaryMeasurabilityLabels.semi_quantitative },
-  { id: "fully_measurable", label: glossaryMeasurabilityLabels.fully_measurable },
+  {
+    id: "semi_quantitative",
+    label: glossaryMeasurabilityLabels.semi_quantitative,
+  },
+  {
+    id: "fully_measurable",
+    label: glossaryMeasurabilityLabels.fully_measurable,
+  },
 ];

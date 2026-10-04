@@ -1,0 +1,328 @@
+---
+/**
+ * Consent Journey Lifecycle Diagram.
+ *
+ * Visualizes the difference between the single-checkbox failure pattern
+ * and an auditable, multi-stage consent journey with receipts, renewal triggers,
+ * context shift re-evaluations, and 1-click verifiable revocation.
+ */
+interface Props {
+  level?: "h2" | "h3";
+}
+
+const { level = "h3" }: Props = Astro.props;
+const Heading = level;
+---
+
+<figure class="state-diagram" aria-labelledby="consent-journey-title">
+  <figcaption>
+    <p class="eyebrow">Mechanism, drawn</p>
+    <Heading id="consent-journey-title">
+      Auditable Consent Journey Architecture
+    </Heading>
+    <p class="muted">
+      Consent is a sequence of explicit, auditable choices across changing
+      contexts—never a one-time checkbox at onboarding.
+    </p>
+  </figcaption>
+
+  <div class="diagram-scroll">
+    <svg
+      viewBox="0 0 920 470"
+      role="img"
+      class="state-diagram__svg"
+      aria-label="Lifecycle diagram illustrating stages of a consent journey: scoped request, explicit grant with receipt, context shift triggers, renewal checkpoint, and 1-click revocation."
+    >
+      <defs>
+        <marker
+          id="cj-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--border)"></path>
+        </marker>
+        <marker
+          id="cj-accent-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)"></path>
+        </marker>
+        <marker
+          id="cj-danger-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--status-danger)"></path>
+        </marker>
+      </defs>
+
+      {/* Row 1: The One-Time Checkbox Fallacy */}
+      <g transform="translate(40, 25)">
+        <text x="0" y="18" class="state-diagram__clause" fill="var(--muted)"
+          >The Single-Checkbox Trap (Static Fallacy)</text
+        >
+
+        <rect
+          x="0"
+          y="30"
+          width="220"
+          height="80"
+          rx="8"
+          fill="var(--surface)"
+          stroke="var(--border)"></rect>
+        <text x="110" y="64" text-anchor="middle" class="state-diagram__state"
+          >Onboarding Checkbox</text
+        >
+        <text x="110" y="84" text-anchor="middle" class="state-diagram__label"
+          >"I agree to all 48 pages"</text
+        >
+
+        <line
+          x1="220"
+          y1="70"
+          x2="290"
+          y2="70"
+          stroke="var(--border)"
+          stroke-width="2"
+          marker-end="url(#cj-arrow)"></line>
+
+        <rect
+          x="290"
+          y="30"
+          width="550"
+          height="80"
+          rx="8"
+          fill="var(--surface)"
+          stroke="var(--status-danger)"
+          stroke-dasharray="4 4"></rect>
+        <text
+          x="565"
+          y="56"
+          text-anchor="middle"
+          class="state-diagram__clause"
+          fill="var(--status-danger)"
+          >Perpetual Presumed Consent Regardless of Context Drift</text
+        >
+        <text x="565" y="77" text-anchor="middle" class="state-diagram__label"
+          >Model retrained · Data shared with third parties ·</text
+        >
+        <text x="565" y="95" text-anchor="middle" class="state-diagram__label"
+          >Revocation buried behind dark patterns</text
+        >
+      </g>
+
+      {/* Divider */}
+      <line
+        x1="40"
+        y1="150"
+        x2="880"
+        y2="150"
+        stroke="var(--border)"
+        stroke-width="1"
+        stroke-dasharray="4 4"></line>
+
+      {/* Row 2: Auditable Consent Journey */}
+      <g transform="translate(40, 165)">
+        <text
+          x="0"
+          y="18"
+          class="state-diagram__clause"
+          fill="var(--accent-strong)">Continuous Lifecycle Architecture</text
+        >
+
+        {/* Step 1: Scoped Request */}
+        <g class="state-diagram__node" transform="translate(0, 112)">
+          <rect width="145" height="90" rx="8"></rect>
+          <text
+            x="72.5"
+            y="32"
+            text-anchor="middle"
+            class="state-diagram__state">1. Request</text
+          >
+          <text
+            x="72.5"
+            y="54"
+            text-anchor="middle"
+            class="state-diagram__label">Explicit scope</text
+          >
+          <text
+            x="72.5"
+            y="73"
+            text-anchor="middle"
+            class="state-diagram__clause">Bounded purpose</text
+          >
+        </g>
+
+        <line
+          x1="145"
+          y1="157"
+          x2="175"
+          y2="157"
+          stroke="var(--accent)"
+          stroke-width="2"
+          marker-end="url(#cj-accent-arrow)"></line>
+
+        {/* Step 2: Explicit Grant & Receipt */}
+        <g
+          class="state-diagram__node state-diagram__node--active"
+          transform="translate(175, 112)"
+        >
+          <rect width="165" height="90" rx="8"></rect>
+          <text
+            x="82.5"
+            y="32"
+            text-anchor="middle"
+            class="state-diagram__state"
+            fill="var(--accent-strong)">2. Grant + Receipt</text
+          >
+          <text
+            x="82.5"
+            y="54"
+            text-anchor="middle"
+            class="state-diagram__label">User-held receipt</text
+          >
+          <text
+            x="82.5"
+            y="73"
+            text-anchor="middle"
+            class="state-diagram__clause">Signed timestamp</text
+          >
+        </g>
+
+        <line
+          x1="340"
+          y1="157"
+          x2="362"
+          y2="157"
+          stroke="var(--accent)"
+          stroke-width="2"
+          marker-end="url(#cj-accent-arrow)"></line>
+
+        {/* Step 3: Context Drift Monitor */}
+        <g class="state-diagram__node" transform="translate(362, 102)">
+          <polygon
+            points="105,0 210,55 105,110 0,55"
+            fill="var(--panel)"
+            stroke="var(--accent)"
+            stroke-width="1.5"></polygon>
+          <text x="105" y="50" text-anchor="middle" class="state-diagram__state"
+            >Context Shift?</text
+          >
+          <text x="105" y="70" text-anchor="middle" class="state-diagram__label"
+            >Model/policy change</text
+          >
+        </g>
+
+        {/* Branch Up to Re-consent Checkpoint */}
+        <path
+          d="M 467 102 L 467 67 L 587 67"
+          stroke="var(--accent)"
+          stroke-width="2"
+          fill="none"
+          marker-end="url(#cj-accent-arrow)"></path>
+        <text
+          x="510"
+          y="58"
+          class="state-diagram__clause"
+          fill="var(--accent-strong)">Shift detected</text
+        >
+        <g transform="translate(590, 30)">
+          <rect
+            width="250"
+            height="74"
+            rx="6"
+            fill="var(--surface)"
+            stroke="var(--accent)"
+            stroke-width="1.5"></rect>
+          <text
+            x="125"
+            y="25"
+            text-anchor="middle"
+            class="state-diagram__state"
+            fill="var(--accent-strong)">4. Re-Consent Checkpoint</text
+          >
+          <text x="125" y="45" text-anchor="middle" class="state-diagram__label"
+            >Prompt user with diff</text
+          >
+          <text x="125" y="63" text-anchor="middle" class="state-diagram__label"
+            >before applying change</text
+          >
+        </g>
+
+        {/* Path Forward: Active Valid State */}
+        <line
+          x1="572"
+          y1="157"
+          x2="587"
+          y2="157"
+          stroke="var(--border)"
+          stroke-width="2"
+          marker-end="url(#cj-arrow)"></line>
+        <text x="580" y="148" text-anchor="end" class="state-diagram__label"
+          >No shift</text
+        >
+        <g class="state-diagram__node" transform="translate(590, 120)">
+          <rect width="250" height="74" rx="6"></rect>
+          <text x="125" y="25" text-anchor="middle" class="state-diagram__state"
+            >3. Active Governed State</text
+          >
+          <text x="125" y="45" text-anchor="middle" class="state-diagram__label"
+            >Auditable consent log;</text
+          >
+          <text x="125" y="63" text-anchor="middle" class="state-diagram__label"
+            >90-day renewal cycle</text
+          >
+        </g>
+
+        {/* Branch Down to 1-Click Revocation */}
+        <path
+          d="M 467 212 L 467 247 L 587 247"
+          stroke="var(--status-danger)"
+          stroke-width="2"
+          fill="none"
+          marker-end="url(#cj-danger-arrow)"></path>
+        <text
+          x="510"
+          y="240"
+          class="state-diagram__clause"
+          fill="var(--status-danger)">User revokes</text
+        >
+        <g transform="translate(590, 210)">
+          <rect
+            width="250"
+            height="74"
+            rx="6"
+            fill="var(--surface)"
+            stroke="var(--status-danger)"
+            stroke-width="1.5"></rect>
+          <text
+            x="125"
+            y="25"
+            text-anchor="middle"
+            class="state-diagram__state"
+            fill="var(--status-danger)">5. 1-Click Revoke &amp; Purge</text
+          >
+          <text x="125" y="45" text-anchor="middle" class="state-diagram__label"
+            >Immediate revocation ·</text
+          >
+          <text x="125" y="63" text-anchor="middle" class="state-diagram__label"
+            >Verifiable deletion receipt</text
+          >
+        </g>
+      </g>
+    </svg>
+  </div>
+</figure>

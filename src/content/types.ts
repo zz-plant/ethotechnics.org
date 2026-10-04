@@ -41,12 +41,6 @@ export type AnchorLink = {
   label: string;
 };
 
-export type PanelCopy = {
-  eyebrow: string;
-  title: string;
-  description: string;
-};
-
 export interface ContentEntry {
   id: string;
   title: string;

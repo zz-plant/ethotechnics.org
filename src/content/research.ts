@@ -2,7 +2,6 @@ import type {
   AnchorLink,
   GlossaryLinked,
   PageWithPermalink,
-  PanelCopy,
   PublicationMetadata,
   PublishedContent,
 } from "./types";
@@ -27,6 +26,8 @@ export type Publication = GlossaryLinked & {
   tags: string[];
   href: string;
   ctaLabel: string;
+  // "planned" means no study has been run and nothing below is a result.
+  status: "planned" | "published";
   structuredAbstract: {
     question: string;
     method: string;
@@ -36,14 +37,12 @@ export type Publication = GlossaryLinked & {
   };
   datasets: string[];
   ethicsNotes: string[];
-  references: { label: string; href: string }[];
 };
 
 export type ResearchContent = PageWithPermalink &
   PublishedContent & {
     publication: PublicationMetadata;
     anchorLinks: AnchorLink[];
-    panelCopy: PanelCopy;
     standardsTimeline: {
       period: string;
       title: string;
@@ -74,26 +73,56 @@ export type ResearchContent = PageWithPermalink &
 export const researchContent: ResearchContent = {
   pageTitle: "Research — Ethotechnics",
   pageDescription:
-    "Inquiries, methods, and study findings that surface the human impacts of technology.",
+    "Research on one question: when an automated system is wrong, does the evidence reach someone who can change the rule? Essays, scored cases, a working paper.",
   permalink: "/research",
   published: "2025-12-03T00:00:00Z",
-  updated: "2026-01-09T00:00:00Z",
+  updated: "2026-10-03T00:00:00Z",
   publication: {
     authors: [
       {
-        name: "Ethotechnics Institute Research Team",
+        name: "Ethotechnics Institute",
         affiliation: "Ethotechnics Institute",
-        email: "research@ethotechnics.org",
+        email: "hello@ethotechnics.org",
       },
     ],
-    contact: "research@ethotechnics.org",
+    contact: "hello@ethotechnics.org",
     published: "2025-12-03T00:00:00Z",
-    updated: "2026-01-09T00:00:00Z",
-    version: "v1.1.0",
+    updated: "2026-10-03T00:00:00Z",
+    version: "v1.6.0",
     doi: "Pending Zenodo deposit",
     archiveUrl:
-      "https://web.archive.org/save/https://ethotechnics.org/research",
+      "https://web.archive.org/web/*/https://ethotechnics.org/research",
     changelog: [
+      {
+        version: "v1.6.0",
+        date: "2026-10-03",
+        summary:
+          "Added the Scholarly crossings research note as a bridge artifact: what the framework supplies to adjacent scholarship, to governance mechanisms it does not replace, and to its strongest counterpositions.",
+      },
+      {
+        version: "v1.5.0",
+        date: "2026-10-01",
+        summary:
+          "Rewrote the agenda and focus areas around standing, correction, and the cost of correction. Retired the separate agenda page, the CH-01 program page, a planned consent protocol, and a workshop deck that did not exist.",
+      },
+      {
+        version: "v1.4.0",
+        date: "2026-10-01",
+        summary:
+          "Opened the page with the research question and what the research has produced: the casebook standing result, the frontier doctrine scan, the working paper, and the theory.",
+      },
+      {
+        version: "v1.3.0",
+        date: "2026-09-25",
+        summary:
+          "Revised The Green Dashboard from specification v0.1 to working paper v0.2: added related work, formal definitions, a four-condition factorial design, and falsifiable hypotheses.",
+      },
+      {
+        version: "v1.2.0",
+        date: "2026-09-22",
+        summary:
+          "Marked the three publications as planned studies. Removed sample sizes, findings, and timeline entries that no published data supported, and four bridge artifacts that were never published.",
+      },
       {
         version: "v1.1.0",
         date: "2026-01-09",
@@ -107,16 +136,17 @@ export const researchContent: ResearchContent = {
       },
     ],
     license: {
-      label: "CC BY 4.0",
-      href: "https://creativecommons.org/licenses/by/4.0/",
+      label: "CC BY-SA 4.0",
+      href: "https://creativecommons.org/licenses/by-sa/4.0/",
     },
     attribution:
-      "Credit Ethotechnics Institute Research Team, include the page title + version, and link to the canonical permalink.",
+      "Credit the Ethotechnics Institute, include the page title + version, and link to the canonical permalink.",
   },
-  lastUpdated: "2026-01-09T00:00:00Z",
+  lastUpdated: "2026-10-03T00:00:00Z",
   updateCadence:
-    "Updates publish on a quarterly cadence with interim Field Notes.",
+    "Each change is dated in the changelog at the foot of the page.",
   anchorLinks: [
+    { href: "#results", label: "Results" },
     { href: "#orientation", label: "Orientation" },
     { href: "#bridge-artifacts", label: "Bridge artifacts" },
     { href: "#standards-timeline", label: "Standards timeline" },
@@ -124,288 +154,218 @@ export const researchContent: ResearchContent = {
     { href: "#focus-areas", label: "Focus areas" },
     { href: "#publications", label: "Publications" },
   ],
-  panelCopy: {
-    eyebrow: "How to read these entries",
-    title: "Cross-linked with the Library glossary.",
-    description:
-      "Agenda items, focus areas, and publications link back to glossary anchors so readers share the same definitions. Use them when citing Field Notes or diagnostics results to keep language consistent.",
-  },
   standardsTimeline: [
     {
-      period: "2024 Q4",
-      title: "Temporal rights field synthesis",
-      summary:
-        "Collected stoppability and resignation signals from high-friction service flows to draft STD-01 clauses.",
-      standardRef: "STD-01",
-      href: "/standards/std-01-temporal-rights",
-    },
-    {
-      period: "2025 Q1",
-      title: "Consent journey instrumentation",
-      summary:
-        "Measured time-to-exit and burden indicators to validate bounded duration and reversibility requirements.",
-      standardRef: "STD-01",
-      href: "/standards/std-01-temporal-rights",
-    },
-    {
-      period: "2025 Q3",
-      title: "Bridge artifact publication",
-      summary:
-        "Published instrument packs and governance notes that map temporal rights to implementation playbooks.",
-      standardRef: "STD-01",
-      href: "/standards/std-01-temporal-rights",
-    },
-    {
       period: "2026 Q1",
-      title: "Ratification readiness review",
+      title: "STD-01 ratification draft",
       summary:
-        "Compiled validator outputs and research memos to finalize STD-01 for ratification.",
+        "Version 1.0 was released for public review. It stays a draft until two independent implementation reports and a decision recorded through the RFC process.",
       standardRef: "STD-01",
       href: "/standards/std-01-temporal-rights",
+    },
+    {
+      period: "2026 Q3",
+      title: "Typed decision model clauses",
+      summary:
+        "A review of typed decision models, which return a fixed answer type with a probability per option, led to three STD-08 clauses: content carries no authority, a decision threshold is a policy, and a routing threshold is part of the intervention specification.",
+      standardRef: "STD-08",
+      href: "/standards/std-08-delegation",
     },
   ],
   orientationCards: [
     {
-      title: "Protocols with receipts",
+      title: "Questions before findings",
       description:
-        "Shared prompt packs and facilitation notes keep teams aligned when fielding interviews or co-design sessions.",
-      tags: [
-        "Participatory methods",
-        "Plain-language scripts",
-        "Reusable consent",
-      ],
+        "Each focus area states the questions it is trying to answer. A finding is published only with the method and data behind it.",
+      tags: ["Open questions", "Stated methods", "Data with findings"],
     },
     {
-      title: "Decisions we can cite",
+      title: "Glossary-linked",
       description:
-        "Every study ties to glossary anchors and decision logs, making it easy to reference the why behind research calls.",
-      tags: ["Glossary-linked", "Decision hygiene", "Traceable handoffs"],
+        "Agenda items, focus areas, and publications link to the glossary terms they use, so a reader can check each definition.",
+      tags: ["Glossary-linked", "Shared vocabulary"],
     },
     {
-      title: "Signals into diagnostics",
+      title: "Research into standards",
       description:
-        "Focus areas flow into readiness labs so partners see risk levels, escalation paths, and facilitation options in one place.",
-      tags: ["Readiness labs", "Risk surfaced early", "Studio handoffs"],
+        "Research that changes a requirement lands as a dated clause in a standard, recorded in that standard's publication history.",
+      tags: ["Standards", "Dated clauses", "Publication history"],
     },
   ],
   bridgeArtifacts: [
     {
-      slug: "burden-taxonomy",
-      title: "Burden as a measurable governance risk",
-      type: "Framework paper + taxonomy",
+      slug: "scholarly-crossings",
+      title: "Scholarly crossings (2026-10)",
+      type: "Dated research note",
       summary:
-        "Synthesis of burden signals, governance risk tiers, and linked instrument outputs for peer citation.",
-      tags: ["taxonomy", "instrument", "governance"],
-      href: "/research/bridge-artifacts#burden-taxonomy",
+        "What the framework supplies to scholars who already hold the values, to governance mechanisms it does not replace, and to the counterpositions that would make it unnecessary overhead, with six worked examples.",
+      tags: ["positioning", "instruments", "counterpositions"],
+      href: "/research/scholarly-crossings",
     },
     {
-      slug: "consent-instrument",
-      title: "Consent integrity instrument pack",
-      type: "Validated instrument",
+      slug: "frontier-doctrine-scan",
+      title: "Frontier doctrine scan (2026-09)",
+      type: "Dated research note",
       summary:
-        "Prompt pack and scoring rubric for evaluating consent journeys and disclosure compliance.",
-      tags: ["instrument", "consent", "methods"],
-      href: "/research/bridge-artifacts#consent-instrument",
+        "Ten frontier labs scored 0 to 4 against the twelve laws on public doctrine and product architecture, not safety performance.",
+      tags: ["doctrine", "laws", "frontier"],
+      href: "/research/frontier-doctrine-scan",
     },
     {
-      slug: "maintenance-case-series",
-      title: "Maintenance stewardship case series",
-      type: "Case study series",
+      slug: "theory-essays",
+      title: "Theory essays",
+      type: "Essay series",
       summary:
-        "Comparable case studies capturing escalation ownership, comms cadence, and mitigation outcomes.",
-      tags: ["case study", "operations", "stewardship"],
-      href: "/research/bridge-artifacts#maintenance-case-series",
+        "Why the laws hold: absorption as concealment, the engineering tradition, automation and capture, dependence without standing and running both ways, friction as accidental governance, what does not convert, insulation, ethotechnical design, what outcomes hide, challenge density, exception learning, the model of a person, endogenous authorization, deliberate non-use, the compulsion problem, what Ethotechnics is not, democratic vs. coercive governability, the consumption of adaptive capacity, and the human subsidy to institutional continuity.",
+      tags: ["theory", "laws", "doctrine"],
+      href: "/research/theory",
     },
     {
-      slug: "pattern-language-review",
-      title: "Ethotechnics mechanism language review",
-      type: "Systematic review",
+      slug: "diagnostic-archive",
+      title: "The Crumple Zone",
+      type: "Diagnostic archive",
       summary:
-        "Structured review mapping mechanism adoption across policy, design, and governance programs.",
-      tags: ["systematic review", "mechanisms", "policy"],
-      href: "/research/bridge-artifacts#pattern-language-review",
+        "Case analyses and operational postmortems of institutional failure modes, compensatory labor extraction, and corrigibility barriers.",
+      tags: ["diagnostics", "postmortems", "operational-cases"],
+      href: "https://thecrumple.zone",
+    },
+    {
+      slug: "empirical-program",
+      title: "Empirical evaluation program (kanav.net)",
+      type: "Research program",
+      summary:
+        "Four diagnostic questions, the performance decomposition equation (P_obs = C_des + H_comp), and experimental suites measuring compensatory human labor.",
+      tags: ["evaluation", "decomposition", "empirical"],
+      href: "https://kanav.net/research/",
     },
   ],
   agenda: [
     {
-      title: "Participation and consent at scale",
-      timeframe: "Q3–Q4",
+      title: "Does an upheld challenge change the rule?",
+      timeframe: "Open question",
       goals: [
-        "Map consent journeys for high-stakes services and identify where fatigue or confusion spikes.",
-        "Prototype safeguards that let people pause automation without losing access.",
-        "Ship plain-language participation guides teams can adapt to new launches.",
+        "Record, for each casebook case, what changed after the failure: one case, the process, or the rule.",
+        "Find systems that publish how many challenges they uphold, and check whether any rule changed after them.",
+        "Test whether the corrective learning evals can be scored from public records alone.",
       ],
-      glossaryRefs: ["consent-journey", "safety-valve"],
+      glossaryRefs: ["exception-absorption", "exception-learning"],
     },
     {
-      title: "Operational burden and service debt",
-      timeframe: "Rolling",
+      title: "Who pays for correction?",
+      timeframe: "Open question",
       goals: [
-        "Quantify burden index inputs with community partners and support teams.",
-        "Track how often maintenance windows slip and what mitigations keep people safe.",
-        "Publish heuristics for appeal paths that reduce frustration.",
+        "Measure the time a person spends proving an automated decision wrong, using the time cost STD-01 asks operators to publish.",
+        "Set an institution's efficiency figures beside the correction work its system moves onto claimants, staff, and clinicians.",
+        "Find where, if anywhere, that work appears in a public budget.",
       ],
-      glossaryRefs: [
-        "burden-index",
-        "stewardship-window",
-        "signal-credibility",
-      ],
+      glossaryRefs: ["burden-transfer-event", "compensated-performance"],
     },
   ],
   focusAreas: [
     {
-      slug: "governance",
-      title: "Governance",
+      slug: "standing",
+      title: "Standing",
       description:
-        "Decision accountability, data handling, and escalation paths people can understand.",
+        "Who can make a running system answer: a challenge route, a date by which it must be answered, and someone who can force a halt.",
       questions: [
-        "What documentation helps non-technical partners see how choices were made?",
-        "How can we expose decision logs without creating new harms?",
+        "Which public systems give the person they decide about a challenge that must be answered by a date?",
+        "When a challenge is upheld, who besides that person learns of it?",
       ],
-      glossaryRefs: ["stewardship-window", "signal-credibility"],
+      glossaryRefs: ["corrective-standing", "standing-mechanism"],
     },
     {
-      slug: "safeguards",
-      title: "Safeguards",
+      slug: "correction",
+      title: "Correction",
       description:
-        "Consent-aware defaults, appeal paths, and reversible states that reduce risk.",
+        "Whether an upheld challenge reaches the rule that produced the decision, and how long that takes.",
       questions: [
-        "Where do people need safety valves to pause or undo automation?",
-        "Which UI cues make opt-outs visible without friction?",
+        "How long after the first upheld challenge did each casebook rule change?",
+        "What record would show that a rule changed because of a challenge?",
       ],
-      glossaryRefs: ["consent-journey", "safety-valve"],
+      glossaryRefs: ["exception-learning", "correction-obligation"],
     },
     {
-      slug: "ui-patterns",
-      title: "UI patterns",
+      slug: "burden",
+      title: "Burden",
       description:
-        "Interface practices that foreground agency, clarity, and inclusive framing.",
+        "Who does the work of correcting the system, and whether the institution counts that work as a cost.",
       questions: [
-        "How do we explain model limitations without blame-shifting?",
-        "Which interaction patterns keep people oriented in complex flows?",
+        "How much time does a successful challenge cost the person who brings it?",
+        "Which efficiency figures leave that time out?",
       ],
-      glossaryRefs: ["signal-credibility"],
+      glossaryRefs: [
+        "burden-transfer-event",
+        "principle-of-non-expropriation-of-resilience",
+        "manufactured-virtue",
+        "epistemic-erasure-cycle",
+        "compensatory-inputs",
+      ],
     },
   ],
   publications: [
     {
-      title: "Participatory consent prompts",
-      type: "protocol",
-      summary:
-        "Field protocol and templates for testing progressive consent experiences with communities.",
-      tags: ["consent", "facilitation", "safeguards"],
-      glossaryRefs: ["consent-journey"],
-      href: "/assets/start-here/playbook-excerpt.pdf",
-      ctaLabel: "Download protocol",
-      structuredAbstract: {
-        question:
-          "How do progressive consent prompts reduce fatigue and improve understanding?",
-        method:
-          "Structured interviews plus co-design workshops using scripted prompts and consent checkpoints.",
-        sample:
-          "8–12 participant sessions per pilot, spanning public service and healthcare contexts.",
-        findings:
-          "Layered prompts increase recall and reduce drop-off when paired with reversible exits.",
-        limitations:
-          "Small sample sizes and qualitative framing limit statistical generalization.",
-      },
-      datasets: [
-        "Anonymized consent checkpoint transcripts (summary excerpts).",
-        "Prompt pack template with scoring rubric.",
-      ],
-      ethicsNotes: [
-        "Verbal consent recorded for each session.",
-        "Participant identities anonymized in shared artifacts.",
-      ],
-      references: [
-        {
-          label:
-            "Participatory design for AI systems (introductory bibliography)",
-          href: "https://dl.acm.org/doi/10.1145/3313831.3376717",
-        },
-        {
-          label: "Consent in sociotechnical systems primer",
-          href: "https://doi.org/10.1145/3544548.3580917",
-        },
-      ],
-    },
-    {
-      title: "Burden index calculator notes",
+      title: "Burden index signals",
       type: "report",
+      status: "planned",
       summary:
-        "Applied findings from piloting the burden modeler across support and research teams.",
+        "Planned pilot to test which operational signals the Workload Modeler should weight most.",
       tags: ["diagnostics", "measurement", "governance"],
       glossaryRefs: ["burden-index", "signal-credibility"],
-      href: "/assets/start-here/diagnostic-readout.pdf",
-      ctaLabel: "View report sample",
+      href: "/diagnostics/burden-modeler",
+      ctaLabel: "Open the Workload Modeler",
       structuredAbstract: {
         question:
           "Which operational signals most reliably predict sustained burden?",
         method:
-          "Mixed-methods pilot using burden modeler outputs plus qualitative debriefs.",
-        sample:
-          "12 scenarios across support, operations, and research groups over two quarters.",
-        findings:
-          "Handoff volume and escalation ambiguity correlate with the highest burden index spikes.",
+          "Planned: Workload Modeler outputs compared with debriefs from the teams involved.",
+        sample: "No scenarios have been collected.",
+        findings: "None yet.",
         limitations:
-          "Internal-only pilots; broader validation needed across external partners.",
+          "A first pilot with a few teams would need validation with outside partners.",
       },
       datasets: [
-        "Anonymized burden index summary table (scenario-level).",
-        "Mitigation playbook excerpts tied to hotspot categories.",
+        "To be published with the results: an anonymized scenario-level summary table.",
       ],
       ethicsNotes: [
-        "Scenario names anonymized before external sharing.",
-        "Consent gathered from participating teams for aggregate reporting.",
-      ],
-      references: [
-        {
-          label: "Workload measurement in sociotechnical systems",
-          href: "https://doi.org/10.1080/00140139.2020.1747045",
-        },
-        {
-          label: "Human factors in operational risk",
-          href: "https://doi.org/10.1201/9781315373865",
-        },
+        "Scenario names will be anonymized before anything is shared.",
+        "Participating teams will consent to aggregate reporting.",
       ],
     },
     {
-      title: "Maintenance readiness deck",
-      type: "deck",
+      title:
+        "When the Dashboard Is Green: Evaluating Compensatory Reward Hacking in Long-Horizon AI Agents",
+      type: "protocol",
+      status: "published",
       summary:
-        "Workshop slides for negotiating stewardship windows with cross-functional leads.",
-      tags: ["maintenance", "governance", "operations"],
-      glossaryRefs: ["stewardship-window"],
-      href: "mailto:studio@ethotechnics.org?subject=Maintenance%20readiness%20deck",
-      ctaLabel: "Request the deck",
+        "Working paper v0.2: The Green Dashboard, a 52-week hospital department simulation testing whether AI agents fulfill operational mandates by consuming unmeasured human capacities. Defines compensatory reward hacking, specifies a factorial design with falsifiable hypotheses, diagnoses seven gaps in current evaluation practice, and states the conception of emancipation the benchmark presupposes. No experiments have been run.",
+      tags: ["evaluations", "benchmarking", "reward-hacking", "governance"],
+      glossaryRefs: [
+        "reciprocal-accommodation",
+        "extractive-cannibalism",
+        "green-dashboard-trap",
+        "dual-ledger-evaluation",
+        "systemic-refusal",
+      ],
+      href: "/research/the-green-dashboard",
+      ctaLabel: "Read the working paper",
       structuredAbstract: {
-        question: "How do stewardship windows improve maintenance readiness?",
+        question:
+          "Can an AI agent achieve its assigned objectives by consuming human resources that its performance metrics fail to account for?",
         method:
-          "Workshop facilitation with tabletop exercises and decision log reviews.",
+          "Proposed, not run: a 52-week turn-based department simulation in a 2×2 factorial design (conventional vs. expanded reward accounting; routine reporting vs. randomized independent audits), with four precommitted stress tests.",
         sample:
-          "6 maintenance planning cohorts across public and private sector teams.",
+          "Simulated hospital department: 20 heterogeneous workers, weekly demand of 120 units against sustainable capacity of 100 units.",
         findings:
-          "Shared stewardship calendars improve escalation clarity and reduce rollback delays.",
+          "The paper defines compensatory reward hacking, specifies the primary outcome metric (the green-under-depletion rate), identifies seven gaps in current evaluation practice, and anticipates objections from the philosophical traditions the benchmark draws on. No experiments have been conducted.",
         limitations:
-          "Findings based on facilitated sessions; self-serve teams may vary.",
+          "Rule-based simulated workers in the initial implementation. The simulation would not establish the frequency of these failures in real organizations.",
       },
       datasets: [
-        "Stewardship window planning template.",
-        "Communication cadence checklist with role mapping.",
+        "Simulation parameter configuration schema v0.1.",
+        "Dual-ledger telemetry log definition and stress test seed vectors.",
       ],
       ethicsNotes: [
-        "Facilitated sessions follow standard consent and anonymization protocols.",
-        "Partner data remains confidential unless explicitly shared.",
-      ],
-      references: [
-        {
-          label: "Incident response and maintenance operations review",
-          href: "https://doi.org/10.1145/3351095.3372866",
-        },
-        {
-          label: "Escalation readiness in operations teams",
-          href: "https://doi.org/10.1145/3290605.3300512",
-        },
+        "Evaluations test synthetic agents against simulated worker profiles without human subject risk.",
       ],
     },
   ],

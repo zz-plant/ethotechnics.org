@@ -1,44 +1,63 @@
 ---
+import authorityGrantExample from "../../../public/standards/examples/authority-grant.example.json";
+import InlineScript from "../../components/InlineScript.astro";
+import "../../styles/components/standards.css";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
-import SummaryCallout from "../../components/SummaryCallout.astro";
-import NewsletterSignup from "../../components/NewsletterSignup.astro";
 import { implementationExamples } from "../../content/implementation-examples";
+import { cases, type Case } from "../../content/casebook";
+import { getCollection } from "astro:content";
 import { standardsContent } from "../../content/standards";
+import { documentClauseIds } from "../../utils/clause-registry";
 import {
   buildStandardsCardViewModels,
   buildStandardsGroupingAndFilters,
   buildStandardsStructuredDataPayload,
 } from "../../content/page-data/standards-index";
 
-const {
-  pageTitle,
-  pageDescription,
-  permalink,
-  anchorLinks,
-  panelCopy,
-  standards,
-  doctrine,
-} = standardsContent;
-const { adoptedStandards, starterCards, implementationExampleCards } =
+const lastUpdated = "2026-10-03";
+
+// The comparison states how long harm ran in the casebook, so the range comes
+// from the cases and moves when a case is added.
+const haltLabel = (entry: Case) => entry.timeToHalt.split(";")[0].toLowerCase();
+const shortestHalt = cases.reduce((min, entry) =>
+  entry.timeToHaltDays < min.timeToHaltDays ? entry : min,
+);
+const longestHalt = cases.reduce((max, entry) =>
+  entry.timeToHaltDays > max.timeToHaltDays ? entry : max,
+);
+
+// Clause counts come from the documents, not the registry: the registry is a
+// second hand writing the same clauses and it drifts (see clause-registry.ts).
+const clauseCounts = new Map(
+  (await getCollection("standards")).map((entry) => [
+    entry.id,
+    documentClauseIds(entry.body ?? "").length,
+  ]),
+);
+
+const { pageTitle, pageDescription, anchorLinks, standards, doctrine } =
+  standardsContent;
+const listedStandards = standards.filter(
+  (standard) => standard.listedOnSite !== false,
+);
+const { adoptedStandards, implementationExampleCards } =
   buildStandardsCardViewModels({
     standards,
     doctrine,
     implementationExamples,
   });
-const {
-  activeStandards,
-  mostCitedStandards,
-  mostCitedStandardIds,
-  recentlyUpdatedStandards,
-  standardsGrouping,
-  standardsFilterOptions,
-  standardsLaneById,
-  standardsLaneCounts,
-} = buildStandardsGroupingAndFilters(standards);
+// The lane (core, implementation, reference) rides in the register as a tag.
+// It used to be a second, filterable list of the same standards.
+const { standardsLaneById } = buildStandardsGroupingAndFilters(standards);
+const laneLabel = (id: string) => {
+  const lane = standardsLaneById.get(id);
+  return lane ? lane.charAt(0).toUpperCase() + lane.slice(1) : undefined;
+};
+const evidencePackIds = ["STD-01", "STD-02", "STD-06", "STD-08", "STD-09"];
 const structuredData = buildStandardsStructuredDataPayload({
   standardsContent,
   adoptedStandards,
@@ -50,6 +69,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 <BaseLayout
   title={pageTitle}
   description={pageDescription}
+  modifiedTime={lastUpdated}
   structuredDataType="collection"
   jsonAlternates={[{ href: "/api/standards.json", title: "Standards JSON" }]}
 >
@@ -57,157 +77,274 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     eyebrow="Standards"
     title="Standards"
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={anchorLinks}
-    collapseAnchorLinks={false}
-    collapseAnchorLinksOnMobile={true}
     anchorLinksSummary="Show full standards outline"
-    panelCopy={panelCopy}
   >
     <Fragment slot="actions">
-      <a class="button primary" href="/standards/std-01-temporal-rights">
+      <a class="button primary" href="/use-cases">
+        Find the standards for your system
+      </a>
+      <a class="button ghost" href="/standards/std-01-temporal-rights">
         Open STD-01
       </a>
-      <a class="button ghost" href="/standards/std-02-contestability-recourse">
-        Open STD-02
-      </a>
-      <a
-        class="button ghost"
-        href="/standards/enforceable-governance-crosswalks"
-      >
-        Open crosswalks
-      </a>
+      <a class="button ghost" href="#comparison">See how they differ</a>
     </Fragment>
   </PageIntro>
-  <SummaryCallout
-    title="Start with the two core standards"
-    description="If you only read two documents, begin with STD-01 and STD-02, then use the doctrine and comparisons to place them in context."
-    takeaways={[
-      "STD-01 defines the temporal rights and bounded clocks.",
-      "STD-02 defines contestability, review, and remedy obligations.",
-      "Doctrine and comparisons show how Ethotechnics differs from prevailing regimes.",
-      "Crosswalks, evidence packs, and incident workflows turn requirements into auditable operations.",
-    ]}
-    relatedLinks={[
-      { href: "/standards/std-01-temporal-rights", label: "STD-01" },
-      { href: "/standards/std-02-contestability-recourse", label: "STD-02" },
-      { href: "/standards/core-axioms", label: "Core axioms" },
-      {
-        href: "/standards/enforceable-governance-crosswalks",
-        label: "Crosswalks",
-      },
-    ]}
-    jumpLinks={[
-      { href: "#quick-lanes", label: "Most cited and newly updated" },
-      { href: "#active", label: "Active standards" },
-    { href: "#status-assignment", label: "How status is assigned" },
-      { href: "#comparison", label: "Standards comparison" },
-      { href: "#implementation-examples", label: "Implementation examples" },
-    ]}
-  />
-  <p class="muted small">
-    Recommended reading path: Start with STD-01, then STD-02, then scan Core
-    axioms before reviewing the critique and implementation comparisons.
-  </p>
-
   <SectionBlock
-    id="quick-lanes"
-    eyebrow="Quick lanes"
-    title="Most cited and recently updated standards"
-    description="Use these lanes to prioritize high-reference standards first, then catch the newest updates."
-    variant="alt"
+    id="register"
+    eyebrow="Register"
+    title="Every standard, in one table"
+    description="Identifier, lane, status, version, how many clauses it carries, and where its evidence pack lives. The lanes are core rights and obligations, implementation templates, and reference formats."
   >
-    <div class="grid grid--two">
-      <div class="panel">
-        <p class="eyebrow">Most cited</p>
-        <ul class="muted">
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table catalogue-table standards-register">
+        <thead>
+          <tr>
+            <th scope="col">Standard</th>
+            <th scope="col">Title</th>
+            <th scope="col">Status</th>
+            <th scope="col">Version</th>
+            <th scope="col" class="catalogue-table__num">Clauses</th>
+            <th scope="col">Evidence pack</th>
+          </tr>
+        </thead>
+        <tbody>
           {
-            mostCitedStandards.map((standard) => (
-              <li>
-                <a href={`/standards/${standard.slug}`}>
-                  {standard.id}: {standard.title}
-                </a>
-              </li>
-            ))
+            listedStandards.map((standard) => {
+              const clauses = clauseCounts.get(standard.slug) ?? 0;
+              const packSlug = standard.id.toLowerCase();
+              const lane = laneLabel(standard.id);
+              return (
+                <tr>
+                  <th scope="row" class="standards-register__id">
+                    <a href={`/standards/${standard.slug}`}>{standard.id}</a>
+                  </th>
+                  <td class="standards-register__title">
+                    <a
+                      class="standards-register__name"
+                      href={`/standards/${standard.slug}`}
+                    >
+                      {standard.title}
+                    </a>
+                    {lane && (
+                      <span class="standards-register__lane">{lane}</span>
+                    )}
+                    <span class="standards-register__summary">
+                      {standard.description}
+                      {standard.deprecatedBy &&
+                        standard.deprecatedBy.length > 0 && (
+                          <>
+                            {" "}
+                            Replaced by{" "}
+                            {standard.deprecatedBy.map(
+                              (replacement, index, all) => (
+                                <>
+                                  <a href={`/standards/${replacement.slug}`}>
+                                    {replacement.id}
+                                  </a>
+                                  {index === all.length - 1 ? "." : ", "}
+                                </>
+                              ),
+                            )}
+                          </>
+                        )}
+                    </span>
+                  </td>
+                  <td class="standards-register__status">
+                    <span
+                      class={`catalogue-table__status catalogue-table__status--${standard.status.toLowerCase()}`}
+                    >
+                      {standard.status}
+                    </span>
+                  </td>
+                  <td class="standards-register__version">
+                    <span class="standards-register__meta-label">v</span>
+                    {standard.version}
+                  </td>
+                  <td
+                    class:list={[
+                      "catalogue-table__num standards-register__clauses",
+                      { "standards-register__clauses--none": clauses === 0 },
+                    ]}
+                  >
+                    {clauses > 0 ? clauses : "—"}
+                    {clauses > 0 && (
+                      <span class="standards-register__meta-label">
+                        {clauses === 1 ? " clause" : " clauses"}
+                      </span>
+                    )}
+                  </td>
+                  <td class="standards-register__pack">
+                    {evidencePackIds.includes(standard.id) ? (
+                      <a href={`/evidence-packs/${packSlug}`}>
+                        {standard.id} pack
+                      </a>
+                    ) : (
+                      <span class="muted">
+                        <span class="standards-register__dash">—</span>
+                        <span class="standards-register__meta-label">
+                          No evidence pack
+                        </span>
+                      </span>
+                    )}
+                  </td>
+                </tr>
+              );
+            })
           }
-        </ul>
-      </div>
-      <div class="panel">
-        <p class="eyebrow">Recently updated</p>
-        <ul class="muted">
-          {
-            recentlyUpdatedStandards.map((standard) => (
-              <li>
-                <a href={`/standards/${standard.slug}`}>
-                  {standard.id} v{standard.version} · {standard.effectiveDate}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
+        </tbody>
+      </table>
     </div>
-    <ul class="pill-list pill-list--wrap">
-      <li>
-        <a class="pill-list__button" href="#grouped-lanes"
-          >Browse grouped lanes</a>
-      </li>
-      <li>
-        <a class="pill-list__button" href="#goal-chooser"
-          >Choose by objective</a>
-      </li>
-      <li>
-        <a class="pill-list__button" href="#active">All active standards</a>
-      </li>
-      <li>
-        <a class="pill-list__button" href="#comparison">Standards comparison</a>
-      </li>
-      <li>
-        <a class="pill-list__button" href="#implementation-examples"
-          >Implementation examples</a>
-      </li>
-    </ul>
+    <p class="small muted">
+      Conformance with these standards is evidence about how a delegation is
+      run. It is not evidence that the power should be held, and it does not
+      reduce anyone's legal rights or the operator's liability.
+    </p>
   </SectionBlock>
 
   <SectionBlock
-    id="grouped-lanes"
-    eyebrow="Grouped lanes"
-    title="Choose the standards lane that matches your work."
-    description="Each lane highlights a starting set so teams can triage reading without scanning the full catalog."
-    variant="alt"
+    id="code-example"
+    eyebrow="Implementation schema"
+    title="What an authority lease looks like in code"
+    description="Under STD-08, every automated action runs under an authority lease. It specifies who holds operational power, what limits cannot be bypassed, and when authority lapses automatically."
+  >
+    <div class="standards-code-grid">
+      <div class="stack-md">
+        <p>
+          Engineers do not need to rewrite their agent runtime or replace
+          frameworks like Temporal, LangChain, or custom job runners.
+          Ethotechnics sits at the invocation and audit boundary.
+        </p>
+        <p class="muted">
+          Before taking an action—such as terminating an account, issuing a
+          payment, or allocating a shift—the worker verifies that an active
+          lease exists, that its consecutive denial count remains below the
+          review ceiling, and that the action type is explicitly permitted.
+        </p>
+        <div class="panel stack-sm">
+          <p class="eyebrow">Zero runtime re-architecture</p>
+          <ul class="card__list">
+            <li>
+              <strong>Wrapper or middleware:</strong> Run the lease check inside your
+              existing tool-dispatch or API gateway handler.
+            </li>
+            <li>
+              <strong>Hard stop on threshold:</strong> When upheld challenges or error
+              rates breach tolerance, the lease invalidates itself automatically.
+            </li>
+            <li>
+              <strong>Named human role:</strong> Every lease identifies the human
+              operator with authority to halt or re-certify the grant.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="standards-code-card">
+        <p class="small">
+          <a href="/standards/authority-grant.schema.json"
+            >Published authority-grant schema</a
+          > · <a href="/standards/examples/authority-grant.example.json"
+            >Download example</a
+          >
+        </p>
+        <div class="standards-code-card__header">
+          <span class="standards-code-card__title"
+            >authority-grant.example.json (STD-08 example)</span
+          >
+          <span class="standards-code-card__badge">Authority grant example</span
+          >
+        </div>
+        <pre
+          class="code-block"><code>{JSON.stringify(authorityGrantExample, null, 2)}</code></pre>
+      </div>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="crosswalks"
+    eyebrow="Statutory crosswalks"
+    title="How to compare the drafts with external frameworks"
+    description="For risk owners and legal counsel: these are proposed technical correspondences, not a determination of legal compliance."
   >
     <div class="grid grid--three">
-      {
-        standardsGrouping.map((group) => (
-          <div class="panel stack-sm">
-            <p class="eyebrow">{group.title}</p>
-            <p class="muted small">{group.description}</p>
-            <ul class="muted">
-              {group.items.map((standard) => (
-                <li>
-                  <a href={`/standards/${standard.slug}`}>
-                    {standard.id} · v{standard.version}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))
-      }
+      <div class="panel stack-sm">
+        <p class="eyebrow">EU AI Act</p>
+        <p><strong>Articles 14, 86, and 12</strong></p>
+        <ul class="card__list">
+          <li>
+            <strong>Art 14 (Human Oversight):</strong> STD-08 defines operational
+            stoppability, override keys, and unpenalized human veto.
+          </li>
+          <li>
+            <strong>Art 86 (Right to Explanation):</strong> STD-02 requires causal
+            decision reasons delivered directly with the determination.
+          </li>
+          <li>
+            <strong>Art 12 (Record-Keeping):</strong> STD-07 specifies tamper-evident
+            delegation and contestation logs with verified hash chains.
+          </li>
+        </ul>
+      </div>
+
+      <div class="panel stack-sm">
+        <p class="eyebrow">NIST AI RMF 1.0</p>
+        <p><strong>GOVERN 1.2, MEASURE 2.7, MANAGE 2.4</strong></p>
+        <ul class="card__list">
+          <li>
+            <strong>GOVERN 1.2 (Organizational practices):</strong> Integrates trustworthy-AI
+            characteristics into organizational policies and practices. Named ownership
+            is one part of that work.
+          </li>
+          <li>
+            <strong>MEASURE 2.7 (Security and resilience):</strong> Evaluates AI-system
+            security and resilience. Halt and rollback drills can contribute evidence
+            but do not cover the full outcome.
+          </li>
+          <li>
+            <strong>MANAGE 2.4 (Disengagement):</strong> Assigns mechanisms and responsibilities
+            to disengage systems whose outcomes conflict with intended use. STD-08's
+            halt roles and authority boundaries address this part.
+          </li>
+        </ul>
+        <p class="small">
+          <a href="https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+            >NIST AI RMF 1.0</a
+          >
+        </p>
+      </div>
+
+      <div class="panel stack-sm">
+        <p class="eyebrow">GDPR & Administrative Law</p>
+        <p><strong>Article 22 & Procedural Due Process</strong></p>
+        <ul class="card__list">
+          <li>
+            <strong>GDPR Art 22 (Automated Decisions):</strong> MVC-01 provides specific
+            contestability and non-retaliatory review.
+          </li>
+          <li>
+            <strong>Right to Standing:</strong> Guarantees that any party bearing
+            error-burden holds procedural standing to dispute the output.
+          </li>
+          <li>
+            <strong>Restitution Invariants:</strong> Reversal requires making the
+            affected person whole, not merely resetting a database flag.
+          </li>
+        </ul>
+      </div>
     </div>
   </SectionBlock>
 
   <SectionBlock
     id="goal-chooser"
-    eyebrow="Choose by objective"
-    title="If your goal is..."
-    description="Pick the route that matches your current governance task."
-    variant="alt"
+    eyebrow="Where to start"
+    title="Start from what you have to do"
+    description="Where to start if you are writing policy, preparing for an audit, or overseeing a build."
   >
     <CardGrid className="grid--three">
       <CardItem
         title="Draft policy language"
-        description="Read doctrine and comparison notes to align terminology and enforceable expectations."
+        description="The core axioms and the comparison below give you the terms, and the requirements a running system can be tested against, to write into policy."
       >
         <a slot="footer" class="muted" href="/standards/core-axioms"
           >Start with core axioms</a
@@ -215,7 +352,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </CardItem>
       <CardItem
         title="Prepare for audit"
-        description="Use minimum binding requirements and evidence packs to verify proof before review."
+        description="The STD-01 minimum binding set lists the least each right requires. The evidence packs list the records that show it is met."
       >
         <a
           slot="footer"
@@ -227,128 +364,19 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </CardItem>
       <CardItem
         title="Oversee implementation"
-        description="Pair standards with implementation examples and mechanism references for delivery teams."
+        description="Implementation examples show each standard as the stop rules, clocks, and records a delivery team builds."
       >
         <a slot="footer" class="muted" href="#implementation-examples"
           >Open implementation examples</a
         >
       </CardItem>
     </CardGrid>
-  </SectionBlock>
-
-  <SectionBlock
-    id="starter-standards"
-    eyebrow="Start here"
-    title="Begin with the core standards and doctrine."
-    description="These are the primary references used across diagnostics, validators, and evidence packs."
-    variant="alt"
-  >
-    <CardGrid className="grid--two">
-      {
-        starterCards.map((item) => (
-          <CardItem
-            eyebrow={item.eyebrow}
-            title={item.title}
-            description={item.description}
-          >
-            <a slot="footer" class="muted" href={item.href}>
-              {item.ctaLabel}
-            </a>
-          </CardItem>
-        ))
-      }
-    </CardGrid>
-  </SectionBlock>
-
-  <SectionBlock
-    id="active"
-    eyebrow="Active standards"
-    title="Now active"
-    description="Draft and stable standards currently recommended for implementation."
-  >
-    <div class="standards-filter panel stack-sm" data-standards-filter>
-      <p class="eyebrow">Filter and sort</p>
-      <div class="standards-filter__controls">
-        <label>
-          Lane
-          <select data-standards-filter-lane>
-            {standardsFilterOptions.map((option) => (
-              <option value={option}>
-                {option === "all"
-                  ? `All lanes (${standardsLaneCounts.all})`
-                  : `${option.charAt(0).toUpperCase() + option.slice(1)} (${standardsLaneCounts[option as keyof typeof standardsLaneCounts]})`}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          Sort
-          <select data-standards-filter-sort>
-            <option value="citation">Most cited first</option>
-            <option value="recent">Recently updated first</option>
-            <option value="id">Standard ID</option>
-          </select>
-        </label>
-      </div>
-      <p class="muted small" data-standards-filter-status>
-        Showing all active standards.
-      </p>
-    </div>
-    <CardGrid className="grid--two" data-standards-grid>
-      {
-        activeStandards.map((standard) => {
-          const lane = standardsLaneById.get(standard.id) ?? "reference";
-
-          return (
-            <div
-              data-standard-card
-              data-standard-id={standard.id}
-              data-standard-lane={lane}
-              data-standard-published={standard.published}
-              data-standard-cited={mostCitedStandardIds.includes(standard.id) ? "1" : "0"}
-            >
-              <CardItem
-                eyebrow={standard.id}
-                title={standard.title}
-                description={standard.description}
-              >
-                <p class="muted small">
-                  Lane: {lane.charAt(0).toUpperCase() + lane.slice(1)} ·
-                  <span class={`status-badge status-badge--${standard.status.toLowerCase()}`}>{standard.status}</span>
-                  · v{standard.version} · Effective {standard.effectiveDate}
-                </p>
-                {standard.id === "STD-02" && (
-                  <p class="muted">
-                    Practice:{" "}
-                    <a href="/standards/ethotechnics-for-agents">
-                      Ethotechnics for Agents
-                    </a>{" "}
-                    — Mechanism-first practice for implementing STD-01 and STD-02
-                    with enforceable human recourse in real agent systems.
-                  </p>
-                )}
-                {standard.deprecatedBy && standard.deprecatedBy.length > 0 && (
-                  <p class="muted small">
-                    Deprecated by:{" "}
-                    {standard.deprecatedBy.map((replacement, index) => (
-                      <Fragment>
-                        {index > 0 && ", "}
-                        <a href={`/standards/${replacement.slug}`}>{replacement.id}</a>
-                      </Fragment>
-                    ))}
-                  </p>
-                )}
-                <a slot="footer" class="muted" href={`/standards/${standard.slug}`}>
-                  Read {standard.id}
-                </a>
-              </CardItem>
-            </div>
-          );
-        })
-      }
-    </CardGrid>
-    <p class="muted" data-standards-empty hidden>
-      No standards match this lane yet. Choose another lane or clear the filter.
+    <p class="small muted">
+      Buying a system from a vendor?
+      <a href="/standards/where-this-binds"
+        >Cite clauses in the contract and require an evidence pack at each
+        release →</a
+      >
     </p>
   </SectionBlock>
 
@@ -356,13 +384,12 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     id="status-assignment"
     eyebrow="Status model"
     title="How status is assigned"
-    description="Statuses are set through a repeatable review workflow so teams know what is draft, stable, or retired."
-    variant="alt"
+    description="Each status has entry conditions, listed below. They say what a standard needs before it can move to that status."
   >
     <CardGrid className="grid--three">
       <CardItem
         title="Draft"
-        description="A working standard under active review before stability guarantees are made."
+        description="Under active review. Clauses may still change."
       >
         <ul class="muted small">
           <li>At least 1 internal standards editor review.</li>
@@ -372,21 +399,34 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </CardItem>
       <CardItem
         title="Stable"
-        description="Approved for production policy references and procurement baselines."
+        description="Settled enough to cite in production policy and procurement requirements."
       >
         <ul class="muted small">
-          <li>Minimum 2 independent reviewers (one external to the author team).</li>
-          <li>Evidence tests and implementation checks completed with receipts.</li>
-          <li>Stable criteria satisfied and recorded in publication metadata.</li>
+          <li>
+            Minimum 2 independent reviewers (one external to the author team).
+          </li>
+          <li>
+            Evidence tests and implementation checks completed with receipts.
+          </li>
+          <li>
+            Stable criteria satisfied and recorded in publication metadata.
+          </li>
         </ul>
       </CardItem>
       <CardItem
         title="Deprecated"
-        description="Retired for new adoptions; replacement links are provided when available."
+        description="Not for new adoptions. A replacement is linked when one exists."
       >
         <ul class="muted small">
-          <li>Deprecation vote recorded by standards council.</li>
-          <li>Replacement standard identified and linked by <code>deprecated_by</code>.</li>
+          <li>
+            Deprecation decision recorded through the
+            <a href="/institute/governance#lifecycle">RFC process</a>.
+          </li>
+          <li>
+            Replacement standard identified and linked by <code
+              >deprecated_by</code
+            >.
+          </li>
           <li>Migration note added in changelog before status changes.</li>
         </ul>
       </CardItem>
@@ -395,10 +435,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 
   <SectionBlock
     id="doctrine"
-    eyebrow="Doctrine"
-    title="Core doctrine"
-    description="Supporting doctrine and canonical references that accompany the standards."
-    variant="alt"
+    eyebrow="Foundations"
+    title="Foundations and references"
+    description="The axioms and laws the standards are written against, and the reference documents that apply them."
   >
     <CardGrid className="grid--two">
       {
@@ -419,9 +458,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 
   <SectionBlock
     id="adopted-standards"
-    eyebrow="Adopted standards"
-    title="Ethotechnics critiques of widely adopted regimes"
-    description="Failure-mode diagnostics for the most widely referenced AI governance standards."
+    eyebrow="Existing frameworks"
+    title="Where widely adopted frameworks fall short"
+    description="For each of the most cited AI governance frameworks, what it leaves out once a system is running."
   >
     <CardGrid className="grid--two">
       {
@@ -444,355 +483,227 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     id="comparison"
     eyebrow="Standards comparison"
     title="How Ethotechnics differs from existing AI governance standards"
-    description="A declarative comparison for regulators, operators, and risk owners."
+    description="A side-by-side comparison for regulators, operators, and risk owners."
   >
-    <p class="eyebrow">TL;DR</p>
+    <p class="eyebrow">The landscape</p>
+    <p>
+      This comparison covers four AI governance frameworks and one data
+      protection law that already governs automated decisions. Each addresses a
+      different part of the problem:
+    </p>
     <ul class="card__list">
       <li>
-        Ethotechnics centers stoppability and time-in-harm over documentation.
+        <strong>NIST AI RMF</strong> — A voluntary risk management framework (Govern,
+        Map, Measure, Manage). Strong on risk identification and documentation. MANAGE
+        2.4 asks for mechanisms and assigned responsibilities to deactivate a system;
+        nothing sets a recovery time target. It asks organizations to characterize
+        impacts on people up front (MAP 5). It does not ask them to measure or publish
+        the time a running system costs those people.
+      </li>
+      <li>
+        <strong>EU AI Act</strong> — A risk-tiered regulation requiring human oversight,
+        conformity assessment, and post-market monitoring. Providers show compliance
+        through technical documentation. Article 14 requires a way to halt a high-risk
+        system; nothing requires anyone to rehearse the halt or meet a restoration
+        deadline.
+      </li>
+      <li>
+        <strong>ISO/IEC 42001</strong> — A management system standard for AI. An accredited
+        body certifies the organization's AI management system, but certification
+        can coexist with slow or missing rollback authority. Top management reviews
+        the management system at planned intervals (clause 9.3). Nothing makes one
+        system's authority to act expire.
+      </li>
+      <li>
+        <strong>OECD AI Principles</strong> — Values-based principles adopted by governments
+        as a recommendation. Non-binding by design: they ask AI actors to be accountable
+        but set no duty anyone can enforce.
+      </li>
+      <li>
+        <strong>GDPR, Article 22</strong> — Limits solely automated decisions with
+        legal or similarly significant effects. Where one is necessary for a contract
+        or rests on the person's explicit consent, the controller must offer at least
+        human intervention, a chance to state a view, and a way to contest the decision.
+        The right attaches to that one decision. Nothing in Article 22 makes a run
+        of successful contests a reason to revise the rule.
+      </li>
+    </ul>
+    <p>
+      These frameworks improve documentation, oversight, and monitoring. They
+      leave one question largely open. When the evidence shows a running system
+      is harming people, does anyone have to act on it within a set time,
+      without the harmed person carrying the burden? Acting can mean halting the
+      system, reversing its decisions, repairing the harm, or changing the rule
+      that produced it.
+    </p>
+
+    <p class="eyebrow">In short</p>
+    <ul class="card__list">
+      <li>
+        A challenge that succeeds has to reach the rule, not only the one case.
+      </li>
+      <li>
+        Permission to act is a lease: it expires unless someone renews it, and
+        every widening is a new decision.
+      </li>
+      <li>
+        The operator measures and publishes the time a system costs people.
+        Whoever absorbs its errors can challenge it.
       </li>
       <li>
         Governance is a runtime control plane, not a post-hoc review process.
       </li>
-      <li>Oversight is only real when authority and clocks are enforceable.</li>
-    </ul>
-    <ul class="card__list">
-      <li>
-        Ethotechnics prioritizes stoppability and time-in-harm, not only risk
-        documentation.
-      </li>
-      <li>Control planes and stop rights are operational, not advisory.</li>
-      <li>
-        Oversight is measured by recovery time and enforceable mechanisms.
-      </li>
     </ul>
     <p>
-      Most AI governance standards in use today are built to answer: “Did you
-      manage risk responsibly?” Ethotechnics is built to answer a different
-      question: “Can this system be stopped and repaired when it is harming
-      someone?” This is not a difference of values. It is a difference of
-      mechanics.
+      The frameworks above answer one question: “Did you manage risk
+      responsibly?” Ethotechnics answers a different one: “When this system is
+      harming someone, does evidence of the harm reach someone who has to change
+      the system?” The difference is in mechanics, not values.
     </p>
     <p>
-      Many regimes improve documentation, oversight, and monitoring. Those are
-      useful. But in high-stakes systems, the dominant failure mode is now
-      temporal: decisions occur at machine speed while reversal occurs at
-      institutional speed. In that gap, harm compounds.
+      In the casebook, harm ran from {haltLabel(shortestHalt)} to{" "}
+      {haltLabel(longestHalt)} before anyone halted or changed the system. Decisions
+      occur at machine speed. Reversal occurs at institutional speed. Harm compounds
+      in the gap.
     </p>
     <p class="muted">
-      Ethotechnics treats governability as an operational capability with
-      measurable performance properties.
+      Ethotechnics measures governability: time in harm, time to halt, recovery
+      time, and the time a system costs people.
     </p>
 
-    <div class="grid grid--two">
-      <div class="panel">
-        <p class="eyebrow">1. Risk management vs. runtime governability</p>
-        <p class="muted">
-          Common standards (NIST AI RMF, ISO/IEC 42001) focus on identifying,
-          assessing, documenting, and managing risks across the AI lifecycle.
+    <p class="eyebrow">Comparison matrix</p>
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table mapping-table--compare">
+        <thead>
+          <tr>
+            <th scope="col">Dimension</th>
+            <th scope="col">Prevailing standards</th>
+            <th scope="col">Ethotechnics</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Governance object</th>
+            <td data-label="Prevailing standards">Risk &amp; compliance</td>
+            <td data-label="Ethotechnics">Runtime governability</td>
+          </tr>
+          <tr>
+            <th scope="row">Typical artifacts</th>
+            <td data-label="Prevailing standards"
+              >Registers, assessments, policies</td
+            >
+            <td data-label="Ethotechnics"
+              >Expiring authority grants, objection records, burden reports</td
+            >
+          </tr>
+          <tr>
+            <th scope="row">Authority</th>
+            <td data-label="Prevailing standards"
+              >One approval, with reviews on a schedule or after a major change</td
+            >
+            <td data-label="Ethotechnics"
+              >A lease that expires unless renewed, and a new decision for each
+              widening</td
+            >
+          </tr>
+          <tr>
+            <th scope="row">Oversight</th>
+            <td data-label="Prevailing standards"
+              >Human oversight with a means to interrupt</td
+            >
+            <td data-label="Ethotechnics"
+              >Enforceable authority and a veto that binds</td
+            >
+          </tr>
+          <tr>
+            <th scope="row">Measurement</th>
+            <td data-label="Prevailing standards">Process maturity</td>
+            <td data-label="Ethotechnics"
+              >Time-in-harm + the time the system costs people</td
+            >
+          </tr>
+          <tr>
+            <th scope="row">Challenge</th>
+            <td data-label="Prevailing standards"
+              >A right to contest one decision</td
+            >
+            <td data-label="Ethotechnics"
+              >A revision or a reasoned refusal for each objection, on a clock</td
+            >
+          </tr>
+          <tr>
+            <th scope="row">Monitoring</th>
+            <td data-label="Prevailing standards">Visibility</td>
+            <td data-label="Ethotechnics"
+              >Visibility that triggers a required intervention</td
+            >
+          </tr>
+          <tr>
+            <th scope="row">Where the check happens</th>
+            <td data-label="Prevailing standards"
+              >Audits, conformity assessment, regulators</td
+            >
+            <td data-label="Ethotechnics"
+              >Built-in constraints + internal power to halt, reverse, or revise</td
+            >
+          </tr>
+          <tr>
+            <th scope="row">Ethics framing</th>
+            <td data-label="Prevailing standards"
+              >Principles weighed case by case</td
+            >
+            <td data-label="Ethotechnics"
+              >Constraints that hold in every case</td
+            >
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div
+      id="governance-by-control"
+      class="grid grid--three"
+      style="margin-top: var(--space-6);"
+    >
+      <div class="panel stack-sm">
+        <p class="eyebrow">1. Runtime control plane</p>
+        <p class="small muted">
+          Policies describe intent; control planes constrain behavior. Rather
+          than inventories, risk registers, and post-hoc paperwork, the
+          standards require explicit stop conditions, rehearsed rollback paths,
+          and safe fallback modes while the system runs.
         </p>
-        <p class="eyebrow">What this produces in practice</p>
-        <ul class="card__list">
-          <li>Strong artifacts (inventories, risk registers, approvals).</li>
-          <li>Clear organizational accountability on paper.</li>
-          <li>Weaker guarantees about what happens mid-incident.</li>
-        </ul>
-        <p>
-          <strong>Ethotechnics:</strong> Treats governance as the set of mechanisms
-          that determine whether harm can be interrupted, contained, reversed, and
-          learned from in a bounded time.
-        </p>
-        <p class="eyebrow">What this produces in practice</p>
-        <ul class="card__list">
-          <li>
-            Explicit stop conditions (“when X occurs, system must stop or
-            degrade”).
-          </li>
-          <li>Exercised rollback and restoration paths.</li>
-          <li>Measurable bounds on time-in-harm.</li>
-        </ul>
       </div>
-      <div class="panel">
-        <p class="eyebrow">2. Compliance programs vs. control planes</p>
-        <p class="muted">
-          Common standards implement governance through policies, review gates,
-          audits, and organizational roles.
-        </p>
-        <p class="eyebrow">What this produces in practice</p>
-        <ul class="card__list">
-          <li>A “right process” story.</li>
-          <li>Post-hoc explainability.</li>
-          <li>Governance dependent on persuasion and escalation.</li>
-        </ul>
-        <p>
-          <strong>Ethotechnics:</strong> Implements governance as a runtime control
-          plane: a layer of enforceable constraints, owners, and state transitions
-          that operate during system execution.
-        </p>
-        <p class="eyebrow">Ethotechnics requires</p>
-        <ul class="card__list">
-          <li>Stop rights that do not require consensus.</li>
-          <li>Binding escalation paths (owner + timer + action).</li>
-          <li>Reversible states and restoration SLAs.</li>
-          <li>
-            Safe degradation modes (manual fallback, rate limits, quarantine).
-          </li>
-        </ul>
-        <p class="muted">
-          Policies describe intent. Control planes constrain behavior.
+
+      <div class="panel stack-sm">
+        <p class="eyebrow">2. Authority that has to act</p>
+        <p class="small muted">
+          Oversight is symbolic unless someone has to act on what it sees.
+          Rather than advisory ethics committees or perfunctory review gates,
+          the standards require the operator to name who can halt, reverse, or
+          revise a running system, and bind that person to a clock. An objection
+          owes a revision or a reasoned refusal. A grant lapses unless someone
+          renews it on stated evidence.
         </p>
       </div>
-      <div class="panel">
-        <p class="eyebrow">
-          3. Human oversight (procedural) vs. authority (mechanical)
+
+      <div class="panel stack-sm">
+        <p class="eyebrow">3. Temporal performance bounds</p>
+        <p class="small muted">
+          The person waiting on a decision carries the cost of every delay. When
+          decisions occur at machine speed, reversal cannot run at institutional
+          speed. A system may not decide faster than its appeal path can answer,
+          and every pending decision needs a deadline.
         </p>
-        <p class="muted">
-          Common standards (including EU AI Act “human oversight” obligations)
-          require humans to oversee, intervene, or approve via review steps,
-          operator training, or override rights.
-        </p>
-        <p class="eyebrow">What this produces in practice</p>
-        <ul class="card__list">
-          <li>Oversight that becomes symbolic at scale.</li>
-          <li>“Review fatigue” where approvals become perfunctory.</li>
-          <li>Intervention too slow to be real in incidents.</li>
-        </ul>
-        <p>
-          <strong>Ethotechnics:</strong> Treats oversight as meaningless unless it
-          is operationally exercisable on a clock.
-        </p>
-        <p class="eyebrow">Ethotechnics requires</p>
-        <ul class="card__list">
-          <li>Named roles with explicit authority to stop operation.</li>
-          <li>
-            Low-friction interruption mechanisms (not a committee meeting).
-          </li>
-          <li>Drill-proven ability to intervene under realistic conditions.</li>
-          <li>Governance pathways that function during incident stress.</li>
-        </ul>
-      </div>
-      <div class="panel">
-        <p class="eyebrow">
-          4. Diversity as consultation vs. poly-ontologies with veto power
-        </p>
-        <p class="muted">
-          Common frameworks (corporate “responsible AI” programs, ethics boards)
-          assemble diverse stakeholders to advise, review, and recommend.
-        </p>
-        <p class="eyebrow">What this produces in practice</p>
-        <ul class="card__list">
-          <li>Diversity as input, not as constraint.</li>
-          <li>Values represented but not enforceable.</li>
-          <li>Disagreement resolved by hierarchy or schedule pressure.</li>
-        </ul>
-        <p>
-          <strong>Ethotechnics:</strong> Treats pluralism as an architectural requirement:
-          multiple worldviews must have independent enforcement power.
-        </p>
-        <p class="eyebrow">What this means operationally</p>
-        <ul class="card__list">
-          <li>
-            Legal, community, and adversarial perspectives are not advisory.
-          </li>
-          <li>Each has defined stop authority and trigger conditions.</li>
-          <li>The system must accommodate their constraints to operate.</li>
-        </ul>
-      </div>
-      <div class="panel">
-        <p class="eyebrow">
-          5. Documentation completeness vs. recovery metrics
-        </p>
-        <p class="muted">
-          Common standards audit maturity by asking if inventories,
-          documentation, approvals, and monitoring exist.
-        </p>
-        <p class="eyebrow">What this produces in practice</p>
-        <ul class="card__list">
-          <li>Evidence of managerial effort.</li>
-          <li>Maturity measured by process coverage.</li>
-        </ul>
-        <p>
-          <strong>Ethotechnics:</strong> Audits capability by asking how fast you
-          can stop, reverse, and restore—and how long someone remains exposed while
-          you “investigate.”
-        </p>
-        <p class="eyebrow">Ethotechnics measures</p>
-        <ul class="card__list">
-          <li>Time-to-halt and time-to-contain.</li>
-          <li>Time-to-restoration and time-in-harm.</li>
-          <li>Burden transfer onto the affected person.</li>
-        </ul>
-      </div>
-      <div class="panel">
-        <p class="eyebrow">
-          6. Monitoring as observation vs. intervention as obligation
-        </p>
-        <p class="muted">
-          Common standards emphasize continuous monitoring: telemetry, drift
-          detection, performance logs, and incident tracking.
-        </p>
-        <p class="eyebrow">What this produces in practice</p>
-        <ul class="card__list">
-          <li>Faster detection.</li>
-          <li>Better postmortems.</li>
-          <li>No guarantee of rapid containment.</li>
-        </ul>
-        <p>
-          <strong>Ethotechnics:</strong> Treats monitoring as incomplete unless it
-          is directly linked to intervention pathways.
-        </p>
-        <p class="eyebrow">Ethotechnics requires</p>
-        <ul class="card__list">
-          <li>Monitors tied to automatic or authorized stop actions.</li>
-          <li>Pre-defined thresholds and escalation triggers.</li>
-          <li>Alerts that assign ownership and start a clock.</li>
-          <li>Known restoration procedures that don’t depend on heroics.</li>
-        </ul>
-        <p class="muted">Observation without control is not governance.</p>
-      </div>
-      <div class="panel">
-        <p class="eyebrow">
-          7. Pre-deployment prediction vs. temporal constraints
-        </p>
-        <p class="muted">
-          Common standards emphasize what happens before launch: impact
-          assessments, conformity checks, risk scoring, and review gates.
-        </p>
-        <p class="eyebrow">What this produces in practice</p>
-        <ul class="card__list">
-          <li>Strong “before” governance.</li>
-          <li>Weak “during” governance.</li>
-          <li>Reliance on “we tested” as a substitute for “we can stop.”</li>
-        </ul>
-        <p>
-          <strong>Ethotechnics:</strong> Treats time as the primary ethical resource
-          and designs constraints around it.
-        </p>
-        <p class="eyebrow">Ethotechnics requires</p>
-        <ul class="card__list">
-          <li>Systems cannot run faster than contestation.</li>
-          <li>
-            Decisions that affect rights or access must be reversible quickly.
-          </li>
-          <li>“Pending” must not be an unbounded holding cell.</li>
-          <li>Interim protections when clocks exceed thresholds.</li>
-        </ul>
-      </div>
-      <div class="panel">
-        <p class="eyebrow">8. External enforcement vs. embedded enforcement</p>
-        <p class="muted">
-          Common law and regulation (EU AI Act, state laws) enforce compliance
-          through surveillance, inspections, penalties, and legal exposure.
-        </p>
-        <p class="eyebrow">What this produces in practice</p>
-        <ul class="card__list">
-          <li>Deterrence.</li>
-          <li>After-the-fact accountability.</li>
-          <li>Limited protection for the person harmed today.</li>
-        </ul>
-        <p>
-          <strong>Ethotechnics:</strong> Treats regulation as necessary but too slow
-          to be the main brake. Enforcement must be designed into system operation
-          as a first-line constraint.
-        </p>
-        <p class="eyebrow">Ethotechnics requires</p>
-        <ul class="card__list">
-          <li>Internal stop authority with independence.</li>
-          <li>Enforceable clocks and escalation ladders.</li>
-          <li>
-            Mechanisms that prevent harm from compounding even when leadership
-            is absent.
-          </li>
-        </ul>
-      </div>
-      <div class="panel">
-        <p class="eyebrow">9. “Balance principles” vs. “hard constraints”</p>
-        <p class="muted">
-          Common frameworks treat ethics as a multi-objective optimization
-          problem: fairness, accuracy, safety, utility, innovation.
-        </p>
-        <p class="eyebrow">What this produces in practice</p>
-        <ul class="card__list">
-          <li>Principled tradeoffs.</li>
-          <li>Exceptions justified by business necessity.</li>
-          <li>Ethics mediated by incentives and deadlines.</li>
-        </ul>
-        <p>
-          <strong>Ethotechnics:</strong> Treats certain conditions as non-negotiable
-          constraints for deployment.
-        </p>
-        <p class="eyebrow">Examples of constraint claims</p>
-        <ul class="card__list">
-          <li>
-            If harm can be imposed in seconds, it must be reversible in bounded
-            time.
-          </li>
-          <li>
-            If affected parties cannot effectively contest outcomes, governance
-            is a façade.
-          </li>
-          <li>
-            If reversal requires sustained user stamina, the system is coercive
-            by design.
-          </li>
-        </ul>
       </div>
     </div>
 
-    <p class="eyebrow">Practical comparison table</p>
-    <table class="mapping-table mapping-table--compare">
-      <thead>
-        <tr>
-          <th scope="col">Dimension</th>
-          <th scope="col">Prevailing standards</th>
-          <th scope="col">Ethotechnics</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">Core governance object</th>
-          <td>Risk &amp; compliance</td>
-          <td>Runtime governability</td>
-        </tr>
-        <tr>
-          <th scope="row">Typical artifacts</th>
-          <td>Registers, assessments, policies</td>
-          <td>Stop rules, clocks, restoration paths</td>
-        </tr>
-        <tr>
-          <th scope="row">Oversight</th>
-          <td>Advisory review, HITL</td>
-          <td>Enforceable authority + veto rights</td>
-        </tr>
-        <tr>
-          <th scope="row">Measurement</th>
-          <td>Process maturity</td>
-          <td>Recovery time + time-in-harm</td>
-        </tr>
-        <tr>
-          <th scope="row">Monitoring</th>
-          <td>Visibility</td>
-          <td>Visibility + compelled intervention</td>
-        </tr>
-        <tr>
-          <th scope="row">Enforcement</th>
-          <td>External (audits, regulators)</td>
-          <td>Built-in constraints + internal stop power</td>
-        </tr>
-        <tr>
-          <th scope="row">Ethics framing</th>
-          <td>Principle optimization</td>
-          <td>Constraint satisfaction</td>
-        </tr>
-      </tbody>
-    </table>
-
     <p>
-      Ethotechnics does not compete with existing standards on whether
-      governance is “important.” It addresses what most standards leave
-      undertreated: when harm is occurring, can your system be compelled to
-      stop—quickly, reliably, and without requiring the harmed person to carry
-      the burden?
+      Existing standards and Ethotechnics agree that governance matters. The
+      question Ethotechnics adds is whether evidence that a system is harming
+      someone compels action. The action can be a halt, a reversal, a repair, or
+      a changed rule. It has to come within a set time, every time, and the
+      harmed person must not carry the burden.
     </p>
     <p class="muted">
       That is the difference between governance as documentation and governance
@@ -802,10 +713,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 
   <SectionBlock
     id="comparison-versions"
-    eyebrow="Additional formats"
-    title="Regulator, board, and diagram-ready versions"
-    description="Alternate renderings for policy owners, boards, and audit briefs."
-    variant="alt"
+    eyebrow="Other framings"
+    title="The same comparison for a regulator, a board, and a workshop"
+    description="Three short framings of the comparison above, each for a different reader."
   >
     <div class="grid grid--three">
       <div class="panel">
@@ -851,15 +761,15 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       <div class="panel">
         <p class="eyebrow">Diagrammatic version</p>
         <p>
-          A visual contrast between policy stacks and control planes, useful for
-          workshops and audits.
+          The policy stack and the control plane, side by side, for workshops
+          and audits.
         </p>
         <pre
           class="code-block">{`Policy stack → policies → reviews → audits → reports
 Control plane → stop rules → clocks → rollback → restoration`}</pre>
         <p class="muted">
-          Use the diagram to highlight where enforcement is internal versus
-          externally mediated.
+          The first line is checked from outside the running system. The second
+          is built into it.
         </p>
       </div>
     </div>
@@ -868,9 +778,8 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
   <SectionBlock
     id="implementation-examples"
     eyebrow="Implementation examples"
-    title="Domain-by-domain comparisons"
-    description="Concrete system-level contrasts for teams implementing Ethotechnics."
-    variant="alt"
+    title="Examples by domain"
+    description="For each domain, conventional governance beside the same system built with stop rules, clocks, and restoration paths."
   >
     <CardGrid className="grid--two">
       {
@@ -883,13 +792,18 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
         ))
       }
     </CardGrid>
+    <p class="small muted">
+      Retail personalization is a boundary case: no single recommendation
+      changes a person's status, access, money, or risk.
+      <a href="/use-cases">See which systems the standards are for →</a>
+    </p>
   </SectionBlock>
 
   <SectionBlock
     id="referenced-by"
     eyebrow="Referenced by"
-    title="Where standards are enforced"
-    description="Cross-links keep standards, bindings, and evidence packs aligned."
+    title="Where the standards are cited"
+    description="The worked examples, release checklist, and evidence packs that cite these standards."
   >
     <div class="grid grid--three">
       <div class="panel">
@@ -912,21 +826,17 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
         </ul>
       </div>
       <div class="panel">
-        <p class="eyebrow">Required by bindings</p>
+        <p class="eyebrow">Checked at release</p>
         <ul class="muted">
           <li>
-            <a href="/bindings#procurement">Procurement clauses</a>
-          </li>
-          <li>
-            <a href="/bindings#release-gates">Release gate checklist</a>
-          </li>
-          <li>
-            <a href="/bindings#runbooks">Runbook snippets</a>
+            <a href="/mechanisms/patterns/admission-gate"
+              >MEC-22 Admission gate</a
+            >
           </li>
         </ul>
       </div>
       <div class="panel">
-        <p class="eyebrow">Verified by evidence packs</p>
+        <p class="eyebrow">Evidence packs: what to collect</p>
         <ul class="muted">
           <li>
             <a href="/evidence-packs/std-01">STD-01 Evidence Pack</a>
@@ -935,169 +845,19 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
             <a href="/evidence-packs/std-02">STD-02 Evidence Pack</a>
           </li>
           <li>
+            <a href="/evidence-packs">All evidence packs</a>
+          </li>
+          <li>
             <a href="/validators">Validators (VAL-01–VAL-03)</a>
           </li>
         </ul>
       </div>
     </div>
     <p class="muted">
-      Bundles:
-      {" "}
-      <a href="/bundles/procurement-clause-pack">Procurement Clause Pack</a>
-      {" "}
-      and
-      {" "}
-      <a href="/bundles/diagnostic-export-kit">Diagnostic Export Kit</a>.
-    </p>
-    <p class="muted">
-      Search IDs: STD-01 v1.0, STD-02 v0.9, STD-03 v0.6, STD-01.1.1, STD-02.2.1,
+      Search IDs: STD-01 v1.0, STD-02 v1.2, STD-03 v0.6, STD-01.1.1, STD-02.2.1,
       VAL-01, VAL-02, VAL-03.
     </p>
   </SectionBlock>
 
-  <SectionBlock
-    id="standards-subscription"
-    eyebrow="Newsletter"
-    title="Stay updated on standards"
-    description="Receive notifications about new draft standards, revisions, and validator releases."
-    variant="alt"
-  >
-    <div style="max-width: 600px; margin: 0 auto;">
-      <NewsletterSignup />
-    </div>
-  </SectionBlock>
-
-  <script is:inline>
-    const standardsFilter = document.querySelector("[data-standards-filter]");
-
-    if (standardsFilter) {
-      const laneSelect = standardsFilter.querySelector("[data-standards-filter-lane]");
-      const sortSelect = standardsFilter.querySelector("[data-standards-filter-sort]");
-      const status = standardsFilter.querySelector("[data-standards-filter-status]");
-      const grid = document.querySelector("[data-standards-grid]");
-      const emptyState = document.querySelector("[data-standards-empty]");
-      const cards = Array.from(document.querySelectorAll("[data-standard-card]"));
-      const searchParams = new URLSearchParams(window.location.search);
-
-      const initialLane = searchParams.get("lane");
-      const initialSort = searchParams.get("sort");
-
-      if (
-        laneSelect &&
-        initialLane &&
-        ["all", "core", "implementation", "reference"].includes(initialLane)
-      ) {
-        laneSelect.value = initialLane;
-      }
-
-      if (sortSelect && initialSort && ["citation", "recent", "id"].includes(initialSort)) {
-        sortSelect.value = initialSort;
-      }
-
-      const sortCards = (activeCards, mode) => {
-        const sortedCards = [...activeCards].sort((a, b) => {
-          if (mode === "recent") {
-            return (
-              Date.parse(b.getAttribute("data-standard-published") ?? "") -
-              Date.parse(a.getAttribute("data-standard-published") ?? "")
-            );
-          }
-
-          if (mode === "id") {
-            return (a.getAttribute("data-standard-id") ?? "").localeCompare(
-              b.getAttribute("data-standard-id") ?? "",
-            );
-          }
-
-          const citedDifference =
-            Number(b.getAttribute("data-standard-cited") ?? "0") -
-            Number(a.getAttribute("data-standard-cited") ?? "0");
-
-          if (citedDifference !== 0) {
-            return citedDifference;
-          }
-
-          return (a.getAttribute("data-standard-id") ?? "").localeCompare(
-            b.getAttribute("data-standard-id") ?? "",
-          );
-        });
-
-        sortedCards.forEach((card) => {
-          grid?.append(card);
-        });
-      };
-
-      const updateCards = () => {
-        const lane = laneSelect?.value ?? "all";
-        const sortMode = sortSelect?.value ?? "citation";
-        const activeCards = cards.filter((card) => {
-          const cardLane = card.getAttribute("data-standard-lane") ?? "reference";
-          const isVisible = lane === "all" || cardLane === lane;
-          card.hidden = !isVisible;
-          return isVisible;
-        });
-
-        sortCards(activeCards, sortMode);
-
-        if (emptyState) {
-          emptyState.hidden = activeCards.length > 0;
-        }
-
-        const nextParams = new URLSearchParams(window.location.search);
-        nextParams.set("lane", lane);
-        nextParams.set("sort", sortMode);
-        const nextQuery = nextParams.toString();
-        const nextUrl = `${window.location.pathname}${nextQuery ? `?${nextQuery}` : ""}${window.location.hash}`;
-        window.history.replaceState({}, "", nextUrl);
-
-        if (status) {
-          status.textContent = `Showing ${activeCards.length} standard${
-            activeCards.length === 1 ? "" : "s"
-          } in ${lane === "all" ? "all lanes" : `${lane} lane`}.`;
-        }
-      };
-
-      laneSelect?.addEventListener("change", updateCards);
-      sortSelect?.addEventListener("change", updateCards);
-      updateCards();
-    }
-  </script>
-
-  <script
-    type="application/ld+json"
-    set:html={structuredDataJson}
-    is:inline
-  />
-
-
-
-<style>
-  .status-badge {
-    display: inline-flex;
-    align-items: center;
-    border-radius: 999px;
-    padding: 0.1rem 0.55rem;
-    margin: 0 0.2rem;
-    font-size: 0.7rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-  }
-
-  .status-badge--draft {
-    background: color-mix(in srgb, var(--accent) 18%, transparent);
-    color: var(--accent);
-  }
-
-  .status-badge--stable {
-    background: color-mix(in srgb, #2d8a4a 16%, transparent);
-    color: #2d8a4a;
-  }
-
-  .status-badge--deprecated {
-    background: color-mix(in srgb, #b35218 16%, transparent);
-    color: #b35218;
-  }
-</style>
-
+  <InlineScript type="application/ld+json" code={structuredDataJson} />
 </BaseLayout>

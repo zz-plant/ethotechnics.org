@@ -23,6 +23,24 @@ This keeps Astro collections, runtime imports, and typed wrappers aligned.
 | Taxonomy    | `src/content/taxonomy.json`    | `src/content/generated/taxonomy.generated.ts`    | `src/content/taxonomy.ts` builds lookup maps from generated data.                                  |
 | Field notes | `src/content/field-notes.json` | `src/content/generated/field-notes.generated.ts` | `src/content/fieldNotes.ts` consumes generated data.                                               |
 
+## MDX collections
+
+Long-form pages live in MDX collections rather than JSON, with no generated wrapper. Each entry
+declares its own `permalink` in frontmatter.
+
+| Collection      | Directory                     | Route                     |
+| --------------- | ----------------------------- | ------------------------- |
+| `standards`     | `src/content/standards/`      | `/standards/[...slug]`    |
+| `theory`        | `src/content/theory/`         | `/research/theory/[slug]` |
+| `evidencePacks` | `src/content/evidence-packs/` | `/evidence-packs/[slug]`  |
+| `explainers`    | `src/content/explainers/`     | `/explainers/[slug]`      |
+| `incidents`     | `src/content/incidents/`      | `/incidents/[slug]`       |
+
+The `theory` collection holds the Theory layer: the essays that explain why the laws hold. Method
+pages may cite them as motivation, never as a requirement. Adding an essay is one MDX file with
+`title`, `description`, `permalink`, `published`, and optional `lawRefs`; the route and the sitemap
+pick it up from the `permalink`.
+
 ## Content sources
 
 - `src/content/*.json` holds page copy, listings, and structured data used by Astro content
@@ -61,6 +79,10 @@ Additional guidance:
 - `bun run validate:glossary` enforces glossary uniqueness, validates glossary-to-library links, and
   checks that glossary resource URLs are valid.
 - `astro check` validates collection schemas in `src/content.config.ts`.
+- `bun test src/utils/schema-examples.test.ts` validates the schema examples: every
+  `public/standards/examples/*.example.json` must have a schema of the same name, every schema must
+  declare draft 2020-12 with an `$id`, a title, and a description, and every example must validate
+  against its schema. Add the example alongside any new schema, or this step fails.
 - `bun run test:unit` exercises content collection coverage tests.
 - `bun run build` runs generation first; `bun run check` enforces drift validation before type and
   lint checks.

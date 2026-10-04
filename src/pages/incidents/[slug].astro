@@ -1,73 +1,67 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
-import { incidentLessons } from "../../content/incidents";
 
-export const prerender = true;
+const entry = (await getCollection("incidents")).find(
+  (candidate) => candidate.id === Astro.params.slug,
+);
+if (!entry) return new Response("Not found", { status: 404 });
+const {
+  title,
+  description,
+  incident,
+  governanceFailures,
+  signalsToWatch,
+  remediationChecklist,
+  sources,
+} = entry.data;
 
-export const getStaticPaths = () =>
-  incidentLessons.map((lesson) => ({
-    params: { slug: lesson.slug },
-    props: { lesson },
-  }));
-
-type IncidentLesson = (typeof incidentLessons)[number];
-
-const { lesson } = Astro.props as { lesson: IncidentLesson };
-const pageTitle = `${lesson.title} — Governance lesson — Ethotechnics`;
-const pageDescription = lesson.summary;
-const permalink = `/incidents/${lesson.slug}`;
+const pageTitle = `${title} — Composite`;
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={description}
+  publishedTime={entry.data.published}
+>
   <PageIntro
-    eyebrow="Governance lesson"
-    title={lesson.title}
-    description={lesson.summary}
-    permalink={permalink}
+    eyebrow="Composite scenario"
+    title={title}
+    description={description}
     anchorLinks={[
-      { href: "#incident", label: "Incident snapshot" },
+      { href: "#incident", label: "The scenario" },
       { href: "#failures", label: "Governance failures" },
       { href: "#signals", label: "Signals to watch" },
       { href: "#remediation", label: "Remediation checklist" },
-      { href: "#sources", label: "Sources" },
+      { href: "#sources", label: "Templates" },
     ]}
-    panelCopy={{
-      eyebrow: "Why it matters",
-      title: lesson.incident.headline,
-      description: lesson.incident.impact,
-    }}
   />
 
   <SectionBlock
     id="incident"
-    eyebrow="Incident snapshot"
-    title="Where governance broke down."
-    description="Use the snapshot to align stakeholders before designing the fix."
+    eyebrow="The scenario"
+    title="Where governance broke down"
+    description="A composite. It combines patterns common to many systems and reports on no named institution. For failures a court, an inquiry, or a regulator established, see the casebook."
     className="section--banded"
   >
     <CardGrid className="grid--two">
       <CardItem
-        title="Sector"
-        description={lesson.incident.sector}
-        descriptionTone="default"
-      />
-      <CardItem
-        title="Timeframe"
-        description={lesson.incident.timeframe}
+        title="Drawn from"
+        description={incident.sector}
         descriptionTone="default"
       />
       <CardItem
         title="Headline"
-        description={lesson.incident.headline}
+        description={incident.headline}
         descriptionTone="default"
       />
       <CardItem
         title="Impact"
-        description={lesson.incident.impact}
+        description={incident.impact}
         descriptionTone="default"
       />
     </CardGrid>
@@ -76,60 +70,68 @@ const permalink = `/incidents/${lesson.slug}`;
   <SectionBlock
     id="failures"
     eyebrow="Governance failures"
-    title="What was missing or misaligned."
-    description="Capture the structural gaps that enabled the incident."
+    title="What was missing"
+    description="The structural gaps that let the harm continue."
     variant="alt"
   >
     <CardGrid>
-      {lesson.governanceFailures.map((failure) => (
-        <CardItem description={failure} descriptionTone="default" />
-      ))}
+      {
+        governanceFailures.map((failure) => (
+          <CardItem description={failure} descriptionTone="default" />
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
   <SectionBlock
     id="signals"
     eyebrow="Signals to watch"
-    title="Early indicators to monitor."
-    description="Instrument these signals to surface risk before impact escalates."
+    title="Signals that would have shown it"
+    description="Each is a number a running system can record before the harm grows."
   >
     <CardGrid>
-      {lesson.signalsToWatch.map((signal) => (
-        <CardItem description={signal} descriptionTone="default" />
-      ))}
+      {
+        signalsToWatch.map((signal) => (
+          <CardItem description={signal} descriptionTone="default" />
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
   <SectionBlock
     id="remediation"
     eyebrow="Remediation checklist"
-    title="Actions to close the gap."
-    description="Turn the lesson into concrete fixes your team can own."
+    title="Fixes"
+    description="Each fix needs a named owner and a date."
     variant="alt"
   >
     <CardGrid>
-      {lesson.remediationChecklist.map((item) => (
-        <CardItem description={item} descriptionTone="default" />
-      ))}
+      {
+        remediationChecklist.map((item) => (
+          <CardItem description={item} descriptionTone="default" />
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
   <SectionBlock
     id="sources"
-    eyebrow="Sources"
-    title="Reference the standards and playbooks."
-    description="Keep the documentation linked for rapid remediation alignment."
+    eyebrow="Templates"
+    title="Records to start from"
+    description="The site's own templates and schemas for the records this scenario was missing. They are not sources for the scenario, which is a composite."
   >
     <CardGrid className="grid--two">
-      {lesson.sources.map((source) => (
-        <CardItem title={source.label} descriptionTone="muted">
-          <div slot="footer" class="card__footer">
-            <a class="button ghost button--compact" href={source.href}>
-              Open source
-            </a>
-          </div>
-        </CardItem>
-      ))}
+      {
+        sources.map((source) => (
+          <CardItem title={source.label} descriptionTone="muted">
+            <div slot="footer" class="card__footer">
+              <a class="button ghost button--compact" href={source.href}>
+                Open template
+              </a>
+            </div>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 </BaseLayout>

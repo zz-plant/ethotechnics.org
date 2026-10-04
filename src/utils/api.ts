@@ -1,3 +1,5 @@
+import { evalTestCases } from "../content/eval-test-cases";
+import { evalsContent } from "../content/evals";
 import { glossaryContent } from "../content/glossary";
 import { libraryContent } from "../content/library";
 import {
@@ -14,7 +16,7 @@ export const releaseInfo = {
   id: "2026.01",
   label: "2026.01",
   date: "2026-01-09",
-  permalink: "/api/v/2026.01",
+  permalink: "/api",
 };
 
 const standardSlugMap = new Map(
@@ -187,9 +189,9 @@ export const getGlossaryEntriesForApi = () =>
         clusters: entry.clusters ?? [],
         legacy_territory: entry.legacyTerritory ?? category.id,
         minimum_evidence: {
-          artifact: minimumEvidence.artifact,
-          behavior: minimumEvidence.behavior,
-          metric: minimumEvidence.metric,
+          artifact: minimumEvidence.artifact ?? null,
+          behavior: minimumEvidence.behavior ?? null,
+          metric: minimumEvidence.metric ?? null,
           definition: minimumEvidence.definition ?? null,
           unit: minimumEvidence.unit ?? null,
           data_source: minimumEvidence.dataSource ?? null,
@@ -416,3 +418,7 @@ export const getRagCorpusLines = (options?: { limit?: number }) => {
 
   return lines.join("\n");
 };
+
+export const getEvalsForApi = () => evalsContent.suites;
+
+export const getEvalTestCasesForApi = () => evalTestCases;

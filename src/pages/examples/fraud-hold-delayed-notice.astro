@@ -2,14 +2,14 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import UseCaseFit from "../../components/UseCaseFit.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import GlossaryAnchorsBlock from "../../components/GlossaryAnchorsBlock.astro";
 
 const pageTitle = "Fraud hold with delayed notice — Worked example";
 const pageDescription =
-  "A delayed-notice fraud hold that keeps receipts and clocks enforceable.";
-const permalink = "/examples/fraud-hold-delayed-notice";
+  "A fraud hold whose notice is delayed up to 24 hours for investigation. The receipt is issued at once and the 1, 12, and 48-hour clocks keep running.";
 
 const receiptPayload = `{
   "schema_version": "1.0.0",
@@ -25,33 +25,31 @@ const receiptPayload = `{
 }`;
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Worked example"
     title="Fraud hold with delayed notice"
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={[
       { href: "#receipt", label: "Receipt" },
       { href: "#clocks", label: "Clocks" },
       { href: "#exceptions", label: "Exceptions" },
       { href: "#remedy", label: "Remedy" },
       { href: "#bindings", label: "Bindings" },
+      { href: "#fit", label: "Where this fits" },
       { href: "#glossary-anchors", label: "Glossary anchors" },
     ]}
-    panelCopy={{
-      eyebrow: "Scenario",
-      title: "Investigation integrity with visible clocks",
-      description:
-        "Delayed notice is allowed, but the hold still requires receipts, clocks, and remedies.",
-    }}
   />
 
   <SectionBlock
     id="receipt"
     eyebrow="Receipt"
     title="Receipt emitted even with delayed notice"
-    description="Receipts exist immediately, even if user notice is delayed for investigation."
+    description="The receipt is written when the hold is placed. Only the notice to the account holder waits for the investigation."
   >
     <pre class="code-block">{receiptPayload}</pre>
   </SectionBlock>
@@ -60,7 +58,7 @@ const receiptPayload = `{
     id="clocks"
     eyebrow="Clocks"
     title="Short clocks for fraud holds"
-    description="Delayed notice cannot reset clock timelines."
+    description="The clocks start when the hold is placed, not when notice goes out."
     variant="alt"
   >
     <CardGrid className="grid--three">
@@ -68,10 +66,14 @@ const receiptPayload = `{
         <p class="muted">Owner acknowledges the hold and assigns a reviewer.</p>
       </CardItem>
       <CardItem title="Review clock" description="12 hours">
-        <p class="muted">Human review confirms, narrows, or removes the hold.</p>
+        <p class="muted">
+          Human review confirms, narrows, or removes the hold.
+        </p>
       </CardItem>
       <CardItem title="Remedy clock" description="48 hours">
-        <p class="muted">Release the hold or provide a safe fallback with notice.</p>
+        <p class="muted">
+          Release the hold or provide a safe fallback with notice.
+        </p>
       </CardItem>
     </CardGrid>
   </SectionBlock>
@@ -80,13 +82,14 @@ const receiptPayload = `{
     id="exceptions"
     eyebrow="Exceptions"
     title="Delayed notice must be justified and bounded"
-    description="Delays require explicit exception logging."
+    description="Each delay is logged as an exception."
   >
     <ul class="muted">
       <li>Delayed notice allowed only for active fraud investigation.</li>
       <li>Maximum delay window is 24 hours before notice is required.</li>
       <li>
-        Exceptions logged in the <a href="/exceptions">Exceptions framework</a> with steward review.
+        Exceptions logged in the <a href="/exceptions">Exceptions framework</a> with
+        steward review.
       </li>
     </ul>
   </SectionBlock>
@@ -95,7 +98,7 @@ const receiptPayload = `{
     id="remedy"
     eyebrow="Remedy"
     title="Release or compensate quickly"
-    description="Remedies must be visible immediately once notice is delivered."
+    description="The notice shows the remedy the moment it is delivered."
     variant="alt"
   >
     <ul class="muted">
@@ -109,20 +112,25 @@ const receiptPayload = `{
     id="bindings"
     eyebrow="Bindings"
     title="Tie the hold to enforceable artifacts"
-    description="Keep the flow auditable with bindings and evidence packs."
+    description="Bindings and evidence packs give an auditor the record of each hold."
   >
     <ul class="muted">
       <li>
-        Require receipts in <a href="/bindings#release-gates">release gates</a>.
+        Require receipts in the <a href="/evidence-packs">evidence pack</a> for each
+        release.
       </li>
       <li>
         Link evidence in <a href="/evidence-packs">STD-01 + STD-02 packs</a>.
       </li>
       <li>
-        Reference <a href="/anti-weaponization">anti-weaponization constraints</a> on delayed notice.
+        Reference <a href="/anti-weaponization"
+          >anti-weaponization constraints</a
+        > on delayed notice.
       </li>
     </ul>
   </SectionBlock>
+
+  <UseCaseFit slug="fraud-hold-delayed-notice" />
 
   <GlossaryAnchorsBlock />
 </BaseLayout>

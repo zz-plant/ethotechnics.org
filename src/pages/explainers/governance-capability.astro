@@ -1,5 +1,7 @@
 ---
+import "../../styles/components/intake-form.css";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import NextStep from "../../components/NextStep.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionActions from "../../components/SectionActions.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
@@ -8,40 +10,80 @@ import WithSidebar from "../../components/WithSidebar.astro";
 
 const pageTitle = "Governance as operational capability";
 const pageDescription =
-  "Ethotechnics defines governance as operational capability—stoppability, reversibility, recovery time, and contestability—rather than documentation and intent.";
+  "Governance measured by what a running system can be made to do: answer a challenge, change the rule the challenge exposes, and halt or reverse when it must.";
 const permalink = "/explainers/governance-capability";
 
 const heroCopy =
-  "Most AI governance frameworks improve documentation, oversight, and accountability. Ethotechnics asks a different question: can the system be stopped, reversed, and repaired under stress? When responsibility is defined as operational capability instead of stated intent, many accepted practices no longer hold up.";
+  "Most AI governance frameworks improve documentation, oversight, and accountability. Ethotechnics asks a narrower question: when a running system is wrong, does evidence of the harm reach someone who has to change it? Halting, reversing, and restoring are part of the answer. They are not all of it. A system that can be stopped can still fix one case at a time and never change the rule.";
 
 const executiveSummary = [
   {
+    href: "#standing",
+    text: "Affected parties gain standing. A challenge must be answered, and an upheld one changes the system's state.",
+  },
+  {
+    href: "#rule",
+    text: "Upheld challenges reach the rule. A pattern of exceptions is evidence against the rule, and its owner must answer it.",
+  },
+  {
     href: "#performance-spec",
-    text: "Governance becomes a performance specification: stop, reverse, and restore must work under stress.",
+    text: "Governance becomes a performance specification. Halt, reverse, and restore must work under stress.",
   },
   {
     href: "#time",
-    text: "Time becomes an ethical resource: slow reversals and procedural limbo are governance failures.",
+    text: "Time becomes an ethical resource. Slow reversals and procedural limbo are governance failures.",
   },
   {
     href: "#recovery",
-    text: "Maturity is measured by recovery, not coverage: documentation cannot substitute for restoration.",
+    text: "Maturity is measured by recovery, not coverage. Documentation cannot substitute for restoration.",
   },
   {
     href: "#stop-rights",
-    text: "Authority shifts from consensus to stop rights: interruption is a legitimate state transition.",
-  },
-  {
-    href: "#standing",
-    text: "Affected parties gain standing: contestation must change system state without requiring endless follow-up.",
+    text: "Authority to halt does not wait for consensus. Interruption is a legitimate state transition.",
   },
   {
     href: "#monitoring-liability",
-    text: "Monitoring without intervention becomes liability: visibility creates duty unless brakes exist.",
+    text: "Monitoring without intervention becomes liability. Knowing about harm and continuing is a choice.",
   },
 ];
 
 const coreImplications = [
+  {
+    id: "standing",
+    title: "Affected parties gain standing, not only visibility",
+    commonModel:
+      "Transparency + explanation + appeals that may not change outcomes.",
+    ethotechnicsModel:
+      "Contestation must change state; clocks and interim protections apply.",
+    implication: "If contestation can’t compel change, it isn’t governance.",
+    requirements: [
+      "A contestation channel with state mutation authority.",
+      "Clear evidence expectations and burden limits.",
+      "Interim protections during contestation.",
+      "Escalation to stop rights when thresholds are crossed.",
+      "A pathway that doesn’t require repeated contact or unusual persistence.",
+    ],
+  },
+  {
+    id: "rule",
+    title: "Upheld challenges reach the rule",
+    commonModel:
+      "Each upheld appeal is resolved as one case. The rule that produced it stays.",
+    ethotechnicsModel:
+      "An upheld challenge is evidence about the rule. Repeated ones oblige the rule's owner to revise it or publish why not.",
+    implication:
+      "An appeals process that only fixes cases absorbs the evidence that the system is wrong.",
+    requirements: [
+      "A count of upheld challenges by rule, sent to whoever owns the rule.",
+      "A threshold at which the owner must revise the rule or publish a reasoned refusal.",
+      "A record linking each rule change to the challenges that prompted it.",
+      "Exception codes reviewed as evidence about the rule, not only as workload.",
+    ],
+    signals: [
+      "Upheld appeals are reported as proof the system works.",
+      "Nobody can name the last rule an appeal changed.",
+    ],
+  },
   {
     id: "performance-spec",
     title: "Governance becomes a performance specification",
@@ -49,7 +91,8 @@ const coreImplications = [
       "Governance is demonstrated through policies, principles, reviews, and artifacts.",
     ethotechnicsModel:
       "Governance is demonstrated through live capability: halt harmful behavior, reverse decisions, and restore affected parties.",
-    implication: "Responsibility becomes measurable capacity, not moral alignment.",
+    implication:
+      "Responsibility becomes measurable capacity, not moral alignment.",
     requirements: [
       "Production stop conditions (“if X, halt Y”) with a defined trigger path.",
       "A rollback or safe-mode path that reliably restores a prior safe state.",
@@ -59,14 +102,14 @@ const coreImplications = [
     ],
     signals: [
       "Stop is possible only via exec escalation.",
-      "\"Fix forward\" is treated as the only option.",
+      '"Fix forward" is treated as the only option.',
     ],
   },
   {
     id: "time",
     title: "Time becomes an ethical resource",
     commonModel:
-      "Time is treated as incidental (\"we’re investigating,\" \"pending\").",
+      'Time is treated as incidental ("we’re investigating," "pending").',
     ethotechnicsModel:
       "Time-in-harm is the governing variable. Unbounded review is a harm state.",
     implication: "Indefinite waiting becomes a governance failure.",
@@ -79,7 +122,7 @@ const coreImplications = [
     ],
     signals: [
       "Appeals timelines are undefined.",
-      "\"Pending\" states can persist indefinitely.",
+      '"Pending" states can persist indefinitely.',
     ],
   },
   {
@@ -100,34 +143,19 @@ const coreImplications = [
   },
   {
     id: "stop-rights",
-    title: "Authority shifts from consensus to stop rights",
+    title: "Authority to halt does not wait for consensus",
     commonModel:
       "Committees and escalation chains determine whether to interrupt.",
     ethotechnicsModel:
       "Stop authority is legitimate on its own; escalation is a state transition.",
-    implication: "The org must designate stoppers and protect them structurally.",
+    implication:
+      "The org must designate stoppers and protect them structurally.",
     requirements: [
       "Explicit stop roles with scope (“what can be stopped, when, how”).",
       "Non-retaliation protections tied to stop actions.",
       "Safe-interrupt architecture (stopping doesn’t create chaos).",
       "Separation of stop authority from consensus permissioning.",
       "Post-stop procedures oriented to restoration, not blame.",
-    ],
-  },
-  {
-    id: "standing",
-    title: "Affected parties gain standing, not just visibility",
-    commonModel:
-      "Transparency + explanation + appeals that may not change outcomes.",
-    ethotechnicsModel:
-      "Contestation must change state; clocks and interim protections apply.",
-    implication: "If contestation can’t compel change, it isn’t governance.",
-    requirements: [
-      "A contestation channel with state mutation authority.",
-      "Clear evidence expectations and burden limits.",
-      "Interim protections during contestation.",
-      "Escalation to stop rights when thresholds are crossed.",
-      "A pathway that doesn’t require repeated contact or unusual persistence.",
     ],
   },
   {
@@ -162,7 +190,8 @@ const additionalImplications = [
   {
     id: "slow-harm",
     title: "Slow, diffuse harm becomes structurally unacceptable",
-    implication: "Attrition becomes measurable harm (time-in-harm, burden transfer).",
+    implication:
+      "Attrition becomes measurable harm (time-in-harm, burden transfer).",
     requirements: [
       "Harm distribution metrics, not only aggregate scores.",
       "Thresholds that force safe-mode or reversal when tails expand.",
@@ -202,8 +231,8 @@ const additionalImplications = [
 
 const relatedLinks = [
   {
-    href: "/mechanisms#governance",
-    label: "How it works (control surfaces, clocks, drills)",
+    href: "/mechanisms#correction",
+    label: "Mechanisms for correction (appeal paths, review triggers, halts)",
   },
   {
     href: "/standards",
@@ -221,22 +250,20 @@ const anchorLinks = executiveSummary.map(({ href, text }) => ({
 }));
 
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
-const buildAnchor = (id: string) => new URL(`${permalink}#${id}`, siteBase).toString();
+const buildAnchor = (id: string) =>
+  new URL(`${permalink}#${id}`, siteBase).toString();
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Explainer"
     title={pageTitle}
     description={heroCopy}
-    permalink={permalink}
     anchorLinks={anchorLinks}
-    panelCopy={{
-      eyebrow: "Purpose",
-      title: "From intent to capability",
-      description:
-        "Operational capability—stop, reverse, restore, and contest—is the unit of accountability. This spec focuses on what must work under stress, not what documentation promises.",
-    }}
   />
 
   <WithSidebar>
@@ -244,341 +271,266 @@ const buildAnchor = (id: string) => new URL(`${permalink}#${id}`, siteBase).toSt
       <p class="toc-heading">On this page</p>
       <nav>
         <ul>
-          {executiveSummary.map((item) => (
-            <li><a href={item.href}>{item.text.split(":")[0]}</a></li>
-          ))}
+          {
+            executiveSummary.map((item) => (
+              <li>
+                <a href={item.href}>{item.text.split(":")[0]}</a>
+              </li>
+            ))
+          }
         </ul>
       </nav>
     </Fragment>
-    
 
-  <SectionBlock
-    id="executive-summary"
-    eyebrow="Executive summary"
-    title="Six implications that change governance"
-    description="Each item links to the expanded implication below."
-  >
-    <ul class="summary-list">
-      {executiveSummary.map((item) => (
-        <li>
-          <a href={item.href}>{item.text}</a>
-        </li>
-      ))}
-    </ul>
-  </SectionBlock>
+    <SectionBlock
+      id="executive-summary"
+      eyebrow="Executive summary"
+      title="Seven implications that change governance"
+    >
+      <ul class="summary-list">
+        {
+          executiveSummary.map((item) => (
+            <li>
+              <a href={item.href}>{item.text}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </SectionBlock>
 
-  <SectionBlock
-    id="core-implications"
-    eyebrow="Core implications"
-    title="What operational governance reveals"
-    description="All six core implications are expanded by default."
-    variant="alt"
-  >
-    <SectionActions className="implication-controls" ariaLabel="Implication controls">
-      <button class="button ghost" type="button" data-expand-all>
-        Expand all
-      </button>
-      <button class="button ghost" type="button" data-collapse-all>
-        Collapse all
-      </button>
-    </SectionActions>
-    <div class="implications" data-implications>
-      {coreImplications.map((item) => (
-        <details
-          class="implication"
-          open
-          data-default-open="true"
-          data-implication
-          data-implication-id={item.id}
-        >
-          <summary class="implication__summary">
-            <div class="implication__summary-main">
-              <h3 id={item.id} class="implication__title">
-                {item.title}
-              </h3>
-              <div class="implication__summary-actions">
-                <a
-                  class="implication__permalink"
-                  href={`#${item.id}`}
-                  aria-label={`Permalink to ${item.title}`}
-                  data-implication-anchor
-                >
-                  #
-                </a>
-                <button
-                  class="copy-button"
-                  type="button"
-                  data-copy-link
-                  data-copy-value={buildAnchor(item.id)}
-                  aria-label={`Copy link to ${item.title}`}
-                >
-                  Copy link
-                </button>
-                <span
-                  class="implication__status"
-                  data-copy-status
-                  role="status"
-                  aria-live="polite"
-                ></span>
+    <SectionBlock
+      id="core-implications"
+      eyebrow="Core implications"
+      title="What operational governance reveals"
+      description="Each implication sets the common model against the Ethotechnics model and lists what it requires."
+      variant="alt"
+    >
+      <SectionActions
+        className="implication-controls"
+        ariaLabel="Implication controls"
+      >
+        <button class="button ghost" type="button" data-expand-all>
+          Expand all
+        </button>
+        <button class="button ghost" type="button" data-collapse-all>
+          Collapse all
+        </button>
+      </SectionActions>
+      <div class="implications" data-implications>
+        {
+          coreImplications.map((item) => (
+            <details
+              class="implication"
+              open
+              data-default-open="true"
+              data-implication
+              data-implication-id={item.id}
+            >
+              <summary class="implication__summary">
+                <div class="implication__summary-main">
+                  <h3 id={item.id} class="implication__title">
+                    {item.title}
+                  </h3>
+                  <div class="implication__summary-actions">
+                    <a
+                      class="implication__permalink"
+                      href={`#${item.id}`}
+                      aria-label={`Permalink to ${item.title}`}
+                      data-implication-anchor
+                    >
+                      #
+                    </a>
+                    <button
+                      class="copy-button"
+                      type="button"
+                      data-copy-link
+                      data-copy-value={buildAnchor(item.id)}
+                      aria-label={`Copy link to ${item.title}`}
+                    >
+                      Copy link
+                    </button>
+                    <span
+                      class="implication__status"
+                      data-copy-status
+                      role="status"
+                      aria-live="polite"
+                    />
+                  </div>
+                </div>
+                <span class="implication__toggle" aria-hidden="true">
+                  <span class="implication__toggle-text--expand">Expand</span>
+                  <span class="implication__toggle-text--collapse">
+                    Collapse
+                  </span>
+                </span>
+              </summary>
+              <div class="implication__body">
+                <p class="implication__label">Common model</p>
+                <p>{item.commonModel}</p>
+                <p class="implication__label">Ethotechnics model</p>
+                <p>{item.ethotechnicsModel}</p>
+                <p class="implication__statement">
+                  <strong>Implication:</strong> {item.implication}
+                </p>
+                <div class="implication__requirements">
+                  <p class="implication__label">What this requires</p>
+                  <ul>
+                    {item.requirements.map((requirement) => (
+                      <li>{requirement}</li>
+                    ))}
+                  </ul>
+                </div>
+                {item.signals && (
+                  <details
+                    class="implication__signals"
+                    data-default-open="false"
+                  >
+                    <summary>Signals you’re failing this</summary>
+                    <ul>
+                      {item.signals.map((signal) => (
+                        <li>{signal}</li>
+                      ))}
+                    </ul>
+                  </details>
+                )}
               </div>
-            </div>
-            <span class="implication__toggle" aria-hidden="true">
-              <span class="implication__toggle-text--expand">Expand</span>
-              <span class="implication__toggle-text--collapse">Collapse</span>
-            </span>
-          </summary>
-          <div class="implication__body">
-            <p class="implication__label">Common model</p>
-            <p>{item.commonModel}</p>
-            <p class="implication__label">Ethotechnics model</p>
-            <p>{item.ethotechnicsModel}</p>
-            <p class="implication__statement">
-              <strong>Implication:</strong> {item.implication}
-            </p>
-            <div class="implication__requirements">
-              <p class="implication__label">What this requires</p>
-              <ul>
-                {item.requirements.map((requirement) => (
-                  <li>{requirement}</li>
-                ))}
-              </ul>
-            </div>
-            {item.signals && (
-              <details class="implication__signals" data-default-open="false">
-                <summary>Signals you’re failing this</summary>
-                <ul>
-                  {item.signals.map((signal) => (
-                    <li>{signal}</li>
-                  ))}
-                </ul>
-              </details>
-            )}
-          </div>
-        </details>
-      ))}
-    </div>
-  </SectionBlock>
+            </details>
+          ))
+        }
+      </div>
+    </SectionBlock>
 
-  <SectionBlock
-    id="additional-implications"
-    eyebrow="Additional implications"
-    title="Secondary shifts once capability is required"
-    description="These sections are collapsed by default for quick scanning."
-  >
-    <div class="implications" data-implications>
-      {additionalImplications.map((item) => (
-        <details
-          class="implication"
-          data-default-open="false"
-          data-implication
-          data-implication-id={item.id}
-        >
-          <summary class="implication__summary">
-            <div class="implication__summary-main">
-              <h3 id={item.id} class="implication__title">
-                {item.title}
-              </h3>
-              <div class="implication__summary-actions">
-                <a
-                  class="implication__permalink"
-                  href={`#${item.id}`}
-                  aria-label={`Permalink to ${item.title}`}
-                  data-implication-anchor
-                >
-                  #
-                </a>
-                <button
-                  class="copy-button"
-                  type="button"
-                  data-copy-link
-                  data-copy-value={buildAnchor(item.id)}
-                  aria-label={`Copy link to ${item.title}`}
-                >
-                  Copy link
-                </button>
-                <span
-                  class="implication__status"
-                  data-copy-status
-                  role="status"
-                  aria-live="polite"
-                ></span>
+    <SectionBlock
+      id="additional-implications"
+      eyebrow="Additional implications"
+      title="Secondary shifts once capability is required"
+      description="Five further shifts that follow once a system must answer challenges and act on what they show."
+    >
+      <div class="implications" data-implications>
+        {
+          additionalImplications.map((item) => (
+            <details
+              class="implication"
+              data-default-open="false"
+              data-implication
+              data-implication-id={item.id}
+            >
+              <summary class="implication__summary">
+                <div class="implication__summary-main">
+                  <h3 id={item.id} class="implication__title">
+                    {item.title}
+                  </h3>
+                  <div class="implication__summary-actions">
+                    <a
+                      class="implication__permalink"
+                      href={`#${item.id}`}
+                      aria-label={`Permalink to ${item.title}`}
+                      data-implication-anchor
+                    >
+                      #
+                    </a>
+                    <button
+                      class="copy-button"
+                      type="button"
+                      data-copy-link
+                      data-copy-value={buildAnchor(item.id)}
+                      aria-label={`Copy link to ${item.title}`}
+                    >
+                      Copy link
+                    </button>
+                    <span
+                      class="implication__status"
+                      data-copy-status
+                      role="status"
+                      aria-live="polite"
+                    />
+                  </div>
+                </div>
+                <span class="implication__toggle" aria-hidden="true">
+                  <span class="implication__toggle-text--expand">Expand</span>
+                  <span class="implication__toggle-text--collapse">
+                    Collapse
+                  </span>
+                </span>
+              </summary>
+              <div class="implication__body">
+                <p class="implication__statement">
+                  <strong>Implication:</strong> {item.implication}
+                </p>
+                <div class="implication__requirements">
+                  <p class="implication__label">What this requires</p>
+                  <ul>
+                    {item.requirements.map((requirement) => (
+                      <li>{requirement}</li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-            </div>
-            <span class="implication__toggle" aria-hidden="true">
-              <span class="implication__toggle-text--expand">Expand</span>
-              <span class="implication__toggle-text--collapse">Collapse</span>
-            </span>
-          </summary>
-          <div class="implication__body">
-            <p class="implication__statement">
-              <strong>Implication:</strong> {item.implication}
-            </p>
-            <div class="implication__requirements">
-              <p class="implication__label">What this requires</p>
-              <ul>
-                {item.requirements.map((requirement) => (
-                  <li>{requirement}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </details>
-      ))}
-    </div>
-  </SectionBlock>
+            </details>
+          ))
+        }
+      </div>
+    </SectionBlock>
 
-  <SectionBlock
-    id="legitimacy-standard"
-    eyebrow="Legitimacy standard"
-    title="The legitimacy standard"
-    description="A concise test for operational responsibility."
-    variant="alt"
-  >
-  <div class="legitimacy-standard">
-      <p>
-        A system is not responsible because it intends to be fair, documents its risks,
-        or convenes oversight committees. A system is responsible only when it cannot
-        keep harming people faster than it can be made to stop and repair.
+    <SectionBlock
+      id="legitimacy-standard"
+      eyebrow="Legitimacy standard"
+      title="The legitimacy standard"
+      description="One test for whether a system is responsible in operation."
+      variant="alt"
+    >
+      <div class="legitimacy-standard">
+        <p>
+          A system is not responsible because it intends to be fair, documents
+          its risks, or convenes oversight committees. It is responsible only
+          when the people it decides about can make it answer, and when what
+          they show it reaches the rule.
+        </p>
+        <p class="muted">
+          Many systems now called “compliant” would fail this standard. They are
+          not malicious. Their appeals fix one case at a time.
+        </p>
+      </div>
+    </SectionBlock>
+
+    <SectionBlock id="related" eyebrow="Related" title="Related">
+      <ul class="related-links">
+        {
+          relatedLinks.map((link) => (
+            <li>
+              <a href={link.href}>{link.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="muted small footnote">
+        Use stable anchors when citing this spec in memos, briefs, or governance
+        playbooks.
       </p>
-      <p class="muted">
-        This standard would cause many currently “compliant” systems to fail—not because
-        they are malicious, but because they are operationally unstoppable.
+      <p class="muted small footnote">
+        See also: <a href="/taxonomy">Taxonomy</a> &middot; <a href="/standards"
+          >Standards</a
+        >
       </p>
-    </div>
-  </SectionBlock>
-
-  <SectionBlock
-    id="related"
-    eyebrow="Related"
-    title="Related"
-    description="Additional modules that connect capability governance to delivery."
-  >
-    <ul class="related-links">
-      {relatedLinks.map((link) => (
-        <li>
-          <a href={link.href}>{link.label}</a>
-        </li>
-      ))}
-    </ul>
-    <p class="muted small footnote">
-      Use stable anchors when citing this spec in memos, briefs, or governance playbooks.
-    </p>
-    <p class="muted small footnote">
-      See also: <a href="/taxonomy">Taxonomy</a> &middot; <a href="/standards">Standards</a>
-    </p>
-  </SectionBlock>
-
+    </SectionBlock>
   </WithSidebar>
+  <NextStep variable="correction" />
   <PullQuote
     quote="A system is responsible only when it cannot keep harming people faster than it can be made to stop and repair."
     variant="accent"
   />
 </BaseLayout>
 
-<script is:inline>
-  const detailBlocks = Array.from(
-    document.querySelectorAll("details[data-implication]")
-  );
-  const expandAllButton = document.querySelector("[data-expand-all]");
-  const collapseAllButton = document.querySelector("[data-collapse-all]");
-
-  const setAll = (open) => {
-    detailBlocks.forEach((detail) => {
-      detail.open = open;
-    });
-  };
-
-  if (expandAllButton) {
-    expandAllButton.addEventListener("click", () => setAll(true));
-  }
-
-  if (collapseAllButton) {
-    collapseAllButton.addEventListener("click", () => setAll(false));
-  }
-
-  const openFromHash = (hash) => {
-    if (!hash) {
-      return;
-    }
-
-    const targetId = hash.replace("#", "");
-    const target = document.getElementById(targetId);
-
-    if (!target) {
-      return;
-    }
-
-    const parentDetails = target.closest("details");
-
-    if (parentDetails && !parentDetails.open) {
-      parentDetails.open = true;
-    }
-  };
-
-  openFromHash(window.location.hash);
-  window.addEventListener("hashchange", () => openFromHash(window.location.hash));
-
-  const copyButtons = Array.from(
-    document.querySelectorAll("[data-copy-link]")
-  );
-
-  copyButtons.forEach((button) => {
-    const status = button
-      .closest(".implication__summary")
-      ?.querySelector("[data-copy-status]");
-    const value = button.getAttribute("data-copy-value");
-
-    if (!status || !value) {
-      return;
-    }
-
-    let resetTimer;
-
-    button.addEventListener("click", async (event) => {
-      event.stopPropagation();
-      try {
-        await navigator.clipboard.writeText(value);
-        status.textContent = "Copied";
-        status.classList.add("is-visible");
-      } catch (error) {
-        status.textContent = "Copy failed";
-        status.classList.add("is-visible");
-      }
-
-      clearTimeout(resetTimer);
-      resetTimer = window.setTimeout(() => {
-        status.textContent = "";
-        status.classList.remove("is-visible");
-      }, 2000);
-    });
-  });
-
-  const anchorLinks = Array.from(
-    document.querySelectorAll("[data-implication-anchor]")
-  );
-
-  anchorLinks.forEach((link) => {
-    link.addEventListener("click", (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      const href = link.getAttribute("href");
-
-      if (!href) {
-        return;
-      }
-
-      history.pushState(null, "", href);
-      openFromHash(href);
-    });
-  });
+<script>
+  import "../../scripts/governance-capability.ts";
 </script>
 
 <style>
   .summary-list {
     margin: 0;
-    padding-left: 1.2rem;
+    padding-left: var(--space-4);
     display: grid;
-    gap: 0.75rem;
+    gap: var(--space-3);
   }
 
   .summary-list a {
@@ -593,20 +545,20 @@ const buildAnchor = (id: string) => new URL(`${permalink}#${id}`, siteBase).toSt
 
   .implication-controls {
     display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
+    gap: var(--space-2);
+    margin-bottom: var(--space-5);
     flex-wrap: wrap;
   }
 
   .implications {
     display: grid;
-    gap: 1.5rem;
+    gap: var(--space-5);
   }
 
   .implication {
     border: 1px solid var(--panel-border);
-    border-radius: 1rem;
-    padding: 0.75rem 1.25rem;
+    border-radius: var(--radius-md);
+    padding: var(--space-3) var(--space-4);
     background: var(--panel);
   }
 
@@ -615,7 +567,7 @@ const buildAnchor = (id: string) => new URL(`${permalink}#${id}`, siteBase).toSt
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    gap: 1rem;
+    gap: var(--space-4);
     cursor: pointer;
   }
 
@@ -626,19 +578,19 @@ const buildAnchor = (id: string) => new URL(`${permalink}#${id}`, siteBase).toSt
   .implication__summary-main {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: var(--space-2);
   }
 
   .implication__summary-actions {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--space-2);
     flex-wrap: wrap;
   }
 
   .implication__title {
     margin: 0;
-    font-size: 1.25rem;
+    font-size: var(--text-lg);
   }
 
   .implication__permalink {
@@ -647,7 +599,7 @@ const buildAnchor = (id: string) => new URL(`${permalink}#${id}`, siteBase).toSt
     justify-content: center;
     width: 1.5rem;
     height: 1.5rem;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     border: 1px solid var(--panel-border);
     font-weight: 600;
     text-decoration: none;
@@ -660,7 +612,7 @@ const buildAnchor = (id: string) => new URL(`${permalink}#${id}`, siteBase).toSt
   }
 
   .implication__status {
-    font-size: 0.85rem;
+    font-size: var(--text-sm);
     color: var(--muted);
     min-width: 4rem;
     opacity: 0;
@@ -672,9 +624,9 @@ const buildAnchor = (id: string) => new URL(`${permalink}#${id}`, siteBase).toSt
   }
 
   .implication__toggle {
-    font-size: 0.85rem;
+    font-size: var(--text-sm);
     color: var(--muted);
-    margin-top: 0.35rem;
+    margin-top: var(--space-1);
     white-space: nowrap;
   }
 
@@ -691,15 +643,15 @@ const buildAnchor = (id: string) => new URL(`${permalink}#${id}`, siteBase).toSt
   }
 
   .implication__body {
-    margin-top: 1rem;
+    margin-top: var(--space-4);
     display: grid;
-    gap: 0.75rem;
+    gap: var(--space-3);
   }
 
   .implication__label {
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-size: 0.75rem;
+    letter-spacing: var(--tracking-label-wide);
+    font-size: var(--text-xs);
     color: var(--muted);
     margin: 0;
   }
@@ -711,44 +663,44 @@ const buildAnchor = (id: string) => new URL(`${permalink}#${id}`, siteBase).toSt
   .implication__requirements ul,
   .implication__signals ul {
     margin: 0;
-    padding-left: 1.2rem;
+    padding-left: var(--space-4);
     display: grid;
-    gap: 0.5rem;
+    gap: var(--space-2);
   }
 
   .implication__signals {
-    margin-top: 0.5rem;
+    margin-top: var(--space-2);
     border-top: 1px solid var(--panel-border);
-    padding-top: 0.75rem;
+    padding-top: var(--space-3);
   }
 
   .implication__signals summary {
     cursor: pointer;
     font-weight: 600;
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--space-2);
   }
 
   .legitimacy-standard {
     display: grid;
-    gap: 0.75rem;
+    gap: var(--space-3);
     max-width: 70ch;
   }
 
   .related-links {
     margin: 0;
-    padding-left: 1.2rem;
+    padding-left: var(--space-4);
     display: grid;
-    gap: 0.75rem;
+    gap: var(--space-3);
   }
 
   .footnote {
-    margin-top: 1.5rem;
+    margin-top: var(--space-5);
     max-width: 70ch;
   }
 
   @media (max-width: 720px) {
     .implication {
-      padding: 0.75rem 1rem;
+      padding: var(--space-3) var(--space-4);
     }
 
     .implication__summary {

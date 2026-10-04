@@ -1,0 +1,661 @@
+---
+title: "STD-02 — Contestability & Recourse"
+description: "A draft standard for challenging an automated decision: notice and reasons, an appeal path, a review clock, remedy and reversal, and who has standing to appeal."
+permalink: "/standards/std-02-contestability-recourse"
+eyebrow: "Standard"
+seoTitle: "STD-02 — Contestability & Recourse"
+publishedTime: "2025-06-01T00:00:00.000Z"
+mainClass: "page page--wide standard-document"
+anchorLinks:
+  - href: "#related-explainers"
+    label: "Related explainers"
+  - href: "#articles"
+    label: "Articles I–V"
+  - href: "#review-infrastructure"
+    label: "Article VI: Review infrastructure"
+  - href: "#liability-and-capacity"
+    label: "Article VII: Liability and capacity"
+  - href: "#standing-mechanism"
+    label: "Standing mechanism"
+  - href: "#prospective-auditability"
+    label: "Prospective auditability"
+  - href: "#depth-of-consent"
+    label: "Depth of consent"
+  - href: "#publication-history"
+    label: "Publication history"
+---
+
+import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
+import Std02RecourseDiagram from "../../components/Std02RecourseDiagram.astro";
+
+export const rights = [
+  {
+    id: "notice",
+    title: "Notice & Reasons",
+    summary:
+      "Every automated decision must provide specific, actionable reasons.",
+    clauses: [
+      "Decision objects include reason codes, evidence sources, and scope.",
+      "Reasons are written in plain language, not legalese.",
+      "Reasons are available at the moment of decision, not on request.",
+    ],
+  },
+  {
+    id: "appeal",
+    title: "Appeal Path",
+    summary: "A clear, accessible path to challenge and reverse decisions.",
+    clauses: [
+      "Appeal intake is reachable from the decision surface.",
+      "Appeal path includes a named, accountable authority.",
+      "Appeal deadlines are published and binding.",
+    ],
+  },
+  {
+    id: "review",
+    title: "Review Clock",
+    summary: "Time-bound review with enforceable deadlines.",
+    clauses: [
+      "Maximum review duration is declared and enforced.",
+      "Auto-escalation triggers when the clock expires.",
+      "Interim protections apply while review is pending.",
+    ],
+  },
+  {
+    id: "remedy",
+    title: "Remedy & Reversal",
+    summary: "Reversal restores the affected party; compensation is automatic.",
+    clauses: [
+      "Reversal is the default remedy for upheld appeals.",
+      "Compensation or fee shifting triggers on wrongful harm.",
+      "Remedy delivery is tracked and verified.",
+    ],
+  },
+  {
+    id: "evidence",
+    title: "Evidence & Accountability",
+    summary: "Decision logs, receipts, and outcomes are auditable.",
+    clauses: [
+      "Every decision emits a receipt with timestamp and owner.",
+      "Appeal outcomes log reversal rates and passage rates.",
+      "Audit trails link decisions to evidence and reviewers.",
+    ],
+  },
+];
+
+export const explainerLinks = [
+  {
+    title: "Contestability",
+    description: "How people can challenge and reverse automated decisions.",
+    href: "/explainers/contestability",
+  },
+  {
+    title: "Repair Log",
+    description: "Track remediation actions tied to receipts and owners.",
+    href: "/explainers/repair-log",
+  },
+  {
+    title: "Remedy Essentials",
+    description: "Eight mechanisms that keep contestability real.",
+    href: "/explainers/remedy-essentials",
+  },
+];
+
+export const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "@id": "https://ethotechnics.org/standards/std-02-contestability-recourse",
+  headline: "STD-02 — Contestability & Recourse",
+  description:
+    "A draft standard for challenging an automated decision: notice and reasons, an appeal path, a review clock, remedy and reversal, and who has standing to appeal.",
+  url: "https://ethotechnics.org/standards/std-02-contestability-recourse",
+  datePublished: "2026-01-01",
+  dateModified: "2026-10-03",
+  version: "1.3",
+  identifier: "STD-02",
+  publisher: {
+    "@type": "Organization",
+    name: "Institute of Ethotechnics",
+    url: "https://ethotechnics.org",
+  },
+  isPartOf: {
+    "@type": "CollectionPage",
+    name: "Standards — Ethotechnics Institute",
+    url: "https://ethotechnics.org/standards",
+  },
+  hasPart: rights.map((right) => ({
+    "@type": "CreativeWork",
+    name: right.title,
+    description: right.summary,
+  })),
+};
+
+<StandardStatusSummary slug="std-02-contestability-recourse" />
+
+<article class="standard-document">
+  <header class="standard-header">
+    <div>
+      <p class="standard-header__id">STANDARD STD-02</p>
+      <h2 class="standard-header__title">Contestability & Recourse</h2>
+    </div>
+    <dl class="standard-header__meta">
+      <div>
+        <dt>Document ID</dt>
+        <dd>STD-02</dd>
+      </div>
+      <div>
+        <dt>Version</dt>
+        <dd>1.3 (Draft for Review)</dd>
+      </div>
+      <div>
+        <dt>Effective Date</dt>
+        <dd>January 2026</dd>
+      </div>
+      <div>
+        <dt>Authority</dt>
+        <dd>The Institute of Ethotechnics</dd>
+      </div>
+    </dl>
+  </header>
+
+  <div class="standard-body">
+    <div class="standard-main">
+      <section id="related-explainers" class="standard-section">
+        <h2>Related explainers</h2>
+
+        Short explainers for translating the obligations for policy or product teams.
+
+        <div class="grid grid--two">
+          {explainerLinks.map((explainer) => (
+            <article class="panel">
+              <p class="eyebrow">Explainer</p>
+
+              <strong>
+                <a href={explainer.href}>{explainer.title}</a>
+              </strong>
+
+              <p class="muted">{explainer.description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="articles" class="standard-section">
+        <h2>Article I: The Right to Notice &amp; Reasons</h2>
+        <p class="standard-article-quote">
+          "No decision shall be final without specific, actionable reasons."
+        </p>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§1.1</span>
+            Decision Objects: Every automated decision must produce a decision object containing reason codes, evidence sources, and scope boundaries.
+          </li>
+          <li>
+            <span class="standard-clause-id">§1.2</span>
+            Plain Language: Reasons must be written in language a layperson can understand. Legalese and internal codes are insufficient.
+          </li>
+          <li>
+            <span class="standard-clause-id">§1.3</span>
+            Immediate Availability: Reasons must be available at the moment of decision. Deferred explanation is not compliance.
+          </li>
+          <li>
+            <span class="standard-clause-id">§1.4</span>
+            Reasons Belong to the Decision: A reason given under §1.1 and §1.2
+            must state what the decision actually rested on: the inputs, rule,
+            policy, and threshold that produced it. An explanation written
+            afterwards by a component that did not make the decision is an
+            account, not a reason. It must be labelled as one, and it does not
+            satisfy §1.1 or §1.2 on its own. Where the component that decided
+            gives no reasons, as a classifier that returns only a score does
+            not, the decision object says so and names the policy, the
+            threshold, and the inputs the decision ran on. The standing
+            register entry for that class then includes whether the evidence
+            supported the decision among its standards of review under §8.2.
+          </li>
+        </ol>
+      </section>
+
+      <section class="standard-section">
+        <h2>Article II: The Right to an Appeal Path</h2>
+        <p class="standard-article-quote">
+          "The decision surface must include the appeal entry point."
+        </p>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§2.1</span>
+            Accessible Intake: The appeal path must be reachable directly from the decision notification or interface.
+          </li>
+          <li>
+            <span class="standard-clause-id">§2.2</span>
+            Named Authority: The appeal path must identify the accountable authority with reversal power.
+          </li>
+          <li>
+            <span class="standard-clause-id">§2.3</span>
+            Binding Deadlines: Appeal deadlines must be published, time-bound, and enforced.
+          </li>
+        </ol>
+      </section>
+
+      <section class="standard-section">
+        <h2>Article III: The Right to a Review Clock</h2>
+        <p class="standard-article-quote">
+          "Unbounded review is a governance failure."
+        </p>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§3.1</span>
+            Declared Maximum: Every review process must declare a maximum duration.
+          </li>
+          <li>
+            <span class="standard-clause-id">§3.2</span>
+            Auto-Escalation: When the clock expires without resolution, the case must auto-escalate to a higher authority or default to reversal.
+          </li>
+          <li>
+            <span class="standard-clause-id">§3.3</span>
+            Interim Protections: While review is pending, the affected party must receive provisional protection (continued access, status quo, safe fallback).
+          </li>
+        </ol>
+      </section>
+
+      <section class="standard-section">
+        <h2>Article IV: The Right to Remedy & Reversal</h2>
+        <p class="standard-article-quote">
+          "Reversal restores; compensation acknowledges."
+        </p>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§4.1</span>
+            Reversal as Default: Upheld appeals result in reversal of the contested decision unless safety criteria explicitly prohibit it.
+          </li>
+          <li>
+            <span class="standard-clause-id">§4.2</span>
+            Automatic Compensation: Wrongful harm triggers automatic credits, fee waivers, or restitution without requiring a separate claim.
+          </li>
+          <li>
+            <span class="standard-clause-id">§4.3</span>
+            Verified Delivery: Remedy delivery is tracked with timestamps and verified by the affected party.
+          </li>
+          <li>
+            <span class="standard-clause-id">§4.4</span>
+            Scope of Remedy: Where a defect is found to arise from a rule, a model, or a notice rather than from one decision, the remedy reaches every affected case without a further claim. The institution enumerates the affected population from its own records, corrects those cases, and tells each person what was corrected. Remediation reachable only by individual appeal does not discharge the obligation.
+          </li>
+        </ol>
+      </section>
+
+      <section class="standard-section">
+        <h2>Article V: The Right to Evidence & Accountability</h2>
+        <p class="standard-article-quote">
+          "If it isn't logged, it didn't happen."
+        </p>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§5.1</span>
+            Decision Receipts: Every decision emits a receipt with timestamp, owner, and decision object reference.
+          </li>
+          <li>
+            <span class="standard-clause-id">§5.2</span>
+            Outcome Transparency: Appeal passage rates and reversal rates are published and used to improve decisions.
+          </li>
+          <li>
+            <span class="standard-clause-id">§5.3</span>
+            Audit Trails: Audit trails link decisions to evidence, reviewers, and outcomes for every contested case.
+          </li>
+          <li>
+            <span class="standard-clause-id">§5.4</span>
+            What a Score May Not Do: A measurement of burden, a safety-case result, an audit finding, or any other score the challenged party did not produce is evidence and not a bar. It may not dispose of an objection, and it may not be cited to establish that a person's account is unfounded. Where a score and an account conflict, the conflict goes to a named reviewer holding authority to resolve it, and the score does not travel as the default. An institution that answers a challenge with a number has answered a different question.
+          </li>
+        </ol>
+      </section>
+
+      <section id="review-infrastructure" class="standard-section">
+        <h2>Article VI: The Infrastructure of Review</h2>
+
+        The right to a review that can actually happen rests on three things
+        that are easy to omit: a human who can be asked, reviewers who are not
+        punished for finding in the challenger's favor, and records that
+        survive long enough, and tamper-evidently enough, to support the
+        investigation. A review offered without these three is a route on
+        paper.
+
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§6.1</span>
+            Human review on request: Where an automated system denies a claim
+            or takes a consequential action, a human review of that outcome is
+            available on request. The request requires no new evidence, no
+            additional form, and no stated reason, because the alternative is
+            that the system's output becomes final by default.
+          </li>
+          <li>
+            <span class="standard-clause-id">§6.2</span>
+            Reviewer incentives: Where reviewers are evaluated, the evaluation
+            must not reward upheld denials, closure speed, or any other metric
+            that biases against remedies. A reviewer whose performance depends
+            on the answer the institution prefers is not a reviewer. The
+            evaluation policy is itself evidence, and it is disclosed to the
+            people whose cases depend on it.
+          </li>
+          <li>
+            <span class="standard-clause-id">§6.3</span>
+            Tamper-evident retention: Where logs support review or redress,
+            they are retained for at least the full review and appeal period
+            plus the limitation window, and they are tamper-evident: a deletion
+            or modification after a dispute begins is itself recorded. A log
+            the operator can silently rewrite is not evidence; it is the
+            operator's account.
+          </li>
+        </ol>
+      </section>
+
+      <section id="liability-and-capacity" class="standard-section">
+        <h2>Article VII: Liability and Capacity</h2>
+
+        Deploying automation does not redeploy responsibility. Two failures
+        recur: the institution pointing at the vendor's infrastructure when
+        access or remedy is needed, and the institution scaling the volume of
+        decisions without scaling the capacity that must answer them. Both
+        convert a right into a queue.
+
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§7.1</span>
+            Operator liability: Where automation causes an error or a delay,
+            liability for the resulting harm rests with the operating
+            institution. The delegation was the institution's, and the harm
+            travels the same path as the benefit. That the system acted is a
+            description of the mechanism, not an answer to the person harmed.
+          </li>
+          <li>
+            <span class="standard-clause-id">§7.2</span>
+            Vendor-managed infrastructure: Where a vendor operates the logs,
+            the models, or the controls, the operating institution still
+            guarantees the affected person's access and remedy. A contract with
+            a vendor is not visible to the person the system decided about and
+            does not shorten their route. The obligation survives the
+            outsourcing.
+          </li>
+          <li>
+            <span class="standard-clause-id">§7.3</span>
+            Proportional review capacity: Where automation increases the
+            throughput of decisions, review capacity is funded in proportion to
+            the actions taken, and the capacity plan is part of the
+            deployment's evidence. Throughput that outruns review converts the
+            review right into a queue, and a queue is the mechanism by which
+            this standard's clocks become decorative.
+          </li>
+        </ol>
+      </section>
+
+      <section id="standing-mechanism" class="standard-section">
+        <h2>Article VIII: The Standing Mechanism</h2>
+        <p class="standard-article-quote">
+          "A channel that accepts a complaint is not standing. Standing is who
+          may challenge what, answered by whom, by when, against what standard,
+          with what possible outcomes."
+        </p>
+
+        The politics of a system are revealed by the rights it grants at the
+        point of model failure. When a formal model inevitably collides with
+        what it cannot represent, a deployment without contestability forces
+        the error-bearing party to carry the residual complexity in silence.
+        Contestability operationalizes constitutional governance: ensuring that
+        exposure to system failure generates procedural standing to compel review
+        and state transition.
+
+        Contestability requires seven things to be named together: who may
+        challenge, what may be challenged, what evidence is admissible, who
+        is obliged to respond, by what deadline, against what standard of
+        review, and which state transitions a successful challenge can
+        produce. Named separately, or named in a policy nobody can cite, they
+        do not compose into a route.
+
+        <a href="/standards/std-07-revisable-delegation-record">STD-07</a>
+        §4.1 already requires a record that affects outsiders to declare who
+        may object and where, and §4.2 already obliges an accepted objection
+        to be answered with a revision or a reasoned refusal within the
+        reversal clock. This article does not restate either. It adds the two
+        fields those clauses leave open: the standard the responder decides
+        against, and the set of state transitions a successful challenge can
+        produce.
+
+        <Std02RecourseDiagram />
+
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§8.1</span>
+            The Register: For each class of consequential decision, the operator
+            must publish a standing register entry naming
+            <code>who_may_challenge</code>, <code>what_may_be_challenged</code>,
+            <code>admissible_evidence</code>, <code>responder</code>,
+            <code>response_deadline</code>, <code>standard_of_review</code>, and
+            <code>possible_state_transitions</code>. An entry missing any of the
+            seven is incomplete, and the decision class it covers is
+            uncontestable in practice.
+          </li>
+          <li>
+            <span class="standard-clause-id">§8.2</span>
+            The Standard of Review: The register must state what the responder
+            decides against: whether the decision followed policy, whether the
+            policy was correct, whether the evidence supported the decision, or
+            whether the outcome was reasonable. A responder who is not told what
+            to decide against will decide whether the process ran, which is the
+            one question the challenger did not ask.
+          </li>
+          <li>
+            <span class="standard-clause-id">§8.3</span>
+            Possible Transitions: The register must enumerate the state changes a
+            successful challenge can produce, drawn from the same set as a
+            reconsideration outcome: the decision stands, is narrowed,
+            suspended, reversed, corrected, or the grant behind it is expanded
+            or withdrawn. A challenge route with no enumerated transition is
+            correspondence, not recourse.
+          </li>
+          <li>
+            <span class="standard-clause-id">§8.4</span>
+            Error-Bearing Parties: Standing extends to the parties who absorb the
+            system's errors. That includes the people the decision falls on and
+            the operators who handle its exceptions, work its queues, and
+            perform the manual repair the automation assumes. Their standing is
+            proportional to exposure: the more of the system's error a party
+            absorbs, the stronger the procedural force their challenge carries.
+          </li>
+          <li>
+            <span class="standard-clause-id">§8.5</span>
+            Force, Not Veto: Standing is procedural force. A party with standing
+            can compel receipt, an answer within the deadline, and a decision
+            against the published standard. They cannot compel the outcome. A
+            challenge that must be answered but need not prevail is standing; a
+            challenge that halts the system on assertion is a veto, and this
+            standard does not require one.
+          </li>
+          <li>
+            <span class="standard-clause-id">§8.6</span>
+            Issue Rate Bounded by Answer Capacity: The register entry must state
+            how many challenges the responder can answer within
+            <code>response_deadline</code> in a period. Where the class's issue
+            rate in that period, multiplied by its measured error rate, or by an
+            assumed rate stated in the entry until one is measured, exceeds
+            that capacity, the class is uncontestable in practice under §8.1
+            until capacity is raised or the issue rate is lowered. Narrowing who
+            may challenge does not cure it. The bound is set on errors made,
+            not on challenges received, because an error nobody could
+            challenge in time never shows up as a challenge.
+          </li>
+        </ol>
+      </section>
+
+      <section id="prospective-auditability" class="standard-section">
+        <h2>Article IX: Prospective Auditability</h2>
+        <p class="standard-article-quote">
+          "Forensic records answer what happened. A governing record answers
+          whether this should still be running."
+        </p>
+
+        Most audit trails are built for reconstruction after harm. They can
+        establish what the system did and rarely establish whether the
+        delegation behind it still deserves to stand. The difference is what
+        is retained: an audit trail retains outputs, and a governing record
+        retains the justification, the assumptions, and the correction route
+        that were in force at the time.
+
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§9.1</span>
+            Retention for Decision, Not Only Reconstruction: Records must retain
+            what is needed to decide whether the delegation still deserves to
+            stand: the authority it ran under, the policies that authority
+            rested on with their versions, the assumptions those policies
+            declared, the correction capacity claimed at the time, and the
+            challenges received and how they were answered.
+          </li>
+          <li>
+            <span class="standard-clause-id">§9.2</span>
+            Answerable Without the Vendor: The retained set must be sufficient
+            for the operating institution to answer the standing question
+            without the cooperation of the supplier of any component. A
+            justification that can only be assembled by the party whose product
+            is under review is not evidence available to the review.
+          </li>
+          <li>
+            <span class="standard-clause-id">§9.3</span>
+            Reviewed on a Cadence: The standing question is asked on a published
+            cadence, not only after an incident. The review produces a dated
+            record whether or not anything changed, so that a period in which
+            nobody asked is visible as such.
+          </li>
+        </ol>
+      </section>
+
+      <section id="depth-of-consent" class="standard-section">
+        <h2>Article X: The Depth of Consent</h2>
+        <p class="standard-article-quote">
+          "Consent to enter a dependency is not consent to every degree of
+          dependency its operation produces."
+        </p>
+
+        A party who adopts a system consents to the relationship as it stands
+        at adoption. They cannot consent to the constraint set the system's own
+        success later manufactures: data accumulates inside it, collaborators
+        organise around it, the alternatives that were live at adoption stop
+        being maintained, and the competence needed to work without it
+        atrophies. Each of those changes the terms without anyone deciding to
+        change them. By the time they have all happened, "you chose this" no
+        longer describes the present relationship, and it is the present
+        relationship the party is living under.
+
+        Article VIII establishes who may challenge and with what force. This
+        article addresses when that set changes and when a recorded consent
+        stops covering what the system now does. The measurements it relies on
+        are the dependency record's, held under{" "}
+        <a href="/standards/std-06-human-impact-safety-case">STD-06</a> Article
+        V.
+
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§10.1</span>
+            The Affected Set Does Not Close at Adoption: Standing MUST extend to
+            parties who became affected after adoption, including those who never
+            consented and those whose exposure changed materially without any new
+            decision by them. Enumerating the affected parties at adoption
+            records who was affected then; it does not define who may challenge
+            now. A standing register entry that admits only the parties named at
+            adoption is incomplete under §8.1.
+          </li>
+          <li>
+            <span class="standard-clause-id">§10.2</span>
+            Deepened Dependence Reopens Consent: Where dependence has materially
+            deepened since consent was given, the operator MUST disclose the
+            change to the consenting party and MUST NOT treat the original
+            consent as covering the new degree. Deepening is material when, as
+            against the values recorded when consent was given, any level of
+            <code>reversibility</code> has moved from evidenced to not evidenced,
+            or <code>exposure_score</code> or <code>substitution_cost</code> has
+            risen by a quarter or more. Disclosure is owed within 30 days of the
+            dependency record entry that shows the move, states which measure
+            moved and by how much, and names the standing route under §8.1. Until
+            it is made, the operator MUST NOT cite the original consent as the
+            basis for the current degree of dependence.
+          </li>
+        </ol>
+      </section>
+
+      <section id="publication-history" class="standard-section">
+        <h2>Publication history</h2>
+        <ul>
+          <li>
+            <strong>v1.3 (2026-10-03):</strong> Publishes Articles VI and VII: review infrastructure, liability, and capacity (§6.1–§7.3).
+          </li>
+          <li>
+            <strong>v1.2 (2026-09-22):</strong> Adds two clauses for decisions
+            made faster and with fewer reasons than recourse assumed. A reason
+            must be what the decision rested on, and an explanation written
+            afterwards by another component is labelled as an account (§1.4).
+            A decision class whose expected errors outrun the responder's
+            capacity to answer is uncontestable in practice (§8.6).
+          </li>
+          <li>
+            <strong>v1.1 (2026-09-07):</strong> Adds Article X, the depth of
+            consent: standing for parties who became affected after adoption, and
+            the disclosure owed when dependence has materially deepened since
+            consent was given.
+          </li>
+          <li>
+            <strong>v1.0 (2026-09-06):</strong> Adds Article VIII, the standing
+            mechanism with its seven fields, the standard of review, the
+            possible state transitions, standing for error-bearing parties, and
+            the force-not-veto rule; adds Article IX, prospective auditability.
+          </li>
+          <li>
+            <strong>v0.9 (2026-01-01):</strong> Peer review draft aligned to
+            evidence and remedy clocks.
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <aside class="standard-sidebar">
+      <div class="standard-sidebar__panel">
+        <p class="standard-sidebar__eyebrow">Related mechanisms</p>
+        <ul>
+          <li>
+            <a href="/mechanisms/patterns/decision-log">MEC-01: Decision Log</a>
+          </li>
+          <li>
+            <a href="/mechanisms/patterns/reversibility-audit-logs">MEC-10: Reversibility Audit Logs</a>
+          </li>
+          <li>
+            <a href="/mechanisms/patterns/kill-switch">MEC-05: Kill Switch</a>
+          </li>
+        </ul>
+      </div>
+      <div class="standard-sidebar__panel">
+        <p class="standard-sidebar__eyebrow">STD-02 references</p>
+        <ul>
+          <li>
+            <a href="/evidence-packs/std-02">STD-02 Evidence Pack</a>
+          </li>
+          <li>
+            <a href="/explainers/contestability-checklist">Contestability Checklist</a>
+          </li>
+        </ul>
+      </div>
+      <div class="standard-sidebar__panel">
+        <p class="standard-sidebar__eyebrow">Motivating theory</p>
+        <ul>
+          <li>
+            <a href="/research/theory/dependence-without-standing">Dependence without standing</a>
+          </li>
+          <li>
+            <a href="/research/theory/challenge-density">Challenge density</a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+  </div>
+</article>
+
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify(structuredData, null, 2)}
+  is:inline
+/>

@@ -13,25 +13,31 @@ each column.
 **Status tags:** `[Spec ready]` means the section below is ready for pickup. `[Needs alignment]`
 flags work that depends on cross-team decisions or external input.
 
-| Now                                                                                                 | Next                                                                   | Later                                                                                              |
-| --------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| Highest-priority work in progress.                                                                  | Ready-to-start items with scoped specs.                                | Ideas to revisit when capacity frees up.                                                           |
-| Keep entries small and actionable.                                                                  | Add owners or dates only when needed.                                  | Capture rough ideas, not full specs.                                                               |
-| [Enforceable governance reference implementation](#enforceable-governance-reference-implementation) | [Python evaluation toolkit](#python-evaluation-toolkit) `[Spec ready]` | [Contestability pattern library](#contestability-pattern-library) `[Needs alignment]`              |
-|                                                                                                     | [TypeScript SDK](#typescript-sdk) `[Spec ready]`                       | [Governance lessons from incidents](#governance-lessons-from-incidents) `[Needs alignment]`        |
-|                                                                                                     |                                                                        | [Democratic vs. coercive governability](#democratic-vs-coercive-governability) `[Needs alignment]` |
-|                                                                                                     |                                                                        | [FHIR profile set and W3C VC schemas](#fhir-profile-set-and-w3c-vc-schemas) `[Needs alignment]`    |
+| Now                                                                                           | Next                                                                   | Later                                                                                              |
+| --------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| Highest-priority work in progress.                                                            | Ready-to-start items with scoped specs.                                | Ideas to revisit when capacity frees up.                                                           |
+| Keep entries small and actionable.                                                            | Add owners or dates only when needed.                                  | Capture rough ideas, not full specs.                                                               |
+| [Reconstruction plan: delegated intelligence](reconstruction-plan-2026-09.md) `[Spec ready]`  | [Python evaluation toolkit](#python-evaluation-toolkit) `[Spec ready]` | [Contestability pattern library](#contestability-pattern-library) `[Needs alignment]`              |
+| [Delegation objects and STD-08 follow-through](#delegation-objects-and-std-08-follow-through) |                                                                        |                                                                                                    |
+|                                                                                               | [TypeScript SDK](#typescript-sdk) `[Spec ready]`                       | [Governance lessons from incidents](#governance-lessons-from-incidents) `[Needs alignment]`        |
+|                                                                                               |                                                                        | [Democratic vs. coercive governability](#democratic-vs-coercive-governability) `[Needs alignment]` |
+|                                                                                               |                                                                        | [FHIR profile set and W3C VC schemas](#fhir-profile-set-and-w3c-vc-schemas) `[Needs alignment]`    |
 
 ## Recently completed (checked off)
 
+- [x] Governance-gap closes (2026-09-19): challenge-density and compulsion problem theory essays; halt stratification, admission gate, and challenge load ledger mechanisms (MEC-21/22/23); dependence reciprocity, halt stratification, admission gate, and challenge density glossary terms; standards → theory cross-links; the two-circuits orientation on `/method`; the reading contract on the meta-critique page; role entry points leading with workflows.
 - [x] Capacity forecaster v2 (scenario compare).
 - [x] Maintenance simulator v2 (risk thresholds).
 - [x] Burden modeler v2 (equity snapshots).
 
 **Priority snapshot**
 
-- **Governance implementation first:** ship enforceable governance crosswalks, evidence-pack
-  discipline, and post-market accountability surfaces as the primary product story.
+- **Definition and object model first:** the reconstruction plan reframes the site around the
+  consequential decision and adds authority, policy, and intervention objects. The enforceable
+  governance reference implementation that used to sit here was absorbed into its WS2 and WS3 and
+  is no longer tracked separately.
+- **Governance implementation first:** crosswalks, evidence-pack discipline, and post-market
+  accountability surfaces shipped; what remains is the follow-through below.
 - **Foundation specs:** Python evaluation toolkit unblocks SDKs and evaluation workflows.
 - **Publishing + standards:** content and standards work stays queued until alignment work is
   complete.
@@ -59,33 +65,28 @@ under this heading and link to it from the roadmap table.
 - Dependencies and blockers are listed.
 - If needed, a GitHub Issue exists and links back here.
 
-## Enforceable governance reference implementation
+## Delegation objects and STD-08 follow-through
 
-- **Problem:** The site describes governance concepts but does not yet behave like a reference
-  implementation of enforceable governance tied to statutory and standards obligations.
-- **Scope:**
-  - Publish canonical control crosswalks from Ethotechnics mechanisms to EU AI Act duties,
-    NIST AI RMF functions, and ISO/IEC 42001 clauses.
-  - Promote evidence-pack discipline from supporting guidance to a first-class operating model,
-    with required artifacts, ownership, and freshness rules.
-  - Elevate post-market monitoring and incident reporting to top-level, task-oriented user flows
-    with explicit intake, triage, remediation, and regulator-ready export paths.
-- **UX/Tech notes:**
-  - Add stable control IDs and machine-readable mapping objects so crosswalks can power APIs,
-    exports, and page-level references.
-  - Define an evidence-pack minimum viable set (policy record, risk register slice, test results,
-    human-oversight logs, incident ledger) and expose readiness scorecards.
-  - Build role-specific entry points (operator, auditor, procurement, regulator) that prioritize
-    monitoring and incident workflows ahead of explanatory content.
-- **Acceptance criteria:**
-  - Crosswalk pages and exports cover high-risk lifecycle obligations with bidirectional links
-    between controls, mechanisms, and evidence artifacts.
-  - Every high-stakes mechanism references a concrete evidence bundle and freshness cadence.
-  - Monitoring and incident pages support end-to-end reporting states, deadlines, and evidence
-    attachments, with no dead-end informational paths.
-- **Dependencies/risks:** Requires legal and standards review cadence, schema updates, and clear
-  ownership for ongoing mapping maintenance.
-- **Issue link:** Issue: TBD / Spec: #enforceable-governance-reference-implementation
+The former "Enforceable governance reference implementation" item was absorbed by the 2026-09
+rebuild. See [`reconstruction-plan-2026-09.md`](reconstruction-plan-2026-09.md), workstreams WS2
+(object model) and WS3 (STD-08 and the STD-06 amendment), for the scope, the acceptance criteria,
+and the sequencing. Crosswalk controls CTRL-01 to CTRL-04, the evidence-pack model, the
+post-market monitoring workflow, STD-08 with its evidence pack, and the delegation state endpoints
+under `/api` have all landed.
+
+What remains from that item, and is not covered by a workstream:
+
+- **Evidence freshness enforcement.** Freshness rules are stated in the evidence packs; nothing
+  computes or displays staleness against them.
+- **Regulator-ready export.** Diagnostics emit portable results; there is no bundled export that a
+  regulator or auditor could accept as a package.
+- **Ongoing crosswalk maintenance ownership.** The mappings need a review cadence and a named owner,
+  which is a process decision rather than a build task.
+
+(Role-specific entry points were resolved 2026-09-19: `/start` and the role pages now lead with
+workflows — diagnostics and mechanism specs — and the role registry's featured diagnostics and
+standards are wired onto the role pages, which also flushed the stale `std-02-reversibility-slas`
+and `std-06-harm-visibility` slugs.)
 
 ## Python evaluation toolkit
 
@@ -176,12 +177,16 @@ future updates can build on what already shipped.
 
 ### Capacity forecaster v2 (scenario compare)
 
+Retired September 26, 2026. See the [retirement record](pass-1-retirement-2026-09.md).
+
 - **Outcome:** Shipped compare mode with paired scenario controls, delta highlights, side-by-side
   table output, reset-to-single flow, and JSON exports for both single and compare views.
 - **Notes:** Delivered via `src/features/capacity-forecaster/*` with compare view state,
   delta summaries, and export actions.
 
 ### Maintenance simulator v2 (risk thresholds)
+
+Retired September 26, 2026. See the [retirement record](pass-1-retirement-2026-09.md).
 
 - **Outcome:** Added threshold presets with labeled score bands, current tier indicators,
   recommendation messaging, and explicit watch/act-now guidance.

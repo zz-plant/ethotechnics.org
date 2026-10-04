@@ -31,7 +31,10 @@ export type BundleMetadata = {
 const procurementClausePack = procurementClausePackJson as BundleMetadata;
 const diagnosticExportKit = diagnosticExportKitJson as BundleMetadata;
 
-export const bundleIndex: BundleMetadata[] = [procurementClausePack, diagnosticExportKit];
+export const bundleIndex: BundleMetadata[] = [
+  procurementClausePack,
+  diagnosticExportKit,
+];
 
 export const getBundle = (slug: string) =>
   bundleIndex.find((bundle) => bundle.slug === slug);

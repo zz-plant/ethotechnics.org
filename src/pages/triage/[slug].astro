@@ -1,0 +1,199 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import NextStep from "../../components/NextStep.astro";
+import TriageSequenceDiagram from "../../components/TriageSequenceDiagram.astro";
+import {
+  artifacts,
+  failureStates,
+  type FailureState,
+  type InstituteArtifact,
+} from "../../content/institute-site";
+
+const slug = Astro.params.slug;
+const state =
+  (Astro.props.state as FailureState | undefined) ??
+  failureStates.find((candidate) => candidate.slug === slug);
+
+if (!state) return new Response("Failure state not found", { status: 404 });
+
+const stateArtifacts: InstituteArtifact[] = (state.artifactSlugs ?? [])
+  .map((artifactSlug) =>
+    artifacts.find((artifact) => artifact.slug === artifactSlug),
+  )
+  .filter((artifact): artifact is InstituteArtifact => Boolean(artifact));
+
+if (stateArtifacts.length === 0) return Astro.redirect("/artifacts");
+
+const fallbackArtifact = stateArtifacts[0];
+const artifactBySlug = new Map(
+  stateArtifacts.map((artifact) => [artifact.slug, artifact]),
+);
+const usedArtifactSlugs = new Set<string>();
+
+const pickArtifact = (preferredSlugs: string[]): InstituteArtifact => {
+  for (const preferredSlug of preferredSlugs) {
+    const candidate = artifactBySlug.get(preferredSlug);
+    if (candidate && !usedArtifactSlugs.has(candidate.slug)) {
+      usedArtifactSlugs.add(candidate.slug);
+      return candidate;
+    }
+  }
+
+  const nextUnused = stateArtifacts.find(
+    (candidate) => !usedArtifactSlugs.has(candidate.slug),
+  );
+  if (nextUnused) {
+    usedArtifactSlugs.add(nextUnused.slug);
+    return nextUnused;
+  }
+
+  return fallbackArtifact;
+};
+
+const workflowStages: {
+  key: string;
+  title: string;
+  description: string;
+  artifact: InstituteArtifact;
+  diagnosticsHref: string;
+  diagnosticsLabel: string;
+  standardsHref: string;
+  standardsLabel: string;
+}[] = [
+  {
+    key: "triage",
+    title: "Triage",
+    description:
+      "Record what failed and the decision involved, before logs rotate and memories fade.",
+    artifact: pickArtifact(["decision-record-template"]),
+    diagnosticsHref: "/diagnostics/self-defense-tools#governable",
+    diagnosticsLabel: "Check whether the decision can be challenged",
+    standardsHref: "/standards/std-02-contestability-recourse",
+    standardsLabel: "Review STD-02: Contestability and recourse",
+  },
+  {
+    key: "stabilize",
+    title: "Stabilize",
+    description:
+      "Stop or narrow the harmful flow while the owner and the escalation path are in place.",
+    artifact: pickArtifact(["escalation-ladder-freeze-authority"]),
+    diagnosticsHref: "/diagnostics/delegation-audit",
+    diagnosticsLabel: "Check what the system is allowed to decide",
+    // STD-03 (justice SLOs) has no page yet; STD-06 carries the published
+    // thresholds and breach actions.
+    standardsHref: "/standards/std-06-human-impact-safety-case",
+    standardsLabel: "Review STD-06: Human impact safety case",
+  },
+  {
+    key: "evidence",
+    title: "Evidence",
+    description:
+      "Gather the records and the evidence pack, so each repair the organization owes can be checked against its deadline.",
+    artifact: pickArtifact(["harm-receipt-format"]),
+    diagnosticsHref: "/diagnostics/record-conformance",
+    diagnosticsLabel: "Check record conformance",
+    standardsHref: "/standards/std-01-temporal-rights",
+    standardsLabel: "Review STD-01: Deadlines for decisions and reversals",
+  },
+];
+
+const orderedWorkflowStages = workflowStages.filter(
+  (stage, index, stages) =>
+    stages.findIndex(
+      (candidate) => candidate.artifact.slug === stage.artifact.slug,
+    ) === index,
+);
+
+const breadcrumbItems = [
+  { name: "Home", url: "/" },
+  { name: "Incident triage", url: "/triage" },
+  { name: state.title, url: `/triage/${state.slug}` },
+];
+---
+
+<BaseLayout
+  title={`${state.title} — Incident triage — Ethotechnics`}
+  description={state.descriptionLine1}
+  publishedTime="2025-06-01T00:00:00.000Z"
+  breadcrumbItems={breadcrumbItems}
+>
+  <div data-route-metrics="home-to-failure-pathway" hidden></div>
+  <section class="stack-lg institute-screen">
+    <h1>{state.title}</h1>
+    <p>{state.descriptionLine1}</p>
+    <p>{state.descriptionLine2}</p>
+    <div class="panel stack-sm">
+      <p class="eyebrow">Start here</p>
+      <p class="muted">
+        Start with <strong>{orderedWorkflowStages[0]?.artifact.name}</strong>.
+        It records who owns the response, what evidence to keep, and how the
+        decision will be reversed, before those questions get lost.
+      </p>
+      <ol class="small muted">
+        <li>Assign the accountable owner now.</li>
+        <li>Capture evidence and timestamps in the first artifact.</li>
+        <li>
+          Confirm who the case escalates to before starting other work on it.
+        </li>
+      </ol>
+    </div>
+    <h2>Response workflow (triage → stabilize → evidence), then the rule</h2>
+    <TriageSequenceDiagram
+      stages={orderedWorkflowStages.map((stage) => ({
+        title: stage.title,
+        artifactName: stage.artifact.name,
+      }))}
+    />
+    <ol class="stack-sm">
+      {
+        orderedWorkflowStages.map((stage) => (
+          <li class="card stack-sm">
+            <p class="eyebrow">{stage.title}</p>
+            <h3>{stage.artifact.name}</h3>
+            <p class="muted">{stage.description}</p>
+            <p>
+              <a
+                class="button"
+                href={`/artifacts/${stage.artifact.slug}`}
+                data-route-action={`failure-${stage.key}-${stage.artifact.slug}`}
+              >
+                Open {stage.artifact.name}
+              </a>
+            </p>
+            <p class="muted small">
+              Next checks:{" "}
+              <a href={stage.diagnosticsHref}>{stage.diagnosticsLabel}</a> ·
+              <a href={stage.standardsHref}>{stage.standardsLabel}</a>
+            </p>
+          </li>
+        ))
+      }
+    </ol>
+
+    <div class="card stack-sm">
+      <p class="eyebrow">The rule</p>
+      <h3>Is this case one of many?</h3>
+      <p class="muted">
+        Fixing this case does not fix the rule that produced it. Count the cases
+        the same rule produced that were challenged and upheld, and send the
+        count to whoever owns the rule, with a date for an answer: a revised
+        rule, or a published reason for keeping it.
+      </p>
+      <p class="muted small">
+        Next checks:{" "}
+        <a href="/mechanisms/patterns/policy-review-triggers"
+          >MEC-14 Policy review triggers</a
+        > ·
+        <a href="/research/theory/exception-learning"
+          >Why exceptions are evidence about the rule</a
+        >
+      </p>
+    </div>
+
+    <p class="small muted">{state.footerLine}</p>
+  </section>
+  <NextStep topic={[state.slug, state.title]} />
+  <script>
+    import "../../scripts/route-metrics.ts";
+  </script>
+</BaseLayout>

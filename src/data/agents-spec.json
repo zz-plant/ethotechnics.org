@@ -1,0 +1,124 @@
+{
+  "schema_version": "1.1.0",
+  "doctrine": {
+    "method": "/method",
+    "laws": "/standards/laws",
+    "standards": [
+      "/standards/std-06-human-impact-safety-case",
+      "/standards/std-07-revisable-delegation-record",
+      "/standards/std-08-delegation",
+      "/standards/std-09-agent-chains"
+    ]
+  },
+  "agent_id": "agent-risk-ops-v2",
+  "autonomy_level": {
+    "level": "execute_with_guardrails",
+    "description": "Agent can execute reversible actions within defined scopes."
+  },
+  "action_classes": [
+    {
+      "class": "READ",
+      "reversible": true,
+      "approval_required": false
+    },
+    {
+      "class": "WRITE",
+      "reversible": true,
+      "approval_required": true
+    },
+    {
+      "class": "TRANSFER",
+      "reversible": false,
+      "approval_required": true
+    }
+  ],
+  "stop_override_authority": {
+    "primary_owner": "Risk Operations",
+    "on_call_role": "Risk Steward",
+    "override_window_hours": 2,
+    "kill_switch": "/mechanisms/patterns/kill-switch"
+  },
+  "receipt_schema": {
+    "href": "/standards/agent-receipt-schema.json",
+    "version": "1.0.0"
+  },
+  "clocks": {
+    "ack": {
+      "hours": 2
+    },
+    "review": {
+      "hours": 24
+    },
+    "remedy": {
+      "hours": 72
+    }
+  },
+  "evidence_pack_references": [
+    {
+      "standard": "STD-01",
+      "href": "/evidence-packs/std-01"
+    },
+    {
+      "standard": "STD-02",
+      "href": "/evidence-packs/std-02"
+    },
+    {
+      "standard": "STD-06",
+      "href": "/evidence-packs/std-06"
+    },
+    {
+      "standard": "STD-08",
+      "href": "/evidence-packs/std-08"
+    },
+    {
+      "standard": "STD-09",
+      "href": "/evidence-packs/std-09"
+    }
+  ],
+  "required_signals": [
+    "unsafe_action_rate",
+    "human_override_rate",
+    "time_to_detection",
+    "time_to_remedy"
+  ],
+  "mapped_mechanisms": [
+    {
+      "id": "MEC-01",
+      "href": "/mechanisms/patterns/decision-log"
+    },
+    {
+      "id": "MEC-05",
+      "href": "/mechanisms/patterns/kill-switch"
+    },
+    {
+      "id": "MEC-06",
+      "href": "/mechanisms/patterns/appeal-paths"
+    }
+  ],
+  "object_model_schema": {
+    "href": "/standards/agent-safety-object-model.schema.json",
+    "version": "2.0.0",
+    "example": "/standards/examples/agent-safety-object-model.example.json",
+    "note": "This instance is the 1.1.0 shape. Version 2.0.0 replaces approval_required with a grant_ref per action class and stop_override_authority with intervention_ref."
+  },
+  "delegation_state": {
+    "grant_ref": "GRANT-2026-0142",
+    "capability_catalog_ref": "CAT-RISK-OPS-V2-2026-07",
+    "dependency_ref": "DEP-RISK-OPS-V2-2026-06",
+    "intervention_ref": "INT-RISK-STEWARD-1",
+    "substrate_profile_ref": "SUB-RISK-OPS-V2",
+    "endpoints": {
+      "grants": "/api/grants.json",
+      "dependencies": "/api/dependencies.json",
+      "capabilities": "/api/capabilities.json",
+      "policies": "/api/policies.json",
+      "standing": "/api/standing.json",
+      "interventions": "/api/interventions.json",
+      "substrateProfiles": "/api/substrate-profiles.json"
+    },
+    "schemas": {
+      "authorityGrant": "/standards/authority-grant.schema.json",
+      "dependencyRecord": "/standards/dependency-record.schema.json"
+    }
+  }
+}

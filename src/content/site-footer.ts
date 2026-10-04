@@ -3,10 +3,15 @@ type FooterLink = { label: string; href: string; external?: boolean };
 type SiteFooterContent = {
   identity: {
     heading: string;
-    brand: { name: string; href: string; ariaLabel: string; logoSrc: string; logoAlt: string };
+    brand: {
+      name: string;
+      href: string;
+      ariaLabel: string;
+      logoSrc: string;
+      logoAlt: string;
+    };
     description: string;
     license: { label: string; href: string; external: boolean };
-    licenseBadge: { src: string; alt: string };
   };
   navigation: Array<{ heading: string; links: FooterLink[] }>;
 };
@@ -22,60 +27,78 @@ export const siteFooter: SiteFooterContent = {
       logoAlt: "Ethotechnics Institute seal",
     },
     description:
-      "Content licensed under the Creative Commons Attribution 4.0 International License.",
+      "Proposed standards, mechanisms, and diagnostics for keeping automated decision systems stoppable, explainable, and appealable, whether or not they use AI.",
     license: {
-      label: "View the CC BY 4.0 license",
-      href: "https://creativecommons.org/licenses/by/4.0/",
+      label: "Content licensed CC BY-SA 4.0",
+      href: "https://creativecommons.org/licenses/by-sa/4.0/",
       external: true,
-    },
-    licenseBadge: {
-      src: "https://licensebuttons.net/l/by/4.0/88x31.png",
-      alt: "Creative Commons Attribution 4.0 International License badge",
     },
   },
   navigation: [
     {
-      heading: "Institute",
+      heading: "Method & standards",
       links: [
-        { label: "Start here", href: "/start-here" },
-        { label: "Glossary", href: "/glossary" },
-        { label: "Standards", href: "/standards" },
-        { label: "Diagnostics", href: "/diagnostics" },
-        { label: "Field Notes", href: "/field-notes" },
-        { label: "How Studio fits", href: "/institute/how-studio-fits" },
+        { label: "The method", href: "/method" },
+        { label: "Twelve laws", href: "/standards/laws" },
+        { label: "Standards register", href: "/standards" },
+        {
+          label: "Regulatory crosswalks",
+          href: "/standards/enforceable-governance-crosswalks",
+        },
+        { label: "Evidence packs", href: "/evidence-packs" },
       ],
     },
     {
-      heading: "Network",
+      heading: "Mechanisms & diagnostics",
       links: [
+        { label: "Mechanisms catalog", href: "/mechanisms" },
+        { label: "Diagnostics suite", href: "/diagnostics" },
+        { label: "Delegation audit", href: "/diagnostics/delegation-audit" },
+        { label: "Evals & coverage", href: "/evals" },
+        { label: "Validators", href: "/validators" },
+      ],
+    },
+    {
+      heading: "Knowledge & research",
+      links: [
+        { label: "Glossary", href: "/glossary" },
+        { label: "Practice taxonomy", href: "/taxonomy" },
+        { label: "Failure casebook", href: "/casebook" },
+        { label: "Theory & foundations", href: "/research/theory" },
+        { label: "Field notes", href: "/field-notes" },
+        { label: "Syllabus", href: "/mechanisms#syllabus" },
+        { label: "Search", href: "/search" },
+      ],
+    },
+    {
+      heading: "Institute & governance",
+      links: [
+        { label: "Start here", href: "/start" },
+        { label: "Which systems this is for", href: "/use-cases" },
+        { label: "About the institute", href: "/about" },
+        { label: "Governance process", href: "/institute/governance" },
+        {
+          label: "Security policy",
+          href: "/security/vulnerability-disclosure",
+        },
+        { label: "Send feedback", href: "/participate#feedback" },
+        { label: "Reference API", href: "/api" },
+      ],
+    },
+    {
+      heading: "Ecosystem & connect",
+      links: [
+        {
+          label: "GitHub",
+          href: "https://github.com/zz-plant/ethotechnics.org",
+          external: true,
+        },
         {
           label: "Ethotechnics Studio",
           href: "https://ethotechnics.com",
           external: true,
         },
-        {
-          label: "The Crumple Zone",
-          href: "https://thecrumple.zone",
-          external: true,
-        },
-        {
-          label: "Kanav Jain (kanav.net)",
-          href: "https://kanav.net",
-          external: true,
-        },
-      ],
-    },
-    {
-      heading: "Connect",
-      links: [
-        { label: "Reference API", href: "/api" },
-        {
-          label: "GitHub",
-          href: "https://github.com/zz-plant/ethotechnics",
-          external: true,
-        },
-        { label: "Send feedback", href: "/participate#feedback" },
-        { label: "Security", href: "/security/vulnerability-disclosure" },
+        { label: "RSS feed", href: "/rss.xml" },
       ],
     },
   ],

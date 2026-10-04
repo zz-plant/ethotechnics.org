@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "policy_id": "POL-FRAUD-HOLD-3.2",
+  "version": "3.2.0",
+  "title": "Suspected account takeover: temporary hold rules",
+  "provenance": {
+    "author": "Fraud Policy Committee",
+    "adopted_at": "2026-02-15T00:00:00Z",
+    "evidence_refs": ["EVID-BACKTEST-2025Q4", "EVID-INCIDENT-REVIEW-2025-11"]
+  },
+  "assumptions": [
+    "Account-takeover attempts present the same velocity signature as in the Q4 2025 backtest.",
+    "A temporary hold is reversible within the remedy clock without loss to the customer.",
+    "Vulnerable-account flags are maintained by the Customer Care desk within 24 hours."
+  ],
+  "review_triggers": [
+    {
+      "trigger_id": "TRG-FPR-30D",
+      "kind": "evidence_threshold",
+      "condition": "false_positive_hold_rate_30d > 0.02",
+      "action": "review_required"
+    },
+    {
+      "trigger_id": "TRG-ELAPSED-180D",
+      "kind": "elapsed_time",
+      "condition": "180 days since adopted_at without re-adoption",
+      "action": "review_required"
+    },
+    {
+      "trigger_id": "TRG-INCIDENT-VULN",
+      "kind": "incident_class",
+      "condition": "any hold placed on an account flagged vulnerable",
+      "action": "suspend"
+    },
+    {
+      "trigger_id": "TRG-DEP-EXPOSURE",
+      "kind": "dependency_threshold",
+      "condition": "dependency exposure_score > 5000",
+      "action": "review_required"
+    },
+    {
+      "trigger_id": "TRG-CHALLENGES-30D",
+      "kind": "challenge_volume",
+      "condition": "more than 5 challenges decided against the system in 30 days",
+      "action": "suspend"
+    }
+  ],
+  "expires_at": "2027-02-15T00:00:00Z",
+  "status": "active",
+  "supersedes": "POL-FRAUD-HOLD-3.1"
+}

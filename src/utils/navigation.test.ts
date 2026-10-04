@@ -11,9 +11,11 @@ import {
 
 describe("normalizePath", () => {
   it("strips query and hash fragments", () => {
-    expect(normalizePath("/tools/burden-budget-worksheet/?mode=print#overview")).toBe(
-      "/tools/burden-budget-worksheet",
-    );
+    expect(
+      normalizePath(
+        "/diagnostics/burden-budget-worksheet/?mode=print#overview",
+      ),
+    ).toBe("/diagnostics/burden-budget-worksheet");
   });
 
   it("falls back to root for hash-only URLs", () => {
@@ -23,9 +25,7 @@ describe("normalizePath", () => {
 
 describe("isCurrentLink", () => {
   it("treats canonical paths as current even when URL has query params", () => {
-    expect(isCurrentLink("/start-here/", "/start-here?ref=navigation")).toBe(
-      true,
-    );
+    expect(isCurrentLink("/start/", "/start?ref=navigation")).toBe(true);
   });
 
   it("does not treat same-page hash links as separate pages", () => {
@@ -46,12 +46,42 @@ describe("getAriaCurrent", () => {
     expect(getAriaCurrent("/#failure-intake", "/", "#failure-intake")).toBe(
       "location",
     );
-    expect(getAriaCurrent("/#failure-intake", "/", "#standards")).toBeUndefined();
+    expect(
+      getAriaCurrent("/#failure-intake", "/", "#standards"),
+    ).toBeUndefined();
   });
 
   it("does not return a current state for homepage hash links on other routes", () => {
     expect(
       getAriaCurrent("/#failure-intake", "/diagnostics", "#failure-intake"),
+    ).toBeUndefined();
+  });
+
+  it("supports section matching for child routes when matchSection is true", () => {
+    expect(
+      getAriaCurrent(
+        "/standards",
+        "/standards/std-01-temporal-rights",
+        "",
+        true,
+      ),
+    ).toBe("true");
+    expect(
+      getAriaCurrent(
+        "/standards",
+        "/standards/std-01-temporal-rights",
+        "",
+        false,
+      ),
+    ).toBeUndefined();
+    expect(
+      getAriaCurrent("/diagnostics", "/diagnostics/delegation-audit", "", true),
+    ).toBe("true");
+    expect(getAriaCurrent("/diagnostics", "/diagnostics", "", true)).toBe(
+      "page",
+    );
+    expect(
+      getAriaCurrent("/", "/standards/std-01-temporal-rights", "", true),
     ).toBeUndefined();
   });
 });

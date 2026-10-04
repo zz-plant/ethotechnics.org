@@ -1,4 +1,4 @@
-import type { AnchorLink, PageWithPermalink, PanelCopy } from "./types";
+import type { AnchorLink, PageWithPermalink } from "./types";
 
 export type ValidatorEntry = {
   id: string;
@@ -47,7 +47,6 @@ export type ValidatorOutputSchema = {
 
 export type ValidatorsContent = PageWithPermalink & {
   anchorLinks: AnchorLink[];
-  panelCopy: PanelCopy;
   validators: ValidatorEntry[];
   method: ValidatorMethod;
 };
@@ -55,25 +54,19 @@ export type ValidatorsContent = PageWithPermalink & {
 export const validatorsContent: ValidatorsContent = {
   pageTitle: "Validators — Ethotechnics Institute",
   pageDescription:
-    "Interactive validators that score systems against Ethotechnics standards.",
+    "Three forms that score a user journey against STD-01, the temporal rights standard, and return a red, yellow, or green status, the clauses at risk, and a fix.",
   permalink: "/validators",
   anchorLinks: [
     { href: "#focus", label: "Browse by focus" },
     { href: "#tools", label: "Validator tools" },
     { href: "#method", label: "Method" },
   ],
-  panelCopy: {
-    eyebrow: "Outputs",
-    title: "Report-card ready",
-    description:
-      "Every validator produces a score, a risk statement, and a mechanism to remediate gaps.",
-  },
   validators: [
     {
       id: "VAL-01",
       title: "Burden Modeler",
       description:
-        "Score time tax and constructive denial risk across user journeys.",
+        "Scores how much time a user journey takes from people, and whether it is hard enough to amount to a denial of service, from its duration, its step count, and whether every screen has an exit.",
       slug: "burden-modeler",
       standardRef: "STD-01",
       inputs: [
@@ -177,7 +170,7 @@ export const validatorsContent: ValidatorsContent = {
       id: "VAL-02",
       title: "Risk Radar",
       description:
-        "Surface cumulative exposure across high-friction touchpoints.",
+        "Scores the friction a journey adds up to, from the number of hard steps, the average wait, and whether each step can be appealed.",
       slug: "risk-radar",
       standardRef: "STD-01",
       inputs: [
@@ -281,7 +274,7 @@ export const validatorsContent: ValidatorsContent = {
       id: "VAL-03",
       title: "Latency Audit",
       description:
-        "Validate bounded duration requirements against system latency.",
+        "Checks observed latency against the declared timeout and whether a human escalation path exists.",
       slug: "latency-audit",
       standardRef: "STD-01",
       inputs: [
@@ -385,11 +378,11 @@ export const validatorsContent: ValidatorsContent = {
   method: {
     title: "How validators score systems",
     description:
-      "Validators translate STD clauses into input fields, then surface a report card with an actionable mechanism for remediation.",
+      "Each validator turns STD-01 clauses into input fields. It returns a report card that names a mechanism to fix what it finds.",
     steps: [
-      "Collect minimal inputs from operators or QA teams.",
-      "Evaluate against published thresholds and temporal rights.",
-      "Generate a report card with a visible Red / Yellow / Green status.",
+      "Collect three inputs from the system's operators or QA team.",
+      "Compare the inputs with the published thresholds.",
+      "Generate a report card with a red, yellow, or green status.",
     ],
   },
 };

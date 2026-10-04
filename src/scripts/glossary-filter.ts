@@ -10,6 +10,11 @@ const initGlossaryFilter = () => {
   const emptyState = document.querySelector<HTMLElement>(
     ".glossary-index__empty",
   );
+  // Letter groups in the A–Z index. A group with no visible term hides so
+  // its heading does not sit over an empty column.
+  const letterGroups = Array.from(
+    document.querySelectorAll<HTMLElement>("[data-glossary-group]"),
+  );
   const count = document.querySelector<HTMLElement>(".glossary-filter__count");
   const clearButton = document.querySelector<HTMLButtonElement>(
     "[data-clear-filter]",
@@ -165,8 +170,7 @@ const initGlossaryFilter = () => {
       selections.measurability.length === 0 ||
       selections.measurability.includes(item.measurability);
     const matchesStatus =
-      selections.status.length === 0 ||
-      selections.status.includes(item.status);
+      selections.status.length === 0 || selections.status.includes(item.status);
 
     return (
       matchesQuery &&
@@ -178,10 +182,8 @@ const initGlossaryFilter = () => {
     );
   };
 
-  const countMatches = (
-    query: string,
-    selections: FacetSelections,
-  ) => indexedItems.filter((item) => matchesItem(item, query, selections)).length;
+  const countMatches = (query: string, selections: FacetSelections) =>
+    indexedItems.filter((item) => matchesItem(item, query, selections)).length;
 
   const setSectionsOpen = (isOpen: boolean) => {
     chunkedSections.forEach((section) => {
@@ -211,6 +213,11 @@ const initGlossaryFilter = () => {
     });
 
     emptyState.hidden = visible > 0;
+    letterGroups.forEach((group) => {
+      group.hidden = !group.querySelector(
+        ".glossary-index__item:not(.is-hidden)",
+      );
+    });
     const querySuffix = rawQuery ? ` for “${rawQuery}”` : "";
     const letterSuffix = activeLetter !== "all" ? ` · ${activeLetter}` : "";
     const facetLabels = facetKeys.flatMap((key) => getFacetLabels(key));
@@ -302,14 +309,11 @@ const initGlossaryFilter = () => {
   const getUrlState = () => {
     const params = new URLSearchParams(window.location.search);
     const query = params.get(QUERY_PARAM_KEY)?.trim() ?? "";
-    const selections = facetKeys.reduce(
-      (acc, key) => {
-        const values = params.get(key)?.split(",").filter(Boolean) ?? [];
-        acc[key] = values;
-        return acc;
-      },
-      {} as FacetSelections,
-    );
+    const selections = facetKeys.reduce((acc, key) => {
+      const values = params.get(key)?.split(",").filter(Boolean) ?? [];
+      acc[key] = values;
+      return acc;
+    }, {} as FacetSelections);
 
     return {
       query,
@@ -391,7 +395,7 @@ const initGlossaryFilter = () => {
       return;
     }
     const button = target.closest<HTMLButtonElement>(
-      "[data-glossary-remove]",
+      "[data-glossary-remove], [data-glossary-letter-clear]",
     );
     if (!button) {
       return;

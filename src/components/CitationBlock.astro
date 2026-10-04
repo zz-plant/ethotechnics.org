@@ -1,6 +1,5 @@
 ---
 import type { PublicationMetadata } from "../content/types";
-import citationCopyScript from "../scripts/citation-copy.ts?url";
 
 type Props = {
   title: string;
@@ -113,11 +112,13 @@ const ris = risLines.join("\n");
           </a>
         )
       }
-      {hasDoi && (
-        <a class="muted small" href={doiHref}>
-          Open DOI
-        </a>
-      )}
+      {
+        hasDoi && (
+          <a class="muted small" href={doiHref}>
+            Open DOI
+          </a>
+        )
+      }
     </div>
   </div>
   {
@@ -145,7 +146,11 @@ const ris = risLines.join("\n");
             </div>
             <div>
               <p class="muted small">DOI</p>
-              {hasDoi ? <a href={doiHref}>{doi}</a> : <p>{doi ?? "Not yet minted"}</p>}
+              {hasDoi ? (
+                <a href={doiHref}>{doi}</a>
+              ) : (
+                <p>{doi ?? "Not yet minted"}</p>
+              )}
             </div>
           </div>
           <div class="citation-block__formats">
@@ -216,4 +221,6 @@ const ris = risLines.join("\n");
   }
 </div>
 
-<script type="module" src={citationCopyScript} is:inline></script>
+<script>
+  import "../scripts/citation-copy.ts";
+</script>

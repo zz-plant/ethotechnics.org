@@ -1,5 +1,25 @@
 ---
+import "../styles/components/intake-form.css";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Logo from "../components/Logo.astro";
+import ClaimsTable from "../components/ClaimsTable.astro";
+import IntellectualLineage from "../components/IntellectualLineage.astro";
+import AdversariesTable from "../components/positioning/AdversariesTable.astro";
+import CompletionsTable from "../components/positioning/CompletionsTable.astro";
+import InstrumentsTable from "../components/positioning/InstrumentsTable.astro";
+import { cases, type LearningVerdict } from "../content/casebook";
+import { studio, studioSummary } from "../content/studio";
+
+// The contribution section states how the casebook's institutions responded,
+// so the tally comes from the cases and moves when a case is added.
+const learning: Record<LearningVerdict, number> = {
+  learned: 0,
+  partial: 0,
+  absorbed: 0,
+};
+for (const entry of cases) {
+  learning[entry.learningOutcome.verdict] += 1;
+}
 ---
 
 <BaseLayout
@@ -7,19 +27,327 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   description="What the Ethotechnics framework is, where it comes from, and how the open Institute and Studio practice fit together."
   publishedTime="2026-05-26T00:00:00.000Z"
 >
-  <section class="stack-lg">
-    <p class="eyebrow">About the framework</p>
-    <h1>Ethotechnics: governance and care infrastructure for high-stakes systems</h1>
-    <p class="section-lead">
-      Ethotechnics is a framework for designing, evaluating, and governing high-stakes
-      socio-technical systems with explicit accountability, burden management, and
-      care-infrastructure commitments.
+  <section class="about-hero stack-lg">
+    <div class="about-hero__layout">
+      <div class="about-hero__main stack-md">
+        <p class="eyebrow">About the framework</p>
+        <h1>
+          An engineering discipline for keeping automated decisions answerable
+        </h1>
+        <p class="section-lead">
+          Institutions absorb the evidence that their automated systems are
+          wrong. A worker quietly fixes the error. An appeal settles one case.
+          The rule never changes. Ethotechnics names that mechanism, scores it
+          in public cases, and specifies the records that carry the evidence
+          back to the rule in any institution that adopts them.
+        </p>
+        <p class="section-lead">
+          Where a dashboard reports accuracy or efficiency as a property of the
+          system, the casebook and the standards show it as a distribution among
+          people: who carries the errors, who holds the authority, and who can
+          make the institution respond.
+        </p>
+        <p class="muted">
+          The formal definition: keeping capability, authority, evidence,
+          dependency, standing, and correction coupled tightly enough that
+          increasing machine agency does not silently become unreviewable
+          institutional power. Those six are the safeguards the casebook scores.
+          The framework is written by <strong
+            ><a href="https://kanav.net">Kanav Jain</a></strong
+          > as part of the <a href="https://kanav.net/research/"
+            >institutional error-accounting research program</a
+          >, drawing upon the qualitative diagnostics developed across <a
+            href="https://thecrumple.zone">The Crumple Zone</a
+          >, and published openly as standards, a glossary, and diagnostics.
+        </p>
+      </div>
+      <div class="about-hero__flourish" aria-hidden="true">
+        <Logo class="about-hero__logo" />
+      </div>
+    </div>
+  </section>
+
+  <section id="scholars" class="stack-sm card">
+    <p class="eyebrow">Nine pairings</p>
+    <h2>Shared values, new instruments</h2>
+    <p>
+      The neighboring fields already hold the commitments: contestability,
+      meaningful control, oversight, resilience. What they lack is failure
+      mechanics — a way to state when each value decays, what to measure, and
+      who would have to act.
     </p>
     <p>
-      The framework is authored by <strong>Kanav Jain</strong>, and developed through
-      standards writing, glossary curation, field diagnostics, and implementation-oriented
-      research.
+      Each pairing below names one scholar's concept and the instrument on this
+      site that measures it. The traditions stay theirs; the instruments are
+      what the values were missing.
     </p>
+    <InstrumentsTable />
+    <p class="small muted">
+      Six of the instruments have worked versions — the hospital power audit,
+      the corrigibility ladder, the oversight decay test, the role-decomposition
+      matrix, the reserve accounting balance sheet, and the
+      compensated-performance equation — on the{" "}
+      <a href="/research/scholarly-crossings">scholarly crossings</a> page.
+    </p>
+  </section>
+
+  <section id="divergence" class="stack-sm card">
+    <p class="eyebrow">Eight completions</p>
+    <h2>Different mechanisms, one question</h2>
+    <p>
+      Some of the strongest arguments against new governance prefer an existing
+      mechanism: markets, user exit, open models, benefit-cost analysis,
+      industry self-regulation, application-layer rules, institutional
+      adaptation, or management-based regulation.
+    </p>
+    <p>
+      This framework does not replace any of them. It adds one question each
+      mechanism's own theory does not ask: does this mechanism continue to hold
+      effective corrective power after the system has been successful for ten
+      years? The condition matters. Prolonged success changes the mechanism —
+      dependency accumulates, exit narrows, the handler's practice decays — so a
+      mechanism that corrects in year one can be nominal by year ten.
+    </p>
+    <CompletionsTable />
+    <p class="small muted">
+      None of these additions asks anyone to give up the mechanism. Each one
+      names the record that shows whether the mechanism still works.
+    </p>
+  </section>
+
+  <section id="disagreement" class="stack-sm card">
+    <p class="eyebrow">Five counterpositions</p>
+    <h2>The real disagreement</h2>
+    <p>
+      The serious opponent of this framework does not defend unaccountable
+      power. The serious opponent holds that competition, exit, reputation, tort
+      liability, sectoral regulation, and ordinary democratic institutions
+      already provide sufficient correction.
+    </p>
+    <p>
+      If that is right, this framework is overhead. Its case rests on there
+      being identifiable, measurable circumstances in which those mechanisms
+      stop providing effective correction as technological dependency grows.
+      Each position below is stated so its holders would accept it, and each row
+      names the empirical question that would settle it.
+    </p>
+    <AdversariesTable />
+    <p class="small muted">
+      The disagreements are empirical, not aesthetic. The{" "}
+      <a href="/research/scholarly-crossings#disagreement"
+        >scholarly crossings</a
+      > note develops each position.
+    </p>
+  </section>
+
+  <section id="claims" class="stack-sm card">
+    <p class="eyebrow">What it tests, and what it leaves open</p>
+    <h2>From a complaint to a record an institution can breach</h2>
+    <p>
+      Concerns about an automated system often start with the people it decides
+      about and the staff who clean up after it. They arrive as complaints, and
+      an institution is free to treat a complaint as an anecdote. The standards
+      restate each one as a record with an owner and a clock. A nurse's "we're
+      constantly rescuing this system" becomes a measured count of the
+      correction staff absorb. A claimant's "nobody listens when it gets me
+      wrong" becomes standing: a challenge that must be received, answered by a
+      date, and able to change the decision.
+    </p>
+    <p>The same records test what an institution says about itself:</p>
+    <ClaimsTable />
+    <p>
+      The restatement has a limit. It can turn "I am bearing this error" into
+      standing against a decision. It cannot settle "why should this institution
+      hold this power over me at all." An election can authorize a program; it
+      does not give the person the program decides about a way to contest that
+      decision. The standards force a named decision. They do not make it, and
+      the choices built into them, such as who receives standing and how short a
+      clock is, carry values of their own.
+    </p>
+    <p>
+      The method leaves the question of who should hold power out on purpose, so
+      that people who disagree about the answer can demand the same records. The
+      theory takes it up in
+      <a href="/research/theory/deliberate-non-use">deliberate non-use</a>,
+      <a href="/research/theory/democratic-vs-coercive-governability"
+        >democratic vs. coercive governability</a
+      >, and
+      <a href="/research/theory/the-compulsion-problem"
+        >the compulsion problem</a
+      >.
+    </p>
+  </section>
+
+  <section class="stack-sm card">
+    <p class="eyebrow">What it is for</p>
+    <h2>Relying on a system without being ruled by it</h2>
+    <p>
+      Institutions already rely on things they cannot fully inspect: colleagues,
+      suppliers, instruments, the last shift's notes. That reliance is what
+      makes an institution more than one person, and nothing here argues against
+      it. What the framework is for is keeping reliance on a system from turning
+      into subordination to it, in either direction. The institution should be
+      able to depend on a system without losing the capacity to question,
+      narrow, or replace it. The people the system's decisions land on should be
+      able to depend on the institution without losing the standing to object
+      and be answered.
+    </p>
+    <p>
+      Every law on the site is a constraint that keeps one of those two
+      dependences from converting into command. Capability does not become
+      authority; a quiet year does not become renewal; a captive population does
+      not become a population that may be directed. The
+      <a href="/standards/laws">laws</a> state the constraints, the
+      <a href="/standards/core-axioms">axioms</a> state what they are owed to, and
+      the <a href="/research/theory">theory essays</a> say why. A reader can adopt
+      the constraints without the ideal. The ideal is what they add up to.
+    </p>
+    <p class="small muted">
+      The compact ambition: systems that can keep becoming more capable without
+      becoming more entitled to rule.
+    </p>
+  </section>
+
+  <section class="stack-sm card">
+    <p class="eyebrow">The underlying project</p>
+    <h2>
+      Power that stays correctable, because every institution gets things wrong
+    </h2>
+    <p>
+      Strip the technology away and the underlying claim concerns the
+      relationship among knowledge, power, dependence, burden, and correction.
+      The question it answers: what kinds of power does a technical system
+      create, who bears its failures, and what prevents that power from becoming
+      final? The chain behind it is short. Institutions must represent reality
+      to act. Representation is necessarily incomplete. Incompleteness creates
+      residual burdens. Those burdens are distributed politically. Power becomes
+      dominating when it externalizes them while insulating itself from
+      correction.
+    </p>
+    <p>
+      Domination, in this frame, is power insulated from{" "}
+      <a href="/glossary/consequential-contradiction"
+        >consequential contradiction</a
+      >: the institution defines the relevant reality, acts on its definition,
+      pushes the residual downward, controls what counts as evidence against
+      itself, and cannot be forced to revise by those it gets wrong. The
+      epistemology is fallibilist rather than skeptical: knowledge stays
+      defeasible because <a href="/glossary/excluded-case">the excluded case</a> is
+      potentially evidence about the category, and that fallibilism is material —
+      a system is not meaningfully open to correction if the people who know it is
+      wrong must destroy themselves to prove it.
+    </p>
+    <p>
+      No arrangement is innocent by design: markets, states, democratic
+      majorities, expertise, participation, and emancipatory goals all face the
+      same permanent question — whatever arrangement you favor, what happens
+      when it gets someone wrong? The five concerns of the design discipline
+      follow from that, and each is a working part of this site: jurisdiction (<a
+        href="/glossary/non-conversion-principle"
+        >what the institution may decide at all</a
+      >), representation (<a href="/glossary/safe-incompleteness"
+        >what it models and how that can be contested</a
+      >), residual custody (<a href="/glossary/error-bearing-party"
+        >who carries what it cannot represent</a
+      >), corrigibility (<a href="/glossary/exception-learning"
+        >whether error travels back into the rule</a
+      >), and non-finality (<a href="/glossary/non-finality"
+        >whether its decisions stay reopenable</a
+      >).
+    </p>
+    <p class="small muted">
+      The compact form of the whole project: how can institutions be powerful
+      enough to act without becoming powerful enough to define away the evidence
+      that they are wrong?
+    </p>
+  </section>
+
+  <section id="lineage" class="stack-sm card">
+    <p class="eyebrow">Intellectual lineage and distinctive contribution</p>
+    <h2>Where the argument comes from, and where it departs</h2>
+    <IntellectualLineage />
+    <p>
+      Its departure is the instrument. The claim becomes obligations a running
+      system can fail, records an auditor can read, and public cases scored
+      against both:
+    </p>
+    <ul>
+      <li>
+        <strong>Obligations with clause numbers:</strong> a grant that expires unless
+        renewed on evidence stated in advance (STD-08 §1.1); a widening of scope that
+        needs its own authorization (STD-08 §1.3); an objection that owes a revision
+        or a reasoned refusal on a clock (STD-07 §4.2); a published measure of the
+        time a system costs people (STD-01 §7.1); and standing for whoever absorbs
+        its errors (STD-02 §8.4).
+      </li>
+      <li>
+        <strong>Records:</strong> the
+        <a href="/standards/std-07-revisable-delegation-record"
+          >revisable delegation record</a
+        > and the
+        <a href="/standards/authority-grant.schema.json"
+          >authority grant schema</a
+        >, so a reader can check whether each obligation was met.
+      </li>
+      <li>
+        <strong>Public cases:</strong> the <a href="/casebook">casebook</a> scores
+        {cases.length} failures on the six safeguards and on what the institution
+        did afterward: {learning.absorbed} left the process unchanged, {
+          learning.partial
+        } partly changed it, and {learning.learned} changed the rules.
+      </li>
+    </ul>
+    <p class="small muted">
+      In short: the underlying political theory establishes why human endurance
+      does not legitimate an institutional arrangement; the engineering method
+      proposes ways to measure and prevent the mechanisms through which
+      institutions become parasitically dependent on that endurance while
+      reporting success.
+    </p>
+    <p class="small muted">
+      The qualitative phenomenology behind these failure modes is developed
+      across <a href="https://thecrumple.zone">The Crumple Zone</a>; the formal
+      research program on burden accounting and performance decomposition is
+      hosted at <a href="https://kanav.net/research/">kanav.net/research/</a>.
+    </p>
+  </section>
+
+  <section class="stack-sm card">
+    <p class="eyebrow">Foundations</p>
+    <h2>Start with these resources</h2>
+    <ul>
+      <li>
+        <a href="/use-cases">Which systems this is for</a>, by what the system
+        decides, with the standards and first check for each.
+      </li>
+      <li>
+        <a href="/casebook">Casebook</a> for five public failures scored on six safeguards.
+      </li>
+      <li><a href="/glossary">Glossary</a> for terms and definitions.</li>
+      <li>
+        <a href="/mechanisms">Mechanisms catalog</a> for decision logs, escalation
+        patterns, and reversibility tools.
+      </li>
+      <li>
+        <a href="/diagnostics">Diagnostics</a> for interactive tools you run on your
+        own workflow.
+      </li>
+      <li>
+        <a href="/standards">Standards</a> for versioned requirements you can cite
+        in policy, contracts, and audits.
+      </li>
+      <li>
+        <a href="/evals">Eval suites</a> for governance benchmarks and their test
+        cases.
+      </li>
+      <li>
+        <a href="/field-notes">Field notes</a> for dated notes on outside changes
+        that bear on the standards.
+      </li>
+      <li>
+        <a href="/start">Start here</a> for a path chosen by your role.
+      </li>
+    </ul>
   </section>
 
   <section class="stack-sm card">
@@ -27,33 +355,22 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <h2>How the Institute and Studio fit together</h2>
     <p>
       <strong>Ethotechnics Institute</strong> is the public, open-access commons:
-      standards, ontology, glossary, diagnostics, and field notes are free to use,
-      cite, and extend.
+      standards, glossary, diagnostics, and field notes are free to use, cite, and
+      extend.
     </p>
     <p>
-      <strong>Ethotechnics Studio</strong> provides clinical AI safety
-      evaluations, VC diligence, and governance advisory through commissioned
-      engagements. The Institute publishes the open framework; the Studio
-      applies it to specific systems and organizations.
+      {studioSummary} The Institute publishes the open framework; the Studio applies
+      it to specific systems, for {studio.clients}.
     </p>
     <p>
-      <a href="https://ethotechnics.com/studio/" rel="noopener noreferrer" target="_blank">
+      <a
+        href="https://ethotechnics.com"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
         Visit Ethotechnics Studio →
       </a>
     </p>
-  </section>
-
-  <section class="stack-sm card">
-    <p class="eyebrow">Foundations</p>
-    <h2>Start with these core resources</h2>
-    <ul>
-      <li><a href="/glossary">Glossary</a> for core terms and definitions.</li>
-      <li><a href="/mechanisms">Mechanisms catalog</a> for decision logs, escalation patterns, and reversibility tools.</li>
-      <li><a href="/diagnostics">Diagnostics</a> for interactive self-serve tools.</li>
-      <li><a href="/standards">Standards</a> for formal, versioned control definitions.</li>
-      <li><a href="/field-notes">Field notes</a> for applied essays and observations.</li>
-      <li><a href="/quick-start">Quick start guides</a> for role-specific entry paths.</li>
-    </ul>
   </section>
 
   <section class="stack-sm card">
@@ -61,17 +378,64 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <h2>How to cite Ethotechnics</h2>
     <p>
       Ethotechnics Institute materials are published under
-      <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener noreferrer" target="_blank">
-        CC BY 4.0
-      </a>.
-      To cite the framework:
+      <a
+        href="https://creativecommons.org/licenses/by-sa/4.0/"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        CC BY-SA 4.0
+      </a>. To cite the framework:
     </p>
     <blockquote>
-      Jain, K. (2025). <em>Ethotechnics: A governance and care-infrastructure framework for high-stakes systems.</em>
+      Jain, K. (2026). <em
+        >Ethotechnics: An open framework for the operational accountability of
+        high-stakes automated systems.</em
+      >
       Ethotechnics Institute. https://ethotechnics.org
     </blockquote>
     <p class="small muted">
-      Individual glossary entries and patterns include their own citation metadata.
+      Individual glossary entries and patterns include their own citation
+      metadata.
     </p>
   </section>
 </BaseLayout>
+
+<style>
+  .about-hero {
+    padding-bottom: var(--space-5);
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  }
+
+  .about-hero__layout {
+    display: grid;
+    gap: var(--space-6);
+    align-items: center;
+  }
+
+  @media (min-width: 800px) {
+    .about-hero__layout {
+      grid-template-columns: 1fr auto;
+      gap: var(--space-8);
+    }
+  }
+
+  .about-hero__main {
+    min-width: 0;
+  }
+
+  .about-hero__flourish {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .about-hero__logo {
+    width: clamp(90px, 14vw, 150px);
+    height: clamp(90px, 14vw, 150px);
+    color: var(--accent);
+    opacity: 0.85;
+    filter: drop-shadow(
+      0 4px 16px color-mix(in srgb, var(--accent) 15%, transparent)
+    );
+  }
+</style>

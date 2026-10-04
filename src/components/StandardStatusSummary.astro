@@ -15,36 +15,53 @@ if (!standard) {
 const statusClass = standard.status.toLowerCase();
 ---
 
-<aside class="standard-status panel stack-sm" aria-label="Standard publication status">
+<aside
+  class="standard-status panel stack-sm"
+  aria-label="Standard publication status"
+>
   <p class="eyebrow">Publication status</p>
   <p class="standard-status__headline">
-    <span class={`status-badge status-badge--${statusClass}`}>{standard.status}</span>
+    <span class={`status-badge status-badge--${statusClass}`}
+      >{standard.status}</span
+    >
     <span class="muted">{standard.id} · v{standard.version}</span>
   </p>
   <p class="muted small">Effective: {standard.effectiveDate}</p>
   <p class="muted small">Stable criteria: {standard.stableCriteria}</p>
-  {standard.changelogEntries && standard.changelogEntries.length > 0 && (
-    <ul class="muted small standard-status__changelog">
-      {standard.changelogEntries.map((entry) => (
-        <li>
-          {entry.href ? <a href={entry.href}>v{entry.version}</a> : `v${entry.version}`} ({entry.date}): {entry.summary}
-        </li>
-      ))}
-    </ul>
-  )}
-  {standard.changelogHref && (
-    <p class="small"><a href={standard.changelogHref}>View changelog</a></p>
-  )}
-  {standard.deprecatedBy && standard.deprecatedBy.length > 0 && (
-    <p class="muted small">
-      Deprecated by:{" "}
-      {standard.deprecatedBy.map((replacement, index) => (
-        <Fragment>
-          {index > 0 && ", "}
-          <a href={`/standards/${replacement.slug}`}>{replacement.id}</a>
-        </Fragment>
-      ))}
-    </p>
-  )}
+  {
+    standard.changelogEntries && standard.changelogEntries.length > 0 && (
+      <ul class="muted small standard-status__changelog">
+        {standard.changelogEntries.map((entry) => (
+          <li>
+            {entry.href ? (
+              <a href={entry.href}>v{entry.version}</a>
+            ) : (
+              `v${entry.version}`
+            )}{" "}
+            ({entry.date}): {entry.summary}
+          </li>
+        ))}
+      </ul>
+    )
+  }
+  {
+    standard.changelogHref && (
+      <p class="small">
+        <a href={standard.changelogHref}>View changelog</a>
+      </p>
+    )
+  }
+  {
+    standard.deprecatedBy && standard.deprecatedBy.length > 0 && (
+      <p class="muted small">
+        Deprecated by:{" "}
+        {standard.deprecatedBy.map((replacement, index) => (
+          <Fragment>
+            {index > 0 && ", "}
+            <a href={`/standards/${replacement.slug}`}>{replacement.id}</a>
+          </Fragment>
+        ))}
+      </p>
+    )
+  }
 </aside>
-

@@ -44,7 +44,6 @@ const legacyResolveTemplate = (
   if (path.startsWith("/glossary")) return "glossary";
   if (
     path.startsWith("/taxonomy") ||
-    path.startsWith("/governance") ||
     path.startsWith("/delivery") ||
     path.startsWith("/assurance") ||
     path.startsWith("/experience")

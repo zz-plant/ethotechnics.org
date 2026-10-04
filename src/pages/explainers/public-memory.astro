@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import NextStep from "../../components/NextStep.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import PageIntro from "../../components/PageIntro.astro";
@@ -8,8 +9,7 @@ import SummaryCallout from "../../components/SummaryCallout.astro";
 
 const pageTitle = "Public memory for contestability terms";
 const pageDescription =
-  "A living record of how accountability language shifts so teams can cite stable definitions and avoid drift.";
-const permalink = "/explainers/public-memory";
+  "A dated log of how terms like trustworthy AI and responsible AI drifted from commitments into labels, with stable definitions to cite instead.";
 
 const anchorLinks = [
   { href: "#purpose", label: "Why this matters" },
@@ -32,16 +32,16 @@ const timelineEntries = [
     title: "Responsible AI consolidates around vendor playbooks.",
     summary:
       "Industry guidance emphasizes responsible AI toolkits, but often omits binding ownership and appeal guarantees. The language shifts from shared obligations to internal process checklists.",
-    sourceLabel: "Google Responsible AI practices",
-    sourceHref: "https://ai.google/responsibility/",
+    sourceLabel: "Google responsible AI practices",
+    sourceHref: "https://ai.google/responsibility/responsible-ai-practices/",
   },
   {
     period: "2022",
     title: "Rights framing enters public policy.",
     summary:
       "The White House AI Bill of Rights centers notice, explanation, and human alternatives, yet enforcement remains discretionary. The term “rights” is used while review clocks and escalation authority stay vague.",
-    sourceLabel: "Blueprint for an AI Bill of Rights",
-    sourceHref: "https://www.whitehouse.gov/ostp/ai-bill-of-rights/",
+    sourceLabel: "Blueprint for an AI Bill of Rights (White House archive)",
+    sourceHref: "https://bidenwhitehouse.archives.gov/ostp/ai-bill-of-rights/",
   },
   {
     period: "2023",
@@ -71,7 +71,7 @@ const definitionCards = [
   {
     title: "Explainability for accountability",
     description:
-      "Actionable explanations that name decision owners, evidence, and correction paths.",
+      "Explanations that name the decision owner, the evidence, and the correction path.",
     href: "/glossary/explainability-for-accountability",
   },
   {
@@ -83,7 +83,7 @@ const definitionCards = [
   {
     title: "Time transparency",
     description:
-      "Clear, legible process state with clocks, blockers, and escalation triggers.",
+      "A process state the affected person can read, with its clocks, blockers, and escalation triggers.",
     href: "/glossary/time-transparency",
   },
   {
@@ -101,57 +101,61 @@ const usageSteps = [
 ];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title="Public memory: how AI governance terms drifted, 2019–2024"
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Explainer"
     title={pageTitle}
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={anchorLinks}
-    panelCopy={{
-      eyebrow: "Glossary anchors",
-      title: "Cite the stable definitions",
-      description:
-        "Use glossary permalinks to lock in meaning when accountability language starts to drift.",
-      link: {
-        label: "Open the glossary",
-        href: "/glossary",
-      },
-    }}
   />
 
   <SummaryCallout
     title="Keep contestability language anchored"
-    description="This page tracks how governance terms shift over time so teams can keep requirements enforceable."
+    description="A log of when each governance term lost its enforcement mechanism, with a definition to cite in its place."
     takeaways={[
       "Document how popular terms drift into checklists without remedies.",
       "Use stable glossary anchors for contestability, accountability, and time transparency.",
       "Attach sources so policy language stays traceable to its origin.",
     ]}
     relatedLinks={[
-      { href: "/standards/std-02-contestability-recourse", label: "STD-02 contestability" },
-      { href: "/bindings", label: "Binding vectors" },
+      {
+        href: "/standards/std-02-contestability-recourse",
+        label: "STD-02 contestability",
+      },
       { href: "/evidence-packs", label: "Evidence packs" },
     ]}
-    jumpLinks={anchorLinks}
   />
 
   <SectionBlock
     id="purpose"
     eyebrow="Why this matters"
     title="Language drift hides accountability gaps"
-    description="When words evolve without evidence, accountability promises get weaker."
+    description="A term that loses its evidence requirement stops binding anyone."
   >
     <p>
-      Contestability terms travel through policy, procurement, and public narratives. When a term
-      like “responsible AI” becomes a label rather than a measurable commitment, people lose the
-      ability to demand remedies. This page preserves the original intent behind governance
-      language so it can be cited with precision.
+      Contestability terms travel through policy, procurement, and public
+      narratives. When a term like “responsible AI” becomes a label rather than
+      a measurable commitment, people lose the ability to demand remedies. This
+      page preserves the original intent behind governance language so it can be
+      cited with precision.
     </p>
     <ul class="muted">
-      <li>Terms must map to enforceable actions, not just internal checklists.</li>
-      <li>Stable definitions make audits, procurement, and public accountability easier.</li>
-      <li>Documenting drift keeps teams honest about what is actually delivered.</li>
+      <li>
+        Each term maps to an action someone can be held to, not to an internal
+        checklist.
+      </li>
+      <li>
+        Stable definitions make audits, procurement, and public accountability
+        easier.
+      </li>
+      <li>
+        A drift log records the gap between what a term promised and what was
+        delivered.
+      </li>
     </ul>
   </SectionBlock>
 
@@ -162,7 +166,10 @@ const usageSteps = [
     description="A snapshot of how accountability vocabulary has shifted across policy and practice."
     variant="alt"
   >
-    <ol class="standards-timeline" aria-label="Contestability language drift timeline">
+    <ol
+      class="standards-timeline"
+      aria-label="Contestability language drift timeline"
+    >
       {
         timelineEntries.map((entry) => (
           <li class="standards-timeline__item">
@@ -184,7 +191,7 @@ const usageSteps = [
     id="definitions"
     eyebrow="Stable definitions"
     title="Terms to cite verbatim"
-    description="Use glossary anchors so governance language stays enforceable."
+    description="Each links to a glossary anchor with a stable definition."
   >
     <CardGrid className="grid--two">
       {
@@ -203,25 +210,25 @@ const usageSteps = [
     id="usage"
     eyebrow="How to use"
     title="Turn memory into enforceable requirements"
-    description="Treat this page as a living appendix for briefs, audits, and public statements."
+    description="Cite this page as an appendix in briefs, audits, and public statements."
     variant="alt"
   >
     <ul class="muted">
-      {usageSteps.map((step) => (
-        <li>{step}</li>
-      ))}
+      {usageSteps.map((step) => <li>{step}</li>)}
     </ul>
     <div class="actions">
-      <a class="button primary" href="/glossary">
-        Open glossary anchors
-      </a>
+      <a class="button primary" href="/glossary"> Open glossary anchors </a>
       <a class="button ghost" href="/standards/std-02-contestability-recourse">
         Read STD-02
       </a>
     </div>
   </SectionBlock>
 
-  <p class="muted" style="margin-top:2rem">
-    See also: <a href="/taxonomy">Taxonomy</a> &middot; <a href="/standards">Standards</a> &middot; <a href="/examples">Examples</a>
+  <NextStep variable="evidence" />
+
+  <p class="muted" style="margin-top:var(--space-6)">
+    See also: <a href="/taxonomy">Taxonomy</a> &middot; <a href="/standards"
+      >Standards</a
+    > &middot; <a href="/examples">Examples</a>
   </p>
 </BaseLayout>

@@ -14,6 +14,14 @@ declare namespace App {
   interface Locals extends Runtime {}
 }
 
+interface Env {
+  NEWSLETTER_WEBHOOK_URL?: string;
+  NEWSLETTER_WEBHOOK_TOKEN?: string;
+  NEWSLETTER_RATE_LIMITER?: {
+    limit(options: { key: string }): Promise<{ success: boolean }>;
+  };
+}
+
 declare module "/pagefind/pagefind.js" {
   export function options(options: { excerptLength: number }): Promise<void>;
   export function search(query: string): Promise<{
@@ -28,6 +36,21 @@ declare module "/pagefind/pagefind.js" {
 }
 
 declare module "*.wasm?url" {
+  const url: string;
+  export default url;
+}
+
+/**
+ * Importing a `.wasm` file without `?url` yields a compiled module rather than
+ * a URL. Workers reject `WebAssembly.instantiate()` on bytes fetched at
+ * runtime, so anything that needs wasm has to import it this way.
+ */
+declare module "*.wasm" {
+  const wasmModule: WebAssembly.Module;
+  export default wasmModule;
+}
+
+declare module "*.ttf?url" {
   const url: string;
   export default url;
 }
