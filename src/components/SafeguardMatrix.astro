@@ -7,6 +7,8 @@
  * Maps each safeguard directly to its failure drift, governing laws,
  * core standards, casebook precedents, theory essays, and diagnostics.
  */
+import { methodContent } from "../content/method";
+import { standardsContent } from "../content/standards";
 import StateVariableGlyph from "./StateVariableGlyph.astro";
 import type { StateVariableGlyphId } from "./StateVariableGlyph.astro";
 
@@ -15,8 +17,8 @@ interface SafeguardRow {
   name: string;
   question: string;
   driftWarning: string;
-  laws: { numeral: string; statement: string; href: string }[];
-  standards: { id: string; name: string; href: string }[];
+  laws: string[];
+  standards: string[];
   precedents: { title: string; href: string; outcome: string }[];
   theory: { title: string; href: string; question: string }[];
   diagnostics: { name: string; href: string; purpose: string }[];
@@ -29,30 +31,8 @@ const matrix: SafeguardRow[] = [
     question: "What could the assembled system do?",
     driftWarning:
       "Capability outruns authority when models gain autonomous tools or wider reach without signed jurisdictional limits.",
-    laws: [
-      {
-        numeral: "Law I",
-        statement: "Capability does not imply authority.",
-        href: "/standards/laws#law-i",
-      },
-      {
-        numeral: "Law IV",
-        statement: "Capacity to inspect and revise must keep pace with agency.",
-        href: "/standards/laws#law-iv",
-      },
-    ],
-    standards: [
-      {
-        id: "STD-04",
-        name: "Operational Safety Boundaries",
-        href: "/standards/std-04-operational-safety-boundaries",
-      },
-      {
-        id: "STD-06",
-        name: "Human Impact Safety Case",
-        href: "/standards/std-06-human-impact-safety-case",
-      },
-    ],
+    laws: ["I", "IV"],
+    standards: ["STD-08", "STD-06"],
     precedents: [
       {
         title: "Ofqual 2020 Grades",
@@ -98,36 +78,8 @@ const matrix: SafeguardRow[] = [
     question: "Which actions was it permitted to take, for whom, until when?",
     driftWarning:
       "Authority outlives evidence when an expired delegation continues executing decisions after baseline population shifts.",
-    laws: [
-      {
-        numeral: "Law I",
-        statement: "Capability does not imply authority.",
-        href: "/standards/laws#law-i",
-      },
-      {
-        numeral: "Law II",
-        statement:
-          "Authority decays unless its justification is renewed on evidence.",
-        href: "/standards/laws#law-ii",
-      },
-      {
-        numeral: "Law III",
-        statement: "Evidence and authority must remain coupled.",
-        href: "/standards/laws#law-iii",
-      },
-    ],
-    standards: [
-      {
-        id: "STD-08",
-        name: "Delegation & Authority Leases",
-        href: "/standards/std-08-delegation",
-      },
-      {
-        id: "STD-05",
-        name: "Jurisdictional Scope",
-        href: "/standards/std-05-jurisdictional-scope",
-      },
-    ],
+    laws: ["I", "II", "III"],
+    standards: ["STD-08", "STD-07"],
     precedents: [
       {
         title: "Robodebt",
@@ -160,7 +112,8 @@ const matrix: SafeguardRow[] = [
       {
         name: "Delegation Audit",
         href: "/diagnostics/delegation-audit",
-        purpose: "Verifies whether an active, bounded authority lease exists.",
+        purpose:
+          "Checks entered answers about delegation scope, evidence, and expiry.",
       },
       {
         name: "Authority Lease Schema",
@@ -176,35 +129,8 @@ const matrix: SafeguardRow[] = [
     question: "What evidence justified that authority?",
     driftWarning:
       "Policy detaches from reality when error metrics stay green only because frontline workers invisibly repair failures.",
-    laws: [
-      {
-        numeral: "Law II",
-        statement: "Authority decays unless renewed on evidence.",
-        href: "/standards/laws#law-ii",
-      },
-      {
-        numeral: "Law III",
-        statement: "Evidence and authority must remain coupled.",
-        href: "/standards/laws#law-iii",
-      },
-      {
-        numeral: "Law VI",
-        statement: "Evidence must be verifiable outside the system.",
-        href: "/standards/laws#law-vi",
-      },
-    ],
-    standards: [
-      {
-        id: "STD-07",
-        name: "Revisable Delegation Record",
-        href: "/standards/std-07-revisable-delegation-record",
-      },
-      {
-        id: "STD-03",
-        name: "Calibration & Drift Verification",
-        href: "/standards/std-03-calibration-drift-verification",
-      },
-    ],
+    laws: ["II", "III", "VI"],
+    standards: ["STD-07", "STD-03"],
     precedents: [
       {
         title: "Post Office Horizon",
@@ -238,7 +164,7 @@ const matrix: SafeguardRow[] = [
         name: "Record Conformance Validator",
         href: "/diagnostics/record-conformance",
         purpose:
-          "Tests tamper-evident Merkle logs against STD-07 requirements.",
+          "Checks uploaded records and hash-chain consistency against STD-07 requirements.",
       },
       {
         name: "Corrective Learning Eval",
@@ -254,35 +180,8 @@ const matrix: SafeguardRow[] = [
     question: "How hard had withdrawal or substitution become?",
     driftWarning:
       "Dependence outruns correction when manual fallback skills atrophy, making automated shutdown an existential threat.",
-    laws: [
-      {
-        numeral: "Law V",
-        statement: "Dependence converts technical risk into structural risk.",
-        href: "/standards/laws#law-v",
-      },
-      {
-        numeral: "Law X",
-        statement: "Cost of exit determines standard of care.",
-        href: "/standards/laws#law-x",
-      },
-      {
-        numeral: "Law XI",
-        statement: "Unhedged dependence is uninsurable.",
-        href: "/standards/laws#law-xi",
-      },
-    ],
-    standards: [
-      {
-        id: "STD-01",
-        name: "Continuous Halt & Substitution",
-        href: "/standards/std-01-continuous-halt",
-      },
-      {
-        id: "STD-06",
-        name: "Human Impact Safety Case",
-        href: "/standards/std-06-human-impact-safety-case",
-      },
-    ],
+    laws: ["V", "X", "XI"],
+    standards: ["STD-01", "STD-06"],
     precedents: [
       {
         title: "Post Office Horizon",
@@ -333,36 +232,8 @@ const matrix: SafeguardRow[] = [
       "Who could challenge a decision, and did the challenge have to be answered?",
     driftWarning:
       "Exposure grows without standing when affected subjects bear the full burden of algorithmic errors with no procedural remedy.",
-    laws: [
-      {
-        numeral: "Law VII",
-        statement:
-          "Error-bearing parties require standing proportional to exposure.",
-        href: "/standards/laws#law-vii",
-      },
-      {
-        numeral: "Law VIII",
-        statement: "Observability without state transition is theater.",
-        href: "/standards/laws#law-viii",
-      },
-      {
-        numeral: "Law IX",
-        statement: "Challenge is epistemic feedback.",
-        href: "/standards/laws#law-ix",
-      },
-    ],
-    standards: [
-      {
-        id: "STD-02",
-        name: "Contestability & Recourse",
-        href: "/standards/std-02-contestability-recourse",
-      },
-      {
-        id: "MVC-01",
-        name: "Minimum Viable Contestability",
-        href: "/standards/mvc-01-minimum-viable-contestability",
-      },
-    ],
+    laws: ["VII", "VIII", "IX"],
+    standards: ["STD-02", "MVC-01"],
     precedents: [
       {
         title: "Robodebt",
@@ -396,7 +267,7 @@ const matrix: SafeguardRow[] = [
         name: "Self-Defense Checks",
         href: "/diagnostics/self-defense-tools",
         purpose:
-          "Verifies whether a consequential decision provides legal standing and reasons.",
+          "Offers checks and templates for requesting reasons and challenging decisions.",
       },
       {
         name: "Burden Budget Worksheet",
@@ -412,40 +283,8 @@ const matrix: SafeguardRow[] = [
     question: "Which interventions were still possible, and how fast?",
     driftWarning:
       "Observability grows without control when operators detect anomalies on dashboards but lack authority to pause throughput or issue refunds.",
-    laws: [
-      {
-        numeral: "Law IV",
-        statement: "Capacity to inspect and revise must keep pace with agency.",
-        href: "/standards/laws#law-iv",
-      },
-      {
-        numeral: "Law VIII",
-        statement: "Observability without state transition is theater.",
-        href: "/standards/laws#law-viii",
-      },
-      {
-        numeral: "Law XII",
-        statement: "Harm must be compensable in the medium of loss.",
-        href: "/standards/laws#law-xii",
-      },
-    ],
-    standards: [
-      {
-        id: "STD-01",
-        name: "Continuous Halt & Substitution",
-        href: "/standards/std-01-continuous-halt",
-      },
-      {
-        id: "STD-02",
-        name: "Contestability & Restitution",
-        href: "/standards/std-02-contestability-recourse",
-      },
-      {
-        id: "STD-07",
-        name: "Revisable Delegation Record",
-        href: "/standards/std-07-revisable-delegation-record",
-      },
-    ],
+    laws: ["IV", "VIII", "XII"],
+    standards: ["STD-01", "STD-02", "STD-07"],
     precedents: [
       {
         title: "Toeslagenaffaire",
@@ -482,28 +321,42 @@ const matrix: SafeguardRow[] = [
           "Measures accumulated backlog of uncorrected errors against institutional capacity.",
       },
       {
-        name: "30-Day Remedy Notice Generator",
+        name: "Remedy notice template",
         href: "/explainers/remedy-essentials",
         purpose:
-          "Generates formal administrative demands for correction and restitution.",
+          "Provides a template for requesting a remedy with evidence and a named owner.",
       },
     ],
   },
 ];
+
+// Resolve references from the same catalogues used by their destination pages.
+const resolvedMatrix = matrix.map((row) => ({
+  ...row,
+  laws: row.laws.map((numeral) => {
+    const law = methodContent.laws.find((item) => item.numeral === numeral);
+    if (!law) throw new Error(`Unknown matrix law: ${numeral}`);
+    return law;
+  }),
+  standards: row.standards.map((id) => {
+    const standard = standardsContent.standards.find((item) => item.id === id);
+    if (!standard) throw new Error(`Unknown matrix standard: ${id}`);
+    return standard;
+  }),
+}));
 ---
 
 <div class="safeguard-matrix" data-safeguard-matrix>
   <div
     class="safeguard-matrix__filter"
-    role="tablist"
+    role="group"
     aria-label="Filter safeguards"
   >
     <button
       type="button"
       class="matrix-tab matrix-tab--active"
       data-matrix-filter="all"
-      role="tab"
-      aria-selected="true"
+      aria-pressed="true"
     >
       All safeguards
     </button>
@@ -513,8 +366,7 @@ const matrix: SafeguardRow[] = [
           type="button"
           class="matrix-tab"
           data-matrix-filter={row.id}
-          role="tab"
-          aria-selected="false"
+          aria-pressed="false"
         >
           <StateVariableGlyph
             variable={row.id}
@@ -526,16 +378,24 @@ const matrix: SafeguardRow[] = [
     }
   </div>
 
+  <p
+    class="safeguard-matrix__status small muted"
+    data-matrix-status
+    role="status"
+  >
+    {matrix.length} safeguards shown
+  </p>
+
   <div class="safeguard-matrix__grid">
     {
-      matrix.map((row) => (
+      resolvedMatrix.map((row) => (
         <article class="matrix-card" data-matrix-card={row.id}>
           <header class="matrix-card__header">
             <div class="matrix-card__title-row">
               <h3>
                 <StateVariableGlyph variable={row.id} label={row.name} />
               </h3>
-              <span class="pill pill--ghost small">{row.question}</span>
+              <p class="matrix-card__question">{row.question}</p>
             </div>
             <p class="matrix-card__drift small muted">
               <strong>Failure drift:</strong> {row.driftWarning}
@@ -549,7 +409,7 @@ const matrix: SafeguardRow[] = [
                 {row.laws.map((law) => (
                   <li>
                     <a href={law.href} class="matrix-link">
-                      <strong>{law.numeral}:</strong> {law.statement}
+                      <strong>Law {law.numeral}:</strong> {law.statement}
                     </a>
                   </li>
                 ))}
@@ -561,8 +421,8 @@ const matrix: SafeguardRow[] = [
               <ul class="matrix-list">
                 {row.standards.map((std) => (
                   <li>
-                    <a href={std.href} class="matrix-link">
-                      <strong>{std.id}:</strong> {std.name}
+                    <a href={`/standards/${std.slug}`} class="matrix-link">
+                      <strong>{std.id}:</strong> {std.title}
                     </a>
                   </li>
                 ))}
@@ -618,38 +478,9 @@ const matrix: SafeguardRow[] = [
 </div>
 
 <script>
-  function initSafeguardMatrix() {
-    const containers = document.querySelectorAll<HTMLElement>(
-      "[data-safeguard-matrix]",
-    );
-    containers.forEach((container) => {
-      const tabs = container.querySelectorAll<HTMLButtonElement>(
-        "[data-matrix-filter]",
-      );
-      const cards =
-        container.querySelectorAll<HTMLElement>("[data-matrix-card]");
-
-      tabs.forEach((tab) => {
-        tab.addEventListener("click", () => {
-          const filter = tab.getAttribute("data-matrix-filter");
-          tabs.forEach((t) => {
-            const isActive = t === tab;
-            t.classList.toggle("matrix-tab--active", isActive);
-            t.setAttribute("aria-selected", isActive ? "true" : "false");
-          });
-
-          cards.forEach((card) => {
-            const cardId = card.getAttribute("data-matrix-card");
-            const isVisible = filter === "all" || cardId === filter;
-            card.style.display = isVisible ? "grid" : "none";
-          });
-        });
-      });
-    });
-  }
-
+  import { initSafeguardMatrix } from "../scripts/safeguard-matrix";
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initSafeguardMatrix, {
+    document.addEventListener("DOMContentLoaded", () => initSafeguardMatrix(), {
       once: true,
     });
   } else {
@@ -660,7 +491,12 @@ const matrix: SafeguardRow[] = [
 <style>
   .safeguard-matrix {
     display: grid;
-    gap: var(--space-6);
+    gap: var(--space-3);
+  }
+
+  .safeguard-matrix__status {
+    margin: 0;
+    font-family: var(--sans);
   }
 
   .safeguard-matrix__filter {
@@ -675,12 +511,16 @@ const matrix: SafeguardRow[] = [
     background: transparent;
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
-    padding: var(--space-1) var(--space-3);
-    font-size: var(--text-xs);
-    font-weight: 500;
+    min-height: 44px;
+    padding: var(--space-2) var(--space-3);
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    font-weight: 600;
     color: var(--text);
     cursor: pointer;
-    transition: all var(--motion-fast) ease;
+    transition:
+      border-color var(--motion-fast) ease,
+      color var(--motion-fast) ease;
     display: inline-flex;
     align-items: center;
     gap: var(--space-1);
@@ -692,13 +532,18 @@ const matrix: SafeguardRow[] = [
   }
 
   .matrix-tab--active {
-    background: var(--accent);
-    color: var(--surface);
-    border-color: var(--accent);
+    background: var(--btn-primary-bg);
+    color: var(--btn-primary-text);
+    border-color: var(--btn-primary-bg);
   }
 
   .matrix-tab--active:hover {
-    color: var(--surface);
+    color: var(--btn-primary-text);
+  }
+
+  .matrix-tab:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
   }
 
   .safeguard-matrix__grid {
@@ -707,7 +552,7 @@ const matrix: SafeguardRow[] = [
   }
 
   .matrix-card {
-    background: var(--panel);
+    background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
     padding: var(--space-5);
@@ -725,14 +570,20 @@ const matrix: SafeguardRow[] = [
   .matrix-card__title-row {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     align-items: baseline;
     gap: var(--space-2);
   }
 
   .matrix-card__title-row h3 {
     margin: 0;
-    font-size: var(--text-lg);
+    font-size: var(--text-xl);
+  }
+
+  .matrix-card__question {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    color: var(--muted);
   }
 
   .matrix-card__drift {
@@ -742,8 +593,14 @@ const matrix: SafeguardRow[] = [
 
   .matrix-card__columns {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
     gap: var(--space-4);
+  }
+
+  @media (min-width: 1280px) {
+    .matrix-card__columns {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
   }
 
   .matrix-col {
@@ -774,8 +631,8 @@ const matrix: SafeguardRow[] = [
   .matrix-list li {
     display: grid;
     gap: var(--space-1);
-    font-size: var(--text-xs);
-    line-height: 1.45;
+    font-size: var(--text-sm);
+    line-height: 1.5;
   }
 
   .matrix-link {
@@ -790,7 +647,7 @@ const matrix: SafeguardRow[] = [
 
   .matrix-col__sub {
     color: var(--muted);
-    font-size: var(--text-xs);
-    line-height: 1.4;
+    font-size: var(--text-sm);
+    line-height: 1.5;
   }
 </style>
