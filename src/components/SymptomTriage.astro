@@ -277,7 +277,7 @@ const symptoms: Symptom[] = [
 
   .symptom-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
     gap: var(--space-5);
   }
 
@@ -325,7 +325,7 @@ const symptoms: Symptom[] = [
   .remediation-item {
     display: grid;
     gap: 2px;
-    font-size: var(--text-xs);
+    font-size: var(--text-sm);
   }
 
   .remediation-label {
