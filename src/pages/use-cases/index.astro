@@ -23,7 +23,7 @@ import {
     description={content.description}
     anchorLinks={[
       { href: "#short-answer", label: "The short answer" },
-      { href: "#non-goals", label: "Explicit non-goals" },
+      { href: "#non-goals", label: "Jurisdiction boundaries" },
       { href: "#test", label: "The test" },
       { href: "#contexts", label: "Six contexts" },
       { href: "#boundaries", label: "Where it does less" },
@@ -51,20 +51,20 @@ import {
 
   <SectionBlock
     id="non-goals"
-    eyebrow="Explicit boundaries"
-    title="Where we decline to operate"
-    description="Ethotechnics is intentionally narrow. It does not govern all software, and it explicitly rejects three common AI governance ambitions."
+    eyebrow="Jurisdiction boundaries"
+    title="Where the framework binds, and where it stops"
+    description="Ethotechnics is defined by operational delegation, not model capability. It governs the grant of authority where an error alters someone's life, and declines to govern where it does not."
   >
     <div class="grid grid--three">
       <div class="panel stack-sm">
-        <p class="eyebrow">1. No foundation model benchmarking</p>
+        <p class="eyebrow">1. Delegations, not foundation models</p>
         <p class="small">
-          We do not evaluate foundation models in the abstract, red-team chat
-          interfaces, or benchmark pretraining corpora.
+          We do not benchmark base models in the abstract, red-team chat
+          interfaces, or rank pretraining corpora.
         </p>
         <p class="small muted">
           A model can pass every benchmark and still be deployed under an
-          open-ended delegation nobody can revoke. Ethotechnics only binds the
+          open-ended delegation nobody can revoke. Ethotechnics binds the
           operational delegation once a system holds authority to decide about
           people.
         </p>
@@ -74,15 +74,16 @@ import {
       </div>
 
       <div class="panel stack-sm">
-        <p class="eyebrow">2. No low-stakes or internal pipeline governance</p>
+        <p class="eyebrow">2. Consequentiality, not internal maintenance</p>
         <p class="small">
-          We do not govern build scripts, background database workers, internal
-          analytics, or retail recommendation carousels.
+          We do not govern build scripts, background database workers, or
+          internal analytics pipelines that affect only software maintainers.
         </p>
         <p class="small muted">
-          If an automated process changes no one's status, liberty, money, or
-          livelihood outside the engineering team, receipts and reversal clocks
-          add friction without preventing harm.
+          If a system allocates shifts, paces warehouse work, evaluates job
+          performance, or decides benefits, it is consequential and fully
+          covered. Routine backend infrastructure with no human consequence
+          carries no governance load.
         </p>
         <p class="small">
           <a href="#boundaries">See all five boundaries &rarr;</a>
@@ -90,16 +91,15 @@ import {
       </div>
 
       <div class="panel stack-sm">
-        <p class="eyebrow">3. No substantive moral or political dictation</p>
+        <p class="eyebrow">3. Procedural answerability, not moral dictation</p>
         <p class="small">
-          We do not dictate what an institution's political, moral, or business
-          policy goals ought to be.
+          We do not dictate what substantive policy, commercial, or political
+          goals an institution chooses to pursue.
         </p>
         <p class="small muted">
-          The framework enforces procedural answerability: whatever rule is
-          chosen, the institution must operate under an expiring authority
-          lease, deliver causal reasons with decisions, and maintain an
-          unpenalized human who can halt it.
+          Whatever goals are chosen, the institution must operate under an
+          expiring authority lease, deliver causal reasons with determinations,
+          and maintain an unpenalized human who can halt the system.
         </p>
         <p class="small">
           <a href="/standards/core-axioms">Read the core axioms &rarr;</a>
@@ -229,6 +229,8 @@ import {
       <a class="button ghost" href="/#self-test">Take the 60-second self-test</a
       >
       <a class="button ghost" href="/start">Find your role</a>
+      <a class="button ghost" href="/start#symptoms">Triage by symptom</a>
+      <a class="button ghost" href="/start#translation">Industry translation</a>
     </div>
   </SectionBlock>
 </BaseLayout>

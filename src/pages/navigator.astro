@@ -5,6 +5,7 @@ import SectionBlock from "../components/SectionBlock.astro";
 import CircuitNavigator from "../components/CircuitNavigator.astro";
 import ChainDiagram from "../components/ChainDiagram.astro";
 import SafeguardEquilibriumDiagram from "../components/SafeguardEquilibriumDiagram.astro";
+import SafeguardMatrix from "../components/SafeguardMatrix.astro";
 import MethodStack from "../components/MethodStack.astro";
 
 const pageTitle = "Concept Navigator — Ethotechnics Institute";
@@ -15,6 +16,7 @@ const anchorLinks = [
   { href: "#circuits", label: "The two circuits" },
   { href: "#chain", label: "The 7-stage chain" },
   { href: "#safeguards", label: "The six safeguards" },
+  { href: "#matrix", label: "Safeguard matrix" },
   { href: "#stack", label: "The binding stack" },
   { href: "#roles", label: "By role" },
 ];
@@ -103,11 +105,20 @@ const roles = [
   </SectionBlock>
 
   <SectionBlock
+    id="matrix"
+    eyebrow="Cross-layer reference"
+    title="The safeguard matrix"
+    description="Every safeguard binds a specific failure drift across the entire method stack: from the twelve laws to concrete standards, diagnostic tools, casebook precedents, and foundational theory."
+    variant="alt"
+  >
+    <SafeguardMatrix />
+  </SectionBlock>
+
+  <SectionBlock
     id="stack"
     eyebrow="Vertical binding"
     title="From axiom to artifact"
     description="Ethotechnics is not a set of abstract principles. It is a vertical stack where every layer turns the one above it into something a running system can fail. Select a vertical trace to follow a single concept from philosophy to runnable code."
-    variant="alt"
   >
     <MethodStack />
   </SectionBlock>

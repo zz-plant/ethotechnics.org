@@ -236,13 +236,13 @@
   }
 
   .nav__search-mobile .search-container {
-    width: 38px;
+    width: 44px;
   }
 
   .nav__search-mobile .search-trigger {
-    width: 38px;
-    height: 38px;
-    min-height: 38px;
+    width: 44px;
+    height: 44px;
+    min-height: 44px;
     padding: 0;
     justify-content: center;
     border-radius: var(--radius-pill);
@@ -255,7 +255,7 @@
 
   /* With "Start here" in the phone bar, the full wordmark no longer fits
      beside search and Browse; the mark alone carries the brand there. */
-  @media (max-width: 479px) {
+  @media (max-width: 599px) {
     .nav__wordmark {
       display: none;
     }
@@ -264,11 +264,11 @@
   .nav__mobile-start {
     display: inline-flex;
     align-items: center;
-    min-height: 38px;
-    padding: var(--space-2) var(--space-3);
+    min-height: 44px;
+    padding: var(--space-2);
     border-radius: var(--radius-pill);
-    background: var(--accent);
-    color: var(--surface);
+    background: var(--btn-primary-bg);
+    color: var(--btn-primary-text);
     font-family: var(--sans);
     font-size: var(--text-sm);
     font-weight: 650;
@@ -277,7 +277,8 @@
   }
 
   .nav__mobile-start:hover {
-    background: var(--accent-strong);
+    background: var(--btn-primary-hover-bg);
+    color: var(--btn-primary-hover-text);
   }
 
   .nav__mobile-start:focus-visible {
@@ -298,15 +299,17 @@
 
   /* --- Mobile Sections Details / Drawer --- */
   .nav__mobile-sections {
-    position: relative;
+    /* Anchor the drawer to the header container so it shares the page gutter,
+       including the space reserved for a desktop browser's scrollbar. */
+    position: static;
   }
 
   .nav__mobile-sections-summary {
     display: inline-flex;
     align-items: center;
     gap: var(--space-1);
-    padding: var(--space-2) var(--space-3);
-    min-height: 38px;
+    padding: var(--space-2);
+    min-height: 44px;
     border-radius: var(--radius-pill);
     background: var(--surface);
     border: 1px solid color-mix(in srgb, var(--border) 90%, transparent);
@@ -356,10 +359,11 @@
     display: grid;
     gap: var(--space-5);
     position: absolute;
-    top: calc(100% + 0.6rem);
+    top: calc(100% + var(--space-2));
     right: 0;
-    width: min(calc(100vw - 2rem), 420px);
+    width: min(100%, 420px);
     max-height: calc(100vh - 5rem);
+    max-height: calc(100dvh - var(--nav-bottom, 5rem) - var(--space-5));
     overflow-y: auto;
     background: var(--surface);
     border: 1px solid var(--border);
@@ -494,6 +498,7 @@
   }
 
   .nav__mobile-link-title {
+    font-family: var(--sans);
     font-size: var(--text-sm);
     font-weight: 700;
     color: var(--text);
@@ -523,7 +528,7 @@
     align-items: center;
     gap: var(--space-2);
     padding: var(--space-2) var(--space-3);
-    min-height: 38px;
+    min-height: 44px;
     border-radius: var(--radius-pill);
     background: color-mix(in srgb, var(--panel) 65%, transparent);
     border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
@@ -767,8 +772,26 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .nav__browse-chevron {
+    .nav__browse-chevron,
+    .nav__mobile-summary-icon {
       transition: none;
+    }
+
+    .nav__mobile-drawer {
+      animation: none;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .nav__mobile-bar {
+      gap: var(--space-1);
+    }
+  }
+
+  @media (any-pointer: coarse) {
+    .nav__mobile-theme-toggle {
+      width: 44px;
+      height: 44px;
     }
   }
 }

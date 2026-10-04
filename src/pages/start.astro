@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { roles, rolePermalink } from "../content/roles";
+import SymptomTriage from "../components/SymptomTriage.astro";
+import RosettaStone from "../components/RosettaStone.astro";
 
 const pageTitle = "Start — Ethotechnics role paths";
 const pageDescription =
@@ -24,17 +26,22 @@ const pageDescription =
         </p>
         <p class="small muted">
           Know the system better than the role?
-          <a href="/use-cases">Start from what it decides →</a>
+          <a href="/use-cases">Start from what it decides &rarr;</a>
+          {" "}·{" "}
+          <a href="#symptoms">Triage by symptom &rarr;</a>
+          {" "}·{" "}
+          <a href="#translation">Industry translation &rarr;</a>
         </p>
 
         <div class="panel panel--glass start-applicability">
           <p class="eyebrow">The applicability test</p>
           <p>
-            <strong>Does Ethotechnics apply to your system?</strong> If software takes
-            an action, grants a benefit, denies an application, or allocates work—and
-            a human being has to live with the consequences of an error—this framework
-            applies. It governs the delegation agreement and authority lease, not
-            model capabilities.
+            <strong>Does Ethotechnics apply to your system?</strong> If software either
+            executes an action (granting benefits, denying claims, allocating work)
+            or outputs determinations that human reviewers adopt without independent
+            evidentiary reinvestigation—and a person bears the consequence of an error—this
+            framework applies. It governs the delegation agreement and authority lease,
+            not model capabilities.
           </p>
         </div>
       </div>
@@ -94,6 +101,19 @@ const pageDescription =
         </article>
       </div>
     </div>
+
+    <section id="symptoms" class="start-symptoms stack-sm">
+      <div class="start-symptoms__header">
+        <p class="eyebrow">Operational triage</p>
+        <h2>Start by failure symptom</h2>
+        <p class="section-lead">
+          Find the active failure pattern your system is exhibiting in
+          production to see its root cause, diagnostic check, and governing
+          standard.
+        </p>
+      </div>
+      <SymptomTriage />
+    </section>
 
     <div class="stack-xs role-section-header">
       <p class="eyebrow">Start by role</p>
@@ -206,6 +226,20 @@ const pageDescription =
           >
         </div>
       </div>
+    </section>
+
+    <!-- Industry translation guide -->
+    <section id="translation" class="start-translation stack-sm">
+      <div class="start-translation__header">
+        <p class="eyebrow">Vocabulary crosswalk</p>
+        <h2>Industry translation guide</h2>
+        <p class="section-lead">
+          Enterprise AI governance relies on euphemisms that obscure where error
+          costs land. Here is how standard industry terminology translates to
+          Ethotechnics constitutional mechanisms.
+        </p>
+      </div>
+      <RosettaStone />
     </section>
 
     <!-- Fast-path adoption (one sprint) -->
@@ -867,6 +901,18 @@ const pageDescription =
   }
 
   .role-section-header {
+    margin-bottom: var(--space-4);
+  }
+
+  .start-symptoms,
+  .start-translation {
+    margin-bottom: var(--space-8);
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .start-symptoms__header,
+  .start-translation__header {
     margin-bottom: var(--space-4);
   }
 </style>

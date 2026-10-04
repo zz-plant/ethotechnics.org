@@ -44,7 +44,7 @@
 
     const trapFocus = (container: HTMLElement) => {
       const focusable = container.querySelectorAll<HTMLElement>(
-        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        'summary, a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
       );
       if (!focusable.length) return;
 
@@ -87,6 +87,12 @@
           releaseFocusTrap = null;
         }
       }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape" || !mobileNav.open) return;
+      mobileNav.open = false;
+      mobileNav.querySelector<HTMLElement>("summary")?.focus();
     });
 
     /* Crossing to the desktop breakpoint hides the drawer in CSS without

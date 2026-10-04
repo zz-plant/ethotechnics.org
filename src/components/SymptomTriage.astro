@@ -1,0 +1,355 @@
+---
+/**
+ * SymptomTriage.astro
+ *
+ * Operational failure triage matrix mapping active symptoms in production
+ * directly to their root cause mechanism, diagnostic tool, standard,
+ * casebook precedent, and foundational theory essay.
+ */
+
+interface Symptom {
+  id: string;
+  badge: string;
+  title: string;
+  observation: string;
+  rootCause: string;
+  diagnostic: { name: string; href: string; action: string };
+  standard: { id: string; name: string; href: string };
+  casebook: { title: string; href: string; lesson: string };
+  theory: { title: string; href: string; coreQuestion: string };
+}
+
+const symptoms: Symptom[] = [
+  {
+    id: "shadow-workarounds",
+    badge: "Labor externalization",
+    title: "Shadow workarounds & unrecorded repair",
+    observation:
+      "Support staff, caseworkers, or engineers maintain off-system spreadsheets, phone chains, or unofficial manual bypasses to make automated decisions survivable. System telemetry stays green while human staff burns out.",
+    rootCause:
+      "Epistemic erasure: human compensatory labor silently absorbs errors, blinding the institution to algorithmic failure.",
+    diagnostic: {
+      name: "Workload Modeler",
+      href: "/diagnostics/burden-modeler",
+      action: "Quantify unpriced human buffering hours",
+    },
+    standard: {
+      id: "STD-06",
+      name: "Human Impact Safety Case",
+      href: "/standards/std-06-human-impact-safety-case",
+    },
+    casebook: {
+      title: "Ofqual 2020 Grades",
+      href: "/casebook/ofqual-2020-grades",
+      lesson:
+        "Frontline educators absorbed standardisation variance until the model collapsed under public protest.",
+    },
+    theory: {
+      title: "The human subsidy to institutional continuity",
+      href: "/research/theory/the-human-subsidy",
+      coreQuestion:
+        "What compensatory labor produces apparent institutional functionality?",
+    },
+  },
+  {
+    id: "appeal-avalanche",
+    badge: "Correction failure",
+    title: "Appeal avalanche & congested review queues",
+    observation:
+      "Decision disputes and appeal backlogs spike exponentially. Turnaround times stretch from days to months. Management responds by raising dispute fees, narrowing eligibility, or adding procedural friction to depress intake.",
+    rootCause:
+      "Challenge density: error generation throughput outpaces institutional review capacity. The organization restricts standing rather than repairing the rule.",
+    diagnostic: {
+      name: "Burden Budget Worksheet",
+      href: "/diagnostics/burden-budget-worksheet",
+      action: "Calculate challenge density vs review capacity",
+    },
+    standard: {
+      id: "STD-02",
+      name: "Contestability & Recourse",
+      href: "/standards/std-02-contestability-recourse",
+    },
+    casebook: {
+      title: "Robodebt",
+      href: "/casebook/robodebt",
+      lesson:
+        "Over 400,000 welfare recipients were forced to disprove false automated debts through backlogged tribunals.",
+    },
+    theory: {
+      title: "Challenge density",
+      href: "/research/theory/challenge-density",
+      coreQuestion:
+        "Why must an institution scale correction capacity rather than restrict standing?",
+    },
+  },
+  {
+    id: "rigid-gates",
+    badge: "Operational entrapment",
+    title: "Rigid software gates & disabled override",
+    observation:
+      "Frontline caseworkers know an automated output is factually wrong or harmful, but software interfaces enforce hard validation blocks with no route for unpenalized human override or emergency stop.",
+    rootCause:
+      "Conflating deterministic machine rules with administrative sovereignty. Operators are treated as execution cogs rather than accountable stewards.",
+    diagnostic: {
+      name: "Delegation Audit",
+      href: "/diagnostics/delegation-audit",
+      action: "Check for unpenalized 30-second override keys",
+    },
+    standard: {
+      id: "STD-08",
+      name: "Delegation & Authority Leases",
+      href: "/standards/std-08-delegation",
+    },
+    casebook: {
+      title: "Post Office Horizon",
+      href: "/casebook/post-office-horizon",
+      lesson:
+        "Subpostmasters were legally bound to computer accounting outputs they could neither audit nor correct.",
+    },
+    theory: {
+      title: "The sovereign override",
+      href: "/research/theory/the-sovereign-override",
+      coreQuestion:
+        "How does the machine boundary stay deterministic while the override becomes evidence?",
+    },
+  },
+  {
+    id: "irreversible-harm",
+    badge: "Remedy deficit",
+    title: "Irreversible state changes & absent restitution",
+    observation:
+      "Automated actions—such as account freezes, benefit terminations, shift cuts, or credit revocations—take immediate effect. When an appeal eventually succeeds, there is no technical ledger or funded mechanism to make the victim whole.",
+    rootCause:
+      "State-changing actions executed without temporal holds, reversible staging, or funded restitution invariants (Law XII).",
+    diagnostic: {
+      name: "Self-Defense Checks",
+      href: "/diagnostics/self-defense-tools",
+      action: "Verify decision standing and restitution rights",
+    },
+    standard: {
+      id: "STD-01",
+      name: "The Temporal Bill of Rights",
+      href: "/standards/std-01-temporal-rights",
+    },
+    casebook: {
+      title: "Toeslagenaffaire",
+      href: "/casebook/toeslagenaffaire",
+      lesson:
+        "Automated fraud designations bankrupted thousands of families before restitution schemes were established a decade later.",
+    },
+    theory: {
+      title: "Dependence runs both ways",
+      href: "/research/theory/dependence-runs-both-ways",
+      coreQuestion:
+        "What duties of reversibility does an institution incur when subjects cannot exit?",
+    },
+  },
+  {
+    id: "vendor-lock-in",
+    badge: "Governance capture",
+    title: "Vendor lock-in & captured authority",
+    observation:
+      "The institution cannot explain, audit, or modify an automated decision because proprietary vendor contracts and black-box third-party APIs hold the underlying logic, claiming trade secrecy.",
+    rootCause:
+      "Delegating statutory authority without requiring immutable, independently verifiable decision records (Law VI).",
+    diagnostic: {
+      name: "Record Conformance Validator",
+      href: "/diagnostics/record-conformance",
+      action: "Test decision logs against open schema",
+    },
+    standard: {
+      id: "STD-07",
+      name: "Revisable Delegation Record",
+      href: "/standards/std-07-revisable-delegation-record",
+    },
+    casebook: {
+      title: "Post Office Horizon",
+      href: "/casebook/post-office-horizon",
+      lesson:
+        "An entire national institution became captured by vendor software assertions it could not independently verify.",
+    },
+    theory: {
+      title: "Automation and capture",
+      href: "/research/theory/automation-and-capture",
+      coreQuestion:
+        "At what point does operational reliance extinguish the ability to halt a system?",
+    },
+  },
+  {
+    id: "statistical-stereotyping",
+    badge: "Standing denial",
+    title: "Statistical stereotyping & denied causal reasons",
+    observation:
+      "An individual is denied credit, flagged for fraud, or down-ranked based on population-level aggregate statistics, and the organization refuses to name the causal factors specific to that person's file.",
+    rootCause:
+      "Treating the statistical model of a person as an ontological replacement for the living person, denying independent standing to challenge.",
+    diagnostic: {
+      name: "Delegation Audit",
+      href: "/diagnostics/delegation-audit",
+      action: "Evaluate individualized explanation compliance",
+    },
+    standard: {
+      id: "STD-02",
+      name: "Contestability & Recourse",
+      href: "/standards/std-02-contestability-recourse",
+    },
+    casebook: {
+      title: "Apple Card",
+      href: "/casebook/apple-card",
+      lesson:
+        "Spouses with identical financial profiles received disparate credit lines with zero causal justification provided.",
+    },
+    theory: {
+      title: "The model of a person is not the person",
+      href: "/research/theory/model-of-a-person",
+      coreQuestion:
+        "Why does even the most predictive model fail to extinguish individual standing to challenge?",
+    },
+  },
+];
+---
+
+<div class="symptom-triage" data-symptom-triage>
+  <div class="symptom-grid">
+    {
+      symptoms.map((symptom) => (
+        <article class="symptom-card" id={symptom.id}>
+          <header class="symptom-card__header">
+            <span class="pill pill--ghost small">{symptom.badge}</span>
+            <h3 class="symptom-card__title">{symptom.title}</h3>
+          </header>
+
+          <div class="symptom-card__body">
+            <div class="symptom-card__observation">
+              <span class="eyebrow">What you observe</span>
+              <p class="small">{symptom.observation}</p>
+            </div>
+
+            <div class="symptom-card__cause">
+              <span class="eyebrow">Root failure mode</span>
+              <p class="small muted">{symptom.rootCause}</p>
+            </div>
+          </div>
+
+          <footer class="symptom-card__remediation">
+            <div class="remediation-item">
+              <span class="remediation-label">Run diagnostic:</span>
+              <a href={symptom.diagnostic.href} class="remediation-link">
+                <strong>{symptom.diagnostic.name}</strong> &rarr;
+              </a>
+              <span class="remediation-sub">{symptom.diagnostic.action}</span>
+            </div>
+
+            <div class="remediation-item">
+              <span class="remediation-label">Enforce standard:</span>
+              <a href={symptom.standard.href} class="remediation-link">
+                <strong>{symptom.standard.id}:</strong> {symptom.standard.name}
+              </a>
+            </div>
+
+            <div class="remediation-item">
+              <span class="remediation-label">Case precedent:</span>
+              <a href={symptom.casebook.href} class="remediation-link">
+                <strong>{symptom.casebook.title}</strong>
+              </a>
+              <span class="remediation-sub">{symptom.casebook.lesson}</span>
+            </div>
+
+            <div class="remediation-item">
+              <span class="remediation-label">Theory grounding:</span>
+              <a href={symptom.theory.href} class="remediation-link">
+                <strong>{symptom.theory.title}</strong>
+              </a>
+              <span class="remediation-sub">{symptom.theory.coreQuestion}</span>
+            </div>
+          </footer>
+        </article>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .symptom-triage {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .symptom-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--space-5);
+  }
+
+  .symptom-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    display: grid;
+    gap: var(--space-4);
+    align-content: space-between;
+  }
+
+  .symptom-card__header {
+    display: grid;
+    gap: var(--space-2);
+    align-items: start;
+  }
+
+  .symptom-card__title {
+    margin: 0;
+    font-size: var(--text-base);
+    color: var(--text);
+    line-height: 1.35;
+  }
+
+  .symptom-card__body {
+    display: grid;
+    gap: var(--space-3);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding-block: var(--space-3);
+  }
+
+  .symptom-card__observation p,
+  .symptom-card__cause p {
+    margin: var(--space-1) 0 0;
+  }
+
+  .symptom-card__remediation {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .remediation-item {
+    display: grid;
+    gap: 2px;
+    font-size: var(--text-xs);
+  }
+
+  .remediation-label {
+    font-family: var(--sans);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-label);
+    color: var(--muted);
+    font-size: var(--text-xs);
+  }
+
+  .remediation-link {
+    color: var(--text);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .remediation-link:hover {
+    color: var(--accent);
+  }
+
+  .remediation-sub {
+    color: var(--muted);
+    font-size: var(--text-xs);
+    line-height: 1.35;
+  }
+</style>

@@ -1,0 +1,796 @@
+---
+/**
+ * SafeguardMatrix.astro
+ *
+ * Full cross-layer map across the six safeguards:
+ * Capability, Authority, Evidence, Dependency, Standing, Correction.
+ * Maps each safeguard directly to its failure drift, governing laws,
+ * core standards, casebook precedents, theory essays, and diagnostics.
+ */
+import StateVariableGlyph from "./StateVariableGlyph.astro";
+import type { StateVariableGlyphId } from "./StateVariableGlyph.astro";
+
+interface SafeguardRow {
+  id: StateVariableGlyphId;
+  name: string;
+  question: string;
+  driftWarning: string;
+  laws: { numeral: string; statement: string; href: string }[];
+  standards: { id: string; name: string; href: string }[];
+  precedents: { title: string; href: string; outcome: string }[];
+  theory: { title: string; href: string; question: string }[];
+  diagnostics: { name: string; href: string; purpose: string }[];
+}
+
+const matrix: SafeguardRow[] = [
+  {
+    id: "capability",
+    name: "Capability",
+    question: "What could the assembled system do?",
+    driftWarning:
+      "Capability outruns authority when models gain autonomous tools or wider reach without signed jurisdictional limits.",
+    laws: [
+      {
+        numeral: "Law I",
+        statement: "Capability does not imply authority.",
+        href: "/standards/laws#law-i",
+      },
+      {
+        numeral: "Law IV",
+        statement: "Capacity to inspect and revise must keep pace with agency.",
+        href: "/standards/laws#law-iv",
+      },
+    ],
+    standards: [
+      {
+        id: "STD-04",
+        name: "Operational Safety Boundaries",
+        href: "/standards/std-04-operational-safety-boundaries",
+      },
+      {
+        id: "STD-06",
+        name: "Human Impact Safety Case",
+        href: "/standards/std-06-human-impact-safety-case",
+      },
+    ],
+    precedents: [
+      {
+        title: "Ofqual 2020 Grades",
+        href: "/casebook/ofqual-2020-grades",
+        outcome: "Model capacity drifted past operator comprehension.",
+      },
+      {
+        title: "Apple Card",
+        href: "/casebook/apple-card",
+        outcome: "Black-box credit scoring drifted past explanatory ability.",
+      },
+    ],
+    theory: [
+      {
+        title: "An engineering tradition",
+        href: "/research/theory/an-engineering-tradition",
+        question:
+          "What would a safety engineering discipline look like for delegated automated authority?",
+      },
+      {
+        title: "Deliberate non-use",
+        href: "/research/theory/deliberate-non-use",
+        question:
+          "How can an institution preserve intentional non-deployment as an affirmative control once technical limits are removed?",
+      },
+    ],
+    diagnostics: [
+      {
+        name: "Finite Evaluation Suite",
+        href: "/finite",
+        purpose: "Stress-tests operational limits under human withdrawal.",
+      },
+      {
+        name: "Delegation Audit",
+        href: "/diagnostics/delegation-audit",
+        purpose: "Scores unwritten assumptions about autonomous agency.",
+      },
+    ],
+  },
+  {
+    id: "authority",
+    name: "Authority",
+    question: "Which actions was it permitted to take, for whom, until when?",
+    driftWarning:
+      "Authority outlives evidence when an expired delegation continues executing decisions after baseline population shifts.",
+    laws: [
+      {
+        numeral: "Law I",
+        statement: "Capability does not imply authority.",
+        href: "/standards/laws#law-i",
+      },
+      {
+        numeral: "Law II",
+        statement:
+          "Authority decays unless its justification is renewed on evidence.",
+        href: "/standards/laws#law-ii",
+      },
+      {
+        numeral: "Law III",
+        statement: "Evidence and authority must remain coupled.",
+        href: "/standards/laws#law-iii",
+      },
+    ],
+    standards: [
+      {
+        id: "STD-08",
+        name: "Delegation & Authority Leases",
+        href: "/standards/std-08-delegation",
+      },
+      {
+        id: "STD-05",
+        name: "Jurisdictional Scope",
+        href: "/standards/std-05-jurisdictional-scope",
+      },
+    ],
+    precedents: [
+      {
+        title: "Robodebt",
+        href: "/casebook/robodebt",
+        outcome:
+          "Statutory authority was asserted without lawful income-averaging basis.",
+      },
+      {
+        title: "Post Office Horizon",
+        href: "/casebook/post-office-horizon",
+        outcome:
+          "Prosecutorial authority was delegated to an unverified software ledger.",
+      },
+    ],
+    theory: [
+      {
+        title: "Endogenous authorization",
+        href: "/research/theory/endogenous-authorization",
+        question:
+          "How do incumbent systems shape the metrics, categories, and evidence used to justify their continuation?",
+      },
+      {
+        title: "What does not convert",
+        href: "/research/theory/what-does-not-convert",
+        question:
+          "Why are technical capability, past performance, and internal consistency incapable of converting into legitimate authority?",
+      },
+    ],
+    diagnostics: [
+      {
+        name: "Delegation Audit",
+        href: "/diagnostics/delegation-audit",
+        purpose: "Verifies whether an active, bounded authority lease exists.",
+      },
+      {
+        name: "Authority Lease Schema",
+        href: "/standards/std-08-delegation",
+        purpose:
+          "Validates JSON leases against STD-08 programmatic constraints.",
+      },
+    ],
+  },
+  {
+    id: "evidence",
+    name: "Evidence",
+    question: "What evidence justified that authority?",
+    driftWarning:
+      "Policy detaches from reality when error metrics stay green only because frontline workers invisibly repair failures.",
+    laws: [
+      {
+        numeral: "Law II",
+        statement: "Authority decays unless renewed on evidence.",
+        href: "/standards/laws#law-ii",
+      },
+      {
+        numeral: "Law III",
+        statement: "Evidence and authority must remain coupled.",
+        href: "/standards/laws#law-iii",
+      },
+      {
+        numeral: "Law VI",
+        statement: "Evidence must be verifiable outside the system.",
+        href: "/standards/laws#law-vi",
+      },
+    ],
+    standards: [
+      {
+        id: "STD-07",
+        name: "Revisable Delegation Record",
+        href: "/standards/std-07-revisable-delegation-record",
+      },
+      {
+        id: "STD-03",
+        name: "Calibration & Drift Verification",
+        href: "/standards/std-03-calibration-drift-verification",
+      },
+    ],
+    precedents: [
+      {
+        title: "Post Office Horizon",
+        href: "/casebook/post-office-horizon",
+        outcome:
+          "Evidence of branch shortfalls was manufactured by software defects.",
+      },
+      {
+        title: "Robodebt",
+        href: "/casebook/robodebt",
+        outcome:
+          "Discrepancy letters were sent on statistical inferences, not factual proof.",
+      },
+    ],
+    theory: [
+      {
+        title: "Absorption as concealment",
+        href: "/research/theory/absorption-as-concealment",
+        question:
+          "How does human absorption of operational errors conceal system defects from performance metrics?",
+      },
+      {
+        title: "The human subsidy",
+        href: "/research/theory/the-human-subsidy",
+        question:
+          "What distinct varieties of uncounted compensatory labor produce apparent institutional functionality?",
+      },
+    ],
+    diagnostics: [
+      {
+        name: "Record Conformance Validator",
+        href: "/diagnostics/record-conformance",
+        purpose:
+          "Tests tamper-evident Merkle logs against STD-07 requirements.",
+      },
+      {
+        name: "Corrective Learning Eval",
+        href: "/evals/corrective-learning",
+        purpose:
+          "Checks whether decision exceptions feed back into the evidence base.",
+      },
+    ],
+  },
+  {
+    id: "dependency",
+    name: "Dependency",
+    question: "How hard had withdrawal or substitution become?",
+    driftWarning:
+      "Dependence outruns correction when manual fallback skills atrophy, making automated shutdown an existential threat.",
+    laws: [
+      {
+        numeral: "Law V",
+        statement: "Dependence converts technical risk into structural risk.",
+        href: "/standards/laws#law-v",
+      },
+      {
+        numeral: "Law X",
+        statement: "Cost of exit determines standard of care.",
+        href: "/standards/laws#law-x",
+      },
+      {
+        numeral: "Law XI",
+        statement: "Unhedged dependence is uninsurable.",
+        href: "/standards/laws#law-xi",
+      },
+    ],
+    standards: [
+      {
+        id: "STD-01",
+        name: "Continuous Halt & Substitution",
+        href: "/standards/std-01-continuous-halt",
+      },
+      {
+        id: "STD-06",
+        name: "Human Impact Safety Case",
+        href: "/standards/std-06-human-impact-safety-case",
+      },
+    ],
+    precedents: [
+      {
+        title: "Post Office Horizon",
+        href: "/casebook/post-office-horizon",
+        outcome:
+          "The Post Office could not exit or halt Fujitsu without collapsing branch accounting.",
+      },
+      {
+        title: "Toeslagenaffaire",
+        href: "/casebook/toeslagenaffaire",
+        outcome:
+          "Parents were trapped in administrative dependency with zero exit option.",
+      },
+    ],
+    theory: [
+      {
+        title: "Automation and capture",
+        href: "/research/theory/automation-and-capture",
+        question:
+          "At what point does operational reliance extinguish an institution's ability to question, replace, or halt a system?",
+      },
+      {
+        title: "Dependence runs both ways",
+        href: "/research/theory/dependence-runs-both-ways",
+        question:
+          "What specific duties of reversibility and standing does an institution incur when subjects cannot exit its systems?",
+      },
+    ],
+    diagnostics: [
+      {
+        name: "Workload Modeler",
+        href: "/diagnostics/burden-modeler",
+        purpose:
+          "Calculates operational vulnerability when human coping capacity is removed.",
+      },
+      {
+        name: "Finite Simulation",
+        href: "/finite",
+        purpose:
+          "Rehearses manual takeover when an automated cluster must be halted.",
+      },
+    ],
+  },
+  {
+    id: "standing",
+    name: "Standing",
+    question:
+      "Who could challenge a decision, and did the challenge have to be answered?",
+    driftWarning:
+      "Exposure grows without standing when affected subjects bear the full burden of algorithmic errors with no procedural remedy.",
+    laws: [
+      {
+        numeral: "Law VII",
+        statement:
+          "Error-bearing parties require standing proportional to exposure.",
+        href: "/standards/laws#law-vii",
+      },
+      {
+        numeral: "Law VIII",
+        statement: "Observability without state transition is theater.",
+        href: "/standards/laws#law-viii",
+      },
+      {
+        numeral: "Law IX",
+        statement: "Challenge is epistemic feedback.",
+        href: "/standards/laws#law-ix",
+      },
+    ],
+    standards: [
+      {
+        id: "STD-02",
+        name: "Contestability & Recourse",
+        href: "/standards/std-02-contestability-recourse",
+      },
+      {
+        id: "MVC-01",
+        name: "Minimum Viable Contestability",
+        href: "/standards/mvc-01-minimum-viable-contestability",
+      },
+    ],
+    precedents: [
+      {
+        title: "Robodebt",
+        href: "/casebook/robodebt",
+        outcome:
+          "Welfare recipients were denied procedural standing and forced to disprove false debts.",
+      },
+      {
+        title: "Apple Card",
+        href: "/casebook/apple-card",
+        outcome:
+          "Applicants were denied causal explanations for credit determinations.",
+      },
+    ],
+    theory: [
+      {
+        title: "Challenge density",
+        href: "/research/theory/challenge-density",
+        question:
+          "Why must an institution scale its correction capacity or narrow its scope when appeal volume spikes?",
+      },
+      {
+        title: "The model of a person is not the person",
+        href: "/research/theory/model-of-a-person",
+        question:
+          "Why does even the most predictive model of a person fail to extinguish that person's independent right to challenge?",
+      },
+    ],
+    diagnostics: [
+      {
+        name: "Self-Defense Checks",
+        href: "/diagnostics/self-defense-tools",
+        purpose:
+          "Verifies whether a consequential decision provides legal standing and reasons.",
+      },
+      {
+        name: "Burden Budget Worksheet",
+        href: "/diagnostics/burden-budget-worksheet",
+        purpose:
+          "Monitors contestation volume against institutional review capacity.",
+      },
+    ],
+  },
+  {
+    id: "correction",
+    name: "Correction",
+    question: "Which interventions were still possible, and how fast?",
+    driftWarning:
+      "Observability grows without control when operators detect anomalies on dashboards but lack authority to pause throughput or issue refunds.",
+    laws: [
+      {
+        numeral: "Law IV",
+        statement: "Capacity to inspect and revise must keep pace with agency.",
+        href: "/standards/laws#law-iv",
+      },
+      {
+        numeral: "Law VIII",
+        statement: "Observability without state transition is theater.",
+        href: "/standards/laws#law-viii",
+      },
+      {
+        numeral: "Law XII",
+        statement: "Harm must be compensable in the medium of loss.",
+        href: "/standards/laws#law-xii",
+      },
+    ],
+    standards: [
+      {
+        id: "STD-01",
+        name: "Continuous Halt & Substitution",
+        href: "/standards/std-01-continuous-halt",
+      },
+      {
+        id: "STD-02",
+        name: "Contestability & Restitution",
+        href: "/standards/std-02-contestability-recourse",
+      },
+      {
+        id: "STD-07",
+        name: "Revisable Delegation Record",
+        href: "/standards/std-07-revisable-delegation-record",
+      },
+    ],
+    precedents: [
+      {
+        title: "Toeslagenaffaire",
+        href: "/casebook/toeslagenaffaire",
+        outcome:
+          "Institutional inertia blocked administrative correction for over a decade.",
+      },
+      {
+        title: "Post Office Horizon",
+        href: "/casebook/post-office-horizon",
+        outcome:
+          "Disputed balances could not be corrected without admitting software defect.",
+      },
+    ],
+    theory: [
+      {
+        title: "The sovereign override",
+        href: "/research/theory/the-sovereign-override",
+        question:
+          "When operators route around rigid gates under load, how does the machine's boundary stay deterministic while the override becomes evidence?",
+      },
+      {
+        title: "Exception learning",
+        href: "/research/theory/exception-learning",
+        question:
+          "Why does resolving individual appeals leave the flawed rule that generated the errors completely untouched?",
+      },
+    ],
+    diagnostics: [
+      {
+        name: "Corrective Debt Calculator",
+        href: "/diagnostics/corrective-debt-calculator",
+        purpose:
+          "Measures accumulated backlog of uncorrected errors against institutional capacity.",
+      },
+      {
+        name: "30-Day Remedy Notice Generator",
+        href: "/explainers/remedy-essentials",
+        purpose:
+          "Generates formal administrative demands for correction and restitution.",
+      },
+    ],
+  },
+];
+---
+
+<div class="safeguard-matrix" data-safeguard-matrix>
+  <div
+    class="safeguard-matrix__filter"
+    role="tablist"
+    aria-label="Filter safeguards"
+  >
+    <button
+      type="button"
+      class="matrix-tab matrix-tab--active"
+      data-matrix-filter="all"
+      role="tab"
+      aria-selected="true"
+    >
+      All safeguards
+    </button>
+    {
+      matrix.map((row) => (
+        <button
+          type="button"
+          class="matrix-tab"
+          data-matrix-filter={row.id}
+          role="tab"
+          aria-selected="false"
+        >
+          <StateVariableGlyph
+            variable={row.id}
+            label={row.name}
+            size="0.95em"
+          />
+        </button>
+      ))
+    }
+  </div>
+
+  <div class="safeguard-matrix__grid">
+    {
+      matrix.map((row) => (
+        <article class="matrix-card" data-matrix-card={row.id}>
+          <header class="matrix-card__header">
+            <div class="matrix-card__title-row">
+              <h3>
+                <StateVariableGlyph variable={row.id} label={row.name} />
+              </h3>
+              <span class="pill pill--ghost small">{row.question}</span>
+            </div>
+            <p class="matrix-card__drift small muted">
+              <strong>Failure drift:</strong> {row.driftWarning}
+            </p>
+          </header>
+
+          <div class="matrix-card__columns">
+            <div class="matrix-col">
+              <span class="matrix-col__label">Governing laws</span>
+              <ul class="matrix-list">
+                {row.laws.map((law) => (
+                  <li>
+                    <a href={law.href} class="matrix-link">
+                      <strong>{law.numeral}:</strong> {law.statement}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div class="matrix-col">
+              <span class="matrix-col__label">Core standards</span>
+              <ul class="matrix-list">
+                {row.standards.map((std) => (
+                  <li>
+                    <a href={std.href} class="matrix-link">
+                      <strong>{std.id}:</strong> {std.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div class="matrix-col">
+              <span class="matrix-col__label">Casebook precedent</span>
+              <ul class="matrix-list">
+                {row.precedents.map((precedent) => (
+                  <li>
+                    <a href={precedent.href} class="matrix-link">
+                      <strong>{precedent.title}</strong>
+                    </a>
+                    <span class="matrix-col__sub">{precedent.outcome}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div class="matrix-col">
+              <span class="matrix-col__label">Foundational theory</span>
+              <ul class="matrix-list">
+                {row.theory.map((item) => (
+                  <li>
+                    <a href={item.href} class="matrix-link">
+                      <strong>{item.title}</strong>
+                    </a>
+                    <span class="matrix-col__sub">{item.question}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div class="matrix-col">
+              <span class="matrix-col__label">Diagnostics & evals</span>
+              <ul class="matrix-list">
+                {row.diagnostics.map((diag) => (
+                  <li>
+                    <a href={diag.href} class="matrix-link">
+                      <strong>{diag.name}</strong>
+                    </a>
+                    <span class="matrix-col__sub">{diag.purpose}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  function initSafeguardMatrix() {
+    const containers = document.querySelectorAll<HTMLElement>(
+      "[data-safeguard-matrix]",
+    );
+    containers.forEach((container) => {
+      const tabs = container.querySelectorAll<HTMLButtonElement>(
+        "[data-matrix-filter]",
+      );
+      const cards =
+        container.querySelectorAll<HTMLElement>("[data-matrix-card]");
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          const filter = tab.getAttribute("data-matrix-filter");
+          tabs.forEach((t) => {
+            const isActive = t === tab;
+            t.classList.toggle("matrix-tab--active", isActive);
+            t.setAttribute("aria-selected", isActive ? "true" : "false");
+          });
+
+          cards.forEach((card) => {
+            const cardId = card.getAttribute("data-matrix-card");
+            const isVisible = filter === "all" || cardId === filter;
+            card.style.display = isVisible ? "grid" : "none";
+          });
+        });
+      });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initSafeguardMatrix, {
+      once: true,
+    });
+  } else {
+    initSafeguardMatrix();
+  }
+</script>
+
+<style>
+  .safeguard-matrix {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .safeguard-matrix__filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: var(--space-3);
+  }
+
+  .matrix-tab {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    color: var(--text);
+    cursor: pointer;
+    transition: all var(--motion-fast) ease;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  .matrix-tab:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .matrix-tab--active {
+    background: var(--accent);
+    color: var(--surface);
+    border-color: var(--accent);
+  }
+
+  .matrix-tab--active:hover {
+    color: var(--surface);
+  }
+
+  .safeguard-matrix__grid {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .matrix-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .matrix-card__header {
+    display: grid;
+    gap: var(--space-2);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: var(--space-3);
+  }
+
+  .matrix-card__title-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-2);
+  }
+
+  .matrix-card__title-row h3 {
+    margin: 0;
+    font-size: var(--text-lg);
+  }
+
+  .matrix-card__drift {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  .matrix-card__columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-4);
+  }
+
+  .matrix-col {
+    display: grid;
+    gap: var(--space-2);
+    align-content: start;
+  }
+
+  .matrix-col__label {
+    font-size: var(--text-xs);
+    font-family: var(--sans);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-label);
+    color: var(--accent);
+    border-bottom: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+    padding-bottom: var(--space-1);
+  }
+
+  .matrix-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .matrix-list li {
+    display: grid;
+    gap: var(--space-1);
+    font-size: var(--text-xs);
+    line-height: 1.45;
+  }
+
+  .matrix-link {
+    color: var(--text);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .matrix-link:hover {
+    color: var(--accent);
+  }
+
+  .matrix-col__sub {
+    color: var(--muted);
+    font-size: var(--text-xs);
+    line-height: 1.4;
+  }
+</style>
