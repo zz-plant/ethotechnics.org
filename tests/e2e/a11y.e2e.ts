@@ -7,6 +7,7 @@ const ROUTES_TO_TEST = [
   "/validators/latency-audit",
   "/about",
   "/start-here",
+  "/explainers/governance-capability",
 ];
 
 test.describe("Accessibility (A11y) Checks", () => {

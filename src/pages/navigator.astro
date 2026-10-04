@@ -10,14 +10,14 @@ import MethodStack from "../components/MethodStack.astro";
 
 const pageTitle = "Concept Navigator — Ethotechnics Institute";
 const pageDescription =
-  "Visual navigation of the Ethotechnics method: the dual circuits of friction, the seven-stage decision chain, the six safeguards, and the vertical binding stack.";
+  "Diagrams of the Ethotechnics method, with links to its safeguards, standards, scored cases, and diagnostic tools.";
 
 const anchorLinks = [
   { href: "#circuits", label: "The two circuits" },
   { href: "#chain", label: "The 7-stage chain" },
   { href: "#safeguards", label: "The six safeguards" },
   { href: "#matrix", label: "Safeguard matrix" },
-  { href: "#stack", label: "The binding stack" },
+  { href: "#stack", label: "How the parts fit" },
   { href: "#roles", label: "By role" },
 ];
 
@@ -25,23 +25,24 @@ const roles = [
   {
     role: "The person decided about",
     exposure:
-      "Bears the consequence of automated classification, eligibility denial, or fraud hold.",
-    right: "Contestability, reasons within clocks, non-retaliation.",
+      "May lose access, income, or an opportunity because of an automated decision.",
+    right:
+      "A route to challenge the decision, obtain reasons, and receive a response.",
     entryStandard: "STD-02 Contestability & Recourse",
     href: "/standards/std-02-contestability-recourse",
   },
   {
     role: "The frontline operator",
     exposure:
-      "Pressured into counterfeit buffering (unpaid workarounds that blind telemetry).",
-    right: "Unpenalized override authority reached in thirty seconds.",
+      "Repairs errors or handles exceptions that the system’s reports may not count.",
+    right: "A tested route to stop or correct the action without penalty.",
     entryStandard: "STD-06 Human Impact Safety Case",
     href: "/standards/std-06-human-impact-safety-case",
   },
   {
     role: "The risk owner",
     exposure:
-      "Holds legal liability for decisions delegated to models and agent chains.",
+      "Sets the limits on what the workflow may do and reviews whether those limits still hold.",
     right: "Expiring authority leases with review triggers.",
     entryStandard: "STD-08 Delegation",
     href: "/standards/std-08-delegation",
@@ -49,8 +50,8 @@ const roles = [
   {
     role: "The independent regulator",
     exposure:
-      "Must verify whether observed performance is intrinsic or humanly subsidized.",
-    right: "Immutable decision records with groundable justifications.",
+      "Needs to distinguish system performance from the work people do to repair its errors.",
+    right: "Inspectable decision records, including reasons and objections.",
     entryStandard: "STD-07 Revisable Delegation Record",
     href: "/standards/std-07-revisable-delegation-record",
   },
@@ -65,7 +66,7 @@ const roles = [
 >
   <PageIntro
     eyebrow="Navigator"
-    title="Visual concept navigator"
+    title="A visual guide to the method"
     description={pageDescription}
     anchorLinks={anchorLinks}
   >
@@ -78,9 +79,9 @@ const roles = [
 
   <SectionBlock
     id="circuits"
-    eyebrow="Thermodynamic posture"
+    eyebrow="Error and correction"
     title="The two circuits"
-    description="Friction does not disappear when a system is engineered to be frictionless. It moves. The closed circuit externalizes errors onto human buffers while telemetry stays green. The open circuit instruments constitutional friction so evidence reaches someone who can revise the rule."
+    description="The closed circuit shows people repairing errors while the system reports success. The open circuit gives their evidence a route to someone who can change the rule."
   >
     <CircuitNavigator />
   </SectionBlock>
@@ -89,7 +90,7 @@ const roles = [
     id="chain"
     eyebrow="Decision lifecycle"
     title="The seven-stage chain"
-    description="Every consequential decision passes through seven stages. An unchecked pipeline cuts off at Consequence with no recourse. A governed chain builds two return loops: reconsideration reopens the authority lease, and correction feeds the next evidence base."
+    description="The method follows a decision from evidence through correction. Reconsideration returns to the authority for the decision; correction changes the evidence used next time."
     variant="alt"
   >
     <ChainDiagram />
@@ -97,18 +98,18 @@ const roles = [
 
   <SectionBlock
     id="safeguards"
-    eyebrow="Dynamic equilibrium"
-    title="The six safeguards and drift vectors"
-    description="Capability, Authority, Evidence, Dependency, Standing, and Correction must remain coupled. When capability outruns authority, or dependence outruns correction, unreviewable institutional power emerges. The twelve laws bind these six failure drifts."
+    eyebrow="Safeguards"
+    title="The six safeguards"
+    description="Check what the system can do, what it is permitted to do, and whether people can challenge and correct its decisions. The diagram shows how the six safeguards depend on one another."
   >
     <SafeguardEquilibriumDiagram />
   </SectionBlock>
 
   <SectionBlock
     id="matrix"
-    eyebrow="Cross-layer reference"
+    eyebrow="Reference map"
     title="The safeguard matrix"
-    description="Every safeguard binds a specific failure drift across the entire method stack: from the twelve laws to concrete standards, diagnostic tools, casebook precedents, and foundational theory."
+    description="Compare the laws, standards, scored cases, essays, and tools associated with each safeguard."
     variant="alt"
   >
     <SafeguardMatrix />
@@ -116,18 +117,18 @@ const roles = [
 
   <SectionBlock
     id="stack"
-    eyebrow="Vertical binding"
-    title="From axiom to artifact"
-    description="Ethotechnics is not a set of abstract principles. It is a vertical stack where every layer turns the one above it into something a running system can fail. Select a vertical trace to follow a single concept from philosophy to runnable code."
+    eyebrow="Method structure"
+    title="How the parts fit together"
+    description="Select a concept to follow its links through the theory, standards, mechanisms, and evidence. Each layer specifies a different part of the method."
   >
     <MethodStack />
   </SectionBlock>
 
   <SectionBlock
     id="roles"
-    eyebrow="Asymmetric exposure"
+    eyebrow="Responsibilities"
     title="Navigate by role"
-    description="Ethotechnics names who an automated system affects, rather than appealing to generic 'stakeholders'. Choose a role to see where exposure lands and which standards bind it."
+    description="Choose a role to see the decisions it faces and the standard to read first."
   >
     <div class="grid grid--two">
       {

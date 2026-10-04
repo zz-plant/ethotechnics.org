@@ -48,7 +48,15 @@ const tally = verdictTally();
     description="Read down a column to see which safeguard fails most often. Read across a row to see the shape of one case. Standing, the right of the people affected to challenge a decision and be answered, held in none of the five. Correction held once, and only because the system was halted before people came to depend on it. The last column asks whether the institution changed the process that produced the errors, or corrected them and left it as it was."
     variant="alt"
   >
-    <div class="table-responsive">
+    <p class="casebook-matrix__hint small muted" id="casebook-scroll-hint">
+      Scroll across to compare safeguards. Case names stay in view.
+    </p>
+    <div
+      class="table-responsive"
+      tabindex="0"
+      role="region"
+      aria-label="Safeguard scores by case"
+    >
       <table class="casebook-matrix">
         <thead>
           <tr>

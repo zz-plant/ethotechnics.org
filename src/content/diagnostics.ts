@@ -282,7 +282,7 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Estimating substitution cost without having run the alternative.",
           "Recording an untested stop as working reversibility.",
           "Treating a permission nobody can justify as a violation instead of an open question.",
-          "Confusing stewardship with counterfeit buffering: treating human-in-the-loop oversight as a control when the human has no unpenalized override authority and simply acts as a liability sponge for automated outputs.",
+          "Treating human review as a control when the reviewer cannot stop or change an automated action without penalty.",
         ],
       },
       collectionCost: {
@@ -409,7 +409,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         pilotNotes:
           "Built against the two systems that emit the shape today, using the exported output of one of them as the worked example rather than a fixture written to pass.",
         reliability:
-          "Deterministic. The same stream and the same as-of time give the same readout, because every check is mechanical and none of them asks for a judgement.",
+          "Deterministic. The same stream and the same as-of time give the same readout, because every check is mechanical and none of them asks for a judgment.",
         failureModes: [
           "Auditing a filtered export and reading the resulting chain break as tampering.",
           "Judging clocks against now rather than the export time, which fails a record for the reviewer's lateness.",
@@ -425,7 +425,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         answeredFromRecords: [
           "Schema validity, hash recomputation, and chain linkage are read from the stream itself.",
           "The conformance level a system publishes is compared against what its records show.",
-          "Nothing in the readout depends on a person's judgement or memory.",
+          "Nothing in the readout depends on a person's judgment or memory.",
         ],
         nonResponse:
           "Not applicable. The same stream and the same as-of time give the same readout, so no respondent can change it.",
@@ -663,8 +663,8 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Reading a high score as missing information when the institution already has the numbers. Where it holds sole authority and has priced and declined a fix, better measurement will not change the outcome.",
           "Using model metrics — accuracy, retraining — as evidence of corrective capacity.",
           "Treating human compensation as a free operational buffer: measuring observed throughput without subtracting the manual exception repair that keeps the metrics green.",
-          "Epistemic erasure: quiet human workarounds keep defect signals from tripping telemetry alarms, reinforcing the illusion of design soundness.",
-          "Manufactured virtue: praising frontline staff as 'dependable' or 'resilient' while leaving the upstream software or rule defects unaddressed.",
+          "Staff repairs keep errors out of system reports, so the reports understate the work needed to keep the workflow running.",
+          "Praising staff for handling errors while leaving the software or rule defects that cause them unaddressed.",
         ],
       },
       collectionCost: {

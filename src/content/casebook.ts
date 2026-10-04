@@ -880,7 +880,7 @@ export const cases: Case[] = [
     slug: "ofqual-2020-grades",
     title: "England's 2020 exam grades",
     system:
-      "A standardization model that replaced cancelled A-level and GCSE exams by fitting each school's historical grade distribution to its current cohort, overriding teachers' assessed grades for all but the smallest classes.",
+      "A standardization model that replaced canceled A-level and GCSE exams by fitting each school's historical grade distribution to its current cohort, overriding teachers' assessed grades for all but the smallest classes.",
     jurisdiction: "England · Ofqual, Department for Education",
     period: "13 to 17 August 2020",
     scale:
@@ -897,14 +897,14 @@ export const cases: Case[] = [
     metaDescription:
       "In August 2020, Ofqual's model lowered about 39% of England's A-level grades below teacher assessments. It was withdrawn in four days. Scored on six safeguards.",
     narrative: [
-      "When the 2020 exams were cancelled, the Secretary of State directed Ofqual to award grades and to ensure the distribution was broadly similar to previous years. Schools submitted a centre-assessed grade and a rank order for each student. Ofqual's model then fitted each school's grade distribution from the previous three years, adjusted for the cohort's prior attainment, to the rank order. Where a subject cohort at a school was five or fewer, the teacher's grade was used as submitted; between five and fifteen, a blend.",
+      "When the 2020 exams were canceled, the Secretary of State directed Ofqual to award grades and to ensure the distribution was broadly similar to previous years. Schools submitted a centre-assessed grade and a rank order for each student. Ofqual's model then fitted each school's grade distribution from the previous three years, adjusted for the cohort's prior attainment, to the rank order. Where a subject cohort at a school was five or fewer, the teacher's grade was used as submitted; between five and fifteen, a blend.",
       "Results were issued on 13 August. The regulator's interim report published the same day acknowledged that the model could not be validated against outcomes for individual students, since none existed, and that its aggregate agreement with past distributions was the design target rather than a measurement of accuracy. Students could appeal only through their school, on grounds of administrative error or, under a policy announced two days before results and withdrawn two days after, a higher mock grade. There was no ground of appeal that the model had ranked the student wrongly.",
       "Scotland's regulator had already withdrawn its equivalent model on 11 August. On 17 August Ofqual and the Department for Education announced that centre-assessed grades would stand. The Office for Statistics Regulation's review, published in March 2021, concluded that the model's limitations were understood by those building it and that the failure was in how the choices were made, explained, and opened to challenge.",
     ],
     timeline: [
       {
         when: "2020",
-        what: "Exams are cancelled. The Secretary of State directs Ofqual to keep grades broadly similar to previous years.",
+        what: "Exams are canceled. The Secretary of State directs Ofqual to keep grades broadly similar to previous years.",
       },
       {
         when: "11 Aug 2020",

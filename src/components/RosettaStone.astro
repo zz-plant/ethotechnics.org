@@ -2,8 +2,7 @@
 /**
  * RosettaStone.astro
  *
- * Industry vocabulary translation table mapping common enterprise and vendor
- * AI euphemisms to Ethotechnics constitutional mechanisms and standards.
+ * Common AI terms paired with checks and standard requirements.
  */
 
 interface TranslationRow {
@@ -18,11 +17,11 @@ interface TranslationRow {
 const translations: TranslationRow[] = [
   {
     industryTerm: "Human-in-the-loop (HITL)",
-    industryUsage:
-      "A human reviewer clicks 'Approve' hundreds of times a day to absorb legal liability for unreviewable model throughput.",
-    ethotechnicReality: "Counterfeit buffering & liability absorption",
+    industryUsage: "A human reviews or approves an automated output.",
+    ethotechnicReality:
+      "Check whether the reviewer can change or stop the action.",
     constitutionalMechanism:
-      "Expiring Authority Leases (STD-08). The human operator is an accountable overseer who can halt the system without penalty, and the grant lapses unless someone renews it on stated evidence.",
+      "STD-08 asks who holds authority, which actions are permitted, and when the grant expires.",
     governingStandard: {
       id: "STD-08",
       name: "Delegation",
@@ -36,11 +35,11 @@ const translations: TranslationRow[] = [
   },
   {
     industryTerm: "Kill switch",
-    industryUsage:
-      "An emergency shutdown button that operators are terrified to press because turning off the model collapses operations.",
-    ethotechnicReality: "Operational hostage / unhedged dependency",
+    industryUsage: "A control stops an automated process.",
+    ethotechnicReality:
+      "Check whether operations can continue after it is used.",
     constitutionalMechanism:
-      "The right to stop (STD-01). A person can stop a process, and the operator keeps a rehearsed manual path so the pipeline can be halted without the institution stalling.",
+      "STD-01 includes a right to stop. The operator needs a tested fallback so stopping the process does not leave people without a service.",
     governingStandard: {
       id: "STD-01",
       name: "The Temporal Bill of Rights",
@@ -55,10 +54,11 @@ const translations: TranslationRow[] = [
   {
     industryTerm: "AI ethics & alignment",
     industryUsage:
-      "Voluntary corporate principles, red-teaming personas, or aspirational philosophy statements without legal recourse.",
-    ethotechnicReality: "Procedural theater without remedy",
+      "A project states principles or checks model behavior against them.",
+    ethotechnicReality:
+      "Check whether a person can challenge a consequential decision.",
     constitutionalMechanism:
-      "Contestability & Recourse (STD-02). A principle with no route to challenge changes nothing. The standard asks whether the person an error lands on can challenge it, on a clock, and get a remedy.",
+      "STD-02 specifies a challenge path, a response deadline, and a route to remedy.",
     governingStandard: {
       id: "STD-02",
       name: "Contestability & Recourse",
@@ -73,11 +73,11 @@ const translations: TranslationRow[] = [
   },
   {
     industryTerm: "Bias audit & fairness metric",
-    industryUsage:
-      "A one-time statistical demographic parity check run before deployment on an offline test benchmark.",
-    ethotechnicReality: "Statistical aggregation concealing individual harm",
+    industryUsage: "An audit compares outcomes across groups.",
+    ethotechnicReality:
+      "Group-level results do not explain an individual decision.",
     constitutionalMechanism:
-      "Revisable Delegation Record (STD-07). A system can pass aggregate demographic parity while ruining an innocent individual. We require per-decision causal justification, individual standing, and runtime challenge density monitoring.",
+      "STD-07 specifies a per-decision record. Its higher levels add reasons, standing, and a route for objections.",
     governingStandard: {
       id: "STD-07",
       name: "Revisable Delegation Record",
@@ -93,10 +93,11 @@ const translations: TranslationRow[] = [
   {
     industryTerm: "Hallucination & model drift",
     industryUsage:
-      "An inevitable, quirky probabilistic artifact treated as an acceptable cost of generative architectures.",
-    ethotechnicReality: "Decoupled justification / ungrounded claim",
+      "A model produces an unsupported answer or its performance changes.",
+    ethotechnicReality:
+      "Check whether the evidence still supports the permitted actions.",
     constitutionalMechanism:
-      "Renewal on evidence (STD-08). An ungrounded assertion is not a basis for consequential action. A grant whose stated evidence no longer holds is not renewed.",
+      "STD-08 makes authority conditional on stated evidence and review triggers. A model’s output does not itself grant permission to act.",
     governingStandard: {
       id: "STD-08",
       name: "Delegation",
@@ -111,10 +112,11 @@ const translations: TranslationRow[] = [
   {
     industryTerm: "Worker burnout & change fatigue",
     industryUsage:
-      "Caseworker stress and cognitive fatigue addressed through resilience training and wellness apps.",
-    ethotechnicReality: "Uncounted compensatory labor subsidy",
+      "Staff report exhaustion or difficulty keeping up with changes.",
+    ethotechnicReality:
+      "Count repair work when assessing the system’s workload.",
     constitutionalMechanism:
-      "Human Impact Safety Case (STD-06). Burnout is the physical exhaustion of human beings spending unlogged hours repairing defective automated outputs so the system's metrics stay green.",
+      "STD-06 asks how a system affects people. Record the time staff spend fixing outputs rather than treating those repairs as free capacity.",
     governingStandard: {
       id: "STD-06",
       name: "Human Impact Safety Case",
@@ -129,11 +131,10 @@ const translations: TranslationRow[] = [
   },
   {
     industryTerm: "Compliance checklist & self-attestation",
-    industryUsage:
-      "A document where a project manager signs off that 'risks have been reasonably mitigated' before shipping.",
-    ethotechnicReality: "Ungroundable self-attestation",
+    industryUsage: "A team reports that it has completed required checks.",
+    ethotechnicReality: "Ask for records another reviewer can inspect.",
     constitutionalMechanism:
-      "Decision records checked from outside (STD-07). Each record is hash-chained to the last, and an exported stream can be graded in CI by the conformance checker.",
+      "STD-07 specifies decision records. The conformance checker grades an exported stream against the schema; this does not establish that the decisions were justified.",
     governingStandard: {
       id: "STD-07",
       name: "Revisable Delegation Record",
@@ -157,20 +158,20 @@ const translations: TranslationRow[] = [
             <span class="pill pill--ghost small">Industry term</span>
             <h3 class="rosetta-card__title">"{row.industryTerm}"</h3>
             <p class="rosetta-card__euphemism small muted">
-              <strong>Enterprise claim:</strong> {row.industryUsage}
+              <strong>Common use:</strong> {row.industryUsage}
             </p>
           </header>
 
           <div class="rosetta-card__body">
             <div class="rosetta-reality">
-              <span class="eyebrow warning">What is actually happening</span>
+              <span class="eyebrow warning">What to check</span>
               <p class="small">
                 <strong>{row.ethotechnicReality}</strong>
               </p>
             </div>
 
             <div class="rosetta-mechanism">
-              <span class="eyebrow">Ethotechnics constitutional mechanism</span>
+              <span class="eyebrow">Relevant requirement</span>
               <p class="small">{row.constitutionalMechanism}</p>
             </div>
           </div>

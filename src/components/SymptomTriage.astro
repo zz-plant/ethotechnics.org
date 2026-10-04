@@ -3,216 +3,174 @@
  * SymptomTriage.astro
  *
  * Operational failure triage matrix mapping active symptoms in production
- * directly to their root cause mechanism, diagnostic tool, standard,
+ * to possible causes, diagnostic tools, standards,
  * casebook precedent, and foundational theory essay.
  */
+
+import { cases } from "../content/casebook";
+import { standardsContent } from "../content/standards";
 
 interface Symptom {
   id: string;
   badge: string;
   title: string;
   observation: string;
-  rootCause: string;
+  possibleCause: string;
   diagnostic: { name: string; href: string; action: string };
-  standard: { id: string; name: string; href: string };
-  casebook: { title: string; href: string; lesson: string };
+  standard: string;
+  casebook: string;
   theory: { title: string; href: string; coreQuestion: string };
 }
 
 const symptoms: Symptom[] = [
   {
     id: "shadow-workarounds",
-    badge: "Labor externalization",
-    title: "Shadow workarounds & unrecorded repair",
+    badge: "Unrecorded work",
+    title: "People repair errors outside the system",
     observation:
-      "Support staff, caseworkers, or engineers maintain off-system spreadsheets, phone chains, or unofficial manual bypasses to make automated decisions survivable. System telemetry stays green while human staff burns out.",
-    rootCause:
-      "Epistemic erasure: human compensatory labor silently absorbs errors, blinding the institution to algorithmic failure.",
+      "Staff use spreadsheets, phone calls, or manual bypasses to repair automated decisions. Those repairs do not appear in the system’s error reports.",
+    possibleCause:
+      "Error reports count the automated output but omit the time people spend correcting it.",
     diagnostic: {
       name: "Workload Modeler",
       href: "/diagnostics/burden-modeler",
-      action: "Quantify unpriced human buffering hours",
+      action: "Model the time people spend handling errors.",
     },
-    standard: {
-      id: "STD-06",
-      name: "Human Impact Safety Case",
-      href: "/standards/std-06-human-impact-safety-case",
-    },
-    casebook: {
-      title: "Ofqual 2020 Grades",
-      href: "/casebook/ofqual-2020-grades",
-      lesson:
-        "Frontline educators absorbed standardisation variance until the model collapsed under public protest.",
-    },
+    standard: "STD-06",
+    casebook: "ofqual-2020-grades",
     theory: {
       title: "The human subsidy to institutional continuity",
       href: "/research/theory/the-human-subsidy",
-      coreQuestion:
-        "What compensatory labor produces apparent institutional functionality?",
+      coreQuestion: "What work do people do to keep a faulty system running?",
     },
   },
   {
     id: "appeal-avalanche",
-    badge: "Correction failure",
-    title: "Appeal avalanche & congested review queues",
+    badge: "Review backlog",
+    title: "Appeals arrive faster than staff can review them",
     observation:
-      "Decision disputes and appeal backlogs spike exponentially. Turnaround times stretch from days to months. Management responds by raising dispute fees, narrowing eligibility, or adding procedural friction to depress intake.",
-    rootCause:
-      "Challenge density: error generation throughput outpaces institutional review capacity. The organization restricts standing rather than repairing the rule.",
+      "Unanswered challenges accumulate. People wait longer for reviews, and restrictions on new appeals can hide the size of the backlog.",
+    possibleCause:
+      "The review team has less capacity than the workflow needs, or repeated appeals are not reaching the rule’s owner.",
     diagnostic: {
       name: "Burden Budget Worksheet",
       href: "/diagnostics/burden-budget-worksheet",
-      action: "Calculate challenge density vs review capacity",
+      action: "Estimate review workload and available staff time.",
     },
-    standard: {
-      id: "STD-02",
-      name: "Contestability & Recourse",
-      href: "/standards/std-02-contestability-recourse",
-    },
-    casebook: {
-      title: "Robodebt",
-      href: "/casebook/robodebt",
-      lesson:
-        "Over 400,000 welfare recipients were forced to disprove false automated debts through backlogged tribunals.",
-    },
+    standard: "STD-02",
+    casebook: "robodebt",
     theory: {
       title: "Challenge density",
       href: "/research/theory/challenge-density",
       coreQuestion:
-        "Why must an institution scale correction capacity rather than restrict standing?",
+        "When should the institution add review capacity or narrow the system’s scope?",
     },
   },
   {
     id: "rigid-gates",
-    badge: "Operational entrapment",
-    title: "Rigid software gates & disabled override",
+    badge: "No stop control",
+    title: "Staff see an error but cannot stop the action",
     observation:
-      "Frontline caseworkers know an automated output is factually wrong or harmful, but software interfaces enforce hard validation blocks with no route for unpenalized human override or emergency stop.",
-    rootCause:
-      "Conflating deterministic machine rules with administrative sovereignty. Operators are treated as execution cogs rather than accountable stewards.",
+      "Staff identify a wrong or harmful decision, but the interface gives them no route to pause it or send it to someone who can revise it.",
+    possibleCause:
+      "The workflow gives the system permission to act without giving a named person a working correction control.",
     diagnostic: {
       name: "Delegation Audit",
       href: "/diagnostics/delegation-audit",
-      action: "Check for unpenalized 30-second override keys",
+      action:
+        "Check entered answers about who may stop or revise the workflow.",
     },
-    standard: {
-      id: "STD-08",
-      name: "Delegation & Authority Leases",
-      href: "/standards/std-08-delegation",
-    },
-    casebook: {
-      title: "Post Office Horizon",
-      href: "/casebook/post-office-horizon",
-      lesson:
-        "Subpostmasters were legally bound to computer accounting outputs they could neither audit nor correct.",
-    },
+    standard: "STD-08",
+    casebook: "post-office-horizon",
     theory: {
       title: "The sovereign override",
       href: "/research/theory/the-sovereign-override",
-      coreQuestion:
-        "How does the machine boundary stay deterministic while the override becomes evidence?",
+      coreQuestion: "How should a human override be recorded?",
     },
   },
   {
     id: "irreversible-harm",
-    badge: "Remedy deficit",
-    title: "Irreversible state changes & absent restitution",
+    badge: "Missing remedy",
+    title: "A successful appeal leaves the harm unrepaired",
     observation:
-      "Automated actions—such as account freezes, benefit terminations, shift cuts, or credit revocations—take immediate effect. When an appeal eventually succeeds, there is no technical ledger or funded mechanism to make the victim whole.",
-    rootCause:
-      "State-changing actions executed without temporal holds, reversible staging, or funded restitution invariants (Law XII).",
+      "An account freeze, benefit cut, or other action takes effect before review. Reversing the decision does not restore the person’s lost money, time, or access.",
+    possibleCause:
+      "The workflow has an appeal path but no owner or funded process for repairing the consequences.",
     diagnostic: {
       name: "Self-Defense Checks",
       href: "/diagnostics/self-defense-tools",
-      action: "Verify decision standing and restitution rights",
+      action: "Find prompts for requesting reasons and a remedy.",
     },
-    standard: {
-      id: "STD-01",
-      name: "The Temporal Bill of Rights",
-      href: "/standards/std-01-temporal-rights",
-    },
-    casebook: {
-      title: "Toeslagenaffaire",
-      href: "/casebook/toeslagenaffaire",
-      lesson:
-        "Automated fraud designations bankrupted thousands of families before restitution schemes were established a decade later.",
-    },
+    standard: "STD-01",
+    casebook: "toeslagenaffaire",
     theory: {
       title: "Dependence runs both ways",
       href: "/research/theory/dependence-runs-both-ways",
       coreQuestion:
-        "What duties of reversibility does an institution incur when subjects cannot exit?",
+        "What must an institution preserve when people cannot leave its systems?",
     },
   },
   {
     id: "vendor-lock-in",
-    badge: "Governance capture",
-    title: "Vendor lock-in & captured authority",
+    badge: "Vendor dependency",
+    title: "The institution cannot inspect the vendor’s decisions",
     observation:
-      "The institution cannot explain, audit, or modify an automated decision because proprietary vendor contracts and black-box third-party APIs hold the underlying logic, claiming trade secrecy.",
-    rootCause:
-      "Delegating statutory authority without requiring immutable, independently verifiable decision records (Law VI).",
+      "The institution cannot explain or audit a decision because the vendor controls the records or withholds the decision logic.",
+    possibleCause:
+      "The contract or workflow leaves the institution without enough evidence to review the authority it delegated.",
     diagnostic: {
       name: "Record Conformance Validator",
       href: "/diagnostics/record-conformance",
-      action: "Test decision logs against open schema",
+      action: "Check a supplied record stream against STD-07.",
     },
-    standard: {
-      id: "STD-07",
-      name: "Revisable Delegation Record",
-      href: "/standards/std-07-revisable-delegation-record",
-    },
-    casebook: {
-      title: "Post Office Horizon",
-      href: "/casebook/post-office-horizon",
-      lesson:
-        "An entire national institution became captured by vendor software assertions it could not independently verify.",
-    },
+    standard: "STD-07",
+    casebook: "post-office-horizon",
     theory: {
       title: "Automation and capture",
       href: "/research/theory/automation-and-capture",
       coreQuestion:
-        "At what point does operational reliance extinguish the ability to halt a system?",
+        "Can the institution still question, replace, or stop the system?",
     },
   },
   {
     id: "statistical-stereotyping",
-    badge: "Standing denial",
-    title: "Statistical stereotyping & denied causal reasons",
+    badge: "Missing reasons",
+    title: "A person cannot get reasons for a decision",
     observation:
-      "An individual is denied credit, flagged for fraud, or down-ranked based on population-level aggregate statistics, and the organization refuses to name the causal factors specific to that person's file.",
-    rootCause:
-      "Treating the statistical model of a person as an ontological replacement for the living person, denying independent standing to challenge.",
+      "A person is denied credit, flagged for fraud, or ranked by a system, but cannot obtain the evidence and reasons used in their case.",
+    possibleCause:
+      "The workflow reports model performance without providing reasons or a challenge path for an individual decision.",
     diagnostic: {
       name: "Delegation Audit",
       href: "/diagnostics/delegation-audit",
-      action: "Evaluate individualized explanation compliance",
+      action:
+        "Review entered answers about authority and the challenge process.",
     },
-    standard: {
-      id: "STD-02",
-      name: "Contestability & Recourse",
-      href: "/standards/std-02-contestability-recourse",
-    },
-    casebook: {
-      title: "Apple Card",
-      href: "/casebook/apple-card",
-      lesson:
-        "Spouses with identical financial profiles received disparate credit lines with zero causal justification provided.",
-    },
+    standard: "STD-02",
+    casebook: "apple-card",
     theory: {
       title: "The model of a person is not the person",
       href: "/research/theory/model-of-a-person",
-      coreQuestion:
-        "Why does even the most predictive model fail to extinguish individual standing to challenge?",
+      coreQuestion: "How can a person challenge the system’s account of them?",
     },
   },
 ];
+
+const resolvedSymptoms = symptoms.map((symptom) => {
+  const standard = standardsContent.standards.find(
+    (entry) => entry.id === symptom.standard,
+  );
+  const casebook = cases.find((entry) => entry.slug === symptom.casebook);
+  if (!standard || !casebook)
+    throw new Error(`Unknown symptom reference: ${symptom.id}`);
+  return { ...symptom, standard, casebook };
+});
 ---
 
 <div class="symptom-triage" data-symptom-triage>
   <div class="symptom-grid">
     {
-      symptoms.map((symptom) => (
+      resolvedSymptoms.map((symptom) => (
         <article class="symptom-card" id={symptom.id}>
           <header class="symptom-card__header">
             <span class="pill pill--ghost small">{symptom.badge}</span>
@@ -226,8 +184,8 @@ const symptoms: Symptom[] = [
             </div>
 
             <div class="symptom-card__cause">
-              <span class="eyebrow">Root failure mode</span>
-              <p class="small muted">{symptom.rootCause}</p>
+              <span class="eyebrow">Possible cause</span>
+              <p class="small muted">{symptom.possibleCause}</p>
             </div>
           </div>
 
@@ -241,22 +199,28 @@ const symptoms: Symptom[] = [
             </div>
 
             <div class="remediation-item">
-              <span class="remediation-label">Enforce standard:</span>
-              <a href={symptom.standard.href} class="remediation-link">
-                <strong>{symptom.standard.id}:</strong> {symptom.standard.name}
+              <span class="remediation-label">Read the standard:</span>
+              <a
+                href={`/standards/${symptom.standard.slug}`}
+                class="remediation-link"
+              >
+                <strong>{symptom.standard.id}:</strong> {symptom.standard.title}
               </a>
             </div>
 
             <div class="remediation-item">
-              <span class="remediation-label">Case precedent:</span>
-              <a href={symptom.casebook.href} class="remediation-link">
+              <span class="remediation-label">Scored case:</span>
+              <a
+                href={`/casebook/${symptom.casebook.slug}`}
+                class="remediation-link"
+              >
                 <strong>{symptom.casebook.title}</strong>
               </a>
-              <span class="remediation-sub">{symptom.casebook.lesson}</span>
+              <span class="remediation-sub">{symptom.casebook.system}</span>
             </div>
 
             <div class="remediation-item">
-              <span class="remediation-label">Theory grounding:</span>
+              <span class="remediation-label">Related essay:</span>
               <a href={symptom.theory.href} class="remediation-link">
                 <strong>{symptom.theory.title}</strong>
               </a>

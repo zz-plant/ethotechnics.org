@@ -52,6 +52,7 @@ export default defineConfig(
     files: [
       "src/components/CasebookFailureChart.astro",
       "src/pages/start.astro",
+      "src/pages/casebook/index.astro",
     ],
     rules: {
       // Named chart and code regions must receive focus for keyboard scrolling.
