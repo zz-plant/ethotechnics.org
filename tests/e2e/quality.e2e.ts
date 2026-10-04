@@ -5,8 +5,8 @@ type ConsoleMessage = {
   text: string;
 };
 
-const CORE_ROUTES = ["/", "/standards", "/library", "/start-here"];
-const PERFORMANCE_ROUTES = ["/", "/start-here", "/library"];
+const CORE_ROUTES = ["/", "/standards", "/library", "/start"];
+const PERFORMANCE_ROUTES = ["/", "/start", "/library"];
 
 const collectConsoleMessages = (page: Page) => {
   const messages: ConsoleMessage[] = [];
