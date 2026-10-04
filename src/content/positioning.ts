@@ -495,3 +495,38 @@ export const embeddedPolitics: PoliticalTranslation[] = [
       "What can be contested must remain contestable. The power to change the rules of challenge is the first power that has to be limited.",
   },
 ];
+
+export type MechanismColumn = {
+  name: string;
+  question: string;
+  /** The framework's own cell is set apart visually. */
+  own?: boolean;
+};
+
+export const mechanismColumns: MechanismColumn[] = [
+  {
+    name: "Markets",
+    question:
+      "After ten years of success, does competition still hold corrective power?",
+  },
+  {
+    name: "Law",
+    question:
+      "After ten years of success, does the ruling still reach the rule?",
+  },
+  {
+    name: "Management",
+    question:
+      "After ten years of success, does the manager still hold authority to correct?",
+  },
+  {
+    name: "Technology",
+    question:
+      "After ten years, does the tool still let people correct the tool?",
+  },
+  {
+    name: "This framework",
+    question: "The same question, asked of its own instruments.",
+    own: true,
+  },
+];

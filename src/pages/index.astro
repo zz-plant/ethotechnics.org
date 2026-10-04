@@ -9,6 +9,7 @@ import RecordSpine from "../components/home/RecordSpine.astro";
 import SafeguardMap from "../components/home/SafeguardMap.astro";
 import SelfTest from "../components/home/SelfTest.astro";
 import SectionBlock from "../components/SectionBlock.astro";
+import { mechanismColumns } from "../content/positioning";
 
 /**
  * The front door as one story in reading order, told without ever holding
@@ -235,127 +236,103 @@ const doors = [
         Every corrective mechanism itself changes under delegation.
       </h2>
       <div class="home-mechanisms">
-        <div class="home-mechanisms__cell">
-          <p class="home-mechanisms__name">Markets</p>
-          <p class="home-mechanisms__question">
-            After ten years of success, does competition still hold corrective
-            power?
-          </p>
-        </div>
-        <div class="home-mechanisms__cell">
-          <p class="home-mechanisms__name">Law</p>
-          <p class="home-mechanisms__question">
-            After ten years of success, does the ruling still reach the rule?
-          </p>
-        </div>
-        <div class="home-mechanisms__cell">
-          <p class="home-mechanisms__name">Management</p>
-          <p class="home-mechanisms__question">
-            After ten years of success, does the manager still hold authority to
-            correct?
-          </p>
-        </div>
-        <div class="home-mechanisms__cell">
-          <p class="home-mechanisms__name">Technology</p>
-          <p class="home-mechanisms__question">
-            After ten years, does the tool still let people correct the tool?
-          </p>
-        </div>
-        <div class="home-mechanisms__cell home-mechanisms__cell--own">
-          <p class="home-mechanisms__name">This framework</p>
-          <p class="home-mechanisms__question">
-            The same question, asked of its own instruments.
-          </p>
-        </div>
+        {
+          mechanismColumns.map((col) => (
+            <div
+              class:list={[
+                "home-mechanisms__cell",
+                col.own && "home-mechanisms__cell--own",
+              ]}
+            >
+              <p class="home-mechanisms__name">{col.name}</p>
+              <p class="home-mechanisms__question">{col.question}</p>
+            </div>
+          ))
+        }
       </div>
-      <p class="small muted">
-        <a href="/about#scholars">Shared values, new instruments →</a> ·
-        <a href="/about#disagreement">The real disagreement →</a> ·
-        <a href="/research/scholarly-crossings">Scholarly crossings →</a>
+    </div>
+
+    <HomeClaims />
+
+    <div class="home-core">
+      <div class="home-core__test">
+        <SelfTest />
+        <SafeguardMap class="home-core__figure" />
+      </div>
+    </div>
+
+    <nav class="home-doors" aria-labelledby="home-doors-heading">
+      <div class="home-doors__header">
+        <p class="eyebrow">Start from where you are</p>
+        <h2 id="home-doors-heading" class="section__heading">Four ways in.</h2>
+        <p class="section-lead">
+          Pick the one that fits. Each leads to the standards, tools, cases, and
+          theory that apply to you.
+        </p>
+      </div>
+      <ul class="home-doors__list">
+        {
+          doors.map((door) => (
+            <li>
+              <a class="home-doors__door" href={door.href}>
+                <span class="home-doors__who">{door.who}</span>
+                <span class="home-doors__what small muted">{door.what}</span>
+                <span class="home-doors__action" aria-hidden="true">
+                  →
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="home-doors__fit small muted">
+        Not sure the framework applies to your system?
+        <a href="/use-cases">See which systems it is for →</a>
       </p>
+    </nav>
+
+    <div class="home-supplement">
+      <footer class="home-colophon">
+        <div class="home-colophon__cols">
+          <div>
+            <p class="home-colophon__label">License</p>
+            <p class="home-colophon__text">
+              Ethotechnics Institute materials are published under
+              <a
+                href="https://creativecommons.org/licenses/by-sa/4.0/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                CC BY-SA 4.0
+              </a>. Credit the Institute, and publish anything you adapt under
+              the same license. Entries carry citation metadata, so you can
+              reference exactly what you used.
+            </p>
+          </div>
+          <div>
+            <p class="home-colophon__label">Studio</p>
+            <p class="home-colophon__text">
+              Commissioned safety evaluation for healthcare AI. That work runs
+              through
+              <a
+                href="https://ethotechnics.com"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Ethotechnics Studio →
+              </a>
+            </p>
+          </div>
+        </div>
+        <p class="home-colophon__strip">
+          ethotechnics.org · open standards · scored public failures · free
+          diagnostics
+        </p>
+      </footer>
     </div>
   </section>
 
-  <HomeClaims />
-
-  <div class="home-core">
-    <div class="home-core__test">
-      <SelfTest />
-      <SafeguardMap class="home-core__figure" />
-    </div>
-  </div>
-
-  <nav class="home-doors" aria-labelledby="home-doors-heading">
-    <div class="home-doors__header">
-      <p class="eyebrow">Start from where you are</p>
-      <h2 id="home-doors-heading" class="section__heading">Four ways in.</h2>
-      <p class="section-lead">
-        Pick the one that fits. Each leads to the standards, tools, cases, and
-        theory that apply to you.
-      </p>
-    </div>
-    <ul class="home-doors__list">
-      {
-        doors.map((door) => (
-          <li>
-            <a class="home-doors__door" href={door.href}>
-              <span class="home-doors__who">{door.who}</span>
-              <span class="home-doors__what small muted">{door.what}</span>
-              <span class="home-doors__action" aria-hidden="true">
-                →
-              </span>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-    <p class="home-doors__fit small muted">
-      Not sure the framework applies to your system?
-      <a href="/use-cases">See which systems it is for →</a>
-    </p>
-  </nav>
-
-  <div class="home-supplement">
-    <footer class="home-colophon">
-      <div class="home-colophon__cols">
-        <div>
-          <p class="home-colophon__label">License</p>
-          <p class="home-colophon__text">
-            Ethotechnics Institute materials are published under
-            <a
-              href="https://creativecommons.org/licenses/by-sa/4.0/"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              CC BY-SA 4.0
-            </a>. Credit the Institute, and publish anything you adapt under the
-            same license. Entries carry citation metadata, so you can reference
-            exactly what you used.
-          </p>
-        </div>
-        <div>
-          <p class="home-colophon__label">Studio</p>
-          <p class="home-colophon__text">
-            Commissioned safety evaluation for healthcare AI. That work runs
-            through
-            <a
-              href="https://ethotechnics.com"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              Ethotechnics Studio →
-            </a>
-          </p>
-        </div>
-      </div>
-      <p class="home-colophon__strip">
-        ethotechnics.org · open standards · scored public failures · free
-        diagnostics
-      </p>
-    </footer>
-  </div>
+  <script>
+    import "../scripts/home-reveal.ts";
+  </script>
 </BaseLayout>
-
-<script>
-  import "../scripts/home-reveal.ts";
-</script>

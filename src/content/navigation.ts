@@ -100,14 +100,14 @@ export const navSections: NavSection[] = [
         description: "Each law and the condition a clause binds",
       },
       {
+        href: "/low-leverage",
+        label: "Low-leverage work",
+        description: "Eleven approaches that fail, and what replaces each",
+      },
+      {
         href: "/standards",
         label: "Standards",
         description: "Citable clauses, stated so a system can fail them",
-      },
-      {
-        href: "/standards/enforceable-governance-crosswalks",
-        label: "Regulatory crosswalks",
-        description: "EU AI Act, NIST AI RMF, and ISO 42001 alignment",
       },
       {
         href: "/evidence-packs",
