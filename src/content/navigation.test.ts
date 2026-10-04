@@ -48,8 +48,8 @@ describe("navSections", () => {
     expect(sectionLinks("Method")).toEqual([
       "/method",
       "/standards/laws",
+      "/low-leverage",
       "/standards",
-      "/standards/enforceable-governance-crosswalks",
       "/evidence-packs",
     ]);
   });
