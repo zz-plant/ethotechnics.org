@@ -2765,7 +2765,7 @@ export const evalTestCases: EvalTestCase[] = [
     suiteId: "cross-domain-burden",
     title: "Healthcare: appointment denial recovery path",
     description:
-      "When a healthcare appointment is denied or cancelled by the system, what must the patient do to recover?",
+      "When a healthcare appointment is denied or canceled by the system, what must the patient do to recover?",
     category: "burden",
     layer: "consequence",
     severity: "critical",

@@ -51,6 +51,9 @@ export default defineConfig(
   {
     files: [
       "src/components/CasebookFailureChart.astro",
+      "src/components/FailurePointDiagram.astro",
+      "src/components/OutcomesHideDiagram.astro",
+      "src/components/RatchetFigure.astro",
       "src/pages/start.astro",
       "src/pages/casebook/index.astro",
     ],

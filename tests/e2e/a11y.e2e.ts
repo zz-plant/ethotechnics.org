@@ -26,3 +26,30 @@ test.describe("Accessibility (A11y) Checks", () => {
     });
   }
 });
+
+// These diagrams overflow their container on phones. Keyboard users must be
+// able to focus and scroll them, rather than relying on touch or a pointer.
+test.describe("Diagram accessibility on phones", () => {
+  test.use({ viewport: { width: 375, height: 812 } });
+
+  for (const route of [
+    "/standards/laws",
+    "/research/theory/what-outcomes-hide",
+  ]) {
+    test(`check scrollable diagrams on ${route}`, async ({ page }) => {
+      await page.goto(route);
+      const results = await new AxeBuilder({ page })
+        .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
+        .analyze();
+      expect(results.violations).toEqual([]);
+
+      const diagram = page.locator(".diagram-scroll").first();
+      await diagram.focus();
+      await expect(diagram).toBeFocused();
+      await page.keyboard.press("ArrowRight");
+      await expect
+        .poll(() => diagram.evaluate((element) => element.scrollLeft))
+        .toBeGreaterThan(0);
+    });
+  }
+});

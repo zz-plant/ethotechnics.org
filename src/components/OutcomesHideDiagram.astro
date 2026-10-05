@@ -2,8 +2,8 @@
 /**
  * Outcomes Hide Diagram (Laws IV, VII, VIII, X).
  *
- * A paired comparison: two institutions with the same outcome, one run on robust
- * systems and correctable by the people it serves, the other run on its people
+ * A paired comparison: two institutions with the same outcome, one with low
+ * repair burden and correctable by the people it serves, the other run on its people
  * and merely making good decisions. The outcome row matches; the adaptation
  * burden and corrective power rows do not. Bars are qualitative.
  */
@@ -28,12 +28,17 @@ const Heading = level;
     </p>
   </figcaption>
 
-  <div class="diagram-scroll">
+  <div
+    class="diagram-scroll"
+    tabindex="0"
+    role="region"
+    aria-label="Same outcome, different institutions"
+  >
     <svg
       viewBox="0 0 920 470"
       role="img"
       class="state-diagram__svg"
-      aria-label="Paired bar comparison of two institutions. Outcome: equal for both. Adaptation burden: low for institution A, which runs on robust systems; high for institution B, which runs on exhausted workers and unofficial workarounds. Corrective power: high for institution A, where people can challenge and obtain remedies; low for institution B, which merely happens to make good decisions. The outcome measure sees only the first row. Bars are qualitative, with no numeric scale."
+      aria-label="Paired bar comparison of two institutions. Outcome: equal for both. Adaptation burden: low for institution A, which needs little repair work; high for institution B, which runs on exhausted workers and unofficial workarounds. Corrective power: high for institution A, where people can challenge and obtain remedies; low for institution B, which merely happens to make good decisions. The outcome measure sees only the first row. Bars are qualitative, with no numeric scale."
     >
       <g class="state-diagram__node">
         {/* Key */}
@@ -46,7 +51,8 @@ const Heading = level;
           fill="var(--accent)"
           stroke="none"></rect>
         <text x="46" y="31" class="state-diagram__state">Institution A</text>
-        <text x="46" y="52" class="state-diagram__label">Robust systems</text>
+        <text x="46" y="52" class="state-diagram__label">Low repair burden</text
+        >
         <text x="46" y="70" class="state-diagram__label"
           >People can challenge and obtain remedies</text
         >

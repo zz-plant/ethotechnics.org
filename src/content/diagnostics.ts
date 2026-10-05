@@ -119,7 +119,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         version: "v1.6.0",
         date: "2026-10-02",
         summary:
-          "Codified compensatory labor and shadow subsidy audit checks across the Workload Modeler and corrective capacity self-assessment to identify unrecorded human repair, epistemic erasure, and manufactured virtue.",
+          "Added checks for unrecorded repair work and staff workarounds to the Workload Modeler and corrective capacity self-assessment.",
       },
       {
         version: "v1.5.0",
