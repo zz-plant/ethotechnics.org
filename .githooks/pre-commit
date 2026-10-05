@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 set -eu
 
+npx lint-staged
+
 printf '%s\n' '[pre-commit] Running staged review guardrails...'
 bun run check:review-guardrails:staged
