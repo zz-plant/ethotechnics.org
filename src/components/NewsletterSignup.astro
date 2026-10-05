@@ -12,6 +12,8 @@
         placeholder="your@email.com"
         required
         autocomplete="email"
+        spellcheck="false"
+        autocapitalize="off"
       />
       <button type="submit" class="button primary button--compact">
         Subscribe
@@ -43,6 +45,9 @@
         }
 
         button.disabled = true;
+        const submittingLabel = "Subscribing…";
+        const restoreLabel = button.textContent;
+        button.textContent = submittingLabel;
         status.textContent = "";
         status.className = "newsletter-signup__status";
 
@@ -72,6 +77,9 @@
           status.classList.add("newsletter-signup__status--error");
         } finally {
           button.disabled = false;
+          if (button.textContent === submittingLabel) {
+            button.textContent = restoreLabel ?? "Subscribe";
+          }
         }
       });
     });
