@@ -162,8 +162,7 @@ remove dependencies and Playwright caches.
 ### Unit and component tests (Bun Test)
 
 - `bun test` runs the test suite.
-- Component rendering tests use the experimental Astro container (`src/test/astro-container.ts`) and
-  run under Bun with happy-dom helpers.
+- Component tests run under Bun with happy-dom helpers.
 - CI uses `bun run test:unit:ci` to execute once with coverage.
 
 ### Environment configuration
