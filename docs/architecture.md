@@ -61,6 +61,18 @@ Rules that follow:
   in frontmatter; `src/utils/sitemaps.ts` reads that field so dynamic routes still reach the
   sitemap.
 
+## Evaluation stack
+
+- `src/content/eval-test-cases.ts` is the single data source for evaluation: test cases grouped
+  into the suites defined in `src/content/evals.ts`. Pages, the JSON API, and the harness all read
+  from it.
+- `src/harness` is the Tier 1 governance harness: twelve checks with latency budgets, run against a
+  `GovernanceAdapter` by `bun run eval:harness`. `/evals` and `/measurement-tiers` render the same
+  checks as site content.
+- `src/features/eval-runner` powers the interactive surface: the `/evals/runner` page, the batch
+  endpoint at `/api/evals/batch`, and `scripts/run-local-llm-evals.ts`, which drives the same
+  simulation engine against local models through Ollama and a browser.
+
 ## Middleware, headers, and redirects
 
 - `src/middleware.ts` normalizes legacy `ethotechnics.com` hosts to `ethotechnics.org` with a 301
