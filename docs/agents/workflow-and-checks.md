@@ -64,12 +64,13 @@ For docs-only changes:
 - Summarize commands run and outcomes.
 - Keep PR scope aligned to the request.
 
-## API route wrapper config
+## API endpoints
 
-- Add JSON endpoints once in `src/pages/api/endpoint-config.ts`.
-- Set `variants.unversioned` and/or `variants.versioned` for directory-specific exposure.
-- Use variant options for path and release-link behavior (`basePath`,
-  `includeReleaseEndpoints`, `includeSnapshots`).
-- Point `createResponse` to the existing response builder in `src/utils/api-responses.ts`.
-- Keep route files thin by wiring `createConfiguredApiRoute(...)` only.
-- Run `bun test src/pages/api/endpoint-parity.test.ts` to verify file coverage parity.
+- Add each JSON endpoint once, in the `API_ENDPOINTS` manifest in
+  `src/utils/api-endpoints.ts` (path, one-line description, group).
+- Add its response handler to the table in `src/pages/api/manifest.ts`.
+- The catch-all route `src/pages/api/[...endpoint].ts` serves every listed
+  path; no per-endpoint route file is needed.
+- Response builders live in `src/utils/api-responses.ts`.
+- Run `bun test src/utils/api-tests/api-manifest.test.ts` to verify the
+  manifest and handler table match.
