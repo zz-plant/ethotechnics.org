@@ -68,7 +68,12 @@ const expansions = history.length - 1;
   lede={`Two systems widen their reach by ${RATCHET.stepPct}% a month for ${RATCHET.months / 12} years. The left one is reviewed only when a single step reaches ${RATCHET.reviewThresholdPct}%. The right one records every step as an approval.`}
 >
   <div class="demo-figure__frame">
-    <div class="diagram-scroll">
+    <div
+      class="diagram-scroll"
+      tabindex="0"
+      role="region"
+      aria-label="The same growth, approved and unapproved"
+    >
       <svg
         viewBox="0 0 960 420"
         role="img"
