@@ -27,7 +27,7 @@ export const siteFooter: SiteFooterContent = {
       logoAlt: "Ethotechnics Institute seal",
     },
     description:
-      "Proposed standards, mechanisms, and diagnostics for keeping automated decision systems stoppable, explainable, and appealable, whether or not they use AI.",
+      "Proposed standards, mechanisms, and diagnostics for keeping automated decision systems answerable, whether or not they use AI.",
     license: {
       label: "Content licensed CC BY-SA 4.0",
       href: "https://creativecommons.org/licenses/by-sa/4.0/",
