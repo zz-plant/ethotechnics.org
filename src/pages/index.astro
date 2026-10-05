@@ -9,7 +9,17 @@ import RecordSpine from "../components/home/RecordSpine.astro";
 import SafeguardMap from "../components/home/SafeguardMap.astro";
 import SelfTest from "../components/home/SelfTest.astro";
 import SectionBlock from "../components/SectionBlock.astro";
+import { evalsContent } from "../content/evals";
 import { mechanismColumns } from "../content/positioning";
+import { standardsContent } from "../content/standards";
+
+// The pillar counts are read from the same arrays the /standards and /evals
+// pages list from, so adding an entry updates this page instead of leaving a
+// stale number beside a live one.
+const draftStandards = standardsContent.standards.filter(
+  (standard) => standard.status === "Draft",
+).length;
+const suiteCount = evalsContent.suites.length;
 
 /**
  * The front door as one story in reading order, told without ever holding
@@ -104,14 +114,14 @@ const doors = [
     <div class="home-pillars">
       <a class="home-pillar" href="/standards">
         <span class="eyebrow">Standards</span>
-        <strong>8 draft standards</strong>
+        <strong>{draftStandards} draft standards</strong>
         <span class="small muted"
           >Authority leases, contestability clocks, and JSON schemas.</span
         >
       </a>
       <a class="home-pillar" href="/evals">
         <span class="eyebrow">Evaluations</span>
-        <strong>16 suites & Finite drills</strong>
+        <strong>{suiteCount} suites &amp; Finite drills</strong>
         <span class="small muted"
           >Dual-ledger surge tests and failure containment benchmarks.</span
         >
@@ -130,7 +140,7 @@ const doors = [
     id="orientation"
     eyebrow="Orientation"
     title="Three things this site answers before you begin"
-    description="The discipline that keeps automated decision systems answerable: when one is wrong, evidence of the harm reaches someone who has to change it."
+    description="Ethotechnics is the discipline that keeps automated decision systems answerable: when one is wrong, evidence of the harm reaches someone who has to change it."
     variant="alt"
   >
     <div class="grid grid--three">
@@ -156,16 +166,16 @@ const doors = [
 
       <article class="card stack-sm">
         <p class="eyebrow">The mechanism</p>
-        <h3>How this differs from "AI Ethics"</h3>
+        <h3>How this differs from “AI Ethics”</h3>
         <p>
-          We reject "human-in-the-loop" when it means human liability sponging.
+          We reject “human-in-the-loop” when it means human liability sponging.
           When upheld challenges cross a precommitted threshold, the automated
           rule goes to its named owner for review, with revision or a reasoned
           refusal recorded.
         </p>
         <p class="small muted">
-          Closed feedback loops, not vague principles like "fairness" or
-          "transparency".
+          Closed feedback loops, not vague principles like “fairness” or
+          “transparency”.
         </p>
         <p class="small">
           <a href="/method">See the 7-stage governed chain &rarr;</a>
@@ -293,22 +303,12 @@ const doors = [
 
     <div class="home-supplement">
       <footer class="home-colophon">
+        {/*
+          The global site footer below this one already carries the license
+          and the Studio link; this block keeps only what the footer does not
+          say — what the Studio work actually is.
+        */}
         <div class="home-colophon__cols">
-          <div>
-            <p class="home-colophon__label">License</p>
-            <p class="home-colophon__text">
-              Ethotechnics Institute materials are published under
-              <a
-                href="https://creativecommons.org/licenses/by-sa/4.0/"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                CC BY-SA 4.0
-              </a>. Credit the Institute, and publish anything you adapt under
-              the same license. Entries carry citation metadata, so you can
-              reference exactly what you used.
-            </p>
-          </div>
           <div>
             <p class="home-colophon__label">Studio</p>
             <p class="home-colophon__text">
@@ -324,10 +324,6 @@ const doors = [
             </p>
           </div>
         </div>
-        <p class="home-colophon__strip">
-          ethotechnics.org · open standards · scored public failures · free
-          diagnostics
-        </p>
       </footer>
     </div>
   </section>

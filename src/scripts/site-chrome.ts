@@ -14,6 +14,35 @@
   };
 
   const toggles = document.querySelectorAll("[data-theme-toggle]");
+
+  // The label names what the button will do next, and the change is announced
+  // once, politely: a toggle that only says "Toggle theme" gives a screen
+  // reader user no way to know what happened.
+  const announceTheme = (isDark: boolean) => {
+    let status = document.querySelector<HTMLParagraphElement>("#theme-status");
+    if (!status) {
+      status = document.createElement("p");
+      status.id = "theme-status";
+      status.className = "sr-only";
+      status.setAttribute("role", "status");
+      document.body.appendChild(status);
+    }
+    status.textContent = isDark ? "Dark theme on." : "Light theme on.";
+  };
+
+  const syncToggleLabels = () => {
+    const isDark = document.documentElement.classList.contains("dark");
+    toggles.forEach((btn) => {
+      btn.setAttribute(
+        "aria-label",
+        isDark ? "Switch to light theme" : "Switch to dark theme",
+      );
+    });
+    return isDark;
+  };
+
+  syncToggleLabels();
+
   toggles.forEach((btn) => {
     btn.addEventListener("click", () => {
       const isDark = document.documentElement.classList.contains("dark");
@@ -28,6 +57,8 @@
         localStorage.setItem("theme", "dark");
         syncThemeColor(true);
       }
+      const nowDark = syncToggleLabels();
+      announceTheme(nowDark);
     });
   });
 
