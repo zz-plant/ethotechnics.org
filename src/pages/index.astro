@@ -9,7 +9,17 @@ import RecordSpine from "../components/home/RecordSpine.astro";
 import SafeguardMap from "../components/home/SafeguardMap.astro";
 import SelfTest from "../components/home/SelfTest.astro";
 import SectionBlock from "../components/SectionBlock.astro";
+import { evalsContent } from "../content/evals";
 import { mechanismColumns } from "../content/positioning";
+import { standardsContent } from "../content/standards";
+
+// The pillar counts are read from the same arrays the /standards and /evals
+// pages list from, so adding an entry updates this page instead of leaving a
+// stale number beside a live one.
+const draftStandards = standardsContent.standards.filter(
+  (standard) => standard.status === "Draft",
+).length;
+const suiteCount = evalsContent.suites.length;
 
 /**
  * The front door as one story in reading order, told without ever holding
@@ -104,14 +114,14 @@ const doors = [
     <div class="home-pillars">
       <a class="home-pillar" href="/standards">
         <span class="eyebrow">Standards</span>
-        <strong>8 draft standards</strong>
+        <strong>{draftStandards} draft standards</strong>
         <span class="small muted"
           >Authority leases, contestability clocks, and JSON schemas.</span
         >
       </a>
       <a class="home-pillar" href="/evals">
         <span class="eyebrow">Evaluations</span>
-        <strong>16 suites & Finite drills</strong>
+        <strong>{suiteCount} suites &amp; Finite drills</strong>
         <span class="small muted"
           >Dual-ledger surge tests and failure containment benchmarks.</span
         >
