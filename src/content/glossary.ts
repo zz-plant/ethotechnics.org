@@ -1881,6 +1881,20 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     appliesTo: ["B. Failure modes"],
   },
   {
+    slug: "externalization-capacity",
+    term: "Externalization Capacity",
+    definition:
+      "How much cost an actor can move onto others, onto whom, for how long, held in place by what, while keeping the gain. Every actor shifts some cost somewhere; the term separates an occasional inconvenience from a durable, enforced transfer that the receiving party cannot refuse.",
+    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+  },
+  {
+    slug: "authored-boundary",
+    term: "Authored Boundary",
+    definition:
+      "The line a measure draws between what counts as part of a system and what is left outside it, treated as a decision someone made and could defend. Before any metric is gamed, the boundary has already settled whose work and whose losses the score can see.",
+    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+  },
+  {
     slug: "discretion-migration",
     term: "Discretion migration",
     definition:

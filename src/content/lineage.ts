@@ -275,6 +275,42 @@ export const neighboringFields: NeighboringField[] = [
     },
   },
   {
+    field: "Social-cost economics and environmental justice",
+    works: [
+      {
+        authors: "K. William Kapp",
+        title: "The Social Costs of Private Enterprise",
+        year: 1950,
+        form: "book",
+      },
+      {
+        authors: "Marilyn Waring",
+        title: "If Women Counted",
+        year: 1988,
+        form: "book",
+      },
+      {
+        authors: "Robert D. Bullard",
+        title: "Dumping in Dixie",
+        year: 1990,
+        form: "book",
+      },
+      {
+        authors: "Jason W. Moore",
+        title: "Capitalism in the Web of Life",
+        year: 2015,
+        form: "book",
+      },
+    ],
+    sees: "Costs a firm does not pay are shifted onto workers, households, places, and the future as a regular feature of how accounts are kept. National accounts leave unpaid household work outside production, and hazards settle on the communities least able to refuse them.",
+    stops:
+      "It explains why costs land where they do and argues for pricing or regulating them. It does not specify the record an institution keeps of the saving it retains, or the procedure by which the people carrying the cost can send it back.",
+    essay: {
+      title: "Insulation",
+      href: "/research/theory/insulation",
+    },
+  },
+  {
     field: "Labor process theory and organizational sociology",
     works: [
       {

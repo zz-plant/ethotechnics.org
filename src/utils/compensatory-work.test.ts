@@ -7,6 +7,7 @@ import {
   checkLedger,
   classifyIntervention,
   classifyItem,
+  followTheGain,
   hasTradeoff,
   meetsStatedObjective,
   summarizeLedger,
@@ -273,5 +274,47 @@ describe("the published example ledger", () => {
       interventions: [{ ...example.interventions![0]!, item_id: "ITEM-404" }],
     };
     expect(checkLedger(ledger).join("\n")).toContain("unknown item ITEM-404");
+  });
+});
+
+describe("followTheGain", () => {
+  it("names who would pay if extracted work stopped being free", () => {
+    const gain = followTheGain(example);
+    // ITEM-001 (compensation) and ITEM-004 (coerced craft) both book to the
+    // operating budget; discretion, craft and unresolved items do not count.
+    expect(gain.wouldPayIfReturned.operating_budget).toBe(2);
+    expect(gain.wouldPayIfReturned.public_budget).toBe(1);
+    expect(gain.wouldPayIfReturned.management_targets).toBe(1);
+    expect(gain.wouldPayIfReturned.clients).toBeUndefined();
+  });
+
+  it("counts extracted items whose return is blocked", () => {
+    expect(followTheGain(example).returnBlocked).toBe(2);
+  });
+
+  it("reports items whose gain side was not established", () => {
+    expect(followTheGain(example).gainSideUnknown).toBe(1);
+  });
+});
+
+describe("checkLedger on the gain side", () => {
+  it("flags 'nothing' listed alongside a real blocker", () => {
+    const ledger: Ledger = {
+      ...example,
+      items: example.items.map((item, index) =>
+        index === 0
+          ? {
+              ...item,
+              gain_capture: {
+                ...item.gain_capture,
+                send_back_blocked_by: ["nothing", "contract"],
+              },
+            }
+          : item,
+      ),
+    };
+    expect(checkLedger(ledger).join("\n")).toContain(
+      'blocked by "nothing" alongside',
+    );
   });
 });

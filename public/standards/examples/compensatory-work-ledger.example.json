@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "ledger_id": "LEDGER-INTAKE-2026-Q3",
   "unit_ref": "benefits-intake-unit-a",
   "period_start": "2026-07-01",
@@ -37,6 +37,11 @@
         "aware": "yes",
         "fix_priced": "priced",
         "decision": "fix_funded"
+      },
+      "gain_capture": {
+        "booked_by": ["operating_budget", "public_budget"],
+        "send_back_blocked_by": ["budget_authority", "cost_of_objecting"],
+        "basis": "The unit's budget carries no line for document chasing; the state saves the cost of a data-sharing agreement."
       }
     },
     {
@@ -70,6 +75,11 @@
         "aware": "yes",
         "fix_priced": "not_priced",
         "decision": "not_considered"
+      },
+      "gain_capture": {
+        "booked_by": ["clients"],
+        "send_back_blocked_by": ["nothing"],
+        "basis": "The reconciliation benefits the applicant, and caseworkers can and do log it."
       }
     },
     {
@@ -103,6 +113,10 @@
         "aware": "no",
         "fix_priced": "not_priced",
         "decision": "not_considered"
+      },
+      "gain_capture": {
+        "booked_by": ["nobody_identified"],
+        "send_back_blocked_by": ["nothing"]
       }
     },
     {
@@ -136,6 +150,11 @@
         "aware": "yes",
         "fix_priced": "priced",
         "decision": "fix_declined"
+      },
+      "gain_capture": {
+        "booked_by": ["operating_budget", "management_targets"],
+        "send_back_blocked_by": ["budget_authority", "bearer_dependence"],
+        "basis": "Entry deadlines count toward the unit's targets; the system vendor's contract has no uptime clause for evening use."
       }
     },
     {
@@ -169,6 +188,10 @@
         "aware": "unknown",
         "fix_priced": "unknown",
         "decision": "unknown"
+      },
+      "gain_capture": {
+        "booked_by": ["unknown"],
+        "send_back_blocked_by": ["unknown"]
       }
     }
   ],
@@ -194,5 +217,27 @@
   "authority": {
     "over_conditions": "management_only",
     "basis": "Budget and staffing for the unit are set by the regional office. Caseworkers are consulted through a quarterly survey and hold no vote."
-  }
+  },
+  "externalization_capacity": [
+    {
+      "actor_ref": "regional-office",
+      "actor_kind": "institution",
+      "shifts_onto": ["performer", "household", "client"],
+      "scale": "institution_wide",
+      "duration": "durable",
+      "backed_by": ["budget_authority"],
+      "bearers_can_refuse": false,
+      "gains_retained": "Staffing and system costs it does not budget for."
+    },
+    {
+      "actor_ref": "case-system-vendor",
+      "actor_kind": "vendor",
+      "shifts_onto": ["performer"],
+      "scale": "recurring_in_unit",
+      "duration": "recurring",
+      "backed_by": ["contract"],
+      "bearers_can_refuse": false,
+      "gains_retained": "Support costs for evening outages, which the contract does not cover."
+    }
+  ]
 }
