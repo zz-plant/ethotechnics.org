@@ -406,7 +406,7 @@ export const standardsContent: StandardsContent = {
       id: "core-axioms",
       title: "Core axioms",
       description:
-        "The five axioms every standard rests on: finitude, consent, stewardship, reversibility, and legibility (people can see and audit the burden a system puts on them).",
+        "The five axioms every standard rests on (finitude, consent, stewardship, reversibility, and legibility) and the premises they assume.",
       href: "/standards/core-axioms",
       eyebrow: "Foundations",
       ctaLabel: "View axioms",
