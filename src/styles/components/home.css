@@ -45,6 +45,13 @@
     max-width: 68ch;
   }
 
+  /* The drawing read back onto the case it came from. */
+  .home-claim__applied {
+    max-width: 68ch;
+    margin: 0;
+    font-size: var(--text-base);
+  }
+
   /* The record's and the mechanism's headers: heading on the left, lede on
      the right on a wide screen, so each opens with one band instead of a
      stack three blocks tall. Stacked below 1000px. */
@@ -668,6 +675,14 @@
       color: var(--muted);
     }
 
+    /* The six labels share one cell, laid out like the marks under them.
+       As separate grid items they wrapped three to a row across a
+       three-column grid. */
+    .home-casebook__col-group {
+      display: flex;
+      gap: var(--space-2);
+    }
+
     .home-casebook__col {
       width: 1.5rem;
       text-align: center;
@@ -1005,6 +1020,17 @@
 
   .record-spine__row--after .record-spine__response {
     font-style: italic;
+  }
+
+  /* What the run cost, set under the rail as the sum of its rows. */
+  .record-spine__cost {
+    max-width: 68ch;
+    margin: var(--space-5) 0 0;
+    padding-inline-start: var(--space-4);
+    border-inline-start: 3px solid
+      color-mix(in srgb, var(--mark) 55%, transparent);
+    font-size: var(--text-base);
+    color: var(--text);
   }
 
   .record-spine__foot {
