@@ -1,0 +1,42 @@
+---
+/**
+ * The genuine counterpositions, one row per position: the challenge in the
+ * position's own terms, what the framework must demonstrate, and the
+ * empirical question that would settle the dispute. No emphasis column:
+ * the site holds the claims, so the challenges render at full weight.
+ * Rendered on the About page and in the scholarly crossings research note.
+ */
+import { adversaries } from "../../content/positioning";
+---
+
+<div class="mapping-table__wrapper">
+  <table class="mapping-table mapping-table--stack lineage__table">
+    <thead>
+      <tr>
+        <th scope="col">Position</th>
+        <th scope="col">The challenge</th>
+        <th scope="col">What the framework must demonstrate</th>
+        <th scope="col">The question that settles it</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        adversaries.map((row) => (
+          <tr>
+            <th scope="row" data-label="Position">
+              {row.position}
+              <span class="lineage__works small muted">
+                {row.representatives}
+              </span>
+            </th>
+            <td data-label="The challenge">{row.challenge}</td>
+            <td data-label="What the framework must demonstrate">
+              {row.demonstration}
+            </td>
+            <td data-label="The question that settles it">{row.question}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>

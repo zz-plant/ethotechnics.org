@@ -67,23 +67,18 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     description={pageDescription}
     anchorLinks={[
       { href: "#mechanisms", label: "Mechanism catalog" },
-      { href: "#start-here", label: "Start here" },
+      { href: "#start-here", label: "From question to mechanism" },
       { href: "#syllabus", label: "Syllabus" },
       { href: "#references", label: "References" },
     ]}
   />
   <SectionBlock id="mechanisms" title="Mechanism catalog">
     <p class="mechanisms__links">
-      New to mechanisms? <a href="#primer">Read the primer</a><span
-        class="mechanisms__links-sep"
-        aria-hidden="true">·</span
-      ><a href="#role-pathways">Guides by role</a><span
-        class="mechanisms__links-sep"
-        aria-hidden="true">·</span
-      ><a href="/standards/std-01-rights-matrix">Rights matrix</a><span
-        class="mechanisms__links-sep"
-        aria-hidden="true">·</span
-      ><a href="/validators">Validators</a>
+      <span>New to mechanisms?</span>
+      <a href="#primer">Read the primer</a>
+      <a href="#role-pathways">Guides by role</a>
+      <a href="/standards/std-01-rights-matrix">Rights matrix</a>
+      <a href="/validators">Validators</a>
     </p>
     <div class="pattern-filter__anchors" aria-hidden="true">
       {
@@ -182,9 +177,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         ))
       }
     </div>
-    <p class="muted small" style="margin: var(--space-3) 0 var(--space-5);">
-      <a href="/start">For a full guide by role, see Start here &rarr;</a>
-    </p>
     <div class="library__role-lists">
       {
         rolePathways.roles.map((role) => (

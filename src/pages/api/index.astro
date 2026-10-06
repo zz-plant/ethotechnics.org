@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import { API_ENDPOINTS } from "../../utils/api-endpoints";
 
 const pageTitle = "Reference API & ontology";
 const pageDescription =
@@ -156,111 +157,10 @@ const interoperabilitySpecs = [
   },
 ];
 
-const endpoints = [
-  {
-    path: "/api/agent-index.json",
-    description: "Index for agent discovery and tooling.",
-  },
-  {
-    path: "/api/site-index.json",
-    description: "Index of standards, validators, and research metadata.",
-  },
-  {
-    path: "/api/standards.json",
-    description: "Standard metadata with embedded clause objects.",
-  },
-  {
-    path: "/api/clauses.json",
-    description:
-      "Clause-level obligations with evidence requirements and mappings.",
-  },
-  {
-    path: "/api/mechanisms.json",
-    description: "Mechanism catalog entries with filters and citations.",
-  },
-  {
-    path: "/api/validators.json",
-    description:
-      "Validator definitions with inputs, thresholds, and clause mappings.",
-  },
-  {
-    path: "/api/anti-patterns.json",
-    description: "Negative patterns that surface legitimacy theater risks.",
-  },
-  {
-    path: "/api/evidence-packs.json",
-    description: "Evidence pack templates per clause.",
-  },
-  {
-    path: "/api/crosswalks.json",
-    description:
-      "Control crosswalks with framework mappings and evidence artifacts.",
-  },
-  {
-    path: "/api/post-market-monitoring.json",
-    description:
-      "Post-market monitoring and incident reporting workflow stages.",
-  },
-  {
-    path: "/api/findings.json",
-    description: "Canonical finding objects for remediation workflows.",
-  },
-  {
-    path: "/api/diagnostic-results.json",
-    description: "Portable diagnostic result artifacts.",
-  },
-  {
-    path: "/api/rag-corpus.jsonl?limit=200",
-    description:
-      "JSONL corpus for retrieval pipelines. Every document carries a layer field: theory, method, or instrument. Add a limit query param for previews.",
-  },
-  {
-    path: "/api/glossary.json",
-    description: "Glossary terms with permalinks.",
-  },
-  {
-    path: "/api/research.json",
-    description: "Research publications and bridge artifacts.",
-  },
-  {
-    path: "/api/releases.json",
-    description: "Versioned release index for stable citations.",
-  },
-  {
-    path: "/api/capabilities.json",
-    description:
-      "Example capability catalog: what the worked-example agent can reach, with no permission fields.",
-  },
-  {
-    path: "/api/grants.json",
-    description:
-      "Example authority grant with scope, evidence basis, and state history including a narrowing.",
-  },
-  {
-    path: "/api/policies.json",
-    description: "Example policy record with review triggers and expiry.",
-  },
-  {
-    path: "/api/dependencies.json",
-    description:
-      "Example dependency record with three-level reversibility and exposure score.",
-  },
-  {
-    path: "/api/standing.json",
-    description:
-      "Example standing register with its challenge and the reconsideration it triggered.",
-  },
-  {
-    path: "/api/interventions.json",
-    description:
-      "Example intervention spec: what the steward can see, prevent, and alter.",
-  },
-  {
-    path: "/api/substrate-profiles.json",
-    description:
-      "Example substrate profile with the 2.0.0 agent safety object model attached.",
-  },
-];
+const endpoints = API_ENDPOINTS.map((endpoint) => ({
+  path: `/api/${endpoint.path}`,
+  description: endpoint.description,
+}));
 ---
 
 <BaseLayout

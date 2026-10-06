@@ -62,7 +62,27 @@ const breadcrumbItems = [
     description={data.summary}
     anchorLinks={anchorLinks}
     lastUpdated={data.updated ?? data.published}
-  />
+  >
+    <div slot="aside" class="card stack-xs">
+      <p class="eyebrow">Central question</p>
+      <p><strong>{data.question}</strong></p>
+      {
+        data.lawRefs.length > 0 && (
+          <p class="small muted">
+            Argues for{" "}
+            {data.lawRefs.map((law, idx) => (
+              <>
+                <a href={`/standards/laws#law-${law.toLowerCase()}`}>
+                  Law {law}
+                </a>
+                {idx < data.lawRefs.length - 1 ? ", " : ""}
+              </>
+            ))}
+          </p>
+        )
+      }
+    </div>
+  </PageIntro>
 
   <article class="theory-essay stack-md">
     <Content />

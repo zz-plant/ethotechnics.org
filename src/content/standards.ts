@@ -67,8 +67,13 @@ export const standardsContent: StandardsContent = {
   permalink: "/standards",
   anchorLinks: [
     { href: "#register", label: "The register" },
+    { href: "#code-example", label: "Code & schema example" },
+    { href: "#crosswalks", label: "Regulatory crosswalks" },
     { href: "#doctrine", label: "Foundations and references" },
-    { href: "#adopted-standards", label: "Where existing frameworks fall short" },
+    {
+      href: "#adopted-standards",
+      label: "Where existing frameworks fall short",
+    },
     { href: "#implementation-examples", label: "Domain-by-domain comparisons" },
     { href: "#referenced-by", label: "Where the standards are cited" },
   ],
@@ -101,10 +106,16 @@ export const standardsContent: StandardsContent = {
       description:
         "Defines contestability, review, and remedy obligations for consequential systems.",
       status: "Draft",
-      version: "1.2",
+      version: "1.3",
       changelogHref:
         "/standards/std-02-contestability-recourse#publication-history",
       changelogEntries: [
+        {
+          version: "1.3",
+          date: "2026-10-03",
+          summary:
+            "Publishes Articles VI and VII: review infrastructure, liability, and capacity (§6.1–§7.3).",
+        },
         {
           version: "1.2",
           date: "2026-09-22",
@@ -466,7 +477,8 @@ export const standardsContent: StandardsContent = {
     {
       id: "glossary",
       title: "Glossary",
-      description: "Definitions of the terms the standards use, each at a stable URL.",
+      description:
+        "Definitions of the terms the standards use, each at a stable URL.",
       href: "/glossary",
       eyebrow: "Reference",
       ctaLabel: "Browse glossary",
@@ -657,6 +669,21 @@ export const standardClauses: Record<string, StandardClause[]> = {
       timeBound: "five minutes",
       relatedMechanisms: ["MEC-04"],
       relatedValidators: ["VAL-02"],
+    },
+    {
+      id: "STD-01.5.4",
+      standardId: "STD-01",
+      displayId: "§5.4",
+      type: "right",
+      requirementLevel: "MUST",
+      condition:
+        "a stated clock for an application, appeal, or prior-authorization request expires without a decision",
+      obligation:
+        "resolve the request in the applicant's favor, or escalate to a human reviewer where the default outcome falls harder on the applicant than on the institution; a clock with no stated consequence is not a clock",
+      evidenceRequired: ["expiry_rule", "expired_request_log"],
+      timeBound: "at clock expiry",
+      relatedMechanisms: ["MEC-04"],
+      relatedValidators: ["VAL-03"],
     },
     {
       id: "STD-01.6.1",
@@ -893,6 +920,25 @@ export const standardClauses: Record<string, StandardClause[]> = {
       relatedValidators: [],
     },
     {
+      id: "STD-02.4.4",
+      standardId: "STD-02",
+      displayId: "§4.4",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition:
+        "a defect is found to arise from a rule, a model, or a notice rather than from one decision",
+      obligation:
+        "reach every affected case without a further claim; enumerate the affected population from the institution's own records, correct those cases, and tell each person what was corrected",
+      evidenceRequired: [
+        "affected_population",
+        "remediation_log",
+        "notification_log",
+      ],
+      timeBound: "on finding the defect",
+      relatedMechanisms: ["MEC-23"],
+      relatedValidators: [],
+    },
+    {
       id: "STD-02.5.1",
       standardId: "STD-02",
       displayId: "§5.1",
@@ -929,6 +975,25 @@ export const standardClauses: Record<string, StandardClause[]> = {
       evidenceRequired: ["org_chart", "authority_matrix"],
       timeBound: "ongoing",
       relatedMechanisms: ["MEC-01"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-02.5.4",
+      standardId: "STD-02",
+      displayId: "§5.4",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition:
+        "an objection is answered with a burden score, safety-case result, audit finding, or other measurement the challenged party did not produce",
+      obligation:
+        "treat it as evidence and not a bar; do not cite it to dispose of the objection or to establish that the person's account is unfounded; route the conflict between a score and an account to a named reviewer holding authority to resolve it",
+      evidenceRequired: [
+        "objection_record",
+        "review_assignment",
+        "score_provenance",
+      ],
+      timeBound: "at the objection",
+      relatedMechanisms: ["MEC-08"],
       relatedValidators: [],
     },
     {
@@ -1404,6 +1469,25 @@ export const standardClauses: Record<string, StandardClause[]> = {
         "summary written for regulators and not for the people affected",
       ],
       relatedMechanisms: ["MEC-08"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-06.3.3",
+      standardId: "STD-06",
+      displayId: "§3.3",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition:
+        "a failure was caught by a person before it reached anyone else",
+      obligation:
+        "record it as an occurrence with the near-miss condition, the person who caught it, the labor spent catching it, and whether the source condition was later fixed; a repeated rescue against an unfixed condition is evidence about the condition, not about the person catching it",
+      evidenceRequired: [
+        "rescue_register.rescues[]",
+        "near_miss_condition",
+        "source_condition_fixed",
+      ],
+      timeBound: "at each occurrence",
+      relatedMechanisms: ["MEC-24"],
       relatedValidators: [],
     },
     {
@@ -2111,6 +2195,32 @@ export const standardClauses: Record<string, StandardClause[]> = {
         "confidence floor held in a configuration file with no provenance",
         "threshold tuned against one model version and left in force after a silent upgrade",
         "enumerated options reordered without a new policy version",
+      ],
+      relatedMechanisms: ["MEC-14", "MEC-13"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-08.2.7",
+      standardId: "STD-08",
+      displayId: "§2.7",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition:
+        "evidence bearing on whether an enforced policy still serves its stated purpose is held anywhere in the institution",
+      obligation:
+        "treat the holding as a fired review trigger — the policy moves to review_required within §2.3's clock, which starts the day the evidence was held, and the grants naming it in policy_refs follow per §2.4",
+      evidenceRequired: [
+        "policy_record.review_triggers",
+        "policy_record.status",
+        "held_evidence.date_acquired",
+        "authority_grant.policy_refs",
+      ],
+      timeBound:
+        "within the trigger's declared clock, counted from when the evidence was held",
+      failureModes: [
+        "a coverage rule enforced after the institution's own guideline committee adopted its replacement",
+        "review_triggers naming only internal events (model version, schema) and no class of outside evidence",
+        "knowledge held in a clinical or specialist office that the enforcement pipeline never reads",
       ],
       relatedMechanisms: ["MEC-14", "MEC-13"],
       relatedValidators: [],

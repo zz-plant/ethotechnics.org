@@ -4,6 +4,7 @@ const STAGED_FLAG = "--staged";
 const guardrails = [
   "scripts/check-external-links.ts",
   "scripts/check-heading-hierarchy.ts",
+  "scripts/check-essay-binding.ts",
 ] as const;
 
 function getStagedFiles(): string[] {

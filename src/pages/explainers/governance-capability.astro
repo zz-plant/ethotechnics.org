@@ -136,7 +136,7 @@ const coreImplications = [
     requirements: [
       "SLOs for reversal/restoration (not only uptime).",
       "Per-workflow restore paths (not one generic support channel).",
-      "Restoration that is systematic, not bespoke engineering.",
+      "A repeatable restoration procedure.",
       "Post-incident actions that improve control surfaces (not only narrative).",
       "Load-tested recovery operations (tools + staffing).",
     ],
@@ -331,31 +331,6 @@ const buildAnchor = (id: string) =>
                   <h3 id={item.id} class="implication__title">
                     {item.title}
                   </h3>
-                  <div class="implication__summary-actions">
-                    <a
-                      class="implication__permalink"
-                      href={`#${item.id}`}
-                      aria-label={`Permalink to ${item.title}`}
-                      data-implication-anchor
-                    >
-                      #
-                    </a>
-                    <button
-                      class="copy-button"
-                      type="button"
-                      data-copy-link
-                      data-copy-value={buildAnchor(item.id)}
-                      aria-label={`Copy link to ${item.title}`}
-                    >
-                      Copy link
-                    </button>
-                    <span
-                      class="implication__status"
-                      data-copy-status
-                      role="status"
-                      aria-live="polite"
-                    />
-                  </div>
                 </div>
                 <span class="implication__toggle" aria-hidden="true">
                   <span class="implication__toggle-text--expand">Expand</span>
@@ -365,6 +340,31 @@ const buildAnchor = (id: string) =>
                 </span>
               </summary>
               <div class="implication__body">
+                <div class="implication__actions">
+                  <a
+                    class="implication__permalink"
+                    href={`#${item.id}`}
+                    aria-label={`Permalink to ${item.title}`}
+                    data-implication-anchor
+                  >
+                    #
+                  </a>
+                  <button
+                    class="copy-button"
+                    type="button"
+                    data-copy-link
+                    data-copy-value={buildAnchor(item.id)}
+                    aria-label={`Copy link to ${item.title}`}
+                  >
+                    Copy link
+                  </button>
+                  <span
+                    class="implication__status"
+                    data-copy-status
+                    role="status"
+                    aria-live="polite"
+                  />
+                </div>
                 <p class="implication__label">Common model</p>
                 <p>{item.commonModel}</p>
                 <p class="implication__label">Ethotechnics model</p>
@@ -420,31 +420,6 @@ const buildAnchor = (id: string) =>
                   <h3 id={item.id} class="implication__title">
                     {item.title}
                   </h3>
-                  <div class="implication__summary-actions">
-                    <a
-                      class="implication__permalink"
-                      href={`#${item.id}`}
-                      aria-label={`Permalink to ${item.title}`}
-                      data-implication-anchor
-                    >
-                      #
-                    </a>
-                    <button
-                      class="copy-button"
-                      type="button"
-                      data-copy-link
-                      data-copy-value={buildAnchor(item.id)}
-                      aria-label={`Copy link to ${item.title}`}
-                    >
-                      Copy link
-                    </button>
-                    <span
-                      class="implication__status"
-                      data-copy-status
-                      role="status"
-                      aria-live="polite"
-                    />
-                  </div>
                 </div>
                 <span class="implication__toggle" aria-hidden="true">
                   <span class="implication__toggle-text--expand">Expand</span>
@@ -454,6 +429,31 @@ const buildAnchor = (id: string) =>
                 </span>
               </summary>
               <div class="implication__body">
+                <div class="implication__actions">
+                  <a
+                    class="implication__permalink"
+                    href={`#${item.id}`}
+                    aria-label={`Permalink to ${item.title}`}
+                    data-implication-anchor
+                  >
+                    #
+                  </a>
+                  <button
+                    class="copy-button"
+                    type="button"
+                    data-copy-link
+                    data-copy-value={buildAnchor(item.id)}
+                    aria-label={`Copy link to ${item.title}`}
+                  >
+                    Copy link
+                  </button>
+                  <span
+                    class="implication__status"
+                    data-copy-status
+                    role="status"
+                    aria-live="polite"
+                  />
+                </div>
                 <p class="implication__statement">
                   <strong>Implication:</strong> {item.implication}
                 </p>
@@ -581,11 +581,15 @@ const buildAnchor = (id: string) =>
     gap: var(--space-2);
   }
 
-  .implication__summary-actions {
+  .implication__actions {
     display: flex;
     align-items: center;
     gap: var(--space-2);
     flex-wrap: wrap;
+  }
+
+  .implication__actions .copy-button {
+    min-height: 44px;
   }
 
   .implication__title {
@@ -597,8 +601,8 @@ const buildAnchor = (id: string) =>
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 44px;
+    height: 44px;
     border-radius: var(--radius-pill);
     border: 1px solid var(--panel-border);
     font-weight: 600;

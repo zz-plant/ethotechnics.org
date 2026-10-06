@@ -1,135 +1,127 @@
 ---
 /**
- * Act 1 of the home page: the Robodebt record, unrolled one dated event at a
- * time. The sticky panel holds the two ledgers -- what the record showed
- * against what the institution said -- and is decorative: the events list
- * is the content, and the panel summarizes it.
+ * Act 1 of the home page: the Robodebt record as a spine rail.
  *
- * The panel's server-rendered text is the final state, so the page is true
- * without JavaScript. When the reveal script runs it resets the panel to the
- * start and advances it as rows pass. The script never touches scroll; it
- * only reads positions.
+ * One row per dated event the casebook holds: the quote on the left, a dot
+ * on the rail, and the institution's response on the right. Rust dots are
+ * warnings the institution never answered by changing the scheme; the count
+ * chip in the header reads the rail, and the halt row's dot is drawn in the
+ * institution's ink because the halt is the one thing the record made
+ * happen.
+ *
+ * Everything is server-rendered from the casebook entry, so the page is
+ * true without JavaScript. The rows keep the reveal animation; nothing here
+ * counts on scroll anymore — the rail is the count.
  */
 import { casesBySlug } from "../../content/casebook";
-import SpeechBubble from "../SpeechBubble.astro";
 
 const robodebt = casesBySlug.get("robodebt");
-const events = robodebt?.timeline ?? [];
-const evidenceTotal = events.filter((event) => event.evidence).length;
-const haltedBy = robodebt?.haltedBy ?? "A court.";
+const timeline = robodebt?.timeline ?? [];
+const haltIndex = timeline.findIndex((event) => event.halt);
+
+type Row = {
+  when: string;
+  said: string;
+  speaker: string;
+  note?: string;
+  state: "unanswered" | "halt" | "after";
+  response: string;
+};
+
+const rows: Row[] = [];
+timeline.forEach((event, index) => {
+  if (!event.evidence || !event.voice) return;
+  if (event.halt) {
+    rows.push({
+      when: event.when,
+      said: event.voice.said,
+      speaker: event.voice.speaker,
+      state: "halt",
+      response: "halt",
+    });
+    return;
+  }
+  const after = haltIndex >= 0 && index > haltIndex;
+  rows.push({
+    when: event.when,
+    said: event.voice.said,
+    speaker: event.voice.speaker,
+    note: event.voice.after || undefined,
+    state: after ? "after" : "unanswered",
+    response: after ? "came after the halt" : "no response",
+  });
+});
+
+const warnings = rows.filter((row) => row.state === "unanswered").length;
+
+// The launch is the run's opening beat: it is not a warning, so it sets the
+// scene in a lead rather than taking a rail row.
+const launch = timeline.find(
+  (event) => !event.evidence && !event.halt && !event.voice,
+);
+const launchFact = launch
+  ? launch.what.split(". ")[1]?.charAt(0).toLowerCase() +
+    launch.what.split(". ")[1]?.slice(1)
+  : undefined;
 ---
 
 {
-  robodebt && (
+  robodebt && rows.length > 0 && (
     <section id="record" class="record-spine" aria-labelledby="record-heading">
-      <header class="record-spine__header home-split-header">
+      <header class="record-spine__header">
         <div class="stack-sm">
           <p class="eyebrow">The record</p>
           <h2 id="record-heading" class="section__heading">
             Watch one scheme run.
           </h2>
         </div>
-        <p class="section-lead">
-          Robodebt, from the casebook, one dated event at a time. On the left,
-          what the record said: legal advice, the Ombudsman, the tribunal, the
-          Royal Commission. On the right, what the Commonwealth said. A warning
-          the Commonwealth never answered by changing the scheme is marked
-          unanswered.
+        <p
+          class="record-spine__chip"
+          data-spine-chip
+          data-warnings-total={warnings}
+        >
+          {warnings} unanswered · 1 halt
         </p>
       </header>
 
-      <div class="record-spine__grid">
-        <div
-          class="record-spine__panel"
-          data-ledger-panel
-          data-evidence-total={evidenceTotal}
-        >
-          <div class="record-spine__panel-header">
-            <p class="record-spine__panel-title">Warnings and response</p>
-            <span
-              class="record-spine__panel-badge"
-              data-ledger-live-badge
-              aria-hidden="true"
-            >
-              Counting
-            </span>
-          </div>
-          <div class="record-spine__ledger">
-            <span
-              class="record-spine__ledger-dot record-spine__ledger-dot--record"
-              aria-hidden="true"
-            />
-            <div>
-              <p class="record-spine__ledger-label">The record</p>
-              <p class="record-spine__ledger-value" data-ledger-count>
-                {evidenceTotal} dated warnings and findings, 2014–2023. No
-                warning stopped the scheme. A Federal Court case did, in
-                November 2019.
-              </p>
-            </div>
-          </div>
-          <div class="record-spine__ledger">
-            <span
-              class="record-spine__ledger-dot record-spine__ledger-dot--institution"
-              data-ledger-dot
-              aria-hidden="true"
-            />
-            <div>
-              <p class="record-spine__ledger-label">The institution</p>
-              <p class="record-spine__ledger-value" data-ledger-status>
-                The scheme ran{" "}
-                {robodebt.timeToHalt.charAt(0).toLowerCase() +
-                  robodebt.timeToHalt.slice(1)}{" "}
-                from launch to halt.
-              </p>
-            </div>
-          </div>
-        </div>
+      {launch && (
+        <p class="record-spine__lead">
+          At launch, {launchFact} Every dated warning the record issued follows,
+          with the response each got.
+        </p>
+      )}
 
-        <ol class="record-spine__events">
-          {events.map((event) => (
-            <li
-              class:list={[
-                "record-spine__event",
-                { "record-spine__event--turn": event.turn },
-                { "record-spine__event--halt": event.halt },
-              ]}
-              data-reveal
-              data-spine-row
-              data-evidence={event.evidence ? "true" : undefined}
-              data-halt={event.halt ? "true" : undefined}
-            >
-              <span class="record-spine__when">{event.when}</span>
-              {event.voice ? (
-                <div
-                  class:list={[
-                    "record-spine__what",
-                    "record-spine__voice",
-                    `record-spine__voice--${event.voice.side}`,
-                  ]}
-                >
-                  <SpeechBubble
-                    side={event.voice.side}
-                    speaker={event.voice.speaker}
-                    verbatim={event.voice.verbatim}
-                    answered={event.voice.answered}
-                  >
-                    {event.voice.said}
-                  </SpeechBubble>
-                  {event.voice.after && (
-                    <p class="record-spine__after">{event.voice.after}</p>
-                  )}
-                </div>
-              ) : (
-                <span class="record-spine__what">{event.what}</span>
-              )}
-            </li>
-          ))}
-        </ol>
-      </div>
+      <ol class="record-spine__rail">
+        {rows.map((row) => (
+          <li
+            class:list={[
+              "record-spine__row",
+              `record-spine__row--${row.state}`,
+            ]}
+            data-spine-row
+            data-state={row.state}
+            data-reveal
+          >
+            <div class="record-spine__quote">
+              <p class="record-spine__said">
+                &ldquo;{row.said}&rdquo;
+                {row.note && (
+                  <span class="record-spine__note"> — {row.note}</span>
+                )}
+              </p>
+              <p class="record-spine__source">
+                {row.when} · {row.speaker}
+              </p>
+            </div>
+            <span class="record-spine__dot" aria-hidden="true" />
+            <p class="record-spine__response">{row.response}</p>
+          </li>
+        ))}
+      </ol>
 
       <p class="record-spine__foot small muted">
-        Halted by: {haltedBy}
+        The rail is the count: rust dots are warnings the institution never
+        answered by changing the scheme.
         <a href={`/casebook/${robodebt.slug}`}>Read the scored case →</a>
       </p>
     </section>

@@ -40,7 +40,17 @@ const status =
   data-answered={answered === undefined ? undefined : String(answered)}
 >
   <Bubble class="speech__bubble">
-    <p>{verbatim ? <>“<slot />”</> : <slot />}</p>
+    <p>
+      {
+        verbatim ? (
+          <>
+            “<slot />”
+          </>
+        ) : (
+          <slot />
+        )
+      }
+    </p>
   </Bubble>
   <figcaption class="speech__who">
     <span class="speech__speaker">{speaker}</span>

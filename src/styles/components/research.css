@@ -4,12 +4,16 @@
     flex-direction: column;
     gap: var(--space-3);
     margin: var(--space-5) 0 var(--space-6);
+    padding: var(--space-5);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface);
   }
 
   .research-filter__controls {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: end;
     gap: var(--space-3);
   }
 
@@ -21,8 +25,12 @@
   }
 
   .research-filter__label {
-    display: block;
-    width: fit-content;
+    display: grid;
+    grid-column: 1 / -1;
+    gap: var(--space-2);
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    font-weight: 600;
   }
 
   .research-filter__facet {
@@ -30,16 +38,21 @@
     gap: var(--space-2);
     font-size: var(--text-sm);
     color: var(--color-foreground);
+    min-width: 0;
+    font-family: var(--sans);
+    font-weight: 600;
   }
 
   .research-filter input[type="search"] {
     width: 100%;
-    max-width: 520px;
+    min-width: 0;
+    min-height: 44px;
     padding: var(--space-3) var(--space-4);
     border-radius: var(--radius-md);
     border: 1px solid var(--color-border-subtle);
     background: color-mix(in srgb, var(--color-surface) 96%, transparent);
     color: var(--color-foreground);
+    font: var(--text-base) / 1.4 var(--sans);
   }
 
   .research-filter input[type="search"]:focus-visible {
@@ -48,12 +61,15 @@
   }
 
   .research-filter__select {
-    min-width: 180px;
+    min-width: 0;
+    width: 100%;
+    min-height: 44px;
     padding: var(--space-3) var(--space-4);
     border-radius: var(--radius-md);
     border: 1px solid var(--color-border-subtle);
     background: color-mix(in srgb, var(--color-surface) 96%, transparent);
     color: var(--color-foreground);
+    font: var(--text-base) / 1.4 var(--sans);
   }
 
   .research-filter__select:focus-visible {
@@ -68,6 +84,25 @@
 
   .research-filter__clear {
     padding-inline: var(--space-4) var(--space-5);
+  }
+
+  .research-filter .button {
+    min-height: 44px;
+  }
+
+  .research-filter__hint,
+  .research-filter__count {
+    font-size: var(--text-sm);
+  }
+
+  @media (max-width: 639.98px) {
+    .research-filter {
+      padding: var(--space-4);
+    }
+
+    .research-filter__controls {
+      grid-template-columns: minmax(0, 1fr);
+    }
   }
 
   .research-filter__empty {

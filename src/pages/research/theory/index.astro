@@ -6,8 +6,13 @@ import CardItem from "../../../components/CardItem.astro";
 import PageIntro from "../../../components/PageIntro.astro";
 import SectionBlock from "../../../components/SectionBlock.astro";
 
+import {
+  safeguardsInTaxonomy,
+  getTheoryQuestionsBySafeguard,
+} from "../../../content/theory-taxonomy";
+
 const published = "2026-09-18T00:00:00.000Z";
-const modified = "2026-10-01T00:00:00.000Z";
+const modified = "2026-10-02T00:00:00.000Z";
 const essays = (await getCollection("theory")).sort((a, b) =>
   a.data.title.localeCompare(b.data.title, "en", { sensitivity: "base" }),
 );
@@ -17,6 +22,7 @@ const pageDescription =
   "Essays on one claim: institutions absorb the evidence that their automated systems are wrong. Start with insulation. No standard cites one as a requirement.";
 const anchorLinks = [
   { href: "#start", label: "Reading order" },
+  { href: "#questions", label: "Questions by safeguard" },
   { href: "#essays", label: "All essays" },
   { href: "#layering", label: "Theory and method" },
 ];
@@ -92,11 +98,48 @@ const formatLawRefs = (refs: string[]) =>
   </SectionBlock>
 
   <SectionBlock
+    id="questions"
+    eyebrow="Taxonomy"
+    title="Questions by safeguard"
+    description="Every essay addresses one structural question about automated authority, evidence concealment, or human subsidy. Organized under the six safeguards the method names."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      {
+        safeguardsInTaxonomy.map((safeguard) => {
+          const items = getTheoryQuestionsBySafeguard(safeguard);
+          return (
+            <article class="card stack-sm">
+              <div class="stack-xs">
+                <p class="eyebrow">{safeguard}</p>
+                <p class="small muted">
+                  {items.length} {items.length === 1 ? "inquiry" : "inquiries"}
+                </p>
+              </div>
+              <ul class="step-list stack-xs">
+                {items.map((item) => (
+                  <li>
+                    <p>
+                      <a href={item.href}>
+                        <strong>{item.title}:</strong>
+                      </a>{" "}
+                      <em>{item.question}</em>
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          );
+        })
+      }
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
     id="essays"
     eyebrow="All essays"
     title={`All ${essays.length} essays, A to Z`}
     description="Arguments, not requirements. No essay uses requirements language, and no standard cites one as a clause."
-    variant="alt"
   >
     <CardGrid className="grid--two">
       {
@@ -107,6 +150,12 @@ const formatLawRefs = (refs: string[]) =>
             description={essay.data.summary}
             descriptionTone="default"
           >
+            <div class="stack-xs">
+              <p class="eyebrow">Central question</p>
+              <p class="small muted">
+                <em>{essay.data.question}</em>
+              </p>
+            </div>
             <div slot="footer" class="card__footer">
               <a
                 class="button ghost button--compact"

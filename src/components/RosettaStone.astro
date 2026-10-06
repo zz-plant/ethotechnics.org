@@ -1,0 +1,281 @@
+---
+/**
+ * RosettaStone.astro
+ *
+ * Common AI terms paired with checks and standard requirements.
+ */
+
+interface TranslationRow {
+  industryTerm: string;
+  industryUsage: string;
+  ethotechnicReality: string;
+  constitutionalMechanism: string;
+  governingStandard: { id: string; name: string; href: string };
+  governingLaw: { numeral: string; statement: string; href: string };
+}
+
+const translations: TranslationRow[] = [
+  {
+    industryTerm: "Human-in-the-loop (HITL)",
+    industryUsage: "A human reviews or approves an automated output.",
+    ethotechnicReality:
+      "Check whether the reviewer can change or stop the action.",
+    constitutionalMechanism:
+      "STD-08 asks who holds authority, which actions are permitted, and when the grant expires.",
+    governingStandard: {
+      id: "STD-08",
+      name: "Delegation",
+      href: "/standards/std-08-delegation",
+    },
+    governingLaw: {
+      numeral: "Law I",
+      statement: "Capability does not imply authority.",
+      href: "/standards/laws#law-i",
+    },
+  },
+  {
+    industryTerm: "Kill switch",
+    industryUsage: "A control stops an automated process.",
+    ethotechnicReality:
+      "Check whether operations can continue after it is used.",
+    constitutionalMechanism:
+      "STD-01 includes a right to stop. The operator needs a tested fallback so stopping the process does not leave people without a service.",
+    governingStandard: {
+      id: "STD-01",
+      name: "The Temporal Bill of Rights",
+      href: "/standards/std-01-temporal-rights",
+    },
+    governingLaw: {
+      numeral: "Law V",
+      statement: "Dependence converts technical risk into structural risk.",
+      href: "/standards/laws#law-v",
+    },
+  },
+  {
+    industryTerm: "AI ethics & alignment",
+    industryUsage:
+      "A project states principles or checks model behavior against them.",
+    ethotechnicReality:
+      "Check whether a person can challenge a consequential decision.",
+    constitutionalMechanism:
+      "STD-02 specifies a challenge path, a response deadline, and a route to remedy.",
+    governingStandard: {
+      id: "STD-02",
+      name: "Contestability & Recourse",
+      href: "/standards/std-02-contestability-recourse",
+    },
+    governingLaw: {
+      numeral: "Law VII",
+      statement:
+        "Error-bearing parties require standing proportional to exposure.",
+      href: "/standards/laws#law-vii",
+    },
+  },
+  {
+    industryTerm: "Bias audit & fairness metric",
+    industryUsage: "An audit compares outcomes across groups.",
+    ethotechnicReality:
+      "Group-level results do not explain an individual decision.",
+    constitutionalMechanism:
+      "STD-07 specifies a per-decision record. Its higher levels add reasons, standing, and a route for objections.",
+    governingStandard: {
+      id: "STD-07",
+      name: "Revisable Delegation Record",
+      href: "/standards/std-07-revisable-delegation-record",
+    },
+    governingLaw: {
+      numeral: "Law VII",
+      statement:
+        "Error-bearing parties require standing proportional to exposure.",
+      href: "/standards/laws#law-vii",
+    },
+  },
+  {
+    industryTerm: "Hallucination & model drift",
+    industryUsage:
+      "A model produces an unsupported answer or its performance changes.",
+    ethotechnicReality:
+      "Check whether the evidence still supports the permitted actions.",
+    constitutionalMechanism:
+      "STD-08 makes authority conditional on stated evidence and review triggers. A model’s output does not itself grant permission to act.",
+    governingStandard: {
+      id: "STD-08",
+      name: "Delegation",
+      href: "/standards/std-08-delegation",
+    },
+    governingLaw: {
+      numeral: "Law II",
+      statement: "Authority decays unless its justification is renewed.",
+      href: "/standards/laws#law-ii",
+    },
+  },
+  {
+    industryTerm: "Worker burnout & change fatigue",
+    industryUsage:
+      "Staff report exhaustion or difficulty keeping up with changes.",
+    ethotechnicReality:
+      "Count repair work when assessing the system’s workload.",
+    constitutionalMechanism:
+      "STD-06 asks how a system affects people. Record the time staff spend fixing outputs rather than treating those repairs as free capacity.",
+    governingStandard: {
+      id: "STD-06",
+      name: "Human Impact Safety Case",
+      href: "/standards/std-06-human-impact-safety-case",
+    },
+    governingLaw: {
+      numeral: "Law IV",
+      statement:
+        "Every consequential delegation creates a correction obligation.",
+      href: "/standards/laws#law-iv",
+    },
+  },
+  {
+    industryTerm: "Compliance checklist & self-attestation",
+    industryUsage: "A team reports that it has completed required checks.",
+    ethotechnicReality: "Ask for records another reviewer can inspect.",
+    constitutionalMechanism:
+      "STD-07 specifies decision records. The conformance checker grades an exported stream against the schema; this does not establish that the decisions were justified.",
+    governingStandard: {
+      id: "STD-07",
+      name: "Revisable Delegation Record",
+      href: "/standards/std-07-revisable-delegation-record",
+    },
+    governingLaw: {
+      numeral: "Law III",
+      statement: "Evidence and authority must remain coupled.",
+      href: "/standards/laws#law-iii",
+    },
+  },
+];
+---
+
+<div class="rosetta-stone" data-rosetta-stone>
+  <div class="rosetta-grid">
+    {
+      translations.map((row) => (
+        <article class="rosetta-card">
+          <header class="rosetta-card__header">
+            <span class="pill pill--ghost small">Industry term</span>
+            <h3 class="rosetta-card__title">"{row.industryTerm}"</h3>
+            <p class="rosetta-card__euphemism small muted">
+              <strong>Common use:</strong> {row.industryUsage}
+            </p>
+          </header>
+
+          <div class="rosetta-card__body">
+            <div class="rosetta-reality">
+              <span class="eyebrow warning">What to check</span>
+              <p class="small">
+                <strong>{row.ethotechnicReality}</strong>
+              </p>
+            </div>
+
+            <div class="rosetta-mechanism">
+              <span class="eyebrow">Relevant requirement</span>
+              <p class="small">{row.constitutionalMechanism}</p>
+            </div>
+          </div>
+
+          <footer class="rosetta-card__footer">
+            <div class="rosetta-binding">
+              <span class="rosetta-label">Standard:</span>
+              <a href={row.governingStandard.href} class="rosetta-link">
+                <strong>{row.governingStandard.id}:</strong>{" "}
+                {row.governingStandard.name}
+              </a>
+            </div>
+            <div class="rosetta-binding">
+              <span class="rosetta-label">Governing law:</span>
+              <a href={row.governingLaw.href} class="rosetta-link">
+                <strong>{row.governingLaw.numeral}:</strong>{" "}
+                {row.governingLaw.statement}
+              </a>
+            </div>
+          </footer>
+        </article>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .rosetta-stone {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .rosetta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    gap: var(--space-5);
+  }
+
+  .rosetta-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    display: grid;
+    gap: var(--space-4);
+    align-content: space-between;
+  }
+
+  .rosetta-card__header {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .rosetta-card__title {
+    margin: 0;
+    font-size: var(--text-base);
+    color: var(--text);
+  }
+
+  .rosetta-card__euphemism {
+    margin: 0;
+    line-height: 1.45;
+  }
+
+  .rosetta-card__body {
+    display: grid;
+    gap: var(--space-3);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding-block: var(--space-3);
+  }
+
+  .rosetta-reality p,
+  .rosetta-mechanism p {
+    margin: var(--space-1) 0 0;
+  }
+
+  .rosetta-card__footer {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .rosetta-binding {
+    display: grid;
+    gap: 2px;
+    font-size: var(--text-sm);
+  }
+
+  .rosetta-label {
+    font-family: var(--sans);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-label);
+    color: var(--muted);
+    font-size: var(--text-xs);
+  }
+
+  .rosetta-link {
+    color: var(--text);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .rosetta-link:hover {
+    color: var(--accent);
+  }
+</style>

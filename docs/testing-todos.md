@@ -9,16 +9,10 @@ Playwright.
   [`src/test/preload.ts`](../src/test/preload.ts) to register happy-dom and mock Astro virtual
   modules. Run `bun run test:unit` for local coverage and `bun run test:unit:ci` for a full run with
   the lcov reporter.
-- Component specs live in [`src/components/__tests__/`](../src/components/__tests__/), relying on
-  [`src/test/astro-container.ts`](../src/test/astro-container.ts) to render Astro components without
-  starting a server. Extend coverage there by adding new `*.test.ts` files or assertions alongside
-  existing fixtures like `NavigationShell.astro`.
-
-## Astro container usage
-
-- Use `createAstroContainer` and `parseHtml` from
-  [`src/test/astro-container.ts`](../src/test/astro-container.ts) to render components and query the
-  resulting DOM. This keeps component tests fast while exercising slots, props, and rendered markup.
+- Component specs live in [`src/components/__tests__/`](../src/components/__tests__/) and run under
+  Bun with the happy-dom globals from the preload file. Extend coverage there by adding new
+  `*.test.ts` files or assertions alongside existing fixtures. Structural checks of `.astro`
+  component output belong in the Playwright suites under `tests/e2e/`.
 
 ## Playwright smoke coverage
 

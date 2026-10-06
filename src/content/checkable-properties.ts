@@ -248,7 +248,7 @@ export const checkableProperties: CheckableProperty[] = [
         what: "starts a job, requests a stop, and polls until the system reports the work has ceased or the budget elapses",
       },
     ],
-    gap: "A record probe would need the stop request and the cessation as separate timestamped records. STD-07 has no stop record kind; an intervention record exists but does not distinguish acknowledgment from cessation.",
+    gap: "A record probe would need the stop request and the cessation as separate timestamped records. STD-07 has no stop record kind; an intervention record exists but does not distinguish acknowledgement from cessation.",
   },
   {
     id: "a-human-can-alter-system-state",
@@ -383,7 +383,7 @@ export const checkableProperties: CheckableProperty[] = [
     laws: ["law-vii"],
     variables: ["standing"],
     probes: [],
-    gap: "Neither instrument checks this. The record checker can see that records name a standing to object, and does — but naming a party is not granting them a route, and the checker has no way to tell whether the route exists or whether anyone outside the operator has ever used it. A live probe would have to attempt a challenge as an outside party, which means an adapter that is not the operator's. That is the hardest and most load-bearing gap in this catalog.",
+    gap: "Neither instrument checks this. The record checker can see that records name a standing to object, and does — but naming a party is not granting them a route, and the checker has no way to tell whether the route exists or whether anyone outside the operator has ever used it. A live probe would have to attempt a challenge as an outside party, which means an adapter that is not the operator's. That is the hardest and most load-bearing gap in this catalogue.",
   },
   {
     id: "correction-capacity-is-assessed",
@@ -393,7 +393,7 @@ export const checkableProperties: CheckableProperty[] = [
     laws: ["law-iv"],
     variables: ["correction"],
     probes: [],
-    gap: "The authority grant schema requires `correction_capacity` with all seven components and an `assessed_at`. Nothing validates the assessment against reality: a grant asserting all seven and a grant that has them are the same document. Individual components are probed elsewhere in this catalog — stopping, override, reversal notice, challenge — so the missing piece is binding those results back to the grant that claimed them.",
+    gap: "The authority grant schema requires `correction_capacity` with all seven components and an `assessed_at`. Nothing validates the assessment against reality: a grant asserting all seven and a grant that has them are the same document. Individual components are probed elsewhere in this catalogue — stopping, override, reversal notice, challenge — so the missing piece is binding those results back to the grant that claimed them.",
   },
   {
     id: "dependence-stays-within-budget",
@@ -423,7 +423,7 @@ export const checkableProperties: CheckableProperty[] = [
     laws: ["law-x"],
     variables: ["evidence"],
     probes: [],
-    gap: "Not a property of a system under test but of the testing program around it, so it will never have a probe here. It is catalogued because leaving it out would let the framework's most-cited claim escape the accounting that every other claim is held to.",
+    gap: "Not a property of a system under test but of the testing program around it, so it will never have a probe here. It is cataloged because leaving it out would let the framework's most-cited claim escape the accounting that every other claim is held to.",
   },
 ];
 

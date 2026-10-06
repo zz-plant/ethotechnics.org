@@ -83,6 +83,12 @@ export const neighboringFields: NeighboringField[] = [
     field: "Safety science",
     works: [
       {
+        authors: "Charles Perrow",
+        title: "Normal Accidents",
+        year: 1984,
+        form: "book",
+      },
+      {
         authors: "Diane Vaughan",
         title: "The Challenger Launch Decision",
         year: 1996,
@@ -94,8 +100,14 @@ export const neighboringFields: NeighboringField[] = [
         year: 2011,
         form: "book",
       },
+      {
+        authors: "Nancy Leveson",
+        title: "Engineering a Safer World",
+        year: 2012,
+        form: "book",
+      },
     ],
-    sees: "Warnings get reclassified as normal until they stop registering, and systems drift toward failure in steps that each look reasonable.",
+    sees: "Warnings get reclassified as normal until they stop registering, and systems drift toward failure in steps that each look reasonable. Tightly coupled, interactively complex systems propagate an upstream error faster than the people downstream can chase it.",
     stops:
       "It studies an organization's own operators and its rare catastrophes. Its remedy is a learning culture, not a duty owed to the people a system decides about.",
     essay: {
@@ -107,13 +119,19 @@ export const neighboringFields: NeighboringField[] = [
     field: "Responsibility in automation",
     works: [
       {
+        authors: "Raja Parasuraman and Dietrich Manzey",
+        title: "Complacency and Bias in Human Use of Automation",
+        year: 2010,
+        form: "article",
+      },
+      {
         authors: "Madeleine Clare Elish",
         title: "Moral Crumple Zones",
         year: 2019,
         form: "article",
       },
     ],
-    sees: "When an automated system fails, the blame lands on the nearest human operator.",
+    sees: "When an automated system fails, the blame lands on the nearest human operator, and trust in the automation grows precisely as vigilance over its output decays.",
     stops:
       "It follows the blame after a failure. It does not follow the evidence that the operator's everyday corrections keep from the rule.",
     essay: {
@@ -154,8 +172,14 @@ export const neighboringFields: NeighboringField[] = [
         year: 2018,
         form: "book",
       },
+      {
+        authors: "Cass Sunstein",
+        title: "Sludge",
+        year: 2021,
+        form: "book",
+      },
     ],
-    sees: "The learning, compliance, and psychological costs a process imposes on the people it serves.",
+    sees: "The learning, compliance, and psychological costs a process imposes on the people it serves, with the waiting itself acting as a rationing device.",
     stops:
       "It measures the cost. It does not trace how the people paying it keep the rule that causes it from changing.",
     essay: {
@@ -220,11 +244,147 @@ export const neighboringFields: NeighboringField[] = [
     ],
     sees: "Power that is unchecked and arbitrary dominates people even when it is kind.",
     stops:
-      "It says what people are owed. It does not say how to test whether a running system delivers it.",
+      "It focuses on arbitrary discretionary agents and constitutional status. It does not account for architectural domination where power is fragmented across systems and return paths are severed, nor does it measure the metabolic human capacity consumed to keep an arrangement functional.",
     essay: {
       title: "Democratic vs. coercive governability",
       href: "/research/theory/democratic-vs-coercive-governability",
     },
+  },
+  {
+    field: "Social reproduction theory & care ethics",
+    works: [
+      {
+        authors: "Nancy Fraser",
+        title: "Contradictions of Capital and Care",
+        year: 2016,
+        form: "article",
+      },
+      {
+        authors: "Joan Tronto",
+        title: "Moral Boundaries",
+        year: 1993,
+        form: "book",
+      },
+    ],
+    sees: "Formal systems depend parasitically on unpriced relational repair and reproductive labor that they externalize and exhaust.",
+    stops:
+      "It analyzes systemic extraction at the social and macroeconomic level. It does not construct engineering constraints, data schemas, or runtime records that force automated systems to account for the finite adaptive capacity they consume.",
+    essay: {
+      title: "The consumption of adaptive capacity",
+      href: "/research/theory/the-consumption-of-adaptive-capacity",
+    },
+  },
+  {
+    field: "Labor process theory & organizational sociology",
+    works: [
+      {
+        authors: "Michael Burawoy",
+        title: "Manufacturing Consent",
+        year: 1979,
+        form: "book",
+      },
+      {
+        authors: "Arlie Russell Hochschild",
+        title: "The Managed Heart",
+        year: 1983,
+        form: "book",
+      },
+    ],
+    sees: "Workplaces extract uncredited emotional, repair, and adaptive labor while manufacturing ideological consent that frames structural coping as individual virtue.",
+    stops:
+      "It critiques workplace exploitation and character deformation. It does not formalize how informal human compensation blinds institutional telemetry or engineer runtime mechanisms that force organizations to account for the subsidy.",
+    essay: {
+      title: "The human subsidy to institutional continuity",
+      href: "/research/theory/the-human-subsidy",
+    },
+  },
+];
+
+/** One of the framework's claims, the strongest counter to it in the
+ * counter-position's own terms, the answer, and the instrument on this site
+ * that would settle the dispute empirically. */
+export type Dispute = {
+  claim: string;
+  /** The field or literature that pushes back. */
+  counterSource: string;
+  counter: string;
+  answer: string;
+  instrument: string;
+  instrumentHref: string;
+};
+
+/** What the established fields say back. The framework's claims are
+ * falsifiable, and the strongest opposing positions deserve to be stated by
+ * the site that holds the claims. Each entry names the measurement that would
+ * settle the dispute, because the disagreements below are empirical ones. */
+export const disputes: Dispute[] = [
+  {
+    claim:
+      "Apparent institutional performance often rests on unmeasured human compensation.",
+    counterSource:
+      "IT productivity economics (Erik Brynjolfsson and colleagues)",
+    counter:
+      "Enterprise digitization yields genuine productivity gains once an adoption lag passes; workarounds are transient user adaptation, not permanent extraction.",
+    answer:
+      "Whether adaptation is transient or structural is an empirical question nobody can settle yet, because nothing measures the adaptation. A system that does not record the labor it consumes cannot tell a learning curve from a subsidy. The dispute is falsifiable; what is missing is the instrument.",
+    instrument: "the burden dashboards",
+    instrumentHref: "/mechanisms/patterns/burden-dashboards",
+  },
+  {
+    claim:
+      "Generated output shifts the cost of verifying truth onto its reader, and no metric that counts generation will ever see it.",
+    counterSource: "Ambient clinical documentation trials",
+    counter:
+      "Trials report high clinician satisfaction, reduced subjective administrative burden, and low observed error rates in routine primary care encounters.",
+    answer:
+      "Satisfaction is self-reported and would not detect a cost paid after hours; low error rates in routine encounters bound the claim without touching high-ambiguity work. The honest response is measurement rather than rebuttal — instrument the verification cost and let the number decide.",
+    instrument: "the claim-anchoring eval",
+    instrumentHref: "/evals/explainability",
+  },
+  {
+    claim:
+      "Errors propagate through tightly coupled systems faster than correction can chase them, and nominal reversibility is not operational reversibility.",
+    counterSource: "Medication-safety research on interception",
+    counter:
+      "Multi-tiered human redundancy intercepts a large share of prescribing and transcription errors before they reach the patient, so informal checks function as a resilient defense.",
+    answer:
+      "Interception is real, and it is the finding the framework starts from: safety that depends on unmeasured vigilance is the human subsidy, and the interceptors are unbilled. The question is not whether interception works but whether it is recorded as evidence about the system or absorbed as evidence about the people.",
+    instrument: "the rescue register",
+    instrumentHref: "/mechanisms/patterns/rescue-register",
+  },
+  {
+    claim:
+      "Delay functions as an unlegislated rationing device that suppresses claims more effectively than an explicit denial.",
+    counterSource: "Health economics (moral hazard and demand management)",
+    counter:
+      "Prior authorization and review queues are legitimate cost control: they deter moral hazard and require providers to demonstrate medical necessity before funds are committed.",
+    answer:
+      "A queue may ration legitimately, but only as a declared policy with evidence, an owner, and a clock. Choosing not to fund is a decision with reasons and a date. What the framework refuses is rationing that arrives as friction nobody authored — and delay falls hardest on the least persistent, which makes undeclared rationing regressive.",
+    instrument: "the expiry default and deliberate non-use",
+    instrumentHref: "/research/theory/deliberate-non-use",
+  },
+  {
+    claim:
+      "Institutions enforce rules whose supersession they hold somewhere in the organization.",
+    counterSource: "Evidence-based medicine and regulatory science",
+    counter:
+      "Slow adoption is an epistemological safeguard: many trial endpoints rely on surrogate markers that never translate to survival benefit, so conservatism protects patients from commercial overhype.",
+    answer:
+      "The clause forces the review, not the adoption. Held evidence fires a trigger, and a payer may reject the new evidence with recorded reasons and confirm the grant. What it forbids is skepticism nobody performed. Slow uptake with a record is judgment; slow uptake without one is an outdated rulebook.",
+    instrument: "the unwired-evidence term",
+    instrumentHref: "/glossary/unwired-evidence",
+  },
+  {
+    claim:
+      "Empathy displays substitute for structural repair and absorb the pressure to change.",
+    counterSource:
+      "Occupational health psychology (Christina Maslach, Michael Leiter)",
+    counter:
+      "Secondary interventions — peer support, mindfulness, institutional recognition — produce measurable reductions in exhaustion, depersonalization, and turnover intent.",
+    answer:
+      "The distinction is substitution, not existence. Peer support that complements redesign is not theater; a wellness program offered in place of changing the workload is. The test is whether the intervention alters the system that produces the burden or only helps people survive it.",
+    instrument: "the ethics-theater term",
+    instrumentHref: "/glossary/ethics-theater",
   },
 ];
 
@@ -265,5 +425,17 @@ export const theoryVocabulary: { term: string; text: string }[] = [
   {
     term: "Evaluation by burdens removed",
     text: "A system or a reform is judged by whether it removes preventable correction work from people, not only by how much it produces.",
+  },
+  {
+    term: "The Tripartite Invariant: Non-Domination, Burden Accounting, and Error-Correcting Authority",
+    text: "The three irreducible commitments of legitimate system design: relational independence from unchecked power, metabolic accounting of the finite human capacity consumed to keep an arrangement functional, and cybernetic return paths ensuring authority remains conditional on downstream error-correction. None of the three reduces to the others.",
+  },
+  {
+    term: "Corrective Standing as Epistemic Admissibility",
+    text: "Defining corrective standing not as an individual veto that risks coordination gridlock, but as formal epistemic admissibility: an institution loses the legitimacy of its claims and its operational warrants if it systematically insulates its decision-making from the counterevidence generated by the people who absorb its failures.",
+  },
+  {
+    term: "Stewardship versus Counterfeit Buffering",
+    text: "Differentiating legitimate human-in-the-loop engagement (voluntary, discretionary stewardship where humans have unpenalized override authority) from counterfeit buffering (coerced, unrecorded labor where frontline workers or users act as liability sponges and error-signal attenuators for an inflexible system).",
   },
 ];

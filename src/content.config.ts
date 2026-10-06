@@ -291,105 +291,6 @@ const library = defineCollection({
   }),
 });
 
-const startHere = defineCollection({
-  loader: file("src/content/start-here.json"),
-  schema: pageCopySchema.extend({
-    permalink: z.string(),
-    hero: z.object({
-      eyebrow: z.string(),
-      heading: z.string(),
-      description: z.string(),
-      quickNote: z.string(),
-      quickSummary: z.string(),
-      deliverables: z.array(z.string()),
-      panel: z.object({ title: z.string(), description: z.string() }),
-      actions: z.array(
-        z.object({
-          label: z.string(),
-          href: z.string(),
-          ariaLabel: z.string().optional(),
-          variant: z.enum(["primary", "ghost"]),
-        }),
-      ),
-    }),
-    anchorLinks: z.array(z.object({ href: z.string(), label: z.string() })),
-    routes: z.object({
-      eyebrow: z.string(),
-      title: z.string(),
-      description: z.string(),
-      cards: z.array(
-        z.object({
-          title: z.string(),
-          description: z.string(),
-          bestFor: z.string(),
-          href: z.string(),
-          tags: z.array(z.string()),
-          recommendedTag: z.string().optional(),
-          recommendedNote: z.string().optional(),
-          time: z.string(),
-        }),
-      ),
-    }),
-    decisionGuide: z.object({
-      eyebrow: z.string(),
-      title: z.string(),
-      description: z.string(),
-      prompts: z.array(
-        z.object({
-          question: z.string(),
-          answer: z.string(),
-          href: z.string(),
-          label: z.string(),
-        }),
-      ),
-    }),
-    artifacts: z.object({
-      eyebrow: z.string(),
-      title: z.string(),
-      description: z.string(),
-      previews: z.array(
-        z.object({
-          title: z.string(),
-          description: z.string(),
-          label: z.string(),
-          href: z.string(),
-          note: z.string(),
-        }),
-      ),
-    }),
-    quickStart: z.object({
-      eyebrow: z.string(),
-      title: z.string(),
-      description: z.string(),
-    }),
-    framing: z.object({
-      eyebrow: z.string(),
-      title: z.string(),
-      description: z.string(),
-      isList: z.array(z.string()),
-      isNotList: z.array(z.string()),
-    }),
-    studio: z.object({
-      eyebrow: z.string(),
-      title: z.string(),
-      description: z.string(),
-      bullets: z.array(z.string()),
-      ctaLabel: z.string(),
-      ctaHref: z.string(),
-      ctaAriaLabel: z.string(),
-    }),
-    footerCta: z.object({
-      eyebrow: z.string(),
-      title: z.string(),
-      description: z.string(),
-      primaryLabel: z.string(),
-      primaryHref: z.string(),
-      secondaryLabel: z.string(),
-      secondaryHref: z.string(),
-    }),
-  }),
-});
-
 const fieldNotes = defineCollection({
   loader: file("src/content/field-notes.json"),
   schema: pageCopySchema.extend({
@@ -672,6 +573,7 @@ const theorySchema = z.object({
   updated: z.string().optional(),
   lawRefs: z.array(z.string()),
   summary: z.string(),
+  question: z.string(),
 });
 
 const explainers = defineCollection({
@@ -703,7 +605,6 @@ export const collections = {
   taxonomy,
   glossary,
   library,
-  startHere,
   fieldNotes,
   participation,
 };

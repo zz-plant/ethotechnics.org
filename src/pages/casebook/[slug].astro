@@ -48,8 +48,12 @@ const sourceKind = {
     anchorLinks={[
       { href: "#record", label: "The record" },
       { href: "#scoring", label: "Scoring" },
+      { href: "#remediation", label: "Avoid this failure" },
       { href: "#learning", label: "After the failure" },
       { href: "#missing", label: "The missing record" },
+      ...(entry.diagnosticStudy
+        ? [{ href: "#diagnostic-study", label: "Diagnostic study" }]
+        : []),
       { href: "#sources", label: "Sources" },
     ]}
   >
@@ -157,18 +161,67 @@ const sourceKind = {
     </ol>
   </SectionBlock>
 
+  {
+    entry.remediation && (
+      <SectionBlock
+        id="remediation"
+        eyebrow="Remediation"
+        title="Avoid this failure in your system"
+        description="The diagnostic that tests for this defect, the standard that would have required a fix, and the essay that explains why it recurs."
+      >
+        <div class="grid grid--three">
+          <div class="panel stack-sm">
+            <p class="eyebrow">1. Run diagnostic</p>
+            <p>
+              <a href={entry.remediation.diagnostic.href}>
+                <strong>{entry.remediation.diagnostic.name} &rarr;</strong>
+              </a>
+            </p>
+            <p class="small muted">{entry.remediation.diagnostic.purpose}</p>
+          </div>
+
+          <div class="panel stack-sm">
+            <p class="eyebrow">2. Enforce standard</p>
+            <p>
+              <a href={entry.remediation.standard.href}>
+                <strong>
+                  {entry.remediation.standard.id}:{" "}
+                  {entry.remediation.standard.name} &rarr;
+                </strong>
+              </a>
+            </p>
+            <p class="small muted">{entry.remediation.standard.requirement}</p>
+          </div>
+
+          <div class="panel stack-sm">
+            <p class="eyebrow">3. Ground in theory</p>
+            <p>
+              <a href={entry.remediation.theory.href}>
+                <strong>{entry.remediation.theory.title} &rarr;</strong>
+              </a>
+            </p>
+            <p class="small muted">{entry.remediation.theory.question}</p>
+          </div>
+        </div>
+      </SectionBlock>
+    )
+  }
+
   <SectionBlock
     id="learning"
     eyebrow="After the failure"
     title="Did the institution change?"
     description="Whether the institution changed the rule, category, or workflow that produced the errors, or corrected the errors and left that process as it was."
+    variant="alt"
   >
     <p class="case-learning__verdict">
       <strong>{learningVerdictLabels[entry.learningOutcome.verdict]}</strong>
     </p>
     <p class="case-learning">{entry.learningOutcome.finding}</p>
     <p class="small muted">
-      <a href="/research/theory/exception-learning">Read the theory: exception learning</a>
+      <a href="/research/theory/exception-learning"
+        >Read the theory: exception learning</a
+      >
       {" "}
       · <a href="/evals/corrective-learning">Corrective learning eval suite</a>
     </p>
@@ -182,6 +235,33 @@ const sourceKind = {
   >
     <p class="case-missing">{entry.theMissingRecord}</p>
   </SectionBlock>
+
+  {
+    entry.diagnosticStudy && (
+      <SectionBlock
+        id="diagnostic-study"
+        eyebrow="Diagnostic study"
+        title="Long-form postmortem analysis"
+        description="Companion operational study exploring how this failure mode was stabilized, absorbed, or concealed."
+      >
+        <div class="case-diagnostic-card">
+          <p class="case-diagnostic-card__title">
+            <a
+              href={entry.diagnosticStudy.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <strong>{entry.diagnosticStudy.title}</strong> ·{" "}
+              {entry.diagnosticStudy.source} ↗
+            </a>
+          </p>
+          <p class="case-diagnostic-card__summary">
+            {entry.diagnosticStudy.summary}
+          </p>
+        </div>
+      </SectionBlock>
+    )
+  }
 
   <SectionBlock
     id="sources"

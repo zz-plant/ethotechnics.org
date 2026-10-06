@@ -86,9 +86,7 @@ export function decodeAnswers(
   return recognized ? answers : undefined;
 }
 
-export function encodeAnswers(
-  answers: (SelfTestAnswer | undefined)[],
-): string {
+export function encodeAnswers(answers: (SelfTestAnswer | undefined)[]): string {
   return selfTestQuestions.map((_, index) => answers[index] ?? "-").join("");
 }
 

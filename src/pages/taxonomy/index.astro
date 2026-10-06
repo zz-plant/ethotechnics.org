@@ -61,11 +61,15 @@ const structuredDataJson = JSON.stringify(structuredData);
     eyebrow="Taxonomy"
     title="Ethotechnics taxonomy"
     description={pageDescription}
-    anchorLinks={[
-      { href: "#domains", label: "Domains" },
-      { href: "#use", label: "How to use" },
-    ]}
-  />
+    anchorLinks={[{ href: "#domains", label: "Domains" }]}
+  >
+    <Fragment slot="actions">
+      <a class="button ghost" href="/navigator#safeguards"
+        >Explore safeguards &rarr;</a
+      >
+      <a class="button ghost" href="/navigator">Concept navigator</a>
+    </Fragment>
+  </PageIntro>
 
   <SectionBlock
     id="domains"
@@ -107,27 +111,5 @@ const structuredDataJson = JSON.stringify(structuredData);
         })
       }
     </CardGrid>
-  </SectionBlock>
-
-  <SectionBlock
-    id="use"
-    eyebrow="How to use"
-    title="Reading the taxonomy"
-    description="Three levels: domain, capability, and practice. Every entry names the safeguards it serves and the artifacts that apply."
-    variant="alt"
-  >
-    <ol class="muted">
-      <li>
-        Start at a domain to see its capabilities and the artifacts filed under
-        it.
-      </li>
-      <li>
-        Open a capability or practice page for the narrower level and its
-        related artifacts.
-      </li>
-      <li>
-        Move between parent, sibling, and child levels from any entry page.
-      </li>
-    </ol>
   </SectionBlock>
 </BaseLayout>

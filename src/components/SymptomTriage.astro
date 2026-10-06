@@ -1,0 +1,319 @@
+---
+/**
+ * SymptomTriage.astro
+ *
+ * Operational failure triage matrix mapping active symptoms in production
+ * to possible causes, diagnostic tools, standards,
+ * casebook precedent, and foundational theory essay.
+ */
+
+import { cases } from "../content/casebook";
+import { standardsContent } from "../content/standards";
+
+interface Symptom {
+  id: string;
+  badge: string;
+  title: string;
+  observation: string;
+  possibleCause: string;
+  diagnostic: { name: string; href: string; action: string };
+  standard: string;
+  casebook: string;
+  theory: { title: string; href: string; coreQuestion: string };
+}
+
+const symptoms: Symptom[] = [
+  {
+    id: "shadow-workarounds",
+    badge: "Unrecorded work",
+    title: "People repair errors outside the system",
+    observation:
+      "Staff use spreadsheets, phone calls, or manual bypasses to repair automated decisions. Those repairs do not appear in the system’s error reports.",
+    possibleCause:
+      "Error reports count the automated output but omit the time people spend correcting it.",
+    diagnostic: {
+      name: "Workload Modeler",
+      href: "/diagnostics/burden-modeler",
+      action: "Model the time people spend handling errors.",
+    },
+    standard: "STD-06",
+    casebook: "ofqual-2020-grades",
+    theory: {
+      title: "The human subsidy to institutional continuity",
+      href: "/research/theory/the-human-subsidy",
+      coreQuestion: "What work do people do to keep a faulty system running?",
+    },
+  },
+  {
+    id: "appeal-avalanche",
+    badge: "Review backlog",
+    title: "Appeals arrive faster than staff can review them",
+    observation:
+      "Unanswered challenges accumulate. People wait longer for reviews, and restrictions on new appeals can hide the size of the backlog.",
+    possibleCause:
+      "The review team has less capacity than the workflow needs, or repeated appeals are not reaching the rule’s owner.",
+    diagnostic: {
+      name: "Burden Budget Worksheet",
+      href: "/diagnostics/burden-budget-worksheet",
+      action: "Estimate review workload and available staff time.",
+    },
+    standard: "STD-02",
+    casebook: "robodebt",
+    theory: {
+      title: "Challenge density",
+      href: "/research/theory/challenge-density",
+      coreQuestion:
+        "When should the institution add review capacity or narrow the system’s scope?",
+    },
+  },
+  {
+    id: "rigid-gates",
+    badge: "No stop control",
+    title: "Staff see an error but cannot stop the action",
+    observation:
+      "Staff identify a wrong or harmful decision, but the interface gives them no route to pause it or send it to someone who can revise it.",
+    possibleCause:
+      "The workflow gives the system permission to act without giving a named person a working correction control.",
+    diagnostic: {
+      name: "Delegation Audit",
+      href: "/diagnostics/delegation-audit",
+      action:
+        "Check entered answers about who may stop or revise the workflow.",
+    },
+    standard: "STD-08",
+    casebook: "post-office-horizon",
+    theory: {
+      title: "The sovereign override",
+      href: "/research/theory/the-sovereign-override",
+      coreQuestion: "How should a human override be recorded?",
+    },
+  },
+  {
+    id: "irreversible-harm",
+    badge: "Missing remedy",
+    title: "A successful appeal leaves the harm unrepaired",
+    observation:
+      "An account freeze, benefit cut, or other action takes effect before review. Reversing the decision does not restore the person’s lost money, time, or access.",
+    possibleCause:
+      "The workflow has an appeal path but no owner or funded process for repairing the consequences.",
+    diagnostic: {
+      name: "Self-Defense Checks",
+      href: "/diagnostics/self-defense-tools",
+      action: "Find prompts for requesting reasons and a remedy.",
+    },
+    standard: "STD-01",
+    casebook: "toeslagenaffaire",
+    theory: {
+      title: "Dependence runs both ways",
+      href: "/research/theory/dependence-runs-both-ways",
+      coreQuestion:
+        "What must an institution preserve when people cannot leave its systems?",
+    },
+  },
+  {
+    id: "vendor-lock-in",
+    badge: "Vendor dependency",
+    title: "The institution cannot inspect the vendor’s decisions",
+    observation:
+      "The institution cannot explain or audit a decision because the vendor controls the records or withholds the decision logic.",
+    possibleCause:
+      "The contract or workflow leaves the institution without enough evidence to review the authority it delegated.",
+    diagnostic: {
+      name: "Record Conformance Validator",
+      href: "/diagnostics/record-conformance",
+      action: "Check a supplied record stream against STD-07.",
+    },
+    standard: "STD-07",
+    casebook: "post-office-horizon",
+    theory: {
+      title: "Automation and capture",
+      href: "/research/theory/automation-and-capture",
+      coreQuestion:
+        "Can the institution still question, replace, or stop the system?",
+    },
+  },
+  {
+    id: "statistical-stereotyping",
+    badge: "Missing reasons",
+    title: "A person cannot get reasons for a decision",
+    observation:
+      "A person is denied credit, flagged for fraud, or ranked by a system, but cannot obtain the evidence and reasons used in their case.",
+    possibleCause:
+      "The workflow reports model performance without providing reasons or a challenge path for an individual decision.",
+    diagnostic: {
+      name: "Delegation Audit",
+      href: "/diagnostics/delegation-audit",
+      action:
+        "Review entered answers about authority and the challenge process.",
+    },
+    standard: "STD-02",
+    casebook: "apple-card",
+    theory: {
+      title: "The model of a person is not the person",
+      href: "/research/theory/model-of-a-person",
+      coreQuestion: "How can a person challenge the system’s account of them?",
+    },
+  },
+];
+
+const resolvedSymptoms = symptoms.map((symptom) => {
+  const standard = standardsContent.standards.find(
+    (entry) => entry.id === symptom.standard,
+  );
+  const casebook = cases.find((entry) => entry.slug === symptom.casebook);
+  if (!standard || !casebook)
+    throw new Error(`Unknown symptom reference: ${symptom.id}`);
+  return { ...symptom, standard, casebook };
+});
+---
+
+<div class="symptom-triage" data-symptom-triage>
+  <div class="symptom-grid">
+    {
+      resolvedSymptoms.map((symptom) => (
+        <article class="symptom-card" id={symptom.id}>
+          <header class="symptom-card__header">
+            <span class="pill pill--ghost small">{symptom.badge}</span>
+            <h3 class="symptom-card__title">{symptom.title}</h3>
+          </header>
+
+          <div class="symptom-card__body">
+            <div class="symptom-card__observation">
+              <span class="eyebrow">What you observe</span>
+              <p class="small">{symptom.observation}</p>
+            </div>
+
+            <div class="symptom-card__cause">
+              <span class="eyebrow">Possible cause</span>
+              <p class="small muted">{symptom.possibleCause}</p>
+            </div>
+          </div>
+
+          <footer class="symptom-card__remediation">
+            <div class="remediation-item">
+              <span class="remediation-label">Run diagnostic:</span>
+              <a href={symptom.diagnostic.href} class="remediation-link">
+                <strong>{symptom.diagnostic.name}</strong> &rarr;
+              </a>
+              <span class="remediation-sub">{symptom.diagnostic.action}</span>
+            </div>
+
+            <div class="remediation-item">
+              <span class="remediation-label">Read the standard:</span>
+              <a
+                href={`/standards/${symptom.standard.slug}`}
+                class="remediation-link"
+              >
+                <strong>{symptom.standard.id}:</strong> {symptom.standard.title}
+              </a>
+            </div>
+
+            <div class="remediation-item">
+              <span class="remediation-label">Scored case:</span>
+              <a
+                href={`/casebook/${symptom.casebook.slug}`}
+                class="remediation-link"
+              >
+                <strong>{symptom.casebook.title}</strong>
+              </a>
+              <span class="remediation-sub">{symptom.casebook.system}</span>
+            </div>
+
+            <div class="remediation-item">
+              <span class="remediation-label">Related essay:</span>
+              <a href={symptom.theory.href} class="remediation-link">
+                <strong>{symptom.theory.title}</strong>
+              </a>
+              <span class="remediation-sub">{symptom.theory.coreQuestion}</span>
+            </div>
+          </footer>
+        </article>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .symptom-triage {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .symptom-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    gap: var(--space-5);
+  }
+
+  .symptom-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    display: grid;
+    gap: var(--space-4);
+    align-content: space-between;
+  }
+
+  .symptom-card__header {
+    display: grid;
+    gap: var(--space-2);
+    align-items: start;
+  }
+
+  .symptom-card__title {
+    margin: 0;
+    font-size: var(--text-base);
+    color: var(--text);
+    line-height: 1.35;
+  }
+
+  .symptom-card__body {
+    display: grid;
+    gap: var(--space-3);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding-block: var(--space-3);
+  }
+
+  .symptom-card__observation p,
+  .symptom-card__cause p {
+    margin: var(--space-1) 0 0;
+  }
+
+  .symptom-card__remediation {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .remediation-item {
+    display: grid;
+    gap: 2px;
+    font-size: var(--text-sm);
+  }
+
+  .remediation-label {
+    font-family: var(--sans);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-label);
+    color: var(--muted);
+    font-size: var(--text-xs);
+  }
+
+  .remediation-link {
+    color: var(--text);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .remediation-link:hover {
+    color: var(--accent);
+  }
+
+  .remediation-sub {
+    color: var(--muted);
+    font-size: var(--text-xs);
+    line-height: 1.35;
+  }
+</style>

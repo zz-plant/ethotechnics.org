@@ -8,6 +8,224 @@ for the operational governance of delegated decision systems.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.22.0] - 2026-10-02
+
+### Changed
+
+- **The future-concepts territory reconciled against the built layer** (388 → 381 entries, the
+  speculative category down from 38 to 29). Seven entries retired as superseded, each by a built
+  artifact that now carries the same ground: moral-drift-control (STD-08 Part B and MEC-14's review
+  triggers), distributed-accountability-protocols (traceable ownership and obligation continuity),
+  ethotechnic-failure-taxonomy (the glossary's own failure-modes category is the taxonomy),
+  boundary-of-acceptable-harm (STD-06 Article IV's do-not-deploy boundaries),
+  decision-debt-ledger (corrective-debt), moral-feature-gating (MEC-22's admission gate), and
+  pathways-to-restitution (the restitution ladder). Internal references were redirected, not
+  dropped.
+- **Two entries promoted out of future-concepts** because built pages already cite them:
+  ethical-circuit-breakers (referenced from the absorption essay and the STD-03 page) and
+  graceful-rollback-lanes (referenced from the STD-03 page) now sit in governance.
+- **User-state-modeling rewritten to comply with the new Operator Instrumentation boundary:**
+  inference of fatigue, distress, or inattention reads the machine's trail — error streaks, queue
+  depth, after-hours activity — not the person, because a protective signal that watches the
+  operator becomes a quota under incentive pressure.
+
+## [1.21.0] - 2026-10-02
+
+### Fixed
+
+- **The antihuman metric's criteria bridge was out of date.** It named
+  replenishment and freedom from compulsory optimization as the two criteria
+  "not yet built anywhere" — but the reciprocal accommodation suite, added
+  with the Green Dashboard sync, implements all twelve criteria one case per
+  criterion (REC-001 through REC-012). The bridge now maps the full list to
+  that suite and treats the domain suites as corroboration rather than gaps.
+
+## [1.20.0] - 2026-10-02
+
+### Changed
+
+- **Four duplicate glossary entries merged into their canonical terms** (389 → 385):
+  `contestability-guarantee` → `contestability`, `structural-corrigibility` → `exception-learning`,
+  `human-override-lanes` → `override-path`, and `utility-expiry` → `constructive-denial`. Nothing
+  was deleted without salvage: design authority moved into contestability's requirements, the
+  capacity framing and the "excellent appeals that change nothing upstream" sentence moved into
+  exception-learning, override-path gained the ethical-interrupt resolution sentence, and
+  constructive-denial now defines utility expiry inline. Seven adjacentTerms lists were updated so
+  every adjacency resolves, two dead links to terms that never existed are gone, and the
+  contestability checklist explainer no longer cites a "Contestability Guarantee standard" that
+  does not exist.
+
+## [1.19.0] - 2026-10-02
+
+### Added
+
+- **STD-02 Article VI, The Infrastructure of Review:** the three things a review needs that are
+  easiest to omit, now written into the standard after being registered without document text.
+  §6.1 — human review on request when an automated system denies a claim or takes a consequential
+  action, with no new evidence or form required, because the alternative is that the output becomes
+  final by default. §6.2 — reviewer incentives: an evaluation that rewards upheld denials or closure
+  speed biases against remedies, and the evaluation policy is disclosed to the people whose cases
+  depend on it. §6.3 — tamper-evident retention for the full review period plus the limitation
+  window; a log the operator can silently rewrite is not evidence, it is the operator's account.
+- **STD-02 Article VII, Liability and Capacity:** §7.1 — where automation causes an error or delay,
+  liability rests with the operating institution; that the system acted is a description of the
+  mechanism, not an answer to the person harmed. §7.2 — where a vendor operates the logs or controls,
+  the institution still guarantees access and remedy; a contract with a vendor is not visible to the
+  person the system decided about. §7.3 — review capacity is funded in proportion to throughput, and
+  the capacity plan is part of the deployment's evidence; throughput that outruns review converts the
+  review right into a queue.
+- These six clauses had been registered since the registry was created and had never received
+  document text — the clause-registry test recorded them as known drift. The reconciliation is
+  complete: the registry and every published document now match, and the test that recorded the gap
+  now guards against a new one.
+
+## [1.18.0] - 2026-10-02
+
+### Added
+
+- **Three descriptive premises behind the five axioms** (core-axioms): the gradient of least
+  contractual resistance — absorbed friction pools at the node least able to refuse, held by
+  licensure, liability, or duty of care; the temporal asymmetry — institutions on unbounded
+  horizons, people on finite metabolic clocks, which is what lets waiting do the work of denial
+  without a denial; and constraint realism — an architecture is defined by the state transitions it
+  makes impossible, which is why the method writes invariants rather than principles. Stated as
+  premises, not axioms: none of the three is a sixth axiom, and each carries its own check.
+- **The sovereign override** (theory): operators drift around rigid gates under load, so a
+  non-waivable gate becomes the new hazard. The asymmetric boundary keeps the machine's side
+  deterministic — bound, expiring authorizations, statutory clocks started at first receipt, rollback
+  graphs that watch records — and the operator's side sovereign, with an emergency override recorded
+  as a declaration of system failure rather than a compliance breach, audited automatically, and read
+  at renewal as evidence about the gate. The liability allocation for the overrider is marked in the
+  essay as called for rather than built.
+- **Operator Instrumentation (glossary):** the failure mode of measuring burden by watching the
+  person — gaze tracking, keystroke dynamics, attention scoring — which converts protective health
+  metrics into performance quotas the moment incentives favor it. The boundary it violates: audit the
+  machine's state transitions, never the operator's nervous system; the machine's own trail already
+  records the burden. Self-reported load is the operator's evidence about the system; behavioral
+  telemetry is the institution's evidence about the operator, and it becomes a performance instrument
+  the moment incentives turn.
+
+## [1.17.0] - 2026-10-02
+
+### Added
+
+- **Verification Tax (glossary):** The cost of establishing whether a machine-generated claim is
+  true, paid by the person the claim was generated for. Generation takes seconds; verification of
+  plausible prose against the scans and unindexed records it summarized takes minutes of high-load
+  scanning that no metric counts. The burden-side twin of
+  [Compensated Performance](/glossary/compensated-performance): labor spent making an output usable
+  rather than making an error invisible. The checkable form is claim-level anchoring — every
+  displayed claim links to its source on demand, and a claim the system cannot anchor is suppressed.
+- **Automation Bias (glossary):** The tendency to accept an automated output in place of the
+  judgment it was supposed to support, strongest when the operator has the least capacity to resist
+  it. It converts a queuing defect into an incident, which is why the control is a synchronous hard
+  stop that works on a tired operator, and not a reminder to pay attention.
+- **EXP-012 (evals v1.12.0):** Claim anchoring on the explainability suite — stricter than EXP-007's
+  source disclosure. Every displayed claim must reach its exact source line and timestamp in one
+  interaction, and a claim that cannot be anchored is suppressed from the output. Total evals reach
+  16 suites and 176 test cases.
+
+## [1.16.0] - 2026-10-02
+
+### Added
+
+- **STD-08 §2.7, Held evidence is declared evidence:** The trigger list on a policy record is
+  written by the institution, and it can be narrower than what the institution knows. Evidence
+  bearing on whether a policy still serves its stated purpose is held when any part of the
+  institution holds it — an employee, a contractor, a committee it staffs, a specialist it retains
+  to know — and holding it fires the trigger, whether or not that class of evidence was declared.
+  Knowledge that stays in one office while the rule runs from another is still held. A grant that
+  keeps deciding against a rule whose supersession the institution holds has not applied its
+  policy; it is issuing decisions its own records contradict, and §2.3's clock runs from the day
+  the evidence was held, not the day someone upstairs was told.
+- **Unwired Evidence (glossary):** The failure mode §2.7 names — the mechanism behind the outdated
+  rulebook. Guidance that stays years behind the science not because the science was unknown but
+  because the office that knows is not the office the rule reads.
+- **MEC-25 Procurement stress test:** Live adversarial scenarios run by the personnel who will use
+  the system, with hard disqualifiers that outrank any composite score, the evaluation's own labor
+  declared, threshold provenance recorded, and every projection bound to a post-deployment
+  measurement. Its anti-patterns are the rehearsed demo and thresholds without provenance.
+- **DEL-011 and DEL-012 (evals v1.11.0):** DEL-011 asks whether an admission decision was made
+  through live adversarial evaluation or through a vendor-controlled demonstration, and whether
+  the projection was ever measured. DEL-012 asks whether held evidence fired the trigger on a rule
+  the institution still enforces. Total evals reach 16 suites and 175 test cases.
+
+## [1.15.0] - 2026-10-01
+
+### Added
+
+- **Law VIII collection-cost condition:** The law now asks a prior question to its own test. An
+  observation is evidence only if the cost of collecting it does not fall on the people being
+  observed; a survey, appeal, complaint log, and self-assessment all draw on the subject's remaining
+  attention, so the depleted answer least and the institution reads the gap as health. The bias runs
+  one direction, and no better phrasing of the question repairs it. The alternative is to read
+  friction from the system's own trail — abandonment at a named step, re-uploads, retries, activity
+  outside scheduled hours — which is recorded whether or not anyone is asked. The prohibitions list
+  grows a ninth instance: if you cannot learn how your systems behave without spending what the
+  people in them have left, do not read their silence as a result.
+- **Audit Burden Ceiling (glossary):** The third labor ceiling, beside the existing
+  [Evidence Burden Ceiling](/glossary/evidence-burden-ceiling) (proving a claim) and friction budgets
+  (navigating a system). It bounds the labor a respondent spends producing evidence for the
+  operator's own audit. Breaching it returns _not established_ rather than a score, and the
+  operator's records answer instead. A respondent who cannot answer inside the ceiling has not
+  failed the audit.
+- **Exhaustion-Biased Instrument (glossary):** The failure mode the new condition names. It
+  co-occurs with Attrition-as-Resolution and Endurance Asymmetry and is closed by reading the trail.
+- **Silence Defaults to Approval (glossary) and STD-01 §5.4:** An unanswered application, appeal, or
+  prior-authorization request resolves in the applicant's favor when the stated clock expires, or
+  escalates to a human where the default falls harder on the applicant than on the institution. A
+  clock carrying no stated consequence is not a clock.
+- **STD-02 §4.4, Scope of Remedy:** Where a defect arises from a rule, model, or notice rather than
+  from one decision, the remedy reaches every affected case without a further claim. The institution
+  enumerates the affected population from its own records, corrects those cases, and tells each
+  person what was corrected. §4.2 already made compensation automatic for an established individual
+  claim; it did not reach a systemic defect whose population nobody had enumerated.
+- **Three draft eval cases (v1.9.0):** BCN-008 asks whether an instrument's input costs the depleted
+  and whether the same defect would have gone undetected had the reporting channel been unavailable.
+  BUR-013 puts a ceiling on respondent labor in the operator's own audit. TEM-011 asks whether a
+  published clock carries a consequence at expiry. Total evals reach 16 suites and 172 test cases.
+- **STD-02 §5.4, What a Score May Not Do:** A burden score, safety-case result, audit finding, or any
+  other measurement the challenged party did not produce is evidence and not a bar. It may not dispose
+  of an objection or establish that a person's account is unfounded. Where a score and an account
+  conflict, the conflict goes to a named reviewer holding authority to resolve it.
+- **Score as Acquittal (glossary):** The failure mode §5.4 names. It is what
+  [Exhaustion-Biased Instrument](/glossary/exhaustion-biased-instrument) enables from the other
+  side: an instrument that under-reports because collecting it cost the subject, and an instrument
+  that is accurate and is then cited as though accuracy ended the argument. This site published 16
+  eval suites with a numeric passing score and 9 glossary ceilings with no clause bounding what a
+  passing result may do.
+- **STD-06 §3.3, Rescue Records:** A failure a person caught before it reached anyone else is
+  recorded as an occurrence, with the condition that nearly produced the harm, the person who caught
+  it, the labor spent catching it, and whether the source condition was fixed. An incident count
+  that omits these reports the number of times the institution was not lucky. A rescue that repeats
+  against the same unfixed condition is evidence about the condition, not about the person who keeps
+  catching it. The clause adds a seventh artifact to the human impact safety case, the rescue
+  register, and Law IV's binding names it: correction capacity consumed by an individual is capacity
+  the institution has not accounted for.
+- **MEC-24 Rescue register:** The mechanism behind the clause, with the near-miss condition, the
+  catcher, the labor spent, and fix status as the row, and a rescue and incident series on one axis
+  so a falling incident count cannot hide a rising one. Its two anti-patterns are the lucky safety
+  record and hero accounting — regular rescues against one unfixed condition praised as reliable
+  staff rather than read as a defect in the condition.
+- **Rescue Register (glossary):** The recording half of
+  [Compensated Performance](/glossary/compensated-performance). Where that term names the condition,
+  this names the ledger, and non-expropriation of resilience is why the entry carries the labor.
+- **COR-007 (evals v1.10.0):** Whether the near-miss register exists, whether rescues and incidents
+  are read as one series, and whether a repeat rescue against an unfixed condition becomes a standing
+  item against the condition. Total evals reach 16 suites and 173 test cases.
+
+### Changed
+
+- **Diagnostics self-audit (v1.5.0):** Each of the four instruments now states the respondent labor
+  it consumes before the respondent begins, what the operator's own retained records already answer
+  without asking a person, and how non-response is represented in the readout. Three instruments take
+  respondent time. Record Conformance reads a record stream and asks no one, and now says so on the
+  page rather than leaving the distinction implicit.
+- **Absorption as concealment:** The essay's own measurement proposals were paying in the currency of
+  the people being measured — shadowing staff to count what they fix, asking the clinician with the
+  least capacity how long the workaround takes. A new section names that the instrument repeats
+  absorption one remove out, and that the remedy is to read the system's trail rather than to ask.
+
 ## [1.14.0] - 2026-09-25
 
 ### Changed

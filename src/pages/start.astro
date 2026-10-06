@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { roles, rolePermalink } from "../content/roles";
+import SymptomTriage from "../components/SymptomTriage.astro";
+import RosettaStone from "../components/RosettaStone.astro";
 
 const pageTitle = "Start — Ethotechnics role paths";
 const pageDescription =
@@ -24,8 +26,24 @@ const pageDescription =
         </p>
         <p class="small muted">
           Know the system better than the role?
-          <a href="/use-cases">Start from what it decides →</a>
+          <a href="/use-cases">Start from what it decides &rarr;</a>
+          {" "}·{" "}
+          <a href="#symptoms">Triage by symptom &rarr;</a>
+          {" "}·{" "}
+          <a href="#translation">Industry translation &rarr;</a>
         </p>
+
+        <div class="panel panel--glass start-applicability">
+          <p class="eyebrow">The applicability test</p>
+          <p>
+            <strong>Does Ethotechnics apply to your system?</strong> If software either
+            executes an action (granting benefits, denying claims, allocating work)
+            or outputs determinations that human reviewers adopt without independent
+            evidentiary reinvestigation—and a person bears the consequence of an error—this
+            framework applies. It governs the delegation agreement and authority lease,
+            not model capabilities.
+          </p>
+        </div>
       </div>
     </div>
   </header>
@@ -36,6 +54,71 @@ const pageDescription =
        readers two main landmarks to choose between. */
   }
   <section class="container">
+    <div class="time-ladder stack-sm">
+      <div class="time-ladder__header">
+        <p class="eyebrow">Start by time available</p>
+        <h2>Three immediate ways into the work</h2>
+        <p class="section-lead">
+          Choose the entry path that matches your schedule today.
+        </p>
+      </div>
+      <div class="grid grid--three">
+        <article class="card stack-xs">
+          <span class="pill pill--ghost">5 minutes</span>
+          <h3>Delegation audit</h3>
+          <p class="small muted">
+            Answer six questions about your system to score unwritten
+            assumptions across authority, dependence, and standing.
+          </p>
+          <p class="small">
+            <a href="/diagnostics/delegation-audit">Run audit &rarr;</a>
+          </p>
+        </article>
+        <article class="card stack-xs">
+          <span class="pill pill--ghost">1 hour</span>
+          <h3>Finite stoppability drills</h3>
+          <p class="small muted">
+            Evaluate whether your system's apparent throughput collapses when
+            frontline human workarounds and off-shift buffers cease.
+          </p>
+          <p class="small">
+            <a href="/evals#finite">Explore drills &rarr;</a>
+          </p>
+        </article>
+        <article class="card stack-xs">
+          <span class="pill pill--ghost">1 sprint</span>
+          <h3>Revisable delegation record</h3>
+          <p class="small muted">
+            Implement STD-07 machine-readable decision records in your agent
+            pipeline to create schema-validated records with distinct
+            timestamps. Level 3 adds standing and external objections.
+          </p>
+          <p class="small">
+            <a href="/standards/std-07-revisable-delegation-record"
+              >View STD-07 &rarr;</a
+            >
+          </p>
+        </article>
+      </div>
+    </div>
+
+    <section id="symptoms" class="start-symptoms stack-sm">
+      <div class="start-symptoms__header">
+        <p class="eyebrow">Operational triage</p>
+        <h2>Start by failure symptom</h2>
+        <p class="section-lead">
+          Match a problem you observe to a diagnostic, a standard, and a scored
+          case. The cards suggest where to investigate.
+        </p>
+      </div>
+      <SymptomTriage />
+    </section>
+
+    <div class="stack-xs role-section-header">
+      <p class="eyebrow">Start by role</p>
+      <h2>Find the guidance for your work</h2>
+    </div>
+
     <nav class="role-chips" aria-label="Jump to a role">
       {
         roles.map((role) => (
@@ -144,6 +227,19 @@ const pageDescription =
       </div>
     </section>
 
+    <!-- Industry translation guide -->
+    <section id="translation" class="start-translation stack-sm">
+      <div class="start-translation__header">
+        <p class="eyebrow">Vocabulary crosswalk</p>
+        <h2>Industry translation guide</h2>
+        <p class="section-lead">
+          Compare common AI terms with the controls and records the standards
+          ask for. Each card names a check you can make.
+        </p>
+      </div>
+      <RosettaStone />
+    </section>
+
     <!-- Fast-path adoption (one sprint) -->
     <section id="fast-path" class="fast-path-section">
       <div class="fast-path-header">
@@ -201,7 +297,10 @@ const pageDescription =
         <div class="fast-path-code">
           <p class="eyebrow">Example decision receipt</p>
           <pre
-            class="code-block"><code>{`{
+            class="code-block"
+            tabindex="0"
+            role="region"
+            aria-label="Example decision receipt"><code>{`{
   "schema_version": "1.0.0",
   "receipt_id": "RCP-2026-0842",
   "issued_at": "2026-04-11T18:12:09Z",
@@ -570,8 +669,14 @@ const pageDescription =
     background: var(--surface);
     border: 1px solid var(--border);
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-6);
     scroll-margin-top: 1rem;
+  }
+
+  .fast-path-section > *,
+  .fast-path-details > * {
+    min-width: 0;
   }
 
   .fast-path-header h2 {
@@ -649,12 +754,12 @@ const pageDescription =
   .fast-path-details {
     display: grid;
     gap: var(--space-5);
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   @media (min-width: 840px) {
     .fast-path-details {
-      grid-template-columns: 1.2fr 1fr;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
     }
   }
 
@@ -663,6 +768,11 @@ const pageDescription =
     max-height: 280px;
     overflow-x: auto;
     font-size: var(--text-xs);
+  }
+
+  .fast-path-code pre:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
   }
 
   /* Receipt semantic annotations */
@@ -783,5 +893,38 @@ const pageDescription =
     font-size: var(--text-xs);
     color: var(--muted);
     line-height: 1.4;
+  }
+
+  .start-applicability {
+    margin-top: var(--space-4);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: var(--space-4);
+  }
+
+  .time-ladder {
+    margin-bottom: var(--space-8);
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .time-ladder__header {
+    margin-bottom: var(--space-4);
+  }
+
+  .role-section-header {
+    margin-bottom: var(--space-4);
+  }
+
+  .start-symptoms,
+  .start-translation {
+    margin-bottom: var(--space-8);
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .start-symptoms__header,
+  .start-translation__header {
+    margin-bottom: var(--space-4);
   }
 </style>

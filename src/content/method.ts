@@ -436,9 +436,9 @@ export const methodContent: MethodContent = {
       id: "burden-accounting",
       title: "Burden accounting",
       question:
-        "What hidden labor does this decision create — triage, rework, apology loops, policy exceptions — and is reported performance intrinsic or compensated by expropriated human resilience?",
+        "What hidden labor does this decision create — triage, rework, apology loops, policy exceptions — and does human compensation act as a signal attenuator that blinds telemetry to system defects?",
       example:
-        "A health plan's AI triage tool misroutes 12% of prior auths. Nurses spend 90 minutes per shift re-routing them. That is 7.5 hours of unpaid care-time per week per nurse: the tool's green metrics reflect compensated performance that appears in no budget.",
+        "A health plan's AI triage tool misroutes 12% of prior auths. Nurses spend 90 minutes per shift re-routing them. That is 7.5 hours of unpaid care-time per week per nurse: observed performance (throughput) decomposes into designed capacity plus human compensation. Because the nurses absorb the error silently, the green dashboard blinds management to the tool's actual failure rate.",
     },
     {
       id: "infrastructure-dignity",
@@ -480,5 +480,5 @@ export const methodContent: MethodContent = {
     },
   ],
   optimizationProblem:
-    'The optimization problem is not "how autonomous can the system safely become?" but "how much authority can be delegated without degrading the institution\'s ability to revise that delegation later?"',
+    'Optimization becomes predatory when an institution controls both the objective function and the accounting boundary, while people outside that boundary are required to supply whatever adaptation makes the objective achievable. The legitimate optimization problem is: "how much authority can be delegated without degrading the institution\'s ability to detect failure, account for human burden, and revise that delegation later?"',
 };

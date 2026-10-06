@@ -76,7 +76,7 @@ export const researchContent: ResearchContent = {
     "Research on one question: when an automated system is wrong, does the evidence reach someone who can change the rule? Essays, scored cases, a working paper.",
   permalink: "/research",
   published: "2025-12-03T00:00:00Z",
-  updated: "2026-10-01T00:00:00Z",
+  updated: "2026-10-03T00:00:00Z",
   publication: {
     authors: [
       {
@@ -87,12 +87,18 @@ export const researchContent: ResearchContent = {
     ],
     contact: "hello@ethotechnics.org",
     published: "2025-12-03T00:00:00Z",
-    updated: "2026-10-01T00:00:00Z",
-    version: "v1.5.0",
+    updated: "2026-10-03T00:00:00Z",
+    version: "v1.6.0",
     doi: "Pending Zenodo deposit",
     archiveUrl:
       "https://web.archive.org/web/*/https://ethotechnics.org/research",
     changelog: [
+      {
+        version: "v1.6.0",
+        date: "2026-10-03",
+        summary:
+          "Added the Scholarly crossings research note as a bridge artifact: what the framework supplies to adjacent scholarship, to governance mechanisms it does not replace, and to its strongest counterpositions.",
+      },
       {
         version: "v1.5.0",
         date: "2026-10-01",
@@ -136,7 +142,7 @@ export const researchContent: ResearchContent = {
     attribution:
       "Credit the Ethotechnics Institute, include the page title + version, and link to the canonical permalink.",
   },
-  lastUpdated: "2026-10-01T00:00:00Z",
+  lastUpdated: "2026-10-03T00:00:00Z",
   updateCadence:
     "Each change is dated in the changelog at the foot of the page.",
   anchorLinks: [
@@ -188,6 +194,15 @@ export const researchContent: ResearchContent = {
   ],
   bridgeArtifacts: [
     {
+      slug: "scholarly-crossings",
+      title: "Scholarly crossings (2026-10)",
+      type: "Dated research note",
+      summary:
+        "What the framework supplies to scholars who already hold the values, to governance mechanisms it does not replace, and to the counterpositions that would make it unnecessary overhead, with six worked examples.",
+      tags: ["positioning", "instruments", "counterpositions"],
+      href: "/research/scholarly-crossings",
+    },
+    {
       slug: "frontier-doctrine-scan",
       title: "Frontier doctrine scan (2026-09)",
       type: "Dated research note",
@@ -201,9 +216,27 @@ export const researchContent: ResearchContent = {
       title: "Theory essays",
       type: "Essay series",
       summary:
-        "Why the laws hold: absorption as concealment, the engineering tradition, automation and capture, dependence without standing and running both ways, friction as accidental governance, what does not convert, insulation, ethotechnical design, what outcomes hide, challenge density, exception learning, the model of a person, endogenous authorization, deliberate non-use, the compulsion problem, what Ethotechnics is not, and democratic vs. coercive governability.",
+        "Why the laws hold: absorption as concealment, the engineering tradition, automation and capture, dependence without standing and running both ways, friction as accidental governance, what does not convert, insulation, ethotechnical design, what outcomes hide, challenge density, exception learning, the model of a person, endogenous authorization, deliberate non-use, the compulsion problem, what Ethotechnics is not, democratic vs. coercive governability, the consumption of adaptive capacity, and the human subsidy to institutional continuity.",
       tags: ["theory", "laws", "doctrine"],
       href: "/research/theory",
+    },
+    {
+      slug: "diagnostic-archive",
+      title: "The Crumple Zone",
+      type: "Diagnostic archive",
+      summary:
+        "Case analyses and operational postmortems of institutional failure modes, compensatory labor extraction, and corrigibility barriers.",
+      tags: ["diagnostics", "postmortems", "operational-cases"],
+      href: "https://thecrumple.zone",
+    },
+    {
+      slug: "empirical-program",
+      title: "Empirical evaluation program (kanav.net)",
+      type: "Research program",
+      summary:
+        "Four diagnostic questions, the performance decomposition equation (P_obs = C_des + H_comp), and experimental suites measuring compensatory human labor.",
+      tags: ["evaluation", "decomposition", "empirical"],
+      href: "https://kanav.net/research/",
     },
   ],
   agenda: [
@@ -263,6 +296,9 @@ export const researchContent: ResearchContent = {
       glossaryRefs: [
         "burden-transfer-event",
         "principle-of-non-expropriation-of-resilience",
+        "manufactured-virtue",
+        "epistemic-erasure-cycle",
+        "compensatory-inputs",
       ],
     },
   ],

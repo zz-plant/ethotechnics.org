@@ -72,7 +72,8 @@ export const stateVariables: StateVariable[] = [
   {
     id: "standing",
     label: "Standing",
-    question: "Who could challenge a decision, and did the challenge have to be answered?",
+    question:
+      "Who could challenge a decision, and did the challenge have to be answered?",
   },
   {
     id: "correction",
@@ -205,7 +206,35 @@ export type Case = PublishedContent & {
   };
   /** The one thing the standards would have required that was absent. */
   theMissingRecord: string;
+  diagnosticStudy?: DiagnosticStudy;
+  remediation?: CaseRemediation;
   sources: Source[];
+};
+
+export type CaseRemediation = {
+  diagnostic: {
+    name: string;
+    href: string;
+    purpose: string;
+  };
+  standard: {
+    id: string;
+    name: string;
+    href: string;
+    requirement: string;
+  };
+  theory: {
+    title: string;
+    href: string;
+    question: string;
+  };
+};
+
+export type DiagnosticStudy = {
+  title: string;
+  url: string;
+  source: string;
+  summary: string;
 };
 
 export type LearningVerdict = "learned" | "partial" | "absorbed";
@@ -409,6 +438,34 @@ export const cases: Case[] = [
     },
     theMissingRecord:
       "A policy record for income averaging with its provenance and status. The 2014 advice would have been the review trigger; the first adverse tribunal decision would have moved the policy, and every grant citing it, to mandatory review. STD-08 §2.3 sets a deadline for that review.",
+    diagnosticStudy: {
+      title: "The Operational Andon Cord",
+      url: "https://thecrumple.zone/p/the-operational-andon-cord",
+      source: "The Crumple Zone",
+      summary:
+        "Analysis of automated enforcement queues, asymmetric debt raising, and the institutional suppression of frontline dissent signals that allowed Robodebt to persist across four years.",
+    },
+    remediation: {
+      diagnostic: {
+        name: "Delegation Audit",
+        href: "/diagnostics/delegation-audit",
+        purpose:
+          "Checks whether human caseworkers hold unpenalized override keys and whether challenge spikes trigger mandatory authority reviews.",
+      },
+      standard: {
+        id: "STD-02",
+        name: "Contestability & Recourse",
+        href: "/standards/std-02-contestability-recourse",
+        requirement:
+          "Requires causal decision reasons delivered directly with notices, with the burden of proof remaining on the automated system.",
+      },
+      theory: {
+        title: "Challenge density",
+        href: "/research/theory/challenge-density",
+        question:
+          "Why must an institution scale its correction capacity or narrow its scope, rather than restrict standing, when appeal volume spikes?",
+      },
+    },
     sources: [
       {
         label: "Royal Commission into the Robodebt Scheme, Report",
@@ -574,6 +631,34 @@ export const cases: Case[] = [
     },
     theMissingRecord:
       "A register of who may challenge a fraud flag, what evidence is admissible, and against which standard the challenge is decided. STD-02 §8.2 would have forced the administration to say whether a parent was disputing how the rule was applied or whether the evidence supported it, and to disclose the file either way.",
+    diagnosticStudy: {
+      title: "The Rule Is Never on Trial",
+      url: "https://thecrumple.zone/p/the-rule-is-never-on-trial",
+      source: "The Crumple Zone",
+      summary:
+        "Detailed examination of how individual exceptions in the Dutch childcare benefits scandal were repeatedly treated as claimant fraud rather than evidence against the classification pipeline.",
+    },
+    remediation: {
+      diagnostic: {
+        name: "Self-Defense Checks",
+        href: "/diagnostics/self-defense-tools",
+        purpose:
+          "Evaluates whether a decision notice provides independent standing, notice periods, and automated restitution guarantees before state-changing enforcement.",
+      },
+      standard: {
+        id: "STD-01",
+        name: "The Temporal Bill of Rights",
+        href: "/standards/std-01-temporal-rights",
+        requirement:
+          "Mandates tested manual fallback procedures and funded restitution mechanics so wrongful enforcement can be fully made whole.",
+      },
+      theory: {
+        title: "Dependence runs both ways",
+        href: "/research/theory/dependence-runs-both-ways",
+        question:
+          "What specific duties of reversibility and standing does an institution incur when subjects cannot exit its systems?",
+      },
+    },
     sources: [
       {
         label:
@@ -734,6 +819,34 @@ export const cases: Case[] = [
     },
     theMissingRecord:
       "A published record of how far the Post Office depended on Horizon and what replacing it would cost. The dependence was total, replacing it meant replacing the business, and correcting it took twenty years. STD-06 §5.5 would have barred any widening of the system's authority, including its use as evidence in prosecutions, until the Post Office showed it could reverse course.",
+    diagnosticStudy: {
+      title: "The Corrigible Machine",
+      url: "https://thecrumple.zone/p/the-corrigible-machine",
+      source: "The Crumple Zone",
+      summary:
+        "Operational inquiry into how institutional insulation, presumption of software infallibility, and unrecorded manual database patching turned branch subpostmasters into a human liability buffer.",
+    },
+    remediation: {
+      diagnostic: {
+        name: "Record Conformance Validator",
+        href: "/diagnostics/record-conformance",
+        purpose:
+          "Validates tamper-evident decision logs with cryptographic hash chains to ensure records cannot be secretly altered or blamed on branch operators.",
+      },
+      standard: {
+        id: "STD-07",
+        name: "Revisable Delegation Record",
+        href: "/standards/std-07-revisable-delegation-record",
+        requirement:
+          "Requires immutable, verifiable records that link machine assertions directly to external groundable evidence.",
+      },
+      theory: {
+        title: "Automation and capture",
+        href: "/research/theory/automation-and-capture",
+        question:
+          "At what point does operational reliance extinguish an institution's ability to question, replace, or halt a system?",
+      },
+    },
     sources: [
       {
         label:
@@ -880,6 +993,27 @@ export const cases: Case[] = [
     },
     theMissingRecord:
       "A declared threshold with the action that follows a breach. STD-06 §2.2 asks the operator to say, before running the model, what share of downgrades or what disparity between school types would stop the release. Had that number existed, the halt on 17 August would have been a control firing rather than a reversal under pressure.",
+    remediation: {
+      diagnostic: {
+        name: "Workload Modeler",
+        href: "/diagnostics/burden-modeler",
+        purpose:
+          "Measures where statistical standardization silently shifts the cost of anomalies onto frontline educators and students through appeal overhead.",
+      },
+      standard: {
+        id: "STD-06",
+        name: "Human Impact Safety Case",
+        href: "/standards/std-06-human-impact-safety-case",
+        requirement:
+          "Prohibits using human beings as counterfeit buffers to absorb algorithmic variance without explicit tracking and compensation.",
+      },
+      theory: {
+        title: "The human subsidy to institutional continuity",
+        href: "/research/theory/the-human-subsidy",
+        question:
+          "What distinct varieties of uncounted compensatory labor produce apparent institutional functionality?",
+      },
+    },
     sources: [
       {
         label:
@@ -1019,6 +1153,27 @@ export const cases: Case[] = [
     },
     theMissingRecord:
       "A record of who can challenge a credit-limit decision: that an applicant may ask for reasons, that the reasons name the inputs that moved the limit, and that a reconsideration is answered within a deadline. STD-02 §8.1 and §8.5 describe a process the issuer built after the fact.",
+    remediation: {
+      diagnostic: {
+        name: "Delegation Audit",
+        href: "/diagnostics/delegation-audit",
+        purpose:
+          "Audits whether credit determinations rely on heuristics that fail to generate individualized causal reasons for applicants or customer service reps.",
+      },
+      standard: {
+        id: "STD-02",
+        name: "Contestability & Recourse",
+        href: "/standards/std-02-contestability-recourse",
+        requirement:
+          "Requires that credit limits and adverse actions come with specific factors the applicant can check and contest.",
+      },
+      theory: {
+        title: "The model of a person is not the person",
+        href: "/research/theory/model-of-a-person",
+        question:
+          "Why does even the most predictive model of a person fail to extinguish that person's independent right to challenge a decision?",
+      },
+    },
     sources: [
       {
         label:

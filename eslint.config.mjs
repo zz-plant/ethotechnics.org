@@ -48,6 +48,20 @@ export default defineConfig(
   js.configs.recommended,
   jsxA11y.flatConfigs.recommended,
   ...astroRecommended,
+  {
+    files: [
+      "src/components/CasebookFailureChart.astro",
+      "src/components/FailurePointDiagram.astro",
+      "src/components/OutcomesHideDiagram.astro",
+      "src/components/RatchetFigure.astro",
+      "src/pages/start.astro",
+      "src/pages/casebook/index.astro",
+    ],
+    rules: {
+      // Named chart and code regions must receive focus for keyboard scrolling.
+      "jsx-a11y/no-noninteractive-tabindex": ["error", { roles: ["region"] }],
+    },
+  },
   ...tseslint.configs.recommendedTypeChecked.map((config) => ({
     ...config,
     files: ["**/*.{ts,tsx}"],

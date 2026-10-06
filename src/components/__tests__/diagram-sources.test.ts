@@ -118,9 +118,7 @@ describe("diagram sources", () => {
       "state-diagram__label",
       "state-diagram__clause",
     ]) {
-      const rule = css.match(
-        new RegExp(`\\.${name}\\s*\\{([^}]*)\\}`),
-      )?.[1];
+      const rule = css.match(new RegExp(`\\.${name}\\s*\\{([^}]*)\\}`))?.[1];
       expect(rule, name).toContain("font-family");
       expect(rule, name).toContain("font-size");
     }

@@ -1,0 +1,77 @@
+---
+/**
+ * The hero's ledger, drawn from the casebook: every dated warning the record
+ * issued before the halt, beside the response the institution gave. The rows
+ * carry what happened; the record spine below carries what was said,
+ * verbatim, with attribution - same warnings, two registers, so the reader
+ * never reads the same quote twice in a row.
+ *
+ * The right column is the point, and it is drawn empty on purpose: three
+ * "no response" entries that are not placeholders but the finding. The rows
+ * come from the casebook entry, so the figure and the record spine below
+ * cannot disagree.
+ */
+import { casesBySlug } from "../../content/casebook";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className }: Props = Astro.props;
+
+const robodebt = casesBySlug.get("robodebt");
+const timeline = robodebt?.timeline ?? [];
+const haltIndex = timeline.findIndex((event) => event.halt);
+
+// The rows are the record-side warnings that came before the halt: the
+// advice, the Ombudsman, the tribunal. The launch is not a warning, and the
+// Royal Commission came after the halt, so neither gets a row.
+const firstSentence = (text: string) => {
+  const cut = text.indexOf(". ");
+  return cut > 0 ? text.slice(0, cut + 1) : text;
+};
+
+const warnings = timeline.filter(
+  (event, index) =>
+    event.evidence && !event.halt && index < haltIndex && event.voice,
+);
+
+const years = robodebt?.period?.match(/\d{4}/g) ?? [];
+const span =
+  years.length >= 2 ? `${years[0]}–${years[years.length - 1]}` : undefined;
+---
+
+{
+  robodebt && warnings.length > 0 && (
+    <figure class:list={["hero-ledger", className]} data-glossary-ignore>
+      <p class="hero-ledger__runhead" aria-hidden="true">
+        Robodebt{span && ` · ${span}`}
+      </p>
+      <table class="hero-ledger__table">
+        <thead>
+          <tr>
+            <th scope="col">The record</th>
+            <th scope="col">The institution</th>
+          </tr>
+        </thead>
+        <tbody>
+          {warnings.map((event) => (
+            <tr>
+              <td>
+                <span class="hero-ledger__when">{event.when}</span>
+                <span class="hero-ledger__what">
+                  {firstSentence(event.what)}
+                </span>
+              </td>
+              <td class="hero-ledger__blank">no response</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <figcaption class="hero-ledger__caption small muted">
+        Every warning the record issued before the halt, and the response it
+        got. The empty column is the finding.
+      </figcaption>
+    </figure>
+  )
+}

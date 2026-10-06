@@ -1,4 +1,5 @@
 ---
+import authorityGrantExample from "../../../public/standards/examples/authority-grant.example.json";
 import InlineScript from "../../components/InlineScript.astro";
 import "../../styles/components/standards.css";
 import BaseLayout from "../../layouts/BaseLayout.astro";
@@ -17,12 +18,11 @@ import {
   buildStandardsStructuredDataPayload,
 } from "../../content/page-data/standards-index";
 
-const lastUpdated = "2026-08-14";
+const lastUpdated = "2026-10-03";
 
 // The comparison states how long harm ran in the casebook, so the range comes
 // from the cases and moves when a case is added.
-const haltLabel = (entry: Case) =>
-  entry.timeToHalt.split(";")[0].toLowerCase();
+const haltLabel = (entry: Case) => entry.timeToHalt.split(";")[0].toLowerCase();
 const shortestHalt = cases.reduce((min, entry) =>
   entry.timeToHaltDays < min.timeToHaltDays ? entry : min,
 );
@@ -126,7 +126,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                     >
                       {standard.title}
                     </a>
-                    {lane && <span class="standards-register__lane">{lane}</span>}
+                    {lane && (
+                      <span class="standards-register__lane">{lane}</span>
+                    )}
                     <span class="standards-register__summary">
                       {standard.description}
                       {standard.deprecatedBy &&
@@ -137,7 +139,10 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                             {standard.deprecatedBy.map(
                               (replacement, index, all) => (
                                 <>
-                                  <a href={`/standards/${replacement.slug}`}>{replacement.id}</a>{index === all.length - 1 ? "." : ", "}
+                                  <a href={`/standards/${replacement.slug}`}>
+                                    {replacement.id}
+                                  </a>
+                                  {index === all.length - 1 ? "." : ", "}
                                 </>
                               ),
                             )}
@@ -153,7 +158,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                     </span>
                   </td>
                   <td class="standards-register__version">
-                    <span class="standards-register__meta-label">v</span>{standard.version}
+                    <span class="standards-register__meta-label">v</span>
+                    {standard.version}
                   </td>
                   <td
                     class:list={[
@@ -194,6 +200,141 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       run. It is not evidence that the power should be held, and it does not
       reduce anyone's legal rights or the operator's liability.
     </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="code-example"
+    eyebrow="Implementation schema"
+    title="What an authority lease looks like in code"
+    description="Under STD-08, every automated action runs under an authority lease. It specifies who holds operational power, what limits cannot be bypassed, and when authority lapses automatically."
+  >
+    <div class="standards-code-grid">
+      <div class="stack-md">
+        <p>
+          Engineers do not need to rewrite their agent runtime or replace
+          frameworks like Temporal, LangChain, or custom job runners.
+          Ethotechnics sits at the invocation and audit boundary.
+        </p>
+        <p class="muted">
+          Before taking an action—such as terminating an account, issuing a
+          payment, or allocating a shift—the worker verifies that an active
+          lease exists, that its consecutive denial count remains below the
+          review ceiling, and that the action type is explicitly permitted.
+        </p>
+        <div class="panel stack-sm">
+          <p class="eyebrow">Zero runtime re-architecture</p>
+          <ul class="card__list">
+            <li>
+              <strong>Wrapper or middleware:</strong> Run the lease check inside your
+              existing tool-dispatch or API gateway handler.
+            </li>
+            <li>
+              <strong>Hard stop on threshold:</strong> When upheld challenges or error
+              rates breach tolerance, the lease invalidates itself automatically.
+            </li>
+            <li>
+              <strong>Named human role:</strong> Every lease identifies the human
+              operator with authority to halt or re-certify the grant.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="standards-code-card">
+        <p class="small">
+          <a href="/standards/authority-grant.schema.json"
+            >Published authority-grant schema</a
+          > · <a href="/standards/examples/authority-grant.example.json"
+            >Download example</a
+          >
+        </p>
+        <div class="standards-code-card__header">
+          <span class="standards-code-card__title"
+            >authority-grant.example.json (STD-08 example)</span
+          >
+          <span class="standards-code-card__badge">Authority grant example</span
+          >
+        </div>
+        <pre
+          class="code-block"><code>{JSON.stringify(authorityGrantExample, null, 2)}</code></pre>
+      </div>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="crosswalks"
+    eyebrow="Statutory crosswalks"
+    title="How to compare the drafts with external frameworks"
+    description="For risk owners and legal counsel: these are proposed technical correspondences, not a determination of legal compliance."
+  >
+    <div class="grid grid--three">
+      <div class="panel stack-sm">
+        <p class="eyebrow">EU AI Act</p>
+        <p><strong>Articles 14, 86, and 12</strong></p>
+        <ul class="card__list">
+          <li>
+            <strong>Art 14 (Human Oversight):</strong> STD-08 defines operational
+            stoppability, override keys, and unpenalized human veto, rejecting nominal
+            human-in-the-loop arrangements where intervention feasibility approaches
+            zero.
+          </li>
+          <li>
+            <strong>Art 86 (Right to Explanation):</strong> STD-02 requires causal
+            decision reasons delivered directly with the determination.
+          </li>
+          <li>
+            <strong>Art 12 (Record-Keeping):</strong> STD-07 specifies tamper-evident
+            delegation and contestation logs with verified hash chains.
+          </li>
+        </ul>
+      </div>
+
+      <div class="panel stack-sm">
+        <p class="eyebrow">NIST AI RMF 1.0</p>
+        <p><strong>GOVERN 1.2, MEASURE 2.7, MANAGE 2.4</strong></p>
+        <ul class="card__list">
+          <li>
+            <strong>GOVERN 1.2 (Organizational practices):</strong> Integrates trustworthy-AI
+            characteristics into organizational policies and practices. Named ownership
+            is one part of that work.
+          </li>
+          <li>
+            <strong>MEASURE 2.7 (Security and resilience):</strong> Evaluates AI-system
+            security and resilience. Halt and rollback drills can contribute evidence
+            but do not cover the full outcome.
+          </li>
+          <li>
+            <strong>MANAGE 2.4 (Disengagement):</strong> Assigns mechanisms and responsibilities
+            to disengage systems whose outcomes conflict with intended use. STD-08's
+            halt roles and authority boundaries address this part.
+          </li>
+        </ul>
+        <p class="small">
+          <a href="https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+            >NIST AI RMF 1.0</a
+          >
+        </p>
+      </div>
+
+      <div class="panel stack-sm">
+        <p class="eyebrow">GDPR & Administrative Law</p>
+        <p><strong>Article 22 & Procedural Due Process</strong></p>
+        <ul class="card__list">
+          <li>
+            <strong>GDPR Art 22 (Automated Decisions):</strong> MVC-01 provides specific
+            contestability and non-retaliatory review.
+          </li>
+          <li>
+            <strong>Right to Standing:</strong> Guarantees that any party bearing
+            error-burden holds procedural standing to dispute the output.
+          </li>
+          <li>
+            <strong>Restitution Invariants:</strong> Reversal requires making the
+            affected person whole, not merely resetting a database flag.
+          </li>
+        </ul>
+      </div>
+    </div>
   </SectionBlock>
 
   <SectionBlock
@@ -346,57 +487,56 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     title="How Ethotechnics differs from existing AI governance standards"
     description="A side-by-side comparison for regulators, operators, and risk owners."
   >
-    <p class="eyebrow">The landscape</p>
+    <p class="eyebrow">Frameworks and law</p>
     <p>
       This comparison covers four AI governance frameworks and one data
-      protection law that already governs automated decisions. Each addresses
-      a different part of the problem:
+      protection law that already governs automated decisions. Each addresses a
+      different part of the problem:
     </p>
     <ul class="card__list">
       <li>
         <strong>NIST AI RMF</strong> — A voluntary risk management framework (Govern,
         Map, Measure, Manage). Strong on risk identification and documentation. MANAGE
-        2.4 asks for mechanisms and assigned responsibilities to deactivate a
-        system; nothing sets a recovery time target. It asks
-        organizations to characterize impacts on people up front (MAP 5). It does not
-        ask them to measure or publish the time a running system costs those people.
+        2.4 asks for mechanisms and assigned responsibilities to deactivate a system;
+        nothing sets a recovery time target. It asks organizations to characterize
+        impacts on people up front (MAP 5). It does not ask them to measure or publish
+        the time a running system costs those people.
       </li>
       <li>
-        <strong>EU AI Act</strong> — A risk-tiered regulation requiring human
-        oversight, conformity assessment, and post-market monitoring. Providers show
-        compliance through technical documentation. Article 14 requires a way to halt
-        a high-risk system; nothing requires anyone to rehearse the halt or meet a
-        restoration deadline.
+        <strong>EU AI Act</strong> — A risk-tiered regulation requiring human oversight,
+        conformity assessment, and post-market monitoring. Providers show compliance
+        through technical documentation. Article 14 requires a way to halt a high-risk
+        system; nothing requires anyone to rehearse the halt or meet a restoration
+        deadline.
       </li>
       <li>
         <strong>ISO/IEC 42001</strong> — A management system standard for AI. An accredited
-        body certifies the organization's AI management system, but certification can
-        coexist with slow or missing rollback authority. Top management reviews the
-        management system at planned intervals (clause 9.3). Nothing makes one
+        body certifies the organization's AI management system, but certification
+        can coexist with slow or missing rollback authority. Top management reviews
+        the management system at planned intervals (clause 9.3). Nothing makes one
         system's authority to act expire.
       </li>
       <li>
-        <strong>OECD AI Principles</strong> — Values-based principles adopted by
-        governments as a recommendation. Non-binding by design: they ask AI actors to
-        be accountable but set no duty anyone can enforce.
+        <strong>OECD AI Principles</strong> — Values-based principles adopted by governments
+        as a recommendation. Non-binding by design: they ask AI actors to be accountable
+        but set no duty anyone can enforce.
       </li>
       <li>
         <strong>GDPR, Article 22</strong> — Limits solely automated decisions with
-        legal or similarly significant effects. Where one is necessary for a
-        contract or rests on the person's explicit consent, the controller must
-        offer at least human intervention, a chance to state a view, and a way
-        to contest the decision. The right attaches to that one decision.
-        Nothing in Article 22 makes a run of successful contests a reason to
-        revise the rule.
+        legal or similarly significant effects. Where one is necessary for a contract
+        or rests on the person's explicit consent, the controller must offer at least
+        human intervention, a chance to state a view, and a way to contest the decision.
+        The right attaches to that one decision. Nothing in Article 22 makes a run
+        of successful contests a reason to revise the rule.
       </li>
     </ul>
     <p>
       These frameworks improve documentation, oversight, and monitoring. They
       leave one question largely open. When the evidence shows a running system
       is harming people, does anyone have to act on it within a set time,
-      without the harmed person carrying the burden? Acting can mean halting the system,
-      reversing its decisions, repairing the harm, or changing the rule that
-      produced it.
+      without the harmed person carrying the burden? Acting can mean halting the
+      system, reversing its decisions, repairing the harm, or changing the rule
+      that produced it.
     </p>
 
     <p class="eyebrow">In short</p>
@@ -419,18 +559,18 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     <p>
       The frameworks above answer one question: “Did you manage risk
       responsibly?” Ethotechnics answers a different one: “When this system is
-      harming someone, does evidence of the harm reach someone who has to
-      change the system?” The difference is in mechanics, not values.
+      harming someone, does evidence of the harm reach someone who has to change
+      the system?” The difference is in mechanics, not values.
     </p>
     <p>
       In the casebook, harm ran from {haltLabel(shortestHalt)} to{" "}
-      {haltLabel(longestHalt)} before anyone halted or changed the system.
-      Decisions occur at machine speed. Reversal occurs at institutional speed.
-      Harm compounds in the gap.
+      {haltLabel(longestHalt)} before anyone halted or changed the system. Decisions
+      occur at machine speed. Reversal occurs at institutional speed. Harm compounds
+      in the gap.
     </p>
     <p class="muted">
-      Ethotechnics measures governability: time in harm, time to halt,
-      recovery time, and the time a system costs people.
+      Ethotechnics measures governability: time in harm, time to halt, recovery
+      time, and the time a system costs people.
     </p>
 
     <p class="eyebrow">Comparison matrix</p>
@@ -464,7 +604,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
               >One approval, with reviews on a schedule or after a major change</td
             >
             <td data-label="Ethotechnics"
-              >A lease that expires unless renewed, and a new decision for each widening</td
+              >A lease that expires unless renewed, and a new decision for each
+              widening</td
             >
           </tr>
           <tr>
@@ -530,9 +671,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         <p class="eyebrow">1. Runtime control plane</p>
         <p class="small muted">
           Policies describe intent; control planes constrain behavior. Rather
-          than inventories, risk registers, and post-hoc paperwork, the standards
-          require explicit stop conditions, rehearsed rollback paths, and safe
-          fallback modes while the system runs.
+          than inventories, risk registers, and post-hoc paperwork, the
+          standards require explicit stop conditions, rehearsed rollback paths,
+          and safe fallback modes while the system runs.
         </p>
       </div>
 
@@ -542,18 +683,19 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           Oversight is symbolic unless someone has to act on what it sees.
           Rather than advisory ethics committees or perfunctory review gates,
           the standards require the operator to name who can halt, reverse, or
-          revise a running system, and bind that person to a clock. An objection owes a revision or a reasoned
-          refusal. A grant lapses unless someone renews it on stated evidence.
+          revise a running system, and bind that person to a clock. An objection
+          owes a revision or a reasoned refusal. A grant lapses unless someone
+          renews it on stated evidence.
         </p>
       </div>
 
       <div class="panel stack-sm">
         <p class="eyebrow">3. Temporal performance bounds</p>
         <p class="small muted">
-          The person waiting on a decision carries the cost of every delay.
-          When decisions occur at machine speed, reversal cannot run at
-          institutional speed. A system may not decide faster than its appeal
-          path can answer, and every pending decision needs a deadline.
+          The person waiting on a decision carries the cost of every delay. When
+          decisions occur at machine speed, reversal cannot run at institutional
+          speed. A system may not decide faster than its appeal path can answer,
+          and every pending decision needs a deadline.
         </p>
       </div>
     </div>
@@ -561,8 +703,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     <p>
       Existing standards and Ethotechnics agree that governance matters. The
       question Ethotechnics adds is whether evidence that a system is harming
-      someone compels action. The action can be a halt, a reversal, a repair,
-      or a changed rule. It has to come within a set time, every time, and the
+      someone compels action. The action can be a halt, a reversal, a repair, or
+      a changed rule. It has to come within a set time, every time, and the
       harmed person must not carry the burden.
     </p>
     <p class="muted">
@@ -689,7 +831,9 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
         <p class="eyebrow">Checked at release</p>
         <ul class="muted">
           <li>
-            <a href="/mechanisms/patterns/admission-gate">MEC-22 Admission gate</a>
+            <a href="/mechanisms/patterns/admission-gate"
+              >MEC-22 Admission gate</a
+            >
           </li>
         </ul>
       </div>
@@ -718,5 +862,4 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
   </SectionBlock>
 
   <InlineScript type="application/ld+json" code={structuredDataJson} />
-
 </BaseLayout>

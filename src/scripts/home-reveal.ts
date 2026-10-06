@@ -33,101 +33,39 @@ function init(): void {
     reveal.observe(element);
   }
 
-  // The record-spine's two ledgers. The panel is a summary of the events
-  // list, so once it is being animated it is decorative and hidden from
-  const panel = document.querySelector<HTMLElement>("[data-ledger-panel]");
-  const rows = [...document.querySelectorAll<HTMLElement>("[data-spine-row]")];
-  if (!panel || rows.length === 0) return;
+  // The record spine's chip counts the rail as it passes: one unanswered
+  // warning at a time, resolving into the full count once the halt row is
+  // seen. Without the script the chip carries the server-rendered total.
+  const chip = document.querySelector<HTMLElement>("[data-spine-chip]");
+  const railRows = [
+    ...document.querySelectorAll<HTMLElement>("[data-spine-row]"),
+  ];
+  if (!chip || railRows.length === 0) return;
+  const total = Number.parseInt(chip.dataset.warningsTotal ?? "0", 10);
 
-  panel.setAttribute("aria-hidden", "true");
-  const countEl = panel.querySelector<HTMLElement>("[data-ledger-count]");
-  const statusEl = panel.querySelector<HTMLElement>("[data-ledger-status]");
-  const dotEl = panel.querySelector<HTMLElement>("[data-ledger-dot]");
-  const badgeEl = panel.querySelector<HTMLElement>("[data-ledger-live-badge]");
-  const total = Number.parseInt(panel.dataset.evidenceTotal ?? "5", 10);
-
-  // A row counts once the reader has seen all of it: its bottom edge is on
-  // screen, or it has already scrolled past. The old trigger, a line 65% of
-  // the way down, left fully visible rows uncounted: the panel said "3 of 5"
-  // with the November 2019 row in plain view.
-  const updateLedger = () => {
+  const updateChip = () => {
     const seenLine = window.innerHeight;
     let seen = 0;
-    let isHalted = false;
-
-    for (const row of rows) {
-      const rect = row.getBoundingClientRect();
-      if (rect.bottom <= seenLine) {
-        if (row.dataset.evidence === "true") {
-          seen += 1;
-        }
-        if (row.dataset.halt === "true") {
-          isHalted = true;
-        }
+    let halted = false;
+    for (const row of railRows) {
+      if (row.getBoundingClientRect().bottom <= seenLine) {
+        if (row.dataset.state === "unanswered") seen += 1;
+        if (row.dataset.state === "halt") halted = true;
       }
     }
-
-    if (countEl) {
-      if (seen === 0) {
-        countEl.textContent = `0 of ${total} warnings and findings shown so far.`;
-      } else if (seen >= total) {
-        countEl.textContent = `${total} dated warnings and findings, 2014–2023. No warning stopped the scheme. A Federal Court case did, in November 2019.`;
-      } else {
-        countEl.textContent = `${seen} of ${total} warnings and findings shown so far.`;
-      }
-    }
-
-    if (statusEl) {
-      if (isHalted) {
-        statusEl.textContent =
-          "Scheme status: halted, November 2019 (court concession)";
-      } else {
-        statusEl.textContent =
-          "Scheme status: operating under income averaging";
-      }
-    }
-
-    if (dotEl) {
-      if (isHalted) {
-        dotEl.setAttribute("data-state", "halted");
-      } else {
-        dotEl.removeAttribute("data-state");
-      }
-    }
-
-    if (badgeEl) {
-      if (isHalted) {
-        badgeEl.textContent = "Halted";
-      } else if (seen > 0) {
-        badgeEl.textContent = `Finding ${seen}/${total}`;
-      } else {
-        badgeEl.textContent = "Counting";
-      }
-    }
-
-    if (isHalted) {
-      panel.classList.add("is-halted");
+    if (seen === 0) {
+      chip.textContent = `0 of ${total} unanswered`;
+    } else if (seen >= total && halted) {
+      chip.textContent = `${total} unanswered · 1 halt`;
+    } else if (seen >= total) {
+      chip.textContent = `${total} of ${total} unanswered`;
     } else {
-      panel.classList.remove("is-halted");
+      chip.textContent = `${seen} of ${total} unanswered`;
     }
   };
 
-  updateLedger();
-
-  const ledger = new IntersectionObserver(
-    () => {
-      updateLedger();
-    },
-    {
-      threshold: [0, 0.25, 0.5, 0.75, 1],
-      rootMargin: "0px",
-    },
-  );
-  for (const row of rows) {
-    ledger.observe(row);
-  }
-
-  window.addEventListener("scroll", updateLedger, { passive: true });
+  updateChip();
+  window.addEventListener("scroll", updateChip, { passive: true });
 }
 
 init();

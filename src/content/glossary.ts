@@ -331,81 +331,63 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     term: "Stoppability",
     definition:
       "A system\u2019s ability to halt harmful processes quickly and automatically\u2014without requiring heroism or escalation.",
-    appliesTo: [
-      "C. What a system must be able to do",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "reversibility",
     term: "Reversibility",
     definition:
       "The ease with which a system can undo a harmful state change\u2014restore access, correct a record, reverse a flag\u2014without extraordinary effort or power. Reversibility is a governance property: it determines whether mistakes are survivable.",
-    appliesTo: [
-      "C. What a system must be able to do",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "fair-burden-distribution",
     term: "Fair Burden Distribution",
     definition:
       "Failures do not fall hardest on the most vulnerable. Burden is treated as a design variable and measured via the user burden ratio.",
-    appliesTo: [
-      "C. What a system must be able to do",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "contestability",
     term: "Contestability",
     definition:
       "The property of a system that allows affected people to force a decision to become a contestable object: something with reasons, a clock, an accountable authority, and a pathway to reversal. A system has contestability when \u201cthat\u2019s wrong\u201d can reliably become \u201chere is the specific decision, here is who can change it, and here is when they must respond.\u201d",
-    appliesTo: [
-      "C. What a system must be able to do",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "refusability",
     term: "Refusability",
     definition:
       "A system\u2019s ability to let people say \u201cno\u201d without punishment or degradation\u2014including refusing data extraction, risky defaults, or coercive workflows\u2014while still preserving basic access and dignity. Refusability is not \u201copt-out exists\u201d; it\u2019s whether refusal is treated as a legitimate state rather than an error condition.",
-    appliesTo: [
-      "C. What a system must be able to do",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "explainability-for-accountability",
     term: "Explainability for Accountability",
     definition:
       "Explanations a person can act on, not decorative ones. They reveal who made a decision and how it can be corrected, enabling contestability and audits.",
-    appliesTo: [
-      "C. What a system must be able to do",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "human-refusal-tolerance",
     term: "Refusal-Tolerant Systems",
     definition:
       "The system remains usable when people opt out, are confused, make mistakes, or withdraw cooperation. Refusal tolerance prevents extraction by endurance by ensuring refusals do not silently convert into extra unpaid work. Called “human” because it protects humans from being turned into the crumple zone when they refuse.",
-    appliesTo: [
-      "C. What a system must be able to do",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "graceful-degradation",
     term: "Graceful Degradation",
     definition:
       "A design principle where systems degrade safely under stress\u2014reduced capability rather than catastrophic denial\u2014especially under accessibility constraints.",
-    appliesTo: [
-      "C. What a system must be able to do",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "soft-edges",
     term: "Soft Edges",
     definition:
       "Boundary conditions designed to cushion people instead of penalizing them\u2014graduated responses, warnings before lockouts, and reversible defaults. Soft edges reduce failure load and guard against brittleness.",
-    appliesTo: [
-      "C. What a system must be able to do",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "fail-safe",
@@ -1910,153 +1892,119 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     term: "Governability",
     definition:
       "The degree to which a system can be steered, paused, audited, corrected, or shut down after deployment. High governability requires stoppability, reversibility, and durable contestability.",
-    appliesTo: [
-      "C. What a system must be able to do",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "incident-literacy",
     term: "Incident Literacy",
     definition:
       "The ability to recognize failures as incidents rather than anomalies and respond with containment, logging, escalation, and repair.",
-    appliesTo: [
-      "C. What a system must be able to do",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "capability-discovery",
     term: "Capability Discovery",
     definition:
       "The practice of finding out what an assembled decision system can do, including reachable tools, side effects, and action classes nobody intended to expose. The output is a catalog, not a permission.",
-    appliesTo: [
-      "C. What a system must be able to do",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "correction-capacity",
     term: "Correction Capacity",
     definition:
       "The measured ability to intervene: which interventions exist, who may invoke them, how long they take, and how much load the institution can absorb. Counted in people, clocks, and rehearsals, not asserted in policy.",
-    appliesTo: [
-      "C. What a system must be able to do",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "technical-reversibility",
     term: "Technical Reversibility",
     definition:
       "The first level of the reversibility ladder: the mechanism exists and works, proven on the running version. A floor rather than a finding—a working switch says nothing about the levels above it.",
-    appliesTo: [
-      "C. What a system must be able to do",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "operational-reversibility",
     term: "Operational Reversibility",
     definition:
       "The second level of the reversibility ladder: people and processes can absorb the correction. Staff know the fallback, queues hold the load, and the manual path has been exercised recently enough to work.",
-    appliesTo: [
-      "C. What a system must be able to do",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "institutional-reversibility",
     term: "Institutional Reversibility",
     definition:
       "The third level of the reversibility ladder: the organization survives having made the correction. Commitments, contracts, reputations, and budgets stay serviceable after withdrawal.",
-    appliesTo: [
-      "C. What a system must be able to do",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "intervention-specification",
     term: "Intervention Specification",
     definition:
       "Who may intervene, on what signal, with what information and authority, on what timescale, and what happens on disagreement. It replaces “human in the loop” as a control name.",
-    appliesTo: [
-      "C. What a system must be able to do",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "prospective-auditability",
     term: "Prospective Auditability",
     definition:
       "Designing a system so audit questions can be answered later by recording evidence, authority, and reasoning at decision time. It cannot be retrofitted onto decisions already made.",
-    appliesTo: [
-      "C. What a system must be able to do",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "evaluation-independence",
     term: "Evaluation Independence",
     definition:
       "The property that no single provider is necessary to both execute and evaluate a consequential process. A system that grades its own homework has no detection component.",
-    appliesTo: [
-      "C. What a system must be able to do",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "exception-learning",
     term: "Exception Learning",
     definition:
       "The modification of a system by its own exceptions: a recurring failure changes the rule, category, workflow, or authority that produced it. The counterpart of exception absorption.",
-    appliesTo: [
-      "C. What a system must be able to do",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "case-corrigibility",
     term: "Case Corrigibility",
     definition:
       "The capacity to fix a particular bad decision: an appeal is heard, a reversal issued, a person restored. Locally corrigible, but the pattern may remain.",
-    appliesTo: [
-      "C. What a system must be able to do",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "structural-corrigibility",
     term: "Structural Corrigibility",
     definition:
       "The capacity to modify the machinery that keeps producing failures: repeated exceptions change the rule, category, workflow, or authority generating them.",
-    appliesTo: [
-      "C. What a system must be able to do",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "institutional-learning",
     term: "Institutional Learning",
     definition:
       "Learning that changes what an institution is permitted to do, as distinct from what a model predicts. The test is whether the failure altered the evidentiary rule, authority, or allocation of burden.",
-    appliesTo: [
-      "C. What a system must be able to do",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "corrective-debt",
     term: "Corrective Debt",
     definition:
       "The accumulated gap between an institution’s capacity to act and its capacity to detect, contest, reverse, and repair errors. Grows as action capacity compounds while correction machinery stays fixed.",
-    appliesTo: [
-      "C. What a system must be able to do",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "abstention",
     term: "Abstention",
     definition:
       "A positive capability to decline to act in three forms: epistemic (evidence insufficient), jurisdictional (not mine to decide), and remedial (acting now would cause uncorrectable harm).",
-    appliesTo: [
-      "C. What a system must be able to do",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "constitutional-debt",
     term: "Constitutional Debt",
     definition:
       "The divergence between what a system can technically do and what any recorded justification permits. The automation ratchet is its engine and authority drift is its balance.",
-    appliesTo: [
-      "C. What a system must be able to do",
-    ],
+    appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "restoration-completeness",

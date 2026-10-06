@@ -48,8 +48,8 @@ describe("navSections", () => {
     expect(sectionLinks("Method")).toEqual([
       "/method",
       "/standards/laws",
+      "/low-leverage",
       "/standards",
-      "/standards/enforceable-governance-crosswalks",
       "/evidence-packs",
     ]);
   });
@@ -77,9 +77,7 @@ describe("navSections", () => {
   // one that takes a workflow is deliberate: it is the only input every reader
   // already has.
   it("orders tools by input, workflow first", () => {
-    expect(sectionLinks("Tools")[0]).toBe(
-      "/diagnostics/delegation-audit",
-    );
+    expect(sectionLinks("Tools")[0]).toBe("/diagnostics/delegation-audit");
     expect(sectionLinks("Tools").at(-1)).toBe("/diagnostics");
   });
 

@@ -21,7 +21,8 @@ const Heading = level;
       The Distributive Consequences of Model Incompleteness
     </Heading>
     <p class="muted">
-      A formal system does not eliminate what it cannot represent; it redistributes the burden of dealing with it.
+      A formal system does not eliminate what it cannot represent; it
+      redistributes the burden of dealing with it.
     </p>
   </figcaption>
 
@@ -42,7 +43,7 @@ const Heading = level;
           markerHeight="6"
           orient="auto-start-reverse"
         >
-          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--border)" />
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--border)"></path>
         </marker>
         <marker
           id="intercept-arrow-down"
@@ -53,7 +54,7 @@ const Heading = level;
           markerHeight="6"
           orient="auto-start-reverse"
         >
-          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)" />
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)"></path>
         </marker>
         <marker
           id="intercept-arrow-up"
@@ -64,77 +65,186 @@ const Heading = level;
           markerHeight="6"
           orient="auto-start-reverse"
         >
-          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)" />
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)"></path>
         </marker>
       </defs>
 
       {/* Main Spine Connections */}
-      <line x1="218" y1="138" x2="246" y2="138" stroke="var(--border)" stroke-width="2.5" marker-end="url(#derivation-arrow)" />
-      <line x1="456" y1="138" x2="484" y2="138" stroke="var(--border)" stroke-width="2.5" marker-end="url(#derivation-arrow)" />
-      <line x1="694" y1="138" x2="722" y2="138" stroke="var(--border)" stroke-width="2.5" marker-end="url(#derivation-arrow)" />
+      <line
+        x1="218"
+        y1="138"
+        x2="246"
+        y2="138"
+        stroke="var(--border)"
+        stroke-width="2.5"
+        marker-end="url(#derivation-arrow)"></line>
+      <line
+        x1="456"
+        y1="138"
+        x2="484"
+        y2="138"
+        stroke="var(--border)"
+        stroke-width="2.5"
+        marker-end="url(#derivation-arrow)"></line>
+      <line
+        x1="694"
+        y1="138"
+        x2="722"
+        y2="138"
+        stroke="var(--border)"
+        stroke-width="2.5"
+        marker-end="url(#derivation-arrow)"></line>
 
       {/* Top Intercept Connectors */}
-      <line x1="113" y1="72" x2="113" y2="100" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#intercept-arrow-down)" />
-      <line x1="351" y1="72" x2="351" y2="100" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#intercept-arrow-down)" />
+      <line
+        x1="113"
+        y1="72"
+        x2="113"
+        y2="100"
+        stroke="var(--accent)"
+        stroke-width="1.5"
+        stroke-dasharray="3 3"
+        marker-end="url(#intercept-arrow-down)"></line>
+      <line
+        x1="351"
+        y1="72"
+        x2="351"
+        y2="100"
+        stroke="var(--accent)"
+        stroke-width="1.5"
+        stroke-dasharray="3 3"
+        marker-end="url(#intercept-arrow-down)"></line>
 
       {/* Bottom Intercept Connectors */}
-      <line x1="589" y1="206" x2="589" y2="176" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#intercept-arrow-up)" />
-      <line x1="827" y1="206" x2="827" y2="176" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#intercept-arrow-up)" />
+      <line
+        x1="589"
+        y1="206"
+        x2="589"
+        y2="176"
+        stroke="var(--accent)"
+        stroke-width="1.5"
+        stroke-dasharray="3 3"
+        marker-end="url(#intercept-arrow-up)"></line>
+      <line
+        x1="827"
+        y1="206"
+        x2="827"
+        y2="176"
+        stroke="var(--accent)"
+        stroke-width="1.5"
+        stroke-dasharray="3 3"
+        marker-end="url(#intercept-arrow-up)"></line>
 
       {/* Top Axiom Badge 1: Finitude */}
       <g transform="translate(8, 10)">
-        <rect width="216" height="62" rx="6" fill="var(--panel)" stroke="var(--accent)" stroke-width="1" />
-        <text x="108" y="25" text-anchor="middle" class="state-diagram__clause">Axiom 1: Finitude</text>
-        <text x="108" y="47" text-anchor="middle" class="state-diagram__label">Refuses falsified denominator</text>
+        <rect
+          width="216"
+          height="62"
+          rx="6"
+          fill="var(--panel)"
+          stroke="var(--accent)"
+          stroke-width="1"></rect>
+        <text x="108" y="25" text-anchor="middle" class="state-diagram__clause"
+          >Axiom 1: Finitude</text
+        >
+        <text x="108" y="47" text-anchor="middle" class="state-diagram__label"
+          >Refuses falsified denominator</text
+        >
       </g>
 
       {/* Top Axiom Badge 2: Stewardship */}
       <g transform="translate(246, 10)">
-        <rect width="240" height="62" rx="6" fill="var(--panel)" stroke="var(--accent)" stroke-width="1" />
-        <text x="120" y="25" text-anchor="middle" class="state-diagram__clause">Axiom 3: Stewardship</text>
-        <text x="120" y="47" text-anchor="middle" class="state-diagram__label">Model boundary ≠ Responsibility</text>
+        <rect
+          width="240"
+          height="62"
+          rx="6"
+          fill="var(--panel)"
+          stroke="var(--accent)"
+          stroke-width="1"></rect>
+        <text x="120" y="25" text-anchor="middle" class="state-diagram__clause"
+          >Axiom 3: Stewardship</text
+        >
+        <text x="120" y="47" text-anchor="middle" class="state-diagram__label"
+          >Model boundary ≠ Responsibility</text
+        >
       </g>
 
       {/* Step 1: Formal Simplification */}
       <g class="state-diagram__node" transform="translate(8, 100)">
-        <rect width="210" height="76" rx="8" />
-        <text x="105" y="33" text-anchor="middle" class="state-diagram__state">Formal Simplification</text>
-        <text x="105" y="57" text-anchor="middle" class="state-diagram__label">Model leaves reality out</text>
+        <rect width="210" height="76" rx="8"></rect>
+        <text x="105" y="33" text-anchor="middle" class="state-diagram__state"
+          >Formal Simplification</text
+        >
+        <text x="105" y="57" text-anchor="middle" class="state-diagram__label"
+          >Model leaves reality out</text
+        >
       </g>
 
       {/* Step 2: Residual Complexity */}
       <g class="state-diagram__node" transform="translate(246, 100)">
-        <rect width="210" height="76" rx="8" />
-        <text x="105" y="33" text-anchor="middle" class="state-diagram__state">Residual Complexity</text>
-        <text x="105" y="57" text-anchor="middle" class="state-diagram__label">Unrepresented mismatch</text>
+        <rect width="210" height="76" rx="8"></rect>
+        <text x="105" y="33" text-anchor="middle" class="state-diagram__state"
+          >Residual Complexity</text
+        >
+        <text x="105" y="57" text-anchor="middle" class="state-diagram__label"
+          >Unrepresented mismatch</text
+        >
       </g>
 
       {/* Step 3: Burden Allocation */}
       <g class="state-diagram__node" transform="translate(484, 100)">
-        <rect width="210" height="76" rx="8" />
-        <text x="105" y="33" text-anchor="middle" class="state-diagram__state">Burden Allocation</text>
-        <text x="105" y="57" text-anchor="middle" class="state-diagram__label">Who absorbs the fallout?</text>
+        <rect width="210" height="76" rx="8"></rect>
+        <text x="105" y="33" text-anchor="middle" class="state-diagram__state"
+          >Burden Allocation</text
+        >
+        <text x="105" y="57" text-anchor="middle" class="state-diagram__label"
+          >Who absorbs the fallout?</text
+        >
       </g>
 
       {/* Step 4: Politics */}
       <g class="state-diagram__node" transform="translate(722, 100)">
-        <rect width="210" height="76" rx="8" />
-        <text x="105" y="33" text-anchor="middle" class="state-diagram__state">Politics & Power</text>
-        <text x="105" y="57" text-anchor="middle" class="state-diagram__label">Standing to contest & compel</text>
+        <rect width="210" height="76" rx="8"></rect>
+        <text x="105" y="33" text-anchor="middle" class="state-diagram__state"
+          >Politics & Power</text
+        >
+        <text x="105" y="57" text-anchor="middle" class="state-diagram__label"
+          >Standing to contest & compel</text
+        >
       </g>
 
       {/* Bottom Axiom Badge 3: Consent & Reversibility */}
       <g transform="translate(432, 206)">
-        <rect width="264" height="62" rx="6" fill="var(--panel)" stroke="var(--accent)" stroke-width="1" />
-        <text x="132" y="25" text-anchor="middle" class="state-diagram__clause">Axioms 2 & 4: Consent & Reversal</text>
-        <text x="132" y="47" text-anchor="middle" class="state-diagram__label">No forced risk transfer</text>
+        <rect
+          width="264"
+          height="62"
+          rx="6"
+          fill="var(--panel)"
+          stroke="var(--accent)"
+          stroke-width="1"></rect>
+        <text x="132" y="25" text-anchor="middle" class="state-diagram__clause"
+          >Axioms 2 & 4: Consent & Reversal</text
+        >
+        <text x="132" y="47" text-anchor="middle" class="state-diagram__label"
+          >No forced risk transfer</text
+        >
       </g>
 
       {/* Bottom Axiom Badge 4: Legibility */}
       <g transform="translate(716, 206)">
-        <rect width="216" height="62" rx="6" fill="var(--panel)" stroke="var(--accent)" stroke-width="1" />
-        <text x="108" y="25" text-anchor="middle" class="state-diagram__clause">Axiom 5: Legibility</text>
-        <text x="108" y="47" text-anchor="middle" class="state-diagram__label">Hidden burden made auditable</text>
+        <rect
+          width="216"
+          height="62"
+          rx="6"
+          fill="var(--panel)"
+          stroke="var(--accent)"
+          stroke-width="1"></rect>
+        <text x="108" y="25" text-anchor="middle" class="state-diagram__clause"
+          >Axiom 5: Legibility</text
+        >
+        <text x="108" y="47" text-anchor="middle" class="state-diagram__label"
+          >Hidden burden made auditable</text
+        >
       </g>
     </svg>
   </div>

@@ -11,9 +11,7 @@ const HASH_PREFIX = "#self-test=";
 
 function init(): void {
   const form = document.querySelector<HTMLFormElement>("[data-self-test]");
-  const result = document.querySelector<HTMLElement>(
-    "[data-self-test-result]",
-  );
+  const result = document.querySelector<HTMLElement>("[data-self-test-result]");
   if (!form || !result) return;
 
   const holdingEl = result.querySelector<HTMLElement>(
@@ -28,16 +26,15 @@ function init(): void {
   const shareButton = result.querySelector<HTMLButtonElement>(
     "[data-self-test-share]",
   );
-  const items = [
-    ...form.querySelectorAll<HTMLLIElement>(".self-test__item"),
-  ];
-  // The safeguard map beside the questions: one stop per variable, drawn
-  // held or broken as each question is answered.
+  const items = [...form.querySelectorAll<HTMLLIElement>(".self-test__item")];
+  // The safeguard map beside the questions: one node per variable, drawn
+  // held or drifting as each question is answered, with the count at center.
   const mapStops = [
     ...document.querySelectorAll<HTMLElement>(
       "[data-safeguard-map] [data-map-variable]",
     ),
   ];
+  const mapScore = document.querySelector<HTMLElement>("[data-map-score]");
 
   const readAnswers = (): (SelfTestAnswer | undefined)[] =>
     selfTestQuestions.map((_, index) => {
@@ -77,6 +74,12 @@ function init(): void {
         (question) => question.variable === stop.dataset.mapVariable,
       );
       stop.dataset.answer = answers[index] ?? "";
+    }
+    if (mapScore) {
+      mapScore.textContent =
+        score.answered === 0
+          ? "–/6"
+          : `${score.holding}/${selfTestQuestions.length}`;
     }
 
     if (score.answered === 0) {

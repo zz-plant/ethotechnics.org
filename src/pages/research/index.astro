@@ -248,7 +248,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <div class="research-filter" data-research-filter>
     <div class="research-filter__controls">
       <label class="research-filter__label" for="research-filter">
-        <span class="visually-hidden">Search research entries</span>
+        <span>Search research entries</span>
         <input
           id="research-filter"
           name="query"
@@ -295,6 +295,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           </label>
         )
       }
+    </div>
+    <div class="research-filter__actions">
       <button
         class="button ghost button--compact research-filter__clear"
         type="button"
@@ -302,8 +304,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       >
         Clear filter
       </button>
-    </div>
-    <div class="research-filter__actions">
       <button
         class="button ghost button--compact"
         type="button"
@@ -429,6 +429,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                     <a
                       class="button ghost button--compact"
                       href={artifact.href}
+                      {...(artifact.href.startsWith("http")
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
                     >
                       View artifact
                     </a>

@@ -230,11 +230,11 @@ Detailed, testable expectations for each route. Use these specs when adding cont
   - Anchor IDs match intro links; steward cards keep names as headings with roles in `meta`.
   - Contact links are descriptive (no bare URLs); list items remain `<li>` elements for screen-reader grouping.
 
-## Finite (`/finite`)
+## Finite (`/evals#finite` / `/finite`)
 
-- **Data sources:** Renders static legal and policy copy from `src/content/finite.ts`.
-- **Layout:** Single-page content structured with `PageIntro` and subsequent sections for service scope, SLAs, and data handling; keep ordered/unordered lists as authored.
-- **Accessibility:** Preserve heading levels as written (`<h1>` in intro, `<h2>` per section); ensure any email or link text is descriptive.
+- **Data sources:** Pulls `finiteContent` from `src/content/finite.ts`.
+- **Layout:** Rendered in `src/pages/evals/index.astro` under `#finite` via `src/components/FiniteSection.astro` as a companion benchmark section following the governance suites and runner (reachable directly via `/evals#finite` and via the `/finite` 301 redirect). Displays the evaluation scope, three measurement dimensions, verification deliverables, operational invariants, four experimental conditions, five adversarial institutional drills with dual-ledger breakdowns and maturity badges (executable benchmark vs tabletop drill), and the Green Dashboard runnable benchmark harness with action space tools and JSON schema linkage.
+- **Accessibility:** Preserves semantic heading hierarchy (`h2` for section header, `h3` for subsection titles, `h4` for drill cards and tool cards); visible and audit ledger rows use distinct high-contrast badge indicators with semantic labels; all action buttons and links provide descriptive target text.
 
 ## Donate (`/donate`)
 

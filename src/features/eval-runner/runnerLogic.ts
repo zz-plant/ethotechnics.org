@@ -130,7 +130,10 @@ export const computeAggregateScore = (
   }
 
   return weightedMax > 0
-    ? Math.min(100, Math.max(0, Math.round((weightedScore / weightedMax) * 100)))
+    ? Math.min(
+        100,
+        Math.max(0, Math.round((weightedScore / weightedMax) * 100)),
+      )
     : 0;
 };
 

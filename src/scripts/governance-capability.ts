@@ -44,7 +44,7 @@ const copyButtons = Array.from(document.querySelectorAll("[data-copy-link]"));
 
 copyButtons.forEach((button) => {
   const status = button
-    .closest(".implication__summary")
+    .closest(".implication__actions")
     ?.querySelector("[data-copy-status]");
   const value = button.getAttribute("data-copy-value");
 
