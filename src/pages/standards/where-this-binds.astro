@@ -11,21 +11,65 @@ const pageDescription =
 const permalink = "/standards/where-this-binds";
 const anchorLinks = [
   { href: "#language", label: "Sample language" },
-  { href: "#contracts", label: "Contracts" },
-  { href: "#procurement", label: "Procurement" },
-  { href: "#audits", label: "Audits" },
+  { href: "#records", label: "Records to request" },
+  { href: "#audits", label: "Audit checks" },
   { href: "#citations", label: "Citations" },
 ];
 
 const publication = derivePublicationMetadata({
   permalink,
   published: "2026-03-01T00:00:00Z",
-  updated: "2026-10-01T00:00:00Z",
-  version: "v1.1.0",
+  updated: "2026-10-06T00:00:00Z",
+  version: "v1.2.0",
   authorName: "Ethotechnics Institute",
   changelogSummary:
-    "Opened with a sample clause binding STD-07 §4.2, STD-08 §1.1 to §1.3, STD-01 §7.1, and STD-02 §8.4, and generalized the guidance beyond STD-01.",
+    "Named the record to request for each clause in the sample, with its evidence pack, in place of generic advice on validator results; only STD-01 §7.1 has a scoring tool. Pinned the current versions: STD-07 v0.1.2, STD-08 v0.3.1, STD-01 v1.0.2, and STD-02 v1.4, whose §8.4 no longer scales standing to exposure.",
 });
+
+// What to ask the supplier for under each clause of the sample. The record is
+// what the clause's own text names; the pack is where the standard lists its
+// evidence. STD-07 has no evidence pack yet, so its row points at the article.
+const clauseRecords = [
+  {
+    clause: "STD-07 §4.2",
+    record:
+      "Every objection record accepted on the declared channel, paired with the revision or reasoned-refusal record that answered it. The time between the two should fall inside the reversal clock declared in contest.reversal_clock.",
+    source: {
+      label: "STD-07, Article IV",
+      href: "/standards/std-07-revisable-delegation-record#articles",
+    },
+  },
+  {
+    clause: "STD-08 §1.1 and §1.2",
+    record:
+      "For each renewal in the term: the grant's renewal_basis, dated before the review period began, and the renewal record naming what was examined, what would have been visible had the grant been failing, and who looked.",
+    source: { label: "STD-08 evidence pack", href: "/evidence-packs/std-08" },
+  },
+  {
+    clause: "STD-08 §1.3",
+    record:
+      "The grant's scope at issue and today. For every widening, the evidence_basis and correction-capacity check made for it, and its entry in the grant's state_history.",
+    source: { label: "STD-08 evidence pack", href: "/evidence-packs/std-08" },
+  },
+  {
+    clause: "STD-01 §7.1",
+    record:
+      "The published burden report and the time-cost log it was computed from.",
+    source: {
+      label: "STD-01 evidence pack",
+      href: "/evidence-packs/std-01#std-01-7-1",
+    },
+  },
+  {
+    clause: "STD-02 §8.4",
+    record:
+      "The standing register entry for the decision class: who_may_challenge, naming both affected_party and corrective_labor, and the response_deadline. Then the case log of operators' challenges, with when each was answered.",
+    source: {
+      label: "STD-02 evidence pack",
+      href: "/evidence-packs/std-02#std-02-8-4",
+    },
+  },
+];
 ---
 
 <StandardsLayout
@@ -35,83 +79,93 @@ const publication = derivePublicationMetadata({
   seoTitle={`${pageTitle} — Standards`}
   anchorLinks={anchorLinks}
   publishedTime="2025-06-01T00:00:00.000Z"
-  modifiedTime="2026-10-01T00:00:00.000Z"
+  modifiedTime="2026-10-06T00:00:00.000Z"
   mainClass="page page--wide"
 >
   <SectionBlock
     id="language"
     eyebrow="Sample language"
     title="A starting clause"
-    description="It binds four obligations: an answer to every objection, authority renewed only on evidence, a published time cost, and standing for the people who absorb the errors. Adapt it with counsel to your jurisdiction."
+    description="It binds four obligations: an answer to every objection, authority renewed only on evidence, a published time cost, and standing for the people a decision falls on and the staff who repair its errors. Adapt it with counsel to your jurisdiction."
   >
     <pre
       class="binding-clause">
 Supplier will meet the following clauses of the Ethotechnics Institute standards, at the versions named, for the system described in Schedule A.
 
-- STD-07 v0.1.1 §4.2: every objection accepted on the declared channel produces a revision or a reasoned refusal, on the record, within the stated reversal clock.
+- STD-07 v0.1.2 §4.2: every objection accepted on the declared channel produces a revision or a reasoned refusal, on the record, within the stated reversal clock.
 - STD-08 v0.3.1 §1.1 to §1.3: the system's grant of authority states in advance the evidence its renewal requires; a renewal that rests only on the absence of observed failure is not a renewal; and any widening of the grant's scope is a new authorization with its own evidence.
-- STD-01 v1.0.1 §7.1: Supplier measures and publishes the time the system costs the people it decides about.
-- STD-02 v1.3.1 §8.4: the people who absorb the system's errors, including the staff who handle its exceptions, have standing to challenge it.
+- STD-01 v1.0.2 §7.1: Supplier measures and publishes the time the system costs the people it decides about.
+- STD-02 v1.4 §8.4: standing extends to the people a decision falls on and to the operators who handle its exceptions, work its queues, and do its manual repair. Each is owed receipt of a challenge, an answer within the same response deadline, and a decision against the published standard.
 
 Supplier will provide the records each clause names on request. These standards are drafts; the versions above are fixed for the term of this agreement.
     </pre>
   </SectionBlock>
 
   <SectionBlock
-    id="contracts"
-    eyebrow="Contracts"
-    title="Reference the standard in agreements and SOWs"
-    description="Use stable IDs and clause references so obligations remain clear over time."
+    id="records"
+    eyebrow="Records to request"
+    title="The record behind each clause"
+    description="The sample obliges the supplier to produce these on request. Each row names the record and where the standard lists its evidence."
     variant="alt"
   >
-    <ul class="muted">
-      <li>
-        Reference each standard by ID, version, and permalink in the contract
-        appendix.
-      </li>
-      <li>
-        List the specific rights and clauses that apply to the engagement scope.
-      </li>
-      <li>
-        Require evidence artifacts (validator outputs, logs, or mechanism
-        checklists).
-      </li>
-    </ul>
-  </SectionBlock>
-
-  <SectionBlock
-    id="procurement"
-    eyebrow="Procurement"
-    title="Use the standards as requirement language"
-    description="Procurement language should specify which validators and mechanisms are expected."
-  >
-    <ul class="muted">
-      <li>Ask vendors to submit validator results for the clauses in scope.</li>
-      <li>
-        Specify required mechanisms (e.g., hard clocks, appeal paths) in RFPs.
-      </li>
-      <li>
-        Require remediation timelines when validator scores fall below
-        thresholds.
-      </li>
-    </ul>
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table mapping-table--stack">
+        <thead>
+          <tr>
+            <th scope="col">Clause</th>
+            <th scope="col">Record to request</th>
+            <th scope="col">Evidence listed in</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            clauseRecords.map((row) => (
+              <tr>
+                <th scope="row">{row.clause}</th>
+                <td data-label="Record to request">{row.record}</td>
+                <td data-label="Evidence listed in">
+                  <a href={row.source.href}>{row.source.label}</a>
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="muted">
+      Of these five, only STD-01 §7.1 has a scoring tool on this site. The <a
+        href="/validators/burden-modeler">Burden Modeler</a
+      > scores one user journey red at over 25 minutes, more than 7 steps, or a screen
+      with no exit. A contract can require a remediation plan for any journey that
+      scores red. The other clauses have no score; the record is the evidence.
+    </p>
   </SectionBlock>
 
   <SectionBlock
     id="audits"
     eyebrow="Audits"
-    title="Anchor audits to validator outputs and mechanism evidence"
-    description="Audits should pair the standard text with measurable evidence."
-    variant="alt"
+    title="What an auditor checks against those records"
   >
-    <ul class="muted">
+    <ul>
       <li>
-        Enter validator report cards as audit artifacts. A narrative summary
-        alone is not evidence.
+        STD-07 §4.2: sample objections. Each answer was recorded inside the
+        reversal clock of the record it answers.
       </li>
-      <li>Crosswalk audit findings to clause IDs and mechanism coverage.</li>
       <li>
-        Retain permalinks in audit logs to maintain versioned evidence chains.
+        STD-08 §1.1 and §1.2: sample renewals. Each renewal_basis predates its
+        review period, and no renewal rests on the absence of failure alone.
+      </li>
+      <li>
+        STD-08 §1.3: compare the grant's scope at issue with its scope today.
+        Every widening has its own evidence and its own entry in state_history.
+      </li>
+      <li>
+        STD-01 §7.1: recompute the published time cost from the time-cost log.
+      </li>
+      <li>
+        STD-02 §8.4: find the staff who handle exceptions under
+        who_may_challenge, and check their challenges were answered within the
+        response_deadline.
       </li>
     </ul>
   </SectionBlock>
@@ -121,6 +175,7 @@ Supplier will provide the records each clause names on request. These standards 
     eyebrow="Citations"
     title="Reference this guidance"
     description="Cite the canonical permalink and version, so the governance document points at a fixed text."
+    variant="alt"
   >
     <ScholarlyMeta publication={publication} permalink={permalink} />
     <CitationBlock
@@ -130,7 +185,8 @@ Supplier will provide the records each clause names on request. These standards 
     />
     <p class="muted" style="margin-top:var(--space-5)">
       See also: <a href="/standards">Standards</a> &middot; <a
-        href="/mechanisms">Mechanisms</a
+        href="/standards/enforceable-governance-crosswalks"
+        >Framework map for buyers and auditors</a
       >
     </p>
   </SectionBlock>

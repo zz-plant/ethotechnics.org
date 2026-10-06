@@ -10,14 +10,12 @@ const pageDescription =
 const permalink = "/standards/eu-ai-act";
 const publishedTime = "2026-02-15T00:00:00Z";
 const modifiedTime = "2026-10-06T00:00:00Z";
-const timelineReviewed = "2026-05-20";
-const critiqueRevised = "2026-10-01";
+const datesChecked = "2026-10-06";
 const anchorLinks = [
-  { href: "#overview", label: "What it is" },
   { href: "#critique", label: "Ethotechnics critique" },
   { href: "#failure-mode", label: "Failure mode" },
-  { href: "#implementation-cluster", label: "Implementation controls path" },
-  { href: "#timeline", label: "Timeline status" },
+  { href: "#timeline", label: "Application dates" },
+  { href: "#implementation-cluster", label: "Articles to clauses" },
   { href: "#implications-now", label: "Implications now" },
   { href: "#keep-current", label: "Sources and updates" },
 ];
@@ -26,8 +24,44 @@ const publication = derivePublicationMetadata({
   published: publishedTime,
   updated: modifiedTime,
   changelogSummary:
-    "Removed an internal drafting note, a review schedule the page did not keep, and a review pitch from the implementation path.",
+    "Listed the application dates from Article 113 as amended by the Digital Omnibus on AI, Regulation (EU) 2026/1744, which moved the Annex III high-risk date to 2 December 2027 and the Annex I date to 2 August 2028. Removed the overview of the Act.",
 });
+
+// Article 113 of Regulation (EU) 2024/1689, as amended by Regulation (EU)
+// 2026/1744, checked against the Commission's AI Act Service Desk timeline.
+const applicationDates = [
+  { date: "1 August 2024", applies: "Entry into force." },
+  {
+    date: "2 February 2025",
+    applies:
+      "Chapters I and II: general provisions, including AI literacy (Art. 4), and the prohibited practices in Art. 5.",
+  },
+  {
+    date: "2 August 2025",
+    applies:
+      "Obligations for general-purpose AI models (Chapter V), governance (Chapter VII), penalties (Chapter XII, except Art. 101), and notified bodies (Chapter III, Section 4).",
+  },
+  {
+    date: "2 August 2026",
+    applies:
+      "The general application date: most remaining provisions, including the transparency obligations in Art. 50.",
+  },
+  {
+    date: "2 December 2026",
+    applies:
+      "The prohibitions the omnibus added: AI systems that generate non-consensual intimate imagery or child sexual abuse material. The Art. 50(2) transition ends for certain providers of systems that generate synthetic content and were on the market before 2 August 2026.",
+  },
+  {
+    date: "2 December 2027",
+    applies:
+      "Chapter III, Sections 1 to 3, for high-risk systems under Art. 6(2) and Annex III. The original date was 2 August 2026.",
+  },
+  {
+    date: "2 August 2028",
+    applies:
+      "Chapter III, Sections 1 to 3, for high-risk systems under Art. 6(1) and Annex I, AI in products covered by EU harmonisation legislation. The original date was 2 August 2027.",
+  },
+];
 ---
 
 <StandardsLayout
@@ -37,26 +71,10 @@ const publication = derivePublicationMetadata({
   seoTitle="EU AI Act: critique and implementation controls — Standards"
   eyebrow="Regulatory regime"
   anchorLinks={anchorLinks}
+  lastUpdated={datesChecked}
   publishedTime={publishedTime}
   modifiedTime={modifiedTime}
 >
-  <SectionBlock
-    id="overview"
-    eyebrow="Overview"
-    title="What it is"
-    description="A legal regime with risk-tiering, conformity assessment, and market surveillance."
-  >
-    <p>
-      The EU AI Act establishes obligations for high-risk systems, requires
-      human oversight, and enforces compliance through EU and national
-      authorities.
-    </p>
-    <p>
-      <strong>Resource status:</strong> critique revised {critiqueRevised};
-      timeline status reviewed {timelineReviewed}.
-    </p>
-  </SectionBlock>
-
   <SectionBlock
     id="critique"
     eyebrow="Ethotechnics critique"
@@ -113,42 +131,51 @@ const publication = derivePublicationMetadata({
   </SectionBlock>
 
   <SectionBlock
-    id="implementation-cluster"
-    eyebrow="Implementation controls"
-    title="From the requirement to the controls"
-    description="Two steps in order: understand the requirement, then map it to controls."
+    id="timeline"
+    eyebrow="Application dates"
+    title="When each part applies"
+    description="Article 113, as amended by Regulation (EU) 2026/1744, the Digital Omnibus on AI, in force since 27 July 2026."
     variant="alt"
   >
-    <ol class="muted">
-      <li>
-        <strong>Explainer:</strong>
-        <a href="#timeline">the timeline status</a> on this page, for what is in force
-        and what is scheduled.
-      </li>
-      <li>
-        <strong>Mechanism template:</strong>
-        <a href="/standards/enforceable-governance-crosswalks"
-          >Control crosswalk workbook</a
-        >
-        to map obligations to accountable controls.
-      </li>
-    </ol>
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table mapping-table--stack">
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">What applies</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            applicationDates.map((row) => (
+              <tr>
+                <th scope="row">{row.date}</th>
+                <td data-label="What applies">{row.applies}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="muted">
+      Checked on {datesChecked} against the Commission's <a
+        href="https://ai-act-service-desk.ec.europa.eu/en/ai-act/timeline/timeline-implementation-eu-ai-act"
+        >AI Act Service Desk timeline</a
+      >, which reflects the omnibus amendments.
+    </p>
   </SectionBlock>
 
   <SectionBlock
-    id="timeline"
-    eyebrow="Timeline status"
-    title="Direction is stable; dates can still move"
+    id="implementation-cluster"
+    eyebrow="Articles to clauses"
+    title="From the articles to the standards"
+    description="The framework map takes Articles 9, 12, 14, 72, and 73 one at a time: the Ethotechnics clauses that bear on each, and what they leave to you."
   >
     <p>
-      We treat the Commission timeline as the canonical baseline: entry into
-      force, phased obligations, and later applicability windows for some
-      categories.
-    </p>
-    <p>
-      We also track live policy updates (including proposals that could shift
-      parts of implementation timing). This means schedule details are
-      politically live, even while the governance direction remains consistent.
+      No clause covers serious-incident reporting under Article 73. <a
+        href="/standards/enforceable-governance-crosswalks#eu-ai-act-articles"
+        >Read the article table</a
+      >.
     </p>
   </SectionBlock>
 
@@ -187,13 +214,18 @@ const publication = derivePublicationMetadata({
   >
     <ul class="card__list">
       <li>
-        <strong>Sources:</strong> Commission primary materials first, then reputable
-        reporting where a proposal or a date is still contested.
+        <strong>Sources:</strong> Article 113 of <a
+          href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng"
+          >Regulation (EU) 2024/1689</a
+        > as amended by <a
+          href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:L_202601744"
+          >Regulation (EU) 2026/1744</a
+        >, and the Commission's AI Act Service Desk timeline.
       </li>
       <li>
-        <strong>Updates:</strong> the page changes when a timeline, an obligation's
-        scope, or an enforcement mechanism materially changes. The dates it was last
-        revised are at the top of the page.
+        <strong>Updates:</strong> the page changes when a date, an obligation's scope,
+        or an enforcement mechanism changes. The date it was last checked is at the
+        top of the page.
       </li>
     </ul>
   </SectionBlock>

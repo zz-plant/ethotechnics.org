@@ -2,7 +2,10 @@
 import PageIntro from "../../../components/PageIntro.astro";
 import CitationBlock from "../../../components/CitationBlock.astro";
 import SectionBlock from "../../../components/SectionBlock.astro";
-import { governanceCrosswalks } from "../../../content/crosswalks";
+import {
+  governanceCrosswalks,
+  resolveClause,
+} from "../../../content/crosswalks";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { derivePublicationMetadata } from "../../../utils/publication";
 
@@ -29,6 +32,11 @@ const frameworks: FrameworkMatch[] = [
   { framework: "ISO/IEC 42001", citation: control.iso42001 },
 ];
 
+const clauses = control.clauseIds.map((clauseId) => ({
+  clauseId,
+  resolved: resolveClause(clauseId),
+}));
+
 const pageTitle = `${control.controlId} crosswalk brief`;
 const seoTitle = `${control.controlId} crosswalk: ${control.topic}`;
 const pageDescription = control.metaDescription;
@@ -37,6 +45,7 @@ const permalink = `/standards/crosswalk/${control.controlId.toLowerCase()}`;
 const publication = derivePublicationMetadata({
   permalink,
   published: "2025-06-01T00:00:00Z",
+  updated: "2026-10-06T00:00:00Z",
 });
 ---
 
@@ -44,6 +53,7 @@ const publication = derivePublicationMetadata({
   title={seoTitle}
   description={pageDescription}
   publishedTime="2025-06-01T00:00:00.000Z"
+  modifiedTime="2026-10-06T00:00:00.000Z"
   structuredDataType="tech-article"
   breadcrumbItems={[
     { name: "Home", url: new URL("/", Astro.url).toString() },
@@ -63,6 +73,7 @@ const publication = derivePublicationMetadata({
     title={`${control.controlId} implementation brief`}
     description={control.obligation}
     anchorLinks={[
+      { href: "#clauses", label: "Clauses to cite" },
       { href: "#framework-mapping", label: "Framework mapping" },
       { href: "#evidence", label: "Evidence artifacts" },
       {
@@ -73,10 +84,75 @@ const publication = derivePublicationMetadata({
   />
 
   <SectionBlock
+    id="clauses"
+    eyebrow="Clauses to cite"
+    title="The Ethotechnics clauses behind this control"
+    description="The clauses a contract or audit plan can cite, at their current versions, with the evidence each names."
+  >
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table mapping-table--stack">
+        <thead>
+          <tr>
+            <th scope="col">Clause</th>
+            <th scope="col">Requirement</th>
+            <th scope="col">Evidence</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            clauses.map(({ clauseId, resolved }) => (
+              <tr>
+                <th scope="row">
+                  {resolved ? (
+                    <a href={resolved.href}>{resolved.citation}</a>
+                  ) : (
+                    clauseId
+                  )}
+                </th>
+                <td data-label="Requirement">
+                  {resolved
+                    ? `${resolved.clause.requirementLevel}: when ${resolved.clause.condition}, ${resolved.clause.obligation}.`
+                    : "Not in the clause register."}
+                </td>
+                <td data-label="Evidence">
+                  {resolved && (
+                    <ul class="clause-evidence">
+                      {resolved.clause.evidenceRequired.map((item) => (
+                        <li>
+                          <code>{item}</code>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    {
+      control.notCovered && (
+        <p>
+          <strong>Not covered:</strong> {control.notCovered}
+        </p>
+      )
+    }
+    <p class="muted">
+      The <a href="/standards/where-this-binds">sample contract clause</a> shows the
+      form. The <a
+        href="/standards/enforceable-governance-crosswalks#eu-ai-act-articles"
+        >EU AI Act table</a
+      > gives the same clauses article by article.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
     id="framework-mapping"
     eyebrow="Framework mapping"
-    title="Where this control binds"
-    description="Citations align one obligation to framework clauses you can reference in contracts or audit plans."
+    title="Where this control corresponds to a framework"
+    description="The framework obligations these clauses bear on. A technical correspondence, not a determination of legal compliance."
+    variant="alt"
   >
     <div class="table-wrap">
       <table>
@@ -105,7 +181,6 @@ const publication = derivePublicationMetadata({
     eyebrow="Evidence"
     title="Artifacts to request before sign-off"
     description="These artifacts make the obligation inspectable rather than policy-only."
-    variant="alt"
   >
     <ul>
       {control.evidenceArtifacts.map((artifact) => <li>{artifact}</li>)}
@@ -117,6 +192,7 @@ const publication = derivePublicationMetadata({
     eyebrow="Where it shows up in operations"
     title="Where this control should live in the system"
     description="The owner-visible control point for day-to-day operations and incident response."
+    variant="alt"
   >
     <p>{control.operationalSurface}</p>
   </SectionBlock>
@@ -126,3 +202,14 @@ const publication = derivePublicationMetadata({
     publication={publication}
   />
 </BaseLayout>
+
+<style>
+  .clause-evidence {
+    margin: 0;
+    padding-left: var(--space-4);
+  }
+
+  .clause-evidence code {
+    overflow-wrap: anywhere;
+  }
+</style>
