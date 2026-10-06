@@ -4,7 +4,8 @@ description: "A draft standard for a human impact safety case: tests, thresholds
 permalink: "/standards/std-06-human-impact-safety-case"
 eyebrow: "Standard"
 seoTitle: "STD-06 — Human Impact Safety Case"
-version: "0.6.1"
+version: "0.7"
+lastUpdated: "2026-10-06"
 publishedTime: "2026-03-01T00:00:00.000Z"
 modifiedTime: "2026-10-06T00:00:00.000Z"
 mainClass: "page page--wide standard-document"
@@ -102,7 +103,7 @@ export const structuredData = {
   url: "https://ethotechnics.org/standards/std-06-human-impact-safety-case",
   datePublished: "2026-03-01",
   dateModified: "2026-10-06",
-  version: "0.6.1",
+  version: "0.7",
   identifier: "STD-06",
   publisher: {
     "@type": "Organization",
@@ -131,7 +132,7 @@ export const structuredData = {
       </div>
       <div>
         <dt>Version</dt>
-        <dd>0.6.1 (review draft)</dd>
+        <dd>0.7 (review draft)</dd>
       </div>
       <div>
         <dt>Effective date</dt>
@@ -381,10 +382,14 @@ export const structuredData = {
             <span class="standard-clause-id">§5.2</span>
             The exposure score: The case computes and publishes an exposure score
             as dependency depth × substitution cost × correction latency,
-            recorded in <code>exposure_score</code> with each input. The score
-            is a comparator over time and across deployments, not a threshold to
-            pass. A rising score with an unchanged safety case is itself a
-            finding.
+            recorded in <code>exposure_score</code> with each input. Dependency
+            depth (<code>dependency_depth</code>) is the number of dependents
+            under §5.1 whose criticality is high or critical. Substitution cost
+            is the estimate in the unit the record states, such as
+            person-weeks. Correction latency is in hours. The score is a
+            comparator over time, and across deployments that state
+            substitution cost in the same unit. It is not a threshold to pass.
+            A rising score with an unchanged safety case is itself a finding.
           </li>
           <li>
             <span class="standard-clause-id">§5.3</span>
@@ -417,8 +422,8 @@ export const structuredData = {
           <li>
             <span class="standard-clause-id">§5.6</span>
             Rehearsal cadence: Withdrawal is rehearsed on a published cadence, at
-            least annually for any deployment with a non-trivial exposure score
-            and before any expansion decision. The rehearsal produces a report
+            least annually for any deployment with a dependency depth of one or
+            more, and before any expansion decision. The rehearsal produces a report
             with its date, scope, outcome, and what it showed at each level of
             reversibility. An untested withdrawal path is a claim, and
             <code>last_withdrawal_rehearsal</code> records how old the claim is.
@@ -443,6 +448,13 @@ export const structuredData = {
       <section id="publication-history" class="standard-section">
         <h2>Publication history</h2>
         <ul>
+          <li>
+            <strong>v0.7 (2026-10-06):</strong> §5.2 defines dependency depth
+            as the number of dependents marked high or critical, and states the
+            unit of each input to the exposure score. §5.6 requires an annual
+            withdrawal rehearsal wherever dependency depth is one or more, in
+            place of a "non-trivial" score that no threshold defined.
+          </li>
           <li>
             <strong>v0.6.1 (2026-10-06):</strong> Publisher name corrected to
             Ethotechnics Institute. No clause changed.

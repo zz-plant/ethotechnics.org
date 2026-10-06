@@ -315,7 +315,7 @@
     },
     "exposure_score": {
       "title": "Exposure score",
-      "description": "Structural exposure created by dependence. score = dependency_depth × substitution_cost × correction_latency, where dependency_depth is a unitless count of critical dependents, substitution_cost is in the unit stated in the substitution_cost object, and correction_latency is in hours. The product is a unitless index used to compare systems and trigger reconsideration when a dependency threshold is crossed.",
+      "description": "Structural exposure created by dependence. score = dependency_depth × substitution_cost × correction_latency, where dependency_depth is a unitless count of dependents whose criticality is high or critical, substitution_cost is in the unit stated in the substitution_cost object, and correction_latency is in hours. The product is a unitless index used to compare systems and trigger reconsideration when a dependency threshold is crossed.",
       "type": "object",
       "required": [
         "dependency_depth",
@@ -327,7 +327,7 @@
       "properties": {
         "dependency_depth": {
           "title": "Dependency depth",
-          "description": "Unitless count of critical dependents.",
+          "description": "Unitless count of dependents whose criticality is high or critical.",
           "type": "number",
           "minimum": 0
         },
