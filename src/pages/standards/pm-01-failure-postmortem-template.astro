@@ -22,9 +22,11 @@ const breadcrumbItems = [
 const publication = derivePublicationMetadata({
   permalink,
   published: "2026-04-15T00:00:00Z",
-  version: "v1.0",
+  updated: "2026-10-06T00:00:00Z",
+  version: "v1.0.1",
   authorName: "Ethotechnics Institute",
-  changelogSummary: "Initial release of the PM-01 failure postmortem template.",
+  changelogSummary:
+    "Publisher name corrected to Ethotechnics Institute. The template is unchanged.",
 });
 
 const templateSections = [
@@ -58,7 +60,7 @@ const templateSections = [
   },
 ];
 
-const template = `Institutional Failure Postmortem (PM-01 v1.0)
+const template = `Institutional Failure Postmortem (PM-01 v1.0.1)
 
 1) Incident summary (what failed, not who)
 - System/workflow name:
@@ -164,15 +166,15 @@ const workedExample = `Worked example (hypothetical, anonymized)
         </div>
         <div>
           <dt>Version</dt>
-          <dd>1.0</dd>
+          <dd>1.0.1</dd>
         </div>
         <div>
-          <dt>Effective Date</dt>
+          <dt>Effective date</dt>
           <dd>Immediate</dd>
         </div>
         <div>
           <dt>Authority</dt>
-          <dd>The Institute of Ethotechnics</dd>
+          <dd>Ethotechnics Institute</dd>
         </div>
       </dl>
     </header>

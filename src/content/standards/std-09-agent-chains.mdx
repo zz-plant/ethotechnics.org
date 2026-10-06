@@ -4,7 +4,7 @@ description: "A draft standard for decisions made by chains of agents: the chain
 permalink: "/standards/std-09-agent-chains"
 eyebrow: "Standard"
 seoTitle: "STD-09 — Agent Chains"
-version: "0.2"
+version: "0.2.1"
 publishedTime: "2026-09-11T00:00:00.000Z"
 mainClass: "page page--wide standard-document"
 anchorLinks:
@@ -139,12 +139,12 @@ export const structuredData = {
     "The terms a chain of delegations must satisfy: the whole chain is treated as one delegation, delays add up across it, and it can correct errors only as well as its weakest link.",
   url: "https://ethotechnics.org/standards/std-09-agent-chains",
   datePublished: "2026-09-11",
-  dateModified: "2026-09-22",
-  version: "0.2",
+  dateModified: "2026-10-06",
+  version: "0.2.1",
   identifier: "STD-09",
   publisher: {
     "@type": "Organization",
-    name: "Institute of Ethotechnics",
+    name: "Ethotechnics Institute",
     url: "https://ethotechnics.org",
   },
   isPartOf: {
@@ -169,15 +169,15 @@ export const structuredData = {
       </div>
       <div>
         <dt>Version</dt>
-        <dd>0.2 (Working draft)</dd>
+        <dd>0.2.1 (working draft)</dd>
       </div>
       <div>
-        <dt>Effective Date</dt>
+        <dt>Effective date</dt>
         <dd>TBD (proposed 2026)</dd>
       </div>
       <div>
         <dt>Authority</dt>
-        <dd>The Institute of Ethotechnics</dd>
+        <dd>Ethotechnics Institute</dd>
       </div>
     </dl>
   </header>
@@ -188,7 +188,7 @@ export const structuredData = {
         <h2>Relationship to STD-07 and STD-08</h2>
 
         <a href="/standards/std-07-revisable-delegation-record">STD-07</a>{" "}
-        defines the record format and{" "}
+        defines the record format, and{" "}
         <a href="/standards/std-08-delegation">STD-08</a> the terms of a
         delegation while it stands. Both govern one delegation at a time.
         This standard governs what happens when a consequential decision is
@@ -246,7 +246,7 @@ export const structuredData = {
         a chain, the highest layer is the chain itself: each hop can be
         conformant and the composition still be unauditable, unstoppable
         in practice, and attributed to no one. The four parts below bind
-        Laws I, II, IV, IX, and XI at that layer.
+        Laws I, II, III, IV, IX, and XI at that layer.
 
       </section>
 
@@ -284,7 +284,7 @@ export const structuredData = {
       </section>
 
       <section id="part-a" class="standard-section">
-        <h2>Part A: The chain is a delegation (Laws I, II)</h2>
+        <h2>Part A: The chain is a delegation (Laws I, II, XI)</h2>
         <p class="standard-article-quote">
           "A decision with two authors and no holder is not shared authority.
           It is orphaned authority."
@@ -324,9 +324,11 @@ export const structuredData = {
             Expansion of a hop is a chain event: Widening a hop's scope,
             replacing a hop's provider, or adding a hop moves the head grant
             to <code>review_required</code> until the chain-level checks of
-            Parts B and D are re-run. Law XI's rule that success is not the
-            default reward for expansion applies one boundary further out
-            than the hop whose numbers improved.
+            Parts B and D are re-run. Law XI holds that successful automation
+            increases its own governance burden, and that expansion is a new
+            authorization decision rather than the default reward for success.
+            Here it applies one boundary further out than the hop whose
+            numbers improved.
           </li>
           <li>
             <span class="standard-clause-id">§1.5</span>
@@ -372,9 +374,9 @@ export const structuredData = {
           <li>
             <span class="standard-clause-id">§2.2</span>
             The unattended ceiling: A chain whose composed latency leaves no
-            measured human window MUST NOT run mode unattended. It runs
-            confirm at the chain boundary, or it is narrowed until a window
-            exists. This is the STD-08 §3.2 rule applied at the layer where
+            measured human window MUST NOT run in mode <code>unattended</code>.
+            It runs in mode <code>confirm</code> at the chain boundary, or it is
+            narrowed until a window exists. This is the STD-08 §3.2 rule applied at the layer where
             the time actually disappears.
           </li>
           <li>
@@ -480,8 +482,9 @@ export const structuredData = {
       <section id="anti-patterns" class="standard-section">
         <h2>Anti-patterns and counterfactuals</h2>
 
-        These detect chains whose hops satisfy STD-07 and STD-08 while the
-        composition satisfies nothing.
+        Four ways each hop of a chain can satisfy STD-07 and STD-08 while the
+        chain as a whole satisfies neither, what meeting the terms looks like,
+        and a caveat for each.
 
         <ul class="standard-clauses">
           {antiPatterns.map((pattern) => (
@@ -493,7 +496,7 @@ export const structuredData = {
               </span>
               <br />
               <span class="muted">
-                False-positive warning: {pattern.warning}
+                Caveat: {pattern.warning}
               </span>
             </li>
           ))}
@@ -503,6 +506,13 @@ export const structuredData = {
       <section id="publication-history" class="standard-section">
         <h2>Publication history</h2>
         <ul>
+          <li>
+            <strong>v0.2.1 (2026-10-06):</strong> Editorial revision; no
+            obligation changed. §1.4 now states Law XI correctly: expansion is
+            not the default reward for success. The scope's list of laws now
+            matches the part headings, and anti-pattern notes are labeled as
+            caveats.
+          </li>
           <li>
             <strong>v0.2 (2026-09-22):</strong> Adds two clauses on hops that
             shape a decision rather than make it. A hop that routes, ranks, or

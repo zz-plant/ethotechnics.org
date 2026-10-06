@@ -18,7 +18,7 @@ import {
   buildStandardsStructuredDataPayload,
 } from "../../content/page-data/standards-index";
 
-const lastUpdated = "2026-10-03";
+const lastUpdated = "2026-10-06";
 
 // The comparison states how long harm ran in the casebook, so the range comes
 // from the cases and moves when a case is added.
@@ -222,7 +222,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           review ceiling, and that the action type is explicitly permitted.
         </p>
         <div class="panel stack-sm">
-          <p class="eyebrow">Zero runtime re-architecture</p>
+          <p class="eyebrow">No runtime rewrite</p>
           <ul class="card__list">
             <li>
               <strong>Wrapper or middleware:</strong> Run the lease check inside your
@@ -273,18 +273,18 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         <p><strong>Articles 14, 86, and 12</strong></p>
         <ul class="card__list">
           <li>
-            <strong>Art 14 (Human Oversight):</strong> STD-08 defines operational
-            stoppability, override keys, and unpenalized human veto, rejecting nominal
-            human-in-the-loop arrangements where intervention feasibility approaches
-            zero.
+            <strong>Art 14 (human oversight):</strong> STD-08 Part C requires every
+            oversight claim to name what the human can see, prevent, and alter. An
+            approval that cannot change the outcome does not count as a control.
           </li>
           <li>
-            <strong>Art 86 (Right to Explanation):</strong> STD-02 requires causal
-            decision reasons delivered directly with the determination.
+            <strong>Art 86 (right to explanation):</strong> STD-02 Article I requires
+            the reasons for a decision with the decision, stating what it rested on.
           </li>
           <li>
-            <strong>Art 12 (Record-Keeping):</strong> STD-07 specifies tamper-evident
-            delegation and contestation logs with verified hash chains.
+            <strong>Art 12 (record-keeping):</strong> STD-07 Article V gives each
+            record a hash and chains the records in a system's stream, so a missing
+            or reordered record can be detected.
           </li>
         </ul>
       </div>
@@ -317,20 +317,22 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </div>
 
       <div class="panel stack-sm">
-        <p class="eyebrow">GDPR & Administrative Law</p>
-        <p><strong>Article 22 & Procedural Due Process</strong></p>
+        <p class="eyebrow">GDPR and administrative law</p>
+        <p><strong>Article 22 and procedural due process</strong></p>
         <ul class="card__list">
           <li>
-            <strong>GDPR Art 22 (Automated Decisions):</strong> MVC-01 provides specific
-            contestability and non-retaliatory review.
+            <strong>GDPR Art 22 (automated decisions):</strong> MVC-01 sets eight
+            commitments for contesting a decision, among them a named responder and
+            protection from retaliation.
           </li>
           <li>
-            <strong>Right to Standing:</strong> Guarantees that any party bearing
-            error-burden holds procedural standing to dispute the output.
+            <strong>Standing:</strong> STD-02 §8.4 gives standing to the parties who
+            absorb a system's errors, in proportion to their exposure.
           </li>
           <li>
-            <strong>Restitution Invariants:</strong> Reversal requires making the
-            affected person whole, not merely resetting a database flag.
+            <strong>Restitution:</strong> STD-02 Article IV requires compensation
+            without a separate claim and correction of every affected case, not only
+            a reset flag in a database.
           </li>
         </ul>
       </div>
@@ -394,7 +396,10 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         description="Under active review. Clauses may still change."
       >
         <ul class="muted small">
-          <li>At least 1 internal standards editor review.</li>
+          <li>
+            Reviewed by its author before publication. There is no separate
+            editor.
+          </li>
           <li>Core test fixtures run and pass for referenced mechanisms.</li>
           <li>Open changelog entry documenting known gaps.</li>
         </ul>
@@ -856,8 +861,8 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
       </div>
     </div>
     <p class="muted">
-      Search IDs: STD-01 v1.0, STD-02 v1.2, STD-03 v0.6, STD-01.1.1, STD-02.2.1,
-      VAL-01, VAL-02, VAL-03.
+      Search IDs: STD-01 v1.0.1, STD-02 v1.3.1, STD-03 v0.6.1, STD-01.1.1,
+      STD-02.2.1, VAL-01, VAL-02, VAL-03.
     </p>
   </SectionBlock>
 

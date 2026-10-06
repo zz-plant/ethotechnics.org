@@ -31,19 +31,21 @@ import Std02RecourseDiagram from "../../components/Std02RecourseDiagram.astro";
 export const rights = [
   {
     id: "notice",
-    title: "Notice & Reasons",
+    title: "Notice and reasons",
     summary:
-      "Every automated decision must provide specific, actionable reasons.",
+      "Every automated decision gives specific reasons, in plain language, when it is made.",
     clauses: [
       "Decision objects include reason codes, evidence sources, and scope.",
       "Reasons are written in plain language, not legalese.",
       "Reasons are available at the moment of decision, not on request.",
+      "A reason states what the decision rested on; an explanation written afterwards is labeled as an account.",
     ],
   },
   {
     id: "appeal",
-    title: "Appeal Path",
-    summary: "A clear, accessible path to challenge and reverse decisions.",
+    title: "Appeal path",
+    summary:
+      "The appeal starts from the decision and names who can reverse it.",
     clauses: [
       "Appeal intake is reachable from the decision surface.",
       "Appeal path includes a named, accountable authority.",
@@ -52,8 +54,9 @@ export const rights = [
   },
   {
     id: "review",
-    title: "Review Clock",
-    summary: "Time-bound review with enforceable deadlines.",
+    title: "Review clock",
+    summary:
+      "Review has a declared maximum duration, and expiry escalates or reverses.",
     clauses: [
       "Maximum review duration is declared and enforced.",
       "Auto-escalation triggers when the clock expires.",
@@ -62,22 +65,26 @@ export const rights = [
   },
   {
     id: "remedy",
-    title: "Remedy & Reversal",
-    summary: "Reversal restores the affected party; compensation is automatic.",
+    title: "Remedy and reversal",
+    summary:
+      "An upheld appeal reverses the decision, and wrongful harm is compensated without a separate claim.",
     clauses: [
       "Reversal is the default remedy for upheld appeals.",
-      "Compensation or fee shifting triggers on wrongful harm.",
+      "Wrongful harm triggers credits, fee waivers, or restitution.",
       "Remedy delivery is tracked and verified.",
+      "A defect in a rule, model, or notice is corrected in every affected case.",
     ],
   },
   {
     id: "evidence",
-    title: "Evidence & Accountability",
-    summary: "Decision logs, receipts, and outcomes are auditable.",
+    title: "Evidence and accountability",
+    summary:
+      "Every decision has a receipt, contested cases have an audit trail, and appeal outcomes are published.",
     clauses: [
       "Every decision emits a receipt with timestamp and owner.",
-      "Appeal outcomes log reversal rates and passage rates.",
+      "Appeal passage rates and reversal rates are published.",
       "Audit trails link decisions to evidence and reviewers.",
+      "A score the challenged party did not produce is evidence, not a bar.",
     ],
   },
 ];
@@ -89,13 +96,14 @@ export const explainerLinks = [
     href: "/explainers/contestability",
   },
   {
-    title: "Repair Log",
-    description: "Track remediation actions tied to receipts and owners.",
+    title: "Repair log",
+    description: "Remediation actions recorded against receipts and owners.",
     href: "/explainers/repair-log",
   },
   {
-    title: "Remedy Essentials",
-    description: "Eight mechanisms that keep contestability real.",
+    title: "Remedy essentials",
+    description:
+      "Eight mechanisms an appeal needs before it can change an outcome.",
     href: "/explainers/remedy-essentials",
   },
 ];
@@ -109,12 +117,12 @@ export const structuredData = {
     "A draft standard for challenging an automated decision: notice and reasons, an appeal path, a review clock, remedy and reversal, and who has standing to appeal.",
   url: "https://ethotechnics.org/standards/std-02-contestability-recourse",
   datePublished: "2026-01-01",
-  dateModified: "2026-10-03",
-  version: "1.3",
+  dateModified: "2026-10-06",
+  version: "1.3.1",
   identifier: "STD-02",
   publisher: {
     "@type": "Organization",
-    name: "Institute of Ethotechnics",
+    name: "Ethotechnics Institute",
     url: "https://ethotechnics.org",
   },
   isPartOf: {
@@ -144,15 +152,15 @@ export const structuredData = {
       </div>
       <div>
         <dt>Version</dt>
-        <dd>1.3 (Draft for Review)</dd>
+        <dd>1.3.1 (draft for review)</dd>
       </div>
       <div>
-        <dt>Effective Date</dt>
+        <dt>Effective date</dt>
         <dd>January 2026</dd>
       </div>
       <div>
         <dt>Authority</dt>
-        <dd>The Institute of Ethotechnics</dd>
+        <dd>Ethotechnics Institute</dd>
       </div>
     </dl>
   </header>
@@ -162,7 +170,7 @@ export const structuredData = {
       <section id="related-explainers" class="standard-section">
         <h2>Related explainers</h2>
 
-        Short explainers for translating the obligations for policy or product teams.
+        Short explainers that restate the obligations for policy and product teams.
 
         <div class="grid grid--two">
           {explainerLinks.map((explainer) => (
@@ -180,30 +188,31 @@ export const structuredData = {
       </section>
 
       <section id="articles" class="standard-section">
-        <h2>Article I: The Right to Notice &amp; Reasons</h2>
+        <h2>Article I: The right to notice and reasons</h2>
         <p class="standard-article-quote">
-          "No decision shall be final without specific, actionable reasons."
+          A person subject to an automated decision gets the reasons for it,
+          in plain language, when the decision is made.
         </p>
         <ol class="standard-clauses">
           <li>
             <span class="standard-clause-id">§1.1</span>
-            Decision Objects: Every automated decision must produce a decision object containing reason codes, evidence sources, and scope boundaries.
+            Decision objects: Every automated decision must produce a decision object containing reason codes, evidence sources, and scope boundaries.
           </li>
           <li>
             <span class="standard-clause-id">§1.2</span>
-            Plain Language: Reasons must be written in language a layperson can understand. Legalese and internal codes are insufficient.
+            Plain language: Reasons must be written in language a layperson can understand. Legalese and internal codes are insufficient.
           </li>
           <li>
             <span class="standard-clause-id">§1.3</span>
-            Immediate Availability: Reasons must be available at the moment of decision. Deferred explanation is not compliance.
+            Immediate availability: Reasons must be available at the moment of decision. An explanation deferred until someone asks for it does not comply.
           </li>
           <li>
             <span class="standard-clause-id">§1.4</span>
-            Reasons Belong to the Decision: A reason given under §1.1 and §1.2
+            Reasons belong to the decision: A reason given under §1.1 and §1.2
             must state what the decision actually rested on: the inputs, rule,
             policy, and threshold that produced it. An explanation written
             afterwards by a component that did not make the decision is an
-            account, not a reason. It must be labelled as one, and it does not
+            account, not a reason. It must be labeled as one, and it does not
             satisfy §1.1 or §1.2 on its own. Where the component that decided
             gives no reasons, as a classifier that returns only a score does
             not, the decision object says so and names the policy, the
@@ -215,106 +224,111 @@ export const structuredData = {
       </section>
 
       <section class="standard-section">
-        <h2>Article II: The Right to an Appeal Path</h2>
+        <h2>Article II: The right to an appeal path</h2>
         <p class="standard-article-quote">
-          "The decision surface must include the appeal entry point."
+          The appeal starts from the decision itself and reaches someone who
+          can reverse it.
         </p>
         <ol class="standard-clauses">
           <li>
             <span class="standard-clause-id">§2.1</span>
-            Accessible Intake: The appeal path must be reachable directly from the decision notification or interface.
+            Accessible intake: The appeal path must be reachable directly from the decision notification or interface.
           </li>
           <li>
             <span class="standard-clause-id">§2.2</span>
-            Named Authority: The appeal path must identify the accountable authority with reversal power.
+            Named authority: The appeal path must identify the accountable authority with reversal power.
           </li>
           <li>
             <span class="standard-clause-id">§2.3</span>
-            Binding Deadlines: Appeal deadlines must be published, time-bound, and enforced.
+            Binding deadlines: Appeal deadlines must be published, time-bound, and enforced.
           </li>
         </ol>
       </section>
 
       <section class="standard-section">
-        <h2>Article III: The Right to a Review Clock</h2>
+        <h2>Article III: The right to a review clock</h2>
         <p class="standard-article-quote">
-          "Unbounded review is a governance failure."
+          Every review has a maximum duration, and this article fixes what
+          happens to the person while it runs and when it runs out.
         </p>
         <ol class="standard-clauses">
           <li>
             <span class="standard-clause-id">§3.1</span>
-            Declared Maximum: Every review process must declare a maximum duration.
+            Declared maximum: Every review process must declare a maximum duration.
           </li>
           <li>
             <span class="standard-clause-id">§3.2</span>
-            Auto-Escalation: When the clock expires without resolution, the case must auto-escalate to a higher authority or default to reversal.
+            Auto-escalation: When the clock expires without resolution, the case must auto-escalate to a higher authority or default to reversal.
           </li>
           <li>
             <span class="standard-clause-id">§3.3</span>
-            Interim Protections: While review is pending, the affected party must receive provisional protection (continued access, status quo, safe fallback).
+            Interim protections: While review is pending, the affected party must receive provisional protection (continued access, status quo, safe fallback).
           </li>
         </ol>
       </section>
 
       <section class="standard-section">
-        <h2>Article IV: The Right to Remedy & Reversal</h2>
+        <h2>Article IV: The right to remedy and reversal</h2>
         <p class="standard-article-quote">
-          "Reversal restores; compensation acknowledges."
+          An upheld appeal reverses the decision. Wrongful harm is compensated
+          without a separate claim, and a defect in a rule reaches everyone it
+          affected.
         </p>
         <ol class="standard-clauses">
           <li>
             <span class="standard-clause-id">§4.1</span>
-            Reversal as Default: Upheld appeals result in reversal of the contested decision unless safety criteria explicitly prohibit it.
+            Reversal as default: Upheld appeals result in reversal of the contested decision unless safety criteria explicitly prohibit it.
           </li>
           <li>
             <span class="standard-clause-id">§4.2</span>
-            Automatic Compensation: Wrongful harm triggers automatic credits, fee waivers, or restitution without requiring a separate claim.
+            Automatic compensation: Wrongful harm triggers automatic credits, fee waivers, or restitution without requiring a separate claim.
           </li>
           <li>
             <span class="standard-clause-id">§4.3</span>
-            Verified Delivery: Remedy delivery is tracked with timestamps and verified by the affected party.
+            Verified delivery: Remedy delivery is tracked with timestamps and verified by the affected party.
           </li>
           <li>
             <span class="standard-clause-id">§4.4</span>
-            Scope of Remedy: Where a defect is found to arise from a rule, a model, or a notice rather than from one decision, the remedy reaches every affected case without a further claim. The institution enumerates the affected population from its own records, corrects those cases, and tells each person what was corrected. Remediation reachable only by individual appeal does not discharge the obligation.
+            Scope of remedy: Where a defect is found to arise from a rule, a model, or a notice rather than from one decision, the remedy reaches every affected case without a further claim. The institution enumerates the affected population from its own records, corrects those cases, and tells each person what was corrected. Remediation reachable only by individual appeal does not discharge the obligation.
           </li>
         </ol>
       </section>
 
       <section class="standard-section">
-        <h2>Article V: The Right to Evidence & Accountability</h2>
+        <h2>Article V: The right to evidence and accountability</h2>
         <p class="standard-article-quote">
-          "If it isn't logged, it didn't happen."
+          Every decision leaves a receipt and every contested decision leaves
+          an audit trail. Appeal outcomes are published. A score is evidence in
+          a challenge, not the answer to it.
         </p>
         <ol class="standard-clauses">
           <li>
             <span class="standard-clause-id">§5.1</span>
-            Decision Receipts: Every decision emits a receipt with timestamp, owner, and decision object reference.
+            Decision receipts: Every decision emits a receipt with timestamp, owner, and decision object reference.
           </li>
           <li>
             <span class="standard-clause-id">§5.2</span>
-            Outcome Transparency: Appeal passage rates and reversal rates are published and used to improve decisions.
+            Outcome transparency: Appeal passage rates and reversal rates are published and used to improve decisions.
           </li>
           <li>
             <span class="standard-clause-id">§5.3</span>
-            Audit Trails: Audit trails link decisions to evidence, reviewers, and outcomes for every contested case.
+            Audit trails: Audit trails link decisions to evidence, reviewers, and outcomes for every contested case.
           </li>
           <li>
             <span class="standard-clause-id">§5.4</span>
-            What a Score May Not Do: A measurement of burden, a safety-case result, an audit finding, or any other score the challenged party did not produce is evidence and not a bar. It may not dispose of an objection, and it may not be cited to establish that a person's account is unfounded. Where a score and an account conflict, the conflict goes to a named reviewer holding authority to resolve it, and the score does not travel as the default. An institution that answers a challenge with a number has answered a different question.
+            What a score may not do: A measurement of burden, a safety-case result, an audit finding, or any other score the challenged party did not produce is evidence and not a bar. It may not dispose of an objection, and it may not be cited to establish that a person's account is unfounded. Where a score and an account conflict, the conflict goes to a named reviewer holding authority to resolve it, and the score does not travel as the default. An institution that answers a challenge with a number has answered a different question.
           </li>
         </ol>
       </section>
 
       <section id="review-infrastructure" class="standard-section">
-        <h2>Article VI: The Infrastructure of Review</h2>
+        <h2>Article VI: The infrastructure of review</h2>
 
-        The right to a review that can actually happen rests on three things
-        that are easy to omit: a human who can be asked, reviewers who are not
-        punished for finding in the challenger's favor, and records that
-        survive long enough, and tamper-evidently enough, to support the
-        investigation. A review offered without these three is a route on
-        paper.
+        A review can happen only if three things exist, and each is easy to
+        omit: a human who can be asked, reviewers who are not penalized for
+        finding in the challenger's favor, and records that last long enough,
+        and resist tampering well enough, to support the investigation. A
+        review offered without all three exists only on paper.
 
         <ol class="standard-clauses">
           <li>
@@ -347,7 +361,7 @@ export const structuredData = {
       </section>
 
       <section id="liability-and-capacity" class="standard-section">
-        <h2>Article VII: Liability and Capacity</h2>
+        <h2>Article VII: Liability and capacity</h2>
 
         Deploying automation does not redeploy responsibility. Two failures
         recur: the institution pointing at the vendor's infrastructure when
@@ -386,20 +400,19 @@ export const structuredData = {
       </section>
 
       <section id="standing-mechanism" class="standard-section">
-        <h2>Article VIII: The Standing Mechanism</h2>
+        <h2>Article VIII: The standing mechanism</h2>
         <p class="standard-article-quote">
           "A channel that accepts a complaint is not standing. Standing is who
           may challenge what, answered by whom, by when, against what standard,
           with what possible outcomes."
         </p>
 
-        The politics of a system are revealed by the rights it grants at the
-        point of model failure. When a formal model inevitably collides with
-        what it cannot represent, a deployment without contestability forces
-        the error-bearing party to carry the residual complexity in silence.
-        Contestability operationalizes constitutional governance: ensuring that
-        exposure to system failure generates procedural standing to compel review
-        and state transition.
+        Every formal model meets cases it cannot represent. When it does,
+        someone carries the error. Without a route to challenge the decision,
+        they carry it in silence. This article turns exposure to a system's
+        errors into standing: the power to make a named responder review the
+        decision by a deadline, against a published standard, with a published
+        set of outcomes.
 
         Contestability requires seven things to be named together: who may
         challenge, what may be challenged, what evidence is admissible, who
@@ -422,7 +435,7 @@ export const structuredData = {
         <ol class="standard-clauses">
           <li>
             <span class="standard-clause-id">§8.1</span>
-            The Register: For each class of consequential decision, the operator
+            The register: For each class of consequential decision, the operator
             must publish a standing register entry naming
             <code>who_may_challenge</code>, <code>what_may_be_challenged</code>,
             <code>admissible_evidence</code>, <code>responder</code>,
@@ -433,7 +446,7 @@ export const structuredData = {
           </li>
           <li>
             <span class="standard-clause-id">§8.2</span>
-            The Standard of Review: The register must state what the responder
+            The standard of review: The register must state what the responder
             decides against: whether the decision followed policy, whether the
             policy was correct, whether the evidence supported the decision, or
             whether the outcome was reasonable. A responder who is not told what
@@ -442,7 +455,7 @@ export const structuredData = {
           </li>
           <li>
             <span class="standard-clause-id">§8.3</span>
-            Possible Transitions: The register must enumerate the state changes a
+            Possible transitions: The register must enumerate the state changes a
             successful challenge can produce, drawn from the same set as a
             reconsideration outcome: the decision stands, is narrowed,
             suspended, reversed, corrected, or the grant behind it is expanded
@@ -451,7 +464,7 @@ export const structuredData = {
           </li>
           <li>
             <span class="standard-clause-id">§8.4</span>
-            Error-Bearing Parties: Standing extends to the parties who absorb the
+            Error-bearing parties: Standing extends to the parties who absorb the
             system's errors. That includes the people the decision falls on and
             the operators who handle its exceptions, work its queues, and
             perform the manual repair the automation assumes. Their standing is
@@ -460,7 +473,7 @@ export const structuredData = {
           </li>
           <li>
             <span class="standard-clause-id">§8.5</span>
-            Force, Not Veto: Standing is procedural force. A party with standing
+            Force, not veto: Standing is procedural force. A party with standing
             can compel receipt, an answer within the deadline, and a decision
             against the published standard. They cannot compel the outcome. A
             challenge that must be answered but need not prevail is standing; a
@@ -469,7 +482,7 @@ export const structuredData = {
           </li>
           <li>
             <span class="standard-clause-id">§8.6</span>
-            Issue Rate Bounded by Answer Capacity: The register entry must state
+            Issue rate bounded by answer capacity: The register entry must state
             how many challenges the responder can answer within
             <code>response_deadline</code> in a period. Where the class's issue
             rate in that period, multiplied by its measured error rate, or by an
@@ -484,7 +497,7 @@ export const structuredData = {
       </section>
 
       <section id="prospective-auditability" class="standard-section">
-        <h2>Article IX: Prospective Auditability</h2>
+        <h2>Article IX: Prospective auditability</h2>
         <p class="standard-article-quote">
           "Forensic records answer what happened. A governing record answers
           whether this should still be running."
@@ -500,7 +513,7 @@ export const structuredData = {
         <ol class="standard-clauses">
           <li>
             <span class="standard-clause-id">§9.1</span>
-            Retention for Decision, Not Only Reconstruction: Records must retain
+            Retention for decision, not only reconstruction: Records must retain
             what is needed to decide whether the delegation still deserves to
             stand: the authority it ran under, the policies that authority
             rested on with their versions, the assumptions those policies
@@ -509,7 +522,7 @@ export const structuredData = {
           </li>
           <li>
             <span class="standard-clause-id">§9.2</span>
-            Answerable Without the Vendor: The retained set must be sufficient
+            Answerable without the vendor: The retained set must be sufficient
             for the operating institution to answer the standing question
             without the cooperation of the supplier of any component. A
             justification that can only be assembled by the party whose product
@@ -517,7 +530,7 @@ export const structuredData = {
           </li>
           <li>
             <span class="standard-clause-id">§9.3</span>
-            Reviewed on a Cadence: The standing question is asked on a published
+            Reviewed on a cadence: The standing question is asked on a published
             cadence, not only after an incident. The review produces a dated
             record whether or not anything changed, so that a period in which
             nobody asked is visible as such.
@@ -526,7 +539,7 @@ export const structuredData = {
       </section>
 
       <section id="depth-of-consent" class="standard-section">
-        <h2>Article X: The Depth of Consent</h2>
+        <h2>Article X: The depth of consent</h2>
         <p class="standard-article-quote">
           "Consent to enter a dependency is not consent to every degree of
           dependency its operation produces."
@@ -535,7 +548,7 @@ export const structuredData = {
         A party who adopts a system consents to the relationship as it stands
         at adoption. They cannot consent to the constraint set the system's own
         success later manufactures: data accumulates inside it, collaborators
-        organise around it, the alternatives that were live at adoption stop
+        organize around it, the alternatives that were live at adoption stop
         being maintained, and the competence needed to work without it
         atrophies. Each of those changes the terms without anyone deciding to
         change them. By the time they have all happened, "you chose this" no
@@ -552,7 +565,7 @@ export const structuredData = {
         <ol class="standard-clauses">
           <li>
             <span class="standard-clause-id">§10.1</span>
-            The Affected Set Does Not Close at Adoption: Standing MUST extend to
+            The affected set does not close at adoption: Standing MUST extend to
             parties who became affected after adoption, including those who never
             consented and those whose exposure changed materially without any new
             decision by them. Enumerating the affected parties at adoption
@@ -562,7 +575,7 @@ export const structuredData = {
           </li>
           <li>
             <span class="standard-clause-id">§10.2</span>
-            Deepened Dependence Reopens Consent: Where dependence has materially
+            Deepened dependence reopens consent: Where dependence has materially
             deepened since consent was given, the operator MUST disclose the
             change to the consenting party and MUST NOT treat the original
             consent as covering the new degree. Deepening is material when, as
@@ -582,13 +595,20 @@ export const structuredData = {
         <h2>Publication history</h2>
         <ul>
           <li>
+            <strong>v1.3.1 (2026-10-06):</strong> Editorial revision; no
+            obligation changed. The clause register above the text now matches
+            §1.1–§5.3 as written. Articles I–V open with a plain statement of
+            what they require in place of a slogan, the Article VIII preamble
+            is rewritten, and labels are in sentence case.
+          </li>
+          <li>
             <strong>v1.3 (2026-10-03):</strong> Publishes Articles VI and VII: review infrastructure, liability, and capacity (§6.1–§7.3).
           </li>
           <li>
             <strong>v1.2 (2026-09-22):</strong> Adds two clauses for decisions
             made faster and with fewer reasons than recourse assumed. A reason
             must be what the decision rested on, and an explanation written
-            afterwards by another component is labelled as an account (§1.4).
+            afterwards by another component is labeled as an account (§1.4).
             A decision class whose expected errors outrun the responder's
             capacity to answer is uncontestable in practice (§8.6).
           </li>

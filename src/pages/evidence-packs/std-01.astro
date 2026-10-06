@@ -81,8 +81,8 @@ const tiers = [
       {
         clauses.map((clause) => (
           <li id={clauseAnchor(clause.id)}>
-            <strong>{clause.id}</strong> ({clause.displayId}) —{" "}
-            {clause.obligation} when {clause.condition}.
+            <strong>{clause.id}</strong> ({clause.displayId}) — when{" "}
+            {clause.condition}, {clause.obligation}.
             <br />
             <span class="muted">
               Evidence: {clause.evidenceRequired.join(", ")}
@@ -220,7 +220,7 @@ const tiers = [
       </div>
     </div>
     <p class="muted">
-      Search IDs: STD-01 v1.0, STD-01.1.1, STD-01.5.1, AW-01, AW-02, AW-03,
+      Search IDs: STD-01 v1.0.1, STD-01.1.1, STD-01.5.1, AW-01, AW-02, AW-03,
       AW-04, VAL-01.
     </p>
   </SectionBlock>

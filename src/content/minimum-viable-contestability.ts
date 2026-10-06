@@ -21,27 +21,22 @@ type MinimumViableContestabilityContent = PageWithPermalink & {
     items: SummaryItem[];
   };
   sections: StandardSection[];
-  textOnly: {
-    title: string;
-    description: string;
-  };
 };
 
 export const minimumViableContestabilityContent: MinimumViableContestabilityContent =
   {
     pageTitle: "Minimum viable contestability standard",
     pageDescription:
-      "A one-page baseline for challenging an automated decision: who has standing, the reasons owed, records, timelines, remedies, and protection from retaliation.",
+      "Eight commitments for challenging an automated decision: standing, reasons, records, timelines, a named responder, defined effects, remedies, and no retaliation.",
     permalink: "/standards/minimum-viable-contestability",
     anchorLinks: [
       { href: "#summary", label: "One-screen summary" },
       { href: "#standard", label: "Baseline requirements" },
-      { href: "#text", label: "Text-only version" },
     ],
     summary: {
       title: "Minimum viable contestability standard",
       description:
-        "Eight baseline commitments that make contestability real and safe to use.",
+        "The eight commitments, one line each. The requirements and the evidence for each follow below.",
       items: [
         {
           title: "Standing",
@@ -76,7 +71,7 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
         {
           title: "Remedies",
           description:
-            "Reversal, correction, or compensation is reachable and trackable.",
+            "A person can reach reversal, correction, or compensation, and see when it was delivered.",
         },
         {
           title: "Non-retaliation",
@@ -185,7 +180,8 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
       {
         id: "remedies",
         title: "Remedies (reversal and repair)",
-        summary: "Reversal, correction, or compensation is real and reachable.",
+        summary:
+          "A person can reach reversal, correction, or compensation, and can see when it was delivered.",
         requirements: [
           "Offer a clear path to reversal or correction.",
           "List any compensation or remedy options.",
@@ -205,7 +201,7 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
         requirements: [
           "State a no-retaliation guarantee in the contest flow.",
           "Prohibit increased friction, fees, or access loss after filing.",
-          "Track any adverse impacts and remediate immediately.",
+          "Track any adverse treatment of people who filed, and reverse it as soon as it is found.",
         ],
         evidence: [
           "Non-retaliation policy statement.",
@@ -214,9 +210,4 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
         ],
       },
     ],
-    textOnly: {
-      title: "Text-only version",
-      description:
-        "Copy this version into briefs, audits, or escalation notes without formatting.",
-    },
   };

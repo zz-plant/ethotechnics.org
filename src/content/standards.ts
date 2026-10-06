@@ -85,9 +85,15 @@ export const standardsContent: StandardsContent = {
       description:
         "Seven rights that protect a person's time from automated systems: to stop a process, to exit, to a bounded wait, to reversal, to wait without coercion, to reach a human, and to see the burden.",
       status: "Draft",
-      version: "1.0",
+      version: "1.0.1",
       changelogHref: "/standards/std-01-temporal-rights",
       changelogEntries: [
+        {
+          version: "1.0.1",
+          date: "2026-10-06",
+          summary:
+            'Editorial revision. Article VI is retitled the right to reach a human, to match what it grants. §1.2 now holds the paused state for the duration declared under §3.1 in place of a "reasonable duration". Requirement wording uses must and must not throughout, and the register for §7.2 now matches the text.',
+        },
         {
           version: "1.0",
           date: "2026-01-01",
@@ -104,12 +110,18 @@ export const standardsContent: StandardsContent = {
       slug: "std-02-contestability-recourse",
       title: "The Contestability & Recourse Standard",
       description:
-        "Defines contestability, review, and remedy obligations for consequential systems.",
+        "How a person challenges an automated decision: the reasons they are owed, an appeal path, a review clock, remedy, and who has standing to appeal.",
       status: "Draft",
-      version: "1.3",
+      version: "1.3.1",
       changelogHref:
         "/standards/std-02-contestability-recourse#publication-history",
       changelogEntries: [
+        {
+          version: "1.3.1",
+          date: "2026-10-06",
+          summary:
+            "Editorial revision; no obligation changed. The clause register now matches §1.1–§5.3 as written, and Articles I–V open with a plain statement in place of a slogan.",
+        },
         {
           version: "1.3",
           date: "2026-10-03",
@@ -120,7 +132,7 @@ export const standardsContent: StandardsContent = {
           version: "1.2",
           date: "2026-09-22",
           summary:
-            "Adds reasons that belong to the decision, with explanations written afterwards labelled as accounts (§1.4), and bounds a decision class's issue rate by the responder's capacity to answer (§8.6).",
+            "Adds reasons that belong to the decision, with explanations written afterwards labeled as accounts (§1.4), and bounds a decision class's issue rate by the responder's capacity to answer (§8.6).",
         },
         {
           version: "1.1",
@@ -150,12 +162,12 @@ export const standardsContent: StandardsContent = {
       slug: "minimum-viable-contestability",
       title: "Minimum viable contestability standard",
       description:
-        "A one-page baseline for standing, reasons, records, timelines, remedies, and non-retaliation.",
+        "A one-page baseline of eight commitments: standing, reasons, records, timelines, a named responder and standard of review, defined effects, remedies, and non-retaliation.",
       // Marked Stable at publication, but none of its stable criteria was ever
       // recorded as met, which the status model requires. Draft until they are.
       status: "Draft",
-      version: "1.0",
-      changelogHref: "/standards/minimum-viable-contestability#text",
+      version: "1.0.1",
+      changelogHref: "/standards/minimum-viable-contestability",
       changelogEntries: [
         {
           version: "1.0",
@@ -169,6 +181,12 @@ export const standardsContent: StandardsContent = {
           summary:
             "Status corrected to Draft. No production deployment report, audit template validation, or approval decision has been recorded. The text is unchanged.",
         },
+        {
+          version: "1.0.1",
+          date: "2026-10-06",
+          summary:
+            "Editorial revision; no requirement changed. The description names all eight commitments, and the duplicate text-only version of the page is removed.",
+        },
       ],
       stableCriteria:
         "Requires one production deployment report, audit template validation, and a decision recorded through the RFC process.",
@@ -180,11 +198,11 @@ export const standardsContent: StandardsContent = {
       slug: "pm-01-failure-postmortem-template",
       title: "Institutional Failure Postmortem Template",
       description:
-        "A one-page postmortem template grounded in clocks, reversibility, burden allocation, and repair paths.",
+        "A one-page postmortem template: how long the harm ran, whether it could be reversed, who carried the burden, and how it was repaired.",
       // Same correction as MVC-01: stable on release, with no record of the
       // three retrospectives its criteria ask for.
       status: "Draft",
-      version: "1.0",
+      version: "1.0.1",
       changelogHref: "/standards/pm-01-failure-postmortem-template",
       changelogEntries: [
         {
@@ -199,6 +217,12 @@ export const standardsContent: StandardsContent = {
           summary:
             "Status corrected to Draft. No use in three incident retrospectives with governance sign-off has been recorded. The text is unchanged.",
         },
+        {
+          version: "1.0.1",
+          date: "2026-10-06",
+          summary:
+            "Publisher name corrected to Ethotechnics Institute. The template is unchanged.",
+        },
       ],
       stableCriteria:
         "Requires use in three incident retrospectives with documented governance sign-off.",
@@ -210,11 +234,17 @@ export const standardsContent: StandardsContent = {
       slug: "std-03-justice-slos",
       title: "Justice SLOs (Targets, Budgets, and Breach Actions)",
       description:
-        "Defines targets, budgets, and breach actions for justice metrics.",
+        "Each justice metric, such as time-to-halt, gets a target, a measurement window, a breach action set in advance, and a named owner.",
       status: "Draft",
-      version: "0.6",
+      version: "0.6.1",
       changelogHref: "/standards/std-03-justice-slos",
       changelogEntries: [
+        {
+          version: "0.6.1",
+          date: "2026-10-06",
+          summary:
+            "Editorial revision: the page uses one name, justice SLO, throughout, and defines each metric. No requirement changed.",
+        },
         {
           version: "0.6",
           date: "2026-01-01",
@@ -285,12 +315,18 @@ export const standardsContent: StandardsContent = {
       slug: "std-06-human-impact-safety-case",
       title: "Human Impact Safety Case",
       description:
-        "Standard tests, thresholds, and evidence artifacts that define a do-not-deploy safety case for human impact.",
+        "A safety case for human impact: a standard set of tests with thresholds declared in advance, the evidence each produces, and the limits past which a system does not deploy.",
       status: "Draft",
-      version: "0.6",
+      version: "0.6.1",
       changelogHref:
         "/standards/std-06-human-impact-safety-case#publication-history",
       changelogEntries: [
+        {
+          version: "0.6.1",
+          date: "2026-10-06",
+          summary:
+            "Publisher name corrected to Ethotechnics Institute. No clause changed.",
+        },
         {
           version: "0.6",
           date: "2026-09-11",
@@ -322,10 +358,16 @@ export const standardsContent: StandardsContent = {
       description:
         "One append-only record shape for what an institution believed, could do, authorized, did, saw diverge, and revised.",
       status: "Draft",
-      version: "0.1",
+      version: "0.1.1",
       changelogHref:
         "/standards/std-07-revisable-delegation-record#conformance",
       changelogEntries: [
+        {
+          version: "0.1.1",
+          date: "2026-10-06",
+          summary:
+            "Publisher name corrected to Ethotechnics Institute. No clause changed.",
+        },
         {
           version: "0.1",
           date: "2026-09-06",
@@ -345,9 +387,15 @@ export const standardsContent: StandardsContent = {
       description:
         "What must stay true while an automated system acts for an institution: its authority expires unless renewed, the policies behind it are rechecked when facts change, human oversight names what the human can actually change, and the capacity to correct errors grows with the authority granted.",
       status: "Draft",
-      version: "0.3",
+      version: "0.3.1",
       changelogHref: "/standards/std-08-delegation#relationship-to-std-07",
       changelogEntries: [
+        {
+          version: "0.3.1",
+          date: "2026-10-06",
+          summary:
+            "Editorial revision. §3.5 now says the operator sets and publishes the approval-rate and reading-time thresholds it applies; no number is added. §4.5 no longer restates the seven components of §4.1, and anti-pattern notes are labeled as caveats.",
+        },
         {
           version: "0.3",
           date: "2026-09-22",
@@ -379,9 +427,15 @@ export const standardsContent: StandardsContent = {
       description:
         "What must hold when a consequential decision passes through a chain of agents and services that no single person oversees: the whole chain is treated as one delegation, delays add up across it, and it can correct errors only as well as its weakest link.",
       status: "Draft",
-      version: "0.2",
+      version: "0.2.1",
       changelogHref: "/standards/std-09-agent-chains#publication-history",
       changelogEntries: [
+        {
+          version: "0.2.1",
+          date: "2026-10-06",
+          summary:
+            "Editorial revision; no obligation changed. §1.4 now states Law XI correctly, the scope's list of laws matches the part headings, and anti-pattern notes are labeled as caveats.",
+        },
         {
           version: "0.2",
           date: "2026-09-22",
@@ -494,7 +548,7 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§1.1",
       type: "right",
       requirementLevel: "MUST",
-      condition: "active automated process is in progress",
+      condition: "an automated process is in progress",
       obligation: "provide a visible, universally accessible halt control",
       evidenceRequired: ["ui_control", "event_log"],
       timeBound: "immediate",
@@ -508,9 +562,11 @@ export const standardClauses: Record<string, StandardClause[]> = {
       type: "right",
       requirementLevel: "MUST",
       condition: "a process is halted by the user",
-      obligation: "preserve the paused state for return without penalty",
+      obligation:
+        "save the paused state so the user can return without penalty; never destroy data as a penalty for halting",
       evidenceRequired: ["state_snapshot", "retention_policy"],
-      timeBound: "reasonable duration",
+      timeBound:
+        "for the maximum duration declared for the paused state under §3.1",
       relatedMechanisms: ["MEC-02"],
       relatedValidators: ["VAL-01"],
     },
@@ -520,7 +576,7 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§1.3",
       type: "right",
       requirementLevel: "MUST",
-      condition: "user is in a multi-step flow",
+      condition: "a user is in a multi-step flow",
       obligation: "offer a permanent exit option on every screen",
       evidenceRequired: ["ui_state", "interaction_map"],
       timeBound: "continuous",
@@ -533,7 +589,7 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§2.1",
       type: "right",
       requirementLevel: "MUST",
-      condition: "user seeks to end a relationship with a system",
+      condition: "a user seeks to end their relationship with a system",
       obligation: "allow exit with equal or less friction than entry",
       evidenceRequired: ["journey_map", "time_cost_log"],
       timeBound: "on demand",
@@ -547,7 +603,7 @@ export const standardClauses: Record<string, StandardClause[]> = {
       type: "right",
       requirementLevel: "MUST",
       condition: "entry required a single step",
-      obligation: "exit requires no more than one step",
+      obligation: "require no more than one step to exit",
       evidenceRequired: ["journey_map", "ui_state"],
       timeBound: "on demand",
       relatedMechanisms: ["MEC-02"],
@@ -559,8 +615,9 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§2.3",
       type: "right",
       requirementLevel: "MUST",
-      condition: "user initiates resignation or cancellation",
-      obligation: "avoid mandatory retention scripts before exit",
+      condition: "a user starts to cancel or leave",
+      obligation:
+        "do not require retention flows, exit surveys, or confirmations of loss before exit",
       evidenceRequired: ["journey_map", "policy"],
       timeBound: "on demand",
       relatedMechanisms: ["MEC-02"],
@@ -572,8 +629,8 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§3.1",
       type: "right",
       requirementLevel: "MUST",
-      condition: "process includes pending, processing, or review states",
-      obligation: "set hard clocks for each state",
+      condition: "a process has pending, processing, or review states",
+      obligation: "define a maximum duration for each state",
       evidenceRequired: ["system_sla", "event_log"],
       timeBound: "state-specific",
       relatedMechanisms: ["MEC-04"],
@@ -585,8 +642,8 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§3.2",
       type: "right",
       requirementLevel: "MUST",
-      condition: "timeout threshold is reached",
-      obligation: "provide a failure response or human escalation",
+      condition: "a request is not resolved within its declared timeframe",
+      obligation: "default to a failure state or to human escalation",
       evidenceRequired: ["escalation_policy", "event_log"],
       timeBound: "at timeout",
       relatedMechanisms: ["MEC-04", "MEC-06"],
@@ -598,8 +655,9 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§3.3",
       type: "right",
       requirementLevel: "MUST",
-      condition: "user is asked to commit to a process",
-      obligation: "declare expected duration before commitment",
+      condition: "a user is asked to commit to a process",
+      obligation:
+        "declare the estimated time to completion before the user commits",
       evidenceRequired: ["ui_copy", "journey_map"],
       timeBound: "pre-commitment",
       relatedMechanisms: ["MEC-04"],
@@ -611,8 +669,10 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§4.1",
       type: "right",
       requirementLevel: "MUST",
-      condition: "user performs a consequential action",
-      obligation: "provide an undo window for reversals",
+      condition:
+        "a user takes an action with consequential effects, such as deletion, transfer, or publication",
+      obligation:
+        "provide a grace period in which the action can be reversed without administrative intervention",
       evidenceRequired: ["ui_state", "policy"],
       timeBound: "defined window",
       relatedMechanisms: ["MEC-02"],
@@ -624,8 +684,9 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§4.2",
       type: "right",
       requirementLevel: "MUST",
-      condition: "system deletes or removes content",
-      obligation: "use non-destructive defaults with soft-delete",
+      condition: "a system removes user data",
+      obligation:
+        "archive it by default (soft delete); never destroy it permanently on a single input",
       evidenceRequired: ["data_retention_policy", "event_log"],
       timeBound: "default behavior",
       relatedMechanisms: ["MEC-02"],
@@ -637,8 +698,9 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§5.1",
       type: "right",
       requirementLevel: "MUST",
-      condition: "user is waiting in a queue or hold state",
-      obligation: "show queue position and expected wait time",
+      condition: "a user is placed in a waiting state",
+      obligation:
+        "show accurate, real-time queue position and expected wait time",
       evidenceRequired: ["ui_state", "queue_metrics"],
       timeBound: "continuous",
       relatedMechanisms: ["MEC-04"],
@@ -650,8 +712,9 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§5.2",
       type: "right",
       requirementLevel: "MUST",
-      condition: "system reports progress or waiting status",
-      obligation: "avoid fake progress indicators or placebo signals",
+      condition: "a system shows progress or waiting status",
+      obligation:
+        "do not use fake progress bars, placebo buttons, or looping animations to simulate activity while idle or stalled",
       evidenceRequired: ["ui_state", "event_log"],
       timeBound: "continuous",
       relatedMechanisms: ["MEC-01"],
@@ -663,8 +726,9 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§5.3",
       type: "right",
       requirementLevel: "MUST",
-      condition: "wait time exceeds five minutes",
-      obligation: "offer asynchronous options",
+      condition: "a wait exceeds five minutes",
+      obligation:
+        "offer a callback or notification so the user need not hold an active connection",
       evidenceRequired: ["ui_state", "journey_map"],
       timeBound: "five minutes",
       relatedMechanisms: ["MEC-04"],
@@ -691,8 +755,9 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§6.1",
       type: "right",
       requirementLevel: "MUST",
-      condition: "automated denial or escalation request occurs",
-      obligation: "provide a defined escalation path to a human",
+      condition:
+        "an automated decision denies a user access, service, or property",
+      obligation: "provide a clearly defined path to appeal to a human agent",
       evidenceRequired: ["policy", "support_workflow"],
       timeBound: "on request",
       relatedMechanisms: ["MEC-06"],
@@ -704,8 +769,9 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§6.2",
       type: "right",
       requirementLevel: "MUST",
-      condition: "automation impacts a user outcome",
-      obligation: "operating institution accepts liability",
+      condition: "an automated agent errs or delays",
+      obligation:
+        "accept full liability as the operating institution; algorithmic error is not a defense",
       evidenceRequired: ["policy", "governance_record"],
       timeBound: "ongoing",
       relatedMechanisms: ["MEC-01"],
@@ -717,8 +783,8 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§7.1",
       type: "right",
       requirementLevel: "MUST",
-      condition: "system imposes compliance or usage burden",
-      obligation: "measure and publish the time tax",
+      condition: "a system imposes a compliance or usage burden on the public",
+      obligation: "measure and publish the time tax it imposes",
       evidenceRequired: ["burden_report", "time_cost_log"],
       timeBound: "scheduled reporting",
       relatedMechanisms: ["MEC-01"],
@@ -730,10 +796,11 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§7.2",
       type: "right",
       requirementLevel: "MUST",
-      condition: "governance metrics are tracked",
-      obligation: "include burden as a reportable metric",
-      evidenceRequired: ["governance_dashboard"],
-      timeBound: "ongoing",
+      condition: "a major system update is made",
+      obligation:
+        "audit it to confirm it does not increase the cognitive load or time required for existing tasks",
+      evidenceRequired: ["burden_impact_statement", "time_cost_log"],
+      timeBound: "at each major update",
       relatedMechanisms: ["MEC-01"],
       relatedValidators: ["VAL-01"],
     },
@@ -745,10 +812,11 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§1.1",
       type: "obligation",
       requirementLevel: "MUST",
-      condition: "automation materially affects a person",
-      obligation: "disclose that automated decisioning occurred",
-      evidenceRequired: ["ui_notice", "policy"],
-      timeBound: "at impact",
+      condition: "an automated decision is made",
+      obligation:
+        "produce a decision object containing reason codes, evidence sources, and scope boundaries",
+      evidenceRequired: ["decision_object", "decision_log"],
+      timeBound: "at the moment of decision",
       relatedMechanisms: ["MEC-01"],
       relatedValidators: [],
     },
@@ -758,10 +826,11 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§1.2",
       type: "obligation",
       requirementLevel: "MUST",
-      condition: "automation changes status, access, or resources",
-      obligation: "state what changed and why it matters",
-      evidenceRequired: ["ui_notice", "decision_log"],
-      timeBound: "at impact",
+      condition: "reasons are given to the person a decision affects",
+      obligation:
+        "write them in language a layperson can understand; legalese and internal codes are insufficient",
+      evidenceRequired: ["ui_notice", "decision_object"],
+      timeBound: "at the moment of decision",
       relatedMechanisms: ["MEC-01"],
       relatedValidators: [],
     },
@@ -771,11 +840,12 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§1.3",
       type: "obligation",
       requirementLevel: "MUST",
-      condition: "person receives an adverse or consequential outcome",
-      obligation: "provide a review/appeal path with timelines",
-      evidenceRequired: ["appeal_policy", "ui_copy"],
-      timeBound: "immediate",
-      relatedMechanisms: ["MEC-06"],
+      condition: "an automated decision is made",
+      obligation:
+        "make its reasons available at the moment of decision; an explanation deferred until requested does not comply",
+      evidenceRequired: ["ui_notice", "decision_log"],
+      timeBound: "at the moment of decision",
+      relatedMechanisms: ["MEC-01"],
       relatedValidators: [],
     },
     {
@@ -808,11 +878,12 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§2.1",
       type: "obligation",
       requirementLevel: "MUST",
-      condition: "system takes an action or decision",
-      obligation: "maintain a record of tool calls and state changes",
-      evidenceRequired: ["action_log", "audit_trail"],
-      timeBound: "continuous",
-      relatedMechanisms: ["MEC-01"],
+      condition: "a decision is sent or shown to the person it affects",
+      obligation:
+        "make the appeal path reachable directly from the decision notification or interface",
+      evidenceRequired: ["ui_state", "journey_map"],
+      timeBound: "at the moment of decision",
+      relatedMechanisms: ["MEC-06"],
       relatedValidators: [],
     },
     {
@@ -821,11 +892,11 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§2.2",
       type: "obligation",
       requirementLevel: "MUST",
-      condition: "receipt is generated for an action",
-      obligation: "include reason codes and key inputs (redacted as needed)",
-      evidenceRequired: ["receipt_template", "policy"],
-      timeBound: "at action",
-      relatedMechanisms: ["MEC-01"],
+      condition: "an appeal path is offered",
+      obligation: "name the accountable authority that holds reversal power",
+      evidenceRequired: ["appeal_policy", "authority_matrix"],
+      timeBound: "published with the appeal path",
+      relatedMechanisms: ["MEC-06"],
       relatedValidators: [],
     },
     {
@@ -834,11 +905,12 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§2.3",
       type: "obligation",
       requirementLevel: "MUST",
-      condition: "receipt is issued",
-      obligation: "identify accountable operator and contact channel",
-      evidenceRequired: ["receipt_template", "contact_directory"],
-      timeBound: "at action",
-      relatedMechanisms: ["MEC-01"],
+      condition: "an appeal path is offered",
+      obligation:
+        "publish appeal deadlines, bound them in time, and enforce them",
+      evidenceRequired: ["sla_doc", "ui_copy", "event_log"],
+      timeBound: "published with the appeal path",
+      relatedMechanisms: ["MEC-04", "MEC-06"],
       relatedValidators: [],
     },
     {
@@ -847,11 +919,11 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§3.1",
       type: "obligation",
       requirementLevel: "MUST",
-      condition: "person is materially affected",
-      obligation: "grant standing regardless of status or credentials",
-      evidenceRequired: ["policy", "appeal_workflow"],
-      timeBound: "on request",
-      relatedMechanisms: ["MEC-06"],
+      condition: "a decision can be reviewed",
+      obligation: "declare the maximum duration of the review",
+      evidenceRequired: ["sla_doc", "review_policy"],
+      timeBound: "published before review begins",
+      relatedMechanisms: ["MEC-04"],
       relatedValidators: [],
     },
     {
@@ -860,11 +932,12 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§3.2",
       type: "obligation",
       requirementLevel: "MUST",
-      condition: "a contestation is filed",
-      obligation: "avoid retaliation or punitive impacts",
-      evidenceRequired: ["policy", "case_log"],
-      timeBound: "ongoing",
-      relatedMechanisms: ["MEC-06"],
+      condition: "the review clock expires without a resolution",
+      obligation:
+        "escalate the case automatically to a higher authority, or default to reversal",
+      evidenceRequired: ["escalation_policy", "event_log"],
+      timeBound: "at clock expiry",
+      relatedMechanisms: ["MEC-04", "MEC-06"],
       relatedValidators: [],
     },
     {
@@ -873,10 +946,11 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§3.3",
       type: "obligation",
       requirementLevel: "MUST",
-      condition: "decision is delivered via a channel",
-      obligation: "offer contestation in the same channel",
-      evidenceRequired: ["ui_state", "journey_map"],
-      timeBound: "immediate",
+      condition: "a review is pending",
+      obligation:
+        "give the affected party provisional protection: continued access, the status quo, or a safe fallback",
+      evidenceRequired: ["interim_protection_policy", "case_log"],
+      timeBound: "until the review is resolved",
       relatedMechanisms: ["MEC-06"],
       relatedValidators: [],
     },
@@ -886,11 +960,12 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§4.1",
       type: "obligation",
       requirementLevel: "MUST",
-      condition: "appeals are accepted",
-      obligation: "publish timelines for acknowledgment, review, resolution",
-      evidenceRequired: ["sla_doc", "ui_copy"],
-      timeBound: "published",
-      relatedMechanisms: ["MEC-01"],
+      condition: "an appeal is upheld",
+      obligation:
+        "reverse the contested decision unless safety criteria explicitly prohibit it",
+      evidenceRequired: ["appeal_outcome_log", "remedy_policy"],
+      timeBound: "when the appeal is upheld",
+      relatedMechanisms: ["MEC-10"],
       relatedValidators: [],
     },
     {
@@ -899,11 +974,12 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§4.2",
       type: "obligation",
       requirementLevel: "MUST",
-      condition: "review concerns high-stakes domains",
-      obligation: "provide transparent status updates and expected resolution",
-      evidenceRequired: ["status_updates", "queue_metrics"],
-      timeBound: "continuous",
-      relatedMechanisms: ["MEC-01"],
+      condition: "a decision causes wrongful harm",
+      obligation:
+        "issue credits, fee waivers, or restitution automatically, without requiring a separate claim",
+      evidenceRequired: ["remedy_policy", "remediation_log"],
+      timeBound: "on the finding of wrongful harm",
+      relatedMechanisms: ["MEC-06"],
       relatedValidators: [],
     },
     {
@@ -912,11 +988,12 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§4.3",
       type: "obligation",
       requirementLevel: "MUST",
-      condition: "review deadlines are missed",
-      obligation: "escalate to higher-authority or trigger failsafe remedy",
-      evidenceRequired: ["escalation_policy", "event_log"],
-      timeBound: "at deadline breach",
-      relatedMechanisms: ["MEC-06"],
+      condition: "a remedy is delivered",
+      obligation:
+        "record delivery with timestamps and have the affected party verify it",
+      evidenceRequired: ["remediation_log", "case_log"],
+      timeBound: "at delivery",
+      relatedMechanisms: ["MEC-01"],
       relatedValidators: [],
     },
     {
@@ -944,11 +1021,12 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§5.1",
       type: "obligation",
       requirementLevel: "MUST",
-      condition: "harm is reversible",
-      obligation: "support undo/rollback without extraordinary effort",
-      evidenceRequired: ["remedy_policy", "ui_state"],
-      timeBound: "on request",
-      relatedMechanisms: ["MEC-06"],
+      condition: "a decision is made",
+      obligation:
+        "emit a receipt with a timestamp, the owner, and a reference to the decision object",
+      evidenceRequired: ["receipt_template", "decision_log"],
+      timeBound: "at the moment of decision",
+      relatedMechanisms: ["MEC-01"],
       relatedValidators: [],
     },
     {
@@ -957,11 +1035,12 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§5.2",
       type: "obligation",
       requirementLevel: "MUST",
-      condition: "harm is irreversible",
-      obligation: "provide a defined compensation pathway",
-      evidenceRequired: ["remedy_policy", "case_log"],
-      timeBound: "on request",
-      relatedMechanisms: ["MEC-06"],
+      condition: "appeals are decided",
+      obligation:
+        "publish appeal passage rates and reversal rates, and use them to improve decisions",
+      evidenceRequired: ["appeal_outcome_log", "published_metrics"],
+      timeBound: "ongoing",
+      relatedMechanisms: ["MEC-01"],
       relatedValidators: [],
     },
     {
@@ -970,11 +1049,12 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§5.3",
       type: "obligation",
       requirementLevel: "MUST",
-      condition: "remedy is issued",
-      obligation: "assign authority to named humans",
-      evidenceRequired: ["org_chart", "authority_matrix"],
-      timeBound: "ongoing",
-      relatedMechanisms: ["MEC-01"],
+      condition: "a decision is contested",
+      obligation:
+        "keep an audit trail linking the decision to its evidence, reviewers, and outcome",
+      evidenceRequired: ["audit_trail", "case_log"],
+      timeBound: "for every contested case",
+      relatedMechanisms: ["MEC-01", "MEC-10"],
       relatedValidators: [],
     },
     {
@@ -1002,8 +1082,10 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§6.1",
       type: "obligation",
       requirementLevel: "MUST",
-      condition: "automated denial or action occurs",
-      obligation: "offer human review on request",
+      condition:
+        "an automated system denies a claim or takes a consequential action",
+      obligation:
+        "offer human review on request, with no new evidence, additional form, or stated reason required",
       evidenceRequired: ["review_policy", "support_workflow"],
       timeBound: "on request",
       relatedMechanisms: ["MEC-06"],
@@ -1016,7 +1098,8 @@ export const standardClauses: Record<string, StandardClause[]> = {
       type: "obligation",
       requirementLevel: "MUST",
       condition: "reviewers are evaluated",
-      obligation: "avoid incentives that bias against remedies",
+      obligation:
+        "do not reward upheld denials, closure speed, or any other metric that biases against remedies; disclose the evaluation policy",
       evidenceRequired: ["performance_policy", "incentive_plan"],
       timeBound: "ongoing",
       relatedMechanisms: ["MEC-01"],
@@ -1029,7 +1112,8 @@ export const standardClauses: Record<string, StandardClause[]> = {
       type: "obligation",
       requirementLevel: "MUST",
       condition: "logs support review or redress",
-      obligation: "retain tamper-evident records long enough for investigation",
+      obligation:
+        "retain them, tamper-evident, for at least the full review and appeal period plus the limitation window",
       evidenceRequired: ["audit_trail", "retention_policy"],
       timeBound: "retention term",
       relatedMechanisms: ["MEC-01"],
@@ -1041,8 +1125,9 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§7.1",
       type: "obligation",
       requirementLevel: "MUST",
-      condition: "automation causes errors or latency",
-      obligation: "operator accepts liability for harms",
+      condition: "automation causes an error or a delay",
+      obligation:
+        "accept liability for the resulting harm as the operating institution",
       evidenceRequired: ["policy", "governance_record"],
       timeBound: "ongoing",
       relatedMechanisms: ["MEC-01"],
@@ -1054,8 +1139,9 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§7.2",
       type: "obligation",
       requirementLevel: "MUST",
-      condition: "vendors manage logs or controls",
-      obligation: "operators still guarantee access and remedy",
+      condition: "a vendor operates the logs, the models, or the controls",
+      obligation:
+        "still guarantee the affected person's access and remedy as the operating institution",
       evidenceRequired: ["vendor_contract", "access_policy"],
       timeBound: "ongoing",
       relatedMechanisms: ["MEC-01"],
@@ -1067,8 +1153,9 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§7.3",
       type: "obligation",
       requirementLevel: "MUST",
-      condition: "automation throughput increases",
-      obligation: "fund review capacity proportional to actions",
+      condition: "automation increases the throughput of decisions",
+      obligation:
+        "fund review capacity in proportion to the actions taken, and include the capacity plan in the deployment's evidence",
       evidenceRequired: ["capacity_plan", "case_volume_metrics"],
       timeBound: "ongoing",
       relatedMechanisms: ["MEC-01"],
@@ -1472,6 +1559,24 @@ export const standardClauses: Record<string, StandardClause[]> = {
       relatedValidators: [],
     },
     {
+      id: "STD-06.3.2",
+      standardId: "STD-06",
+      displayId: "§3.2",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition: "an artifact is presented as current",
+      obligation:
+        "carry the date it was last refreshed and report a stale artifact as stale rather than current",
+      evidenceRequired: ["artifact.refreshed_at", "staleness_flag"],
+      timeBound: "at each case refresh",
+      failureModes: [
+        "stale artifact presented with no date",
+        "refresh date present but never compared against the decision it supports",
+      ],
+      relatedMechanisms: [],
+      relatedValidators: [],
+    },
+    {
       id: "STD-06.3.3",
       standardId: "STD-06",
       displayId: "§3.3",
@@ -1488,24 +1593,6 @@ export const standardClauses: Record<string, StandardClause[]> = {
       ],
       timeBound: "at each occurrence",
       relatedMechanisms: ["MEC-24"],
-      relatedValidators: [],
-    },
-    {
-      id: "STD-06.3.2",
-      standardId: "STD-06",
-      displayId: "§3.2",
-      type: "obligation",
-      requirementLevel: "MUST",
-      condition: "an artifact is presented as current",
-      obligation:
-        "carry the date it was last refreshed and report a stale artifact as stale rather than current",
-      evidenceRequired: ["artifact.refreshed_at", "staleness_flag"],
-      timeBound: "at each case refresh",
-      failureModes: [
-        "stale artifact presented with no date",
-        "refresh date present but never compared against the decision it supports",
-      ],
-      relatedMechanisms: [],
       relatedValidators: [],
     },
     {
@@ -2182,7 +2269,7 @@ export const standardClauses: Record<string, StandardClause[]> = {
       condition:
         "a threshold, cut-off, or confidence floor decides whether an action runs unattended, goes to a person, or is refused",
       obligation:
-        "hold the threshold as a policy record whose assumptions name the labelled cases it was set against, the pinned model version and question schema including option order, and the error it trades, with review triggers on any change to them",
+        "hold the threshold as a policy record whose assumptions name the labeled cases it was set against, the pinned model version and question schema including option order, and the error it trades, with review triggers on any change to them",
       evidenceRequired: [
         "policy_record.assumptions",
         "policy_record.review_triggers",
@@ -2326,7 +2413,7 @@ export const standardClauses: Record<string, StandardClause[]> = {
       type: "obligation",
       requirementLevel: "MUST",
       condition:
-        "approval rates sit at or near unanimity, or median approval time is too short for the information named to have been read",
+        "approval rates sit at or near unanimity, or median approval time is too short for the information named to have been read, against thresholds the operator publishes with the specification before the review period",
       obligation:
         "open a reconsideration of the intervention specification; the finding is about the control, not the reviewer",
       evidenceRequired: [

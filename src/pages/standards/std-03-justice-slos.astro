@@ -21,67 +21,72 @@ const standardFields = [
   {
     title: "Metric",
     description:
-      "Define the justice metric (TTR, TTH, Appeal Passage Rate, User Burden Ratio, Irreversibility Index).",
+      "The justice metric the objective covers: time-to-restore, time-to-halt, appeal passage rate, user burden ratio, or irreversibility index.",
   },
   {
     title: "Target, budget, or ceiling",
     description:
-      "Set the numeric threshold by harm class or workflow class (target, budget, or ceiling).",
+      "The numeric threshold, set for each harm class or workflow class.",
   },
   {
     title: "Measurement window",
     description:
-      "Specify the window and statistic (for example, weekly p95 or rolling 30-day p99).",
+      "The window and the statistic, for example weekly p95 or rolling 30-day p99.",
   },
   {
     title: "Breach action",
     description:
-      "Define the required breach behavior (safe pause, circuit breaker, rollback lane activation, staffing trigger).",
+      "What happens when the threshold is missed: a safe pause, a circuit breaker, a rollback lane, or added staff.",
   },
   {
     title: "Owner",
-    description: "Name the accountable owner who can pause or remediate.",
+    description:
+      "The named person accountable for the objective, who can pause the workflow or order the remedy.",
   },
   {
     title: "Public surface",
     description:
-      "Publish time transparency plus decision artifacts that show the metric and response.",
+      "Where the public can see the metric, any breach, and what was done about it.",
   },
 ];
 
 const metricLinks = [
   {
-    title: "Time-to-Restore (TTR)",
-    description: "Restoration speed for reversing harm.",
+    title: "Time-to-restore (TTR)",
+    description:
+      "How long it takes to reverse a harm and return a person to their prior state.",
     href: "/glossary/time-to-restore",
   },
   {
-    title: "Time-to-Halt (TTH)",
-    description: "Stop time for ongoing harm.",
+    title: "Time-to-halt (TTH)",
+    description:
+      "The time between a harmful process starting and the system stopping it.",
     href: "/glossary/time-to-halt",
   },
   {
-    title: "Appeal Passage Rate",
-    description: "Contestability success rate by class.",
+    title: "Appeal passage rate",
+    description:
+      "The share of appeals resolved in the person's favor, for each decision class.",
     href: "/glossary/appeal-passage-rate",
   },
   {
-    title: "User Burden Ratio",
-    description: "Procedural burden imposed on users.",
+    title: "User burden ratio",
+    description:
+      "How much work a person must do to correct or get past the system's errors.",
     href: "/glossary/user-burden-ratio",
   },
   {
-    title: "Irreversibility Index",
-    description: "Share of actions that cannot be undone.",
+    title: "Irreversibility index",
+    description: "The share of the system's actions that cannot be undone.",
     href: "/glossary/irreversibility-index",
   },
 ];
 
 const breachPlaybook = [
   "Safe pause for the affected workflow class.",
-  "Ethical circuit breaker activation with escalation.",
-  "Rollback lane activation or temporary manual overrides.",
-  "Staffing surge or dedicated remediation queue.",
+  "An ethical circuit breaker trips and the case escalates.",
+  "A rollback lane opens, or the workflow moves to manual handling for a set period.",
+  "Added staff or a dedicated remediation queue.",
 ];
 
 const pageUrl = Astro.site
@@ -93,14 +98,15 @@ const structuredData = {
   "@id": pageUrl,
   headline: "STD-03 — Justice SLOs (Targets, Budgets, and Breach Actions)",
   description:
-    "A standard defining how justice metrics tie to targets, budgets, and breach actions.",
+    "A draft standard: each justice metric needs a numeric threshold, a measurement window, a breach action, and a named owner.",
   url: pageUrl,
   datePublished: "2026-01-01",
-  version: "0.6",
+  dateModified: "2026-10-06",
+  version: "0.6.1",
   identifier: "STD-03",
   publisher: {
     "@type": "Organization",
-    name: "Institute of Ethotechnics",
+    name: "Ethotechnics Institute",
     url: Astro.site ? new URL("/", Astro.site).toString() : "/",
   },
   isPartOf: {
@@ -128,8 +134,10 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 const publication = derivePublicationMetadata({
   permalink,
   published: "2026-01-01T00:00:00Z",
-  version: "v0.6",
-  changelogSummary: "Draft for peer review.",
+  updated: "2026-10-06T00:00:00Z",
+  version: "v0.6.1",
+  changelogSummary:
+    "Editorial revision: one name, justice SLO, used throughout, and each metric defined. No requirement changed.",
 });
 ---
 
@@ -159,15 +167,15 @@ const publication = derivePublicationMetadata({
         </div>
         <div>
           <dt>Version</dt>
-          <dd>0.6 (Draft for Review)</dd>
+          <dd>0.6.1 (draft for review)</dd>
         </div>
         <div>
-          <dt>Effective Date</dt>
+          <dt>Effective date</dt>
           <dd>TBD (proposed 2026)</dd>
         </div>
         <div>
           <dt>Authority</dt>
-          <dd>The Institute of Ethotechnics</dd>
+          <dd>Ethotechnics Institute</dd>
         </div>
       </dl>
     </header>
@@ -177,18 +185,20 @@ const publication = derivePublicationMetadata({
         <section class="standard-section">
           <h2>Standard intent</h2>
           <p>
-            Justice service-level objectives (SLJs) must include explicit
-            targets, budgets, and breach actions. This standard binds metrics to
-            enforcement, turning SLJs into operational obligations rather than
-            aspirational vocabulary.
+            A justice service-level objective (justice SLO) is a target for how
+            a system treats the people it decides about: how fast it stops a
+            harm, how fast it reverses one, how often an appeal succeeds. This
+            standard requires every justice SLO to carry an explicit target,
+            budget, or ceiling, and a breach action. Without them, the objective
+            is a word in a report. With them, missing it obliges someone to act.
           </p>
         </section>
 
         <section class="standard-section">
-          <h2>Required structure for every SLJ</h2>
+          <h2>Required fields for every justice SLO</h2>
           <p>
-            Each justice metric must be documented with the following fields so
-            breach actions are predictable and enforceable.
+            Each justice SLO must record these six fields, so anyone can tell in
+            advance what counts as a breach and what follows one.
           </p>
           <dl class="standard-definitions">
             {
@@ -205,8 +215,8 @@ const publication = derivePublicationMetadata({
         <section class="standard-section">
           <h2>Required metric coverage</h2>
           <p>
-            Every consequential workflow class must publish targets, budgets, or
-            ceilings for these justice metrics.
+            Every consequential workflow class must publish a target, budget, or
+            ceiling for each of these five metrics.
           </p>
           <div class="grid grid--two">
             {
@@ -245,17 +255,18 @@ const publication = derivePublicationMetadata({
         <section class="standard-section">
           <h2>Ownership and public surface</h2>
           <p>
-            Each SLJ must name an accountable owner with authority to pause,
-            rollback, or staff remediation. Public surfaces must provide time
-            transparency and link to decision artifacts so impacted people can
-            verify that breach actions occurred.
+            Each justice SLO must name an accountable owner with authority to
+            pause the workflow, roll it back, or staff the remedy. The public
+            surface must show how long the process takes and link to the
+            decision records, so the people affected can check that a breach
+            action happened.
           </p>
         </section>
       </div>
 
       <aside class="standard-sidebar">
         <div class="standard-sidebar__panel">
-          <p class="standard-sidebar__eyebrow">Quick requirements</p>
+          <p class="standard-sidebar__eyebrow">Requirements in brief</p>
           <ul>
             <li>Targets, budgets, or ceilings set by workflow class.</li>
             <li>Measurement windows defined (p95, weekly, rolling).</li>
@@ -268,11 +279,11 @@ const publication = derivePublicationMetadata({
           <ul>
             <li>
               <a href="/glossary/irreversibility-budget"
-                >Irreversibility Budget</a
+                >Irreversibility budget</a
               >
             </li>
             <li>
-              <a href="/glossary/burden-ceiling">Burden Ceiling</a>
+              <a href="/glossary/burden-ceiling">Burden ceiling</a>
             </li>
             <li>
               <a href="/glossary/ethical-circuit-breakers">

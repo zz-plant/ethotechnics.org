@@ -24,9 +24,10 @@ const slugify = (value: string) =>
 const publication = derivePublicationMetadata({
   permalink,
   published: "2026-03-01T00:00:00Z",
-  version: "v1.0.0",
+  updated: "2026-10-06T00:00:00Z",
+  version: "v1.0.1",
   changelogSummary:
-    "Published the first crosswalk of STD-01 rights, validator coverage, and mechanisms.",
+    "Renamed the Article VI right to reach a human, matching STD-01 v1.0.1, and reworded the waiting-state note.",
 });
 
 const matrix = [
@@ -115,10 +116,10 @@ const matrix = [
       },
     ],
     notes:
-      "Expose wait-time truth and provide alternate paths for long delays.",
+      "Show the real wait time, and offer a callback or another route when the wait is long.",
   },
   {
-    right: "Human override (STD-01 \u00a76)",
+    right: "Reach a human (STD-01 \u00a76)",
     validators: [
       { label: "VAL-02 Risk Radar", href: "/validators/risk-radar" },
       { label: "VAL-01 Burden Modeler", href: "/validators/burden-modeler" },

@@ -12,7 +12,7 @@ const constraints = [
     id: "AW-01",
     title: "Burden metrics imply duty to reduce burden",
     detail:
-      "If a system measures burden, it MUST allocate time, staffing, or tooling to reduce it within the next stewardship window.",
+      "If a system measures burden, it MUST allocate time, staffing, or tooling to reduce it within a period the operator publishes in advance.",
   },
   {
     id: "AW-02",
@@ -38,12 +38,12 @@ const evidenceRequirements = [
   {
     id: "AW-01",
     evidence:
-      "Burden metrics dashboard + remediation staffing plan approved for the next window.",
+      "Burden metrics and a remediation staffing plan approved for the published period.",
   },
   {
     id: "AW-02",
     evidence:
-      "Appeal path regression tests + published replacement window for any changes.",
+      "Appeal path regression tests and a published replacement window for any change.",
   },
   {
     id: "AW-03",
@@ -79,7 +79,7 @@ const releaseGateBinding = `Release gate checklist (AW-01\u2013AW-04)
         label: constraint.id,
       })),
       { href: "#evidence", label: "Evidence requirements" },
-      { href: "#bindings", label: "Binding vectors" },
+      { href: "#bindings", label: "Bindings" },
       { href: "#referenced-by", label: "Referenced by" },
     ]}
   />
@@ -87,8 +87,13 @@ const releaseGateBinding = `Release gate checklist (AW-01\u2013AW-04)
   <SectionBlock
     eyebrow="Constraints"
     title="Referenceable IDs"
-    description="Treat these IDs like doctrine clauses in policy, procurement, and audits."
+    description="Cite these IDs in policy, procurement, and audits as you would cite a clause."
   >
+    <p>
+      Weaponization is using a standard's own measures, records, or procedures
+      to deny care, cut access, or raise the burden on the people the standard
+      was written to protect. Each constraint below closes one route to it.
+    </p>
     <ol class="standard-clauses">
       {
         constraints.map((constraint) => (
@@ -105,8 +110,8 @@ const releaseGateBinding = `Release gate checklist (AW-01\u2013AW-04)
   <SectionBlock
     id="evidence"
     eyebrow="Evidence requirements"
-    title="Treat AW-01 through AW-04 like enforceable clauses"
-    description="Evidence is required for audits, release gates, and diagnostics."
+    title="Evidence for AW-01 through AW-04"
+    description="What an audit, a release gate, or a diagnostic asks to see for each constraint."
     variant="alt"
   >
     <ul class="standard-clauses">
@@ -136,9 +141,9 @@ const releaseGateBinding = `Release gate checklist (AW-01\u2013AW-04)
 
   <SectionBlock
     id="bindings"
-    eyebrow="Binding vectors"
-    title="Procurement + release gate enforcement"
-    description="Bind anti-weaponization clauses to procurement and release workflows."
+    eyebrow="Bindings"
+    title="Procurement and release gates"
+    description="Sample text for writing the constraints into a contract and a release checklist."
   >
     <div class="grid grid--two">
       <div class="panel">
@@ -161,7 +166,7 @@ const releaseGateBinding = `Release gate checklist (AW-01\u2013AW-04)
       <li>
         Link anti-weaponization checks to
         {" "}
-        <a href="/measurement-tiers">MPI measurement tiers</a>
+        <a href="/measurement-tiers">measurement tiers</a>
         {" "}
         for burden and appeal metrics.
       </li>

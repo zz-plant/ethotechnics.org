@@ -87,19 +87,19 @@ const groupingDefinitions: StandardsGroupDefinition[] = [
   {
     title: "Core",
     description:
-      "Foundational rights, contestability requirements, and the terms a delegation must satisfy.",
+      "The rights a person holds against an automated system, how they challenge it, and what a delegation must keep showing.",
     ids: ["STD-01", "STD-02", "STD-08", "MVC-01"],
   },
   {
     title: "Implementation",
     description:
-      "Operational controls and templates for day-to-day governance delivery.",
+      "Templates and targets a team uses while the system runs: justice SLOs, the safety case, and the postmortem.",
     ids: ["STD-03", "STD-06", "PM-01"],
   },
   {
     title: "Reference",
     description:
-      "Interoperability and record-format specifications used across ecosystems.",
+      "Record formats that let one institution read another's records, and the terms for chains of delegations that cross institutions.",
     ids: ["STD-04", "STD-05", "STD-07", "STD-09"],
   },
 ];

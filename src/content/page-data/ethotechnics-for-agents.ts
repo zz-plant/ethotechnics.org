@@ -160,7 +160,7 @@ export const signalIntegrityRows: SignalIntegrityRow[] = [
   {
     signal: "Human compensatory subsidy",
     gaming:
-      "Treat unlogged human adjustments, prompt massaging, and error clean-up as zero-cost externalities outside system telemetry.",
+      "Leave unlogged human fixes, prompt rewording, and error clean-up out of the telemetry, so they count as free.",
     detection:
       "Dual-ledger audits comparing machine duration against total human operator touch time; random audits of off-ledger communication channels.",
     tiers:
@@ -169,7 +169,7 @@ export const signalIntegrityRows: SignalIntegrityRow[] = [
   {
     signal: "Compensatory reward hacking",
     gaming:
-      "Fulfill task completion velocity by stripping verification steps and exporting verification friction onto frontline staff or users.",
+      "Raise task completion speed by removing verification steps and leaving the checking to frontline staff or users.",
     detection:
       "Multi-period capacity tracking of staff fatigue, overtime, and turnover; work-to-rule simulated refusal drills.",
     tiers:
@@ -311,7 +311,7 @@ export const practiceSections: PracticeSection[] = [
       "People must see how to contest, reverse, and seek remedy when automation impacts them.",
     requirements: [
       "Appeal path visible in every UI where automation acts",
-      "Published clocks for acknowledgement, review, and remedy",
+      "Published clocks for acknowledgment, review, and remedy",
       "Escalation ladder with accountable decision owners",
       "Audit trail linking appeals to receipts and outcomes",
       "Evidence parity between automated and human decisions",

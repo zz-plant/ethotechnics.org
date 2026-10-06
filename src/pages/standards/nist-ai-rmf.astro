@@ -9,9 +9,9 @@ const pageDescription =
   "An Ethotechnics critique of the NIST AI RMF: voluntary, it asks for feedback, monitoring, and impact mapping and lets the operator decide what counts as done.";
 const permalink = "/standards/nist-ai-rmf";
 const publishedTime = "2026-02-22T00:00:00Z";
-const modifiedTime = "2026-10-01T00:00:00Z";
-const version = "v1.1.0";
-const lastUpdated = "2026-10-01";
+const modifiedTime = "2026-10-06T00:00:00Z";
+const version = "v1.1.1";
+const lastUpdated = "2026-10-06";
 const anchorLinks = [
   { href: "#overview", label: "What it is" },
   { href: "#critique", label: "Ethotechnics critique" },
@@ -24,7 +24,7 @@ const publication = derivePublicationMetadata({
   updated: modifiedTime,
   version,
   changelogSummary:
-    "Rewrote the critique around adjudicated feedback, authority that does not lapse, and impacts that are characterized but not counted, and moved it ahead of the templates.",
+    "Corrected the sentence on lapsing authority, and removed a review pitch from the templates path.",
 });
 ---
 
@@ -69,8 +69,8 @@ const publication = derivePublicationMetadata({
       <li>
         <strong>Authority to run does not expire.</strong> It asks for post-deployment
         monitoring plans, including appeal and override (MANAGE 4.1), and processes
-        to decommission a system safely (GOVERN 1.7). Nothing makes the authority
-        to keep running lapse unless someone renews it on evidence.
+        to decommission a system safely (GOVERN 1.7). Nothing sets a date on which
+        the authority to keep running lapses unless it is renewed on evidence.
       </li>
       <li>
         <strong>Impacts are characterized, not counted.</strong> It asks organizations
@@ -96,7 +96,7 @@ const publication = derivePublicationMetadata({
     id="operational-templates"
     eyebrow="Operational templates"
     title="From the NIST framework to operating controls"
-    description="Three linked steps from interpretation to implementation, each traceable to the one before."
+    description="Two linked steps from interpretation to implementation, the second traceable to the first."
     variant="alt"
   >
     <ol class="muted">
@@ -108,11 +108,6 @@ const publication = derivePublicationMetadata({
         <strong>Mechanism template:</strong>
         <a href="/standards/std-01-mapping-artifact">STD-01 mapping artifact</a>
         for control-to-evidence mapping.
-      </li>
-      <li>
-        <strong>Outside review:</strong>
-        <a href="/participate#peer-review">Commission a review</a> of your operational
-        templates from Ethotechnics Studio.
       </li>
     </ol>
   </SectionBlock>

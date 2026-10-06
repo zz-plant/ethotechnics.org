@@ -151,7 +151,7 @@ export const postMarketWorkflow = [
   {
     stage: "Intake",
     outcome:
-      "Capture incident class, severity, impacted parties, and owner within one clock tick.",
+      "Record the incident class, severity, affected parties, and owner when the incident is opened.",
   },
   {
     stage: "Triage",
