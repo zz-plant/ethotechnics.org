@@ -2,39 +2,43 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CasebookScorecard from "../components/home/CasebookScorecard.astro";
 import ExceptionLearningFigure from "../components/ExceptionLearningFigure.astro";
-import HeroLedger from "../components/home/HeroLedger.astro";
 import HomeRail from "../components/home/HomeRail.astro";
 import RecordSpine from "../components/home/RecordSpine.astro";
 import SafeguardMap from "../components/home/SafeguardMap.astro";
 import SelfTest from "../components/home/SelfTest.astro";
-import SectionBlock from "../components/SectionBlock.astro";
 import { evalsContent } from "../content/evals";
+import { governanceContent } from "../content/governance";
 import { standardsContent } from "../content/standards";
 
 // The pillar counts are read from the same arrays the /standards and /evals
 // pages list from, so adding an entry updates this page instead of leaving a
-// stale number beside a live one.
+// stale number beside a live one. The failure count works the same way
+// against the governance page's archive.
 const draftStandards = standardsContent.standards.filter(
   (standard) => standard.status === "Draft",
 ).length;
 const suiteCount = evalsContent.suites.length;
+const failureCount = governanceContent.failureLog.length;
 
 /**
  * The front door as one story in reading order, told without ever holding
  * the scroll: watch one scheme run (the record), see why rulings did not
- * stop it (the mechanism), see what the site answers (orientation), see that
- * it was not special (the casebook), then turn to the reader's own system
- * (the self-test, scored on the six-node figure) and the doors out — four of
- * them, the last for the readers who study or govern these systems. The
- * positioning band and the claims moved off this page: the band leads the
- * completions on /research/scholarly-crossings, and the claims are the table
- * on /about. The doors appear once, at the end. The two-ledger rail at the
- * viewport edge is the same grammar, as chrome.
+ * stop it (the mechanism), see that it was not special (the casebook), then
+ * turn to the reader's own system (the self-test, scored on the six-node
+ * figure) and the doors out. It closes on the site's own answer to its
+ * question: who writes it, where a correction goes, and where the
+ * framework's instruments failed. The claims are the table on /about, and
+ * the positioning band leads the completions on
+ * /research/scholarly-crossings. The two-ledger rail at the viewport edge is
+ * the same grammar, as chrome.
  *
  * Each idea is drawn as well as written, for readers who think in pictures:
- * the hero draws the record's unanswered column, the mechanism leads with
- * the exception-learning drawing that shows both the broken path and the
- * fix, and the self-test draws the reader's system as a six-node ring.
+ * the record draws the unanswered warnings as a rail, the mechanism leads
+ * with the exception-learning drawing that shows both the broken path and
+ * the fix, and the self-test draws the reader's system as a six-node ring.
+ *
+ * The role doors appear once, after the self-test. A reader who wants a role
+ * page before the story has the header's Start button.
  */
 const doors = [
   {
@@ -94,27 +98,29 @@ const doors = [
         </a>
       </div>
     </div>
-    <HeroLedger class="institute-hero__figure" />
     <div class="home-pillars">
       <a class="home-pillar" href="/standards">
         <span class="eyebrow">Standards</span>
         <strong>{draftStandards} draft standards</strong>
         <span class="small muted"
-          >Authority leases, contestability clocks, and JSON schemas.</span
+          >The records a running system has to keep: an answer to every
+          objection, and authority that expires.</span
         >
       </a>
       <a class="home-pillar" href="/evals">
         <span class="eyebrow">Evaluations</span>
-        <strong>{suiteCount} suites &amp; Finite drills</strong>
+        <strong>{suiteCount} test suites</strong>
         <span class="small muted"
-          >Dual-ledger surge tests and failure-containment benchmarks.</span
+          >They test the deployment, not the model: whether a decision can be
+          challenged, halted, and reversed.</span
         >
       </a>
       <a class="home-pillar" href="/diagnostics">
         <span class="eyebrow">Diagnostics</span>
         <strong>Free browser tools</strong>
         <span class="small muted"
-          >Audit delegation, calculate debt, and test standing in minutes.</span
+          >Each takes one workflow or set of figures and returns a scored
+          readout you can link or export.</span
         >
       </a>
     </div>
@@ -162,135 +168,95 @@ const doors = [
     </p>
   </section>
 
-  <SectionBlock
-    id="orientation"
-    eyebrow="Orientation"
-    title="Three things this site answers before you begin"
-    description="Ethotechnics is the discipline that keeps automated decision systems answerable: when one is wrong, evidence of the harm reaches someone who has to change it."
-    variant="alt"
-  >
-    <div class="grid grid--three">
-      <article class="card stack-sm">
-        <p class="eyebrow">Scope & applicability</p>
-        <h3>What counts as a system under test?</h3>
-        <p>
-          If software takes an action, grants a benefit, denies an application,
-          or allocates work — and a human being has to live with the
-          consequences of an error — it passes the initial scope filter. The
-          full test also requires adoption without independent review, a viable
-          objection route, and a named accountable institution.
-        </p>
-        <p class="small muted">
-          The object being engineered is the delegation and its authority lease,
-          not model capabilities. Frontline work allocations are as fully bound
-          as public denials.
-        </p>
-        <p class="small">
-          <a href="/use-cases">Explore covered use cases &rarr;</a>
-        </p>
-      </article>
-
-      <article class="card stack-sm">
-        <p class="eyebrow">The mechanism</p>
-        <h3>How this differs from “AI ethics”</h3>
-        <p>
-          We reject “human-in-the-loop” when it means human liability sponging.
-          When upheld challenges cross a precommitted threshold, the automated
-          rule goes to its named owner for review, with revision or a reasoned
-          refusal recorded.
-        </p>
-        <p class="small muted">
-          Closed feedback loops, not vague principles like “fairness” or
-          “transparency.”
-        </p>
-        <p class="small">
-          <a href="/method">See the 7-stage governed chain &rarr;</a>
-        </p>
-      </article>
-
-      <article class="card stack-sm">
-        <p class="eyebrow">Adoption ladder</p>
-        <h3>Start by time available</h3>
-        <p>
-          Spend 5 minutes running a self-test diagnostic, 1 hour evaluating an
-          agent against a Finite dual-ledger surge drill, or 1 sprint adopting
-          machine-readable delegation records.
-        </p>
-        <p class="small muted">
-          Open standards, open data, and open benchmark fixtures licensed under
-          CC BY-SA 4.0.
-        </p>
-        <p class="small">
-          <a href="/start">Pick your entry path &rarr;</a>
-        </p>
-      </article>
-    </div>
-  </SectionBlock>
-
   <CasebookScorecard />
 
-  <div class="home-positioning">
-    <div class="home-core">
-      <div class="home-core__test">
-        <SelfTest />
-        <SafeguardMap class="home-core__figure" />
-      </div>
-    </div>
-
-    <nav class="home-doors" aria-labelledby="home-doors-heading">
-      <div class="home-doors__header">
-        <p class="eyebrow">Start from where you are</p>
-        <h2 id="home-doors-heading" class="section__heading">Five ways in.</h2>
-      </div>
-      <ul class="home-doors__list">
-        {
-          doors.map((door) => (
-            <li>
-              <a class="home-doors__door" href={door.href}>
-                <span class="home-doors__who">{door.who}</span>
-                <span class="home-doors__what small muted">{door.what}</span>
-                <span class="home-doors__action" aria-hidden="true">
-                  →
-                </span>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-      <p class="home-doors__fit small muted">
-        Not sure the framework applies to your system?
-        <a href="/use-cases">See which systems it is for →</a>
-      </p>
-    </nav>
-
-    <div class="home-supplement">
-      <footer class="home-colophon">
-        {
-          /*
-          The global site footer below this one already carries the license
-          and the Studio link; this block keeps only what the footer does not
-          say — what the Studio work actually is.
-        */
-        }
-        <div class="home-colophon__cols">
-          <div>
-            <p class="home-colophon__label">Studio</p>
-            <p class="home-colophon__text">
-              Commissioned safety evaluation for healthcare AI. That work runs
-              through
-              <a
-                href="https://ethotechnics.com"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Ethotechnics Studio →
-              </a>
-            </p>
-          </div>
-        </div>
-      </footer>
+  <div class="home-core">
+    <div class="home-core__test">
+      <SelfTest />
+      <SafeguardMap class="home-core__figure" />
     </div>
   </div>
+
+  <nav class="home-doors" aria-labelledby="home-doors-heading">
+    <div class="home-doors__header">
+      <p class="eyebrow">Start from where you are</p>
+      <h2 id="home-doors-heading" class="section__heading">Five ways in.</h2>
+    </div>
+    <ul class="home-doors__list">
+      {
+        doors.map((door) => (
+          <li>
+            <a class="home-doors__door" href={door.href}>
+              <span class="home-doors__who">{door.who}</span>
+              <span class="home-doors__what small muted">{door.what}</span>
+              <span class="home-doors__action" aria-hidden="true">
+                →
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="home-doors__fit small muted">
+      Not sure the framework applies to your system?
+      <a href="/use-cases">See which systems it is for →</a>
+    </p>
+  </nav>
+
+  {
+    /*
+      The site's own answer to the question it asks of institutions. The
+      global footer below carries the license and the link lists; this block
+      names the author and the routes a correction can take.
+    */
+  }
+  <section
+    class="home-colophon"
+    aria-labelledby="home-colophon-heading"
+    data-glossary-ignore
+  >
+    <h2 id="home-colophon-heading" class="home-colophon__heading">
+      Who has to act when this site is wrong?
+    </h2>
+    <div class="home-colophon__cols">
+      <div>
+        <p class="home-colophon__label">Who writes it</p>
+        <p class="home-colophon__text">
+          Kanav Jain writes the framework as part of an institutional
+          error-accounting research program.
+          <a href="/about">About the framework →</a>
+        </p>
+      </div>
+      <div>
+        <p class="home-colophon__label">Corrections</p>
+        <p class="home-colophon__text">
+          If a case score, a clause, or any claim on this site is wrong, send
+          the record that shows it.
+          <a href="/participate#feedback">Send a correction →</a>
+        </p>
+      </div>
+      <div>
+        <p class="home-colophon__label">Its own failures</p>
+        <p class="home-colophon__text">
+          The framework keeps the record it asks of institutions: where its own
+          instruments failed, and what changed because of it.
+          <a href="/institute/governance#failure-archive">
+            Read the {failureCount === 1 ? "entry" : `${failureCount} entries`}
+            →
+          </a>
+        </p>
+      </div>
+      <div>
+        <p class="home-colophon__label">Studio</p>
+        <p class="home-colophon__text">
+          The Institute publishes the framework. Ethotechnics Studio applies it
+          to one organization's healthcare AI system at a time, under
+          commission.
+          <a href="/institute/how-studio-fits">How the two fit →</a>
+        </p>
+      </div>
+    </div>
+  </section>
 
   <script>
     import "../scripts/home-reveal.ts";
