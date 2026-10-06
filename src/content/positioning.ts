@@ -286,7 +286,7 @@ export const completions: Completion[] = [
       "Whether an authorization measured its dependency and not only its permissions, and whether the dependency measured at launch still matches the dependency today.",
   },
   {
-    interlocutor: "Huddleston",
+    interlocutor: "Jennifer Huddleston",
     mechanism: "User sovereignty",
     addition:
       "An exit specification. Exit is a capacity, not a clause: it takes a substitutable service, portable data and history, a cost the user can pay, and a path that does not also exit the household's insurance, the child's school, or the job. That exit exists and that exit is usable are different claims.",
@@ -294,7 +294,7 @@ export const completions: Completion[] = [
       "The operational exit test: can a user leave within a stated time and cost, with data, history, and substitutes intact, and does anyone record how often users complete an exit?",
   },
   {
-    interlocutor: "Chilson",
+    interlocutor: "Neil Chilson",
     mechanism: "Open models",
     addition:
       "Institutional openness. An open artifact does not guarantee an open institutional future. Weights can stay downloadable while the practice consolidates: the fine-tuning pipeline, the evaluation suite, and the operating expertise concentrate in a few hands, and organizational optionality collapses with the license untouched.",

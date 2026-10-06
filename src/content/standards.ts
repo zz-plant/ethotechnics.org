@@ -376,10 +376,16 @@ export const standardsContent: StandardsContent = {
       description:
         "One append-only record shape for what an institution believed, could do, authorized, did, saw diverge, and revised.",
       status: "Draft",
-      version: "0.1.2",
+      version: "0.1.3",
       changelogHref:
         "/standards/std-07-revisable-delegation-record#conformance",
       changelogEntries: [
+        {
+          version: "0.1.3",
+          date: "2026-10-06",
+          summary:
+            "Editorial revision; no clause changed. The adoption note credited system.instance to version 0.1.1. The field arrived on 6 September 2026 (#867), during 0.1 and without a version change; 0.1.1 was later used for the publisher-name correction. The note now gives the date.",
+        },
         {
           version: "0.1.2",
           date: "2026-10-06",
