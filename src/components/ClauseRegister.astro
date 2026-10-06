@@ -86,7 +86,14 @@ for (const clause of clauses) {
                       <ul class="clause-register__list">
                         {clause.evidenceRequired.map((item) => (
                           <li>
-                            <code>{item}</code>
+                            <code>
+                              {item.split(/(?<=[._])/).map((part, index) => (
+                                <Fragment>
+                                  {index > 0 && <wbr />}
+                                  {part}
+                                </Fragment>
+                              ))}
+                            </code>
                           </li>
                         ))}
                       </ul>
@@ -99,7 +106,20 @@ for (const clause of clauses) {
                         ? [
                             ...clause.relatedMechanisms,
                             ...clause.relatedValidators,
-                          ].join(", ")
+                          ].flatMap((ref, index, refs) =>
+                            index < refs.length - 1
+                              ? [
+                                  <span class="clause-register__ref">
+                                    {`${ref},`}
+                                  </span>,
+                                  " ",
+                                ]
+                              : [
+                                  <span class="clause-register__ref">
+                                    {ref}
+                                  </span>,
+                                ],
+                          )
                         : "—"}
                     </td>
                   </tr>
