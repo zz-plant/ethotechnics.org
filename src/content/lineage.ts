@@ -251,7 +251,7 @@ export const neighboringFields: NeighboringField[] = [
     },
   },
   {
-    field: "Social reproduction theory & care ethics",
+    field: "Social reproduction theory and care ethics",
     works: [
       {
         authors: "Nancy Fraser",
@@ -275,7 +275,7 @@ export const neighboringFields: NeighboringField[] = [
     },
   },
   {
-    field: "Labor process theory & organizational sociology",
+    field: "Labor process theory and organizational sociology",
     works: [
       {
         authors: "Michael Burawoy",
@@ -428,7 +428,7 @@ export const theoryVocabulary: { term: string; text: string }[] = [
   },
   {
     term: "The tripartite invariant: non-domination, burden accounting, and error-correcting authority",
-    text: "The three irreducible commitments of legitimate system design: relational independence from unchecked power, metabolic accounting of the finite human capacity consumed to keep an arrangement functional, and cybernetic return paths ensuring authority remains conditional on downstream error-correction. None of the three reduces to the others.",
+    text: "The three irreducible commitments of legitimate system design: relational independence from unchecked power, metabolic accounting of the finite human capacity consumed to keep an arrangement functional, and cybernetic return paths ensuring authority remains conditional on downstream error correction. None of the three reduces to the others.",
   },
   {
     term: "Corrective standing as epistemic admissibility",

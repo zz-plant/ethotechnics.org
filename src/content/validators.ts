@@ -121,7 +121,7 @@ export const validatorsContent: ValidatorsContent = {
           {
             name: "generated_at",
             type: "string",
-            description: "ISO-8601 timestamp when the report was created.",
+            description: "ISO 8601 timestamp when the report was created.",
           },
           {
             name: "validator_id",
@@ -225,7 +225,7 @@ export const validatorsContent: ValidatorsContent = {
           {
             name: "generated_at",
             type: "string",
-            description: "ISO-8601 timestamp when the report was created.",
+            description: "ISO 8601 timestamp when the report was created.",
           },
           {
             name: "validator_id",
@@ -329,7 +329,7 @@ export const validatorsContent: ValidatorsContent = {
           {
             name: "generated_at",
             type: "string",
-            description: "ISO-8601 timestamp when the report was created.",
+            description: "ISO 8601 timestamp when the report was created.",
           },
           {
             name: "validator_id",

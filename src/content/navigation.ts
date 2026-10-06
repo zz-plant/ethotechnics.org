@@ -124,7 +124,7 @@ export const navSections: NavSection[] = [
       {
         href: "/mechanisms",
         label: "Mechanisms catalog",
-        description: "Kill switches, appeals queues, and safe state controls",
+        description: "Kill switches, appeals queues, and safe-state controls",
       },
       {
         href: "/evals",

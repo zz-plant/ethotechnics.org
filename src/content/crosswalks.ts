@@ -41,7 +41,7 @@ export const governanceCrosswalks: GovernanceCrosswalk[] = [
       "Demonstrate risk management and controls before deployment and at major changes.",
     euAiAct: "Article 9 (Risk management system)",
     nistAiRmf: "MAP 1.4, MEASURE 2.2",
-    iso42001: "Clause 6.1 and 8.1 (Risk and operation planning)",
+    iso42001: "Clauses 6.1 and 8.1 (Risk and operation planning)",
     evidenceArtifacts: [
       "Current risk register slice",
       "Pre-release validation results",
@@ -59,7 +59,7 @@ export const governanceCrosswalks: GovernanceCrosswalk[] = [
     euAiAct:
       "Articles 72 and 73 (Post-market monitoring and incident reporting)",
     nistAiRmf: "MANAGE 3.3, MANAGE 4.1",
-    iso42001: "Clause 9.1 and 10.1 (Monitoring and improvement)",
+    iso42001: "Clauses 9.1 and 10.1 (Monitoring and improvement)",
     evidenceArtifacts: [
       "Post-market monitoring dashboard export",
       "Incident intake record with severity and deadline",
@@ -94,7 +94,7 @@ export const governanceCrosswalks: GovernanceCrosswalk[] = [
       "Hold authority grants as evidenced, scoped, stateful leases that expire or renew on evidence rather than on silence.",
     euAiAct: "Articles 14 and 9 (Human oversight; risk management system)",
     nistAiRmf: "GOVERN 1.1 to 1.3, MANAGE 2.2",
-    iso42001: "Clause 6.1 and 8 (Risk actions and operation)",
+    iso42001: "Clauses 6.1 and 8 (Risk actions and operation)",
     evidenceArtifacts: [
       "Grant register export with state and full state history",
       "Renewal records naming what was examined and who looked",
@@ -111,7 +111,7 @@ export const governanceCrosswalks: GovernanceCrosswalk[] = [
       "Carry every policy a grant relies on as a record with provenance, review triggers, and an expiry that ends its authority to justify.",
     euAiAct: "Article 9(2) (Continuous iterative risk management)",
     nistAiRmf: "MANAGE 4.1 to 4.3",
-    iso42001: "Clause 9.1 and 10 (Monitoring and improvement)",
+    iso42001: "Clauses 9.1 and 10 (Monitoring and improvement)",
     evidenceArtifacts: [
       "Policy register export with review triggers and expiry dates",
       "Trigger-fire log with the resulting status change and elapsed time",
@@ -129,7 +129,7 @@ export const governanceCrosswalks: GovernanceCrosswalk[] = [
       "Measure dependence and reversibility, rehearse withdrawal, and preserve the capacities to replace the system before scope expands.",
     euAiAct: "Articles 9 and 72 (Risk management; post-market monitoring)",
     nistAiRmf: "GOVERN 1.7, MANAGE 2.4",
-    iso42001: "Clause 6.1 and 8.4 (Risk actions and third-party provision)",
+    iso42001: "Clauses 6.1 and 8.4 (Risk actions and third-party provision)",
     evidenceArtifacts: [
       "Dependency ledger with exposure score inputs",
       "Withdrawal rehearsal report per reversibility level",

@@ -160,7 +160,7 @@ export const signalIntegrityRows: SignalIntegrityRow[] = [
   {
     signal: "Human compensatory subsidy",
     gaming:
-      "Leave unlogged human fixes, prompt rewording, and error clean-up out of the telemetry, so they count as free.",
+      "Leave unlogged human fixes, prompt rewording, and error cleanup out of the telemetry, so they count as free.",
     detection:
       "Dual-ledger audits comparing machine duration against total human operator touch time; random audits of off-ledger communication channels.",
     tiers:
@@ -277,7 +277,7 @@ export const practiceSections: PracticeSection[] = [
       "Receipts tie every agent action to an accountable owner, evidence, and a timeline for review.",
     requirements: [
       "Receipts emitted for every agent action",
-      "Receipt includes owner, action class, and time stamps",
+      "Receipt includes owner, action class, and timestamps",
       "Decision log linked to every irreversible action",
       "Evidence pack or policy linked to every exception",
       "Immutable logs for action, override, and exception paths",
@@ -308,7 +308,7 @@ export const practiceSections: PracticeSection[] = [
     eyebrow: "Practice 4",
     title: "Show people how to contest",
     summary:
-      "People must see how to contest, reverse, and seek remedy when automation impacts them.",
+      "People must see how to contest, reverse, and seek remedy when automation affects them.",
     requirements: [
       "Appeal path visible in every UI where automation acts",
       "Published clocks for acknowledgment, review, and remedy",
@@ -364,9 +364,9 @@ export const practiceSections: PracticeSection[] = [
     eyebrow: "Practice 6",
     title: "Pressure-test safety claims",
     summary:
-      "Safety claims only hold if they survive simulated, adversarial, and drift scenarios.",
+      "Safety claims hold only if they survive simulated, adversarial, and drift scenarios.",
     requirements: [
-      "Stress tests for unsafe action rates and override response",
+      "Stress tests for unsafe-action rates and override response",
       "Simulations for repeated override or policy conflict",
       "Failure rehearsals for kill switch or rollback",
       "Scenario drills for contested decisions and appeals",

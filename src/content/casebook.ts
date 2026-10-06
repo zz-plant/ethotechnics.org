@@ -569,7 +569,7 @@ export const cases: Case[] = [
         variable: "authority",
         verdict: "drifted",
         finding:
-          "The all-or-nothing rule was lawful in the sense that the highest court said so, until it said otherwise. Authority that rests on a reading no one has re-examined is authority outliving its evidence. The nationality indicator had no lawful basis at all, which the data protection authority later established.",
+          "The all-or-nothing rule was lawful in the sense that the highest court said so, until it said otherwise. Authority that rests on a reading no one has re-examined is authority outliving its evidence. The nationality indicator had no lawful basis at all, which the Data Protection Authority later established.",
         clauses: [
           { standard: "STD-08", clause: "§2.1" },
           { standard: "STD-08", clause: "§2.3" },
