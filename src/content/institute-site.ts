@@ -17,9 +17,6 @@ export interface FailureState {
   footerLine: string;
 }
 
-export const artifactFinalLine =
-  "If a field is hard to fill, that is the governance gap this artifact exposes.";
-
 export const failureFooterLine =
   "If a field in these templates is hard to fill in, that field is the gap this failure exposes.";
 
@@ -41,13 +38,14 @@ export const artifacts: InstituteArtifact[] = [
       "Publish the contestability path in the user-facing flow.",
       "Treat the reversal clock as an operational commitment, not a target.",
     ],
-    finalLine: artifactFinalLine,
+    finalLine:
+      "If no one will sign as the owner, the decision has none, and nothing it decides should go out.",
   },
   {
     name: "Reversal SLA template",
     slug: "reversal-sla-template",
     description: [
-      "Defines the maximum time a system is allowed to remain wrong once a contestation signal exists.",
+      "Sets the longest a decision may stay wrong after someone has challenged it.",
       "Reversal is treated as an operating requirement.",
     ],
     enforcesBullets: [
@@ -60,7 +58,8 @@ export const artifacts: InstituteArtifact[] = [
       "Define escalation steps when clocks are missed.",
       "Publish internal dashboards for reversal latency and time-in-harm.",
     ],
-    finalLine: artifactFinalLine,
+    finalLine:
+      "If you cannot set a clock for a decision class, nothing bounds how long a wrong decision in it can stand.",
   },
   {
     name: "Escalation ladder / freeze authority table",
@@ -79,7 +78,8 @@ export const artifacts: InstituteArtifact[] = [
       "Define kill-switch criteria for each failure state.",
       "Run a tabletop where the first move is a freeze.",
     ],
-    finalLine: artifactFinalLine,
+    finalLine:
+      "If a freeze needs someone's permission first, name that person. They hold the freeze authority, whatever the table says.",
   },
   {
     name: "Contestability & appeals playbook",
@@ -98,13 +98,14 @@ export const artifacts: InstituteArtifact[] = [
       "Set evidence rules that do not require perfect legibility.",
       "Bind the appeals queue to the reversal SLA clock.",
     ],
-    finalLine: artifactFinalLine,
+    finalLine:
+      "If you cannot say what counts as an appeal, any appeal can be handled as a complaint and closed.",
   },
   {
     name: "Harm receipt format",
     slug: "harm-receipt-format",
     description: [
-      "Specifies what the system owes a user when it is wrong: acknowledgement, explanation, remedy path, and time bounds.",
+      "Specifies what the system owes a user when it is wrong: acknowledgment, explanation, remedy path, and time bounds.",
       "Silence is not an acceptable resolution state.",
     ],
     enforcesBullets: [
@@ -117,7 +118,8 @@ export const artifacts: InstituteArtifact[] = [
       "Include remedy path, time bounds, and escalation contact.",
       "Log harm receipts as governance events, not support tickets.",
     ],
-    finalLine: artifactFinalLine,
+    finalLine:
+      "If an error cannot be given a receipt, the person it harmed has nothing to cite when they ask for the remedy.",
   },
 ];
 
@@ -215,7 +217,7 @@ export const failureStates: FailureState[] = [
     slug: "cant-stop",
     shortLabel: "Can’t stop",
     descriptionLine1:
-      "A harmful process cannot be paused or rolled back quickly, even when operators can see it is wrong.",
+      "A harmful process cannot be paused or rolled back in time, even when operators can see it is wrong.",
     descriptionLine2:
       "The controls to stop it are missing or have never been tested.",
     artifactSlugs: [

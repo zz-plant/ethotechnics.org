@@ -29,7 +29,7 @@ export const rights = [
   {
     id: "stoppability",
     title: "Stoppability",
-    summary: "Always offer a clear and immediate way to stop a process.",
+    summary: "A person can stop any process at once, from any screen.",
     clauses: [
       "Immediate cessation with a visible halt control.",
       "Preserve state so users can resume without penalty.",
@@ -38,8 +38,8 @@ export const rights = [
   },
   {
     id: "resignation",
-    title: "Exit (Resignation)",
-    summary: "Make it as easy to leave as it was to join.",
+    title: "Exit (resignation)",
+    summary: "Leaving takes no more effort than joining did.",
     clauses: [
       "Universal exit with equal or less friction than entry.",
       "One-step rule for exits that matched one-step entries.",
@@ -59,7 +59,7 @@ export const rights = [
   {
     id: "reversibility",
     title: "Reversibility",
-    summary: "Provide graceful recovery windows for consequential actions.",
+    summary: "A consequential action can be undone within a grace period.",
     clauses: [
       "Undo window for deletions, transfers, or publication.",
       "Non-destructive defaults with soft-delete as standard.",
@@ -68,17 +68,18 @@ export const rights = [
   {
     id: "non-coercive-waiting",
     title: "Non-coercive waiting",
-    summary: "Waiting states must be honest and transparent.",
+    summary: "A waiting state shows the real queue position and wait.",
     clauses: [
       "Visibility of queue position and expected wait time.",
       "No fake progress or placebo activity signals.",
       "Offer async options for waits exceeding five minutes.",
+      "An expired clock resolves in the applicant's favor or escalates.",
     ],
   },
   {
     id: "human-override",
-    title: "Human override",
-    summary: "Guarantee a human path for appeals and accountability.",
+    title: "Reach a human",
+    summary: "An automated denial can be appealed to a human agent.",
     clauses: [
       "Defined escalation path for automated denials.",
       "Operating institution accepts liability for automation.",
@@ -90,7 +91,7 @@ export const rights = [
     summary: "Publish the time tax placed on people.",
     clauses: [
       "Measure and publish the time tax for compliance.",
-      "Track burden as a reportable governance metric.",
+      "Audit major updates for added cognitive load or time.",
     ],
   },
 ];
@@ -102,33 +103,33 @@ export const explainerLinks = [
     href: "/explainers/stoppability",
   },
   {
-    title: "Time-to-Halt (TTH)",
-    description: "Measure how quickly systems honor a stop request.",
+    title: "Time-to-halt (TTH)",
+    description: "The time between a stop request and the process stopping.",
     href: "/explainers/time-to-halt",
   },
   {
-    title: "Ethical Interrupts",
+    title: "Ethical interrupts",
     description:
-      "Pause automation at risk thresholds with accountable checkpoints.",
+      "Points where automation pauses at a risk threshold until a named person decides.",
     href: "/explainers/ethical-interrupts",
   },
   {
-    title: "Burden Index",
-    description: "Quantify the time tax the system imposes on people.",
+    title: "Burden index",
+    description: "A measure of the time tax a system imposes on people.",
     href: "/explainers/burden-index",
   },
 ];
 
 export const clauseSchema = `{
   "std_id": "STD-01",
-  "clause_id": "STD-01.C1",
+  "clause_id": "STD-01.1.1",
   "requirement_type": "MUST",
   "subject": "interface",
-  "condition": "active automated process",
-  "obligation": "provide immediate exit control",
-  "time_bound": "instant",
-  "evidence_required": ["ui_state", "event_log"],
-  "failure_mode": "forced tunnel"
+  "condition": "an automated process is in progress",
+  "obligation": "provide a visible, universally accessible halt control",
+  "time_bound": "immediate",
+  "evidence_required": ["ui_control", "event_log"],
+  "failure_mode": "halt control hidden behind other screens"
 }`;
 
 export const antiPatterns = [
@@ -139,7 +140,7 @@ export const antiPatterns = [
     counterfactual:
       "Exit controls are visible on every screen and halt the process immediately.",
     warning:
-      "If the exit is labeled clearly and consistently, it likely meets the bar.",
+      "An exit that is labeled clearly and placed consistently is not hidden, even if it is small.",
   },
   {
     title: "Reversal without proof",
@@ -148,7 +149,7 @@ export const antiPatterns = [
     counterfactual:
       "Reversal preserves state, emits a receipt, and provides a clear next step.",
     warning:
-      "Temporary preservation can be compliant if timelines are explicit and honored.",
+      "Preserving state for a limited time complies if the limit is declared and honored.",
   },
 ];
 
@@ -158,14 +159,15 @@ export const structuredData = {
   "@id": "https://ethotechnics.org/standards/std-01-temporal-rights",
   headline: "STD-01 — The Temporal Bill of Rights",
   description:
-    "The draft standard defining the seven temporal rights protecting human time.",
+    "A draft standard of seven rights that protect a person's time from automated systems.",
   url: "https://ethotechnics.org/standards/std-01-temporal-rights",
   datePublished: "2026-01-01",
-  version: "1.0",
+  dateModified: "2026-10-06",
+  version: "1.0.1",
   identifier: "STD-01",
   publisher: {
     "@type": "Organization",
-    name: "Institute of Ethotechnics",
+    name: "Ethotechnics Institute",
     url: "https://ethotechnics.org",
   },
   isPartOf: {
@@ -195,15 +197,15 @@ export const structuredData = {
       </div>
       <div>
         <dt>Version</dt>
-        <dd>1.0 (Draft for Ratification)</dd>
+        <dd>1.0.1 (draft for ratification)</dd>
       </div>
       <div>
-        <dt>Effective Date</dt>
+        <dt>Effective date</dt>
         <dd>January 2026</dd>
       </div>
       <div>
         <dt>Authority</dt>
-        <dd>The Institute of Ethotechnics</dd>
+        <dd>Ethotechnics Institute</dd>
       </div>
     </dl>
   </header>
@@ -217,7 +219,7 @@ export const structuredData = {
       <section id="related-explainers" class="standard-section">
         <h2>Related explainers</h2>
 
-        Short explainers for translating the rights for policy or product
+        Short explainers that restate the rights for policy and product
         teams.
 
         <div class="grid grid--two">
@@ -238,49 +240,51 @@ export const structuredData = {
       <section id="execution-vs-redress" class="standard-section">
         <h2>Execution vs redress clocks</h2>
 
-        The execution vs redress clock mismatch, and the irreversibility
-        window that STD-01 is designed to constrain.
+        A system executes on its own clock. Redress runs on the institution's,
+        which is slower. The gap between them is the window in which a harm
+        cannot yet be undone. STD-01 narrows it with hard clocks, reversal, and
+        appeal to a human.
 
         <Std01MicroDiagram />
       </section>
 
       <section id="preamble" class="standard-section">
-        <h2>Preamble: The Doctrine of Finitude</h2>
+        <h2>Preamble: The doctrine of finitude</h2>
 
-        We hold that human attention is a finite, non-renewable biological
-        resource. In the Machine Age, the disparity between the infinite
-        speed of automated systems and the fixed processing speed of the
-        human mind has created a structural crisis of dignity.
+        A person's time is finite, and time spent cannot be returned. An
+        automated system can issue a decision in milliseconds. The person it
+        affects reads it, waits on it, and appeals it at human speed. This
+        standard governs the gap between those two speeds and who pays for it.
 
-        When a system wastes human time through negligence, obfuscation, or
-        coercive design, it is not merely a "bad user experience"; it is a
-        Temporal Taking—an unauthorized extraction of life. It is measurable
-        as a time tax with durable costs and documented burden.
+        When a system wastes a person's time through negligence, obscurity, or
+        coercive design, the harm is not a "bad user experience". It is a
+        temporal taking: time taken from someone who did not agree to give it.
+        It can be measured as a time tax, in hours and in what those hours
+        cost the person.
 
-        This extraction is sustained by an accounting falsehood: the{" "}
+        The taking is hidden by an accounting error, the{" "}
         <a href="/glossary/falsified-denominator">falsified denominator</a>.
-        Automation is routinely celebrated as a triumph of efficiency because
-        throughput and latency are measured exclusively inside the machine
-        boundary—in milliseconds and server cycles. But that calculation ignores
-        the human cost required to make the automation workable: the minutes spent
-        troubleshooting a cryptic error, the hours navigating an appeal maze,
-        and the manual repair shifts performed to fix model failures. By treating
-        external human attention as infinite, zero-cost capacity, the system
-        falsifies its denominator, mistaking{" "}
-        <a href="/glossary/complexity-displacement">complexity displacement</a> for
-        operational velocity.
+        Automation is counted as efficient because throughput and latency are
+        measured inside the machine boundary, in milliseconds and server
+        cycles. That count leaves out the human work that makes the automation
+        usable: the minutes spent on a cryptic error, the hours spent on an
+        appeal, the shifts spent repairing model failures by hand. A system
+        that counts outside human attention as free and unlimited has
+        falsified its denominator. It reports{" "}
+        <a href="/glossary/complexity-displacement">complexity displacement</a> as
+        operational speed.
 
-        To defend the human subject against the scale of the machine and refuse
-        this accounting fiction, we establish these seven inalienable rights. Any
-        system that violates these articles is declared non-compliant with STD-01.
+        STD-01 sets out seven rights that put that time back in the count. A
+        system that violates any article does not comply with STD-01.
 
       </section>
 
       <section id="clause-schema" class="standard-section">
         <h2>Clause schema (agent-readable)</h2>
 
-        Express every clause as a structured object so agents can validate
-        compliance and request evidence.
+        Each clause can be expressed as a structured object, so an agent can
+        check compliance and request the evidence it names. The example is
+        §1.1 as the clause register holds it.
 
         <pre class="code-block">{clauseSchema}</pre>
       </section>
@@ -288,8 +292,8 @@ export const structuredData = {
       <section id="anti-patterns" class="standard-section">
         <h2>Anti-patterns and counterfactuals</h2>
 
-        These detect superficial compliance and clarify what success looks
-        like.
+        Two ways a system can appear to comply without complying, what
+        compliance looks like instead, and a caveat for each.
 
         <ul class="standard-clauses">
           {antiPatterns.map((pattern) => (
@@ -301,7 +305,7 @@ export const structuredData = {
               </span>
               <br />
               <span class="muted">
-                False-positive warning: {pattern.warning}
+                Caveat: {pattern.warning}
               </span>
             </li>
           ))}
@@ -309,176 +313,184 @@ export const structuredData = {
       </section>
 
       <section id="articles" class="standard-section">
-        <h2>Article I: The Right to Stoppability</h2>
+        <h2>Article I: The right to stoppability</h2>
         <p class="standard-article-quote">
-          "No system shall force a user to complete a process they wish to
-          abandon."
+          A person can stop any process they no longer want to complete.
         </p>
         <ol class="standard-clauses">
           <li>
             <span class="standard-clause-id">§1.1</span>
-            Immediate Cessation: Every active process must possess a clearly visible,
-            universally accessible mechanism to halt operation immediately.
+            Immediate cessation: Every active process must have a clearly visible,
+            universally accessible control that halts it immediately.
           </li>
           <li>
             <span class="standard-clause-id">§1.2</span>
-            Preservation of State: Halting a process must not result in the punitive
-            destruction of data. The system must save the "Paused State" for a reasonable
-            duration, allowing the user to return without penalty.
+            Preservation of state: Halting a process must not destroy data as a
+            penalty. The system must save the paused state for the maximum
+            duration it declares for that state under §3.1, so the user can
+            return without penalty.
           </li>
           <li>
             <span class="standard-clause-id">§1.3</span>
-            The Prohibition of the Forced Tunnel: No interface may lock a user into
-            a linear sequence without a permanent exit option available on every
-            screen; "wizards" or "flows" are common examples.
+            Prohibition of the forced tunnel: An interface must not lock a user
+            into a linear sequence, such as a wizard or flow, without a permanent
+            exit option on every screen.
           </li>
         </ol>
       </section>
 
       <section class="standard-section">
-        <h2>Article II: The Right to Exit (Resignation)</h2>
+        <h2>Article II: The right to exit (resignation)</h2>
         <p class="standard-article-quote">
-          "The user must always be able to leave."
+          A person can always leave, and leaving costs no more than joining did.
         </p>
         <ol class="standard-clauses">
           <li>
             <span class="standard-clause-id">§2.1</span>
-            The Universal Exit: A user must be able to sever their relationship
-            with a system (delete account, unsubscribe, cancel contract) with equal
-            or lesser friction than was required to create it.
+            Universal exit: A user must be able to end their relationship with a
+            system (delete an account, unsubscribe, cancel a contract) with no
+            more friction than was required to create it.
           </li>
           <li>
             <span class="standard-clause-id">§2.2</span>
-            The One-Step Rule: If entry required one click, exit shall require no
-            more than one click.
+            One-step rule: If entry required one click, exit must require no more
+            than one click.
           </li>
           <li>
             <span class="standard-clause-id">§2.3</span>
-            Prohibition of Retention Scripts: Systems may not force users to navigate
-            "retention flows," "exit surveys," or "confirmations of loss" as a prerequisite
-            for exit. These act as Constructive Denial (blocking exit by inflating
-            friction).
+            Prohibition of retention scripts: A system must not require a user to
+            go through a retention flow, exit survey, or confirmation of loss
+            before exit. Each is a constructive denial: it blocks exit by adding
+            friction.
           </li>
         </ol>
       </section>
 
       <section class="standard-section">
-        <h2>Article III: The Right to Bounded Duration</h2>
-        <p class="standard-article-quote">"No process may be infinite."</p>
+        <h2>Article III: The right to bounded duration</h2>
+        <p class="standard-article-quote">
+          Every process has a declared maximum duration, and a stated outcome
+          when it runs out.
+        </p>
         <ol class="standard-clauses">
           <li>
             <span class="standard-clause-id">§3.1</span>
-            The Hard Clock: Every system state must have a defined maximum duration.
-            "Pending," "Processing," or "Reviewing" states cannot persist indefinitely.
+            Hard clock: Every system state must have a defined maximum duration.
+            A pending, processing, or reviewing state must not persist
+            indefinitely.
           </li>
           <li>
             <span class="standard-clause-id">§3.2</span>
-            The Timeout Guarantee: If a system cannot resolve a request within a
-            declared timeframe, it must default to a failure state or a human escalation.
-            It may not loop forever.
+            Timeout guarantee: If a system cannot resolve a request within its
+            declared timeframe, it must default to a failure state or to human
+            escalation. It must not loop indefinitely.
           </li>
           <li>
             <span class="standard-clause-id">§3.3</span>
-            Estimation of Burden: Before a user commits to a process, the system
-            must declare the estimated time to completion. Concealing the duration
-            of a task to secure engagement is a violation of consent.
+            Estimation of burden: Before a user commits to a process, the system
+            must declare the estimated time to completion. Concealing how long a
+            task takes in order to secure engagement violates consent.
           </li>
         </ol>
       </section>
 
       <section class="standard-section">
-        <h2>Article IV: The Right to Reversibility</h2>
+        <h2>Article IV: The right to reversibility</h2>
         <p class="standard-article-quote">
-          "To err is human; the system must forgive."
+          A person's mistake can be undone without asking anyone's permission.
         </p>
         <ol class="standard-clauses">
           <li>
             <span class="standard-clause-id">§4.1</span>
-            The Undo Window: For any action with consequential effects (deletion,
-            transfer, publication), the system must provide a "Grace Period" during
+            Undo window: For any action with consequential effects (deletion,
+            transfer, publication), the system must provide a grace period in
             which the action can be reversed without administrative intervention.
           </li>
           <li>
             <span class="standard-clause-id">§4.2</span>
-            Non-Destructive Defaults: Systems shall not permanently destroy user
-            data based on a single input. "Soft Delete" (archival) must be the default
-            engineering state for all removal actions.
+            Non-destructive defaults: A system must not permanently destroy user
+            data on a single input. Soft delete (archival) must be the default for
+            every removal action.
           </li>
         </ol>
       </section>
 
       <section class="standard-section">
-        <h2>Article V: The Right to Non-Coercive Waiting</h2>
-        <p class="standard-article-quote">"Silence is not a valid status."</p>
+        <h2>Article V: The right to non-coercive waiting</h2>
+        <p class="standard-article-quote">
+          A person who is kept waiting is told where they stand, is not held on
+          the line, and is not left waiting past a stated clock.
+        </p>
         <ol class="standard-clauses">
           <li>
             <span class="standard-clause-id">§5.1</span>
-            Visibility of Queue: When a user is placed in a waiting state, the system
-            must provide accurate, real-time telemetry regarding their position
-            and expected wait time.
+            Visibility of queue: When a user is placed in a waiting state, the
+            system must show their position and expected wait time, accurately
+            and in real time.
           </li>
           <li>
             <span class="standard-clause-id">§5.2</span>
-            The Prohibition of False Activity: Systems shall not use "fake progress
-            bars," "placebo buttons," or looping animations to simulate activity
-            when the system is idle or stalled.
+            Prohibition of false activity: A system must not use fake progress
+            bars, placebo buttons, or looping animations to simulate activity
+            while it is idle or stalled.
           </li>
           <li>
             <span class="standard-clause-id">§5.3</span>
-            Asynchronous Option: No user shall be forced to hold an active connection
-            (keep a window open, stay on the phone) to maintain their place in a
-            queue. Systems must offer callback or notification options for waits
-            exceeding 5 minutes.
+            Asynchronous option: A user must not be forced to hold an active
+            connection (keep a window open, stay on the phone) to keep their place
+            in a queue. For waits exceeding 5 minutes, the system must offer a
+            callback or a notification.
           </li>
           <li>
             <span class="standard-clause-id">§5.4</span>
-            The Expiry Default: Where a stated clock for an application, appeal, or
-            prior-authorization request expires without a decision, the request shall
-            resolve in the applicant's favor. Where the default outcome falls harder
-            on the applicant than on the institution, the clause names an escalation
-            to a human reviewer in place of the grant. A clock that carries no stated
+            Expiry default: Where a stated clock for an application, appeal, or
+            prior-authorization request expires without a decision, the request
+            must resolve in the applicant's favor. Where that default would fall
+            harder on the applicant than on the institution, the request must
+            instead escalate to a human reviewer. A clock with no stated
             consequence is not a clock.
           </li>
         </ol>
       </section>
 
       <section class="standard-section">
-        <h2>Article VI: The Right to Human Override</h2>
+        <h2>Article VI: The right to reach a human</h2>
         <p class="standard-article-quote">
-          "The machine is a tool, not a judge."
+          An automated denial can be appealed to a person, and the institution
+          answers for what its automation does.
         </p>
         <ol class="standard-clauses">
           <li>
             <span class="standard-clause-id">§6.1</span>
-            The Escalation Path: Any automated decision that denies a user access,
+            Escalation path: Any automated decision that denies a user access,
             service, or property must include a clearly defined path to appeal to
             a human agent.
           </li>
           <li>
             <span class="standard-clause-id">§6.2</span>
-            The Liability of Automata: A system may not hide behind "algorithmic
-            error." The operating institution accepts full liability for the latency
-            and errors of its automated agents.
+            Liability of automata: "Algorithmic error" is not a defense. The
+            operating institution must accept full liability for the delays and
+            errors of its automated agents.
           </li>
         </ol>
       </section>
 
       <section class="standard-section">
-        <h2>Article VII: The Right to Transparent Burden</h2>
+        <h2>Article VII: The right to transparent burden</h2>
         <p class="standard-article-quote">
-          "The system must show the receipt."
+          The time a system costs the public is measured and published.
         </p>
         <ol class="standard-clauses">
           <li>
             <span class="standard-clause-id">§7.1</span>
-            The Cost of Compliance: Institutions must measure and publish the "Time
-            Tax" their bureaucracy imposes on the public.
+            Cost of compliance: An institution must measure and publish the time
+            tax its processes impose on the public.
           </li>
           <li>
             <span class="standard-clause-id">§7.2</span>
-            Burden Impact Statement: Major system updates must be audited to ensure
-            they do not increase the cognitive load or time requirement for existing
-            tasks.
+            Burden impact statement: Each major system update must be audited to
+            confirm it does not increase the cognitive load or the time required
+            for existing tasks.
           </li>
         </ol>
       </section>

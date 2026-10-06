@@ -12,7 +12,7 @@ summary: "Every absorbed failure improves the metric that should have caught it.
 import DemoFigure from "../../components/DemoFigure.astro";
 import AbsorptionFigure from "../../features/absorption-figure/AbsorptionFigure";
 
-An institution learns about its systems through instruments: error rates, escalation counts, time to resolution, satisfaction scores. The instruments are designed to register failure. This essay is about the failures they cannot register, because someone dealt with them first, and about why that class of failure grows exactly when a system becomes important.
+An institution learns about its systems through instruments: error rates, escalation counts, time to resolution, satisfaction scores. The instruments are designed to register failure. They cannot register a failure someone dealt with first, and that class of failure grows exactly when a system becomes important.
 
 ## The mechanism
 
@@ -36,9 +36,9 @@ The standard argument for expanding a system's authority is that it has proven r
 
 This does not mean the system is unreliable. It means the institution does not know whether it is. A claim of reliability that rests on instruments subject to absorption bias is a claim about the combined performance of the system and the people around it, attributed to the system alone. When the institution then expands the system's authority on the strength of that claim, it is expanding on the strength of labor it has not counted and cannot see.
 
-This exposes the accounting distortion at the heart of automated efficiency: the **falsified denominator**. An engineering dashboard measures processing latency in milliseconds and throughput in requests per second. Inside that machine boundary, the automation appears extraordinarily lean. But this denominator counts only internal computational cost. It omits the twenty minutes a user spends navigating a broken flow, the hours spent in an appeal queue, and the manual clean-up shifts worked by operational staff to fix malformed outputs. By treating human time and corrective labor outside the system boundary as zero-cost externalities, the system manufactures an illusion of velocity.
+This exposes the accounting distortion at the heart of automated efficiency: the **falsified denominator**. An engineering dashboard measures processing latency in milliseconds and throughput in requests per second. Inside that machine boundary, the automation looks lean. But the denominator counts only the machine's cost. It omits the twenty minutes a user spends navigating a broken flow, the hours spent in an appeal queue, and the clean-up shifts staff work to fix malformed outputs. Human time and corrective labor outside the boundary are counted as free, so the system looks fast because someone else's time is not on the books.
 
-What is celebrated as complexity reduction is almost always **complexity displacement**:
+What is celebrated as complexity reduction is often **complexity displacement**:
 
 > Whenever a system claims dramatic operational simplification, ask whether the world became simpler or whether someone else was forced to become more adaptive.
 
@@ -56,7 +56,7 @@ The failure mode is easy to describe and hard to notice from inside. The system 
 
 ## Measuring what hides
 
-If absorption is a bias rather than noise, it can be measured only by an instrument designed for it. The ordinary instruments will not do, because they are the ones being biased. The question such an instrument has to answer is: how far does the reported performance of this system depend on corrections that are not being counted?
+If absorption is a bias rather than noise, it can be measured only by an instrument designed for it. The ordinary instruments will not do, because they are the ones being biased. The question such an instrument has to answer is: how far does the reported performance of this system depend on corrections that are not being counted? Call that the absorbed share.
 
 There are ways to get at this. Shadow the people around the system and count what they fix. Compare performance across contexts where the absorbing capacity differs. Remove the absorbing people from a bounded sample and see what the instruments do. None of these is free, and each of them produces a number that the institution may not want. But the alternative is to keep reading the biased instrument and calling the result health.
 
@@ -64,7 +64,7 @@ The number matters for the argument about standing as well. Where the absorbed s
 
 ## The instrument has the same defect
 
-The ways of measuring absorption just listed share a property with the instruments they are meant to correct: they are paid in the currency of the people being measured. Shadowing the people around the system spends their time. Asking a clinician how long the workaround takes asks the person with the least of it. A survey of the exhausted returns the views of the rested, and the institution reads the absence as absence of harm.
+The ways of measuring absorption listed above share a property with the instruments they are meant to correct: they are paid in the currency of the people being measured. Shadowing the people around the system spends their time. Asking a clinician how long the workaround takes asks the person with the least of it. A survey of the exhausted returns the views of the rested, and the institution reads the absence as absence of harm.
 
 The bias has a direction. An instrument drawing on discretionary effort will under-report the depleted, so a low reading is compatible with a severe problem while a high reading is no evidence of a mild one. Asking the question more carefully does not repair this, because the defect sits in the sampling rule rather than in the wording. It is absorption again, one level earlier: the institution reads a quiet sensor as a healthy system.
 
@@ -86,6 +86,12 @@ Absorption is the hiding. It happens at the layers where people are, which are t
 
 ## What the laws take from this
 
-The method takes three constraints from the argument. Dependence is a state variable, because dependence is what drives absorption and absorption is what corrupts every other measurement; an institution that does not track dependence cannot interpret its own instruments. Observability without state transition is theater, because an instrument that can be biased into silence by competent staff is not observing anything the institution can act on. And the relevant evaluation sits at the highest layer where harm can emerge, because the layers where absorption happens are the layers a model evaluation does not reach.
+The method takes three constraints from the argument.
 
-The narrowest form of the claim needs no theory of what institutions owe the people who absorb their failures. An institution which cannot see its failures does not know how its systems perform, and expanding on the strength of what it cannot see is a decision it is making blind. That form covers only the case where the institution cannot see. Where it can, the argument about standing is the one that applies.
+[Law V](/standards/laws#law-v): dependence is a state variable. Dependence drives absorption, and absorption corrupts every other measurement, so an institution that does not track dependence cannot interpret its own instruments.
+
+[Law VIII](/standards/laws#law-viii): observability without state transition is theater. An instrument that competent staff can bias into silence is not observing anything the institution can act on.
+
+[Law X](/standards/laws#law-x): the relevant evaluation sits at the highest layer where harm can emerge. Absorption happens at layers a model evaluation does not reach.
+
+The narrowest form of the claim needs no theory of what institutions owe the people who absorb their failures. An institution that cannot see its failures does not know how its systems perform, and an expansion based on what it cannot see is a decision made blind. That form covers only the case where the institution cannot see. Where it can, the argument about standing is the one that applies.

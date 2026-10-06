@@ -24,7 +24,7 @@ const canonicalObjects = [
   {
     name: "Clause",
     description:
-      "Atomic right requirement with a stable clause ID (e.g., \u00a73.2).",
+      "One requirement of a standard, with a stable clause ID (for example, \u00a73.2).",
   },
   {
     name: "Mechanism",
@@ -67,7 +67,8 @@ const canonicalObjects = [
   },
   {
     name: "Diagram",
-    description: "Diagram objects aligned to the micro-diagram language spec.",
+    description:
+      "A small figure that explains one term or clause. Diagrams are not exported yet.",
   },
   {
     name: "Agent safety object model",
@@ -179,8 +180,8 @@ const endpoints = API_ENDPOINTS.map((endpoint) => ({
   <SectionBlock
     id="objects"
     eyebrow="Canonical objects"
-    title="The object model this API will publish."
-    description="Use these names in integrations and audit tooling."
+    title="The object model behind the exports."
+    description="The names the endpoints and schemas below use. Use the same names in integrations and audit tooling."
   >
     <ul class="muted">
       {
@@ -394,7 +395,7 @@ const endpoints = API_ENDPOINTS.map((endpoint) => ({
       <li>
         Changelogs that describe material changes to rights or thresholds.
       </li>
-      <li>Release index and schema hashes under /api/releases.json.</li>
+      <li>A release index at /api/releases.json.</li>
     </ul>
   </SectionBlock>
 
@@ -402,15 +403,13 @@ const endpoints = API_ENDPOINTS.map((endpoint) => ({
     id="roadmap"
     eyebrow="Roadmap"
     title="Planned additions."
-    description="The next phase expands coverage and release automation."
+    description="Not yet built, and not scheduled. The OpenAPI and AsyncAPI drafts above are already published."
     variant="alt"
   >
     <ul class="muted">
       <li>Signed releases with verifiable citation hashes.</li>
       <li>Schema validation automation for new objects.</li>
-      <li>Expanded clause mapping for emerging standards.</li>
-      <li>OpenAPI draft for decision retrieval and appeal intake.</li>
-      <li>AsyncAPI events for deadline clocks and repair log updates.</li>
+      <li>Clause mappings for emerging external standards.</li>
     </ul>
   </SectionBlock>
 </BaseLayout>

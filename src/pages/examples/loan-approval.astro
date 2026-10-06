@@ -12,7 +12,7 @@ import {
 
 const pageTitle = "Loan approval systems: implementation comparison";
 const pageDescription =
-  "Credit scoring and loan approval governed two ways: oversight added on top, or halt authority, reversal targets, and named appeal owners built into the system.";
+  "Credit scoring governed two ways: oversight added on top, or reasons, a named owner who answers by a date, and upheld challenges that reach the scoring rule.";
 const permalink = "/examples/loan-approval";
 const anchorLinks = implementationExampleAnchorLinks;
 const publication = createImplementationPublication(
@@ -77,29 +77,32 @@ const publication = createImplementationPublication(
     id="ethotechnics"
     eyebrow="Ethotechnics implementation"
     title="What changes when governance becomes infrastructure"
-    description="Control authority and recovery time are built into the runtime, not layered on later."
+    description="The scoring rule has an owner, and upheld challenges reach it."
   >
     <ul class="card__list">
       <li>
-        Structural veto lanes let community representatives, legal oversight,
-        and adversarial reviewers pause approvals in real time.
+        An applicant who is refused, or offered a lower limit, gets the specific
+        reasons for that decision.
       </li>
       <li>
-        <a href="/glossary/stoppability">Stoppability</a> drills test how fast approvals
-        can be frozen once discriminatory patterns emerge.
+        A challenge goes to a named owner who can change the decision and must
+        answer by a stated date. That is what
+        <a href="/glossary/contestability">contestability</a> means here.
       </li>
       <li>
-        <a href="/explainers/time-to-halt">Time-to-halt</a> and
-        <a href="/glossary/reversibility">reversibility</a> targets measure how quickly
-        denied applicants can challenge outcomes before harm compounds.
+        Upheld challenges are counted by scoring rule. The count goes to the
+        rule's owner, who reviews the rule and records what changed.
       </li>
       <li>
-        Recovery metrics track restoration completeness, including whether
-        missed housing opportunities or credit damage are reversed.
+        A named person can halt decisions from one rule while it is reviewed.
+        The halt contains the harm. The review changes the rule.
+        <a href="/explainers/time-to-halt">Time-to-halt</a> measures how long the
+        halt takes.
       </li>
       <li>
-        <a href="/glossary/contestability">Contestability</a> is enforced with named
-        owners, clocks, and a visible path to override.
+        When a decision is <a href="/glossary/reversibility">reversed</a>, the
+        applicant's offer and credit file are restored, including any mark the
+        refusal left.
       </li>
     </ul>
   </SectionBlock>
@@ -108,23 +111,18 @@ const publication = createImplementationPublication(
     id="checklist"
     eyebrow="Implementation checklist"
     title="Signals to verify before launch"
-    description="Each check confirms that approvals can be halted and reversed on a clock."
+    description="Each check confirms that a wrong decision reaches the scoring rule and is reversed by a date."
   >
     <ul class="muted">
-      <li>Document who can halt approvals and how their veto is triggered.</li>
+      <li>Name the owner of each scoring rule, and who can halt it.</li>
+      <li>Set p95 and p99 time-to-halt targets.</li>
       <li>
-        Define p95 and p99 time-to-halt targets for discriminatory patterns.
+        Give applicants a challenge route with a named owner and an answer date.
       </li>
+      <li>Count upheld challenges by rule, and name who receives the count.</li>
       <li>
-        Provide applicants a direct contestability path with an owned response
-        clock.
-      </li>
-      <li>
-        Publish recovery steps that restore credit and reverse downstream harm.
-      </li>
-      <li>
-        Log stoppability drills and publish results in the
-        <a href="/glossary/repair-log"> repair log</a>.
+        Record each reversal and halt drill in the
+        <a href="/glossary/repair-log">repair log</a>.
       </li>
     </ul>
   </SectionBlock>

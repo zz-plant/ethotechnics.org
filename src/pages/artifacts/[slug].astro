@@ -27,7 +27,7 @@ const templateText = [
   "",
   ...artifact.description,
   "",
-  "## What this enforces — record how each one is met",
+  "## What it commits you to — record how each one is met",
   "",
   ...artifact.enforcesBullets.flatMap((bullet) => [
     `- [ ] ${bullet}`,
@@ -51,7 +51,7 @@ const templateText = [
     <h1>{artifact.name}</h1>
     {artifact.description.map((line) => <p>{line}</p>)}
 
-    <h2>What this enforces</h2>
+    <h2>What it commits you to</h2>
     <ul>
       {artifact.enforcesBullets.map((bullet) => <li>{bullet}</li>)}
     </ul>

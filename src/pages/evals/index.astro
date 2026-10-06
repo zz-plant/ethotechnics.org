@@ -221,7 +221,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       <div class="panel">
         <p class="eyebrow">Scoring anchors</p>
         <ul class="card__list">
-          <li><strong>Binary:</strong> Pass/fail — condition is met or not.</li>
+          <li>
+            <strong>Binary:</strong> Pass or fail. The condition is met or it is not.
+          </li>
           <li><strong>0–3:</strong> Absent → Partial → Adequate → Strong.</li>
           <li>
             <strong>0–5:</strong> Absent → Minimal → Basic → Adequate → Strong → Exemplary.
@@ -237,7 +239,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           </li>
           <li>
             <strong>Min-threshold:</strong> All test cases must score at or above
-            the minimum threshold. Single critical failure fails the suite.
+            the minimum threshold. A single critical failure fails the suite.
           </li>
           <li>
             <strong>All-must-pass:</strong> Every test case must pass. Used where

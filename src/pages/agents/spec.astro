@@ -7,8 +7,8 @@ import agentSafetyObjectModel from "../../data/agents-spec.json";
 const pageTitle = "Agent Safety Object Model";
 const pageDescription =
   "A JSON schema that declares an AI agent's autonomy level, action classes, override authority, receipts, and clocks, with what breaks when a field is missing.";
-const version = "v1.1.1";
-const lastUpdated = "2026-10-01";
+const version = "v1.1.2";
+const lastUpdated = "2026-10-06";
 const anchorLinks = [
   { href: "#overview", label: "Overview" },
   { href: "#example", label: "Example model" },
@@ -206,7 +206,7 @@ const breadcrumbItems = [
     id="example"
     eyebrow="Example"
     title="Example Agent Safety Object Model"
-    description="A starting point: replace IDs and clocks with your system values."
+    description="Validate against the schema, not this example. The example is in the 1.1.0 shape, which version 2.0.0 of the schema replaces. Use it as a starting point and replace the IDs and clocks with your system's values."
     variant="alt"
   >
     <pre class="code-block">{exampleModel}</pre>
@@ -265,7 +265,7 @@ const breadcrumbItems = [
     id="schema"
     eyebrow="Example"
     title="The full example object, in the 1.1.0 shape"
-    description="This instance predates version 2.0.0 of the schema, which replaces approval_required with a grant reference for each action class and stop_override_authority with an intervention reference. Validate against the schema, not this example."
+    description="Validate against the schema, not this example. This instance predates version 2.0.0 of the schema, which replaces approval_required with a grant reference for each action class and stop_override_authority with an intervention reference."
   >
     <pre class="code-block">{agentSafetyObjectModelText}</pre>
   </SectionBlock>
@@ -283,8 +283,8 @@ const breadcrumbItems = [
         <a href="/mechanisms/patterns/admission-gate">MEC-22 admission gate</a>.
       </li>
       <li>
-        Map action classes to <a href="/standards/ethotechnics-for-agents"
-          >agent standards</a
+        Map action classes to the controls in <a
+          href="/standards/ethotechnics-for-agents">Ethotechnics for Agents</a
         >.
       </li>
       <li>
@@ -346,8 +346,8 @@ const breadcrumbItems = [
       </div>
     </div>
     <p class="muted">
-      Search IDs: ASOM 1.1.0, STD-01 v1.0, STD-02 v1.2, STD-01.1.1, STD-02.2.1,
-      MEC-01, MEC-05, MEC-06, VAL-01, VAL-02, VAL-03.
+      Search IDs: ASOM 1.1.0, STD-01 v1.0.1, STD-02 v1.3.1, STD-01.1.1,
+      STD-02.2.1, MEC-01, MEC-05, MEC-06, VAL-01, VAL-02, VAL-03.
     </p>
   </SectionBlock>
 </BaseLayout>

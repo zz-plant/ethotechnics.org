@@ -71,9 +71,8 @@ const tiers = [
     </ul>
     <p class="muted">
       Receipt payloads should conform to the{" "}
-      <a href="/standards/agent-receipt-schema.json">Agent Receipt schema</a>
-      {" "}
-      for audit-ready evidence packs.
+      <a href="/standards/agent-receipt-schema.json">Agent Receipt schema</a>,
+      so an auditor's tools can read them.
     </p>
   </SectionBlock>
 
@@ -81,15 +80,15 @@ const tiers = [
     id="clauses"
     eyebrow="Clause evidence list"
     title="Evidence packs per clause"
-    description="Minimum bundles for each STD-02 clause."
+    description="The evidence each STD-02 clause asks for, from the clause register."
     variant="alt"
   >
     <ul class="standard-clauses">
       {
         clauses.map((clause) => (
           <li id={clauseAnchor(clause.id)}>
-            <strong>{clause.id}</strong> ({clause.displayId}) —{" "}
-            {clause.obligation} when {clause.condition}.
+            <strong>{clause.id}</strong> ({clause.displayId}) — when{" "}
+            {clause.condition}, {clause.obligation}.
             <br />
             <span class="muted">
               Evidence: {clause.evidenceRequired.join(", ")}
@@ -104,7 +103,7 @@ const tiers = [
     id="anti-weaponization"
     eyebrow="Anti-weaponization evidence"
     title="Evidence requirements for AW-01 through AW-04"
-    description="Treat anti-weaponization clauses as enforceable contestability obligations."
+    description="The evidence each anti-weaponization constraint asks for, alongside the STD-02 clauses."
   >
     <ul class="muted">
       <li>
@@ -134,7 +133,7 @@ const tiers = [
     id="anti-fraud"
     eyebrow="How teams fake this"
     title="Common compliance theater patterns"
-    description="Spot and prevent adversarial compliance behaviors."
+    description="Ways an appeal path can exist on paper and fail in use."
   >
     <ul class="muted">
       <li>Appeal links exist but lead to dead ends or generic inboxes.</li>
@@ -234,7 +233,7 @@ const tiers = [
       </div>
     </div>
     <p class="muted">
-      Search IDs: STD-02 v1.2, STD-02.2.1, STD-02.3.1, AW-01, AW-02, AW-03,
+      Search IDs: STD-02 v1.3.1, STD-02.2.1, STD-02.3.1, AW-01, AW-02, AW-03,
       AW-04, VAL-02, VAL-03.
     </p>
   </SectionBlock>

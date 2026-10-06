@@ -12,7 +12,7 @@ import {
 
 const pageTitle = "Customer service chatbots: implementation comparison";
 const pageDescription =
-  "Support chatbots governed two ways: escalation only on low confidence, or a guaranteed exit to a person, staff kill switches, and response clocks.";
+  "Support chatbots governed two ways: escalation only on low confidence, or a person on request, a reply time, a named halt, and failed requests counted by flow.";
 const permalink = "/examples/customer-service-chatbots";
 const anchorLinks = implementationExampleAnchorLinks;
 const publication = createImplementationPublication(
@@ -69,31 +69,31 @@ const publication = createImplementationPublication(
     id="ethotechnics"
     eyebrow="Ethotechnics implementation"
     title="What changes when governance becomes infrastructure"
-    description="Escalation becomes a guaranteed exit path with measurable intervention latency."
+    description="Reaching a person is a right, and the requests the bot fails are counted against its design."
   >
     <ul class="card__list">
       <li>
-        Distributed kill switches are accessible to frontline staff, user
-        advocates, and adversarial reviewers.
+        A customer can ask for a person at any point, not only when the bot's
+        confidence is low. The bot passes on the conversation with its history.
       </li>
       <li>
-        <a href="/glossary/stoppability">Stoppability</a> and
-        <a href="/glossary/contestability">contestability</a> are enforced by default,
-        not triggered only by low confidence scores.
+        Each hand-off names the team that owns the case and the time by which
+        they will reply. That is what
+        <a href="/glossary/contestability">contestability</a> means here.
       </li>
       <li>
-        The bot operates at speeds that preserve human intervention windows,
-        with
-        <a href="/explainers/time-to-halt">time-to-halt</a> targets tied to service-level
-        obligations.
+        Requests the bot failed to resolve or hand off are counted by flow. The
+        count goes to the owner of that flow, who records what changed.
       </li>
       <li>
-        Escalation is a structural exit point with guaranteed response clocks
-        and recovery protocols.
+        A named staff member can switch off one bot flow while it is reviewed.
+        Switching it off contains the harm. Changing the flow fixes it.
+        <a href="/explainers/time-to-halt">Time-to-halt</a> measures how long the
+        switch-off takes.
       </li>
       <li>
-        <a href="/glossary/ethical-interrupts">Ethical interrupts</a> pause sessions
-        when harm patterns surface.
+        When the bot gave wrong advice or wrongly refused a request, the
+        customer is contacted and the outcome is corrected.
       </li>
     </ul>
   </SectionBlock>
@@ -102,18 +102,24 @@ const publication = createImplementationPublication(
     id="checklist"
     eyebrow="Implementation checklist"
     title="Signals to verify before launch"
-    description="Ensure users can escape, escalate, and repair quickly."
+    description="Confirm that a customer can reach a person, and that the bot's failures reach its owner."
   >
     <ul class="muted">
-      <li>Expose a visible stop control without penalties or loss of state.</li>
       <li>
-        Define escalation response times and publish them in user receipts.
+        Show a control that reaches a person, with no penalty and no lost
+        history.
       </li>
       <li>
-        Provide staff and advocates a direct halt path during harm spikes.
+        Publish the reply time for a hand-off in the confirmation the customer
+        receives.
       </li>
-      <li>Document recovery steps for incorrect advice or denied access.</li>
-      <li>Log stoppability drills and measure intervention latency weekly.</li>
+      <li>Name the staff member who can switch off each bot flow.</li>
+      <li>
+        Document how wrong advice or a wrongly refused request is corrected.
+      </li>
+      <li>
+        Count failed requests by flow, and record what changed in response.
+      </li>
     </ul>
   </SectionBlock>
 

@@ -10,6 +10,7 @@ import {
 import {
   FALLBACK_CASE_SLUG,
   pickCase,
+  pickMatchedCase,
   pickNextStep,
   variableForTopic,
 } from "./next-step";
@@ -106,5 +107,20 @@ describe("pickNextStep against the casebook", () => {
     const first = pickNextStep("Contestability", "contestability");
     const second = pickNextStep("Contestability", "contestability");
     expect(first.entry.slug).toBe(second.entry.slug);
+  });
+});
+
+describe("pickMatchedCase", () => {
+  it("returns nothing when the topic names no safeguard", () => {
+    expect(pickMatchedCase(undefined)).toBeUndefined();
+  });
+
+  it("returns the same case pickCase picks when a safeguard matches", () => {
+    for (const variable of stateVariables.map((item) => item.id)) {
+      const matched = pickMatchedCase(variable);
+      if (!matched) continue;
+      expect(matched.entry.slug).toBe(pickCase(variable).entry.slug);
+      expect(matched.finding.variable).toBe(variable);
+    }
   });
 });

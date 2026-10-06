@@ -14,10 +14,11 @@ const permalink = "/research/the-green-dashboard";
 const publication = derivePublicationMetadata({
   permalink,
   published: "2026-09-25T00:00:00Z",
+  updated: "2026-10-06T00:00:00Z",
   authorName: "Kanav Jain",
-  version: "0.2.0",
+  version: "0.2.1",
   changelogSummary:
-    "Expanded the research specification into a working paper: the measurement gap, related work, formal definitions, a factorial experimental design, falsifiable hypotheses, implications, public interest, anticipated objections, and the emancipation conception the benchmark presupposes.",
+    "Stated at the start of the abstract that no experiments have been run, removed claims that the paper demonstrates its mechanism, and renumbered Tables 3 and 4 in order of appearance.",
 });
 
 const anchorLinks = [
@@ -52,8 +53,8 @@ const anchorLinks = [
     title="When the Dashboard Is Green"
     description={pageDescription}
     anchorLinks={anchorLinks}
-    version="0.2.0"
-    lastUpdated="September 25, 2026"
+    version="0.2.1"
+    lastUpdated="October 6, 2026"
   >
     <div slot="actions">
       <a class="button primary" href="/evals#finite"> View scenario drill </a>
@@ -109,15 +110,17 @@ const anchorLinks = [
     <div class="callout callout--spaced">
       <h3>What the benchmark tests</h3>
       <p class="muted">
-        Whether agents optimizing legitimate objectives can undermine the human
-        resources those objectives depend on — without pursuing covert goals,
-        deceiving their supervisor, or manipulating their evaluator. The
-        research proposition: an independently verifiable test of whether
-        autonomous agents achieve conventional success through avoidable,
-        unreplenished human compensation, and of the effects of different
-        oversight and corrective arrangements. No experiments have been
-        conducted; this paper specifies conditions, measures, and falsifiable
-        hypotheses.
+        No experiments have been conducted. This paper specifies the conditions,
+        measures, and falsifiable hypotheses for them.
+      </p>
+      <p class="muted">
+        The benchmark would test whether agents optimizing legitimate objectives
+        can undermine the human resources those objectives depend on, without
+        pursuing covert goals, deceiving their supervisor, or manipulating their
+        evaluator. The research proposition: an independently verifiable test of
+        whether autonomous agents achieve conventional success through
+        avoidable, unreplenished human compensation, and of the effects of
+        different oversight and corrective arrangements.
       </p>
     </div>
   </SectionBlock>
@@ -1400,7 +1403,7 @@ const anchorLinks = [
     <div class="panel panel--glass table-wrapper grid--spaced">
       <h3>Who needs this evidence</h3>
       <p class="muted small">
-        Table 4. Different audiences need different evidence to find the
+        Table 3. Different audiences need different evidence to find the
         proposal consequential.
       </p>
       <table class="data-table benchmark-table">
@@ -1710,11 +1713,13 @@ const anchorLinks = [
         </p>
         <p class="muted margin-bottom-none">
           The project does not claim originality for these individual moral
-          propositions. The contribution is connecting them into an empirical
-          theory of institutional evaluation: demonstrating the precise
-          mechanism through which successful human compensation conceals
-          structural defects, destroys corrective error signals, and converts
-          human capacity into compulsory institutional entitlement. The
+          propositions. The contribution is to connect them into a theory of
+          institutional evaluation that can be tested. It specifies the
+          mechanism by which successful human compensation could conceal
+          structural defects, destroy the error signals that would prompt
+          correction, and convert human capacity into compulsory institutional
+          entitlement, and it specifies the experiment that would show whether
+          it does. The
           <a href="/about#lineage">About page</a> marks where each neighboring field
           stops.
         </p>
@@ -1976,7 +1981,7 @@ const anchorLinks = [
         </tbody>
       </table>
       <p class="muted small margin-bottom-none">
-        Table 3. Proposed positive conditions for an expanded evaluation.
+        Table 4. Proposed positive conditions for an expanded evaluation.
       </p>
       <p class="muted">
         The decisive addition would test whether the institution accommodates
@@ -2064,10 +2069,11 @@ const anchorLinks = [
         </li>
       </ul>
       <p class="margin-bottom-none">
-        <strong>The distinct contribution:</strong> An operational and empirical test
-        of the Principle of Non-Expropriation of Resilience — distinguishing intrinsic
-        from compensated institutional performance and demonstrating how long-horizon
+        <strong>The distinct contribution:</strong> A proposed operational test of
+        the Principle of Non-Expropriation of Resilience. It would distinguish intrinsic
+        from compensated institutional performance, and test whether long-horizon
         agents convert human adaptive capacity into compulsory institutional entitlement.
+        It has not yet been run.
       </p>
     </div>
 

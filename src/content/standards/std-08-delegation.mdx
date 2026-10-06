@@ -4,7 +4,7 @@ description: "A draft standard for automated systems acting for an institution: 
 permalink: "/standards/std-08-delegation"
 eyebrow: "Standard"
 seoTitle: "STD-08 — Delegation"
-version: "0.3"
+version: "0.3.1"
 publishedTime: "2026-09-06T00:00:00.000Z"
 mainClass: "page page--wide standard-document"
 anchorLinks:
@@ -165,12 +165,12 @@ export const structuredData = {
     "What must stay true while an automated system acts for an institution: authority as a lease, policies rechecked when facts change, human oversight that can change the outcome, and correction capacity that grows with authority.",
   url: "https://ethotechnics.org/standards/std-08-delegation",
   datePublished: "2026-09-06",
-  dateModified: "2026-09-22",
-  version: "0.3",
+  dateModified: "2026-10-06",
+  version: "0.3.1",
   identifier: "STD-08",
   publisher: {
     "@type": "Organization",
-    name: "Institute of Ethotechnics",
+    name: "Ethotechnics Institute",
     url: "https://ethotechnics.org",
   },
   isPartOf: {
@@ -195,15 +195,15 @@ export const structuredData = {
       </div>
       <div>
         <dt>Version</dt>
-        <dd>0.3 (Working draft)</dd>
+        <dd>0.3.1 (working draft)</dd>
       </div>
       <div>
-        <dt>Effective Date</dt>
+        <dt>Effective date</dt>
         <dd>TBD (proposed 2026)</dd>
       </div>
       <div>
         <dt>Authority</dt>
-        <dd>The Institute of Ethotechnics</dd>
+        <dd>Ethotechnics Institute</dd>
       </div>
     </dl>
   </header>
@@ -268,8 +268,8 @@ export const structuredData = {
         correct what the delegate does. Each is one part below.
 
         The standard binds Laws II, III, IV, IX, and XI of the{" "}
-        <a href="/standards/laws">Laws for Engineering Delegated Intelligence</a>
-        . Laws V, VI, and XII are bound by{" "}
+        <a href="/standards/laws">Laws for Engineering Delegated Intelligence</a>.
+        Laws V, VI, and XII are bound by{" "}
         <a href="/standards/std-06-human-impact-safety-case">STD-06</a>{" "}
         because dependence is a property of the deployment rather than of a
         single grant. Law VII is bound by{" "}
@@ -346,7 +346,7 @@ export const structuredData = {
             population, action classes, or ceiling MUST be taken as its own
             authorization decision, with its own <code>evidence_basis</code> and
             its own correction-capacity check under §4.2. It is not a
-            continuation of the existing authorization and it does not inherit
+            continuation of the existing authorization, and it does not inherit
             the earlier decision's evidence.
           </li>
           <li>
@@ -437,7 +437,7 @@ export const structuredData = {
             A decision threshold is a policy: A threshold, cut-off, or
             confidence floor that decides whether an action runs unattended,
             goes to a person, or is refused MUST be held as a policy record
-            under §2.1. Its <code>assumptions</code> name the labelled cases it
+            under §2.1. Its <code>assumptions</code> name the labeled cases it
             was set against, the model version and question schema it was set
             for, including the order of any enumerated options, and the error
             it was set to make less often at the cost of the other. Its
@@ -523,9 +523,12 @@ export const structuredData = {
             Near-unanimous approval is a finding: Sustained approval rates at or
             near unanimity, or a median approval time too short for the
             information named in <code>information_available</code> to have been
-            read, MUST open a reconsideration of the specification. The finding
-            is not that the reviewer is at fault. It is that the control has not
-            been shown to be one.
+            read, MUST open a reconsideration of the specification. The operator
+            sets both thresholds, the approval rate it treats as near unanimity
+            and the shortest median time in which that information can be read,
+            and publishes them with the specification before the review period
+            begins. The finding is not that the reviewer is at fault. It is that
+            the control has not been shown to be one.
           </li>
           <li>
             <span class="standard-clause-id">§3.6</span>
@@ -559,19 +562,19 @@ export const structuredData = {
         <CorrectionSymmetryDiagram />
 
         STD-07 §4.2 obliges an answer to an accepted objection within its
-        clock. That is one component of correction and this standard relies on
-        it. What is left open is the proportionality: how much correction
+        clock. That is one component of correction, and this standard relies
+        on it. What is left open is the proportionality: how much correction
         capacity a delegation of a given size owes, and what happens to that
         ratio when the delegation grows.
 
-        Capacity also depreciates while nothing about the grant changes, which
-        is why each component carries a date as well as a description: the
-        dependency record governed by{" "}
+        Capacity also wears away while nothing about the grant changes, so
+        each component carries a date as well as a description. The
+        dependency record under{" "}
         <a href="/standards/std-06-human-impact-safety-case">STD-06</a>{" "}
-        Article V records per capacity a <code>last_exercised</code> and a
-        <code>status</code> of <code>retained</code>,
-        <code>degrading</code>, or <code>lost</code>, because a capacity listed
-        but never exercised is a claim rather than a capability.
+        Article V records, for each capacity, when it was last exercised
+        (<code>last_exercised</code>) and whether it is retained, degrading,
+        or lost (<code>status</code>). A capacity that is listed but never
+        exercised is a claim, not a capability.
 
         <ol class="standard-clauses">
           <li>
@@ -596,7 +599,7 @@ export const structuredData = {
           </li>
           <li>
             <span class="standard-clause-id">§4.3</span>
-            Capacity is reviewed with scope: Correction capacity MUST be
+            Capacity is reviewed at renewal: Correction capacity MUST be
             re-examined at every renewal under §1.1, against the volume and
             consequence of what the grant actually did in the period rather than
             what it was expected to do. Capacity that has degraded moves the
@@ -614,17 +617,14 @@ export const structuredData = {
           </li>
           <li>
             <span class="standard-clause-id">§4.5</span>
-            Correction capacity is stated and re-checked with scope: The seven
-            components of §4.1 MUST be recorded on the grant, in
-            <code>correction_capacity</code>, each with its own evidence, under
-            an <code>assessed_at</code> date: detection, challenge, standing,
-            review, authority to modify, reversible state transitions, and the
-            practical ability to operate after correction. Capacity MUST be
-            re-checked whenever scope changes,
-            and not only at the renewal in §4.3. A grant whose scope has grown
-            while its stated capacity is unchanged MUST NOT take effect until the
-            capacity has been re-assessed and the assessment recorded against the
-            widening transition.
+            Capacity is recorded on the grant and re-checked with scope: The
+            seven components of §4.1 MUST be recorded on the grant in
+            <code>correction_capacity</code>, each with its own evidence and an
+            <code>assessed_at</code> date. Capacity MUST be re-checked whenever
+            scope changes, not only at renewal under §4.3. A grant whose scope
+            has grown while its stated capacity is unchanged MUST NOT take
+            effect until the capacity has been re-assessed and the assessment
+            recorded against the widening transition.
           </li>
           <li>
             <span class="standard-clause-id">§4.6</span>
@@ -632,14 +632,14 @@ export const structuredData = {
             provider MUST NOT be necessary both to execute a consequential
             process and to evaluate it. The <code>detection</code> component of
             §4.1 is not satisfied by instrumentation that the executing provider
-            alone supplies or controls, and the grant records in
-            <code>correction_capacity.detection</code> the
-            <code>evaluator</code> and whether it is
-            <code>independent_of_executor</code>. This is a correction clause
-            rather than a procurement preference: a system that grades its own
-            homework has no detection component, however much telemetry it
-            emits, and the six components that follow detection never fire
-            because nothing reaches them.
+            alone supplies or controls. The grant records, in
+            <code>correction_capacity.detection</code>, who the evaluator is
+            (<code>evaluator</code>) and whether it is independent of the
+            executor (<code>independent_of_executor</code>). This is a
+            correction clause, not a procurement preference. A system that
+            grades its own work has no detection component, however much
+            telemetry it emits, and the six components that follow detection
+            never fire, because nothing reaches them.
           </li>
         </ol>
       </section>
@@ -647,8 +647,8 @@ export const structuredData = {
       <section id="anti-patterns" class="standard-section">
         <h2>Anti-patterns and counterfactuals</h2>
 
-        These detect delegations that satisfy the record format while failing
-        the terms.
+        Four ways a delegation can satisfy the record format while failing
+        the terms, what meeting the terms looks like, and a caveat for each.
 
         <ul class="standard-clauses">
           {antiPatterns.map((pattern) => (
@@ -660,7 +660,7 @@ export const structuredData = {
               </span>
               <br />
               <span class="muted">
-                False-positive warning: {pattern.warning}
+                Caveat: {pattern.warning}
               </span>
             </li>
           ))}

@@ -12,7 +12,7 @@ import {
 
 const pageTitle = "Financial fraud detection: implementation comparison";
 const pageDescription =
-  "Fraud detection governed two ways: accuracy and reporting controls, or freeze receipts that name the reason and owner, independent vetoes, and time-to-restore.";
+  "Fraud detection governed two ways: accuracy controls, or freeze receipts with a reason, owner, and date, wrongful freezes counted by rule, and time-to-restore.";
 const permalink = "/examples/financial-fraud-detection";
 const anchorLinks = implementationExampleAnchorLinks;
 const publication = createImplementationPublication(
@@ -72,33 +72,32 @@ const publication = createImplementationPublication(
     id="ethotechnics"
     eyebrow="Ethotechnics implementation"
     title="What changes when governance becomes infrastructure"
-    description="Fraud controls embed recovery speed, plural oversight, and the power to reverse wrong decisions."
+    description="Each freeze has an owner and a date, and wrongful freezes are counted against the rule that made them."
   >
     <ul class="card__list">
       <li>
-        Separate review roles give legal, customer advocacy, and security teams
-        independent veto power over account freezes.
+        Each freeze issues a receipt with the reason, the owner, and the date by
+        which the customer will get an answer. That is what
+        <a href="/glossary/contestability">contestability</a> means here.
       </li>
       <li>
-        Recovery metrics track <a href="/glossary/time-to-restore"
-          >time-to-restore</a
-        >
-        alongside detection accuracy.
+        The owner can lift the freeze. If no fraud is confirmed by that date,
+        the freeze is lifted.
       </li>
       <li>
-        <a href="/glossary/stoppability">Stoppability</a> drills validate that wrongful
-        freezes can be halted rapidly.
+        <a href="/glossary/time-to-restore">Time-to-restore</a>, from freeze to
+        restored access for a legitimate customer, is measured alongside
+        detection accuracy.
       </li>
       <li>
-        User-facing receipts show the freeze reason, owner, and response clock
-        to ensure
-        <a href="/glossary/contestability">contestability</a>.
+        Freezes lifted as wrongful are counted by detection rule. The count goes
+        to the rule's owner, who reviews the rule and records what changed.
       </li>
       <li>
-        Restoration events are logged in a public <a href="/glossary/repair-log"
-          >repair log</a
-        >
-        to prevent silent failure load.
+        A named person can halt one detection rule while it is reviewed. The
+        halt contains the harm. The review changes the rule. Each restoration,
+        with any fees or missed payments repaid, is entered in the
+        <a href="/glossary/repair-log">repair log</a>.
       </li>
     </ul>
   </SectionBlock>
@@ -107,20 +106,19 @@ const publication = createImplementationPublication(
     id="checklist"
     eyebrow="Implementation checklist"
     title="Signals to verify before launch"
-    description="Prove that account freezes are reversible on a clock."
+    description="Prove that a wrongful freeze is lifted by a date, and that the count reaches the rule's owner."
   >
     <ul class="muted">
-      <li>Define restoration time targets for false positives.</li>
+      <li>Set a time-to-restore target for customers frozen in error.</li>
       <li>
-        Provide customers a direct override request with clear response clocks.
+        Give customers a way to challenge a freeze, answered by a stated date.
       </li>
+      <li>Name who can halt a detection rule, and how they are alerted.</li>
+      <li>Publish the receipt fields: reason, owner, and answer date.</li>
       <li>
-        Document who can halt freezes and how they are alerted in real time.
+        Count wrongful freezes by rule, and record whether fees and downstream
+        losses were repaid.
       </li>
-      <li>
-        Publish receipt payloads that include reasons and ownership metadata.
-      </li>
-      <li>Track restoration completeness for downstream financial harm.</li>
     </ul>
   </SectionBlock>
 

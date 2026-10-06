@@ -13,10 +13,9 @@ const {
   anchorLinks,
   summary,
   sections,
-  textOnly,
 } = minimumViableContestabilityContent;
-const version = "1.0";
-const lastUpdated = "2025-01-01";
+const version = "1.0.1";
+const lastUpdated = "2026-10-06";
 ---
 
 <StandardsLayout
@@ -78,26 +77,5 @@ const lastUpdated = "2025-01-01";
         </section>
       ))
     }
-  </SectionBlock>
-
-  <SectionBlock
-    id="text"
-    eyebrow="Plain text"
-    title={textOnly.title}
-    description={textOnly.description}
-  >
-    <div class="panel">
-      <p class="muted">{summary.description}</p>
-      <ol class="muted">
-        {
-          sections.map((section) => (
-            <li>
-              <strong>{section.title}:</strong> {section.summary} Requirements:{" "}
-              {section.requirements.join(" ")}
-            </li>
-          ))
-        }
-      </ol>
-    </div>
   </SectionBlock>
 </StandardsLayout>

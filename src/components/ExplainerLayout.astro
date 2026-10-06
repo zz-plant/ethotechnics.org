@@ -57,11 +57,11 @@ const {
 const explainerSeoMetadata = getExplainerSeoMetadata(permalink);
 const anchorLinks = [
   { href: "#definition", label: "Definition" },
-  ...(hasDiagram ? [{ href: "#mechanism", label: "Visual Model" }] : []),
-  { href: "#example", label: "Example use case" },
-  { href: "#distinct-signals", label: "Distinct implementation signals" },
-  { href: "#artifacts", label: "Related artifacts" },
-  { href: "#faq", label: "FAQ" },
+  ...(hasDiagram ? [{ href: "#mechanism", label: "Visual model" }] : []),
+  { href: "#example", label: "A hypothetical case" },
+  { href: "#distinct-signals", label: "What to look for" },
+  { href: "#artifacts", label: "Where the standards use it" },
+  { href: "#faq", label: "Common questions" },
 ];
 
 const pageUrl = Astro.site
@@ -100,12 +100,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     anchorLinks={anchorLinks}
   />
 
-  <SectionBlock
-    id="definition"
-    eyebrow="Definition"
-    title="Short definition"
-    description="Two-to-four sentences you can drop into briefs or specs."
-  >
+  <SectionBlock id="definition" eyebrow="Definition" title="Definition">
     {definition.map((paragraph) => <p>{paragraph}</p>)}
     <p class="small muted">
       Canonical entry: <a href={glossary.href}>{glossary.label}</a> in the glossary.
@@ -123,8 +118,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <SectionBlock
     id="example"
     eyebrow="Example"
-    title="Example use case"
-    description="A scenario to ground the term in operations."
+    title="A hypothetical case"
     variant={hasDiagram ? "default" : "alt"}
   >
     <p>{example}</p>
@@ -132,9 +126,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 
   <SectionBlock
     id="distinct-signals"
-    eyebrow="Implementation"
-    title="Distinct implementation signals"
-    description="Unique operational detail so this concept stands on its own in policy, procurement, and review workflows."
+    eyebrow="In practice"
+    title="What to look for"
   >
     <CardGrid className="grid--three">
       {
@@ -151,9 +144,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 
   <SectionBlock
     id="artifacts"
-    eyebrow="CTAs"
-    title="Related artifacts"
-    description="Standards, bindings, and evidence packs to move from concept to adoption."
+    eyebrow="Related"
+    title="Where the standards use it"
   >
     <CardGrid className="grid--three">
       {
@@ -176,9 +168,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 
   <SectionBlock
     id="faq"
-    eyebrow="FAQ"
-    title="Quick answers"
-    description="Short replies for common implementation questions."
+    eyebrow="Questions"
+    title="Common questions"
     variant="alt"
   >
     <CardGrid className="grid--two">

@@ -195,8 +195,13 @@ export function resolveSemanticContext(
   if (node.type === "standard" || node.type === "failure_mode") {
     const delegationAudit = diagnosticsMap.get("delegation-audit");
     if (delegationAudit) linkedDiagnostics.push(delegationAudit);
+    // The workload modeler rates a team's workload. It belongs beside the
+    // standard and the failure modes about burden, not on every standard:
+    // it sat under STD-07 and STD-09, which have nothing to do with workload.
     const burdenModeler = diagnosticsMap.get("burden-modeler");
-    if (burdenModeler) linkedDiagnostics.push(burdenModeler);
+    const isBurdenTopic =
+      normalized.startsWith("std-01") || /burden|workload/.test(normalized);
+    if (burdenModeler && isBurdenTopic) linkedDiagnostics.push(burdenModeler);
   }
 
   return {

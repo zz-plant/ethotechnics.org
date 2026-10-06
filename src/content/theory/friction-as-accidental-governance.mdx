@@ -78,13 +78,13 @@ export const properties = [
   },
 ];
 
-Most institutions have never had a theory of how they catch their own mistakes. They have not needed one, because the catching happened as a by-product of how work moved. This essay is about that by-product, why it is disappearing, and what its disappearance obliges anyone building agentic systems to do.
+Most institutions have never had a theory of how they catch their own mistakes. They did not need one, because the catching happened as a by-product of how work moved. Agentic systems remove that by-product, and anyone building them has to replace it on purpose.
 
 ## The accidental control system
 
 Consider how a consequential decision moved through an institution before automation. Someone gathered the facts and wrote them up. The write-up sat in a queue. Someone else picked it up, read it, and either signed off or sent it back. If it involved money or risk above a threshold, it went to a third person. Each step took time, and at each step the decision was exposed to a fresh pair of eyes.
 
-None of this was designed as governance. The queue existed because people were busy. The handoff existed because roles were specialized. The threshold existed because senior time was expensive. The delay existed because none of these people were waiting for this particular decision. And yet the arrangement had properties any control engineer would recognize. Every decision was seen by more than one person. Every decision was delayed long enough for new information to arrive. Every decision passed through someone whose job was different enough from the originator's that they might notice a different class of error. And every decision, at every step, could simply be stopped by someone declining to pass it on.
+None of this was designed as governance. The queue existed because people were busy. The handoff existed because roles were specialized. The threshold existed because senior time was expensive. The delay existed because none of these people were waiting for this particular decision. And yet the arrangement had properties any control engineer would recognize. Every decision was seen by more than one person. Every decision was delayed long enough for new information to arrive. Every decision passed through someone whose job was different enough from the originator's that they might notice a different class of error. And every decision, at every step, could be stopped by someone declining to pass it on.
 
 Hesitation was part of this. A person who is about to sign something consequential pauses. The pause is not procedural; it is a reaction to stakes. It creates a moment in which the person asks whether they are sure, and sometimes they are not, and the decision goes back. Institutions have relied on that moment without ever naming it.
 
@@ -136,4 +136,12 @@ And the growth of the system's authority, which in the old chain happened only w
 
 ## What the laws take from this
 
-The method does not require a reader to mourn bureaucracy. It takes from the argument that the properties friction supplied are real, that agentic systems remove them, and that the removal has to be paid for with design. Authority decays unless renewed, because renewal was what the handoffs did. Human oversight is a control only if the human can [alter system state](/mechanisms/patterns/intervention-specification), because the reinserted human usually cannot. Observability without state transition is theater, because the old chain's observations were also stops and the new system's observations are often only logs. And successful automation increases its own governance burden, because every removed handoff was a place where the institution might have noticed something, and the institution has to decide where it will notice things now.
+The method takes no side on bureaucracy. It takes three facts from the argument: the properties friction supplied are real, agentic systems remove them, and the removal has to be paid for with design. Four laws say how.
+
+[Law II](/standards/laws#law-ii): authority decays unless renewed, because renewal was what the handoffs did.
+
+[Law IX](/standards/laws#law-ix): human oversight is a control only if the human can [alter system state](/mechanisms/patterns/intervention-specification). The reinserted human usually cannot.
+
+[Law VIII](/standards/laws#law-viii): observability without state transition is theater. In the old chain every observation could also stop the decision. In the new system, observations are often only logs.
+
+[Law XI](/standards/laws#law-xi): successful automation increases its own governance burden. Every removed handoff was a place where the institution might have noticed something, and it now has to decide where it will notice things instead.

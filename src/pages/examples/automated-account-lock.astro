@@ -54,24 +54,24 @@ const receiptPayload = `{
 
 const timeline = [
   {
-    title: "Trigger + receipt",
+    title: "Trigger and receipt",
     detail:
-      "Fraud model crosses threshold. System issues a receipt to the user and logs the decision payload.",
+      "The fraud model's score crosses the threshold and the account is locked. The system issues a receipt to the account holder and logs the decision.",
   },
   {
     title: "Acknowledgment clock",
     detail:
-      "Within 2 hours, Risk Ops acknowledges the case, confirms owner, and publishes the review ETA.",
+      "Within 2 hours, Risk Operations acknowledges the case, confirms who owns it, and tells the account holder when review will finish.",
   },
   {
     title: "Review clock",
     detail:
-      "Within 24 hours, a human reviewer validates the lock, flags exceptions, or reverses the decision.",
+      "Within 24 hours, a person reviews the lock. They keep it, record an exception, or reverse it.",
   },
   {
     title: "Remedy clock",
     detail:
-      "Within 72 hours, the system provides remedy: unlock, compensation, or safe fallback for critical access.",
+      "Within 72 hours, the account holder gets a remedy: the account unlocked, compensation, or a fallback that keeps essential access open.",
   },
 ];
 
@@ -79,25 +79,25 @@ const artifacts = [
   {
     title: "Decision log entry",
     description:
-      "MEC-01 record of the model output, dissenting reviewer notes, and review outcome.",
+      "The MEC-01 record of the model's output, any reviewer's dissent, and the outcome of review.",
     href: "/mechanisms/patterns/decision-log",
   },
   {
     title: "Evidence pack list",
     description:
-      "Proof bundle for STD-01 and STD-02 clauses tied to contestability and remedy.",
+      "The evidence for the STD-01 and STD-02 clauses on contestability and remedy.",
     href: "/evidence-packs",
   },
   {
     title: "Appeal intake record",
     description:
-      "MEC-06 appeal path captures the dispute, pre-filled context, and decision trace.",
+      "The MEC-06 record of the dispute, with the decision's context and trace filled in.",
     href: "/mechanisms/patterns/appeal-paths",
   },
   {
     title: "Exception log",
     description:
-      "Bounded exception entry if the lock is tied to security or legal hold.",
+      "An exception entry with an end date, if the lock is tied to a security or legal hold.",
     href: "/exceptions",
   },
 ];
@@ -129,7 +129,7 @@ const artifacts = [
     id="overview"
     eyebrow="Overview"
     title="The scenario, step by step"
-    description="A fraud model freezes access after detecting anomalous behavior. The system still issues a receipt, assigns authority, and delivers a remedy within bounded clocks."
+    description="A fraud model locks an account after unusual activity. The system still issues a receipt, names who can reverse the lock, and delivers a remedy within set times."
   >
     <ol class="muted">
       {
@@ -145,15 +145,15 @@ const artifacts = [
   <SectionBlock
     id="receipt"
     eyebrow="Receipt"
-    title="Immediate receipt issued to the impacted person"
+    title="A receipt issued to the account holder at the time of the lock"
     description="The receipt records that a decision happened, who owns it, and how to contest it."
     variant="alt"
   >
     <pre class="code-block">{receiptPayload}</pre>
     <p class="muted">
-      Receipt includes clause references (STD-01.1.1, STD-02.2.1), the appeal
-      path, and the evidence pack anchor used during review. Align payloads to
-      the{" "}
+      The receipt includes the clause references (STD-01.1.1, STD-02.2.1), the
+      appeal path, and a link to the evidence pack used in review. Match your
+      payload to the{" "}
       <a href="/standards/agent-receipt-schema.json">canonical receipt schema</a
       >.
     </p>
@@ -167,15 +167,15 @@ const artifacts = [
   >
     <ul class="muted">
       <li>
-        <strong>Owner:</strong> Risk Operations (primary steward responsible for acknowledgement).
+        <strong>Owner:</strong> Risk Operations, which must acknowledge the case.
       </li>
       <li>
-        <strong>Authority:</strong> Fraud Steward (on-call) empowered to reverse the
-        lock without manager approval.
+        <strong>Authority:</strong> The on-call fraud steward, who can reverse the
+        lock without a manager's approval.
       </li>
       <li>
-        <strong>Escalation:</strong> Security & Legal Review Board if the case hits
-        irreversibility or legal hold criteria.
+        <strong>Escalation:</strong> The Security and Legal Review Board, if the case
+        meets the criteria for an irreversible action or a legal hold.
       </li>
     </ul>
   </SectionBlock>
@@ -190,17 +190,19 @@ const artifacts = [
     <CardGrid className="grid--three">
       <CardItem title="Ack clock" description="2 hours">
         <p class="muted">
-          Owner confirms the case is assigned and shares review ETA.
+          The owner confirms who has the case and when review will finish.
         </p>
       </CardItem>
       <CardItem title="Review clock" description="24 hours">
         <p class="muted">
-          Human reviewer validates the lock, exception, or reversal.
+          A person reviews the lock and keeps it, records an exception, or
+          reverses it.
         </p>
       </CardItem>
       <CardItem title="Remedy clock" description="72 hours">
         <p class="muted">
-          Unlock, compensate, or provide a safe fallback path.
+          The account is unlocked, the holder is compensated, or essential
+          access is kept open.
         </p>
       </CardItem>
     </CardGrid>
@@ -214,19 +216,19 @@ const artifacts = [
   >
     <ul class="muted">
       <li>
-        <strong>Security exception:</strong> Lock can remain in place, but acknowledgment
-        and review clocks still run with a maximum 72-hour extension.
+        <strong>Security exception:</strong> The lock can stay in place. The acknowledgment
+        and review clocks still run, and can be extended by at most 72 hours.
       </li>
       <li>
-        <strong>Legal hold:</strong> Remedy may be delayed, but a partial access fallback
-        (read-only statements, withdrawal visibility) is required.
+        <strong>Legal hold:</strong> The remedy can be delayed. The account holder
+        must still be able to read statements and see pending withdrawals.
       </li>
       <li>
-        <strong>Escalation:</strong> Exceptions are logged in the
+        <strong>Escalation:</strong> Each exception is logged in the
         {" "}
         <a href="/exceptions">Exceptions register</a>
         {" "}
-        with steward review cadence.
+        with the date a steward will next review it.
       </li>
     </ul>
   </SectionBlock>
@@ -240,16 +242,22 @@ const artifacts = [
   >
     <ul class="muted">
       <li>
-        <strong>Primary remedy:</strong> Unlock the account and restore eligibility
-        within the remedy clock when no fraud is confirmed.
+        <strong>Primary remedy:</strong> If no fraud is confirmed, the account is
+        unlocked and eligibility restored within the remedy clock.
       </li>
       <li>
-        <strong>Alternative remedy:</strong> Provide a safe fallback (manual review
-        queue, limited access) if the lock must stand.
+        <strong>Alternative remedy:</strong> If the lock must stand, the holder gets
+        limited access and a place in a manual review queue.
       </li>
       <li>
-        <strong>Compensation:</strong> Issue credits for service downtime tied to
-        the decision log.
+        <strong>Compensation:</strong> Credits for the time the account was locked,
+        recorded against the decision log entry.
+      </li>
+      <li>
+        <strong>Repeated reversals:</strong> Each lock reversed on review is counted
+        against the rule that triggered it, here FRAUD-THRESHOLD or VELOCITY-SPIKE.
+        The count goes to Risk Operations, which owns the rule. When the count passes
+        a set number, Risk Operations reviews the threshold and records what changed.
       </li>
     </ul>
   </SectionBlock>

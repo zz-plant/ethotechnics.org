@@ -233,13 +233,19 @@ const printSheet = {
   <SectionBlock
     id="how-to-use"
     eyebrow="How to use"
-    title="Six or seven yes/no questions per check"
-    description="Answer yes or no, count the yes answers, and follow the next-step links for your result."
+    title="Six or seven questions per check"
+    description="The first two checks take yes or no. The third asks who: write down a name or a team for each answer."
   >
     <ol class="muted self-defense__steps">
       <li>Pick the check that matches your situation.</li>
-      <li>Answer each question with a clear yes or no.</li>
-      <li>Count your yes answers and compare to the outcomes below.</li>
+      <li>
+        Answer each question: yes or no for the first two checks, a name for the
+        third.
+      </li>
+      <li>
+        Count your yes answers, or the questions you could not name anyone for,
+        and compare to the outcomes below.
+      </li>
       <li>
         Use the next-step links to request evidence, remedies, or escalation.
       </li>
@@ -296,7 +302,7 @@ const printSheet = {
     title="One-page self-defense sheet"
     description="Print or save the questions so you can use the checks offline."
   >
-    <div class="self-defense-print">
+    <div class="self-defense-print" data-glossary-ignore>
       <div class="self-defense-print__panel">
         <p class="eyebrow">Print or save</p>
         <h3>{printSheet.title}</h3>

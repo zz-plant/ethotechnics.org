@@ -220,7 +220,7 @@
             "One halt receipt for the chain, not a stop control per hop.",
             "Measure the window the chain leaves a human after upstream latency has been spent."
           ],
-          "diagnostics": ["burden-modeler"],
+          "diagnostics": ["delegation-audit"],
           "steps": [
             "Enumerate every contributing delegation on the head grant in execution order.",
             "Carry one intervention specification at the chain boundary whose exercise halts every hop.",
@@ -273,17 +273,17 @@
           "cues": [
             "Record why options were ruled out and who was consulted.",
             "Attach plain-language summaries for external readers.",
-            "Set a review date tied to the stewardship window."
+            "Set a review date and name who holds it."
           ],
-          "diagnostics": ["burden-modeler"],
+          "diagnostics": ["delegation-audit"],
           "steps": [
             "Log the decision, rejected options, and who was consulted in one place.",
             "Attach a short plain-language summary to the official record for outside readers.",
-            "Set a review date with a clear owner tied to the stewardship window."
+            "Set a review date with a named owner."
           ],
           "policyRequirement": "Policy requirement (MEC-01 Decision log with dissent)\n- Maintain a decision log for high-stakes changes with dissenting views and a dated review owner.\n- Store the log in a shared system of record and retain links in audit and incident records.\nReference: https://ethotechnics.org/mechanisms/patterns/decision-log",
           "productRequirement": "Product requirement (MEC-01)\n- Every high-stakes automated decision emits a decision-log entry ID in the receipt.\n- The UI links to a plain-language summary within two clicks of the decision outcome.",
-          "auditEvidenceChecklist": "Audit evidence checklist (MEC-01)\n[ ] Decision log entries include owner, dissent, and review date.\n[ ] Plain-language summaries are attached and shareable.\n[ ] Stewardship reviews were completed on schedule.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-01)\n[ ] Decision log entries include owner, dissent, and review date.\n[ ] Plain-language summaries are attached and shareable.\n[ ] Reviews were held on their dates.",
           "postmortemTrigger": "Postmortem trigger (MEC-01)\nTrigger review if a high-stakes decision ships without a logged entry or dissent record.",
           "artifacts": [
             {
@@ -295,13 +295,13 @@
               "purpose": "One-paragraph recap teams can paste into briefs or release notes without jargon."
             },
             {
-              "name": "Stewardship calendar entry",
+              "name": "Review calendar entry",
               "purpose": "Review reminder aligned to maintenance or appeal windows."
             }
           ],
           "example": {
             "title": "Recording a launch gate call",
-            "description": "A cross-functional team logs why an automation launch was delayed, notes dissent from support leads, links the appeal path, and schedules a stewardship review in six weeks."
+            "description": "A cross-functional team logs why an automation launch was delayed, notes dissent from support leads, links the appeal path, and schedules a review in six weeks."
           },
           "antiPatterns": [
             {
@@ -397,10 +397,10 @@
             "Publish communication cadences by risk level and audience.",
             "Check dependencies so degraded modes route to safe fallbacks."
           ],
-          "policyRequirement": "Policy requirement (MEC-03 Maintenance windowing)\n- Publish stewardship windows with named owners, success criteria, and rollback authority.\n- Require comms cadences by risk tier before shipping changes.\nReference: https://ethotechnics.org/mechanisms/patterns/maintenance-windowing",
+          "policyRequirement": "Policy requirement (MEC-03 Maintenance windowing)\n- Publish maintenance windows with named owners, success criteria, and rollback authority.\n- Require comms cadences by risk tier before shipping changes.\nReference: https://ethotechnics.org/mechanisms/patterns/maintenance-windowing",
           "productRequirement": "Product requirement (MEC-03)\n- Release plans include a window ID and owner in change tickets.\n- Status updates and fallback behavior are visible to affected users.",
           "auditEvidenceChecklist": "Audit evidence checklist (MEC-03)\n[ ] Window calendar lists owners, coverage, and success criteria.\n[ ] Comms templates are published by risk level and audience.\n[ ] Fallback matrix confirms safe degraded modes for dependencies.",
-          "postmortemTrigger": "Postmortem trigger (MEC-03)\nTrigger review if changes ship outside the stewardship window or without comms.",
+          "postmortemTrigger": "Postmortem trigger (MEC-03)\nTrigger review if changes ship outside the maintenance window or without notice.",
           "artifacts": [
             {
               "name": "Window calendar",
@@ -416,12 +416,12 @@
             }
           ],
           "example": {
-            "title": "Coordinating a stewardship sprint",
+            "title": "Coordinating a two-week maintenance window",
             "description": "Engineering and operations publish a two-week window with a fallback matrix, schedule status updates by audience, and rehearse degraded-mode protocols before shipping changes."
           },
           "antiPatterns": [
             {
-              "title": "Stewardship without owners",
+              "title": "Maintenance without owners",
               "failure": "Publishes a maintenance window without naming accountable owners or success criteria.",
               "counterfactual": "Each window has a named owner, success criteria, and rollback authority.",
               "warning": "Shared ownership is fine if responsibilities are explicit and visible."
@@ -499,7 +499,7 @@
             "Name the people who can fire the switch and protect them from retaliation.",
             "Rehearse rollbacks so halts land in reversible, well-communicated states."
           ],
-          "diagnostics": ["burden-modeler"],
+          "diagnostics": ["delegation-audit"],
           "steps": [
             "Map the automation path and mark where halts must land safely with owners.",
             "Set tripwires for ethical interrupts that align with time-to-halt targets.",
@@ -557,7 +557,7 @@
             "Pre-fill context to reduce effort during stressful moments.",
             "Count upheld appeals by the rule that produced them, not only in total."
           ],
-          "diagnostics": ["burden-modeler"],
+          "diagnostics": ["delegation-audit"],
           "steps": [
             "Place an appeal entry point near the affected decision with response times.",
             "Pre-fill context so people can submit without rebuilding the story.",
@@ -682,7 +682,7 @@
             "Require binding authority to update system state when contests are upheld.",
             "Carry the standing-register fields in the contract: who may challenge, what they may challenge, admissible evidence, the obliged responder, the deadline, the standard of review, and the transitions a successful challenge can produce."
           ],
-          "diagnostics": ["burden-modeler"],
+          "diagnostics": ["delegation-audit"],
           "steps": [
             "Define an authenticated contestation endpoint with required evidence fields.",
             "Emit status updates via webhooks or receipts tied to the decision record.",
@@ -1119,7 +1119,7 @@
             "Separate what they can prevent from what they can alter after the fact.",
             "Write down what happens when the human disagrees with the system."
           ],
-          "diagnostics": ["burden-modeler"],
+          "diagnostics": ["delegation-audit"],
           "steps": [
             "Name the intervention owner and the decisions they cover.",
             "Record the information available, the actions preventable, the states alterable, and the on-disagreement path.",
@@ -1642,7 +1642,7 @@
           "duration": "60 minutes",
           "topics": [
             "Mechanisms tour and how to use permalinks in specs",
-            "Primer on burden, consent, and stewardship",
+            "Primer on burden, consent, and maintenance",
             "The design and evaluation essays: ethotechnical design, insulation, and what outcomes hide",
             "Navigation of governance, design ethics, and policy filters"
           ],
@@ -1662,7 +1662,7 @@
           "title": "Governance and maintenance",
           "duration": "75 minutes",
           "topics": [
-            "Decision logs, stewardship windows, and escalation readiness",
+            "Decision logs, maintenance windows, and escalation",
             "Pairing diagnostics with mechanism rollout",
             "Designing safety valves for high-burden scenarios"
           ],

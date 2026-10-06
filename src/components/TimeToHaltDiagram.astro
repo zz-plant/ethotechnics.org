@@ -17,13 +17,13 @@ const Heading = level;
 <figure class="state-diagram" aria-labelledby="tth-diagram-title">
   <figcaption>
     <p class="eyebrow">Mechanism, drawn</p>
-    <Heading id="tth-diagram-title">
-      Time-to-Halt (TTH) Latency &amp; Blast Radius
-    </Heading>
+    <Heading id="tth-diagram-title"> Time to halt and blast radius </Heading>
     <p class="muted">
-      TTH measures latency to confirmed downstream cessation, not cosmetic UI
-      acknowledgement. If halting latency exceeds the harm horizon, stoppability
-      is nominal.
+      Time-to-halt runs from the halt request to the moment the last downstream
+      action stops. A screen saying the request was received does not stop the
+      clock. If a halt takes longer than the harm takes to spread, the halt
+      control protects no one. The casebook's time to halt is a different
+      interval: from the first harm to the halt.
     </p>
   </figcaption>
 
@@ -65,7 +65,7 @@ const Heading = level;
           x="0"
           y="20"
           class="state-diagram__clause"
-          fill="var(--accent-strong)">End-to-End Cessation Pipeline</text
+          fill="var(--accent-strong)">End-to-end cessation pipeline</text
         >
 
         {/* Phase 1: Halt Triggered */}
@@ -77,13 +77,13 @@ const Heading = level;
             fill="var(--panel)"
             stroke="var(--border)"></rect>
           <text x="85" y="28" text-anchor="middle" class="state-diagram__state"
-            >t0: Halt Signal</text
+            >t0: Halt signal</text
           >
           <text x="85" y="50" text-anchor="middle" class="state-diagram__label"
             >Authenticated request</text
           >
           <text x="85" y="69" text-anchor="middle" class="state-diagram__clause"
-            >UI / Policy trip</text
+            >UI / policy trip</text
           >
         </g>
 
@@ -105,7 +105,7 @@ const Heading = level;
             fill="var(--panel)"
             stroke="var(--border)"></rect>
           <text x="95" y="28" text-anchor="middle" class="state-diagram__state"
-            >t1: Ingress Severed</text
+            >t1: Ingress severed</text
           >
           <text x="95" y="50" text-anchor="middle" class="state-diagram__label"
             >Queue rejects new input</text
@@ -141,7 +141,7 @@ const Heading = level;
             y="28"
             text-anchor="middle"
             class="state-diagram__state"
-            fill="var(--accent-strong)">t2: Worker Drain</text
+            fill="var(--accent-strong)">t2: Worker drain</text
           >
           <text
             x="102.5"
@@ -153,7 +153,7 @@ const Heading = level;
             x="102.5"
             y="69"
             text-anchor="middle"
-            class="state-diagram__clause">True Cessation</text
+            class="state-diagram__clause">True cessation</text
           >
         </g>
 
@@ -179,7 +179,7 @@ const Heading = level;
             x="92.5"
             y="28"
             text-anchor="middle"
-            class="state-diagram__state">t3: Halt Receipt</text
+            class="state-diagram__state">t3: Halt receipt</text
           >
           <text
             x="92.5"
@@ -208,7 +208,7 @@ const Heading = level;
             x="14"
             y="22"
             class="state-diagram__clause"
-            fill="var(--status-danger)">Cosmetic Pitfall</text
+            fill="var(--status-danger)">Cosmetic pitfall</text
           >
           <text x="148" y="22" class="state-diagram__label"
             >UI spinner stops while jobs run on</text
@@ -233,7 +233,7 @@ const Heading = level;
           y="20"
           class="state-diagram__clause"
           fill="var(--accent-strong)"
-          >Latency Horizon vs. Consequential Blast Radius</text
+          >Latency horizon vs. consequential blast radius</text
         >
 
         {/* Horizontal Timeline Bar */}
@@ -261,7 +261,7 @@ const Heading = level;
           y="88"
           text-anchor="middle"
           class="state-diagram__state"
-          fill="var(--accent-strong)">Enforced TTH Window (p99 SLA)</text
+          fill="var(--accent-strong)">Enforced TTH window (p99 SLA)</text
         >
 
         {/* Irreversible Harm Boundary */}
@@ -277,7 +277,7 @@ const Heading = level;
           x="500"
           y="42"
           class="state-diagram__clause"
-          fill="var(--status-danger)">Irreversible Harm Horizon</text
+          fill="var(--status-danger)">Irreversible harm horizon</text
         >
         <text x="500" y="60" class="state-diagram__label"
           >Wire transfer committed / PII leaked to public wire</text
@@ -293,7 +293,7 @@ const Heading = level;
           stroke-width="2"
           marker-end="url(#tth-accent-arrow)"></line>
         <text x="393" y="136" text-anchor="middle" class="state-diagram__clause"
-          >Required Safety Margin</text
+          >Required safety margin</text
         >
 
         {/* Tail Latency Hazard */}
@@ -311,7 +311,7 @@ const Heading = level;
             text-anchor="middle"
             class="state-diagram__clause"
             fill="var(--status-danger)"
-            >Tail Latency Violation (TTH &gt; Harm Horizon)</text
+            >Tail latency violation (TTH &gt; harm horizon)</text
           >
           <text
             x="167.5"
@@ -323,7 +323,7 @@ const Heading = level;
             x="167.5"
             y="68"
             text-anchor="middle"
-            class="state-diagram__label">→ Fatal Failure</text
+            class="state-diagram__label">→ Fatal failure</text
           >
         </g>
       </g>

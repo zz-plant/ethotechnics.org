@@ -338,9 +338,15 @@ export function AbsorptionFigure() {
 
       <p className="demo-figure__note">
         A demonstration, not a measurement of any deployment. The true rate, the
-        dependence curve, and the absorbed share are fixed functions in{" "}
-        <code>src/features/absorption-figure/absorptionLogic.ts</code>; the
-        layers are read from the evaluation stack on{" "}
+        dependence curve, and the absorbed share are fixed functions{" "}
+        <a
+          href="https://github.com/zz-plant/ethotechnics.org/blob/main/src/features/absorption-figure/absorptionLogic.ts"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          in the public source
+        </a>
+        ; the layers are read from the evaluation stack on{" "}
         <a href="/evals">the evals index</a>, and a test holds the two together.
       </p>
     </div>

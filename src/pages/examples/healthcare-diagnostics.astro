@@ -12,7 +12,7 @@ import {
 
 const pageTitle = "Healthcare diagnostic AI: implementation comparison";
 const pageDescription =
-  "Diagnostic AI governed two ways: lifecycle review, or independent clinical vetoes, time-to-halt targets, and interrupts that freeze biased recommendations.";
+  "Diagnostic AI governed two ways: lifecycle review, or overrides counted against the model's rule, patient challenges answered by a date, and a named halt.";
 const permalink = "/examples/healthcare-diagnostics";
 const anchorLinks = implementationExampleAnchorLinks;
 const publication = createImplementationPublication(
@@ -58,7 +58,7 @@ const publication = createImplementationPublication(
     <ul class="card__list">
       <li>Pre-deployment validation and ongoing bias monitoring.</li>
       <li>Explainability layers to surface contributing clinical factors.</li>
-      <li>Governance committees empowered to review and update models.</li>
+      <li>Governance committees that can review and update models.</li>
       <li>Clinician override protocols for exceptions and edge cases.</li>
       <li>Periodic retraining when disparate impact is detected.</li>
     </ul>
@@ -68,28 +68,31 @@ const publication = createImplementationPublication(
     id="ethotechnics"
     eyebrow="Ethotechnics implementation"
     title="What changes when governance becomes infrastructure"
-    description="Clinical authority is plural, stoppable, and measurable on a clock."
+    description="Clinicians' overrides are recorded and counted against the model's rule."
   >
     <ul class="card__list">
       <li>
-        Embed competing medical ontologies (clinical protocol, patient advocacy,
-        adversarial safety review) with independent veto authority.
+        A named clinician can override any recommendation. The override is
+        recorded with its reason.
       </li>
       <li>
-        Require continuous <a href="/glossary/stoppability">stoppability</a> verification
-        so patients can challenge risk classifications immediately.
+        Overrides are counted by model rule. The count goes to the model's
+        owner, who reviews the rule and records what changed.
       </li>
       <li>
-        Track <a href="/explainers/time-to-halt">time-to-halt</a> and
-        <a href="/glossary/reversibility">reversibility</a> targets for harmful recommendations.
+        A patient can challenge a risk classification. A named owner answers by
+        a stated date and can change it. That is what
+        <a href="/glossary/contestability">contestability</a> means here.
       </li>
       <li>
-        Use <a href="/glossary/ethical-interrupts">ethical interrupts</a> to freeze
-        recommendations when bias signals trigger.
+        A named person can halt the model in one workflow while it is reviewed.
+        The halt contains the harm. The review changes the rule.
+        <a href="/explainers/time-to-halt">Time-to-halt</a> measures how long the
+        halt takes.
       </li>
       <li>
-        Publish recovery pathways that restore care access and repair downstream
-        delays.
+        When a recommendation is <a href="/glossary/reversibility">reversed</a>,
+        care it delayed is rescheduled and the delay is recorded.
       </li>
     </ul>
   </SectionBlock>
@@ -98,22 +101,24 @@ const publication = createImplementationPublication(
     id="checklist"
     eyebrow="Implementation checklist"
     title="Signals to verify before launch"
-    description="Confirm intervention speed and authority before clinical deployment."
+    description="Confirm who can override and halt, and where the overrides go, before clinical deployment."
   >
     <ul class="muted">
       <li>
-        Document which parties can halt recommendations and how they are
-        notified.
+        Name who can halt the model in each workflow, and how they are told.
       </li>
-      <li>Define time-to-halt targets for each diagnostic workflow.</li>
+      <li>Set a time-to-halt target for each diagnostic workflow.</li>
       <li>
-        Provide patients a contestability path with stated response clocks.
+        Give patients a challenge route with a named owner and an answer date.
       </li>
       <li>
-        Publish <a href="/glossary/safety-valve">safety valve</a> procedures for pausing
-        the system during anomalies.
+        Publish the <a href="/glossary/safety-valve">safety valve</a> procedure for
+        pausing the model.
       </li>
-      <li>Track restoration completeness after erroneous diagnoses.</li>
+      <li>
+        Count overrides by rule, and record whether care delayed by a wrong
+        recommendation was restored.
+      </li>
     </ul>
   </SectionBlock>
 

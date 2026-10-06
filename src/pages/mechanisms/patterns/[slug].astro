@@ -95,12 +95,13 @@ const breadcrumbItems = [
         <p class="eyebrow">Spec essentials</p>
         <h3>What this mechanism includes</h3>
         <ul class="panel__list">
-          <li>{stepCount} steps you can check off.</li>
+          <li>{stepCount} steps.</li>
           <li>{assetCount} templates for briefs and runbooks.</li>
-          <li>
-            {snippetCount} blocks of policy, product, audit, and postmortem text to
-            copy.
-          </li>
+          {
+            snippetCount > 0 && (
+              <li>Policy, product, audit, and postmortem text to copy.</li>
+            )
+          }
           {
             glossaryAnchors.length > 0 && (
               <li>{glossaryAnchors.length} linked glossary terms.</li>
@@ -263,9 +264,7 @@ const breadcrumbItems = [
               <p class="muted small">
                 Counterfactual: {antiPattern.counterfactual}
               </p>
-              <p class="muted small">
-                False-positive warning: {antiPattern.warning}
-              </p>
+              <p class="muted small">Exception: {antiPattern.warning}</p>
             </CardItem>
           ))}
         </CardGrid>

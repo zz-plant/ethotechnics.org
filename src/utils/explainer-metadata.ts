@@ -31,7 +31,7 @@ const explainerMetadataBySlug: Record<string, ExplainerSeoMetadata> = {
   },
   "contestability-checklist": {
     publishedTime: "2025-04-01T00:00:00.000Z",
-    modifiedTime: "2026-02-09T00:00:00.000Z",
+    modifiedTime: "2026-10-06T00:00:00.000Z",
   },
   "safety-valve": {
     publishedTime: "2025-05-10T00:00:00.000Z",
@@ -47,11 +47,11 @@ const explainerMetadataBySlug: Record<string, ExplainerSeoMetadata> = {
   },
   "public-memory": {
     publishedTime: "2025-08-10T00:00:00.000Z",
-    modifiedTime: "2026-02-09T00:00:00.000Z",
+    modifiedTime: "2026-10-06T00:00:00.000Z",
   },
   "language-people-can-use": {
     publishedTime: "2025-09-05T00:00:00.000Z",
-    modifiedTime: "2026-02-09T00:00:00.000Z",
+    modifiedTime: "2026-10-06T00:00:00.000Z",
   },
   "design-authority": {
     publishedTime: "2025-10-01T00:00:00.000Z",
@@ -63,11 +63,11 @@ const explainerMetadataBySlug: Record<string, ExplainerSeoMetadata> = {
   },
   "governance-capability": {
     publishedTime: "2025-11-10T00:00:00.000Z",
-    modifiedTime: "2026-02-09T00:00:00.000Z",
+    modifiedTime: "2026-10-06T00:00:00.000Z",
   },
   "remedy-essentials": {
     publishedTime: "2025-12-01T00:00:00.000Z",
-    modifiedTime: "2026-02-09T00:00:00.000Z",
+    modifiedTime: "2026-10-06T00:00:00.000Z",
   },
   "open-weights-and-the-delegation-boundary": {
     publishedTime: "2026-09-06T00:00:00.000Z",

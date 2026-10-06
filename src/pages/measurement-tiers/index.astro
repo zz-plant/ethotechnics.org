@@ -57,15 +57,17 @@ const mpis = [
     tiers: [
       {
         tier: "Tier 0",
-        evidence: "Appeal intake records with outcomes and timestamps.",
+        evidence: "Appeal records with each outcome and its date.",
       },
       {
         tier: "Tier 1",
-        evidence: "Reviewer roster coverage and SLA compliance for appeals.",
+        evidence:
+          "Appeal outcomes broken down by rule and decision type, with the share answered by the deadline, reviewed by a named owner.",
       },
       {
         tier: "Tier 2",
-        evidence: "External audit sampling of appeal outcomes for consistency.",
+        evidence:
+          "An outside auditor samples appeal outcomes and checks that like cases were decided alike.",
       },
     ],
     gaming:
@@ -77,20 +79,21 @@ const mpis = [
     id: "burden-ratio",
     title: "Burden ratio",
     summary:
-      "Relative time cost imposed on impacted people versus internal operators.",
+      "The time a decision costs the people it affects, compared with the time it costs staff.",
     tiers: [
       {
         tier: "Tier 0",
-        evidence:
-          "Journey maps with time cost logs for entry, exit, and appeal flows.",
+        evidence: "Time logs for the entry, exit, and appeal journeys.",
       },
       {
         tier: "Tier 1",
-        evidence: "Time-on-task analytics with segmentation by user cohort.",
+        evidence:
+          "Time on task broken down by group of people, reviewed by a named owner.",
       },
       {
         tier: "Tier 2",
-        evidence: "Independent usability studies verifying time cost deltas.",
+        evidence:
+          "An independent usability study that checks the time differences between groups.",
       },
     ],
     gaming:
@@ -102,21 +105,22 @@ const mpis = [
     id: "reversibility",
     title: "Reversibility rate",
     summary:
-      "Percent of automated decisions that can be reversed without collateral harm.",
+      "The share of automated decisions that can be reversed without further harm.",
     tiers: [
       {
         tier: "Tier 0",
-        evidence: "Decision logs with reversal flags and rollbacks executed.",
+        evidence:
+          "Decision logs that flag each reversal and each rollback carried out.",
       },
       {
         tier: "Tier 1",
         evidence:
-          "Appeal outcomes segmented by decision type and reversal latency.",
+          "Reversals broken down by decision type, with how long each took, reviewed by a named owner.",
       },
       {
         tier: "Tier 2",
         evidence:
-          "Quarterly audits that test reversal paths on randomly sampled cases.",
+          "A quarterly audit, by someone outside the team, that tests the reversal path on randomly sampled cases.",
       },
     ],
     gaming:
@@ -127,22 +131,23 @@ const mpis = [
   {
     id: "time-to-halt",
     title: "Time-to-halt (TTH)",
-    summary: "Elapsed time from detection to a confirmed automation halt.",
+    summary:
+      "Time from a halt request to a confirmed stop. The casebook's time to halt runs from the first harm to the halt, a longer interval.",
     tiers: [
       {
         tier: "Tier 0",
         evidence:
-          "System logs showing halt trigger and halt completion timestamps.",
+          "System logs with the time of each halt request and the time the system stopped.",
       },
       {
         tier: "Tier 1",
         evidence:
-          "Drill reports with median and p95 halt times by team and system.",
+          "Halt drills, with median and p95 times by team and system, reviewed by a named owner.",
       },
       {
         tier: "Tier 2",
         evidence:
-          "Incident postmortems verifying production halt times under load.",
+          "Postmortems of real incidents, checked by someone outside the team, that confirm halt times in production under load.",
       },
     ],
     gaming:
@@ -170,11 +175,16 @@ const mpis = [
     description="Five measures, the first the one the others serve. Tier 0 is the baseline. Each higher tier needs stronger evidence than the one below it."
   >
     <ul class="muted">
-      <li>Tier 0 shows the system records the measure at all.</li>
-      <li>Tier 1 shows people run drills and review the results.</li>
+      <li>Tier 0 shows the system records the measure.</li>
       <li>
-        Tier 2 shows the measure holds in real incidents and in independent
-        audit samples.
+        Tier 1 shows the records are tested or broken down, by rule, group, or
+        decision type, and a named owner reviews the result. For time-to-halt,
+        the test is a drill. The Tier 1 harness below runs some of these tests
+        by machine.
+      </li>
+      <li>
+        Tier 2 shows someone outside the team has checked the measure against a
+        sample of real cases or incidents.
       </li>
     </ul>
   </SectionBlock>

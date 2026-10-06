@@ -13,7 +13,7 @@ import { getEntry } from "astro:content";
 import VerdictMark from "./VerdictMark.astro";
 import { stateVariables, type StateVariableId } from "../content/casebook";
 import { extractLaws } from "../utils/laws";
-import { pickCase, variableForTopic } from "../utils/next-step";
+import { pickMatchedCase, variableForTopic } from "../utils/next-step";
 
 interface Props {
   /** Page title, slug, tags: any text that names the page's subject. */
@@ -25,56 +25,65 @@ interface Props {
 
 const { topic = [], variable, class: className }: Props = Astro.props;
 
-const { entry, finding, law } = pickCase(
-  variable ?? variableForTopic(...topic),
-);
-const variableLabel =
-  stateVariables.find((item) => item.id === finding.variable)?.label ??
-  finding.variable;
+// No match, no block: a page whose topic names no safeguard shows no case
+// rather than a fallback that has nothing to do with it.
+const pick = pickMatchedCase(variable ?? variableForTopic(...topic));
+const variableLabel = pick
+  ? (stateVariables.find((item) => item.id === pick.finding.variable)?.label ??
+    pick.finding.variable)
+  : "";
 
-const lawsEntry = await getEntry("standards", "laws");
-const lawRow = lawsEntry?.body
-  ? extractLaws(lawsEntry.body).find((row) => row.numeral === law)
-  : undefined;
-const lawHref = `/standards/laws#${lawRow?.id ?? `law-${law.toLowerCase()}`}`;
+const lawsEntry = pick ? await getEntry("standards", "laws") : undefined;
+const lawRow =
+  pick && lawsEntry?.body
+    ? extractLaws(lawsEntry.body).find((row) => row.numeral === pick.law)
+    : undefined;
+const lawHref = pick
+  ? `/standards/laws#${lawRow?.id ?? `law-${pick.law.toLowerCase()}`}`
+  : "";
+const entry = pick?.entry;
+const finding = pick?.finding;
+const law = pick?.law;
 ---
 
-<aside
-  class:list={["next-step", className]}
-  aria-labelledby="next-step-case-title"
->
-  <div class="next-step__case">
-    <p class="eyebrow">Where this broke in public</p>
-    <h2 id="next-step-case-title" class="next-step__title">
-      {entry.title}
-    </h2>
-    <p class="next-step__verdict">
-      <span>{variableLabel}</span>
-      <VerdictMark verdict={finding.verdict} labelled />
-    </p>
-    <p class="small muted next-step__hook">
-      {entry.period}. Time to halt: {entry.timeToHalt}
-    </p>
-    <a class="next-step__case-link" href={`/casebook/${entry.slug}`}>
-      Read the full case <span aria-hidden="true">&rarr;</span>
-    </a>
-  </div>
-  <div class="next-step__action">
-    <p class="eyebrow">Do this next</p>
-    <p class="next-step__law">
-      {
-        lawRow ? (
-          <>
-            Check your system against the law this case broke:{" "}
-            <strong>{lawRow.title}.</strong>
-          </>
-        ) : (
-          <>Check your system against the law this case broke.</>
-        )
-      }
-    </p>
-    <a class="button primary next-step__button" href={lawHref}>
-      Read Law {law}
-    </a>
-  </div>
-</aside>
+{
+  entry && finding && (
+    <aside
+      class:list={["next-step", className]}
+      aria-labelledby="next-step-case-title"
+    >
+      <div class="next-step__case">
+        <p class="eyebrow">Where this broke in public</p>
+        <h2 id="next-step-case-title" class="next-step__title">
+          {entry.title}
+        </h2>
+        <p class="next-step__verdict">
+          <span>{variableLabel}</span>
+          <VerdictMark verdict={finding.verdict} labelled />
+        </p>
+        <p class="small muted next-step__hook">
+          {entry.period}. Time to halt: {entry.timeToHalt}
+        </p>
+        <a class="next-step__case-link" href={`/casebook/${entry.slug}`}>
+          Read the full case <span aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+      <div class="next-step__action">
+        <p class="eyebrow">Do this next</p>
+        <p class="next-step__law">
+          {lawRow ? (
+            <>
+              Check your system against the law behind this finding:{" "}
+              <strong>{lawRow.title}.</strong>
+            </>
+          ) : (
+            <>Check your system against the law behind this finding.</>
+          )}
+        </p>
+        <a class="button primary next-step__button" href={lawHref}>
+          Read Law {law}
+        </a>
+      </div>
+    </aside>
+  )
+}

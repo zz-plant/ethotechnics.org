@@ -14,7 +14,7 @@ import decisionRecord from "../../../public/standards/worked-examples/decision-m
 
 const pageTitle = "Decision-model gate on refunds — Worked example";
 const pageDescription =
-  "A refund agent gated by a typed decision model: approve at 0.80, refuse at 0.90, review in between, the threshold held as policy, missing reasons on record.";
+  "A refund agent gated by a typed decision model: an approve answer at 0.80 confidence runs, a refuse answer at 0.90 is refused, and the rest go to a reviewer.";
 
 const recordsBase = "/standards/worked-examples/decision-model-gate";
 const pretty = (value: unknown) => JSON.stringify(value, null, 2);
@@ -57,12 +57,12 @@ const fieldMapping = [
   {
     field: "typed_judgment.confidence_semantics",
     source:
-      "margin. The provider documents the number as a margin, not a probability that the answer is right.",
+      "Set to margin. The provider documents the number as a margin, not a probability that the answer is right.",
   },
   {
     field: "typed_judgment.decider",
     source:
-      "The model name and pinned version in the client configuration. Never latest.",
+      "The model name and pinned version from the client configuration, never 'latest'.",
   },
   {
     field: "typed_judgment.question_schema_hash",
@@ -82,12 +82,12 @@ const fieldMapping = [
   {
     field: "typed_judgment.reason_provenance",
     source:
-      "none, because the model writes no text. account, if another model wrote an explanation afterwards.",
+      "Set to none, because the model writes no text. Set to account if another model wrote an explanation afterwards.",
   },
   {
     field: "typed_judgment.content_inputs_marked",
     source:
-      "true only if messages, documents, and tool outputs were passed as marked content, apart from the authorization record.",
+      "Set to true only if messages, documents, and tool outputs were passed as marked content, apart from the authorization record.",
   },
 ];
 
@@ -103,7 +103,7 @@ const bindings = [
     clause: "STD-08 §2.6",
     href: "/standards/std-08-delegation#part-b",
     record: "Threshold policy record with a model_change trigger",
-    text: "The 0.80 is a policy record naming its labelled set, pinned model version, question schema hash, and option order.",
+    text: "The 0.80 is a policy record naming its labeled set, pinned model version, question schema hash, and option order.",
   },
   {
     clause: "STD-08 §3.6",
@@ -128,7 +128,7 @@ const bindings = [
     href: "/standards/std-02-contestability-recourse#standing-mechanism",
     record:
       "Grant revocation condition on expected errors against answer capacity",
-    text: "At 400 refunds an hour, expected errors are checked weekly against the review team's stated capacity of 150 answers.",
+    text: "The agent may make up to 400 refunds an hour. Each week, the errors expected at that volume are checked against the review team's stated capacity of 150 answers a week.",
   },
 ];
 ---
@@ -159,22 +159,30 @@ const bindings = [
     id="scenario"
     eyebrow="Scenario"
     title="A refund agent with a typed decision model in front of it"
-    description="The agent proposes refunds. A decision model answers two typed questions about each one, and a threshold decides what happens next."
+    description="The agent proposes refunds. A decision model answers two typed questions about each one. The first asks whether to approve, review, or refuse, and the model returns one of the three with a confidence. Which answer it gives, and how confident it is, decide what happens next."
   >
     <CardGrid className="grid--three">
-      <CardItem title="Unattended" description="approve at 0.80 or above">
+      <CardItem
+        title="Unattended"
+        description="answer is approve, confidence 0.80 or above"
+      >
         <p class="muted">
           Refunds up to 200 USD that fit policy run without a person. Two
           percent of them are still sampled into review.
         </p>
       </CardItem>
-      <CardItem title="Reviewed" description="everything in between">
+      <CardItem title="Reviewed" description="every other case">
         <p class="muted">
-          A refund reviewer sees the proposal, the model's answer and
-          confidence, and whether the case was routed or sampled.
+          This includes an approve or refuse answer below its threshold, a
+          review answer, and a refund outside policy or over 200 USD. A refund
+          reviewer sees the proposal, the model's answer and confidence, and
+          whether the case was routed or sampled.
         </p>
       </CardItem>
-      <CardItem title="Refused" description="refuse at 0.90 or above">
+      <CardItem
+        title="Refused"
+        description="answer is refuse, confidence 0.90 or above"
+      >
         <p class="muted">
           The refund is refused with an appeal route, and the decision says that
           no reasons were produced.
@@ -200,6 +208,11 @@ const bindings = [
       The questions are published, and their hash is recorded on every decision.
       Reordering the options changes the hash, which fires the model_change
       trigger.
+    </p>
+    <p class="muted">
+      Each refund challenge decided against the system is counted against this
+      policy. More than 10 in 30 days fires the TRG-CHALLENGES trigger, and the
+      Support Operations Policy Group, which owns the threshold, must review it.
     </p>
     <pre class="code-block">{pretty(questionSchema)}</pre>
     <pre class="code-block">{pretty(policyRecord)}</pre>

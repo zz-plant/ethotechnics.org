@@ -5,7 +5,7 @@
  * against the twelve Laws for Engineering Delegated Intelligence. It does not
  * score safety performance, internal practice, or intent. A 0 means no
  * meaningful public analogue was found, not that the lab rejects the
- * principle. Per-cell sources are pending; see `sourcesNote`.
+ * principle. No score has a source attached yet; see `sourcesNote`.
  */
 
 export type LawNumeral =
@@ -269,8 +269,9 @@ export const frontierDoctrineScan: FrontierDoctrineScan = {
   refreshCadence: "No refresh is scheduled.",
   staleAfter: "2027-06",
   scope:
-    "Ten frontier labs scored against the twelve Laws for Engineering Delegated Intelligence on the basis of public doctrine and product architecture.",
+    "Ten frontier labs scored against the twelve Laws for Engineering Delegated Intelligence, on the Institute's reading of their public doctrine and product architecture. No individual score has a source attached yet.",
   disclaimer: [
+    "No score has a source attached yet. Each is the Institute's reading of public material, and the documents and product surfaces it was read from are not listed. Treat the scores as unsourced until they are.",
     "This scan scores public doctrine and product architecture. It does not score safety performance, internal practice, or intent.",
     "A score of 0 means no meaningful public analogue was found. It is not evidence that a lab rejects the principle.",
     "Scores are a reading of what has been published. A lab may hold a stronger internal position than its public material shows, or a weaker one.",
@@ -290,13 +291,13 @@ export const frontierDoctrineScan: FrontierDoctrineScan = {
     converged: ["I", "X", "VIII", "IX", "IV"],
     uncovered: ["V", "VII", "XII", "VI", "XI", "II", "III"],
     conclusion: [
-      "The first-generation laws are already being absorbed by the labs: capability versus authority, evaluation at the layer where harm emerges, observation that triggers state change, causally meaningful oversight, and correction obligations.",
-      "The second-generation laws have almost no public doctrine anywhere: dependence as risk, standing for error-bearing parties, preservation of contestability, operational rather than nominal reversibility, success raising the governance burden, and authority renewal and evidence coupling.",
+      "On this reading, the first-generation laws are already being absorbed by the labs: capability versus authority, evaluation at the layer where harm emerges, observation that triggers state change, causally meaningful oversight, and correction obligations.",
+      "On this reading, the second-generation laws have almost no public doctrine anywhere: dependence as risk, standing for error-bearing parties, preservation of contestability, operational rather than nominal reversibility, success raising the governance burden, and authority renewal and evidence coupling.",
       "If Ethotechnics centers on permissions, containment, approval, and evals, it describes a layer the labs are already shipping. If it centers on the dynamics of delegated authority after deployment, it describes a layer nobody has built.",
     ],
   },
   sourcesNote:
-    "Per-cell sources are pending. Each score will cite the public document or product surface it was read from. Until then the scan should be read as a structured reading by the Institute, not as a sourced dataset.",
+    "No score has a source attached yet. When sources are added, each score will cite the public document or product surface it was read from. Until then, read the scan as the Institute's structured reading, not as a sourced dataset.",
 };
 
 export const getLawAverage = (numeral: LawNumeral): number | undefined =>

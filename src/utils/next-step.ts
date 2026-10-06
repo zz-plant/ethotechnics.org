@@ -185,6 +185,33 @@ export function pickCase(
   return toPick(fallback, finding);
 }
 
+/**
+ * The case and finding for a state variable, or undefined when nothing
+ * matches. Pages use this one: a fallback case shown on a page whose topic
+ * matched nothing put Robodebt under 158 unrelated glossary entries.
+ */
+export function pickMatchedCase(
+  variable: StateVariableId | undefined,
+  source: readonly Case[] = cases,
+): NextStepPick | undefined {
+  if (!variable) return undefined;
+  const candidates = source
+    .map((entry, index) => ({ entry, index }))
+    .filter(({ entry }) =>
+      entry.findings.some(
+        (finding) =>
+          finding.variable === variable && finding.verdict === "failed",
+      ),
+    )
+    .sort(
+      (a, b) =>
+        failedCount(a.entry) - failedCount(b.entry) || a.index - b.index,
+    );
+  const chosen = candidates[0]?.entry;
+  const finding = chosen?.findings.find((item) => item.variable === variable);
+  return chosen && finding ? toPick(chosen, finding) : undefined;
+}
+
 /** Topic text in, case and law out. */
 export function pickNextStep(
   ...topic: (string | undefined | null)[]

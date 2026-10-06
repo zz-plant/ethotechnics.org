@@ -48,7 +48,7 @@ const receiptPayload = `{
     id="receipt"
     eyebrow="Receipt"
     title="Receipt issued at removal time"
-    description="Every takedown emits a receipt that names the owner and appeal path."
+    description="Every takedown issues a receipt that names the owner and the appeal path."
   >
     <pre class="code-block">{receiptPayload}</pre>
   </SectionBlock>
@@ -63,17 +63,20 @@ const receiptPayload = `{
     <CardGrid className="grid--three">
       <CardItem title="Ack clock" description="2 hours">
         <p class="muted">
-          Owner confirms the case is assigned and publishes review ETA.
+          The owner confirms who has the case and tells the poster when review
+          will finish.
         </p>
       </CardItem>
       <CardItem title="Review clock" description="24 hours">
         <p class="muted">
-          Human review confirms the removal or restores the content.
+          A person reviews the takedown and keeps the content down or restores
+          it.
         </p>
       </CardItem>
       <CardItem title="Remedy clock" description="72 hours">
         <p class="muted">
-          Restoration, explanation, or alternative remedy is delivered.
+          The poster gets the content restored, an explanation, or another
+          remedy.
         </p>
       </CardItem>
     </CardGrid>
@@ -87,11 +90,11 @@ const receiptPayload = `{
   >
     <ul class="muted">
       <li>
-        Safety escalation can delay restoration, but the review clock must still
-        complete.
+        A safety escalation can delay restoration. The review must still finish
+        on its clock.
       </li>
       <li>
-        Legal hold allows temporary suppression, but the appeal path remains
+        A legal hold can keep the content hidden for a time. The appeal stays
         open.
       </li>
       <li>
@@ -110,10 +113,20 @@ const receiptPayload = `{
     variant="alt"
   >
     <ul class="muted">
-      <li>Restore content if the takedown is overturned.</li>
-      <li>Provide a clear explanation and evidence bundle when upheld.</li>
+      <li>If the takedown is overturned, the content is restored.</li>
       <li>
-        Offer an expedited appeal review when removal impacts income or access.
+        If it is upheld, the poster gets the reason and the evidence it rested
+        on.
+      </li>
+      <li>
+        If the removal cuts off the poster's income or access, the appeal is
+        reviewed first.
+      </li>
+      <li>
+        Each takedown overturned on appeal is counted against the policy rule it
+        cited, here POLICY-3.2. The count goes to Trust & Safety, which owns the
+        rule and the filter that applies it. When the count passes a set number,
+        it reviews both and records what changed.
       </li>
     </ul>
   </SectionBlock>
@@ -130,7 +143,8 @@ const receiptPayload = `{
         release.
       </li>
       <li>
-        Map to <a href="/evidence-packs">evidence packs</a> for STD-01 and STD-02.
+        Map each receipt to the <a href="/evidence-packs">evidence packs</a> for STD-01
+        and STD-02.
       </li>
     </ul>
   </SectionBlock>

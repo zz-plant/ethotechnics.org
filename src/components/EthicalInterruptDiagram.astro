@@ -18,7 +18,7 @@ const Heading = level;
   <figcaption>
     <p class="eyebrow">Mechanism, drawn</p>
     <Heading id="ethical-interrupt-title">
-      Ethical Interrupt Circuit Breaker Architecture
+      Where an ethical interrupt pauses the flow
     </Heading>
     <p class="muted">
       Deliberate friction at quantified risk boundaries. Interrupts halt
@@ -75,7 +75,7 @@ const Heading = level;
       <g class="state-diagram__node" transform="translate(30, 90)">
         <rect width="170" height="85" rx="8"></rect>
         <text x="85" y="30" text-anchor="middle" class="state-diagram__state"
-          >1. Normal Flow</text
+          >1. Normal flow</text
         >
         <text x="85" y="51" text-anchor="middle" class="state-diagram__label"
           >Autonomous execution</text
@@ -141,10 +141,10 @@ const Heading = level;
           y="28"
           text-anchor="middle"
           class="state-diagram__state"
-          fill="var(--status-danger)">2. Interrupt Tripped</text
+          fill="var(--status-danger)">2. Interrupt tripped</text
         >
         <text x="100" y="49" text-anchor="middle" class="state-diagram__clause"
-          >Execution Suspended</text
+          >Execution suspended</text
         >
         <text x="100" y="69" text-anchor="middle" class="state-diagram__label"
           >Halt receipt published</text
@@ -178,7 +178,7 @@ const Heading = level;
           y="28"
           text-anchor="middle"
           class="state-diagram__state"
-          fill="var(--accent-strong)">3. Human Review</text
+          fill="var(--accent-strong)">3. Human review</text
         >
         <text x="87.5" y="49" text-anchor="middle" class="state-diagram__label"
           >Named on-call owner</text
@@ -214,7 +214,7 @@ const Heading = level;
           text-anchor="middle"
           class="state-diagram__state"
           fill="var(--status-danger)"
-          >Risk Confirmed: Rollback &amp; Compensate</text
+          >Risk confirmed: Rollback &amp; compensate</text
         >
         <text x="210" y="46" text-anchor="middle" class="state-diagram__label"
           >State reverted; harm bounded; incident logged</text
@@ -235,7 +235,7 @@ const Heading = level;
         text-anchor="middle"
         class="state-diagram__clause"
         fill="var(--accent-strong)"
-        >Verified Safe: Signed Override Resumes Execution</text
+        >Verified safe: Signed override resumes execution</text
       >
 
       {/* Bottom Row: 3 Tiers of Interrupts */}
@@ -247,7 +247,7 @@ const Heading = level;
           fill="var(--surface)"
           stroke="var(--border)"></rect>
         <text x="16" y="26" class="state-diagram__state"
-          >Tier 1: Soft Prompt</text
+          >Tier 1: Soft prompt</text
         >
         <text x="16" y="47" class="state-diagram__label"
           >Advisory warning; user confirms</text
@@ -270,7 +270,7 @@ const Heading = level;
           x="16"
           y="26"
           class="state-diagram__state"
-          fill="var(--accent-strong)">Tier 2: Hard Stop</text
+          fill="var(--accent-strong)">Tier 2: Hard stop</text
         >
         <text x="16" y="47" class="state-diagram__label"
           >Execution paused pending review</text
@@ -294,7 +294,7 @@ const Heading = level;
           x="16"
           y="26"
           class="state-diagram__state"
-          fill="var(--status-danger)">Tier 3: Mandatory Escalation</text
+          fill="var(--status-danger)">Tier 3: Mandatory escalation</text
         >
         <text x="16" y="47" class="state-diagram__label"
           >Emergency circuit trip; leadership alerted</text

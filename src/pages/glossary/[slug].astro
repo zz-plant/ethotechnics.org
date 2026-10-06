@@ -93,17 +93,19 @@ const pageDescription = buildMetaDescription(
   plainDescription,
   `${entry.title}:`,
 );
-const introDescription = `Glossary entry in ${categoryLabel}. Definitions, checks, and evidence for ${entry.title}.`;
-const definitionSummary = buildMetaDescription(plainDescription);
 const termUpdated = entry.termUpdated ?? publication.updated;
 const termPublished = publication.published ?? null;
 const termModified =
   termUpdated ?? publication.updated ?? publication.published ?? null;
-const termVersion = entry.termVersion ?? publication.version;
+// An entry shows its own date and version only when it records one. The
+// glossary's release date and version used to stand in for every term, so
+// 334 entries said they were updated the day the glossary last shipped.
+const termVersion = entry.termVersion;
 const termChangelog = entry.termChangelog ?? "/api/changelog.json";
-const termUpdatedDate = termUpdated ? termUpdated.split("T")[0] : "TBD";
+const termUpdatedDate = entry.termUpdated
+  ? entry.termUpdated.split("T")[0]
+  : null;
 const {
-  scopeText,
   adjacentTerms,
   operationalTests,
   commonCounterfeits,
@@ -113,10 +115,11 @@ const {
 } = getGlossaryEntryDefaults(entry, category);
 const presenceChecks = entry.presenceChecks ?? [];
 const missingExpectations = entry.missingExpectations ?? [];
+// Every entry's scope was its section's blurb, which the sidebar already
+// prints under "Glossary territory", so it is not repeated here.
 const metaItems = [
-  scopeText ? { id: "scope", label: "Scope", value: scopeText } : undefined,
   genealogy
-    ? { id: "genealogy", label: "Genealogy", value: genealogy }
+    ? { id: "genealogy", label: "Origin", value: genealogy }
     : undefined,
 ].filter((item): item is { id: string; label: string; value: string } =>
   Boolean(item),
@@ -138,6 +141,19 @@ const minimumEvidenceItems = [
 // details was what kept them off the page. The generated sentences are gone,
 // so an entry that states its artifact, behavior, or metric can show it.
 const showMinimumEvidence = minimumEvidenceItems.length > 0;
+// The intro says what this entry actually carries. It used to promise
+// "definitions, checks, and evidence" on every entry, including the 161 that
+// have no tests and no evidence.
+const introCarries = [
+  "the definition",
+  operationalTests.length > 0 ? "tests that show it is in place" : null,
+  showMinimumEvidence ? "the evidence to keep" : null,
+].filter((item): item is string => Boolean(item));
+const introDescription = `Filed under ${categoryLabel}. This entry gives ${
+  introCarries.length > 1
+    ? `${introCarries.slice(0, -1).join(", ")} and ${introCarries.at(-1)}`
+    : introCarries[0]
+}.`;
 const domains = entry.domains ?? [];
 const phases = entry.phase ?? [];
 const measurability = entry.measurability ?? "";
@@ -156,19 +172,6 @@ const aboutItems = Array.from(
   "@type": "Thing",
   name: item,
 }));
-const phaseList = phases
-  .map((phase) => glossaryPhaseLabels[phase] ?? phase)
-  .join(", ");
-const metaLine = [
-  scale ? `Scale: ${glossaryScaleLabels[scale] ?? scale}` : null,
-  phases.length ? `Phases: ${phaseList}` : null,
-  measurability
-    ? `Measurability: ${glossaryMeasurabilityLabels[measurability] ?? measurability}`
-    : null,
-  maturity ? `Maturity: ${glossaryMaturityLabels[maturity] ?? maturity}` : null,
-]
-  .filter((item): item is string => Boolean(item))
-  .join(" · ");
 const keywordList = Array.from(
   new Set(
     [
@@ -211,25 +214,10 @@ const relatedClusters = clusters
       .slice(0, 6),
   }))
   .filter((group) => group.entries.length > 0);
-const relatedDomains = domains
-  .map((domain) => ({
-    id: domain,
-    label: glossaryDomainLabels[domain] ?? domain,
-    entries: allEntries
-      .filter(
-        (candidate) =>
-          candidate.id !== entry.id &&
-          (candidate.domains ?? []).includes(domain),
-      )
-      .map((candidate) => ({
-        id: candidate.id,
-        title: candidate.title,
-      }))
-      .slice(0, 6),
-  }))
-  .filter((group) => group.entries.length > 0);
-const hasRelatedConcepts =
-  relatedClusters.length > 0 || relatedDomains.length > 0;
+// Domain groups listed the first six entries of each domain, so every page
+// tagged "Structural" showed the same six links. Clusters are specific
+// enough to be related; domains stay as pills on the definition.
+const hasRelatedConcepts = relatedClusters.length > 0;
 const quickTakeawayLinks = [
   { href: "#definition", label: "Definition" },
   ...(presenceChecks.length
@@ -301,9 +289,13 @@ const relatedPatterns = (entry.relatedPatterns ?? [])
     ): pattern is { title: string; href: string; filterLabels: string[] } =>
       Boolean(pattern),
   );
+const hasTestsAndEvidence =
+  operationalTests.length > 0 ||
+  commonCounterfeits.length > 0 ||
+  showMinimumEvidence ||
+  relatedPatterns.length > 0;
 const anchorLinks = [
   { href: "#definition", label: "Definition" },
-  ...(scopeText ? [{ href: "#scope", label: "Scope" }] : []),
   ...(adjacentTerms.length
     ? [{ href: "#adjacent-terms", label: "Adjacent terms" }]
     : []),
@@ -317,7 +309,7 @@ const anchorLinks = [
     ? [{ href: "#minimum-evidence", label: "Minimum evidence" }]
     : []),
   ...(entry.examples?.length
-    ? [{ href: "#example-corpus", label: "Example corpus" }]
+    ? [{ href: "#example-corpus", label: "Hypothetical example" }]
     : []),
   ...(references.length ? [{ href: "#references", label: "References" }] : []),
 ];
@@ -402,21 +394,22 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     description={introDescription}
     anchorLinks={anchorLinks}
   />
-  <div class="callout glossary-entry__summary">
-    <p class="eyebrow">Definition summary</p>
-    <p class="muted">{definitionSummary}</p>
-    <ul class="pill-list pill-list--wrap glossary-entry__summary-links">
-      {
-        quickTakeawayLinks.map((link) => (
-          <li>
-            <a class="pill-list__button" href={link.href}>
-              {link.label}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </div>
+  {
+    quickTakeawayLinks.length > 1 && (
+      <div class="callout glossary-entry__summary">
+        <p class="eyebrow">On this entry</p>
+        <ul class="pill-list pill-list--wrap glossary-entry__summary-links">
+          {quickTakeawayLinks.map((link) => (
+            <li>
+              <a class="pill-list__button" href={link.href}>
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
   <article
     class="glossary-entry glossary-entry--detail"
     itemscope
@@ -448,7 +441,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           itemprop="description"
         />
         {
-          (domainPills.length > 0 || metaLine) && (
+          domainPills.length > 0 && (
             <div class="glossary-entry__tagline">
               {domainPills.length > 0 && (
                 <div class="pill-row">
@@ -457,7 +450,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                   ))}
                 </div>
               )}
-              {metaLine && <p class="muted small">{metaLine}</p>}
             </div>
           )
         }
@@ -520,23 +512,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                   </div>
                 </div>
               ))}
-              {relatedDomains.map((group) => (
-                <div class="glossary-entry__related-group">
-                  <p class="muted small">
-                    Also tagged: <strong>{group.label}</strong>
-                  </p>
-                  <div class="pill-row">
-                    {group.entries.map((term) => (
-                      <a
-                        class="pill pill--muted"
-                        href={glossaryEntryPermalink(term.id)}
-                      >
-                        {term.title}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              ))}
             </section>
           )
         }
@@ -577,7 +552,11 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         {
           entry.examples && entry.examples.length > 0 && (
             <section id="example-corpus" class="glossary-entry__section">
-              <p class="eyebrow">Example corpus</p>
+              <p class="eyebrow">
+                {entry.examples.length > 1
+                  ? "Hypothetical examples"
+                  : "Hypothetical example"}
+              </p>
               <ul class="muted">
                 {entry.examples.map((example) => (
                   <li>{example}</li>
@@ -623,101 +602,97 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         <section class="glossary-entry__section">
           <p class="eyebrow">Entry details</p>
           <ul class="muted">
-            <li>Last updated: {termUpdatedDate}</li>
-            <li>Term version: {termVersion}</li>
+            {termUpdatedDate && <li>Last updated: {termUpdatedDate}</li>}
+            {termVersion && <li>Term version: {termVersion}</li>}
             <li>
               Changelog: <a href={termChangelog}>View updates</a>
             </li>
           </ul>
         </section>
-        <section class="glossary-entry__section glossary-entry__section--dense">
-          <p class="eyebrow">Tests and evidence</p>
-          <div class="glossary-entry__disclosures">
-            {
-              operationalTests.length > 0 && (
-                <details
-                  id="operational-tests"
-                  class="glossary-entry__disclosure"
-                >
-                  <summary>
-                    Operational tests ({operationalTests.length})
-                  </summary>
-                  <ul class="muted">
-                    {operationalTests.map((test) => (
-                      <li>{test}</li>
-                    ))}
-                  </ul>
-                </details>
-              )
-            }
-            {
-              commonCounterfeits.length > 0 && (
-                <details
-                  id="common-counterfeits"
-                  class="glossary-entry__disclosure"
-                >
-                  <summary>
-                    Common counterfeits ({commonCounterfeits.length})
-                  </summary>
-                  <ul class="muted">
-                    {commonCounterfeits.map((counterfeit) => (
-                      <li>{counterfeit}</li>
-                    ))}
-                  </ul>
-                </details>
-              )
-            }
-            {
-              showMinimumEvidence && (
-                <details
-                  id="minimum-evidence"
-                  class="glossary-entry__disclosure"
-                >
-                  <summary>Minimum evidence checklist</summary>
-                  <ul class="muted">
-                    {minimumEvidenceItems.map((item) => (
-                      <li>
-                        <strong>{item.label}:</strong> {item.value}
-                      </li>
-                    ))}
-                  </ul>
-                </details>
-              )
-            }
-            {
-              relatedPatterns.length > 0 && (
-                <details
-                  id="related-mechanisms"
-                  class="glossary-entry__disclosure glossary-entry__section--patterns"
-                >
-                  <summary>
-                    Related mechanisms ({relatedPatterns.length})
-                  </summary>
-                  <ul class="glossary-entry__patterns-list">
-                    {relatedPatterns.map((relatedPattern) => (
-                      <li class="glossary-entry__pattern-card">
-                        <a
-                          class="glossary-entry__pattern-link"
-                          href={relatedPattern.href}
-                        >
-                          <span class="glossary-entry__pattern-title">
-                            {relatedPattern.title}
-                          </span>
-                          <span class="muted small">
-                            {relatedPattern.filterLabels.join(", ")}
-                          </span>
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                  <p class="muted small glossary-entry__patterns-hint">
-                    See the full <a href="/mechanisms">mechanisms catalog</a>.
-                  </p>
-                </details>
-              )
-            }
-          </div>
-        </section>
+        {
+          hasTestsAndEvidence && (
+            <section class="glossary-entry__section glossary-entry__section--dense">
+              <p class="eyebrow">Tests and evidence</p>
+              <div class="glossary-entry__disclosures">
+                {operationalTests.length > 0 && (
+                  <details
+                    id="operational-tests"
+                    class="glossary-entry__disclosure"
+                  >
+                    <summary>
+                      Operational tests ({operationalTests.length})
+                    </summary>
+                    <ul class="muted">
+                      {operationalTests.map((test) => (
+                        <li>{test}</li>
+                      ))}
+                    </ul>
+                  </details>
+                )}
+                {commonCounterfeits.length > 0 && (
+                  <details
+                    id="common-counterfeits"
+                    class="glossary-entry__disclosure"
+                  >
+                    <summary>
+                      Common counterfeits ({commonCounterfeits.length})
+                    </summary>
+                    <ul class="muted">
+                      {commonCounterfeits.map((counterfeit) => (
+                        <li>{counterfeit}</li>
+                      ))}
+                    </ul>
+                  </details>
+                )}
+                {showMinimumEvidence && (
+                  <details
+                    id="minimum-evidence"
+                    class="glossary-entry__disclosure"
+                  >
+                    <summary>Minimum evidence checklist</summary>
+                    <ul class="muted">
+                      {minimumEvidenceItems.map((item) => (
+                        <li>
+                          <strong>{item.label}:</strong> {item.value}
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                )}
+                {relatedPatterns.length > 0 && (
+                  <details
+                    id="related-mechanisms"
+                    class="glossary-entry__disclosure glossary-entry__section--patterns"
+                  >
+                    <summary>
+                      Related mechanisms ({relatedPatterns.length})
+                    </summary>
+                    <ul class="glossary-entry__patterns-list">
+                      {relatedPatterns.map((relatedPattern) => (
+                        <li class="glossary-entry__pattern-card">
+                          <a
+                            class="glossary-entry__pattern-link"
+                            href={relatedPattern.href}
+                          >
+                            <span class="glossary-entry__pattern-title">
+                              {relatedPattern.title}
+                            </span>
+                            <span class="muted small">
+                              {relatedPattern.filterLabels.join(", ")}
+                            </span>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                    <p class="muted small glossary-entry__patterns-hint">
+                      See the full <a href="/mechanisms">mechanisms catalog</a>.
+                    </p>
+                  </details>
+                )}
+              </div>
+            </section>
+          )
+        }
       </aside>
     </div>
   </article>
