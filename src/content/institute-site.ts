@@ -217,7 +217,7 @@ export const failureStates: FailureState[] = [
     slug: "cant-stop",
     shortLabel: "Can’t stop",
     descriptionLine1:
-      "A harmful process cannot be paused or rolled back quickly, even when operators can see it is wrong.",
+      "A harmful process cannot be paused or rolled back in time, even when operators can see it is wrong.",
     descriptionLine2:
       "The controls to stop it are missing or have never been tested.",
     artifactSlugs: [

@@ -196,7 +196,7 @@ export const methodContent: MethodContent = {
       question: "Who can contest the decision, and with what procedural force?",
       currentAssets: [
         "STD-02 Contestability and Recourse",
-        "Minimum viable contestability: standing, reasons, records, timelines, remedies, non-retaliation",
+        "Minimum viable contestability: standing, reasons, records, timelines, a named responder, defined effects, remedies, and no retaliation",
         "Appeal event schema",
         "MEC-06 appeal paths and MEC-08 contestation APIs",
         "STD-02 §8.6: a class whose expected errors outrun the capacity to answer them is uncontestable in practice",

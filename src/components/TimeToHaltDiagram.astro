@@ -19,9 +19,11 @@ const Heading = level;
     <p class="eyebrow">Mechanism, drawn</p>
     <Heading id="tth-diagram-title"> Time to halt and blast radius </Heading>
     <p class="muted">
-      TTH measures latency to confirmed downstream cessation, not cosmetic UI
-      acknowledgment. If halting latency exceeds the harm horizon, stoppability
-      is nominal.
+      Time-to-halt runs from the halt request to the moment the last downstream
+      action stops. A screen saying the request was received does not stop the
+      clock. If a halt takes longer than the harm takes to spread, the halt
+      control protects no one. The casebook's time to halt is a different
+      interval: from the first harm to the halt.
     </p>
   </figcaption>
 
