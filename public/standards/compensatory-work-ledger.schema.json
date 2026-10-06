@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://ethotechnics.org/standards/compensatory-work-ledger.schema.json",
   "title": "Compensatory Work Ledger",
-  "description": "A ledger of recurring work that keeps an institution's routine performance going but is missing from its formal account of operations. Each item records the trigger, who performs the work, who benefits, who bears the cost, whether a route to correction exists, and what the institution knows and has decided. The ledger also records who holds authority over the conditions that produce the work. A four-question test classifies each item as compensation, discretion, craft, coerced craft, or unresolved. An intervention review then judges a change by trigger count as removal, reduction at source, transfer, or accommodation. Proposed; see docs/planning/compensatory-work-protocol-2026-09.md.",
+  "description": "A ledger of recurring work that keeps an institution's routine performance going but is missing from its formal account of operations. Each item records the trigger, who performs the work, who benefits, who bears the cost, whether a route to correction exists, and what the institution knows and has decided. The ledger also records who keeps the saving, what stops the cost from being sent back, who holds authority over the conditions that produce the work, and each actor's capacity to shift costs. A four-question test classifies each item as compensation, discretion, craft, coerced craft, or unresolved. An intervention review then judges a change by trigger count as removal, reduction at source, transfer, or accommodation. Proposed; see docs/planning/compensatory-work-protocol-2026-09.md.",
   "type": "object",
   "required": [
     "schema_version",
@@ -80,7 +80,8 @@
           "correction_route",
           "tests",
           "classification",
-          "institution_position"
+          "institution_position",
+          "gain_capture"
         ],
         "properties": {
           "item_id": {
@@ -316,6 +317,61 @@
                 ]
               }
             }
+          },
+          "gain_capture": {
+            "title": "Gain capture",
+            "description": "Who keeps the saving the work produces, and what stops the people carrying the cost from sending it back. The ledger follows the gain as well as the burden: an arrangement that moves a cost out also leaves a saving with someone.",
+            "type": "object",
+            "required": ["booked_by", "send_back_blocked_by"],
+            "additionalProperties": false,
+            "properties": {
+              "booked_by": {
+                "title": "Booked by",
+                "description": "Where the saving lands. If the work stopped being done for free, these are the parties who would pay for it.",
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "title": "Saving holder",
+                  "description": "One party that keeps part of the saving.",
+                  "type": "string",
+                  "enum": [
+                    "operating_budget",
+                    "owners_or_investors",
+                    "management_targets",
+                    "payers_or_insurers",
+                    "clients",
+                    "public_budget",
+                    "nobody_identified",
+                    "unknown"
+                  ]
+                }
+              },
+              "send_back_blocked_by": {
+                "title": "Send-back blocked by",
+                "description": "What stops the cost bearers from returning the cost to the party that kept the saving. Use nothing only where a working route exists and has been used.",
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "title": "Blocker",
+                  "description": "One thing standing between the cost bearer and returning the cost.",
+                  "type": "string",
+                  "enum": [
+                    "nothing",
+                    "contract",
+                    "law_or_regulation",
+                    "budget_authority",
+                    "bearer_dependence",
+                    "cost_of_objecting",
+                    "unknown"
+                  ]
+                }
+              },
+              "basis": {
+                "title": "Basis",
+                "description": "One or two sentences on how the gain side was established, and from what records.",
+                "type": "string"
+              }
+            }
           }
         }
       }
@@ -465,6 +521,109 @@
           "title": "Basis",
           "description": "One or two sentences on how this was established and by whom.",
           "type": "string"
+        }
+      }
+    },
+    "externalization_capacity": {
+      "title": "Externalization capacity",
+      "description": "For each actor that shifts costs in this unit: how much cost it can move, onto whom, for how long, backed by what, and whether the people receiving it can refuse. Every actor shifts some cost somewhere. The record distinguishes an occasional inconvenience from a durable, enforced transfer.",
+      "type": "array",
+      "items": {
+        "title": "Actor record",
+        "description": "One actor's capacity to shift costs.",
+        "type": "object",
+        "required": [
+          "actor_ref",
+          "actor_kind",
+          "shifts_onto",
+          "scale",
+          "duration",
+          "backed_by",
+          "bearers_can_refuse"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "actor_ref": {
+            "title": "Actor reference",
+            "description": "Identifier for the actor. Do not name employers or people unless participants agree.",
+            "type": "string"
+          },
+          "actor_kind": {
+            "title": "Actor kind",
+            "description": "What sort of actor this is.",
+            "type": "string",
+            "enum": [
+              "institution_unit",
+              "institution",
+              "vendor",
+              "payer",
+              "public_agency"
+            ]
+          },
+          "shifts_onto": {
+            "title": "Shifts onto",
+            "description": "Who receives the costs this actor moves.",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "title": "Receiving party",
+              "description": "One party that receives shifted cost.",
+              "type": "string",
+              "enum": [
+                "performer",
+                "household",
+                "client",
+                "colleague",
+                "downstream_team",
+                "public"
+              ]
+            }
+          },
+          "scale": {
+            "title": "Scale",
+            "description": "How far the shifted cost reaches.",
+            "type": "string",
+            "enum": [
+              "single_case",
+              "recurring_in_unit",
+              "institution_wide",
+              "sector_wide"
+            ]
+          },
+          "duration": {
+            "title": "Duration",
+            "description": "How long the transfer lasts.",
+            "type": "string",
+            "enum": ["temporary", "recurring", "durable"]
+          },
+          "backed_by": {
+            "title": "Backed by",
+            "description": "What holds the transfer in place.",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "title": "Backing",
+              "description": "One thing that holds the transfer in place.",
+              "type": "string",
+              "enum": [
+                "contract",
+                "law_or_regulation",
+                "market_position",
+                "budget_authority",
+                "informal_expectation"
+              ]
+            }
+          },
+          "bearers_can_refuse": {
+            "title": "Bearers can refuse",
+            "description": "Whether the receiving parties can decline the cost without someone being harmed.",
+            "type": "boolean"
+          },
+          "gains_retained": {
+            "title": "Gains retained",
+            "description": "What the actor keeps by shifting the cost, in one sentence.",
+            "type": "string"
+          }
         }
       }
     }
