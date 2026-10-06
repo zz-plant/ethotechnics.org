@@ -36,11 +36,12 @@ const items = [
   {
     title: "Transparency as a substitute for power",
     pattern:
-      "Dashboards, model cards, and disclosure notices explain the system and leave it unchallengeable. Knowing why you were harmed is not the same as being able to reverse it. Being able to see the system is not standing.",
+      "Dashboards, model cards, and disclosure notices explain the system and leave it unchallengeable. Knowing why you were harmed is not the same as being able to reverse it, and seeing the system is not the same as being able to challenge it.",
     question:
       "What can the explanation change, and who can make that change happen?",
     href: "/standards/laws#law-viii",
-    linkLabel: "Law VIII: observability without state transition is theater",
+    linkLabel:
+      "Law VIII: an observation counts only if it can change the system",
   },
   {
     title: "Human-in-the-loop without authority",
@@ -69,7 +70,7 @@ const items = [
     linkLabel: "Corrective standing",
   },
   {
-    title: "Optimizing efficiency before fixing the denominator",
+    title: "Optimizing efficiency before counting who carries the errors",
     pattern:
       "A workflow that gets faster by pushing friction onto patients, claimants, contractors, or support staff has only moved the burden. Do not optimize a system until you know where its leftover errors land.",
     question:
@@ -133,14 +134,9 @@ const items = [
     <p>
       None of the projects in the catalog below is worthless in itself. Metric
       precision can matter. Explanation can matter. Participation can matter.
-      Each becomes a sink when it takes the place of the structural question:
+      Each becomes low-leverage when it takes the place of the harder question:
       when a great deal of effort improves how power is used, and leaves
       untouched who holds it and who can challenge it.
-    </p>
-    <p>The recurring mistake takes one form:</p>
-    <p class="small muted">
-      Make the institution better at deciding, instead of asking whether, how,
-      and under what conditions it should decide.
     </p>
   </SectionBlock>
 
@@ -148,7 +144,6 @@ const items = [
     id="catalog"
     eyebrow="The catalog"
     title="Eleven familiar projects, and what replaces them"
-    description="Each card names the pattern and the question to ask instead."
   >
     <CardGrid className="grid--two">
       {
@@ -190,14 +185,12 @@ const items = [
     </p>
     <p class="small muted">
       <a href="/about">The about page</a> states what domination means here, why no
-      arrangement is exempt by design, and the discipline in brief. The epistemology:{
-        " "
-      }
-      <a href="/glossary/excluded-case">the excluded case</a> and{" "}
+      arrangement is exempt by design, and the discipline in brief. The glossary defines
+      the ideas underneath:{" "}
+      <a href="/glossary/excluded-case">the excluded case</a>,{" "}
       <a href="/glossary/consequential-contradiction"
         >consequential contradiction</a
-      >; the design stance:{" "}
-      <a href="/glossary/safe-incompleteness">safe incompleteness</a>.
+      >, and <a href="/glossary/safe-incompleteness">safe incompleteness</a>.
     </p>
   </SectionBlock>
 </BaseLayout>

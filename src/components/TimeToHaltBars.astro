@@ -38,11 +38,10 @@ const shortest = rows.reduce((min, row) => (row.share < min.share ? row : min));
       Time to halt, drawn to one scale
     </Heading>
     <p class="small muted">
-      Each bar runs from first harm to the halt, on a linear scale of years.
-      {shortest.entry.title}: {shortest.label.toLowerCase()}. At this scale that
-      is too short to see, so its bar is drawn at the minimum width. Where the
-      record dates an end only to the year or month, the bar measures from the
-      middle of it.
+      Each bar runs from first harm to the halt. {shortest.entry.title}:{" "}
+      {shortest.label.toLowerCase()}, too short to see at this scale, so its bar
+      is drawn at the minimum width. Where the record dates an end only to the
+      year or month, the bar measures from the middle of it.
     </p>
   </figcaption>
   <ol class="halt-bars__list">

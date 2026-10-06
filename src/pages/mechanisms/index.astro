@@ -8,6 +8,7 @@ import CardItem from "../../components/CardItem.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
 import PatternFilter from "../../components/PatternFilter.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
+import SearchIds from "../../components/SearchIds.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import { diagnosticsContent } from "../../content/diagnostics";
 import { glossaryEntryPermalink } from "../../utils/glossary";
@@ -20,7 +21,6 @@ const {
   primer,
   patterns,
   syllabus,
-  quickStart,
   recommended,
   rolePathways,
   publication,
@@ -67,16 +67,14 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     description={pageDescription}
     anchorLinks={[
       { href: "#mechanisms", label: "Mechanism catalog" },
-      { href: "#start-here", label: "From question to mechanism" },
+      { href: "#start-here", label: "Where to start" },
       { href: "#syllabus", label: "Syllabus" },
       { href: "#references", label: "References" },
     ]}
   />
   <SectionBlock id="mechanisms" title="Mechanism catalog">
     <p class="mechanisms__links">
-      <span>New to mechanisms?</span>
-      <a href="#primer">Read the primer</a>
-      <a href="#role-pathways">Guides by role</a>
+      <span>Tested against:</span>
       <a href="/standards/std-01-rights-matrix">Rights matrix</a>
       <a href="/validators">Validators</a>
     </p>
@@ -98,7 +96,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     id="primer"
     eyebrow="Primer"
     title="What the mechanisms are for"
-    description="Short overviews for onboarding and briefings."
     variant="alt"
   >
     <CardGrid>
@@ -117,49 +114,19 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <SectionBlock
     id="start-here"
     eyebrow="Start here"
-    title="From question to mechanism"
-    description="Find a mechanism, read the primer, then check each one against the rights it protects and the validators that test it."
+    title="Three mechanisms to read first"
+    description="A challenge route, a trigger that sends the rule back for review, and a record of who decided."
   >
-    <ol class="card__list">
-      <li>
-        <strong>Find one:</strong>{" "}
-        <a href="#mechanisms">search the catalog</a> for the safeguard you need.
-      </li>
-      <li>
-        <strong>Learn the terms:</strong>{" "}
-        read the <a href="#role-pathways">role pathways</a> and the{" "}
-        <a href="#primer">primer</a>.
-      </li>
-      <li>
-        <strong>Make it testable:</strong>{" "}
-        connect each one to the <a href="/standards/std-01-rights-matrix"
-          >rights matrix</a
-        >{" "}
-        and <a href="/validators">validators</a>.
-      </li>
-    </ol>
-    <CardGrid className="grid--two">
-      <CardItem
-        title="First four steps"
-        description="From a first read to a mechanism you can cite."
-      >
-        <ul class="muted">
-          {quickStart.map((item) => <li>{item}</li>)}
-        </ul>
-      </CardItem>
-      <CardItem title={recommended.title} description={recommended.description}>
-        <ul class="library__recommended-list">
-          {
-            recommended.items.map((item) => (
-              <li>
-                <a href={item.href}>{item.title}</a>
-                <p class="muted small">{item.description}</p>
-              </li>
-            ))
-          }
-        </ul>
-      </CardItem>
-    </CardGrid>
+    <ul class="library__recommended-list">
+      {
+        recommended.items.map((item) => (
+          <li>
+            <a href={item.href}>{item.title}</a>
+            <p class="muted small">{item.description}</p>
+          </li>
+        ))
+      }
+    </ul>
   </SectionBlock>
   <SectionBlock
     id="role-pathways"
@@ -325,10 +292,19 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     <p class="muted">
       Another view: <a href="/artifacts">governance artifacts</a>.
     </p>
-    <p class="muted">
-      Search IDs: MEC-01, MEC-03, MEC-05, MEC-06, STD-01.1.1, STD-02.2.1,
-      VAL-01, VAL-02, VAL-03.
-    </p>
+    <SearchIds
+      ids={[
+        "MEC-01",
+        "MEC-03",
+        "MEC-05",
+        "MEC-06",
+        "STD-01.1.1",
+        "STD-02.2.1",
+        "VAL-01",
+        "VAL-02",
+        "VAL-03",
+      ]}
+    />
   </SectionBlock>
 
   <ScholarlyMeta publication={publication} permalink={permalink} />
