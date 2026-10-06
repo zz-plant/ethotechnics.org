@@ -75,19 +75,20 @@ source and is labeled as one. The ledger also records, once, who holds authority
 staffing, and priorities that produce its items: management alone, management after consultation,
 shared with binding force, or the performers.
 
-| Field                | Records                                                                                                                                         |
-| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| Trigger              | The condition in the formal process that produces the demand.                                                                                   |
-| Work                 | What the person does, in one sentence, in their words.                                                                                          |
-| Frequency            | Occurrences per month, counted over at least one full cycle of the institution's calendar.                                                      |
-| Time                 | Median minutes per occurrence, and whether it happens on paid, unpaid, or personal time.                                                        |
-| Performer            | Role, and whether the role holds authority to change the trigger.                                                                               |
-| Beneficiary          | Who receives the result: the institution's metrics, a client, a colleague, the performer.                                                       |
-| Cost bearer          | Who pays if the work is not done, or pays to do it: the performer, the performer's household, the client, a downstream team, the public.        |
-| Formal record        | Whether the work appears in a job description, a workflow, a time system, or a metric.                                                          |
-| Route to correction  | The named route by which this item could be reported, and whether anyone has used it.                                                           |
-| Institution position | Whether decision-makers know the item exists, whether anyone has priced a fix, and what was decided: funded, declined, not considered, unknown. |
-| Classification       | Result of the Part 2 test.                                                                                                                      |
+| Field                | Records                                                                                                                                                                                         |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Trigger              | The condition in the formal process that produces the demand.                                                                                                                                   |
+| Work                 | What the person does, in one sentence, in their words.                                                                                                                                          |
+| Frequency            | Occurrences per month, counted over at least one full cycle of the institution's calendar.                                                                                                      |
+| Time                 | Median minutes per occurrence, and whether it happens on paid, unpaid, or personal time.                                                                                                        |
+| Performer            | Role, and whether the role holds authority to change the trigger.                                                                                                                               |
+| Beneficiary          | Who receives the result: the institution's metrics, a client, a colleague, the performer.                                                                                                       |
+| Cost bearer          | Who pays if the work is not done, or pays to do it: the performer, the performer's household, the client, a downstream team, the public.                                                        |
+| Formal record        | Whether the work appears in a job description, a workflow, a time system, or a metric.                                                                                                          |
+| Route to correction  | The named route by which this item could be reported, and whether anyone has used it.                                                                                                           |
+| Institution position | Whether decision-makers know the item exists, whether anyone has priced a fix, and what was decided: funded, declined, not considered, unknown.                                                 |
+| Gain capture         | Who keeps the saving the work produces (operating budget, owners or investors, management targets, payers, clients, public budget), and what stops the cost bearers from sending the cost back. |
+| Classification       | Result of the Part 2 test.                                                                                                                                                                      |
 
 ### What the ledger answers
 
@@ -107,6 +108,20 @@ shared with binding force, or the performers.
   workers hold no binding authority signal a possible conflict of interest. The signal does not
   establish one, and the ledger does not say what the institution should have done. It separates
   that case from items the institution does not know about, where an instrument is the remedy.
+- **Follow the gain.** For items classed as compensation or coerced craft, list who keeps the
+  saving and what blocks the cost's return. Those are the parties who would pay if the work
+  stopped being free, and so the parties with a reason to keep it free. This is the test for the
+  claim that a concentrated gain and a dispersed cost are linked: if the cost were brought back,
+  who would lose, and do they act to prevent it? Where nobody would lose, the link is not shown.
+- **Externalization capacity.** Record, once per actor, whom it shifts costs onto, at what scale,
+  for how long, held in place by what, and whether the receiving parties can refuse. Every actor
+  shifts some cost somewhere. The record separates an occasional inconvenience from a durable,
+  enforced transfer, and it describes the other side of the authority question: not only who
+  can correct, but who can make the cost land where it does.
+
+The ledger's own boundary is a choice as well. It counts work the performers and their
+households
+do, and it leaves out costs that never reach them. State what it excludes in each report.
 
 ## Part 2: Separating unwanted from wanted work
 
@@ -244,6 +259,9 @@ kind each ledger is.
   accommodations as success than interventions whose criteria were set jointly or by the
   performers.
 
+- H7. Items whose saving is booked by an actor the cost bearers cannot refuse persist longer than
+  items whose saving is booked by an actor they can, holding cost and awareness constant.
+
 A study can return the opposite of any of these. Publish it if it does.
 
 ## Limits
@@ -272,6 +290,14 @@ lines of work and record where the ledger reproduces them:
 - Exit, voice, and loyalty as an account of how members' complaints reach an organization
   (Hirschman).
 - Emotional labor and relational work (Hochschild).
+- Social costs and cost-shifting as a feature of how firms keep accounts (Kapp, _The Social Costs
+  of Private Enterprise_, 1950), and the reciprocal-harm framing it argues against (Coase).
+- Unpaid work outside national accounts (Waring, _If Women Counted_, 1988), and social
+  reproduction theory (Fraser).
+- Where hazards settle and who can refuse them (Bullard, _Dumping in Dixie_, 1990; the
+  environmental-justice literature that followed).
+- Unpaid inputs as a condition of measured productivity (Moore, _Capitalism in the Web of Life_,
+  2015).
 
 Verify each reference and its findings before citing it on a public page. The list above is a
 reading plan, not a bibliography.
@@ -287,6 +313,9 @@ reading plan, not a bibliography.
   each intervention's stated objective and who defined success. `summarizeLedger` reports items
   known and kept, and a conflict-of-interest signal. `meetsStatedObjective` says whether an
   outcome achieves the objective the intervention stated.
+- Each item also records gain capture, and the ledger can carry an externalization-capacity
+  record per actor. `followTheGain` reports, for extracted items, who would pay if the work were
+  returned, how many returns are blocked, and how many items have no established gain side.
 - The classifier is deliberately conservative. Missing refusal or replacement answers, and partial
   ownership, return `unresolved` rather than a side. The near-zero threshold for removal is 5% of
   the baseline trigger count. Both rules are drafts to revise after the reading in the next

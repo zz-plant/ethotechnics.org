@@ -171,6 +171,46 @@
     border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
   }
 
+  /* Citation and page metadata close to one line each and open on demand.
+     Closed, they take the padding of a row, not of a panel. */
+  .citation-block {
+    padding: var(--space-3) var(--space-4);
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  }
+
+  .citation-block + .scholarly-meta,
+  .scholarly-meta + .citation-block {
+    margin-top: var(--space-2);
+  }
+
+  .scholarly-meta:not([open]) {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .citation-block__summary,
+  .scholarly-meta__summary {
+    cursor: pointer;
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .scholarly-meta__summary .eyebrow {
+    display: inline;
+    margin: 0 var(--space-2) 0 0;
+  }
+
+  .citation-block[open] > .citation-block__summary,
+  .scholarly-meta[open] > .scholarly-meta__summary {
+    margin-bottom: var(--space-4);
+  }
+
+  .scholarly-meta__history {
+    margin-top: var(--space-2);
+  }
+
   .summary-callout {
     display: grid;
     gap: var(--space-5);

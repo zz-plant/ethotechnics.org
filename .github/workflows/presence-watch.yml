@@ -1,0 +1,56 @@
+name: Presence watch
+
+# Weekly, notify only: looks for open consultations the standards could
+# answer and for outside mentions of the site, and lists what no earlier run
+# reported in one issue per ISO week, "Presence watch: <week>", labeled
+# presence-watch (scripts/presence/watch.ts). It changes no file.
+#
+# Sources:
+#   Federal Register  proposed rules and notices with an open comment period
+#                     whose text matches "artificial intelligence" or
+#                     "automated decision"; and any document naming
+#                     "ethotechnics"
+#   GOV.UK            open consultations matching the same terms
+#   GitHub code       "ethotechnics.org" outside the owner's account
+#
+# Each consultation lists the clauses whose text shares the most distinctive
+# words with it. That is keyword matching, labeled as such in the issue.
+#
+# What was already reported is kept in a hidden block in each issue body, so
+# items are not repeated week after week. A source that fails is noted in the
+# issue and does not fail the run. GitHub code search uses the
+# PRESENCE_BOT_TOKEN secret when it is set, otherwise GITHUB_TOKEN; if code
+# search refuses GITHUB_TOKEN, the issue says so.
+
+on:
+  schedule:
+    - cron: "17 7 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: presence-watch
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: package.json
+
+      # The script imports only repository files, so no install step.
+      - name: List new consultations and mentions
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          SEARCH_TOKEN: ${{ secrets.PRESENCE_BOT_TOKEN }}
+        run: bun run scripts/presence/watch.ts

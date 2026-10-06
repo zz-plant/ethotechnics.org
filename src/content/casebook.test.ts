@@ -159,6 +159,23 @@ describe("casebook", () => {
     expect(tally.standing.held).toBe(0);
   });
 
+  it("names who carried the errors, with every number from the case's own record", () => {
+    for (const entry of cases) {
+      expect(entry.errorsCarriedBy.trim().length, entry.slug).toBeGreaterThan(
+        0,
+      );
+      const record = [
+        entry.scale,
+        ...entry.narrative,
+        ...entry.findings.map((finding) => finding.finding),
+      ].join(" ");
+      const numbers = entry.errorsCarriedBy.match(/\d[\d,.]*\d|\d/g) ?? [];
+      for (const number of numbers) {
+        expect(record, `${entry.slug}: ${number}`).toContain(number);
+      }
+    }
+  });
+
   it("dates every timeline event from the case's own record, in order", () => {
     for (const entry of cases) {
       const events = entry.timeline ?? [];

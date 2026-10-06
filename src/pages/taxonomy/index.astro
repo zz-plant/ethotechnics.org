@@ -1,10 +1,9 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
-import CardGrid from "../../components/CardGrid.astro";
-import CardItem from "../../components/CardItem.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
-import { taxonomyEntries } from "../../content/taxonomy";
+import "../../styles/components/taxonomy.css";
+import { taxonomyAnchor, taxonomyEntries } from "../../content/taxonomy";
 
 const pageTitle = "Taxonomy — Ethotechnics Institute";
 const pageDescription =
@@ -20,12 +19,11 @@ const topLevelEntries = taxonomyEntries.filter(
   (entry) => !entry.slug.includes("/"),
 );
 
-const childEntriesFor = (rootSlug: string) =>
-  taxonomyEntries.filter(
-    (entry) =>
-      entry.slug.startsWith(`${rootSlug}/`) &&
-      entry.slug.split("/").length === 2,
-  );
+// Everything under a domain, in file order: each capability followed by its
+// practices, so a practice row sits directly beneath the capability it
+// belongs to.
+const branchFor = (rootSlug: string) =>
+  taxonomyEntries.filter((entry) => entry.slug.startsWith(`${rootSlug}/`));
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -34,12 +32,11 @@ const structuredData = {
   description: pageDescription,
   url: canonicalUrl,
   hasPart: taxonomyEntries.map((entry) => ({
-    "@type": "CreativeWork",
+    "@type": "DefinedTerm",
     name: entry.title,
+    description: entry.summary,
     identifier: entry.id,
-    url: Astro.site
-      ? new URL(`/taxonomy/${entry.slug}`, siteBase).toString()
-      : `/taxonomy/${entry.slug}`,
+    url: `${canonicalUrl}#${taxonomyAnchor(entry.slug)}`,
   })),
 };
 const structuredDataJson = JSON.stringify(structuredData);
@@ -61,55 +58,75 @@ const structuredDataJson = JSON.stringify(structuredData);
     eyebrow="Taxonomy"
     title="Ethotechnics taxonomy"
     description={pageDescription}
-    anchorLinks={[{ href: "#domains", label: "Domains" }]}
+    anchorLinks={topLevelEntries.map((entry) => ({
+      href: `#${taxonomyAnchor(entry.slug)}`,
+      label: entry.title,
+    }))}
   >
     <Fragment slot="actions">
-      <a class="button ghost" href="/navigator#safeguards"
+      <a class="button ghost" href="/method#state-variables"
         >Explore safeguards &rarr;</a
       >
-      <a class="button ghost" href="/navigator">Concept navigator</a>
+      <a class="button ghost" href="/method#matrix">Safeguard matrix</a>
     </Fragment>
   </PageIntro>
 
-  <SectionBlock
-    id="domains"
-    eyebrow="Domains"
-    title="Start with the top-level domains"
-    description="The domains are a way of filing practices. The safeguards are what the practices serve. Each card names both."
-  >
-    <CardGrid className="grid--two">
-      {
-        topLevelEntries.map((entry) => {
-          const childEntries = childEntriesFor(entry.slug);
-
-          return (
-            <CardItem
-              title={entry.title}
-              description={entry.summary}
-              descriptionTone="default"
-            >
-              <p class="small muted">Serves: {entry.safeguards.join(", ")}</p>
-              {childEntries.length > 0 && (
-                <ul class="pill-list pill-list--wrap">
-                  {childEntries.map((child) => (
-                    <li>
-                      <a href={`/taxonomy/${child.slug}`}>{child.title}</a>
-                    </li>
-                  ))}
-                </ul>
-              )}
-              <div slot="footer" class="card__footer">
-                <a
-                  class="button ghost button--compact"
-                  href={`/taxonomy/${entry.slug}`}
+  {
+    topLevelEntries.map((domain, index) => (
+      <SectionBlock
+        id={taxonomyAnchor(domain.slug)}
+        eyebrow="Domain"
+        title={domain.title}
+        description={domain.summary}
+        variant={index % 2 === 0 ? "alt" : undefined}
+      >
+        <p class="taxonomy-domain__meta small">
+          Serves {domain.safeguards.join(", ")}. Applies:{" "}
+          {domain.relatedArtifacts.flatMap((artifact, artifactIndex) => [
+            artifactIndex > 0 ? " · " : "",
+            <a href={artifact.href}>{artifact.label}</a>,
+          ])}
+        </p>
+        <div class="mapping-table__wrapper">
+          <table class="mapping-table mapping-table--stack taxonomy-table">
+            <thead>
+              <tr>
+                <th scope="col">Capability or practice</th>
+                <th scope="col">What it covers</th>
+                <th scope="col">Serves</th>
+                <th scope="col">Standards and tools</th>
+              </tr>
+            </thead>
+            <tbody>
+              {branchFor(domain.slug).map((entry) => (
+                <tr
+                  id={taxonomyAnchor(entry.slug)}
+                  class:list={[
+                    "taxonomy-table__row",
+                    `taxonomy-table__row--${entry.scope.toLowerCase()}`,
+                  ]}
                 >
-                  Explore {entry.title.toLowerCase()}
-                </a>
-              </div>
-            </CardItem>
-          );
-        })
-      }
-    </CardGrid>
-  </SectionBlock>
+                  <th scope="row">
+                    <span class="taxonomy-table__scope">{entry.scope}</span>
+                    <span class="taxonomy-table__title">{entry.title}</span>
+                  </th>
+                  <td data-label="What it covers">{entry.summary}</td>
+                  <td data-label="Serves">{entry.safeguards.join(", ")}</td>
+                  <td data-label="Standards and tools">
+                    <ul class="taxonomy-table__links">
+                      {entry.relatedArtifacts.map((artifact) => (
+                        <li>
+                          <a href={artifact.href}>{artifact.label}</a>
+                        </li>
+                      ))}
+                    </ul>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </SectionBlock>
+    ))
+  }
 </BaseLayout>

@@ -126,43 +126,18 @@ Detailed, testable expectations for each route. Use these specs when adding cont
   - Headings run `h1` (PageIntro), `h2` (SectionBlock), `h3` for each question group and readout block, `h4` for individual action class, dependent, and finding cards.
   - The methodology "Does not measure" card states that the tool records what the team believes, is not an audit, and treats an ungrounded grant as a finding to investigate.
 
-## Library (`/library`)
+## Mechanisms (`/mechanisms`)
 
-- **Data sources:** Pull `libraryContent` from `src/content/library.ts` and `diagnosticsContent.tools` for diagnostic title mapping in PatternFilter.
+- **Data sources:** Pull the `library` collection (`src/content/library.json`).
 - **Layout:**
-  - `PageIntro` anchor links cover Themes, Primer, Glossary, Pattern language, and Syllabus with panel copy explaining filters.
-  - Themes render as a pill rail with descriptions and hint text; Primer, Glossary, Patterns, and Syllabus each use `SectionBlock` with `CardGrid` children.
-  - Patterns section renders hidden anchor spans matching filter slugs and the interactive `PatternFilter` component.
+  - `PageIntro` anchor links cover the catalog, three to read first, and references.
+  - The catalog renders hidden anchor spans matching the safeguard slugs and the `PatternFilter`
+    component. Each card is the safeguards it serves, the title (a link to the mechanism's page),
+    and the summary. Steps, templates, and diagnostics live on the mechanism's own page.
+  - "Three to read first" renders `recommended.items` as a `CardGrid`.
 - **Accessibility:**
-  - Theme pills are `<a>` elements with `aria-label` describing the jump target; glossary cards include permalinks in the footer slot.
-  - PatternFilter must preserve keyboard navigation and announce applied filters; ensure diagnostic links expose the mapped tool title.
-
-## Syllabus (`/syllabus`)
-
-- **Data sources:**
-  - Modules pull from `libraryContent.syllabus.modules` with IDs generated from titles and linked
-    diagnostics pulled from `diagnosticsContent.tools`.
-  - Required artifacts and preview links reuse `startHereContent.artifacts.previews` for reading links
-    and PDF CTAs.
-  - Knowledge checks, module resources, and certificate strings live in `src/pages/syllabus/index.astro`
-    and hydrate client-side.
-- **Layout:**
-  - Intro anchors cover required artifacts, modules, and certificate sections with a panel explaining
-    the syllabus flow.
-  - Required artifacts section shows the two preview cards with notes and compact primary buttons.
-  - Module grid renders `panel` cards with module number/duration, topics list, required readings list
-    plus checkbox acknowledgment, knowledge check radio group, and linked references to library and
-    diagnostic pages.
-  - Module footers keep primary completion and ghost reset buttons with status copy underneath.
-  - Certificate block contains PDF download and share buttons, a list of completed modules with linked
-    references, and a shareable link input with status text.
-- **Accessibility:**
-  - Knowledge check options render as grouped radio inputs with `aria-label` on the wrapper for screen
-    readers.
-  - Completion buttons toggle `aria-pressed` and stay disabled until readings and quizzes are satisfied;
-    reset keeps modules keyboard accessible.
-  - Shareable link input remains read-only with polite live region updates; the `completed` query param
-    preselects finished modules and updates state without user interaction.
+  - PatternFilter must preserve keyboard navigation and announce the applied filter and search in its
+    `role="status"` line.
 
 ## Glossary (`/glossary`)
 

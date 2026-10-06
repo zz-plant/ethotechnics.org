@@ -197,7 +197,7 @@ export function institutional(inputs: Inputs): LevelReport {
   const conditions: Condition[] = [
     {
       holds: within,
-      text: `Exposure ${Math.round(exposure.score).toLocaleString("en-US")} against a stated tolerance of ${EXPOSURE_TOLERANCE.toLocaleString("en-US")}: ${exposure.dependency_depth} critical dependents × ${exposure.substitution_cost} person-weeks × ${exposure.correction_latency} h.`,
+      text: `Exposure ${Math.round(exposure.score).toLocaleString("en-US")} against a stated tolerance of ${EXPOSURE_TOLERANCE.toLocaleString("en-US")}: ${exposure.dependency_depth} high- or critical-rated dependents × ${exposure.substitution_cost} person-weeks × ${exposure.correction_latency} h.`,
     },
     {
       holds: inputs.alternative !== "removed",

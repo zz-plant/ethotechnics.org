@@ -183,7 +183,7 @@ describe("middleware", () => {
       },
       {
         url: "https://ethotechnics.org/syllabus",
-        expectedLocation: "https://ethotechnics.org/mechanisms#syllabus",
+        expectedLocation: "https://ethotechnics.org/mechanisms",
       },
       {
         url: "https://ethotechnics.org/standards/implementation-examples",
@@ -216,16 +216,35 @@ describe("middleware", () => {
       },
       {
         url: "https://ethotechnics.org/delivery/intake",
-        expectedLocation: "https://ethotechnics.org/taxonomy/delivery/intake",
+        expectedLocation: "https://ethotechnics.org/taxonomy#delivery-intake",
       },
       {
         url: "https://ethotechnics.org/assurance/monitoring",
         expectedLocation:
-          "https://ethotechnics.org/taxonomy/assurance/monitoring",
+          "https://ethotechnics.org/taxonomy#assurance-monitoring",
       },
       {
         url: "https://ethotechnics.org/governance/policy",
-        expectedLocation: "https://ethotechnics.org/taxonomy/governance/policy",
+        expectedLocation: "https://ethotechnics.org/taxonomy#governance-policy",
+      },
+      {
+        url: "https://ethotechnics.org/taxonomy/governance/oversight/audits",
+        expectedLocation:
+          "https://ethotechnics.org/taxonomy#governance-oversight-audits",
+      },
+      {
+        url: "https://ethotechnics.org/navigator",
+        expectedLocation: "https://ethotechnics.org/method#matrix",
+      },
+      {
+        url: "https://ethotechnics.org/artifacts/reversal-sla-template",
+        expectedLocation:
+          "https://ethotechnics.org/artifacts#reversal-sla-template",
+      },
+      {
+        url: "https://ethotechnics.org/artifact/reversal-sla-template",
+        expectedLocation:
+          "https://ethotechnics.org/artifacts#reversal-sla-template",
       },
       {
         url: "https://ethotechnics.org/diagnostics/llm-capacity-benchmark",
@@ -279,7 +298,7 @@ describe("middleware", () => {
       // One hop, not two, when a legacy path arrives with a slash as well.
       {
         url: "https://ethotechnics.org/delivery/intake/",
-        expectedLocation: "https://ethotechnics.org/taxonomy/delivery/intake",
+        expectedLocation: "https://ethotechnics.org/taxonomy#delivery-intake",
       },
     ];
 

@@ -1,0 +1,75 @@
+name: Release
+
+# Run by hand (Actions > Release > Run workflow) with a version such as
+# 2026.10.0. Creates the tag v<version> on the commit the workflow runs from
+# and publishes a GitHub release whose notes are the dated changes since the
+# previous release, from the same change list /changes.xml serves
+# (scripts/presence/release-notes.ts).
+#
+# Zenodo listens for published releases. Once the owner has switched this
+# repository on at https://zenodo.org/account/settings/github/, each release
+# made here is archived and gets a DOI, with the metadata in .zenodo.json.
+# The webhook fires for a release made with GITHUB_TOKEN too; only other
+# workflows are not triggered by it. Until a DOI exists, the site prints none.
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to release, e.g. 2026.10.0 (the tag is v<version>)"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: package.json
+
+      - name: Check the version
+        env:
+          REQUESTED: ${{ inputs.version }}
+        run: |
+          number="${REQUESTED#v}"
+          if ! [[ "$number" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::Version must look like 2026.10.0 or 1.4.0."
+            exit 1
+          fi
+          echo "TAG=v$number" >> "$GITHUB_ENV"
+
+      # The scripts import only repository files, so no install step.
+      - name: Write the release notes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          since=$(gh release list --repo "$GITHUB_REPOSITORY" --limit 1 --exclude-drafts --json publishedAt --jq '.[0].publishedAt // empty' | cut -c1-10)
+          if [ -n "$since" ]; then
+            bun run scripts/presence/release-notes.ts --since "$since" > "$RUNNER_TEMP/notes.md"
+          else
+            bun run scripts/presence/release-notes.ts > "$RUNNER_TEMP/notes.md"
+          fi
+          cat "$RUNNER_TEMP/notes.md"
+
+      - name: Create the tag and the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$TAG" \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$GITHUB_SHA" \
+            --title "Ethotechnics $TAG" \
+            --notes-file "$RUNNER_TEMP/notes.md"

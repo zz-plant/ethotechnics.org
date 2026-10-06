@@ -9,6 +9,7 @@ import { methodContent } from "../content/method";
 import ChainDiagram from "../components/ChainDiagram.astro";
 import CircuitNavigator from "../components/CircuitNavigator.astro";
 import SafeguardEquilibriumDiagram from "../components/SafeguardEquilibriumDiagram.astro";
+import SafeguardMatrix from "../components/SafeguardMatrix.astro";
 import MethodStack from "../components/MethodStack.astro";
 import SpeechBubble from "../components/SpeechBubble.astro";
 
@@ -35,6 +36,7 @@ const anchorLinks = [
   { href: "#chain", label: "The chain" },
   { href: "#circuits", label: "The two circuits" },
   { href: "#state-variables", label: "The six safeguards" },
+  { href: "#matrix", label: "Safeguard matrix" },
   { href: "#laws", label: "The twelve laws" },
   { href: "#incompatible", label: "Sentences that block repair" },
   { href: "#lenses", label: "The three lenses" },
@@ -125,7 +127,6 @@ const substituteJustifications = [
   >
     <Fragment slot="actions">
       <a class="button primary" href="#sequence">Apply it to one workflow</a>
-      <a class="button ghost" href="/navigator">Concept navigator</a>
       <a class="button ghost" href="/standards">Open the standards</a>
       <a class="button ghost" href="/use-cases">Which systems this is for</a>
     </Fragment>
@@ -282,6 +283,16 @@ const substituteJustifications = [
         </tbody>
       </table>
     </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="matrix"
+    eyebrow="Reference map"
+    title="The safeguard matrix"
+    description="Compare the laws, standards, scored cases, essays, and tools associated with each safeguard."
+    variant="alt"
+  >
+    <SafeguardMatrix />
   </SectionBlock>
 
   <SectionBlock

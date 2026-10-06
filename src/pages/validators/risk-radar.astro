@@ -25,7 +25,7 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
 
 <BaseLayout
   title="VAL-02 Risk Radar — validator specification"
-  description="Scores cumulative exposure from high-friction touchpoints, average wait, and appeal coverage, and returns a report card linked to STD-01 and MEC-06."
+  description="Scores the friction in a user journey from its high-friction touchpoints, average wait, and appeal paths, and returns a red, yellow, or green report card."
   mainClass="page page--wide"
   breadcrumbItems={breadcrumbItems}
   structuredDataType="webpage"
@@ -37,8 +37,9 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
         <p class="validator__id">VAL-02</p>
         <h1>Risk Radar</h1>
         <p class="muted">
-          Counts friction and waiting across touchpoints to show where
-          constructive denial clusters.
+          Counts high-friction touchpoints, average wait, and missing appeal
+          paths in a journey, to show where the friction is heavy enough to keep
+          people from the service.
         </p>
       </div>
       <a class="validator__standard" href="/standards/std-01-temporal-rights">
@@ -68,7 +69,7 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
       </p>
       <p class="muted small">
         Next steps: <a href="/mechanisms/patterns/appeal-paths"
-          >Implement MEC-06</a
+          >Add appeal paths (MEC-06)</a
         > ·
         <a href="/diagnostics/burden-budget-worksheet"
           >Open burden budget worksheet</a
@@ -124,7 +125,8 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
           data-validator-output
           for="risk-touchpoints risk-wait risk-appeal"
         >
-          Risk posture within acceptable range.
+          Fewer than three high-friction touchpoints, an average wait under 5
+          minutes, and an appeal path at every touchpoint.
         </output>
       </div>
       <p class="validator__recommendation">
@@ -260,17 +262,21 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
     const wait = Number(data.get("wait"));
     const appeal = data.get("appeal");
     let level: "red" | "yellow" | "green" = "green";
-    let message = "Low risk: exposure within bounds.";
+    let message =
+      "Fewer than three high-friction touchpoints, an average wait under 5 minutes, and an appeal path at every touchpoint.";
 
     if (touchpoints >= 5 || wait >= 8 || appeal === "no") {
       level = "red";
-      message = "High risk: constructive denial detected.";
+      message =
+        "Five or more high-friction touchpoints, an average wait of 8 minutes or more, or a touchpoint with no appeal path. Friction at this level can keep people from the service.";
     } else if (touchpoints >= 3 || wait >= 5) {
       level = "yellow";
-      message = "Medium risk: friction clusters emerging.";
+      message =
+        "Three or more high-friction touchpoints, or an average wait of 5 minutes or more. Red starts at five touchpoints or an 8-minute wait.";
     } else {
       level = "green";
-      message = "Low risk: exposure within bounds.";
+      message =
+        "Fewer than three high-friction touchpoints, an average wait under 5 minutes, and an appeal path at every touchpoint.";
     }
 
     updateStatus(level, message);

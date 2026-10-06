@@ -49,15 +49,16 @@ const heldIn = (variable: "standing" | "correction") =>
 const results = [
   {
     meta: `Casebook · ${cases.length} cases`,
-    title: `Standing held in ${inWords(heldIn("standing"))} of the ${inWords(cases.length)} cases`,
-    description: `Each case was established by a court, an inquiry, or a regulator, and scored on six safeguards. Standing, the right of the people affected to challenge a decision and be answered, held in ${inWords(heldIn("standing"))}. Correction held in ${inWords(heldIn("correction"))}.`,
+    title: `The right to challenge held in ${inWords(heldIn("standing"))} of the ${inWords(cases.length)} cases`,
+    description: `Each case was established by a court, an inquiry, or a regulator, and scored on six safeguards. The casebook calls this one standing: the right of the people affected to challenge a decision and be answered. Correction, the means to stop or reverse the system, held in ${inWords(heldIn("correction"))}.`,
     href: "/casebook",
     label: "Read the casebook",
   },
   {
     meta: "Frontier doctrine scan · 2026-09",
-    title: "Lab doctrine covers the first-generation laws, not the second",
-    description: `Ten frontier labs' public doctrine, scored 0 to 4 against the twelve laws. "Capability does not imply authority" averages ${getLawAverage("I")}. Dependence averages ${getLawAverage("V")}, standing ${getLawAverage("VII")}, and contestability ${getLawAverage("XII")}. Per-cell sources are pending.`,
+    title:
+      "Lab doctrine covers capability limits and oversight, not dependence or standing",
+    description: `The public doctrine of ten frontier AI labs, scored 0 to 4 against the twelve laws. The law that a system able to do something is not thereby allowed to do it averages ${getLawAverage("I")}, and human oversight ${getLawAverage("IX")}. Dependence on a system averages ${getLawAverage("V")}, standing ${getLawAverage("VII")}, and keeping decisions open to challenge ${getLawAverage("XII")}. No score has a source attached yet.`,
     href: "/research/frontier-doctrine-scan",
     label: "Read the scan",
   },
@@ -71,9 +72,9 @@ const results = [
   },
   {
     meta: `Theory · ${essayCount} essays`,
-    title: "Why institutions absorb the evidence",
+    title: "Why the evidence of harm stops short of the rule",
     description:
-      "The argument behind the laws. Start with insulation, the essay that names the mechanism the others describe.",
+      "The argument behind the laws. Start with insulation: how an institution keeps the harm a decision causes from reaching anyone who can change the rule.",
     href: "/research/theory",
     label: "Read the theory",
   },

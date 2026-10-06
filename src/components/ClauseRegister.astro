@@ -9,12 +9,25 @@
  * from the registry in src/content/standards.ts, grouped by the part they
  * sit in, each row linking to its clause in the text below.
  *
+ * Collapsed by default: open, it put every clause on the page once in the
+ * table and again in the text, and the reader met 4,000px of rows before
+ * Article I. The heading says what it is; the reader opens it to look up a
+ * clause.
+ *
  * Shown only when the registry and the document mark the same clauses. A
  * register that lists clauses the text does not have, or misses ones it does,
  * is a false inventory, and the document is the one that is normative.
+ *
+ * Each clause links to the objection form on GitHub with the clause filled
+ * in. A clause that has drawn objections shows the count, read from the
+ * record the weekly presence-data workflow rebuilds; a clause with none
+ * shows nothing.
  */
+import { objectionRecord } from "../content/objection-record";
 import { standardClauses, type StandardClause } from "../content/standards";
 import { compareRegistryToDocument } from "../utils/clause-registry";
+import { objectionIssueUrl } from "../utils/objection-link";
+import { clauseKey, describeClauseObjections } from "../utils/objections";
 
 interface Props {
   standardId: string;
@@ -35,6 +48,10 @@ for (const clause of clauses) {
   const key = clause.displayId.replace(/^§/, "").split(".")[0]!;
   groups.set(key, [...(groups.get(key) ?? []), clause]);
 }
+
+const { perClause } = objectionRecord;
+const objectionNote = (clause: StandardClause) =>
+  describeClauseObjections(perClause[clauseKey(standardId, clause.displayId)]);
 ---
 
 {
@@ -54,81 +71,106 @@ for (const clause of clauses) {
           and mechanisms that bear on it. The normative text below governs; this
           is the index to it.
         </p>
+        <p class="small muted">
+          Object to any clause on GitHub. Each objection is acknowledged when it
+          is filed and answered within 30 days, and{" "}
+          <a href="/record">the record of answers</a> is public.
+        </p>
       </div>
-      {[...groups.entries()].map(([part, rows]) => (
-        <div class="clause-register__group">
-          <h3 class="clause-register__part">{parts[part] ?? `§${part}`}</h3>
-          <div class="mapping-table__wrapper">
-            <table class="mapping-table mapping-table--stack clause-register__table">
-              <thead>
-                <tr>
-                  <th scope="col">Clause</th>
-                  <th scope="col">When</th>
-                  <th scope="col">Obligation</th>
-                  <th scope="col">Evidence</th>
-                  <th scope="col">Bears on</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map((clause) => (
+      <details class="clause-register__toggle">
+        <summary class="clause-register__summary">
+          Show the register: {clauses.length} clauses in {groups.size} parts
+        </summary>
+        {[...groups.entries()].map(([part, rows]) => (
+          <div class="clause-register__group">
+            <h3 class="clause-register__part">{parts[part] ?? `§${part}`}</h3>
+            <div class="mapping-table__wrapper">
+              <table class="mapping-table mapping-table--stack clause-register__table">
+                <thead>
                   <tr>
-                    <th scope="row">
-                      <code>{clause.displayId}</code>
-                      <span class="clause-register__level">
-                        {clause.requirementLevel}
-                      </span>
-                    </th>
-                    <td data-label="When" class="clause-register__when">
-                      {clause.condition}
-                    </td>
-                    <td data-label="Obligation">{clause.obligation}</td>
-                    <td data-label="Evidence">
-                      <ul class="clause-register__list">
-                        {clause.evidenceRequired.map((item) => (
-                          <li>
-                            <code>
-                              {item.split(/(?<=[._])/).map((part, index) => (
-                                <Fragment>
-                                  {index > 0 && <wbr />}
-                                  {part}
-                                </Fragment>
-                              ))}
-                            </code>
-                          </li>
-                        ))}
-                      </ul>
-                    </td>
-                    <td data-label="Bears on" class="clause-register__refs">
-                      {[
-                        ...clause.relatedMechanisms,
-                        ...clause.relatedValidators,
-                      ].length > 0
-                        ? [
-                            ...clause.relatedMechanisms,
-                            ...clause.relatedValidators,
-                          ].flatMap((ref, index, refs) =>
-                            index < refs.length - 1
-                              ? [
-                                  <span class="clause-register__ref">
-                                    {`${ref},`}
-                                  </span>,
-                                  " ",
-                                ]
-                              : [
-                                  <span class="clause-register__ref">
-                                    {ref}
-                                  </span>,
-                                ],
-                          )
-                        : "—"}
-                    </td>
+                    <th scope="col">Clause</th>
+                    <th scope="col">When</th>
+                    <th scope="col">Obligation</th>
+                    <th scope="col">Evidence</th>
+                    <th scope="col">Bears on</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {rows.map((clause) => (
+                    <tr>
+                      <th scope="row">
+                        <code>{clause.displayId}</code>
+                        <span class="clause-register__level">
+                          {clause.requirementLevel}
+                        </span>
+                        <a
+                          class="clause-register__object"
+                          href={objectionIssueUrl(standardId, clause.displayId)}
+                          aria-label={`Object to ${standardId} ${clause.displayId}`}
+                        >
+                          Object
+                        </a>
+                        {objectionNote(clause) && (
+                          <a
+                            class="clause-register__objections"
+                            href="/record#objections"
+                          >
+                            {objectionNote(clause)}
+                          </a>
+                        )}
+                      </th>
+                      <td data-label="When" class="clause-register__when">
+                        {clause.condition}
+                      </td>
+                      <td data-label="Obligation">{clause.obligation}</td>
+                      <td data-label="Evidence">
+                        <ul class="clause-register__list">
+                          {clause.evidenceRequired.map((item) => (
+                            <li>
+                              <code>
+                                {item.split(/(?<=[._])/).map((part, index) => (
+                                  <Fragment>
+                                    {index > 0 && <wbr />}
+                                    {part}
+                                  </Fragment>
+                                ))}
+                              </code>
+                            </li>
+                          ))}
+                        </ul>
+                      </td>
+                      <td data-label="Bears on" class="clause-register__refs">
+                        {[
+                          ...clause.relatedMechanisms,
+                          ...clause.relatedValidators,
+                        ].length > 0
+                          ? [
+                              ...clause.relatedMechanisms,
+                              ...clause.relatedValidators,
+                            ].flatMap((ref, index, refs) =>
+                              index < refs.length - 1
+                                ? [
+                                    <span class="clause-register__ref">
+                                      {`${ref},`}
+                                    </span>,
+                                    " ",
+                                  ]
+                                : [
+                                    <span class="clause-register__ref">
+                                      {ref}
+                                    </span>,
+                                  ],
+                            )
+                          : "—"}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </details>
     </section>
   )
 }

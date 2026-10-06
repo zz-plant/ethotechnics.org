@@ -9,6 +9,7 @@ import {
 import { standardClauses, standardsContent } from "../content/standards";
 import { validatorsContent } from "../content/validators";
 
+import { resolveDoi } from "./doi";
 import { glossaryEntryPermalink } from "./glossary";
 import { getMinimumEvidenceDefaults } from "./glossary-helpers";
 
@@ -125,7 +126,8 @@ export const getMechanismsForApi = () => {
         version: publication.version,
         published: publication.published,
         updated: publication.updated ?? publication.published,
-        doi: publication.doi ?? null,
+        // A placeholder such as "Pending Zenodo deposit" is not a DOI.
+        doi: resolveDoi(publication.doi)?.id ?? null,
         archive_url: publication.archiveUrl ?? null,
         license: publication.license,
         attribution: publication.attribution,

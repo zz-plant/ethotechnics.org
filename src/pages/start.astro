@@ -3,6 +3,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { roles, rolePermalink } from "../content/roles";
 import SymptomTriage from "../components/SymptomTriage.astro";
 import RosettaStone from "../components/RosettaStone.astro";
+import { useCasesContent } from "../content/use-cases";
+
+// The same four conditions /use-cases tests a system against.
+const { test: applicability } = useCasesContent;
 
 const pageTitle = "Start — Ethotechnics role paths";
 const pageDescription =
@@ -32,19 +36,15 @@ const pageDescription =
         </p>
 
         <div class="panel panel--glass start-applicability">
-          <p class="eyebrow">The applicability test</p>
-          <p>
-            <strong>Does Ethotechnics apply to your system?</strong> If software either
-            executes an action (granting benefits, denying claims, allocating work)
-            or outputs determinations that human reviewers adopt without independent
-            evidentiary reinvestigation — and a person bears the consequence of an
-            error — this framework applies. It governs the delegation agreement and
-            authority lease, not model capabilities.
-          </p>
+          <p class="eyebrow">Does this apply to your system?</p>
+          <p>{applicability.lead}</p>
+          <ol class="start-applicability__test">
+            {applicability.conditions.map((condition) => <li>{condition}</li>)}
+          </ol>
           <p class="small">
             <a href="/use-cases">Which systems this is for &rarr;</a> Six kinds of
-            automated decision the standards are built for, what to bind and run first
-            in each, and five where the framework does less.
+            automated decision the standards are built for, where to start in each,
+            and five where the framework does less.
           </p>
         </div>
 
@@ -71,15 +71,15 @@ const pageDescription =
     <div class="time-ladder stack-sm">
       <div class="time-ladder__header">
         <p class="eyebrow">Start by time available</p>
-        <h2>Five minutes, an hour, or a sprint</h2>
+        <h2>Half an hour, an hour, or a sprint</h2>
       </div>
       <div class="grid grid--three">
         <article class="card stack-xs">
-          <span class="pill pill--ghost">5 minutes</span>
+          <span class="pill pill--ghost">30 minutes</span>
           <h3>Delegation audit</h3>
           <p class="small muted">
-            Answer six questions about your system to score unwritten
-            assumptions across authority, dependence, and standing.
+            Answer six questions about one workflow. See which permissions
+            nobody can justify, and whether its decisions can be undone.
           </p>
           <p class="small">
             <a href="/diagnostics/delegation-audit">Run audit &rarr;</a>
@@ -87,7 +87,7 @@ const pageDescription =
         </article>
         <article class="card stack-xs">
           <span class="pill pill--ghost">1 hour</span>
-          <h3>Finite stoppability drills</h3>
+          <h3>Rehearse stopping the system in 30 seconds</h3>
           <p class="small muted">
             Three drills: can the people who run the system stop it without
             penalty, can its decisions be undone and repaid, and who absorbs the
@@ -101,8 +101,9 @@ const pageDescription =
           <span class="pill pill--ghost">1 sprint</span>
           <h3>The basics</h3>
           <p class="small muted">
-            An appeal path that reaches the rule, a decision log with dissent,
-            and a named halt, each with an owner and an effort estimate.
+            An appeal path that reaches the rule, a decision log that records
+            dissent, and a named person who can halt the system, each with an
+            owner and an effort estimate.
           </p>
           <p class="small">
             <a href="#fast-path">See the plan &rarr;</a>
@@ -229,7 +230,7 @@ const pageDescription =
         </div>
         <div class="fast-path-card">
           <span class="fast-path-card__badge">1 day</span>
-          <h3>A named halt</h3>
+          <h3>A named person who can halt it</h3>
           <p class="fast-path-card__owner">Ops / Reliability</p>
           <p class="fast-path-card__desc">
             Gives a named person a tested way to halt the automation while a
@@ -304,7 +305,7 @@ const pageDescription =
             </li>
             <li>
               <a href="/mechanisms/patterns/admission-gate"
-                ><strong>MEC-22 Admission gate</strong></a
+                ><strong>Admission gate</strong></a
               >
               <span
                 >Record the decision to deploy as an authorization, with its
@@ -346,7 +347,7 @@ const pageDescription =
           <h3 class="section-card__title">Mechanisms &rarr;</h3>
           <p class="section-card__desc">
             Specifications for appeal paths that reach the rule, decision logs
-            with dissent, and named halts.
+            that record dissent, and a named person who can halt the system.
           </p>
         </a>
         <a href="/diagnostics" class="section-card">
@@ -800,6 +801,13 @@ const pageDescription =
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     padding: var(--space-4);
+  }
+
+  .start-applicability__test {
+    margin: var(--space-2) 0 var(--space-3);
+    padding-inline-start: 1.25em;
+    display: grid;
+    gap: var(--space-1);
   }
 
   .time-ladder {

@@ -7,28 +7,50 @@ seoTitle: "ISO/IEC 42001 (AI Management Systems) — Standards critique"
 publishedTime: "2025-06-01T00:00:00.000Z"
 modifiedTime: "2026-10-06T00:00:00.000Z"
 anchorLinks:
-  - href: "#overview"
-    label: "What it is"
   - href: "#critique"
     label: "Ethotechnics critique"
   - href: "#failure-mode"
     label: "Failure mode"
+  - href: "#clause-map"
+    label: "Mapped clauses"
 ---
 
 import SectionBlock from "../../components/SectionBlock.astro";
 
-<SectionBlock
-  id="overview"
-  eyebrow="Overview"
-  title="What it is"
-  description="A management-system standard for establishing and improving AI governance policies and processes."
->
-
-ISO/IEC 42001 specifies how organizations set up, implement, and maintain an
-AI management system, including roles, policies, objectives, and continual
-improvement cycles.
-
-</SectionBlock>
+export const clauseMap = [
+  {
+    iso: "9.1 Monitoring, measurement, analysis and evaluation",
+    asks: "The organization decides what to monitor and measure, and evaluates the results.",
+    clauses: [
+      { label: "STD-01 §7.1", href: "/standards/std-01-temporal-rights" },
+      {
+        label: "STD-06 §2.4",
+        href: "/standards/std-06-human-impact-safety-case",
+      },
+    ],
+    adds: "Two measures are no longer the operator's choice: the time the system costs the public, published on a schedule, and error, reversal, and remedy rates for each affected population.",
+  },
+  {
+    iso: "9.3 Management review",
+    asks: "Top management reviews the management system at planned intervals.",
+    clauses: [
+      { label: "STD-08 §1.1", href: "/standards/std-08-delegation#part-a" },
+      { label: "STD-08 §1.2", href: "/standards/std-08-delegation#part-a" },
+    ],
+    adds: "Each system's authority expires. Renewal needs evidence named before the review period, and a quiet period alone does not renew it.",
+  },
+  {
+    iso: "10.2 Nonconformity and corrective action",
+    asks: "The organization corrects a nonconformity and acts on its cause.",
+    clauses: [
+      {
+        label: "STD-02 §4.4",
+        href: "/standards/std-02-contestability-recourse",
+      },
+    ],
+    adds: "A defect in a rule, a model, or a notice is corrected in every affected case, found from the institution's own records, without waiting for each person to claim.",
+  },
+];
 
 <SectionBlock
   id="critique"
@@ -66,5 +88,47 @@ improvement cycles.
 
 The failure mode is a system that passes audits while users still cannot
 compel reversal on a clock.
+
+</SectionBlock>
+
+<SectionBlock
+  id="clause-map"
+  eyebrow="Mapped clauses"
+  title="Where an Ethotechnics clause answers an ISO/IEC 42001 clause"
+  description="Each row names the management-system clause, the Ethotechnics clause that bears on it, and what that clause requires that the management system leaves to the organization."
+  variant="alt"
+>
+  <div class="mapping-table__wrapper">
+    <table class="mapping-table mapping-table--stack">
+      <thead>
+        <tr>
+          <th scope="col">ISO/IEC 42001 clause</th>
+          <th scope="col">What it asks</th>
+          <th scope="col">Ethotechnics clause</th>
+          <th scope="col">What the clause adds</th>
+        </tr>
+      </thead>
+      <tbody>
+        {clauseMap.map((row) => (
+          <tr>
+            <th scope="row">{row.iso}</th>
+            <td data-label="What it asks">{row.asks}</td>
+            <td data-label="Ethotechnics clause">
+              {row.clauses.map((clause, index) => (
+                <span>
+                  {index > 0 && ", "}
+                  <a href={clause.href}>{clause.label}</a>
+                </span>
+              ))}
+            </td>
+            <td data-label="What the clause adds">{row.adds}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+Clause titles are from ISO/IEC 42001:2023. What each asks is paraphrased,
+not quoted.
 
 </SectionBlock>

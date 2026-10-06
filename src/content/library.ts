@@ -7,12 +7,6 @@ import type {
   PublishedContent,
 } from "./types";
 
-export type PrimerSection = {
-  title: string;
-  summary: string;
-  takeaways: string[];
-};
-
 export type PatternFilter = {
   slug:
     | "capability"
@@ -48,35 +42,16 @@ export type Pattern = {
   }[];
 };
 
-export type SyllabusModule = {
-  title: string;
-  duration: string;
-  topics: string[];
-  outcome: string;
-};
-
 export type LibraryContent = PageWithPermalink &
   PublishedContent & {
     publication: PublicationMetadata;
-    primer: PrimerSection[];
     glossary: { terms: GlossaryTerm[]; permalink: string };
     patterns: { filters: PatternFilter[]; entries: Pattern[] };
-    syllabus: { overview: string; modules: SyllabusModule[] };
     quickStart: string[];
     recommended: {
       title: string;
       description: string;
       items: { title: string; description: string; href: string }[];
-    };
-    rolePathways: {
-      title: string;
-      description: string;
-      roles: {
-        id: string;
-        label: string;
-        summary: string;
-        items: { title: string; description: string; href: string }[];
-      }[];
     };
   };
 

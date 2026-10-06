@@ -47,9 +47,9 @@ const REDIRECT_MAP: Record<string, string> = {
   // process page at the root, and the taxonomy domain under every path below
   // it. Both now have a canonical home and /governance* is redirect-only.
   "/governance": "/institute/governance",
-  // The six taxonomy domains route one way: under /taxonomy. Experience was
-  // the last one still rendering at the top level.
-  "/experience": "/taxonomy/experience",
+  // The six taxonomy domains route one way: to their section on /taxonomy.
+  // Experience was the last one still rendering at the top level.
+  "/experience": "/taxonomy#experience",
   // One noun for the artifact family. The index was plural and the detail
   // pages singular, which is the only family on the site split that way.
   "/artifact": "/artifacts",
@@ -74,7 +74,7 @@ const REDIRECT_MAP: Record<string, string> = {
   "/failure": "/triage",
   "/finite": "/evals#finite",
   "/fast-path": "/start#fast-path",
-  "/syllabus": "/mechanisms#syllabus",
+  "/syllabus": "/mechanisms",
   "/standards/implementation-examples": "/examples#domains",
   "/standards/meta-critique": "/standards#governance-by-control",
   "/standards/micro-diagram-language": "/standards",
@@ -148,6 +148,10 @@ const REDIRECT_MAP: Record<string, string> = {
   "/research/agenda": "/research#agenda",
   "/research/temporal-governance-studies": "/research/theory",
   "/research/bridge-artifacts": "/research#bridge-artifacts",
+  // The concept navigator was retired on 6 October 2026. It redrew the four
+  // diagrams /method already shows; its one unique piece, the safeguard
+  // matrix, now sits on /method.
+  "/navigator": "/method#matrix",
   // Two mechanism pages that repeated catalog entries. The MEC-04 sheet
   // repeated the hard-clock pattern and offered a "facilitation script" PDF
   // that held only a title line. Moral circuit breakers repeated MEC-05 and
@@ -167,48 +171,25 @@ const resolveLegacyPathRedirect = (url: URL): string | null => {
     return target.toString();
   }
 
-  // Taxonomy mirrors
-  if (
-    normalizedPath === "/delivery" ||
-    normalizedPath.startsWith("/delivery/")
-  ) {
+  // Taxonomy entries. Each one had its own page under /taxonomy, and four
+  // domains had a top-level mirror; the pages were a summary and two links
+  // apiece, so all of them now sit on /taxonomy, one anchor per entry.
+  const taxonomySlug = normalizedPath.startsWith("/taxonomy/")
+    ? normalizedPath.slice("/taxonomy/".length)
+    : /^\/(?:delivery|assurance|experience)(?:\/|$)|^\/governance\//.test(
+          normalizedPath,
+        )
+      ? normalizedPath.slice(1)
+      : null;
+  if (taxonomySlug) {
     const target = new URL(
-      normalizedPath.replace(/^\/delivery/, "/taxonomy/delivery"),
+      `/taxonomy#${taxonomySlug.replaceAll("/", "-")}`,
       url.origin,
     );
     target.search = url.search;
     return target.toString();
   }
-  if (
-    normalizedPath === "/assurance" ||
-    normalizedPath.startsWith("/assurance/")
-  ) {
-    const target = new URL(
-      normalizedPath.replace(/^\/assurance/, "/taxonomy/assurance"),
-      url.origin,
-    );
-    target.search = url.search;
-    return target.toString();
-  }
-  if (
-    normalizedPath.startsWith("/governance/") &&
-    normalizedPath !== "/governance"
-  ) {
-    const target = new URL(
-      normalizedPath.replace(/^\/governance/, "/taxonomy/governance"),
-      url.origin,
-    );
-    target.search = url.search;
-    return target.toString();
-  }
-  if (normalizedPath.startsWith("/experience/")) {
-    const target = new URL(
-      normalizedPath.replace(/^\/experience/, "/taxonomy/experience"),
-      url.origin,
-    );
-    target.search = url.search;
-    return target.toString();
-  }
+
   // Pattern pages moved with the rest of the catalog from /library.
   if (normalizedPath.startsWith("/library/patterns/")) {
     const target = new URL(
@@ -218,12 +199,12 @@ const resolveLegacyPathRedirect = (url: URL): string | null => {
     target.search = url.search;
     return target.toString();
   }
-  // The artifact detail pages were the singular half of a split family.
-  if (normalizedPath.startsWith("/artifact/")) {
-    const target = new URL(
-      normalizedPath.replace(/^\/artifact/, "/artifacts"),
-      url.origin,
-    );
+  // Artifact detail pages. The singular /artifact/ prefix was the other half
+  // of a split family; the plural pages repeated the /artifacts card and
+  // added the steps and template. Each artifact is now an anchor there.
+  const artifactMatch = /^\/artifacts?\/([^/]+)$/.exec(normalizedPath);
+  if (artifactMatch) {
+    const target = new URL(`/artifacts#${artifactMatch[1]}`, url.origin);
     target.search = url.search;
     return target.toString();
   }

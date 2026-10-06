@@ -7,13 +7,30 @@
  * established. The row link is the content; the marks are labelled for
  * assistive technology and drawn as marks for everyone else.
  */
-import { cases, stateVariables } from "../../content/casebook";
+import {
+  cases,
+  stateVariables,
+  type StateVariableId,
+} from "../../content/casebook";
 import VerdictMark from "../VerdictMark.astro";
 
 const days = [...cases].sort((a, b) => b.timeToHaltDays - a.timeToHaltDays);
 const longest = days[0]?.timeToHaltDays ?? 1;
 const yearDays = 365.25;
-const shortest = days[days.length - 1];
+
+// The scorecard can sit above the self-test that names the six safeguards,
+// so it glosses them itself. Plain restatements of the casebook's questions;
+// the legend also keys the three-letter column heads.
+const safeguardGloss: Record<StateVariableId, string> = {
+  capability: "what the system could do",
+  authority: "what it was allowed to do, for whom, and until when",
+  evidence: "what justified that permission",
+  dependency: "how hard it had become to switch off or replace",
+  standing:
+    "whether a person it decided about could challenge the decision and get an answer",
+  correction: "whether anyone could still step in, and how fast",
+};
+const abbreviation = (label: string) => label.slice(0, 3).toUpperCase();
 
 const haltShare = (value: number) => Math.sqrt(value / longest);
 const haltLabel = (value: number) => {
@@ -38,9 +55,22 @@ const haltLabel = (value: number) => {
       A court, an inquiry, or a regulator established the facts of each. None
       was stopped by the organization running it. Apple Card's issuer is the one
       operator that changed its own process, after a regulator's investigation.
-      Each row: the six safeguards as a verdict barcode, and the time to halt as
-      the bar at the right edge — longest harm first.
     </p>
+    <p>
+      Each row marks six safeguards, left to right, as held, drifted (in place
+      but no longer doing its job), or failed. The bar at the right edge is the
+      time to halt: how long the harm ran before it stopped. Longest harm first.
+    </p>
+    <ul class="card__list small">
+      {
+        stateVariables.map((variable) => (
+          <li>
+            <strong>{variable.label}</strong>
+            {` (${abbreviation(variable.label)}): ${safeguardGloss[variable.id]}`}
+          </li>
+        ))
+      }
+    </ul>
   </div>
 
   <div class="home-casebook__columns" aria-hidden="true">
@@ -49,7 +79,7 @@ const haltLabel = (value: number) => {
       {
         stateVariables.map((variable) => (
           <span class="home-casebook__col" title={variable.label}>
-            {variable.label.slice(0, 3).toUpperCase()}
+            {abbreviation(variable.label)}
           </span>
         ))
       }
@@ -114,11 +144,7 @@ const haltLabel = (value: number) => {
       ))
     }
   </ol>
-  <p class="small muted">
-    Sorted by time to halt, longest first. {shortest.title}:{" "}
-    {haltLabel(shortest.timeToHaltDays)} — at a square-root scale that is a sliver,
-    but the label carries the figure.
-  </p>
+  <p class="small muted">Time to halt is drawn on a square-root scale.</p>
   <p class="small muted">
     <a href="/casebook">Open the full matrix →</a>
   </p>

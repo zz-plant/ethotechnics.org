@@ -121,6 +121,18 @@
   }
 
   /* --- Clause register --- */
+  .clause-register__summary {
+    cursor: pointer;
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .clause-register__toggle[open] > .clause-register__summary {
+    margin-bottom: var(--space-4);
+  }
+
   .clause-register__part {
     margin: 0 0 var(--space-2);
     font-size: var(--text-base);
@@ -143,6 +155,34 @@
   .clause-register__when {
     font-size: var(--text-sm);
     color: var(--muted);
+  }
+
+  /* The objection link and count sit under the clause id, in the id
+     column's small type; the count may wrap, the id may not. */
+  .clause-register__object,
+  .clause-register__objections {
+    display: block;
+    margin-top: var(--space-1);
+    font-family: var(--sans);
+    font-size: var(--text-xs);
+    font-weight: 400;
+    letter-spacing: normal;
+    text-transform: none;
+  }
+
+  .clause-register__objections {
+    white-space: normal;
+    color: var(--muted);
+  }
+
+  /* /record: seven counts read as a short list, not a full-width table. */
+  .record-totals {
+    max-width: 30rem;
+  }
+
+  .record-totals td {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
   }
 
   /* Every part of a standard gets its own table. Sized by content, the

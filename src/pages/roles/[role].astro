@@ -85,7 +85,6 @@ const breadcrumbItems = [
         id="first-moves"
         eyebrow="Where to start"
         title={firstMovesTitle}
-        description="Each step ends at a tool to run or a document to use, not only something to read."
       >
         <ol class="step-list stack-md">
           {role.orientation.map((step) => (
@@ -148,7 +147,6 @@ const breadcrumbItems = [
         id="focus"
         eyebrow="What to attend to"
         title="The parts of the method that apply to your work"
-        description="Not everything on this site is for you. These parts are."
         variant="alt"
       >
         <ul class="card__list">
@@ -203,11 +201,7 @@ const breadcrumbItems = [
     )
   }
 
-  <SectionBlock
-    eyebrow="Other roles"
-    title="If that was not you"
-    description="Seven audiences, one page each. Picking the wrong one costs a click, not a detour."
-  >
+  <SectionBlock eyebrow="Other roles" title="If that was not you">
     <ul class="card__list">
       {
         others.map((entry) => (

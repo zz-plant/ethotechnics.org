@@ -289,24 +289,44 @@
       grid-template-columns: repeat(3, minmax(0, 1fr));
       grid-auto-rows: 1fr;
     }
-
-    .artifact-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
   }
 }
 
 @layer components {
-  /* The cards used to carry one repeated line ("Operational governance
-     artifact") and a button restating the title. What each artifact enforces
-     is the thing that tells them apart, so the card shows that instead. */
-  .artifact-grid__enforces {
+  /* /artifacts: a numbered jump list, then each template in full. */
+  .artifact-index {
     margin: 0;
-    padding-left: var(--space-4);
+    padding-left: var(--space-5);
     display: grid;
     gap: var(--space-1);
-    font-size: var(--text-sm);
+  }
+
+  .artifact-entry {
+    scroll-margin-top: var(--space-6);
+  }
+
+  .artifact-entry h3 {
+    margin: var(--space-2) 0 0;
+    font-size: var(--text-base);
+  }
+
+  .artifact-grid__enforces,
+  .artifact-entry__steps {
+    margin: 0;
+    padding-left: var(--space-5);
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  .artifact-entry__template summary {
+    cursor: pointer;
+    width: fit-content;
     color: var(--muted);
+    font-size: var(--text-sm);
+  }
+
+  .artifact-entry__template[open] summary {
+    margin-bottom: var(--space-2);
   }
 
   .artifact-template {

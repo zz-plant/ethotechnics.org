@@ -71,7 +71,7 @@ export const roles: Role[] = [
     label: "Engineering",
     who: "You build or operate the system that makes the decision.",
     tagline:
-      "Build decision systems whose errors reach someone who can change the rule: decision records, expiring grants, answered objections, written as code, not policy.",
+      "Build decision systems whose errors reach someone who can change the rule: a log entry for every decision, permissions that expire, and challenges the system has to answer, written as code, not policy.",
     orientation: [
       {
         number: 1,
@@ -83,25 +83,25 @@ export const roles: Role[] = [
       },
       {
         number: 2,
-        title: "Set deadlines for halts and reversals (STD-01)",
+        title: "Set deadlines for halts and reversals",
         description:
           "Build in a fixed time to halt, deadlines for reversing a decision, and the receipt each decision has to produce.",
-        ctaLabel: "Inspect STD-01",
+        ctaLabel: "Read the standard on halts and deadlines",
         ctaHref: "/standards/std-01-temporal-rights",
       },
       {
         number: 3,
-        title: "Emit a record for every action, and grade it",
+        title: "Log every decision, and check the log",
         description:
-          "Write each decision as an STD-07 record that names the grant it ran under, then grade an exported stream against the conformance level you claim.",
-        ctaLabel: "Open Record Conformance",
+          "Log each decision in the format the decision-record standard (STD-07) sets out, including the permission it ran under. Then check an exported log against the schema and the conformance level you claim.",
+        ctaLabel: "Check an exported log",
         ctaHref: "/diagnostics/record-conformance",
       },
     ],
     guide: {
       focusAreas: [
         "Log the work the system pushes onto people, how long decisions take, and when cases escalate.",
-        "Build policy controls that enforce standards in production.",
+        "Build runtime checks that enforce the standards in production.",
         "Agree with the system's owners who maintains it and who can roll it back.",
       ],
       keyLinks: [
@@ -132,8 +132,8 @@ export const roles: Role[] = [
         },
       ],
       firstMoves: [
-        "Match the logs you already collect to the burden and latency validators.",
-        "Build one mechanism from the catalog as a feature flag or a runtime check.",
+        "Match the logs you already collect to the validators that measure the work a system pushes onto people and how long people wait on its decisions.",
+        "Build one control from the mechanisms catalog as a feature flag or a runtime check.",
         "Agree with the system's owners who owns rollback and who owns escalation.",
       ],
     },
@@ -175,23 +175,23 @@ export const roles: Role[] = [
         title: "Set measurable targets for appeals",
         description:
           "Commit to numbers: how many appeals get through, how fast, and a promise that appealing carries no penalty.",
-        ctaLabel: "Read STD-03: Justice SLOs",
+        ctaLabel: "Read the standard for appeal targets",
         ctaHref: "/standards/std-03-justice-slos",
       },
       {
         number: 3,
         title: "Draft contract clauses",
         description:
-          "Write the authority, evidence, and correction terms a vendor agreement has to state before the system is allowed to decide. Cite clause numbers, and require an evidence pack at each release.",
+          "Before the system makes its first decision, the vendor agreement has to state what it may decide, on what evidence, and how its errors get fixed. Cite clause numbers, and require the vendor to deliver the records those clauses name at each release.",
         ctaLabel: "Cite the standards in a contract",
         ctaHref: "/standards/where-this-binds",
       },
     ],
     guide: {
       focusAreas: [
-        "Define the governing standard and the rights it protects.",
+        "Choose the standard your policy rests on, and the rights it protects.",
         "Set out how each rule is enforced and where escalations go.",
-        "Write public summaries that use the glossary's defined terms.",
+        "Write public summaries in the words people use to challenge a decision. Keep the glossary's defined terms in the policy text.",
       ],
       keyLinks: [
         {
@@ -212,13 +212,18 @@ export const roles: Role[] = [
         {
           label: "Glossary",
           href: "/glossary",
-          note: "Shared definitions for public guidance.",
+          note: "Defined terms to cite in policy text.",
+        },
+        {
+          label: "Language people can use",
+          href: "/explainers/language-people-can-use",
+          note: "The questions people send about a decision. A public summary should answer them.",
         },
       ],
       firstMoves: [
         "Pick the standard your policy should reference and cite its defined terms.",
         "Run a validator to gather baseline risk and burden scores.",
-        "Publish policy updates with the same glossary language used in the standards.",
+        "Check each public summary against language people can use: it should say who can change a decision, why it was made, and by what date a challenge gets an answer.",
       ],
     },
     adoptionChecklist: [
@@ -246,7 +251,7 @@ export const roles: Role[] = [
         title: "Grade a system's decision records",
         description:
           "Check the records a system exports against the conformance level it claims. This is the one tool here that reads evidence rather than answers.",
-        ctaLabel: "Open Record Conformance",
+        ctaLabel: "Check exported records",
         ctaHref: "/diagnostics/record-conformance",
       },
       {
@@ -261,7 +266,7 @@ export const roles: Role[] = [
         number: 3,
         title: "Read five public failures as worked audits",
         description:
-          "Each case was established by a court, an inquiry, or a regulator, and each is scored on six safeguards with the clause that names the missing record.",
+          "Each case was established by a court, an inquiry, or a regulator. Each is scored on six safeguards, such as whether the system's permission had an end date and whether anyone had to answer a challenge. Each score cites the clause that names the missing record.",
         ctaLabel: "Open the casebook",
         ctaHref: "/casebook",
       },
@@ -338,15 +343,15 @@ export const roles: Role[] = [
         title: "Model the burden of one flow",
         description:
           "Score a real user journey for time spent, number of steps, and whether there is a way out. Use the result as a design brief.",
-        ctaLabel: "Run the VAL-01 Burden Modeler",
+        ctaLabel: "Score one user journey",
         ctaHref: "/validators/burden-modeler",
       },
       {
         number: 3,
-        title: "Place the interrupt where the harm is",
+        title: "Put a checkpoint where the harm happens",
         description:
-          "Design the controls that stop, slow, or escalate a flow when the system is wrong, and put them where people can reach them.",
-        ctaLabel: "Read about interrupts",
+          "Design the checkpoints that stop, slow, or escalate a flow when the system is wrong, and put them where people can reach them.",
+        ctaLabel: "Read about checkpoints that pause a flow",
         ctaHref: "/explainers/ethical-interrupts",
       },
       {
@@ -373,7 +378,7 @@ export const roles: Role[] = [
         {
           label: "Mechanisms catalog",
           href: "/mechanisms",
-          note: "Mechanism specs with implementation notes.",
+          note: "Specifications for controls that pause, slow, route, or reverse a decision, with implementation notes.",
         },
         {
           label: "Field notes",
@@ -386,15 +391,20 @@ export const roles: Role[] = [
           note: "Interactive tools for testing a flow before release.",
         },
         {
+          label: "Language people can use",
+          href: "/explainers/language-people-can-use",
+          note: "The questions people send about a decision. The screen should answer them.",
+        },
+        {
           label: "Glossary",
           href: "/glossary",
-          note: "Defined terms to use in interface copy.",
+          note: "Defined terms for internal specs, not for the screen.",
         },
       ],
       firstMoves: [
-        "Pick the step in your flow where a decision lands on a person, and read the mechanism for it.",
-        "Score one real journey with the VAL-01 Burden Modeler and share the result as the design brief.",
-        "Check interface copy against the glossary's defined terms before release.",
+        "Pick the step in your flow where a decision lands on a person, and find the control in the mechanisms catalog that fits it.",
+        "Score one real journey with the burden modeler and share the result as the design brief.",
+        "Before release, check that the screen answers the questions in language people can use: who can change this decision, why it was made, and by what date a challenge gets an answer.",
       ],
     },
     featuredDiagnostics: ["burden-modeler"],
@@ -409,9 +419,9 @@ export const roles: Role[] = [
     orientation: [
       {
         number: 1,
-        title: "Tie the question to one of the twelve laws",
+        title: "Tie your question to one of the twelve laws",
         description:
-          "State the claim as one of the twelve laws, so findings bear on a specific clause.",
+          "Each law states a condition an automated decision system must keep, and names the standard clauses that check it. Frame your question against one law, so a finding bears on a specific clause.",
         ctaLabel: "Read the laws",
         ctaHref: "/standards/laws",
       },
@@ -490,10 +500,10 @@ export const roles: Role[] = [
       },
       {
         number: 2,
-        title: "Review corrective practices",
+        title: "Check how your organization fixes its errors",
         description:
           "Five questions: how fast the system's reach grew, and whether challenges are received, reversed, fed back into the rules, and tracked when staff work around it.",
-        ctaLabel: "Run the corrective capacity self-assessment",
+        ctaLabel: "Run the five-question self-assessment",
         ctaHref: "/diagnostics/corrective-debt-calculator",
       },
       {

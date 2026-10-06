@@ -10,13 +10,12 @@ const pageDescription =
 const permalink = "/standards/nist-ai-rmf";
 const publishedTime = "2026-02-22T00:00:00Z";
 const modifiedTime = "2026-10-06T00:00:00Z";
-const version = "v1.1.1";
+const version = "v1.2.0";
 const lastUpdated = "2026-10-06";
 const anchorLinks = [
-  { href: "#overview", label: "What it is" },
   { href: "#critique", label: "Ethotechnics critique" },
   { href: "#failure-mode", label: "Failure mode" },
-  { href: "#operational-templates", label: "Operational templates path" },
+  { href: "#clause-map", label: "Subcategories to clauses" },
 ];
 const publication = derivePublicationMetadata({
   permalink,
@@ -24,8 +23,76 @@ const publication = derivePublicationMetadata({
   updated: modifiedTime,
   version,
   changelogSummary:
-    "Corrected the sentence on lapsing authority, and removed a review pitch from the templates path.",
+    "Replaced the templates path, which linked back to this page and to an artifact that names no NIST function, with a table mapping RMF subcategories to Ethotechnics clauses. Removed the overview of the RMF.",
 });
+
+// Subcategory wording checked against NIST AI 100-1 (January 2023), Tables 1,
+// 2, and 4. A row appears only where the clause text answers the subcategory.
+const clauseMap = [
+  {
+    subcategory: "GOVERN 5.2",
+    asks: "Mechanisms to regularly incorporate adjudicated feedback from relevant AI actors into system design and implementation.",
+    clauses: [
+      {
+        label: "STD-07 §4.2",
+        href: "/standards/std-07-revisable-delegation-record#articles",
+      },
+    ],
+    adds: "An objection accepted on the declared channel gets a revision or a reasoned refusal, itself a record, within the reversal clock. The feedback has a deadline and a record of what it changed.",
+  },
+  {
+    subcategory: "GOVERN 1.7",
+    asks: "Processes and procedures for decommissioning and phasing out AI systems safely.",
+    clauses: [
+      {
+        label: "STD-06 §5.6",
+        href: "/standards/std-06-human-impact-safety-case",
+      },
+    ],
+    adds: "The withdrawal path is rehearsed on a published cadence and before any expansion, and the rehearsal reports what it showed at the technical, operational, and institutional levels.",
+  },
+  {
+    subcategory: "MANAGE 2.4",
+    asks: "Mechanisms applied, and responsibilities assigned, to supersede, disengage, or deactivate AI systems whose outcomes are inconsistent with intended use.",
+    clauses: [
+      {
+        label: "STD-06 §1.3",
+        href: "/standards/std-06-human-impact-safety-case",
+      },
+      {
+        label: "STD-06 §2.3",
+        href: "/standards/std-06-human-impact-safety-case",
+      },
+    ],
+    adds: "One accountable owner who can halt the deployment, not a committee that can recommend halting it. Time to halt is measured against a clock, not attested by the team that owns the control.",
+  },
+  {
+    subcategory: "MAP 5.1",
+    asks: "The likelihood and magnitude of each identified impact are identified and documented.",
+    clauses: [
+      {
+        label: "STD-01 §7.1",
+        href: "/standards/std-01-temporal-rights",
+      },
+    ],
+    adds: "The time a system costs the public is measured, not only characterized, and published on a schedule.",
+  },
+  {
+    subcategory: "None",
+    asks: "No subcategory sets a date on which the authority to keep running lapses.",
+    clauses: [
+      {
+        label: "STD-08 §1.1",
+        href: "/standards/std-08-delegation#part-a",
+      },
+      {
+        label: "STD-08 §1.2",
+        href: "/standards/std-08-delegation#part-a",
+      },
+    ],
+    adds: "Authority is a grant that expires. Renewal needs evidence named before the review period, and a quiet period alone does not renew it.",
+  },
+];
 ---
 
 <StandardsLayout
@@ -40,18 +107,6 @@ const publication = derivePublicationMetadata({
   publishedTime={publishedTime}
   modifiedTime={modifiedTime}
 >
-  <SectionBlock
-    id="overview"
-    eyebrow="Overview"
-    title="What it is"
-    description="A voluntary risk management framework organized around Govern, Map, Measure, and Manage."
-  >
-    <p>
-      The AI RMF is explicitly not a checklist. It emphasizes mapping risks,
-      measuring performance, and managing controls across the AI lifecycle.
-    </p>
-  </SectionBlock>
-
   <SectionBlock
     id="critique"
     eyebrow="Ethotechnics critique"
@@ -93,23 +148,52 @@ const publication = derivePublicationMetadata({
     </p>
   </SectionBlock>
   <SectionBlock
-    id="operational-templates"
-    eyebrow="Operational templates"
-    title="From the NIST framework to operating controls"
-    description="Two linked steps from interpretation to implementation, the second traceable to the first."
+    id="clause-map"
+    eyebrow="Subcategories to clauses"
+    title="Where an Ethotechnics clause answers a subcategory"
+    description="Each row names the subcategory, the clause that bears on it, and what the clause requires that the subcategory leaves open."
     variant="alt"
   >
-    <ol class="muted">
-      <li>
-        <strong>Explainer:</strong>
-        <a href="#critique">the critique</a> on this page.
-      </li>
-      <li>
-        <strong>Mechanism template:</strong>
-        <a href="/standards/std-01-mapping-artifact">STD-01 mapping artifact</a>
-        for control-to-evidence mapping.
-      </li>
-    </ol>
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table mapping-table--stack">
+        <thead>
+          <tr>
+            <th scope="col">Subcategory</th>
+            <th scope="col">What it asks</th>
+            <th scope="col">Clause</th>
+            <th scope="col">What the clause adds</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            clauseMap.map((row) => (
+              <tr>
+                <th scope="row">{row.subcategory}</th>
+                <td data-label="What it asks">{row.asks}</td>
+                <td data-label="Clause">
+                  {row.clauses.map((clause, index) => (
+                    <>
+                      <a href={clause.href}>{clause.label}</a>
+                      {index < row.clauses.length - 1 && <span>, </span>}
+                    </>
+                  ))}
+                </td>
+                <td data-label="What the clause adds">{row.adds}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="muted">
+      Subcategory text from <a
+        href="https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+        >NIST AI 100-1</a
+      >, paraphrased. The <a
+        href="/standards/enforceable-governance-crosswalks#nist"
+        >framework map</a
+      > lists the subcategories each Ethotechnics control cites.
+    </p>
   </SectionBlock>
 
   <CitationBlock

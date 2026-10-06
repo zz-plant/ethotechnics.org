@@ -244,7 +244,7 @@ export const neighboringFields: NeighboringField[] = [
     ],
     sees: "Power that is unchecked and arbitrary dominates people even when it is kind.",
     stops:
-      "It focuses on arbitrary discretionary agents and constitutional status. It does not account for architectural domination where power is fragmented across systems and return paths are severed, nor does it measure the metabolic human capacity consumed to keep an arrangement functional.",
+      "It looks for a person or office that holds arbitrary power. It has no account of power spread across systems, where no one acts arbitrarily and the people affected have no way back in.",
     essay: {
       title: "Democratic vs. coercive governability",
       href: "/research/theory/democratic-vs-coercive-governability",
@@ -266,12 +266,48 @@ export const neighboringFields: NeighboringField[] = [
         form: "book",
       },
     ],
-    sees: "Formal systems depend parasitically on unpriced relational repair and reproductive labor that they externalize and exhaust.",
+    sees: "Paid work and formal institutions depend on unpaid care, the work that keeps people fed, rested, and able to cope, and they use it up without counting it.",
     stops:
-      "It analyzes systemic extraction at the social and macroeconomic level. It does not construct engineering constraints, data schemas, or runtime records that force automated systems to account for the finite adaptive capacity they consume.",
+      "It describes that drain across a whole economy. It does not ask a particular system to record how much of a person's time and stamina it uses up.",
     essay: {
       title: "The consumption of adaptive capacity",
       href: "/research/theory/the-consumption-of-adaptive-capacity",
+    },
+  },
+  {
+    field: "Social-cost economics and environmental justice",
+    works: [
+      {
+        authors: "K. William Kapp",
+        title: "The Social Costs of Private Enterprise",
+        year: 1950,
+        form: "book",
+      },
+      {
+        authors: "Marilyn Waring",
+        title: "If Women Counted",
+        year: 1988,
+        form: "book",
+      },
+      {
+        authors: "Robert D. Bullard",
+        title: "Dumping in Dixie",
+        year: 1990,
+        form: "book",
+      },
+      {
+        authors: "Jason W. Moore",
+        title: "Capitalism in the Web of Life",
+        year: 2015,
+        form: "book",
+      },
+    ],
+    sees: "Costs a firm does not pay are shifted onto workers, households, places, and the future as a regular feature of how accounts are kept. National accounts leave unpaid household work outside production, and hazards settle on the communities least able to refuse them.",
+    stops:
+      "It explains why costs land where they do and argues for pricing or regulating them. It does not specify the record an institution keeps of the saving it retains, or the procedure by which the people carrying the cost can send it back.",
+    essay: {
+      title: "Insulation",
+      href: "/research/theory/insulation",
     },
   },
   {
@@ -290,9 +326,9 @@ export const neighboringFields: NeighboringField[] = [
         form: "book",
       },
     ],
-    sees: "Workplaces extract uncredited emotional, repair, and adaptive labor while manufacturing ideological consent that frames structural coping as individual virtue.",
+    sees: "Workplaces take emotional work and running repairs from staff without crediting them, and win their consent to it. Coping with the job's defects comes to look like a personal virtue.",
     stops:
-      "It critiques workplace exploitation and character deformation. It does not formalize how informal human compensation blinds institutional telemetry or engineer runtime mechanisms that force organizations to account for the subsidy.",
+      "It criticizes what that does to workers. It does not show how their unrecorded fixes keep the institution's own figures from showing the defect, or ask the institution to record the work.",
     essay: {
       title: "The human subsidy to institutional continuity",
       href: "/research/theory/the-human-subsidy",
@@ -427,15 +463,15 @@ export const theoryVocabulary: { term: string; text: string }[] = [
     text: "A system or a reform is judged by whether it removes preventable correction work from people, not only by how much it produces.",
   },
   {
-    term: "The tripartite invariant: non-domination, burden accounting, and error-correcting authority",
-    text: "The three irreducible commitments of legitimate system design: relational independence from unchecked power, metabolic accounting of the finite human capacity consumed to keep an arrangement functional, and cybernetic return paths ensuring authority remains conditional on downstream error correction. None of the three reduces to the others.",
+    term: "Non-domination, burden accounting, and error-correcting authority",
+    text: "Three commitments a legitimate system has to keep. No one is subject to unchecked power. The time and stamina people spend keeping the arrangement working is counted. And authority lasts only while the errors it causes can still reach someone who will correct them. None of the three follows from the others.",
   },
   {
     term: "Corrective standing as epistemic admissibility",
-    text: "Defining corrective standing not as an individual veto that risks coordination gridlock, but as formal epistemic admissibility: an institution loses the legitimacy of its claims and its operational warrants if it systematically insulates its decision-making from the counterevidence generated by the people who absorb its failures.",
+    text: "Corrective standing is not a veto that lets one person stall a system. It is a rule about evidence. An institution that shuts out the evidence from the people who bear its failures loses its claim to be right, and its warrant to keep running the system.",
   },
   {
     term: "Stewardship versus counterfeit buffering",
-    text: "Differentiating legitimate human-in-the-loop engagement (voluntary, discretionary stewardship where humans have unpenalized override authority) from counterfeit buffering (coerced, unrecorded labor where frontline workers or users act as liability sponges and error-signal attenuators for an inflexible system).",
+    text: "A person kept in the loop is a steward when the role is voluntary and they can override the system without penalty. They are a counterfeit buffer when the work is compelled and unrecorded: they catch the system's errors and take the blame, and the errors never reach anyone who would redesign it.",
   },
 ];

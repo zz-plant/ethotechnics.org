@@ -213,31 +213,6 @@ const library = defineCollection({
         }),
       ),
     }),
-    rolePathways: z.object({
-      title: z.string(),
-      description: z.string(),
-      roles: z.array(
-        z.object({
-          id: z.string(),
-          label: z.string(),
-          summary: z.string(),
-          items: z.array(
-            z.object({
-              title: z.string(),
-              description: z.string(),
-              href: z.string(),
-            }),
-          ),
-        }),
-      ),
-    }),
-    primer: z.array(
-      z.object({
-        title: z.string(),
-        summary: z.string(),
-        takeaways: z.array(z.string()),
-      }),
-    ),
     patterns: z.object({
       filters: z.array(
         z.object({
@@ -274,17 +249,6 @@ const library = defineCollection({
               }),
             )
             .optional(),
-        }),
-      ),
-    }),
-    syllabus: z.object({
-      overview: z.string(),
-      modules: z.array(
-        z.object({
-          title: z.string(),
-          duration: z.string(),
-          topics: z.array(z.string()),
-          outcome: z.string(),
         }),
       ),
     }),

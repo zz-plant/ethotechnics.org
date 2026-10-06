@@ -22,7 +22,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
     title: "Absorption as concealment",
     href: "/research/theory/absorption-as-concealment",
     question:
-      "How does human absorption of operational errors conceal system defects from performance metrics?",
+      "How do people who quietly work around a system's errors keep those errors out of its metrics?",
     safeguard: "Evidence",
     mechanism: "Epistemic erasure via unrecorded human error correction",
     domain: "Assurance",
@@ -32,7 +32,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
     title: "An engineering tradition",
     href: "/research/theory/an-engineering-tradition",
     question:
-      "What would a safety engineering discipline look like for delegated automated authority?",
+      "What would a safety engineering tradition look like for systems that make decisions on an institution's behalf?",
     safeguard: "Capability",
     mechanism:
       "Translating structural tolerances and error budgets to autonomous agency",
@@ -43,7 +43,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
     title: "Automation and capture",
     href: "/research/theory/automation-and-capture",
     question:
-      "At what point does operational reliance extinguish an institution's ability to question, replace, or halt a system?",
+      "At what point does relying on a system leave an institution unable to question, replace, or stop it?",
     safeguard: "Dependency",
     mechanism:
       "Asymmetric lock-in and deskilling driven by unconstrained efficiency",
@@ -54,7 +54,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
     title: "Challenge density",
     href: "/research/theory/challenge-density",
     question:
-      "Why must an institution scale its correction capacity or narrow its scope, rather than restrict standing, when appeal volume spikes?",
+      "When appeals pile up, why should an institution add reviewers or narrow the system rather than limit who may appeal?",
     safeguard: "Standing",
     mechanism:
       "Congestion treated as a capacity failure rather than a standing threshold",
@@ -65,7 +65,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
     title: "Deliberate non-use",
     href: "/research/theory/deliberate-non-use",
     question:
-      "How can an institution preserve intentional non-deployment as an affirmative control once technical limits are removed?",
+      "Once a system can do something it could not do before, how can an institution decide, on the record, not to use it?",
     safeguard: "Capability",
     mechanism:
       "Affirmative institutional refusal replacing accidental technical incapacity",
@@ -76,7 +76,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
     title: "Democratic vs. coercive governability",
     href: "/research/theory/democratic-vs-coercive-governability",
     question:
-      "What structural controls determine whether governance tools expand contestability or enforce behavioral compliance?",
+      "What decides whether logs, audits, and escalation paths give people a way to challenge a system or a way to be controlled by it?",
     safeguard: "Correction",
     mechanism:
       "Bifurcation between return-path governance and extraction tooling",
@@ -87,7 +87,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
     title: "Dependence runs both ways",
     href: "/research/theory/dependence-runs-both-ways",
     question:
-      "What specific duties of reversibility and standing does an institution incur when subjects cannot exit its systems?",
+      "What does an institution owe the people who cannot leave its system?",
     safeguard: "Dependency",
     mechanism: "Exit cost as the direct metric of institutional obligation",
     domain: "Dependence",
@@ -97,7 +97,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
     title: "Dependence without standing",
     href: "/research/theory/dependence-without-standing",
     question:
-      "Why does an institution's reliance on informal human correction generate an enforceable obligation for procedural standing?",
+      "If an institution relies on people to catch its system's errors, why does it owe them a formal way to change the system?",
     safeguard: "Standing",
     mechanism:
       "Disconnection between corrective labor and the legal right to challenge",
@@ -108,7 +108,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
     title: "Endogenous authorization",
     href: "/research/theory/endogenous-authorization",
     question:
-      "How do incumbent systems shape the metrics, categories, and evidence used to justify their continuation?",
+      "How does a system already in place shape the evidence used to decide whether to keep it?",
     safeguard: "Authority",
     mechanism:
       "Closed-circuit justification produced under conditions the system created",
@@ -119,7 +119,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
     title: "Ethotechnical design",
     href: "/research/theory/ethotechnical-design",
     question:
-      "How must institutional systems be built to exhaust organizational capacity before consuming the adaptive capacity of human beings?",
+      "When a design does not fit people, how can it be built so the institution adjusts before the people do?",
     safeguard: "Correction",
     mechanism:
       "Structural priority of institutional adaptation over human coping",
@@ -130,7 +130,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
     title: "Exception learning",
     href: "/research/theory/exception-learning",
     question:
-      "Why does resolving individual appeals leave the flawed rule that generated the errors completely untouched?",
+      "Why does resolving appeals one at a time leave the rule that caused them in place?",
     safeguard: "Correction",
     mechanism:
       "Separation of case corrigibility from structural rule modification",
@@ -141,7 +141,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
     title: "Friction as accidental governance",
     href: "/research/theory/friction-as-accidental-governance",
     question:
-      "When automated workflows eliminate manual friction, what deliberate sensing mechanisms must replace the accidental safeguards that were lost?",
+      "When automation removes the handoffs and reviews that used to catch errors, what has to be built to catch them instead?",
     safeguard: "Evidence",
     mechanism: "Loss of informal error detection when streamlining workflows",
     domain: "Delivery",
@@ -151,7 +151,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
     title: "Insulation",
     href: "/research/theory/insulation",
     question:
-      "Through what institutional buffers do decision-makers isolate themselves from the corrective feedback generated by system error?",
+      "What keeps evidence that a decision was wrong from reaching the people who could change the rule?",
     safeguard: "Correction",
     mechanism:
       "Structural buffering between rule-makers and the consequences of error",
@@ -162,7 +162,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
     title: "The model of a person is not the person",
     href: "/research/theory/model-of-a-person",
     question:
-      "Why does even the most predictive model of a person fail to extinguish that person's independent right to challenge a decision?",
+      "If a model predicts a person well, why should that person still be able to challenge its decisions about them?",
     safeguard: "Standing",
     mechanism:
       "Non-equivalence between statistical representations and living subjects",
@@ -173,7 +173,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
     title: "The antihuman metric",
     href: "/research/theory/the-antihuman-metric",
     question:
-      "How do evaluation dashboards reward systems for meeting targets by exhausting the unpriced, off-ledger capacities of their operators?",
+      "How can a dashboard reward a system for hitting its targets while the system wears out the people who run it?",
     safeguard: "Evidence",
     mechanism:
       "Compensatory reward hacking and metric decoupling from human sustainability",
@@ -184,7 +184,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
     title: "The compulsion problem",
     href: "/research/theory/the-compulsion-problem",
     question:
-      "How can technical standards be constructed so that external legal, financial, and regulatory forces compel their adoption?",
+      "Since a standard cannot force anyone to adopt it, how can it be written so that contracts, courts, insurers, and regulators enforce it?",
     safeguard: "Authority",
     mechanism:
       "Relying on external vectors (courts, liability, procurement) for enforcement",
@@ -195,7 +195,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
     title: "The consumption of adaptive capacity",
     href: "/research/theory/the-consumption-of-adaptive-capacity",
     question:
-      "Under what criteria, if any, can an institution legitimately demand that human beings consume their finite adaptive capacity to compensate for systemic defects?",
+      "When, if ever, may an institution ask people to spend their limited time and stamina making up for its own defects?",
     safeguard: "Dependency",
     mechanism:
       "Demarcation between genuine necessity and manufactured institutional subsidy",
@@ -206,7 +206,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
     title: "The human subsidy to institutional continuity",
     href: "/research/theory/the-human-subsidy",
     question:
-      "What distinct varieties of uncounted compensatory labor produce apparent institutional functionality, and how do organizations reclassify structural defects as employee virtue?",
+      "What kinds of uncounted work keep an institution looking functional, and how does it come to call that work dedication?",
     safeguard: "Evidence",
     mechanism:
       "Eight compensatory labor inputs, distributed coercion, and manufactured virtue",
@@ -217,7 +217,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
     title: "The sovereign override",
     href: "/research/theory/the-sovereign-override",
     question:
-      "When operators route around rigid gates under load, how does the machine's boundary stay deterministic while the operator's override becomes evidence about the gate rather than a breach by the operator?",
+      "When a hard rule fails staff in an emergency, how can the software stay strict while each emergency override is recorded as evidence against the rule, not as staff misconduct?",
     safeguard: "Correction",
     mechanism:
       "Asymmetric boundary with deterministic machine limits, sovereign human override, and mandatory root-cause audits",
@@ -228,7 +228,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
     title: "What does not convert",
     href: "/research/theory/what-does-not-convert",
     question:
-      "Why are technical capability, past performance, and internal consistency incapable of converting into legitimate authority without an explicit grant?",
+      "Why do a system's capability and track record never give it authority on their own?",
     safeguard: "Authority",
     mechanism: "Non-convertibility of empirical facts into normative authority",
     domain: "Authority",
@@ -238,7 +238,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
     title: "What Ethotechnics is not",
     href: "/research/theory/what-ethotechnics-is-not",
     question:
-      "What vocabulary and moral assumptions must be retired to keep institutional critique focused on structural corrigibility and burden redistribution?",
+      "What does Ethotechnics leave out, and which familiar words does it stop relying on?",
     safeguard: "Correction",
     mechanism:
       "Scoping discipline to corrigibility mechanics rather than institutional benevolence",
@@ -249,7 +249,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
     title: "What outcomes hide",
     href: "/research/theory/what-outcomes-hide",
     question:
-      "Why does measuring only terminal outcomes hide the distribution of human adaptation and burden required to produce them?",
+      "Why does judging an institution by its outcomes hide who carried the burden of producing them?",
     safeguard: "Evidence",
     mechanism:
       "Invisibility of the production path and adaptation burden in terminal metrics",

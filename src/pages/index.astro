@@ -3,14 +3,12 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import CasebookScorecard from "../components/home/CasebookScorecard.astro";
 import ExceptionLearningFigure from "../components/ExceptionLearningFigure.astro";
 import HeroLedger from "../components/home/HeroLedger.astro";
-import HomeClaims from "../components/home/HomeClaims.astro";
 import HomeRail from "../components/home/HomeRail.astro";
 import RecordSpine from "../components/home/RecordSpine.astro";
 import SafeguardMap from "../components/home/SafeguardMap.astro";
 import SelfTest from "../components/home/SelfTest.astro";
 import SectionBlock from "../components/SectionBlock.astro";
 import { evalsContent } from "../content/evals";
-import { mechanismColumns } from "../content/positioning";
 import { standardsContent } from "../content/standards";
 
 // The pillar counts are read from the same arrays the /standards and /evals
@@ -24,14 +22,14 @@ const suiteCount = evalsContent.suites.length;
 /**
  * The front door as one story in reading order, told without ever holding
  * the scroll: watch one scheme run (the record), see why rulings did not
- * stop it (the mechanism),
- * see that it was not special (the casebook), state what the framework adds
- * to the field (the positioning band), test what an institution says about
- * itself (the claims, as clauses with exhibits), then turn to the reader's
- * own system (the self-test, scored on the six-node figure) and the doors
- * out — four of them, the last for the readers who study or govern these
- * systems. The two-ledger rail at the viewport edge is the same grammar, as
- * chrome.
+ * stop it (the mechanism), see what the site answers (orientation), see that
+ * it was not special (the casebook), then turn to the reader's own system
+ * (the self-test, scored on the six-node figure) and the doors out — four of
+ * them, the last for the readers who study or govern these systems. The
+ * positioning band and the claims moved off this page: the band leads the
+ * completions on /research/scholarly-crossings, and the claims are the table
+ * on /about. The doors appear once, at the end. The two-ledger rail at the
+ * viewport edge is the same grammar, as chrome.
  *
  * Each idea is drawn as well as written, for readers who think in pictures:
  * the hero draws the record's unanswered column, the mechanism leads with
@@ -95,25 +93,6 @@ const doors = [
           Incident triage →
         </a>
       </div>
-      <nav
-        class="home-doors home-doors--strip"
-        aria-labelledby="home-doors-strip-label"
-      >
-        <span class="home-doors__strip-label" id="home-doors-strip-label"
-          >Start by role:</span
-        >
-        <ul>
-          {
-            doors.map((door) => (
-              <li>
-                <a class="home-doors__strip-link" href={door.href}>
-                  {door.who}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </nav>
     </div>
     <HeroLedger class="institute-hero__figure" />
     <div class="home-pillars">
@@ -250,31 +229,7 @@ const doors = [
 
   <CasebookScorecard />
 
-  <section class="home-positioning" aria-labelledby="home-positioning-heading">
-    <div class="stack-sm">
-      <p class="eyebrow">For scholars and governance thinkers</p>
-      <h2 id="home-positioning-heading" class="section__heading">
-        Every corrective mechanism itself changes under delegation.
-      </h2>
-      <div class="home-mechanisms">
-        {
-          mechanismColumns.map((col) => (
-            <div
-              class:list={[
-                "home-mechanisms__cell",
-                col.own && "home-mechanisms__cell--own",
-              ]}
-            >
-              <p class="home-mechanisms__name">{col.name}</p>
-              <p class="home-mechanisms__question">{col.question}</p>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-
-    <HomeClaims />
-
+  <div class="home-positioning">
     <div class="home-core">
       <div class="home-core__test">
         <SelfTest />
@@ -335,7 +290,7 @@ const doors = [
         </div>
       </footer>
     </div>
-  </section>
+  </div>
 
   <script>
     import "../scripts/home-reveal.ts";

@@ -52,7 +52,7 @@ const sourceKind = {
       { href: "#learning", label: "After the failure" },
       { href: "#missing", label: "The missing record" },
       ...(entry.diagnosticStudy
-        ? [{ href: "#diagnostic-study", label: "Diagnostic study" }]
+        ? [{ href: "#diagnostic-study", label: "Further reading" }]
         : []),
       { href: "#sources", label: "Sources" },
     ]}
@@ -78,6 +78,10 @@ const sourceKind = {
         <div>
           <dt>Time to halt</dt>
           <dd>{entry.timeToHalt}</dd>
+        </div>
+        <div>
+          <dt>Errors carried by</dt>
+          <dd>{entry.errorsCarriedBy}</dd>
         </div>
         <div>
           <dt>Halted by</dt>
@@ -171,7 +175,7 @@ const sourceKind = {
       >
         <div class="grid grid--three">
           <div class="panel stack-sm">
-            <p class="eyebrow">1. Run diagnostic</p>
+            <p class="eyebrow">1. Run the diagnostic</p>
             <p>
               <a href={entry.remediation.diagnostic.href}>
                 <strong>{entry.remediation.diagnostic.name} &rarr;</strong>
@@ -181,7 +185,7 @@ const sourceKind = {
           </div>
 
           <div class="panel stack-sm">
-            <p class="eyebrow">2. Enforce standard</p>
+            <p class="eyebrow">2. Apply the standard</p>
             <p>
               <a href={entry.remediation.standard.href}>
                 <strong>
@@ -194,7 +198,7 @@ const sourceKind = {
           </div>
 
           <div class="panel stack-sm">
-            <p class="eyebrow">3. Ground in theory</p>
+            <p class="eyebrow">3. Read why it recurs</p>
             <p>
               <a href={entry.remediation.theory.href}>
                 <strong>{entry.remediation.theory.title} &rarr;</strong>
@@ -240,9 +244,9 @@ const sourceKind = {
     entry.diagnosticStudy && (
       <SectionBlock
         id="diagnostic-study"
-        eyebrow="Diagnostic study"
-        title="Long-form postmortem analysis"
-        description="Companion operational study exploring how this failure mode was stabilized, absorbed, or concealed."
+        eyebrow="Further reading"
+        title="An essay that uses this case"
+        description="Published elsewhere, as part of a wider argument. It is not one of the primary sources."
       >
         <div class="case-diagnostic-card">
           <p class="case-diagnostic-card__title">

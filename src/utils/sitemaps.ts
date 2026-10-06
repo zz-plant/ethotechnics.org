@@ -16,7 +16,6 @@ import type { LibraryContent, Pattern } from "../content/library";
 import { roles } from "../content/roles";
 import { researchContent } from "../content/research";
 import { standardsContent } from "../content/standards";
-import { taxonomyEntries } from "../content/taxonomy";
 import { glossaryEntryPermalink } from "../utils/glossary";
 
 const getContentEntry = async (
@@ -308,11 +307,6 @@ export const buildSitemapSections = async () => {
     changefreq: "monthly",
   }));
 
-  const artifactPaths = artifacts.map((artifact) => ({
-    path: `/artifacts/${artifact.slug}`,
-    changefreq: "monthly",
-  }));
-
   // A failure state with no resolvable artifact redirects to /artifacts, so
   // only the states that render are listed.
   const artifactSlugs = new Set(artifacts.map((artifact) => artifact.slug));
@@ -338,13 +332,6 @@ export const buildSitemapSections = async () => {
   const casebookPaths = cases.map((entry) => ({
     path: `/casebook/${entry.slug}`,
     lastmod: entry.updated ?? entry.published,
-  }));
-
-  // The taxonomy domains render under /taxonomy only; the top-level mirrors
-  // (/governance/policy, /delivery/intake, ...) are middleware redirects.
-  const taxonomyPaths = taxonomyEntries.map((entry) => ({
-    path: `/taxonomy/${entry.slug}`,
-    changefreq: "monthly",
   }));
 
   const fieldNotesEntry: unknown = await getContentEntry(
@@ -447,7 +434,9 @@ export const buildSitemapSections = async () => {
     ...theoryPaths,
   ]);
   const glossarySection = applyOverrides(glossaryPaths);
-  const taxonomySection = applyOverrides([...taxonomyPaths, ...patternPaths]);
+  // Taxonomy entries are anchors on /taxonomy (listed with the core pages);
+  // this section keeps the mechanism pages it has always carried.
+  const taxonomySection = applyOverrides(patternPaths);
 
   // A path listed in a content section is dropped from core, so a page that
   // exists both as a static file and as a collection entry (the STD-01, -02,
@@ -461,7 +450,6 @@ export const buildSitemapSections = async () => {
     ...corePaths,
     ...explainerPaths,
     ...evalSuitePaths,
-    ...artifactPaths,
     ...failurePaths,
     // Crosswalk controls sit under /standards but are not MDX standards
     // documents, so they are listed with the core pages.

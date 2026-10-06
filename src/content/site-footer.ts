@@ -66,7 +66,6 @@ export const siteFooter: SiteFooterContent = {
         { label: "Failure casebook", href: "/casebook" },
         { label: "Theory & foundations", href: "/research/theory" },
         { label: "Field notes", href: "/field-notes" },
-        { label: "Syllabus", href: "/mechanisms#syllabus" },
         { label: "Search", href: "/search" },
       ],
     },

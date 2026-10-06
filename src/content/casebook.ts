@@ -182,6 +182,13 @@ export type Case = PublishedContent & {
   timeToHaltDays: number;
   /** Who made the halt happen. Almost never the operator. */
   haltedBy: string;
+  /**
+   * Who absorbed the system's errors while it ran, and how: the error-bearing
+   * parties, named from the narrative, scale, and findings, never added to
+   * them. Also never the operator. Where the record says who kept the
+   * benefit, that goes here too, because the two sit on different ledgers.
+   */
+  errorsCarriedBy: string;
   summary: string;
   /** Page meta description: the institution, the date, the number, in ~160 characters. */
   metaDescription?: string;
@@ -264,7 +271,7 @@ export const casebookContent: CasebookContent = {
   eyebrow: "Casebook",
   title: "Five public failures, scored",
   description:
-    "Each case was established by a court, an inquiry, or a regulator. Each is scored on six safeguards, each named for what it keeps in check: capability, authority, evidence, dependency, standing, and correction. Each score names the draft clause this project argues would have caught the failure. The findings are the court's, the inquiry's, or the regulator's; the scores are this project's reading of them. A last column records whether the institution changed the process that produced the errors, or corrected the errors and left the process as it was. The scores are not a verdict on anyone. They show where the safeguards broke.",
+    "Each case was established by a court, an inquiry, or a regulator. Each is scored on six safeguards, each named for what it keeps in check: capability, authority, evidence, dependency, standing, and correction. Each score names the draft clause this project argues would have caught the failure. The findings are the court's, the inquiry's, or the regulator's; the scores are this project's reading of them. Each case names who carried the errors while the system ran. A last column records whether the institution changed the process that produced the errors, or corrected the errors and left the process as it was. The scores are not a verdict on anyone. They show where the safeguards broke.",
 };
 
 export const cases: Case[] = [
@@ -284,9 +291,11 @@ export const cases: Case[] = [
     timeToHaltDays: 1230,
     haltedBy:
       "The Federal Court, on a consent order the Commonwealth agreed to hours before a hearing it would have lost.",
+    errorsCarriedBy:
+      "Recipients, who had to produce payslips, often for years past, to disprove debts raised by averaging. The scheme had been booked as a budget saving of more than a billion dollars before it raised a debt.",
     published: "2026-09-17T00:00:00Z",
     summary:
-      "A scheme that raised debts at twenty times the previous rate, under an interpretation of the law the department had been advised in 2014 was wrong, and that treated a tribunal's repeated findings of unlawfulness as individual outcomes rather than as evidence against the scheme.",
+      "A scheme that sent about 20,000 debt notices a week, where the manual process had sent about 20,000 a year. It rested on a reading of the law the department had been told in 2014 was wrong. When a tribunal kept finding its debts unlawful, the department treated each ruling as one person's outcome, not as evidence against the scheme.",
     metaDescription:
       "Australia's Robodebt scheme raised about 470,000 unlawful welfare debts by averaging income, from 2016 to 2019. Scored on six safeguards, with the clauses that apply.",
     narrative: [
@@ -376,7 +385,7 @@ export const cases: Case[] = [
         variable: "authority",
         verdict: "failed",
         finding:
-          "The authority to raise a debt by averaging did not exist under the Social Security Act, and the department held written advice saying so before the scheme launched. The scheme ran for three years on an authorization whose legal basis had been examined and found absent. A grant that cites a policy it knows to be wrong is not a grant.",
+          "The authority to raise a debt by averaging did not exist under the Social Security Act, and the department held written advice saying so before the scheme launched. The scheme ran for three years on an authorization whose legal basis had been examined and found absent. Authority that rests on a reading of the law its holder knows to be wrong is not authority.",
         clauses: [
           { standard: "STD-07", clause: "§2.1" },
           { standard: "STD-08", clause: "§2.1" },
@@ -388,7 +397,7 @@ export const cases: Case[] = [
         variable: "evidence",
         verdict: "failed",
         finding:
-          "An averaged annual figure is not evidence of fortnightly income. The scheme asserted a debt, then asked the person to supply the evidence that would have been needed to assert it. Notices did not state how the figure was computed. The Royal Commission's central finding was that the evidence for each debt was never held by the party raising it.",
+          "An averaged annual figure is not evidence of fortnightly income. The scheme asserted a debt, then asked the person to supply the evidence that would have been needed to assert it. Notices did not state how the figure was computed. The Royal Commission found the scheme unlawful from the outset.",
         clauses: [
           { standard: "STD-02", clause: "§1.1" },
           { standard: "STD-02", clause: "§1.2" },
@@ -400,7 +409,7 @@ export const cases: Case[] = [
         variable: "dependency",
         verdict: "drifted",
         finding:
-          "The scheme was booked as a budget saving of more than a billion dollars before it had raised a debt. Once the savings were in the forward estimates, withdrawing the scheme carried a fiscal and political cost that no one inside the department had the standing to incur. The dependency was institutional, and it was the reason the tribunal findings were absorbed rather than acted on.",
+          "The scheme was booked as a budget saving of more than a billion dollars before it had raised a debt. Once the savings were counted in the budget, withdrawing the scheme had a cost in money and in politics that no one inside the department was in a position to accept. The department had come to depend on the scheme, and that is why the tribunal's findings were handled one case at a time instead of acted on.",
         clauses: [
           { standard: "STD-06", clause: "§5.1" },
           { standard: "STD-06", clause: "§5.3" },
@@ -423,7 +432,7 @@ export const cases: Case[] = [
         variable: "correction",
         verdict: "failed",
         finding:
-          "The scheme was technically trivial to halt, and was halted in a day when the Federal Court forced the question. It was not operationally or institutionally reversible for three years, because no one whose job it was to stop it had been given the authority to, and the people who had the authority had a reason not to. A correction that only a court can exercise is not a correction the operator holds.",
+          "Switching the scheme off was technically easy, and it stopped within the month once a Federal Court case forced the question. For three years before that, nobody stopped it. No one whose job it was to stop it had been given the authority to, and the people who had the authority had a reason not to. A correction that only a court can make is not a correction the operator holds.",
         clauses: [
           { standard: "STD-06", clause: "§1.3" },
           { standard: "STD-06", clause: "§4.2" },
@@ -438,7 +447,7 @@ export const cases: Case[] = [
         "The tribunal's repeated findings of unlawfulness were handled as individual outcomes and never changed the scheme. The department did not appeal, which kept each finding from becoming precedent, and did not record the pattern as a finding about the scheme. For three years each challenge ended in a settled case; the institution that ran the scheme never revised the rule. The scheme was halted only by a court, and the institutional change came after that, from a Royal Commission, not from the operator's own machinery.",
     },
     theMissingRecord:
-      "A policy record for income averaging with its provenance and status. The 2014 advice would have been the review trigger; the first adverse tribunal decision would have moved the policy, and every grant citing it, to mandatory review. STD-08 §2.3 sets a deadline for that review.",
+      "A written record of the income-averaging policy: where it came from, what it assumed, and what would force a review of it. The 2014 advice was enough to force one. So was the first tribunal decision against a debt. Either would have put the policy, and the scheme's authority to raise debts under it, under review. STD-08 §2.3 sets a deadline for that review.",
     diagnosticStudy: {
       title: "The Operational Andon Cord",
       url: "https://thecrumple.zone/p/the-operational-andon-cord",
@@ -451,20 +460,20 @@ export const cases: Case[] = [
         name: "Delegation Audit",
         href: "/diagnostics/delegation-audit",
         purpose:
-          "Checks whether human caseworkers hold unpenalized override keys and whether challenge spikes trigger mandatory authority reviews.",
+          "Asks whether the policy a system applies has an expiry date and a named event that forces a review, and whether the people who bear its errors can challenge a decision and get an answer by a deadline.",
       },
       standard: {
         id: "STD-02",
         name: "Contestability & Recourse",
         href: "/standards/std-02-contestability-recourse",
         requirement:
-          "Requires causal decision reasons delivered directly with notices, with the burden of proof remaining on the automated system.",
+          "Requires every notice to give, when it is sent and in plain language, the reasons for the decision and the evidence it rests on. The person can ask for a human review without supplying new evidence.",
       },
       theory: {
         title: "Challenge density",
         href: "/research/theory/challenge-density",
         question:
-          "Why must an institution scale its correction capacity or narrow its scope, rather than restrict standing, when appeal volume spikes?",
+          "When appeals arrive faster than anyone can answer them, why is the fix more reviewers or a smaller scheme, and not fewer people allowed to appeal?",
       },
     },
     sources: [
@@ -513,6 +522,8 @@ export const cases: Case[] = [
     timeToHaltDays: 2670,
     haltedBy:
       "The Council of State reversing its own case law in October 2019, then a parliamentary inquiry.",
+    errorsCarriedBy:
+      "Parents, more than 30,000 of them, made to repay benefits, often tens of thousands of euros, without being told why they had been flagged. The people working the review queue saw the pattern first and had no standing to raise it.",
     published: "2026-09-17T00:00:00Z",
     summary:
       "A fraud-detection system whose risk score was treated as a finding, whose reasons were withheld from the people it flagged and from the courts that reviewed them, and whose harshest rule was upheld by the highest administrative court for years before that court changed its mind.",
@@ -559,7 +570,7 @@ export const cases: Case[] = [
         variable: "capability",
         verdict: "drifted",
         finding:
-          "The model could flag at a rate no review team could examine. Reviewers with a queue and a target processed flags as findings. The capability to suspect scaled; the capability to establish did not.",
+          "The model could flag at a rate no review team could examine. Reviewers with a queue and a target processed flags as findings. The ability to suspect a parent grew; the ability to establish whether the suspicion was right did not.",
         clauses: [
           { standard: "STD-08", clause: "§3.4" },
           { standard: "STD-08", clause: "§4.2" },
@@ -570,7 +581,7 @@ export const cases: Case[] = [
         variable: "authority",
         verdict: "drifted",
         finding:
-          "The all-or-nothing rule was lawful in the sense that the highest court said so, until it said otherwise. Authority that rests on a reading no one has re-examined is authority outliving its evidence. The nationality indicator had no lawful basis at all, which the Data Protection Authority later established.",
+          "The all-or-nothing rule was lawful in the sense that the highest court said so, until it said otherwise. In 2019 the court found the administration had discretion under the rule that it had never used. The nationality indicator had no lawful basis at all, which the Data Protection Authority later established.",
         clauses: [
           { standard: "STD-08", clause: "§2.1" },
           { standard: "STD-08", clause: "§2.3" },
@@ -581,7 +592,7 @@ export const cases: Case[] = [
         variable: "evidence",
         verdict: "failed",
         finding:
-          "A risk score is a proposition about a population, not a finding about a person. It was treated as the latter. The reasons behind a flag were not given to the parent, and the file given to the court was not the file the administration held. The proposition justifying the reclaim was never produced to anyone who could test it.",
+          "A risk score says something about a group of claims, not about one parent. It was treated as a finding about the parent. The reasons behind a flag were not given to the parent, and the file given to the court was not the file the administration held. The basis for each reclaim was never shown to anyone who could test it.",
         clauses: [
           { standard: "STD-02", clause: "§1.1" },
           { standard: "STD-02", clause: "§5.3" },
@@ -616,7 +627,7 @@ export const cases: Case[] = [
         variable: "correction",
         verdict: "failed",
         finding:
-          "There was no halt control. The rule was not a parameter anyone was empowered to change; it was case law. Reversal required the court to reverse itself, then a parliamentary inquiry, then a government to fall. Redress for individual parents has taken years and is not complete.",
+          "Nothing let anyone in the administration stop it. The rule was not a setting anyone there could change; it was case law. Reversal required the court to reverse itself, then a parliamentary inquiry, then a government to fall. Redress for individual parents has taken years and is not complete.",
         clauses: [
           { standard: "STD-02", clause: "§2.2" },
           { standard: "STD-02", clause: "§4.2" },
@@ -628,36 +639,36 @@ export const cases: Case[] = [
     learningOutcome: {
       verdict: "partial",
       finding:
-        "The rule itself was eventually changed — the Council of State reversed its own case law — but only after seven years, and the reversal was a correction of the institution's legal position, not of the system that flagged the parents. The institution that ran the model never revised its own evidentiary practice; the change came from the highest court overturning its own precedent, then a parliamentary inquiry, then a cabinet resignation. Redress is still running. The failure was visible and contested; changing the institution took the fall of the cabinet.",
+        "The rule itself was eventually changed — the Council of State reversed its own case law — but only after seven years, and the reversal was a correction of the institution's legal position, not of the system that flagged the parents. The institution that ran the model never changed how it treated a risk score as evidence; the change came from the highest court overturning its own precedent, then a parliamentary inquiry, then a cabinet resignation. Redress is still running. The failure was visible and contested; changing the institution took the fall of the cabinet.",
     },
     theMissingRecord:
-      "A register of who may challenge a fraud flag, what evidence is admissible, and against which standard the challenge is decided. STD-02 §8.2 would have forced the administration to say whether a parent was disputing how the rule was applied or whether the evidence supported it, and to disclose the file either way.",
+      "A published record of who may challenge a fraud flag, what evidence counts, and what standard the challenge is decided against. STD-02 §8.2 would have made the administration say which question it was answering: whether the rule was applied as written, whether the rule was right, or whether the evidence supported the flag. STD-02 §1.1 and §1.3 would have required the reasons and evidence for each flag to be recorded with it and given when it was made.",
     diagnosticStudy: {
       title: "The Rule Is Never on Trial",
       url: "https://thecrumple.zone/p/the-rule-is-never-on-trial",
       source: "The Crumple Zone",
       summary:
-        "Detailed examination of how individual exceptions in the Dutch childcare benefits scandal were repeatedly treated as claimant fraud rather than evidence against the classification pipeline.",
+        "An essay on institutions that handle failures one case at a time and never put the rule itself in question. It uses this scandal as an example: the risk model treated dual nationality as a sign of fraud, and the response dealt with each family's case instead of the model.",
     },
     remediation: {
       diagnostic: {
-        name: "Self-Defense Checks",
+        name: "Self-defense checks",
         href: "/diagnostics/self-defense-tools",
         purpose:
-          "Evaluates whether a decision notice provides independent standing, notice periods, and automated restitution guarantees before state-changing enforcement.",
+          "Three checks for a person facing an automated decision: whether it can be challenged, whether an appeal can change the outcome, and who can reverse it. Run them against your own notices.",
       },
       standard: {
         id: "STD-01",
         name: "The Temporal Bill of Rights",
         href: "/standards/std-01-temporal-rights",
         requirement:
-          "Mandates tested manual fallback procedures and funded restitution mechanics so wrongful enforcement can be fully made whole.",
+          "Requires that anyone an automated decision denies can appeal to a person, and makes the operating institution liable for its system's errors. An algorithmic error is not a defense.",
       },
       theory: {
         title: "Dependence runs both ways",
         href: "/research/theory/dependence-runs-both-ways",
         question:
-          "What specific duties of reversibility and standing does an institution incur when subjects cannot exit its systems?",
+          "When people cannot leave an institution's system, what does the institution owe them?",
       },
     },
     sources: [
@@ -704,6 +715,8 @@ export const cases: Case[] = [
     timeToHaltDays: 7473,
     haltedBy:
       "A group of 555 subpostmasters in civil litigation, then the Court of Appeal, then an Act of Parliament quashing convictions in bulk.",
+    errorsCarriedBy:
+      "Subpostmasters, who were contractually liable for the shortfalls Horizon reported, and were then investigated and prosecuted by the operator on that evidence. Each was told the system was robust and that no one else had complained.",
     published: "2026-09-17T00:00:00Z",
     summary:
       "A system whose output was admitted as evidence of a crime under a legal presumption that computers work, whose known defects were logged by the supplier and withheld from defendants, and whose operator could not afford, contractually or reputationally, to find that it was wrong.",
@@ -780,7 +793,7 @@ export const cases: Case[] = [
         variable: "dependency",
         verdict: "failed",
         finding:
-          "Every branch ran on Horizon. There was no substitute, the contract with Fujitsu was among the largest the Post Office held, and every prior conviction rested on the system being sound. Admitting a defect meant admitting all of them. This is the purest instance in the casebook of dependence converting a technical fault into a structural one.",
+          "Every branch ran on Horizon. There was no substitute, the contract with Fujitsu was among the largest the Post Office held, and every prior conviction rested on the system being sound. Admitting a defect meant admitting all of them. A fault in the software had become a fault the Post Office could not afford to find.",
         clauses: [
           { standard: "STD-06", clause: "§5.1" },
           { standard: "STD-06", clause: "§5.2" },
@@ -804,7 +817,7 @@ export const cases: Case[] = [
         variable: "correction",
         verdict: "failed",
         finding:
-          "Correction took two decades, civil litigation funded at the claimants' risk, an appellate court, and primary legislation. At no point did the operator hold an intervention it was willing to exercise. The inquiry's first volume is about compensation because the underlying harm can no longer be reversed.",
+          "Correction took two decades, civil litigation funded at the claimants' risk, an appellate court, and primary legislation. At no point was the operator willing to use any means it had to stop or reverse the harm. The inquiry's first volume is about compensation because the underlying harm can no longer be reversed.",
         clauses: [
           { standard: "STD-02", clause: "§3.2" },
           { standard: "STD-02", clause: "§4.2" },
@@ -816,7 +829,7 @@ export const cases: Case[] = [
     learningOutcome: {
       verdict: "absorbed",
       finding:
-        "The operator never revised the machinery. The system's known defects were logged by the supplier and withheld; each subpostmaster was answered alone, so no one could see the pattern; and admitting a defect would have admitted every prior conviction, which made correction institutionally impossible for the operator itself. The learning came entirely from outside the institution — civil litigation, an appellate court, an inquiry, and an Act of Parliament — none of which the operator's own machinery produced. Settling cases one at a time, with the system unchanged, lasted twenty years.",
+        "The operator never revised the machinery. The system's known defects were logged by the supplier and withheld; each subpostmaster was answered alone, so no one could see the pattern; and admitting a defect would have admitted every prior conviction, so correcting the system was a cost the operator could not afford. The learning came entirely from outside the institution — civil litigation, an appellate court, an inquiry, and an Act of Parliament — none of which the operator's own machinery produced. Settling cases one at a time, with the system unchanged, lasted twenty years.",
     },
     theMissingRecord:
       "A published record of how far the Post Office depended on Horizon and what replacing it would cost. The dependence was total, replacing it meant replacing the business, and correcting it took twenty years. STD-06 §5.5 would have barred any widening of the system's authority, including its use as evidence in prosecutions, until the Post Office showed it could reverse course.",
@@ -825,27 +838,27 @@ export const cases: Case[] = [
       url: "https://thecrumple.zone/p/the-corrigible-machine",
       source: "The Crumple Zone",
       summary:
-        "Operational inquiry into how institutional insulation, presumption of software infallibility, and unrecorded manual database patching turned branch subpostmasters into a human liability buffer.",
+        "An essay on systems in which nobody acts arbitrarily and nobody can be corrected. It uses Horizon as an example: the system's version of the accounts had the final say, and the subpostmasters who bore its errors had no way to challenge it.",
     },
     remediation: {
       diagnostic: {
-        name: "Record Conformance Validator",
+        name: "Record Conformance Checker",
         href: "/diagnostics/record-conformance",
         purpose:
-          "Validates tamper-evident decision logs with cryptographic hash chains to ensure records cannot be secretly altered or blamed on branch operators.",
+          "Reads a system's decision records and recomputes their hashes, so a record that was edited or removed afterward shows up.",
       },
       standard: {
         id: "STD-07",
         name: "Revisable Delegation Record",
         href: "/standards/std-07-revisable-delegation-record",
         requirement:
-          "Requires immutable, verifiable records that link machine assertions directly to external groundable evidence.",
+          "Requires that no record is edited or deleted: a change is a new record that names the one it replaces. Each record carries a hash and links to the one before it, so an alteration shows.",
       },
       theory: {
         title: "Automation and capture",
         href: "/research/theory/automation-and-capture",
         question:
-          "At what point does operational reliance extinguish an institution's ability to question, replace, or halt a system?",
+          "When does an institution come to rely on a system so heavily that it can no longer question, replace, or stop it?",
       },
     },
     sources: [
@@ -892,9 +905,11 @@ export const cases: Case[] = [
     timeToHaltDays: 4,
     haltedBy:
       "The Secretary of State, after Scotland had already reversed its equivalent and universities had begun allocating places on the model's grades.",
+    errorsCarriedBy:
+      "Students in large cohorts at state schools, where the model overrode teachers' grades most. They could appeal only through their school, and not on the ground that the model had ranked them wrongly. Small classes were exempt.",
     published: "2026-09-17T00:00:00Z",
     summary:
-      "The one case in the casebook where correction was fast, which is what makes it useful: a model with no evidenced accuracy at the level of the individual it was applied to, no appeal on the ground that it was wrong about that individual, and a halt that worked only because it came before anyone had come to depend on the grades.",
+      "The one case in the casebook where correction was fast, which is what makes it useful. The model's accuracy for any one student was never shown. No appeal let a student argue it was wrong about them. The halt worked only because it came before anyone had come to depend on the grades.",
     metaDescription:
       "In August 2020, Ofqual's model lowered about 39% of England's A-level grades below teacher assessments. It was withdrawn in four days. Scored on six safeguards.",
     narrative: [
@@ -929,7 +944,7 @@ export const cases: Case[] = [
         variable: "capability",
         verdict: "held",
         finding:
-          "The model did what was asked of it: it reproduced the prior distribution. Its capability was declared, its exclusions were declared, and its behavior on small cohorts was published in advance. The capability variable is not where this case failed.",
+          "The model did what was asked of it: it reproduced the prior distribution. Its capability was declared, its exclusions were declared, and its behavior on small cohorts was published in advance. Capability is not where this case failed.",
         clauses: [{ standard: "STD-06", clause: "§1.2" }],
         laws: ["I"],
       },
@@ -937,7 +952,7 @@ export const cases: Case[] = [
         variable: "authority",
         verdict: "drifted",
         finding:
-          "The authority came from a ministerial direction to hold the distribution steady. That direction was itself the policy the model implemented, and it was never re-examined once the model's individual-level effects were visible. Authority that names its ceiling as an aggregate says nothing about what it may do to any one person.",
+          "The authority came from a ministerial direction to hold the distribution steady. That direction was itself the policy the model implemented, and it was never re-examined once the model's effects on individual students were visible. A direction that sets a limit for the whole cohort says nothing about what may be done to any one student.",
         clauses: [
           { standard: "STD-07", clause: "§2.2" },
           { standard: "STD-08", clause: "§2.1" },
@@ -948,7 +963,7 @@ export const cases: Case[] = [
         variable: "evidence",
         verdict: "failed",
         finding:
-          "The model's accuracy was evidenced at the level of the distribution and applied at the level of the student. The regulator said as much in its own report. A proposition about a cohort was used to justify an action against an individual, which is the gap Law X names: the eval sat one layer below the harm.",
+          "The model was checked against whole-cohort results and then used to grade individual students. Ofqual's own report said it could not be checked against any one student's result, since none existed. No one checked it where the harm happened: one student's grade.",
         clauses: [
           { standard: "STD-06", clause: "§2.2" },
           { standard: "STD-06", clause: "§2.4" },
@@ -959,7 +974,7 @@ export const cases: Case[] = [
         variable: "dependency",
         verdict: "held",
         finding:
-          "The halt was thrown four days in, before universities had finalized admissions and before the grades had been used for anything irreversible. Dependence had not yet set. Three weeks later, with places confirmed and courses full, the same reversal would have been operationally impossible. The clock, not the decision, is what made this case recoverable.",
+          "The halt was thrown four days in, before universities had finalized admissions and before the grades had been used for anything irreversible. Dependence had not yet set. Three weeks later, with places confirmed and courses full, the same reversal would have been impossible in practice. The clock, not the decision, is what made this case recoverable.",
         clauses: [{ standard: "STD-06", clause: "§5.5" }],
         laws: ["V", "XI"],
       },
@@ -967,7 +982,7 @@ export const cases: Case[] = [
         variable: "standing",
         verdict: "failed",
         finding:
-          "Students could not appeal on the ground that the model had got them wrong. Appeals ran through the school, on grounds that excluded the decision itself, and the one ground that might have helped was announced and withdrawn within four days. The party bearing the error had no route to put the delegation in question.",
+          "Students could not appeal on the ground that the model had got them wrong. Appeals ran through the school, on grounds that excluded the decision itself, and the one ground that might have helped was announced and withdrawn within four days. The students who bore the errors had no way to question the model itself.",
         clauses: [
           { standard: "STD-02", clause: "§8.1" },
           { standard: "STD-02", clause: "§8.2" },
@@ -979,7 +994,7 @@ export const cases: Case[] = [
         variable: "correction",
         verdict: "drifted",
         finding:
-          "The halt existed and was thrown. It was not the operator's; it was ministerial, taken under public pressure, and after a neighboring jurisdiction had gone first. A correction that works when a minister chooses to exercise it is real, but it is not a rehearsed control with a named owner and a declared threshold.",
+          "The halt existed and was thrown. It was not the operator's; it was ministerial, taken under public pressure, and after a neighboring jurisdiction had gone first. A correction that works when a minister chooses to use it is real, but it is not a stop the operator had tested in advance, with a named owner and a threshold set beforehand.",
         clauses: [
           { standard: "STD-06", clause: "§1.3" },
           { standard: "STD-06", clause: "§2.2" },
@@ -990,29 +1005,29 @@ export const cases: Case[] = [
     learningOutcome: {
       verdict: "absorbed",
       finding:
-        "The decision was corrected — every grade was reversed within four days — but no institution's machinery was revised by the failure. Ofqual and the Department for Education withdrew the model rather than repairing the rule that generated the harm; the evidentiary practice of validating an aggregate and applying it to individuals was never revisited inside the institution. A minister ordered the halt under public pressure after a neighboring jurisdiction had gone first, which is a correction of the case, not a change to the rule. The office that reviewed the episode was the statistics regulator, external to the operator.",
+        "The decision was corrected — every grade was reversed within four days — but no institution's machinery was revised by the failure. Ofqual and the Department for Education withdrew the model rather than repairing the rule that generated the harm; the practice of checking a model against whole-cohort results and then applying it to individual students was never revisited inside the institution. A minister ordered the halt under public pressure after a neighboring jurisdiction had gone first, which is a correction of the case, not a change to the rule. The office that reviewed the episode was the statistics regulator, external to the operator.",
     },
     theMissingRecord:
-      "A declared threshold with the action that follows a breach. STD-06 §2.2 asks the operator to say, before running the model, what share of downgrades or what disparity between school types would stop the release. Had that number existed, the halt on 17 August would have been a control firing rather than a reversal under pressure.",
+      "A threshold set in advance, with the action that follows if it is crossed. Under STD-06 §2.2, that means saying before release what share of downgrades, or what gap between school types, would stop it. Had that number existed, the halt on 17 August would have been a planned stop, not a reversal under pressure.",
     remediation: {
       diagnostic: {
-        name: "Workload Modeler",
-        href: "/diagnostics/burden-modeler",
+        name: "Delegation Audit",
+        href: "/diagnostics/delegation-audit",
         purpose:
-          "Measures where statistical standardization silently shifts the cost of anomalies onto frontline educators and students through appeal overhead.",
+          "Asks, for one workflow, who authorized each action, on what evidence, for whom, and until when, and whether anyone can stop it.",
       },
       standard: {
         id: "STD-06",
         name: "Human Impact Safety Case",
         href: "/standards/std-06-human-impact-safety-case",
         requirement:
-          "Prohibits using human beings as counterfeit buffers to absorb algorithmic variance without explicit tracking and compensation.",
+          "Requires the operator to set each test's threshold before the test runs, and to say what happens when it is crossed. An error rate clearly worse for any one group than for others counts as crossing it.",
       },
       theory: {
-        title: "The human subsidy to institutional continuity",
-        href: "/research/theory/the-human-subsidy",
+        title: "The model of a person is not the person",
+        href: "/research/theory/model-of-a-person",
         question:
-          "What distinct varieties of uncounted compensatory labor produce apparent institutional functionality?",
+          "Why does a model that is right about most students not get to be final about any one of them?",
       },
     },
     sources: [
@@ -1057,9 +1072,11 @@ export const cases: Case[] = [
     timeToHaltDays: 494,
     haltedBy:
       "Nobody. The issuer changed its policies after a regulator's investigation found the process, not the model, deficient.",
+    errorsCarriedBy:
+      "Spouses whose finances were shared but whose credit histories were not, offered lower limits with no way to ask for reconsideration. The bank's customer service staff took the complaints with no explanation to give.",
     published: "2026-09-17T00:00:00Z",
     summary:
-      "The control case. The model was examined and cleared; the failure was that the person on the receiving end had no reasons and no route, and the people answering the phone had neither either. Four of the six safeguards held. The two that did not, evidence and standing, are the two the contestability standard (STD-02) exists for.",
+      "The case to read the others against. The model was examined and cleared; the failure was that the person on the receiving end had no reasons and no route, and the people answering the phone had neither either. Four of the six safeguards held. The two that did not, evidence and standing, are the two the contestability standard (STD-02) exists for.",
     metaDescription:
       "New York's regulator found in 2021 that Apple Card's credit limits broke no fair lending law, but applicants got no reasons and no appeal. Scored on six safeguards.",
     narrative: [
@@ -1142,7 +1159,7 @@ export const cases: Case[] = [
         variable: "correction",
         verdict: "held",
         finding:
-          "The issuer changed its policies within months of the report. The correction was institutionally feasible and was exercised without a court. That it took a regulator to prompt it is the drift; that it happened is the difference between this case and the other four.",
+          "The issuer changed its policies within months of the report. It could make the change without a court, and it did. It took a regulator to prompt it; that it happened at all is the difference between this case and the other four.",
         clauses: [{ standard: "STD-02", clause: "§5.2" }],
         laws: ["IV"],
       },
@@ -1159,20 +1176,20 @@ export const cases: Case[] = [
         name: "Delegation Audit",
         href: "/diagnostics/delegation-audit",
         purpose:
-          "Audits whether credit determinations rely on heuristics that fail to generate individualized causal reasons for applicants or customer service reps.",
+          "Asks, for one workflow, what evidence each decision rests on, who bears the errors, whether they can challenge a decision, and who must answer, by when.",
       },
       standard: {
         id: "STD-02",
         name: "Contestability & Recourse",
         href: "/standards/std-02-contestability-recourse",
         requirement:
-          "Requires that credit limits and adverse actions come with specific factors the applicant can check and contest.",
+          "Requires reasons with every decision, in plain language and at the moment it is made, and a published route for challenging it that names who answers and by when.",
       },
       theory: {
         title: "The model of a person is not the person",
         href: "/research/theory/model-of-a-person",
         question:
-          "Why does even the most predictive model of a person fail to extinguish that person's independent right to challenge a decision?",
+          "Why does a more accurate model of a person not remove that person's right to challenge a decision about them?",
       },
     },
     sources: [
