@@ -58,10 +58,11 @@ const featuredExample = examples[0];
 
 const requiredSignals = [
   "Receipt issued at the moment the decision is enforced.",
-  "Named owner + authority path with escalation rights.",
+  "A named owner who can change the decision, and who it escalates to.",
   "Clocks for acknowledgment, review, and remedy.",
   "Exception handling with bounded duration and review cadence.",
   "Remedy path with reversal, compensation, or safe fallback.",
+  "Upheld challenges counted against the rule and sent to its owner.",
   "Generated artifacts (decision log, evidence pack list, audit trail).",
 ];
 ---
@@ -150,7 +151,7 @@ const requiredSignals = [
     id="domains"
     eyebrow="Domain comparisons"
     title="Architecture vs standard governance"
-    description="Seven sector comparisons showing how Ethotechnics replaces committee paperwork with runtime controls, intervention velocity, and recovery paths."
+    description="Seven sector comparisons. Each sets oversight added after the fact beside a system where a challenge reaches the owner of the rule."
     variant="alt"
   >
     <CardGrid className="grid--two">

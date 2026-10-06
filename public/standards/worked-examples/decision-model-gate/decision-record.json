@@ -28,7 +28,7 @@
       "message:771204-3",
       "refund_proposal:agent-refunds-v3:40217"
     ],
-    "confidence": 0.86
+    "confidence": 0.9
   },
   "clocks": {
     "ack": {
@@ -62,7 +62,7 @@
   "evidence_basis": [
     {
       "ref": "POL-REFUND-GATE-THRESHOLD",
-      "summary": "Refund approved unattended: refund_risk approve at 0.86, above the 0.80 threshold, with policy_fit yes and the amount under 200 USD.",
+      "summary": "Refund approved unattended: refund_risk approve with a confidence margin of 0.83, above the 0.80 threshold, with policy_fit yes and the amount under 200 USD.",
       "as_of": "2026-09-01T00:00:00Z"
     }
   ],
@@ -97,11 +97,11 @@
     "question_schema_hash": "sha256:6b7b983829db07d46e80c26e5e6741087b968373cd4751ff833984e43189a59b",
     "answer": "approve",
     "distribution": {
-      "approve": 0.86,
-      "review": 0.11,
+      "approve": 0.9,
+      "review": 0.07,
       "refuse": 0.03
     },
-    "confidence": 0.75,
+    "confidence": 0.83,
     "confidence_semantics": "margin",
     "threshold_policy_ref": "POL-REFUND-GATE-THRESHOLD@1.2.0",
     "routed_to": "unattended",

@@ -12,7 +12,7 @@ import {
 
 const pageTitle = "Retail personalization: implementation comparison";
 const pageDescription =
-  "Recommendation systems governed two ways: policy review gates, or user controls that stop targeting, reasons on demand, and timed rollback.";
+  "Recommendation systems governed two ways: review gates, or an off switch, plus reasons and an answered challenge where targeting sets a price or an offer.";
 const permalink = "/examples/retail-personalization";
 const anchorLinks = implementationExampleAnchorLinks;
 const publication = createImplementationPublication(
@@ -69,28 +69,29 @@ const publication = createImplementationPublication(
     id="ethotechnics"
     eyebrow="Ethotechnics implementation"
     title="What changes when governance becomes infrastructure"
-    description="Personalization becomes stoppable, contestable, and reversible on demand."
+    description="Where targeting sets a price, an offer, or who sees a job, it is treated as a decision about a person."
   >
     <ul class="card__list">
       <li>
-        Users receive direct <a href="/glossary/stoppability">stoppability</a> controls
-        to halt recommendation patterns without penalties.
+        A person can turn personalization off, and it stays off. Turning it off
+        does not cost them a price or an offer they would otherwise get.
       </li>
       <li>
-        Independent advocates can activate kill switches when targeting harms
-        emerge.
+        Where targeting sets a price, a credit offer, or who is shown a job, the
+        person can see the main reasons it applied to them.
       </li>
       <li>
-        <a href="/glossary/safety-valve">Safety valves</a> create forced interruption
-        points before filter bubbles compound.
+        A challenge to that price or offer goes to a named owner who answers by
+        a stated date. That is what
+        <a href="/glossary/contestability">contestability</a> means here.
       </li>
       <li>
-        <a href="/glossary/contestability">Contestability</a> ensures users can demand
-        a reasoned explanation, a clock, and a reversal path.
+        Upheld challenges are counted by targeting rule. The count goes to the
+        rule's owner, who reviews the rule and records what changed.
       </li>
       <li>
-        Time-based rollback requirements measure how quickly personalization
-        changes can be undone.
+        The owner can halt one targeting rule while it is reviewed, and a
+        rollback target says how long it takes to undo a targeting change.
       </li>
     </ul>
   </SectionBlock>
@@ -99,19 +100,20 @@ const publication = createImplementationPublication(
     id="checklist"
     eyebrow="Implementation checklist"
     title="Signals to verify before launch"
-    description="Confirm user control over automated targeting loops."
+    description="Confirm a person can turn targeting off, and can challenge a price or an offer it set."
   >
     <ul class="muted">
-      <li>Expose a persistent stop control for personalization behavior.</li>
-      <li>Publish response clocks for user appeals and preference resets.</li>
-      <li>
-        Provide advocates a direct halt path for harmful targeting patterns.
-      </li>
+      <li>Show a control that turns personalization off and keeps it off.</li>
+      <li>Publish the answer date for a challenge to a price or offer.</li>
+      <li>Name who can halt a targeting rule.</li>
       <li>
         Measure <a href="/glossary/time-to-restore">time-to-restore</a> for mistaken
-        personalization changes.
+        targeting changes.
       </li>
-      <li>Document rollback drills in the repair log.</li>
+      <li>
+        Count upheld challenges by rule, and log each rollback in the repair
+        log.
+      </li>
     </ul>
   </SectionBlock>
 

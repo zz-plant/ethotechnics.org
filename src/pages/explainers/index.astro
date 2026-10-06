@@ -10,7 +10,7 @@ const explainers = await getCollection("explainers");
 
 const pageTitle = "Explainers";
 const pageDescription =
-  "Short explainers for the terms of delegated authority. Each gives a definition, a worked example, the signals that set it apart, and the artifact to build next.";
+  "Short explainers for the terms of delegated authority. Each gives a definition, a hypothetical case, what to look for, and where the standards use the term.";
 
 const anchorLinks = [{ href: "#all-explainers", label: "All explainers" }];
 
@@ -99,7 +99,7 @@ const featured = featuredExplainers.flatMap((id) => {
     <CardGrid className="grid--two">
       <CardItem
         title="Governance as operational capability"
-        description="Why governance is something an organization can be more or less able to do, rather than a document it has."
+        description="Governance measured by what a running system can be made to do: answer a challenge, change the rule, halt, and reverse."
       >
         <a slot="footer" class="muted" href="/explainers/governance-capability">
           Read explainer
@@ -107,7 +107,7 @@ const featured = featuredExplainers.flatMap((id) => {
       </CardItem>
       <CardItem
         title="Public memory for contestability terms"
-        description="What has to be remembered, and by whom, for a challenge to still mean something later."
+        description="A dated log of how governance terms drifted into labels, with definitions to cite instead."
       >
         <a slot="footer" class="muted" href="/explainers/public-memory">
           Read explainer
@@ -115,7 +115,7 @@ const featured = featuredExplainers.flatMap((id) => {
       </CardItem>
       <CardItem
         title="Remedy essentials for accountable systems"
-        description="The eight mechanisms that keep contestability real, each anchored to a phase of the remedy lifecycle."
+        description="The eight mechanisms a remedy process needs, grouped by when each one acts."
       >
         <a slot="footer" class="muted" href="/explainers/remedy-essentials">
           Read explainer
@@ -123,7 +123,7 @@ const featured = featuredExplainers.flatMap((id) => {
       </CardItem>
       <CardItem
         title="Contestability checklist"
-        description="A pass/fail screen to run over a decision flow before shipping it or auditing it."
+        description="Seven pass/fail questions to run over a decision flow before it ships or when it is audited."
       >
         <a
           slot="footer"
@@ -135,7 +135,7 @@ const featured = featuredExplainers.flatMap((id) => {
       </CardItem>
       <CardItem
         title="Language people can use"
-        description="Copy-ready phrasing for email, chat, or an intake form when you need a contestable record."
+        description="Questions a person can send when an automated decision affects them, one ask each."
       >
         <a
           slot="footer"

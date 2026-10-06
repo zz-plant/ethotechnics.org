@@ -15,19 +15,19 @@ export const implementationExamples: ImplementationExample[] = [
     slug: "public-services",
     title: "Government public services",
     summary:
-      "Benefits and civic service automation that require community authority in the runtime.",
-    tags: ["Design authority", "Contestability", "Recovery"],
+      "Benefits and debt automation where an upheld challenge has to reach the rule's owner.",
+    tags: ["Rule owners", "Contestability", "Restoration"],
     cardDescription:
-      "Public sector automation with community veto authority and rapid restoration.",
+      "Benefit and debt rules with named owners, an outside halt, and restoration before restart.",
   },
   {
     slug: "loan-approval",
     title: "Loan approval systems",
     summary:
-      "Credit scoring and eligibility flows where stoppability and contestability must survive automation.",
+      "Credit scoring where an applicant gets reasons, and a pattern of upheld challenges changes the rule.",
     tags: ["Stoppability", "Contestability", "Time-to-halt"],
     cardDescription:
-      "Credit scoring and eligibility workflows with enforceable stop authority.",
+      "Credit decisions with reasons, named owners, and challenges that reach the scoring rule.",
   },
   {
     slug: "financial-fraud-detection",
@@ -42,16 +42,16 @@ export const implementationExamples: ImplementationExample[] = [
     slug: "healthcare-diagnostics",
     title: "Healthcare diagnostic AI",
     summary:
-      "Clinical risk and diagnostic tools that require plural oversight and fast reversibility.",
-    tags: ["Reversibility", "Safety valves", "Ethical interrupts"],
+      "Clinical risk tools where clinicians' overrides are counted against the model's rule.",
+    tags: ["Overrides", "Contestability", "Reversibility"],
     cardDescription:
-      "Clinical risk tools built around reversibility, stoppability, and plural oversight.",
+      "Diagnostic tools whose overrides reach the model's owner, with patient challenges answered by a date.",
   },
   {
     slug: "fhir-resources",
     title: "FHIR resources for healthcare interop",
     summary:
-      "FHIR-native refusal, appeal, and repair signals that regulators, payers, and providers must share.",
+      "Denials, appeals, and repair status as FHIR resources that payers, providers, and regulators share.",
     tags: ["Interoperability", "Repair status", "Decision clocks"],
     cardDescription:
       "FHIR profiles that make refusals, appeals, and repair clocks exchangeable data.",
@@ -60,19 +60,19 @@ export const implementationExamples: ImplementationExample[] = [
     slug: "customer-service-chatbots",
     title: "Customer service chatbots",
     summary:
-      "High-volume support systems where intervention speed matters more than automation confidence.",
+      "Support bots where reaching a person is a right, and failed requests count against the design.",
     tags: ["Contestability", "Stoppability", "Care floors"],
     cardDescription:
-      "High-volume support automation with guaranteed exit and recovery paths.",
+      "Support automation with a route to a person and a named owner for each hand-off.",
   },
   {
     slug: "retail-personalization",
     title: "Retail personalization",
     summary:
-      "Recommendation engines where users need direct control over automation behavior.",
-    tags: ["Safety valves", "Stoppability", "Transparency"],
+      "A boundary case. Most recommendations decide nothing a person could contest. Prices, credit offers, and job ads do.",
+    tags: ["Boundary case", "Reasons", "Rollback"],
     cardDescription:
-      "Recommendation systems that users can halt, with a direct halt path for advocates.",
+      "Recommendations a person can turn off, with challenges where targeting sets a price or an offer.",
   },
 ];
 

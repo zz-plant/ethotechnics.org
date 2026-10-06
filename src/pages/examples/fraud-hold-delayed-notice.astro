@@ -48,7 +48,7 @@ const receiptPayload = `{
   <SectionBlock
     id="receipt"
     eyebrow="Receipt"
-    title="Receipt emitted even with delayed notice"
+    title="The receipt is written even when notice is delayed"
     description="The receipt is written when the hold is placed. Only the notice to the account holder waits for the investigation."
   >
     <pre class="code-block">{receiptPayload}</pre>
@@ -63,16 +63,19 @@ const receiptPayload = `{
   >
     <CardGrid className="grid--three">
       <CardItem title="Ack clock" description="1 hour">
-        <p class="muted">Owner acknowledges the hold and assigns a reviewer.</p>
+        <p class="muted">
+          The owner acknowledges the hold and assigns a reviewer.
+        </p>
       </CardItem>
       <CardItem title="Review clock" description="12 hours">
         <p class="muted">
-          Human review confirms, narrows, or removes the hold.
+          A person reviews the hold and keeps it, narrows it, or removes it.
         </p>
       </CardItem>
       <CardItem title="Remedy clock" description="48 hours">
         <p class="muted">
-          Release the hold or provide a safe fallback with notice.
+          The hold is released, or the account holder is told and given limited
+          access.
         </p>
       </CardItem>
     </CardGrid>
@@ -85,11 +88,11 @@ const receiptPayload = `{
     description="Each delay is logged as an exception."
   >
     <ul class="muted">
-      <li>Delayed notice allowed only for active fraud investigation.</li>
-      <li>Maximum delay window is 24 hours before notice is required.</li>
+      <li>Notice can be delayed only while a fraud investigation is open.</li>
+      <li>Notice must go out within 24 hours of the hold.</li>
       <li>
-        Exceptions logged in the <a href="/exceptions">Exceptions framework</a> with
-        steward review.
+        A steward reviews each delay, and it is logged in the
+        <a href="/exceptions">Exceptions framework</a>.
       </li>
     </ul>
   </SectionBlock>
@@ -97,14 +100,28 @@ const receiptPayload = `{
   <SectionBlock
     id="remedy"
     eyebrow="Remedy"
-    title="Release or compensate quickly"
+    title="Release or compensate within 48 hours"
     description="The notice shows the remedy the moment it is delivered."
     variant="alt"
   >
     <ul class="muted">
-      <li>Release the hold and restore access if fraud is not confirmed.</li>
-      <li>Provide limited-access alternatives if verification is needed.</li>
-      <li>Issue compensation for access loss tied to the decision log.</li>
+      <li>
+        If fraud is not confirmed, the hold is released and access restored.
+      </li>
+      <li>
+        If more verification is needed, the account holder keeps limited access
+        in the meantime.
+      </li>
+      <li>
+        Compensation for lost access is paid and recorded against the decision
+        log entry.
+      </li>
+      <li>
+        Each hold released without confirmed fraud is counted against the rule
+        that placed it, here VELOCITY or DEVICE-MISMATCH. The count goes to
+        Fraud Operations, which owns the rules. When the count passes a set
+        number, it reviews the rule and records what changed.
+      </li>
     </ul>
   </SectionBlock>
 
@@ -120,12 +137,14 @@ const receiptPayload = `{
         release.
       </li>
       <li>
-        Link evidence in <a href="/evidence-packs">STD-01 + STD-02 packs</a>.
+        Link the evidence in the <a href="/evidence-packs"
+          >STD-01 and STD-02 packs</a
+        >.
       </li>
       <li>
-        Reference <a href="/anti-weaponization"
-          >anti-weaponization constraints</a
-        > on delayed notice.
+        Apply the
+        <a href="/anti-weaponization">anti-weaponization constraints</a> to delayed
+        notice.
       </li>
     </ul>
   </SectionBlock>

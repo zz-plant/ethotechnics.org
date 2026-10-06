@@ -6,7 +6,7 @@ import SectionBlock from "../../components/SectionBlock.astro";
 
 const pageTitle = "Contestability checklist";
 const pageDescription =
-  "Six pass/fail questions that test whether a person can contest an automated decision, with three short notes on what a failing answer means.";
+  "Seven pass/fail questions that test whether a person can contest an automated decision, with three short notes on what a failing answer means.";
 
 const anchorLinks = [
   { href: "#checklist", label: "Checklist" },
@@ -14,20 +14,21 @@ const anchorLinks = [
 ];
 
 const checklistItems = [
-  "Do I receive a specific decision object with reasons, timestamps, and scope?",
-  "Is there a named, accountable authority who can change or reverse the decision?",
-  "Is the review clock explicit, with a deadline that forces a response?",
-  "Can I trigger an appeal without permission gates or hidden prerequisites?",
-  "Is there a clear reversal or remedy path once the decision is contested?",
-  "Can I see evidence that appeals can succeed (not just be processed)?",
+  "Does the person receive a decision record with the reasons, the date, and what the decision covers?",
+  "Can a named person change or reverse the decision?",
+  "Is there a deadline by which the person must get an answer?",
+  "Can the person appeal without asking permission or meeting hidden conditions first?",
+  "If the appeal succeeds, is there a set way to reverse the decision or remedy the harm?",
+  "Is there a record that appeals have succeeded, not only that they were processed?",
+  "Are upheld appeals counted against the rule that produced them, and is the count sent to the rule's owner?",
 ];
 
 const explainerItems = [
   {
     title: "What contestability means",
     body: [
-      "Contestability is the system property that turns “that’s wrong” into a contestable object: a decision with reasons, a clock, an accountable authority, and a pathway to reversal.",
-      "If people cannot force a decision into that state, contestability doesn’t exist, even if a form or hotline is present.",
+      "Contestability turns “that’s wrong” into something the system has to answer: a decision with reasons, a deadline, a named person who can change it, and a route to reversal.",
+      "If a person cannot get their case into that state, there is no contestability, even if there is a form or a hotline.",
     ],
     link: {
       href: "/glossary/contestability",
@@ -37,8 +38,8 @@ const explainerItems = [
   {
     title: "Why “contact support” is not due process",
     body: [
-      "“Contact support” is a queue, not a contestable object. Without a receipt, a clock, and a named authority, it is only a request for help.",
-      "Due process requires a bounded timeline, enforceable escalation, and a binding decision path. Otherwise, requests linger and never convert into reversals.",
+      "“Contact support” is a queue. Without a receipt, a deadline, and a named person who can decide, it is only a request for help.",
+      "Due process needs a deadline, escalation that has to happen, and a decision that binds. Without them, requests sit in the queue and are never reversed.",
     ],
     link: {
       href: "/standards/std-02-contestability-recourse",
@@ -48,8 +49,8 @@ const explainerItems = [
   {
     title: "What makes an appeal able to change the outcome",
     body: [
-      "Under contestability, a person can challenge a decision and have it changed or overturned. It requires wide permission surfaces, high appeal passage rates, and transparent design authority.",
-      "A real appeal shows its success rate, names who can reverse outcomes, and exposes where evidence is evaluated. Performative appeals hide authority, suppress win rates, or end in untraceable queues.",
+      "An appeal can change the outcome when it reaches someone who can reverse the decision, and the evidence the person sends is weighed. A real appeal route publishes how often appeals succeed, names who can reverse outcomes, and shows where the evidence is weighed.",
+      "An appeal for show hides who decides, does not publish how often appeals win, or ends in a queue no one can trace. When appeals against one rule keep winning, the rule is wrong. The count goes to the rule's owner, who changes the rule.",
     ],
     link: {
       href: "/standards/std-02-contestability-recourse",
@@ -73,9 +74,9 @@ const explainerItems = [
 
   <SectionBlock
     id="checklist"
-    eyebrow="Can I contest this?"
+    eyebrow="Can a person contest this?"
     title="Contestability checklist"
-    description="Six pass/fail questions to run over a decision flow before it ships or when it is audited."
+    description="Seven pass/fail questions to run over a decision flow before it ships or when it is audited."
   >
     <div class="contestability-layout screen-only">
       <div class="contestability-layout__main">
@@ -84,7 +85,9 @@ const explainerItems = [
           role="group"
           aria-label="Contestability checklist"
         >
-          <p class="contestability-checklist__title">Can I contest this?</p>
+          <p class="contestability-checklist__title">
+            Can a person contest this?
+          </p>
           <ul data-checklist-items>
             {checklistItems.map((item) => <li>{item}</li>)}
           </ul>

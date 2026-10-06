@@ -48,7 +48,7 @@ const receiptPayload = `{
     id="receipt"
     eyebrow="Receipt"
     title="Receipt issued before release"
-    description="An irreversible action emits its receipt before it executes."
+    description="An action that cannot be undone issues its receipt before it runs."
   >
     <pre class="code-block">{receiptPayload}</pre>
   </SectionBlock>
@@ -63,17 +63,17 @@ const receiptPayload = `{
     <CardGrid className="grid--three">
       <CardItem title="Ack clock" description="1 hour">
         <p class="muted">
-          Owner acknowledges the payout and names the reviewer.
+          The owner acknowledges the payout and names the reviewer.
         </p>
       </CardItem>
       <CardItem title="Review clock" description="8 hours">
         <p class="muted">
-          Human review checks for fraud, sanctions, or payout errors.
+          A person checks the payout for fraud, sanctions, or errors.
         </p>
       </CardItem>
       <CardItem title="Remedy clock" description="48 hours">
         <p class="muted">
-          Compensation, reversal substitute, or dispute resolution begins.
+          Compensation is paid, or a dispute starts to recover the money.
         </p>
       </CardItem>
     </CardGrid>
@@ -86,10 +86,13 @@ const receiptPayload = `{
     description="An AML or legal hold leaves the receipt and the clocks in place."
   >
     <ul class="muted">
-      <li>Legal holds can pause payout but must keep clocks active.</li>
-      <li>Security escalations require steward sign-off and audit trace.</li>
+      <li>A legal hold can pause the payout. The clocks keep running.</li>
       <li>
-        Exception entries live in the <a href="/exceptions"
+        A security escalation needs a steward's sign-off and leaves an audit
+        record.
+      </li>
+      <li>
+        Each exception is logged in the <a href="/exceptions"
           >Exceptions framework</a
         >.
       </li>
@@ -104,9 +107,17 @@ const receiptPayload = `{
     variant="alt"
   >
     <ul class="muted">
-      <li>Issue credits or chargebacks within the remedy clock.</li>
-      <li>Provide a human review escalation path within 24 hours.</li>
-      <li>Notify impacted parties with evidence pack references.</li>
+      <li>Credits or chargebacks are issued within the remedy clock.</li>
+      <li>
+        A person can ask for a human review, which starts within 24 hours.
+      </li>
+      <li>Everyone affected is told, with a link to the evidence pack.</li>
+      <li>
+        Each payout later found wrong is counted against the rule that cleared
+        it, here RISK-LOW. The count goes to Payments Risk, which owns the rule.
+        When the count passes a set number, it reviews the rule and records what
+        changed.
+      </li>
     </ul>
   </SectionBlock>
 
@@ -124,7 +135,8 @@ const receiptPayload = `{
         Attach <a href="/evidence-packs">evidence packs</a> to payout receipts.
       </li>
       <li>
-        Reference <a href="/mechanisms/patterns/decision-log">decision log</a> entries.
+        Link each payout receipt to its
+        <a href="/mechanisms/patterns/decision-log">decision log</a> entry.
       </li>
     </ul>
   </SectionBlock>

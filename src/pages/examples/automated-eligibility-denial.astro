@@ -63,17 +63,20 @@ const receiptPayload = `{
     <CardGrid className="grid--three">
       <CardItem title="Ack clock" description="4 hours">
         <p class="muted">
-          Owner confirms responsibility and shares a review ETA.
+          The owner confirms it has the case and tells the applicant when review
+          will finish.
         </p>
       </CardItem>
       <CardItem title="Review clock" description="48 hours">
         <p class="muted">
-          Human reviewer validates the denial or flags an exception.
+          A person reviews the denial and upholds it, reverses it, or records an
+          exception.
         </p>
       </CardItem>
       <CardItem title="Remedy clock" description="120 hours">
         <p class="muted">
-          Reversal, compensation, or safe fallback is delivered.
+          The applicant gets a reversal, compensation, or a fallback that keeps
+          essential support in place.
         </p>
       </CardItem>
     </CardGrid>
@@ -87,9 +90,12 @@ const receiptPayload = `{
   >
     <ul class="muted">
       <li>
-        Data-quality exceptions require a documented re-verification plan.
+        A data-quality exception needs a written plan to check the income again.
       </li>
-      <li>Legal exceptions require steward sign-off and review cadence.</li>
+      <li>
+        A legal exception needs a steward's sign-off and a date for its next
+        review.
+      </li>
       <li>
         Exceptions are logged in the <a href="/exceptions"
           >Exceptions framework</a
@@ -106,9 +112,20 @@ const receiptPayload = `{
     variant="alt"
   >
     <ul class="muted">
-      <li>Reverse the denial when verification succeeds.</li>
-      <li>Offer assisted review for high-burden applicants.</li>
-      <li>Provide clear next steps and evidence requests.</li>
+      <li>If the income is verified, the denial is reversed.</li>
+      <li>
+        An applicant who would struggle to gather documents gets a caseworker's
+        help with the review.
+      </li>
+      <li>
+        The applicant is told the next step and which documents are needed.
+      </li>
+      <li>
+        Each INCOME-MISMATCH denial reversed on appeal is counted against the
+        income-matching rule. The count goes to Eligibility Operations, which
+        owns the rule. When the count passes a set number, it reviews the rule
+        and records what changed.
+      </li>
     </ul>
   </SectionBlock>
 
@@ -127,7 +144,8 @@ const receiptPayload = `{
         Attach <a href="/evidence-packs">evidence packs</a> to denial records.
       </li>
       <li>
-        Add <a href="/anti-weaponization">anti-weaponization constraints</a> for burden
+        Apply the
+        <a href="/anti-weaponization">anti-weaponization constraints</a> to burden
         checks.
       </li>
     </ul>

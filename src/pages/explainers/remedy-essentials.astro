@@ -21,64 +21,64 @@ const essentials = [
   {
     title: "Bounded pending",
     description:
-      "Every contested state has a published maximum duration. No account, benefit, or payment sits in limbo indefinitely.",
-    why: "Without bounds, systems drift into silent denial. Time caps force decisions and prevent hidden backlogs from becoming policy.",
+      "Every contested state has a published maximum duration. No account, benefit, or payment is left pending without an end date.",
+    why: "Without a limit, a pending case becomes a denial nobody decided. A limit forces a decision and shows the backlog.",
     signals:
-      "Pending states are time-boxed, with auto-escalation or fallback when the clock expires.",
+      "Each pending state has a time limit. When it runs out, the case escalates or a fallback applies.",
   },
   {
-    title: "Remedy SLAs",
+    title: "Remedy clocks",
     description:
-      "Publish acknowledgment, review, and remedy clocks so affected people know when action will land.",
-    why: "A published SLA makes each delay measurable, so an owner can be held to fixing it.",
-    signals:
-      "Receipts include timestamps, owners, and SLA targets for every stage.",
+      "Publish when the person will get an acknowledgment, a review, and a remedy.",
+    why: "A published deadline makes each delay countable, so an owner can be held to it.",
+    signals: "Each receipt states the owner and the deadline for each stage.",
   },
   {
     title: "Default provisional reinstatement",
     description:
-      "When evidence is incomplete, restore access or privilege provisionally while review continues.",
-    why: "It minimizes collateral harm by making the default state reversible, especially for essential services.",
+      "When the evidence is incomplete, restore access for now while review continues.",
+    why: "If the decision turns out to be wrong, the person has lost less. This matters most for essential services.",
     signals:
-      "Systems can grant safe, limited access pending review with a clear rollback plan.",
+      "The system can give limited access during review, and withdraw it if the decision stands.",
   },
   {
     title: "Clear escalation paths",
     description:
-      "Escalation ladders name who can override, with a defined path to human authority.",
-    why: "Escalation is the fail-safe that stops automated error from turning into institutional inertia.",
+      "Name who can override the decision, and how a case reaches them.",
+    why: "If no one is named, an automated error stays in place because no one is assigned to remove it.",
     signals:
-      "On-call rosters and authority scopes are visible in receipts and internal playbooks.",
+      "On-call rosters and each person's authority appear on receipts and in internal playbooks.",
   },
   {
     title: "Compensation or fee shifting",
     description:
-      "Wrongful harm triggers automatic credits, fee waivers, or restitution timelines.",
-    why: "Compensation aligns incentives and makes the cost of error explicit to operators.",
-    signals: "Remedy outcomes log restitution amounts and delivery dates.",
+      "A wrongful harm triggers credits, fee waivers, or repayment by a set date.",
+    why: "When errors cost the operator money, the operator has a reason to reduce them.",
+    signals:
+      "Each remedy record logs the amount repaid and the date it was paid.",
   },
   {
     title: "Time-to-remedy distribution",
-    description:
-      "Track the full distribution, not just averages, of how long remedies take.",
-    why: "Distributions reveal tail risk, showing who waits the longest and where equity gaps hide.",
-    signals: "Dashboards show median, p90, and p99 remedy times by segment.",
+    description: "Track how long every remedy takes, not only the average.",
+    why: "An average hides the people who wait longest. The slowest cases show who they are.",
+    signals:
+      "Reports show median, p90, and p99 remedy times for each group of cases.",
   },
   {
     title: "Constraints on discretionary holds",
     description:
-      "Holds need clear criteria, owners, and maximum durations even under fraud or legal review.",
-    why: "Discretion without guardrails is indistinguishable from silent denial.",
+      "Each hold has stated criteria, an owner, and a maximum duration, even during fraud or legal review.",
+    why: "A hold with no criteria and no limit cannot be told apart from a denial nobody has to explain.",
     signals:
-      "Hold policies specify reasons, clocks, and appeal paths; exceptions are audited.",
+      "Hold policies state the reasons, the clocks, and the appeal route. Exceptions are audited.",
   },
   {
     title: "Reversal drills and error budgets",
     description:
-      "Practice reversals and quantify how much error the system can tolerate before halting.",
-    why: "Drills prove readiness, while error budgets prevent slow degradation of remedy performance.",
+      "Practice reversing decisions. Set how many wrong decisions a rule may produce before it is halted and sent back to its owner.",
+    why: "A drill shows that a reversal works before anyone needs one. An error budget stops wrong decisions from being fixed one at a time while the rule that made them keeps running.",
     signals:
-      "Quarterly drills, post-incident reviews, and error budget burn alerts are documented.",
+      "Quarterly drill results, reviews after incidents, and alerts when the error budget runs low are on record.",
   },
 ];
 
@@ -91,28 +91,28 @@ const mapLanes = [
     ],
   },
   {
-    title: "Clocks + escalation during review",
-    items: ["Bounded pending", "Remedy SLAs", "Clear escalation paths"],
+    title: "Clocks and escalation during review",
+    items: ["Bounded pending", "Remedy clocks", "Clear escalation paths"],
   },
   {
     title: "Proof of remedy delivery",
     items: ["Time-to-remedy distribution", "Compensation or fee shifting"],
   },
   {
-    title: "Readiness and resilience",
+    title: "Readiness",
     items: ["Reversal drills and error budgets"],
   },
 ];
 
 const checklist = [
-  "Publish acknowledgment, review, and remedy clocks in the UI.",
-  "Trigger auto-escalation or safe fallback when the pending clock expires.",
-  "Default to provisional reinstatement for essential access unless safety criteria block it.",
-  "Document escalation authority with contactable, on-call owners.",
-  "Log remedy outcomes, restitution amounts, and delivery dates.",
-  "Track time-to-remedy distributions across cohorts and exception types.",
-  "Audit discretionary holds monthly to confirm criteria, owners, and bounded durations.",
-  "Run reversal drills and track error budget burn for remedy SLAs.",
+  "Show the acknowledgment, review, and remedy deadlines on screen.",
+  "Escalate the case, or apply a fallback, when the pending limit runs out.",
+  "Restore essential access during review unless a stated safety criterion blocks it.",
+  "Name the on-call owners who can override, and how to reach them.",
+  "Log each remedy, the amount repaid, and the date it was delivered.",
+  "Track how long remedies take, by group of cases and by exception type.",
+  "Audit holds each month for criteria, owners, and time limits.",
+  "Run reversal drills, and count upheld challenges by rule against the error budget.",
 ];
 ---
 

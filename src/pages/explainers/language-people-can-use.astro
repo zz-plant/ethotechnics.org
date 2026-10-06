@@ -8,44 +8,45 @@ import SectionBlock from "../../components/SectionBlock.astro";
 
 const pageTitle = "Language people can use";
 const pageDescription =
-  "Phrases to send when an automated decision affects you. Each asks for the decision record, the owner, the review clock, or the remedy.";
+  "Questions to send when an automated decision affects you. Each asks for one thing: the reasons, the record, who can change it, or when you will hear back.";
 const permalink = "/explainers/language-people-can-use";
 
 const anchorLinks = [
-  { href: "#phrases", label: "Copy-ready phrases" },
-  { href: "#contexts", label: "Context blocks" },
+  { href: "#phrases", label: "Questions to send" },
+  { href: "#contexts", label: "By setting" },
   { href: "#print", label: "Printable sheet" },
 ];
 
 const phrases = [
   {
-    title: "This decision lacks contestability.",
-    description:
-      "Use when a decision has no visible reasons, owner, or path to reversal.",
+    title:
+      "Who can change this decision, and by what date will they answer me?",
+    description: "Use when no one is named and no date is given.",
   },
   {
-    title: "What is the escalation path and remedy if this is wrong?",
-    description:
-      "Use when you are asked to accept an outcome without a clear appeal route.",
+    title: "What were the reasons for this decision?",
+    description: "Use when you were told the outcome but not why.",
   },
   {
     title:
-      "Please provide the decision record, timestamps, and accountable owner.",
-    description: "Use to request a contestable object you can track and share.",
-  },
-  {
-    title: "I need the review clock and the deadline for a final response.",
+      "Please send me the record of this decision and the information it used.",
     description:
-      "Use to demand a time-bound response instead of an open-ended queue.",
+      "Use when you want something in writing you can check and show to someone else.",
   },
   {
-    title: "Who can override this decision and how do I reach them?",
-    description: "Use when escalation authority is implied but unnamed.",
+    title: "If this decision was wrong, what will you do to put it right?",
+    description: "Use before you appeal, to learn what winning would get you.",
   },
   {
-    title: "If this cannot be reversed, state that in writing.",
+    title: "Have other decisions made under the same rule been overturned?",
     description:
-      "Use to put finality on the record, with someone answerable for it.",
+      "Use when you think your case is not the only one. It asks whether wins on appeal have changed the rule.",
+  },
+  {
+    title:
+      "If this decision cannot be changed, please tell me that in writing.",
+    description:
+      "Use to get the answer on the record, from someone who has to stand behind it.",
   },
 ];
 
@@ -55,9 +56,9 @@ const contextBlocks = [
     description:
       "For HR, scheduling, access control, or performance decisions inside companies.",
     phrases: [
-      "I am requesting the accountable owner for this decision and their escalation path.",
-      "Please document the review clock and when a final response is due.",
-      "If this decision is final, confirm the remedy options that remain available.",
+      "Who can change this decision?",
+      "By what date will I get a final answer?",
+      "If this decision stands, what options do I still have?",
     ],
   },
   {
@@ -65,9 +66,9 @@ const contextBlocks = [
     description:
       "For benefits, housing, healthcare, or licensing decisions run by public agencies.",
     phrases: [
-      "Please provide the decision record and the statutory timeline for appeal.",
-      "What is the remedy if this determination is wrong, and who approves it?",
-      "I need a written explanation of the reasons and evidence relied on.",
+      "What is the deadline for appealing this decision?",
+      "Please tell me in writing what evidence this decision relied on.",
+      "If this decision is overturned, will I get back what I missed?",
     ],
   },
   {
@@ -75,9 +76,9 @@ const contextBlocks = [
     description:
       "For content moderation, account restrictions, payouts, or ranking changes.",
     phrases: [
-      "What evidence triggered this action and how can I contest it?",
-      "Who has authority to reverse this decision, and how do I reach them?",
-      "Please confirm the escalation path, review clock, and remedy options.",
+      "What content or activity led to this action?",
+      "How do I ask a person to review this?",
+      "If my appeal succeeds, when will my account be restored?",
     ],
   },
 ];
@@ -85,10 +86,10 @@ const contextBlocks = [
 const printSheet = {
   title: "Language people can use",
   intro:
-    "Each phrase asks for one thing: the decision record, the owner, the review clock, or the remedy.",
+    "Each question asks for one thing: the reasons, the record, who can change the decision, when you will hear back, or what happens if it was wrong.",
   sections: [
     {
-      title: "Core phrases",
+      title: "Six questions",
       items: phrases.map((item) => item.title),
     },
     {
@@ -121,9 +122,9 @@ const printSheet = {
 
   <SectionBlock
     id="phrases"
-    eyebrow="Copy-ready"
-    title="Six phrases that ask for the record"
-    description="Use these in email, chat, or intake forms to demand a contestable record."
+    eyebrow="Questions to send"
+    title="Six questions, one ask each"
+    description="Send them by email, by chat, or in the form you were given. Each asks for one thing."
   >
     <CardGrid className="grid--two">
       {
@@ -140,9 +141,9 @@ const printSheet = {
 
   <SectionBlock
     id="contexts"
-    eyebrow="Context blocks"
-    title="Adapt the language to your setting"
-    description="Workplace systems, public services, and platforms each get three phrases to send as written."
+    eyebrow="By setting"
+    title="Questions for your setting"
+    description="Workplace systems, public services, and platforms each get three questions to send as written."
     variant="alt"
   >
     <CardGrid className="grid--two">
@@ -168,7 +169,7 @@ const printSheet = {
     id="print"
     eyebrow="Printable"
     title="One-page language sheet"
-    description="Print this sheet or save it as a PDF for quick reference."
+    description="Print this sheet or save it as a PDF to keep with your papers."
   >
     <div class="language-print screen-only">
       <div class="language-print__panel">
