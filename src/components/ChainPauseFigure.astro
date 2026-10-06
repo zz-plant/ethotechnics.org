@@ -222,6 +222,16 @@ const barScale = 600 / composedHours;
           height="28"
           rx="4"
           class="chain-pause__window"></rect>
+        {
+          /* The window is the allowance, drawn neutral; the breach is where it
+            ends, and every hop past that line runs with no one watching. */
+        }
+        <line
+          x1={30 + humanWindowHours * barScale}
+          x2={30 + humanWindowHours * barScale}
+          y1={barY - 6}
+          y2={barY + barHeight + 38}
+          class="chain-pause__limit"></line>
         <text x="40" y={barY + barHeight + 29} class="demo-figure__svg-label">
           the human window, {humanWindowHours} h
         </text>

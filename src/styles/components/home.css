@@ -660,7 +660,9 @@
     color: var(--muted);
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
-    min-width: 3.5rem;
+    /* "20 yr 6 mo" is the longest label; every row reserves its width so
+       the bars line up. */
+    min-width: 10ch;
   }
 
   @media (min-width: 1000px) {

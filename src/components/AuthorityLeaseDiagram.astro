@@ -57,7 +57,7 @@ const Heading = level;
           <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)"></path>
         </marker>
         <marker
-          id="lease-danger-arrow"
+          id="lease-lapse-arrow"
           viewBox="0 0 10 10"
           refX="9"
           refY="5"
@@ -65,7 +65,7 @@ const Heading = level;
           markerHeight="6"
           orient="auto-start-reverse"
         >
-          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--status-danger)"></path>
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--status-warning)"></path>
         </marker>
       </defs>
 
@@ -226,20 +226,22 @@ const Heading = level;
         </g>
 
         {
-          /* Branch B: Default Lapse -> Safe Fallback (leaves the diamond's top vertex) */
+          /* Branch B: Default Lapse -> Safe Fallback (leaves the diamond's top
+             vertex). Amber, not red: the lapse is the designed stop, and red
+             is kept for the failure row above. */
         }
         <path
           d="M 590 35 L 705 35"
-          stroke="var(--status-danger)"
+          stroke="var(--status-warning)"
           stroke-width="2"
           fill="none"
-          marker-end="url(#lease-danger-arrow)"></path>
+          marker-end="url(#lease-lapse-arrow)"></path>
         <text
           x="647"
           y="27"
           text-anchor="middle"
           class="state-diagram__clause"
-          fill="var(--status-danger)">Silence / no proof</text
+          fill="var(--status-warning-deep)">Silence / no proof</text
         >
         <g transform="translate(705, 5)">
           <rect
@@ -247,14 +249,14 @@ const Heading = level;
             height="60"
             rx="6"
             fill="var(--surface)"
-            stroke="var(--status-danger)"
+            stroke="var(--status-warning)"
             stroke-width="1.5"></rect>
           <text
             x="82.5"
             y="26"
             text-anchor="middle"
             class="state-diagram__state"
-            fill="var(--status-danger)">Default lapse</text
+            fill="var(--status-warning-deep)">Default lapse</text
           >
           <text
             x="82.5"
