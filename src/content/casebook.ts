@@ -182,6 +182,13 @@ export type Case = PublishedContent & {
   timeToHaltDays: number;
   /** Who made the halt happen. Almost never the operator. */
   haltedBy: string;
+  /**
+   * Who absorbed the system's errors while it ran, and how: the error-bearing
+   * parties, named from the narrative, scale, and findings, never added to
+   * them. Also never the operator. Where the record says who kept the
+   * benefit, that goes here too, because the two sit on different ledgers.
+   */
+  errorsCarriedBy: string;
   summary: string;
   /** Page meta description: the institution, the date, the number, in ~160 characters. */
   metaDescription?: string;
@@ -264,7 +271,7 @@ export const casebookContent: CasebookContent = {
   eyebrow: "Casebook",
   title: "Five public failures, scored",
   description:
-    "Each case was established by a court, an inquiry, or a regulator. Each is scored on six safeguards: capability, authority, evidence, dependency, standing, and correction. Each score names the draft clause this project argues would have caught the failure. The findings are the court's, the inquiry's, or the regulator's; the scores are this project's reading of them. A last column records whether the institution changed the process that produced the errors, or corrected the errors and left the process as it was. The scores are not a verdict on anyone. They show where the safeguards broke.",
+    "Each case was established by a court, an inquiry, or a regulator. Each is scored on six safeguards: capability, authority, evidence, dependency, standing, and correction. Each score names the draft clause this project argues would have caught the failure. The findings are the court's, the inquiry's, or the regulator's; the scores are this project's reading of them. Each case names who carried the errors while the system ran. A last column records whether the institution changed the process that produced the errors, or corrected the errors and left the process as it was. The scores are not a verdict on anyone. They show where the safeguards broke.",
 };
 
 export const cases: Case[] = [
@@ -284,6 +291,8 @@ export const cases: Case[] = [
     timeToHaltDays: 1230,
     haltedBy:
       "The Federal Court, on a consent order the Commonwealth agreed to hours before a hearing it would have lost.",
+    errorsCarriedBy:
+      "Recipients, who had to produce payslips, often for years past, to disprove debts raised by averaging. The scheme had been booked as a budget saving of more than a billion dollars before it raised a debt.",
     published: "2026-09-17T00:00:00Z",
     summary:
       "A scheme that raised debts at twenty times the previous rate, under an interpretation of the law the department had been advised in 2014 was wrong, and that treated a tribunal's repeated findings of unlawfulness as individual outcomes rather than as evidence against the scheme.",
@@ -513,6 +522,8 @@ export const cases: Case[] = [
     timeToHaltDays: 2670,
     haltedBy:
       "The Council of State reversing its own case law in October 2019, then a parliamentary inquiry.",
+    errorsCarriedBy:
+      "Parents, more than 30,000 of them, made to repay benefits, often tens of thousands of euros, without being told why they had been flagged. The people working the review queue saw the pattern first and had no standing to raise it.",
     published: "2026-09-17T00:00:00Z",
     summary:
       "A fraud-detection system whose risk score was treated as a finding, whose reasons were withheld from the people it flagged and from the courts that reviewed them, and whose harshest rule was upheld by the highest administrative court for years before that court changed its mind.",
@@ -704,6 +715,8 @@ export const cases: Case[] = [
     timeToHaltDays: 7473,
     haltedBy:
       "A group of 555 subpostmasters in civil litigation, then the Court of Appeal, then an Act of Parliament quashing convictions in bulk.",
+    errorsCarriedBy:
+      "Subpostmasters, who were contractually liable for the shortfalls Horizon reported, and were then investigated and prosecuted by the operator on that evidence. Each was told the system was robust and that no one else had complained.",
     published: "2026-09-17T00:00:00Z",
     summary:
       "A system whose output was admitted as evidence of a crime under a legal presumption that computers work, whose known defects were logged by the supplier and withheld from defendants, and whose operator could not afford, contractually or reputationally, to find that it was wrong.",
@@ -892,6 +905,8 @@ export const cases: Case[] = [
     timeToHaltDays: 4,
     haltedBy:
       "The Secretary of State, after Scotland had already reversed its equivalent and universities had begun allocating places on the model's grades.",
+    errorsCarriedBy:
+      "Students in large cohorts at state schools, where the model overrode teachers' grades most. They could appeal only through their school, and not on the ground that the model had ranked them wrongly. Small classes were exempt.",
     published: "2026-09-17T00:00:00Z",
     summary:
       "The one case in the casebook where correction was fast, which is what makes it useful: a model with no evidenced accuracy at the level of the individual it was applied to, no appeal on the ground that it was wrong about that individual, and a halt that worked only because it came before anyone had come to depend on the grades.",
@@ -1057,6 +1072,8 @@ export const cases: Case[] = [
     timeToHaltDays: 494,
     haltedBy:
       "Nobody. The issuer changed its policies after a regulator's investigation found the process, not the model, deficient.",
+    errorsCarriedBy:
+      "Spouses whose finances were shared but whose credit histories were not, offered lower limits with no way to ask for reconsideration. The bank's customer service staff took the complaints with no explanation to give.",
     published: "2026-09-17T00:00:00Z",
     summary:
       "The control case. The model was examined and cleared; the failure was that the person on the receiving end had no reasons and no route, and the people answering the phone had neither either. Four of the six safeguards held. The two that did not, evidence and standing, are the two the contestability standard (STD-02) exists for.",
