@@ -25,12 +25,10 @@ const pageDescription =
           the standards, tools, and first steps that apply to it.
         </p>
         <p class="small muted">
-          Know the system better than the role?
-          <a href="/use-cases">Start from what it decides &rarr;</a>
-          {" "}·{" "}
-          <a href="#symptoms">Triage by symptom &rarr;</a>
-          {" "}·{" "}
-          <a href="#translation">Industry translation &rarr;</a>
+          Or start from
+          <a href="#symptoms">a symptom you see</a>{" "}·{" "}
+          <a href="#translation">an industry term</a>{" "}·{" "}
+          <a href="#fast-path">the one-sprint plan</a>
         </p>
 
         <div class="panel panel--glass start-applicability">
@@ -42,6 +40,22 @@ const pageDescription =
             evidentiary reinvestigation—and a person bears the consequence of an error—this
             framework applies. It governs the delegation agreement and authority lease,
             not model capabilities.
+          </p>
+          <p class="small">
+            <a href="/use-cases">Which systems this is for &rarr;</a> Six kinds of
+            automated decision the standards are built for, what to bind and run first
+            in each, and five where the framework does less.
+          </p>
+        </div>
+
+        <div class="panel panel--glass start-applicability">
+          <p class="eyebrow">If a system decided about you</p>
+          <p>
+            Three checks: can the decision be challenged, can the appeal change
+            the outcome, and who can reverse it.
+            <a href="/diagnostics/self-defense-tools"
+              >Check a decision about you &rarr;</a
+            >
           </p>
         </div>
       </div>
@@ -57,10 +71,7 @@ const pageDescription =
     <div class="time-ladder stack-sm">
       <div class="time-ladder__header">
         <p class="eyebrow">Start by time available</p>
-        <h2>Three immediate ways into the work</h2>
-        <p class="section-lead">
-          Choose the entry path that matches your schedule today.
-        </p>
+        <h2>Five minutes, an hour, or a sprint</h2>
       </div>
       <div class="grid grid--three">
         <article class="card stack-xs">
@@ -78,25 +89,23 @@ const pageDescription =
           <span class="pill pill--ghost">1 hour</span>
           <h3>Finite stoppability drills</h3>
           <p class="small muted">
-            Evaluate whether your system's apparent throughput collapses when
-            frontline human workarounds and off-shift buffers cease.
+            Three drills: can the people who run the system stop it without
+            penalty, can its decisions be undone and repaid, and who absorbs the
+            cost when it strains.
           </p>
           <p class="small">
-            <a href="/evals#finite">Explore drills &rarr;</a>
+            <a href="/evals#finite">Open the drills &rarr;</a>
           </p>
         </article>
         <article class="card stack-xs">
           <span class="pill pill--ghost">1 sprint</span>
-          <h3>Revisable delegation record</h3>
+          <h3>The basics</h3>
           <p class="small muted">
-            Implement STD-07 machine-readable decision records in your agent
-            pipeline to create schema-validated records with distinct
-            timestamps. Level 3 adds standing and external objections.
+            An appeal path that reaches the rule, a decision log with dissent,
+            and a named halt, each with an owner and an effort estimate.
           </p>
           <p class="small">
-            <a href="/standards/std-07-revisable-delegation-record"
-              >View STD-07 &rarr;</a
-            >
+            <a href="#fast-path">See the plan &rarr;</a>
           </p>
         </article>
       </div>
@@ -165,67 +174,6 @@ const pageDescription =
         ))
       }
     </div>
-
-    <!-- Targeted operational entry points -->
-    <section class="direct-tracks" aria-label="Direct tracks">
-      <div class="direct-track">
-        <span class="eyebrow">Delegation</span>
-        <h2>Unsure what the system is allowed to decide?</h2>
-        <p>
-          Take one workflow and check what decisions it hands to the system, on
-          what evidence, and whether that is still justified.
-        </p>
-        <div class="direct-track__links">
-          <a href="/diagnostics/delegation-audit" class="button"
-            >Delegation audit</a
-          >
-          <a href="/method" class="button button--ghost">Methodology</a>
-        </div>
-      </div>
-
-      <div class="direct-track">
-        <span class="eyebrow">Affected individual</span>
-        <h2>A system decided about you?</h2>
-        <p>
-          Three checks: can the decision be appealed, who holds authority to
-          reverse it, and what evidence must be preserved?
-        </p>
-        <div class="direct-track__links">
-          <a href="/diagnostics/self-defense-tools" class="button"
-            >Check a decision about you</a
-          >
-          <a href="/triage" class="button button--ghost">Incident triage</a>
-        </div>
-      </div>
-
-      <div class="direct-track">
-        <span class="eyebrow">Fit</span>
-        <h2>Not sure this applies to your system?</h2>
-        <p>
-          Six kinds of automated decision the standards are built for, what to
-          bind and run first in each, and five where the framework does less.
-        </p>
-        <div class="direct-track__links">
-          <a href="/use-cases" class="button">Which systems this is for</a>
-          <a href="/casebook" class="button button--ghost">Scored cases</a>
-        </div>
-      </div>
-
-      <div class="direct-track">
-        <span class="eyebrow">Adoption</span>
-        <h2>Already decided to adopt?</h2>
-        <p>
-          Two paths: follow the one-sprint adoption plan, or practice deciding
-          when to halt an automated system in Finite, a training simulation.
-        </p>
-        <div class="direct-track__links">
-          <a href="#fast-path" class="button">Adoption plan</a>
-          <a href="/evals#finite" class="button button--ghost"
-            >Practice in Finite</a
-          >
-        </div>
-      </div>
-    </section>
 
     <!-- Industry translation guide -->
     <section id="translation" class="start-translation stack-sm">
@@ -612,54 +560,6 @@ const pageDescription =
   .role-card__step-link:hover {
     text-decoration: underline;
     color: var(--accent-strong);
-  }
-
-  /* Targeted direct tracks */
-  .direct-tracks {
-    margin: var(--space-8) 0 var(--space-6);
-    display: grid;
-    gap: var(--space-5);
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
-  }
-
-  /* Four tracks: two rows of two, so no track sits alone on a row. */
-  @media (min-width: 720px) {
-    .direct-tracks {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  .direct-track {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: clamp(var(--space-4), 2.5vw, var(--space-5));
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-
-  .direct-track h2 {
-    margin: 0;
-    font-size: var(--text-lg);
-    font-family: var(--sans);
-    font-weight: 700;
-    color: var(--text);
-  }
-
-  .direct-track p {
-    margin: 0;
-    font-size: var(--text-sm);
-    color: var(--muted);
-    line-height: 1.45;
-  }
-
-  .direct-track__links {
-    margin-top: auto;
-    padding-top: var(--space-3);
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
   }
 
   .fast-path-section {
