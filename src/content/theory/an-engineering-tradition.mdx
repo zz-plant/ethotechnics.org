@@ -4,12 +4,13 @@ description: "Structural engineering, aviation, security, and site reliability e
 permalink: "/research/theory/an-engineering-tradition"
 eyebrow: "Theory"
 published: "2026-09-06"
-question: "What would a safety engineering discipline look like for delegated automated authority?"
+updated: "2026-10-06"
+question: "What would a safety engineering tradition look like for systems that make decisions on an institution's behalf?"
 lawRefs: ["I", "IV", "VI", "X", "XI"]
-summary: "Safety factors, redundancy, least privilege, fault tolerance, and error budgets are the settled answers of older disciplines. The analogous answers for delegated agency do not yet exist."
+summary: "A beam gets a safety margin, an airliner gets duplicate systems, and a program gets only the access its task needs. Systems that make decisions on an institution's behalf have no such settled rules yet."
 ---
 
-Every engineering discipline that handles consequential systems eventually stops arguing about whether its systems are good and starts specifying how they may fail. The specification becomes a tradition: practices that practitioners inherit, that regulators reference, and that nobody has to justify from first principles on each project. Structural engineering, aviation, security, and site reliability each have one. The engineering of delegated intelligence does not yet.
+Every engineering discipline that handles consequential systems eventually stops arguing about whether its systems are good and starts specifying how they may fail. The specification becomes a tradition: practices that practitioners inherit, that regulators reference, and that nobody has to justify from first principles on each project. Structural engineering, aviation, security, and site reliability each have one. Automated decision-making does not yet.
 
 ## Safety factors
 
@@ -39,7 +40,7 @@ Distributed systems engineering added the idea that failure is not an exception 
 
 Site reliability engineering then made a further move that is directly relevant here. It stated an explicit budget for failure. A service that is allowed to be unavailable for a defined fraction of the time has, in that fraction, a resource to spend. When the budget is spent, feature work stops and reliability work begins. The rule couples the pace of change to the observed rate of failure, and it does so mechanically, so that the coupling does not depend on anyone's judgment in the moment.
 
-The error budget is the closest existing analogue to what this site calls the Ethotechnical invariant. It says that a system may not accumulate change faster than it demonstrates the capacity to absorb the consequences of change. It makes success, in the form of an unspent budget, the permission for further change, and it makes failure, in the form of a spent budget, an automatic constraint.
+The error budget is the closest existing analogue to what this site calls the [Ethotechnical invariant](/standards/laws#invariant): no system may accumulate consequential agency faster than the institution accumulates the capacity to inspect, challenge, revise, and survive its decisions. The error budget says that a system may not accumulate change faster than it demonstrates the capacity to absorb the consequences of change. It makes success, in the form of an unspent budget, the permission for further change, and it makes failure, in the form of a spent budget, an automatic constraint.
 
 ## Resilience engineering
 
