@@ -100,7 +100,7 @@ export const burdenDrivers: BurdenDriver[] = [
     id: "decision-debt",
     label: "Decision debt",
     prompt:
-      "How many past decisions or ambiguous policies keep re-opening work?",
+      "How many past decisions or ambiguous policies keep reopening work?",
     category: "cognitive-load",
     weight: 1,
     mitigations: [

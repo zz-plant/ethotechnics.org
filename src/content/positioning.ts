@@ -201,7 +201,7 @@ export const instruments: Instrument[] = [
     has: "The tracking and tracing conditions: a system is meaningfully controlled when its behavior tracks a human's moral decision and its outcomes trace to a human who could have acted differently.",
     instrument: "Effective-control test",
     supplies:
-      "The conditions as a test rather than a list: formal control, information, competence, and intervention feasibility, all of them required. Any one missing, and the control is not meaningful however complete the approval chain.",
+      "The conditions as a test rather than a list: formal control, information, competence, and intervention feasibility, all of them required. Any one missing, and the control is not meaningful, however complete the approval chain.",
     links: [
       {
         label: "Meaningful-control eval suite",

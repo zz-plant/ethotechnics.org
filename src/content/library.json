@@ -45,7 +45,7 @@
         "label": "CC BY-SA 4.0",
         "href": "https://creativecommons.org/licenses/by-sa/4.0/"
       },
-      "attribution": "Credit Ethotechnics Institute, include the page title + version, and link to the canonical permalink."
+      "attribution": "Credit Ethotechnics Institute, include the page title and version, and link to the canonical permalink."
     },
     "quickStart": [
       "Read the primer for the terms the mechanisms use.",
@@ -252,7 +252,7 @@
           ],
           "example": {
             "title": "One stop for a three-vendor claims chain",
-            "description": "A payer's denial chain runs intake, scoring, and letter generation across three providers. The head grant lists all three hops; pausing the boundary stops all three, and the receipt names each. The composed window leaves the reviewer 90 seconds, so the chain runs confirm at the boundary rather than unattended."
+            "description": "A payer's denial chain runs intake, scoring, and letter generation across three providers. The head grant lists all three hops; pausing the boundary stops all three, and the receipt names each. The composed window leaves the reviewer 90 seconds, so the chain runs in confirm mode at the boundary rather than unattended."
           },
           "antiPatterns": [
             {
@@ -570,7 +570,7 @@
           ],
           "policyRequirement": "Policy requirement (MEC-06 Appeal paths inside the UI)\n- Provide an appeal channel inside the product, with a published answer date and a named reviewer role.\n- Count upheld appeals by the rule that produced them, and send the count to the rule's owner. A set number sends the rule back for review.\nReference: https://ethotechnics.org/mechanisms/patterns/appeal-paths",
           "productRequirement": "Product requirement (MEC-06)\n- Every appeal returns a receipt with the answer date and the role that will answer.\n- The appeal is one step from the decision screen.\n- Each upheld appeal records the reason code of the rule it overturned.",
-          "auditEvidenceChecklist": "Audit evidence checklist (MEC-06)\n[ ] The appeal form pre-fills the decision and its reason code.\n[ ] The reviewer rota and the escalation path are written down.\n[ ] The outcome log records each appeal's answer time and result.\n[ ] Upheld appeals are counted by rule, and the count reaches the rule's owner.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-06)\n[ ] The appeal form pre-fills the decision and its reason code.\n[ ] The reviewer roster and the escalation path are written down.\n[ ] The outcome log records each appeal's answer time and result.\n[ ] Upheld appeals are counted by rule, and the count reaches the rule's owner.",
           "postmortemTrigger": "Postmortem trigger (MEC-06)\nTrigger review when appeals pass their published answer date, or when a rule reaches its upheld-appeal threshold and its owner has not reviewed it.",
           "artifacts": [
             {
@@ -578,7 +578,7 @@
               "purpose": "Asks only for what the person must add, with the decision and its reason code filled in."
             },
             {
-              "name": "Reviewer rota",
+              "name": "Reviewer roster",
               "purpose": "Who answers appeals, the hours covered, and where an unanswered appeal goes next."
             },
             {
@@ -1144,7 +1144,7 @@
             "time-to-halt"
           ],
           "cues": [
-            "State what the intervener can see at the moment of the decision, not afterwards.",
+            "State what the intervener can see at the moment of the decision, not afterward.",
             "Separate what they can prevent from what they can alter after the fact.",
             "Write down what happens when the human disagrees with the system."
           ],
@@ -1290,7 +1290,7 @@
           ],
           "example": {
             "title": "Ledger for a scheduling system three years in",
-            "description": "A hospital records that two departments have retired their manual rota, that the last two schedulers who could rebuild it retire next year, and funds a documented fallback rota as a preserved capacity."
+            "description": "A hospital records that two departments have retired their manual roster, that the last two schedulers who could rebuild it retire next year, and funds a documented fallback roster as a preserved capacity."
           },
           "antiPatterns": [
             {
@@ -1302,7 +1302,7 @@
             {
               "title": "Ledger without alternatives",
               "failure": "Dependents are recorded but substitutes are never checked, so the entry cannot show when the last alternative disappeared.",
-              "counterfactual": "Alternatives are re-checked on the review cadence and dated.",
+              "counterfactual": "Alternatives are rechecked on the review cadence and dated.",
               "warning": "Having no alternative is a legitimate finding as long as it is recorded as one."
             }
           ]
@@ -1378,7 +1378,7 @@
           "cues": [
             "Rank halt instruments by blast radius: one case, one queue, one workflow, the whole system.",
             "Name who can fire each tier and what restoration at that tier requires.",
-            "Keep the lowest tier unescalated: a frontline pause that needs a committee is not a tier, it is theater."
+            "Keep the lowest tier unescalated: a frontline pause that needs a committee is not a tier; it is theater."
           ],
           "diagnostics": ["delegation-audit"],
           "steps": [
@@ -1412,7 +1412,7 @@
             {
               "title": "One halt authority for every tier",
               "failure": "Every halt requires the same senior authority, so low-tier problems either wait or fire the system-wide stop.",
-              "counterfactual": "Tiers match blast radius: small halts are cheap and local, big halts are deliberate.",
+              "counterfactual": "Tiers match blast radius: small halts are cheap and local; big halts are deliberate.",
               "warning": "A small authorized tier is not a governance gap; the gap is a big tier with no rehearsed restoration."
             },
             {
@@ -1620,7 +1620,7 @@
             "Run each redline as a decision by whoever observed it, with the recording requirement from MEC-24: an occurrence, the labor it cost, and whether the vendor dispute changes the finding.",
             "Bind every projection the evaluation produces to a post-deployment measurement of the same quantity, with a review condition that reopens the admission when they diverge."
           ],
-          "policyRequirement": "Policy requirement (MEC-25 Procurement stress test)\n- A candidate system is evaluated through live adversarial scenarios run by frontline personnel, not through vendor-controlled demonstrations.\n- Disqualifier findings recorded by the personnel who observed them trigger the disqualification; a committee may not downgrade an observed occurrence without a recorded reason.\n- Every threshold in the evaluation carries its justification, its author, and a review condition.\n- The evaluation states the labor it consumes and who bears it.\n- Projections made at evaluation time are bound to post-deployment measurement by a review condition.\nReference: https://ethotechn.org/mechanisms/patterns/procurement-stress-test",
+          "policyRequirement": "Policy requirement (MEC-25 Procurement stress test)\n- A candidate system is evaluated through live adversarial scenarios run by frontline personnel, not through vendor-controlled demonstrations.\n- Disqualifier findings recorded by the personnel who observed them trigger the disqualification; a committee may not downgrade an observed occurrence without a recorded reason.\n- Every threshold in the evaluation carries its justification, its author, and a review condition.\n- The evaluation states the labor it consumes and who bears it.\n- Projections made at evaluation time are bound to post-deployment measurement by a review condition.\nReference: https://ethotechnics.org/mechanisms/patterns/procurement-stress-test",
           "productRequirement": "Product requirement (MEC-25)\n- The vendor receives the scenario classes, not the scenario contents, and the rotating set is held by the evaluator.\n- An evaluation artifact records each occurrence observed, the labor spent observing it, and the disqualifier decision.",
           "auditEvidenceChecklist": "Audit evidence checklist (MEC-25)\n[ ] Scenario set exists, with authorship dates preceding vendor shortlisting.\n[ ] Each threshold carries its evidence and a named author.\n[ ] Evaluation labor is stated: roles, duration, backfill.\n[ ] Redline findings are recorded by observers, not summarized by committee.\n[ ] Every projection has a named post-deployment counterpart and review condition.",
           "postmortemTrigger": "Postmortem trigger (MEC-25)\nTrigger review when a system admitted through the evaluation shows a burden pattern the evaluation projected would not occur, or when a redline finding was downgraded without a recorded reason.",
@@ -1644,7 +1644,7 @@
           ],
           "example": {
             "title": "The demo that rehearsed",
-            "description": "A clinical system passes procurement on a scripted demonstration with clean data and a cooperative chart. The stress test version ingests a chart with two conflicting allergy entries and a stale insurance policy, then issues a corrected biopsy result after staging is complete. The correction requires eleven manual steps across four screens, performed by a physician who is not paid for the time. The scripted demo scored 92. The redline fires on unlogged friction, on the observer's record rather than the committee's summary."
+            "description": "A clinical system passes procurement on a scripted demonstration with clean data and a cooperative chart. The stress-test version ingests a chart with two conflicting allergy entries and a stale insurance policy, then issues a corrected biopsy result after staging is complete. The correction requires eleven manual steps across four screens, performed by a physician who is not paid for the time. The scripted demo scored 92. The redline fires on unlogged friction, on the observer's record rather than the committee's summary."
           },
           "antiPatterns": [
             {
@@ -1695,7 +1695,7 @@
             "Pairing diagnostics with mechanism rollout",
             "Designing safety valves for high-burden scenarios"
           ],
-          "outcome": "Leadership agrees a maintenance plan with named owners, with a diagnostic readout on file."
+          "outcome": "Leadership agrees on a maintenance plan with named owners, with a diagnostic readout on file."
         }
       ]
     },

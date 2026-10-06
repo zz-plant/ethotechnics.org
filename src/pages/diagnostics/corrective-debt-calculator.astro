@@ -182,7 +182,7 @@ const anchorLinks = [
           <select id="fix" name="fix">
             <option value="">Not stated</option>
             <option value="kept">
-              The institution has priced a fix and chose to keep the workaround
+              The institution has priced a fix and chosen to keep the workaround
             </option>
             <option value="unpriced">
               The institution has not priced a fix
@@ -202,7 +202,7 @@ const anchorLinks = [
   <SectionBlock
     id="results"
     eyebrow="Results"
-    title="Self-assessment readout."
+    title="Self-assessment readout"
     description="These fixed-weight scores summarize your answers. They do not measure a capacity gap, forecast debt, or verify evidence."
     variant="alt"
   >
@@ -329,7 +329,7 @@ const anchorLinks = [
   ) => {
     const solePower = authority === "management" || authority === "consulted";
     if (solePower && fix === "kept") {
-      return "These answers describe an institution that has priced a fix, chose to keep the workaround, and holds sole authority over changing it. That is a conflict of interest, not a gap in information. Measuring the workaround more closely will not change who decides. A binding say for the people who carry the work, or pressure from outside the institution, might.";
+      return "These answers describe an institution that has priced a fix, has chosen to keep the workaround, and holds sole authority over changing it. That is a conflict of interest, not a gap in information. Measuring the workaround more closely will not change who decides. A binding say for the people who carry the work, or pressure from outside the institution, might.";
     }
     if (solePower) {
       return "The people who carry the work have no binding say over the conditions that produce it. Understanding the workaround better will not change that. Check whether the institution knows the cost and has chosen to keep it.";
@@ -338,7 +338,7 @@ const anchorLinks = [
       return "The people who carry the work have a binding say over these conditions. The score above still applies to the corrective route it describes.";
     }
     if (fix === "kept") {
-      return "The institution has priced a fix and chose to keep the workaround. Authority over the decision was not stated.";
+      return "The institution has priced a fix and chosen to keep the workaround. Authority over the decision was not stated.";
     }
     return "Authority over the conditions was not stated.";
   };

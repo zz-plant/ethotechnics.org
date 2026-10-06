@@ -74,7 +74,7 @@ export function authorizedHistory(
       from: "allowed",
       to: "allowed",
       reason: EXPANSION_REASON,
-      note: `+${params.stepPct}%, reach ×${scope[month].toFixed(2)}, undo path re-checked`,
+      note: `+${params.stepPct}%, reach ×${scope[month].toFixed(2)}, undo path rechecked`,
     });
   }
   return entries;

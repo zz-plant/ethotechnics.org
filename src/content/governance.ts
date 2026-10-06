@@ -132,7 +132,7 @@ export const governanceContent: GovernanceContent = {
       owner: "Kanav Jain",
       reviewerRoles: [],
       summary:
-        "Standardized the public digest structure so each quarter ships dated deltas, decisions, and release references.",
+        "Standardizes the public digest structure so each quarter ships dated deltas, decisions, and release references.",
     },
   ],
   decisions: [

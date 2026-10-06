@@ -75,7 +75,7 @@ export const siteFooter: SiteFooterContent = {
       links: [
         { label: "Start here", href: "/start" },
         { label: "Which systems this is for", href: "/use-cases" },
-        { label: "About the institute", href: "/about" },
+        { label: "About the Institute", href: "/about" },
         { label: "Governance process", href: "/institute/governance" },
         {
           label: "Security policy",

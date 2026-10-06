@@ -8,7 +8,7 @@
     try {
       await navigator.clipboard.writeText(text);
       if (status) {
-        status.textContent = `${typeName} citation copied!`;
+        status.textContent = `${typeName} citation copied.`;
         status.style.display = "inline-block";
         setTimeout(() => {
           status.style.display = "none";

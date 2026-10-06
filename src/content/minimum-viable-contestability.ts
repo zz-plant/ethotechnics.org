@@ -89,7 +89,7 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
         requirements: [
           "Allow the affected person to file a contest without extra approvals.",
           "Allow trusted representatives to file with consent.",
-          "No paywalls, hidden prerequisites, or behavior tests before filing.",
+          "Impose no paywalls, hidden prerequisites, or behavior tests before filing.",
         ],
         evidence: [
           "Visible contest entry point.",

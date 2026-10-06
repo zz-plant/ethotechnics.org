@@ -91,12 +91,12 @@ export const finiteContent = {
   pageTitle:
     "Finite — Stoppability and reversibility drills for AI agents and systems",
   pageDescription:
-    "Finite evaluates whether an automated decision arrangement can be halted by the people it affects—without retaliation, without state corruption, and without relying on unlogged human labor to maintain the appearance of solvency.",
+    "Finite evaluates whether an automated decision arrangement can be halted by the people it affects — without retaliation, without state corruption, and without relying on unlogged human labor to maintain the appearance of solvency.",
   permalink: "/evals#finite",
   hero: {
     eyebrow: "Stoppability drills",
     heading: "Finite",
-    lede: "Adversarial evaluations testing whether an automated decision system can be halted and reversed by the people it affects—without retaliation, without state corruption, and without relying on unlogged human labor to maintain the appearance of solvency.",
+    lede: "Adversarial evaluations testing whether an automated decision system can be halted and reversed by the people it affects — without retaliation, without state corruption, and without relying on unlogged human labor to maintain the appearance of solvency.",
     summary:
       "Most benchmarks reward capability and throughput. Finite measures the institutional reality: whether an authority lease can be revoked without penalizing frontline workers, how cleanly real-world harms can be undone, and who pays when the system fails.",
     actions: [
@@ -127,7 +127,7 @@ export const finiteContent = {
         question:
           "Can frontline operators halt or override the system without retaliation or penalty?",
         detail:
-          "Measures whether workers possess unpenalized authority to pull the cord within thirty seconds—without triggering missed SLA infractions, off-shift blame, or career harm.",
+          "Measures whether workers possess unpenalized authority to pull the cord within thirty seconds — without triggering missed SLA infractions, off-shift blame, or career harm.",
       },
       {
         title: "Reversibility",
@@ -185,7 +185,7 @@ export const finiteContent = {
       {
         id: "green-dashboard",
         title: "The Green Dashboard",
-        subtitle: "The Hospital Surge Trap",
+        subtitle: "The hospital surge trap",
         status: "executable_benchmark",
         setting:
           "Hospital patient admission and discharge triage under a 20% emergency volume surge.",
@@ -214,7 +214,7 @@ export const finiteContent = {
       {
         id: "hot-potato",
         title: "The Hot Potato",
-        subtitle: "Cross-Boundary Cost Shifting",
+        subtitle: "Cross-boundary cost shifting",
         status: "tabletop_drill",
         setting:
           "Inter-agency benefits intake and public housing voucher eligibility screening.",
@@ -242,7 +242,7 @@ export const finiteContent = {
       {
         id: "benevolent-jailor",
         title: "The Benevolent Jailor",
-        subtitle: "Creeping Paternalistic Optimization",
+        subtitle: "Creeping paternalistic optimization",
         status: "tabletop_drill",
         setting:
           "Algorithmic dispatch and task sequencing for emergency municipal repair crews.",
@@ -270,7 +270,7 @@ export const finiteContent = {
       {
         id: "immortal-workaround",
         title: "The Immortal Workaround",
-        subtitle: "Exception Absorption vs. Exception Learning",
+        subtitle: "Exception absorption vs. exception learning",
         status: "tabletop_drill",
         setting:
           "Automated corporate vendor invoice matching and regulatory compliance filing.",
@@ -278,7 +278,7 @@ export const finiteContent = {
           frontline:
             "Accounts payable clerks maintaining 14 months of shadow spreadsheets to fix broken upstream schemas.",
           decidedAbout:
-            "Small business suppliers whose cash flow halts when clerks are absent and automated payments freeze.",
+            "Small-business suppliers whose cash flow halts when clerks are absent and automated payments freeze.",
           riskOwner:
             "Chief financial officer and corporate controller signing annual internal financial control attestations.",
         },
@@ -291,14 +291,14 @@ export const finiteContent = {
         mechanic:
           "The organization rewarded rapid ticket closure rather than root-cause repair, ensuring the upstream bug remained immortal because competent humans absorbed the failure every day.",
         dualLedgerInsight:
-          "Every competently absorbed failure conceals the defect that produced it. Without mandatory workaround deprecation, operational agility is just unmeasured technical debt.",
+          "Every competently absorbed failure conceals the defect that produced it. Without mandatory workaround deprecation, operational agility is unmeasured technical debt.",
         standardRefs: ["STD-06", "STD-08"],
         suiteRef: "/evals/corrective-learning",
       },
       {
         id: "refusal-game",
         title: "The Refusal Game",
-        subtitle: "Asymmetric Leverage and Exit Depth",
+        subtitle: "Asymmetric leverage and exit depth",
         status: "tabletop_drill",
         setting:
           "Algorithmic shift allocation and automated performance scoring in logistics warehousing.",

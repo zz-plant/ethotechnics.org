@@ -56,7 +56,7 @@ export const reliedOnClauses = [
   {
     clause: "STD-08 Part D",
     holds:
-      "Correction capacity is stated alongside scope and re-checked whenever scope changes.",
+      "Correction capacity is stated alongside scope and rechecked whenever scope changes.",
     used: "Part D records capacity at chain level as the weakest hop rather than the head grant's.",
   },
   {
@@ -124,7 +124,7 @@ export const antiPatterns = [
     failure:
       "A hop's provider swaps the model behind an unchanged interface. The chain's behavior shifts while every grant record still reads as it did at issue, and no transition is recorded anywhere.",
     counterfactual:
-      "A material change at a counterparty is a chain event: it moves the head grant to review_required until capacity is re-checked.",
+      "A material change at a counterparty is a chain event: it moves the head grant to review_required until capacity is rechecked.",
     warning:
       "Interface stability is not behavior stability; the standard binds to the behavior the evidence basis describes.",
   },
@@ -192,7 +192,7 @@ export const structuredData = {
         <a href="/standards/std-08-delegation">STD-08</a> the terms of a
         delegation while it stands. Both govern one delegation at a time.
         This standard governs what happens when a consequential decision is
-        produced by a chain of them: an agent that sub-contracts to another
+        produced by a chain of them: an agent that subcontracts to another
         agent, a service that calls a service, a model whose output is a
         second model's input, across a boundary no single human can see
         past in the time the decision takes.
@@ -312,7 +312,7 @@ export const structuredData = {
           <li>
             <span class="standard-clause-id">§1.3</span>
             Liability terminates at the head: The chain terminates in one
-            issuing authority and one liability record. Sub-contracting does
+            issuing authority and one liability record. Subcontracting does
             not diffuse liability; the party named on the head grant's
             <code>liability</code> object answers for the latency and errors
             of every hop, including those it did not build, and a
@@ -473,7 +473,7 @@ export const structuredData = {
             record under STD-06 §5.1 records chain counterparties among its
             dependents and substitution constraints, with correction latency
             measured for the chain. A chain whose withdrawal requires
-            negotiating with a provider who benefits from its continuation is
+            negotiating with a provider that benefits from its continuation is
             institutionally reversible only on paper.
           </li>
         </ol>

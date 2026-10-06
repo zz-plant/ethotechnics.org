@@ -40,7 +40,7 @@ export type RecordKind = (typeof RECORD_KINDS)[number];
 export const CONFORMANCE_LEVELS = {
   0: "emitting: valid records with as_of and recorded_at distinguished",
   1: "append-only: supersedes chains and integrity hashes, prior_hash linked",
-  2: "dependent: belief, authorization and action records carry depends_on and invalidated_by",
+  2: "dependent: belief, authorization, and action records carry depends_on and invalidated_by",
   3: "contestable: contest.standing and a live channel; objection records accepted from outside the system",
 } as const;
 

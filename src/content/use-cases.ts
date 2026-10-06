@@ -315,7 +315,7 @@ export const useCases: UseCase[] = [
       "Whether a treatment is authorized or a claim is paid, and how a patient is triaged.",
     systems:
       "Prior authorization and utilization review, claim denials, clinical risk scores that set a care pathway, triage.",
-    why: "Coverage decisions are frequent and each one is consequential, and a delay is itself a harm. Patients and clinicians already appeal them, so the casebook's question applies directly: does a won appeal change the rule?",
+    why: "Coverage decisions are frequent, each one is consequential, and a delay is itself a harm. Patients and clinicians already appeal them, so the casebook's question applies directly: does a won appeal change the rule?",
     defense: {
       said: "Patients can appeal.",
       answer:
@@ -440,7 +440,7 @@ export const boundaries: Boundary[] = [
   {
     id: "person-decides",
     title: "Tools that inform a person who decides",
-    why: "When a named person decides each case, has the time and the information to disagree, and their disagreements are recorded, most of the framework's work is done. What remains is checking that those three stay true as volume grows.",
+    why: "When a named person decides each case, has the time and the information to disagree, and has their disagreements recorded, most of the framework's work is done. What remains is checking that those three stay true as volume grows.",
     link: { label: "Meaningful control", href: "/glossary/meaningful-control" },
     examples: [],
   },

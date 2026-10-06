@@ -213,7 +213,7 @@ const buildHighlightMark = (
     const link = document.createElement("a");
     link.href = entry.href;
     link.className = "glossary-peek-card__link";
-    link.textContent = "Inspect full standard →";
+    link.textContent = "Inspect full entry →";
     footer.appendChild(link);
     card.appendChild(footer);
   }

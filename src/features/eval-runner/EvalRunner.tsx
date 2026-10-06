@@ -193,7 +193,7 @@ export function EvalRunner() {
     return (
       <div className="panel panel--glass eval-runner" data-eval-runner>
         <div className="eval-runner__header">
-          <p className="eyebrow">Eval Runner</p>
+          <p className="eyebrow">Eval runner</p>
           <h2>Run a governance eval suite</h2>
           <p className="muted">
             Select a suite, score each test case against your system, and
@@ -410,7 +410,7 @@ export function EvalRunner() {
             onChange={(e) =>
               handleEvidenceChange(currentTestCase.id, e.target.value)
             }
-            placeholder="Describe or link to supporting evidence..."
+            placeholder="Describe or link to supporting evidence…"
           />
         </div>
 
@@ -429,7 +429,7 @@ export function EvalRunner() {
             onChange={(e) =>
               handleNotesChange(currentTestCase.id, e.target.value)
             }
-            placeholder="Optional notes..."
+            placeholder="Optional notes…"
           />
         </div>
 

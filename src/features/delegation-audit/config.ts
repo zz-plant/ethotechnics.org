@@ -111,11 +111,11 @@ export const MECHANISM_REFS = {
 
 export const EVAL_REFS = {
   delegationValidity: {
-    label: "Delegation Validity Evals",
+    label: "Delegation validity evals",
     href: "/evals/delegation-validity",
   },
   dependenceReversibility: {
-    label: "Dependence and Reversibility Evals",
+    label: "Dependence and reversibility evals",
     href: "/evals/dependence-reversibility",
   },
   standing: {
@@ -123,7 +123,7 @@ export const EVAL_REFS = {
     href: "/evals/standing",
   },
   meaningfulControl: {
-    label: "Meaningful Control Evals",
+    label: "Meaningful control evals",
     href: "/evals/meaningful-control",
   },
 } as const satisfies Record<string, Reference>;

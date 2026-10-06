@@ -72,14 +72,14 @@ const fieldGuide = [
     field: "schema_version",
     example: "1.1.0",
     purpose:
-      "Version the contract so CI, validators, and auditors parse it consistently.",
+      "Versions the contract so CI, validators, and auditors parse it consistently.",
     failure: "Tooling cannot validate or diff the model when versions drift.",
   },
   {
     field: "agent_id",
     example: "agent-risk-ops-v2",
     purpose:
-      "A stable identifier that ties receipts, incidents, and evidence packs to one system.",
+      "Provides a stable identifier that ties receipts, incidents, and evidence packs to one system.",
     failure:
       "Evidence is orphaned; audits cannot trace decisions back to the agent.",
   },
@@ -94,14 +94,15 @@ const fieldGuide = [
   {
     field: "action_classes",
     example: "READ / WRITE / TRANSFER",
-    purpose: "Allowed actions and reversibility with default approvals.",
+    purpose:
+      "Lists allowed actions, their reversibility, and default approvals.",
     failure:
       "Receipts are ambiguous and controls cannot bind to irreversible actions.",
   },
   {
     field: "stop_override_authority",
     example: "Risk Operations / Risk Steward",
-    purpose: "Names the owner, on-call role, and kill switch authority.",
+    purpose: "Names the owner, on-call role, and kill-switch authority.",
     failure:
       "No one can halt automation inside the halt deadline during an incident.",
   },
@@ -128,7 +129,8 @@ const fieldGuide = [
   {
     field: "required_signals",
     example: "unsafe_action_rate",
-    purpose: "Signals that must be monitored to prove control efficacy.",
+    purpose:
+      "Lists the signals that must be monitored to prove control efficacy.",
     failure: "Safety claims cannot be measured or validated.",
   },
   {
@@ -141,10 +143,10 @@ const fieldGuide = [
 ];
 
 const failureModes = [
-  "Missing action classes means approvals, reversibility, and clocks cannot be applied consistently.",
-  "Missing stop/override authority removes the kill switch owner needed for incident response.",
+  "Missing action classes mean approvals, reversibility, and clocks cannot be applied consistently.",
+  "Missing stop/override authority removes the kill-switch owner needed for incident response.",
   "Missing receipt schema version breaks downstream parsers and evidence pack validators.",
-  "Missing clocks removes enforceable time bounds for acknowledgment, review, and remedy.",
+  "Missing clocks remove enforceable time bounds for acknowledgment, review, and remedy.",
 ];
 
 // There is no /agents index; the default crumbs would link one.

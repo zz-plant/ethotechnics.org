@@ -162,7 +162,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       href: "https://creativecommons.org/licenses/by-sa/4.0/",
     },
     attribution:
-      "Credit Ethotechnics Institute Diagnostics Lab, include tool name + version, and link to the canonical permalink.",
+      "Credit the Ethotechnics Institute Diagnostics Lab, include the tool name and version, and link to the canonical permalink.",
   },
   valueProps: [
     {
@@ -189,7 +189,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       {
         title: "Frame the question",
         detail:
-          "We agree what a usable answer looks like and which decision it feeds.",
+          "We agree on what a usable answer looks like and which decision it feeds.",
       },
       {
         title: "Run the tool together",
@@ -322,7 +322,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         "A rating for each of capability, authority, evidence, dependency, standing (who can challenge a decision), and correction.",
         "Permissions nobody can justify, and a reversibility verdict at three levels with the weakest called out.",
       ],
-      estimatedTime: "20-30 minutes",
+      estimatedTime: "20–30 minutes",
       prepChecklist: [
         "One named workflow, not a system or a product.",
         "The list of actions the system takes in it.",
@@ -349,7 +349,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         measures: [
           "Whether every record validates against the published STD-07 schema.",
           "Whether the hashes recompute and the prior_hash chain links, so a removed or edited record shows.",
-          "Whether beliefs, authorizations and actions state what would end them, and whether a discrepancy was ever answered inside its clock.",
+          "Whether beliefs, authorizations, and actions state what would end them, and whether a discrepancy was ever answered inside its clock.",
           "Whether the emitter's own manifest agrees with its stream: the level it declares, and the record kinds it claims to emit.",
         ],
         doesNotMeasure: [
@@ -387,7 +387,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         prompts: [
           "Does every record validate against the schema the standard publishes?",
           "Do the hashes recompute, and does each record chain to the one before it?",
-          "Does every belief, authorization and action say what would end it?",
+          "Does every belief, authorization, and action say what would end it?",
           "Was every discrepancy answered by a revision or an objection, inside the clock the record declared?",
           "Does every record say who has standing to object, and has an objection ever been accepted?",
           "Is the level the emitter declares the level this stream supports?",
@@ -395,7 +395,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         rubric: [
           "Level 0: every record validates, with as_of kept apart from recorded_at.",
           "Level 1: Level 0, and nothing edited — every record hashed, and chained through prior_hash.",
-          "Level 2: Level 1, and beliefs, authorizations and actions carry invalidated_by, with every discrepancy answered inside its clock.",
+          "Level 2: Level 1, and beliefs, authorizations, and actions carry invalidated_by, with every discrepancy answered inside its clock.",
           "Level 3: Level 2, and standing declared on every record, with at least one objection accepted and answered.",
         ],
         scoringLogic: [
@@ -487,7 +487,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         assumptions: [
           "Inputs reflect cross-functional consensus, not a single point of view.",
           "Task volume estimates are directionally accurate for the period.",
-          "Risk weights reflect the scenario’s actual severity bands.",
+          "Risk weights reflect the scenario's actual severity bands.",
         ],
       },
       methodOverview: {
@@ -528,9 +528,9 @@ export const diagnosticsContent: DiagnosticsContent = {
         reliability:
           "Ratings are self-reported, so two groups rating the same workflow can score it differently. Rate together and record the reason for each rating.",
         failureModes: [
-          "Over-weighting a single friction point can skew results.",
+          "Overweighting a single friction point can skew results.",
           "Underspecified task volume leads to low-confidence outputs.",
-          "High uncertainty if scenario owners are not present for scoring.",
+          "Uncertainty is high if scenario owners are not present for scoring.",
         ],
       },
       collectionCost: {

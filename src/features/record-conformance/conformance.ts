@@ -404,7 +404,7 @@ export async function auditRecords(
       severity: "finding",
       title: `${ungrounded.length} of ${grounded.length} ${ungrounded.length === 1 ? "record states" : "records state"} nothing that would end ${ungrounded.length === 1 ? "it" : "them"}`,
       detail:
-        "A belief, authorization or action with an empty invalidated_by cannot be revised, only replaced. This is the single most common way a log satisfies every other rule and still describes a system that cannot change its mind.",
+        "A belief, authorization, or action with an empty invalidated_by cannot be revised, only replaced. This is the single most common way a log satisfies every other rule and still describes a system that cannot change its mind.",
       clause: "STD-07 §3.2",
       records: ungrounded.map((record) => record.record_id),
     });
@@ -531,7 +531,7 @@ export async function auditRecords(
         blockedFrom.push({
           level: 2,
           because: ungrounded.length
-            ? "a belief, authorization or action states nothing that would end it"
+            ? "a belief, authorization, or action states nothing that would end it"
             : "a discrepancy was never answered",
         });
       } else {
@@ -539,7 +539,7 @@ export async function auditRecords(
         if (noStanding.length) {
           blockedFrom.push({
             level: 3,
-            because: `${noStanding.length} records declare no standing to object`,
+            because: `${noStanding.length} ${noStanding.length === 1 ? "record declares" : "records declare"} no standing to object`,
           });
         } else if (!objections.length) {
           blockedFrom.push({
@@ -602,8 +602,8 @@ export async function auditRecords(
         declaredLevel > earnedLevel
       ? `This stream earns Level ${earnedLevel} and its emitter claims Level ${declaredLevel}.`
       : blocking
-        ? `${blocking} blocking ${blocking === 1 ? "finding" : "findings"} in ${records.length} records.`
-        : `${records.length} records, no blocking findings.`;
+        ? `${blocking} blocking ${blocking === 1 ? "finding" : "findings"} in ${records.length} ${records.length === 1 ? "record" : "records"}.`
+        : `${records.length} ${records.length === 1 ? "record" : "records"}, no blocking findings.`;
 
   return {
     parsed: records.length,

@@ -132,7 +132,7 @@ export const standardsContent: StandardsContent = {
           version: "1.2",
           date: "2026-09-22",
           summary:
-            "Adds reasons that belong to the decision, with explanations written afterwards labeled as accounts (§1.4), and bounds a decision class's issue rate by the responder's capacity to answer (§8.6).",
+            "Adds reasons that belong to the decision, with explanations written afterward labeled as accounts (§1.4), and bounds a decision class's issue rate by the responder's capacity to answer (§8.6).",
         },
         {
           version: "1.1",
@@ -275,7 +275,7 @@ export const standardsContent: StandardsContent = {
         },
       ],
       stableCriteria:
-        "N/A while deprecated; replacement standard should be adopted for new implementations.",
+        "N/A while deprecated; the replacement standard should be adopted for new implementations.",
       deprecatedBy: [
         {
           id: "STD-05",
@@ -406,7 +406,7 @@ export const standardsContent: StandardsContent = {
           version: "0.2",
           date: "2026-09-07",
           summary:
-            "Adds correction capacity as a recorded field re-checked whenever scope changes, and the separation of execution from evaluation.",
+            "Adds correction capacity as a recorded field rechecked whenever scope changes, and the separation of execution from evaluation.",
         },
         {
           version: "0.1",
@@ -857,7 +857,7 @@ export const standardClauses: Record<string, StandardClause[]> = {
       condition:
         "a reason is given for a consequential decision, or the component that decided gives no reasons",
       obligation:
-        "state what the decision actually rested on; label any explanation written afterwards by another component as an account; where the decider gives no reasons, record that on the decision object with the policy, threshold, and inputs, and add evidential support to the class's standards of review",
+        "state what the decision actually rested on; label any explanation written afterward by another component as an account; where the decider gives no reasons, record that on the decision object with the policy, threshold, and inputs, and add evidential support to the class's standards of review",
       evidenceRequired: [
         "decision_record.decision",
         "decision_record.policy_refs",
@@ -2551,7 +2551,7 @@ export const standardClauses: Record<string, StandardClause[]> = {
       requirementLevel: "MUST",
       condition: "a grant is issued or its scope changes",
       obligation:
-        "record the seven components of §4.1 on the grant, each with its own evidence, and re-check capacity whenever scope changes; a grant whose scope has grown while its stated capacity is unchanged does not take effect until the capacity has been re-assessed",
+        "record the seven components of §4.1 on the grant, each with its own evidence, and recheck capacity whenever scope changes; a grant whose scope has grown while its stated capacity is unchanged does not take effect until the capacity has been re-assessed",
       evidenceRequired: [
         "authority_grant.correction_capacity",
         "authority_grant.correction_capacity.assessed_at",
@@ -2733,7 +2733,7 @@ export const standardClauses: Record<string, StandardClause[]> = {
       requirementLevel: "MUST",
       condition: "a human window is claimed for a chain decision",
       obligation:
-        "compute it as the intervention window minus the latency already consumed by upstream hops, measured from decision records; hops that run in series compose additively and per-hop clocks must not be presented as parallel",
+        "compute it as the intervention window minus the latency already consumed by upstream hops, measured from decision records; hops that run in series compose additively, and per-hop clocks must not be presented as parallel",
       evidenceRequired: [
         "decision_record.latency",
         "composed_window_measurement",
@@ -2885,7 +2885,7 @@ export const standardClauses: Record<string, StandardClause[]> = {
         "authority_grant.correction_capacity",
         "authority_grant.chain",
       ],
-      timeBound: "at chain issue and at each capacity re-check",
+      timeBound: "at chain issue and at each capacity recheck",
       failureModes: [
         "the head institution's capacity recorded as the chain's",
         "capacity averaged across hops, so one broken component hides",

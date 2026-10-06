@@ -114,5 +114,5 @@ export const createImplementationPublication = (
     href: "https://creativecommons.org/licenses/by-sa/4.0/",
   },
   attribution:
-    "Credit the Ethotechnics Institute, include page title + version, and link to the canonical permalink.",
+    "Credit the Ethotechnics Institute, include the page title and version, and link to the canonical permalink.",
 });

@@ -144,7 +144,7 @@ function RecordConformance() {
               Paste <code>/.well-known/*.json</code>, <code>server.json</code>,
               or whatever the system publishes about itself. The declaration is
               found by shape, so it does not matter how deep it is nested. When
-              one is present it supplies the level, and the kinds it claims are
+              one is present, it supplies the level, and the kinds it claims are
               checked against the kinds in the stream.
             </span>
           </label>

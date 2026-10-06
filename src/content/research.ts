@@ -140,7 +140,7 @@ export const researchContent: ResearchContent = {
       href: "https://creativecommons.org/licenses/by-sa/4.0/",
     },
     attribution:
-      "Credit the Ethotechnics Institute, include the page title + version, and link to the canonical permalink.",
+      "Credit the Ethotechnics Institute, include the page title and version, and link to the canonical permalink.",
   },
   lastUpdated: "2026-10-03T00:00:00Z",
   updateCadence:
@@ -159,7 +159,7 @@ export const researchContent: ResearchContent = {
       period: "2026 Q1",
       title: "STD-01 ratification draft",
       summary:
-        "Version 1.0 was released for public review. It stays a draft until two independent implementation reports and a decision recorded through the RFC process.",
+        "Version 1.0 was released for public review. It stays a draft until it has two independent implementation reports and a decision recorded through the RFC process.",
       standardRef: "STD-01",
       href: "/standards/std-01-temporal-rights",
     },
@@ -365,7 +365,7 @@ export const researchContent: ResearchContent = {
         "Dual-ledger telemetry log definition and stress test seed vectors.",
       ],
       ethicsNotes: [
-        "Evaluations test synthetic agents against simulated worker profiles without human subject risk.",
+        "Evaluations test synthetic agents against simulated worker profiles without human-subject risk.",
       ],
     },
   ],
