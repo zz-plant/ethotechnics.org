@@ -449,11 +449,11 @@ export const cases: Case[] = [
     theMissingRecord:
       "A written record of the income-averaging policy: where it came from, what it assumed, and what would force a review of it. The 2014 advice was enough to force one. So was the first tribunal decision against a debt. Either would have put the policy, and the scheme's authority to raise debts under it, under review. STD-08 §2.3 sets a deadline for that review.",
     diagnosticStudy: {
-      title: "The Operational Andon Cord",
-      url: "https://thecrumple.zone/p/the-operational-andon-cord",
+      title: "Stop the Machine, Not the Person",
+      url: "https://thecrumple.zone/essays/failure-behavior",
       source: "The Crumple Zone",
       summary:
-        "Analysis of automated enforcement queues, asymmetric debt raising, and the institutional suppression of frontline dissent signals that allowed Robodebt to persist across four years.",
+        "Uses Robodebt as its central case. Income averaging produced debts that people's own records contradicted, objectors were asked for years of payslips, and a budget counting on $1.5 billion in recoveries kept the scheme running. Its argument: only an outside body with binding authority could have stopped it.",
     },
     remediation: {
       diagnostic: {
