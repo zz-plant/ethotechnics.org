@@ -1433,6 +1433,23 @@ export const glossaryTermSeeds: GlossaryTermSeed[] = [
     appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
   },
   {
+    slug: "compensatory-difficulty",
+    term: "Compensatory Difficulty",
+    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+  },
+  {
+    slug: "responsibility-line",
+    term: "Responsibility Line",
+    appliesTo: [
+      "C. Ethotechnic capabilities (what systems must be able to do)",
+    ],
+  },
+  {
+    slug: "misplaced-computation",
+    term: "Misplaced Computation",
+    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+  },
+  {
     slug: "discretion-migration",
     term: "Discretion migration",
     appliesTo: ["B. Failure modes"],

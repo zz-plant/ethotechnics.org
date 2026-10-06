@@ -147,6 +147,17 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
     domain: "Delivery",
   },
   {
+    slug: "where-difficulty-lives",
+    title: "Where difficulty lives",
+    href: "/research/theory/where-difficulty-lives",
+    question:
+      "Which layer of a system should absorb a given disturbance, and why does it so often reach a person instead?",
+    safeguard: "Correction",
+    mechanism:
+      "Allocation of coordination, memory, verification and error detection to people instead of the institution",
+    domain: "Experience",
+  },
+  {
     slug: "insulation",
     title: "Insulation",
     href: "/research/theory/insulation",
