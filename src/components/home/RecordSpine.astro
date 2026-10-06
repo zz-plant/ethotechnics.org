@@ -22,6 +22,8 @@ const haltIndex = timeline.findIndex((event) => event.halt);
 type Row = {
   when: string;
   said: string;
+  /** Only the speaker's own words take quotation marks. */
+  verbatim: boolean;
   speaker: string;
   note?: string;
   state: "unanswered" | "halt" | "after";
@@ -35,6 +37,7 @@ timeline.forEach((event, index) => {
     rows.push({
       when: event.when,
       said: event.voice.said,
+      verbatim: event.voice.verbatim ?? false,
       speaker: event.voice.speaker,
       state: "halt",
       response: "halt",
@@ -45,6 +48,7 @@ timeline.forEach((event, index) => {
   rows.push({
     when: event.when,
     said: event.voice.said,
+    verbatim: event.voice.verbatim ?? false,
     speaker: event.voice.speaker,
     note: event.voice.after || undefined,
     state: after ? "after" : "unanswered",
@@ -86,8 +90,11 @@ const launchFact = launch
 
       {launch && (
         <p class="record-spine__lead">
-          At launch, {launchFact} Every dated warning the record issued follows,
-          with the response each got.
+          The rule took a person's yearly income from tax records, spread it
+          evenly across the year's fortnights, and treated any gap with what
+          they had reported as a debt they had to disprove. At launch,{" "}
+          {launchFact} Every dated warning the record issued follows, with the
+          response each got.
         </p>
       )}
 
@@ -104,7 +111,7 @@ const launchFact = launch
           >
             <div class="record-spine__quote">
               <p class="record-spine__said">
-                &ldquo;{row.said}&rdquo;
+                {row.verbatim ? <q>{row.said}</q> : row.said}
                 {row.note && (
                   <span class="record-spine__note"> — {row.note}</span>
                 )}
@@ -119,9 +126,12 @@ const launchFact = launch
         ))}
       </ol>
 
+      <p class="record-spine__cost">{robodebt.scale}</p>
+
       <p class="record-spine__foot small muted">
         The rail is the count: rust dots are warnings the institution never
-        answered by changing the scheme.
+        answered by changing the scheme. Lines in quotation marks are the
+        speaker's own words; the others restate the finding.
         <a href={`/casebook/${robodebt.slug}`}>Read the scored case →</a>
       </p>
     </section>

@@ -45,13 +45,15 @@ const haltLabel = (value: number) => {
 
   <div class="home-casebook__columns" aria-hidden="true">
     <span class="home-casebook__col home-casebook__col--spacer"></span>
-    {
-      stateVariables.map((variable) => (
-        <span class="home-casebook__col" title={variable.label}>
-          {variable.label.slice(0, 3).toUpperCase()}
-        </span>
-      ))
-    }
+    <span class="home-casebook__col-group">
+      {
+        stateVariables.map((variable) => (
+          <span class="home-casebook__col" title={variable.label}>
+            {variable.label.slice(0, 3).toUpperCase()}
+          </span>
+        ))
+      }
+    </span>
     <span class="home-casebook__col home-casebook__col--halt">
       Time to halt
     </span>

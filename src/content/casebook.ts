@@ -323,7 +323,7 @@ export const cases: Case[] = [
       },
       {
         when: "2017–19",
-        what: "A tribunal rules individual debts unlawful dozens of times. Each ruling fixes one case. The scheme keeps running.",
+        what: "A tribunal rules individual debts unlawful dozens of times. The department appeals none of the rulings, so none becomes a precedent that binds the scheme. Each ruling fixes one case. The scheme keeps running.",
         turn: true,
         evidence: true,
         voice: {
@@ -332,7 +332,7 @@ export const cases: Case[] = [
           said: "The debt is unlawful.",
           answered: false,
           after:
-            "Dozens of times. Each ruling fixes one case. The scheme keeps running.",
+            "Dozens of times. The department appeals none of the rulings, so none binds the scheme. Each ruling fixes one case.",
         },
       },
       {
@@ -350,12 +350,13 @@ export const cases: Case[] = [
       },
       {
         when: "Jul 2023",
-        what: "A Royal Commission finds the scheme was unlawful from the outset.",
+        what: "The Royal Commission reports: “Robodebt was a crude and cruel mechanism, neither fair nor legal, and it made many people feel like criminals.”",
         evidence: true,
         voice: {
           speaker: "The Royal Commission",
           side: "record",
-          said: "The scheme was unlawful from the outset.",
+          said: "Robodebt was a crude and cruel mechanism, neither fair nor legal, and it made many people feel like criminals.",
+          verbatim: true,
         },
       },
     ],
