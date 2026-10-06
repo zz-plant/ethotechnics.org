@@ -175,6 +175,16 @@
     color: var(--muted);
   }
 
+  /* /record: seven counts read as a short list, not a full-width table. */
+  .record-totals {
+    max-width: 30rem;
+  }
+
+  .record-totals td {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
   /* Every part of a standard gets its own table. Sized by content, the
      columns of each landed somewhere different, so the register read as a
      stack of unrelated tables. One fixed set of widths lines them up. */

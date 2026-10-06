@@ -1,7 +1,7 @@
 # Presence automation
 
 The site runs on its own standards. An objection to a clause gets a public answer within 30 days,
-and an upheld objection ends in a revised clause or a recorded reason for keeping it. The site is
+and an upheld objection ends in a revised clause or a published reason for keeping it. The site is
 measured by outside uptake, not page views. Four workflows do the bookkeeping. None of them commits
 to the default branch: a workflow that changes a file the site displays opens a pull request, and a
 workflow that only notifies opens or updates an issue.
@@ -64,16 +64,16 @@ mints a DOI with the metadata in `.zenodo.json`.
 
 ## Labels
 
-| Label            | Set by   | Meaning                                                               |
-| ---------------- | -------- | --------------------------------------------------------------------- |
-| `objection`      | The form | An objection to one clause                                            |
-| `std-01` …       | Bot      | The standard the clause belongs to                                    |
-| `due-soon`       | Bot      | Open 21 days or more without an answer                                |
-| `overdue`        | Bot      | Past the 30-day answer date without an answer                         |
-| `answered`       | Owner    | The objection has a public answer; the clock stops                    |
-| `upheld`         | Owner    | Upheld: the clause is revised, or a reason for keeping it is recorded |
-| `not-upheld`     | Owner    | Not upheld; the answer gives the reason                               |
-| `presence-watch` | Watch    | A weekly watch issue                                                  |
+| Label            | Set by   | Meaning                                                                |
+| ---------------- | -------- | ---------------------------------------------------------------------- |
+| `objection`      | The form | An objection to one clause                                             |
+| `std-01` …       | Bot      | The standard the clause belongs to                                     |
+| `due-soon`       | Bot      | Open 21 days or more without an answer                                 |
+| `overdue`        | Bot      | Past the 30-day answer date without an answer                          |
+| `answered`       | Owner    | The objection has a public answer; the clock stops                     |
+| `upheld`         | Owner    | Upheld: the clause is revised, or a reason for keeping it is published |
+| `not-upheld`     | Owner    | Not upheld; the answer gives the reason                                |
+| `presence-watch` | Watch    | A weekly watch issue                                                   |
 
 Missing labels are created on each run of the objection bot and the watch.
 
@@ -110,7 +110,7 @@ No workflow prints a token.
    and why.
 2. Add `answered` and one of `upheld` or `not-upheld`. The record dates the answer by the first time
    one of these labels was added, and compares that date with the due date.
-3. If upheld, either revise the clause or record a reason for keeping it, and link that from the
+3. If upheld, either revise the clause or publish a reason for keeping it, and link that from the
    issue:
    - A revision is a commit or pull request that changes the clause in the standard's MDX, its
      registry row in `src/content/standards.ts`, and a `changelogEntries` line. Link the commit.

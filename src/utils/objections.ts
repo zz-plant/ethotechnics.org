@@ -5,7 +5,7 @@
  * The rules are the site's own: an objection is answered in public within
  * ANSWER_WINDOW_DAYS of being opened, it is flagged as due soon from
  * DUE_SOON_AFTER_DAYS, and an upheld objection ends in a revised clause or a
- * recorded reason for keeping it. This module holds the pure parts of that:
+ * published reason for keeping it. This module holds the pure parts of that:
  * reading the form, the clock, what the daily sweep does to an issue, and the
  * snapshot the record page reads. The scripts under scripts/presence/ do the
  * network calls; the site reads only the snapshot.
@@ -213,7 +213,7 @@ export const acknowledgmentComment = (
       "",
       "The answer says whether the objection is upheld:",
       "",
-      "- **Upheld.** The clause is revised, or a reason for keeping it is recorded. Either is linked from this issue.",
+      "- **Upheld.** The clause is revised, or a reason for keeping it is published. Either is linked from this issue.",
       "- **Not upheld.** The answer gives the reason.",
       "",
       `The record at ${RECORD_URL} lists every objection, its due date, and its answer.`,

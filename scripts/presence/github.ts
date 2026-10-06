@@ -185,7 +185,7 @@ export const objectionLabelDefinitions = (): LabelDefinition[] => [
     name: OBJECTION_LABELS.upheld,
     color: "1d76db",
     description:
-      "Upheld: the clause is revised or a reason for keeping it is recorded",
+      "Upheld: the clause is revised or a reason for keeping it is published",
   },
   {
     name: OBJECTION_LABELS.notUpheld,
