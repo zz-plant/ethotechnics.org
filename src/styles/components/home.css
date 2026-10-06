@@ -71,14 +71,37 @@
     }
   }
 
+  /* The site's own answerability, set as a colophon: a heavy rule, the
+     question asked of the site, and one column per route. */
   .home-colophon {
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding-top: var(--space-6);
+  }
+
+  .home-colophon__heading {
+    margin: 0 0 var(--space-5);
+    padding-top: var(--space-4);
     border-top: 2px solid var(--text);
-    padding-top: var(--space-5);
+    font-size: var(--text-h4);
+    line-height: 1.3;
   }
 
   .home-colophon__cols {
     display: grid;
     gap: var(--space-5);
+  }
+
+  @media (min-width: 640px) {
+    .home-colophon__cols {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .home-colophon__cols {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
   }
 
   .home-colophon__label {
@@ -97,14 +120,17 @@
     line-height: 1.6;
   }
 
+  /* Each link moves to the next line whole rather than breaking inside
+     its label; the columns are narrow at four across. */
   .home-colophon__text a {
+    display: inline-block;
     text-decoration: underline;
     text-underline-offset: 0.15em;
   }
 
-  /* The story masthead. The headline is drawn beside it on a wide screen and
-     under it on a phone, after the buttons, so the first tap target stays
-     on the first screen. */
+  /* The story masthead: the headline and lede, with the three things the
+     site publishes beside them on a wide screen and under the buttons on a
+     phone, so the first tap target stays on the first screen. */
   .institute-hero--story {
     display: grid;
     gap: var(--space-7);
@@ -777,12 +803,19 @@
     border-radius: var(--radius-xs);
   }
 
+  /* The pillars sit in the masthead's second column on a wide screen,
+     stacked; below that they run as a row under the buttons. */
   .home-pillars {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-column: 1 / -1;
     gap: var(--space-3);
     margin-top: 0;
+  }
+
+  @media (min-width: 1000px) {
+    .home-pillars {
+      grid-template-columns: minmax(0, 1fr);
+    }
   }
 
   .home-pillar {
@@ -1084,75 +1117,6 @@
     to {
       transform: scaleY(1);
     }
-  }
-
-  /* The hero's ledger: the record's warnings beside the response the
-     institution gave. The empty column is drawn as text, not a placeholder. */
-  .hero-ledger {
-    margin: 0;
-  }
-
-  .hero-ledger__runhead {
-    margin: 0 0 var(--space-2);
-    font-family: var(--mono);
-    font-size: var(--text-xs);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .hero-ledger__table {
-    width: 100%;
-    border-collapse: collapse;
-    background: var(--surface);
-    border: 1px solid var(--border);
-  }
-
-  .hero-ledger__table th {
-    padding: var(--space-2) var(--space-3);
-    border-bottom: 1px solid var(--border);
-    background: var(--panel);
-    font-family: var(--sans);
-    font-size: var(--text-2xs, var(--text-xs));
-    font-weight: 700;
-    letter-spacing: var(--tracking-label);
-    text-transform: uppercase;
-    text-align: left;
-    color: var(--muted);
-  }
-
-  .hero-ledger__table td {
-    padding: var(--space-2) var(--space-3);
-    border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
-    vertical-align: top;
-    font-size: var(--text-sm);
-  }
-
-  .hero-ledger__table tr:last-child td {
-    border-bottom: 0;
-  }
-
-  .hero-ledger__when {
-    display: block;
-    margin-bottom: 2px;
-    font-family: var(--mono);
-    font-size: var(--text-xs);
-    color: var(--muted);
-    font-variant-numeric: tabular-nums;
-  }
-
-  .hero-ledger__blank {
-    font-family: var(--sans);
-    font-size: var(--text-xs);
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--mark);
-    white-space: nowrap;
-  }
-
-  .hero-ledger__caption {
-    margin-top: var(--space-2);
   }
 
   /* The positioning band's mechanism columns: four mechanisms handed the

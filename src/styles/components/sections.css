@@ -74,14 +74,7 @@
 
   /* The masthead already closes with a rule; a second one under it would
      draw two lines with nothing between them. */
-  :is(
-      .section:first-of-type,
-      .page-breadcrumbs + .section,
-      .page-intro,
-      .institute-hero,
-      .record-spine,
-      .home-claim
-    )
+  :is(.section:first-of-type, .page-breadcrumbs + .section, .page-intro)
     + :is(.section--alt, .section--banded) {
     border-top: 0;
     padding-top: 0;
