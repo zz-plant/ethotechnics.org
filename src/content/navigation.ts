@@ -35,14 +35,14 @@ export const navPrimaryLinks: NavLink[] = [
     href: "/method",
     label: "Method",
     description:
-      "The seven-stage chain, the six safeguards, and the twelve laws",
+      "How evidence of a wrong decision reaches someone who has to change the rule",
     primary: true,
     mobileFeatured: true,
   },
   {
     href: "/standards",
     label: "Standards",
-    description: "Citable normative specifications, clauses, and crosswalks",
+    description: "Draft requirements a system can be held to, clause by clause",
     primary: true,
     mobileFeatured: true,
   },
@@ -86,18 +86,19 @@ export const navSections: NavSection[] = [
   {
     heading: "Method",
     description:
-      "What must be true when a system decides for an institution: the chain, the laws, and the draft specifications that bind them.",
+      "What must be true when a system decides for an institution, and the draft requirements that test for it.",
     links: [
       {
         href: "/method",
         label: "The method",
         description:
-          "The seven-stage chain, the six safeguards, and the twelve laws",
+          "How evidence of a wrong decision reaches someone who has to change the rule",
       },
       {
         href: "/standards/laws",
         label: "The twelve laws",
-        description: "Each law and the condition a clause binds",
+        description:
+          "Twelve conditions that must always hold, and the clauses behind each",
       },
       {
         href: "/low-leverage",
@@ -107,7 +108,7 @@ export const navSections: NavSection[] = [
       {
         href: "/standards",
         label: "Standards",
-        description: "Citable clauses, stated so a system can fail them",
+        description: "Draft requirements, each one a test a system can fail",
       },
       {
         href: "/evidence-packs",
@@ -130,7 +131,7 @@ export const navSections: NavSection[] = [
         href: "/evals",
         label: "Eval suites",
         description:
-          "Test suites for delegation validity, burden, standing, appeal, and correction",
+          "Tests of whether a deployed system's decisions can be challenged, halted, and reversed",
       },
       {
         href: "/evals/coverage",
@@ -158,7 +159,7 @@ export const navSections: NavSection[] = [
     // product names.
     heading: "Tools",
     description:
-      "Ordered by what you bring: a workflow, workload ratings, a decision log, or the decision your system makes.",
+      "Ordered by what you bring: a workflow, workload ratings, a decision log, the decision your system makes, or a decision made about you.",
     links: [
       {
         href: "/diagnostics/delegation-audit",
@@ -181,13 +182,13 @@ export const navSections: NavSection[] = [
         href: "/use-cases",
         label: "Which tool for your system",
         description:
-          "Bring the decision it makes: six contexts, each with the check to run first",
+          "Bring the decision it makes: six kinds of system, each with the check to run first",
       },
       {
         href: "/diagnostics",
         label: "All tools",
         description:
-          "Also the corrective capacity self-assessment and checks for a person a system decided about",
+          "Bring a decision made about you: three checks, plus the corrective capacity self-assessment",
       },
     ],
   },

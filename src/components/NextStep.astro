@@ -6,6 +6,11 @@
  *
  * The case and the law come from src/utils/next-step.ts, which maps the
  * topic text to a state variable. Pass `variable` to skip the keyword match.
+ *
+ * The action states the safeguard as the self-test's plain question rather
+ * than as a law number: glossary and explainer readers arrive from search,
+ * and many of them run no system. Pass `action` to replace the law link on a
+ * page written for the person a system decided about.
  */
 import "../styles/components/next-step.css";
 
@@ -14,16 +19,19 @@ import VerdictMark from "./VerdictMark.astro";
 import { stateVariables, type StateVariableId } from "../content/casebook";
 import { extractLaws } from "../utils/laws";
 import { pickMatchedCase, variableForTopic } from "../utils/next-step";
+import { selfTestQuestions } from "../utils/self-test";
 
 interface Props {
   /** Page title, slug, tags: any text that names the page's subject. */
   topic?: (string | undefined | null)[];
   /** Set when the page's variable is known; overrides `topic`. */
   variable?: StateVariableId;
+  /** Replaces the law link, e.g. with a check for a person decided about. */
+  action?: { label: string; href: string };
   class?: string;
 }
 
-const { topic = [], variable, class: className }: Props = Astro.props;
+const { topic = [], variable, action, class: className }: Props = Astro.props;
 
 // No match, no block: a page whose topic names no safeguard shows no case
 // rather than a fallback that has nothing to do with it.
@@ -41,9 +49,12 @@ const lawRow =
 const lawHref = pick
   ? `/standards/laws#${lawRow?.id ?? `law-${pick.law.toLowerCase()}`}`
   : "";
+const question = pick
+  ? selfTestQuestions.find((item) => item.variable === pick.finding.variable)
+      ?.question
+  : undefined;
 const entry = pick?.entry;
 const finding = pick?.finding;
-const law = pick?.law;
 ---
 
 {
@@ -69,19 +80,13 @@ const law = pick?.law;
         </a>
       </div>
       <div class="next-step__action">
-        <p class="eyebrow">Do this next</p>
-        <p class="next-step__law">
-          {lawRow ? (
-            <>
-              Check your system against the law behind this finding:{" "}
-              <strong>{lawRow.title}.</strong>
-            </>
-          ) : (
-            <>Check your system against the law behind this finding.</>
-          )}
-        </p>
-        <a class="button primary next-step__button" href={lawHref}>
-          Read Law {law}
+        <p class="eyebrow">The question it failed</p>
+        {question && <p class="next-step__law">{question}</p>}
+        <a
+          class="button primary next-step__button"
+          href={action?.href ?? lawHref}
+        >
+          {action?.label ?? "Read the law behind it"}
         </a>
       </div>
     </aside>

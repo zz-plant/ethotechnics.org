@@ -18,12 +18,13 @@ const permalink = "/diagnostics/self-defense-tools";
 const rights = useCases.filter((entry) => entry.personCanAsk);
 const anchorLinks = [
   { href: "#your-rights", label: "What you can ask for now" },
-  { href: "#how-to-use", label: "How to use" },
   { href: "#governable", label: "Can this decision be challenged?" },
   { href: "#appeal-real", label: "Can the appeal change anything?" },
   { href: "#power-map", label: "Who holds power?" },
   { href: "#print", label: "Printable sheet" },
 ];
+
+const ask = "/explainers/language-people-can-use";
 
 const tools = [
   {
@@ -31,34 +32,34 @@ const tools = [
     eyebrow: "Tool 1",
     title: "Can this decision be challenged?",
     description:
-      "Seven yes/no questions on whether the decision has an owner, reasons, a clock, and a remedy you can reach.",
+      "Seven yes-or-no questions: is someone responsible, have you been given reasons and a date, and is there a way to put it right?",
     questions: [
-      "Can you name the accountable owner for this decision?",
-      "Do you have the exact reasons and evidence used?",
-      "Is there a clock for when a response is due?",
-      "Can you reach a human with override authority?",
-      "Is there a documented remedy if the decision is wrong?",
-      "Will you receive a written record of any review outcome?",
-      "Is retaliation or penalty explicitly prohibited?",
+      "Can you name the person or office responsible for this decision?",
+      "Have you been given the reasons and the information the decision used?",
+      "Have you been told the date by which they must answer a challenge?",
+      "Can you reach a person who is allowed to change the decision?",
+      "Does a written policy say what they will do if the decision was wrong?",
+      "Will they send you the result of any review in writing?",
+      "Does a written rule protect you from being penalized for challenging it?",
     ],
     outcomes: [
       {
         title: "Mostly yes",
         result: "Enough is in place to challenge it",
         description:
-          "You can name an owner, a clock, and a remedy, which is enough to file a challenge and record the answer.",
+          "You know who is responsible, when they must answer, and what they would do if they got it wrong. That is enough to file a challenge and keep a record of the reply.",
         nextSteps: [
           {
-            label: "Use wording you can send",
-            href: "/explainers/language-people-can-use",
+            label: "Questions to send with your challenge",
+            href: `${ask}#phrases`,
           },
           {
-            label: "Review STD-02: Contestability and recourse",
-            href: "/standards/std-02-contestability-recourse",
+            label: "Check whether an appeal can change the outcome",
+            href: "#appeal-real",
           },
           {
-            label: "See what a decision record contains",
-            href: "/standards/ethotechnics-for-agents",
+            label: "Print the checks to keep with your papers",
+            href: "#print",
           },
         ],
       },
@@ -66,17 +67,17 @@ const tools = [
         title: "Mostly no",
         result: "Not enough is in place yet",
         description:
-          "Without an owner, a clock, or a remedy, the decision cannot be contested as it stands.",
+          "Without someone responsible, a date, or a way to put it right, there is no one yet who has to answer a challenge.",
         nextSteps: [
           {
-            label: "Ask for a written decision record",
-            href: "/standards/std-02-contestability-recourse",
+            label: "Ask who can change it, and by when",
+            href: `${ask}#phrases`,
           },
-          { label: "Review mechanism options", href: "/mechanisms" },
           {
-            label: "Review evidence requirements",
-            href: "/evidence-packs",
+            label: "See what the law already lets you ask for",
+            href: "#your-rights",
           },
+          { label: "Find out who holds power here", href: "#power-map" },
         ],
       },
     ],
@@ -86,51 +87,45 @@ const tools = [
     eyebrow: "Tool 2",
     title: "Can this appeal change the outcome?",
     description:
-      "Six questions on whether the appeal can change the outcome, or only records the complaint.",
+      "Six yes-or-no questions on whether the appeal can change the outcome, or only records the complaint.",
     questions: [
-      "Does the appeal route allow new evidence or corrections?",
-      "Is the reviewer independent from the original decision-maker?",
-      "Is there a timeline for when a decision will be issued?",
-      "Does the appeal include a remedy if the decision is wrong?",
-      "Can you confirm who approves the reversal?",
-      "Will you receive written reasons for the appeal outcome?",
+      "Can you add new evidence or correct the record when you appeal?",
+      "Will someone other than the original decision-maker review it?",
+      "Have you been told when the appeal will be decided?",
+      "If you win, will they put right what the decision cost you?",
+      "Do you know who signs off on reversing the decision?",
+      "Will you get the reasons for the appeal result in writing?",
     ],
     outcomes: [
       {
-        title: "Appeal is real",
+        title: "Mostly yes",
         result: "A review that can change the decision",
         description:
-          "The appeal path has independent review, a clock, and a clear remedy.",
+          "Someone new reviews it, by a known date, and a win puts things right.",
         nextSteps: [
           {
-            label: "Prepare evidence pack inputs",
-            href: "/evidence-packs/std-02",
+            label: "Questions to send with your appeal",
+            href: `${ask}#phrases`,
           },
           {
-            label: "Use wording to escalate",
-            href: "/explainers/language-people-can-use",
+            label: "Questions for your kind of organization",
+            href: `${ask}#contexts`,
           },
-          {
-            label: "Track response deadlines",
-            href: "/standards/std-02-contestability-recourse",
-          },
+          { label: "Find out who can reverse it", href: "#power-map" },
         ],
       },
       {
-        title: "Appeal cannot change the outcome",
-        result: "A complaint route with no remedy",
+        title: "Mostly no",
+        result: "A complaint route that changes nothing",
         description:
-          "If the reviewer is not independent, or there is no remedy, expect the appeal to change nothing.",
+          "If the same people review it, or a win gets you nothing back, expect the appeal to change nothing.",
         nextSteps: [
+          { label: "Ask for the refusal in writing", href: `${ask}#phrases` },
           {
-            label: "Request a real escalation path",
-            href: "/standards/std-02-contestability-recourse",
+            label: "See what the law already lets you ask for",
+            href: "#your-rights",
           },
-          { label: "Document the gap", href: "/diagnostics" },
-          {
-            label: "Review contestability evidence",
-            href: "/evidence-packs",
-          },
+          { label: "Find who outside can make them act", href: "#power-map" },
         ],
       },
     ],
@@ -140,45 +135,50 @@ const tools = [
     eyebrow: "Tool 3",
     title: "Who holds power here?",
     description:
-      "Six questions that name who can pause, reverse, or compel a change to the decision.",
+      "Six questions. For each, write down a name, an office, or an organization.",
     questions: [
       "Who can reverse or pause the decision today?",
-      "Who owns the policy or model behind the decision?",
-      "Which team controls the evidence or logs you need?",
-      "Who is accountable for harm if this goes wrong?",
-      "Which regulator, union, or authority can compel action?",
-      "What reputational or contractual leverage exists?",
+      "Which organization or department made the rule this decision followed?",
+      "Who holds the records the decision used?",
+      "Who would have to answer if the decision harms you?",
+      "Which regulator, ombudsman, union, or court can make them act?",
+      "Who else could press them to act, such as an elected representative, a professional body, or the press?",
     ],
     outcomes: [
       {
-        title: "Power map is clear",
-        result: "Named owners and outside pressure",
+        title: "You can name them",
+        result: "Someone inside answers, and someone outside can make them",
         description:
-          "You can name at least one accountable owner and one outside body, such as a regulator or union, that can compel action.",
+          "You can name at least one person inside who can reverse the decision, and one body outside, such as a regulator or union, that can make them act.",
         nextSteps: [
-          { label: "Build an escalation path", href: "/mechanisms" },
           {
-            label: "Check evidence requirements",
-            href: "/evidence-packs",
+            label: "Write to the person who can reverse it",
+            href: `${ask}#phrases`,
           },
-          { label: "See the validators", href: "/validators" },
+          {
+            label: "Questions for your kind of organization",
+            href: `${ask}#contexts`,
+          },
+          {
+            label: "Print the checks to keep with your papers",
+            href: "#print",
+          },
         ],
       },
       {
-        title: "Power map is opaque",
+        title: "You cannot name them",
         result: "Nobody is clearly responsible",
         description:
-          "If you cannot see an accountable owner or any outside pressure, treat the system as high risk.",
+          "Ask in writing who is responsible, and keep every reply. A written record is what a regulator, an ombudsman, or an advice service will ask to see.",
         nextSteps: [
           {
-            label: "Check what the system is allowed to decide",
-            href: "/diagnostics/delegation-audit",
+            label: "Ask who is responsible, in writing",
+            href: `${ask}#phrases`,
           },
           {
-            label: "Use wording that asks who is accountable",
-            href: "/explainers/language-people-can-use",
+            label: "See what the law already lets you ask for",
+            href: "#your-rights",
           },
-          { label: "Document for evidence packs", href: "/evidence-packs" },
         ],
       },
     ],
@@ -211,7 +211,7 @@ const printSheet = {
     id="your-rights"
     eyebrow="Before the checks"
     title="What the law already lets you ask for"
-    description="The standards on this site are drafts with no force. These rules are in force where they name, and some may cover your case. This is not legal advice."
+    description="The standards on this site are drafts and bind no one. The laws below are in force in the places they name, and one may cover your case. This is not legal advice."
   >
     <CardGrid className="grid--two self-defense__rights">
       {
@@ -228,28 +228,6 @@ const printSheet = {
         ))
       }
     </CardGrid>
-  </SectionBlock>
-
-  <SectionBlock
-    id="how-to-use"
-    eyebrow="How to use"
-    title="Six or seven questions per check"
-    description="The first two checks take yes or no. The third asks who: write down a name or a team for each answer."
-  >
-    <ol class="muted self-defense__steps">
-      <li>Pick the check that matches your situation.</li>
-      <li>
-        Answer each question: yes or no for the first two checks, a name for the
-        third.
-      </li>
-      <li>
-        Count your yes answers, or the questions you could not name anyone for,
-        and compare to the outcomes below.
-      </li>
-      <li>
-        Use the next-step links to request evidence, remedies, or escalation.
-      </li>
-    </ol>
   </SectionBlock>
 
   {
@@ -300,7 +278,7 @@ const printSheet = {
     id="print"
     eyebrow="Printable"
     title="One-page self-defense sheet"
-    description="Print or save the questions so you can use the checks offline."
+    description="Print the three checks, or save them as a PDF, to keep with your papers."
   >
     <div class="self-defense-print" data-glossary-ignore>
       <div class="self-defense-print__panel">
@@ -373,7 +351,6 @@ const printSheet = {
     display: none;
   }
 
-  .self-defense__steps,
   .self-defense__questions,
   .self-defense__next-steps {
     padding-left: var(--space-4);
@@ -461,7 +438,6 @@ const printSheet = {
     .page-breadcrumbs,
     .page-intro,
     .footer,
-    #how-to-use,
     #governable,
     #appeal-real,
     #power-map,

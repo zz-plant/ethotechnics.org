@@ -33,10 +33,12 @@ const probeCount = checkableProperties.reduce(
     <p class="eyebrow">Coverage</p>
     <h1>What we can actually check</h1>
     <p class="section-lead">
-      Two tools on this site check systems. The Tier 1 harness tests a running
-      system through an adapter that connects the two. The record conformance
-      checker reads the decision records a system has already written. They were
-      built separately and they overlap: {checkableProperties.length} governance properties,
+      Two tools on this site check systems. The harness tests a running system
+      through an adapter that connects the two, and runs the Tier 1 tests on the
+      <a href="/measurement-tiers#harness">measurement tiers</a> page. The record
+      conformance checker reads the decision records a system has already written.
+      They were built separately and they overlap: {checkableProperties.length} governance
+      properties,
       {probeCount} individual checks (probes) between them, and{" "}
       {counted("none")} properties with no check at all.
     </p>
@@ -159,9 +161,9 @@ const probeCount = checkableProperties.reduce(
       A check that nobody can map back to a claim is only a number. A claim
       nobody can map to a check is only an assertion. A test enforces the list:
       every harness check and every conformance finding must belong to exactly
-      one property here, or the site does not build. A new check cannot be added
-      without saying what it shows. A property cannot be dropped quietly because
-      nothing checks it.
+      one property here, or the site fails to publish. A new check cannot be
+      added without saying what it shows. A property cannot be dropped quietly
+      because nothing checks it.
     </p>
     <p class="muted">
       The list is in the site's <a

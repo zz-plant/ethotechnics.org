@@ -123,8 +123,8 @@ const printSheet = {
   <SectionBlock
     id="phrases"
     eyebrow="Questions to send"
-    title="Six questions, one ask each"
-    description="Send them by email, by chat, or in the form you were given. Each asks for one thing."
+    title="Six questions to send"
+    description="Send them by email, by chat, or in the form you were given."
   >
     <CardGrid className="grid--two">
       {
@@ -143,7 +143,7 @@ const printSheet = {
     id="contexts"
     eyebrow="By setting"
     title="Questions for your setting"
-    description="Workplace systems, public services, and platforms each get three questions to send as written."
+    description="Three more for each kind of organization, to send as written."
     variant="alt"
   >
     <CardGrid className="grid--two">
@@ -223,7 +223,13 @@ const printSheet = {
     </div>
   </SectionBlock>
 
-  <NextStep variable="standing" />
+  <NextStep
+    variable="standing"
+    action={{
+      label: "Check a decision about you",
+      href: "/diagnostics/self-defense-tools",
+    }}
+  />
 
   <p class="muted" style="margin-top:var(--space-6)">
     See also: <a href="/taxonomy">Taxonomy</a> &middot; <a href="/standards"
