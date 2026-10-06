@@ -281,7 +281,7 @@
             "title": "Moral behavior (of systems)",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Observable system outcomes that prevent harm, distribute burden fairly, and keep people able to contest and recover. Moral behavior is judged by <a href=\"/measurement-tiers\">measures</a> such as <a href=\"/glossary/time-to-halt\">time-to-halt</a>, <a href=\"/glossary/reversibility\">reversibility</a>, and <a href=\"/glossary/fair-burden-distribution\">fair burden distribution</a>, not by stated intent. A system does not “behave morally” if those measures are tracked but trigger no pause rules, remediation, or resourcing.</p>",
+            "bodyHtml": "<p>Observable system outcomes that prevent harm, distribute burden fairly, and keep people able to contest and recover. It is judged by <a href=\"/measurement-tiers\">measures</a> such as how fast the system <a href=\"/glossary/time-to-halt\">halts</a>, whether its actions can be <a href=\"/glossary/reversibility\">undone</a>, and whether its failures <a href=\"/glossary/fair-burden-distribution\">fall hardest on the most vulnerable</a>, not by stated intent. A system does not “behave morally” if those measures are tracked but trigger no pause rules, remediation, or resourcing.</p>",
             "examples": [
               "A payments platform slows risky recommendations, surfaces a human review queue, and documents reversals when fraud indicators spike."
             ],
@@ -318,7 +318,12 @@
             "title": "Ethical load path",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The traceable chain of authority, decisions, and controls that carries responsibility for outcomes through a system. A clear ethical load path names who can stop, reverse, or repair harm at each stage, linking <a href=\"/glossary/design-authority\">design authority</a>, <a href=\"/glossary/oversight-horizon\">oversight horizons</a>, and the <a href=\"/glossary/repair-log\">repair log</a> so handoffs remain accountable.</p>",
+            "bodyHtml": "<p>The traceable chain of authority, decisions, and controls that carries responsibility for outcomes through a system. A clear ethical load path names who can stop, reverse, or repair harm at each stage, so handoffs remain accountable.</p>",
+            "adjacentTerms": [
+              "design-authority",
+              "oversight-horizon",
+              "repair-log"
+            ],
             "examples": [
               "A transit authority publishes a named escalation map for halting automated dispatch, including after-hours owners."
             ],
@@ -360,7 +365,13 @@
             "title": "Ethotechnic audit",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A structured assessment of whether a system has the capabilities it needs: stoppability, reversibility, burden distribution, contestability, and accountability. Ethotechnic audits validate evidence, stress-test pathways, and define remediation steps with named owners.</p>",
+            "bodyHtml": "<p>A structured assessment of whether a system can be stopped, whether its actions can be undone, who bears its costs, whether its decisions can be challenged, and who answers for them. Ethotechnic audits validate evidence, stress-test pathways, and define remediation steps with named owners.</p>",
+            "adjacentTerms": [
+              "stoppability",
+              "reversibility",
+              "burden-distribution",
+              "contestability"
+            ],
             "examples": [
               "After a harmful rollout, a platform audit verifies stop controls, reversal paths, and repair ownership before relaunch."
             ],
@@ -397,7 +408,7 @@
             "title": "Conviviality",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The degree to which tools and institutions expand people’s agency, cooperation, and right of refusal instead of enclosing them. Convivial systems keep <a href=\"/glossary/permission-surface\">permission surfaces</a> wide, make opting out safe, and let communities shape the service.</p>",
+            "bodyHtml": "<p>The degree to which tools and institutions expand people’s agency, cooperation, and right of refusal instead of enclosing them. Convivial systems leave people wide room to act, make opting out safe, and let communities shape the service.</p>",
             "examples": [
               "A mutual aid platform lets neighbors pause notifications or change delivery preferences without losing access to support."
             ],
@@ -434,7 +445,7 @@
             "title": "Ethotechnic maturity",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A developmental scale describing how consistently a system embodies Ethotechnic capabilities across its lifecycle. Early maturity focuses on stopping acute harms; later stages add <a href=\"/glossary/graceful-degradation\">graceful degradation</a>, <a href=\"/glossary/contestability\">contestability</a>, and routine <a href=\"/glossary/care-retrospective\">care retrospectives</a>. Mature systems publish <a href=\"/glossary/service-level-indicators\">SLJs</a>, maintain repair capacity, and review their halt, reversal, and appeal metrics on a fixed cadence.</p>",
+            "bodyHtml": "<p>A scale describing how consistently a system can halt, reverse, answer a challenge, and learn from correction, across its lifecycle. Early maturity focuses on stopping acute harms; later stages add <a href=\"/glossary/graceful-degradation\">controlled degradation</a>, <a href=\"/glossary/contestability\">ways to challenge decisions</a>, and <a href=\"/glossary/care-retrospective\">routine reviews of maintenance load</a>. Mature systems publish <a href=\"/glossary/service-level-indicators\">fairness and safety measures</a>, maintain repair capacity, and review their halt, reversal, and appeal metrics on a fixed cadence.</p>",
             "examples": [
               "A rail operator publishes service-level justice metrics, runs quarterly pause drills, and funds dedicated repair staffing."
             ],
@@ -476,7 +487,7 @@
             "title": "Legibility",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>How understandable a system’s actions, reasoning, and ownership are to the people affected by it. Legibility complements <a href=\"/glossary/explainability-for-accountability\">explainability for accountability</a> and transparent <a href=\"/glossary/design-authority\">design authority</a> so people can find who decided, why, and how to respond. Legibility is discoverability of who/why/what-next; it does not guarantee the system can be changed.</p>",
+            "bodyHtml": "<p>How understandable a system’s actions, reasoning, and ownership are to the people affected by it. With <a href=\"/glossary/explainability-for-accountability\">explanations a person can act on</a> and a visible <a href=\"/glossary/design-authority\">owner of the system's rules</a>, it lets people find who decided, why, and how to respond. Legibility is discoverability of who/why/what-next; it does not guarantee the system can be changed.</p>",
             "examples": [
               "Residents receive a plain-language notice that names the office, rule, and appeal path behind a zoning decision."
             ],
@@ -651,7 +662,7 @@
             "title": "Decision system",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The assembled machinery that produces a <a href=\"/glossary/consequential-decision\">consequential decision</a>: models, rules engines, queues, humans, policies, and the data they read. Ethotechnics governs the decision system rather than any one component, because the same substrate-independent questions apply whichever part made the call, and the deployment is classified by its <a href=\"/glossary/substrate-profile\">substrate profile</a> rather than by which component is fashionable.</p><p>It matters because component-level assurance does not compose. A verified model inside an unaudited decision system still produces decisions no one can reconstruct, which is why assurance is tagged with the <a href=\"/glossary/evaluation-layer\">evaluation layer</a> it holds at, and why reconstructing a past decision depends on <a href=\"/glossary/prospective-auditability\">prospective auditability</a> designed into the system.</p>",
+            "bodyHtml": "<p>The assembled machinery that produces a <a href=\"/glossary/consequential-decision\">decision with consequences for someone</a>: models, rules engines, queues, humans, policies, and the data they read. Ethotechnics governs the whole system rather than any one component, because the same questions apply whichever part made the call. A deployment is classified by its <a href=\"/glossary/substrate-profile\">substrate profile</a>, not by which component is fashionable.</p><p>It matters because component-level assurance does not compose. A verified model inside an unaudited decision system still produces decisions no one can reconstruct, which is why assurance is tagged with the <a href=\"/glossary/evaluation-layer\">evaluation layer</a> it holds at, and why reconstructing a past decision depends on <a href=\"/glossary/prospective-auditability\">prospective auditability</a> designed into the system.</p>",
             "scope": "A. Core concepts. Terms that define the discipline: its unit of governance, and the coupling of capability, authority, evidence, dependency, standing, and correction it maintains.",
             "operationalTests": [
               "A diagram names every component that can alter a decision, including humans and lookup tables.",
@@ -699,7 +710,7 @@
             "title": "Justified delegation",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A delegation whose authority, evidence, and correction capacity are all in force right now. The grant sits in an allowed <a href=\"/glossary/grant-state\">grant state</a>, the <a href=\"/glossary/policy-record\">policy record</a> it rests on has not expired, and the institution can still meet its <a href=\"/glossary/correction-obligation\">correction obligation</a>. Justification is a present-tense property, not a fact about the launch review.</p><p>It is the point-in-time test. <a href=\"/glossary/revisable-delegation\">Revisable delegation</a> is the standing property it tests for: the grant stays tied to the evidence that justified it, so it can be narrowed or withdrawn when that evidence changes. Ask whether a delegation is justified to grade it today; ask whether it is revisable to know whether the answer can be acted on at all.</p><p>It matters because most delegations fail by outliving their justification rather than by being wrong at the start. Asking whether a delegation is justified today is the operational form of treating authority as an <a href=\"/glossary/authority-lease\">authority lease</a>.</p>",
+            "bodyHtml": "<p>A delegation that still holds today: the system's permission is in force, the evidence behind it has not expired, and the institution can still correct its errors. In the standards' records, that means an allowed <a href=\"/glossary/grant-state\">grant state</a>, an unexpired <a href=\"/glossary/policy-record\">policy record</a>, and a <a href=\"/glossary/correction-obligation\">correction obligation</a> the institution can still meet. Justification is a present-tense property, not a fact about the launch review.</p><p>It is the point-in-time test. <a href=\"/glossary/revisable-delegation\">Revisable delegation</a> is the standing property it tests for: the grant stays tied to the evidence that justified it, so it can be narrowed or withdrawn when that evidence changes. Ask whether a delegation is justified to grade it today; ask whether it is revisable to know whether the answer can be acted on at all.</p><p>It matters because most delegations fail by outliving their justification rather than by being wrong at the start. Asking whether a delegation is justified today is the operational form of treating authority as an <a href=\"/glossary/authority-lease\">authority lease</a>.</p>",
             "scope": "A. Core concepts. Terms that define the discipline: its unit of governance, and the coupling of capability, authority, evidence, dependency, standing, and correction it maintains.",
             "operationalTests": [
               "For any decision, the institution can show the grant was in an allowed state at the time it was made.",
@@ -758,7 +769,7 @@
             "title": "Mechanism-first analysis",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>An approach to evaluating institutions that prioritizes system mechanics — defaults, authority, clocks, and reversibility — over declared values or intentions, because mechanics determine outcomes under load. A statement of values changes nothing until it is backed by an <a href=\"/glossary/ethical-load-path\">ethical load path</a> and enforceable <a href=\"/glossary/design-authority\">design authority</a>.</p><p>It is the methodological twin of <a href=\"/glossary/architecture-over-values\">architecture over values</a>: where that claim says structure outranks intent, mechanism-first analysis says to begin the audit at the structure.</p>",
+            "bodyHtml": "<p>An approach to evaluating institutions that prioritizes system mechanics — defaults, authority, clocks, and reversibility — over declared values or intentions, because mechanics determine outcomes under load. A statement of values changes nothing until someone is <a href=\"/glossary/ethical-load-path\">named to stop, reverse, or repair harm</a> and someone holds <a href=\"/glossary/design-authority\">enforceable authority over the system's rules</a>.</p><p>It is the methodological twin of <a href=\"/glossary/architecture-over-values\">architecture over values</a>: where that claim says structure outranks intent, mechanism-first analysis says to begin the audit at the structure.</p>",
             "scope": "A. Core concepts. Terms that define the discipline: its unit of governance, and the coupling of capability, authority, evidence, dependency, standing, and correction it maintains.",
             "operationalTests": [
               "An audit opens with the mechanism inventory (defaults, clocks, escalation, reversal) rather than the value statement.",
@@ -785,7 +796,7 @@
             "title": "Architecture over values",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The claim that “ethical” outcomes depend less on what institutions say they value and more on the enforceable structure of how decisions are made and reversed. Values without machinery are aspiration; <a href=\"/glossary/contestability\">contestability</a>, <a href=\"/glossary/reversibility\">reversibility</a>, and <a href=\"/glossary/stoppability\">stoppability</a> are the machinery.</p>",
+            "bodyHtml": "<p>The claim that “ethical” outcomes depend less on what institutions say they value and more on the enforceable structure of how decisions are made and reversed. Values without machinery are aspiration. The machinery is the ability to <a href=\"/glossary/contestability\">challenge</a> a decision, <a href=\"/glossary/reversibility\">undo</a> it, and <a href=\"/glossary/stoppability\">stop</a> the system.</p>",
             "scope": "A. Core concepts. Terms that define the discipline: its unit of governance, and the coupling of capability, authority, evidence, dependency, standing, and correction it maintains.",
             "operationalTests": [
               "A value statement traces to a named mechanism that enforces it under load.",
@@ -841,7 +852,7 @@
             "title": "Contestability architecture",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The set of design features that make contestation real: <a href=\"/glossary/decision-object\">decision objects</a>, <a href=\"/glossary/binding-clock\">clock-start</a>, <a href=\"/glossary/binding-authority\">binding authority</a>, <a href=\"/glossary/evidence-parity\">evidence parity</a>, and guaranteed <a href=\"/glossary/override-path\">override paths</a>.</p><p>Contestability is not a sentiment; it is this architecture. Where any element is missing, <a href=\"/glossary/contestability\">contestability</a> becomes theater.</p>",
+            "bodyHtml": "<p>The design features that let a challenge change a decision: an appealable <a href=\"/glossary/decision-object\">record</a>, an <a href=\"/glossary/binding-clock\">enforceable clock</a> on the response, a <a href=\"/glossary/binding-authority\">reviewer who can change the outcome</a>, <a href=\"/glossary/evidence-parity\">fair access to the evidence</a>, and a guaranteed <a href=\"/glossary/override-path\">override</a>.</p><p>Contestability is not a sentiment; it is this architecture. Where any element is missing, <a href=\"/glossary/contestability\">contestability</a> becomes theater.</p>",
             "scope": "A. Core concepts. Terms that define the discipline: its unit of governance, and the coupling of capability, authority, evidence, dependency, standing, and correction it maintains.",
             "operationalTests": [
               "Every appealable decision has a decision object, a clock, a binding authority, and a defined override path.",
@@ -938,10 +949,10 @@
           },
           {
             "id": "tripartite-invariant",
-            "title": "Tripartite invariant",
+            "title": "Non-domination, burden accounting, and error-correcting authority",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The three commitments an institution must keep for its authority to be legitimate, given that people are fallible. None of the three reduces to the others. <strong>Non-domination</strong>: people can exit or refuse and are not subject to an architecture they cannot control. <strong>Burden accounting</strong>: the institution tracks the finite human capacity and uncredited labor it consumes as an operating subsidy. <strong>Error-correcting authority</strong>: contradiction from downstream counts as evidence and can force revision of the rule that produced it.</p>",
+            "bodyHtml": "<p>Three commitments a legitimate system has to keep: no one is subject to unchecked power, the time and stamina people spend is counted, and authority lasts only while its errors can still reach someone who will correct them. None of the three follows from the others.</p><p><strong>Non-domination</strong> means people can exit or refuse, and are not subject to an architecture they cannot control. <strong>Burden accounting</strong> means the institution tracks the finite human capacity and uncredited labor it consumes as an operating subsidy. <strong>Error-correcting authority</strong> means contradiction from downstream counts as evidence and can force revision of the rule that produced it. The <a href=\"/standards/core-axioms#derivation\">derivation in the core axioms</a> sets out all three.</p>",
             "examples": [
               "A public benefits agency evaluates a deployment not only by administrative velocity but also by applicant exit costs, frontline exception repair hours, and whether appeal trends trigger mandatory rule revision."
             ],
@@ -959,8 +970,8 @@
             "genealogy": "Draws on republican political theory (Pettit), feminist care ethics and social reproduction theory, and cybernetics (Ashby, Beer).",
             "references": [
               {
-                "label": "Core axioms",
-                "href": "/standards/core-axioms",
+                "label": "Core axioms: derivation",
+                "href": "/standards/core-axioms#derivation",
                 "type": "Standard"
               },
               {
@@ -993,7 +1004,7 @@
             "title": "Moral latency",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The lag between harm occurring and the system detecting or responding to it. Automation can scale impact faster than oversight, so moral latency demands <a href=\"/glossary/velocity-friction\">velocity friction</a> and <a href=\"/glossary/ethical-interrupts\">ethical interrupts</a> that shrink response time.</p>",
+            "bodyHtml": "<p>The lag between harm occurring and the system detecting or responding to it. Automation can scale impact faster than oversight can respond, so shrinking the lag takes <a href=\"/glossary/velocity-friction\">friction that slows fast automated steps</a> and <a href=\"/glossary/ethical-interrupts\">automatic halts</a>.</p>",
             "examples": [
               "A clinic triage chatbot keeps routing patients while harm reports queue for hours, delaying escalation."
             ],
@@ -1072,7 +1083,7 @@
             "title": "Extraction",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>When a system pulls value — data, attention, labor, or social capital — without returning care, consent, or repair. Extraction hides its costs through <a href=\"/glossary/externalization\">externalization</a> and steep <a href=\"/glossary/burden-gradient\">burden gradients</a>, and it erodes trust.</p>",
+            "bodyHtml": "<p>When a system pulls value — data, attention, labor, or social capital — without returning care, consent, or repair. It hides its costs by <a href=\"/glossary/externalization\">pushing them onto others</a> and by <a href=\"/glossary/burden-gradient\">loading the heaviest work onto the people with the least power</a>, and it erodes trust.</p>",
             "examples": [
               "A data-labeling program offloads unpaid overnight verification to gig workers while the platform reports clean metrics."
             ],
@@ -1183,7 +1194,7 @@
             "title": "Brittleness",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>When a system fractures under ordinary variance (unexpected inputs, refusals, or edge cases) and people have to absorb the impact. Brittleness signals missing <a href=\"/glossary/soft-edges\">soft edges</a>, thin <a href=\"/glossary/graceful-degradation\">graceful degradation</a>, and poor <a href=\"/glossary/human-refusal-tolerance\">refusal tolerance</a>.</p>",
+            "bodyHtml": "<p>When a system fractures under ordinary variance (unexpected inputs, refusals, or edge cases) and people have to absorb the impact. It usually means the system has no <a href=\"/glossary/soft-edges\">cushioning at its boundaries</a>, no <a href=\"/glossary/graceful-degradation\">controlled way to shed load</a>, and <a href=\"/glossary/human-refusal-tolerance\">little tolerance for people who decline or make mistakes</a>.</p>",
             "examples": [
               "A flight booking bot fails on hyphenated surnames, forcing agents to rebook travelers at the counter."
             ],
@@ -1214,7 +1225,7 @@
             "title": "Optimization myopia",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Metric chasing that narrows attention to throughput or growth while ignoring <a href=\"/measurement-tiers\">halt, reversal, appeal, and burden measures</a>. Myopic optimization erodes <a href=\"/glossary/contestability\">contestability</a>, raises <a href=\"/glossary/failure-load\">failure load</a>, and often fuels <a href=\"/glossary/extraction\">extraction</a>.</p>",
+            "bodyHtml": "<p>Metric chasing that narrows attention to throughput or growth while ignoring <a href=\"/measurement-tiers\">halt, reversal, appeal, and burden measures</a>. It makes decisions <a href=\"/glossary/contestability\">harder to challenge</a>, raises the <a href=\"/glossary/failure-load\">harm done when the system fails</a>, and often <a href=\"/glossary/extraction\">takes value from people without return</a>.</p>",
             "scope": "B. Failure modes (why Ethotechnics exists). Recurring ways responsibility dissolves, authority drifts from its evidence, and harm lands on people with no route to challenge it.",
             "operationalTests": [
               "Contestability and reversibility are tracked beside success metrics, and a decline in either stops the optimization.",
@@ -1237,7 +1248,7 @@
             "title": "Precision laundering",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Using detailed metrics or probabilistic scores to disguise inequity as objectivity. Precision laundering hides <a href=\"/glossary/burden-gradient\">burden gradients</a> and <a href=\"/glossary/externalization\">externalization</a> behind statistical gloss, undermining <a href=\"/glossary/explainability-for-accountability\">explainability for accountability</a> and meaningful contestation.</p>",
+            "bodyHtml": "<p>Using detailed metrics or probabilistic scores to disguise inequity as objectivity. It hides <a href=\"/glossary/burden-gradient\">who carries the heaviest load</a> and <a href=\"/glossary/externalization\">which costs were pushed onto others</a> behind statistical gloss, and leaves people without <a href=\"/glossary/explainability-for-accountability\">explanations they can act on</a> or a real way to contest.</p>",
             "scope": "B. Failure modes (why Ethotechnics exists). Recurring ways responsibility dissolves, authority drifts from its evidence, and harm lands on people with no route to challenge it.",
             "operationalTests": [
               "High-confidence scores are presented with error bounds, provenance, and a path to contest them.",
@@ -1260,7 +1271,7 @@
             "title": "Compliance collapse",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>When rigid policy checklists replace judgment, causing teams to follow rules while harm worsens. Compliance collapse occurs when <a href=\"/glossary/design-authority\">design authority</a> is weak and <a href=\"/glossary/contestability\">contestability</a> is low, leaving no path to pause or repair.</p>",
+            "bodyHtml": "<p>When rigid policy checklists replace judgment, causing teams to follow rules while harm worsens. It occurs when <a href=\"/glossary/design-authority\">the authority to change the rules</a> is weak and decisions are <a href=\"/glossary/contestability\">hard to challenge</a>, leaving no path to pause or repair.</p>",
             "scope": "B. Failure modes (why Ethotechnics exists). Recurring ways responsibility dissolves, authority drifts from its evidence, and harm lands on people with no route to challenge it.",
             "operationalTests": [
               "Teams that meet checklist requirements can also stop or reverse harm.",
@@ -1283,7 +1294,7 @@
             "title": "Ethics debt",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The accumulation of unresolved ethical risk from shipping capabilities faster than governance, ownership, and repair mechanisms. Ethics debt grows when <a href=\"/glossary/maintenance-debt\">maintenance debt</a> outpaces the <a href=\"/glossary/repair-log\">repair log</a> and risks remain unfunded.</p>",
+            "bodyHtml": "<p>The accumulation of unresolved ethical risk from shipping capabilities faster than governance, ownership, and repair mechanisms. It grows when <a href=\"/glossary/maintenance-debt\">skipped upkeep</a> piles up faster than <a href=\"/glossary/repair-log\">repairs are made</a> and risks remain unfunded.</p>",
             "examples": [
               "A recommender launches without consent review, adding unresolved risks to the repair log backlog."
             ],
@@ -1320,7 +1331,7 @@
             "title": "Unowned harm",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Negative outcomes for which no clear individual or role is accountable, even though the system caused them. Unowned harm signals <a href=\"/glossary/accountability-diffusion\">accountability diffusion</a> and weak <a href=\"/glossary/traceable-ownership\">traceable ownership</a>.</p>",
+            "bodyHtml": "<p>Negative outcomes for which no clear individual or role is accountable, even though the system caused them. It is a sign that responsibility has <a href=\"/glossary/accountability-diffusion\">spread until no one can intervene</a> and that no <a href=\"/glossary/traceable-ownership\">named owner can override the system</a>.</p>",
             "examples": [
               "Denied applicants cannot identify a responsible team to contest a decision or request reversal."
             ],
@@ -1389,7 +1400,7 @@
             "title": "Ethics theater",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Public displays of ethical concern without operational mechanisms that change system behavior. Ethics theater often masks <a href=\"/glossary/compliance-collapse\">compliance collapse</a> and low <a href=\"/glossary/contestability\">contestability</a>.</p>",
+            "bodyHtml": "<p>Public displays of ethical concern without operational mechanisms that change system behavior. It often hides <a href=\"/glossary/compliance-collapse\">teams following checklists while harm worsens</a>, and decisions people <a href=\"/glossary/contestability\">cannot effectively challenge</a>.</p>",
             "examples": [
               "The team publishes a code of ethics but lacks monitoring or a repair log."
             ],
@@ -1426,7 +1437,7 @@
             "title": "Authority drift",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The gap that opens when what a system does moves away from what its <a href=\"/glossary/authority-grant\">authority grant</a> permits or what its evidence supports. Drift arrives through added integrations, widened inputs, quietly raised thresholds, and habits that outlive the exception that created them, and it accumulates through the <a href=\"/glossary/automation-ratchet\">automation ratchet</a>.</p><p>It matters because every individual step looks too small to review. Drift is detected by comparing observed action classes from <a href=\"/glossary/capability-discovery\">capability discovery</a> against grant scope, and it is what <a href=\"/glossary/justified-delegation\">justified delegation</a> and the <a href=\"/glossary/authority-lease\">authority lease</a> exist to catch.</p>",
+            "bodyHtml": "<p>The gap that opens when what a system does moves away from what it was <a href=\"/glossary/authority-grant\">granted permission</a> to do or what its evidence supports. Drift arrives through added integrations, widened inputs, quietly raised thresholds, and habits that outlive the exception that created them, and it accumulates through the <a href=\"/glossary/automation-ratchet\">automation ratchet</a>.</p><p>It matters because every individual step looks too small to review. Drift is detected by comparing observed action classes from <a href=\"/glossary/capability-discovery\">capability discovery</a> against grant scope, and it is what <a href=\"/glossary/justified-delegation\">justified delegation</a> and the <a href=\"/glossary/authority-lease\">authority lease</a> exist to catch.</p>",
             "scope": "B. Failure modes (why Ethotechnics exists). Recurring ways responsibility dissolves, authority drifts from its evidence, and harm lands on people with no route to challenge it.",
             "operationalTests": [
               "Observed action classes are reconciled against grant scope on a stated cadence.",
@@ -1678,7 +1689,7 @@
             "title": "Capacity depreciation",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The decay of correction capacity in the absence of replenishment. The people who knew the manual process leave, the alternative supplier lapses, and the rollback script stops being run. Nothing fails and nothing is decided; the institution becomes less able to correct than it was, and the loss is recorded nowhere because no event produced it.</p><p>Depreciation is measured per capacity rather than as a single score. Each capacity in the dependency record carries a last_exercised date, a status of retained, degrading, or lost, and a change_since_last_assessment of replenished, unchanged, or consumed. A capacity that is listed but has never been exercised is a claim, not a capability.</p><p>It matters because <a href=\"/glossary/preserved-capacity\">preserved capacity</a> and <a href=\"/glossary/institutional-reversibility\">institutional reversibility</a> are stocks rather than properties: ordinary operation spends them, and only deliberate expenditure puts them back. Depreciation is how <a href=\"/glossary/correction-capacity\">correction capacity</a> falls behind delegated authority with no decision to reduce it, and it is the mechanism underneath <a href=\"/glossary/normalized-dependence\">normalized dependence</a>.</p>",
+            "bodyHtml": "<p>The decay of an institution's ability to correct a system when nothing renews it. The people who knew the manual process leave, the alternative supplier lapses, and the rollback script stops being run. Nothing fails and nothing is decided; the institution becomes less able to correct than it was, and the loss is recorded nowhere because no event produced it.</p><p>Depreciation is measured per capacity rather than as a single score. Each capacity in the dependency record carries a last_exercised date, a status of retained, degrading, or lost, and a change_since_last_assessment of replenished, unchanged, or consumed. A capacity that is listed but has never been exercised is a claim, not a capability.</p><p>It matters because <a href=\"/glossary/preserved-capacity\">preserved capacity</a> and <a href=\"/glossary/institutional-reversibility\">institutional reversibility</a> are stocks rather than properties: ordinary operation spends them, and only deliberate expenditure puts them back. Depreciation is how <a href=\"/glossary/correction-capacity\">correction capacity</a> falls behind delegated authority with no decision to reduce it, and it is the mechanism underneath <a href=\"/glossary/normalized-dependence\">normalized dependence</a>.</p>",
             "scope": "B. Failure modes (why Ethotechnics exists). Recurring ways responsibility dissolves, authority drifts from its evidence, and harm lands on people with no route to challenge it.",
             "operationalTests": [
               "Every listed capacity carries a last_exercised date, and capacities never exercised are recorded as claims rather than capabilities.",
@@ -1845,7 +1856,7 @@
             "title": "Closure without remainder",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The technocratic fallacy that a formal system eliminates whatever it does not represent. Under this assumption, unrepresented variables, qualitative context, and social friction are treated as if they cease to exist once an automated model takes over a process.</p><p>Ethotechnics counters closure without remainder with the invariant: <em>not represented implies unresolved</em>. Because formal models are necessarily incomplete, model incompleteness has distributive consequences: the omitted reality collides with the world, creating <a href=\"/glossary/residual-complexity\">residual complexity</a> that must be carried by someone. Treating the model boundary as the boundary of institutional responsibility allows operators to capture the gains of simplification while disclaiming the costs of its fallout.</p>",
+            "bodyHtml": "<p>The technocratic fallacy that a formal system eliminates whatever it does not represent. Under this assumption, unrepresented variables, qualitative context, and social friction are treated as if they cease to exist once an automated model takes over a process.</p><p>Ethotechnics counters it with a rule: what a model does not represent is unresolved, not eliminated. Because formal models are necessarily incomplete, model incompleteness has distributive consequences: the omitted reality collides with the world, creating <a href=\"/glossary/residual-complexity\">residual complexity</a> that must be carried by someone. Treating the model boundary as the boundary of institutional responsibility allows operators to capture the gains of simplification while disclaiming the costs of its fallout.</p>",
             "scope": "B. Failure modes (why Ethotechnics exists). Recurring ways responsibility dissolves, authority drifts from its evidence, and harm lands on people with no route to challenge it.",
             "operationalTests": [
               "The institution keeps responsibility for harmful outcomes whose causes fall outside the system's feature set.",
@@ -1889,8 +1900,8 @@
               "error-bearing-party",
               "fail-silent"
             ],
-            "termUpdated": "2026-09-18T00:00:00Z",
-            "termVersion": "v1.0.0"
+            "termUpdated": "2026-10-06T00:00:00Z",
+            "termVersion": "v1.0.1"
           },
           {
             "id": "exception-absorption",
@@ -2666,7 +2677,7 @@
             "title": "Unwired evidence",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Evidence an institution holds that no review trigger consumes. The trigger list on a policy record is written by the institution, and it can be narrower than what the institution knows: the clinical service has adopted the new guideline, the specialist wrote the paper, the committee it staffs published the revision — and the coverage rule runs as if none of it arrived. The knowledge exists. The wiring between it and the rule does not.</p><p>It differs from <a href=\"/glossary/non-conversion-principle\">non-conversion</a> in what is being refused. That term covers capability converting itself into authority without a decision. This one covers evidence converting into nothing at all: no status change, no reconsideration, no review — because the class of evidence was never declared, and declaring it is the institution's own choice.</p><p>It is the mechanism behind the outdated rulebook: guidance that stays years behind the science not because the science was unknown but because the office that knows is not the office the rule reads. STD-08 §2.7 closes it by making the holding of evidence itself a fired trigger — the clock runs from the day the evidence was held, not the day someone upstairs was told.</p>",
+            "bodyHtml": "<p>Evidence an institution holds that no rule obliges it to act on. The list of <a href=\"/glossary/review-trigger\">review triggers</a> on a <a href=\"/glossary/policy-record\">policy record</a> is written by the institution, and it can be narrower than what the institution knows: the clinical service has adopted the new guideline, the specialist wrote the paper, the committee it staffs published the revision — and the coverage rule runs as if none of it arrived. The knowledge exists. The wiring between it and the rule does not.</p><p>It differs from <a href=\"/glossary/non-conversion-principle\">non-conversion</a> in what is being refused. That term covers capability converting itself into authority without a decision. This one covers evidence converting into nothing at all: no status change, no reconsideration, no review — because the class of evidence was never declared, and declaring it is the institution's own choice.</p><p>It is the mechanism behind the outdated rulebook: guidance that stays years behind the science not because the science was unknown but because the office that knows is not the office the rule reads. STD-08 §2.7 closes it by making the holding of evidence itself a fired trigger — the clock runs from the day the evidence was held, not the day someone upstairs was told.</p>",
             "scope": "B. Failure modes (why Ethotechnics exists). Recurring ways responsibility dissolves, authority drifts from its evidence, and harm lands on people with no route to challenge it.",
             "references": [],
             "domains": [
@@ -2774,7 +2785,7 @@
             "classes": [
               "glossary-entry--diagram"
             ],
-            "bodyHtml": "<p>A system's ability to halt harmful processes quickly, safely, and deliberately, without requiring heroism or escalation. Stoppability pairs <a href=\"/glossary/ethical-interrupts\">ethical interrupts</a> with measurable <a href=\"/glossary/time-to-halt\">time-to-halt</a> targets and clear operator authority.</p><p>Stop paths are rehearsed, observable, and usable under stress, and do not sit behind exceptional permissions.</p>",
+            "bodyHtml": "<p>A system's ability to halt harmful processes quickly, safely, and deliberately, without requiring heroism or escalation. It needs <a href=\"/glossary/ethical-interrupts\">automatic halts</a> that fire on signs of harm, a target for <a href=\"/glossary/time-to-halt\">time to halt</a> that is measured, and operators with clear authority to stop.</p><p>Stop paths are rehearsed, observable, and usable under stress, and do not sit behind exceptional permissions.</p>",
             "relatedPatterns": [
               "kill-switch",
               "maintenance-windowing"
@@ -2904,7 +2915,10 @@
             "classes": [
               "glossary-entry--diagram"
             ],
-            "bodyHtml": "<p>People affected by system decisions can challenge, change, or overturn them, and win. Contestability requires a visible <a href=\"/glossary/permission-surface\">permission surface</a>, a healthy <a href=\"/glossary/appeal-passage-rate\">appeal passage rate</a>, and design authority that is transparent enough to be questioned — see <a href=\"/glossary/design-authority\">design authority</a>.</p><p>It has four parts and needs all four: standing, meaning a named party may raise the challenge; a channel that receives it; an obliged responder who must answer on a clock against a stated standard; and a state change the challenge is capable of producing. Three of the four is a complaints process. The apparatus that supplies them is a <a href=\"/glossary/standing-mechanism\">standing mechanism</a>, and the fourth part is what gives a challenge <a href=\"/glossary/procedural-force\">procedural force</a> rather than a reply.</p><figure class=\"micro-diagram\" aria-hidden=\"true\"><svg viewBox=\"0 0 120 80\" role=\"presentation\"><use href=\"#diagram-contestability\"></use></svg></figure>",
+            "bodyHtml": "<p>A person affected by a decision can challenge it, and the challenge can change the outcome.</p><p>It has four parts and needs all four: standing, meaning a named party may raise the challenge; a channel that receives it; an obliged responder who must answer on a clock against a stated standard; and a state change the challenge is capable of producing. Three of the four is a complaints process. The apparatus that supplies them is a <a href=\"/glossary/standing-mechanism\">standing mechanism</a>, and the fourth part is what gives a challenge <a href=\"/glossary/procedural-force\">procedural force</a> rather than a reply.</p><figure class=\"micro-diagram\" aria-hidden=\"true\"><svg viewBox=\"0 0 120 80\" role=\"presentation\"><use href=\"#diagram-contestability\"></use></svg></figure>",
+            "adjacentTerms": [
+              "design-authority"
+            ],
             "scope": "C. Ethotechnic capabilities (what systems must be able to do). What a system must be able to do while it holds consequential authority: halt, reverse, answer a challenge, and learn from the correction.",
             "operationalTests": [
               "Appeals route to reviewers with authority to overturn outcomes.",
@@ -2999,7 +3013,7 @@
             "title": "Graceful degradation",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The system sheds features or load in controlled stages while keeping people safe. Graceful degradation prioritizes <a href=\"/glossary/care-floor-guarantees\">care floor guarantees</a>, maintains <a href=\"/glossary/stoppability\">stoppability</a>, and keeps <a href=\"/glossary/time-to-restore\">time-to-restore</a> low.</p>",
+            "bodyHtml": "<p>The system sheds features or load in controlled stages while keeping people safe. It keeps <a href=\"/glossary/care-floor-guarantees\">baseline commitments</a> such as live support and data export, keeps the system <a href=\"/glossary/stoppability\">stoppable</a>, and keeps the <a href=\"/glossary/time-to-restore\">time to restore</a> people short.</p>",
             "scope": "C. Ethotechnic capabilities (what systems must be able to do). What a system must be able to do while it holds consequential authority: halt, reverse, answer a challenge, and learn from the correction.",
             "references": [],
             "domains": [
@@ -3018,7 +3032,7 @@
             "title": "Soft edges",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Boundary conditions designed to cushion people instead of penalizing them — graduated responses, warnings before lockouts, and reversible defaults. Soft edges reduce <a href=\"/glossary/failure-load\">failure load</a> and guard against <a href=\"/glossary/brittleness\">brittleness</a>.</p>",
+            "bodyHtml": "<p>Boundary conditions designed to cushion people instead of penalizing them — graduated responses, warnings before lockouts, and reversible defaults. They reduce the <a href=\"/glossary/failure-load\">harm done when the system fails</a> and keep it from <a href=\"/glossary/brittleness\">breaking under ordinary variation</a>.</p>",
             "scope": "C. Ethotechnic capabilities (what systems must be able to do). What a system must be able to do while it holds consequential authority: halt, reverse, answer a challenge, and learn from the correction.",
             "operationalTests": [
               "Users receive warnings and reversible options before thresholds or lockouts.",
@@ -3042,7 +3056,7 @@
             "title": "Governability",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The degree to which a system can be steered, paused, audited, corrected, or shut down after deployment. High governability requires <a href=\"/glossary/stoppability\">stoppability</a>, <a href=\"/glossary/reversibility\">reversibility</a>, and durable <a href=\"/glossary/contestability\">contestability</a>.</p>",
+            "bodyHtml": "<p>The degree to which a system can be steered, paused, audited, corrected, or shut down after deployment. It is high only when the system can be <a href=\"/glossary/stoppability\">stopped</a>, its actions can be <a href=\"/glossary/reversibility\">undone</a>, and its decisions stay open to <a href=\"/glossary/contestability\">challenge</a>.</p>",
             "examples": [
               "The city’s benefits system can be paused, rolled back, and audited within hours."
             ],
@@ -3075,7 +3089,7 @@
             "title": "Incident literacy",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The ability to recognize failures as incidents (not anomalies) and respond with containment, logging, escalation, and repair. It pairs <a href=\"/glossary/ethical-interrupts\">ethical interrupts</a> with a living <a href=\"/glossary/repair-log\">repair log</a>.</p>",
+            "bodyHtml": "<p>The ability to recognize failures as incidents (not anomalies) and respond with containment, logging, escalation, and repair. It combines <a href=\"/glossary/ethical-interrupts\">automatic halts</a> with a <a href=\"/glossary/repair-log\">repair record</a> kept up to date.</p>",
             "examples": [
               "A moderation team opens an incident ticket for bias spikes instead of filing a bug report."
             ],
@@ -3207,7 +3221,7 @@
             "title": "Technical reversibility",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The first level of the reversibility ladder: the mechanism exists and works. The switch throws, the rollback completes, the state restores, and a test proves it on the version of the system currently running.</p><p>It matters as a floor rather than a finding. Technical reversibility is the cheapest of the three levels to claim and the least informative, because a working switch says nothing about whether <a href=\"/glossary/operational-reversibility\">operational reversibility</a> or <a href=\"/glossary/institutional-reversibility\">institutional reversibility</a> would survive it being thrown.</p>",
+            "bodyHtml": "<p>The mechanism for undoing an action exists and works. The switch throws, the rollback completes, the state restores, and a test proves it on the version of the system currently running. It is the first of <a href=\"/explainers/three-kinds-of-reversibility\">three levels of reversibility</a>.</p><p>It matters as a floor rather than a finding. Technical reversibility is the cheapest of the three levels to claim and the least informative, because a working switch says nothing about whether <a href=\"/glossary/operational-reversibility\">operational reversibility</a> or <a href=\"/glossary/institutional-reversibility\">institutional reversibility</a> would survive it being thrown.</p>",
             "scope": "C. Ethotechnic capabilities (what systems must be able to do). What a system must be able to do while it holds consequential authority: halt, reverse, answer a challenge, and learn from the correction.",
             "operationalTests": [
               "The rollback path is exercised against the current build, not a past one.",
@@ -3255,7 +3269,7 @@
             "title": "Operational reversibility",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The second level of the reversibility ladder: the people and processes can absorb the correction being made. Staff know the fallback, queues can hold the load, and the manual path has been exercised recently enough to work.</p><p>It matters because most corrections fail here rather than at the switch. Operational reversibility is what a <a href=\"/glossary/withdrawal-rehearsal\">withdrawal rehearsal</a> measures, and its absence turns <a href=\"/glossary/technical-reversibility\">technical reversibility</a> into a claim nobody will test during an incident.</p>",
+            "bodyHtml": "<p>The people and processes around a system can absorb a correction once it is made. Staff know the fallback, queues can hold the load, and the manual path has been exercised recently enough to work. It is the second of <a href=\"/explainers/three-kinds-of-reversibility\">three levels of reversibility</a>.</p><p>It matters because most corrections fail here rather than at the switch. Operational reversibility is what a <a href=\"/glossary/withdrawal-rehearsal\">withdrawal rehearsal</a> measures, and its absence turns <a href=\"/glossary/technical-reversibility\">technical reversibility</a> into a claim nobody will test during an incident.</p>",
             "scope": "C. Ethotechnic capabilities (what systems must be able to do). What a system must be able to do while it holds consequential authority: halt, reverse, answer a challenge, and learn from the correction.",
             "operationalTests": [
               "The fallback path has been run with real volume within a stated interval.",
@@ -3305,7 +3319,7 @@
             "title": "Institutional reversibility",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The third level of the reversibility ladder: the organization can survive having made the correction. Commitments, contracts, reputations, and budgets all remain serviceable after withdrawal, which is the level beyond <a href=\"/glossary/technical-reversibility\">technical</a> and <a href=\"/glossary/operational-reversibility\">operational</a> reversibility.</p><p>It matters because a correction that would cause unacceptable damage will not be exercised, and an unexercisable correction is not a control. Institutional reversibility is the level that <a href=\"/glossary/dependency-state\">dependency state</a> erodes and that <a href=\"/glossary/preserved-capacity\">preserved capacity</a> is maintained to defend.</p>",
+            "bodyHtml": "<p>The organization running a system can survive having made a correction to it. Commitments, contracts, reputations, and budgets all remain serviceable after withdrawal. It is the third of <a href=\"/explainers/three-kinds-of-reversibility\">three levels of reversibility</a>, above <a href=\"/glossary/technical-reversibility\">technical</a> and <a href=\"/glossary/operational-reversibility\">operational</a> reversibility.</p><p>It matters because a correction that would cause unacceptable damage will not be exercised, and an unexercisable correction is not a control. Institutional reversibility is the level that <a href=\"/glossary/dependency-state\">dependency state</a> erodes and that <a href=\"/glossary/preserved-capacity\">preserved capacity</a> is maintained to defend.</p>",
             "scope": "C. Ethotechnic capabilities (what systems must be able to do). What a system must be able to do while it holds consequential authority: halt, reverse, answer a challenge, and learn from the correction.",
             "operationalTests": [
               "The institutional consequences of withdrawal are written down, owned, and priced.",
@@ -3355,7 +3369,7 @@
             "title": "Intervention specification",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The replacement for “human in the loop” as a control name. An intervention specification states who may intervene, on what signal, with what information, with authority over which state, on what timescale, and what happens when they disagree.</p><p>It matters because a role is not a control. Naming a human is compatible with that human being unable to alter anything, which is why oversight clauses resolve to an intervention specification and to <a href=\"/glossary/meaningful-control\">meaningful control</a> rather than to a named human alone, and why its absence shows up as <a href=\"/glossary/rubber-stamp-review\">rubber-stamp review</a>.</p>",
+            "bodyHtml": "<p>A statement of who may intervene in an automated process, on what signal, with what information, with authority over which state, on what timescale, and what happens when they disagree. It replaces “human in the loop” as the name of a control.</p><p>It matters because a role is not a control. Naming a human is compatible with that human being unable to alter anything, which is why oversight clauses resolve to an intervention specification and to <a href=\"/glossary/meaningful-control\">meaningful control</a> rather than to a named human alone, and why its absence shows up as <a href=\"/glossary/rubber-stamp-review\">rubber-stamp review</a>.</p>",
             "scope": "C. Ethotechnic capabilities (what systems must be able to do). What a system must be able to do while it holds consequential authority: halt, reverse, answer a challenge, and learn from the correction.",
             "operationalTests": [
               "Each oversight clause resolves to a specification answering all six questions.",
@@ -3716,7 +3730,7 @@
             "title": "Abstention",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A positive capability rather than a failure to answer: the system or institution declining to act, in one of three forms. Epistemic abstention says the evidence does not support acting on this case and hands it to someone who might know. Jurisdictional abstention says this is not mine to decide and hands it to the party with standing. Remedial abstention says even if I am probably right, acting now would create a harm that cannot safely be corrected later, and declines until reversal is possible.</p><p>It matters because each form is testable and each has a distinct failure mode when absent: epistemic abstention degrades into confident guessing, jurisdictional abstention into scope creep, and remedial abstention into irreversibility. A deployment that cannot abstain in all three forms has no boundary on what it will do with its capability, and <a href=\"/glossary/exception-absorption\">exception absorption</a> is what fills the gap.</p>",
+            "bodyHtml": "<p>A system or institution declining to act, treated as a capability rather than a failure to answer. It takes one of three forms. Epistemic abstention says the evidence does not support acting on this case and hands it to someone who might know. Jurisdictional abstention says this is not mine to decide and hands it to the party with standing. Remedial abstention says even if I am probably right, acting now would create a harm that cannot safely be corrected later, and declines until reversal is possible.</p><p>It matters because each form is testable and each has a distinct failure mode when absent: epistemic abstention degrades into confident guessing, jurisdictional abstention into scope creep, and remedial abstention into irreversibility. A deployment that cannot abstain in all three forms has no boundary on what it will do with its capability, and <a href=\"/glossary/exception-absorption\">exception absorption</a> is what fills the gap.</p>",
             "scope": "C. Ethotechnic capabilities (what systems must be able to do). What a system must be able to do while it holds consequential authority: halt, reverse, answer a challenge, and learn from the correction.",
             "operationalTests": [
               "The system can decline an action because its evidence is insufficient, and route the case rather than guess.",
@@ -3767,8 +3781,8 @@
               "exception-learning",
               "human-refusal-tolerance"
             ],
-            "termUpdated": "2026-09-18T00:00:00Z",
-            "termVersion": "v1.0.0"
+            "termUpdated": "2026-10-06T00:00:00Z",
+            "termVersion": "v1.0.1"
           },
           {
             "id": "constitutional-debt",
@@ -3867,7 +3881,7 @@
             "title": "Fail-safe mode",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The system defaults to the safest possible behavior when uncertain, prioritizing <a href=\"/glossary/stoppability\">stoppability</a> over throughput. In Ethotechnic practice, fail-safe mode is not a generic error page: it is a predesigned degraded state with bounded actions, clear status signals, and immediate escalation paths.</p><p>A fail-safe posture should preserve <a href=\"/glossary/contestability\">contestability</a> and reduce irreversible harm while operators diagnose the incident.</p>",
+            "bodyHtml": "<p>The system defaults to the safest possible behavior when uncertain, putting the <a href=\"/glossary/stoppability\">ability to stop</a> ahead of throughput. In Ethotechnic practice, fail-safe mode is not a generic error page: it is a predesigned degraded state with bounded actions, clear status signals, and immediate escalation paths.</p><p>A fail-safe posture should preserve <a href=\"/glossary/contestability\">contestability</a> and reduce irreversible harm while operators diagnose the incident.</p>",
             "examples": [
               "A medication-order service blocks new high-risk orders during model drift and routes clinicians to manual review with visible restore timing."
             ],
@@ -3910,7 +3924,7 @@
             "title": "Fail-open mode",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The system defaults to permissiveness under failure — sometimes necessary for continuity, sometimes dangerous. Fail-open modes should be bounded in time and paired with <a href=\"/glossary/velocity-friction\">velocity friction</a>, monitoring, and rapid escalation.</p><p>Ethotechnic fail-open design requires explicit thresholds for returning to <a href=\"/glossary/fail-safe\">fail-safe mode</a> when risk rises.</p>",
+            "bodyHtml": "<p>The system defaults to permissiveness under failure — sometimes necessary for continuity, sometimes dangerous. A fail-open mode should be limited in time and come with <a href=\"/glossary/velocity-friction\">friction that slows fast automated steps</a>, monitoring, and rapid escalation.</p><p>Ethotechnic fail-open design requires explicit thresholds for returning to <a href=\"/glossary/fail-safe\">fail-safe mode</a> when risk rises.</p>",
             "scope": "D. System states & architectures. Operating postures, records, and architectures that decide whether an error is contained, recorded, or amplified.",
             "operationalTests": [
               "Fail-open modes have explicit thresholds where they automatically switch to fail-safe or escalate to human review."
@@ -3956,7 +3970,7 @@
             "title": "Fail-silent mode",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A harmful state where a system fails without signaling it. It is the hardest failure to catch, because it hides <a href=\"/glossary/moral-latency\">moral latency</a>: harm accrues while every indicator reads normal.</p>",
+            "bodyHtml": "<p>A harmful state where a system fails without signaling it. It is the hardest failure to catch, because it hides the <a href=\"/glossary/moral-latency\">lag between harm and response</a>: harm accrues while every indicator reads normal.</p>",
             "scope": "D. System states & architectures. Operating postures, records, and architectures that decide whether an error is contained, recorded, or amplified.",
             "references": [],
             "domains": [
@@ -3994,7 +4008,7 @@
             "title": "Harm visibility",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>How plainly a system exposes the human impact of its decisions in real time. High harm visibility pairs logs, narratives, and alerts so <a href=\"/glossary/oversight-horizon\">oversight horizons</a> extend beyond dashboards and <a href=\"/glossary/ethical-interrupts\">ethical interrupts</a> trigger on effects on people as well as on technical anomalies.</p>",
+            "bodyHtml": "<p>How plainly a system exposes the human impact of its decisions in real time. High harm visibility combines logs, people's accounts, and alerts, so <a href=\"/glossary/oversight-horizon\">outside oversight</a> sees past dashboards and <a href=\"/glossary/ethical-interrupts\">automatic halts</a> fire on effects on people as well as on technical anomalies.</p>",
             "scope": "D. System states & architectures. Operating postures, records, and architectures that decide whether an error is contained, recorded, or amplified.",
             "references": [],
             "domains": [
@@ -4032,7 +4046,7 @@
             "title": "Escalation horizon",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The predefined point where automated control must yield to human judgment because risk, ambiguity, or <a href=\"/glossary/moral-latency\">moral latency</a> is rising. Escalation horizons activate <a href=\"/glossary/ethical-interrupts\">ethical interrupts</a> and route cases to accountable stewards before crossing an <a href=\"/glossary/irreversible-boundary\">irreversible boundary</a>.</p>",
+            "bodyHtml": "<p>The predefined point where automated control must yield to human judgment because risk, ambiguity, or the <a href=\"/glossary/moral-latency\">lag between harm and response</a> is rising. At that point the system <a href=\"/glossary/ethical-interrupts\">halts automatically</a> and routes the case to an accountable person before it crosses a <a href=\"/glossary/irreversible-boundary\">threshold it cannot undo</a>.</p>",
             "scope": "D. System states & architectures. Operating postures, records, and architectures that decide whether an error is contained, recorded, or amplified.",
             "references": [],
             "domains": [
@@ -4051,7 +4065,7 @@
             "title": "Interaction surface",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The moments, interfaces, and channels where people experience system decisions and can intervene. Mapping the interaction surface reveals where to place <a href=\"/glossary/dignity-friction\">dignity friction</a>, widen the <a href=\"/glossary/permission-surface\">permission surface</a>, and detect <a href=\"/glossary/dead-user-zones\">dead-user zones</a>.</p>",
+            "bodyHtml": "<p>The moments, interfaces, and channels where people experience system decisions and can intervene. Mapping it shows where to add <a href=\"/glossary/dignity-friction\">confirmation steps that protect people</a>, where people need more room to act, and where people <a href=\"/glossary/dead-user-zones\">cannot contest, appeal, or exit</a>.</p>",
             "scope": "D. System states & architectures. Operating postures, records, and architectures that decide whether an error is contained, recorded, or amplified.",
             "references": [],
             "domains": [
@@ -4196,7 +4210,7 @@
             "title": "Grant state",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The current status of an <a href=\"/glossary/authority-grant\">authority grant</a>, drawn from a closed set such as allowed, confirm_required, review_required, suspended, and withdrawn. Every action is checked against the state in force at the time it is taken, and every transition is recorded with its cause.</p><p>It matters because states are what triggers can move. Without an explicit grant state there is nothing for a <a href=\"/glossary/review-trigger\">review trigger</a> to change, and monitoring stays decorative rather than governing.</p>",
+            "bodyHtml": "<p>The current status of a system's <a href=\"/glossary/authority-grant\">recorded permission to act</a>, drawn from a closed set: allowed, review_required, suspended, or revoked. Every action is checked against the state in force at the time it is taken, and every transition is recorded with its cause.</p><p>It matters because states are what triggers can move. Without an explicit grant state there is nothing for a <a href=\"/glossary/review-trigger\">review trigger</a> to change, and monitoring stays decorative rather than governing.</p>",
             "scope": "D. System states & architectures. Operating postures, records, and architectures that decide whether an error is contained, recorded, or amplified.",
             "operationalTests": [
               "The set of legal states and the legal transitions between them are declared, not implied.",
@@ -4351,7 +4365,7 @@
             "title": "Substrate profile",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A nine-property classification of a deployment that replaces the open-versus-closed question. The properties are weight access, runtime control, update authority, version stability, revocation, substitutability, observability, standing, and dependency. Two deployments of the same model can carry entirely different profiles.</p><p>It matters because the governance burden follows the profile rather than the license. The profile says which properties the institution holds itself and which it has left with a provider, which is what determines its real <a href=\"/glossary/institutional-reversibility\">institutional reversibility</a> and its <a href=\"/glossary/dependency-state\">dependency state</a>.</p>",
+            "bodyHtml": "<p>A classification of a model deployment by nine properties, used instead of asking only whether the model is open or closed. The properties are weight access, runtime control, update authority, version stability, revocation, substitutability, observability, standing, and dependency. Two deployments of the same model can carry entirely different profiles.</p><p>It matters because the governance burden follows the profile rather than the license. The profile says which properties the institution holds itself and which it has left with a provider, which is what determines its real <a href=\"/glossary/institutional-reversibility\">institutional reversibility</a> and its <a href=\"/glossary/dependency-state\">dependency state</a>.</p>",
             "scope": "D. System states & architectures. Operating postures, records, and architectures that decide whether an error is contained, recorded, or amplified.",
             "operationalTests": [
               "All nine properties are recorded per deployment, not per model.",
@@ -4570,7 +4584,7 @@
             "title": "Cognitive saturation point",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The load level at which human decision quality collapses — too many alerts, too little time, or excessive context switching. Ethotechnic design lowers saturation by adding <a href=\"/glossary/velocity-friction\">velocity friction</a>, simplifying <a href=\"/glossary/interaction-surface\">interaction surfaces</a>, and staffing to the actual <a href=\"/glossary/maintenance-metabolism\">maintenance metabolism</a>.</p>",
+            "bodyHtml": "<p>The load level at which human decision quality collapses — too many alerts, too little time, or excessive context switching. Design lowers it by <a href=\"/glossary/velocity-friction\">slowing fast automated steps</a>, simplifying the <a href=\"/glossary/interaction-surface\">screens and channels where people act</a>, and staffing to the <a href=\"/glossary/maintenance-metabolism\">real volume of upkeep</a>.</p>",
             "scope": "E. Human limits & experience. The limits of human time, attention, and endurance that a system's clocks, review loads, and correction paths must fit within.",
             "references": [],
             "domains": [
@@ -4589,7 +4603,7 @@
             "title": "Compassion bandwidth",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The sustainable amount of emotional labor a system asks of people — care teams, moderators, frontline staff, or users. When compassion bandwidth is exceeded, <a href=\"/glossary/dread-work\">dread work</a> grows and <a href=\"/glossary/extraction-by-endurance\">extraction by endurance</a> sets in.</p>",
+            "bodyHtml": "<p>The sustainable amount of emotional labor a system asks of people — care teams, moderators, frontline staff, or users. When a system asks for more, people start <a href=\"/glossary/dread-work\">avoiding tasks the system punishes</a>, and the system <a href=\"/glossary/extraction-by-endurance\">runs on their burnout</a>.</p>",
             "scope": "E. Human limits & experience. The limits of human time, attention, and endurance that a system's clocks, review loads, and correction paths must fit within.",
             "references": [],
             "domains": [
@@ -4665,7 +4679,7 @@
             "title": "Dread work",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Tasks people avoid because the system punishes mistakes or withholds relief. Dread work signals missing <a href=\"/glossary/soft-edges\">soft edges</a>, low <a href=\"/glossary/contestability\">contestability</a>, and declining <a href=\"/glossary/compassion-bandwidth\">compassion bandwidth</a>.</p>",
+            "bodyHtml": "<p>Tasks people avoid because the system punishes mistakes or withholds relief. It is a sign that the system has no <a href=\"/glossary/soft-edges\">cushioning at its boundaries</a>, that its decisions are <a href=\"/glossary/contestability\">hard to challenge</a>, and that people's <a href=\"/glossary/compassion-bandwidth\">capacity for emotional labor</a> is running out.</p>",
             "scope": "E. Human limits & experience. The limits of human time, attention, and endurance that a system's clocks, review loads, and correction paths must fit within.",
             "references": [],
             "domains": [
@@ -4703,7 +4717,7 @@
             "title": "Behavioral shaping",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The way systems nudge, constrain, or normalize user behavior through defaults and design choices. <a href=\"/glossary/velocity-friction\">Velocity friction</a> and narrow <a href=\"/glossary/permission-surface\">permission surfaces</a> amplify it, because each is itself a way of shaping behavior.</p>",
+            "bodyHtml": "<p>The way systems nudge, constrain, or normalize user behavior through defaults and design choices. <a href=\"/glossary/velocity-friction\">Velocity friction</a> and narrow limits on what people may do amplify it, because each is itself a way of shaping behavior.</p>",
             "examples": [
               "Default opt-ins normalize data sharing even when users are uncertain."
             ],
@@ -5014,7 +5028,7 @@
             "title": "Burden transfer event",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A moment when system failure pushes labor, risk, or emotional work onto humans, often triggering <a href=\"/glossary/moral-overhead\">moral overhead</a>. Burden transfer events are observable handoffs: the system stops carrying what it promised to carry.</p><p>Common signals include repeated documentation requests, forced channel switching, and manual triage queues that appear without new staffing.</p>",
+            "bodyHtml": "<p>A moment when system failure pushes labor, risk, or emotional work onto people, often leaving them <a href=\"/glossary/moral-overhead\">extra work to do the right thing</a>. Burden transfer events are observable handoffs: the system stops carrying what it promised to carry.</p><p>Common signals include repeated documentation requests, forced channel switching, and manual triage queues that appear without new staffing.</p>",
             "examples": [
               "After an identity-verification outage, users are told to restart the process across three channels and re-upload evidence already submitted."
             ],
@@ -5237,7 +5251,13 @@
             "title": "Burden index",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A composite measure of how much effort, time, and emotional labor people expend to use or recover from a system.</p><p>Inputs include the <a href=\"/glossary/user-burden-ratio\">user burden ratio</a>, <a href=\"/glossary/human-substitution-index\">human substitution index</a>, and <a href=\"/glossary/failure-load\">failure load</a>; rising scores signal extraction or <a href=\"/glossary/asymmetric-sustaining\">asymmetric sustaining</a>.</p>",
+            "bodyHtml": "<p>A burden index counts the time and effort a system demands of people who comply with it, appeal against it, or recover from it.</p><p>It counts the minutes, retries, and documents each journey takes. Published on a schedule, it shows whether the cost to people rose or fell since the last report.</p>",
+            "adjacentTerms": [
+              "user-burden-ratio",
+              "human-substitution-index",
+              "failure-load",
+              "asymmetric-sustaining"
+            ],
             "scope": "F. Burden & load. Who carries the time, cost, and risk when a system runs or fails, and whether that transfer is recorded.",
             "references": [],
             "domains": [
@@ -5255,7 +5275,7 @@
             "title": "Harm internalization",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Designing systems so creators and operators bear the costs of failures instead of externalizing them to users or society. Harm internalization improves <a href=\"/glossary/fair-burden-distribution\">fair burden distribution</a> and prevents <a href=\"/glossary/externalization\">externalization</a>.</p>",
+            "bodyHtml": "<p>Designing systems so creators and operators bear the costs of failures instead of externalizing them to users or society. It keeps failures from <a href=\"/glossary/fair-burden-distribution\">falling hardest on the most vulnerable</a> and stops costs being <a href=\"/glossary/externalization\">pushed onto others</a>.</p>",
             "examples": [
               "A vendor funds remediation and user support when its model causes harm."
             ],
@@ -5287,7 +5307,7 @@
             "title": "Maintenance ethics",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The position that responsibility for a system continues after deployment, through monitoring, updates, incident response, and repair. Maintenance ethics turns <a href=\"/glossary/maintenance-metabolism\">maintenance metabolism</a> and the <a href=\"/glossary/repair-log\">repair log</a> into ongoing commitments.</p>",
+            "bodyHtml": "<p>The position that responsibility for a system continues after deployment, through monitoring, updates, incident response, and repair. It treats <a href=\"/glossary/maintenance-metabolism\">routine upkeep</a> and the <a href=\"/glossary/repair-log\">record of repairs</a> as commitments that do not end.</p>",
             "examples": [
               "Teams publish repair logs and schedule maintenance windows after each major release."
             ],
@@ -5363,7 +5383,7 @@
             "title": "Burden ceiling",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A maximum allowable procedural burden a system may impose on a user to obtain baseline safety, correction, or relief — defined per harm class and enforced through UI, staffing, and policy. Burden ceilings bind the <a href=\"/glossary/user-burden-ratio\">user burden ratio</a> and activate <a href=\"/glossary/burden-inversion-rule\">burden inversion</a> when crossed.</p>",
+            "bodyHtml": "<p>A limit on the procedural work a system may demand of a person seeking safety, correction, or relief. It is set for each kind of harm and enforced through the interface, staffing, and policy. It caps the <a href=\"/glossary/user-burden-ratio\">work a person must do to correct the system's errors</a>, and crossing it moves the effort onto the institution under the <a href=\"/glossary/burden-inversion-rule\">burden inversion rule</a>.</p>",
             "scope": "F. Burden & load. Who carries the time, cost, and risk when a system runs or fails, and whether that transfer is recorded.",
             "operationalTests": [
               "A ceiling exists per workflow (for example, appeal submission must take ≤10 minutes, ≤5 steps, ≤2 documents).",
@@ -5408,7 +5428,7 @@
             "title": "Verification harm",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>When verification itself causes harm through delays, denials, exclusion, or stress spirals. Verification harm increases the <a href=\"/glossary/burden-index\">burden index</a> and can erode <a href=\"/glossary/contestability\">contestability</a> when people cannot realistically comply.</p><p>Reducing verification harm means eliminating redundant proofs, honoring prior evidence, and shortening time-to-resolution for urgent needs.</p>",
+            "bodyHtml": "<p>When verification itself causes harm through delays, denials, exclusion, or stress spirals. It adds to the <a href=\"/glossary/burden-index\">time and effort the system demands of people</a>, and when people cannot realistically comply, it can leave them <a href=\"/glossary/contestability\">unable to challenge the decision</a>.</p><p>Reducing verification harm means eliminating redundant proofs, honoring prior evidence, and shortening time-to-resolution for urgent needs.</p>",
             "scope": "F. Burden & load. Who carries the time, cost, and risk when a system runs or fails, and whether that transfer is recorded.",
             "operationalTests": [
               "Utility expiry attributable to verification steps is measured and tracked.",
@@ -5899,7 +5919,7 @@
             "title": "Institutional metabolism mapping",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A diagnostic map of where labor, emotional labor, time, and money go inside an institution. It visualizes maintenance metabolism, <a href=\"/glossary/burden-gradient\">burden gradients</a>, and points of <a href=\"/glossary/extraction\">extraction</a>.</p><p>Teams use the map to set <a href=\"/glossary/service-level-indicators\">SLJs</a>, redesign roles, and decide where to invest new <a href=\"/glossary/maintenance-window\">maintenance windows</a>.</p>",
+            "bodyHtml": "<p>A diagnostic map of where labor, emotional labor, time, and money go inside an institution. It shows the <a href=\"/glossary/maintenance-metabolism\">routine upkeep</a>, <a href=\"/glossary/burden-gradient\">who carries the heaviest load</a>, and <a href=\"/glossary/extraction\">where value is taken without return</a>.</p><p>Teams use the map to set <a href=\"/glossary/service-level-indicators\">fairness and safety measures</a>, redesign roles, and decide where to invest new <a href=\"/glossary/maintenance-window\">maintenance windows</a>.</p>",
             "scope": "G. Measures & indicators. Metrics for whether a system can still be halted, reversed, and challenged, and for what its errors cost the people who carry them.",
             "references": [],
             "domains": [],
@@ -6024,7 +6044,7 @@
             "title": "Human substitution index",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A measure of how often humans must step in to compensate for system shortcomings — manual reviews, ad hoc patches, or empathy work. A rising index exposes <a href=\"/glossary/heroism-dependent-systems\">heroism-dependent systems</a> and motivates investment in <a href=\"/glossary/graceful-degradation\">graceful degradation</a>.</p><p><strong>Targets &amp; breach behavior.</strong> <strong>Measurement window:</strong> weekly median; monthly review. <strong>Target / floor / ceiling:</strong> target ≤ 5% of cases, floor 10%, ceiling 20%. <strong>Owner:</strong> <a href=\"/glossary/traceable-ownership\">traceable ownership</a> (required). <strong>Breach action:</strong> expand <a href=\"/glossary/graceful-degradation\">graceful degradation</a>, add staffing, or pause automation in the affected class. <strong>Public surface:</strong> receipt + <a href=\"/glossary/time-transparency\">time transparency</a> that flags human review and <a href=\"/glossary/decision-artifact\">decision artifact</a>.</p>",
+            "bodyHtml": "<p>A measure of how often humans must step in to compensate for system shortcomings — manual reviews, ad hoc patches, or empathy work. A rising index shows a system that <a href=\"/glossary/heroism-dependent-systems\">runs on extraordinary effort</a>, and makes the case for investing in <a href=\"/glossary/graceful-degradation\">controlled ways to degrade</a>.</p><p><strong>Targets &amp; breach behavior.</strong> <strong>Measurement window:</strong> weekly median; monthly review. <strong>Target / floor / ceiling:</strong> target ≤ 5% of cases, floor 10%, ceiling 20%. <strong>Owner:</strong> <a href=\"/glossary/traceable-ownership\">traceable ownership</a> (required). <strong>Breach action:</strong> expand <a href=\"/glossary/graceful-degradation\">graceful degradation</a>, add staffing, or pause automation in the affected class. <strong>Public surface:</strong> receipt + <a href=\"/glossary/time-transparency\">time transparency</a> that flags human review and <a href=\"/glossary/decision-artifact\">decision artifact</a>.</p>",
             "scope": "G. Measures & indicators. Metrics for whether a system can still be halted, reversed, and challenged, and for what its errors cost the people who carry them.",
             "references": [],
             "domains": [],
@@ -6040,7 +6060,7 @@
             "title": "Moral debt",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The accumulated harm a system has caused but not repaired. Moral debt accrues interest as <a href=\"/glossary/moral-latency\">moral latency</a> grows and people lose trust; it is paid down through the <a href=\"/glossary/restitution-ladder\">restitution ladder</a>, transparent <a href=\"/glossary/repair-log\">repair logs</a>, and lowered <a href=\"/glossary/time-to-restore\">time-to-restore</a>.</p><p><strong>Targets &amp; breach behavior.</strong> <strong>Measurement window:</strong> monthly backlog review; quarterly audit. <strong>Target / floor / ceiling:</strong> target 0 unresolved cases, floor ≤ 30 days outstanding, ceiling 90 days. <strong>Owner:</strong> <a href=\"/glossary/traceable-ownership\">traceable ownership</a> (required). <strong>Breach action:</strong> trigger restitution sprints, funding escalation, or safe pause of new harm classes. <strong>Public surface:</strong> <a href=\"/glossary/repair-log\">repair log</a> updates plus receipts and <a href=\"/glossary/time-transparency\">time transparency</a> on restoration timelines.</p>",
+            "bodyHtml": "<p>The accumulated harm a system has caused but not repaired. It grows as the <a href=\"/glossary/moral-latency\">lag between harm and response</a> lengthens and people lose trust. It is paid down through <a href=\"/glossary/restitution-ladder\">tiered remedies</a>, <a href=\"/glossary/repair-log\">repair records</a> people can read, and a shorter <a href=\"/glossary/time-to-restore\">time to restore</a> people.</p><p><strong>Targets &amp; breach behavior.</strong> <strong>Measurement window:</strong> monthly backlog review; quarterly audit. <strong>Target / floor / ceiling:</strong> target 0 unresolved cases, floor ≤ 30 days outstanding, ceiling 90 days. <strong>Owner:</strong> <a href=\"/glossary/traceable-ownership\">traceable ownership</a> (required). <strong>Breach action:</strong> trigger restitution sprints, funding escalation, or safe pause of new harm classes. <strong>Public surface:</strong> <a href=\"/glossary/repair-log\">repair log</a> updates plus receipts and <a href=\"/glossary/time-transparency\">time transparency</a> on restoration timelines.</p>",
             "scope": "G. Measures & indicators. Metrics for whether a system can still be halted, reversed, and challenged, and for what its errors cost the people who carry them.",
             "references": [],
             "domains": [],
@@ -6213,7 +6233,7 @@
             "title": "Exposure score",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A composite indicator of how much structural risk a dependence carries, defined as dependency depth multiplied by <a href=\"/glossary/substitution-cost\">substitution cost</a> multiplied by correction latency. Depth is counted in dependent workflows, substitution cost in staff-weeks to stand up an alternative, and correction latency in hours from a decision to intervene to the intervention taking effect, so the product is expressed in workflow staff-week hours and read as a trend.</p><p>It matters because the three factors are usually owned by different teams and never multiplied. A system can look acceptable on each factor alone and still leave the institution unable to act, which is exactly what <a href=\"/glossary/dependency-state\">dependency state</a> tracking exists to surface.</p>",
+            "bodyHtml": "<p>A composite indicator of how much risk an institution carries by relying on a system, defined as dependency depth multiplied by <a href=\"/glossary/substitution-cost\">substitution cost</a> multiplied by correction latency. Depth is the number of dependents whose criticality is high or critical. Substitution cost is the estimate in the unit the dependency record states, such as person-weeks. Correction latency is in hours from a decision to intervene to the intervention taking effect. The score is read as a trend, and compared across deployments only where substitution cost is stated in the same unit.</p><p>It matters because the three factors are usually owned by different teams and never multiplied. A system can look acceptable on each factor alone and still leave the institution unable to act, which is exactly what <a href=\"/glossary/dependency-state\">dependency state</a> tracking exists to surface.</p>",
             "scope": "G. Measures & indicators. Metrics for whether a system can still be halted, reversed, and challenged, and for what its errors cost the people who carry them.",
             "operationalTests": [
               "All three factors are measured from records rather than estimated in a workshop.",
@@ -6233,9 +6253,9 @@
               "behavior": "A quarterly recomputation whose rise opened a reversibility investment decision.",
               "metric": "Exposure score per deployment, trended quarter over quarter.",
               "definition": "Structural risk carried by an institution's reliance on one deployment.",
-              "unit": "workflow staff-week hours",
+              "unit": "high- or critical-criticality dependents × the record's substitution-cost unit × hours",
               "dataSource": "Dependency record, substitution study, and intervention drill timings.",
-              "calculation": "dependency depth (dependent workflows) x substitution cost (staff-weeks) x correction latency (hours).",
+              "calculation": "dependency depth (dependents whose criticality is high or critical) x substitution cost (in the unit the dependency record states) x correction latency (hours).",
               "threshold": "No absolute target; a rise of more than 25% quarter over quarter opens a review."
             },
             "domains": [
@@ -6541,7 +6561,7 @@
             "title": "Recourse performance",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>How well a system delivers review → reversal → remedy under realistic load and stress. It composes <a href=\"/glossary/time-to-halt\">time-to-halt</a>, <a href=\"/glossary/time-to-restore\">time-to-restore</a>, and <a href=\"/glossary/appeal-passage-rate\">appeal passage rate</a> into a single posture.</p>",
+            "bodyHtml": "<p>How well a system delivers review → reversal → remedy under realistic load and stress. It combines <a href=\"/glossary/time-to-halt\">how fast harm is halted</a>, <a href=\"/glossary/time-to-restore\">how fast people are restored</a>, and <a href=\"/glossary/appeal-passage-rate\">how often appeals succeed</a> into one picture.</p>",
             "scope": "G. Measures & indicators. Metrics for whether a system can still be halted, reversed, and challenged, and for what its errors cost the people who carry them.",
             "operationalTests": [
               "Recourse metrics are measured under realistic load, not only in the happy path.",
@@ -6872,7 +6892,7 @@
             "title": "Liability record",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The object on an authority grant naming the party that accepts liability for the latency and errors of the automation, the instrument that binds them, and the <a href=\"/glossary/carve-out\">carve-outs</a> they claim. It exists because a system may not hide behind algorithmic error: the operating institution answers for what its delegation does.</p><p>Carve-outs are recorded before an incident rather than assembled after one. A limitation the issuer knows about is priced at deployment; the record exists so the residual risk everyone else carries is visible in the issuer's words, not the defendant's.</p>",
+            "bodyHtml": "<p>The part of a system's <a href=\"/glossary/authority-grant\">permission record</a> that names who accepts liability for the automation's delays and errors, the instrument that binds them, and the exclusions they claim, called <a href=\"/glossary/carve-out\">carve-outs</a>. It exists because a system may not hide behind algorithmic error: the operating institution answers for what its delegation does.</p><p>Carve-outs are recorded before an incident rather than assembled after one. A limitation the issuer knows about is priced at deployment; the record exists so the residual risk everyone else carries is visible in the issuer's words, not the defendant's.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "operationalTests": [
               "Every grant names the party accepting liability and the instrument that binds them.",
@@ -6968,7 +6988,7 @@
             "title": "Delegation chain",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A sequence of delegations that together produce one consequential decision: an agent subcontracting to an agent, a service calling a service, across components, providers, or institutions. STD-09's claim is that the chain is itself a delegation, governed at the layer where it fails: enumerated hops on the head grant, liability terminating at the head, one intervention at the boundary.</p><p>Each hop can satisfy the standards alone while the composition remains unauditable and attributed to no one. The chain exists as an object so it can be paused, challenged, and attributed as one delegation rather than as a pile of conformant parts.</p>",
+            "bodyHtml": "<p>A sequence of delegations that together produce one consequential decision: an agent subcontracting to an agent, a service calling a service, across components, providers, or institutions. The <a href=\"/standards/std-09-agent-chains\">agent chains standard (STD-09)</a> treats the chain as one delegation, governed at the layer where it fails: every hop listed on the grant at the head of the chain, liability ending at the head, and one point of intervention at the boundary.</p><p>Each hop can satisfy the standards alone while the composition remains unauditable and attributed to no one. The chain exists as an object so it can be paused, challenged, and attributed as one delegation rather than as a pile of conformant parts.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "operationalTests": [
               "The head grant enumerates every contributing delegation in execution order.",
@@ -7017,7 +7037,7 @@
             "title": "Design authority",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The accountable power to set the constraints a system operates under, choose its safeguards, and fund their enforcement. Clear design authority aligns incentives, protects <a href=\"/glossary/contestability\">contestability</a>, and prevents <a href=\"/glossary/accountability-diffusion\">accountability diffusion</a>.</p>",
+            "bodyHtml": "<p>The accountable power to set the constraints a system operates under, choose its safeguards, and fund their enforcement. When it is clear, incentives line up, people can still <a href=\"/glossary/contestability\">challenge decisions</a>, and responsibility does not <a href=\"/glossary/accountability-diffusion\">spread until no one can intervene</a>.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "references": [],
             "domains": [],
@@ -7033,7 +7053,7 @@
             "title": "Oversight horizon",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The distance regulators, auditors, or affected communities can see into a system’s decisions and their effects. Extending the horizon through <a href=\"/glossary/harm-visibility\">harm visibility</a>, traceable models, and shared <a href=\"/glossary/repair-log\">repair logs</a> shrinks <a href=\"/glossary/dead-zones\">dead zones</a>.</p>",
+            "bodyHtml": "<p>The distance regulators, auditors, or affected communities can see into a system’s decisions and their effects. It extends when the system <a href=\"/glossary/harm-visibility\">shows its impact on people</a>, its models can be traced, and its <a href=\"/glossary/repair-log\">repair records</a> are shared, and that shrinks the <a href=\"/glossary/dead-zones\">places where harm goes unseen</a>.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "references": [],
             "domains": [],
@@ -7049,7 +7069,7 @@
             "title": "Permission surface",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The set of authority grants in force for a system at a given moment, each carrying an evidence basis, a scope, a state, and an expiry. The surface is described by authority rather than by access points: an unused grant is still part of it, and a reachable capability with no grant behind it is not part of it at all.</p><p>Every element of the surface is an <a href=\"/glossary/authority-grant\">authority grant</a> that can be narrowed, suspended, or allowed to lapse, which is what makes the surface governable rather than merely documented. Comparing the surface against the <a href=\"/glossary/capability-catalog\">capability catalog</a> is the direct test of whether capability has outrun permission, and a wide surface makes <a href=\"/glossary/contestability\">contestability</a> practical only when each grant in it can be challenged.</p>",
+            "bodyHtml": "<p>Everything a system is permitted to do at a given moment, recorded as a set of grants, each with the evidence behind it, its scope, its current state, and its expiry. The surface is described by authority rather than by access points: an unused grant is still part of it, and a reachable capability with no grant behind it is not part of it at all.</p><p>Every element of the surface is an <a href=\"/glossary/authority-grant\">authority grant</a> that can be narrowed, suspended, or allowed to lapse, which is what makes the surface governable rather than merely documented. Comparing the surface against the <a href=\"/glossary/capability-catalog\">capability catalog</a> is the direct test of whether capability has outrun permission, and a wide surface makes <a href=\"/glossary/contestability\">contestability</a> practical only when each grant in it can be challenged.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "references": [
               {
@@ -7092,7 +7112,7 @@
             "title": "Bounded autonomy",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Autonomy granted only within explicit limits; approaching or crossing those limits must trigger escalation to <a href=\"/glossary/design-authority\">design authority</a> or a documented <a href=\"/glossary/oversight-horizon\">oversight horizon</a>.</p><p>The limits live in an <a href=\"/glossary/authority-grant\">authority grant</a> and are enforced through its <a href=\"/glossary/grant-state\">grant state</a>. Widening them is an <a href=\"/glossary/expansion-decision\">expansion decision</a>, not a configuration change.</p>",
+            "bodyHtml": "<p>Autonomy granted only within explicit limits. Approaching or crossing a limit must escalate the case to <a href=\"/glossary/design-authority\">the people who set the system's rules</a> or to its documented <a href=\"/glossary/oversight-horizon\">outside oversight</a>.</p><p>The limits live in an <a href=\"/glossary/authority-grant\">authority grant</a> and are enforced through its <a href=\"/glossary/grant-state\">grant state</a>. Widening them is an <a href=\"/glossary/expansion-decision\">expansion decision</a>, not a configuration change.</p>",
             "examples": [
               "A claims assistant can approve payouts up to $500, but anything higher is routed to a supervisor."
             ],
@@ -7122,7 +7142,7 @@
             "title": "Earned autonomy",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Autonomy that expands only after demonstrated reliability, monitoring, and accountability. Permission surfaces widen as <a href=\"/glossary/traceable-ownership\">traceable ownership</a> and <a href=\"/glossary/repair-log\">repair logs</a> prove the system can handle more scope.</p><p>The demonstration is evidence for widening a specific <a href=\"/glossary/authority-grant\">authority grant</a>, recorded as a transition in its <a href=\"/glossary/grant-state\">grant state</a>. Reliability is the argument for an <a href=\"/glossary/expansion-decision\">expansion decision</a>, never a substitute for one.</p>",
+            "bodyHtml": "<p>Autonomy that expands only after demonstrated reliability, monitoring, and accountability. What the system is <a href=\"/glossary/permission-surface\">permitted to do</a> widens only as <a href=\"/glossary/traceable-ownership\">named owners</a> and <a href=\"/glossary/repair-log\">repair records</a> show it can handle more scope.</p><p>The demonstration is evidence for widening a specific <a href=\"/glossary/authority-grant\">authority grant</a>, recorded as a transition in its <a href=\"/glossary/grant-state\">grant state</a>. Reliability is the argument for an <a href=\"/glossary/expansion-decision\">expansion decision</a>, never a substitute for one.</p>",
             "examples": [
               "After six months of clean audits, the escalation bot gains approval rights for low-risk cases."
             ],
@@ -7152,7 +7172,7 @@
             "title": "Scope discipline",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The practice of not exceeding one’s mandate, even when doing so might appear helpful or efficient. Scope discipline enforces the <a href=\"/glossary/permission-surface\">permission surface</a> and respects <a href=\"/glossary/bounded-autonomy\">bounded autonomy</a>.</p>",
+            "bodyHtml": "<p>The practice of not exceeding one’s mandate, even when doing so might appear helpful or efficient. It keeps a system within <a href=\"/glossary/permission-surface\">what it is permitted to do</a> and <a href=\"/glossary/bounded-autonomy\">the limits on its autonomy</a>.</p>",
             "examples": [
               "A support bot refuses to access customer data outside its assigned ticket."
             ],
@@ -7268,7 +7288,7 @@
             "title": "Stewardship window",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A negotiated period where teams pause growth work to do maintenance, close open repairs, and fix gaps in ownership.</p><p>Stewardship windows bundle <a href=\"/glossary/maintenance-window\">maintenance windows</a>, publish <a href=\"/glossary/service-level-indicators\">SLJs</a> for the pause, and commit to closing items in the <a href=\"/glossary/repair-log\">repair log</a> before resuming throughput.</p>",
+            "bodyHtml": "<p>A negotiated period where teams pause growth work to do maintenance, close open repairs, and fix gaps in ownership.</p><p>Stewardship windows bundle <a href=\"/glossary/maintenance-window\">maintenance windows</a>, publish <a href=\"/glossary/service-level-indicators\">fairness and safety measures</a> for the pause, and commit to closing items in the <a href=\"/glossary/repair-log\">repair log</a> before resuming throughput.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "references": [],
             "domains": [],
@@ -7284,7 +7304,12 @@
             "title": "Stewardship",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>An explicit, ongoing role responsible for system behavior over time, with authority to pause, fix, or retire it. Stewardship links <a href=\"/glossary/design-authority\">design authority</a>, <a href=\"/glossary/stoppability\">stoppability</a>, and <a href=\"/glossary/stewardship-window\">stewardship windows</a>.</p>",
+            "bodyHtml": "<p>An explicit, ongoing role responsible for system behavior over time, with authority to pause, fix, or retire it.</p>",
+            "adjacentTerms": [
+              "design-authority",
+              "stoppability",
+              "stewardship-window"
+            ],
             "examples": [
               "A named steward can pause a rollout and own the repair log."
             ],
@@ -7394,7 +7419,7 @@
             "title": "Bounded duration",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A fixed maximum time-to-resolution; breach triggers an enforceable disposition.</p><p>Bounded duration pairs with a <a href=\"/glossary/stable-clock\">stable clock</a> and <a href=\"/glossary/time-transparency\">time transparency</a>.</p>",
+            "bodyHtml": "<p>A declared maximum time for a case to be resolved, with a stated outcome that takes effect, and can be enforced, when the time runs out.</p><p>It works alongside a <a href=\"/glossary/stable-clock\">stable clock</a>, which the institution cannot reset, and <a href=\"/glossary/time-transparency\">time transparency</a>, which lets the person see where their case stands.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "references": [],
             "domains": [],
@@ -7800,7 +7825,7 @@
             "title": "Escalation reliability",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Escalation paths work under load, after hours, and for novices, as shown in drills rather than in documentation. Reliable escalation keeps <a href=\"/glossary/ethical-load-path\">ethical load paths</a> intact when stress is highest.</p>",
+            "bodyHtml": "<p>Escalation paths work under load, after hours, and for novices, as shown in drills rather than in documentation. It keeps the <a href=\"/glossary/ethical-load-path\">chain of people who can stop, reverse, or repair harm</a> intact when stress is highest.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "operationalTests": [
               "Escalation drills hit time-to-human and time-to-decision targets across nights, weekends, and peak load.",
@@ -8182,7 +8207,7 @@
             "title": "Review trigger",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A declared rule connecting an observation to a state change: when this discrepancy, expiry, or threshold occurs, this grant moves to this state, answered by this owner, within this clock. Triggers are the wiring between monitoring and authority, and they are what give a <a href=\"/glossary/policy-record\">policy record</a> force over a <a href=\"/glossary/grant-state\">grant state</a>.</p><p>It matters because observation without a possible transition is theater. A trigger is the smallest object that makes a dashboard part of the control system rather than a record of what already happened, and it is how <a href=\"/glossary/policy-as-state\">policy as state</a> acquires force over a running system.</p>",
+            "bodyHtml": "<p>A rule, declared in advance, that says what happens when something is observed: when this discrepancy, expiry, or threshold occurs, this permission moves to this state, answered by this owner, within this deadline. Triggers are the wiring between monitoring and authority, and they are what give a <a href=\"/glossary/policy-record\">policy record</a> force over a <a href=\"/glossary/grant-state\">grant state</a>.</p><p>It matters because observation without a possible transition is theater. A trigger is the smallest object that makes a dashboard part of the control system rather than a record of what already happened, and it is how <a href=\"/glossary/policy-as-state\">policy as state</a> acquires force over a running system.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "operationalTests": [
               "Every monitored signal names the state it can change, or is marked explicitly as informational.",
@@ -8331,7 +8356,7 @@
             "title": "Corrective standing",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The recognized capacity of an <a href=\"/glossary/error-bearing-party\">error-bearing party</a> to start a correction. Their challenge must be received, answered by a named responder, and judged against a stated standard, and it must be able to change the system's state. Standing is proportional to exposure and carries <a href=\"/glossary/procedural-force\">procedural force</a> rather than veto.</p><p>It matters because contestability without standing is a suggestion box. Standing is what converts the experience of harm into an event the governing system has to process, and it is operationalized by a <a href=\"/glossary/standing-mechanism\">standing mechanism</a>.</p>",
+            "bodyHtml": "<p>The recognized capacity of <a href=\"/glossary/error-bearing-party\">someone who bears a system's errors</a> to start a correction. Their challenge must be received, answered by a named responder, and judged against a stated standard, and it must be able to change the system's state. Standing is proportional to exposure and carries <a href=\"/glossary/procedural-force\">procedural force</a> rather than veto.</p><p>It matters because contestability without standing is a suggestion box. Standing is what converts the experience of harm into an event the governing system has to process, and it is operationalized by a <a href=\"/glossary/standing-mechanism\">standing mechanism</a>.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "operationalTests": [
               "Standing is declared per decision class rather than granted informally on request.",
@@ -8380,7 +8405,7 @@
             "title": "Standing mechanism",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The apparatus that makes standing real. It keeps a register of who may challenge which decision classes, including <a href=\"/glossary/error-bearing-party\">error-bearing parties</a>. It also names the admissible evidence, the responder, the deadline, the standard of review, and the state transitions a successful challenge can produce.</p><p>It matters because <a href=\"/glossary/corrective-standing\">corrective standing</a> declared without a mechanism can be neither exercised nor audited. The mechanism is the part of <a href=\"/glossary/contestability\">contestability</a> an auditor can inspect: named responders, real clocks, and recorded outcomes.</p>",
+            "bodyHtml": "<p>The records and procedures that turn a right to challenge a decision into one people can use. It keeps a register of who may challenge which kinds of decision, including <a href=\"/glossary/error-bearing-party\">the people who bear the system's errors</a>. It also names the admissible evidence, the responder, the deadline, the standard of review, and the state transitions a successful challenge can produce.</p><p>It matters because <a href=\"/glossary/corrective-standing\">corrective standing</a> declared without a mechanism can be neither exercised nor audited. The mechanism is the part of <a href=\"/glossary/contestability\">contestability</a> an auditor can inspect: named responders, real clocks, and recorded outcomes.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "operationalTests": [
               "The register, responder, deadline, and standard of review are published, not held internally.",
@@ -8539,7 +8564,7 @@
             "title": "Constitutional governance",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A governance discipline built on authority grants, jurisdictional boundaries, standing for the people who bear errors, and enforceable recourse. It is set against behavioral alignment. Alignment asks whether an automated system intends what its creators intend. Constitutional governance asks what authority the system holds, what happens when it is wrong or incomplete, and who has standing to compel correction.</p><p>Constitutional governance starts from three premises. Authority cannot rest on the absence of observed failure. Evidence and authority must stay coupled. A system's politics show in the rights people hold when its model fails.</p>",
+            "bodyHtml": "<p>A way of governing automated systems built on <a href=\"/glossary/authority-grant\">recorded grants of authority</a>, limits on jurisdiction, a recognized right for the people who bear errors to challenge them, and enforceable recourse. It is set against behavioral alignment. Alignment asks whether an automated system intends what its creators intend. Constitutional governance asks what authority the system holds, what happens when it is wrong or incomplete, and who has standing to compel correction.</p><p>Constitutional governance starts from three premises. Authority cannot rest on the absence of observed failure. Evidence and authority must stay coupled. A system's politics show in the rights people hold when its model fails.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "operationalTests": [
               "Authority is bounded in an explicit grant object with expiration dates and invalidation conditions rather than open-ended permissions.",
@@ -8584,8 +8609,8 @@
               "authority-drift",
               "error-bearing-party"
             ],
-            "termUpdated": "2026-09-18T00:00:00Z",
-            "termVersion": "v1.0.0"
+            "termUpdated": "2026-10-06T00:00:00Z",
+            "termVersion": "v1.0.1"
           },
           {
             "id": "corrigibility-rent",
@@ -8650,7 +8675,7 @@
             "title": "Insulation",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Whatever stops the consequences of an institution's decisions from reaching the people who can change the rules that produced them. Insulation takes nine forms:</p><ul><li>Material: someone else pays.</li><li>Organizational: frontline workers absorb failures before they reach leadership.</li><li>Epistemic: the institution measures completed outcomes but not the work it took to complete them.</li><li>Procedural: appeals exist but take extraordinary time, persistence, expertise, or money.</li><li>Temporal: consequences arrive after the decision-maker has moved on.</li><li>Social: those who govern rarely meet those who absorb.</li><li>Legal: responsibility is fragmented or unenforceable.</li><li>Statistical: harm is spread so thin that no single event looks consequential.</li><li>Adaptive: the affected people get so good at compensating that the failure never shows.</li></ul><p>Insulation is distance from consequence, not only from suffering. It needs three things together: costs are displaced, feedback is weak, and authority stays where it was. The side insulated from a mismatch leaves the other side to adapt. The better the other side adapts, the less the failure shows, and the more secure the insulated side becomes. The loop runs from bad fit to human adaptation, apparent success, institutional approval, and wider authority. It is the loop the <a href=\"/glossary/workaround-presumption\">workaround presumption</a> is meant to break.</p><p>Not all insulation is bad. Judges may need insulation from immediate political pressure, scientists from popularity, civil servants from retaliation, and minorities from majorities. The line falls between insulation from improper pressure and insulation from evidence, accountability, and consequence. The design question is which one is being preserved.</p>",
+            "bodyHtml": "<p>Insulation keeps the harm a decision causes from reaching anyone who can change the rule. Where it holds, the people harmed cope, and their coping is read as proof the rule works. It takes nine forms:</p><ul><li>Material: someone else pays.</li><li>Organizational: frontline workers absorb failures before they reach leadership.</li><li>Epistemic: the institution measures completed outcomes but not the work it took to complete them.</li><li>Procedural: appeals exist but take extraordinary time, persistence, expertise, or money.</li><li>Temporal: consequences arrive after the decision-maker has moved on.</li><li>Social: those who govern rarely meet those who absorb.</li><li>Legal: responsibility is fragmented or unenforceable.</li><li>Statistical: harm is spread so thin that no single event looks consequential.</li><li>Adaptive: the affected people get so good at compensating that the failure never shows.</li></ul><p>It shields the rule-maker from consequence, not only from the sight of suffering. It needs three things together: costs are displaced, feedback is weak, and authority stays where it was. The side insulated from a mismatch leaves the other side to adapt. The better the other side adapts, the less the failure shows, and the more secure the insulated side becomes. The loop runs from bad fit to human adaptation, apparent success, institutional approval, and wider authority. It is the loop the <a href=\"/glossary/workaround-presumption\">workaround presumption</a> is meant to break.</p><p>Not all insulation is bad. Judges may need insulation from immediate political pressure, scientists from popularity, civil servants from retaliation, and minorities from majorities. The line falls between insulation from improper pressure and insulation from evidence, accountability, and consequence. The design question is which one is being preserved.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "operationalTests": [
               "For each decision class, the institution can name what travels back when it is wrong, and the channel it travels through.",
@@ -8709,8 +8734,8 @@
               "exception-absorption",
               "falsified-denominator"
             ],
-            "termUpdated": "2026-09-19T00:00:00Z",
-            "termVersion": "v1.0.0"
+            "termUpdated": "2026-10-06T00:00:00Z",
+            "termVersion": "v1.0.1"
           },
           {
             "id": "consequential-contradiction",
@@ -8897,7 +8922,7 @@
             "title": "Dependence reciprocity",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Dependence runs both ways. A population that has come to rely on an institution's system has generated duties the institution owes it: notice when the dependency deepens, preservation of exit and alternatives, and continuity obligations at withdrawal. Treating a population's reliance as license to direct it is a conversion — a fact about dependence turned into an unauthorized permission — and reciprocity is the refusal of that conversion.</p><p>It matters because the dependency ledger as usually written records what the institution needs in order to withdraw, and stops there. Reciprocity completes the picture: the <a href=\"/glossary/crumple-zone\">crumple zone</a> is not only absorbing cost, it is holding reliance the institution benefits from, and reliance held is a claim, not a resource.</p>",
+            "bodyHtml": "<p>The duties an institution owes to a population that has come to rely on its system. Dependence runs both ways: the institution owes notice when the dependency deepens, preservation of exit and alternatives, and continuity obligations at withdrawal. Treating a population's reliance as license to direct it is a conversion — a fact about dependence turned into an unauthorized permission — and reciprocity is the refusal of that conversion.</p><p>It matters because the dependency ledger as usually written records what the institution needs in order to withdraw, and stops there. Reciprocity completes the picture: the <a href=\"/glossary/crumple-zone\">crumple zone</a> is not only absorbing cost, it is holding reliance the institution benefits from, and reliance held is a claim, not a resource.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "operationalTests": [
               "Dependents are told when their reliance on the system deepens materially.",
@@ -8951,8 +8976,8 @@
               "dependency-ledger",
               "withdrawal-rehearsal"
             ],
-            "termUpdated": "2026-09-18T00:00:00Z",
-            "termVersion": "v1.0.0"
+            "termUpdated": "2026-10-06T00:00:00Z",
+            "termVersion": "v1.0.1"
           },
           {
             "id": "corrective-power",
@@ -9979,7 +10004,7 @@
             "title": "Ethical circuit breakers",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Automated stops that trip when a risk indicator crosses a set point: a surge in appeals, a bias metric, or rising <a href=\"/glossary/moral-debt\">moral debt</a>. They are the safety counterpart to financial circuit breakers.</p>",
+            "bodyHtml": "<p>Automated stops that trip when a risk indicator crosses a set point: a surge in appeals, a bias metric, or a growing backlog of <a href=\"/glossary/moral-debt\">harm not yet repaired</a>. They are the safety counterpart to financial circuit breakers.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "references": [],
             "domains": [
@@ -9997,7 +10022,7 @@
             "title": "Graceful rollback lanes",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Prepared routes to revert harmful decisions while preserving dignity, evidence, and service continuity. Rollback lanes keep <a href=\"/glossary/irreversibility-index\">irreversibility indices</a> low and shorten <a href=\"/glossary/time-to-restore\">time-to-restore</a>.</p>",
+            "bodyHtml": "<p>Prepared routes to revert harmful decisions while preserving dignity, evidence, and service continuity. They lower the <a href=\"/glossary/irreversibility-index\">share of actions that cannot be undone</a> and shorten the <a href=\"/glossary/time-to-restore\">time to restore</a> people.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "references": [],
             "domains": [
@@ -10023,7 +10048,7 @@
             "title": "Protective friction",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Friction intentionally added to slow harmful processes and keep <a href=\"/glossary/moral-latency\">moral latency</a> within safe bounds. Protective friction inserts checkpoints where speed would otherwise amplify risk.</p><p>It should be targeted and proportional: enough to prevent harm, not enough to create punitive burden.</p>",
+            "bodyHtml": "<p>Friction added on purpose to slow a harmful process, so the <a href=\"/glossary/moral-latency\">lag between harm and response</a> stays within safe bounds. Protective friction inserts checkpoints where speed would otherwise amplify risk.</p><p>It should be targeted and proportional: enough to prevent harm, not enough to create punitive burden.</p>",
             "scope": "I. Friction & flow. Where a system slows, pauses, or asks for confirmation before it acts, and who carries the cost of that friction.",
             "references": [
               {
@@ -10231,7 +10256,7 @@
             "title": "Consent journey",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The sequenced touchpoints where a person learns what a system will do, grants or denies permission, and can revise that choice over time.</p><p>Strong consent journeys use <a href=\"/glossary/anticipatory-consent\">anticipatory consent</a>, visible <a href=\"/glossary/permission-surface\">permission surfaces</a>, and healthy <a href=\"/glossary/refusal-budget\">refusal budgets</a> so pausing or exiting does not jeopardize access or service.</p><p>A journey that ends at adoption misses <a href=\"/glossary/consent-depth\">consent depth</a>: the dependency keeps deepening after the permission was granted, and the choice has to be reopened rather than remembered.</p>",
+            "bodyHtml": "<p>The points where a person learns what a system will do, grants or refuses permission, and can revise that choice later.</p><p>A strong one <a href=\"/glossary/anticipatory-consent\">previews future uses</a> and lets the person approve, defer, or block them, shows <a href=\"/glossary/permission-surface\">what the system is permitted to do</a>, and lets people <a href=\"/glossary/refusal-budget\">pause or leave</a> without losing access or service.</p><p>A journey that ends at adoption misses <a href=\"/glossary/consent-depth\">consent depth</a>: the dependency keeps deepening after the permission was granted, and the choice has to be reopened rather than remembered.</p>",
             "scope": "I. Friction & flow. Where a system slows, pauses, or asks for confirmation before it acts, and who carries the cost of that friction.",
             "references": [],
             "domains": [],
@@ -10247,7 +10272,7 @@
             "title": "Humane friction",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The combination of protective, dignity, and velocity friction across a whole workflow, placed so the process slows only where risk, irreversibility, or coercion pressure is high.</p><p>Each point of friction can be explained, removed, and measured, and it reduces later harm without trapping people in needless process.</p>",
+            "bodyHtml": "<p>Slowdowns placed across a whole workflow so the process slows only where risk, irreversibility, or pressure to coerce is high. It combines <a href=\"/glossary/protective-friction\">protective</a>, <a href=\"/glossary/dignity-friction\">dignity</a>, and <a href=\"/glossary/velocity-friction\">velocity</a> friction.</p><p>Each point of friction can be explained, removed, and measured, and it reduces later harm without trapping people in needless process.</p>",
             "examples": [
               "A lending flow adds extra verification only for high-risk decisions and offers an accessible appeal path when checks block approval."
             ],
@@ -10290,7 +10315,7 @@
             "title": "Appropriate friction",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Deliberate slowdowns or checkpoints inserted where harm would be costly or irreversible. Appropriate friction treats <a href=\"/glossary/velocity-friction\">velocity friction</a> and <a href=\"/glossary/ethical-interrupts\">ethical interrupts</a> as safety features.</p>",
+            "bodyHtml": "<p>Deliberate slowdowns or checkpoints inserted where harm would be costly or irreversible. It treats <a href=\"/glossary/velocity-friction\">slowing fast automated steps</a> and <a href=\"/glossary/ethical-interrupts\">automatic halts</a> as safety features.</p>",
             "examples": [
               "High-risk data exports require a second reviewer before completion."
             ],
@@ -10320,7 +10345,7 @@
             "title": "Frictionless harm",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Harms that spread unchecked because safeguards or pauses were stripped away. Frictionless harm is the inverse of <a href=\"/glossary/protective-friction\">protective friction</a>; it appears when <a href=\"/glossary/velocity-friction\">velocity friction</a> and <a href=\"/glossary/dignity-friction\">dignity friction</a> are absent.</p>",
+            "bodyHtml": "<p>Harms that spread unchecked because safeguards or pauses were stripped away. It is the opposite of <a href=\"/glossary/protective-friction\">friction added on purpose to slow harm</a>. It appears when nothing <a href=\"/glossary/velocity-friction\">slows fast automated steps</a> and nothing <a href=\"/glossary/dignity-friction\">asks people to confirm irreversible actions</a>.</p>",
             "scope": "I. Friction & flow. Where a system slows, pauses, or asks for confirmation before it acts, and who carries the cost of that friction.",
             "references": [],
             "domains": [],
@@ -10371,7 +10396,7 @@
             "title": "Decision edge",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The precise moment when a choice shifts from reversible to consequential. Making the decision edge visible enables <a href=\"/glossary/dignity-friction\">dignity friction</a>, clearer consent, and routing to <a href=\"/glossary/ethical-interrupts\">ethical interrupts</a> when risk spikes.</p>",
+            "bodyHtml": "<p>The precise moment when a choice shifts from reversible to consequential. Making it visible allows <a href=\"/glossary/dignity-friction\">confirmation steps</a> and clearer consent at that moment, and an <a href=\"/glossary/ethical-interrupts\">automatic halt</a> when risk spikes.</p>",
             "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
             "references": [],
             "domains": [
@@ -10389,7 +10414,7 @@
             "title": "Decision artifact",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A discrete output that can be attributed and contested. It records the outcome, the reason, the time, and the accountable owner.</p><p>Decision artifacts anchor <a href=\"/glossary/traceable-ownership\">traceable ownership</a> and make <a href=\"/glossary/contestability\">contestability</a> measurable.</p>",
+            "bodyHtml": "<p>One decision's output, in a form that can be traced to its owner and challenged. It records the outcome, the reason, the time, and the accountable owner.</p><p>Decision artifacts anchor <a href=\"/glossary/traceable-ownership\">traceable ownership</a> and make <a href=\"/glossary/contestability\">contestability</a> measurable.</p>",
             "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
             "references": [],
             "domains": [
@@ -10551,7 +10576,7 @@
             "title": "Constructive denial",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A legal state where delay is treated as refusal because it destroys utility or makes pursuit futile.</p><p>The trigger is utility expiry: relief that arrives after the window in which it could still help. Constructive denial forces accountable remedies rather than letting the delay stand as an administrative outcome.</p>",
+            "bodyHtml": "<p>A legal state where delay is treated as refusal, because the delay has made relief useless or pursuing it futile.</p><p>The trigger is utility expiry: relief that arrives after the window in which it could still help. Constructive denial forces accountable remedies rather than letting the delay stand as an administrative outcome.</p>",
             "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
             "references": [],
             "domains": [
@@ -10587,7 +10612,7 @@
             "title": "Irreversible boundary",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A threshold the system cannot automatically undo — account closures, public releases, or data publication. Crossing it demands heightened <a href=\"/glossary/contestability\">contestability</a>, audited <a href=\"/glossary/explainability-for-accountability\">explanations</a>, and explicit <a href=\"/glossary/time-to-restore\">time-to-restore</a> plans.</p>",
+            "bodyHtml": "<p>A threshold the system cannot automatically undo — account closures, public releases, or data publication. Crossing it demands stronger <a href=\"/glossary/contestability\">ways to challenge</a> the decision, audited <a href=\"/glossary/explainability-for-accountability\">explanations</a>, and an explicit plan for <a href=\"/glossary/time-to-restore\">restoring people</a>.</p>",
             "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
             "references": [],
             "domains": [
@@ -10683,7 +10708,7 @@
             "title": "Normative uncertainty",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Situations where it is unclear what the “right” action is, requiring caution, clarification, or human judgment rather than confident automation. Normative uncertainty often triggers <a href=\"/glossary/ethical-interrupts\">ethical interrupts</a> and a higher <a href=\"/glossary/actionability-threshold\">actionability threshold</a>.</p>",
+            "bodyHtml": "<p>Situations where it is unclear what the “right” action is, requiring caution, clarification, or human judgment rather than confident automation. It often calls for an <a href=\"/glossary/ethical-interrupts\">automatic halt</a> and a higher <a href=\"/glossary/actionability-threshold\">bar of confidence and authorization</a> before acting.</p>",
             "examples": [
               "When guidance conflicts, the system pauses and requests human judgment."
             ],
@@ -10897,7 +10922,7 @@
             "title": "Object formation",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The process by which a complaint, harm, or request becomes a decision object — assigned an identifier, a category, an owner, a standard of review, and a clock. Systems often block accountability by preventing object formation (“nothing exists to appeal”).</p><p>It is the gate that a <a href=\"/glossary/harm-receipt\">harm receipt</a> must pass to become a <a href=\"/glossary/decision-object\">decision object</a>.</p>",
+            "bodyHtml": "<p>The process by which a complaint, harm, or request becomes a formal case: it is assigned an identifier, a category, an owner, a standard of review, and a clock. Systems often block accountability by preventing object formation (“nothing exists to appeal”).</p><p>It is the gate that a <a href=\"/glossary/harm-receipt\">harm receipt</a> must pass to become a <a href=\"/glossary/decision-object\">decision object</a>.</p>",
             "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
             "operationalTests": [
               "Every received harm forms an object with id, owner, standard, and clock.",
@@ -11212,7 +11237,7 @@
             "title": "Heroism-dependent systems",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Systems that rely on extraordinary effort, unpaid care, or silent sacrifice to function. They mask poor <a href=\"/glossary/stoppability\">stoppability</a> and high <a href=\"/glossary/failure-load\">failure load</a>.</p><p>The heroism is a fallback nobody wrote down, which is <a href=\"/glossary/normalized-dependence\">normalized dependence</a> in its human form. Counting that effort into <a href=\"/glossary/dependency-state\">dependency state</a> makes it a budget item rather than a virtue.</p>",
+            "bodyHtml": "<p>Systems that rely on extraordinary effort, unpaid care, or silent sacrifice to function. The effort hides a system that is <a href=\"/glossary/stoppability\">hard to stop</a> and <a href=\"/glossary/failure-load\">does heavy harm when it fails</a>.</p><p>The heroism is a fallback nobody wrote down, which is <a href=\"/glossary/normalized-dependence\">normalized dependence</a> in its human form. Counting that effort into <a href=\"/glossary/dependency-state\">dependency state</a> makes it a budget item rather than a virtue.</p>",
             "scope": "K. System patterns & anti-patterns. Recurring structures institutions build, most of them ways that process, tone, or disclosure stands in for remedy.",
             "references": [],
             "domains": [
@@ -11248,7 +11273,7 @@
             "title": "Error cascades",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Small automated mistakes that amplify across the system through retries, shared dependencies, or blind handoffs. Error cascades are rarely one bug: they are chain reactions in tightly coupled workflows.</p><p>Containment depends on <a href=\"/glossary/ethical-interrupts\">ethical interrupts</a>, clear rollback boundaries, and <a href=\"/glossary/service-level-indicators\">SLJs</a> that trigger action before harms compound.</p>",
+            "bodyHtml": "<p>Small automated mistakes that amplify across the system through retries, shared dependencies, or blind handoffs. Error cascades are rarely one bug: they are chain reactions in tightly coupled workflows.</p><p>Containment depends on <a href=\"/glossary/ethical-interrupts\">ethical interrupts</a>, clear rollback boundaries, and <a href=\"/glossary/service-level-indicators\">fairness and safety measures</a> that trigger action before harms compound.</p>",
             "examples": [
               "A flawed fraud rule mislabels transactions, which triggers automatic account locks, support backlog spikes, and delayed rent payments."
             ],
@@ -11285,7 +11310,7 @@
             "title": "Invisible fallbacks",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Hidden behaviors that appear under stress — shadow queues, silent throttling, or undocumented overrides. Invisible fallbacks obscure <a href=\"/glossary/ethical-load-path\">ethical load paths</a> and should be surfaced through <a href=\"/glossary/graceful-rollback-lanes\">graceful rollback lanes</a> and rehearsed in <a href=\"/glossary/maintenance-window\">maintenance windows</a>.</p>",
+            "bodyHtml": "<p>Hidden behaviors that appear under stress — shadow queues, silent throttling, or undocumented overrides. They hide <a href=\"/glossary/ethical-load-path\">who can stop, reverse, or repair harm</a>. They should be brought into the open as <a href=\"/glossary/graceful-rollback-lanes\">prepared routes to reverse decisions</a> and rehearsed during <a href=\"/glossary/maintenance-window\">scheduled maintenance</a>.</p>",
             "scope": "K. System patterns & anti-patterns. Recurring structures institutions build, most of them ways that process, tone, or disclosure stands in for remedy.",
             "references": [],
             "domains": [
@@ -11303,7 +11328,7 @@
             "title": "Dead-user zones",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Places where people affected by decisions cannot contest, appeal, or exit — opaque rankings, automated bans, or unmoderated queues. Closing dead-user zones requires widening the <a href=\"/glossary/permission-surface\">permission surface</a> and raising <a href=\"/glossary/appeal-passage-rate\">appeal passage rates</a>.</p>",
+            "bodyHtml": "<p>Places where people affected by decisions cannot contest, appeal, or exit — opaque rankings, automated bans, or unmoderated queues. Closing them requires giving people more room to act and raising the <a href=\"/glossary/appeal-passage-rate\">share of appeals that succeed</a>.</p>",
             "scope": "K. System patterns & anti-patterns. Recurring structures institutions build, most of them ways that process, tone, or disclosure stands in for remedy.",
             "references": [],
             "domains": [
@@ -11321,7 +11346,7 @@
             "title": "Moral lock-in",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>When harmful defaults become entrenched through dependencies, network effects, or contracts that block reform. Moral lock-in is prevented by an <a href=\"/glossary/admission-gate\">admission gate</a>, <a href=\"/glossary/contestability\">contestability</a>, and continuous moral drift control.</p><p>Lock-in usually begins as <a href=\"/glossary/normalized-dependence\">normalized dependence</a>: reliance nobody records until reform requires reversing it. Tracking <a href=\"/glossary/dependency-state\">dependency state</a> turns lock-in from a late discovery into a measurement taken early.</p>",
+            "bodyHtml": "<p>When harmful defaults become entrenched through dependencies, network effects, or contracts that block reform. It is prevented by <a href=\"/glossary/admission-gate\">deciding whether the system should act at all</a> before it starts, by keeping its decisions <a href=\"/glossary/contestability\">open to challenge</a>, and by checking continuously for drift from what it was authorized to do.</p><p>Lock-in usually begins as <a href=\"/glossary/normalized-dependence\">normalized dependence</a>: reliance nobody records until reform requires reversing it. Tracking <a href=\"/glossary/dependency-state\">dependency state</a> turns lock-in from a late discovery into a measurement taken early.</p>",
             "scope": "K. System patterns & anti-patterns. Recurring structures institutions build, most of them ways that process, tone, or disclosure stands in for remedy.",
             "references": [],
             "domains": [
@@ -11741,7 +11766,7 @@
             "title": "Care redundancy",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Overlapping routes through people, automated checks, and policy guarantees, so that when one safeguard fails another still catches the person. Care redundancy pairs with <a href=\"/glossary/graceful-degradation\">graceful degradation</a> to keep <a href=\"/glossary/failure-load\">failure load</a> low.</p>",
+            "bodyHtml": "<p>Overlapping routes through people, automated checks, and policy guarantees, so that when one safeguard fails another still catches the person. With <a href=\"/glossary/graceful-degradation\">controlled degradation</a>, it keeps the <a href=\"/glossary/failure-load\">harm done by any one failure</a> low.</p>",
             "scope": "L. Future concepts / research areas. Open research threads: terms in use that do not yet carry operational tests or a minimum evidence standard.",
             "references": [],
             "domains": [
@@ -11795,7 +11820,7 @@
             "title": "Design for ethical latency",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Designing for the unavoidable delay between an action and its review: staging risky steps, adding <a href=\"/glossary/velocity-friction\">velocity friction</a>, or holding <a href=\"/glossary/care-floor-guarantees\">care floor guarantees</a> in place until the fuller review is done.</p>",
+            "bodyHtml": "<p>Designing for the unavoidable delay between an action and its review: staging risky steps, <a href=\"/glossary/velocity-friction\">slowing fast automated steps</a>, or keeping <a href=\"/glossary/care-floor-guarantees\">baseline commitments to people</a> in place until the fuller review is done.</p>",
             "scope": "L. Future concepts / research areas. Open research threads: terms in use that do not yet carry operational tests or a minimum evidence standard.",
             "references": [],
             "domains": [
@@ -11831,7 +11856,7 @@
             "title": "Aftercare automation",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Automated follow-up after an incident that checks on the people affected, schedules remedies, and prompts a named person to close the case. Done well, it lowers <a href=\"/glossary/moral-debt\">moral debt</a> without adding <a href=\"/glossary/moral-overhead\">moral overhead</a>.</p>",
+            "bodyHtml": "<p>Automated follow-up after an incident that checks on the people affected, schedules remedies, and prompts a named person to close the case. Done well, it reduces <a href=\"/glossary/moral-debt\">harm not yet repaired</a> without <a href=\"/glossary/moral-overhead\">adding work for the people involved</a>.</p>",
             "scope": "L. Future concepts / research areas. Open research threads: terms in use that do not yet carry operational tests or a minimum evidence standard.",
             "references": [],
             "domains": [
@@ -11939,7 +11964,7 @@
             "title": "Conflict observability",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Logging that records a conflict between values when it happens, for example when <a href=\"/glossary/service-level-indicators\">SLJs</a> are traded against throughput or appeals spike. The record lets the conflict be reviewed before it escalates and lets moral drift control start sooner.</p>",
+            "bodyHtml": "<p>Logging that records a conflict between values when it happens, for example when <a href=\"/glossary/service-level-indicators\">fairness and safety measures</a> are traded against throughput or appeals spike. The record lets the conflict be reviewed before it escalates and lets correction start sooner.</p>",
             "scope": "L. Future concepts / research areas. Open research threads: terms in use that do not yet carry operational tests or a minimum evidence standard.",
             "references": [],
             "domains": [
@@ -11975,7 +12000,7 @@
             "title": "Crisis rehearsal loops",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Regular drills that test how a system responds to harm, as well as whether it stays up. They exercise <a href=\"/glossary/ethical-interrupts\">ethical interrupts</a>, check <a href=\"/glossary/care-floor-guarantees\">care floors</a>, and record findings in the <a href=\"/glossary/repair-log\">repair log</a>.</p>",
+            "bodyHtml": "<p>Regular drills that test how a system responds to harm, as well as whether it stays up. They exercise the <a href=\"/glossary/ethical-interrupts\">automatic halts</a>, check the <a href=\"/glossary/care-floor-guarantees\">baseline commitments</a> kept during outages, and record findings in the <a href=\"/glossary/repair-log\">repair log</a>.</p>",
             "scope": "L. Future concepts / research areas. Open research threads: terms in use that do not yet carry operational tests or a minimum evidence standard.",
             "references": [],
             "domains": [
@@ -11993,7 +12018,7 @@
             "title": "Data dignity budgets",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Caps on what data is collected and how it is used, set by context and purpose rather than by what a consent checkbox legally allows. Budgets align with <a href=\"/glossary/anticipatory-consent\">anticipatory consent</a> and guard against <a href=\"/glossary/extraction\">extraction</a>.</p>",
+            "bodyHtml": "<p>Caps on what data is collected and how it is used, set by context and purpose rather than by what a consent checkbox legally allows. They fit with letting people <a href=\"/glossary/anticipatory-consent\">approve, defer, or block future uses in advance</a>, and guard against <a href=\"/glossary/extraction\">taking data without return</a>.</p>",
             "scope": "L. Future concepts / research areas. Open research threads: terms in use that do not yet carry operational tests or a minimum evidence standard.",
             "references": [],
             "domains": [
@@ -12209,7 +12234,7 @@
             "title": "Rest cycle enforcement",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Built-in mechanisms that enforce rest and recovery — rotation policies, cooldown timers, enforced downtime — so fatigue does not translate into harm. Enforcement protects <a href=\"/glossary/maintenance-metabolism\">maintenance metabolism</a> and <a href=\"/glossary/compassion-bandwidth\">compassion bandwidth</a>.</p>",
+            "bodyHtml": "<p>Built-in mechanisms that enforce rest and recovery — rotation policies, cooldown timers, enforced downtime — so fatigue does not translate into harm. It protects the <a href=\"/glossary/maintenance-metabolism\">routine upkeep</a> a service needs and the <a href=\"/glossary/compassion-bandwidth\">emotional labor people can sustain</a>.</p>",
             "scope": "L. Future concepts / research areas. Open research threads: terms in use that do not yet carry operational tests or a minimum evidence standard.",
             "references": [],
             "domains": [
@@ -12235,7 +12260,7 @@
             "title": "The conservancy principle",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Designers hold the people a system affects and the resources it draws on in trust, and must leave systems safer and easier to repair than they found them. Conservancy prioritizes <a href=\"/glossary/repair-log\">repair</a>, <a href=\"/glossary/stoppability\">stoppability</a>, and reducing <a href=\"/glossary/moral-debt\">moral debt</a>.</p>",
+            "bodyHtml": "<p>Designers hold the people a system affects and the resources it draws on in trust, and must leave systems safer and easier to repair than they found them. It gives priority to <a href=\"/glossary/repair-log\">repair</a>, to keeping the system <a href=\"/glossary/stoppability\">stoppable</a>, and to paying down <a href=\"/glossary/moral-debt\">harm not yet repaired</a>.</p>",
             "scope": "M. Foundational Ethotechnic principles. The principles the method's laws and standards rest on.",
             "references": [],
             "domains": [
@@ -12271,7 +12296,7 @@
             "title": "The stop-before-explain rule",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Halt harmful behavior first, then justify or refine it. Systems must trigger <a href=\"/glossary/ethical-interrupts\">ethical interrupts</a> before offering explanations, preserving <a href=\"/glossary/reversibility\">reversibility</a>.</p>",
+            "bodyHtml": "<p>Halt harmful behavior first, then justify or refine it. The <a href=\"/glossary/ethical-interrupts\">automatic stop</a> comes before any explanation, so the harm can still be <a href=\"/glossary/reversibility\">undone</a>.</p>",
             "scope": "M. Foundational Ethotechnic principles. The principles the method's laws and standards rest on.",
             "references": [],
             "domains": [
@@ -12289,7 +12314,7 @@
             "title": "The maintenance doctrine",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A system stays safe to rely on only while it is maintained: funded <a href=\"/glossary/maintenance-metabolism\">maintenance metabolism</a>, scheduled <a href=\"/glossary/maintenance-window\">maintenance windows</a>, and transparent <a href=\"/glossary/repair-log\">repair logs</a>. Maintenance is a standing obligation, not a cleanup phase.</p><p>The doctrine requires institutions to budget for prevention, rehearsal, and repair before incidents force emergency tradeoffs.</p>",
+            "bodyHtml": "<p>A system stays safe to rely on only while it is maintained: <a href=\"/glossary/maintenance-metabolism\">routine upkeep</a> that is funded, <a href=\"/glossary/maintenance-window\">scheduled pauses</a> for inspection and repair, and <a href=\"/glossary/repair-log\">repair records</a> people can read. Maintenance is a standing obligation, not a cleanup phase.</p><p>The doctrine requires institutions to budget for prevention, rehearsal, and repair before incidents force emergency tradeoffs.</p>",
             "scope": "M. Foundational Ethotechnic principles. The principles the method's laws and standards rest on.",
             "references": [
               {
@@ -12326,7 +12351,7 @@
             "title": "The principle of low-failure-load design",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Design so that when failures occur, human impact is contained. This principle motivates <a href=\"/glossary/graceful-degradation\">graceful degradation</a>, <a href=\"/glossary/care-floor-guarantees\">care floors</a>, and low <a href=\"/glossary/irreversibility-index\">irreversibility indices</a>.</p>",
+            "bodyHtml": "<p>Design so that when failures occur, human impact is contained. It is the reason for <a href=\"/glossary/graceful-degradation\">controlled degradation</a>, <a href=\"/glossary/care-floor-guarantees\">baseline commitments kept during outages</a>, and a low <a href=\"/glossary/irreversibility-index\">share of actions that cannot be undone</a>.</p>",
             "scope": "M. Foundational Ethotechnic principles. The principles the method's laws and standards rest on.",
             "references": [],
             "domains": [
@@ -12344,7 +12369,7 @@
             "title": "The reversibility mandate",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Critical actions must be undoable or paired with <a href=\"/glossary/graceful-rollback-lanes\">rollback lanes</a> that can be exercised in real operating conditions. The mandate aligns with <a href=\"/glossary/time-to-restore\">time-to-restore</a> targets and <a href=\"/glossary/contestability\">contestability</a> rights.</p><p>If reversal is impossible, systems should add explicit guardrails, higher review thresholds, and public ownership of residual risk.</p>",
+            "bodyHtml": "<p>Any action that changes a person's status, access, or trajectory must be undoable, or come with <a href=\"/glossary/graceful-rollback-lanes\">prepared routes to reverse it</a> that work in real operating conditions.</p><p>If reversal is impossible, systems should add explicit guardrails, higher review thresholds, and public ownership of residual risk.</p>",
             "examples": [
               "A benefits eligibility model deployment is blocked unless the team demonstrates a tested rollback path and a 24-hour restoration plan."
             ],
@@ -12356,7 +12381,9 @@
             "adjacentTerms": [
               "reversibility",
               "graceful-rollback-lanes",
-              "time-to-restore"
+              "time-to-restore",
+              "contestability",
+              "critical-action"
             ],
             "scope": "M. Foundational Ethotechnic principles. The principles the method's laws and standards rest on.",
             "references": [
@@ -12714,7 +12741,7 @@
             "title": "Anti-conversion rights",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The reading of rights as interruptions of illegitimate conversions. Privacy interrupts the conversion of knowledge into action. Due process interrupts the conversion of institutional position into outcome. Consent rules interrupt the conversion of access into authority. Appeal interrupts the conversion of decision into finality. Separation of powers interrupts the conversion of execution into evaluation.</p><p>It matters because it states what rights are for in Ethotechnic terms: not protections added around power, but the mechanisms that keep a capability from becoming an authorization. The <a href=\"/glossary/non-conversion-principle\">non-conversion principle</a> is the general form; the rights are its specific, historically won instances.</p>",
+            "bodyHtml": "<p>The reading of rights as barriers that stop one kind of power turning into another without authorization. Privacy interrupts the conversion of knowledge into action. Due process interrupts the conversion of institutional position into outcome. Consent rules interrupt the conversion of access into authority. Appeal interrupts the conversion of decision into finality. Separation of powers interrupts the conversion of execution into evaluation.</p><p>It matters because it states what rights are for in Ethotechnic terms: not protections added around power, but the mechanisms that keep a capability from becoming an authorization. The <a href=\"/glossary/non-conversion-principle\">non-conversion principle</a> is the general form; the rights are its specific, historically won instances.</p>",
             "scope": "M. Foundational Ethotechnic principles. The principles the method's laws and standards rest on.",
             "operationalTests": [
               "Each enumerated right on a deployment can be named as the conversion it interrupts.",
@@ -12764,15 +12791,15 @@
               "corrective-standing",
               "meta-contestability"
             ],
-            "termUpdated": "2026-09-18T00:00:00Z",
-            "termVersion": "v1.0.0"
+            "termUpdated": "2026-10-06T00:00:00Z",
+            "termVersion": "v1.0.1"
           },
           {
             "id": "excluded-case",
             "title": "The excluded case",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The epistemological ground of institutional fallibilism: the case a representation excludes is potentially evidence about the category, not merely noise around it. A complaint can be knowledge. Repeated exception handling can reveal more about a system than its official performance metrics, because the exclusions are where the representation's boundaries become visible.</p><p>It matters because it is why dissent and standing are epistemic and not only political. Knowledge stays defeasible only if evidence the existing representation did not know how to recognize can still arrive — and it arrives through the people who carry it. That makes fallibilism material: a system is not meaningfully open to correction if the people who know it is wrong must exhaust themselves to prove it, which is the condition <a href=\"/glossary/corrigibility-rent\">corrigibility rent</a> prices.</p>",
+            "bodyHtml": "<p>The principle that a case a representation leaves out may be evidence about the category, not merely noise around it. It is the epistemological ground of institutional fallibilism. A complaint can be knowledge. Repeated exception handling can reveal more about a system than its official performance metrics, because the exclusions are where the representation's boundaries become visible.</p><p>It matters because it is why dissent and standing are epistemic and not only political. Knowledge stays defeasible only if evidence the existing representation did not know how to recognize can still arrive — and it arrives through the people who carry it. That makes fallibilism material: a system is not meaningfully open to correction if the people who know it is wrong must exhaust themselves to prove it, which is the condition <a href=\"/glossary/corrigibility-rent\">corrigibility rent</a> prices.</p>",
             "scope": "M. Foundational Ethotechnic principles. The principles the method's laws and standards rest on.",
             "operationalTests": [
               "Cases outside the model's support can enter as challenges rather than being discarded as noise.",
@@ -12822,22 +12849,22 @@
               "safe-incompleteness",
               "consequential-contradiction"
             ],
-            "termUpdated": "2026-09-18T00:00:00Z",
-            "termVersion": "v1.0.0"
+            "termUpdated": "2026-10-06T00:00:00Z",
+            "termVersion": "v1.0.1"
           },
           {
             "id": "feedback-proximity",
             "title": "Feedback proximity",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The design principle that the causal distance between an institutional error and the actors who can revise the generating rule should be kept as short as the stakes demand. Where error-bearing parties sit far from rule-makers (by hierarchy, by time, by evidence format, or by classification), corrections arrive late, weakened, or not at all.</p><p>It matters because proximity is not visibility. A harm can be fully visible to the people carrying it and still reach nobody who can change the rule that produces it. Shortening proximity means building the channels that let mismatch travel from the edge back to the rule: <a href=\"/glossary/corrective-standing\">corrective standing</a>, records that travel, and <a href=\"/glossary/halt-stratification\">halt stratification</a>. <a href=\"/glossary/insulation\">Insulation</a> is distance from corrective consequence; feedback proximity is the commitment that shortens it.</p>",
+            "bodyHtml": "<p>The design principle that the causal distance between an institutional error and the actors who can revise the generating rule should be kept as short as the stakes demand. Where error-bearing parties sit far from rule-makers (by hierarchy, by time, by evidence format, or by classification), corrections arrive late, weakened, or not at all.</p><p>It matters because proximity is not visibility. A harm can be fully visible to the people carrying it and still reach nobody who can change the rule that produces it. Shortening proximity means building the channels that let mismatch travel from the edge back to the rule: <a href=\"/glossary/corrective-standing\">corrective standing</a>, records that travel, and <a href=\"/glossary/halt-stratification\">halt stratification</a>. <a href=\"/glossary/insulation\">Insulation</a> keeps harm from reaching anyone who can change the rule; feedback proximity is the commitment to shorten the path.</p>",
             "scope": "M. Foundational Ethotechnic principles. The principles the method's laws and standards rest on.",
             "operationalTests": [
               "A harm reported at the frontline reaches an actor who can change the generating rule through a bounded number of named hops.",
               "The latency from first signal to rule revision is measured and bounded, not merely visible.",
               "Error-bearing parties can state the shortest path from their report to a rule change, and that path exists."
             ],
-            "genealogy": "The positive form of insulation: where insulation names distance from corrective consequence, feedback proximity names the design commitment to shorten that distance.",
+            "genealogy": "The positive form of insulation: where insulation keeps harm from reaching anyone who can change the rule, feedback proximity names the design commitment to shorten that path.",
             "references": [
               {
                 "label": "Insulation",
@@ -12887,8 +12914,8 @@
               "dead-zones",
               "moral-latency"
             ],
-            "termUpdated": "2026-09-19T00:00:00Z",
-            "termVersion": "v1.0.0"
+            "termUpdated": "2026-10-06T00:00:00Z",
+            "termVersion": "v1.0.1"
           },
           {
             "id": "asymmetric-capacity-restraint",

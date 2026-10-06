@@ -22,7 +22,10 @@ const normalizeDefinition = (definition: string): string => {
     return cleaned;
   }
 
-  return `${cleaned.slice(0, 217)}…`;
+  // Cut at a word boundary, as the entry page's meta description does, so a
+  // card never ends mid-word.
+  const cut = cleaned.slice(0, 217);
+  return `${cut.slice(0, cut.lastIndexOf(" ")).replace(/[\s,:;—–-]+$/, "")}…`;
 };
 
 // Index category entries for rich evidence metrics
@@ -32,8 +35,12 @@ const fullEntriesMap = new Map(
   ),
 );
 
-const glossaryEntries: GlossaryHighlightEntry[] = glossaryTerms.map(
-  ({ term, slug, definition }) => {
+// Terms flagged `autoHighlight: false` are ordinary, legal, or engineering
+// words; the reader already knows them, and a card would swap in the site's
+// narrower sense.
+const glossaryEntries: GlossaryHighlightEntry[] = glossaryTerms
+  .filter((term) => term.autoHighlight !== false)
+  .map(({ term, slug, definition }) => {
     const fullEntry = fullEntriesMap.get(slug);
     const domain = fullEntry?.domains?.[0];
     const metric = fullEntry?.minimumEvidence?.metric;
@@ -52,8 +59,7 @@ const glossaryEntries: GlossaryHighlightEntry[] = glossaryTerms.map(
       threshold: threshold && threshold.length < 45 ? threshold : undefined,
       scale,
     };
-  },
-);
+  });
 
 const termLookup = new Map(
   glossaryEntries.map((entry) => [entry.term.toLowerCase(), entry]),
