@@ -86,7 +86,7 @@ export const actionClassRows: ActionClassRow[] = [
     examples: "Move funds, transfer assets, change ownership.",
     reversibility: "Irreversible",
     controls:
-      "Pre-action approval gate. Dual control + Hard Clock. Immediate receipt + appeal.",
+      "Pre-action approval gate. Dual control + hard clock. Immediate receipt + appeal.",
   },
   {
     actionClass: "EXECUTE",
@@ -224,7 +224,7 @@ export const practiceSections: PracticeSection[] = [
         href: "/mechanisms/patterns/decision-log",
       },
       {
-        title: "MEC-04 The Hard Clock",
+        title: "MEC-04 Hard clock",
         href: "/mechanisms/patterns/hard-clock",
       },
     ],
@@ -255,7 +255,7 @@ export const practiceSections: PracticeSection[] = [
         href: "/mechanisms/patterns/kill-switch",
       },
       {
-        title: "MEC-04 The Hard Clock",
+        title: "MEC-04 Hard clock",
         href: "/mechanisms/patterns/hard-clock",
       },
       {
@@ -322,7 +322,7 @@ export const practiceSections: PracticeSection[] = [
         href: "/mechanisms/patterns/appeal-paths",
       },
       {
-        title: "MEC-04 The Hard Clock",
+        title: "MEC-04 Hard clock",
         href: "/mechanisms/patterns/hard-clock",
       },
     ],

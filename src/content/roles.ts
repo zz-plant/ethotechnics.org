@@ -160,7 +160,7 @@ export const roles: Role[] = [
     label: "Policy and compliance",
     who: "You write the rules the system has to satisfy, or prove to a regulator that it does.",
     tagline:
-      "Map technical requirements directly onto the EU AI Act, NIST AI RMF, and ISO 42001, in terms a control can be tested against.",
+      "Turn the standards into obligations a regulator or a contract can enforce: mappings to the law, numeric targets for appeals, and clauses a vendor has to sign.",
     orientation: [
       {
         number: 1,
@@ -282,7 +282,7 @@ export const roles: Role[] = [
     label: "Operations",
     who: "You run the appeals, the incident response, or the queues where the system's errors land.",
     tagline:
-      "Give escalation a bound and a named owner, so a stalled case comes to someone's attention instead of aging.",
+      "Keep the queues where errors land answerable: count the work they make, give each stalled case a deadline, and treat a backlog as a reason to change the system.",
     orientation: [
       {
         number: 1,
@@ -393,7 +393,7 @@ export const roles: Role[] = [
       ],
       firstMoves: [
         "Pick the step in your flow where a decision lands on a person, and read the mechanism for it.",
-        "Score one real journey with the Burden Modeler and share the result as the design brief.",
+        "Score one real journey with the VAL-01 Burden Modeler and share the result as the design brief.",
         "Check interface copy against the glossary's defined terms before release.",
       ],
     },

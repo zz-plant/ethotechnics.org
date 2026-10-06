@@ -31,7 +31,7 @@ if (!pattern) {
 const filterLabels = Object.fromEntries(
   libraryContent.patterns.filters.map((filter) => [filter.slug, filter.label]),
 );
-const validatorLinks = pattern.diagnostics
+const diagnosticTools = pattern.diagnostics
   .map((diagnosticSlug) =>
     diagnosticsContent.tools.find((tool) => tool.slug === diagnosticSlug),
   )
@@ -39,7 +39,7 @@ const validatorLinks = pattern.diagnostics
 const stepCount = pattern.steps.length;
 const assetCount = pattern.artifacts.length;
 const snippetCount = pattern.policyRequirement ? 4 : 0;
-const validatorCount = validatorLinks.length;
+const diagnosticCount = diagnosticTools.length;
 const glossaryAnchors = pattern.glossaryRefs.map((slug) => ({
   slug,
   label: getGlossaryLabel(slug),
@@ -61,7 +61,7 @@ const anchorLinks = [
   ...(hasAntiPatterns
     ? [{ href: "#anti-patterns", label: "Anti-patterns" }]
     : []),
-  { href: "#validators", label: "Validators" },
+  { href: "#diagnostics", label: "Diagnostics" },
 ];
 
 const breadcrumbItems = [
@@ -87,7 +87,7 @@ const breadcrumbItems = [
     id="overview"
     eyebrow="Specification overview"
     title="What the mechanism includes and where it sits"
-    description="The scope, assets, and linked validators, before the steps."
+    description="The scope, assets, and linked diagnostics, before the steps."
     variant="alt"
   >
     <div class="grid grid--two mechanisms__spec-grid">
@@ -110,13 +110,13 @@ const breadcrumbItems = [
         </ul>
       </div>
       <div class="panel mechanisms__spec-card">
-        <p class="eyebrow">Filters and validators</p>
+        <p class="eyebrow">Filters and diagnostics</p>
         <h3>Where this spec sits in the system</h3>
         <p class="muted">
           Tagged in {pattern.filters.length}{" "}
           {pattern.filters.length === 1 ? "filter" : "filters"}, with{" "}
-          {validatorCount} linked{" "}
-          {validatorCount === 1 ? "validator" : "validators"}.
+          {diagnosticCount} linked{" "}
+          {diagnosticCount === 1 ? "diagnostic" : "diagnostics"}.
         </p>
         <ul class="pill-list pill-list--wrap mechanisms__spec-filters">
           {
@@ -273,9 +273,9 @@ const breadcrumbItems = [
   }
 
   <SectionBlock
-    id="validators"
-    eyebrow="Validators"
-    title="Validators for this mechanism"
+    id="diagnostics"
+    eyebrow="Diagnostics"
+    title="Diagnostics for this mechanism"
     description="Tools that size the risk this mechanism addresses."
     variant="alt"
   >
@@ -294,20 +294,20 @@ const breadcrumbItems = [
 
       <div class="pattern-detail__diagnostic-list">
         {
-          validatorLinks.map((tool) => (
+          diagnosticTools.map((tool) => (
             <article
               class="card pattern-detail__diagnostic-card"
               id={tool.slug}
             >
               <div class="pattern-detail__diagnostic-header">
                 <div>
-                  <p class="muted">Validator</p>
+                  <p class="muted">Diagnostic</p>
                   <h3>{tool.title}</h3>
                 </div>
                 <button
                   class="copy-button"
                   type="button"
-                  data-copy-link={`/validators/${tool.slug}`}
+                  data-copy-link={`/diagnostics/${tool.slug}`}
                   aria-label={`Copy link to ${tool.title}`}
                 >
                   Copy link

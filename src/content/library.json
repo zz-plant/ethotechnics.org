@@ -4,7 +4,7 @@
     "pageDescription": "Numbered specifications, MEC-01 to MEC-23, for answering challenges, sending what they show to the rule, and halting a system while it is fixed.",
     "permalink": "/mechanisms",
     "published": "2025-12-03T00:00:00Z",
-    "updated": "2026-10-01T00:00:00Z",
+    "updated": "2026-10-06T00:00:00Z",
     "publication": {
       "authors": [
         {
@@ -15,11 +15,16 @@
       ],
       "contact": "hello@ethotechnics.org",
       "published": "2025-12-03T00:00:00Z",
-      "updated": "2026-10-01T00:00:00Z",
-      "version": "v1.2.0",
+      "updated": "2026-10-06T00:00:00Z",
+      "version": "v1.2.1",
       "doi": "Pending Zenodo deposit",
       "archiveUrl": "https://web.archive.org/web/*/https://ethotechnics.org/mechanisms",
       "changelog": [
+        {
+          "version": "v1.2.1",
+          "date": "2026-10-06",
+          "summary": "Rewrote the copy of MEC-01 to MEC-12 in plain sentences. A halt is described as containment while the rule is fixed and people are restored, upheld appeals are counted against the rule in MEC-06 and MEC-08, and MEC-04 is renamed Hard clock."
+        },
         {
           "version": "v1.2.0",
           "date": "2026-10-01",
@@ -111,7 +116,7 @@
               "href": "/mechanisms/patterns/appeal-paths"
             },
             {
-              "title": "MEC-04 The Hard Clock",
+              "title": "MEC-04 Hard clock",
               "description": "Give every pending state a maximum duration and an exit.",
               "href": "/mechanisms/patterns/hard-clock"
             },
@@ -267,61 +272,61 @@
         {
           "slug": "decision-log",
           "title": "MEC-01 Decision log with dissent",
-          "summary": "Record consequential decisions with the dissent, the options ruled out, and a dated follow-up, so the team and the people affected can see why each was made.",
+          "summary": "Record each consequential decision with its decider, the dissent, the options ruled out, and a review date, so the people it affects and later reviewers can see why it was made.",
           "filters": ["authority", "evidence"],
           "glossaryRefs": ["design-authority", "repair-log", "contestability"],
           "cues": [
-            "Record why options were ruled out and who was consulted.",
-            "Attach plain-language summaries for external readers.",
-            "Set a review date and name who holds it."
+            "Record the options ruled out and why, not only the option chosen.",
+            "Record dissent in the dissenter's own words, with their role.",
+            "Set a review date and name the person who must hold the review."
           ],
           "diagnostics": ["delegation-audit"],
           "steps": [
-            "Log the decision, rejected options, and who was consulted in one place.",
-            "Attach a short plain-language summary to the official record for outside readers.",
-            "Set a review date with a named owner."
+            "Log the decision, the decider, the options ruled out, and who was consulted in one record.",
+            "Add the dissent, and a plain-language summary that a person affected by the decision can read.",
+            "Set a review date and name the owner who must hold it."
           ],
-          "policyRequirement": "Policy requirement (MEC-01 Decision log with dissent)\n- Maintain a decision log for high-stakes changes with dissenting views and a dated review owner.\n- Store the log in a shared system of record and retain links in audit and incident records.\nReference: https://ethotechnics.org/mechanisms/patterns/decision-log",
-          "productRequirement": "Product requirement (MEC-01)\n- Every high-stakes automated decision emits a decision-log entry ID in the receipt.\n- The UI links to a plain-language summary within two clicks of the decision outcome.",
-          "auditEvidenceChecklist": "Audit evidence checklist (MEC-01)\n[ ] Decision log entries include owner, dissent, and review date.\n[ ] Plain-language summaries are attached and shareable.\n[ ] Reviews were held on their dates.",
-          "postmortemTrigger": "Postmortem trigger (MEC-01)\nTrigger review if a high-stakes decision ships without a logged entry or dissent record.",
+          "policyRequirement": "Policy requirement (MEC-01 Decision log with dissent)\n- Log every high-stakes change with its decider, the options ruled out, any dissent, and a review date with a named owner.\n- Keep the log in the system of record, and link each entry from the audit and incident records that rely on it.\nReference: https://ethotechnics.org/mechanisms/patterns/decision-log",
+          "productRequirement": "Product requirement (MEC-01)\n- The receipt for each high-stakes automated decision carries the ID of the log entry for the rule it applied.\n- The person decided about can reach a plain-language summary of that entry within two clicks of the outcome.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-01)\n[ ] Each entry names the decider, the dissent or its recorded absence, and a review date.\n[ ] Each entry has a plain-language summary that can be shared outside the team.\n[ ] Reviews were held on their dates, and each one recorded an outcome.",
+          "postmortemTrigger": "Postmortem trigger (MEC-01)\nTrigger review when a high-stakes change ships without a log entry or a dissent record, or when a review date passes with no review held.",
           "artifacts": [
             {
               "name": "Decision record template",
-              "purpose": "Captures the decision, dissent, and follow-ups with owners."
+              "purpose": "Fields for the decision, the decider, the options ruled out, the dissent, the review date, and the review owner."
             },
             {
               "name": "Plain-language summary",
-              "purpose": "One-paragraph recap teams can paste into briefs or release notes without jargon."
+              "purpose": "One paragraph saying what was decided and why, written for the person the decision affects."
             },
             {
               "name": "Review calendar entry",
-              "purpose": "Review reminder aligned to maintenance or appeal windows."
+              "purpose": "The review date, its owner, and the evidence the review will check."
             }
           ],
           "example": {
-            "title": "Recording a launch gate call",
-            "description": "A cross-functional team logs why an automation launch was delayed, notes dissent from support leads, links the appeal path, and schedules a review in six weeks."
+            "title": "Recording a delayed launch",
+            "description": "A benefits agency logs its decision to delay an automated renewal tool. The entry records two options ruled out and a dissent from the call-center lead: error rates on Spanish-language forms were never tested. The deputy director owns a review in six weeks, and the tool's appeal page links to the entry."
           },
           "antiPatterns": [
             {
               "title": "Logs without dissent",
-              "failure": "Records the decision but omits rejected options and dissenting views.",
-              "counterfactual": "Decision logs include rejected options, dissent, and a dated review owner.",
-              "warning": "If no dissent exists, log the absence explicitly so future reviewers can see it was considered."
+              "failure": "The log records what was decided but not the options ruled out or who objected, so a later reviewer cannot tell what was weighed.",
+              "counterfactual": "Each entry records the options ruled out, the dissent, and a dated review with an owner.",
+              "warning": "An entry with no dissent is complete when it shows dissent was asked for and none was given."
             },
             {
-              "title": "Out-of-band records",
-              "failure": "Keeps accountability logs in private documents that impacted teams cannot access.",
-              "counterfactual": "Logs live in the canonical record with a shareable receipt link.",
-              "warning": "Sensitive data can be redacted, but the receipt must remain referenceable."
+              "title": "Reasons kept in private documents",
+              "failure": "The reasoning sits in a private document or chat thread, so the people affected and later reviewers cannot find it.",
+              "counterfactual": "The entry lives in the system of record, and each decision receipt links to it.",
+              "warning": "Personal or security-sensitive details can be redacted, as long as the entry ID and the decision itself stay referenceable."
             }
           ]
         },
         {
           "slug": "progressive-consent",
           "title": "MEC-02 Progressive consent prompts",
-          "summary": "Stage requests for data or automation over time, with a reminder and an exit at each step of the consent journey.",
+          "summary": "Ask a person for each permission when the system needs it, with the reason and how to withdraw it. A withdrawal stops the automation it covered and does not cost them core service.",
           "filters": ["standing", "dependency"],
           "glossaryRefs": [
             "consent-journey",
@@ -329,57 +334,57 @@
             "safety-valve"
           ],
           "cues": [
-            "Pair each ask with why it is needed and how to revoke it.",
-            "Show impacts of opting out before a person commits.",
-            "Include a safety valve that defaults to privacy-preserving behavior."
+            "Ask for each permission when it is needed, with the reason and how to withdraw it.",
+            "Show what changes for the person if they say no, before they choose.",
+            "Treat silence as no: if the person does not answer, the system does not collect or act."
           ],
           "diagnostics": ["delegation-audit"],
           "steps": [
-            "Break large asks into small prompts that explain why each is needed.",
-            "Preview what happens if someone opts out and keep the path visible.",
-            "Offer a safety valve that defaults to privacy-preserving behavior."
+            "Split one large request into separate asks, each with its purpose, how long it lasts, and how to withdraw it.",
+            "Before each ask, show what the person loses by declining, and keep the withdrawal control in the same place afterward.",
+            "Add a pause control that stops automated use of the person's data and routes their case to staff, with no loss of core service."
           ],
-          "policyRequirement": "Policy requirement (MEC-02 Progressive consent prompts)\n- Stage consent requests with clear revocation paths and visible opt-out impacts.\n- Document safety-valve defaults that preserve privacy when consent is withheld.\nReference: https://ethotechnics.org/mechanisms/patterns/progressive-consent",
-          "productRequirement": "Product requirement (MEC-02)\n- Each consent request includes purpose, duration, and revocation instructions.\n- Opt-out paths remain visible and do not degrade core safety access.",
-          "auditEvidenceChecklist": "Audit evidence checklist (MEC-02)\n[ ] Consent journey map shows each ask, rationale, and rollback path.\n[ ] Opt-out copy kit deployed across UI, email, and help surfaces.\n[ ] Safety-valve defaults verified in staging and production.",
-          "postmortemTrigger": "Postmortem trigger (MEC-02)\nTrigger review if opt-out actions fail, are ignored, or re-enable without notice.",
+          "policyRequirement": "Policy requirement (MEC-02 Progressive consent prompts)\n- Ask for consent in stages, each with a stated purpose, duration, and way to withdraw.\n- When consent is refused or withdrawn, the covered collection or automation stops, and the person keeps core service.\nReference: https://ethotechnics.org/mechanisms/patterns/progressive-consent",
+          "productRequirement": "Product requirement (MEC-02)\n- Each consent request states its purpose, how long it lasts, and how to withdraw it.\n- The withdrawal control stays visible after consent, and using it does not remove access to core or safety features.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-02)\n[ ] The consent record lists each ask with its purpose, duration, and withdrawal path.\n[ ] Withdrawal instructions match across the interface, email, and help pages.\n[ ] Production tests show that a withdrawal stops the covered processing and stays in effect.",
+          "postmortemTrigger": "Postmortem trigger (MEC-02)\nTrigger review when a withdrawal fails or is ignored, or when automation restarts without the person's renewed consent.",
           "artifacts": [
             {
               "name": "Consent journey map",
-              "purpose": "Shows each request, rationale, and rollback path across the flow."
+              "purpose": "Each ask in order, with its purpose, duration, and withdrawal path."
             },
             {
-              "name": "Opt-out copy kit",
-              "purpose": "Short blurbs teams reuse in UI states, emails, and help docs."
+              "name": "Withdrawal wording",
+              "purpose": "Short text on how to withdraw, used the same way in the interface, email, and help pages."
             },
             {
-              "name": "Safety valve checklist",
-              "purpose": "Confirms every step has a reversible, privacy-first fallback before shipping."
+              "name": "Pause control checklist",
+              "purpose": "Confirms before release that each step has a pause that stops automated use and routes the case to staff."
             }
           ],
           "example": {
-            "title": "Piloting a model-powered assistant",
-            "description": "Product and legal teams stage data collection prompts over several sessions, preview how opting out affects recommendations, and keep a global “pause automation” control visible in the UI."
+            "title": "Staging consent in a tax-filing assistant",
+            "description": "A tax-filing assistant asks to read last year's return only when the person requests a refund estimate, and says the estimate will be rougher without it. It asks again, separately, before pre-filling forms. A pause control on every screen stops automated use and hands the session to a staff preparer."
           },
           "antiPatterns": [
             {
               "title": "One-shot consent bundles",
-              "failure": "Asks for every permission at once without explaining timing or scope.",
-              "counterfactual": "Requests are staged with clear rationale, timing, and reversible defaults.",
-              "warning": "Bundling can be acceptable if the scope is minimal and opt-outs are explicit."
+              "failure": "Every permission is requested on the first screen, with no reason, duration, or way to withdraw each one.",
+              "counterfactual": "Each permission is asked for when it is needed, with its reason, duration, and withdrawal path.",
+              "warning": "A single ask is acceptable when it covers only what the core service cannot run without, and says so."
             },
             {
               "title": "Opt-out that does not stick",
-              "failure": "Offers a toggle but automation continues or re-enables without notice.",
-              "counterfactual": "Opt-outs pause automation and are logged with a visible confirmation.",
-              "warning": "Some baseline data use can remain if it is disclosed and required for service safety."
+              "failure": "The toggle turns off, but the automation keeps running or restarts after an update without telling the person.",
+              "counterfactual": "A withdrawal stops the covered processing, is logged, and is confirmed to the person on screen.",
+              "warning": "Processing the service cannot run without, such as fraud checks on a payment, can continue if it was disclosed before the person chose."
             }
           ]
         },
         {
           "slug": "maintenance-windowing",
           "title": "MEC-03 Maintenance windowing",
-          "summary": "Schedule fixes, monitoring, and staffing in published maintenance windows, each with a named owner.",
+          "summary": "Make changes to a decision system in published windows, each with a named owner, a rollback plan, and notice to the people the change affects.",
           "filters": ["dependency", "correction"],
           "glossaryRefs": [
             "maintenance-window",
@@ -387,57 +392,57 @@
             "repair-log"
           ],
           "cues": [
-            "Set owners and success criteria for each window.",
-            "Map communication cadences to risk levels and audiences.",
-            "Align dependencies so a degraded tool has a safe fallback."
+            "Name an owner for each window and the result that counts as done.",
+            "Tell the people a change affects what will differ and when, with more notice for higher-risk changes.",
+            "State what happens to a case when a dependency fails, such as holding it or routing it to a person."
           ],
           "diagnostics": ["delegation-audit"],
           "steps": [
-            "Define maintenance windows with owners, success criteria, and rollbacks.",
-            "Publish communication cadences by risk level and audience.",
-            "Check dependencies so degraded modes route to safe fallbacks."
+            "Set each window with an owner, the result that counts as done, and the person who can order a rollback.",
+            "Before the window opens, notify the people the change affects, with lead time set by the change's risk.",
+            "List each dependency and its fallback when it fails, and test each fallback before the window opens."
           ],
-          "policyRequirement": "Policy requirement (MEC-03 Maintenance windowing)\n- Publish maintenance windows with named owners, success criteria, and rollback authority.\n- Require comms cadences by risk tier before shipping changes.\nReference: https://ethotechnics.org/mechanisms/patterns/maintenance-windowing",
-          "productRequirement": "Product requirement (MEC-03)\n- Release plans include a window ID and owner in change tickets.\n- Status updates and fallback behavior are visible to affected users.",
-          "auditEvidenceChecklist": "Audit evidence checklist (MEC-03)\n[ ] Window calendar lists owners, coverage, and success criteria.\n[ ] Comms templates are published by risk level and audience.\n[ ] Fallback matrix confirms safe degraded modes for dependencies.",
-          "postmortemTrigger": "Postmortem trigger (MEC-03)\nTrigger review if changes ship outside the maintenance window or without notice.",
+          "policyRequirement": "Policy requirement (MEC-03 Maintenance windowing)\n- Publish maintenance windows, each with a named owner, the result that counts as done, and the person who can order a rollback.\n- Set a minimum notice period for each risk tier, and notify the people affected before any change ships.\nReference: https://ethotechnics.org/mechanisms/patterns/maintenance-windowing",
+          "productRequirement": "Product requirement (MEC-03)\n- Each change ticket names its window and its owner.\n- During a window, people affected can see status updates and which fallback the system is using.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-03)\n[ ] The window calendar lists each window's owner, coverage hours, and the result that counts as done.\n[ ] Each change was announced with the lead time its risk tier requires.\n[ ] Each dependency has a fallback, with the date it was last tested.",
+          "postmortemTrigger": "Postmortem trigger (MEC-03)\nTrigger review when a change ships outside a window, without notice, or without a tested rollback.",
           "artifacts": [
             {
               "name": "Window calendar",
-              "purpose": "Shared schedule with owners, coverage, and success criteria."
+              "purpose": "Each window with its owner, coverage hours, and the result that counts as done."
             },
             {
-              "name": "Comms templates",
-              "purpose": "Prewritten updates for high-, medium-, and low-risk changes tied to roles."
+              "name": "Notice templates",
+              "purpose": "Prewritten notices for high-, medium-, and low-risk changes, with the lead time and sender for each."
             },
             {
-              "name": "Fallback matrix",
-              "purpose": "Lists degraded modes and who is paged when dependencies fail."
+              "name": "Fallback table",
+              "purpose": "Each dependency, what the system does when it fails, and who is paged."
             }
           ],
           "example": {
-            "title": "Coordinating a two-week maintenance window",
-            "description": "Engineering and operations publish a two-week window with a fallback matrix, schedule status updates by audience, and rehearse degraded-mode protocols before shipping changes."
+            "title": "A two-week window for a screening model update",
+            "description": "A housing authority updates its tenant-screening model in a two-week window owned by the data team lead, who can roll back on her own authority if the denial rate moves more than two points. Applicants with pending cases get notice ten days ahead. If the credit-data feed fails, new applications go to a caseworker instead of being scored."
           },
           "antiPatterns": [
             {
               "title": "Maintenance without owners",
-              "failure": "Publishes a maintenance window without naming accountable owners or success criteria.",
-              "counterfactual": "Each window has a named owner, success criteria, and rollback authority.",
-              "warning": "Shared ownership is fine if responsibilities are explicit and visible."
+              "failure": "A window is published with no owner and no one named to order a rollback, so a bad change stays in place while people argue about who decides.",
+              "counterfactual": "Each window names an owner, the result that counts as done, and who can order a rollback.",
+              "warning": "Two owners can share a window when the record says which one decides on rollback."
             },
             {
               "title": "Silent maintenance",
-              "failure": "Ships changes without comms or status updates, leaving users unaware of risks.",
-              "counterfactual": "Comms are published by audience and risk tier, with fallback coverage noted.",
-              "warning": "Emergency patches can shorten comms, but they still require an after-action log."
+              "failure": "Changes ship without notice, so people meet new behavior with no warning and cannot tell an error from a change.",
+              "counterfactual": "The people affected get notice with lead time set by risk tier, and the fallback is named.",
+              "warning": "An emergency fix can ship before notice goes out, as long as the notice and an after-action record follow."
             }
           ]
         },
         {
           "slug": "hard-clock",
-          "title": "MEC-04 The Hard Clock",
-          "summary": "Give every system state a declared maximum duration so nothing sits in pending forever without escalation, expiry, or an exit.",
+          "title": "MEC-04 Hard clock",
+          "summary": "Give every state a case can occupy a declared maximum duration, so no one waits in pending forever. At the limit, the case fails safe or goes to a named person who must decide.",
           "filters": ["standing", "correction"],
           "glossaryRefs": [
             "time-to-halt",
@@ -447,7 +452,7 @@
           "cues": [
             "Declare the maximum duration of each state before people commit to the process.",
             "Decide in advance whether expiry fails safe or escalates to a named human.",
-            "Review timeout logs monthly with the steward who owns the clock."
+            "Review the timeout log each month with the named owner of the clock."
           ],
           "diagnostics": ["delegation-audit"],
           "steps": [
@@ -455,14 +460,14 @@
             "Wire expiry to a fail-safe resolution or a human escalation with a named owner.",
             "Show the declared duration in the interface and log every breach for monthly review."
           ],
-          "policyRequirement": "Policy requirement (MEC-04 The Hard Clock)\n- Every automated process declares a maximum duration and a human escalation path when it is exceeded.\n- Expired processes fail safe and preserve user state for re-entry.\nReference: https://ethotechnics.org/mechanisms/patterns/hard-clock",
+          "policyRequirement": "Policy requirement (MEC-04 Hard clock)\n- Every automated process declares a maximum duration and a human escalation path when it is exceeded.\n- Expired processes fail safe and keep the person's progress, so they can re-enter without starting over.\nReference: https://ethotechnics.org/mechanisms/patterns/hard-clock",
           "productRequirement": "Product requirement (MEC-04)\n- The declared maximum duration is visible before a person commits to the process.\n- Timeout events emit a receipt with the state, elapsed time, and escalation owner.",
-          "auditEvidenceChecklist": "Audit evidence checklist (MEC-04)\n[ ] Each system state has a documented maximum duration.\n[ ] Timeout logs record expiry, resolution, and escalation owner.\n[ ] Monthly reviews are completed by the named steward.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-04)\n[ ] Each system state has a documented maximum duration.\n[ ] Timeout logs record expiry, resolution, and escalation owner.\n[ ] Monthly reviews were held by the clock's named owner.",
           "postmortemTrigger": "Postmortem trigger (MEC-04)\nTrigger review when a state exceeds its declared duration without failing safe or escalating.",
           "artifacts": [
             {
               "name": "Timeout log",
-              "purpose": "Record of expiries, resolutions, and escalations for the monthly steward review."
+              "purpose": "Each expiry, how it resolved, and who it went to, for the monthly review with the clock's owner."
             }
           ],
           "example": {
@@ -474,20 +479,20 @@
               "title": "Pending with no ceiling",
               "failure": "A state has a target but no maximum, so slow cases accumulate with no escalation.",
               "counterfactual": "Every state declares a maximum duration and a resolution at expiry.",
-              "warning": "Targets and maximums can differ; publish both rather than replacing one with the other."
+              "warning": "A state the person controls, such as a draft they have not submitted, needs no ceiling."
             },
             {
               "title": "Clock without a resolution",
               "failure": "The timer expires and emits an alert, but the request stays in the same state.",
-              "counterfactual": "Expiry moves the request to a fail-safe outcome or a named human.",
-              "warning": "Escalation counts as a resolution only when the escalation owner can change the state."
+              "counterfactual": "Expiry moves the request to a fail-safe outcome or to a named person who can change its state.",
+              "warning": "An internal state that holds no person's request, such as a batch retry, can end in an alert alone."
             }
           ]
         },
         {
           "slug": "kill-switch",
           "title": "MEC-05 Kill switch for runaway automation",
-          "summary": "Pre-authorized ways to halt the system, with named owners, trigger thresholds, and rehearsed restoration.",
+          "summary": "Give a named roster pre-authorized power to halt an automated system when harm indicators fire. The halt contains harm while the rule's owner fixes the rule and the people harmed are restored.",
           "filters": ["correction"],
           "glossaryRefs": [
             "stoppability",
@@ -495,57 +500,57 @@
             "time-to-halt"
           ],
           "cues": [
-            "Define triggers tied to harm indicators and frontline reports.",
-            "Name the people who can fire the switch and protect them from retaliation.",
-            "Rehearse rollbacks so halts land in reversible, well-communicated states."
+            "Set halt triggers on harm indicators, such as a spike in upheld appeals, and on reports from frontline staff.",
+            "Name who may fire the switch, and protect them from retaliation for using it.",
+            "Plan what follows the halt: the rule's owner changes the rule, and the people harmed are restored."
           ],
           "diagnostics": ["delegation-audit"],
           "steps": [
-            "Map the automation path and mark where halts must land safely with owners.",
-            "Set tripwires for ethical interrupts that align with time-to-halt targets.",
-            "Run drills that practice firing, communicating, and restoring from the halt."
+            "Mark the points where the automation can stop, and what happens to cases in flight at each one.",
+            "Set the triggers that fire a halt, a time-to-halt target for each, and the roster that may fire it.",
+            "Drill the full sequence: halt, notify the people affected, send the rule to its owner, restore the people harmed, then resume."
           ],
-          "policyRequirement": "Policy requirement (MEC-05 Kill switch for runaway automation)\n- Maintain a pre-authorized halt path with a named roster and protection from retaliation.\n- Publish tripwires tied to harm indicators and time-to-halt targets.\nReference: https://ethotechnics.org/mechanisms/patterns/kill-switch",
-          "productRequirement": "Product requirement (MEC-05)\n- The kill switch is reachable within one operational step from monitoring dashboards.\n- Halt events emit receipts with owner, trigger, and restoration checklist links.",
-          "auditEvidenceChecklist": "Audit evidence checklist (MEC-05)\n[ ] Kill switch runbook names authorized operators and triggers.\n[ ] Drill logs demonstrate time-to-halt performance.\n[ ] Rollback checklists show safe restoration steps.",
-          "postmortemTrigger": "Postmortem trigger (MEC-05)\nTrigger review when time-to-halt targets are exceeded or the kill switch is unavailable.",
+          "policyRequirement": "Policy requirement (MEC-05 Kill switch for runaway automation)\n- Keep a pre-authorized halt path with a named roster, and protect anyone on it from retaliation for using it.\n- Publish halt triggers tied to harm indicators, each with a time-to-halt target.\n- Resume only after the rule's owner records a fix and a dated plan exists to restore the people harmed.\nReference: https://ethotechnics.org/mechanisms/patterns/kill-switch",
+          "productRequirement": "Product requirement (MEC-05)\n- Operators can fire the kill switch in one step from the monitoring view.\n- Each halt emits a receipt naming who fired it, the trigger, the cases held, and the restoration checklist.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-05)\n[ ] The runbook names the authorized roster and the triggers.\n[ ] Drill logs show measured time-to-halt against the target.\n[ ] Each real halt links to the rule change that followed and a record of the people restored.",
+          "postmortemTrigger": "Postmortem trigger (MEC-05)\nTrigger review when a time-to-halt target is missed, the kill switch is unavailable, or automation resumes with no recorded fix and no plan to restore the people harmed.",
           "artifacts": [
             {
               "name": "Kill switch runbook",
-              "purpose": "Documents triggers, authorized operators, and post-halt messaging."
+              "purpose": "Triggers, the authorized roster, and the notice sent to people whose cases were held."
             },
             {
-              "name": "Rollback checklist",
-              "purpose": "Confirms data, access, and user impact are stable before resuming."
+              "name": "Restoration checklist",
+              "purpose": "Each person harmed, what they are owed, and the date each was restored."
             },
             {
-              "name": "After-action log template",
-              "purpose": "Captures what tripped the switch and how to tighten thresholds or observability."
+              "name": "After-action record",
+              "purpose": "What fired the switch, what the rule's owner changed, and whether the trigger threshold moved."
             }
           ],
           "example": {
-            "title": "Containing a runaway recommendation loop",
-            "description": "Operations staff notice a spike in appeals and trip the kill switch, freezing recommendations, routing cases to humans, and restoring with updated thresholds before re-enabling automation."
+            "title": "Halting a disconnection notice run",
+            "description": "After a meter-data change, a utility's billing rule flags three times the usual number of homes for disconnection, and upheld disputes spike. The on-call operator halts disconnection notices in four minutes. The rule's owner fixes how the rule reads the new meter format. The 310 households already notified get a withdrawal letter and a fee refund. Then notices resume."
           },
           "antiPatterns": [
             {
               "title": "Kill switch without rehearsal",
-              "failure": "A halt path exists but no drills confirm that it works under pressure.",
-              "counterfactual": "Teams rehearse halts and document restore steps with time-to-halt targets.",
-              "warning": "Simulation is acceptable when production drills are risky, but it must be documented."
+              "failure": "A halt path exists on paper but has never been fired, so the first real use finds missing permissions and stale contacts.",
+              "counterfactual": "The halt is drilled, and each drill records time-to-halt against the target.",
+              "warning": "A tabletop drill can stand in where a live halt would harm people, if the log records what it could not test."
             },
             {
               "title": "Single-point approval",
-              "failure": "Only one person can trigger the halt, creating dead zones off-hours.",
-              "counterfactual": "A pre-authorized roster can halt automation without retaliation risk.",
-              "warning": "Small teams can assign a primary/secondary if coverage is explicit."
+              "failure": "Only one person can fire the halt, so at night or during their leave nobody can stop the system.",
+              "counterfactual": "A named roster can fire the halt at any hour, without sign-off and without retaliation.",
+              "warning": "A small team can run a primary and a secondary, if the roster shows who covers each hour."
             }
           ]
         },
         {
           "slug": "appeal-paths",
           "title": "MEC-06 Appeal paths inside the UI",
-          "summary": "Give people a built-in channel to dispute outputs, get human review, or learn how a decision was made.",
+          "summary": "Put an appeal next to each automated decision, so the person decided about can dispute it and get a human answer by a stated date. Upheld appeals count against the rule.",
           "filters": ["standing", "correction"],
           "glossaryRefs": [
             "contestability",
@@ -553,63 +558,63 @@
             "permission-surface"
           ],
           "cues": [
-            "Explain who reviews appeals and the expected response time.",
-            "Pre-fill context to reduce effort during stressful moments.",
+            "Say who reviews appeals and the date by which they will answer.",
+            "Pre-fill the decision and its reasons, so the person does not have to rebuild the case.",
             "Count upheld appeals by the rule that produced them, not only in total."
           ],
           "diagnostics": ["delegation-audit"],
           "steps": [
-            "Place an appeal entry point near the affected decision with response times.",
-            "Pre-fill context so people can submit without rebuilding the story.",
+            "Place the appeal next to the decision, showing who reviews it and the answer date.",
+            "Pre-fill the decision, its reason code, and the data used, so the person adds only what is wrong.",
             "Count upheld appeals by rule and send the count to the rule's owner. A set number sends the rule back for review (MEC-14 Policy review triggers)."
           ],
-          "policyRequirement": "Policy requirement (MEC-06 Appeal paths inside the UI)\n- Provide an in-product appeal channel with published response timelines.\n- Count upheld appeals by the rule that produced them. A set number sends the rule to its owner for review.\nReference: https://ethotechnics.org/mechanisms/patterns/appeal-paths",
-          "productRequirement": "Product requirement (MEC-06)\n- Every appeal submission generates a receipt with response timeline and owner.\n- Appeals are accessible from the decision surface without extra navigation.",
-          "auditEvidenceChecklist": "Audit evidence checklist (MEC-06)\n[ ] Appeal intake form includes pre-filled context.\n[ ] Reviewer roster and escalation paths are documented.\n[ ] Outcome log tracks response times and resolutions.\n[ ] Upheld appeals are counted by rule, and the count reaches the rule's owner.",
-          "postmortemTrigger": "Postmortem trigger (MEC-06)\nTrigger review when appeal backlogs breach published response timelines.",
+          "policyRequirement": "Policy requirement (MEC-06 Appeal paths inside the UI)\n- Provide an appeal channel inside the product, with a published answer date and a named reviewer role.\n- Count upheld appeals by the rule that produced them, and send the count to the rule's owner. A set number sends the rule back for review.\nReference: https://ethotechnics.org/mechanisms/patterns/appeal-paths",
+          "productRequirement": "Product requirement (MEC-06)\n- Every appeal returns a receipt with the answer date and the role that will answer.\n- The appeal is one step from the decision screen.\n- Each upheld appeal records the reason code of the rule it overturned.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-06)\n[ ] The appeal form pre-fills the decision and its reason code.\n[ ] The reviewer roster and the escalation path are written down.\n[ ] The outcome log records each appeal's answer time and result.\n[ ] Upheld appeals are counted by rule, and the count reaches the rule's owner.",
+          "postmortemTrigger": "Postmortem trigger (MEC-06)\nTrigger review when appeals pass their published answer date, or when a rule reaches its upheld-appeal threshold and its owner has not reviewed it.",
           "artifacts": [
             {
               "name": "Appeal intake form",
-              "purpose": "Collects the minimum details with pre-filled context from the UI."
+              "purpose": "Asks only for what the person must add, with the decision and its reason code filled in."
             },
             {
               "name": "Reviewer roster",
-              "purpose": "Lists who reviews appeals, coverage hours, and escalation paths."
+              "purpose": "Who answers appeals, the hours covered, and where an unanswered appeal goes next."
             },
             {
               "name": "Outcome log",
-              "purpose": "Keeps decisions, response times, and fixes visible to teams and leadership."
+              "purpose": "Each appeal's result, the time taken, and the rule an upheld appeal counted against."
             }
           ],
           "example": {
-            "title": "Adding appeals to a risk scoring tool",
-            "description": "The team adds an on-screen “Dispute this score” link with expected response times, routes submissions to a staffed roster, and logs turnaround data it can show regulators."
+            "title": "Adding appeals to a credit-limit tool",
+            "description": "A lender puts a “Dispute this limit” link beside each automated credit-limit cut, with the reason code filled in and a ten-day answer date. In the first quarter, 62 of 80 upheld appeals trace to one income-verification rule. The count reaches that rule's owner, and because it passes the threshold of 50, the rule goes back for review."
           },
           "antiPatterns": [
             {
               "title": "Appeal link buried",
-              "failure": "Appeals exist but are hidden in help docs or separate portals far from the decision.",
-              "counterfactual": "Appeal entry points sit next to the affected decision with visible timelines.",
-              "warning": "Low-frequency contexts can use a help center if it is still clear and accessible."
+              "failure": "Appeals exist, but only in help pages or a separate portal, so few of the people affected find them.",
+              "counterfactual": "The appeal sits next to the decision, with the answer date shown.",
+              "warning": "A help-center route works for rare decisions if the decision notice links straight to it."
             },
             {
               "title": "Appeals without feedback",
-              "failure": "Collects disputes but provides no receipt, timeline, or outcome signal.",
-              "counterfactual": "Every appeal generates a receipt, timeline, and outcome log.",
-              "warning": "Timelines can vary by case complexity if the variance is stated and tracked."
+              "failure": "Disputes are collected, but the person gets no receipt, no answer date, and no outcome.",
+              "counterfactual": "Every appeal returns a receipt and an answer date, and the outcome is logged.",
+              "warning": "Answer dates can vary with case complexity if the notice states the range and the log tracks it."
             },
             {
               "title": "Appeals that only fix cases",
               "failure": "Each upheld appeal corrects one decision. The rule that produced it stays, and the next person meets the same error.",
               "counterfactual": "Upheld appeals are counted by rule, and a set number obliges the rule's owner to revise it or publish why not.",
-              "warning": "A high reversal rate is evidence the rule is wrong, not proof the appeal path works."
+              "warning": "An appeal upheld because of a data-entry error in one case need not count against the rule, if that reason is recorded."
             }
           ]
         },
         {
           "slug": "accountability-latency-tracker",
           "title": "MEC-07 Accountability latency tracker",
-          "summary": "Measure how long teams take to intervene in, halt, and restore a system after a trigger fires.",
+          "summary": "Measure the time from a trigger firing to a named person intervening, halting the system, and restoring the people harmed, so the risk owner sees every missed target.",
           "filters": ["correction", "evidence"],
           "glossaryRefs": [
             "prospective-auditability",
@@ -617,59 +622,59 @@
             "time-to-halt"
           ],
           "cues": [
-            "Instrument veto, halt, and restore events with owner and trigger metadata.",
-            "Publish accountability latency targets alongside time-to-halt SLAs.",
-            "Tie latency deltas to post-incident repair log entries.",
-            "Feed latency observations into the transition rules on authority grants, so a breach can move a grant to review_required."
+            "Record each intervention, halt, and restore with a timestamp, the person who acted, and the trigger.",
+            "Publish a latency target for each, next to the time-to-halt target.",
+            "Link each missed target to a repair log entry that says what changed.",
+            "Feed missed targets into the transition rules on authority grants, so a breach can move a grant to review_required."
           ],
           "diagnostics": ["delegation-audit"],
           "steps": [
-            "Define the telemetry contract for veto, halt, and restoration events.",
-            "Surface a dashboard that shows median latency and breach incidents.",
-            "Review latency drift during governance reviews and update runbooks.",
-            "Wire breach events to the grant transition rules in the authority grant register so an observation can change the governing state."
+            "Define the records: intervention, halt, and restore events, each with a timestamp, the actor, and the trigger.",
+            "Build one view of median and worst-case latency, with each missed target marked, for the operator and the risk owner.",
+            "At each incident review, the risk owner compares latency to target and updates the runbook.",
+            "Wire missed targets to the grant transition rules, so an observation can change the grant's state (MEC-13 Authority grant register)."
           ],
-          "policyRequirement": "Policy requirement (MEC-07 Accountability latency tracker)\n- Track veto, halt, and restore latencies with owner, trigger, and system context.\n- Publish accountability latency targets in incident response runbooks.\nReference: https://ethotechnics.org/mechanisms/patterns/accountability-latency-tracker",
-          "productRequirement": "Product requirement (MEC-07)\n- Monitoring dashboards show accountability latency alongside time-to-halt metrics.\n- Veto events emit receipts linked to the repair log and designated escalation owners.",
-          "auditEvidenceChecklist": "Audit evidence checklist (MEC-07)\n[ ] Telemetry captures veto, halt, and restore events with timestamps.\n[ ] Dashboards report median and worst-case accountability latency.\n[ ] Incident reviews include latency deltas and corrective actions.\n[ ] Latency breaches are wired to grant transitions and produce a reconsideration record.",
-          "postmortemTrigger": "Postmortem trigger (MEC-07)\nTrigger review when accountability latency breaches published targets or telemetry is missing.",
+          "policyRequirement": "Policy requirement (MEC-07 Accountability latency tracker)\n- Record intervention, halt, and restore times with the person who acted, the trigger, and the system.\n- Publish accountability latency targets in the incident runbook.\nReference: https://ethotechnics.org/mechanisms/patterns/accountability-latency-tracker",
+          "productRequirement": "Product requirement (MEC-07)\n- The monitoring view shows accountability latency next to time-to-halt.\n- Each intervention emits a receipt linked to the repair log and the escalation owner.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-07)\n[ ] Intervention, halt, and restore events are recorded with timestamps.\n[ ] Reports show median and worst-case accountability latency.\n[ ] Incident reviews record latency against target and what was changed.\n[ ] Missed targets move the grant's state and produce a reconsideration record.",
+          "postmortemTrigger": "Postmortem trigger (MEC-07)\nTrigger review when accountability latency misses a published target, or when the events needed to measure it were not recorded.",
           "artifacts": [
             {
-              "name": "Telemetry contract",
-              "purpose": "Defines event names, required fields, and tags for observability tooling."
+              "name": "Event definitions",
+              "purpose": "Names and required fields for intervention, halt, and restore records."
             },
             {
-              "name": "Dashboard snapshot",
-              "purpose": "Shares latency trends and breach annotations for governance reviews."
+              "name": "Latency report",
+              "purpose": "Latency trends with each missed target marked, prepared for the incident review."
             },
             {
               "name": "Latency response runbook",
-              "purpose": "Outlines response owners, escalation paths, and remediation steps."
+              "purpose": "Who acts on a missed target, where it escalates, and what they change."
             }
           ],
           "example": {
-            "title": "Tracking veto response time during an incident",
-            "description": "Operations teams add veto latency tracking to their Datadog dashboards, review weekly deltas, and tie missed targets to repair log updates and training."
+            "title": "Tracking override time during a claims surge",
+            "description": "A car insurer records each time a reviewer overrides an automated claim denial. During a surge of storm-damage claims, median time to override rises from 20 minutes to 6 hours. The miss is logged against the target, the denial grant moves to review_required, and the risk owner adds two reviewers to the night roster."
           },
           "antiPatterns": [
             {
               "title": "Latency tracked without owners",
-              "failure": "Metrics exist, but no one is accountable for acting on latency breaches.",
-              "counterfactual": "Dashboards list named owners and escalation paths for each latency tier.",
-              "warning": "Shared ownership works when escalation paths are explicit and rehearsed."
+              "failure": "The times are recorded, but no one is named to act when a target is missed.",
+              "counterfactual": "Each target names the owner who acts on a miss and where it escalates.",
+              "warning": "Two teams can share a target if the record says which one acts first."
             },
             {
-              "title": "Telemetry without repair links",
-              "failure": "Latency events are logged but never tied to remediation plans.",
-              "counterfactual": "Every breach links to a repair log entry with follow-up actions.",
-              "warning": "If the repair log lives elsewhere, provide a canonical cross-link."
+              "title": "Latency without repair links",
+              "failure": "Missed targets are logged but never tied to a fix, so the same delay comes back.",
+              "counterfactual": "Every missed target links to a repair log entry that says what changed.",
+              "warning": "A miss caused by a one-time outside event, such as a regional power outage, can close with a recorded reason instead of a fix."
             }
           ]
         },
         {
           "slug": "contestation-apis",
           "title": "MEC-08 Contestation APIs",
-          "summary": "Expose APIs that let affected people challenge a decision and require the system to act on the outcome.",
+          "summary": "Let the person decided about, or someone acting for them, challenge a decision through a published API and get an answer by a deadline. An upheld challenge changes the decision.",
           "filters": ["standing"],
           "glossaryRefs": [
             "contestability",
@@ -677,34 +682,34 @@
             "escalation-reliability"
           ],
           "cues": [
-            "Publish a stable API contract that documents inputs, owners, and response timelines.",
-            "Return receipts with contest IDs, status, and escalation paths on submission.",
-            "Require binding authority to update system state when contests are upheld.",
+            "Publish a stable contract: the inputs, the obliged responder, and the answer deadline.",
+            "Return a receipt on filing with a challenge ID, the status, and where it goes if the deadline passes.",
+            "Make an upheld challenge change the decision's state, with no manual re-entry.",
             "Carry the standing-register fields in the contract: who may challenge, what they may challenge, admissible evidence, the obliged responder, the deadline, the standard of review, and the transitions a successful challenge can produce."
           ],
           "diagnostics": ["delegation-audit"],
           "steps": [
-            "Define an authenticated contestation endpoint with required evidence fields.",
-            "Emit status updates via webhooks or receipts tied to the decision record.",
-            "Link contest outcomes to state-change logs and remedy tracking.",
-            "Publish the standing register alongside the API so a challenger can see the responder, deadline, standard of review, and possible state transitions before filing."
+            "Define an authenticated challenge endpoint with the evidence fields the standing register admits.",
+            "Send status updates to the challenger, tied to the decision record, until the challenge is answered.",
+            "Write each upheld challenge to the decision's state and log the remedy. Count upheld challenges by rule and send the count to the rule's owner (MEC-14 Policy review triggers).",
+            "Publish the standing register next to the API, so a challenger can see before filing who must answer, by when, against what standard, and what an upheld challenge can change."
           ],
-          "policyRequirement": "Policy requirement (MEC-08 Contestation APIs)\n- Publish a contestation API with binding authority and response timelines.\n- Ensure contest outcomes can trigger state changes without manual re-entry.\nReference: https://ethotechnics.org/mechanisms/patterns/contestation-apis",
-          "productRequirement": "Product requirement (MEC-08)\n- Each contest submission returns a receipt with owner, SLA clock, and escalation path.\n- Contest outcomes update the decision state and notify the impacted party.",
-          "auditEvidenceChecklist": "Audit evidence checklist (MEC-08)\n[ ] API contract and auth policy are documented and versioned.\n[ ] Receipts include timestamps, owners, and escalation metadata.\n[ ] State-change logs link contest outcomes to remediation steps.",
-          "postmortemTrigger": "Postmortem trigger (MEC-08)\nTrigger review when contest outcomes fail to update system state within the SLA.",
+          "policyRequirement": "Policy requirement (MEC-08 Contestation APIs)\n- Publish a challenge API with an obliged responder and an answer deadline, and let an upheld challenge change the decision's state without manual re-entry.\n- Publish the standing register: who may challenge what, the admissible evidence, the responder, the deadline, and the standard of review.\n- Count upheld challenges by the rule that produced the decision, and send the count to the rule's owner.\nReference: https://ethotechnics.org/mechanisms/patterns/contestation-apis",
+          "productRequirement": "Product requirement (MEC-08)\n- Each challenge returns a receipt naming the responder, the deadline, and where it escalates if the deadline passes.\n- An upheld challenge updates the decision's state and notifies the person it concerns.\n- Each upheld challenge records the reason code of the rule it overturned.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-08)\n[ ] The API contract and its authentication policy are versioned.\n[ ] Receipts carry timestamps, the responder, and the escalation path.\n[ ] State-change logs link each upheld challenge to the decision it changed and the remedy given.\n[ ] Upheld challenges are counted by rule, and the count reaches each rule's owner.",
+          "postmortemTrigger": "Postmortem trigger (MEC-08)\nTrigger review when an upheld challenge has not changed the decision's state by the deadline.",
           "artifacts": [
             {
               "name": "Contestation API spec",
-              "purpose": "Defines endpoints, required fields, and receipt payloads."
+              "purpose": "Endpoints, required fields, and the receipt returned on filing."
             },
             {
-              "name": "Receipt + webhook schema",
-              "purpose": "Standardizes status updates and escalation metadata for contested decisions."
+              "name": "Receipt and status schema",
+              "purpose": "The status updates a challenger receives, and the escalation details each one carries."
             },
             {
               "name": "State-change log",
-              "purpose": "Links contest outcomes to decision reversals and remedy actions."
+              "purpose": "Each upheld challenge, the decision it reversed, and the remedy given."
             },
             {
               "name": "Standing register",
@@ -712,15 +717,15 @@
             }
           ],
           "example": {
-            "title": "Appeal API for eligibility reversals",
-            "description": "A benefits platform ships an appeal API that accepts structured evidence, returns a receipt with a 72-hour SLA, and automatically updates eligibility state when reviewers reverse the decision."
+            "title": "A challenge API for eligibility reversals",
+            "description": "A benefits platform lets legal aid groups file challenges for their clients through an API. Each filing returns a receipt naming the eligibility unit as responder and a 72-hour deadline. When a reviewer upholds a challenge, eligibility updates with no re-entry, and the upheld count for that rule goes to its owner."
           },
           "antiPatterns": [
             {
-              "title": "Contest intake without state change",
-              "failure": "Contests are accepted but never mutate the underlying decision state.",
-              "counterfactual": "Contestation outcomes are wired directly to state-change workflows.",
-              "warning": "Manual overrides are acceptable only when logs prove timely updates."
+              "title": "Challenges that change nothing",
+              "failure": "Challenges are accepted and even upheld, but the decision record never changes, so the person stays denied.",
+              "counterfactual": "An upheld challenge writes to the decision's state through the same workflow that made the decision.",
+              "warning": "A manual update is acceptable when the log shows it landed before the deadline."
             },
             {
               "title": "Channel without standing",
@@ -733,55 +738,61 @@
         {
           "slug": "burden-dashboards",
           "title": "MEC-09 Burden dashboards",
-          "summary": "Make user burden visible with dashboards that track time, steps, and escalation effort across cohorts.",
+          "summary": "Measure the time, steps, documents, and waiting a person spends to use or correct the system, split by group, and send each breach to a named owner.",
           "filters": ["evidence", "standing"],
           "glossaryRefs": ["burden-index", "user-burden-ratio", "time-to-halt"],
           "cues": [
-            "Publish burden metrics alongside outcome and SLA dashboards.",
-            "Segment burden by cohort, channel, and escalation tier.",
-            "Flag burden spikes as governance incidents with owners."
+            "Report burden next to outcome and response-time figures, not in a separate report.",
+            "Split burden by group and channel, such as language, disability access, and phone versus web, so a gap between groups shows.",
+            "Treat a threshold breach as an incident with a named owner and a fix date."
           ],
           "diagnostics": ["burden-modeler"],
           "steps": [
-            "Define burden signals (time, steps, waiting, handoffs) and thresholds.",
-            "Build a dashboard view with cohort breakdowns and trend lines.",
-            "Review burden deltas during governance or product reviews."
+            "Define the measures: minutes, steps, documents requested, waiting time, and handoffs, each with a threshold.",
+            "Report each measure by group and channel, with the median and the 90th percentile.",
+            "Send each breach to the owner of the step that caused it, with a date for the fix."
           ],
-          "policyRequirement": "Policy requirement (MEC-09 Burden dashboards)\n- Publish burden metrics and thresholds for high-impact systems.\n- Assign owners to remediate burden spikes within a defined window.\nReference: https://ethotechnics.org/mechanisms/patterns/burden-dashboards",
-          "productRequirement": "Product requirement (MEC-09)\n- Dashboards report median and tail burden metrics by cohort.\n- Burden alerts trigger a remediation task with accountable owners.",
-          "auditEvidenceChecklist": "Audit evidence checklist (MEC-09)\n[ ] Burden signals are defined and logged consistently.\n[ ] Dashboards include cohort breakdowns and escalation visibility.\n[ ] Remediation actions are tracked against burden alerts.",
-          "postmortemTrigger": "Postmortem trigger (MEC-09)\nTrigger review when burden thresholds are exceeded without remediation.",
+          "policyRequirement": "Policy requirement (MEC-09 Burden dashboards)\n- Publish burden measures and thresholds for each high-stakes system.\n- Assign each threshold breach to a named owner with a fix date.\nReference: https://ethotechnics.org/mechanisms/patterns/burden-dashboards",
+          "productRequirement": "Product requirement (MEC-09)\n- Burden reports show median and 90th-percentile figures by group and channel.\n- A threshold breach opens a fix task with a named owner.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-09)\n[ ] Each burden measure is defined and recorded the same way in every channel.\n[ ] Reports split burden by group and channel, and include the appeal path.\n[ ] Each breach links to a fix task, its owner, and the measure after the fix.",
+          "postmortemTrigger": "Postmortem trigger (MEC-09)\nTrigger review when a burden breach passes its fix date with no fix, or when one group exceeds a threshold that the overall figure does not.",
           "artifacts": [
             {
-              "name": "Burden metric spec",
-              "purpose": "Defines calculation inputs and thresholds for burden tracking."
+              "name": "Burden measure definitions",
+              "purpose": "What each measure counts, where the data comes from, and its threshold."
             },
             {
-              "name": "Dashboard snapshot",
-              "purpose": "Shows burden trends by cohort and escalation tier."
+              "name": "Burden report",
+              "purpose": "Trends by group and channel, with each breach marked."
             },
             {
-              "name": "Burden remediation log",
-              "purpose": "Tracks actions taken to reduce burden spikes."
+              "name": "Burden fix log",
+              "purpose": "Each breach, its owner, the fix made, and the measure afterward."
             }
           ],
           "example": {
-            "title": "Publishing a monthly burden readout",
-            "description": "A city services portal ships a burden dashboard that highlights time spent per appeal, escalations required, and targeted reductions quarter over quarter."
+            "title": "Publishing a monthly burden report",
+            "description": "A city permits office reports that appealing a parking-permit denial takes a median of 40 minutes and three documents online, but three hours and five documents by phone, where most callers are over 70. The phone gap is logged as a breach, and the intake manager owns a fix due in 60 days."
           },
           "antiPatterns": [
             {
               "title": "Burden tracking without action",
-              "failure": "Teams measure burden but do not assign remediation owners.",
-              "counterfactual": "Burden alerts route to named owners with fix timelines.",
-              "warning": "Small teams can use rotating ownership if coverage is clear."
+              "failure": "Burden is measured and charted, but no one is named to fix a breach, so the figures grow with no response.",
+              "counterfactual": "Each breach goes to a named owner with a fix date.",
+              "warning": "A small team can rotate the owner role, if the record shows who held it for each breach."
+            },
+            {
+              "title": "Averages that hide a group",
+              "failure": "Burden is reported only as one overall figure, so a group carrying far more of it, such as phone callers or people filing in a second language, does not show.",
+              "counterfactual": "Burden is reported by group and channel, with the worst-off group's figure beside the overall one.",
+              "warning": "Groups too small to report without identifying people can be merged, if the merged figure is labeled."
             }
           ]
         },
         {
           "slug": "reversibility-audit-logs",
           "title": "MEC-10 Reversibility audit logs",
-          "summary": "Track which actions can be reversed, how long reversal takes, and why irreversibility exists.",
+          "summary": "Record whether each consequential action can be undone, by whom, and how fast, so a person wrongly decided about can be put back. Require a stated reason for any that cannot.",
           "filters": ["correction", "evidence"],
           "glossaryRefs": [
             "reversibility",
@@ -789,51 +800,57 @@
             "irreversibility-index"
           ],
           "cues": [
-            "Document reversibility status and rationale for every high-impact action.",
-            "Log reversal attempts with time-to-restore metrics.",
-            "Surface irreversibility as a risk flag in governance reviews."
+            "Record reversibility status, who can reverse, and the reason, for every high-stakes action type.",
+            "Log each reversal attempt with the time it took to restore the person to where they were.",
+            "Report the share of irreversible actions to the risk owner, with the reason for each."
           ],
           "diagnostics": ["delegation-audit"],
           "steps": [
-            "Tag actions with reversibility status and documented rationale.",
-            "Log every reversal attempt with timestamps and outcome.",
-            "Review irreversibility trends and update mitigation plans."
+            "Tag each action type as reversible, reversible within a time limit, or irreversible, with the reason.",
+            "Log every reversal attempt with timestamps, the outcome, and whether the person was fully restored.",
+            "At each review, the risk owner accepts each irreversibility reason on the record or orders a way to reverse the action."
           ],
-          "policyRequirement": "Policy requirement (MEC-10 Reversibility audit logs)\n- Maintain an audit log that tracks reversibility status and rationale.\n- Record reversal attempts with time-to-restore outcomes.\nReference: https://ethotechnics.org/mechanisms/patterns/reversibility-audit-logs",
-          "productRequirement": "Product requirement (MEC-10)\n- Decision records display reversibility status and owner.\n- Reversal attempts emit receipts with timestamps and outcomes.",
-          "auditEvidenceChecklist": "Audit evidence checklist (MEC-10)\n[ ] Reversibility status is captured for high-impact actions.\n[ ] Reversal attempts are logged with time-to-restore metrics.\n[ ] Irreversibility rationale is documented and reviewed.",
-          "postmortemTrigger": "Postmortem trigger (MEC-10)\nTrigger review when reversibility logs are missing or reversal attempts exceed targets.",
+          "policyRequirement": "Policy requirement (MEC-10 Reversibility audit logs)\n- Keep a log of each high-stakes action type's reversibility status, who can reverse it, and the reason for any irreversibility.\n- Record every reversal attempt with its time to restore and whether the person was fully restored.\nReference: https://ethotechnics.org/mechanisms/patterns/reversibility-audit-logs",
+          "productRequirement": "Product requirement (MEC-10)\n- Each decision record shows its reversibility status and who can reverse it.\n- Each reversal attempt emits a receipt with timestamps and the outcome.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-10)\n[ ] Reversibility status is recorded for every high-stakes action type.\n[ ] Reversal attempts are logged with time to restore.\n[ ] Each irreversibility reason names who accepted it and when it was last reviewed.",
+          "postmortemTrigger": "Postmortem trigger (MEC-10)\nTrigger review when an action has no reversibility record, a reversal exceeds its target time, or an action recorded as reversible could not be reversed.",
           "artifacts": [
             {
-              "name": "Reversibility status registry",
-              "purpose": "Lists actions with reversibility status, owners, and rationales."
+              "name": "Reversibility register",
+              "purpose": "Each action type with its status, who can reverse it, and the reason."
             },
             {
               "name": "Reversal attempt log",
-              "purpose": "Tracks reversal attempts, outcomes, and time-to-restore metrics."
+              "purpose": "Each attempt, its outcome, and the time taken to restore the person."
             },
             {
-              "name": "Irreversibility review memo",
-              "purpose": "Summarizes irreversibility rationale and mitigation commitments."
+              "name": "Irreversibility review record",
+              "purpose": "Each irreversible action type, the reason accepted, who accepted it, and when."
             }
           ],
           "example": {
-            "title": "Logging reversal attempts in a claims system",
-            "description": "A healthcare claims team logs every reversal attempt, including time-to-restore and irreversibility rationale, and reviews the audit log quarterly."
+            "title": "Logging reversals in a claims system",
+            "description": "A health insurer logs every reversal of an automated claim denial. Most reverse within two days. Denials that set off a collections referral take 45 days, because the referral cannot be recalled automatically. The risk owner records this as a reversibility gap and orders a recall path."
           },
           "antiPatterns": [
             {
               "title": "Implicit irreversibility",
-              "failure": "Actions are treated as irreversible without documenting why.",
-              "counterfactual": "Reversibility status and rationale are explicit and reviewed.",
-              "warning": "Short-term irreversibility is acceptable if mitigations are documented."
+              "failure": "Actions are treated as final with no stated reason, so no one asks whether they could be undone.",
+              "counterfactual": "Each action type has a recorded reversibility status and reason, reviewed by the risk owner.",
+              "warning": "An action can be irreversible for a short window, such as a payment in transit, if the window and its end are recorded."
+            },
+            {
+              "title": "Reversed in the record only",
+              "failure": "The decision record flips back, but what it set off, such as a debt referral or a letter to an employer, stays in place.",
+              "counterfactual": "A reversal is complete when each downstream consequence is withdrawn and the person is told.",
+              "warning": "A consequence that cannot be withdrawn, such as a letter already read, can close with a correction sent to the same recipient."
             }
           ]
         },
         {
           "slug": "escalation-slas",
           "title": "MEC-11 Escalation SLAs",
-          "summary": "Guarantee response times for human escalation when automated decisions are contested.",
+          "summary": "Publish a deadline for a human answer when a person escalates an automated decision, and staff to meet it. A missed deadline triggers a stated fallback, such as pausing the decision.",
           "filters": ["correction", "standing"],
           "glossaryRefs": [
             "escalation-reliability",
@@ -841,92 +858,104 @@
             "time-to-halt"
           ],
           "cues": [
-            "Publish escalation clocks with named owners and coverage windows.",
-            "Tie escalation SLAs to staffing plans and on-call rosters.",
-            "Trigger safe mode or reversal when escalation SLAs are breached."
+            "Publish each escalation deadline with the role that must answer and the hours covered.",
+            "Check each deadline against the staffing roster before publishing it.",
+            "Decide in advance what a missed deadline does, such as pausing or reversing the decision until a person answers."
           ],
           "diagnostics": ["delegation-audit"],
           "steps": [
-            "Define escalation tiers with SLA targets and authority scopes.",
-            "Instrument SLA tracking with receipts and breach alerts.",
-            "Review breach trends and adjust staffing or automation guardrails."
+            "Define escalation tiers, each with a deadline and what the responder may change.",
+            "Track each escalation against its deadline, with a receipt to the person and an alert before the deadline passes.",
+            "The escalation owner reviews missed deadlines and either adds staff or narrows the cases the system decides alone (MEC-23 Challenge load ledger)."
           ],
-          "policyRequirement": "Policy requirement (MEC-11 Escalation SLAs)\n- Publish escalation response time guarantees and owners.\n- Define breach actions that trigger safe mode or reversal.\nReference: https://ethotechnics.org/mechanisms/patterns/escalation-slas",
-          "productRequirement": "Product requirement (MEC-11)\n- Escalation receipts include SLA targets and responsible owners.\n- SLA breaches trigger automatic fallback or halt actions.",
-          "auditEvidenceChecklist": "Audit evidence checklist (MEC-11)\n[ ] Escalation SLAs and owners are published.\n[ ] Breach alerts and fallback actions are logged.\n[ ] Staffing plans map to escalation coverage requirements.",
-          "postmortemTrigger": "Postmortem trigger (MEC-11)\nTrigger review when escalation SLA breaches exceed thresholds.",
+          "policyRequirement": "Policy requirement (MEC-11 Escalation SLAs)\n- Publish escalation deadlines and the role that must answer at each tier.\n- Define what a missed deadline does, such as pausing or reversing the decision until a person answers.\nReference: https://ethotechnics.org/mechanisms/patterns/escalation-slas",
+          "productRequirement": "Product requirement (MEC-11)\n- Each escalation receipt shows the deadline and the role that must answer.\n- A missed deadline triggers the stated fallback with no manual step.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-11)\n[ ] Escalation deadlines and responder roles are published.\n[ ] Missed deadlines, and the fallback each triggered, are logged.\n[ ] The staffing roster covers every hour a deadline runs.",
+          "postmortemTrigger": "Postmortem trigger (MEC-11)\nTrigger review when missed deadlines exceed the set threshold, or when a missed deadline did not trigger its fallback.",
           "artifacts": [
             {
-              "name": "Escalation SLA matrix",
-              "purpose": "Lists tiers, response targets, and authority scopes."
+              "name": "Escalation deadline table",
+              "purpose": "Each tier, its deadline, and what the responder may change."
             },
             {
               "name": "Coverage roster",
-              "purpose": "Shows staffing coverage aligned to SLA commitments."
+              "purpose": "Who is on duty for each hour a deadline runs."
             },
             {
-              "name": "Breach response log",
-              "purpose": "Tracks SLA breaches and fallback actions."
+              "name": "Missed-deadline log",
+              "purpose": "Each missed deadline and the fallback it triggered."
             }
           ],
           "example": {
-            "title": "24-hour escalation guarantee for disputes",
-            "description": "A financial platform publishes a 24-hour human escalation SLA for contested denials and routes breaches into automatic provisional reinstatement."
+            "title": "A 24-hour deadline for frozen accounts",
+            "description": "A payments company publishes a 24-hour deadline for a human answer when a customer disputes an automated account freeze. Staff cover nights and weekends. If the deadline passes, the account unfreezes provisionally and stays open until a reviewer decides."
           },
           "antiPatterns": [
             {
               "title": "Escalation without coverage",
-              "failure": "Escalation timelines exist but no staffing covers nights or weekends.",
-              "counterfactual": "Coverage rosters align with published escalation SLAs.",
-              "warning": "Limited hours are acceptable if clearly disclosed and mitigated."
+              "failure": "A deadline is published, but no one is rostered nights or weekends, so an escalation filed Friday evening waits until Monday.",
+              "counterfactual": "The roster covers every hour the deadline runs.",
+              "warning": "Office-hours coverage is acceptable if the deadline counts only those hours and the notice says so."
+            },
+            {
+              "title": "Escalation to someone who cannot decide",
+              "failure": "The escalation reaches a person who can explain the decision but not change it, so the deadline is met and nothing moves.",
+              "counterfactual": "Each tier's responder can pause or reverse the decision within that tier's scope.",
+              "warning": "A first tier that only gathers facts is fine if it hands the case to a tier that can decide within the same deadline."
             }
           ]
         },
         {
           "slug": "stoppability-testing",
           "title": "MEC-12 Stoppability testing",
-          "summary": "Verify before deployment that authorized people can halt the system under defined conditions.",
+          "summary": "Before launch and after each major change, test that the people authorized to halt the system can do it within the target time, and that cases in flight stop safely.",
           "filters": ["correction"],
           "glossaryRefs": ["stoppability", "time-to-halt", "design-authority"],
           "cues": [
-            "Run stoppability drills before launch and after major changes.",
-            "Document who can halt, how, and the expected time-to-halt.",
-            "Log stoppability test outcomes and remediation actions."
+            "Run a halt drill before launch and after each major change.",
+            "Write down who can halt, how, and the target time to halt.",
+            "Log each drill's result, and close each gap before release."
           ],
           "diagnostics": ["delegation-audit"],
           "steps": [
-            "Define stoppability test scenarios with triggers and owners.",
-            "Execute drills that measure time-to-halt and safe restoration.",
-            "Publish test results and close gaps before release."
+            "Write test scenarios for each halt path (MEC-05 Kill switch for runaway automation): the trigger, the person who halts, and the cases in flight.",
+            "Run each drill, timing the halt and checking that cases in flight land in a safe state and can be restored.",
+            "Report the results to the risk owner, and hold the release until each gap is closed."
           ],
-          "policyRequirement": "Policy requirement (MEC-12 Stoppability testing)\n- Require stoppability drills before launch and after major changes.\n- Publish time-to-halt targets and authorized halt owners.\nReference: https://ethotechnics.org/mechanisms/patterns/stoppability-testing",
-          "productRequirement": "Product requirement (MEC-12)\n- Stoppability tests log time-to-halt and restoration outcomes.\n- Launch gates verify test completion and remediation.",
-          "auditEvidenceChecklist": "Audit evidence checklist (MEC-12)\n[ ] Drill logs include time-to-halt metrics and outcomes.\n[ ] Authorized halt owners are documented.\n[ ] Remediation actions are tracked to closure.",
-          "postmortemTrigger": "Postmortem trigger (MEC-12)\nTrigger review when stoppability tests are skipped or time-to-halt targets are missed.",
+          "policyRequirement": "Policy requirement (MEC-12 Stoppability testing)\n- Run halt drills before launch and after each major change.\n- Publish time-to-halt targets and the roles authorized to halt.\nReference: https://ethotechnics.org/mechanisms/patterns/stoppability-testing",
+          "productRequirement": "Product requirement (MEC-12)\n- Each drill logs time-to-halt, the state cases were left in, and whether they were restored.\n- The launch gate checks that drills ran and their gaps are closed.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-12)\n[ ] Drill logs record time-to-halt and the result.\n[ ] The people authorized to halt are named.\n[ ] Each gap a drill found is tracked to a fix.",
+          "postmortemTrigger": "Postmortem trigger (MEC-12)\nTrigger review when a drill is skipped, a time-to-halt target is missed, or a real halt fails in a way the drills did not test.",
           "artifacts": [
             {
               "name": "Stoppability test plan",
-              "purpose": "Defines scenarios, triggers, and expected time-to-halt targets."
+              "purpose": "Scenarios, triggers, the person who halts, and the target time for each."
             },
             {
               "name": "Drill log",
-              "purpose": "Records stoppability test outcomes and restoration steps."
+              "purpose": "Each drill's time-to-halt, the state cases were left in, and the restoration steps taken."
             },
             {
               "name": "Launch gate checklist",
-              "purpose": "Confirms stoppability tests are complete before deployment."
+              "purpose": "Confirms drills ran and their gaps closed before deployment."
             }
           ],
           "example": {
-            "title": "Pre-launch halt drill for automated approvals",
-            "description": "A public benefits team runs a stoppability drill before release, measuring time-to-halt and verifying restoration steps before approving launch."
+            "title": "A halt drill before automated approvals go live",
+            "description": "A benefits team drills a halt on its automated approval flow a week before launch. The on-call operator stops approvals in 3 minutes against a 5-minute target, but 40 approvals already in the queue are sent anyway. Launch waits until queued approvals hold at the halt."
           },
           "antiPatterns": [
             {
               "title": "Stoppability assumed, not tested",
-              "failure": "Teams rely on documentation without running drills.",
-              "counterfactual": "Stoppability drills run on a calendar and log outcomes.",
-              "warning": "Simulated drills are acceptable if production tests are risky."
+              "failure": "The team relies on a documented halt path that no one has run.",
+              "counterfactual": "Halt drills run before launch and after major changes, and log their results.",
+              "warning": "A drill in a staging copy counts if it uses the production halt controls and permissions."
+            },
+            {
+              "title": "Testing the switch, not the stop",
+              "failure": "The drill confirms the switch flips, but queued jobs and downstream systems keep acting on decisions already made.",
+              "counterfactual": "The drill checks what happened to queued cases and downstream systems after the halt.",
+              "warning": "Work already finished downstream can stay in place if the drill shows each item can be reversed."
             }
           ]
         },
@@ -1381,7 +1410,7 @@
           },
           "antiPatterns": [
             {
-              "title": "Uniform veto",
+              "title": "One halt authority for every tier",
               "failure": "Every halt requires the same senior authority, so low-tier problems either wait or fire the system-wide stop.",
               "counterfactual": "Tiers match blast radius: small halts are cheap and local; big halts are deliberate.",
               "warning": "A small authorized tier is not a governance gap; the gap is a big tier with no rehearsed restoration."
