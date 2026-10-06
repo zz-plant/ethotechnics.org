@@ -76,7 +76,7 @@ export const researchContent: ResearchContent = {
     "Research on one question: when an automated system is wrong, does the evidence reach someone who can change the rule? Essays, scored cases, a working paper.",
   permalink: "/research",
   published: "2025-12-03T00:00:00Z",
-  updated: "2026-10-03T00:00:00Z",
+  updated: "2026-10-06T00:00:00Z",
   publication: {
     authors: [
       {
@@ -87,12 +87,18 @@ export const researchContent: ResearchContent = {
     ],
     contact: "hello@ethotechnics.org",
     published: "2025-12-03T00:00:00Z",
-    updated: "2026-10-03T00:00:00Z",
-    version: "v1.6.0",
+    updated: "2026-10-06T00:00:00Z",
+    version: "v1.6.1",
     doi: "Pending Zenodo deposit",
     archiveUrl:
       "https://web.archive.org/web/*/https://ethotechnics.org/research",
     changelog: [
+      {
+        version: "v1.6.1",
+        date: "2026-10-06",
+        summary:
+          "Rewrote the results cards, the bridge artifact summaries, and the working paper summary in plain words. The doctrine scan card now names the laws the labs cover and the ones they do not. The Crumple Zone and kanav.net entries now describe what those pages contain.",
+      },
       {
         version: "v1.6.0",
         date: "2026-10-03",
@@ -142,7 +148,7 @@ export const researchContent: ResearchContent = {
     attribution:
       "Credit the Ethotechnics Institute, include the page title and version, and link to the canonical permalink.",
   },
-  lastUpdated: "2026-10-03T00:00:00Z",
+  lastUpdated: "2026-10-06T00:00:00Z",
   updateCadence:
     "Each change is dated in the changelog at the foot of the page.",
   anchorLinks: [
@@ -159,7 +165,7 @@ export const researchContent: ResearchContent = {
       period: "2026 Q1",
       title: "STD-01 ratification draft",
       summary:
-        "Version 1.0 was released for public review. It stays a draft until it has two independent implementation reports and a decision recorded through the RFC process.",
+        "Version 1.0 was released for public review. It stays a draft until it has two independent implementation reports and a decision recorded through the public request-for-comments process.",
       standardRef: "STD-01",
       href: "/standards/std-01-temporal-rights",
     },
@@ -167,7 +173,7 @@ export const researchContent: ResearchContent = {
       period: "2026 Q3",
       title: "Typed decision model clauses",
       summary:
-        "A review of typed decision models, which return a fixed answer type with a probability per option, led to three STD-08 clauses: content carries no authority, a decision threshold is a policy, and a routing threshold is part of the intervention specification.",
+        "A review of typed decision models, which return a fixed answer type with a probability per option, led to three STD-08 clauses. Text a system reads cannot grant it permission. A confidence cut-off is a policy with its own record. The threshold that decides which cases reach a person is part of the written terms of that person's oversight.",
       standardRef: "STD-08",
       href: "/standards/std-08-delegation",
     },
@@ -216,17 +222,17 @@ export const researchContent: ResearchContent = {
       title: "Theory essays",
       type: "Essay series",
       summary:
-        "Why the laws hold: absorption as concealment, the engineering tradition, automation and capture, dependence without standing and running both ways, friction as accidental governance, what does not convert, insulation, ethotechnical design, what outcomes hide, challenge density, exception learning, the model of a person, endogenous authorization, deliberate non-use, the compulsion problem, what Ethotechnics is not, democratic vs. coercive governability, the consumption of adaptive capacity, and the human subsidy to institutional continuity.",
+        "The essays that argue for the laws, most of them on why the evidence that a system is wrong fails to reach the rule that produced it. The essays on insulation and exception learning are good places to start.",
       tags: ["theory", "laws", "doctrine"],
       href: "/research/theory",
     },
     {
       slug: "diagnostic-archive",
       title: "The Crumple Zone",
-      type: "Diagnostic archive",
+      type: "Essay archive",
       summary:
-        "Case analyses and operational postmortems of institutional failure modes, compensatory labor extraction, and corrigibility barriers.",
-      tags: ["diagnostics", "postmortems", "operational-cases"],
+        "Essays on what happens when an institution's system is wrong and the people it decides about cannot get it corrected. Several draw on casebook cases: Robodebt, Post Office Horizon, and the Dutch childcare benefits scandal.",
+      tags: ["essays", "cases", "correction"],
       href: "https://thecrumple.zone",
     },
     {
@@ -234,7 +240,7 @@ export const researchContent: ResearchContent = {
       title: "Empirical evaluation program (kanav.net)",
       type: "Research program",
       summary:
-        "Four diagnostic questions, the performance decomposition equation (P_obs = C_des + H_comp), and experimental suites measuring compensatory human labor.",
+        "A related research page on the human effort that keeps an institution's reported performance up. It splits observed performance into what the design delivers and what people make up, reports field observations, and sets out how the hypothesis would be tested.",
       tags: ["evaluation", "decomposition", "empirical"],
       href: "https://kanav.net/research/",
     },
@@ -246,7 +252,7 @@ export const researchContent: ResearchContent = {
       goals: [
         "Record, for each casebook case, what changed after the failure: one case, the process, or the rule.",
         "Find systems that publish how many challenges they uphold, and check whether any rule changed after them.",
-        "Test whether the corrective learning evals can be scored from public records alone.",
+        "Test whether the corrective learning evaluations, which ask whether an institution changed after a failure, can be scored from public records alone.",
       ],
       glossaryRefs: ["exception-absorption", "exception-learning"],
     },
@@ -254,7 +260,7 @@ export const researchContent: ResearchContent = {
       title: "Who pays for correction?",
       timeframe: "Open question",
       goals: [
-        "Measure the time a person spends proving an automated decision wrong, using the time cost STD-01 asks operators to publish.",
+        "Measure the time a person spends proving an automated decision wrong, using the time cost that STD-01, the draft standard on people's time, asks operators to publish.",
         "Set an institution's efficiency figures beside the correction work its system moves onto claimants, staff, and clinicians.",
         "Find where, if anywhere, that work appears in a public budget.",
       ],
@@ -337,7 +343,7 @@ export const researchContent: ResearchContent = {
       type: "protocol",
       status: "published",
       summary:
-        "Working paper v0.2: The Green Dashboard, a 52-week hospital department simulation testing whether AI agents fulfill operational mandates by consuming unmeasured human capacities. Defines compensatory reward hacking, specifies a factorial design with falsifiable hypotheses, diagnoses seven gaps in current evaluation practice, and states the conception of emancipation the benchmark presupposes. No experiments have been run.",
+        "Working paper v0.2, The Green Dashboard: a proposed 52-week simulation of a hospital department that tests whether AI agents meet their targets by using up staff effort their metrics do not count. It names that failure, sets out an experimental design with falsifiable hypotheses, and lists seven gaps in current evaluation practice. No experiments have been run.",
       tags: ["evaluations", "benchmarking", "reward-hacking", "governance"],
       glossaryRefs: [
         "reciprocal-accommodation",
@@ -362,7 +368,7 @@ export const researchContent: ResearchContent = {
       },
       datasets: [
         "Simulation parameter configuration schema v0.1.",
-        "Dual-ledger telemetry log definition and stress test seed vectors.",
+        "A log format that sets reported throughput beside the unlogged hours people spent keeping it up, with seed data for stress tests.",
       ],
       ethicsNotes: [
         "Evaluations test synthetic agents against simulated worker profiles without human-subject risk.",
