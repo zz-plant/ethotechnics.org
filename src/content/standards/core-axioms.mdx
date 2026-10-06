@@ -1,15 +1,17 @@
 ---
 title: "Core Axioms"
-description: "The five axioms behind every Ethotechnics standard: finitude, consent, stewardship, reversibility, and legibility, and the argument from dependence they rest on."
+description: "The five axioms behind every Ethotechnics standard (finitude, consent, stewardship, reversibility, and legibility), the premises they assume, and the argument from dependence that makes them owed."
 permalink: "/standards/core-axioms"
 eyebrow: "Foundations"
-version: "v1.0.1"
+version: "v2.0.1"
 lastUpdated: "2026-10-06"
 seoTitle: "Core Axioms — Ethotechnics Institute"
 publishedTime: "2025-06-01T00:00:00.000Z"
 anchorLinks:
   - href: "#axioms"
     label: "Axioms"
+  - href: "#premises"
+    label: "What they assume"
   - href: "#derivation"
     label: "Where they come from"
   - href: "#laws"
@@ -27,26 +29,80 @@ import BurdenDerivationDiagram from "../../components/BurdenDerivationDiagram.as
 >
   <ol class="axiom-list">
     <li>
-      <strong>Axiom 1 — Finitude:</strong> Human attention is finite and must be
-      treated as a protected resource.
+      <strong>Axiom 1 — Finitude:</strong> A person's time, attention, money,
+      and stamina are finite. A system must budget what it spends of them as it
+      budgets its own resources.
     </li>
     <li>
-      <strong>Axiom 2 — Consent:</strong> Legitimate systems secure informed
-      consent at every critical handoff.
+      <strong>Axiom 2 — Consent:</strong> Agreement counts as consent only if
+      the person could understand it, refuse it without penalty, and withdraw it
+      later. Compliance under dependence is not consent.
     </li>
     <li>
-      <strong>Axiom 3 — Stewardship:</strong> Operators accept full
-      responsibility for the outcomes and latency of their automation.
+      <strong>Axiom 3 — Stewardship:</strong> The party that benefits from
+      automation answers for its outcomes and its delays. It cannot pass that
+      responsibility to an operator who lacks the authority to override.
     </li>
     <li>
-      <strong>Axiom 4 — Reversibility:</strong> High-impact actions require safe
-      rollback paths and transparent appeal channels.
+      <strong>Axiom 4 — Reversibility:</strong> High-impact actions require a
+      rollback path and an appeal that work in practice, at a cost the affected
+      person can bear.
     </li>
     <li>
-      <strong>Axiom 5 — Legibility:</strong> Users must be able to see,
-      understand, and audit the burden imposed on them.
+      <strong>Axiom 5 — Legibility:</strong> An institution must record the
+      burden its system imposes and show that record to the people carrying it.
+      Producing the record is the institution's work, not theirs.
     </li>
   </ol>
+  <p class="small muted">
+    Restated in v2.0.0 (October 5, 2026) so each axiom says what the derivation
+    below argues for. The five names and their mapping to the laws did not
+    change.
+  </p>
+</SectionBlock>
+
+<SectionBlock
+  id="premises"
+  eyebrow="Premises"
+  title="What the axioms assume"
+  description="The starting points, stated so a reader can accept or reject them without reading the theory essays. The derivation below argues from them."
+  variant="alt"
+>
+
+The argument starts from four claims about people. They are **finite**: their time, attention, money, and stamina run out. They
+are **dependent**: on other people, and on institutions they cannot
+leave at an acceptable cost. They are **heterogeneous**: no
+category fits all of them, and some fit none. They are
+**adaptive**: they bend to a system that does not bend to them, and
+the bending does not appear in its records.
+
+One principle follows from those claims. The work of adapting to an
+arrangement should not fall systematically on one side, should not be kept out
+of reach of the party able to reduce it, and should not use up the capacity the
+people doing it need for anything else, including objecting.
+
+The [principle of non-expropriation of
+resilience](/glossary/principle-of-non-expropriation-of-resilience) is its
+sharpest case. A person's ability to adapt does not give an institution a claim
+on that adaptation. That someone can work around a defect is not a reason they
+should have to.
+
+Each descriptive premise in the derivation can be checked against an
+institution's own records, and some give the institution reasons of its own to
+hold to the axioms: absorbed failures blind its instruments, and reliability
+that rests on compensation is borrowed. Those reasons run out in one case. A
+carer who never stops, or a claimant who gives up without complaint, can absorb
+an arrangement's failures indefinitely. Nothing breaks, and the institution
+loses nothing it measures. Only a moral premise covers that case:
+
+> What people give up to stay included in an arrangement is a cost of that
+> arrangement, whether or not the institution ever pays it.
+
+This premise cannot be checked. It is the one the method asks a reader to
+accept. A reader who rejects it can still adopt every standard on the
+descriptive premises alone. What they give up is a reason to object to
+extraction that works.
+
 </SectionBlock>
 
 <SectionBlock
@@ -54,7 +110,6 @@ import BurdenDerivationDiagram from "../../components/BurdenDerivationDiagram.as
   eyebrow="Derivation"
   title="Why these are owed, not recommended"
   description="The axioms are stated above as doctrine. This is the argument that grounds them, which decides whether an operator may treat them as good practice to be traded off."
-  variant="alt"
 >
 
 > A formal system does not eliminate what it cannot represent; it redistributes
@@ -68,21 +123,19 @@ import BurdenDerivationDiagram from "../../components/BurdenDerivationDiagram.as
 <BurdenDerivationDiagram />
 
 The dispute with technocratic rationalism is not that models are inherently flawed
-or that quantification is dehumanizing. It is that <strong>model incompleteness has
-distributive consequences</strong>. A formal model leaves reality out; an institution
+or that quantification is dehumanizing. It is that **model incompleteness has distributive consequences**. A formal model leaves reality out; an institution
 nevertheless acts on the model; the omitted reality eventually collides with that
 action; and someone must absorb the mismatch.
 
-Under the technocratic fiction of <em>closure without remainder</em>, what is omitted
+Under the technocratic fiction of _closure without remainder_, what is omitted
 from the formal system is treated as eliminated from reality. An institution measures
 its internal computational latency in milliseconds while treating the hours of human
 attention, administrative appeals, and workaround labor spent outside its boundary as
-free. This is the <strong>falsified denominator</strong>: efficiency measured
+free. This is the **falsified denominator**: efficiency measured
 only inside the model boundary, while the people outside it are counted as
 unlimited capacity that never appears in the budget.
 
-Those who absorb this residual mismatch are not incidental to the system. <strong>They
-are part of its true operating architecture.</strong> If users must contort themselves
+Those who absorb this residual mismatch are not incidental to the system. **They are part of its true operating architecture.** If users must contort themselves
 around software, if frontline workers manually patch pipeline edge cases, or if
 citizens must navigate bureaucratic labyrinths to correct automated errors, that
 friction is the system functioning as designed: running lean internally by extracting
@@ -106,87 +159,88 @@ narrowness is what makes it hold. Ordinary productive labor makes a system
 valuable; extracting it without a say is a distributive wrong. Corrective
 labor does something further: [absorbing a failure
 competently](/glossary/extraction-by-endurance) removes the evidence that it
-occurred. The metric improves <em>because</em>
+occurred. The metric improves _because_
 someone caught it. So the institution loses not only the labor but its own
-capacity to know how the system is performing — a{" "}
-
-<a href="/glossary/fail-silent">fail-silent</a> state in which the absorbing
+capacity to know how the system is performing — a [fail-silent](/glossary/fail-silent) state in which the absorbing
 humans are the mechanism. Dependence on correction is therefore self-concealing
 in a way dependence on production is not, and a clean dashboard cannot be read
 as evidence of health until absorption has been measured separately.
 
-Three descriptive premises sit under the five, and none of them is a sixth
+Four descriptive premises sit under the five, and none of them is a sixth
 axiom. Each is a claim about the world the axioms answer to, stated because
 it is the reason the axioms are owed rather than preferred, and each is
 checkable.
 
-Where the burden goes is not random. Absorbed friction flows along a
-
-<strong>gradient of least contractual resistance</strong> and pools at the node
+Where the burden goes is not random. Absorbed friction flows along a **gradient of least contractual resistance** and pools at the node
 least able to refuse: the clinician held by licensure and duty of care, the
 claimant whose benefits are the institution's to time, the moderator whose
 replacement costs nothing. The routing is structural rather than intentional — a
 system costs what its cheapest node will absorb, and a vendor whose failures
 route to people who cannot bill for the fixing undercuts one whose failures land
 on its own balance sheet. That is the descriptive ground under
-<strong>Stewardship</strong>: burden runs downhill by default, so holding it
+**Stewardship**: burden runs downhill by default, so holding it
 uphill takes a recorded obligation rather than goodwill, and it is why standing
 tracks exposure rather than title. The premise is checkable the way the rest is:
 the
-<a href="/glossary/rescue-register">rescue register</a> and the burden
+[rescue register](/glossary/rescue-register) and the burden
 dashboards record where absorption actually lands, and if it concentrates at the
 most powerful nodes, the gradient is wrong.
 
-The second premise is temporal. <strong>An institution's horizon is
-unbounded and a person's is not.</strong> A delayed decision costs the
+The second premise is temporal. **An institution's horizon is unbounded and a person's is not.** A delayed decision costs the
 institution a scheduling slot and costs the person part of the only life the
 decision is about, so no queue is as neutral as its wait-time statistic.
-That asymmetry is what lets waiting do the work of denial without a denial —{" "}
-
-<a href="/glossary/attrition-as-resolution">attrition as resolution</a> — and it
+That asymmetry is what lets waiting do the work of denial without a denial — [attrition as resolution](/glossary/attrition-as-resolution) — and it
 is why the method's clocks are structural rather than procedural: the
-<a href="/mechanisms/patterns/hard-clock">hard clock</a>, the expiry default,
+[hard clock](/mechanisms/patterns/hard-clock), the expiry default,
 and the statutory timer exist to give the person's clock a counterweight the
 institution cannot outlast. The premise misdescribes its targets if delays turn
 out to resolve independently of the claimant's endurance, and those clocks are
 the test.
 
-The third premise is about what counts as a response. <strong>An
-architecture is defined by the state transitions it makes impossible.</strong>{" "}
+The third premise is about what counts as a response. **An architecture is defined by the state transitions it makes impossible.**
 Not by its values documents, its dashboards, or the tone of its leadership.
 What remains technically and legally possible is what the institution chose
 to permit, and permission is a record — so the audit that matters compares
 the values documents with the permission records rather than trusting either
-alone. Call this <strong>constraint realism</strong>. It is the method's
+alone. Call this **constraint realism**. It is the method's
 reason for writing invariants instead of principles: a principle can be
 signed and ignored, while a transition that cannot happen cannot be ignored,
 and it is why observability without state transition is theater rather than
 progress. This is the premise the standards layer stands on, and it is the
 reason a code of conduct is never a deliverable here.
 
+The fourth premise is about what a performance figure contains.
+**Observed performance is designed capacity plus human compensation.**
+The falsified denominator is the boundary error; this is the quantity it hides.
+A deployment's [intrinsic performance](/glossary/intrinsic-performance) is what
+the formal system achieves on its own. Its [compensated
+performance](/glossary/compensated-performance) adds what people's workarounds,
+rework, and off-hours repair supply on top, and reported figures are the sum.
+That is the descriptive ground under **Finitude** and
+**Legibility**: the compensation is drawn from finite capacity, and
+nobody sees it unless someone records it. The [Burden Concealment evals](/evals/burden-concealment) test the
+premise by measuring how much of a reported figure depends on absorption nobody
+counts. If a deployment's figures hold when the compensating work stops, the
+premise misdescribes it.
+
 Each axiom follows from refusing that extraction:
 
-- <strong>Finitude (Axiom 1)</strong> refuses the falsified denominator. Human
-  attention is finite, non-renewable biological capacity. A system that budgets
-  zero time for the human labor required to navigate its omissions is running on
-  uncounted absorption.
-- <strong>Consent (Axiom 2)</strong> and
-  <strong>Reversibility (Axiom 4)</strong>
+- **Finitude (Axiom 1)** refuses the falsified denominator. A
+  system that budgets zero time for the human labor required to navigate its
+  omissions is running on uncounted absorption.
+- **Consent (Axiom 2)** and
+  **Reversibility (Axiom 4)**
   hold because a correction that cannot be exercised is a correction only in
   name, and a handoff without the power to exit or roll back shifts the risk of
   model failure entirely onto the dependent party. Together with Finitude, they
   enforce republican non-domination against arbitrary institutional
   architecture.
-- <strong>Stewardship (Axiom 3)</strong> enforces the moral principle of
+- **Stewardship (Axiom 3)** enforces the moral principle of
   delegated intelligence:
-  <em>
-    whoever receives the benefits of formal simplification should not be
-    permitted to externalize the costs of whatever the simplification leaves
-    unresolved.
-  </em>
+  _whoever receives the benefits of formal simplification should not be permitted to externalize the costs of whatever the simplification leaves unresolved._
   The boundary of a model is never the boundary of institutional responsibility.
   Responsibility that is delegated downward while authority stays upward is not
-  stewardship at all. Stated as a slogan: <em>the burden should run uphill.</em>
+  stewardship at all. Stated as a slogan: _the burden should run uphill._
   Stewardship requires discretionary craft judgment with unpenalized override
   authority; treating a human operator without real override power as a
   liability sponge to absorb automated errors is counterfeit buffering. The
@@ -194,27 +248,25 @@ Each axiom follows from refusing that extraction:
   burden of proof ran downhill, onto recipients, for three years. An institution
   that simplifies reality for its own operational advantage presumptively bears
   the cost when the simplification fails.
-- <strong>Legibility (Axiom 5)</strong> holds because burden that cannot be seen
+- **Legibility (Axiom 5)** holds because burden that cannot be seen
   cannot be governed, and corrective burden is the kind that hides by default.
-  Undocumented residual complexity cannot be held to account.
+  Undocumented residual complexity cannot be held to account. Asking the people
+  carrying the burden to report it repeats the extraction, so the record has to
+  come from the system's own trail of retries, abandonments, and off-hours work.
 
-Together, the five axioms form the <strong>tripartite invariant</strong>:
+Together, the five axioms form the **tripartite invariant**:
 
-<em>non-domination</em> (relational independence from uncontrolled
+_non-domination_ (relational independence from uncontrolled
 architecture),
-<em>burden accounting</em> (tracking the finite biological capacity an
-arrangement consumes), and <em>error-correcting authority</em> (cybernetic
+_burden accounting_ (tracking the finite biological capacity an
+arrangement consumes), and _error-correcting authority_ (cybernetic
 return paths ensuring that authority remains conditional on downstream
 correction).
 
 This bounds the claim as well as grounding it. Authority follows
-demonstrated dependence, so it is proportional rather than unlimited, and it
-needs an instrument: the{" "}
-
-<a href="/evals/burden-concealment">Burden Concealment evals</a> measure how far
-reported performance depends on absorption that is not being counted. It also
-has a failure mode worth naming, because standing that tracks
-<em>current</em> indispensability rewards staying indispensable. Standing should
+demonstrated dependence, so it is proportional rather than unlimited, and the
+evals that test the fourth premise are also how the dependence is
+demonstrated. It also has a failure mode worth naming, because standing that tracks _current_ indispensability rewards staying indispensable. Standing should
 attach to dependence that has been documented, and survive the dependence being
 engineered away — otherwise the doctrine preserves the fragility it exists to
 expose.
@@ -228,9 +280,9 @@ population can leave, the more the institution's own correction capacity is
 the only correction that population has. The institution therefore owes
 more, not less.
 
-<strong>Consent</strong> and <strong>Reversibility</strong> are therefore
+**Consent** and **Reversibility** are therefore
 strongest exactly where they are least likely to be demanded, and the measure
-that scales them is <a href="/glossary/exit-cost">exit cost</a>, taken from the
+that scales them is [exit cost](/glossary/exit-cost), taken from the
 dependent party's side. Neither direction of dependence licenses command; both
 raise what is owed. The theory essays on [dependence without
 standing](/research/theory/dependence-without-standing) and [dependence running
@@ -243,7 +295,8 @@ the axioms above are what they are arguments for.
   id="laws"
   eyebrow="Laws"
   title="How the axioms relate to the laws"
-  description="The axioms are unchanged. The Laws for Engineering Delegated Intelligence state the same commitments as constraints on delegated authority, and each axiom grounds at least one law."
+  description="The Laws for Engineering Delegated Intelligence state the same commitments as constraints on delegated authority, and each axiom grounds at least one law."
+  variant="alt"
 >
   <div class="table-responsive">
     <table class="mapping-table">
@@ -259,9 +312,9 @@ the axioms above are what they are arguments for.
           <th scope="row">Finitude</th>
           <td>V and XI</td>
           <td>
-            Attention that is treated as unbounded is dependence that has not
+            Capacity that is treated as unbounded is dependence that has not
             been counted, and success that expands scope without review spends
-            attention the institution never budgeted.
+            capacity the institution never budgeted.
           </td>
         </tr>
         <tr>
