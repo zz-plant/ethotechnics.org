@@ -165,13 +165,13 @@ const initializePatternFilter = (root: HTMLElement) => {
       return;
     }
 
-    printWindow.document.title = "Mechanism Bundle";
+    printWindow.document.title = "Mechanism bundle";
 
     let html = `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Mechanism Bundle</title>
+  <title>Mechanism bundle</title>
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -246,7 +246,7 @@ const initializePatternFilter = (root: HTMLElement) => {
   </style>
 </head>
 <body>
-  <h1>Mechanism Bundle</h1>
+  <h1>Mechanism bundle</h1>
   <div class="meta">Generated from ethotechnics.org/mechanisms on ${new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</div>
 `;
 
@@ -761,7 +761,7 @@ const initializePatternFilter = (root: HTMLElement) => {
       if (entry.diagnostics.length) {
         bodyHtml += `
         <div class="drawer-section">
-          <h4>Validators &amp; Diagnostics</h4>
+          <h4>Validators &amp; diagnostics</h4>
           <ul class="panel__list">
             ${entry.diagnostics.map((diag) => `<li><a href="/diagnostics#${diag}">${diagnosticTitles[diag] ?? diag}</a></li>`).join("")}
           </ul>

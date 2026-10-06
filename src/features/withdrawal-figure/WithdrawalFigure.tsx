@@ -115,7 +115,7 @@ export function WithdrawalFigure() {
             "expertise_retained.last_exercised",
             0,
             24,
-            (v) => `${v} months ago`,
+            (v) => `${v} month${v === 1 ? "" : "s"} ago`,
           )}
           {range(
             "correctionLatencyHours",

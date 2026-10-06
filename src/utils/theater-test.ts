@@ -73,7 +73,7 @@ export const TILES: Tile[] = [
     id: "error-rate",
     title: "Error rate",
     reading: "1.8%",
-    detail: "down 0.3 points on last month",
+    detail: "down 0.3 points from last month",
     kind: "metric",
   },
   {

@@ -68,7 +68,7 @@ const BAND_COPY: Record<ExposureBand, { label: string; reading: string }> = {
   contained: {
     label: "Contained",
     reading:
-      "Withdrawal is expensive but the cost is the kind of thing a team can absorb in a planned window.",
+      "Withdrawal is expensive, but the cost is the kind of thing a team can absorb in a planned window.",
   },
   material: {
     label: "Material",
@@ -455,7 +455,7 @@ export const assessReversibility = (
       input.canStop === "tested"
         ? "The stop has been exercised on the version now running."
         : input.canStop === "untested"
-          ? "A stop exists but no test proves it works on this version, so it is recorded as not evidenced."
+          ? "A stop exists, but no test proves it works on this version, so it is recorded as not evidenced."
           : "No stop exists for this workflow.",
   };
 
@@ -684,7 +684,7 @@ const buildFindings = (
       id: "practical-ability",
       variable: "correction",
       title:
-        "Correction capacity rests on a stop the institution may not afford",
+        "Correction capacity rests on a stop the institution may not be able to afford",
       detail:
         "A correction the institution cannot afford to make is not counted as capacity. Show from the dependency record that the institution can actually afford to make it.",
       clause: CLAUSE_REFS.practicalAbility,

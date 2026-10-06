@@ -198,7 +198,7 @@ export function DelegationAudit() {
                 type="text"
                 value={input.workflow}
                 onChange={(event) => update("workflow", event.target.value)}
-                placeholder="e.g. Refund decisions in the support queue"
+                placeholder="e.g., Refund decisions in the support queue"
               />
             </div>
           </div>
@@ -266,7 +266,7 @@ export function DelegationAudit() {
                     onChange={(event) =>
                       updateActionClass(entry.id, "name", event.target.value)
                     }
-                    placeholder="e.g. Approve a refund up to 200"
+                    placeholder="e.g., Approve a refund up to 200"
                   />
                 </div>
                 <div className="delegation-audit__row">
@@ -335,7 +335,7 @@ export function DelegationAudit() {
                           event.target.value,
                         )
                       }
-                      placeholder="e.g. Retail customers in the EU"
+                      placeholder="e.g., Retail customers in the EU"
                     />
                   </div>
                   <div className="delegation-audit__field">
@@ -370,7 +370,7 @@ export function DelegationAudit() {
                     className="delegation-audit__label"
                     htmlFor={`${entry.id}-checked`}
                   >
-                    When was that evidence last checked
+                    When was that evidence last checked?
                   </label>
                   <select
                     id={`${entry.id}-checked`}
@@ -520,7 +520,7 @@ export function DelegationAudit() {
                       onChange={(event) =>
                         updateDependent(entry.id, "name", event.target.value)
                       }
-                      placeholder="e.g. Tier 1 support queue"
+                      placeholder="e.g., Tier 1 support queue"
                     />
                   </div>
                   <div className="delegation-audit__field">
@@ -610,7 +610,7 @@ export function DelegationAudit() {
                   className="delegation-audit__label"
                   htmlFor="da-alternative"
                 >
-                  When was the alternative last run
+                  When was the alternative last run?
                 </label>
                 <select
                   id="da-alternative"
