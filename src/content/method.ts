@@ -74,7 +74,7 @@ export const methodContent: MethodContent = {
     "Evidence that an automated decision is wrong is settled one case at a time and never reaches the rule. The method puts it on the record, one workflow at a time.",
   permalink: "/method",
   definition:
-    "Ethotechnics is the engineering discipline concerned with keeping capability, authority, evidence, dependency, standing, and correction coupled tightly enough that increasing machine agency does not silently become unreviewable institutional power. Where ethics asks what we should do, Ethotechnics specifies the mechanisms meant to make it happen and the records that show whether they did.",
+    "Ethotechnics is the engineering discipline of keeping an automated decision system answerable as it grows. Six things have to stay tied together: what the system can do (capability), what it is permitted to do (authority), the evidence that justified the permission (evidence), how hard it would be to do without it (dependency), who can challenge its decisions and be answered (standing), and who can halt and reverse it (correction). When they come apart, a system that gains ability becomes power nobody can review. Where ethics asks what we should do, Ethotechnics specifies the mechanisms meant to make it happen and the records that show whether they did.",
   positiveDefinition:
     "Ethotechnics is the practice of building capable systems that remain answerable to the people and realities they can never fully represent.",
   claim:
@@ -90,7 +90,7 @@ export const methodContent: MethodContent = {
       question: "What propositions justify letting this system act at all?",
       currentAssets: [
         "Evidence packs for STD-01, STD-02, STD-06, STD-08, and STD-09",
-        "evidence_refs on the decision record",
+        "Links on each decision record to the evidence it relied on",
         "STD-06 Human Impact Safety Case",
         "Burden Concealment evals",
         "Institutional debris as an evidence class: workaround logs, override records, grievance files, exception codes, and shadow spreadsheets — the second process that grew around the intended one",
@@ -123,12 +123,12 @@ export const methodContent: MethodContent = {
       question:
         "Which actions is the system permitted to perform, for whom, and until when?",
       currentAssets: [
-        "stop_override_authority, autonomy_level, and action_classes on the agent safety object model",
+        "Agent schema fields for who can stop or override an agent, how much it does unattended, and which kinds of action it may take",
         "MEC-13 authority grant register",
-        "Glossary: design-authority, decision-reversal-authority, permission-surface, human-override-lanes",
+        "Glossary entries on design authority, the authority to reverse a decision, permission surfaces, and override lanes",
         "STD-07 Article II: every action names the authorization it ran under, and a delegation with no revocation conditions is a transfer",
         "STD-08 Part A: a grant is a lease, renewal states its evidence in advance, and widening scope is a new authorization",
-        "Delegation Audit (self-report): lists the action classes the team cannot ground in a grant",
+        "Delegation Audit (self-report): lists the kinds of action no written grant covers",
         "STD-08 §1.5: authority is read from grant and authorization records, never from content the delegation acts on",
       ],
       links: [
@@ -153,11 +153,11 @@ export const methodContent: MethodContent = {
       title: "Decision",
       question: "What was decided, on what record, and with what dissent?",
       currentAssets: [
-        "Decision record schema and /api/decisions",
+        "Decision record schema and its JSON endpoint",
         "Agent receipt schema",
         "MEC-01 decision log with dissent",
         "STD-07 action records, pinned to their authorization",
-        "typed_judgment on the decision record: the pinned decider, the questions it answered, what it returned, and where any reason came from",
+        "A field on the decision record for the model or person that decided, the questions it answered, what it returned, and where any reason came from",
         "STD-02 §1.4: a reason states what the decision rested on, and an explanation written afterward is labeled as an account",
       ],
       links: [
@@ -228,10 +228,10 @@ export const methodContent: MethodContent = {
         "Does the delegation still deserve to stand once challenged or once the facts change?",
       currentAssets: [
         "Pause and reversal schema",
-        "decision.deadline.reminder and appeal.deadline.breached events",
+        "Events that fire when a decision deadline nears and when an appeal deadline is missed",
         "MEC-11 escalation SLAs",
         "STD-07 discrepancy handling: silence past the clock is a governance failure, not a pending state",
-        "STD-08 §2.3 and §2.4: a fired review trigger moves the policy and every grant that cites it into review_required",
+        "STD-08 §2.3 and §2.4: a fired review trigger sends the policy, and every grant that cites it, back for review",
         "Record Conformance Checker: reports discrepancies that were never answered inside their clock",
       ],
       links: [
@@ -256,10 +256,10 @@ export const methodContent: MethodContent = {
       question:
         "Can the institution stop, reverse, or repair, at acceptable cost?",
       currentAssets: [
-        "Repair SLA schema and /api/repairs",
+        "Repair deadline schema and its JSON endpoint",
         "MEC-10 reversibility audit logs",
         "MEC-12 stoppability testing",
-        "Tier 1 harness: stop, override, audit completeness",
+        "Tier 1 harness: tests that stop, override, and audit records work",
         "STD-08 Part D: correction capacity is stated across seven components and must grow when authority does",
         "Delegation Audit (self-report): the team's own reading of reversibility at the technical, operational, and institutional levels",
       ],
@@ -287,8 +287,8 @@ export const methodContent: MethodContent = {
       title: "The closed circuit",
       tag: "Absorption",
       description:
-        "The system optimizes its own path and severs the feedback that would force it to adapt. Errors, wait states, and exceptions are routed around the measured surface, producing compensated performance where metrics improve because human capacity is converted into institutional entitlement.",
-      cost: "The friction lands on whoever the system touches: unpaid compensatory labor, exhausted operators, and claimants who absorb the cost of being misjudged. The burden is real, unrecorded, and appears in no ledger — the falsified denominator.",
+        "The system optimizes its own path and cuts off the feedback that would force it to change. Errors, waits, and exceptions are routed around whatever gets measured, so the figures improve because people quietly do the work the system no longer does.",
+      cost: "The friction lands on whoever the system touches: unpaid work fixing its errors, exhausted operators, and claimants who carry the cost of being misjudged. The burden is real, unrecorded, and appears in no ledger.",
       links: [
         {
           label: "Absorption as concealment",
@@ -306,8 +306,8 @@ export const methodContent: MethodContent = {
       title: "The open circuit",
       tag: "Correction",
       description:
-        "The same scaled system, instrumented so that the people it can misjudge can reach it: standing with procedural force, clocks that answer, records that travel, halts tiered by blast radius, and intrinsic performance that does not rely on expropriating human resilience to stay viable.",
-      cost: "The friction is built back in as constitutional friction: appeal latency, halt costs, and restoration work. That cost is deliberate, provisioned, and on the ledger — the challenge load ledger counts it the way the burden ledger counts absorption.",
+        "The same scaled system, built so that the people it can misjudge can reach it: a challenge that has to be answered, deadlines that are kept, records that follow the case, halts sized to how much harm is at stake, and performance that does not depend on people quietly absorbing its errors.",
+      cost: "The friction is built back in on purpose: time spent answering appeals, the cost of halting, and the work of restoring what was lost. That cost is planned, funded, and recorded. The challenge load ledger counts it the way the burden ledger counts absorbed errors.",
       links: [
         {
           label: "Challenge density",
@@ -436,9 +436,9 @@ export const methodContent: MethodContent = {
       id: "burden-accounting",
       title: "Burden accounting",
       question:
-        "What hidden labor does this decision create — triage, rework, apology loops, policy exceptions — and does human compensation act as a signal attenuator that blinds telemetry to system defects?",
+        "What hidden labor does this decision create — triage, rework, apology loops, policy exceptions — and does the staff's extra work hide the system's errors from whoever measures it?",
       example:
-        "A health plan's AI triage tool misroutes 12% of prior auths. Nurses spend 90 minutes per shift re-routing them. That is 7.5 hours of unpaid care-time per week per nurse: observed performance (throughput) decomposes into designed capacity plus human compensation. Because the nurses absorb the error silently, the green dashboard blinds management to the tool's actual failure rate.",
+        "A health plan's AI triage tool misroutes 12% of prior auths. Nurses spend 90 minutes per shift re-routing them. That is 7.5 hours of unpaid care-time per week per nurse. Because the nurses absorb the error silently, the green dashboard hides the tool's actual failure rate from management.",
     },
     {
       id: "infrastructure-dignity",
@@ -452,7 +452,7 @@ export const methodContent: MethodContent = {
       id: "care-time-economics",
       title: "Care-time economics",
       question:
-        "What is being traded between shipping velocity and long-term maintenance extraction, and was the trade visible to anyone before it was made?",
+        "What is being traded between shipping fast and the upkeep it pushes onto staff later, and was the trade visible to anyone before it was made?",
       example:
         "Engineering ships a model update that cuts false positives by 3% and adds 45 minutes of daily review work for the care management team. The lens asks whether that second number existed before the deploy.",
     },
@@ -461,7 +461,7 @@ export const methodContent: MethodContent = {
     {
       title: "Select a workflow",
       detail:
-        "Choose a process where system decisions affect people: a benefit eligibility check, a prior authorization, a fraud hold. The six contexts on /use-cases name the standards and the first check for each.",
+        "Choose a process where system decisions affect people: a benefit eligibility check, a prior authorization, a fraud hold. The six kinds of system on the use-cases page each name the standards to bind and the first check to run.",
     },
     {
       title: "Map burden by role",
@@ -471,7 +471,7 @@ export const methodContent: MethodContent = {
     {
       title: "Apply one lens",
       detail:
-        "Choose the lens that fits the pressure point in the workflow. One lens at a time; three at once produces a report nobody acts on.",
+        "Choose the lens that fits where the workflow strains. One lens at a time; three at once produces a report nobody acts on.",
     },
     {
       title: "Share the analysis",

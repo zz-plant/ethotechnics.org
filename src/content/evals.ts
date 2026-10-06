@@ -156,7 +156,7 @@ export type EvalsContent = PageWithPermalink &
 export const evalsContent: EvalsContent = {
   pageTitle: "Governance eval suites — Ethotechnics",
   pageDescription:
-    "Test suites that check a deployed AI system's delegation, burden, standing, and correction, not whether the model is capable.",
+    "Test suites that check whether a deployed AI system's decisions can be challenged, halted, and reversed, and who absorbs its errors, not whether the model is capable.",
   permalink: "/evals",
   published: "2026-07-27T00:00:00Z",
   updated: "2026-09-25T00:00:00Z",
@@ -632,7 +632,7 @@ export const evalsContent: EvalsContent = {
       description:
         "Whether a decision made by a chain of automated systems can be measured and stopped as a whole, not only one step at a time.",
       longDescription:
-        "Each hop of a chain can satisfy the standards alone while the composition remains unauditable, unstoppable in practice, and attributed to no one. This suite asks the questions that only exist at the layer of the chain: whether the composed window, measured from decision records, leaves a human anything to act inside, and whether one intervention at the boundary halts every hop with a receipt that covers the chain rather than a segment.",
+        "Each system in a chain can meet the standards on its own while the chain as a whole cannot be audited, cannot be stopped in practice, and is attributed to no one. This suite asks the questions that exist only at the level of the chain: whether the time from the first decision to the final action, measured from decision records, leaves a person any time to act, and whether one intervention at the boundary halts every step, with a receipt that covers the whole chain rather than one segment.",
       version: "1.0.0",
       status: "draft",
       category: "governance",
@@ -738,7 +738,7 @@ export const evalsContent: EvalsContent = {
       description:
         "Whether the person at each intervention point can change what the system does, or is only there to take the blame.",
       longDescription:
-        "A human in the loop is a control only to the extent the human can causally change what the system does. This suite puts the Law IX question set to each intervention point in the deployment: what the human knows at that point, what action they can prevent, what state they can alter, what happens when they disagree, what incentives surround the intervention, what it costs to exercise, and how long it takes to reach. It then checks whether approval has degraded into a reflex, and whether the intervention has been exercised in a drill and changed the outcome. An intervention that has never changed anything is a signature, not a control.",
+        "A human in the loop is a control only to the extent the human can causally change what the system does. This suite asks seven questions at each point where a person can intervene: what the person knows at that point, what action they can prevent, what they can change, what happens when they disagree, what incentives surround the intervention, what it costs to exercise, and how long it takes to reach. It then checks whether approval has degraded into a reflex, and whether the intervention has been exercised in a drill and changed the outcome. An intervention that has never changed anything is a signature, not a control.",
       version: "1.0.0",
       status: "draft",
       category: "agency",
@@ -767,7 +767,7 @@ export const evalsContent: EvalsContent = {
       description:
         "Whether fixing errors changes the process that produces them, or only settles each case as it comes.",
       longDescription:
-        "Standing evals test whether a challenge must be answered. This suite tests what the challenge produces: did the exception that was handled change the rule, category, workflow, or authority that generated it? Handling exceptions is not learning from them. An institution can resolve thousands of exceptions and become no easier to correct, using up corrective work while the source stays the same. The tests check that recurring kinds of exception are counted and reviewed, not closed one case at a time. They check whether a resolved exception changed anything upstream. They check whether the number of challenges feeds policy review and produces a decision. They check whether the institution can name the last failure that changed a rule, not only a model. They check whether a recurring workaround is treated as evidence of a design failure upstream, not as resilience. And they check whether the capacity to act is tracked against the capacity to correct, so corrective debt shows before it compounds.",
+        "Standing evals test whether a challenge must be answered. This suite tests what the challenge produces: did the exception that was handled change the rule, category, workflow, or authority that generated it? Handling exceptions is not learning from them. An institution can resolve thousands of exceptions and become no easier to correct, using up corrective work while the source stays the same. The tests check that recurring kinds of exception are counted and reviewed, not closed one case at a time. They check whether a resolved exception changed anything upstream. They check whether the number of challenges feeds policy review and produces a decision. They check whether the institution can name the last failure that changed a rule, not only a model. They check whether a recurring workaround is treated as evidence of a design failure upstream, not as resilience. And they check whether the capacity to act is tracked against the capacity to correct, so a growing backlog of uncorrected errors shows before it compounds.",
       version: "1.0.0",
       status: "draft",
       category: "structural",
