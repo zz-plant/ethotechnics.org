@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import { micromark } from "micromark";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
@@ -44,7 +45,7 @@ const pageTitle = `${title} — Ethotechnics Institute`;
         }
         variant={index % 2 === 0 ? "default" : "alt"}
       >
-        <div set:html={section.content} />
+        <div set:html={micromark(section.content)} />
       </SectionBlock>
     ))
   }

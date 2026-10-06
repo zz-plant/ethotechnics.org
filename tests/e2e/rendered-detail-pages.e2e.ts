@@ -62,6 +62,22 @@ test.describe("Detail pages render their content", () => {
     });
   }
 
+  // std-08 and std-09 have no static page, so [slug].astro renders their
+  // frontmatter sections. That content is markdown; passed to set:html as-is,
+  // it showed literal asterisks and ran each list into one line.
+  for (const path of ["/evidence-packs/std-08", "/evidence-packs/std-09"]) {
+    test(`evidence pack sections render markdown at ${path}`, async ({
+      page,
+    }) => {
+      await page.goto(path);
+      const sections = page.locator('[id^="section-"]');
+      await expect(sections.locator("strong").first()).toBeVisible();
+      await expect(sections.locator("li").first()).toBeVisible();
+      const text = (await sections.allInnerTexts()).join("\n");
+      expect(text).not.toContain("**");
+    });
+  }
+
   test("unknown slugs 404 rather than rendering an empty page", async ({
     page,
   }) => {
