@@ -54,7 +54,13 @@ export type DiagnosticReplicability = {
 export type DiagnosticTool = {
   slug: string;
   title: string;
-  /** Measurement tier the tool reports at ("Belief level", "Evidence level"). */
+  /**
+   * What the tool reads, shown first on its card and in its page eyebrow:
+   * "Scores your answers" (self-report) or "Checks exported records". Kept
+   * clear of "tier" and "level" wording, which /measurement-tiers (Tiers 0-2)
+   * and the STD-07 conformance levels already use. A self-report sits below
+   * Tier 0, which needs the system itself to record the measure.
+   */
   tier?: string;
   description: string;
   /** Shorter page meta description, when `description` runs past ~160 characters. */
@@ -208,7 +214,7 @@ export const diagnosticsContent: DiagnosticsContent = {
     {
       slug: "delegation-audit",
       title: "Delegation Audit",
-      tier: "Belief level",
+      tier: "Scores your answers",
       description:
         "Walks a team through one workflow against six questions and returns an exposure score, the permissions nobody can justify, and whether its decisions can be undone. Start here when the system keeps no decision records yet; use the Record Conformance Checker once it does.",
       metaDescription:
@@ -340,11 +346,11 @@ export const diagnosticsContent: DiagnosticsContent = {
     {
       slug: "record-conformance",
       title: "Record Conformance Checker",
-      tier: "Evidence level",
+      tier: "Checks exported records",
       description:
-        "Reads a system's STD-07 decision records, checks them against the schema, recomputes the hashes, and compares the conformance level the records earn with the level the system claims. Use it when a system already produces records; use the Delegation Audit when it does not.",
+        "Reads the decision records a system exports in STD-07, the Institute's draft record format for work delegated to machines. It checks them against the schema, recomputes the hashes, and compares the conformance level the records earn with the level the system claims. Use it when a system already produces records; use the Delegation Audit when it does not.",
       metaDescription:
-        "Checks a system's STD-07 decision records against the schema, recomputes their hashes, and compares the conformance level they earn with the level it claims.",
+        "Checks a system's decision records against the STD-07 record schema, recomputes their hashes, and compares the level they earn with the level it claims.",
       methodCards: {
         measures: [
           "Whether every record validates against the published STD-07 schema.",
@@ -470,7 +476,7 @@ export const diagnosticsContent: DiagnosticsContent = {
     {
       slug: "burden-modeler",
       title: "Workload Modeler",
-      tier: "Belief level",
+      tier: "Scores your answers",
       description:
         "Rate seven sources of workload, such as interruptions, handoffs, and incidents. Get a burden score out of 100 and the three places where reducing load would help most.",
       methodCards: {
@@ -586,7 +592,7 @@ export const diagnosticsContent: DiagnosticsContent = {
     {
       slug: "corrective-debt-calculator",
       title: "Corrective capacity self-assessment",
-      tier: "Belief level",
+      tier: "Scores your answers",
       description:
         "Scores five self-reported answers: how fast the system's reach grew, how challenges are received, how fast decisions are reversed, whether exceptions change the rules, and whether staff workarounds are tracked. The score is a starting point for discussion, not a measurement of the institution's ability to correct itself.",
       metaDescription:
@@ -623,7 +629,7 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Display the reported growth band alongside the concern score.",
         ],
         outputs: [
-          "Heuristic concern score and tier.",
+          "Heuristic concern score and band.",
           "The five answers used to derive the score.",
           "Reported action-capacity growth: compounding, steady, or flat.",
         ],
@@ -647,7 +653,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         ],
         scoringLogic: [
           "Each component contributes its band weight; the total normalizes to 0–100.",
-          "Tiers: critical, high, moderate, low.",
+          "Concern bands: critical, high, moderate, low.",
           "The score does not estimate how much extra work staff take on to cover for the system, financial cost, or a future trajectory.",
           "The two context questions never change the score. They add a readout line that says whether the answers describe an institution that lacks information or one that holds sole authority and has chosen to keep the arrangement.",
         ],
@@ -684,11 +690,11 @@ export const diagnosticsContent: DiagnosticsContent = {
         runSteps: [
           "Collect the growth band and the four corrective-capacity bands.",
           "State challenge volume and correction staffing for the same period.",
-          "Record the selected answers and concern tier, with the evidence needed to check them.",
+          "Record the selected answers and concern band, with the evidence needed to check them.",
           "Re-run after a scope expansion and compare answers.",
         ],
         exampleOutputs: [
-          "Self-assessment with a concern tier and reported growth band.",
+          "Self-assessment with a concern band and reported growth band.",
           "An explicit limit: it does not measure how much of the system's failure staff cover for.",
         ],
       },
@@ -699,7 +705,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         "Pair with the exception-learning eval to trace whether any challenge changed an upstream rule.",
       ],
       outputs: [
-        "Heuristic concern tier from self-reported answers.",
+        "Heuristic concern band from self-reported answers.",
         "Reported growth band and workaround-register status.",
         "Shareable link for the expansion review.",
       ],
