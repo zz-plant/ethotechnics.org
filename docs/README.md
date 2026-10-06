@@ -10,6 +10,8 @@ Use this map before adding or editing docs so guidance stays easy to find and ma
 - [`local-development.md`](local-development.md): setup, scripts, and troubleshooting.
 - [`manual-qa.md`](manual-qa.md): manual browser checks for visual and interaction changes.
 - [`deployment.md`](deployment.md): deploy flow and post-deploy verification.
+- [`presence-automation.md`](presence-automation.md): the objection, record, watch, and release
+  workflows, how to answer an objection, and the owner's one-time setup.
 - [`../CHANGELOG.md`](../CHANGELOG.md): dated version history and release notes.
 
 ### Agent contributors

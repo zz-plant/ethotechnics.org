@@ -1,0 +1,94 @@
+name: Presence data
+
+# Weekly: rebuilds src/content/generated/objections.json, which the /record
+# page and each clause register read, from every issue labeled `objection`
+# (scripts/presence/objections-snapshot.ts). When the record changed, it opens
+# a pull request from the branch bot/presence-data, or updates the open one.
+# It never commits to the default branch; the record is published when the
+# pull request is merged.
+#
+# Token: the PRESENCE_BOT_TOKEN secret if it is set (a fine-grained token on
+# this repository with Contents and Pull requests read and write), otherwise
+# GITHUB_TOKEN. A pull request opened or pushed with GITHUB_TOKEN does not
+# trigger other workflows, so Site checks will not run on it by itself: close
+# and reopen the pull request, push a commit to the branch, or set
+# PRESENCE_BOT_TOKEN. GITHUB_TOKEN can open pull requests only when Settings >
+# Actions > General > Workflow permissions allows GitHub Actions to create
+# pull requests.
+
+on:
+  schedule:
+    - cron: "41 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: read
+
+concurrency:
+  group: presence-data
+  cancel-in-progress: false
+
+jobs:
+  objections:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      BRANCH: bot/presence-data
+      FILE: src/content/generated/objections.json
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PRESENCE_BOT_TOKEN || github.token }}
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: package.json
+
+      # Compare against the copy already proposed, if there is one, so a week
+      # with nothing new does not push the same record again.
+      - name: Read the record already proposed
+        run: |
+          if git fetch --no-tags --depth=1 origin "$BRANCH"; then
+            git show "FETCH_HEAD:$FILE" > "$RUNNER_TEMP/previous.json" || true
+          fi
+
+      # The script imports only repository files, so no install step.
+      - name: Rebuild the objection record
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          if [ -s "$RUNNER_TEMP/previous.json" ]; then
+            bun run scripts/presence/objections-snapshot.ts --previous "$RUNNER_TEMP/previous.json"
+          else
+            bun run scripts/presence/objections-snapshot.ts
+          fi
+
+      - name: Open or update the pull request
+        env:
+          GH_TOKEN: ${{ secrets.PRESENCE_BOT_TOKEN || github.token }}
+          BASE: ${{ github.event.repository.default_branch }}
+        run: |
+          if git diff --quiet -- "$FILE"; then
+            echo "The record matches the default branch. No pull request."
+            exit 0
+          fi
+          if [ -s "$RUNNER_TEMP/previous.json" ] && cmp -s "$FILE" "$RUNNER_TEMP/previous.json"; then
+            echo "This record is already on $BRANCH. Nothing to push."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$BRANCH"
+          git add "$FILE"
+          git commit -m "Update the objection record"
+          git push --force origin "$BRANCH"
+          open_pr=$(gh pr list --head "$BRANCH" --base "$BASE" --state open --json number --jq '.[0].number // empty')
+          if [ -n "$open_pr" ]; then
+            echo "Updated pull request #$open_pr."
+          else
+            gh pr create --base "$BASE" --head "$BRANCH" \
+              --title "Update the objection record" \
+              --body "Rebuilt from the issues labeled \`objection\` by .github/workflows/presence-data.yml. Merging it publishes the record on /record and the counts in each clause register. If checks have not run, close and reopen this pull request."
+          fi
