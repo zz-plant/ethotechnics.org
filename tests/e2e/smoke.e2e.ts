@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { navPrimaryLinks, navSections } from "../../src/content/navigation";
 import { diagnosticsContent } from "../../src/content/diagnostics";
+import { libraryContent } from "../../src/content/library";
 
 // Mirrors the hand-authored hero in src/pages/index.astro. A smoke test should
 // pin the headline: if the front door loses its copy, that is a regression.
@@ -11,6 +12,9 @@ const PRIMARY_NAV_LINKS = navPrimaryLinks.map((link) => link.label);
 const PRIMARY_NAV_TARGET = navPrimaryLinks[0];
 const BURDEN_TOOL = diagnosticsContent.tools.find(
   (tool) => tool.slug === "burden-modeler",
+);
+const MECHANISM_WITH_DIAGNOSTICS = libraryContent.patterns.entries.find(
+  (pattern) => pattern.diagnostics.length > 0,
 );
 
 if (!PRIMARY_NAV_TARGET) {
@@ -178,5 +182,28 @@ test.describe("Mechanisms library", () => {
     await expect(
       page.getByRole("button", { name: "Copy diagnostic links" }).first(),
     ).toBeVisible();
+  });
+
+  test("copies diagnostic links that resolve from a mechanism page", async ({
+    page,
+    request,
+  }) => {
+    if (!MECHANISM_WITH_DIAGNOSTICS) {
+      throw new Error("No mechanism lists a diagnostic; check library.json.");
+    }
+    await page.goto(`/mechanisms/patterns/${MECHANISM_WITH_DIAGNOSTICS.slug}`);
+
+    // These links pointed at /validators/<slug>, which 404s for every tool
+    // except burden-modeler. The tools live under /diagnostics.
+    const targets = await page
+      .locator("#diagnostics [data-copy-link]")
+      .evaluateAll((buttons) =>
+        buttons.map((button) => button.getAttribute("data-copy-link") ?? ""),
+      );
+    expect(targets.length).toBeGreaterThan(0);
+    for (const target of targets) {
+      const response = await request.get(target);
+      expect(response.status(), `${target} should resolve`).toBe(200);
+    }
   });
 });
