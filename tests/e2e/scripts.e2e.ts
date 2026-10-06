@@ -5,20 +5,18 @@ import { buildPatternSearchText } from "../../src/utils/pattern-search";
 
 // Expected counts come from the same data and search index the page renders,
 // so adding a mechanism does not silently break this test.
-const frictionMechanisms = libraryContent.patterns.entries.filter((pattern) =>
-  pattern.filters.includes("friction"),
+const correctionMechanisms = libraryContent.patterns.entries.filter((pattern) =>
+  pattern.filters.includes("correction"),
 );
-const frictionAppealMechanisms = frictionMechanisms.filter((pattern) =>
+const correctionAppealMechanisms = correctionMechanisms.filter((pattern) =>
   buildPatternSearchText(pattern).includes("appeal"),
 );
 const countLabel = (count: number) =>
   `${count} ${count === 1 ? "mechanism" : "mechanisms"}`;
 
 test.describe("Production scripts", () => {
-  test("keeps the mechanism filter and bundle controls working", async ({
-    page,
-  }) => {
-    await page.goto("/library#patterns");
+  test("keeps the mechanism filter working", async ({ page }) => {
+    await page.goto("/mechanisms");
     await page.waitForSelector("[data-pattern-filter]");
 
     const filterStatus = page.locator("[data-filter-status]");
@@ -26,51 +24,34 @@ test.describe("Production scripts", () => {
     // the status line switches to a live count when the script takes over.
     await page.locator("[data-pattern-filter]").scrollIntoViewIfNeeded();
     await expect(filterStatus).toContainText(
-      /mechanisms visible with All themes\./,
+      /mechanisms visible with All safeguards\./,
     );
 
-    const friction = page.getByRole("button", {
-      name: "Filter mechanisms by Friction and update visible results",
+    const correction = page.getByRole("button", {
+      name: "Filter mechanisms by Correction and update visible results",
     });
-    // MEC-01 is Governance + Policy, MEC-06 is Friction + Governance,
-    // MEC-02 is Friction + Policy.
+    // MEC-01 is Authority + Evidence, MEC-06 is Standing + Correction,
+    // MEC-02 is Standing + Dependency.
     const decisionLog = page.locator("#decision-log");
     const appealPaths = page.locator("#appeal-paths");
     const progressiveConsent = page.locator("#progressive-consent");
 
-    await friction.click();
-    await expect(friction).toHaveAttribute("aria-pressed", "true");
+    await correction.click();
+    await expect(correction).toHaveAttribute("aria-pressed", "true");
     await expect(filterStatus).toContainText(
-      `${countLabel(frictionMechanisms.length)} visible with Friction.`,
+      `${countLabel(correctionMechanisms.length)} visible with Correction.`,
     );
     await expect(appealPaths).toBeVisible();
     await expect(decisionLog).toBeHidden();
+    await expect(progressiveConsent).toBeHidden();
 
     await page
       .getByLabel("Search mechanisms by name or keyword")
       .fill("appeal");
     await expect(filterStatus).toContainText(
-      `${countLabel(frictionAppealMechanisms.length)} visible with Friction and search for "appeal".`,
+      `${countLabel(correctionAppealMechanisms.length)} visible with Correction and search for "appeal".`,
     );
     await expect(appealPaths).toBeVisible();
-    await expect(progressiveConsent).toBeHidden();
-
-    const bundleStatus = page.locator("[data-selection-status]");
-    await expect(bundleStatus).toContainText("No mechanisms selected yet.");
-
-    await page
-      .getByLabel("Save MEC-06 Appeal paths inside the UI to your bundle")
-      .check();
-
-    await expect(bundleStatus).toContainText(
-      "1 mechanism saved for your bundle.",
-    );
-    await expect(
-      page.getByRole("button", { name: "Download markdown" }),
-    ).toHaveAttribute("aria-disabled", "false");
-    await expect(
-      page.getByRole("button", { name: "Copy bundle link" }),
-    ).toHaveAttribute("aria-disabled", "false");
   });
 
   test("filters glossary entries and restores the full index", async ({

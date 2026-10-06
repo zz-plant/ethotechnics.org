@@ -9,7 +9,6 @@ import CitationBlock from "../../components/CitationBlock.astro";
 import PatternFilter from "../../components/PatternFilter.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
-import { diagnosticsContent } from "../../content/diagnostics";
 import { glossaryEntryPermalink } from "../../utils/glossary";
 
 const libraryEntry = (await getEntry("library", "library"))!;
@@ -17,17 +16,10 @@ const {
   pageTitle,
   pageDescription,
   permalink,
-  primer,
   patterns,
-  syllabus,
-  quickStart,
   recommended,
-  rolePathways,
   publication,
 } = libraryEntry.data;
-const diagnosticTitles = Object.fromEntries(
-  diagnosticsContent.tools.map((tool) => [tool.slug, tool.title]),
-);
 const glossaryEntry = (await getEntry("glossary", "glossary"))!;
 const glossaryContent = glossaryEntry.data;
 const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
@@ -67,16 +59,14 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     description={pageDescription}
     anchorLinks={[
       { href: "#mechanisms", label: "Mechanism catalog" },
-      { href: "#start-here", label: "From question to mechanism" },
-      { href: "#syllabus", label: "Syllabus" },
+      { href: "#start-here", label: "Three to read first" },
       { href: "#references", label: "References" },
     ]}
   />
   <SectionBlock id="mechanisms" title="Mechanism catalog">
     <p class="mechanisms__links">
       <span>New to mechanisms?</span>
-      <a href="#primer">Read the primer</a>
-      <a href="#role-pathways">Guides by role</a>
+      <a href="#start-here">Read three first</a>
       <a href="/standards/std-01-rights-matrix">Rights matrix</a>
       <a href="/validators">Validators</a>
     </p>
@@ -87,136 +77,30 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         ))
       }
     </div>
-    <PatternFilter
-      filters={patterns.filters}
-      entries={patterns.entries}
-      diagnosticTitles={diagnosticTitles}
-    />
-  </SectionBlock>
-
-  <SectionBlock
-    id="primer"
-    eyebrow="Primer"
-    title="What the mechanisms are for"
-    description="Short overviews for onboarding and briefings."
-    variant="alt"
-  >
-    <CardGrid>
-      {
-        primer.map((entry) => (
-          <CardItem
-            title={entry.title}
-            description={entry.summary}
-            tags={entry.takeaways}
-          />
-        ))
-      }
-    </CardGrid>
+    <PatternFilter filters={patterns.filters} entries={patterns.entries} />
   </SectionBlock>
 
   <SectionBlock
     id="start-here"
     eyebrow="Start here"
-    title="From question to mechanism"
-    description="Find a mechanism, read the primer, then check each one against the rights it protects and the validators that test it."
-  >
-    <ol class="card__list">
-      <li>
-        <strong>Find one:</strong>{" "}
-        <a href="#mechanisms">search the catalog</a> for the safeguard you need.
-      </li>
-      <li>
-        <strong>Learn the terms:</strong>{" "}
-        read the <a href="#role-pathways">role pathways</a> and the{" "}
-        <a href="#primer">primer</a>.
-      </li>
-      <li>
-        <strong>Make it testable:</strong>{" "}
-        connect each one to the <a href="/standards/std-01-rights-matrix"
-          >rights matrix</a
-        >{" "}
-        and <a href="/validators">validators</a>.
-      </li>
-    </ol>
-    <CardGrid className="grid--two">
-      <CardItem
-        title="First four steps"
-        description="From a first read to a mechanism you can cite."
-      >
-        <ul class="muted">
-          {quickStart.map((item) => <li>{item}</li>)}
-        </ul>
-      </CardItem>
-      <CardItem title={recommended.title} description={recommended.description}>
-        <ul class="library__recommended-list">
-          {
-            recommended.items.map((item) => (
-              <li>
-                <a href={item.href}>{item.title}</a>
-                <p class="muted small">{item.description}</p>
-              </li>
-            ))
-          }
-        </ul>
-      </CardItem>
-    </CardGrid>
-  </SectionBlock>
-  <SectionBlock
-    id="role-pathways"
-    eyebrow="Role-based pathways"
-    title={rolePathways.title}
-    description={rolePathways.description}
+    title="Three to read first"
+    description={recommended.description}
     variant="alt"
   >
-    <div class="library__role-buttons">
+    <div class="pattern-filter__results">
       {
-        rolePathways.roles.map((role) => (
-          <a class="library__role-chip" href={`#${role.id}`}>
-            {role.label}
-          </a>
+        recommended.items.map((item) => (
+          <article class="card pattern-card">
+            <h3 class="pattern-card__heading">
+              <a class="pattern-card__title" href={item.href}>
+                {item.title}
+              </a>
+            </h3>
+            <p class="pattern-card__summary">{item.description}</p>
+          </article>
         ))
       }
     </div>
-    <div class="library__role-lists">
-      {
-        rolePathways.roles.map((role) => (
-          <div class="library__role-list" id={role.id}>
-            <h3>{role.label}</h3>
-            <p class="muted">{role.summary}</p>
-            <CardGrid>
-              {role.items.map((item) => (
-                <CardItem title={item.title} description={item.description}>
-                  <a slot="footer" class="muted" href={item.href}>
-                    Read
-                  </a>
-                </CardItem>
-              ))}
-            </CardGrid>
-          </div>
-        ))
-      }
-    </div>
-  </SectionBlock>
-
-  <SectionBlock
-    id="syllabus"
-    eyebrow="Syllabus"
-    title="Guided path for teams adopting the mechanisms"
-    description={syllabus.overview}
-  >
-    <CardGrid>
-      {
-        syllabus.modules.map((module) => (
-          <CardItem
-            meta={module.duration}
-            title={module.title}
-            tags={module.topics}
-          >
-            <p class="muted">Outcome: {module.outcome}</p>
-          </CardItem>
-        ))
-      }
-    </CardGrid>
   </SectionBlock>
 
   <SectionBlock
@@ -324,10 +208,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     </div>
     <p class="muted">
       Another view: <a href="/artifacts">governance artifacts</a>.
-    </p>
-    <p class="muted">
-      Search IDs: MEC-01, MEC-03, MEC-05, MEC-06, STD-01.1.1, STD-02.2.1,
-      VAL-01, VAL-02, VAL-03.
     </p>
   </SectionBlock>
 

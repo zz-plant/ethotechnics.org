@@ -1,7 +1,7 @@
 [
   {
     "pageTitle": "Mechanisms — Ethotechnics Institute",
-    "pageDescription": "Numbered specifications, MEC-01 to MEC-23, for answering challenges, sending what they show to the rule, and halting a system while it is fixed.",
+    "pageDescription": "Numbered specifications, MEC-01 to MEC-25, for answering challenges, sending what they show to the rule, and halting a system while it is fixed.",
     "permalink": "/mechanisms",
     "published": "2025-12-03T00:00:00Z",
     "updated": "2026-10-06T00:00:00Z",
@@ -55,7 +55,7 @@
     ],
     "recommended": {
       "title": "Recommended starters",
-      "description": "Three mechanisms to read first: a challenge route, a trigger that sends the rule back for review, and a record of who decided.",
+      "description": "A challenge route, a trigger that sends the rule back for review, and a record of who decided.",
       "items": [
         {
           "title": "MEC-06 Appeal paths inside the UI",
@@ -74,108 +74,6 @@
         }
       ]
     },
-    "rolePathways": {
-      "title": "Role-based pathways",
-      "description": "Reading lists for engineers, product managers, and regulators.",
-      "roles": [
-        {
-          "id": "engineer",
-          "label": "Engineer",
-          "summary": "How to record each grant of authority, keep capability apart from permission, and halt the system while a correction is made.",
-          "items": [
-            {
-              "title": "MEC-17 Capability catalog",
-              "description": "Separate what the system can do from what it is permitted to do.",
-              "href": "/mechanisms/patterns/capability-catalog"
-            },
-            {
-              "title": "MEC-13 Authority grant register",
-              "description": "Grants with issuer, scope, evidence basis, expiry, and state history.",
-              "href": "/mechanisms/patterns/authority-grant-register"
-            },
-            {
-              "title": "MEC-22 Admission gate",
-              "description": "Treat the decision to deploy as an authorization, with evidence and a recorded outcome.",
-              "href": "/mechanisms/patterns/admission-gate"
-            },
-            {
-              "title": "MEC-05 Kill switch for runaway automation",
-              "description": "Who can halt the system, on what trigger, and how restoration is rehearsed.",
-              "href": "/mechanisms/patterns/kill-switch"
-            }
-          ]
-        },
-        {
-          "id": "product-manager",
-          "label": "Product manager",
-          "summary": "Design the challenge route, its deadline, and the owner it reaches into the user journey.",
-          "items": [
-            {
-              "title": "MEC-06 Appeal paths inside the UI",
-              "description": "Put the challenge route inside the product, and count upheld challenges by rule.",
-              "href": "/mechanisms/patterns/appeal-paths"
-            },
-            {
-              "title": "MEC-04 Hard clock",
-              "description": "Give every pending state a maximum duration and an exit.",
-              "href": "/mechanisms/patterns/hard-clock"
-            },
-            {
-              "title": "MEC-02 Progressive consent prompts",
-              "description": "Stage consent requests with clear exits and reversible defaults.",
-              "href": "/mechanisms/patterns/progressive-consent"
-            }
-          ]
-        },
-        {
-          "id": "regulator",
-          "label": "Regulator",
-          "summary": "Focus on who decided, whether upheld challenges reached the rule, and when authority ends.",
-          "items": [
-            {
-              "title": "MEC-01 Decision log with dissent",
-              "description": "Accountability logs with owners, dissent, and review dates.",
-              "href": "/mechanisms/patterns/decision-log"
-            },
-            {
-              "title": "MEC-14 Policy review triggers",
-              "description": "Expiry dates and named triggers that send a policy back to review.",
-              "href": "/mechanisms/patterns/policy-review-triggers"
-            },
-            {
-              "title": "MEC-13 Authority grant register",
-              "description": "Grants with issuer, scope, evidence basis, expiry, and state history.",
-              "href": "/mechanisms/patterns/authority-grant-register"
-            },
-            {
-              "title": "MEC-23 Challenge load ledger",
-              "description": "Challenge volume against response capacity, so congestion forces a decision instead of fewer challenges.",
-              "href": "/mechanisms/patterns/challenge-load-ledger"
-            }
-          ]
-        }
-      ]
-    },
-    "primer": [
-      {
-        "title": "Primer",
-        "summary": "What to read before using the mechanisms.",
-        "takeaways": [
-          "Why a challenge that is upheld but never reaches the rule leaves the system unchanged.",
-          "How to check governance artifacts against what the people using your product go through.",
-          "How each mechanism is written: steps, a policy requirement, a product requirement, audit evidence, and a postmortem trigger."
-        ]
-      },
-      {
-        "title": "Usage guidance",
-        "summary": "How to adapt the mechanisms to your organization.",
-        "takeaways": [
-          "Each section has a permalink to cite in design docs and runbooks.",
-          "Filters sort each mechanism under the six safeguards it serves.",
-          "Glossary definitions do not change, so research, field notes, and diagnostics all link to the same meaning."
-        ]
-      }
-    ],
     "patterns": {
       "filters": [
         {
@@ -1660,42 +1558,6 @@
               "warning": "Criteria fitted to the answer wanted are the gate-as-rubber-stamp failure of the admission gate."
             }
           ]
-        }
-      ]
-    },
-    "syllabus": {
-      "overview": "A guided track for teams adopting the mechanisms. Each module links to glossary anchors and specifications you can cite in docs.",
-      "modules": [
-        {
-          "title": "Orientation",
-          "duration": "60 minutes",
-          "topics": [
-            "Mechanisms tour and how to use permalinks in specs",
-            "Primer on burden, consent, and maintenance",
-            "The design and evaluation essays: ethotechnical design, insulation, and what outcomes hide",
-            "Navigation of governance, design ethics, and policy filters"
-          ],
-          "outcome": "Teams can route questions to the right section and cite glossary terms consistently."
-        },
-        {
-          "title": "Field-ready research",
-          "duration": "90 minutes",
-          "topics": [
-            "Integrating glossary terms into research and field notes",
-            "Tagging findings by focus area and diagnostic relevance",
-            "Building appeal paths and consent prompts into prototypes"
-          ],
-          "outcome": "Practitioners share findings with linked terms and mechanism cues that ship with the work."
-        },
-        {
-          "title": "Governance and maintenance",
-          "duration": "75 minutes",
-          "topics": [
-            "Decision logs, maintenance windows, and escalation",
-            "Pairing diagnostics with mechanism rollout",
-            "Designing safety valves for high-burden scenarios"
-          ],
-          "outcome": "Leadership agrees on a maintenance plan with named owners, with a diagnostic readout on file."
         }
       ]
     },

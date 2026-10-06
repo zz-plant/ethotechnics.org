@@ -67,15 +67,21 @@ const risLines = [
 const ris = risLines.join("\n");
 ---
 
-<div class="citation-block">
+{
+  /* One collapsed line. It used to be a label, a row of copy buttons, and a
+     second "cite this page" toggle under them, on every entry, essay and
+     standard. */
+}
+<details class="citation-block">
+  <summary class="citation-block__summary">
+    {summaryLabel}
+    {
+      variant === "full" && (
+        <span class="muted small"> · APA, MLA, Chicago, BibTeX, RIS</span>
+      )
+    }
+  </summary>
   <div class="citation-block__quick">
-    <p class="muted small">
-      {
-        variant === "compact"
-          ? "Copy citation (APA)"
-          : "Copy citation (APA/BibTeX)"
-      }
-    </p>
     <div class="citation-block__quick-actions">
       <button
         class="copy-button"
@@ -123,13 +129,7 @@ const ris = risLines.join("\n");
   </div>
   {
     variant === "full" && (
-      <details class="citation-block__details">
-        <summary class="citation-block__summary">
-          {summaryLabel}
-          <span class="muted small">
-            Formats: APA, MLA, Chicago, BibTeX, RIS
-          </span>
-        </summary>
+      <div class="citation-block__details">
         <div class="citation-block__body">
           <div class="citation-block__meta">
             <div>
@@ -216,10 +216,10 @@ const ris = risLines.join("\n");
             </div>
           </div>
         </div>
-      </details>
+      </div>
     )
   }
-</div>
+</details>
 
 <script>
   import "../scripts/citation-copy.ts";

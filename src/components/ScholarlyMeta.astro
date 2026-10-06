@@ -35,10 +35,29 @@ const updatedDate = publication.updated
       day: "numeric",
     })
   : null;
+const [latestChange, ...earlierChanges] = publication.changelog;
 ---
 
-<div class="callout scholarly-meta">
-  <p class="eyebrow">{label}</p>
+{
+  /* Collapsed by default. Open, it was the longest block on many pages: a
+     glossary entry of about 100 words carried 665 words of metadata, most of
+     it the whole glossary's changelog. The summary line keeps the facts a
+     reader scans for; the latest change shows when opened, and the rest of
+     the history sits behind its own toggle. */
+}
+<details class="callout scholarly-meta">
+  <summary class="scholarly-meta__summary">
+    <span class="eyebrow">{label}</span>
+    <span class="muted small">
+      {publication.version}
+      {
+        updatedDate
+          ? ` · updated ${updatedDate}`
+          : ` · published ${publishedDate}`
+      }
+      {` · ${publication.license.label}`}
+    </span>
+  </summary>
   <div class="scholarly-meta__grid">
     <div>
       <p class="muted small">Authorship</p>
@@ -111,16 +130,30 @@ const updatedDate = publication.updated
       }
     </div>
   </div>
-  <div class="scholarly-meta__changelog">
-    <p class="muted small">Changelog</p>
-    <ul>
-      {
-        publication.changelog.map((entry) => (
-          <li>
-            <strong>{entry.version}</strong> · {entry.date} — {entry.summary}
-          </li>
-        ))
-      }
-    </ul>
-  </div>
-</div>
+  {
+    latestChange && (
+      <div class="scholarly-meta__changelog">
+        <p class="muted small">Latest change</p>
+        <p>
+          <strong>{latestChange.version}</strong> · {latestChange.date} —{" "}
+          {latestChange.summary}
+        </p>
+        {earlierChanges.length > 0 && (
+          <details class="scholarly-meta__history">
+            <summary class="muted small">
+              Earlier versions ({earlierChanges.length})
+            </summary>
+            <ul>
+              {earlierChanges.map((entry) => (
+                <li>
+                  <strong>{entry.version}</strong> · {entry.date} —{" "}
+                  {entry.summary}
+                </li>
+              ))}
+            </ul>
+          </details>
+        )}
+      </div>
+    )
+  }
+</details>
