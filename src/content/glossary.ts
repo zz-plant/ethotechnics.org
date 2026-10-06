@@ -134,7 +134,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "extractive-cannibalism",
     term: "Extractive cannibalism",
     definition:
-      "A failure mode where an institution preserves apparent operational stability and output velocity by depleting the unrecorded human capacities—such as health, attention, relationships, and moral integrity—on which that stability fundamentally depends.",
+      "A failure mode where an institution preserves apparent operational stability and output velocity by depleting the unrecorded human capacities — such as health, attention, relationships, and moral integrity — on which that stability fundamentally depends.",
     appliesTo: ["workplace", "hospitals", "platforms"],
   },
   {
@@ -204,7 +204,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "mechanism-first-analysis",
     term: "Mechanism-first analysis",
     definition:
-      "An approach that prioritizes system mechanics—defaults, authority, clocks, reversibility—over declared values or intentions, because mechanics determine outcomes under load.",
+      "An approach that prioritizes system mechanics — defaults, authority, clocks, reversibility — over declared values or intentions, because mechanics determine outcomes under load.",
     appliesTo: ["A. Core concepts"],
   },
   {
@@ -253,14 +253,14 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "extraction",
     term: "Extraction",
     definition:
-      "When a system pulls value\u2014data, attention, labor, or social capital\u2014without returning care, consent, or repair. Extraction hides its costs through externalization and steep burden gradients, and it erodes trust.",
+      "When a system pulls value \u2014 data, attention, labor, or social capital \u2014 without returning care, consent, or repair. Extraction hides its costs through externalization and steep burden gradients, and it erodes trust.",
     appliesTo: ["labor", "platforms", "ai"],
   },
   {
     slug: "extraction-by-endurance",
     term: "Extraction by endurance",
     definition:
-      "Systems that depend on workers or users absorbing fragility through burnout, emotional labor, or unpaid cognitive work\u2014often mislabeled as \u201cresilience.\u201d Ethotechnic practice aims to invert this burden with fair burden distribution.",
+      "Systems that depend on workers or users absorbing fragility through burnout, emotional labor, or unpaid cognitive work \u2014 often mislabeled as \u201cresilience.\u201d Ethotechnic practice aims to invert this burden with fair burden distribution.",
     appliesTo: ["B. Failure modes"],
   },
   {
@@ -309,7 +309,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "unseen-harm",
     term: "Unseen harm",
     definition:
-      "Harm that does not produce immediately legible signals—silence, withdrawal, dropout, dissociation—and is therefore misread as “no issue.”",
+      "Harm that does not produce immediately legible signals — silence, withdrawal, dropout, dissociation — and is therefore misread as “no issue.”",
     appliesTo: ["B. Failure modes"],
   },
   {
@@ -330,14 +330,14 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "stoppability",
     term: "Stoppability",
     definition:
-      "A system\u2019s ability to halt harmful processes quickly and automatically\u2014without requiring heroism or escalation.",
+      "A system\u2019s ability to halt harmful processes quickly and automatically \u2014 without requiring heroism or escalation.",
     appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "reversibility",
     term: "Reversibility",
     definition:
-      "The ease with which a system can undo a harmful state change\u2014restore access, correct a record, reverse a flag\u2014without extraordinary effort or power. Reversibility is a governance property: it determines whether mistakes are survivable.",
+      "The ease with which a system can undo a harmful state change \u2014 restore access, correct a record, reverse a flag \u2014 without extraordinary effort or power. Reversibility is a governance property: it determines whether mistakes are survivable.",
     appliesTo: ["C. What a system must be able to do"],
   },
   {
@@ -358,7 +358,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "refusability",
     term: "Refusability",
     definition:
-      "A system\u2019s ability to let people say \u201cno\u201d without punishment or degradation\u2014including refusing data extraction, risky defaults, or coercive workflows\u2014while still preserving basic access and dignity. Refusability is not \u201copt-out exists\u201d; it\u2019s whether refusal is treated as a legitimate state rather than an error condition.",
+      "A system\u2019s ability to let people say \u201cno\u201d without punishment or degradation \u2014 including refusing data extraction, risky defaults, or coercive workflows \u2014 while still preserving basic access and dignity. Refusability is not \u201copt-out exists\u201d; it\u2019s whether refusal is treated as a legitimate state rather than an error condition.",
     appliesTo: ["C. What a system must be able to do"],
   },
   {
@@ -379,14 +379,14 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "graceful-degradation",
     term: "Graceful degradation",
     definition:
-      "A design principle where systems degrade safely under stress\u2014reduced capability rather than catastrophic denial\u2014especially under accessibility constraints.",
+      "A design principle where systems degrade safely under stress \u2014 reduced capability rather than catastrophic denial \u2014 especially under accessibility constraints.",
     appliesTo: ["C. What a system must be able to do"],
   },
   {
     slug: "soft-edges",
     term: "Soft edges",
     definition:
-      "Boundary conditions designed to cushion people instead of penalizing them\u2014graduated responses, warnings before lockouts, and reversible defaults. Soft edges reduce failure load and guard against brittleness.",
+      "Boundary conditions designed to cushion people instead of penalizing them \u2014 graduated responses, warnings before lockouts, and reversible defaults. Soft edges reduce failure load and guard against brittleness.",
     appliesTo: ["C. What a system must be able to do"],
   },
   {
@@ -400,7 +400,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "fail-open",
     term: "Fail-open mode",
     definition:
-      "The system defaults to permissiveness under failure\u2014sometimes necessary, sometimes dangerous. Must be paired with velocity friction.",
+      "The system defaults to permissiveness under failure \u2014 sometimes necessary, sometimes dangerous. Must be paired with velocity friction.",
     appliesTo: ["D. System states & architectures"],
   },
   {
@@ -433,7 +433,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
   },
   {
     slug: "escalation-horizon",
-    term: "Escalation Horizon",
+    term: "Escalation horizon",
     definition:
       "The predefined point where automated control must yield to human judgment because risk, ambiguity, or moral latency is rising. Escalation horizons activate ethical interrupts and route cases to accountable stewards before crossing an irreversible boundary.",
     appliesTo: ["D. System states & architectures"],
@@ -484,14 +484,14 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "cognitive-saturation",
     term: "Cognitive saturation point",
     definition:
-      "The load level at which human decision quality collapses\u2014too many alerts, too little time, or excessive context switching. Ethotechnic design lowers saturation by adding velocity friction, simplifying interaction surfaces, and staffing to real maintenance metabolism.",
+      "The load level at which human decision quality collapses \u2014 too many alerts, too little time, or excessive context switching. Ethotechnic design lowers saturation by adding velocity friction, simplifying interaction surfaces, and staffing to real maintenance metabolism.",
     appliesTo: ["E. Human limits & experience"],
   },
   {
     slug: "compassion-bandwidth",
     term: "Compassion bandwidth",
     definition:
-      "The sustainable amount of emotional labor a system asks of people\u2014care teams, moderators, frontline staff, or users. When compassion bandwidth is exceeded, dread work grows and extraction by endurance sets in.",
+      "The sustainable amount of emotional labor a system asks of people \u2014 care teams, moderators, frontline staff, or users. When compassion bandwidth is exceeded, dread work grows and extraction by endurance sets in.",
     appliesTo: ["E. Human limits & experience"],
   },
   {
@@ -512,21 +512,21 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "executive-function-class-axis",
     term: "Executive function (as a class axis)",
     definition:
-      "The idea that modern systems sort people by their capacity to perform sustained administrative labor—tracking tasks, managing documentation, navigating ambiguity—making disability and burnout into structural disadvantage.",
+      "The idea that modern systems sort people by their capacity to perform sustained administrative labor — tracking tasks, managing documentation, navigating ambiguity — making disability and burnout into structural disadvantage.",
     appliesTo: ["E. Human limits & experience"],
   },
   {
     slug: "human-factors",
     term: "Human factors",
     definition:
-      "A discipline that studies how systems interact with real human limits—fatigue, confusion, stress—often revealing that “user error” is design failure.",
+      "A discipline that studies how systems interact with real human limits — fatigue, confusion, stress — often revealing that “user error” is design failure.",
     appliesTo: ["E. Human limits & experience"],
   },
   {
     slug: "operator-centered",
     term: "Operator-centered",
     definition:
-      "Design that treats front-line workers as safety components and ensures they have authority, tools, and non-punitive reporting to prevent harm.",
+      "Design that treats frontline workers as safety components and ensures they have authority, tools, and non-punitive reporting to prevent harm.",
     appliesTo: ["E. Human limits & experience"],
   },
   {
@@ -540,7 +540,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "burden-distribution",
     term: "Burden distribution",
     definition:
-      "How a system allocates the cost of operation or failure\u2014time, attention, stress, and emotional labor.",
+      "How a system allocates the cost of operation or failure \u2014 time, attention, stress, and emotional labor.",
     appliesTo: ["F. Burden & load"],
   },
   {
@@ -561,7 +561,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "burden-transfer-event",
     term: "Burden transfer event",
     definition:
-      "Moments when system failure pushes labor onto humans, often triggering moral overhead.",
+      "A moment when system failure pushes labor onto humans, often triggering moral overhead.",
     appliesTo: ["F. Burden & load"],
   },
   {
@@ -582,7 +582,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "maintenance-metabolism",
     term: "Maintenance metabolism",
     definition:
-      "The baseline flow of upkeep\u2014patching, cleaning, rehearsing, and caring\u2014that keeps a service alive when nothing is on fire. Healthy maintenance metabolism is budgeted, scheduled, and shared rather than squeezed between crises. Falling below it signals rising maintenance debt and invites maintenance windows before fragility compounds.",
+      "The baseline flow of upkeep \u2014 patching, cleaning, rehearsing, and caring \u2014 that keeps a service alive when nothing is on fire. Healthy maintenance metabolism is budgeted, scheduled, and shared rather than squeezed between crises. Falling below it signals rising maintenance debt and invites maintenance windows before fragility compounds.",
     appliesTo: ["F. Burden & load"],
   },
   {
@@ -708,7 +708,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "human-substitution-index",
     term: "Human substitution index",
     definition:
-      "A measure of how often humans must step in to compensate for system shortcomings\u2014manual reviews, ad-hoc patches, or empathy work. A rising index exposes heroism-dependent systems and motivates investment in graceful degradation.",
+      "A measure of how often humans must step in to compensate for system shortcomings \u2014 manual reviews, ad-hoc patches, or empathy work. A rising index exposes heroism-dependent systems and motivates investment in graceful degradation.",
     appliesTo: ["G. Measures & indicators"],
   },
   {
@@ -748,7 +748,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
   },
   {
     slug: "oversight-horizon",
-    term: "Oversight Horizon",
+    term: "Oversight horizon",
     definition:
       "The distance regulators, auditors, or affected communities can see into a system\u2019s decisions and their effects. Extending the horizon through harm visibility, traceable models, and shared repair logs shrinks dead zones.",
     appliesTo: ["H. Governance & power"],
@@ -883,7 +883,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "safe-pause",
     term: "Safe pause / status quo during pendency",
     definition:
-      "No adverse consequences while review is pending (except narrow, reviewable emergency exception). Safe pause preserves the utility window and keeps people whole during appeal.",
+      "No adverse consequences while review is pending (except a narrow, reviewable emergency exception). Safe pause preserves the utility window and keeps people whole during appeal.",
     appliesTo: ["H. Governance & power"],
   },
   {
@@ -904,7 +904,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "bindingness",
     term: "Bindingness",
     definition:
-      "The degree to which a system’s outputs create enforceable obligations—deadlines, duties, remedies, or reversals—rather than mere communications. Bindingness is the difference between “we received your request” and “we must decide by Friday or you win.”",
+      "The degree to which a system’s outputs create enforceable obligations — deadlines, duties, remedies, or reversals — rather than mere communications. Bindingness is the difference between “we received your request” and “we must decide by Friday or you win.”",
     appliesTo: ["H. Governance & power"],
   },
   {
@@ -918,7 +918,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "standing-vs-belief",
     term: "Standing (vs belief)",
     definition:
-      "Standing is the recognized right to make the system bind itself to engage, decide, and remedy—regardless of whether your story is believed, liked, or emotionally legible. “Belief” is narrative validation; standing is enforceable access to decision power.",
+      "Standing is the recognized right to make the system bind itself to engage, decide, and remedy — regardless of whether your story is believed, liked, or emotionally legible. “Belief” is narrative validation; standing is enforceable access to decision power.",
     appliesTo: ["H. Governance & power"],
   },
   {
@@ -932,7 +932,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "evidence-parity",
     term: "Evidence parity",
     definition:
-      "A condition where affected people have a fair chance to meet the evidentiary burden—access to the relevant facts, rules, and records—rather than being asked to prove things the institution can’t or won’t disclose. Without evidence parity, appeals become theater.",
+      "A condition where affected people have a fair chance to meet the evidentiary burden — access to the relevant facts, rules, and records — rather than being asked to prove things the institution can’t or won’t disclose. Without evidence parity, appeals become theater.",
     appliesTo: ["H. Governance & power"],
   },
   {
@@ -953,7 +953,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "defaults-as-governance",
     term: "Defaults (as governance)",
     definition:
-      "The idea that the baseline state—what happens if nobody intervenes—is a primary allocator of outcomes and costs. Defaults govern by deciding who must spend time, attention, and stamina to avoid harm.",
+      "The idea that the baseline state — what happens if nobody intervenes — is a primary allocator of outcomes and costs. Defaults govern by deciding who must spend time, attention, and stamina to avoid harm.",
     appliesTo: ["H. Governance & power"],
   },
   {
@@ -967,7 +967,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "escalation-without-authority",
     term: "Escalation (without authority)",
     definition:
-      "A channel change that does not increase binding power—more forms, more tiers, more waiting—while the underlying decision remains unchangeable. It’s escalation as delay management, not remedy.",
+      "A channel change that does not increase binding power — more forms, more tiers, more waiting — while the underlying decision remains unchangeable. It’s escalation as delay management, not remedy.",
     appliesTo: ["H. Governance & power"],
   },
   {
@@ -995,21 +995,21 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "paywalled-rights",
     term: "Paywalled rights",
     definition:
-      "When access to contestation, speed, or binding review is effectively purchased—through fees, premium support, lawyers, consultants, or time flexibility. Rights exist, but only for those who can pay in money or stamina.",
+      "When access to contestation, speed, or binding review is effectively purchased — through fees, premium support, lawyers, consultants, or time flexibility. Rights exist, but only for those who can pay in money or stamina.",
     appliesTo: ["H. Governance & power"],
   },
   {
     slug: "logs-as-power",
     term: "Logs-as-power",
     definition:
-      "The idea that control over records—what is logged, who can see it, what counts as evidence—shapes who can contest outcomes. Recordkeeping is governance.",
+      "The idea that control over records — what is logged, who can see it, what counts as evidence — shapes who can contest outcomes. Recordkeeping is governance.",
     appliesTo: ["H. Governance & power"],
   },
   {
     slug: "audit-trail",
     term: "Audit trail",
     definition:
-      "A trace of events and decisions—what happened, when, by whom, under what rule—used for accountability. Audit trails matter only if they connect to reversal power.",
+      "A trace of events and decisions — what happened, when, by whom, under what rule — used for accountability. Audit trails matter only if they connect to reversal power.",
     appliesTo: ["H. Governance & power"],
   },
   {
@@ -1030,7 +1030,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "nda-retaliation-narrative-erasure",
     term: "NDA retaliation / narrative erasure",
     definition:
-      "Mechanisms that suppress exit stories—legal threats, informal retaliation, reputational control—preventing systems from being held accountable by shared evidence.",
+      "Mechanisms that suppress exit stories — legal threats, informal retaliation, reputational control — preventing systems from being held accountable by shared evidence.",
     appliesTo: ["H. Governance & power"],
   },
   {
@@ -1044,7 +1044,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "punitive-friction",
     term: "Punitive friction",
     definition:
-      "Friction that punishes users\u2014often hidden in bureaucratic loops. Signals extraction by endurance.",
+      "Friction that punishes users \u2014 often hidden in bureaucratic loops. Signals extraction by endurance.",
     appliesTo: ["I. Friction & flow"],
   },
   {
@@ -1079,7 +1079,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "coercive-consent",
     term: "Coercive consent",
     definition:
-      "“Agreement” obtained through defaults, asymmetry, or threats of exclusion—consent produced by lack of viable refusal.",
+      "“Agreement” obtained through defaults, asymmetry, or threats of exclusion — consent produced by lack of viable refusal.",
     appliesTo: ["I. Friction & flow"],
   },
   {
@@ -1135,7 +1135,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "object-formation",
     term: "Object formation",
     definition:
-      "The process by which a complaint, harm, or request becomes a decision object—assigned an identifier, a category, an owner, a standard of review, and a clock. Systems often block accountability by preventing object formation (“nothing exists to appeal”).",
+      "The process by which a complaint, harm, or request becomes a decision object — assigned an identifier, a category, an owner, a standard of review, and a clock. Systems often block accountability by preventing object formation (“nothing exists to appeal”).",
     appliesTo: ["J. Decision states & edges"],
   },
   {
@@ -1149,14 +1149,14 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "pendingness",
     term: "Pending / pendingness",
     definition:
-      "A default state where nothing is decided and no one is obligated—often presented as neutral but functioning as an outcome allocator. Pendingness becomes harm when it lacks a clock, an owner, or a forced next step.",
+      "A default state where nothing is decided and no one is obligated — often presented as neutral but functioning as an outcome allocator. Pendingness becomes harm when it lacks a clock, an owner, or a forced next step.",
     appliesTo: ["J. Decision states & edges"],
   },
   {
     slug: "settlement",
     term: "Settlement",
     definition:
-      "The moment a claim becomes resolved in a way that changes the underlying state—approved, denied with appeal rights, remediated, reversed, paid, restored, or otherwise closed with consequences. Settlement is not closure in the CRM; it’s resolution that binds.",
+      "The moment a claim becomes resolved in a way that changes the underlying state — approved, denied with appeal rights, remediated, reversed, paid, restored, or otherwise closed with consequences. Settlement is not closure in the CRM; it’s resolution that binds.",
     appliesTo: ["J. Decision states & edges"],
   },
   {
@@ -1177,7 +1177,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "clock-start-clock-mismatch",
     term: "Clock-start / clock mismatch",
     definition:
-      "Clock-start: the moment a system becomes time-bound—deadlines begin, obligations attach, escalation becomes meaningful. Clock mismatch: when institutional execution is fast (instant flags, freezes, denials) but redress is slow (weeks-months-human review), making errors durable and contestation scarce.",
+      "Clock-start: the moment a system becomes time-bound — deadlines begin, obligations attach, escalation becomes meaningful. Clock mismatch: when institutional execution is fast (instant flags, freezes, denials) but redress is slow (weeks to months of human review), making errors durable and contestation scarce.",
     appliesTo: ["J. Decision states & edges"],
   },
   {
@@ -1233,28 +1233,28 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "irreversible-boundary",
     term: "Irreversible boundary",
     definition:
-      "A threshold the system cannot automatically undo\u2014account closures, public releases, or data publication. Crossing it demands heightened contestability, audited explanations, and explicit time-to-restore plans.",
+      "A threshold the system cannot automatically undo \u2014 account closures, public releases, or data publication. Crossing it demands heightened contestability, audited explanations, and explicit time-to-restore plans.",
     appliesTo: ["J. Decision states & edges"],
   },
   {
     slug: "backstop",
     term: "Backstop",
     definition:
-      "A guaranteed fallback mechanism that triggers when the main process fails—timeouts, automatic approvals, emergency restoration, or external review.",
+      "A guaranteed fallback mechanism that triggers when the main process fails — timeouts, automatic approvals, emergency restoration, or external review.",
     appliesTo: ["J. Decision states & edges"],
   },
   {
     slug: "rollback",
     term: "Rollback",
     definition:
-      "A designed ability to revert the system to a prior safe state—restoring access, undoing propagation, correcting records—ideally with minimal friction.",
+      "A designed ability to revert the system to a prior safe state — restoring access, undoing propagation, correcting records — ideally with minimal friction.",
     appliesTo: ["J. Decision states & edges"],
   },
   {
     slug: "auto-close-auto-renew-auto-share",
     term: "Auto-close / auto-renew / auto-share",
     definition:
-      "Default state transitions that happen without active consent—closing claims, renewing contracts, expanding data use—often presented as convenience while functioning as governance by inertia.",
+      "Default state transitions that happen without active consent — closing claims, renewing contracts, expanding data use — often presented as convenience while functioning as governance by inertia.",
     appliesTo: ["J. Decision states & edges"],
   },
   {
@@ -1275,7 +1275,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "empathy-surrogacy",
     term: "Empathy surrogacy",
     definition:
-      "Simulated warmth\u2014chatbots, scripted apologies, tone guidelines\u2014used to mask structural harm or delay fixes. Empathy surrogacy diverts attention from repair and weakens contestability by substituting sentiment for remedy.",
+      "Simulated warmth \u2014 chatbots, scripted apologies, tone guidelines \u2014 used to mask structural harm or delay fixes. Empathy surrogacy diverts attention from repair and weakens contestability by substituting sentiment for remedy.",
     appliesTo: ["K. Patterns & anti-patterns"],
   },
   {
@@ -1289,14 +1289,14 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "invisible-fallbacks",
     term: "Invisible fallbacks",
     definition:
-      "Hidden behaviors that appear under stress\u2014shadow queues, silent throttling, or undocumented overrides. Invisible fallbacks obscure ethical load paths and should be surfaced through graceful rollback lanes and rehearsed in maintenance windows.",
+      "Hidden behaviors that appear under stress \u2014 shadow queues, silent throttling, or undocumented overrides. Invisible fallbacks obscure ethical load paths and should be surfaced through graceful rollback lanes and rehearsed in maintenance windows.",
     appliesTo: ["K. Patterns & anti-patterns"],
   },
   {
     slug: "dead-user-zones",
     term: "Dead-user zones",
     definition:
-      "Places where people affected by decisions cannot contest, appeal, or exit\u2014opaque rankings, automated bans, or unmoderated queues. Closing dead-user zones requires widening the permission surface and raising appeal passage rates.",
+      "Places where people affected by decisions cannot contest, appeal, or exit \u2014 opaque rankings, automated bans, or unmoderated queues. Closing dead-user zones requires widening the permission surface and raising appeal passage rates.",
     appliesTo: ["K. Patterns & anti-patterns"],
   },
   {
@@ -1310,7 +1310,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "legitimacy-laundering",
     term: "Legitimacy laundering",
     definition:
-      "The process of converting coercive or indifferent outcomes into reputational legitimacy through procedural signals—case IDs, polite updates, “in review”—without delivering binding resolution. The system looks responsible while staying unbound.",
+      "The process of converting coercive or indifferent outcomes into reputational legitimacy through procedural signals — case IDs, polite updates, “in review” — without delivering binding resolution. The system looks responsible while staying unbound.",
     appliesTo: ["K. Patterns & anti-patterns"],
   },
   {
@@ -1331,7 +1331,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "precision-demands",
     term: "Precision demands",
     definition:
-      "Requests for ever-greater specificity that function less as truth-seeking and more as denial hooks—ways to keep a case non-objectified or non-decidable. Precision demands are a technique of delay.",
+      "Requests for ever-greater specificity that function less as truth-seeking and more as denial hooks — ways to keep a case non-objectified or non-decidable. Precision demands are a technique of delay.",
     appliesTo: ["K. Patterns & anti-patterns"],
   },
   {
@@ -1345,14 +1345,14 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "tone-policing",
     term: "Tone policing (as governance technology)",
     definition:
-      "The use of “appropriate tone” requirements to control access to remedy—penalizing anger, urgency, neurodivergent communication, or exhaustion. Tone policing converts distress into disqualification.",
+      "The use of “appropriate tone” requirements to control access to remedy — penalizing anger, urgency, neurodivergent communication, or exhaustion. Tone policing converts distress into disqualification.",
     appliesTo: ["K. Patterns & anti-patterns"],
   },
   {
     slug: "dropout-as-legitimation",
     term: "Dropout-as-legitimation",
     definition:
-      "When systems treat nonresponse, fatigue, or disappearance as consent or closure (“case closed—no reply”), laundering coercion into “resolved.” Dropout becomes the mechanism that protects the institution.",
+      "When systems treat nonresponse, fatigue, or disappearance as consent or closure (“case closed — no reply”), laundering coercion into “resolved.” Dropout becomes the mechanism that protects the institution.",
     appliesTo: ["K. Patterns & anti-patterns"],
   },
   {
@@ -1373,7 +1373,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "transparency-theater",
     term: "Transparency theater",
     definition:
-      "Disclosures that do not increase contestability—more text, more dashboards, more “explanations”—without deadlines, authority, or reversal paths. Visibility substitutes for enforceability.",
+      "Disclosures that do not increase contestability — more text, more dashboards, more “explanations” — without deadlines, authority, or reversal paths. Visibility substitutes for enforceability.",
     appliesTo: ["K. Patterns & anti-patterns"],
   },
   {
@@ -1660,7 +1660,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "rest-cycle-enforcement",
     term: "Rest cycle enforcement",
     definition:
-      "Built-in mechanisms that enforce rest and recovery\u2014rotation policies, cooldown timers, enforced downtime\u2014so fatigue does not translate into harm. Enforcement protects maintenance metabolism and compassion bandwidth.",
+      "Built-in mechanisms that enforce rest and recovery \u2014 rotation policies, cooldown timers, enforced downtime \u2014 so fatigue does not translate into harm. Enforcement protects maintenance metabolism and compassion bandwidth.",
     appliesTo: ["L. Open research areas"],
   },
   {
@@ -1730,7 +1730,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "residual-complexity",
     term: "Residual complexity",
     definition:
-      "The friction, ambiguity, and repair labor that remains unresolved after a formal model simplifies a workflow. Formal systems do not eliminate what they cannot represent; they redistribute the burden of dealing with it.",
+      "The friction, ambiguity, and repair labor that remain unresolved after a formal model simplifies a workflow. Formal systems do not eliminate what they cannot represent; they redistribute the burden of dealing with it.",
     appliesTo: ["F. Burden & load"],
   },
   {
@@ -1884,7 +1884,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "discretion-migration",
     term: "Discretion migration",
     definition:
-      "The pattern where automation relocates rather than removes judgment, reappearing in thresholds, categories, exception rules, and appeal routing—along with authority over it.",
+      "The pattern where automation relocates rather than removes judgment, reappearing in thresholds, categories, exception rules, and appeal routing — along with authority over it.",
     appliesTo: ["B. Failure modes"],
   },
   {
@@ -1919,7 +1919,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "technical-reversibility",
     term: "Technical reversibility",
     definition:
-      "The first level of the reversibility ladder: the mechanism exists and works, proven on the running version. A floor rather than a finding—a working switch says nothing about the levels above it.",
+      "The first level of the reversibility ladder: the mechanism exists and works, proven on the running version. A floor rather than a finding — a working switch says nothing about the levels above it.",
     appliesTo: ["C. What a system must be able to do"],
   },
   {
@@ -2024,7 +2024,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "shadow-queue",
     term: "Shadow queue",
     definition:
-      "A queue users cannot see—internal backlogs, vendor queues, or “pending review” pools—that still determines outcomes. Erodes time transparency and contestability.",
+      "A queue users cannot see — internal backlogs, vendor queues, or “pending review” pools — that still determines outcomes. Erodes time transparency and contestability.",
     appliesTo: ["D. System states & architectures"],
   },
   {
@@ -2052,7 +2052,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "substrate-profile",
     term: "Substrate profile",
     definition:
-      "A nine-property classification of a deployment—access, control, update authority, stability, revocation, substitutability, observability, standing, and dependency—replacing the open-versus-closed question.",
+      "A nine-property classification of a deployment — access, control, update authority, stability, revocation, substitutability, observability, standing, and dependency — replacing the open-versus-closed question.",
     appliesTo: ["D. System states & architectures"],
   },
   {
@@ -2213,7 +2213,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "evaluation-layer",
     term: "Evaluation layer",
     definition:
-      "The level of the stack at which an evaluation holds—model, agent, delegation, institution, or consequence—so a clean result at one level is never read as another.",
+      "The level of the stack at which an evaluation holds — model, agent, delegation, institution, or consequence — so a clean result at one level is never read as another.",
     appliesTo: ["G. Measures & indicators"],
   },
   {
@@ -2353,7 +2353,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "retaliation-surface",
     term: "Retaliation surface",
     definition:
-      "Where the system can punish people for contesting, pausing, refusing, or exiting—throttling, stricter scrutiny, or service withdrawal.",
+      "Where the system can punish people for contesting, pausing, refusing, or exiting — throttling, stricter scrutiny, or service withdrawal.",
     appliesTo: ["H. Governance & power"],
   },
   {
@@ -2367,7 +2367,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "appeal-integrity",
     term: "Appeal integrity",
     definition:
-      "Appeals are judged on merits with transparent criteria, named authority, and documented outcomes—not absorbed into procedural theater.",
+      "Appeals are judged on merits with transparent criteria, named authority, and documented outcomes — not absorbed into procedural theater.",
     appliesTo: ["H. Governance & power"],
   },
   {
@@ -2486,7 +2486,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "corrigibility-rent",
     term: "Corrigibility rent",
     definition:
-      "Power gained because others cannot cheaply make you answer for being wrong—through impossible complaints, proprietary evidence, or appeals that arrive after harm is irreversible.",
+      "Power gained because others cannot cheaply make you answer for being wrong — through impossible complaints, proprietary evidence, or appeals that arrive after harm is irreversible.",
     appliesTo: ["H. Governance & power"],
   },
   {
@@ -2500,7 +2500,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "consequential-contradiction",
     term: "Consequential contradiction",
     definition:
-      "The capacity of the governed world to force a system to reconsider—not merely to complain. Contradiction is consequential when it has state-changing force.",
+      "The capacity of the governed world to force a system to reconsider — not merely to complain. Contradiction is consequential when it has state-changing force.",
     appliesTo: ["H. Governance & power"],
   },
   {
@@ -2514,7 +2514,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "admission-gate",
     term: "Admission gate",
     definition:
-      "The authorization decision preceding any grant: whether the system should act at all. Records the evidence, scope, and outcome—including deliberate non-use.",
+      "The authorization decision preceding any grant: whether the system should act at all. Records the evidence, scope, and outcome — including deliberate non-use.",
     appliesTo: ["H. Governance & power"],
   },
   {
@@ -2528,7 +2528,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "corrective-power",
     term: "Corrective power",
     definition:
-      "The effective capacity of affected people to make an arrangement change when its demands become unreasonable—to force reconsideration or reversal, not merely complain.",
+      "The effective capacity of affected people to make an arrangement change when its demands become unreasonable — to force reconsideration or reversal, not merely complain.",
     appliesTo: ["H. Governance & power"],
   },
   {
@@ -2584,7 +2584,7 @@ const glossaryTermSeeds: GlossaryTerm[] = [
     slug: "access-cliff",
     term: "Access cliff",
     definition:
-      "A threshold where small variance causes catastrophic loss of service—lockout, termination, or loss of benefits. Mitigated with soft edges and gradual ramps.",
+      "A threshold where small variance causes catastrophic loss of service — lockout, termination, or loss of benefits. Mitigated with soft edges and gradual ramps.",
     appliesTo: ["J. Decision states & edges"],
   },
   {
