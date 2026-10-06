@@ -1423,6 +1423,16 @@ export const glossaryTermSeeds: GlossaryTermSeed[] = [
     appliesTo: ["B. Failure modes"],
   },
   {
+    slug: "externalization-capacity",
+    term: "Externalization Capacity",
+    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+  },
+  {
+    slug: "authored-boundary",
+    term: "Authored Boundary",
+    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+  },
+  {
     slug: "discretion-migration",
     term: "Discretion migration",
     appliesTo: ["B. Failure modes"],

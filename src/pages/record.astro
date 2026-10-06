@@ -1,0 +1,247 @@
+---
+/**
+ * The site's own record: the rules it holds itself to on objections, and
+ * what it has done under them. Every number on this page is read from data
+ * the site already publishes or from the objection record that
+ * .github/workflows/presence-data.yml rebuilds from GitHub issues. Nothing
+ * here is typed by hand.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageIntro from "../components/PageIntro.astro";
+import SectionBlock from "../components/SectionBlock.astro";
+import { cases } from "../content/casebook";
+import { objectionRecord } from "../content/objection-record";
+import { getStandardById, standardsContent } from "../content/standards";
+import {
+  OBJECTION_FORM_URL,
+  OBJECTION_ISSUES_URL,
+} from "../utils/objection-link";
+import {
+  ANSWER_WINDOW_DAYS,
+  DUE_SOON_AFTER_DAYS,
+  isoDate,
+  objectionStatus,
+  type ObjectionOutcome,
+} from "../utils/objections";
+
+const lastUpdated = "2026-10-06";
+const generatedOn = isoDate(objectionRecord.generatedAt);
+const modifiedTime = generatedOn > lastUpdated ? generatedOn : lastUpdated;
+
+const { totals, objections } = objectionRecord;
+const totalRows = [
+  { label: "Objections received", value: totals.received },
+  { label: "Open", value: totals.open },
+  { label: "Answered", value: totals.answered },
+  {
+    label: `Answered within ${ANSWER_WINDOW_DAYS} days`,
+    value: totals.answeredOnTime,
+  },
+  { label: "Overdue, with no answer", value: totals.overdue },
+  { label: "Upheld", value: totals.upheld },
+  { label: "Not upheld", value: totals.notUpheld },
+];
+
+const outcomeLabels: Record<ObjectionOutcome, string> = {
+  upheld: "Upheld",
+  "not-upheld": "Not upheld",
+  open: "—",
+};
+
+const clauseHref = (standardId: string | null) => {
+  const standard = standardId ? getStandardById(standardId) : undefined;
+  return standard ? `/standards/${standard.slug}#clause-register` : undefined;
+};
+
+const standards = standardsContent.standards
+  .filter((standard) => standard.listedOnSite !== false)
+  .map((standard) => ({
+    ...standard,
+    lastChange:
+      (standard.changelogEntries ?? [])
+        .map((entry) => entry.date)
+        .sort()
+        .at(-1) ?? standard.published,
+  }));
+---
+
+<BaseLayout
+  title="The site's own record — Ethotechnics Institute"
+  description="Objections to the standards' clauses and the answer to each, due within 30 days. Also the standards' current versions and the number of cases scored."
+  publishedTime="2026-10-06T00:00:00Z"
+  modifiedTime={modifiedTime}
+  structuredDataType="webpage"
+>
+  <PageIntro
+    eyebrow="Record"
+    title="The site's own record"
+    description="The standards on this site require an answer to every objection, by a date. The site keeps the same rule for objections to its own clauses. Each gets a public answer within 30 days, and every answer is listed here."
+    anchorLinks={[
+      { href: "#rules", label: "The rules" },
+      { href: "#objections", label: "Objections and answers" },
+      { href: "#standards", label: "Standards and versions" },
+      { href: "#casebook", label: "Scored cases" },
+    ]}
+  />
+
+  <SectionBlock id="rules" title="The rules this site keeps">
+    <ol>
+      <li>
+        Anyone with a GitHub account can object to a clause of a standard. An
+        objection is a GitHub issue, filed from the Object link beside each
+        clause in a standard's clause register or from <a
+          href={OBJECTION_FORM_URL}>the objection form</a
+        >.
+      </li>
+      <li>
+        A bot replies when the objection is filed, with the date its answer is
+        due: {ANSWER_WINDOW_DAYS} days after it was opened.
+      </li>
+      <li>
+        The bot flags an objection with no answer at day {DUE_SOON_AFTER_DAYS} and
+        marks it overdue after day {ANSWER_WINDOW_DAYS}.
+      </li>
+      <li>
+        Each answer says whether the objection is upheld. An upheld objection
+        ends in a revision of the clause or a published reason for keeping it.
+        One upheld objection is enough to require that; there is no threshold.
+      </li>
+      <li>
+        The record below is generated from those GitHub issues. A weekly job
+        proposes the update, and it appears here when it is merged.
+      </li>
+    </ol>
+  </SectionBlock>
+
+  <SectionBlock
+    id="objections"
+    title="Objections and answers"
+    description={`Generated from GitHub issues on ${generatedOn}.`}
+    variant="alt"
+  >
+    <div class="mapping-table__wrapper record-totals">
+      <table class="mapping-table mapping-table--compare">
+        <caption class="sr-only">Objection totals</caption>
+        <tbody>
+          {
+            totalRows.map((row) => (
+              <tr>
+                <th scope="row">{row.label}</th>
+                <td>{row.value}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    {
+      objections.length === 0 ? (
+        <p>
+          No objections yet. To file one, open a standard's clause register and
+          use the Object link beside the clause, or use{" "}
+          <a href={OBJECTION_FORM_URL}>the objection form on GitHub</a>.
+        </p>
+      ) : (
+        <>
+          <div class="mapping-table__wrapper">
+            <table class="mapping-table mapping-table--stack">
+              <caption class="sr-only">Every objection</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Clause</th>
+                  <th scope="col">Opened</th>
+                  <th scope="col">Due</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Outcome</th>
+                  <th scope="col">Issue</th>
+                </tr>
+              </thead>
+              <tbody>
+                {objections.map((objection) => {
+                  const href = clauseHref(objection.standard);
+                  const label =
+                    objection.standard && objection.clause
+                      ? `${objection.standard} ${objection.clause}`
+                      : (objection.standard ?? "Not named");
+                  return (
+                    <tr>
+                      <th scope="row">
+                        {href ? <a href={href}>{label}</a> : label}
+                      </th>
+                      <td data-label="Opened">{isoDate(objection.openedAt)}</td>
+                      <td data-label="Due">{objection.dueAt}</td>
+                      <td data-label="Status">{objectionStatus(objection)}</td>
+                      <td data-label="Outcome">
+                        {outcomeLabels[objection.outcome]}
+                      </td>
+                      <td data-label="Issue">
+                        <a href={objection.url}>#{objection.number}</a>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+          <p class="small muted">
+            The answers themselves are in the issues.{" "}
+            <a href={OBJECTION_ISSUES_URL}>Every objection on GitHub</a>.
+          </p>
+        </>
+      )
+    }
+  </SectionBlock>
+
+  <SectionBlock
+    id="standards"
+    title="Standards and their current versions"
+    description="Each published standard, its version, and the date of its last recorded change."
+  >
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table mapping-table--stack">
+        <caption class="sr-only">Standards and versions</caption>
+        <thead>
+          <tr>
+            <th scope="col">Standard</th>
+            <th scope="col">Title</th>
+            <th scope="col">Status</th>
+            <th scope="col">Version</th>
+            <th scope="col">Last change</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            standards.map((standard) => (
+              <tr>
+                <th scope="row">
+                  <a href={`/standards/${standard.slug}`}>{standard.id}</a>
+                </th>
+                <td data-label="Title">{standard.title}</td>
+                <td data-label="Status">{standard.status}</td>
+                <td data-label="Version">{standard.version}</td>
+                <td data-label="Last change">{standard.lastChange}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted">
+      Every dated change to the standards, the glossary, the mechanisms, and the
+      casebook is in <a href="/changes.xml">one feed</a>.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="casebook"
+    title="Scored cases"
+    description={`The casebook scores ${cases.length} public failures. Each was established by a court, an inquiry, or a regulator.`}
+    variant="alt"
+  >
+    <p>
+      <a href="/casebook">Read the casebook</a>, or see <a href="/standards"
+        >the standards</a
+      > the cases are scored against.
+    </p>
+  </SectionBlock>
+</BaseLayout>

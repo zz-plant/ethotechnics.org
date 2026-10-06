@@ -25,6 +25,23 @@ export type AuthorityOverConditions =
   | "shared_binding"
   | "performers";
 export type Objective = "reduce_dependence" | "ease_or_sustain_burden";
+export type SavingHolder =
+  | "operating_budget"
+  | "owners_or_investors"
+  | "management_targets"
+  | "payers_or_insurers"
+  | "clients"
+  | "public_budget"
+  | "nobody_identified"
+  | "unknown";
+export type SendBackBlocker =
+  | "nothing"
+  | "contract"
+  | "law_or_regulation"
+  | "budget_authority"
+  | "bearer_dependence"
+  | "cost_of_objecting"
+  | "unknown";
 
 export type ItemClassification =
   "compensation" | "discretion" | "craft" | "coerced_craft" | "unresolved";
@@ -46,6 +63,10 @@ export type LedgerItem = {
   tests: ClassificationTests;
   classification: ItemClassification;
   institution_position: { aware: Awareness; decision: FixDecision };
+  gain_capture: {
+    booked_by: SavingHolder[];
+    send_back_blocked_by: SendBackBlocker[];
+  };
 };
 
 export type InterventionReview = {
@@ -193,6 +214,45 @@ export const summarizeLedger = (
   };
 };
 
+export type GainSide = {
+  /**
+   * For items classed as compensation or coerced craft: how many name each
+   * saving holder. These are the parties who would pay if the work stopped
+   * being free, and so the parties with a reason to keep it free.
+   */
+  wouldPayIfReturned: Partial<Record<SavingHolder, number>>;
+  /** Of those items, how many name something blocking the cost's return. */
+  returnBlocked: number;
+  /** Items of any class whose gain side was not established. */
+  gainSideUnknown: number;
+};
+
+const EXTRACTED: ItemClassification[] = ["compensation", "coerced_craft"];
+
+/** Follow the gain: who keeps the saving, and what stops the cost going back. */
+export const followTheGain = (ledger: Pick<Ledger, "items">): GainSide => {
+  const wouldPayIfReturned: Partial<Record<SavingHolder, number>> = {};
+  let returnBlocked = 0;
+  let gainSideUnknown = 0;
+  for (const item of ledger.items) {
+    const { booked_by, send_back_blocked_by } = item.gain_capture;
+    if (booked_by.includes("unknown")) gainSideUnknown += 1;
+    if (!EXTRACTED.includes(item.classification)) continue;
+    for (const holder of booked_by) {
+      if (holder === "unknown" || holder === "nobody_identified") continue;
+      wouldPayIfReturned[holder] = (wouldPayIfReturned[holder] ?? 0) + 1;
+    }
+    if (
+      send_back_blocked_by.some(
+        (blocker) => blocker !== "nothing" && blocker !== "unknown",
+      )
+    ) {
+      returnBlocked += 1;
+    }
+  }
+  return { wouldPayIfReturned, returnBlocked, gainSideUnknown };
+};
+
 /** Consistency problems the JSON schema cannot express. Empty when clean. */
 export const checkLedger = (ledger: Ledger): string[] => {
   const problems: string[] = [];
@@ -201,6 +261,12 @@ export const checkLedger = (ledger: Ledger): string[] => {
   for (const item of ledger.items) {
     if (ids.has(item.item_id)) problems.push(`duplicate item ${item.item_id}`);
     ids.add(item.item_id);
+    const blockers = item.gain_capture.send_back_blocked_by;
+    if (blockers.includes("nothing") && blockers.length > 1) {
+      problems.push(
+        `${item.item_id}: send-back blocked by "nothing" alongside other blockers`,
+      );
+    }
     const derived = classifyItem(item);
     if (derived !== item.classification) {
       problems.push(
