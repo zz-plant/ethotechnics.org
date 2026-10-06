@@ -148,6 +148,10 @@ const REDIRECT_MAP: Record<string, string> = {
   "/research/agenda": "/research#agenda",
   "/research/temporal-governance-studies": "/research/theory",
   "/research/bridge-artifacts": "/research#bridge-artifacts",
+  // The concept navigator was retired on 6 October 2026. It redrew the four
+  // diagrams /method already shows; its one unique piece, the safeguard
+  // matrix, now sits on /method.
+  "/navigator": "/method#matrix",
   // Two mechanism pages that repeated catalog entries. The MEC-04 sheet
   // repeated the hard-clock pattern and offered a "facilitation script" PDF
   // that held only a title line. Moral circuit breakers repeated MEC-05 and

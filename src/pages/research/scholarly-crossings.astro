@@ -8,6 +8,7 @@ import SectionBlock from "../../components/SectionBlock.astro";
 import AdversariesTable from "../../components/positioning/AdversariesTable.astro";
 import CompletionsTable from "../../components/positioning/CompletionsTable.astro";
 import InstrumentsTable from "../../components/positioning/InstrumentsTable.astro";
+import { mechanismColumns } from "../../content/positioning";
 import { methodContent } from "../../content/method";
 import {
   convergence,
@@ -596,6 +597,21 @@ const staleLabel = new Date(
     description="Eight pairings for people whose preferred corrective mechanism differs. Each addition states what the mechanism's own theory leaves unmeasured, and the record that would show whether it still works."
     variant="alt"
   >
+    <div class="home-mechanisms">
+      {
+        mechanismColumns.map((col) => (
+          <div
+            class:list={[
+              "home-mechanisms__cell",
+              col.own && "home-mechanisms__cell--own",
+            ]}
+          >
+            <p class="home-mechanisms__name">{col.name}</p>
+            <p class="home-mechanisms__question">{col.question}</p>
+          </div>
+        ))
+      }
+    </div>
     <p>
       A mechanism that corrects in year one can be nominal by year ten, because
       the dependency that prolonged delegation creates changes the mechanism

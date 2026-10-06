@@ -121,6 +121,18 @@
   }
 
   /* --- Clause register --- */
+  .clause-register__summary {
+    cursor: pointer;
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .clause-register__toggle[open] > .clause-register__summary {
+    margin-bottom: var(--space-4);
+  }
+
   .clause-register__part {
     margin: 0 0 var(--space-2);
     font-size: var(--text-base);
