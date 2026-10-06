@@ -289,6 +289,11 @@ const relatedPatterns = (entry.relatedPatterns ?? [])
     ): pattern is { title: string; href: string; filterLabels: string[] } =>
       Boolean(pattern),
   );
+const hasTestsAndEvidence =
+  operationalTests.length > 0 ||
+  commonCounterfeits.length > 0 ||
+  showMinimumEvidence ||
+  relatedPatterns.length > 0;
 const anchorLinks = [
   { href: "#definition", label: "Definition" },
   ...(adjacentTerms.length
@@ -389,20 +394,22 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     description={introDescription}
     anchorLinks={anchorLinks}
   />
-  <div class="callout glossary-entry__summary">
-    <p class="eyebrow">On this entry</p>
-    <ul class="pill-list pill-list--wrap glossary-entry__summary-links">
-      {
-        quickTakeawayLinks.map((link) => (
-          <li>
-            <a class="pill-list__button" href={link.href}>
-              {link.label}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </div>
+  {
+    quickTakeawayLinks.length > 1 && (
+      <div class="callout glossary-entry__summary">
+        <p class="eyebrow">On this entry</p>
+        <ul class="pill-list pill-list--wrap glossary-entry__summary-links">
+          {quickTakeawayLinks.map((link) => (
+            <li>
+              <a class="pill-list__button" href={link.href}>
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
   <article
     class="glossary-entry glossary-entry--detail"
     itemscope
@@ -602,94 +609,90 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
             </li>
           </ul>
         </section>
-        <section class="glossary-entry__section glossary-entry__section--dense">
-          <p class="eyebrow">Tests and evidence</p>
-          <div class="glossary-entry__disclosures">
-            {
-              operationalTests.length > 0 && (
-                <details
-                  id="operational-tests"
-                  class="glossary-entry__disclosure"
-                >
-                  <summary>
-                    Operational tests ({operationalTests.length})
-                  </summary>
-                  <ul class="muted">
-                    {operationalTests.map((test) => (
-                      <li>{test}</li>
-                    ))}
-                  </ul>
-                </details>
-              )
-            }
-            {
-              commonCounterfeits.length > 0 && (
-                <details
-                  id="common-counterfeits"
-                  class="glossary-entry__disclosure"
-                >
-                  <summary>
-                    Common counterfeits ({commonCounterfeits.length})
-                  </summary>
-                  <ul class="muted">
-                    {commonCounterfeits.map((counterfeit) => (
-                      <li>{counterfeit}</li>
-                    ))}
-                  </ul>
-                </details>
-              )
-            }
-            {
-              showMinimumEvidence && (
-                <details
-                  id="minimum-evidence"
-                  class="glossary-entry__disclosure"
-                >
-                  <summary>Minimum evidence checklist</summary>
-                  <ul class="muted">
-                    {minimumEvidenceItems.map((item) => (
-                      <li>
-                        <strong>{item.label}:</strong> {item.value}
-                      </li>
-                    ))}
-                  </ul>
-                </details>
-              )
-            }
-            {
-              relatedPatterns.length > 0 && (
-                <details
-                  id="related-mechanisms"
-                  class="glossary-entry__disclosure glossary-entry__section--patterns"
-                >
-                  <summary>
-                    Related mechanisms ({relatedPatterns.length})
-                  </summary>
-                  <ul class="glossary-entry__patterns-list">
-                    {relatedPatterns.map((relatedPattern) => (
-                      <li class="glossary-entry__pattern-card">
-                        <a
-                          class="glossary-entry__pattern-link"
-                          href={relatedPattern.href}
-                        >
-                          <span class="glossary-entry__pattern-title">
-                            {relatedPattern.title}
-                          </span>
-                          <span class="muted small">
-                            {relatedPattern.filterLabels.join(", ")}
-                          </span>
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                  <p class="muted small glossary-entry__patterns-hint">
-                    See the full <a href="/mechanisms">mechanisms catalog</a>.
-                  </p>
-                </details>
-              )
-            }
-          </div>
-        </section>
+        {
+          hasTestsAndEvidence && (
+            <section class="glossary-entry__section glossary-entry__section--dense">
+              <p class="eyebrow">Tests and evidence</p>
+              <div class="glossary-entry__disclosures">
+                {operationalTests.length > 0 && (
+                  <details
+                    id="operational-tests"
+                    class="glossary-entry__disclosure"
+                  >
+                    <summary>
+                      Operational tests ({operationalTests.length})
+                    </summary>
+                    <ul class="muted">
+                      {operationalTests.map((test) => (
+                        <li>{test}</li>
+                      ))}
+                    </ul>
+                  </details>
+                )}
+                {commonCounterfeits.length > 0 && (
+                  <details
+                    id="common-counterfeits"
+                    class="glossary-entry__disclosure"
+                  >
+                    <summary>
+                      Common counterfeits ({commonCounterfeits.length})
+                    </summary>
+                    <ul class="muted">
+                      {commonCounterfeits.map((counterfeit) => (
+                        <li>{counterfeit}</li>
+                      ))}
+                    </ul>
+                  </details>
+                )}
+                {showMinimumEvidence && (
+                  <details
+                    id="minimum-evidence"
+                    class="glossary-entry__disclosure"
+                  >
+                    <summary>Minimum evidence checklist</summary>
+                    <ul class="muted">
+                      {minimumEvidenceItems.map((item) => (
+                        <li>
+                          <strong>{item.label}:</strong> {item.value}
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                )}
+                {relatedPatterns.length > 0 && (
+                  <details
+                    id="related-mechanisms"
+                    class="glossary-entry__disclosure glossary-entry__section--patterns"
+                  >
+                    <summary>
+                      Related mechanisms ({relatedPatterns.length})
+                    </summary>
+                    <ul class="glossary-entry__patterns-list">
+                      {relatedPatterns.map((relatedPattern) => (
+                        <li class="glossary-entry__pattern-card">
+                          <a
+                            class="glossary-entry__pattern-link"
+                            href={relatedPattern.href}
+                          >
+                            <span class="glossary-entry__pattern-title">
+                              {relatedPattern.title}
+                            </span>
+                            <span class="muted small">
+                              {relatedPattern.filterLabels.join(", ")}
+                            </span>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                    <p class="muted small glossary-entry__patterns-hint">
+                      See the full <a href="/mechanisms">mechanisms catalog</a>.
+                    </p>
+                  </details>
+                )}
+              </div>
+            </section>
+          )
+        }
       </aside>
     </div>
   </article>
