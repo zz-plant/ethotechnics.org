@@ -256,7 +256,11 @@
     color: var(--text);
   }
 
-  .pill-list li.pill-list__item {
+  /* A list item that holds a button or link is drawn by that control, so
+     the item carries no padding of its own; otherwise the pill gets padded
+     twice. */
+  .pill-list li.pill-list__item,
+  .pill-list li:has(> .pill-list__button) {
     padding: 0;
   }
 
@@ -268,7 +272,10 @@
     padding: var(--space-1) var(--space-3);
     margin: 0;
     cursor: pointer;
-    display: block;
+    /* 44px is the touch target; flex keeps the label centered in it
+       instead of sitting at the top. */
+    display: flex;
+    align-items: center;
     width: 100%;
     text-align: left;
     min-height: 44px;
@@ -276,7 +283,9 @@
   }
 
   .pill-list__item:hover,
-  .pill-list__item:focus-within {
+  .pill-list__item:focus-within,
+  .pill-list li:has(> .pill-list__button):hover,
+  .pill-list li:has(> .pill-list__button):focus-within {
     background: color-mix(in srgb, var(--accent) 14%, var(--surface));
     border-color: color-mix(in srgb, var(--accent) 26%, var(--border));
   }

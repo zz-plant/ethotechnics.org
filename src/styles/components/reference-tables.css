@@ -143,7 +143,35 @@
   .clause-register__when {
     font-size: var(--text-sm);
     color: var(--muted);
-    max-width: 22ch;
+  }
+
+  /* Every part of a standard gets its own table. Sized by content, the
+     columns of each landed somewhere different, so the register read as a
+     stack of unrelated tables. One fixed set of widths lines them up. */
+  @media (min-width: 720px) {
+    .clause-register__table {
+      table-layout: fixed;
+    }
+
+    .clause-register__table thead th:nth-child(1) {
+      width: 8%;
+    }
+
+    .clause-register__table thead th:nth-child(2) {
+      width: 18%;
+    }
+
+    .clause-register__table thead th:nth-child(3) {
+      width: 38%;
+    }
+
+    .clause-register__table thead th:nth-child(4) {
+      width: 24%;
+    }
+
+    .clause-register__table thead th:nth-child(5) {
+      width: 12%;
+    }
   }
 
   .clause-register__list {
@@ -155,9 +183,19 @@
     font-size: var(--text-xs);
   }
 
+  /* Field paths break after a dot or an underscore (the component marks
+     those with <wbr>), never inside a word. */
+  .clause-register__list code {
+    overflow-wrap: normal;
+  }
+
   .clause-register__refs {
     font-family: var(--sans);
     font-size: var(--text-xs);
+  }
+
+  /* A list of ids wraps between ids, never inside one. */
+  .clause-register__ref {
     white-space: nowrap;
   }
 

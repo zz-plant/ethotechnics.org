@@ -7,6 +7,7 @@ import CitationBlock from "../../../components/CitationBlock.astro";
 import PageIntro from "../../../components/PageIntro.astro";
 import ScholarlyMeta from "../../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../../components/SectionBlock.astro";
+import "../../../styles/components/pattern-browser.css";
 import type { DiagnosticTool } from "../../../content/diagnostics";
 import { diagnosticsContent } from "../../../content/diagnostics";
 import {
@@ -401,7 +402,7 @@ const breadcrumbItems = [
   }
 
   .pattern-detail__step-card.is-interactive:hover {
-    border-color: var(--color-primary, #007bff);
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
   }
 
   .pattern-detail__step-header {
@@ -419,7 +420,8 @@ const breadcrumbItems = [
 
   .pattern-detail__checklist-progress {
     margin-bottom: var(--space-6);
-    background: var(--color-surface-dim, #f8f9fa);
+    background: var(--surface);
+    border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
     padding: var(--space-4);
     border-radius: var(--radius-md);
   }
@@ -427,7 +429,7 @@ const breadcrumbItems = [
   .progress-bar {
     width: 100%;
     height: 8px;
-    background: var(--color-border, #e9ecef);
+    background: var(--border);
     border-radius: var(--radius-xs);
     margin-top: var(--space-2);
     overflow: hidden;
@@ -435,7 +437,7 @@ const breadcrumbItems = [
 
   .progress-bar__fill {
     height: 100%;
-    background: var(--color-primary, #007bff);
+    background: var(--accent);
     width: 0%;
     transition: width 0.3s ease;
   }

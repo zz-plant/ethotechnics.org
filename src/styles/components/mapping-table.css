@@ -11,6 +11,11 @@
     overscroll-behavior-x: contain;
   }
 
+  /* A note set under a table sat flush against its bottom border. */
+  .mapping-table__wrapper + :is(p, .small, .muted) {
+    margin-top: var(--space-3);
+  }
+
   .mapping-table {
     width: 100%;
     border-collapse: collapse;

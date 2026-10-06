@@ -151,12 +151,16 @@
     display: grid;
     gap: var(--space-4);
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
-    align-items: start;
+    align-items: stretch;
   }
 
+  /* Cards in a row share a height, and the summary takes the slack, so the
+     Details buttons and teasers line up across the row instead of ending
+     wherever each summary does. */
   .pattern-filter__results > .card {
     gap: var(--space-2);
     padding: var(--space-container-compact);
+    grid-template-rows: auto auto 1fr auto auto;
   }
 
   /* Shown by pattern-filter.ts once a mechanism is saved. Sticky to the
@@ -448,12 +452,9 @@
     gap: var(--space-4);
   }
 
+  /* Plain text: the progress box under it is the one frame here. */
   .pattern-detail__step-summary {
     margin-bottom: var(--space-3);
-    padding: var(--space-3) var(--space-4);
-    border-radius: var(--radius-md);
-    border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
-    background: var(--surface);
   }
 
   .pattern-detail__glossary-links {
@@ -464,7 +465,6 @@
   }
 
   .pattern-detail__step-card {
-    min-height: 180px;
     display: grid;
     align-content: start;
     gap: var(--space-2);
