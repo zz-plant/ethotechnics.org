@@ -1,5 +1,6 @@
 ---
 import type { PublicationMetadata } from "../content/types";
+import { resolveDoi } from "../utils/doi";
 
 type Props = {
   publication: PublicationMetadata;
@@ -36,6 +37,9 @@ const updatedDate = publication.updated
     })
   : null;
 const [latestChange, ...earlierChanges] = publication.changelog;
+// Only a real DOI is printed; a placeholder such as "Pending Zenodo deposit"
+// prints nothing.
+const doi = resolveDoi(publication.doi);
 ---
 
 {
@@ -110,10 +114,13 @@ const [latestChange, ...earlierChanges] = publication.changelog;
           <span class="muted">Version:</span>
           {publication.version}
         </li>
-        <li>
-          <span class="muted">DOI:</span>
-          {publication.doi ?? "Not yet minted"}
-        </li>
+        {
+          doi && (
+            <li>
+              <span class="muted">DOI:</span> <a href={doi.href}>{doi.id}</a>
+            </li>
+          )
+        }
       </ul>
       <p class="muted small">
         License: <a href={publication.license.href}

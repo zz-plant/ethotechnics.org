@@ -1,5 +1,6 @@
 ---
 import type { PublicationMetadata } from "../content/types";
+import { resolveDoi } from "../utils/doi";
 
 type Props = {
   title: string;
@@ -39,10 +40,12 @@ const updatedDate = new Date(
 const citationKeyValue =
   citationKey ??
   `ethotechnics_${permalink.replace(/[^a-zA-Z0-9]+/g, "_").replace(/^_+|_+$/g, "")}`;
-const doi = publication.doi;
-const doiValue = doi?.replace(/^https?:\/\/doi\.org\//, "");
-const hasDoi = Boolean(doiValue && doiValue.startsWith("10."));
-const doiHref = hasDoi ? `https://doi.org/${doiValue}` : null;
+// Only a real DOI is printed or cited; a placeholder such as "Pending Zenodo
+// deposit" leaves the DOI out of the block and out of every format.
+const doi = resolveDoi(publication.doi);
+const hasDoi = doi !== null;
+const doiValue = doi?.id;
+const doiHref = doi?.href;
 
 const apa = `${authorNames}. (${year}). ${title}. ${publisher}. ${pageUrl}`;
 const mla = `${authorNames}. "${title}." ${publisher}, ${year}, ${pageUrl}.`;
@@ -144,14 +147,12 @@ const ris = risLines.join("\n");
               <p class="muted small">Permalink</p>
               <a href={pageUrl}>{pageUrl}</a>
             </div>
-            <div>
-              <p class="muted small">DOI</p>
-              {hasDoi ? (
-                <a href={doiHref}>{doi}</a>
-              ) : (
-                <p>{doi ?? "Not yet minted"}</p>
-              )}
-            </div>
+            {doi && (
+              <div>
+                <p class="muted small">DOI</p>
+                <a href={doi.href}>{doi.id}</a>
+              </div>
+            )}
           </div>
           <div class="citation-block__formats">
             <div class="citation-block__format">
