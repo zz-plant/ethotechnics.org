@@ -5,9 +5,11 @@ import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
 import PageIntro from "../../components/PageIntro.astro";
+import SearchIds from "../../components/SearchIds.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import { diagnosticsContent } from "../../content/diagnostics";
 import { studioSummary } from "../../content/studio";
+import { standardLink } from "../../content/use-cases";
 
 const {
   pageTitle,
@@ -22,7 +24,7 @@ const {
 // with the sections below them.
 const anchorLinks = [
   { href: "#orientation", label: "Who these tools are for" },
-  { href: "#self-defense-tools", label: "Self-defense checks" },
+  { href: "#self-defense-tools", label: "If a system decided about you" },
   { href: "#output-baseline", label: "What every output includes" },
   { href: "#how-it-works", label: "Facilitated sessions" },
   { href: "#referenced-by", label: "Where diagnostics are cited" },
@@ -42,7 +44,7 @@ const quickTriagePrompts = [
     slug: "delegation-audit",
     question: "Is the system still justified in making this decision?",
     description:
-      "Take one workflow through six questions and list the permissions your team cannot ground in a grant.",
+      "Take one workflow through six questions and list the permissions nobody on your team can justify.",
   },
   {
     slug: "record-conformance",
@@ -72,37 +74,46 @@ const toolCards = quickTriagePrompts.flatMap((prompt) => {
   ];
 });
 // Carried over from the decision-tree figure that used to sit beside the
-// cards: the symptom each tool answers and the standard it reports against.
+// cards: the symptom each tool answers and the standard and law it reports
+// against. Both render as links, since the page introduces neither.
 const standardsMap = [
   {
     tool: "Workload Modeler",
     symptom:
-      "Silent absorption: staff burnout, manual overrides, uncounted workaround labor.",
-    output: "Burden score and hotspot ranking",
-    standard: "STD-02 / Law IV",
+      "Staff absorb the system's errors where nobody counts them: burnout, manual overrides, hours spent on workarounds.",
+    output: "Burden score and where the load concentrates",
+    standard: "STD-02",
+    law: "IV",
   },
   {
     tool: "Delegation Audit",
     symptom:
-      "Escalation vacuum: outage ownership unclear, fallback routes unrehearsed.",
-    output: "Ungrounded grants",
-    standard: "STD-08 / Law VI",
+      "Nobody clearly owns an outage, and nobody has rehearsed the fallback.",
+    output: "Permissions nobody can justify",
+    standard: "STD-08",
+    law: "VI",
   },
   {
     tool: "Corrective capacity self-assessment",
     symptom:
-      "Atrophy and saturation: reserve declining over time, growing lock-in risk.",
+      "The institution can fix fewer of its mistakes each year, and the system gets harder to back out of.",
     output: "Self-reported concern score",
-    standard: "STD-08 / Law IV",
+    standard: "STD-08",
+    law: "IV",
   },
   {
     tool: "Record Conformance Checker",
     symptom:
-      "Opaque authority: do the records say who authorized each action, and whether a person can contest it?",
-    output: "Conformance level earned",
-    standard: "STD-07 / Law VII",
+      "The records do not show who authorized each action, or whether a person can contest it.",
+    output: "Conformance level the records earn",
+    standard: "STD-07",
+    law: "VII",
   },
-];
+].map((row) => ({
+  ...row,
+  standardLink: standardLink(row.standard),
+  lawHref: `/standards/laws#law-${row.law.toLowerCase()}`,
+}));
 const selfDefenseTools = [
   {
     title: "Can this decision be challenged?",
@@ -122,7 +133,7 @@ const selfDefenseTools = [
     title: "Who holds power?",
     description: "Lists the people and levers that can reverse the outcome.",
     href: "/diagnostics/self-defense-tools#power-map",
-    label: "Map power",
+    label: "Find who can reverse it",
   },
 ];
 ---
@@ -155,7 +166,7 @@ const selfDefenseTools = [
     </h2>
     <div class="grid grid--two">
       <div class="panel stack-sm">
-        <p class="eyebrow">For affected individuals</p>
+        <p class="eyebrow">For people a system decided about</p>
         <h3 class="diagnostics-orientation__heading">
           Decided about by an automated system?
         </h3>
@@ -166,20 +177,25 @@ const selfDefenseTools = [
         </p>
         <p class="small muted">
           If software denied an application, cut your work shifts, or suspended
-          an account, use the self-report checklist to assess whether a
-          challenge route appears to exist. The remedy explainer describes
-          review and repair requirements. These draft standards have no legal
-          force.
+          an account, a law may already entitle you to the reasons, a review by
+          a person, or a decision by a deadline. That depends on where you are
+          and what was decided. The standards on this site are drafts and have
+          no legal force.
         </p>
         <ul class="card__list small">
           <li>
-            <a href="/diagnostics/self-defense-tools"
-              >Run the 3 self-defense checks &rarr;</a
+            <a href="/diagnostics/self-defense-tools#your-rights"
+              >What you can ask for now &rarr;</a
             >
           </li>
           <li>
-            <a href="/explainers/remedy-essentials"
-              >Read the remedy explainer and deployment checklist &rarr;</a
+            <a href="/explainers/language-people-can-use"
+              >Questions to send about the decision &rarr;</a
+            >
+          </li>
+          <li>
+            <a href="/diagnostics/self-defense-tools"
+              >Check whether you can challenge it &rarr;</a
             >
           </li>
         </ul>
@@ -283,7 +299,11 @@ const selfDefenseTools = [
               </div>
               <div>
                 <dt>Standard</dt>
-                <dd>{row.standard}</dd>
+                <dd>
+                  <a href={row.standardLink.href}>{row.standardLink.label}</a>
+                  {" · "}
+                  <a href={row.lawHref}>Law {row.law}</a>
+                </dd>
               </div>
             </dl>
           </li>
@@ -296,7 +316,7 @@ const selfDefenseTools = [
     id="output-baseline"
     eyebrow="What you get"
     title="What every diagnostic output includes"
-    description="Every output carries the same baseline and passes the same anti-weaponization checks."
+    description="Every output carries the same baseline and passes the same four checks against being used to cut access or raise burdens."
   >
     <CardGrid>
       {
@@ -328,19 +348,23 @@ const selfDefenseTools = [
       </div>
 
       <div class="panel stack-sm" id="anti-weaponization">
-        <p class="eyebrow">Anti-weaponization verification</p>
+        <p class="eyebrow">Checks against misuse</p>
+        <p class="muted small">
+          Four constraints keep a diagnostic output from being used to deny
+          care, reduce access, or raise burdens.
+        </p>
         <ul class="muted small">
           <li>
             <strong>AW-01:</strong> Burden metrics include a remediation plan and
             staffing allocation.
           </li>
           <li>
-            <strong>AW-02:</strong> Appeal paths are tested for non-regression and
-            public replacement windows.
+            <strong>AW-02:</strong> No appeal path is removed or weakened without
+            a published replacement and a review window.
           </li>
           <li>
-            <strong>AW-03:</strong> Downgrades or eligibility changes always emit
-            receipts and clocks.
+            <strong>AW-03:</strong> A cut to access or eligibility always comes with
+            a receipt and a deadline for remedy.
           </li>
           <li>
             <strong>AW-04:</strong> High-burden flows include assisted channels or
@@ -381,7 +405,7 @@ const selfDefenseTools = [
     id="referenced-by"
     eyebrow="Referenced by"
     title="Where diagnostics connect to the standards"
-    description="The examples, bindings, and evidence packs that cite a diagnostic output."
+    description="The worked examples, incident triggers, release checklists, and evidence packs that cite a diagnostic output."
   >
     <div class="grid grid--three">
       <div class="panel">
@@ -404,7 +428,7 @@ const selfDefenseTools = [
         </ul>
       </div>
       <div class="panel">
-        <p class="eyebrow">Required by bindings</p>
+        <p class="eyebrow">Required after incidents and before release</p>
         <ul class="muted">
           <li>
             <a href="/incidents">Incident triggers</a>
@@ -429,10 +453,19 @@ const selfDefenseTools = [
         </ul>
       </div>
     </div>
-    <p class="muted">
-      Search IDs: AW-01, AW-02, AW-03, AW-04, VAL-01, VAL-02, VAL-03,
-      STD-02.2.1, STD-02.3.1.
-    </p>
+    <SearchIds
+      ids={[
+        "AW-01",
+        "AW-02",
+        "AW-03",
+        "AW-04",
+        "VAL-01",
+        "VAL-02",
+        "VAL-03",
+        "STD-02.2.1",
+        "STD-02.3.1",
+      ]}
+    />
   </SectionBlock>
 
   <section

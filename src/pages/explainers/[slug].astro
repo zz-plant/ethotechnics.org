@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import ExplainerLayout from "../../components/ExplainerLayout.astro";
+import { getGlossaryLabel } from "../../utils/glossary";
 
 const entry = (await getCollection("explainers")).find(
   (candidate) => candidate.id === Astro.params.slug,
@@ -18,6 +19,12 @@ const {
   faqs,
 } = entry.data;
 
+// The glossary link names the entry it opens. The explainer's own title
+// ("What is contestability?") read as "Canonical entry: What is
+// contestability? in the glossary", and named the wrong term where the
+// explainer points at a related entry.
+const glossaryLabel = glossaryRef ? getGlossaryLabel(glossaryRef) : title;
+
 const hasBody = Boolean(entry.body && entry.body.trim().length > 0);
 const { Content } = hasBody ? await render(entry) : { Content: null };
 ---
@@ -26,7 +33,7 @@ const { Content } = hasBody ? await render(entry) : { Content: null };
   title={title}
   description={description}
   permalink={permalink}
-  glossary={{ href: `/glossary/${glossaryRef}`, label: title }}
+  glossary={{ href: `/glossary/${glossaryRef}`, label: glossaryLabel }}
   definition={definition}
   example={example}
   distinctSignals={distinctSignals}

@@ -4,7 +4,7 @@ description: "A draft record format for work delegated to machines: what was bel
 permalink: "/standards/std-07-revisable-delegation-record"
 eyebrow: "Standard"
 seoTitle: "STD-07 — Revisable Delegation Record"
-version: "0.1.1"
+version: "0.1.2"
 publishedTime: "2026-09-06T00:00:00.000Z"
 mainClass: "page page--wide standard-document"
 anchorLinks:
@@ -102,7 +102,7 @@ export const structuredData = {
   url: "https://ethotechnics.org/standards/std-07-revisable-delegation-record",
   datePublished: "2026-09-06",
   dateModified: "2026-10-06",
-  version: "0.1.1",
+  version: "0.1.2",
   identifier: "STD-07",
   publisher: {
     "@type": "Organization",
@@ -131,7 +131,7 @@ export const structuredData = {
       </div>
       <div>
         <dt>Version</dt>
-        <dd>0.1.1 (working draft)</dd>
+        <dd>0.1.2 (working draft)</dd>
       </div>
       <div>
         <dt>Effective date</dt>
@@ -157,11 +157,14 @@ export const structuredData = {
         it could do, what it had authorized, what it did, where reality
         diverged, who objected, and what it revised.
 
-        Ethotechnics is the engineering of delegated power such that
-        exercising it does not destroy the material conditions of its own
-        revision. The question this standard serves is how an institution
-        can become more capable without becoming less revisable. The
-        problem is recursive: an institution delegates because a machine
+        Ethotechnics is the practice of building capable systems that remain
+        answerable to the people and realities they can never fully
+        represent. Its [invariant](/standards/laws#invariant) reads: no system
+        may accumulate consequential agency faster than the institution
+        accumulates the capacity to inspect, challenge, revise, and survive
+        its decisions. This standard serves the third verb. It asks how an
+        institution can become more capable without becoming less revisable.
+        The problem is recursive: an institution delegates because a machine
         system is useful, reorganizes around it as it succeeds, and so
         alters the conditions under which the delegation was made. The
         record exists so the institution can still change its mind inside
@@ -174,7 +177,9 @@ export const structuredData = {
         be written down so a later reader, human or machine, can answer four
         questions about any moment: what was believed at the time, what was
         authorized, what happened, and what was learned. It is a record
-        format, in the sense of STD-04 and STD-05, and it is meant to be
+        format, like the [FHIR profile set](/standards/fhir-profile-set)
+        (STD-04) and the [verifiable credential
+        schemas](/standards/w3c-vc-schemas) (STD-05), and it is meant to be
         emitted by systems that already keep their own logs. Adopting it
         means mapping an existing log onto this shape, not replacing it.
 

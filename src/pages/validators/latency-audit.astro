@@ -25,7 +25,7 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
 
 <BaseLayout
   title="VAL-03 Latency Audit — validator specification"
-  description="Compares a declared timeout with observed maximum latency and checks for a human escalation path, testing the bounded-duration rule in STD-01 Article III."
+  description="Compares a declared timeout with observed maximum latency, checks for a human escalation path, and returns a red, yellow, or green report card."
   mainClass="page page--wide"
   breadcrumbItems={breadcrumbItems}
   structuredDataType="webpage"
@@ -37,8 +37,9 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
         <p class="validator__id">VAL-03</p>
         <h1>Latency Audit</h1>
         <p class="muted">
-          Compare declared timeouts against observed latency to test STD-01
-          Article III.
+          Compares a declared timeout with the longest latency observed, and
+          checks for a human escalation path. It tests the STD-01 rule that
+          every process has a declared maximum duration.
         </p>
       </div>
       <a class="validator__standard" href="/standards/std-01-temporal-rights">
@@ -95,7 +96,8 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
           data-validator-output
           for="latency-timeout latency-latency latency-escalation"
         >
-          Timeouts align with bounded duration.
+          Latency is within 80% of the declared timeout, and a human escalation
+          path exists.
         </output>
       </div>
       <p class="validator__recommendation">
@@ -236,17 +238,20 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
     const latency = Number(data.get("latency"));
     const escalation = data.get("escalation");
     let level: "red" | "yellow" | "green" = "green";
-    let message = "Low risk: bounded duration honored.";
+    let message =
+      "Latency is within 80% of the declared timeout, and a human escalation path exists.";
 
     if (latency > timeout || escalation === "no") {
       level = "red";
-      message = "High risk: bounded duration violated.";
+      message =
+        "Latency runs past the declared timeout, or there is no human escalation path. Enforce the timeout, and send requests that reach it to a person.";
     } else if (latency > timeout * 0.8) {
       level = "yellow";
-      message = "Medium risk: latency near timeout threshold.";
+      message = "Latency is above 80% of the declared timeout.";
     } else {
       level = "green";
-      message = "Low risk: bounded duration honored.";
+      message =
+        "Latency is within 80% of the declared timeout, and a human escalation path exists.";
     }
 
     updateStatus(level, message);

@@ -4,9 +4,11 @@ import SectionBlock from "../../components/SectionBlock.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
 import { derivePublicationMetadata } from "../../utils/publication";
 import {
+  euAiActArticleCoverage,
   evidencePackMinimumSet,
   governanceCrosswalks,
   postMarketWorkflow,
+  resolveClause,
 } from "../../content/crosswalks";
 
 type FrameworkCard = {
@@ -15,7 +17,7 @@ type FrameworkCard = {
   mappedControlId: string;
   mappedControlIds?: string[];
   standardReference: string;
-  status: "Ready now" | "Needs local extension";
+  status: "Partial: listed clauses only" | "Supporting evidence only";
   whatEthotechnicsCovers: string;
   buyerAuditorChecks: string[];
   firstMove: string;
@@ -30,11 +32,11 @@ const permalink = "/standards/enforceable-governance-crosswalks";
 const publication = derivePublicationMetadata({
   permalink,
   published: "2026-02-15T00:00:00Z",
-  updated: "2026-02-22T00:00:00Z",
-  version: "v0.3.0",
+  updated: "2026-10-06T00:00:00Z",
+  version: "v0.4.0",
   authorName: "Ethotechnics Institute",
   changelogSummary:
-    "Added framework-specific checks, first moves, and implementation-ready evidence asks for buyer and audit workflows.",
+    "Replaced the “Ready now” status, which read as a compliance verdict, with “Partial: listed clauses only”. Added the EU AI Act article by article, with the clauses behind each and what they leave to the operator. Corrected NIST AI RMF subcategories and ISO/IEC 42001 clause titles that did not match the frameworks.",
 });
 
 const findControl = (controlId: string) => {
@@ -56,19 +58,20 @@ const frameworkCards: FrameworkCard[] = [
     anchor: "#eu-ai-act",
     mappedControlId: "CTRL-03",
     mappedControlIds: ["CTRL-01", "CTRL-02", "CTRL-03", "CTRL-04"],
-    standardReference: "Articles 9, 12, 14, 72, 73",
-    status: "Ready now",
+    standardReference: "Articles 9, 12, 14, and 72 in part; not Article 73",
+    status: "Partial: listed clauses only",
     whatEthotechnicsCovers:
-      "Risk management, traceability, human oversight, and post-market reporting controls with exportable evidence.",
+      "Parts of risk management, record-keeping, human oversight, and post-market monitoring. No clause covers serious-incident reporting under Article 73.",
     buyerAuditorChecks: [
       "Named owner for incident-reporting clocks and regulator submissions.",
       "Decision-level records retained with version context.",
       "Documented stop authority and oversight rota for high-risk actions.",
     ],
     firstMove:
-      "Run a release-readiness review against incident-reporting clocks and escalation ownership.",
+      "Read the article table below and assign an owner to each gap, starting with Article 73 incident reporting.",
     detailedLinks: [
-      { label: "EU AI Act explainer", href: "/standards/eu-ai-act" },
+      { label: "EU AI Act article table", href: "#eu-ai-act-articles" },
+      { label: "EU AI Act critique and dates", href: "/standards/eu-ai-act" },
       { label: "Incident lessons hub", href: "/incidents" },
     ],
   },
@@ -76,8 +79,8 @@ const frameworkCards: FrameworkCard[] = [
     framework: "NIST AI RMF 1.0",
     anchor: "#nist",
     mappedControlId: "CTRL-02",
-    standardReference: "GOV, MAP, MEASURE, MANAGE",
-    status: "Ready now",
+    standardReference: "MANAGE 1.1, MANAGE 1.3, MEASURE 2.5",
+    status: "Partial: listed clauses only",
     whatEthotechnicsCovers:
       "Operational governance controls mapped to release gates, pre-release validation, and mitigation ownership.",
     buyerAuditorChecks: [
@@ -86,22 +89,25 @@ const frameworkCards: FrameworkCard[] = [
       "Mitigation backlog includes due dates and accountable humans.",
     ],
     firstMove:
-      "Run the Risk Radar and Burden Modeler validators (VAL-02 and VAL-01) before every consequential launch decision.",
+      "Ask for the last launch decision's test results, with each threshold dated before its test ran (STD-06 §2.1 and §2.2).",
     detailedLinks: [
       {
-        label: "NIST AI RMF implementation page",
-        href: "/standards/nist-ai-rmf",
+        label: "NIST subcategories mapped to clauses",
+        href: "/standards/nist-ai-rmf#clause-map",
       },
-      { label: "Risk Radar validator", href: "/validators/risk-radar" },
-      { label: "Burden Modeler validator", href: "/validators/burden-modeler" },
+      {
+        label: "STD-06 human-impact safety case",
+        href: "/standards/std-06-human-impact-safety-case",
+      },
     ],
   },
   {
     framework: "ISO/IEC 42001",
     anchor: "#iso42001",
     mappedControlId: "CTRL-02",
+    mappedControlIds: ["CTRL-02", "CTRL-03"],
     standardReference: "Clauses 6.1, 8.1, 8.2, 9.1, 10.1",
-    status: "Ready now",
+    status: "Partial: listed clauses only",
     whatEthotechnicsCovers:
       "Lifecycle controls for an AI management system (AIMS): planning, operation, monitoring, and continual improvement.",
     buyerAuditorChecks: [
@@ -121,7 +127,7 @@ const frameworkCards: FrameworkCard[] = [
     anchor: "#iso27001",
     mappedControlId: "CTRL-04",
     standardReference: "Annex A control families + ISMS records",
-    status: "Needs local extension",
+    status: "Supporting evidence only",
     whatEthotechnicsCovers:
       "Traceability, retention, and reconstruction controls that support ISMS evidence, but org-specific Annex A controls remain local.",
     buyerAuditorChecks: [
@@ -144,7 +150,7 @@ const frameworkCards: FrameworkCard[] = [
     anchor: "#soc2",
     mappedControlId: "CTRL-01",
     standardReference: "CC-series (security, availability, integrity)",
-    status: "Needs local extension",
+    status: "Supporting evidence only",
     whatEthotechnicsCovers:
       "Human oversight, escalation, and change-control evidence that supports common SOC 2 control expectations.",
     buyerAuditorChecks: [
@@ -170,7 +176,7 @@ const frameworkCards: FrameworkCard[] = [
     anchor: "#iec61508",
     mappedControlId: "CTRL-01",
     standardReference: "Safety lifecycle obligations",
-    status: "Needs local extension",
+    status: "Supporting evidence only",
     whatEthotechnicsCovers:
       "Stop authority and incident-route controls that support safety operations, while SIL determination and hardware safety remain implementation-specific.",
     buyerAuditorChecks: [
@@ -191,9 +197,9 @@ const frameworkCards: FrameworkCard[] = [
 ];
 
 const keyTakeaways = [
-  "This crosswalk was last checked against the Ethotechnics controls on 2026-02-22.",
-  "“Ready now” means the Ethotechnics controls cover the framework clauses listed. “Needs local extension” means your organization has to add its own controls to close the gap.",
-  "Every framework row gives the checks a buyer or auditor should run and a first step to take.",
+  "Checked on 2026-10-06 against the Ethotechnics clause register, the EU AI Act as amended by Regulation (EU) 2026/1744, and NIST AI 100-1.",
+  "“Partial: listed clauses only” means Ethotechnics clauses bear on part of each framework clause listed, and the rest stays with you. “Supporting evidence only” means Ethotechnics records can serve as evidence inside controls your organization owns.",
+  "No row is a determination of legal compliance. Each links to control briefs that name the Ethotechnics clauses a contract can cite and the records to request.",
 ];
 ---
 
@@ -207,11 +213,13 @@ const keyTakeaways = [
     { href: "#guide", label: "Guide" },
     { href: "#summary", label: "Using a crosswalk row" },
     { href: "#controls", label: "Crosswalk" },
+    { href: "#eu-ai-act-articles", label: "EU AI Act by article" },
     { href: "#framework-cards", label: "Framework cards" },
     { href: "#post-market", label: "Post-market" },
     { href: "#citations", label: "Citation" },
   ]}
   publishedTime="2025-06-01T00:00:00.000Z"
+  modifiedTime="2026-10-06T00:00:00.000Z"
   jsonAlternates={[{ href: "/api/crosswalks.json", title: "Crosswalks JSON" }]}
 >
   <SectionBlock
@@ -233,9 +241,9 @@ const keyTakeaways = [
   >
     <ol>
       <li>
-        Check whether the row is <strong>Ready now</strong> or <strong
-          >Needs local extension</strong
-        >.
+        Read the status. For the EU AI Act, read the <a
+          href="#eu-ai-act-articles">article table</a
+        > too: it says what each clause leaves to you.
       </li>
       <li>Name the person accountable for the first step.</li>
       <li>
@@ -248,7 +256,7 @@ const keyTakeaways = [
     id="controls"
     eyebrow="Overview"
     title="Framework-by-framework crosswalk"
-    description="One row per framework: the Ethotechnics control it maps to, what that control covers, and whether your organization must add its own controls."
+    description="One row per framework: the Ethotechnics control it maps to, what that control covers, and how much is left to you."
   >
     <div class="table-wrap">
       <table>
@@ -271,9 +279,10 @@ const keyTakeaways = [
                   <span
                     class:list={{
                       badge: true,
-                      "badge--ready": framework.status === "Ready now",
-                      "badge--extend":
-                        framework.status === "Needs local extension",
+                      "badge--partial":
+                        framework.status === "Partial: listed clauses only",
+                      "badge--evidence":
+                        framework.status === "Supporting evidence only",
                     }}
                   >
                     {framework.status}
@@ -303,11 +312,71 @@ const keyTakeaways = [
   </SectionBlock>
 
   <SectionBlock
+    id="eu-ai-act-articles"
+    eyebrow="EU AI Act"
+    title="Article by article"
+    description="For each article the map cites: the Ethotechnics clauses that bear on it, what they require that the article also asks for, and what they leave to you."
+    variant="alt"
+  >
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table mapping-table--stack">
+        <thead>
+          <tr>
+            <th scope="col">Article</th>
+            <th scope="col">Clauses</th>
+            <th scope="col">What the clauses cover</th>
+            <th scope="col">What they leave to you</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            euAiActArticleCoverage.map((row) => (
+              <tr>
+                <th scope="row">
+                  {row.article}
+                  <br />
+                  <span class="muted">{row.title}</span>
+                </th>
+                <td data-label="Clauses">
+                  {row.clauseIds.length > 0
+                    ? row.clauseIds.map((clauseId, index) => {
+                        const resolved = resolveClause(clauseId);
+                        return (
+                          <>
+                            {resolved ? (
+                              <a href={resolved.href}>{resolved.label}</a>
+                            ) : (
+                              <span>{clauseId}</span>
+                            )}
+                            {index < row.clauseIds.length - 1 && (
+                              <span>, </span>
+                            )}
+                          </>
+                        );
+                      })
+                    : "None"}
+                </td>
+                <td data-label="What the clauses cover">{row.covers}</td>
+                <td data-label="What they leave to you">{row.leaves}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="muted">
+      Articles 9, 12, and 14 sit in Chapter III, Section 2, which applies to
+      Annex III systems from 2 December 2027 and to Annex I systems from 2
+      August 2028. The <a href="/standards/eu-ai-act#timeline">EU AI Act page</a
+      > lists every application date and its source.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
     id="framework-cards"
     eyebrow="Details"
     title="Framework details"
     description="Each card lists the checks and evidence requests to put in a procurement packet or an audit walkthrough."
-    variant="alt"
   >
     <div class="framework-details">
       {
@@ -336,7 +405,10 @@ const keyTakeaways = [
                 {mappedControls.map((control, index) => (
                   <>
                     <span>
-                      {control.controlId} — {control.obligation}
+                      <a href={toCrosswalkDetailHref(control.controlId)}>
+                        {control.controlId}
+                      </a>{" "}
+                      — {control.obligation}
                     </span>
                     {index < mappedControls.length - 1 && <span>; </span>}
                   </>
@@ -396,6 +468,7 @@ const keyTakeaways = [
     eyebrow="Post-market"
     title="Incident reporting as its own governance process"
     description="Monitoring after release needs a route, a clock, and an export to the regulator. Without them it ends up buried in retrospectives."
+    variant="alt"
   >
     <ol>
       {
@@ -406,6 +479,11 @@ const keyTakeaways = [
         ))
       }
     </ol>
+    <p class="muted">
+      This is a process outline, not a standard clause. The deadlines for
+      reporting a serious incident come from EU AI Act Article 73, not from
+      Ethotechnics.
+    </p>
     <p><strong>Evidence pack minimum:</strong></p>
     <ul>
       {evidencePackMinimumSet.map((item) => <li>{item}</li>)}
@@ -417,7 +495,6 @@ const keyTakeaways = [
     eyebrow="Citation"
     title="Reference this crosswalk"
     description="Cite the permalink and version in policy, procurement, and audit documents, so they point at a fixed text."
-    variant="alt"
   >
     <CitationBlock
       title={pageTitle}
@@ -440,15 +517,14 @@ const keyTakeaways = [
     border: 1px solid var(--border);
     font-size: var(--text-xs);
     font-weight: 600;
-    white-space: nowrap;
   }
 
-  .badge--ready {
+  .badge--partial {
     background: color-mix(in srgb, var(--accent) 18%, var(--surface));
     border-color: color-mix(in srgb, var(--accent) 60%, var(--border));
   }
 
-  .badge--extend {
+  .badge--evidence {
     background: color-mix(in srgb, var(--gold) 22%, var(--surface));
     border-color: color-mix(in srgb, var(--gold) 55%, var(--border));
   }

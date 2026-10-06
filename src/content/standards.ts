@@ -85,9 +85,15 @@ export const standardsContent: StandardsContent = {
       description:
         "Seven rights that protect a person's time from automated systems: to stop a process, to exit, to a bounded wait, to reversal, to wait without coercion, to reach a human, and to see the burden.",
       status: "Draft",
-      version: "1.0.1",
+      version: "1.0.2",
       changelogHref: "/standards/std-01-temporal-rights",
       changelogEntries: [
+        {
+          version: "1.0.2",
+          date: "2026-10-06",
+          summary:
+            'Editorial revision; no right changed. The rights summaries and explainer descriptions at the top of the page no longer use "time tax" and "forced tunnel" before the text defines them.',
+        },
         {
           version: "1.0.1",
           date: "2026-10-06",
@@ -112,10 +118,16 @@ export const standardsContent: StandardsContent = {
       description:
         "How a person challenges an automated decision: the reasons they are owed, an appeal path, a review clock, remedy, and who has standing to appeal.",
       status: "Draft",
-      version: "1.3.1",
+      version: "1.4",
       changelogHref:
         "/standards/std-02-contestability-recourse#publication-history",
       changelogEntries: [
+        {
+          version: "1.4",
+          date: "2026-10-06",
+          summary:
+            "§8.4 no longer says standing is proportional to exposure, which no record could show. The register must name both the people a decision falls on and the operators who handle its exceptions, each with the force §8.5 sets and the same response deadline.",
+        },
         {
           version: "1.3.1",
           date: "2026-10-06",
@@ -317,10 +329,16 @@ export const standardsContent: StandardsContent = {
       description:
         "A safety case for human impact: a standard set of tests with thresholds declared in advance, the evidence each produces, and the limits past which a system does not deploy.",
       status: "Draft",
-      version: "0.6.1",
+      version: "0.7",
       changelogHref:
         "/standards/std-06-human-impact-safety-case#publication-history",
       changelogEntries: [
+        {
+          version: "0.7",
+          date: "2026-10-06",
+          summary:
+            'Defines dependency depth as the number of dependents marked high or critical and states the unit of each exposure-score input (§5.2). Annual withdrawal rehearsal now applies wherever dependency depth is one or more, in place of a "non-trivial" score that no threshold defined (§5.6).',
+        },
         {
           version: "0.6.1",
           date: "2026-10-06",
@@ -358,10 +376,16 @@ export const standardsContent: StandardsContent = {
       description:
         "One append-only record shape for what an institution believed, could do, authorized, did, saw diverge, and revised.",
       status: "Draft",
-      version: "0.1.1",
+      version: "0.1.2",
       changelogHref:
         "/standards/std-07-revisable-delegation-record#conformance",
       changelogEntries: [
+        {
+          version: "0.1.2",
+          date: "2026-10-06",
+          summary:
+            "Editorial revision; no clause changed. The scope defines Ethotechnics in the same words as the laws and quotes the invariant, and STD-04 and STD-05 are named and linked where the scope cites them.",
+        },
         {
           version: "0.1.1",
           date: "2026-10-06",
@@ -427,9 +451,15 @@ export const standardsContent: StandardsContent = {
       description:
         "What must hold when a consequential decision passes through a chain of agents and services that no single person oversees: the whole chain is treated as one delegation, delays add up across it, and it can correct errors only as well as its weakest link.",
       status: "Draft",
-      version: "0.2.1",
+      version: "0.2.2",
       changelogHref: "/standards/std-09-agent-chains#publication-history",
       changelogEntries: [
+        {
+          version: "0.2.2",
+          date: "2026-10-06",
+          summary:
+            'Editorial revision; no obligation changed. The relationship section says what is governed in plain words in place of "the unit of governance".',
+        },
         {
           version: "0.2.1",
           date: "2026-10-06",
@@ -1235,9 +1265,10 @@ export const standardClauses: Record<string, StandardClause[]> = {
       requirementLevel: "MUST",
       condition: "a party absorbs the system's errors",
       obligation:
-        "grant standing proportional to exposure, including operators who handle exceptions, work the queues, and perform the manual repair the automation assumes",
+        "grant standing to the people the decision falls on and to the operators who handle exceptions, work the queues, and perform the manual repair the automation assumes; name both in who_may_challenge as affected_party and corrective_labor, each with the force of §8.5 and the same response deadline",
       evidenceRequired: [
         "standing_register.who_may_challenge",
+        "standing_register.response_deadline",
         "exception_handling_roster",
         "case_log",
       ],
@@ -1245,6 +1276,7 @@ export const standardClauses: Record<string, StandardClause[]> = {
       failureModes: [
         "standing limited to the named subject of the decision",
         "internal exception handlers routed to a suggestions box",
+        "operators' challenges logged but answered later than the published response deadline, or not at all",
       ],
       relatedMechanisms: ["MEC-08", "MEC-06"],
       relatedValidators: [],
@@ -1686,9 +1718,11 @@ export const standardClauses: Record<string, StandardClause[]> = {
       requirementLevel: "MUST",
       condition: "a dependency record exists",
       obligation:
-        "compute and publish the exposure score as dependency depth times substitution cost times correction latency, recording each input",
+        "compute and publish the exposure score as dependency depth (the number of dependents marked high or critical) times substitution cost (in the unit the record states) times correction latency (in hours), recording each input",
       evidenceRequired: [
         "dependency_record.exposure_score",
+        "dependency_record.dependents",
+        "dependency_record.substitution_cost",
         "dependency_record.correction_latency",
       ],
       timeBound: "at each case refresh",
@@ -1771,9 +1805,10 @@ export const standardClauses: Record<string, StandardClause[]> = {
       requirementLevel: "MUST",
       condition: "a withdrawal path is claimed",
       obligation:
-        "rehearse it on a published cadence, at least annually where the exposure score is non-trivial and before any expansion decision, and report what the rehearsal showed at each level",
+        "rehearse it on a published cadence, at least annually where dependency depth is one or more and before any expansion decision, and report what the rehearsal showed at each level",
       evidenceRequired: [
         "dependency_record.last_withdrawal_rehearsal",
+        "dependency_record.exposure_score",
         "withdrawal_rehearsal_report",
       ],
       timeBound: "at least annually, and before expansion",

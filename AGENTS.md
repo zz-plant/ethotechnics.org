@@ -22,6 +22,15 @@ The reference voice is `src/content/casebook.ts` and `src/content/method.ts`. Ma
 - Sentence case for labels. American spelling.
 - The theory essays reject "empowerment" and "human-centered design" as framings; don't
   reintroduce them in page copy.
+- Write for a smart reader who has not read the rest of the site. A coined term ("authority
+  lease", "standing"), clause number, mechanism ID, or law number appears only after the page
+  says what it means or links it at first use. Cards, eyebrows, tooltips, frontmatter
+  summaries, and pages for the person a system decided about use none.
+- Don't explain what the named reader already uses: the EU AI Act to a compliance lead, a
+  rollback to an engineer. Say a thing once; no restatement, no navigation reassurance.
+- In MDX prose, write emphasis and links as markdown (`**`, `_`, `[text](url)`). A wrapped
+  line that starts with inline HTML gets a blank line from Prettier, and MDX splits the
+  sentence into two paragraphs.
 
 ## Essentials
 

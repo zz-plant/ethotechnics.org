@@ -5,6 +5,7 @@ import "../../styles/components/standards.css";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import SearchIds from "../../components/SearchIds.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import { implementationExamples } from "../../content/implementation-examples";
@@ -210,8 +211,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <SectionBlock
     id="code-example"
     eyebrow="Implementation schema"
-    title="What an authority lease looks like in code"
-    description="Under STD-08, every automated action runs under an authority lease. It specifies who holds operational power, what limits cannot be bypassed, and when authority lapses automatically."
+    title="What an authority grant looks like in code"
+    description="Under STD-08, every automated action runs under an authority grant: a record of who may act, the limits it cannot exceed, and when the permission lapses unless renewed."
   >
     <div class="standards-code-grid">
       <div class="stack-md">
@@ -221,10 +222,14 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           Ethotechnics sits at the invocation and audit boundary.
         </p>
         <p class="muted">
-          Before taking an action — such as terminating an account, issuing a
-          payment, or allocating a shift — the worker verifies that an active
-          lease exists, that its consecutive denial count remains below the
-          review ceiling, and that the action type is explicitly permitted.
+          Before the worker in the example places a hold on an account, it reads
+          the grant and checks four fields: <code>state</code> is <code
+            >allowed</code
+          >, the <code>until</code> date has not passed, the action's class is in
+          <code>action_classes</code>, and the hold stays inside
+          <code>scope.limits</code>, such as at most 120 holds an hour. If
+          <code>mode</code> were <code>confirm</code>, a named person would also
+          have to approve each hold before it took effect.
         </p>
         <div class="panel stack-sm">
           <p class="eyebrow">No runtime rewrite</p>
@@ -234,12 +239,13 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
               existing tool-dispatch or API gateway handler.
             </li>
             <li>
-              <strong>Hard stop on threshold:</strong> When upheld challenges or error
-              rates breach tolerance, the lease invalidates itself automatically.
+              <strong>Stop conditions:</strong> The grant lists what sends it to review,
+              such as a false-positive rate above 2%, and what suspends or revokes
+              it, such as a failed withdrawal rehearsal.
             </li>
             <li>
-              <strong>Named human role:</strong> Every lease identifies the human
-              operator with authority to halt or re-certify the grant.
+              <strong>Named owner:</strong> Every grant names the issuing authority
+              that can renew, narrow, or revoke it.
             </li>
           </ul>
         </div>
@@ -326,13 +332,17 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         <p><strong>Article 22 and procedural due process</strong></p>
         <ul class="card__list">
           <li>
-            <strong>GDPR Art. 22 (automated decisions):</strong> MVC-01 sets eight
-            commitments for contesting a decision, among them a named responder and
-            protection from retaliation.
+            <strong>GDPR Art. 22 (automated decisions):</strong>
+            <a href="/standards/minimum-viable-contestability"
+              >Minimum viable contestability</a
+            > (MVC-01) sets eight commitments for contesting a decision, among them
+            a named responder and protection from retaliation.
           </li>
           <li>
-            <strong>Standing:</strong> STD-02 §8.4 gives standing to the parties who
-            absorb a system's errors, in proportion to their exposure.
+            <strong>Standing:</strong> STD-02 §8.4 gives standing to the people a
+            decision falls on and to the staff who handle its exceptions. Each can
+            compel a receipt, an answer by the published deadline, and a decision
+            against a published standard.
           </li>
           <li>
             <strong>Restitution:</strong> STD-02 Article IV requires compensation
@@ -353,11 +363,15 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     <CardGrid className="grid--three">
       <CardItem
         title="Draft policy language"
-        description="The core axioms and the comparison below give you the terms, and the requirements a running system can be tested against, to write into policy."
+        description="Minimum viable contestability sets eight commitments for challenging an automated decision. Each lists its requirements, one sentence apiece, and the evidence that shows they are met."
       >
-        <a slot="footer" class="muted" href="/standards/core-axioms"
-          >Start with core axioms</a
+        <a
+          slot="footer"
+          class="muted"
+          href="/standards/minimum-viable-contestability"
         >
+          Start with minimum viable contestability
+        </a>
       </CardItem>
       <CardItem
         title="Prepare for audit"
@@ -563,7 +577,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         Whoever absorbs its errors can challenge it.
       </li>
       <li>
-        Governance is a runtime control plane, not a post-hoc review process.
+        Stop rules, clocks, and rollback run inside the live system. A review
+        after the harm does not stand in for them.
       </li>
     </ul>
     <p>
@@ -678,12 +693,13 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       style="margin-top: var(--space-6);"
     >
       <div class="panel stack-sm">
-        <p class="eyebrow">1. Runtime control plane</p>
+        <p class="eyebrow">1. Controls in the running system</p>
         <p class="small muted">
-          Policies describe intent; control planes constrain behavior. Rather
-          than inventories, risk registers, and post-hoc paperwork, the
-          standards require explicit stop conditions, rehearsed rollback paths,
-          and safe fallback modes while the system runs.
+          A policy states what should happen. A control in the running system
+          limits what does. Beyond inventories, risk registers, and reviews
+          after the fact, the standards require stop conditions, rehearsed
+          rollback paths, and safe fallback modes that work while the system
+          runs.
         </p>
       </div>
 
@@ -733,42 +749,43 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       <div class="panel">
         <p class="eyebrow">Regulator-facing brief</p>
         <p>
-          A neutral, statute-adjacent framing that treats Ethotechnics as a
-          governance control requirement.
+          EU AI Act Article 14 and NIST AI RMF MANAGE 2.4 ask for a way to stop
+          a system. Neither requires the halt to be rehearsed or to meet a time
+          limit. These standards do, and they require the records an inspector
+          needs to check the halt without taking the operator's word for it.
         </p>
+        <p class="small">Records to request:</p>
         <ul class="card__list">
           <li>
-            Defines governance as runtime capability (stop, pause, reverse,
-            contest) with auditable evidence.
+            The last halt drill, with its date and the measured time to stop
+            (STD-06 §2.3).
           </li>
           <li>
-            Prioritizes measured recovery time over documentation completeness.
+            The authority grant: what it permits, who issued it, and the date it
+            expires (STD-08 Part A).
           </li>
           <li>
-            Positions external oversight as verification of control-plane
-            efficacy rather than sole enforcement.
+            The challenge log, read against the response deadline the operator
+            published (STD-02 §8.1).
           </li>
         </ul>
       </div>
       <div class="panel">
-        <p class="eyebrow">Board-level comparison</p>
+        <p class="eyebrow">Board brief</p>
         <p>
-          Risk, liability, and incident exposure framing for executive review.
+          In the casebook, harm ran from {haltLabel(shortestHalt)} to{" "}
+          {haltLabel(longestHalt)} before anyone halted or changed the system. Three
+          questions to ask before approving a deployment:
         </p>
         <ul class="card__list">
-          <li>
-            Identifies stoppability gaps as direct liability exposure and
-            escalation risk.
-          </li>
-          <li>
-            Treats recovery time as an operational KPI with reputational and
-            regulatory impacts.
-          </li>
-          <li>
-            Maps control-plane failures to incident severity, cost, and
-            remediation timelines.
-          </li>
+          <li>Who can stop this system?</li>
+          <li>How long did the last halt drill take?</li>
+          <li>When does our authority to run it expire?</li>
         </ul>
+        <p class="muted">
+          Each answer is a record the standards require: a named owner who can
+          halt, a halt drill receipt, and an expiry date on the grant.
+        </p>
       </div>
       <div class="panel">
         <p class="eyebrow">Diagrammatic version</p>
@@ -865,10 +882,18 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
         </ul>
       </div>
     </div>
-    <p class="muted">
-      Search IDs: STD-01 v1.0.1, STD-02 v1.3.1, STD-03 v0.6.1, STD-01.1.1,
-      STD-02.2.1, VAL-01, VAL-02, VAL-03.
-    </p>
+    <SearchIds
+      ids={[
+        "STD-01",
+        "STD-02",
+        "STD-03",
+        "STD-01.1.1",
+        "STD-02.2.1",
+        "VAL-01",
+        "VAL-02",
+        "VAL-03",
+      ]}
+    />
   </SectionBlock>
 
   <InlineScript type="application/ld+json" code={structuredDataJson} />

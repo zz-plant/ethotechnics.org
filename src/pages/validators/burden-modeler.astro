@@ -25,7 +25,7 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
 
 <BaseLayout
   title="VAL-01 Burden Modeler — validator specification"
-  description="The VAL-01 specification: the inputs, thresholds, and report card for scoring time tax and constructive-denial risk in a user journey against STD-01."
+  description="Scores a user journey on its length, its step count, and whether every screen has an exit, and returns a red, yellow, or green report card."
   mainClass="page page--wide"
   breadcrumbItems={breadcrumbItems}
   structuredDataType="webpage"
@@ -37,9 +37,9 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
         <p class="validator__id">VAL-01</p>
         <h1>VAL-01 Burden Modeler — specification</h1>
         <p class="muted">
-          The assertion, its inputs, and what a conforming implementation must
-          return, with a form below that scores one journey. To rate the
-          workload a system creates for the team that runs it, use the
+          Scores one user journey on its length, its step count, and whether
+          every screen has an exit. To rate the workload a system creates for
+          the team that runs it, use the
           <a href="/diagnostics/burden-modeler"
             >Workload Modeler, a different tool &rarr;</a
           >
@@ -99,7 +99,7 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
           data-validator-output
           for="burden-duration burden-steps burden-exit"
         >
-          Low risk: consent burden within bounds.
+          15 minutes or less, 5 steps or fewer, and an exit on every screen.
         </output>
       </div>
       <p class="validator__recommendation">
@@ -240,17 +240,21 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
     const steps = Number(data.get("steps"));
     const exit = data.get("exit");
     let level: "red" | "yellow" | "green" = "green";
-    let message = "Low risk: consent burden within bounds.";
+    let message =
+      "15 minutes or less, 5 steps or fewer, and an exit on every screen.";
 
     if (duration > 25 || steps > 7 || exit === "no") {
       level = "red";
-      message = "High risk: constructive denial detected.";
+      message =
+        "Over 25 minutes, more than 7 steps, or a screen with no exit. A journey this heavy can keep people from the service. Cut steps, or add an exit to every screen.";
     } else if (duration > 15 || steps > 5) {
       level = "yellow";
-      message = "Medium risk: burden nearing the upper bound.";
+      message =
+        "Over 15 minutes or more than 5 steps. Red starts above 25 minutes or 7 steps.";
     } else {
       level = "green";
-      message = "Low risk: consent burden within bounds.";
+      message =
+        "15 minutes or less, 5 steps or fewer, and an exit on every screen.";
     }
 
     updateStatus(level, message);

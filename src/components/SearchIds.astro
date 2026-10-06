@@ -1,0 +1,19 @@
+---
+/**
+ * Clause, mechanism, and version IDs for site search, kept out of the text.
+ *
+ * Pagefind indexes the attribute value as page content
+ * (data-pagefind-index-attrs), so a search for "STD-02.2.1" still finds the
+ * page. The element holds no text, so no reader, sighted or using a screen
+ * reader, meets a line of raw identifiers.
+ */
+interface Props {
+  ids: string[];
+}
+
+const { ids }: Props = Astro.props;
+---
+
+<span
+  data-pagefind-index-attrs="data-search-ids"
+  data-search-ids={ids.join(", ")}></span>

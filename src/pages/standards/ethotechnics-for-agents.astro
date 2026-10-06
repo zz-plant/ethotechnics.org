@@ -2,6 +2,7 @@
 import StandardsLayout from "../../components/StandardsLayout.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import SearchIds from "../../components/SearchIds.astro";
 import SummaryCallout from "../../components/SummaryCallout.astro";
 import {
   actionClassRows,
@@ -636,10 +637,20 @@ const publication = derivePublicationMetadata({
         </ul>
       </div>
     </div>
-    <p class="muted">
-      Search IDs: STD-01 v1.0.1, STD-02 v1.3.1, STD-01.1.1, STD-02.2.1, MEC-01,
-      MEC-05, MEC-06, VAL-01, VAL-02, VAL-03.
-    </p>
+    <SearchIds
+      ids={[
+        "STD-01",
+        "STD-02",
+        "STD-01.1.1",
+        "STD-02.2.1",
+        "MEC-01",
+        "MEC-05",
+        "MEC-06",
+        "VAL-01",
+        "VAL-02",
+        "VAL-03",
+      ]}
+    />
   </SectionBlock>
   <CitationBlock
     title={pageTitle}

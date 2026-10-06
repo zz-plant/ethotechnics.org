@@ -4,9 +4,10 @@ description: "Fixing each bad decision is not the same as fixing the rule that k
 permalink: "/research/theory/exception-learning"
 eyebrow: "Theory"
 published: "2026-09-18"
-question: "Why does resolving individual appeals leave the flawed rule that generated the errors completely untouched?"
+updated: "2026-10-06"
+question: "Why does resolving appeals one at a time leave the rule that caused them in place?"
 lawRefs: ["IV", "VII", "VIII"]
-summary: "An institution can absorb thousands of exceptions and become no more corrigible. Case corrigibility fixes a bad decision; structural corrigibility modifies the rule that keeps generating it. Model learning is not institutional learning."
+summary: "An institution can fix thousands of bad decisions one at a time and never change the rule that keeps producing them. A model that retrains has learned; the institution around it may not have."
 ---
 
 import ExceptionLearningDiagram from "../../components/ExceptionLearningDiagram.astro";
@@ -41,9 +42,6 @@ the pattern. The appeals team clears the queue, the dashboard shows rising
 resolution rates, and the underlying recurrence rate is never queried, because
 nothing in the queue asks it.
 
-> Exception absorption and exception learning are different capacities, and
-> the first is what makes the absence of the second invisible.
-
 <ExceptionLearningDiagram />
 
 This is why the question _what controls exist?_ is the wrong starting point. A
@@ -58,18 +56,20 @@ the trajectory:
 decision → failure → burden → challenge → institutional response
 ```
 
-The crucial question about any trajectory is whether it ends in case
-resolution or in institutional learning. Robodebt is the canonical instance of
-the former: recipients appealed, the Administrative Appeals Tribunal found the
-debts unlawful in dozens of matters, and the department did not appeal those
-decisions, which would have created precedent, and did not treat them as
-evidence about the scheme. The exceptions were resolved, one at a time, and the
-delegation ran on. The sequence ended in case resolution for three years until
-a court forced it to end differently.
+The crucial question about any trajectory is whether it ends in case resolution
+or in institutional learning. [Robodebt](/casebook/robodebt), the Australian
+scheme that from 2016 raised welfare debts automatically by averaging people's
+annual income, is the canonical instance of the former: recipients appealed, the
+Administrative Appeals Tribunal found the debts unlawful in dozens of matters,
+and the department did not appeal those decisions, which would have created
+precedent, and did not treat them as evidence about the scheme. The exceptions
+were resolved, one at a time, and the delegation ran on. The sequence ended in
+case resolution for three years until a court forced it to end differently.
 
 ## Case corrigibility and structural corrigibility
 
-This suggests corrigibility has two levels.
+This suggests that corrigibility, the capacity to be corrected, has two
+levels.
 
 **Case corrigibility** means a particular bad decision can be fixed: an appeal
 is heard, a reversal is issued, a person is restored. It is what most
@@ -124,21 +124,18 @@ the institution's safety function, and they have a strong claim to
 ## Model learning and institutional learning
 
 Modern organizations call a system adaptive when the model retrains, the
-prediction improves, or the workflow is optimized. All of that can happen while
-the institution remains structurally unchanged. An Ethotechnically learning
-institution has to learn politically as well:
+prediction improves, or the workflow is optimized. An institution that learns
+has to change in other ways too:
 
 - Did the appeal change the evidentiary rule?
-- Did the recurring exception change the ontology?
+- Did the recurring exception change the categories the system sorts people
+  into?
 - Did the grievance redistribute authority?
 - Did the burden measurement change who pays?
 - Did the failure alter what the institution is permitted to do next time?
 
 If none of these happened, the machine may be learning while the institution
 remains structurally unchanged.
-
-> Model learning and institutional learning are different capacities, and
-> Ethotechnics cares about the second.
 
 ## Action capacity and corrective capacity
 
@@ -182,14 +179,15 @@ residual → signal → standing → correction → institutional revision
 
 If the sequence stops at "support ticket resolved", the institution has handled
 a case. If it reaches institutional revision, the institution has learned. The
-distinction is what [Law IV](/standards/laws#law-iv) binds: correction
-capacity must grow with delegated authority. It is also what the casebook
-scores. Of its five cases, three end with the process unchanged, and in the
-Dutch childcare benefits scandal the legal rule changed only after seven years,
-when the Council of State reversed its own case law. In [Apple Card](/casebook/apple-card), the operator added
-a reconsideration path after a regulator found the process deficient. It is the
-one case where a challenge changed the process rather than only the individual
-outcome, and it shows what the others lacked.
+distinction is what [Law IV](/standards/laws#law-iv) binds: correction capacity
+must grow with delegated authority. It is also what the casebook scores. Of its
+five cases, three end with the process unchanged, and in the [Dutch childcare
+benefits scandal](/casebook/toeslagenaffaire) the legal rule changed only after
+seven years, when the Council of State reversed its own case law. In [Apple
+Card](/casebook/apple-card), the operator added a reconsideration path after a
+regulator found the process deficient. It is the one case where a challenge
+changed the process rather than only the individual outcome, and it shows what
+the others lacked.
 
 The reflexive version of the argument applies to Ethotechnics itself. If it
 becomes a formal discipline with taxonomies, audit instruments, metrics, and

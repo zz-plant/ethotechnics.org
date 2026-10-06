@@ -9,17 +9,67 @@ const pageDescription =
   "An Ethotechnics critique of the OECD AI Principles: non-binding by design, they ask AI actors to be accountable and set no duty anyone can enforce.";
 const permalink = "/standards/oecd-ai-principles";
 const anchorLinks = [
-  { href: "#overview", label: "What they are" },
   { href: "#critique", label: "Ethotechnics critique" },
   { href: "#failure-mode", label: "Failure mode" },
+  { href: "#clause-map", label: "Principles to clauses" },
 ];
 const publication = derivePublicationMetadata({
   permalink,
   published: "2025-06-01T00:00:00Z",
   updated: "2026-10-06T00:00:00Z",
   changelogSummary:
-    "Restated the first critique: a non-binding principle cannot be tested, so a claim to follow it cannot be refuted after harm.",
+    "Replaced a quotation the 2024 text of the principles does not contain with the wording of principle 1.4(b). Added a table of the principles an Ethotechnics clause makes testable, and removed the overview.",
 });
+
+// Wording checked against the OECD Recommendation on Artificial Intelligence,
+// OECD/LEGAL/0449, as revised on 3 May 2024.
+const clauseMap = [
+  {
+    principle: "1.3(iv)",
+    asks: "Provide information that enables those adversely affected by an AI system to challenge its output.",
+    clauses: [
+      {
+        label: "STD-02 §2.2",
+        href: "/standards/std-02-contestability-recourse",
+      },
+      {
+        label: "STD-07 §4.2",
+        href: "/standards/std-07-revisable-delegation-record#articles",
+      },
+    ],
+    adds: "The appeal path names the authority that holds reversal power, and an objection gets a revision or a reasoned refusal within a stated clock.",
+  },
+  {
+    principle: "1.4(b)",
+    asks: "Mechanisms, as appropriate, so a system that risks undue harm can be overridden, repaired, or decommissioned safely as needed.",
+    clauses: [
+      {
+        label: "STD-06 §1.3",
+        href: "/standards/std-06-human-impact-safety-case",
+      },
+      {
+        label: "STD-06 §5.6",
+        href: "/standards/std-06-human-impact-safety-case",
+      },
+    ],
+    adds: "One owner who can halt the deployment, and a withdrawal path rehearsed on a published cadence.",
+  },
+  {
+    principle: "1.5(b)",
+    asks: "Traceability of datasets, processes, and decisions, to enable analysis of outputs and responses to inquiry.",
+    clauses: [
+      {
+        label: "STD-02 §5.3",
+        href: "/standards/std-02-contestability-recourse",
+      },
+      {
+        label: "STD-07 §1.2",
+        href: "/standards/std-07-revisable-delegation-record#articles",
+      },
+    ],
+    adds: "An audit trail from each contested decision to its evidence, reviewers, and outcome, in records that are never edited.",
+  },
+];
 ---
 
 <StandardsLayout
@@ -30,21 +80,8 @@ const publication = derivePublicationMetadata({
   eyebrow="Adopted standard"
   anchorLinks={anchorLinks}
   publishedTime="2025-06-01T00:00:00.000Z"
-  modifiedTime="2026-10-01T00:00:00.000Z"
+  modifiedTime="2026-10-06T00:00:00.000Z"
 >
-  <SectionBlock
-    id="overview"
-    eyebrow="Overview"
-    title="What they are"
-    description="Values-based principles and recommendations adopted by governments and industry."
-  >
-    <p>
-      The OECD AI Principles are intentionally flexible, values-oriented
-      guidelines that governments and organizations adopt to shape “responsible
-      AI” programs.
-    </p>
-  </SectionBlock>
-
   <SectionBlock
     id="critique"
     eyebrow="Ethotechnics critique"
@@ -62,9 +99,10 @@ const publication = derivePublicationMetadata({
         answer a challenge, who can halt a system, or on what clock.
       </li>
       <li>
-        <strong>Intervention without mechanism:</strong> “Human intervention where
-        necessary” gestures at action but does not require tested stop paths, restoration
-        SLAs, or bounded pending states.
+        <strong>Intervention without mechanism:</strong> Principle 1.4(b) asks for
+        mechanisms, “as appropriate,” so a harmful system can be overridden, repaired,
+        or decommissioned “as needed.” It does not require a tested stop path, a restoration
+        deadline, or a limit on how long a case can stay pending.
       </li>
     </ul>
   </SectionBlock>
@@ -78,6 +116,51 @@ const publication = derivePublicationMetadata({
     <p>
       The dominant failure mode is a system that sounds responsible on paper
       while the evidence of its errors reaches no one who has to change it.
+    </p>
+  </SectionBlock>
+  <SectionBlock
+    id="clause-map"
+    eyebrow="Principles to clauses"
+    title="Where an Ethotechnics clause makes a principle testable"
+    description="Each row names the principle, the clause that bears on it, and what the clause requires that the principle leaves open."
+    variant="alt"
+  >
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table mapping-table--stack">
+        <thead>
+          <tr>
+            <th scope="col">Principle</th>
+            <th scope="col">What it asks</th>
+            <th scope="col">Clause</th>
+            <th scope="col">What the clause adds</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            clauseMap.map((row) => (
+              <tr>
+                <th scope="row">{row.principle}</th>
+                <td data-label="What it asks">{row.asks}</td>
+                <td data-label="Clause">
+                  {row.clauses.map((clause, index) => (
+                    <>
+                      <a href={clause.href}>{clause.label}</a>
+                      {index < row.clauses.length - 1 && <span>, </span>}
+                    </>
+                  ))}
+                </td>
+                <td data-label="What the clause adds">{row.adds}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="muted">
+      Principle text from the <a
+        href="https://legalinstruments.oecd.org/en/instruments/OECD-LEGAL-0449"
+        >OECD Recommendation on Artificial Intelligence</a
+      >, as revised in 2024, paraphrased.
     </p>
   </SectionBlock>
   <CitationBlock

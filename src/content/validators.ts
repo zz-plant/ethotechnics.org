@@ -66,7 +66,7 @@ export const validatorsContent: ValidatorsContent = {
       id: "VAL-01",
       title: "Burden Modeler",
       description:
-        "Scores how much time a user journey takes from people, and whether it is hard enough to amount to a denial of service, from its duration, its step count, and whether every screen has an exit.",
+        "Scores how much time a user journey takes from people, and whether it is heavy enough to keep them from the service, from its duration, its step count, and whether every screen has an exit.",
       slug: "burden-modeler",
       standardRef: "STD-01",
       inputs: [
@@ -96,17 +96,20 @@ export const validatorsContent: ValidatorsContent = {
         {
           level: "red",
           condition: "duration > 25, steps > 7, or exit === no",
-          summary: "High risk: constructive denial detected.",
+          summary:
+            "Over 25 minutes, more than 7 steps, or a screen with no exit. A journey this heavy can keep people from the service. Cut steps, or add an exit to every screen.",
         },
         {
           level: "yellow",
           condition: "duration > 15 or steps > 5",
-          summary: "Medium risk: burden nearing the upper bound.",
+          summary:
+            "Over 15 minutes or more than 5 steps. Red starts above 25 minutes or 7 steps.",
         },
         {
           level: "green",
-          condition: "duration <= 15 and steps <= 5",
-          summary: "Low risk: consent burden within bounds.",
+          condition: "duration <= 15, steps <= 5, and exit === yes",
+          summary:
+            "15 minutes or less, 5 steps or fewer, and an exit on every screen.",
         },
       ],
       clauseRefs: ["STD-01.3.1", "STD-01.3.2", "STD-01.7.1"],
@@ -200,17 +203,20 @@ export const validatorsContent: ValidatorsContent = {
         {
           level: "red",
           condition: "touchpoints >= 5, wait >= 8, or appeal === no",
-          summary: "High risk: constructive denial detected.",
+          summary:
+            "Five or more high-friction touchpoints, an average wait of 8 minutes or more, or a touchpoint with no appeal path. Friction at this level can keep people from the service.",
         },
         {
           level: "yellow",
           condition: "touchpoints >= 3 or wait >= 5",
-          summary: "Medium risk: friction clusters emerging.",
+          summary:
+            "Three or more high-friction touchpoints, or an average wait of 5 minutes or more. Red starts at five touchpoints or an 8-minute wait.",
         },
         {
           level: "green",
-          condition: "touchpoints < 3 and wait < 5",
-          summary: "Low risk: exposure within bounds.",
+          condition: "touchpoints < 3, wait < 5, and appeal === yes",
+          summary:
+            "Fewer than three high-friction touchpoints, an average wait under 5 minutes, and an appeal path at every touchpoint.",
         },
       ],
       clauseRefs: ["STD-01.5.1", "STD-01.5.3", "STD-01.6.1"],
@@ -304,17 +310,19 @@ export const validatorsContent: ValidatorsContent = {
         {
           level: "red",
           condition: "latency > timeout or escalation === no",
-          summary: "High risk: bounded duration violated.",
+          summary:
+            "Latency runs past the declared timeout, or there is no human escalation path. Enforce the timeout, and send requests that reach it to a person.",
         },
         {
           level: "yellow",
           condition: "latency > timeout * 0.8",
-          summary: "Medium risk: latency near timeout threshold.",
+          summary: "Latency is above 80% of the declared timeout.",
         },
         {
           level: "green",
-          condition: "latency <= timeout * 0.8",
-          summary: "Low risk: bounded duration honored.",
+          condition: "latency <= timeout * 0.8 and escalation === yes",
+          summary:
+            "Latency is within 80% of the declared timeout, and a human escalation path exists.",
         },
       ],
       clauseRefs: ["STD-01.3.1", "STD-01.3.2", "STD-01.3.3"],
