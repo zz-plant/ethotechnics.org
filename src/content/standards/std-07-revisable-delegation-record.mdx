@@ -152,7 +152,7 @@ export const structuredData = {
         An institution that delegates consequential work to machines usually
         has sensing, memory, analytics, policy, and execution. What it lacks
         is one record connecting them, so it can know something has changed
-        and keep doing exactly what it was doing. This standard defines that
+        and still keep doing exactly what it was doing. This standard defines that
         record: one append-only shape for what the institution believed, what
         it could do, what it had authorized, what it did, where reality
         diverged, who objected, and what it revised.
@@ -229,7 +229,8 @@ export const structuredData = {
           <li>
             People who absorb a system's failures have a route through which
             their observations acquire institutional force.
-            <code>contest.standing</code> and <code>objection</code> records.
+            <code>contest.standing</code> and <code>objection</code> records
+            are that route.
           </li>
           <li>
             Successful automation increases scrutiny of dependence rather
@@ -342,7 +343,7 @@ export const structuredData = {
             Delegation chain: Where the actor acts for a principal,
             <code>actor.on_behalf_of</code> names that principal. The chain of
             <code>on_behalf_of</code> links, read back to a human or an
-            institution, is the answer to "who authorized this".
+            institution, is the answer to "who authorized this."
           </li>
           <li>
             <span class="standard-clause-id">§2.4</span>
@@ -371,7 +372,7 @@ export const structuredData = {
           <li>
             <span class="standard-clause-id">§3.2</span>
             Invalidation conditions: Those same records list in
-            <code>invalidated_by</code> the checkable conditions which, if they
+            <code>invalidated_by</code> the checkable conditions that, if they
             became true, would mean the record no longer holds. Each condition
             may name where it is checked and a clock.
           </li>
@@ -560,7 +561,7 @@ export const structuredData = {
         mapping the assumption snapshot it already kept onto
         <code>invalidated_by</code>. The capability graph emits
         <code>capability</code>, <code>authorization</code>,
-        <code>discrepancy</code> and <code>revision</code> at Level 2, and
+        <code>discrepancy</code>, and <code>revision</code> at Level 2, and
         its gate now narrows an unattended grant whose prerequisite has
         started failing — enforced at the decision, independently of whether
         the record was ever written, which is the relationship between
