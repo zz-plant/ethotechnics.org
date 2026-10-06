@@ -93,7 +93,7 @@ export type UseCasesContent = PageWithPermalink & {
 export const useCasesContent: UseCasesContent = {
   pageTitle: "Which systems this is for — Ethotechnics",
   pageDescription:
-    "Six kinds of automated decision the standards, cases, and tools are built for, what to bind and run first in each, and five where the framework does less.",
+    "Six kinds of automated decision the standards, cases, and tools are built for, which standards and tool to start with in each, and five where the framework does less.",
   permalink: "/use-cases",
   eyebrow: "Fit",
   title: "Which systems this is for",
@@ -118,7 +118,7 @@ export const useCasesContent: UseCasesContent = {
     {
       title: "For a buyer",
       description:
-        "An agency or a health plan buying one of these systems from a vendor. It can cite clause numbers in the contract and require an evidence pack at each release.",
+        "An agency or a health plan buying one of these systems from a vendor. It can cite clause numbers in the contract and require the vendor to show, at each release, the evidence that the clauses are met.",
       link: {
         label: "Citing the standards in contracts",
         href: "/standards/where-this-binds",
@@ -140,7 +140,7 @@ export const useCasesContent: UseCasesContent = {
     {
       title: "Checks evidence",
       description:
-        "The Record Conformance Checker reads an exported stream of STD-07 records, checks it against the schema, recomputes the hashes, and reports the conformance level the stream earns. The receipt and record formats are published as JSON Schemas that any validator can run in CI.",
+        "The Record Conformance Checker reads the decision records a system exports, checks them against the published schema, recomputes the hashes that link them, and reports the conformance level they earn. The receipt and record formats are published as JSON Schemas that any validator can run in CI.",
       links: [
         {
           label: "Record Conformance Checker",
@@ -164,7 +164,7 @@ export const useCasesContent: UseCasesContent = {
     {
       title: "Proposes",
       description:
-        "Every standard here is a draft, apart from STD-04, which is deprecated. None has force until an organization adopts it or a contract cites it. The case scores are this project's reading of what courts, inquiries, and regulators found.",
+        "Every standard here is a draft, apart from one that is deprecated. None has force until an organization adopts it or a contract cites it. The case scores are this project's reading of what courts, inquiries, and regulators found.",
       links: [
         { label: "Standards and their status", href: "/standards" },
         { label: "How the cases are scored", href: "/casebook" },
@@ -228,11 +228,11 @@ export const useCases: UseCase[] = [
       "Whether a person gets credit, at what limit, and whether they can use the money or the account they already have.",
     systems:
       "Credit scoring and limit setting, fraud holds, account locks, payment blocks, refund and chargeback decisions.",
-    why: "These decisions run in real time, and many take effect before anyone could review them. The framework does not ask them to wait. It asks that each hold issue a receipt, run review clocks, and restore access when no fraud is confirmed.",
+    why: "These decisions run in real time, and many take effect before anyone could review them. The framework does not ask them to wait. It asks that each hold come with a receipt and a review deadline, and that access be restored when no fraud is confirmed.",
     defense: {
       said: "The fraud model is accurate.",
       answer:
-        "Accuracy is evidence for a hold. It is not permission to keep one open without a receipt or a clock.",
+        "Accuracy is evidence for a hold. It is not permission to keep one open without a receipt or a deadline.",
     },
     cases: [
       { slug: "apple-card", clause: { standard: "STD-02", clause: "§8.1" } },
@@ -240,7 +240,7 @@ export const useCases: UseCase[] = [
     bind: ["STD-01", "STD-02"],
     runFirst: {
       slug: "delegation-audit",
-      note: "Take one hold or limit workflow through six questions. See which actions nobody can ground in a grant, and whether each can be undone.",
+      note: "Take one hold or limit workflow through six questions. See which actions nobody can justify, and whether each can be undone.",
     },
     examples: [
       {
@@ -279,7 +279,7 @@ export const useCases: UseCase[] = [
       "Whether to send, refund, write, deploy, or approve, under authority someone delegated to it.",
     systems:
       "Support and refund agents, agents with write access to accounts or records, chains of agents handing work to each other, typed decision models used as gates.",
-    why: "The tooling is furthest along here. Agent decisions are cheap and numerous, and a logging layer may not record them as decisions at all. STD-07 specifies the record each action leaves. STD-08 treats the agent's authority as a lease that expires. STD-09 treats a chain of agents as one delegation.",
+    why: "The tooling is furthest along here. Agent decisions are cheap and numerous, and a logging layer may not record them as decisions at all. The standards specify the record each action leaves, treat the agent's authority as a lease that expires, and treat a chain of agents handing work to each other as one delegation.",
     defense: {
       said: "The agent passed its evals.",
       answer:
@@ -291,7 +291,7 @@ export const useCases: UseCase[] = [
     bind: ["STD-07", "STD-08", "STD-09"],
     runFirst: {
       slug: "record-conformance",
-      note: "Grade an exported stream of the agent's STD-07 records. If it emits none yet, start with the Delegation Audit.",
+      note: "Grade the decision records the agent exports. If it exports none yet, start with the Delegation Audit.",
     },
     examples: [
       {
@@ -358,11 +358,11 @@ export const useCases: UseCase[] = [
       "Whether a person's post stays up, their account stays open, or their listing stays visible.",
     systems:
       "Content takedowns, account suspensions, seller and creator delisting, spam and abuse filters.",
-    why: "Enforcement runs at a volume no team could review case by case, and a wrong suspension can cut off a person's income or audience. Removal often has to be fast. The framework asks that it issue a receipt, bound its exceptions, and restore the content if the takedown is overturned.",
+    why: "Enforcement runs at a volume no team could review case by case, and a wrong suspension can cut off a person's income or audience. Removal often has to be fast. The framework asks that each removal come with a receipt, that exceptions have limits, and that content be restored if the takedown is overturned.",
     defense: {
       said: "Users can appeal a takedown.",
       answer:
-        "An appeal is a remedy only if an overturned takedown restores the content, on a clock.",
+        "An appeal is a remedy only if an overturned takedown restores the content by a deadline.",
     },
     cases: [],
     noCaseNote: "No platform case has been scored yet.",
@@ -433,7 +433,7 @@ export const boundaries: Boundary[] = [
   {
     id: "model-testing",
     title: "Testing a model before anyone deploys it",
-    why: "The standards evaluate a delegation, not a model. A model can pass every benchmark and still be deployed under a grant nobody renews or can revoke. A model release has no one the standards can bind until someone deploys it.",
+    why: "The standards evaluate how a model is put to work deciding about people, not the model itself. A model can pass every benchmark and still be deployed under an approval nobody renews or can revoke. Until someone deploys it, there is no one the standards can hold to a clause.",
     link: { label: "What the evals can check", href: "/evals/coverage" },
     examples: [],
   },
@@ -447,13 +447,13 @@ export const boundaries: Boundary[] = [
   {
     id: "low-volume",
     title: "Decisions a committee makes a few times a year",
-    why: "A board that approves ten grants a year reads each one. Receipts, clocks, and conformance levels add cost there without catching what ordinary review would miss.",
+    why: "A board that approves ten grants a year reads each one. Receipts, review deadlines, and graded records add cost there without catching what ordinary review would miss.",
     examples: [],
   },
   {
     id: "internal",
     title: "Automation that touches no one outside the team",
-    why: "A build pipeline or an internal dashboard changes no one's status. The exception is an agent with write access to customer accounts or production records. That is a delegation, and the agents context applies.",
+    why: "A build pipeline or an internal dashboard changes no one's status. The exception is an agent with write access to customer accounts or production records. That agent acts on authority someone delegated to it, and the agents context applies.",
     link: { label: "AI agents that take actions", href: "#agents" },
     examples: [],
   },

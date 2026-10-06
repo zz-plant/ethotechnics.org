@@ -25,6 +25,7 @@ const essentials = [
     why: "Without a limit, a pending case becomes a denial nobody decided. A limit forces a decision and shows the backlog.",
     signals:
       "Each pending state has a time limit. When it runs out, the case escalates or a fallback applies.",
+    ask: "What is the longest my case can stay pending?",
   },
   {
     title: "Remedy clocks",
@@ -32,6 +33,7 @@ const essentials = [
       "Publish when the person will get an acknowledgment, a review, and a remedy.",
     why: "A published deadline makes each delay countable, so an owner can be held to it.",
     signals: "Each receipt states the owner and the deadline for each stage.",
+    ask: "By what date will my case be reviewed, and by what date put right?",
   },
   {
     title: "Default provisional reinstatement",
@@ -40,6 +42,7 @@ const essentials = [
     why: "If the decision turns out to be wrong, the person has lost less. This matters most for essential services.",
     signals:
       "The system can give limited access during review, and withdraw it if the decision stands.",
+    ask: "Can I have access back while you review my case?",
   },
   {
     title: "Clear escalation paths",
@@ -48,6 +51,7 @@ const essentials = [
     why: "If no one is named, an automated error stays in place because no one is assigned to remove it.",
     signals:
       "On-call rosters and each person's authority appear on receipts and in internal playbooks.",
+    ask: "Who can override this decision, and how do I reach them?",
   },
   {
     title: "Compensation or fee shifting",
@@ -56,6 +60,7 @@ const essentials = [
     why: "When errors cost the operator money, the operator has a reason to reduce them.",
     signals:
       "Each remedy record logs the amount repaid and the date it was paid.",
+    ask: "If this decision was wrong, what will you repay, and by when?",
   },
   {
     title: "Time-to-remedy distribution",
@@ -63,6 +68,7 @@ const essentials = [
     why: "An average hides the people who wait longest. The slowest cases show who they are.",
     signals:
       "Reports show median, p90, and p99 remedy times for each group of cases.",
+    ask: "How long do the slowest cases like mine take to put right?",
   },
   {
     title: "Constraints on discretionary holds",
@@ -71,6 +77,7 @@ const essentials = [
     why: "A hold with no criteria and no limit cannot be told apart from a denial nobody has to explain.",
     signals:
       "Hold policies state the reasons, the clocks, and the appeal route. Exceptions are audited.",
+    ask: "What are the criteria for this hold, and when does it end?",
   },
   {
     title: "Reversal drills and error budgets",
@@ -79,6 +86,7 @@ const essentials = [
     why: "A drill shows that a reversal works before anyone needs one. An error budget stops wrong decisions from being fixed one at a time while the rule that made them keeps running.",
     signals:
       "Quarterly drill results, reviews after incidents, and alerts when the error budget runs low are on record.",
+    ask: "Have other decisions made under the same rule been overturned?",
   },
 ];
 
@@ -198,6 +206,7 @@ const checklist = [
             </div>
             <p class="muted">Why it matters: {item.why}</p>
             <p class="muted">Signal: {item.signals}</p>
+            <p class="muted">A person can ask: "{item.ask}"</p>
           </CardItem>
         ))
       }

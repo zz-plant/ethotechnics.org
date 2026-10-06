@@ -23,8 +23,8 @@ import {
     description={content.description}
     anchorLinks={[
       { href: "#short-answer", label: "The short answer" },
-      { href: "#non-goals", label: "Jurisdiction boundaries" },
       { href: "#test", label: "The test" },
+      { href: "#not-covered", label: "What it does not cover" },
       { href: "#contexts", label: "Six contexts" },
       { href: "#boundaries", label: "Where it does less" },
       { href: "#tooling", label: "What runs today" },
@@ -50,65 +50,6 @@ import {
   </SectionBlock>
 
   <SectionBlock
-    id="non-goals"
-    eyebrow="Jurisdiction boundaries"
-    title="Where the framework binds, and where it stops"
-    description="Ethotechnics is defined by operational delegation, not model capability. It governs the grant of authority where an error alters someone's life, and declines to govern where it does not."
-  >
-    <div class="grid grid--three">
-      <div class="panel stack-sm">
-        <p class="eyebrow">1. Delegations, not foundation models</p>
-        <p class="small">
-          We do not benchmark base models in the abstract, red-team chat
-          interfaces, or rank pretraining corpora.
-        </p>
-        <p class="small muted">
-          A model can pass every benchmark and still be deployed under an
-          open-ended delegation nobody can revoke. Ethotechnics binds the
-          operational delegation once a system holds authority to decide about
-          people.
-        </p>
-        <p class="small">
-          <a href="#model-testing">See the model-testing boundary &rarr;</a>
-        </p>
-      </div>
-
-      <div class="panel stack-sm">
-        <p class="eyebrow">2. Consequentiality, not internal maintenance</p>
-        <p class="small">
-          We do not govern build scripts, background database workers, or
-          internal analytics pipelines that affect only software maintainers.
-        </p>
-        <p class="small muted">
-          If a system allocates shifts, paces warehouse work, evaluates job
-          performance, or decides benefits, it is consequential and fully
-          covered. Routine backend infrastructure with no human consequence
-          carries no governance load.
-        </p>
-        <p class="small">
-          <a href="#boundaries">See all five boundaries &rarr;</a>
-        </p>
-      </div>
-
-      <div class="panel stack-sm">
-        <p class="eyebrow">3. Procedural answerability, not moral dictation</p>
-        <p class="small">
-          We do not dictate what substantive policy, commercial, or political
-          goals an institution chooses to pursue.
-        </p>
-        <p class="small muted">
-          Whatever goals are chosen, the institution must operate under an
-          expiring authority lease, deliver causal reasons with determinations,
-          and maintain an unpenalized human who can halt the system.
-        </p>
-        <p class="small">
-          <a href="/standards/core-axioms">Read the core axioms &rarr;</a>
-        </p>
-      </div>
-    </div>
-  </SectionBlock>
-
-  <SectionBlock
     id="test"
     title="The test"
     description={content.test.lead}
@@ -123,9 +64,28 @@ import {
   </SectionBlock>
 
   <SectionBlock
+    id="not-covered"
+    title="What it does not cover"
+    description="It does not judge an institution's goals. Policy, commercial, and political aims are the institution's to choose."
+  >
+    <div class="stack-sm">
+      <p class="fit-not-covered">
+        Whatever the goals, the framework asks for the same three things:
+        approval that expires unless renewed, a reason with each decision, and a
+        named person who can halt the system without penalty.
+      </p>
+      <p class="small">
+        <a href="/standards/core-axioms"
+          >The five principles behind every standard &rarr;</a
+        >
+      </p>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
     id="contexts"
     title="Six contexts"
-    description="Each names what the system decides, the scored cases that came from it, the standards to bind, and the check to run first."
+    description="Each names what the system decides, the scored cases that came from it, the standards to adopt in policy or a contract, and the check to run first."
   >
     <div class="fit-contexts">
       {
@@ -219,7 +179,7 @@ import {
   <SectionBlock
     id="next"
     title="If your system fits"
-    description="Start with one workflow. The Delegation Audit takes it through six questions and names the actions nobody can ground in a grant."
+    description="Start with one workflow. The Delegation Audit takes it through six questions and lists the permissions nobody on your team can justify."
     variant="alt"
   >
     <div class="actions">
@@ -280,6 +240,11 @@ import {
     padding-inline-start: 1.25em;
     display: grid;
     gap: var(--space-2);
+    max-width: 68ch;
+  }
+
+  .fit-not-covered {
+    margin: 0;
     max-width: 68ch;
   }
 </style>
