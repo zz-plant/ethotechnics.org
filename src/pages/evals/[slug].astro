@@ -149,7 +149,7 @@ const standardHref = (ref: string) => {
     id="test-cases"
     eyebrow="Test cases"
     title={`${testCases.length} test case${testCases.length === 1 ? "" : "s"}`}
-    description="Each test case includes a prompt, pass criteria, fail indicators, scoring rubric, and evidence requirements."
+    description="Each test case includes a prompt, pass criteria, fail indicators, a scoring rubric, and evidence requirements."
     variant="alt"
   >
     {
@@ -232,7 +232,7 @@ const standardHref = (ref: string) => {
     id="run"
     eyebrow="Run this eval"
     title="Run this suite"
-    description="Open the eval runner pre-loaded with this suite's test cases."
+    description="Open the eval runner preloaded with this suite's test cases."
   >
     <p>
       <a class="button primary" href={`/evals/runner?suite=${suite.slug}`}>

@@ -151,7 +151,7 @@ const introCarries = [
 ].filter((item): item is string => Boolean(item));
 const introDescription = `Filed under ${categoryLabel}. This entry gives ${
   introCarries.length > 1
-    ? `${introCarries.slice(0, -1).join(", ")} and ${introCarries.at(-1)}`
+    ? `${introCarries.slice(0, -1).join(", ")}${introCarries.length > 2 ? "," : ""} and ${introCarries.at(-1)}`
     : introCarries[0]
 }.`;
 const domains = entry.domains ?? [];

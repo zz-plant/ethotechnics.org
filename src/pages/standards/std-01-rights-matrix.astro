@@ -48,7 +48,7 @@ const matrix = [
       "Use halt controls plus decision logging to make stoppability enforceable.",
   },
   {
-    right: "Exit / Resignation (STD-01 \u00a72)",
+    right: "Exit / resignation (STD-01 \u00a72)",
     validators: [
       { label: "VAL-01 Burden Modeler", href: "/validators/burden-modeler" },
       { label: "VAL-02 Risk Radar", href: "/validators/risk-radar" },
@@ -153,7 +153,7 @@ const matrix = [
         href: "/mechanisms/patterns/maintenance-windowing",
       },
     ],
-    notes: "Publish time tax metrics and bind remediation to logged decisions.",
+    notes: "Publish time-tax metrics and bind remediation to logged decisions.",
   },
 ];
 
@@ -219,7 +219,7 @@ const mechanisms = collectUnique(matrix.flatMap((row) => row.mechanisms));
   <SectionBlock
     id="matrix"
     eyebrow="Crosswalk"
-    title="STD-01 rights mapped to validators and mechanisms."
+    title="STD-01 rights mapped to validators and mechanisms"
     description="Each row lists the validator coverage and enforcement mechanisms typically used together."
   >
     <div class="glossary-filter rights-matrix__filters" data-matrix-filters>
@@ -443,7 +443,7 @@ const mechanisms = collectUnique(matrix.flatMap((row) => row.mechanisms));
   <SectionBlock
     id="notes"
     eyebrow="Coverage notes"
-    title="The matrix is a starting point, not a complete list."
+    title="The matrix is a starting point, not a complete list"
     description="Use the minimum binding set and the mapping artifact to confirm coverage clause by clause."
     variant="alt"
   >
@@ -467,7 +467,7 @@ const mechanisms = collectUnique(matrix.flatMap((row) => row.mechanisms));
   <SectionBlock
     id="citations"
     eyebrow="Citations"
-    title="Reference this matrix in audits and work plans."
+    title="Reference this matrix in audits and work plans"
     description="Cite the permalink and version so the audit trail points at a fixed text."
   >
     <ScholarlyMeta publication={publication} permalink={permalink} />
