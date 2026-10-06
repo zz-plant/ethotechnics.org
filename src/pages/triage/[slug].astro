@@ -127,11 +127,14 @@ const breadcrumbItems = [
       <p class="eyebrow">Start here</p>
       <p class="muted">
         Start with the
-        <strong>{orderedWorkflowStages[0]?.artifact.name.toLowerCase()}</strong>.
+        <strong>{orderedWorkflowStages[0]?.artifact.name.toLowerCase()}</strong
+        >.
         {orderedWorkflowStages[0]?.artifact.description[0]}
       </p>
       <ol class="small muted">
-        <li>{failureFirstMoves[state.slug] ?? "Assign the accountable owner now."}</li>
+        <li>
+          {failureFirstMoves[state.slug] ?? "Assign the accountable owner now."}
+        </li>
         <li>Capture evidence and timestamps in the first artifact.</li>
         <li>
           Confirm who the case escalates to before starting other work on it.
