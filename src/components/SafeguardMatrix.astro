@@ -9,8 +9,14 @@
  */
 import { methodContent } from "../content/method";
 import { standardsContent } from "../content/standards";
+import { theoryTaxonomyBySlug } from "../content/theory-taxonomy";
 import StateVariableGlyph from "./StateVariableGlyph.astro";
 import type { StateVariableGlyphId } from "./StateVariableGlyph.astro";
+
+// Essay questions come from the theory taxonomy, the same source the essay
+// pages use, so the matrix cannot drift from them.
+const theoryQuestion = (href: string) =>
+  theoryTaxonomyBySlug.get(href.split("/").pop() ?? "")?.question ?? "";
 
 interface SafeguardRow {
   id: StateVariableGlyphId;
@@ -20,7 +26,7 @@ interface SafeguardRow {
   laws: string[];
   standards: string[];
   precedents: { title: string; href: string; outcome: string }[];
-  theory: { title: string; href: string; question: string }[];
+  theory: { title: string; href: string }[];
   diagnostics: { name: string; href: string; purpose: string }[];
 }
 
@@ -49,14 +55,10 @@ const matrix: SafeguardRow[] = [
       {
         title: "An engineering tradition",
         href: "/research/theory/an-engineering-tradition",
-        question:
-          "What would a safety engineering discipline look like for delegated automated authority?",
       },
       {
         title: "Deliberate non-use",
         href: "/research/theory/deliberate-non-use",
-        question:
-          "How can an institution preserve intentional non-deployment as an affirmative control once technical limits are removed?",
       },
     ],
     diagnostics: [
@@ -98,14 +100,10 @@ const matrix: SafeguardRow[] = [
       {
         title: "Endogenous authorization",
         href: "/research/theory/endogenous-authorization",
-        question:
-          "How do incumbent systems shape the metrics, categories, and evidence used to justify their continuation?",
       },
       {
         title: "What does not convert",
         href: "/research/theory/what-does-not-convert",
-        question:
-          "Why are technical capability, past performance, and internal consistency incapable of converting into legitimate authority?",
       },
     ],
     diagnostics: [
@@ -149,19 +147,15 @@ const matrix: SafeguardRow[] = [
       {
         title: "Absorption as concealment",
         href: "/research/theory/absorption-as-concealment",
-        question:
-          "How does human absorption of operational errors conceal system defects from performance metrics?",
       },
       {
         title: "The human subsidy",
         href: "/research/theory/the-human-subsidy",
-        question:
-          "What distinct varieties of uncounted compensatory labor produce apparent institutional functionality?",
       },
     ],
     diagnostics: [
       {
-        name: "Record Conformance Validator",
+        name: "Record Conformance Checker",
         href: "/diagnostics/record-conformance",
         purpose:
           "Checks uploaded records and hash-chain consistency against STD-07 requirements.",
@@ -200,14 +194,10 @@ const matrix: SafeguardRow[] = [
       {
         title: "Automation and capture",
         href: "/research/theory/automation-and-capture",
-        question:
-          "At what point does operational reliance extinguish an institution's ability to question, replace, or halt a system?",
       },
       {
         title: "Dependence runs both ways",
         href: "/research/theory/dependence-runs-both-ways",
-        question:
-          "What specific duties of reversibility and standing does an institution incur when subjects cannot exit its systems?",
       },
     ],
     diagnostics: [
@@ -252,19 +242,15 @@ const matrix: SafeguardRow[] = [
       {
         title: "Challenge density",
         href: "/research/theory/challenge-density",
-        question:
-          "Why must an institution scale its correction capacity or narrow its scope when appeal volume spikes?",
       },
       {
         title: "The model of a person is not the person",
         href: "/research/theory/model-of-a-person",
-        question:
-          "Why does even the most predictive model of a person fail to extinguish that person's independent right to challenge?",
       },
     ],
     diagnostics: [
       {
-        name: "Self-Defense Checks",
+        name: "Self-defense checks",
         href: "/diagnostics/self-defense-tools",
         purpose:
           "Offers checks and templates for requesting reasons and challenging decisions.",
@@ -303,14 +289,10 @@ const matrix: SafeguardRow[] = [
       {
         title: "The sovereign override",
         href: "/research/theory/the-sovereign-override",
-        question:
-          "When operators route around rigid gates under load, how does the machine's boundary stay deterministic while the override becomes evidence?",
       },
       {
         title: "Exception learning",
         href: "/research/theory/exception-learning",
-        question:
-          "Why does resolving individual appeals leave the flawed rule that generated the errors completely untouched?",
       },
     ],
     diagnostics: [
@@ -451,7 +433,9 @@ const resolvedMatrix = matrix.map((row) => ({
                     <a href={item.href} class="matrix-link">
                       <strong>{item.title}</strong>
                     </a>
-                    <span class="matrix-col__sub">{item.question}</span>
+                    <span class="matrix-col__sub">
+                      {theoryQuestion(item.href)}
+                    </span>
                   </li>
                 ))}
               </ul>

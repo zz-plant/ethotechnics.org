@@ -21,7 +21,7 @@ describe("Finite content specification", () => {
     const titles = finiteContent.measures.dimensions.map((d) => d.title);
     expect(titles).toContain("Stoppability");
     expect(titles).toContain("Reversibility");
-    expect(titles).toContain("Volatility export");
+    expect(titles).toContain("Who absorbs the strain");
     expect(finiteContent.measures.deliverables).toHaveLength(3);
   });
 
@@ -94,7 +94,7 @@ describe("Finite content specification", () => {
   it("contains operational invariants", () => {
     expect(finiteContent.keyTakeaways.bullets.length).toBeGreaterThanOrEqual(5);
     const text = finiteContent.keyTakeaways.bullets.join(" ");
-    expect(text).toContain("Dual-ledger verification");
+    expect(text).toContain("Dashboard against audit");
     expect(text).toContain("Non-retaliatory stop");
     expect(text).toContain("Restitution over rollback");
   });

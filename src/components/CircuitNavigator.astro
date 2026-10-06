@@ -29,7 +29,7 @@ const openCircuit = circuits.find((c) => c.id === "open-circuit")!;
       class="circuit-navigator__tab circuit-navigator__tab--active"
       data-circuit-target="closed"
     >
-      <span class="circuit-navigator__tab-tag">Absorption</span>
+      <span class="circuit-navigator__tab-tag">Errors absorbed</span>
       <span class="circuit-navigator__tab-title">The closed circuit</span>
     </button>
     <button
@@ -41,7 +41,7 @@ const openCircuit = circuits.find((c) => c.id === "open-circuit")!;
       class="circuit-navigator__tab"
       data-circuit-target="open"
     >
-      <span class="circuit-navigator__tab-tag">Correction</span>
+      <span class="circuit-navigator__tab-tag">Errors reach the rule</span>
       <span class="circuit-navigator__tab-title">The open circuit</span>
     </button>
   </div>
@@ -52,10 +52,10 @@ const openCircuit = circuits.find((c) => c.id === "open-circuit")!;
         Circuit schematic: comparing absorption and correction
       </h4>
       <p>
-        Schematic showing how friction moves through an automated decision
-        system. In the closed circuit, errors are absorbed by human buffers
-        while telemetry stays green. In the open circuit, standing and appeal
-        paths route evidence back to the generating rule.
+        Schematic showing where an automated system's errors go. In the closed
+        circuit, the people around the system absorb them while its dashboard
+        stays green. In the open circuit, a person can challenge a decision, and
+        the challenge reaches the rule that produced it.
       </p>
     </figcaption>
 
@@ -155,7 +155,7 @@ const openCircuit = circuits.find((c) => c.id === "open-circuit")!;
               rx="6"
               class="circuit-badge circuit-badge--danger"></rect>
             <text x="80" y="19" text-anchor="middle" class="circuit-badge__text"
-              >Severed feedback</text
+              >No route back</text
             >
           </g>
 
@@ -164,10 +164,10 @@ const openCircuit = circuits.find((c) => c.id === "open-circuit")!;
             <rect width="140" height="60" rx="8" class="circuit-node__box"
             ></rect>
             <text x="70" y="26" text-anchor="middle" class="circuit-node__title"
-              >1. Delegation</text
+              >1. Decision</text
             >
             <text x="70" y="46" text-anchor="middle" class="circuit-node__sub"
-              >Acts on reality</text
+              >System acts on a case</text
             >
           </g>
 
@@ -179,7 +179,7 @@ const openCircuit = circuits.find((c) => c.id === "open-circuit")!;
               >2. Mismatch</text
             >
             <text x="80" y="46" text-anchor="middle" class="circuit-node__sub"
-              >Exception generated</text
+              >Case doesn't fit</text
             >
           </g>
 
@@ -198,13 +198,13 @@ const openCircuit = circuits.find((c) => c.id === "open-circuit")!;
               y="26"
               text-anchor="middle"
               class="circuit-node__title circuit-node__title--danger"
-              >3. Human buffer</text
+              >3. People cope</text
             >
             <text x="80" y="44" text-anchor="middle" class="circuit-node__sub"
               >Caseworkers, nurses</text
             >
             <text x="80" y="62" text-anchor="middle" class="circuit-node__note"
-              >Absorbs 7.5 hrs/wk</text
+              >7.5 hrs/wk of fixes</text
             >
           </g>
 
@@ -213,17 +213,16 @@ const openCircuit = circuits.find((c) => c.id === "open-circuit")!;
             <rect width="140" height="60" rx="8" class="circuit-node__box"
             ></rect>
             <text x="70" y="26" text-anchor="middle" class="circuit-node__title"
-              >4. Telemetry</text
+              >4. Dashboard</text
             >
             <text x="70" y="46" text-anchor="middle" class="circuit-node__sub"
-              >Green dashboard</text
+              >Shows all green</text
             >
           </g>
 
           <!-- Bottom Formula Callout -->
           <text x="470" y="285" text-anchor="middle" class="circuit-formula">
-            Observed performance = designed capacity + unpriced human
-            compensation
+            Reported performance includes work nobody counts.
           </text>
         </g>
 
@@ -274,7 +273,7 @@ const openCircuit = circuits.find((c) => c.id === "open-circuit")!;
               rx="6"
               class="circuit-badge circuit-badge--accent"></rect>
             <text x="90" y="18" text-anchor="middle" class="circuit-badge__text"
-              >Reopens authority grant</text
+              >Reopens the permission</text
             >
           </g>
 
@@ -289,10 +288,10 @@ const openCircuit = circuits.find((c) => c.id === "open-circuit")!;
               rx="8"
               class="circuit-node__box circuit-node__box--accent"></rect>
             <text x="70" y="26" text-anchor="middle" class="circuit-node__title"
-              >1. Authority lease</text
+              >1. Permission</text
             >
             <text x="70" y="46" text-anchor="middle" class="circuit-node__sub"
-              >STD-08 Revocable</text
+              >Expires; can be revoked</text
             >
           </g>
 
@@ -319,13 +318,13 @@ const openCircuit = circuits.find((c) => c.id === "open-circuit")!;
               rx="8"
               class="circuit-node__box circuit-node__box--accent"></rect>
             <text x="80" y="26" text-anchor="middle" class="circuit-node__title"
-              >3. Standing</text
+              >3. Challenge</text
             >
             <text x="80" y="44" text-anchor="middle" class="circuit-node__sub"
-              >MEC-08 Contestation API</text
+              >Person can appeal</text
             >
             <text x="80" y="62" text-anchor="middle" class="circuit-node__note"
-              >Procedural force</text
+              >Must be answered</text
             >
           </g>
 
@@ -340,10 +339,10 @@ const openCircuit = circuits.find((c) => c.id === "open-circuit")!;
               rx="8"
               class="circuit-node__box circuit-node__box--accent"></rect>
             <text x="70" y="26" text-anchor="middle" class="circuit-node__title"
-              >4. Recourse</text
+              >4. Remedy</text
             >
             <text x="70" y="46" text-anchor="middle" class="circuit-node__sub"
-              >MEC-10 State reversal</text
+              >Decision reversed</text
             >
           </g>
 
@@ -373,25 +372,25 @@ const openCircuit = circuits.find((c) => c.id === "open-circuit")!;
 
       <div class="circuit-card__metrics grid grid--three">
         <div class="circuit-metric">
-          <span class="circuit-metric__label">Observed telemetry</span>
+          <span class="circuit-metric__label">What the dashboard shows</span>
           <strong class="circuit-metric__value circuit-metric__value--neutral"
-            >Nominally green</strong
+            >All green</strong
           >
-          <span class="circuit-metric__sub">0 recorded system faults</span>
+          <span class="circuit-metric__sub">No faults recorded</span>
         </div>
         <div class="circuit-metric">
-          <span class="circuit-metric__label">Friction destination</span>
+          <span class="circuit-metric__label">Where errors land</span>
           <strong class="circuit-metric__value circuit-metric__value--danger"
-            >Human crumple zone</strong
+            >On people</strong
           >
-          <span class="circuit-metric__sub">Unpriced coping labor</span>
+          <span class="circuit-metric__sub">Unpaid work to cope</span>
         </div>
         <div class="circuit-metric">
-          <span class="circuit-metric__label">Generating rule</span>
+          <span class="circuit-metric__label">The rule behind them</span>
           <strong class="circuit-metric__value circuit-metric__value--neutral"
-            >Insulated</strong
+            >Never hears</strong
           >
-          <span class="circuit-metric__sub">Zero corrective feedback</span>
+          <span class="circuit-metric__sub">No error reaches it</span>
         </div>
       </div>
 
@@ -429,25 +428,27 @@ const openCircuit = circuits.find((c) => c.id === "open-circuit")!;
 
       <div class="circuit-card__metrics grid grid--three">
         <div class="circuit-metric">
-          <span class="circuit-metric__label">Observed telemetry</span>
+          <span class="circuit-metric__label">What the dashboard shows</span>
           <strong class="circuit-metric__value circuit-metric__value--accent"
-            >Challenge density</strong
+            >Challenges</strong
           >
-          <span class="circuit-metric__sub">Discrepancies on ledger</span>
+          <span class="circuit-metric__sub">Each one logged</span>
         </div>
         <div class="circuit-metric">
-          <span class="circuit-metric__label">Friction destination</span>
+          <span class="circuit-metric__label">Where errors land</span>
           <strong class="circuit-metric__value circuit-metric__value--accent"
-            >Constitutional gates</strong
+            >An appeal</strong
           >
-          <span class="circuit-metric__sub">Provisioned appeal SLAs</span>
+          <span class="circuit-metric__sub">Staffed to a deadline</span>
         </div>
         <div class="circuit-metric">
-          <span class="circuit-metric__label">Generating rule</span>
+          <span class="circuit-metric__label">The rule behind them</span>
           <strong class="circuit-metric__value circuit-metric__value--accent"
-            >Corrigible</strong
+            >Can change</strong
           >
-          <span class="circuit-metric__sub">Lease reopens on error</span>
+          <span class="circuit-metric__sub"
+            >An error reopens the permission</span
+          >
         </div>
       </div>
 
