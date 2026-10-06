@@ -31,9 +31,8 @@ export type TaxonomyEntry = {
 
 export const taxonomyEntries = taxonomyEntriesData as TaxonomyEntry[];
 
-export const taxonomyEntriesBySlug = new Map(
-  taxonomyEntries.map((entry) => [entry.slug, entry]),
-);
+/** The id of an entry's row or section on /taxonomy: its slug, dashed. */
+export const taxonomyAnchor = (slug: string) => slug.replaceAll("/", "-");
 
 export const getTaxonomyBranch = (rootSlug: string) =>
   taxonomyEntries.filter(

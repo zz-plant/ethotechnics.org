@@ -4,7 +4,7 @@ import type { APIContext } from "astro";
 import { governanceCrosswalks } from "../content/crosswalks";
 import { evalsContent } from "../content/evals";
 import { glossaryContent } from "../content/glossary";
-import { artifacts, failureStates } from "../content/institute-site";
+import { failureStates } from "../content/institute-site";
 import { standardsContent } from "../content/standards";
 import { onRequest } from "../middleware";
 import { buildSitemapSections } from "./sitemaps";
@@ -42,20 +42,10 @@ describe("sitemap coverage", () => {
     expect(standards).toContain("/evidence-packs/std-01");
   });
 
-  test("lists the authority and dependence taxonomy branches", () => {
-    const taxonomy = paths("taxonomy");
-    for (const path of [
-      "/taxonomy/authority",
-      "/taxonomy/authority/delegation",
-      "/taxonomy/authority/policy-validity",
-      "/taxonomy/authority/expansion",
-      "/taxonomy/dependence",
-      "/taxonomy/dependence/reversibility",
-      "/taxonomy/dependence/standing",
-      "/taxonomy/dependence/preserved-capacity",
-    ]) {
-      expect(taxonomy).toContain(path);
-    }
+  test("lists the taxonomy once, as a page, not as one URL per entry", () => {
+    // Entries are anchors on /taxonomy; their old paths redirect there.
+    expect(paths("core")).toContain("/taxonomy");
+    expect(allPaths.some((path) => path.startsWith("/taxonomy/"))).toBe(false);
   });
 
   test("lists the method page and the frontier doctrine scan", () => {
@@ -81,9 +71,8 @@ describe("sitemap coverage", () => {
     for (const suite of evalsContent.suites) {
       expect(allPaths).toContain(`/evals/${suite.slug}`);
     }
-    for (const artifact of artifacts) {
-      expect(allPaths).toContain(`/artifacts/${artifact.slug}`);
-    }
+    // Artifacts are anchors on /artifacts, not pages of their own.
+    expect(allPaths.some((path) => path.startsWith("/artifacts/"))).toBe(false);
     for (const state of failureStates) {
       expect(allPaths).toContain(`/triage/${state.slug}`);
     }
@@ -174,9 +163,9 @@ describe("sitemap lists only routes that render", () => {
     expect(paths("core")).toContain("/standards/crosswalk/ctrl-01");
   });
 
-  test("taxonomy lists canonical branch and pattern paths only", () => {
+  test("the taxonomy section lists the mechanism pages only", () => {
     for (const path of paths("taxonomy")) {
-      expect(path).toMatch(/^\/(taxonomy|mechanisms\/patterns)\//);
+      expect(path).toMatch(/^\/mechanisms\/patterns\//);
     }
   });
 

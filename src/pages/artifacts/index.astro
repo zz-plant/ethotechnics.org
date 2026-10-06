@@ -1,6 +1,45 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { artifacts } from "../../content/institute-site";
+import {
+  artifacts,
+  type InstituteArtifact,
+} from "../../content/institute-site";
+
+/**
+ * The five templates, each in full on this one page.
+ *
+ * Each used to have its own page, which repeated the card on this one and
+ * added the steps and the template text. They now sit here under an anchor
+ * per artifact, and the old /artifacts/<slug> paths redirect to it.
+ *
+ * The template text is built from what the artifact already states -- its
+ * obligations and its steps -- so copying it gives exactly what is on the
+ * screen.
+ */
+const templateText = (artifact: InstituteArtifact) =>
+  [
+    `# ${artifact.name}`,
+    "",
+    ...artifact.description,
+    "",
+    "## What it commits you to — record how each one is met",
+    "",
+    ...artifact.enforcesBullets.flatMap((bullet) => [
+      `- [ ] ${bullet}`,
+      "      Evidence:",
+    ]),
+    "",
+    "## How to use",
+    "",
+    ...artifact.howToSteps.map((step, index) => `${index + 1}. ${step}`),
+    "",
+    artifact.finalLine,
+  ].join("\n");
+
+const entries = artifacts.map((artifact) => ({
+  ...artifact,
+  template: templateText(artifact),
+}));
 ---
 
 <BaseLayout
@@ -15,22 +54,47 @@ import { artifacts } from "../../content/institute-site";
       what a claimant has to prove, and records that you did. A template
       enforces nothing on its own; it gives someone a record to hold you to.
     </p>
-    <ul class="artifact-grid">
-      {
-        artifacts.map((artifact) => (
-          <li class="card stack-sm">
-            <h2>
-              <a href={`/artifacts/${artifact.slug}`}>{artifact.name}</a>
-            </h2>
-            <p class="muted small">{artifact.description[0]}</p>
-            <ul class="artifact-grid__enforces">
-              {artifact.enforcesBullets.map((bullet) => (
-                <li>{bullet}</li>
-              ))}
-            </ul>
-          </li>
-        ))
-      }
-    </ul>
+    <nav aria-label="The five templates">
+      <ol class="artifact-index">
+        {
+          artifacts.map((artifact) => (
+            <li>
+              <a href={`#${artifact.slug}`}>{artifact.name}</a>
+            </li>
+          ))
+        }
+      </ol>
+    </nav>
+
+    {
+      entries.map((artifact) => (
+        <article id={artifact.slug} class="card stack-sm artifact-entry">
+          <h2>{artifact.name}</h2>
+          {artifact.description.map((line) => (
+            <p>{line}</p>
+          ))}
+
+          <h3>What it commits you to</h3>
+          <ul class="artifact-grid__enforces">
+            {artifact.enforcesBullets.map((bullet) => (
+              <li>{bullet}</li>
+            ))}
+          </ul>
+
+          <h3>How to use</h3>
+          <ol class="artifact-entry__steps">
+            {artifact.howToSteps.map((step) => (
+              <li>{step}</li>
+            ))}
+          </ol>
+
+          <details class="artifact-entry__template">
+            <summary>The template, as text to copy</summary>
+            <pre class="artifact-template" set:text={artifact.template} />
+          </details>
+          <p class="small muted">{artifact.finalLine}</p>
+        </article>
+      ))
+    }
   </section>
 </BaseLayout>
