@@ -54,17 +54,6 @@ const Heading = level;
         >
           <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)"></path>
         </marker>
-        <marker
-          id="cj-danger-arrow"
-          viewBox="0 0 10 10"
-          refX="9"
-          refY="5"
-          markerWidth="6"
-          markerHeight="6"
-          orient="auto-start-reverse"
-        >
-          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--status-danger)"></path>
-        </marker>
       </defs>
 
       {/* Row 1: The One-Time Checkbox Fallacy */}
@@ -209,7 +198,10 @@ const Heading = level;
           stroke-width="2"
           marker-end="url(#cj-accent-arrow)"></line>
 
-        {/* Step 3: Context Drift Monitor */}
+        {
+          /* Step 3: Context Drift Monitor. Its three outcomes are
+             alternatives, not further steps, so they carry no numbers. */
+        }
         <g class="state-diagram__node" transform="translate(362, 102)">
           <polygon
             points="105,0 210,55 105,110 0,55"
@@ -217,7 +209,7 @@ const Heading = level;
             stroke="var(--accent)"
             stroke-width="1.5"></polygon>
           <text x="105" y="50" text-anchor="middle" class="state-diagram__state"
-            >Context shift?</text
+            >3. Context shift?</text
           >
           <text x="105" y="70" text-anchor="middle" class="state-diagram__label"
             >Model/policy change</text
@@ -250,7 +242,7 @@ const Heading = level;
             y="25"
             text-anchor="middle"
             class="state-diagram__state"
-            fill="var(--accent-strong)">4. Re-consent checkpoint</text
+            fill="var(--accent-strong)">Re-consent checkpoint</text
           >
           <text x="125" y="45" text-anchor="middle" class="state-diagram__label"
             >Prompt user with diff</text
@@ -275,7 +267,7 @@ const Heading = level;
         <g class="state-diagram__node" transform="translate(590, 120)">
           <rect width="250" height="74" rx="6"></rect>
           <text x="125" y="25" text-anchor="middle" class="state-diagram__state"
-            >3. Active governed state</text
+            >Active governed state</text
           >
           <text x="125" y="45" text-anchor="middle" class="state-diagram__label"
             >Auditable consent log;</text
@@ -288,15 +280,15 @@ const Heading = level;
         {/* Branch Down to 1-Click Revocation */}
         <path
           d="M 467 212 L 467 247 L 587 247"
-          stroke="var(--status-danger)"
+          stroke="var(--accent)"
           stroke-width="2"
           fill="none"
-          marker-end="url(#cj-danger-arrow)"></path>
+          marker-end="url(#cj-accent-arrow)"></path>
         <text
           x="510"
           y="240"
           class="state-diagram__clause"
-          fill="var(--status-danger)">User revokes</text
+          fill="var(--accent-strong)">User revokes</text
         >
         <g transform="translate(590, 210)">
           <rect
@@ -304,14 +296,14 @@ const Heading = level;
             height="74"
             rx="6"
             fill="var(--surface)"
-            stroke="var(--status-danger)"
+            stroke="var(--accent)"
             stroke-width="1.5"></rect>
           <text
             x="125"
             y="25"
             text-anchor="middle"
             class="state-diagram__state"
-            fill="var(--status-danger)">5. 1-click revoke &amp; purge</text
+            fill="var(--accent-strong)">1-click revoke &amp; purge</text
           >
           <text x="125" y="45" text-anchor="middle" class="state-diagram__label"
             >Immediate revocation ·</text

@@ -37,7 +37,7 @@ const haltLabel = (value: number) => {
   if (value < yearDays) return `${Math.max(1, Math.round(value))} days`;
   const years = Math.floor(value / yearDays);
   const months = Math.round((value % yearDays) / 30.4);
-  return months > 0 ? `${years}y ${months}m` : `${years}y`;
+  return months > 0 ? `${years} yr ${months} mo` : `${years} yr`;
 };
 ---
 

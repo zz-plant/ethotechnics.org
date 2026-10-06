@@ -16,7 +16,7 @@ import {
 const W = 640;
 const H = 280;
 const LEFT = 46;
-const RIGHT = 620;
+const RIGHT = 600;
 const TOP = 18;
 const BOTTOM = 240;
 const MAX_RATE = 0.12;
@@ -117,6 +117,18 @@ export function AbsorptionFigure() {
               </text>
             ))}
             <path d={dependenceArea} className="absorb__dependence" />
+            {/* Dependence runs 0 to 1, not on the error-rate scale at the
+                left, so it is read off its own ticks on the right. */}
+            {[0.5, 1].map((share) => (
+              <text
+                key={share}
+                x={RIGHT + 6}
+                y={yShare(share) + 4}
+                className="demo-figure__svg-label"
+              >
+                {share.toFixed(1)}
+              </text>
+            ))}
             <text
               x={RIGHT - 4}
               y={BOTTOM - 8}
