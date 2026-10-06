@@ -389,8 +389,8 @@ export const cases: Case[] = [
         finding:
           "An averaged annual figure is not evidence of fortnightly income. The scheme asserted a debt, then asked the person to supply the evidence that would have been needed to assert it. Notices did not state how the figure was computed. The Royal Commission's central finding was that the evidence for each debt was never held by the party raising it.",
         clauses: [
+          { standard: "STD-02", clause: "§1.1" },
           { standard: "STD-02", clause: "§1.2" },
-          { standard: "STD-02", clause: "§2.2" },
           { standard: "STD-06", clause: "§2.4" },
         ],
         laws: ["III"],
@@ -426,7 +426,7 @@ export const cases: Case[] = [
         clauses: [
           { standard: "STD-06", clause: "§1.3" },
           { standard: "STD-06", clause: "§4.2" },
-          { standard: "STD-02", clause: "§4.3" },
+          { standard: "STD-02", clause: "§3.2" },
         ],
         laws: ["IV", "VI", "XII"],
       },
@@ -583,7 +583,7 @@ export const cases: Case[] = [
           "A risk score is a proposition about a population, not a finding about a person. It was treated as the latter. The reasons behind a flag were not given to the parent, and the file given to the court was not the file the administration held. The proposition justifying the reclaim was never produced to anyone who could test it.",
         clauses: [
           { standard: "STD-02", clause: "§1.1" },
-          { standard: "STD-02", clause: "§2.2" },
+          { standard: "STD-02", clause: "§5.3" },
           { standard: "STD-02", clause: "§6.3" },
         ],
         laws: ["III"],
@@ -617,8 +617,8 @@ export const cases: Case[] = [
         finding:
           "There was no halt control. The rule was not a parameter anyone was empowered to change; it was case law. Reversal required the court to reverse itself, then a parliamentary inquiry, then a government to fall. Redress for individual parents has taken years and is not complete.",
         clauses: [
-          { standard: "STD-02", clause: "§5.2" },
-          { standard: "STD-02", clause: "§5.3" },
+          { standard: "STD-02", clause: "§2.2" },
+          { standard: "STD-02", clause: "§4.2" },
           { standard: "STD-06", clause: "§4.2" },
         ],
         laws: ["IV", "VI"],
@@ -769,7 +769,7 @@ export const cases: Case[] = [
         finding:
           "The proposition that a shortfall meant money had been taken was never tested against the system's known error rate, because the error log was withheld. The evidence that would have shown the system's own contribution, transaction-level audit data, was available to the operator and not to the accused.",
         clauses: [
-          { standard: "STD-02", clause: "§2.1" },
+          { standard: "STD-02", clause: "§5.3" },
           { standard: "STD-02", clause: "§6.3" },
           { standard: "STD-06", clause: "§2.4" },
         ],
@@ -793,8 +793,8 @@ export const cases: Case[] = [
         finding:
           "The people bearing the system's errors were prosecuted by its operator. There was no route by which a subpostmaster could put the system itself in question, and the operator told each one they were alone. Standing was not merely absent; the operator's incentives ran against it.",
         clauses: [
-          { standard: "STD-02", clause: "§3.2" },
           { standard: "STD-02", clause: "§7.1" },
+          { standard: "STD-02", clause: "§8.1" },
           { standard: "STD-02", clause: "§8.4" },
         ],
         laws: ["VII", "XII"],
@@ -805,9 +805,9 @@ export const cases: Case[] = [
         finding:
           "Correction took two decades, civil litigation funded at the claimants' risk, an appellate court, and primary legislation. At no point did the operator hold an intervention it was willing to exercise. The inquiry's first volume is about compensation because the underlying harm can no longer be reversed.",
         clauses: [
-          { standard: "STD-02", clause: "§5.2" },
+          { standard: "STD-02", clause: "§3.2" },
+          { standard: "STD-02", clause: "§4.2" },
           { standard: "STD-06", clause: "§5.6" },
-          { standard: "STD-02", clause: "§4.3" },
         ],
         laws: ["IV", "VI"],
       },
@@ -968,9 +968,9 @@ export const cases: Case[] = [
         finding:
           "Students could not appeal on the ground that the model had got them wrong. Appeals ran through the school, on grounds that excluded the decision itself, and the one ground that might have helped was announced and withdrawn within four days. The party bearing the error had no route to put the delegation in question.",
         clauses: [
-          { standard: "STD-02", clause: "§1.3" },
-          { standard: "STD-02", clause: "§3.1" },
           { standard: "STD-02", clause: "§8.1" },
+          { standard: "STD-02", clause: "§8.2" },
+          { standard: "STD-02", clause: "§8.4" },
         ],
         laws: ["VII"],
       },
@@ -1112,8 +1112,8 @@ export const cases: Case[] = [
         finding:
           "The evidence for each decision existed, in the credit file, and was produced to the regulator. It was not produced to the applicant, and the bank's own front line could not retrieve it. Evidence that the operator holds but cannot surface at the moment of the decision is evidence in name.",
         clauses: [
-          { standard: "STD-02", clause: "§1.2" },
-          { standard: "STD-02", clause: "§2.2" },
+          { standard: "STD-02", clause: "§1.1" },
+          { standard: "STD-02", clause: "§1.3" },
         ],
         laws: ["III"],
       },
@@ -1142,7 +1142,7 @@ export const cases: Case[] = [
         verdict: "held",
         finding:
           "The issuer changed its policies within months of the report. The correction was institutionally feasible and was exercised without a court. That it took a regulator to prompt it is the drift; that it happened is the difference between this case and the other four.",
-        clauses: [{ standard: "STD-02", clause: "§5.3" }],
+        clauses: [{ standard: "STD-02", clause: "§5.2" }],
         laws: ["IV"],
       },
     ],
