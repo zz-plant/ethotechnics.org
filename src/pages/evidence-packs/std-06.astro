@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
+import SearchIds from "../../components/SearchIds.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 
 const pageTitle = "STD-06 Evidence Pack — Ethotechnics Institute";
@@ -77,11 +78,11 @@ const testEvidence = [
 
 const dependencyChecklist = [
   "Dependency record populated with dependents, substitution cost, retained expertise, alternatives, last rehearsal, and correction latency (§5.1).",
-  "Exposure score published with dependency depth, substitution cost, and correction latency shown separately (§5.2).",
+  "Exposure score published with its three inputs shown separately: dependency depth (dependents rated high or critical), substitution cost in the unit the record states, and correction latency in hours (§5.2).",
   "Reversibility evidenced at all three levels, with unevidenced levels marked not evidenced rather than feasible (§5.3).",
   "Preserved capacities listed with a reason and a named owner, and any erosion recorded as a governance event (§5.4).",
   "No expansion of scope, population, or authority while institutional reversibility is unevidenced (§5.5).",
-  "Withdrawal rehearsed on the published cadence, at least annually where exposure is non-trivial, and before any expansion (§5.6).",
+  "Withdrawal rehearsed on the published cadence, at least annually for any deployment with a dependency depth of one or more, and before any expansion (§5.6).",
   "Dependency record refreshed before any renewal or expansion decision that cites it (§5.7).",
 ];
 
@@ -247,6 +248,6 @@ const portabilityChecklist = [
         </ul>
       </div>
     </div>
-    <p class="muted">Search ID: STD-06 v0.6.1.</p>
+    <SearchIds ids={["STD-06"]} />
   </SectionBlock>
 </BaseLayout>
