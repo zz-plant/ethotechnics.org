@@ -17,9 +17,17 @@
  * Shown only when the registry and the document mark the same clauses. A
  * register that lists clauses the text does not have, or misses ones it does,
  * is a false inventory, and the document is the one that is normative.
+ *
+ * Each clause links to the objection form on GitHub with the clause filled
+ * in. A clause that has drawn objections shows the count, read from the
+ * record the weekly presence-data workflow rebuilds; a clause with none
+ * shows nothing.
  */
+import { objectionRecord } from "../content/objection-record";
 import { standardClauses, type StandardClause } from "../content/standards";
 import { compareRegistryToDocument } from "../utils/clause-registry";
+import { objectionIssueUrl } from "../utils/objection-link";
+import { clauseKey, describeClauseObjections } from "../utils/objections";
 
 interface Props {
   standardId: string;
@@ -40,6 +48,10 @@ for (const clause of clauses) {
   const key = clause.displayId.replace(/^§/, "").split(".")[0]!;
   groups.set(key, [...(groups.get(key) ?? []), clause]);
 }
+
+const { perClause } = objectionRecord;
+const objectionNote = (clause: StandardClause) =>
+  describeClauseObjections(perClause[clauseKey(standardId, clause.displayId)]);
 ---
 
 {
@@ -58,6 +70,11 @@ for (const clause of clauses) {
           The obligation in one line, the evidence it wants, and the validators
           and mechanisms that bear on it. The normative text below governs; this
           is the index to it.
+        </p>
+        <p class="small muted">
+          Object to any clause on GitHub. Each objection is acknowledged at once
+          and answered within 30 days, and{" "}
+          <a href="/record">the record of answers</a> is public.
         </p>
       </div>
       <details class="clause-register__toggle">
@@ -86,6 +103,21 @@ for (const clause of clauses) {
                         <span class="clause-register__level">
                           {clause.requirementLevel}
                         </span>
+                        <a
+                          class="clause-register__object"
+                          href={objectionIssueUrl(standardId, clause.displayId)}
+                          aria-label={`Object to ${standardId} ${clause.displayId}`}
+                        >
+                          Object
+                        </a>
+                        {objectionNote(clause) && (
+                          <a
+                            class="clause-register__objections"
+                            href="/record#objections"
+                          >
+                            {objectionNote(clause)}
+                          </a>
+                        )}
                       </th>
                       <td data-label="When" class="clause-register__when">
                         {clause.condition}

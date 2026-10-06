@@ -157,6 +157,24 @@
     color: var(--muted);
   }
 
+  /* The objection link and count sit under the clause id, in the id
+     column's small type; the count may wrap, the id may not. */
+  .clause-register__object,
+  .clause-register__objections {
+    display: block;
+    margin-top: var(--space-1);
+    font-family: var(--sans);
+    font-size: var(--text-xs);
+    font-weight: 400;
+    letter-spacing: normal;
+    text-transform: none;
+  }
+
+  .clause-register__objections {
+    white-space: normal;
+    color: var(--muted);
+  }
+
   /* Every part of a standard gets its own table. Sized by content, the
      columns of each landed somewhere different, so the register read as a
      stack of unrelated tables. One fixed set of widths lines them up. */
