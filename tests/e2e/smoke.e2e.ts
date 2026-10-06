@@ -5,7 +5,8 @@ import { libraryContent } from "../../src/content/library";
 
 // Mirrors the hand-authored hero in src/pages/index.astro. A smoke test should
 // pin the headline: if the front door loses its copy, that is a regression.
-const HERO_HEADING = "The appeals kept winning. The system kept running.";
+const HERO_HEADING =
+  "When an automated system is wrong, does anyone have to change it?";
 // The desktop bar renders the primary links verbatim; the mobile menu does
 // not (see the mobile test below).
 const PRIMARY_NAV_LINKS = navPrimaryLinks.map((link) => link.label);
@@ -46,7 +47,7 @@ test.describe("Homepage smoke", () => {
       page.getByRole("link", { name: "Test your system in 60 seconds" }),
     ).toBeVisible();
     await expect(
-      page.getByRole("link", { name: "Incident triage →" }),
+      page.getByRole("link", { name: "Triage a failure in progress →" }),
     ).toBeVisible();
   });
 });
