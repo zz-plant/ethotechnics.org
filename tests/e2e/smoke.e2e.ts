@@ -61,6 +61,17 @@ test("serves an XML RSS feed", async ({ request }) => {
   expect(body).toContain("<rss");
 });
 
+test("serves the change feed", async ({ request }) => {
+  const feed = await request.get("/changes.xml");
+
+  expect(feed.ok()).toBeTruthy();
+  expect(feed.headers()["content-type"]).toContain("xml");
+
+  const body = await feed.text();
+  expect(body).toContain("<title>Ethotechnics changes</title>");
+  expect(body).toContain("<item>");
+});
+
 test.describe("Navigation", () => {
   test("opens on mobile and navigates to the first primary link", async ({
     page,
