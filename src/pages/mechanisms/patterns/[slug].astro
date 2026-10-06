@@ -38,9 +38,6 @@ const diagnosticTools = pattern.diagnostics
   )
   .filter((tool): tool is DiagnosticTool => Boolean(tool));
 const stepCount = pattern.steps.length;
-const assetCount = pattern.artifacts.length;
-const snippetCount = pattern.policyRequirement ? 4 : 0;
-const diagnosticCount = diagnosticTools.length;
 const glossaryAnchors = pattern.glossaryRefs.map((slug) => ({
   slug,
   label: getGlossaryLabel(slug),
@@ -51,10 +48,7 @@ const pageDescription = pattern.summary;
 const permalink = `/mechanisms/patterns/${pattern.slug}`;
 const hasAntiPatterns = (pattern.antiPatterns?.length ?? 0) > 0;
 const anchorLinks = [
-  ...(glossaryAnchors.length
-    ? [{ href: "#glossary", label: "Terms used" }]
-    : []),
-  { href: "#overview", label: "Overview" },
+  { href: "#glossary", label: "Safeguards and terms" },
   { href: "#steps", label: "Steps" },
   { href: "#assets", label: "Assets" },
   { href: "#reuse-snippets", label: "Reuse-ready snippets" },
@@ -84,84 +78,48 @@ const breadcrumbItems = [
     description={pageDescription}
     anchorLinks={anchorLinks}
   />
-  <SectionBlock
-    id="overview"
-    eyebrow="Specification overview"
-    title="What the mechanism includes and where it sits"
-    description="The scope, assets, and linked diagnostics, before the steps."
-    variant="alt"
-  >
-    <div class="grid grid--two mechanisms__spec-grid">
-      <div class="panel mechanisms__spec-card">
-        <p class="eyebrow">Spec essentials</p>
-        <h3>What this mechanism includes</h3>
-        <ul class="panel__list">
-          <li>{stepCount} steps.</li>
-          <li>{assetCount} templates for briefs and runbooks.</li>
-          {
-            snippetCount > 0 && (
-              <li>Policy, product, audit, and postmortem text to copy.</li>
-            )
-          }
-          {
-            glossaryAnchors.length > 0 && (
-              <li>{glossaryAnchors.length} linked glossary terms.</li>
-            )
-          }
-        </ul>
-      </div>
-      <div class="panel mechanisms__spec-card">
-        <p class="eyebrow">Filters and diagnostics</p>
-        <h3>Where this spec sits in the system</h3>
-        <p class="muted">
-          Tagged in {pattern.filters.length}{" "}
-          {pattern.filters.length === 1 ? "filter" : "filters"}, with{" "}
-          {diagnosticCount} linked{" "}
-          {diagnosticCount === 1 ? "diagnostic" : "diagnostics"}.
-        </p>
-        <ul class="pill-list pill-list--wrap mechanisms__spec-filters">
-          {
-            pattern.filters.map((filter) => (
-              <li>
-                <a class="pill-list__button" href={`/mechanisms#${filter}`}>
-                  {filterLabels[filter] ?? filter}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-    </div>
-  </SectionBlock>
-
-  {
-    glossaryAnchors.length > 0 && (
-      <SectionBlock id="glossary" title="Terms used" variant="alt">
-        <ul class="pill-list pattern-detail__glossary-links">
-          {glossaryAnchors.map((anchor) => (
+  <SectionBlock id="glossary" title="Safeguards and terms" variant="alt">
+    <div class="pattern-detail__tags">
+      <p class="eyebrow">Serves</p>
+      <ul class="pill-list pattern-detail__glossary-links">
+        {
+          pattern.filters.map((filter) => (
             <li>
-              <a class="pill-list__button" href={anchor.href}>
-                {anchor.label}
+              <a
+                class="pill-list__button"
+                href={`/mechanisms?filter=${filter}#mechanisms`}
+              >
+                {filterLabels[filter] ?? filter}
               </a>
             </li>
-          ))}
-        </ul>
-      </SectionBlock>
-    )
-  }
+          ))
+        }
+      </ul>
+      {
+        glossaryAnchors.length > 0 && (
+          <>
+            <p class="eyebrow">Terms used</p>
+            <ul class="pill-list pattern-detail__glossary-links">
+              {glossaryAnchors.map((anchor) => (
+                <li>
+                  <a class="pill-list__button" href={anchor.href}>
+                    {anchor.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </>
+        )
+      }
+    </div>
+  </SectionBlock>
 
   <SectionBlock
     id="steps"
     eyebrow="Steps"
     title="Put the mechanism in motion"
-    description="Do these in order."
+    description={`${stepCount} steps, in order. Check each one off as it is done; the templates below record the work.`}
   >
-    <div class="pattern-detail__step-summary">
-      <p class="muted">
-        {stepCount} steps. Check each one off as it is done. The templates below record
-        the work.
-      </p>
-    </div>
     <div class="pattern-detail__checklist-progress" hidden>
       <p class="muted small">
         <span id="checklist-count">0</span> of {stepCount} steps complete

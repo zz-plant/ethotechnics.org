@@ -183,7 +183,7 @@ describe("middleware", () => {
       },
       {
         url: "https://ethotechnics.org/syllabus",
-        expectedLocation: "https://ethotechnics.org/mechanisms#syllabus",
+        expectedLocation: "https://ethotechnics.org/mechanisms",
       },
       {
         url: "https://ethotechnics.org/standards/implementation-examples",

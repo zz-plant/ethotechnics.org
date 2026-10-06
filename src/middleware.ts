@@ -74,7 +74,7 @@ const REDIRECT_MAP: Record<string, string> = {
   "/failure": "/triage",
   "/finite": "/evals#finite",
   "/fast-path": "/start#fast-path",
-  "/syllabus": "/mechanisms#syllabus",
+  "/syllabus": "/mechanisms",
   "/standards/implementation-examples": "/examples#domains",
   "/standards/meta-critique": "/standards#governance-by-control",
   "/standards/micro-diagram-language": "/standards",
