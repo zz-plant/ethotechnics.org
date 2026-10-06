@@ -185,8 +185,12 @@
     font-weight: 600;
   }
 
+  /* The category sits on its own line under the term. Run inline, it
+     wrapped mid-label under long terms ("Decision states / & edges") and
+     broke the column into ragged two-line entries. */
   .glossary-index__category {
-    margin-left: var(--space-2);
+    display: block;
+    font-family: var(--sans);
     font-size: var(--text-xs);
     color: var(--muted);
   }

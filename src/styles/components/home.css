@@ -889,11 +889,19 @@
     border-bottom: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
   }
 
+  /* After a plain section there is no rule to split the gap around, and
+     that section's margin already holds the whole gap. */
+  .section + .record-spine {
+    padding-top: 0;
+  }
+
+  /* The chip is a status for the heading, so it sits on the heading's
+     line, not beside the eyebrow above it. */
   .record-spine__header {
     display: flex;
     flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: space-between;
+    align-items: last baseline;
+    justify-content: flex-start;
     gap: var(--space-2) var(--space-5);
     max-width: 68ch;
     margin-block-end: var(--space-block);

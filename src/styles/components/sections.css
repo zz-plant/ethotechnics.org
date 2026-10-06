@@ -74,7 +74,12 @@
 
   /* The masthead already closes with a rule; a second one under it would
      draw two lines with nothing between them. */
-  :is(.section:first-of-type, .page-breadcrumbs + .section, .page-intro)
+  :is(
+      .section:first-of-type,
+      .page-breadcrumbs + .section,
+      .page-intro,
+      .institute-hero
+    )
     + :is(.section--alt, .section--banded) {
     border-top: 0;
     padding-top: 0;
@@ -245,10 +250,12 @@
 
   @media (min-width: 900px) {
     /* Only establish two columns if an aside (custom or illustration) is present */
+    /* Top-aligned: centered against a tall aside, such as a case's fact
+       list, the title dropped a third of the way down the first screen. */
     .page-intro--has-aside .page-intro__grid {
       grid-template-columns: minmax(0, 1.45fr) minmax(0, 0.85fr);
       gap: var(--space-6);
-      align-items: center;
+      align-items: start;
     }
   }
 
