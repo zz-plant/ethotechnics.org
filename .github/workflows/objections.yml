@@ -1,0 +1,92 @@
+name: Objections
+
+# Runs the site's own rule for objections to a clause of a standard: each one
+# gets a public answer within 30 days. The rules live in
+# src/utils/objections.ts; scripts/presence/objections-bot.ts applies them.
+#
+# - When an issue labeled `objection` is opened, or the label is added later,
+#   the bot files it under its standard's label and posts one comment with the
+#   date its answer is due: the day it was opened plus 30 days.
+# - Each day, every open objection without an answer gets `due-soon` from day
+#   21 and `overdue` after day 30 (which replaces `due-soon`), each with one
+#   comment.
+#
+# Labels (missing ones are created on each run):
+#   objection   set by the form in .github/ISSUE_TEMPLATE/objection.yml
+#   answered    the owner has answered in public; the clock stops
+#   upheld      the objection is upheld: the clause is revised, or a reason
+#               for keeping it is recorded, and either is linked from the issue
+#   not-upheld  the objection is not upheld; the answer gives the reason
+#   due-soon    open 21 days or more without an answer (set by the bot)
+#   overdue     past the 30-day answer date without an answer (set by the bot)
+#   std-xx      the standard the clause belongs to, e.g. std-02 (set by the bot)
+#
+# Every bot comment carries a hidden marker (<!-- objection-ack -->,
+# <!-- objection-due-soon -->, <!-- objection-overdue -->), so a re-run never
+# posts the same comment twice. The issue title and body are untrusted text:
+# they reach only the script, as API data, never a shell command.
+#
+# How to answer an objection: docs/presence-automation.md.
+
+on:
+  issues:
+    types: [opened, labeled]
+  schedule:
+    - cron: "23 7 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  acknowledge:
+    if: >-
+      github.event_name == 'issues' &&
+      ((github.event.action == 'opened' &&
+        contains(github.event.issue.labels.*.name, 'objection')) ||
+       (github.event.action == 'labeled' &&
+        github.event.label.name == 'objection'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    # An issue opened from the form fires both `opened` and `labeled`. One run
+    # at a time per issue, so the second finds the first one's comment.
+    concurrency:
+      group: objections-issue-${{ github.event.issue.number }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: package.json
+
+      # The scripts import only repository files, so no install step.
+      - name: Acknowledge the objection
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: bun run scripts/presence/objections-bot.ts acknowledge "$ISSUE_NUMBER"
+
+  sweep:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    concurrency:
+      group: objections-sweep
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: package.json
+
+      - name: Flag objections due soon or overdue
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: bun run scripts/presence/objections-bot.ts sweep

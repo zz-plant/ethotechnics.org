@@ -1,0 +1,67 @@
+name: Object to a clause
+description: Say what one clause of a standard gets wrong. Each objection is answered here within 30 days.
+title: "Objection: "
+labels: ["objection"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to object to one clause of a standard. A bot posts the date the answer is due as soon as you file it. The answer comes within 30 days and says whether the objection is upheld. An upheld objection ends in a revised clause or a recorded reason for keeping it.
+
+        Every objection and its answer are listed at https://ethotechnics.org/record.
+  # The field ids below are also URL query keys: the "Object" link on each
+  # clause sets standard and clause. The labels are the headings the
+  # objections workflow reads (src/utils/objections.ts, OBJECTION_FORM_LABELS);
+  # change both together.
+  - type: dropdown
+    id: standard
+    attributes:
+      label: Standard
+      description: The standard the clause belongs to.
+      options:
+        - STD-01
+        - STD-02
+        - STD-06
+        - STD-07
+        - STD-08
+        - STD-09
+    validations:
+      required: true
+  - type: input
+    id: clause
+    attributes:
+      label: Clause
+      description: The clause number as the standard prints it.
+      placeholder: §2.2
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What the clause gets wrong
+      description: One problem per objection.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: What shows it. A case, a record, or a source, with a link if there is one.
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: Proposed change
+      description: The change you propose to the clause, if you have one.
+  - type: dropdown
+    id: standing
+    attributes:
+      label: Your standing
+      description: How the clause bears on you.
+      options:
+        - I am affected by a system the clause covers
+        - I operate or build such a system
+        - I audit or regulate such systems
+        - I research such systems
+        - Other
