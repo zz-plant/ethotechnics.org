@@ -1,6 +1,7 @@
 import { governanceCrosswalks } from "../content/crosswalks";
 import { diagnosticsContent } from "../content/diagnostics";
 import { glossaryContent } from "../content/glossary";
+import { stripHtml } from "./glossary-helpers";
 import { incidentLessons } from "../content/incidents";
 import { standardClauses, standardsContent } from "../content/standards";
 
@@ -27,11 +28,6 @@ export interface SemanticNode {
   mechanismsEnforcing?: string[];
   diagnosticsTesting?: string[];
   precedentIncidents?: string[];
-  operationalMetric?: {
-    name: string;
-    symbol: string;
-    targetThreshold: string;
-  };
 }
 
 export interface ResolvedSemanticContext {
@@ -77,6 +73,14 @@ for (const tool of diagnosticsContent.tools) {
 const termsMap = new Map<string, SemanticNode>();
 const allCategoryEntries = glossaryContent.categories.flatMap((c) => c.entries);
 
+// A card shows the start of a definition. Cutting at a fixed length ended
+// the text mid-word ("the system halts, whether it can be rev").
+const truncateAtWord = (value: string, max: number): string => {
+  if (value.length <= max) return value;
+  const cut = value.slice(0, max - 1);
+  return `${cut.slice(0, cut.lastIndexOf(" ")).replace(/[,;:]$/, "")}…`;
+};
+
 for (const entry of allCategoryEntries) {
   const isFailure =
     entry.domains?.includes("patterns") ||
@@ -86,27 +90,16 @@ for (const entry of allCategoryEntries) {
     entry.id === "heroism-dependent-systems" ||
     entry.id === "affect-invariance";
 
-  const plainText = entry.bodyHtml
-    .replace(/<[^>]+>/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
+  const plainText = stripHtml(entry.bodyHtml);
 
   termsMap.set(entry.id.toLowerCase(), {
     id: entry.id,
     slug: entry.id,
     type: isFailure ? "failure_mode" : "metric",
     title: entry.title,
-    description: plainText.slice(0, 200),
+    description: truncateAtWord(plainText, 200),
     href: `/glossary/${entry.id}`,
     category: entry.domains?.[0] || "Knowledge",
-    operationalMetric: entry.minimumEvidence?.metric
-      ? {
-          name: entry.minimumEvidence.metric,
-          symbol: entry.minimumEvidence.metric.match(/\(([^)]+)\)/)?.[1] || "M",
-          targetThreshold:
-            entry.minimumEvidence.threshold || "Target SLA <= 24h",
-        }
-      : undefined,
   });
 }
 

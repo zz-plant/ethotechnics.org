@@ -13,30 +13,43 @@ if (!context) {
   return null;
 }
 
-const hasConnections =
-  context.diagnostics.length > 0 ||
-  context.failureModes.length > 0 ||
-  context.standards.length > 0 ||
-  context.regulatoryCrosswalks.length > 0;
+// Crosswalks are resolved but have no column here, so they no longer count
+// toward showing the block: a block with only crosswalks rendered a heading
+// over an empty grid.
+const kinds = [
+  context.standards.length > 0 ? "standards" : null,
+  context.failureModes.length > 0 ? "failure modes" : null,
+  context.diagnostics.length > 0 ? "tools" : null,
+].filter((kind): kind is string => Boolean(kind));
 
-if (!hasConnections) {
+if (kinds.length === 0) {
   return null;
 }
+
+// The heading names what the block holds. It said "Connected standards and
+// tools" on every page that showed it, and every one of them showed tools
+// alone, with "Tools to run" repeated as the only column label.
+const onlyTools = kinds.length === 1 && kinds[0] === "tools";
+const title = onlyTools
+  ? context.diagnostics.length === 1
+    ? "A tool to run"
+    : "Tools to run"
+  : `Connected ${kinds.length > 1 ? `${kinds.slice(0, -1).join(", ")} and ${kinds.at(-1)}` : kinds[0]}`;
+const showLabels = kinds.length > 1;
 ---
 
-<aside
-  class={`semantic-connections ${className}`}
-  aria-label="Connected standards and tools"
->
+<aside class={`semantic-connections ${className}`} aria-label={title}>
   <div class="semantic-connections__header">
-    <h3 class="semantic-connections__title">Connected standards and tools</h3>
+    <h3 class="semantic-connections__title">{title}</h3>
   </div>
 
   <div class="semantic-connections__grid">
     {
       context.diagnostics.length > 0 && (
         <div class="semantic-connections__column">
-          <span class="semantic-connections__label">Tools to run</span>
+          {showLabels && (
+            <span class="semantic-connections__label">Tools to run</span>
+          )}
           <div class="semantic-connections__list">
             {context.diagnostics.slice(0, 3).map((diag) => (
               <a
@@ -62,9 +75,11 @@ if (!hasConnections) {
     {
       context.failureModes.length > 0 && (
         <div class="semantic-connections__column">
-          <span class="semantic-connections__label">
-            Failure modes it addresses
-          </span>
+          {showLabels && (
+            <span class="semantic-connections__label">
+              Failure modes it addresses
+            </span>
+          )}
           <div class="semantic-connections__list">
             {context.failureModes.slice(0, 3).map((fm) => (
               <a
@@ -88,7 +103,9 @@ if (!hasConnections) {
     {
       context.standards.length > 0 && (
         <div class="semantic-connections__column">
-          <span class="semantic-connections__label">Standards</span>
+          {showLabels && (
+            <span class="semantic-connections__label">Standards</span>
+          )}
           <div class="semantic-connections__list">
             {context.standards.slice(0, 3).map((std) => (
               <a

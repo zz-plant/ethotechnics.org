@@ -18,8 +18,6 @@ const fixture = () => `
     <div data-glossary-active hidden><div class="glossary-filter__active-chips"></div></div>
     <div class="glossary-filter__count" data-total="3">Showing 3 of 3 terms</div>
     <button data-clear-filter type="button">Clear</button>
-    <button data-glossary-expand type="button">Expand</button>
-    <button data-glossary-collapse type="button">Collapse</button>
     <button data-glossary-letter="all" type="button">All</button>
     <button data-glossary-letter="A" type="button">A</button>
     <button data-glossary-letter="B" type="button">B</button>

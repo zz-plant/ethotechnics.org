@@ -239,13 +239,30 @@ const isInsideAddress = (text: string, start: number, end: number): boolean => {
   return /[@./\\]/.test(before) || /^[@]|^\.[a-z0-9]/i.test(after);
 };
 
+// A term is marked where the page first uses it. Marking every use put 29
+// underlined, focusable copies of "insulation" on the essay about insulation,
+// each a tab stop with its own card, and buried the terms that appear once.
+const highlightedSlugs = new Set<string>();
+
 const replaceGlossaryTerms = (node: Text): void => {
   const text = node.textContent;
   if (!text) {
     return;
   }
 
-  const matches = Array.from(text.matchAll(glossaryRegex));
+  const matches = Array.from(text.matchAll(glossaryRegex)).filter((match) => {
+    const entry = termLookup.get(match[0].toLowerCase());
+    const index = match.index ?? 0;
+    if (
+      !entry ||
+      highlightedSlugs.has(entry.slug) ||
+      isInsideAddress(text, index, index + match[0].length)
+    ) {
+      return false;
+    }
+    highlightedSlugs.add(entry.slug);
+    return true;
+  });
   if (matches.length === 0) {
     return;
   }
@@ -259,11 +276,7 @@ const replaceGlossaryTerms = (node: Text): void => {
     const entry = termLookup.get(matchText.toLowerCase());
 
     fragment.append(text.slice(lastIndex, matchIndex));
-
-    if (
-      entry &&
-      !isInsideAddress(text, matchIndex, matchIndex + matchText.length)
-    ) {
+    if (entry) {
       fragment.append(buildHighlightMark(matchText, entry));
     } else {
       fragment.append(matchText);
@@ -349,36 +362,3 @@ const watchPeekCard = (mark: HTMLElement): void => {
 document
   .querySelectorAll<HTMLElement>(".glossary-highlight")
   .forEach(watchPeekCard);
-
-const toggleGlossaryHighlights = (enabled: boolean) => {
-  document.body.classList.toggle("disable-glossary-highlights", !enabled);
-  const highlights = document.querySelectorAll(".glossary-highlight");
-  highlights.forEach((el) => {
-    if (enabled) {
-      el.setAttribute("tabindex", "0");
-      el.setAttribute("role", "button");
-    } else {
-      el.removeAttribute("tabindex");
-      el.removeAttribute("role");
-    }
-  });
-};
-
-const toggleCheckbox = document.getElementById(
-  "glossary-toggle",
-) as HTMLInputElement | null;
-if (toggleCheckbox) {
-  const stored = localStorage.getItem("glossary-highlights");
-  const initiallyEnabled = stored !== "disabled";
-  toggleCheckbox.checked = initiallyEnabled;
-  toggleGlossaryHighlights(initiallyEnabled);
-
-  toggleCheckbox.addEventListener("change", () => {
-    const enabled = toggleCheckbox.checked;
-    localStorage.setItem(
-      "glossary-highlights",
-      enabled ? "enabled" : "disabled",
-    );
-    toggleGlossaryHighlights(enabled);
-  });
-}
