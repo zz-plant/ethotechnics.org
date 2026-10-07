@@ -92,6 +92,19 @@ export const buildGlossaryIndexEntries = (
       return entry;
     });
 
+/**
+ * Each term's search text, keyed by id: the full definition, tags, and facet
+ * values the index filter matches against. It is served on its own, at
+ * /glossary/search-index.json, and fetched the first time a reader filters.
+ * Written into every row as a data attribute it was a fifth of the index
+ * page, 205 KB of definitions sent to every visitor whether or not they
+ * searched.
+ */
+export const buildGlossarySearchIndex = (
+  entries: readonly GlossaryIndexEntry[],
+): Record<string, string> =>
+  Object.fromEntries(entries.map((entry) => [entry.id, entry.searchText]));
+
 export const filterGlossaryIndexEntries = (
   entries: readonly GlossaryIndexEntry[],
   searchQuery: string,
@@ -117,7 +130,6 @@ export const buildGlossaryIndexFacets = (
     ),
   ).sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }));
 
-  const glossarySuggestions = entryIndex.map((entry) => entry.title);
   const glossaryLetters = Array.from(
     new Set(
       entryIndex
@@ -132,7 +144,6 @@ export const buildGlossaryIndexFacets = (
 
   return {
     statusFilters,
-    glossarySuggestions,
     glossaryLetters,
     territoryCounts,
   };
@@ -157,13 +168,14 @@ export const buildGlossaryStructuredDataPayload = (input: {
   const glossaryEntryUrl = (slug: string) =>
     new URL(glossaryEntryPermalink(slug), input.siteBase).toString();
 
+  // Name and address only. Each term's page carries its own DefinedTerm with
+  // the full definition; repeating all 386 here made the structured data a
+  // quarter of the index page.
   const structuredEntries = input.categories.flatMap((category) =>
     category.entries.map((entry) => ({
       "@type": "DefinedTerm",
       name: entry.title,
       url: glossaryEntryUrl(entry.id),
-      inDefinedTermSet: pageUrl,
-      description: stripHtml(entry.bodyHtml),
     })),
   );
 

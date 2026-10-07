@@ -64,16 +64,14 @@ const letterGroups = entryIndex.reduce<
   }
   return groups;
 }, []);
-const { statusFilters, glossarySuggestions, glossaryLetters, territoryCounts } =
+const { statusFilters, glossaryLetters, territoryCounts } =
   buildGlossaryIndexFacets(categories, entryIndex);
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
-const glossaryEntryUrl = (slug: string) =>
-  Astro.site
-    ? new URL(glossaryEntryPermalink(slug), Astro.site).toString()
-    : glossaryEntryPermalink(slug);
+// Links on this page are root-relative. Written as absolute URLs, the 386
+// terms listed twice carried "https://ethotechnics.org" 800 times.
 const explainerLinksWithGlossary = explainerLinks.map((link) => ({
   ...link,
-  glossaryHref: glossaryEntryUrl(link.glossarySlug),
+  glossaryHref: glossaryEntryPermalink(link.glossarySlug),
 }));
 const glossaryPathways = [
   {
@@ -125,7 +123,7 @@ const glossaryKeywordsNode = structuredData["@graph"].find(
 ) as { keywords?: string[] } | undefined;
 const glossaryKeywordsContent =
   glossaryKeywordsNode?.keywords?.join(", ") ?? "";
-const structuredDataJson = JSON.stringify(structuredData, null, 2);
+const structuredDataJson = JSON.stringify(structuredData);
 ---
 
 <BaseLayout
@@ -161,8 +159,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
             inputmode="search"
             placeholder="Filter terms (e.g., consent)"
             autocomplete="off"
-            list="glossary-filter-suggestions"
             value={searchQuery}
+            data-search-index="/glossary/search-index.json"
           />
         </label>
         <div class="glossary-filter__tabs" role="tablist">
@@ -209,7 +207,10 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         {
           starterTerms.map((term, index) => (
             <>
-              <a href={glossaryEntryUrl(term.id)} title={term.description}>
+              <a
+                href={glossaryEntryPermalink(term.id)}
+                title={term.description}
+              >
                 {term.label}
               </a>
               {index < starterTerms.length - 1 && (
@@ -417,20 +418,13 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
               return (
                 <a
                   class={entryClasses}
-                  href={glossaryEntryUrl(entry.id)}
+                  href={glossaryEntryPermalink(entry.id)}
                   data-glossary-entry-link
-                  data-title={entry.title}
-                  data-category={entry.categoryLabel}
-                  data-category-id={entry.categoryId}
-                  data-tags={entry.tags.join(" ")}
-                  data-domains={entry.domains.join(" ")}
-                  data-phases={entry.phases.join(" ")}
-                  data-measurability={entry.measurability}
-                  data-maturity={entry.maturity}
-                  data-scale={entry.scale}
-                  data-status={entry.status ?? ""}
+                  data-domains={entry.domains.join(" ") || undefined}
+                  data-phases={entry.phases.join(" ") || undefined}
+                  data-measurability={entry.measurability || undefined}
+                  data-status={entry.status || undefined}
                   data-letter={entryLetter(entry.title)}
-                  data-search={entry.searchText}
                 >
                   <span class="glossary-index__term">{entry.title}</span>
                   <span class="glossary-index__category">
@@ -448,9 +442,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       territory map for nearby concepts.
     </p>
   </SectionBlock>
-  <datalist id="glossary-filter-suggestions">
-    {glossarySuggestions.map((suggestion) => <option value={suggestion} />)}
-  </datalist>
   <SectionBlock
     id="glossary-pathways"
     title="Where the glossary terms are used"
@@ -577,7 +568,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                   <li class="glossary-compact__item" id={entry.id}>
                     <a
                       class="glossary-compact__term"
-                      href={glossaryEntryUrl(entry.id)}
+                      href={glossaryEntryPermalink(entry.id)}
                     >
                       {entry.title}
                     </a>
