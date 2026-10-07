@@ -21,7 +21,7 @@ A failure that reaches an instrument has to survive long enough to be seen. Betw
 
 Each of these acts is competent. Each of them is also an act of erasure. The failure occurred, a person absorbed it, and the instrument recorded nothing. The metric that should have captured the failure improves because it was caught. The institution then reads the metric and concludes the system is performing well.
 
-This is not a measurement error in the ordinary sense. An ordinary measurement error is noise; more samples reduce it. Absorption is a bias, and it runs in one direction. Every absorbed failure makes the system look better than it is, and the more competent the surrounding people, the larger the bias. A system deployed among skilled staff will report a lower error rate than the same system deployed among novices, not because it errs less but because more of its errors are caught before they are counted.
+This is not a measurement error in the ordinary sense. An ordinary measurement error is noise; more samples reduce it. Absorption is a bias, and it runs in one direction wherever the instruments omit the correction. Every absorbed failure makes the system look better than it is, and the more competent the surrounding people, the larger the bias. A system deployed among skilled staff will report a lower error rate than the same system deployed among novices, not because it errs less but because more of its errors are caught before they are counted. Where overrides and near misses are logged rather than erased, the same work increases visibility instead of hiding it; the concealment is a property of the measurement boundary and the reporting incentives, not of competence itself.
 
 ## Why absorption grows with importance
 
@@ -29,7 +29,7 @@ One might hope absorption stays small. It does not, for a structural reason. As 
 
 At the same time, the cost of a visible failure rises. When a system is peripheral, a failure that reaches an instrument is a minor data point. When the system is central, a failure that reaches an instrument is an event, with meetings and explanations attached. The incentive to absorb rather than report grows with the stakes. So the share of failures that never reach an instrument rises as the system becomes important, which is precisely when the institution most needs to know how it is performing.
 
-The result is a system whose reported health improves as its actual dependence deepens. The two curves are not independent. The second drives the first.
+The result is a system whose reported health improves as its actual dependence deepens. The two curves are not independent, but the direction is not automatic: dependence can also bring stronger monitoring, and the improving reading appears where the instruments do not record the corrections. Where they do, the mechanism changes and the curves separate.
 
 ## What this does to reliability claims
 

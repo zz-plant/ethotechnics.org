@@ -293,7 +293,7 @@ export const frontierDoctrineScan: FrontierDoctrineScan = {
     conclusion: [
       "On this reading, the first-generation laws are already being absorbed by the labs: capability versus authority, evaluation at the layer where harm emerges, observation that triggers state change, causally meaningful oversight, and correction obligations.",
       "On this reading, the second-generation laws have almost no public doctrine anywhere: dependence as risk, standing for error-bearing parties, preservation of contestability, operational rather than nominal reversibility, success raising the governance burden, and authority renewal and evidence coupling.",
-      "If Ethotechnics centers on permissions, containment, approval, and evals, it describes a layer the labs are already shipping. If it centers on the dynamics of delegated authority after deployment, it describes a layer nobody has built.",
+      "If Ethotechnics centers on permissions, containment, approval, and evals, it describes a layer the labs are already shipping. If it centers on the dynamics of delegated authority after deployment, it describes a layer none of the ten labs in this scan was found to publish. That is a finding about the scanned set, whose sources are not yet listed, not a claim that the layer exists nowhere: parts of it, such as continuing review, safe decommissioning, and incorporating adjudicated feedback, already appear in established guidance.",
     ],
   },
   sourcesNote:

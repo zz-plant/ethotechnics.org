@@ -1005,7 +1005,7 @@ export const cases: Case[] = [
     learningOutcome: {
       verdict: "absorbed",
       finding:
-        "The decision was corrected — every grade was reversed within four days — but no institution's machinery was revised by the failure. Ofqual and the Department for Education withdrew the model rather than repairing the rule that generated the harm; the practice of checking a model against whole-cohort results and then applying it to individual students was never revisited inside the institution. A minister ordered the halt under public pressure after a neighboring jurisdiction had gone first, which is a correction of the case, not a change to the rule. The office that reviewed the episode was the statistics regulator, external to the operator.",
+        "The decision was corrected — every grade was reversed within four days — but no institution's machinery was revised by the failure. The reversal changed the operative decision rule for the affected cohort: model-based grades were replaced, so the halt was more than a correction of individual cases. What did not change was the institution's machinery. Ofqual and the Department for Education withdrew the model rather than repairing the rule that generated the harm, the practice of checking a model against whole-cohort results and then applying it to individual students was never revisited inside the institution, and the subsequent approach moved to teacher judgment. A minister ordered the halt under public pressure after a neighboring jurisdiction had gone first — an emergency reversal, not a stop the operator had set in advance. The office that reviewed the episode was the statistics regulator, external to the operator.",
     },
     theMissingRecord:
       "A threshold set in advance, with the action that follows if it is crossed. Under STD-06 §2.2, that means saying before release what share of downgrades, or what gap between school types, would stop it. Had that number existed, the halt on 17 August would have been a planned stop, not a reversal under pressure.",
@@ -1057,11 +1057,11 @@ export const cases: Case[] = [
     slug: "apple-card",
     title: "Apple Card credit limits",
     system:
-      "Automated credit-limit decisions on a consumer card issued by Goldman Sachs, with no route by which an applicant could learn why their limit differed from a spouse's or ask for the decision to be reconsidered.",
+      "Automated credit-limit decisions on a consumer card issued by Goldman Sachs, with no route by which an applicant could learn why their limit differed from a spouse's, and a reconsideration path that was a barrier: a six-month wait on a limit increase, removed only after the November 2019 complaints.",
     jurisdiction: "United States · New York Department of Financial Services",
     period: "November 2019 to 2021",
     scale:
-      "No unlawful discrimination found. The regulator's finding was that applicants, and the bank's own staff, could not explain individual outcomes, and that no reconsideration path existed.",
+      "No unlawful discrimination found. The regulator's finding was that applicants, and the bank's own staff, could not explain individual outcomes, and that the reconsideration path that existed was a barrier.",
     timeToHalt:
       "About seventeen months to a policy change; the model was not withdrawn.",
     // Approximate, and a lower bound: the first reports are dated Nov 2019
@@ -1073,16 +1073,16 @@ export const cases: Case[] = [
     haltedBy:
       "Nobody. The issuer changed its policies after a regulator's investigation found the process, not the model, deficient.",
     errorsCarriedBy:
-      "Spouses whose finances were shared but whose credit histories were not, offered lower limits with no way to ask for reconsideration. The bank's customer service staff took the complaints with no explanation to give.",
+      "Spouses whose finances were shared but whose credit histories were not, offered lower limits with reconsideration gated behind a six-month wait. The bank's customer service staff took the complaints with no explanation to give.",
     published: "2026-09-17T00:00:00Z",
     summary:
-      "The case to read the others against. The model was examined and cleared; the failure was that the person on the receiving end had no reasons and no route, and the people answering the phone had neither either. Four of the six safeguards held. The two that did not, evidence and standing, are the two the contestability standard (STD-02) exists for.",
+      "The case to read the others against. The model was examined and cleared; the failure was that the person on the receiving end had no reasons and no working route, and the people answering the phone had neither either. Four of the six safeguards held. The two that did not, evidence and standing, are the two the contestability standard (STD-02) exists for.",
     metaDescription:
-      "New York's regulator found in 2021 that Apple Card's credit limits broke no fair lending law, but applicants got no reasons and no appeal. Scored on six safeguards.",
+      "New York's regulator found in 2021 that Apple Card's credit limits broke no fair lending law, but applicants got no reasons and a reconsideration path that was a barrier. Scored on six safeguards.",
     narrative: [
       "In November 2019, several applicants reported publicly that they had been offered credit limits many times higher than their spouses', despite shared finances and, in some cases, the spouse's better credit history. Customer service representatives could not explain the outcomes and, by the applicants' accounts, said the algorithm had decided. The New York Department of Financial Services opened an investigation.",
-      "The Department's report, published in March 2021, found that the underwriting model did not use sex or marital status and that the outcomes could be explained by differences in the applicants' individual credit files, including that a spouse who was an authorized user on the other's accounts had a thinner history. It found no violation of fair lending law. It also found that neither applicants nor the bank's staff had been able to obtain that explanation at the time, that there was no process to request reconsideration of a limit, and that the bank's reliance on individual credit data disadvantaged spouses whose finances were shared but whose credit histories were not.",
-      "The issuer subsequently introduced the ability for spouses to share an account and build credit jointly, and a reconsideration process. The model was not changed.",
+      "The Department's report, published in March 2021, found that the underwriting model did not use sex or marital status and that the outcomes could be explained by differences in the applicants' individual credit files, including that a spouse who was an authorized user on the other's accounts had a thinner history. It found no violation of fair lending law. It also found that neither applicants nor the bank's staff had been able to obtain that explanation at the time, that requesting a higher limit had carried a six-month wait removed only after the November 2019 complaints, and that the bank's reliance on individual credit data disadvantaged spouses whose finances were shared but whose credit histories were not.",
+      "The issuer removed the six-month wait within days of the November 2019 complaints, and after the report added the ability for spouses to share an account and build credit jointly. The model was not changed.",
     ],
     timeline: [
       {
@@ -1091,8 +1091,12 @@ export const cases: Case[] = [
       },
       {
         when: "Nov 2019",
-        what: "Customer service cannot explain the outcomes. By the applicants' accounts, staff say the algorithm decided. There is no way to ask for a reconsideration.",
+        what: "Customer service cannot explain the outcomes. By the applicants' accounts, staff say the algorithm decided. A higher limit carries a six-month wait.",
         turn: true,
+      },
+      {
+        when: "Nov 2019",
+        what: "Within days, the issuer removes the six-month wait on limit increases.",
       },
       {
         when: "Mar 2021",
@@ -1104,7 +1108,7 @@ export const cases: Case[] = [
       },
       {
         when: "2021",
-        what: "The issuer adds a reconsideration process and joint accounts for spouses. The model is not changed.",
+        what: "The issuer adds joint accounts for spouses. The model is not changed.",
       },
     ],
     findings: [
@@ -1145,9 +1149,9 @@ export const cases: Case[] = [
       },
       {
         variable: "standing",
-        verdict: "failed",
+        verdict: "drifted",
         finding:
-          "There was no reconsideration path. An applicant could complain, and the complaint could be logged, but there was no route by which the complaint produced an answer against a stated standard or a possible change to the decision. The regulator's finding was about this, not the model.",
+          "Reconsideration existed but was a barrier. A credit-limit increase carried a six-month wait, removed only after the November 2019 complaints, after which limits were reconsidered within days. Complaints could be logged, but nothing was answered against a stated standard: neither applicants nor the bank's front line could get reasons naming the inputs that moved the limit, and there was no route to question the model. The regulator's finding was about this, not the model.",
         clauses: [
           { standard: "STD-02", clause: "§6.1" },
           { standard: "STD-02", clause: "§8.1" },
@@ -1167,10 +1171,10 @@ export const cases: Case[] = [
     learningOutcome: {
       verdict: "learned",
       finding:
-        "The institution revised its machinery. The regulator found the process deficient, and the issuer responded by changing the process: it introduced a reconsideration path for credit-limit decisions, so that an applicant could contest an outcome against a stated standard, and it changed the product so that spouses could share an account and build credit jointly. The model was not changed, but the process around it, and the applicant's right to challenge it, were. This is the only case in the casebook where the correction was exercised by the operator rather than imposed from outside, and that is what made the episode end in institutional change rather than in settled cases.",
+        "The institution revised its machinery. The issuer had already removed the six-month wait within days of the November 2019 complaints and begun reconsidering limits within days; after the regulator found the process deficient, it changed the product so that spouses could share an account and build credit jointly. The model was not changed, and the reconsideration that existed never answered against a stated standard — no route gave an applicant reasons naming the inputs that moved the limit. This is the only case in the casebook where the correction was exercised by the operator rather than imposed from outside, and that is what made the episode end in institutional change rather than in settled cases.",
     },
     theMissingRecord:
-      "A record of who can challenge a credit-limit decision: that an applicant may ask for reasons, that the reasons name the inputs that moved the limit, and that a reconsideration is answered within a deadline. STD-02 §8.1 and §8.5 describe a process the issuer built after the fact.",
+      "A record of who can challenge a credit-limit decision: that an applicant may ask for reasons, that the reasons name the inputs that moved the limit, and that a reconsideration is answered within a deadline. STD-02 §8.1 and §8.5 describe a process the issuer's policies never stated at the time.",
     remediation: {
       diagnostic: {
         name: "Delegation Audit",
