@@ -189,9 +189,9 @@ export const checkableProperties: CheckableProperty[] = [
   },
   {
     id: "the-record-is-tamper-evident",
-    title: "A changed record is a detectable record",
+    title: "A changed record breaks its own hash",
     claim:
-      "Every record carries a hash over its own content, and recomputing it reproduces what the record claims.",
+      "Every record carries a hash over its own content, and recomputing it reproduces what the record claims. The check establishes internal hash consistency: it cannot see a change that also rewrote the hash.",
     laws: ["law-viii", "law-xii"],
     variables: ["evidence"],
     probes: [
@@ -211,7 +211,7 @@ export const checkableProperties: CheckableProperty[] = [
         what: "recomputes each hash and flags the ones that do not match",
       },
     ],
-    gap: "A live probe would have to alter a stored record through some path other than the emitter and check the system notices. That is a tampering test, and running it against a production system is a different kind of engagement from the rest of the harness.",
+    gap: "A live probe would have to alter a stored record through some path other than the emitter and check the system notices. That is a tampering test, and running it against a production system is a different kind of engagement from the rest of the harness. As checked, the property establishes internal hash consistency only: a change that also rewrote the hash leaves no trace. Detection against an operator who controls the store needs an independently retained commitment or a trusted checkpoint.",
   },
   {
     id: "the-record-is-continuous",
