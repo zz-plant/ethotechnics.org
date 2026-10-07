@@ -338,4 +338,51 @@ describe("middleware", () => {
       expect(next).not.toHaveBeenCalled();
     }
   });
+
+  it("redirects a taxonomy entry to its anchor and passes an unknown slug through to 404", async () => {
+    const known = [
+      [
+        "/taxonomy/experience/consent/revocation",
+        "/taxonomy#experience-consent-revocation",
+      ],
+      ["/experience/recourse", "/taxonomy#experience-recourse"],
+    ];
+    for (const [from, to] of known) {
+      const request = new Request(`https://ethotechnics.org${from}`);
+      const next = mock(() => Promise.resolve(new Response("next")));
+
+      const response = await onRequest(
+        { request, locals: {} as App.Locals } as APIContext,
+        next,
+      );
+
+      expect(response?.status).toBe(301);
+      expect(response?.headers.get("Location")).toBe(
+        `https://ethotechnics.org${to}`,
+      );
+      expect(next).not.toHaveBeenCalled();
+    }
+
+    const unknown = [
+      "/taxonomy/does-not-exist",
+      "/taxonomy/experience/does-not-exist",
+      "/experience/does-not-exist",
+      "/governance/does-not-exist",
+    ];
+    for (const path of unknown) {
+      const request = new Request(`https://ethotechnics.org${path}`);
+      const next = mock(() =>
+        Promise.resolve(new Response("not found", { status: 404 })),
+      );
+
+      const response = await onRequest(
+        { request, locals: {} as App.Locals } as APIContext,
+        next,
+      );
+
+      expect(response?.status).toBe(404);
+      expect(response?.headers.get("Location")).toBeNull();
+      expect(next).toHaveBeenCalledTimes(1);
+    }
+  });
 });
