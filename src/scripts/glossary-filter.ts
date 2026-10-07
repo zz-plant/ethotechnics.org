@@ -22,15 +22,6 @@ const initGlossaryFilter = () => {
   const facetControls = Array.from(
     document.querySelectorAll<HTMLInputElement>("[data-glossary-filter]"),
   );
-  const chunkedSections = Array.from(
-    document.querySelectorAll<HTMLDetailsElement>(".chunked-section"),
-  );
-  const expandAllButton = document.querySelector<HTMLButtonElement>(
-    "[data-glossary-expand]",
-  );
-  const collapseAllButton = document.querySelector<HTMLButtonElement>(
-    "[data-glossary-collapse]",
-  );
   const letterButtons = Array.from(
     document.querySelectorAll<HTMLButtonElement>("[data-glossary-letter]"),
   );
@@ -185,12 +176,6 @@ const initGlossaryFilter = () => {
   const countMatches = (query: string, selections: FacetSelections) =>
     indexedItems.filter((item) => matchesItem(item, query, selections)).length;
 
-  const setSectionsOpen = (isOpen: boolean) => {
-    chunkedSections.forEach((section) => {
-      section.open = isOpen;
-    });
-  };
-
   const buildSelections = (): FacetSelections =>
     facetKeys.reduce(
       (acc, key) => ({ ...acc, [key]: getFacetValues(key) }),
@@ -229,14 +214,6 @@ const initGlossaryFilter = () => {
     const hasLetterFilter = activeLetter !== "all";
     clearButton.disabled =
       rawQuery.length === 0 && !hasFacets && !hasLetterFilter;
-    const shouldExpand = rawQuery.length > 0 || hasFacets || hasLetterFilter;
-    chunkedSections.forEach((section) => {
-      if (shouldExpand) {
-        section.open = true;
-      } else {
-        section.open = section.dataset.defaultOpen === "true";
-      }
-    });
 
     facetControls.forEach((control) => {
       const key = control.dataset.glossaryFilter as FacetKey | undefined;
@@ -427,12 +404,6 @@ const initGlossaryFilter = () => {
     setActiveLetter("all");
     filterInput.focus();
     updateFilter();
-  });
-  expandAllButton?.addEventListener("click", () => {
-    setSectionsOpen(true);
-  });
-  collapseAllButton?.addEventListener("click", () => {
-    setSectionsOpen(false);
   });
   setActiveLetter("all");
   updateFilter();

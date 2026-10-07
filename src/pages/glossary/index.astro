@@ -8,7 +8,10 @@ import PageIntro from "../../components/PageIntro.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import { glossaryEntryPermalink } from "../../utils/glossary";
-import { stripHtml } from "../../utils/glossary-helpers";
+import {
+  normalizeGlossaryHeading,
+  stripHtml,
+} from "../../utils/glossary-helpers";
 import {
   buildGlossaryIndexEntries,
   buildGlossaryIndexFacets,
@@ -365,20 +368,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           >
             Clear filter
           </button>
-          <button
-            class="glossary-filter__text-button"
-            type="button"
-            data-glossary-expand
-          >
-            Expand sections
-          </button>
-          <button
-            class="glossary-filter__text-button"
-            type="button"
-            data-glossary-collapse
-          >
-            Collapse sections
-          </button>
         </div>
       </div>
     </div>
@@ -555,20 +544,16 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       <SectionBlock
         id={category.id}
         eyebrow={`Section ${String.fromCharCode(65 + index)}`}
-        title={category.heading}
+        title={normalizeGlossaryHeading(category.heading)}
         description={
           category.comingSoon ? "Definitions in progress." : undefined
         }
         variant={index % 2 === 0 ? "default" : "alt"}
         className="glossary-section"
       >
-        <details
-          class="chunked-section"
-          open={index === 0}
-          data-default-open={index === 0}
-        >
+        <details class="chunked-section" open={index === 0}>
           <summary class="chunked-section__summary">
-            {category.heading} entries ({category.entries.length})
+            {category.entries.length} terms
           </summary>
           <div class="chunked-section__body">
             <div

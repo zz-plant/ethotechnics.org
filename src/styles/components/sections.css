@@ -615,4 +615,66 @@
   .diagnostic-tool__method[open] > summary {
     margin-bottom: var(--space-5);
   }
+
+  /* A section whose list folds: the glossary's thirteen sections and the
+     research index. The styles went in a May 2026 refactor while both pages
+     kept the markup, so each list sat under a bare browser disclosure
+     triangle with its description at body size. */
+  .chunked-section {
+    border-top: 1px solid var(--border);
+    padding-top: var(--space-3);
+  }
+
+  .chunked-section + .chunked-section {
+    margin-top: var(--space-4);
+  }
+
+  .chunked-section__summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    width: fit-content;
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .chunked-section__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .chunked-section__summary::before {
+    content: "+";
+    width: 1ch;
+    font-size: var(--text-base);
+    line-height: 1;
+  }
+
+  .chunked-section[open] > .chunked-section__summary::before {
+    content: "−";
+  }
+
+  .chunked-section__summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: var(--radius-xs);
+  }
+
+  .chunked-section__body {
+    margin-top: var(--space-4);
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .glossary-section__description {
+    color: var(--muted);
+    max-width: 65ch;
+  }
+
+  .glossary-section__description p {
+    margin: 0;
+  }
 }

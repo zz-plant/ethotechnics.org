@@ -6,9 +6,23 @@ import type {
 } from "../content/glossary";
 import type { PublicationMetadata } from "../content/types";
 
+/**
+ * The visible text of an HTML fragment, on one line. Tags become spaces so
+ * block boundaries do not run words together; the spaces that leaves before
+ * punctuation and inside brackets are then closed. Replacing tags with spaces
+ * alone turned "for someone</a>: models" into "for someone : models" in 224
+ * of 386 entries, and that text fed meta descriptions, the index summaries,
+ * structured data, and the related-standards cards.
+ */
 export const stripHtml = (value: string): string =>
   value
     .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;|&rsquo;/g, "’")
+    .replace(/\s+([,.;:!?)\]”’])/g, "$1")
+    .replace(/([([“])\s+/g, "$1")
     .replace(/\s+/g, " ")
     .trim();
 

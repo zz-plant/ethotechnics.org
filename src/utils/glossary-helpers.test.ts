@@ -4,12 +4,39 @@ import { glossaryContent } from "../content/glossary";
 import {
   getDefinitionLinks,
   getRelatedGlossaryTerms,
+  stripHtml,
 } from "./glossary-helpers";
 
 const entry = (id: string, bodyHtml: string, adjacentTerms?: string[]) => ({
   id,
   bodyHtml,
   adjacentTerms,
+});
+
+describe("stripHtml", () => {
+  it("leaves no space before punctuation or inside brackets where a tag closed", () => {
+    expect(
+      stripHtml(
+        '<p>for <a href="/glossary/x">someone</a>: models (<a href="/glossary/tth">TTH</a>), “<em>x</em>”.</p>',
+      ),
+    ).toBe("for someone: models (TTH), “x”.");
+  });
+
+  it("keeps a space between blocks and decodes entities", () => {
+    expect(
+      stripHtml("<p>A &amp; B&#39;s.</p><ul><li>One.</li><li>Two.</li></ul>"),
+    ).toBe("A & B’s. One. Two.");
+  });
+
+  it("leaves every glossary definition free of the old spacing defect", () => {
+    const all = glossaryContent.categories.flatMap(
+      (category) => category.entries,
+    );
+    const defects = all.filter((item) =>
+      / [,.;:!?)]|\( /.test(stripHtml(item.bodyHtml)),
+    );
+    expect(defects.map((item) => item.id)).toEqual([]);
+  });
 });
 
 describe("getDefinitionLinks", () => {
