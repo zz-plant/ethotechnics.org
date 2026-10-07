@@ -118,11 +118,23 @@ const initGlossaryFilter = () => {
       .map((control) => control.dataset.glossaryLabel ?? control.value)
       .filter(Boolean);
 
+  const entryId = (item: HTMLElement) =>
+    (item.dataset.baseHref ?? item.getAttribute("href") ?? "")
+      .split(/[?#]/)[0]
+      ?.split("/")
+      .filter(Boolean)
+      .pop() ?? "";
+
+  // A row carries its title and section. The full definitions arrive from
+  // the search index the first time a reader types (see
+  // buildGlossarySearchIndex); until then, and if the request fails, the
+  // filter matches titles and sections.
   const indexedItems = items.map((item) => ({
     element: item,
+    id: entryId(item),
     searchText:
       item.dataset.search?.toLowerCase() ??
-      item.textContent?.toLowerCase() ??
+      item.textContent?.replace(/\s+/g, " ").trim().toLowerCase() ??
       "",
     letter: item.dataset.letter ?? "",
     domains: (item.dataset.domains ?? "").split(" ").filter(Boolean),
@@ -130,6 +142,40 @@ const initGlossaryFilter = () => {
     measurability: item.dataset.measurability ?? "",
     status: item.dataset.status ?? "",
   }));
+
+  const searchIndexUrl = filterInput.dataset.searchIndex;
+  let searchIndexLoaded = !searchIndexUrl;
+  let searchIndexRequest: Promise<void> | null = null;
+  const loadSearchIndex = (): Promise<void> => {
+    if (!searchIndexUrl) {
+      return Promise.resolve();
+    }
+    searchIndexRequest ??= fetch(searchIndexUrl)
+      .then((response) =>
+        response.ok
+          ? response.json()
+          : Promise.reject(new Error(`search index ${response.status}`)),
+      )
+      .then((index: unknown) => {
+        if (!index || typeof index !== "object") {
+          return;
+        }
+        const texts = index as Record<string, unknown>;
+        indexedItems.forEach((item) => {
+          const text = texts[item.id];
+          if (typeof text === "string" && text) {
+            item.searchText = text;
+          }
+        });
+      })
+      .catch(() => {
+        // Titles and sections still match.
+      })
+      .finally(() => {
+        searchIndexLoaded = true;
+      });
+    return searchIndexRequest;
+  };
 
   let activeLetter = "all";
 
@@ -342,7 +388,17 @@ const initGlossaryFilter = () => {
     });
   };
 
-  filterInput.addEventListener("input", scheduleUpdate);
+  // Focus starts the request, so the index is usually in hand by the first
+  // keystroke.
+  filterInput.addEventListener("focus", () => void loadSearchIndex(), {
+    once: true,
+  });
+  filterInput.addEventListener("input", () => {
+    scheduleUpdate();
+    if (!searchIndexLoaded) {
+      void loadSearchIndex().then(scheduleUpdate);
+    }
+  });
   filterInput.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && filterInput.value) {
       event.preventDefault();
@@ -406,7 +462,13 @@ const initGlossaryFilter = () => {
     updateFilter();
   });
   setActiveLetter("all");
-  updateFilter();
+  if (initialState.query && !searchIndexLoaded) {
+    // The server already filtered on the full text. Filtering again on titles
+    // alone would hide its matches until the index arrives.
+    void loadSearchIndex().then(updateFilter);
+  } else {
+    updateFilter();
+  }
 };
 
 if (document.readyState === "loading") {
