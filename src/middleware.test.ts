@@ -134,8 +134,26 @@ describe("middleware", () => {
         "/research/scholarly-crossings#corrigibility-ladder",
       ],
     ];
+    // Retired per-entry subpages that search engines still list. Each lands on
+    // its entry in one hop; a renamed entry lands on its new name.
+    const legacyGlossaryEntries = [
+      [
+        "/glossary/entries/design-authority/overview/",
+        "/glossary/design-authority",
+      ],
+      ["/glossary/entries/time-to-halt/status", "/glossary/time-to-halt"],
+      ["/glossary/entries/fail-silent", "/glossary/fail-silent"],
+      [
+        "/glossary/entries/contestability-guarantee/overview",
+        "/glossary/contestability",
+      ],
+    ];
     const pathCases = [
       ...glossaryAliases.map(([from, to]) => ({
+        url: `https://ethotechnics.org${from}`,
+        expectedLocation: `https://ethotechnics.org${to}`,
+      })),
+      ...legacyGlossaryEntries.map(([from, to]) => ({
         url: `https://ethotechnics.org${from}`,
         expectedLocation: `https://ethotechnics.org${to}`,
       })),

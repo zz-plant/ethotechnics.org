@@ -171,6 +171,19 @@ const resolveLegacyPathRedirect = (url: URL): string | null => {
     return target.toString();
   }
 
+  // Glossary entries used to live at /glossary/entries/<slug>, with a page
+  // per operational test beneath each. A test page was about 410 words, of
+  // which roughly 40 were not already on the entry, so the 213 pages were
+  // retired. Search engines still list those URLs (/overview, /status). They
+  // land on the entry in one hop, and a renamed entry on its new home.
+  const legacyGlossary = /^\/glossary\/entries\/([^/]+)/.exec(normalizedPath);
+  if (legacyGlossary) {
+    const entryPath = `/glossary/${legacyGlossary[1]}`;
+    const target = new URL(REDIRECT_MAP[entryPath] ?? entryPath, url.origin);
+    target.search = url.search;
+    return target.toString();
+  }
+
   // Taxonomy entries. Each one had its own page under /taxonomy, and four
   // domains had a top-level mirror; the pages were a summary and two links
   // apiece, so all of them now sit on /taxonomy, one anchor per entry.

@@ -1,14 +1,4 @@
 @layer components {
-  .glossary-entry__summary {
-    margin: var(--space-5) 0 var(--space-6);
-    display: grid;
-    gap: var(--space-3);
-  }
-
-  .glossary-entry__summary-links {
-    margin: 0;
-  }
-
   .glossary__starter-list {
     list-style: none;
     margin: var(--space-4) 0 0;
@@ -435,29 +425,24 @@
     gap: var(--space-5);
   }
 
-  .glossary-entry__hero {
-    display: grid;
-    gap: var(--space-4);
-    border-bottom: 1px solid var(--color-border-subtle);
-    padding-bottom: var(--space-4);
-  }
-
-  .glossary-entry__meta {
-    margin: 0;
+  .glossary-entry__definition {
     display: grid;
     gap: var(--space-3);
   }
 
-  .glossary-entry__meta-term {
-    margin: 0;
-    padding-left: var(--space-3);
-    border-left: 2px solid
-      color-mix(in srgb, var(--color-border-subtle) 80%, transparent);
+  /* The first paragraph is the definition proper, the answer a reader came
+     for; the paragraphs after it explain why it matters. */
+  .glossary-entry__definition .glossary-entry__body > p:first-child {
+    font-size: var(--text-lede);
+    line-height: 1.55;
   }
 
-  .glossary-entry__meta-definition {
-    margin: var(--space-1) 0 0;
-    padding-left: var(--space-3);
+  .glossary-entry__explainer {
+    margin: 0;
+  }
+
+  .glossary-entry__explainer a {
+    font-weight: 600;
   }
 
   .glossary-entry__layout {
@@ -492,59 +477,13 @@
     gap: var(--space-4);
   }
 
-  .glossary-entry__section--dense {
-    display: grid;
-    gap: var(--space-2);
+  .glossary-entry__aside-section + .glossary-entry__aside-section {
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border-subtle);
   }
 
-  .glossary-entry__disclosures {
-    display: grid;
-    gap: var(--space-2);
-  }
-
-  .glossary-entry__disclosure {
-    border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
-    border-radius: var(--radius-lg);
-    background: color-mix(in srgb, var(--surface) 98%, transparent);
-    padding: var(--space-hair) var(--space-3) var(--space-3);
-  }
-
-  .glossary-entry__disclosure summary {
-    cursor: pointer;
-    font-weight: 550;
-    color: var(--muted);
-    list-style: none;
-    padding: var(--space-2) 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-3);
-  }
-
-  .glossary-entry__disclosure summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .glossary-entry__disclosure summary::after {
-    content: "+";
-    font-size: var(--text-base);
-    line-height: 1;
-    color: var(--muted);
-  }
-
-  .glossary-entry__disclosure[open] summary::after {
-    content: "−";
-  }
-
-  .glossary-entry__disclosure ul,
-  .glossary-entry__disclosure p {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-
-  .glossary-entry__section--patterns {
-    display: grid;
-    gap: var(--space-3);
+  .glossary-entry__aside-section > * + * {
+    margin-top: var(--space-2);
   }
 
   .glossary-territory__count {
@@ -572,48 +511,31 @@
   }
 
   .glossary-entry--diagram .micro-diagram {
-    margin-top: var(--space-3);
+    margin: var(--space-3) 0 0;
   }
 
-  .glossary-entry__patterns-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    gap: var(--space-3);
+  /* The diagram symbols in SvgDefs carry class names and no paint. Unstyled,
+     each drew as solid black shapes the full width of the definition. The
+     stroke is inherited into the <use> tree; the filled marks are matched on
+     the symbol's own elements. */
+  .glossary-entry .micro-diagram svg {
+    display: block;
+    width: min(9rem, 40%);
+    height: auto;
+    color: var(--accent);
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
-  .glossary-entry__pattern-link {
-    display: grid;
-    gap: var(--space-1);
-    padding: var(--space-3);
-    border-radius: var(--radius-md);
-    border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
-    background: color-mix(in srgb, var(--surface) 94%, transparent);
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .glossary-entry__disclosure .glossary-entry__pattern-link {
-    background: transparent;
-    border-color: color-mix(in srgb, var(--border) 68%, transparent);
-    padding: var(--space-2) var(--space-3);
-  }
-
-  .glossary-entry__pattern-link:hover,
-  .glossary-entry__pattern-link:focus-visible {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent);
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
-
-  .glossary-entry__pattern-title {
-    font-weight: 700;
-  }
-
-  .glossary-entry__patterns-hint {
-    margin: 0;
+  .diagram-event,
+  .diagram-focus,
+  .diagram-metric-point,
+  .diagram-stop-flag,
+  .diagram-voice {
+    fill: currentColor;
   }
 
   @media (max-width: 720px) {
@@ -656,11 +578,6 @@
   }
 
   @media (min-width: 900px) {
-    .glossary-entry__hero {
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-      align-items: start;
-    }
-
     .glossary-entry__layout {
       grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
       align-items: start;
