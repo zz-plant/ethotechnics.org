@@ -1,5 +1,9 @@
 import type { MiddlewareHandler } from "astro";
 
+import { taxonomyAnchor, taxonomyEntries } from "./content/taxonomy";
+
+const TAXONOMY_SLUGS = new Set(taxonomyEntries.map((entry) => entry.slug));
+
 const COM_HOST_RE = /^(www\.)?ethotechnics\.com$/i;
 // www.ethotechnics.org is a second name for the same site. Once its DNS record
 // points at this Worker, it answers with a permanent redirect to the apex
@@ -186,7 +190,9 @@ const resolveLegacyPathRedirect = (url: URL): string | null => {
 
   // Taxonomy entries. Each one had its own page under /taxonomy, and four
   // domains had a top-level mirror; the pages were a summary and two links
-  // apiece, so all of them now sit on /taxonomy, one anchor per entry.
+  // apiece, so all of them now sit on /taxonomy, one anchor per entry. A slug
+  // that names no entry 404s, as its page did. Redirected, it would land on
+  // the top of /taxonomy with nothing to say the entry does not exist.
   const taxonomySlug = normalizedPath.startsWith("/taxonomy/")
     ? normalizedPath.slice("/taxonomy/".length)
     : /^\/(?:delivery|assurance|experience)(?:\/|$)|^\/governance\//.test(
@@ -194,9 +200,9 @@ const resolveLegacyPathRedirect = (url: URL): string | null => {
         )
       ? normalizedPath.slice(1)
       : null;
-  if (taxonomySlug) {
+  if (taxonomySlug && TAXONOMY_SLUGS.has(taxonomySlug)) {
     const target = new URL(
-      `/taxonomy#${taxonomySlug.replaceAll("/", "-")}`,
+      `/taxonomy#${taxonomyAnchor(taxonomySlug)}`,
       url.origin,
     );
     target.search = url.search;
