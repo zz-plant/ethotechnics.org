@@ -50,7 +50,7 @@ const hasAntiPatterns = (pattern.antiPatterns?.length ?? 0) > 0;
 const anchorLinks = [
   { href: "#glossary", label: "Safeguards and terms" },
   { href: "#steps", label: "Steps" },
-  { href: "#assets", label: "Assets" },
+  { href: "#assets", label: "Records" },
   { href: "#reuse-snippets", label: "Reuse-ready snippets" },
   { href: "#example", label: "Example usage" },
   ...(hasAntiPatterns
@@ -118,7 +118,7 @@ const breadcrumbItems = [
     id="steps"
     eyebrow="Steps"
     title="Put the mechanism in motion"
-    description={`${stepCount} steps, in order. Check each one off as it is done; the templates below record the work.`}
+    description={`${stepCount} steps, in order. Check each one off as it is done; the records below show the work was done.`}
   >
     <div class="pattern-detail__checklist-progress" hidden>
       <p class="muted small">
@@ -151,9 +151,9 @@ const breadcrumbItems = [
 
   <SectionBlock
     id="assets"
-    eyebrow="Assets"
-    title="Templates this mechanism produces"
-    description="Copy these into design docs, runbooks, and briefs, with the mechanism permalink."
+    eyebrow="Records"
+    title="Records this mechanism keeps"
+    description="What a team running this mechanism keeps, and what each record is for."
     variant="alt"
   >
     <CardGrid className="grid--two">
@@ -261,7 +261,9 @@ const breadcrumbItems = [
               <div class="pattern-detail__diagnostic-header">
                 <div>
                   <p class="muted">Diagnostic</p>
-                  <h3>{tool.title}</h3>
+                  <h3>
+                    <a href={`/diagnostics/${tool.slug}`}>{tool.title}</a>
+                  </h3>
                 </div>
                 <button
                   class="copy-button"
