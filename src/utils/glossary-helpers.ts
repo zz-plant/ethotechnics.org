@@ -49,6 +49,49 @@ export const buildGlossaryEntrySearchText = (
   return searchText.toLowerCase();
 };
 
+const GLOSSARY_LINK = /href="\/glossary\/([a-z0-9-]+)/g;
+
+/** Entry ids an entry's definition links to, in order, without repeats. */
+export const getDefinitionLinks = (
+  entry: Pick<GlossaryEntry, "id" | "bodyHtml">,
+): string[] =>
+  Array.from(
+    new Set(
+      Array.from(entry.bodyHtml.matchAll(GLOSSARY_LINK), (match) => match[1]),
+    ),
+  ).filter((id): id is string => Boolean(id) && id !== entry.id);
+
+/**
+ * Terms related to an entry, as its authors recorded them: the adjacent terms
+ * it lists, then the entries whose definition links to it or that list it as
+ * adjacent. Terms its own definition already links to are left out, because
+ * the reader has those links in front of them. Only ids with a page count.
+ *
+ * An entry with neither a related term nor a matched public case used to end
+ * at the citation block, with nowhere to go from a page most readers reach
+ * from search.
+ */
+export const getRelatedGlossaryTerms = (
+  entry: Pick<GlossaryEntry, "id" | "bodyHtml" | "adjacentTerms">,
+  entries: readonly Pick<GlossaryEntry, "id" | "bodyHtml" | "adjacentTerms">[],
+  limit = 8,
+): string[] => {
+  const known = new Set(entries.map((candidate) => candidate.id));
+  const inDefinition = new Set(getDefinitionLinks(entry));
+  const referrers = entries
+    .filter(
+      (candidate) =>
+        candidate.id !== entry.id &&
+        (getDefinitionLinks(candidate).includes(entry.id) ||
+          (candidate.adjacentTerms ?? []).includes(entry.id)),
+    )
+    .map((candidate) => candidate.id);
+
+  return Array.from(new Set([...(entry.adjacentTerms ?? []), ...referrers]))
+    .filter((id) => id !== entry.id && known.has(id) && !inDefinition.has(id))
+    .slice(0, limit);
+};
+
 export const getGlossaryEntryDefaults = (
   entry: GlossaryEntry,
   category: GlossaryCategory,

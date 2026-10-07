@@ -11,7 +11,8 @@ export interface Props {
   eyebrow: string;
   title: string;
   titleLevel?: 1 | 2 | 3 | 4 | 5 | 6;
-  description: string;
+  /** Plain text. A `lede` slot replaces it when the lede carries links. */
+  description?: string;
   anchorLinks: AnchorLink[];
   anchorLinksSummary?: string;
   version?: string;
@@ -30,6 +31,7 @@ const {
 } = Astro.props;
 const hasCustomAside = Astro.slots.has("aside");
 const hasActions = Astro.slots.has("actions");
+const hasLede = Astro.slots.has("lede");
 const hasAsideContent = hasCustomAside;
 // An outline earns its place only on a long page. Below five sections the
 // headings are a scroll away and a numbered box above them is chrome.
@@ -71,7 +73,15 @@ const resolvedEyebrow =
         }
       </div>
       <HeadingTag>{title}</HeadingTag>
-      <p class="muted page-intro__lede">{description}</p>
+      {
+        hasLede ? (
+          <p class="muted page-intro__lede">
+            <slot name="lede" />
+          </p>
+        ) : (
+          description && <p class="muted page-intro__lede">{description}</p>
+        )
+      }
       {
         hasActions && (
           <div class="page-intro__actions section__actions">
