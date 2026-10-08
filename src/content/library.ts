@@ -21,7 +21,15 @@ export type PatternFilter = {
 
 export type Pattern = {
   slug: string;
+  /** Catalog title, "MEC-05 Kill switch for runaway automation". */
   title: string;
+  /**
+   * The page's <title> and heading when search uses other words than the
+   * catalog: led by those words, with the catalog id moved to the end.
+   */
+  searchTitle?: string;
+  /** Page meta description, where the summary runs past 160 characters. */
+  metaDescription?: string;
   summary: string;
   filters: PatternFilter["slug"][];
   glossaryRefs: string[];

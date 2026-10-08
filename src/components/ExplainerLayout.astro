@@ -28,6 +28,8 @@ interface DistinctSignal {
 
 interface Props {
   title: string;
+  /** The <title>, when it should carry more than the heading. */
+  seoTitle?: string;
   description: string;
   permalink: string;
   glossary: {
@@ -44,6 +46,7 @@ interface Props {
 
 const {
   title,
+  seoTitle,
   description,
   permalink,
   glossary,
@@ -87,7 +90,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 ---
 
 <BaseLayout
-  title={title}
+  title={seoTitle ?? title}
   description={description}
   publishedTime={explainerSeoMetadata.publishedTime}
   modifiedTime={explainerSeoMetadata.modifiedTime}
