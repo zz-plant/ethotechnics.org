@@ -1,0 +1,142 @@
+---
+# DRAFT, not published. Nothing under docs/ is built, routed, or listed in the
+# sitemap; tests/drafts.test.ts fails if this permalink starts to resolve.
+#
+# The frontmatter follows the explainers collection schema in
+# src/content.config.ts. To publish:
+#   1. Move this file to src/content/explainers/human-in-the-loop.mdx.
+#   2. ExplainerLayout renders an explainer's body under "Visual model". Give
+#      it a way to label a prose body before moving this file, or the law
+#      sections below will sit under that heading.
+#   3. Link this page from the glossary entries it consolidates:
+#      human-in-the-loop-legitimacy, rubber-stamp-review, meaningful-control.
+#   4. Re-check the AB 2575 and EU AI Act sections against their sources on
+#      the publish date. Both were checked on 2026-10-08.
+title: "Human in the loop or rubber stamp?"
+description: "Human review is oversight only if the reviewer can change the outcome. Three tests tell it from a rubber stamp: override rate, time per case, and authority."
+permalink: "/explainers/human-in-the-loop"
+eyebrow: "Explainer"
+glossaryRef: "human-in-the-loop-legitimacy"
+definition:
+  - "A human in the loop is a person who reviews an automated decision before it takes effect. The review is oversight only if that person can change the outcome."
+  - "A rubber stamp is review that approves at a rate and speed no real scrutiny could produce. The approval is on the record. The decision is still the system's."
+  - "The difference does not show on an org chart. It shows in three numbers: how often reviewers change what the system proposed, how long they spend on each case, and which outcomes they have the authority to change."
+example: "A benefits agency's model proposes denials, and a caseworker signs each one before it is sent. In one quarter, caseworkers sign 99.7% of the model's proposals, at a median of eight seconds each. Their screen offers two buttons, approve and escalate. Escalation goes to a supervisor who cannot change the model's rule. The caseworker is in the loop. The rule is not."
+distinctSignals:
+  - title: "Override rate"
+    detail: "Count how often reviewers change, reverse, or refuse what the system proposed, per queue and per period. A rate near zero across thousands of cases says the review is not changing outcomes. Set the threshold before the period starts, so a breach is a finding about the arrangement, not about the reviewer."
+  - title: "Time per case"
+    detail: "Measure the median and the slowest time per case against the time it takes to read what the reviewer is shown. A median shorter than that reading means the decision was made before the review began."
+  - title: "Authority to change the outcome"
+    detail: "Name what the reviewer can do: approve, deny, correct, send back, or halt. A reviewer who can only approve, or whose disagreement reaches no one who can change the rule, is advising, not overseeing. So is one who is measured on speed or on denials upheld."
+ctas:
+  - eyebrow: "Standard"
+    title: "STD-08 — Delegation, Part C"
+    description: "Every claim that a human reviews must name what that person can change. Approval rates and time per approval are measured, and near-unanimous approval reopens the arrangement."
+    href: "/standards/std-08-delegation#part-c"
+    ctaLabel: "Read Part C"
+  - eyebrow: "Explainer"
+    title: "What is an intervention specification?"
+    description: "Six questions that replace the phrase “human in the loop”: who may intervene, on what signal, with what information, over what, how fast, and what happens on disagreement."
+    href: "/explainers/intervention-specification"
+    ctaLabel: "Read the explainer"
+  - eyebrow: "Eval"
+    title: "Meaningful control evals"
+    description: "Seven questions at each point where a person can intervene, and a check on whether approval has become a reflex."
+    href: "/evals/meaningful-control"
+    ctaLabel: "Open the eval suite"
+  - eyebrow: "Crosswalk"
+    title: "Human oversight with stop authority"
+    description: "The control a buyer or auditor can cite, mapped to EU AI Act Article 14, with the evidence to request."
+    href: "/standards/crosswalk/ctrl-01"
+    ctaLabel: "Open the control brief"
+faqs:
+  - question: "Does the EU AI Act require a human in the loop?"
+    answer: "For high-risk AI systems, Article 14 requires that the people assigned to oversight be able to understand the system, stay aware of over-reliance on it, interpret its output, decide not to use it or override or reverse its output, and stop it. Article 26(2) requires deployers to give those people the competence, training, authority, and support to do so. For high-risk systems listed in Annex III, these rules apply from 2 December 2027."
+  - question: "Does a low override rate prove the review is a rubber stamp?"
+    answer: "No. A system that is right almost every time will be overridden rarely. Read the rate together with time per case and with what the reviewer can change, against thresholds set in advance."
+  - question: "What did California's AB 2575 propose?"
+    answer: "Protection for health care workers who override an AI clinical decision support system. Employers could not have retaliated against a worker solely for overriding or relying on the system, and a developer or deployer sued over harm could not have blamed a clinician's failure to override. The Legislature passed it on 31 August 2026. The Governor vetoed it on 30 September 2026."
+published: "2026-10-08"
+publication:
+  authors:
+    - name: "Ethotechnics Institute"
+      affiliation: "Ethotechnics Institute"
+      email: "hello@ethotechnics.org"
+  contact: "hello@ethotechnics.org"
+  published: "2026-10-08"
+  version: "v0.1.0"
+  changelog:
+    - version: "v0.1.0"
+      date: "2026-10-08"
+      summary: "Draft for review. Consolidates the glossary entries on human-in-the-loop legitimacy, rubber-stamp review, and meaningful control."
+  license:
+    label: "CC BY-SA 4.0"
+    href: "https://creativecommons.org/licenses/by-sa/4.0/"
+  attribution: "Credit Ethotechnics Institute, include the explainer title and version, and link to the canonical permalink."
+---
+
+## Three glossary entries, one question
+
+The glossary names the failure three ways. [Human in the loop as a legitimacy artifact](/glossary/human-in-the-loop-legitimacy) is a reviewer placed to make a decision look legitimate, with no binding authority, deadline, or discretion. [Rubber-stamp review](/glossary/rubber-stamp-review) is approval at a rate and speed incompatible with scrutiny. [Meaningful control](/glossary/meaningful-control) is the condition both fail: the person can see the problem, has authority to change the action, has time to act, has a route when they disagree, and is not penalized for disagreeing.
+
+All three ask whether the human can change what the system does. [Law IX](/standards/laws#law-ix) states it as a rule: human oversight is a control only if the human can alter system state.
+
+## How the standards test it
+
+STD-08, the [delegation standard](/standards/std-08-delegation#part-c), turns each test into an obligation.
+
+- **Authority.** Any requirement or assurance claim that says a human reviews, approves, or monitors must name what that person can see, prevent, and change, and what happens when they disagree (§3.1). An arrangement in which the reviewer can change nothing the system does is recorded as advisory review. It is not cited as a control (§3.3).
+- **Override rate and time per case.** For each review period, the operator measures the approval rate, the median and slowest time per approval, and how many approvals reach the owner in time (§3.4).
+- **Thresholds set in advance.** When approval sits at or near unanimity, or median time is too short for the information to have been read, against thresholds published before the period, the oversight arrangement is reopened. The finding is about the control, not the reviewer (§3.5).
+- **What never reaches the reviewer.** Where a score decides which cases a person sees, the threshold is part of the arrangement, and a share of the unreviewed cases is sampled for review (§3.6).
+
+The [contestability standard](/standards/std-02-contestability-recourse#articles), STD-02, adds the incentive test: reviewers are not rewarded for upheld denials or for closure speed, and the evaluation policy is disclosed (§6.2).
+
+## Where time per case is on the record
+
+**Cigna, 2023.** ProPublica and The Capitol Forum reported in March 2023 that, according to company documents, Cigna doctors denied more than 300,000 payment requests over two months in 2022 through a system called PXDX, spending an average of 1.2 seconds on each. Cigna disputed the reporting and said the reviews happen after care is given. In the class action that followed, the federal court in the Eastern District of California held on 30 March 2025 that the complaint adequately alleged a violation of California's rule that medical-necessity decisions be made by a licensed professional. The court accepted the allegations as true for that ruling, as courts do at that stage. It made no finding of fact.
+
+**US Senate, 2024.** The Permanent Subcommittee on Investigations' majority staff report on Medicare Advantage, published 17 October 2024, recommended that the Centers for Medicare & Medicaid Services keep predictive tools from having undue influence on human reviewers. It warned that nurses and doctors reviewing cases may face pressure to rubber-stamp the recommendations of algorithms.
+
+## EU AI Act Article 14
+
+Article 14 of [Regulation (EU) 2024/1689](https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng) applies to high-risk AI systems. The provider must design the system so that natural persons can oversee it effectively while it is in use. The oversight measures are proportionate to the risk, the system's autonomy, and its context of use.
+
+Article 14(4) lists what the people assigned to oversight must be enabled to do, as appropriate and proportionate:
+
+- understand the system's capacities and limitations, and monitor it for anomalies;
+- remain aware of the tendency to rely too much on its output, which the Act calls automation bias;
+- interpret its output correctly;
+- decide, in any particular situation, not to use the system, or to disregard, override, or reverse its output;
+- intervene, or stop the system through a stop button or similar procedure that brings it to a halt in a safe state.
+
+For remote biometric identification, Article 14(5) requires that no action be taken on an identification until at least two people with the necessary competence, training, and authority have separately verified it. It allows exceptions for law enforcement, migration, border control, and asylum where Union or national law considers the requirement disproportionate.
+
+Article 26(2) puts the matching duty on the deployer: assign oversight to people with the necessary competence, training, and authority, and give them the support they need.
+
+Article 14 requires that a reviewer be able to override. Its text sets no measure of whether anyone does: no override rate and no time per case. The three tests above are how a deployer can show that the oversight it was required to make possible is in use.
+
+As amended by the Digital Omnibus on AI, [Regulation (EU) 2026/1744](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:L_202601744), these rules apply from 2 December 2027 to high-risk systems listed in Annex III, and from 2 August 2028 to high-risk AI in products covered by Annex I. The [EU AI Act page](/standards/eu-ai-act#timeline) lists every application date.
+
+## California AB 2575
+
+AB 2575 (Ortega, 2025–26 session), "Health care services: artificial intelligence," was about the authority to override. The enrolled bill would have done two things.
+
+- **Protect the override.** An employer could not retaliate or discriminate against a worker providing direct patient care based solely on the worker's override of, or reliance on, the output of a clinical decision support system. The Labor Commissioner would have enforced it.
+- **Keep liability with the system.** A defendant that developed, modified, selected, or deployed a clinical decision support system could not argue that a clinician's failure to override its output was a superseding cause that ended the defendant's liability.
+
+**Status: vetoed.** The Legislature passed the bill on 31 August 2026. Governor Newsom vetoed it on 30 September 2026. His veto message said the anti-retaliation provisions do not protect workers as intended, and that they would have the Labor Commissioner adjudicate the standard of care for patients without the medical expertise to do so.
+
+The bill matters to the third test. A reviewer who can be disciplined for overriding does not hold the authority to override. California law already in force covers part of this ground for insurers: SB 1120, the Physicians Make Decisions Act, in effect since 1 January 2025, requires that a denial, delay, or change of care based on medical necessity be decided by a licensed health care professional, not by an algorithm alone.
+
+## Sources
+
+- Regulation (EU) 2024/1689 (AI Act), Articles 14 and 26. [EUR-Lex](https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng), 12 July 2024.
+- Regulation (EU) 2026/1744 (Digital Omnibus on AI), amending Article 113. [EUR-Lex](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:L_202601744), 24 July 2026.
+- AB 2575, enrolled text and history. [California Legislative Information](https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260AB2575), enrolled 4 September 2026.
+- Governor Gavin Newsom, veto message on AB 2575. [Office of the Governor](https://www.gov.ca.gov/wp-content/uploads/2026/09/VETO-msg-AB-2575.pdf), 30 September 2026.
+- Senator Josh Becker, SB 1120 takes effect. [Press release](https://sd13.senate.ca.gov/news/press-release/december-9-2024/landmark-law-prohibits-health-insurance-companies-using-ai-to), 9 December 2024.
+- Patrick Rucker, Maya Miller, and David Armstrong, "How Cigna Saves Millions by Having Its Doctors Reject Claims Without Reading Them." [ProPublica and The Capitol Forum](https://www.propublica.org/article/cigna-pxdx-medical-health-insurance-rejection-claims), 25 March 2023.
+- Kisting-Leung v. Cigna Corp., No. 2:23-cv-01477-DAD (E.D. Cal.), order on motion to dismiss. [Court order](https://cases.justia.com/federal/district-courts/california/caedce/2:2023cv01477/431351/55/0.pdf), 30 March 2025.
+- US Senate Permanent Subcommittee on Investigations, majority staff report, "Refusal of Recovery: How Medicare Advantage Insurers Have Denied Patients Access to Post-Acute Care." [Report](https://www.hsgac.senate.gov/wp-content/uploads/2024.10.17-PSI-Majority-Staff-Report-on-Medicare-Advantage.pdf), 17 October 2024.
