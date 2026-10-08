@@ -5,7 +5,7 @@ import {
   buildWebPageNode,
   buildWebsiteNode,
 } from "./builders";
-import type { SchemaNode, WebPageType } from "./types";
+import type { PersonReference, SchemaNode, WebPageType } from "./types";
 
 type StructuredDataType =
   "collection" | "webpage" | "defined-term" | "tech-article";
@@ -45,6 +45,15 @@ type SchemaGraphInput = {
   pageNode?: "layout" | "route";
 };
 
+// The about page credits the framework to Kanav Jain and links kanav.net,
+// whose Person node carries this @id.
+const FRAMEWORK_AUTHOR: PersonReference = {
+  "@type": "Person",
+  "@id": "https://kanav.net/#person",
+  name: "Kanav Jain",
+  url: "https://kanav.net",
+};
+
 const mapWebPageType = (type: StructuredDataType): WebPageType => {
   if (type === "collection") return "CollectionPage";
   if (type === "defined-term") return "DefinedTerm";
@@ -75,6 +84,7 @@ const buildSchemaGraph = (input: SchemaGraphInput): SchemaNode[] => {
       siteName: input.siteName,
       siteBase: input.siteBase,
       organizationId: input.organizationId,
+      author: FRAMEWORK_AUTHOR,
     }),
   );
 
