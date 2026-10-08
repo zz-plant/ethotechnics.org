@@ -15,6 +15,17 @@ export type OrganizationNode = {
   sameAs: string[];
 };
 
+/**
+ * A person described on their own site, referenced here by that site's @id so
+ * search engines merge the two descriptions into one entity.
+ */
+export type PersonReference = {
+  "@type": "Person";
+  "@id": string;
+  name: string;
+  url: string;
+};
+
 export type WebsiteNode = {
   "@context": SchemaContext;
   "@type": "WebSite";
@@ -23,6 +34,7 @@ export type WebsiteNode = {
   url: string;
   inLanguage: "en";
   publisher: { "@id": string };
+  author: PersonReference;
   potentialAction: {
     "@type": "SearchAction";
     target: string;

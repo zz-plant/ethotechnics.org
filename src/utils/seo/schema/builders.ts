@@ -2,6 +2,7 @@ import type {
   ArticleNode,
   BreadcrumbListNode,
   OrganizationNode,
+  PersonReference,
   WebsiteNode,
   WebPageNode,
   WebPageType,
@@ -35,6 +36,7 @@ const buildWebsiteNode = (input: {
   siteName: string;
   siteBase: string;
   organizationId: string;
+  author: PersonReference;
 }): WebsiteNode => ({
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -45,6 +47,7 @@ const buildWebsiteNode = (input: {
   publisher: {
     "@id": input.organizationId,
   },
+  author: input.author,
   potentialAction: {
     "@type": "SearchAction",
     target: `${new URL("/search", input.siteBase).toString()}?q={search_term_string}`,

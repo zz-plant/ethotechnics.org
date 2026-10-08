@@ -55,6 +55,25 @@ describe("buildSchemaGraph", () => {
     expect(graph.some((node) => node["@type"] === "Article")).toBeFalse();
   });
 
+  it("credits the framework's author by the Person @id kanav.net publishes", () => {
+    const graph = buildForRoute({
+      canonical: "https://ethotechnics.org/",
+      structuredDataType: "collection",
+      openGraphType: "website",
+      breadcrumbs: [{ name: "Home", absoluteUrl: "https://ethotechnics.org/" }],
+    });
+
+    const website = graph.find((node) => node["@type"] === "WebSite");
+    expect(website && "author" in website ? website.author : undefined).toEqual(
+      {
+        "@type": "Person",
+        "@id": "https://kanav.net/#person",
+        name: "Kanav Jain",
+        url: "https://kanav.net",
+      },
+    );
+  });
+
   it("builds article-like page schema with article node", () => {
     const graph = buildForRoute({
       canonical: "https://ethotechnics.org/research/ai-assurance",
