@@ -42,6 +42,13 @@ Use this map before adding or editing docs so guidance stays easy to find and ma
 - [`diagnostics-outputs.md`](diagnostics-outputs.md): diagnostics tooling.
 - [`planning/pass-1-retirement-2026-09.md`](planning/pass-1-retirement-2026-09.md): retired tools and source archives.
 
+### Drafts
+
+- [`drafts/`](drafts/): content written in a published format and not yet published. Nothing
+  there is built, routed, or listed in the sitemap, and `tests/drafts.test.ts` checks both that
+  each draft fits its format and that none of it has leaked into the site. Each file's header says
+  how to publish it.
+
 ### Planning and roadmap docs
 
 - [`planning/research-positioning-2026-09.md`](planning/research-positioning-2026-09.md): proposed
