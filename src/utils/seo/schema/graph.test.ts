@@ -64,12 +64,14 @@ describe("buildSchemaGraph", () => {
     });
 
     const website = graph.find((node) => node["@type"] === "WebSite");
-    expect(website && "author" in website ? website.author : undefined).toEqual({
-      "@type": "Person",
-      "@id": "https://kanav.net/#person",
-      name: "Kanav Jain",
-      url: "https://kanav.net",
-    });
+    expect(website && "author" in website ? website.author : undefined).toEqual(
+      {
+        "@type": "Person",
+        "@id": "https://kanav.net/#person",
+        name: "Kanav Jain",
+        url: "https://kanav.net",
+      },
+    );
   });
 
   it("builds article-like page schema with article node", () => {
