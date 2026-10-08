@@ -345,7 +345,7 @@ export const glossaryTermSeeds: GlossaryTermSeed[] = [
   },
   {
     slug: "crumple-zone",
-    term: "Crumple zone / human-as-crumple-zone",
+    term: "Moral crumple zone",
     appliesTo: ["D. System states & architectures"],
   },
   {

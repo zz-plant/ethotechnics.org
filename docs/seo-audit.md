@@ -6,7 +6,7 @@ the earlier findings.
 ## Status
 
 The high- and medium-priority findings are fixed in code, except the `www` DNS record, which has to
-be added in Cloudflare. The low-priority findings are open.
+be added in Cloudflare. Of the low-priority findings, 6 and 7 are fixed and 8 and 9 are open.
 
 | Finding                         | Status                                                                           |
 | ------------------------------- | -------------------------------------------------------------------------------- |
@@ -16,7 +16,8 @@ be added in Cloudflare. The low-priority findings are open.
 | 4. Conflicting dates            | Fixed. Glossary pages publish their real publication and modified dates.         |
 | 5. `www` host                   | Redirect is in the middleware. The DNS record still needs adding.                |
 | 6. Sitemap hygiene              | Fixed alongside finding 2.                                                       |
-| 7 to 9                          | Open.                                                                            |
+| 7. Two robots meta tags         | Fixed. Each page emits one robots tag; `/search` is `noindex, follow`.           |
+| 8 to 9                          | Open.                                                                            |
 
 Fixing finding 2 brought the explainers into the rendered audit for the first time. Their FAQ node
 reused the page URL as its `@id`, the same conflict as finding 3, and the glossary index had a

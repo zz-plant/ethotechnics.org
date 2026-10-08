@@ -225,6 +225,8 @@ const library = defineCollection({
         z.object({
           slug: z.string(),
           title: z.string(),
+          searchTitle: z.string().optional(),
+          metaDescription: z.string().optional(),
           summary: z.string(),
           filters: z.array(z.enum(mechanismSafeguards)).min(1),
           glossaryRefs: z.array(z.string()),
@@ -410,6 +412,8 @@ const standards = defineCollection({
 
 const explainerSchema = z.object({
   title: z.string(),
+  /** The <title> when it should carry more than the heading does. */
+  seoTitle: z.string().optional(),
   description: z.string(),
   permalink: z.string(),
   eyebrow: z.string().optional().default("Explainer"),

@@ -27,7 +27,7 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
   {
     pageTitle: "Minimum viable contestability standard",
     pageDescription:
-      "Eight commitments for challenging an automated decision: standing, reasons, records, timelines, a named responder, defined effects, remedies, and no retaliation.",
+      "Eight commitments for challenging an automated decision: standing, reasons, records, timelines, a named responder, defined effects, remedies, no retaliation.",
     permalink: "/standards/minimum-viable-contestability",
     anchorLinks: [
       { href: "#summary", label: "One-screen summary" },

@@ -16,6 +16,7 @@ import {
   stringifyJsonLd,
 } from "../utils/seo/alternate-jsonld";
 import { resolveOgTemplate } from "../utils/seo/og-template";
+import { toSeoRobotsProps } from "../utils/seo/robots";
 import {
   resolveOpenGraphType,
   resolveStructuredDataType,
@@ -77,6 +78,8 @@ const {
   pageSchema = "layout",
   canonical: canonicalProp,
 }: Props = Astro.props;
+
+const robotsProps = toSeoRobotsProps(robots);
 
 const canonical =
   canonicalProp ||
@@ -218,6 +221,7 @@ const pagefindType = pathSegments[0] ?? "";
       titleDefault={defaultTitle}
       description={description}
       canonical={canonical}
+      {...robotsProps}
       languageAlternates={languageAlternates}
       openGraph={{
         basic: {
@@ -288,10 +292,6 @@ const pagefindType = pathSegments[0] ?? "";
           ...jsonAlternateLinks,
         ],
         meta: [
-          {
-            name: "robots",
-            content: robots,
-          },
           { name: "author", content: siteName },
           { name: "publisher", content: siteName },
           {

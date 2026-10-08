@@ -27,7 +27,7 @@ const explainerMetadataBySlug: Record<string, ExplainerSeoMetadata> = {
   },
   contestability: {
     publishedTime: "2025-03-20T00:00:00.000Z",
-    modifiedTime: "2026-02-09T00:00:00.000Z",
+    modifiedTime: "2026-10-08T00:00:00.000Z",
   },
   "contestability-checklist": {
     publishedTime: "2025-04-01T00:00:00.000Z",

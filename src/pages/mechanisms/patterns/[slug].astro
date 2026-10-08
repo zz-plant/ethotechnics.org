@@ -43,8 +43,19 @@ const glossaryAnchors = pattern.glossaryRefs.map((slug) => ({
   label: getGlossaryLabel(slug),
   href: glossaryEntryPermalink(slug),
 }));
-const pageTitle = `${pattern.title} — Mechanism specification`;
+// A search title leads with the words people search for and moves the
+// catalog id to the end: "AI kill switch pattern for runaway automation
+// (MEC-05)" in place of "MEC-05 Kill switch for runaway automation".
+const catalogId = /^MEC-\d+/.exec(pattern.title)?.[0];
+const heading =
+  pattern.searchTitle && catalogId
+    ? `${pattern.searchTitle} (${catalogId})`
+    : pattern.title;
+const pageTitle = pattern.searchTitle
+  ? heading
+  : `${pattern.title} — Mechanism specification`;
 const pageDescription = pattern.summary;
+const metaDescription = pattern.metaDescription ?? pattern.summary;
 const permalink = `/mechanisms/patterns/${pattern.slug}`;
 const hasAntiPatterns = (pattern.antiPatterns?.length ?? 0) > 0;
 const anchorLinks = [
@@ -62,19 +73,19 @@ const anchorLinks = [
 const breadcrumbItems = [
   { name: "Home", url: "/" },
   { name: "Mechanisms", url: "/mechanisms" },
-  { name: pattern.title, url: permalink },
+  { name: heading, url: permalink },
 ];
 ---
 
 <BaseLayout
   title={pageTitle}
-  description={pageDescription}
+  description={metaDescription}
   publishedTime="2025-06-01T00:00:00.000Z"
   breadcrumbItems={breadcrumbItems}
 >
   <PageIntro
     eyebrow="Specification sheet"
-    title={pattern.title}
+    title={heading}
     description={pageDescription}
     anchorLinks={anchorLinks}
   />

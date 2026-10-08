@@ -7,11 +7,20 @@ describe("SEO regression source checks", () => {
     const layout = await read("src/layouts/BaseLayout.astro");
 
     expect(layout).toContain("canonical={canonical}");
-    expect(layout).toContain('name: "robots"');
+    // astro-seo writes the robots tag. A second one in `extend.meta` shipped
+    // two tags on every page, and two conflicting ones on /search.
+    expect(layout).toContain("{...robotsProps}");
+    expect(layout).not.toContain('name: "robots"');
     expect(layout).toContain('type="application/ld+json"');
     expect(layout).toContain('type: "application/rss+xml"');
     expect(layout).toContain('href: "/rss.xml"');
     expect(layout).toContain('href: "/changes.xml"');
+  });
+
+  it("keeps site search out of the index while following its links", async () => {
+    const search = await read("src/pages/search/index.astro");
+
+    expect(search).toContain('robots="noindex, follow"');
   });
 
   it("blocks secondary hosts from indexing in robots.txt", async () => {
