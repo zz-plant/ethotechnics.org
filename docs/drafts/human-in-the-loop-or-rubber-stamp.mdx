@@ -28,7 +28,7 @@ distinctSignals:
   - title: "Time per case"
     detail: "Measure the median and the slowest time per case against the time it takes to read what the reviewer is shown. A median shorter than that reading means the decision was made before the review began."
   - title: "Authority to change the outcome"
-    detail: "Name what the reviewer can do: approve, deny, correct, send back, or halt. A reviewer who can only approve, or whose disagreement reaches no one who can change the rule, is advising, not overseeing. So is one who is measured on speed or on denials upheld."
+    detail: "Name what the reviewer can do: approve, deny, correct, send back, or halt. A reviewer who can only approve is advising, not overseeing. So is one whose disagreement reaches no one able to change the rule, and so is one measured on speed or on denials upheld."
 ctas:
   - eyebrow: "Standard"
     title: "STD-08 — Delegation, Part C"
@@ -56,7 +56,7 @@ faqs:
   - question: "Does a low override rate prove the review is a rubber stamp?"
     answer: "No. A system that is right almost every time will be overridden rarely. Read the rate together with time per case and with what the reviewer can change, against thresholds set in advance."
   - question: "What did California's AB 2575 propose?"
-    answer: "Protection for health care workers who override an AI clinical decision support system. Employers could not have retaliated against a worker solely for overriding or relying on the system, and a developer or deployer sued over harm could not have blamed a clinician's failure to override. The Legislature passed it on 31 August 2026. The Governor vetoed it on 30 September 2026."
+    answer: "Protection for health care workers who override an AI clinical decision support system. Employers could not have retaliated against a worker solely for overriding or relying on the system. A developer or deployer sued over harm could not have blamed a clinician's failure to override. The Legislature passed it on 31 August 2026. The Governor vetoed it on 30 September 2026."
 published: "2026-10-08"
 publication:
   authors:
@@ -84,20 +84,20 @@ All three ask whether the human can change what the system does. [Law IX](/stand
 
 ## How the standards test it
 
-STD-08, the [delegation standard](/standards/std-08-delegation#part-c), turns each test into an obligation.
+Each test becomes an obligation in [STD-08, the delegation standard](/standards/std-08-delegation#part-c).
 
 - **Authority.** Any requirement or assurance claim that says a human reviews, approves, or monitors must name what that person can see, prevent, and change, and what happens when they disagree (§3.1). An arrangement in which the reviewer can change nothing the system does is recorded as advisory review. It is not cited as a control (§3.3).
-- **Override rate and time per case.** For each review period, the operator measures the approval rate, the median and slowest time per approval, and how many approvals reach the owner in time (§3.4).
-- **Thresholds set in advance.** When approval sits at or near unanimity, or median time is too short for the information to have been read, against thresholds published before the period, the oversight arrangement is reopened. The finding is about the control, not the reviewer (§3.5).
-- **What never reaches the reviewer.** Where a score decides which cases a person sees, the threshold is part of the arrangement, and a share of the unreviewed cases is sampled for review (§3.6).
+- **Override rate and time per case.** For each review period, the operator measures the approval rate, the median and slowest time per approval, and the number of approvals that reach the owner in time (§3.4).
+- **Thresholds set in advance.** Thresholds are published before each period. When approval sits at or near unanimity, or median time is too short for the information to have been read, the oversight arrangement is reopened. The finding is about the control, not the reviewer (§3.5).
+- **What never reaches the reviewer.** Where a score decides which cases a person sees, the threshold is part of the arrangement. A share of the unreviewed cases is sampled for review (§3.6).
 
-The [contestability standard](/standards/std-02-contestability-recourse#articles), STD-02, adds the incentive test: reviewers are not rewarded for upheld denials or for closure speed, and the evaluation policy is disclosed (§6.2).
+The incentive test comes from [STD-02, the contestability standard](/standards/std-02-contestability-recourse#articles): reviewers are not rewarded for upheld denials or for closure speed, and the evaluation policy is disclosed (§6.2).
 
 ## Where time per case is on the record
 
-**Cigna, 2023.** ProPublica and The Capitol Forum reported in March 2023 that, according to company documents, Cigna doctors denied more than 300,000 payment requests over two months in 2022 through a system called PXDX, spending an average of 1.2 seconds on each. Cigna disputed the reporting and said the reviews happen after care is given. In the class action that followed, the federal court in the Eastern District of California held on 30 March 2025 that the complaint adequately alleged a violation of California's rule that medical-necessity decisions be made by a licensed professional. The court accepted the allegations as true for that ruling, as courts do at that stage. It made no finding of fact.
+**Cigna, 2023.** According to company documents reported by ProPublica and The Capitol Forum in March 2023, Cigna doctors denied more than 300,000 payment requests over two months in 2022 through a system called PXDX. The documents put their average time on each at 1.2 seconds. Cigna disputed the reporting and said the reviews happen after care is given. A class action followed in the federal court for the Eastern District of California. On 30 March 2025, the court held that the complaint adequately alleged a violation of California's rule that medical-necessity decisions be made by a licensed professional. The court accepted the allegations as true for that ruling, as courts do at that stage. It made no finding of fact.
 
-**US Senate, 2024.** The Permanent Subcommittee on Investigations' majority staff report on Medicare Advantage, published 17 October 2024, recommended that the Centers for Medicare & Medicaid Services keep predictive tools from having undue influence on human reviewers. It warned that nurses and doctors reviewing cases may face pressure to rubber-stamp the recommendations of algorithms.
+**US Senate, 2024.** On 17 October 2024, the majority staff of the Permanent Subcommittee on Investigations published a report on Medicare Advantage. It recommended that the Centers for Medicare & Medicaid Services keep predictive tools from having undue influence on human reviewers. It also warned that nurses and doctors reviewing cases may face pressure to rubber-stamp the recommendations of algorithms.
 
 ## EU AI Act Article 14
 
@@ -106,7 +106,7 @@ Article 14 of [Regulation (EU) 2024/1689](https://eur-lex.europa.eu/eli/reg/2024
 Article 14(4) lists what the people assigned to oversight must be enabled to do, as appropriate and proportionate:
 
 - understand the system's capacities and limitations, and monitor it for anomalies;
-- remain aware of the tendency to rely too much on its output, which the Act calls automation bias;
+- remain aware of automation bias, the Act's term for the tendency to rely too much on its output;
 - interpret its output correctly;
 - decide, in any particular situation, not to use the system, or to disregard, override, or reverse its output;
 - intervene, or stop the system through a stop button or similar procedure that brings it to a halt in a safe state.
@@ -115,20 +115,20 @@ For remote biometric identification, Article 14(5) requires that no action be ta
 
 Article 26(2) puts the matching duty on the deployer: assign oversight to people with the necessary competence, training, and authority, and give them the support they need.
 
-Article 14 requires that a reviewer be able to override. Its text sets no measure of whether anyone does: no override rate and no time per case. The three tests above are how a deployer can show that the oversight it was required to make possible is in use.
+Article 14 requires that a reviewer be able to override. Its text sets no measure of whether anyone does: no override rate and no time per case. The three tests above let a deployer show that the oversight it had to make possible is in use.
 
-As amended by the Digital Omnibus on AI, [Regulation (EU) 2026/1744](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:L_202601744), these rules apply from 2 December 2027 to high-risk systems listed in Annex III, and from 2 August 2028 to high-risk AI in products covered by Annex I. The [EU AI Act page](/standards/eu-ai-act#timeline) lists every application date.
+As amended by the Digital Omnibus on AI, [Regulation (EU) 2026/1744](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:L_202601744), these rules apply from 2 December 2027 to high-risk systems listed in Annex III. They apply from 2 August 2028 to high-risk AI in products covered by Annex I. The [EU AI Act page](/standards/eu-ai-act#timeline) lists every application date.
 
 ## California AB 2575
 
-AB 2575 (Ortega, 2025–26 session), "Health care services: artificial intelligence," was about the authority to override. The enrolled bill would have done two things.
+AB 2575 (Ortega, 2025–26 session) was about the authority to override. Titled "Health care services: artificial intelligence," the enrolled bill would have done two things.
 
-- **Protect the override.** An employer could not retaliate or discriminate against a worker providing direct patient care based solely on the worker's override of, or reliance on, the output of a clinical decision support system. The Labor Commissioner would have enforced it.
+- **Protect the override.** An employer could not retaliate or discriminate against a worker providing direct patient care solely because the worker overrode or relied on the output of a clinical decision support system. The Labor Commissioner would have enforced it.
 - **Keep liability with the system.** A defendant that developed, modified, selected, or deployed a clinical decision support system could not argue that a clinician's failure to override its output was a superseding cause that ended the defendant's liability.
 
-**Status: vetoed.** The Legislature passed the bill on 31 August 2026. Governor Newsom vetoed it on 30 September 2026. His veto message said the anti-retaliation provisions do not protect workers as intended, and that they would have the Labor Commissioner adjudicate the standard of care for patients without the medical expertise to do so.
+**Status: vetoed.** The Legislature passed the bill on 31 August 2026. Governor Newsom vetoed it on 30 September 2026. His veto message said the anti-retaliation provisions do not protect workers as intended. It also said they would have the Labor Commissioner adjudicate the standard of care for patients without the medical expertise to do so.
 
-The bill matters to the third test. A reviewer who can be disciplined for overriding does not hold the authority to override. California law already in force covers part of this ground for insurers: SB 1120, the Physicians Make Decisions Act, in effect since 1 January 2025, requires that a denial, delay, or change of care based on medical necessity be decided by a licensed health care professional, not by an algorithm alone.
+The bill matters to the third test. A reviewer who can be disciplined for overriding does not hold the authority to override. California law already in force covers part of this ground for insurers. SB 1120, the Physicians Make Decisions Act, has been in effect since 1 January 2025. It requires that a denial, delay, or change of care based on medical necessity be decided by a licensed health care professional, not by an algorithm alone.
 
 ## Sources
 
