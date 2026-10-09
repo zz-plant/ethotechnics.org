@@ -338,7 +338,7 @@ export const draftHealthcareCases: DraftCase[] = [
     summary:
       "A sepsis alert in use at hundreds of US hospitals. The study says it had not been adequately evaluated. When one hospital checked, the model found a third of sepsis cases and alerted on nearly a fifth of all hospitalizations.",
     metaDescription:
-      "Michigan Medicine found Epic's sepsis model missed 67% of sepsis cases and alerted on 18% of patients (AUC 0.63, 2021). Scored on six safeguards. Draft.",
+      "Michigan Medicine found Epic's sepsis model missed 67% of sepsis cases and alerted on 18% of hospitalizations (AUC 0.63, 2021). Scored on six safeguards. Draft.",
     narrative: [
       "The Epic Sepsis Model is a proprietary score built into Epic's electronic health record. It recalculates every 15 minutes, and alerts fire at or above a set score; the study used 6. Michigan Medicine is the University of Michigan's academic health system. Its researchers evaluated the model on 38,455 hospitalizations of 27,697 adults admitted between 6 December 2018 and 20 October 2019. Sepsis occurred in 2,552 of them.",
       "JAMA Internal Medicine published the study on 21 June 2021. It found an area under the curve of 0.63. The authors call that substantially worse than the performance reported by the model's developer. At a score of 6 or higher, the model alerted on 6,971 hospitalizations (18% of the total) and still did not identify 1,709 of the patients with sepsis (67%). It identified 183 patients with sepsis (7%) who had not already received timely antibiotics. The authors wrote that the model's widespread adoption despite poor performance raises fundamental concerns about sepsis management nationally.",
