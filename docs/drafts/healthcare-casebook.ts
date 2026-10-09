@@ -92,7 +92,7 @@ export const draftHealthcareCasebook: CasebookContent = {
   eyebrow: "Casebook · Healthcare",
   title: "Healthcare AI failures, scored",
   description:
-    "Four algorithms that decided or advised on care: a coverage model for post-acute stays, a sepsis alert, a risk score that chose patients for extra care, and an oncology adviser. Each is scored on the same six safeguards as the rest of the casebook. Each names who carried the errors and whether anyone stopped the system. The scores are drafts, and the case pages say which parts of the record are findings and which are allegations, studies, or press.",
+    "Four algorithms that decided or advised on care: a coverage model for post-acute stays, a sepsis alert, a risk score that chose patients for extra care, and an oncology adviser. Each is scored on the same six safeguards as the rest of the casebook. Each case names who carried the errors and whether anyone stopped the system. The scores are drafts. The case pages say which parts of the record are findings and which are allegations, studies, or press.",
 };
 
 export const draftHealthcareCases: DraftCase[] = [
@@ -100,10 +100,11 @@ export const draftHealthcareCases: DraftCase[] = [
     slug: "unitedhealth-nh-predict",
     title: "UnitedHealthcare and nH Predict",
     system:
-      "naviHealth's nH Predict, which the complaint says estimates the post-acute care a patient needs by comparing them with similar patients, used in UnitedHealthcare's Medicare Advantage coverage of skilled nursing and rehabilitation.",
+      "naviHealth's nH Predict, used in UnitedHealthcare's Medicare Advantage coverage of skilled nursing and rehabilitation. The complaint says it estimates the post-acute care a patient needs by comparing them with similar patients.",
     jurisdiction:
       "United States · UnitedHealthcare and naviHealth (UnitedHealth Group)",
-    period: "July 2019, by UnitedHealthcare's account, to the present",
+    period:
+      "July 2019 to the present (start date by UnitedHealthcare's account)",
     scale:
       "UnitedHealthcare denied 8.7% of prior-authorization requests for post-acute care in 2019 and 22.7% in 2022, while its overall denial rate went from 7.3% to 7.6%. For skilled nursing admissions, its denial rate went from 1.4% in 2019 to 12.6% in 2022.",
     halt: {
@@ -112,7 +113,7 @@ export const draftHealthcareCases: DraftCase[] = [
       note: "No record found that UnitedHealthcare stopped using nH Predict. The class action is in discovery, with class certification briefing due in February 2027.",
     },
     errorsCarriedBy:
-      "Medicare Advantage enrollees denied post-acute care, who had to appeal, pay, or go without. The complaint alleges that about 0.2% of policyholders appeal.",
+      "Medicare Advantage enrollees who were denied post-acute care and had to appeal, pay, or go without. The complaint alleges that about 0.2% of policyholders appeal.",
     published: "2026-10-08T00:00:00Z",
     summary:
       "A coverage algorithm for rehabilitation and nursing-home stays, in use while the insurer's denial rate for that care rose from 8.7% to 22.7%. The Senate staff report established the denial rates and the automation behind them. Whether the algorithm made the denials is the question a federal court has not yet answered.",
@@ -120,8 +121,8 @@ export const draftHealthcareCases: DraftCase[] = [
       "UnitedHealthcare's post-acute denial rate rose from 8.7% to 22.7% between 2019 and 2022 as it automated review. Scored on six safeguards. Draft.",
     narrative: [
       "UnitedHealth Group's Optum acquired naviHealth in May 2020. In March 2021, an internal UnitedHealthcare agenda said the division responsible for Medicare Advantage would move post-acute care services to naviHealth. A January 2022 presentation showed a naviHealth care coordinator completing nH Predict to determine post-acute placement while the patient was still in hospital. UnitedHealthcare says it began using nH Predict on 1 July 2019.",
-      "The Senate Permanent Subcommittee on Investigations' majority staff report, published 17 October 2024 after a review of more than 280,000 pages of documents, found that UnitedHealthcare's denial rate for post-acute prior authorization rose from 8.7% in 2019 to 22.7% in 2022, an increase of 172%, while its overall rate barely moved. An internal committee approved machine-assisted review in April 2021 after being told it cut review time by six to ten minutes per request. A tested auto-authorization model raised the denial rate, and the committee voted to approve it tentatively. In December 2022 a working group explored using machine learning to predict which denials would be appealed and which appeals would be overturned. The report attributes claims that staff were held to the algorithm's predictions to media reports.",
-      "A class action filed in November 2023 alleges that nH Predict has a 90% error rate, a figure it bases on the share of denials reversed on appeal, and that about 0.2% of policyholders appeal. In February 2024, the Centers for Medicare & Medicaid Services told Medicare Advantage plans that a predicted length of stay alone cannot be the basis to end post-acute care. On 13 February 2025, the federal court in Minnesota dismissed most claims as preempted and let the contract and good-faith claims proceed. On 9 March 2026, it ordered UnitedHealthcare to produce documents analyzing nH Predict, its design, the naviHealth acquisition, and naviHealth employees' performance evaluations and compensation. Neither ruling is a finding on the merits.",
+      "The Senate Permanent Subcommittee on Investigations' majority staff reviewed more than 280,000 pages of documents and published its report on 17 October 2024. It found that UnitedHealthcare's denial rate for post-acute prior authorization rose from 8.7% in 2019 to 22.7% in 2022, an increase of 172%. Its overall rate barely moved. An internal committee approved machine-assisted review in April 2021 after being told it cut review time by six to ten minutes per request. A tested auto-authorization model raised the denial rate, and the committee voted to approve it tentatively. In December 2022 a working group explored using machine learning to predict which denials would be appealed and which appeals would be overturned. The report attributes to media reports the claims that staff were held to the algorithm's predictions.",
+      "A class action filed in November 2023 alleges that nH Predict has a 90% error rate and that about 0.2% of policyholders appeal. It bases the error rate on the share of denials reversed on appeal. In February 2024, the Centers for Medicare & Medicaid Services told Medicare Advantage plans that a predicted length of stay alone cannot be the basis to end post-acute care. On 13 February 2025, the federal court in Minnesota dismissed most claims as preempted and let the contract and good-faith claims proceed. On 9 March 2026, it ordered UnitedHealthcare to produce documents analyzing nH Predict, its design, the naviHealth acquisition, and naviHealth employees' performance evaluations and compensation. Neither ruling is a finding on the merits.",
     ],
     timeline: [
       {
@@ -196,7 +197,7 @@ export const draftHealthcareCases: DraftCase[] = [
         variable: "dependency",
         verdict: "drifted",
         finding:
-          "By 2022, naviHealth, a subsidiary since May 2020, was managing skilled nursing admissions for UnitedHealthcare. The record says little more than that. It does not show what withdrawing the tool or the vendor would cost, and the draft scores this variable on that thin basis.",
+          "naviHealth had been a subsidiary since May 2020, and by 2022 it was managing skilled nursing admissions for UnitedHealthcare. The record says little more than that. It does not show what withdrawing the tool or the vendor would cost, and the draft scores this variable on that thin basis.",
         clauses: [
           { standard: "STD-06", clause: "§5.1" },
           { standard: "STD-06", clause: "§5.4" },
@@ -233,13 +234,13 @@ export const draftHealthcareCases: DraftCase[] = [
         "On the record found, each reversed denial ended as one person's outcome. No record shows the reversals reaching the tool, the review process, or the targets set for reviewers. What change there is came from outside the operator: CMS guidance, a Senate staff report, and a lawsuit.",
     },
     theMissingRecord:
-      "An intervention specification for the reviewers who signed off on post-acute denials: what they were shown, what they could change, and their approval rate and time per case, measured each period (STD-08 §3.1 and §3.4). The Senate staff report found review time cut by six to ten minutes per request. No record shows anyone measuring whether review still changed outcomes.",
+      "An intervention specification for the reviewers who signed off on post-acute denials: the information they were shown, the changes they could make, and their approval rate and time per case, measured each period (STD-08 §3.1 and §3.4). The Senate staff report found review time cut by six to ten minutes per request. No record shows anyone measuring whether review still changed outcomes.",
     remediation: {
       diagnostic: {
         name: "Delegation Audit",
         href: "/diagnostics/delegation-audit",
         purpose:
-          "Asks, for one workflow, who authorized each action, on what evidence, and whether the person reviewing it can change the outcome.",
+          "Takes one workflow and asks who authorized each action, on what evidence, and whether the person reviewing it can change the outcome.",
       },
       standard: {
         id: "STD-08",
@@ -308,11 +309,11 @@ export const draftHealthcareCases: DraftCase[] = [
     ],
     meetsAdmissionRule: false,
     admissionReason:
-      "The Senate staff report establishes the denial rates and automation, but not that nH Predict made the denials, and the court rulings so far make no findings.",
+      "The Senate staff report establishes the denial rates and the automation but does not establish that nH Predict made the denials. The court rulings so far make no findings.",
     scoreStatus: "draft",
     gaps: [
       "STAT's reporting that naviHealth set a target to keep stays within 1% of the algorithm's projection is press, and the complaint repeats it as an allegation. It is left out of the findings.",
-      "HHS Office of Inspector General data briefs from June 2026 (OEI-09-24-00330 and OEI-09-24-00331) on post-acute denials were not reviewed. They may strengthen the record on denial rates; whether they address nH Predict was not confirmed.",
+      "HHS Office of Inspector General data briefs on post-acute denials from June 2026 were not reviewed (OEI-09-24-00330 and OEI-09-24-00331). They may strengthen the record on denial rates; whether they address nH Predict was not confirmed.",
       "How many people UnitedHealthcare denied post-acute care under nH Predict is not in any record found.",
     ],
   },
@@ -320,7 +321,7 @@ export const draftHealthcareCases: DraftCase[] = [
     slug: "epic-sepsis-model",
     title: "The Epic Sepsis Model",
     system:
-      "A proprietary model built by Epic Systems into its electronic health record, which scores hospitalized patients for sepsis every 15 minutes and alerts clinicians above a set score.",
+      "A proprietary model that Epic Systems built into its electronic health record. It scores hospitalized patients for sepsis every 15 minutes and alerts clinicians above a set score.",
     jurisdiction:
       "United States · Epic Systems (vendor); Michigan Medicine (the deployment studied)",
     period: "December 2018 to October 2019, the period the study covers",
@@ -332,16 +333,16 @@ export const draftHealthcareCases: DraftCase[] = [
       note: "No record found that the model was withdrawn. STAT reported in October 2022 that Epic now recommends training it on a hospital's own data before clinical use. That is press, and it is a revision, not a halt.",
     },
     errorsCarriedBy:
-      "Patients with sepsis the model did not flag, 1,709 of 2,552 in the study, and the clinicians paged by alerts on 6,971 hospitalizations.",
+      "Patients with sepsis the model did not flag (1,709 of 2,552 in the study) and the clinicians paged by alerts on 6,971 hospitalizations.",
     published: "2026-10-08T00:00:00Z",
     summary:
-      "A sepsis alert in use at hundreds of US hospitals that, the study says, had not been adequately evaluated. When one hospital checked it, it found a third of sepsis cases and alerted on nearly a fifth of all hospitalizations.",
+      "A sepsis alert in use at hundreds of US hospitals. The study says it had not been adequately evaluated. When one hospital checked, the model found a third of sepsis cases and alerted on nearly a fifth of all hospitalizations.",
     metaDescription:
       "Michigan Medicine found Epic's sepsis model missed 67% of sepsis cases and alerted on 18% of patients (AUC 0.63, 2021). Scored on six safeguards. Draft.",
     narrative: [
-      "The Epic Sepsis Model is a proprietary score built into Epic's electronic health record. It recalculates every 15 minutes, and alerts fire at or above a set score; the study used 6. Researchers at Michigan Medicine, the University of Michigan's academic health system, evaluated it on 38,455 hospitalizations of 27,697 adults admitted between 6 December 2018 and 20 October 2019. Sepsis occurred in 2,552 of them.",
-      "The study, published in JAMA Internal Medicine on 21 June 2021, found an area under the curve of 0.63, which the authors call substantially worse than the performance reported by its developer. At a score of 6 or higher, the model alerted on 6,971 hospitalizations, 18% of the total, and still did not identify 1,709 of the patients with sepsis, 67%. It identified 183 patients with sepsis, 7%, who had not already received timely antibiotics. The authors wrote that the model's widespread adoption despite poor performance raises fundamental concerns about sepsis management nationally.",
-      "Epic said the study did not account for the analysis and tuning a hospital does before using the model. In October 2022, STAT reported from corporate documents that Epic now recommends hospitals train the model on their own patients before clinical use, and that it was changing its definition of sepsis onset. No court or regulator has made a finding about the model.",
+      "The Epic Sepsis Model is a proprietary score built into Epic's electronic health record. It recalculates every 15 minutes, and alerts fire at or above a set score; the study used 6. Michigan Medicine is the University of Michigan's academic health system. Its researchers evaluated the model on 38,455 hospitalizations of 27,697 adults admitted between 6 December 2018 and 20 October 2019. Sepsis occurred in 2,552 of them.",
+      "JAMA Internal Medicine published the study on 21 June 2021. It found an area under the curve of 0.63. The authors call that substantially worse than the performance reported by the model's developer. At a score of 6 or higher, the model alerted on 6,971 hospitalizations (18% of the total) and still did not identify 1,709 of the patients with sepsis (67%). It identified 183 patients with sepsis (7%) who had not already received timely antibiotics. The authors wrote that the model's widespread adoption despite poor performance raises fundamental concerns about sepsis management nationally.",
+      "Epic said the study did not account for the analysis and tuning a hospital does before using the model. In October 2022, STAT reported from corporate documents that Epic now recommends hospitals train the model on their own patients before clinical use. STAT also reported that Epic was changing its definition of sepsis onset. No court or regulator has made a finding about the model.",
     ],
     timeline: [
       {
@@ -402,7 +403,7 @@ export const draftHealthcareCases: DraftCase[] = [
         variable: "dependency",
         verdict: "held",
         finding:
-          "The record shows no lock-in. Michigan Medicine could evaluate the model on its own records and report the threshold it used, which is the precondition for switching an alert off or changing it. The cost the record shows is alert burden, not dependence.",
+          "The record shows no lock-in. Michigan Medicine could evaluate the model on its own records and report the threshold it used. That is the precondition for switching an alert off or changing it. The cost the record shows is alert burden, not dependence.",
         clauses: [{ standard: "STD-06", clause: "§5.1" }],
         laws: ["V"],
       },
@@ -421,7 +422,7 @@ export const draftHealthcareCases: DraftCase[] = [
         variable: "correction",
         verdict: "drifted",
         finding:
-          "A correction came, by STAT's account, more than a year after the study: Epic recommended local training before use and changed its sepsis definition. It came from the vendor, after outside evidence, with no threshold set in advance that would have forced it.",
+          "By STAT's account, a correction came more than a year after the study: Epic recommended local training before use and changed its sepsis definition. It came from the vendor, after outside evidence, with no threshold set in advance that would have forced it.",
         clauses: [
           { standard: "STD-08", clause: "§2.7" },
           { standard: "STD-06", clause: "§2.2" },
@@ -432,7 +433,7 @@ export const draftHealthcareCases: DraftCase[] = [
     learningOutcome: {
       verdict: "partial",
       finding:
-        "The vendor changed what it tells hospitals to do before use, which is a change to the process and not only to one deployment. The record of that change is press. No record shows hospitals that had already deployed the model re-validating it.",
+        "The vendor changed what it tells hospitals to do before use. That is a change to the process and not only to one deployment. The record of that change is press. No record shows hospitals that had already deployed the model re-validating it.",
     },
     theMissingRecord:
       "An evaluation independent of the vendor, at the hospital where the alerts fire, before they go live. STD-08 §4.6 refuses to count detection that the supplier alone performs, and STD-06 §2.2 requires each threshold to be declared before the test runs.",
@@ -441,7 +442,7 @@ export const draftHealthcareCases: DraftCase[] = [
         name: "Delegation Audit",
         href: "/diagnostics/delegation-audit",
         purpose:
-          "Asks, for one workflow, what evidence each automated action rests on and who produced that evidence.",
+          "Takes one workflow and asks what evidence each automated action rests on and who produced that evidence.",
       },
       standard: {
         id: "STD-06",
@@ -485,7 +486,7 @@ export const draftHealthcareCases: DraftCase[] = [
       "The record is a peer-reviewed external validation; no court, statutory inquiry, or regulator has made a finding about the model.",
     scoreStatus: "draft",
     gaps: [
-      "The developer's reported performance (the study cites figures from Epic's documentation) is not stated here; the draft says only what the abstract says, that the model performed substantially worse.",
+      "The developer's reported performance is not stated here, though the study cites figures from Epic's documentation. The draft says only what the abstract says: the model performed substantially worse.",
       "No record found of the model being withdrawn, or of when Epic's revised version shipped.",
       "No FDA action or finding specific to this model was found.",
     ],
@@ -497,25 +498,25 @@ export const draftHealthcareCases: DraftCase[] = [
       "A commercial risk score that health systems and insurers use to pick patients for high-risk care management. It predicts future health care cost and uses that as a stand-in for health need.",
     jurisdiction:
       "United States · Optum (UnitedHealth Group), named by New York regulators as the maker of Impact Pro",
-    period: "2013 to 2015, the patients the study follows",
+    period: "2013 to 2015, the years the study covers",
     scale:
-      "At the same risk score, Black patients were considerably sicker than White patients. Removing the disparity would raise the share of Black patients identified for extra help from 17.7% to 46.5%. Tools of this kind are applied, by industry estimates, to about 200 million people in the US each year.",
+      "At the same risk score, Black patients were considerably sicker than White patients. Removing the disparity would raise the share of Black patients identified for extra help from 17.7% to 46.5%. By industry estimates, tools of this kind are applied to about 200 million people in the US each year.",
     halt: {
       status: "not-halted",
       asOf: "2026-10-08",
       note: "No record found that the score was withdrawn or that New York's inquiry reached a finding. The authors reported an unpaid collaboration with the manufacturer on a better label; no record found that a revised version was deployed.",
     },
     errorsCarriedBy:
-      "Black patients, who at the same level of illness generated $1,801 less in health care costs a year, scored as healthier, and were selected less often for extra care.",
+      "Black patients, who at the same level of illness generated $1,801 less in health care costs a year. They scored as healthier and were selected less often for extra care.",
     published: "2026-10-08T00:00:00Z",
     summary:
-      "A risk score that did exactly what it was built to do, predict cost, and was used for something else, to find the sickest patients. Unequal access to care made cost a worse measure of need for Black patients. The manufacturer confirmed the finding on 3.7 million patients.",
+      "A risk score that did exactly what it was built to do: predict cost. It was used for something else: finding the sickest patients. Unequal access to care made cost a worse measure of need for Black patients. The manufacturer confirmed the finding on 3.7 million patients.",
     metaDescription:
       "A risk score used cost as a proxy for need, so Black patients had to be sicker to be picked for extra care (Science, 2019). Scored on six safeguards. Draft.",
     narrative: [
-      "Obermeyer, Powers, Vogeli, and Mullainathan studied primary care patients enrolled in risk-based contracts at one large academic hospital from 2013 to 2015. The hospital used a commercial algorithm to choose patients for care management programs: those above the 97th percentile of its score were automatically identified for enrollment. The algorithm predicted health care cost. Because unequal access to care means less is spent on Black patients, Black patients at a given level of illness generated $1,801 less in costs a year, and so scored lower. At the same risk score, Black patients were considerably sicker. Removing the disparity would raise the share of Black patients identified for extra help from 17.7% to 46.5%. Science published the study on 25 October 2019.",
+      "Obermeyer, Powers, Vogeli, and Mullainathan studied primary care patients enrolled in risk-based contracts at one large academic hospital from 2013 to 2015. The hospital used a commercial algorithm to choose patients for care management programs: those above the 97th percentile of its score were automatically identified for enrollment. The algorithm predicted health care cost. Unequal access to care means less is spent on Black patients. At a given level of illness, they generated $1,801 less in costs a year, and so scored lower. At the same risk score, Black patients were considerably sicker. Removing the disparity would raise the share of Black patients identified for extra help from 17.7% to 46.5%. Science published the study on 25 October 2019.",
       "Before publication, the authors took their results to the manufacturer. It replicated the analysis on its national dataset of 3,695,943 commercially insured patients and found Black patients had 48,772 more active chronic conditions than White patients at the same risk score. Changing the label from cost alone to an index of health and cost cut that to 7,758, an 84% reduction in bias. The authors described an ongoing unpaid collaboration to build a better predictor. The paper does not name the manufacturer.",
-      "On 25 October 2019, New York's Department of Financial Services and Department of Health wrote to UnitedHealth Group about Optum's Impact Pro. They asked it to investigate, show the algorithm was not racially discriminatory, or stop using it. Optum said the study confirmed that the cost model within Impact Pro was highly predictive of cost, which is what it was designed to do.",
+      "On 25 October 2019, New York's Department of Financial Services and Department of Health wrote to UnitedHealth Group about Optum's Impact Pro. They asked it to investigate, show the algorithm was not racially discriminatory, or stop using it. Optum said the study confirmed that the cost model within Impact Pro was highly predictive of cost, as it was designed to be.",
     ],
     timeline: [
       {
@@ -535,7 +536,7 @@ export const draftHealthcareCases: DraftCase[] = [
       },
       {
         when: "Nov 2019",
-        what: "Optum says, as NBC News reports, that the study confirmed its cost model was highly predictive of cost, which is what it was designed to do.",
+        what: "As NBC News reports, Optum says the study confirmed its cost model was highly predictive of cost, as it was designed to be.",
       },
     ],
     findings: [
@@ -559,7 +560,7 @@ export const draftHealthcareCases: DraftCase[] = [
         variable: "evidence",
         verdict: "failed",
         finding:
-          "Cost was the evidence; need was the decision. Black patients generated $1,801 less in costs a year at the same level of illness, so the evidence understated their need. By ordinary accuracy measures the proxy looked sound, which is why the gap went unseen.",
+          "Cost was the evidence; need was the decision. Black patients generated $1,801 less in costs a year at the same level of illness, so the evidence understated their need. By ordinary accuracy measures the proxy looked sound. That is why the gap went unseen.",
         clauses: [
           { standard: "STD-06", clause: "§2.4" },
           { standard: "STD-06", clause: "§2.2" },
@@ -581,7 +582,7 @@ export const draftHealthcareCases: DraftCase[] = [
         variable: "standing",
         verdict: "failed",
         finding:
-          "The record found shows no notice to patients passed over for care management that a score had been used, and no route to question it. The disparity was found by outside researchers with access to the data, not by any challenge from the people it fell on.",
+          "For patients passed over for care management, the record found shows no notice that a score had been used and no route to question it. The disparity was found by outside researchers with access to the data, not by any challenge from the people it fell on.",
         clauses: [
           { standard: "STD-02", clause: "§8.1" },
           { standard: "STD-06", clause: "§2.4" },
@@ -592,7 +593,7 @@ export const draftHealthcareCases: DraftCase[] = [
         variable: "correction",
         verdict: "drifted",
         finding:
-          "The manufacturer replicated the result and tested a new label that cut the bias by 84%. A regulator demanded proof or a stop. Neither has a recorded end: no deployed fix, and no outcome of the inquiry, appears in any record found.",
+          "The manufacturer replicated the result and tested a new label that cut the bias by 84%. A regulator demanded proof or a stop. Neither has a recorded end: no record found shows a deployed fix or an outcome of the inquiry.",
         clauses: [
           { standard: "STD-02", clause: "§4.4" },
           { standard: "STD-06", clause: "§2.2" },
@@ -603,7 +604,7 @@ export const draftHealthcareCases: DraftCase[] = [
     learningOutcome: {
       verdict: "partial",
       finding:
-        "The manufacturer accepted the finding and began work on the label that produced it, which reaches the rule and not just the cases. The record stops there. No record shows the revised score in use, or what happened to patients scored by the old one.",
+        "The manufacturer accepted the finding and began work on the label that produced the bias. That work reaches the rule and not just the cases. The record stops there. No record shows whether the revised score is in use or what happened to patients scored by the old one.",
     },
     theMissingRecord:
       "Error rates by population, computed on a declared cadence from records the operator already holds (STD-06 §2.4). The disparity was in the data the score ran on. It took outside researchers to compute it.",
@@ -612,7 +613,7 @@ export const draftHealthcareCases: DraftCase[] = [
         name: "Delegation Audit",
         href: "/diagnostics/delegation-audit",
         purpose:
-          "Asks, for one workflow, what evidence each decision rests on and who bears the errors when that evidence is wrong.",
+          "Takes one workflow and asks what evidence each decision rests on and who bears the errors when that evidence is wrong.",
       },
       standard: {
         id: "STD-06",
@@ -665,13 +666,13 @@ export const draftHealthcareCases: DraftCase[] = [
     slug: "ibm-watson-oncology",
     title: "IBM Watson in cancer care",
     system:
-      "IBM's Watson for Oncology, which recommended cancer treatments, and MD Anderson Cancer Center's Oncology Expert Advisor, a separate project built on IBM Watson technology to offer care advice and match patients with clinical trials.",
+      "IBM's Watson for Oncology recommended cancer treatments. MD Anderson Cancer Center's Oncology Expert Advisor was a separate project built on IBM Watson technology to offer care advice and match patients with clinical trials.",
     jurisdiction:
       "United States · IBM; The University of Texas MD Anderson Cancer Center",
     period:
       "MD Anderson's project through September 2016; Watson for Oncology flagged internally in 2017",
     scale:
-      "MD Anderson paid external firms about $62.1 million through August 2016, including $39.2 million to IBM, for a system that was not in clinical use. The record found does not say how many patients Watson for Oncology's recommendations reached.",
+      "Through August 2016, MD Anderson paid external firms about $62.1 million for a system that was not in clinical use. Of that, $39.2 million went to IBM. The record found does not say how many patients Watson for Oncology's recommendations reached.",
     halt: {
       status: "not-halted",
       asOf: "2026-10-08",
@@ -681,12 +682,12 @@ export const draftHealthcareCases: DraftCase[] = [
       "No patient harm is established in the record found. The cost the audit records is MD Anderson's $62.1 million, more than half of it from restricted gifts.",
     published: "2026-10-08T00:00:00Z",
     summary:
-      "Two Watson projects in cancer care. One cost a cancer center $62.1 million and was never put into clinical use. The other, by the account of IBM's own internal slides, recommended unsafe treatments while it was being sold to hospitals. Only the first has an audit behind it.",
+      "Two Watson projects in cancer care. One cost a cancer center $62.1 million and was never put into clinical use. By the account of IBM's own internal slides, the other recommended unsafe treatments while it was being sold to hospitals. Only the first has an audit behind it.",
     metaDescription:
       "MD Anderson paid $62.1M for a Watson-based cancer adviser never used on patients; IBM's own slides flagged unsafe advice. Scored on six safeguards. Draft.",
     narrative: [
-      "The University of Texas System Audit Office reviewed how MD Anderson procured its Oncology Expert Advisor, a system meant to use IBM Watson technology to offer care advice and match patients with clinical trials. Its report, dated November 2016, found about $62.1 million paid to external firms through 31 August 2016, more than half from restricted gifts, and a system not in clinical use. IBM's agreement said the system was not ready for human investigational or clinical use, and IBM ended support for the pilot effective 1 September 2016. The auditors found two non-competitive contracts worth about $41.7 million that were not formally justified, fees set just below the amount that would have required Board approval, and invoices paid in full regardless of whether the services were delivered. They gave no opinion on the system's scientific basis or capabilities.",
-      "Watson for Oncology was a separate IBM product. STAT reported in September 2017 that IBM had pitched it as a revolution in cancer care and that it was nowhere close. In July 2018, STAT reported internal slides, presented by IBM Watson Health's deputy chief health officer in June and July 2017, that described unsafe and incorrect treatment recommendations. According to the slides, the system had been trained on a small number of hypothetical cases rather than real patient data. Both accounts are press.",
+      "The University of Texas System Audit Office reviewed how MD Anderson procured its Oncology Expert Advisor, a system meant to use IBM Watson technology to offer care advice and match patients with clinical trials. Its November 2016 report found about $62.1 million paid to external firms through 31 August 2016 for a system not in clinical use. More than half of the money came from restricted gifts. IBM's agreement said the system was not ready for human investigational or clinical use, and IBM ended support for the pilot effective 1 September 2016. The auditors found two non-competitive contracts worth about $41.7 million with no formal justification, fees set just below the amount that would have required Board approval, and invoices paid in full regardless of whether the services were delivered. They gave no opinion on the system's scientific basis or capabilities.",
+      "Watson for Oncology was a separate IBM product. STAT reported in September 2017 that IBM had pitched it as a revolution in cancer care and that it was nowhere close. In July 2018, STAT reported on internal slides that described unsafe and incorrect treatment recommendations. IBM Watson Health's deputy chief health officer had presented them in June and July 2017. According to the slides, the system had been trained on a small number of hypothetical cases rather than real patient data. Both accounts are press.",
       "In January 2022, IBM announced the sale of its healthcare data and analytics assets to Francisco Partners. The announcement names the products sold and does not name Watson for Oncology. No court or regulator has made a finding about either system.",
     ],
     timeline: [
@@ -722,7 +723,7 @@ export const draftHealthcareCases: DraftCase[] = [
         variable: "capability",
         verdict: "failed",
         finding:
-          "IBM's agreement with MD Anderson said the system was not ready for clinical use. For Watson for Oncology, IBM's own slides, as STAT reported them, described unsafe and incorrect recommendations. In both, the capability marketed was not the capability built.",
+          "IBM's agreement with MD Anderson said the system was not ready for clinical use. According to STAT, IBM's own slides on Watson for Oncology described unsafe and incorrect recommendations. In both, the capability marketed was not the capability built.",
         clauses: [{ standard: "STD-06", clause: "§2.1" }],
         laws: ["I"],
       },
@@ -749,7 +750,7 @@ export const draftHealthcareCases: DraftCase[] = [
         variable: "dependency",
         verdict: "drifted",
         finding:
-          "MD Anderson kept paying, $62.1 million in all, for a system that was not in clinical use and had not been updated to work with its new record system. More than half the money came from restricted gifts pledged for the project, and the gift fund ran an $11.59 million deficit. Spending continued while the system stayed out of clinical use.",
+          "MD Anderson paid $62.1 million in all for a system that had not been updated to work with its new record system. More than half the money came from restricted gifts pledged for the project, and the gift fund ran an $11.59 million deficit. Spending continued while the system stayed out of clinical use.",
         clauses: [
           { standard: "STD-06", clause: "§5.1" },
           { standard: "STD-08", clause: "§1.1" },
@@ -760,7 +761,7 @@ export const draftHealthcareCases: DraftCase[] = [
         variable: "standing",
         verdict: "failed",
         finding:
-          "The people who caught Watson for Oncology's unsafe recommendations were IBM's own specialists and its customers, by STAT's account. Their findings went into internal slides. The record shows no route by which a clinician or a patient could make the vendor answer them.",
+          "By STAT's account, the people who caught Watson for Oncology's unsafe recommendations were IBM's own specialists and its customers. Their findings went into internal slides. The record shows no route by which a clinician or a patient could make the vendor answer them.",
         clauses: [
           { standard: "STD-02", clause: "§8.4" },
           { standard: "STD-06", clause: "§3.3" },
@@ -791,7 +792,7 @@ export const draftHealthcareCases: DraftCase[] = [
         name: "Delegation Audit",
         href: "/diagnostics/delegation-audit",
         purpose:
-          "Asks, for one workflow, what evidence justifies the system's authority and whether anyone can stop it.",
+          "Takes one workflow and asks what evidence justifies the system's authority and whether anyone can stop it.",
       },
       standard: {
         id: "STD-06",
@@ -844,7 +845,7 @@ export const draftHealthcareCases: DraftCase[] = [
     gaps: [
       "The audit is dated November 2016; the day it was released was not confirmed.",
       "No verified date for IBM withdrawing Watson for Oncology.",
-      "How many patients Watson for Oncology's recommendations reached, and whether any were harmed, is not in any record found.",
+      "No record found says how many patients Watson for Oncology's recommendations reached or whether any were harmed.",
       "The audit is filed as an operator source because the UT System is MD Anderson's parent; it is not a statutory inquiry or a regulator.",
     ],
   },
