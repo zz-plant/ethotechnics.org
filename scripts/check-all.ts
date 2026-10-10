@@ -29,7 +29,10 @@ type StepResult = { name: string; exitCode: number };
 
 export {};
 
-const streamWithPrefix = async (stream: ReadableStream<Uint8Array>, prefix: string) => {
+const streamWithPrefix = async (
+  stream: ReadableStream<Uint8Array>,
+  prefix: string,
+) => {
   const reader = stream.getReader();
   const decoder = new TextDecoder();
   let buffer = "";
@@ -62,7 +65,9 @@ const runStep = async (name: string): Promise<StepResult> => {
   ]);
   const exitCode = await proc.exited;
   const seconds = ((performance.now() - start) / 1000).toFixed(0);
-  console.log(`${prefix} ${exitCode === 0 ? "passed" : "FAILED"} in ${seconds}s`);
+  console.log(
+    `${prefix} ${exitCode === 0 ? "passed" : "FAILED"} in ${seconds}s`,
+  );
   return { name, exitCode };
 };
 
