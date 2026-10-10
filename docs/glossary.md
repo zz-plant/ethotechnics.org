@@ -1,14 +1,16 @@
 # Glossary content
 
-Stable glossary data and helpers live in `src/content/glossary.ts` so new terms land in one place.
+The glossary has two datasets with one file layout:
 
-- Add or edit terms in `glossaryContent`; it stores the full territory map and categorized entries
-  used by the `/glossary` route.
-- `glossaryTerms` is a separate list of short definitions that powers the hover tooltips, site
-  search, and lightweight link lists. It defines more terms than have an entry page, so anything
-  that turns one of its slugs into a link must check `hasGlossaryEntryPage` first; the sitemap and
-  the entry route both read `glossaryContent` only. Use `getGlossaryLabel` when rendering links so
-  labels follow the canonical term instead of slug casing.
+- Entry pages: data in `src/content/glossary.json`, imported through the generated wrapper
+  (`src/content/generated/glossary.generated.ts`) and re-exported as `glossaryContent` from
+  `src/content/glossary.ts`. Edit terms in the JSON; run `bun run content:generate` after.
+- Tooltip terms: `glossaryTermSeeds` in `src/content/glossary.ts` (short definitions powering the
+  hover tooltips, site search, and lightweight link lists). It defines more terms than have an
+  entry page, so anything that turns one of its slugs into a link must check
+  `hasGlossaryEntryPage` first; the sitemap and the entry route both read `glossaryContent` only.
+  Use `getGlossaryLabel` when rendering links so labels follow the canonical term instead of slug
+  casing.
 - Update `glossaryContent.permalink` if the glossary route moves so cross-links from Research and
   Field Notes stay accurate.
 

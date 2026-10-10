@@ -17,7 +17,7 @@ const { collections } = await import("../src/content.config");
 const { cases, stateVariables } = await import("../src/content/casebook");
 const { standardClauses, standardsContent } =
   await import("../src/content/standards");
-const { buildSitemapSections } = await import("../src/utils/sitemaps");
+const { buildSitemapSections } = await import("../src/utils/seo/sitemaps");
 const { draftHealthcareCasebook, draftHealthcareCases } =
   await import("../docs/drafts/healthcare-casebook");
 

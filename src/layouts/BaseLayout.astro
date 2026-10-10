@@ -30,8 +30,9 @@ type FooterNavSection = { heading: string; links: FooterNavLink[] };
 import "../styles/global.css";
 
 interface Props {
-  title?: string;
-  description?: string;
+  /** Required on every page: the <title> and meta description never go unset. */
+  title: string;
+  description: string;
   openGraphType?: string;
   robots?: string;
   publishedTime?: string;
@@ -64,8 +65,8 @@ const defaultRobots =
   "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
 
 const {
-  title = defaultTitle,
-  description = defaultDescription,
+  title,
+  description,
   openGraphType,
   robots = defaultRobots,
   publishedTime,
@@ -422,13 +423,13 @@ const pagefindType = pathSegments[0] ?? "";
         driven by the data-glossary-highlights attribute on <main>. */
     }
     <script>
-      import "../scripts/glossary-highlights.ts";
+      import "../client/glossary-highlights.ts";
     </script>
     <script>
-      import "../scripts/search-modal.ts";
+      import "../client/search-modal.ts";
     </script>
     <script>
-      import "../scripts/site-chrome.ts";
+      import "../client/site-chrome.ts";
     </script>
   </body>
 </html>

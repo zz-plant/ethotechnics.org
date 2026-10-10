@@ -532,6 +532,34 @@ const evidencePackSchema = z.object({
     .optional(),
 });
 
+// Long-form research prose (working papers, essays) rendered by
+// /research/[slug]. Sections are SectionBlock components in the MDX body,
+// so anchor links live in frontmatter rather than in rendered headings.
+const researchEssaySchema = z.object({
+  title: z.string(),
+  pageTitle: z.string(),
+  description: z.string(),
+  permalink: z.string(),
+  eyebrow: z.string(),
+  published: z.string(),
+  updated: z.string(),
+  lastUpdated: z.string(),
+  version: z.string(),
+  authorName: z.string(),
+  changelogSummary: z.string(),
+  citationTitle: z.string(),
+  anchorLinks: z.array(z.object({ href: z.string(), label: z.string() })),
+  actions: z
+    .array(
+      z.object({
+        label: z.string(),
+        href: z.string(),
+        variant: z.enum(["primary", "ghost"]),
+      }),
+    )
+    .optional(),
+});
+
 const theorySchema = z.object({
   title: z.string(),
   description: z.string(),
@@ -554,6 +582,11 @@ const theory = defineCollection({
   schema: theorySchema,
 });
 
+const researchEssays = defineCollection({
+  loader: glob({ pattern: "**/*.mdx", base: "src/content/research-essays" }),
+  schema: researchEssaySchema,
+});
+
 const incidents = defineCollection({
   loader: glob({ pattern: "**/*.mdx", base: "src/content/incidents" }),
   schema: incidentSchema,
@@ -568,6 +601,7 @@ export const collections = {
   standards,
   explainers,
   theory,
+  researchEssays,
   incidents,
   evidencePacks,
   taxonomy,

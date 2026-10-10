@@ -11,6 +11,9 @@ Scope: Astro pages, layouts, components, and styles.
 ## Tooling and checks
 
 - Limit hydration (`client:*`) to components that need it; keep the default zero-JS behavior elsewhere.
+- A plain `<script>` in a component or page is bundled by Astro and covered by `script-src 'self'`.
+  Keep code inline only when it must be: JSON-LD/data blocks and code that has to run before first
+  paint — and inline it through `src/components/InlineScript.astro`, which registers the CSP hash.
 - Extend shared styles in `src/styles/global.css` instead of inline styles when possible.
 - Run `bun run typecheck` and `bun run astro:check` for any code or layout changes; run `bun run check` for broader changes.
 

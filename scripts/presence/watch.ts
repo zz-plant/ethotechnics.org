@@ -10,7 +10,7 @@
  * SEARCH_TOKEN, if set, is used for code search in place of GITHUB_TOKEN.
  *
  * The network calls are here and nowhere else; what they mean is decided in
- * src/utils/presence-watch.ts.
+ * scripts/presence/presence-watch.ts.
  */
 import { standardClauses } from "../../src/content/standards";
 import { isoDate } from "../../src/utils/objections";
@@ -31,7 +31,7 @@ import {
   type Mention,
   type SourceId,
   type SourceResult,
-} from "../../src/utils/presence-watch";
+} from "./presence-watch";
 import {
   createGitHubClient,
   ensureLabels,

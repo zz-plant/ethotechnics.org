@@ -236,9 +236,9 @@ Session storage is not enabled by default; if you add it later, define the KV bi
 - [`docs/testing-todos.md`](docs/testing-todos.md) tracks current test coverage and outstanding
   gaps to prioritize.
 - [`docs/glossary.md`](docs/glossary.md) defines shared terminology used across the site and docs.
-- [`docs/diagnostics-outputs.md`](docs/diagnostics-outputs.md) and
-  [`docs/usability-audit.md`](docs/usability-audit.md) collect diagnostics output references and UX
-  review findings.
+- [`docs/diagnostics-outputs.md`](docs/diagnostics-outputs.md) collects diagnostics output
+  references; [`docs/reviews/usability-audit.md`](docs/reviews/usability-audit.md) is the dated
+  UX review snapshot.
 
 ## Project structure
 

@@ -152,7 +152,7 @@ async function check() {
         const lastUpdated = parseLastUpdatedDate(content);
         if (!lastUpdated) {
           console.error(
-            `❌ Missing const lastUpdated=\"YYYY-MM-DD\" in ${item.file}`,
+            `❌ Missing const lastUpdated="YYYY-MM-DD" in ${item.file}`,
           );
           errors++;
           continue;

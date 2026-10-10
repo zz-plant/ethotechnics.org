@@ -16,9 +16,10 @@ Run focused checks as you iterate:
 - `bun run typecheck`.
 - `bun run test:unit`.
 
-The unit command covers tests colocated under `src/` plus top-level `tests/*.test.ts` and
-`tests/*.spec.ts`. Browser suites remain isolated under `tests/e2e/**/*.e2e.ts` and run only
-through Playwright.
+The unit command covers tests colocated under `src/` and `packages/`, plus top-level
+`tests/*.test.ts`. One suffix everywhere: `*.test.ts` for unit and integration tests,
+`*.e2e.ts` for the Playwright suites under `tests/e2e/`, which run only through
+`bun run test:e2e`.
 
 - `bun run content:generate` after editing canonical `src/content/*.json` domains.
 - `bun run content:check` to catch stale generated content wrappers.
@@ -34,7 +35,8 @@ For code or mixed changes, run:
 
 `bun run check` includes drift validation for generated content wrappers, linting, type checks,
 Astro checks, JSON/glossary validation, unit tests, review guardrails
-(`check:review-guardrails`), and `agent:doctor` preflight checks.
+(`check:review-guardrails`), and `agent:doctor` preflight checks. The steps run concurrently
+through `scripts/check-all.ts`; failures are summarized per step at the end.
 `agent:doctor` now also enforces research freshness for watchlisted standards pages
 via `scripts/research-watchlist.json`.
 
@@ -67,10 +69,10 @@ For docs-only changes:
 ## API endpoints
 
 - Add each JSON endpoint once, in the `API_ENDPOINTS` manifest in
-  `src/utils/api-endpoints.ts` (path, one-line description, group).
+  `src/utils/api/api-endpoints.ts` (path, one-line description, group).
 - Add its response handler to the table in `src/pages/api/manifest.ts`.
 - The catch-all route `src/pages/api/[...endpoint].ts` serves every listed
   path; no per-endpoint route file is needed.
-- Response builders live in `src/utils/api-responses.ts`.
-- Run `bun test src/utils/api-tests/api-manifest.test.ts` to verify the
+- Response builders live in `src/utils/api/api-responses.ts`.
+- Run `bun test src/utils/api/tests/api-manifest.test.ts` to verify the
   manifest and handler table match.

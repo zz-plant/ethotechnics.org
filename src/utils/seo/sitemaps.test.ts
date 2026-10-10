@@ -1,0 +1,178 @@
+import { describe, expect, mock, test } from "bun:test";
+import type { APIContext } from "astro";
+
+import { governanceCrosswalks } from "../../content/crosswalks";
+import { evalsContent } from "../../content/evals";
+import { glossaryContent } from "../../content/glossary";
+import { failureStates } from "../../content/institute-site";
+import { standardsContent } from "../../content/standards";
+import { onRequest } from "../../middleware";
+import { buildSitemapSections } from "./sitemaps";
+
+const sections = await buildSitemapSections();
+const paths = (key: keyof typeof sections) =>
+  sections[key].map((entry) => entry.path);
+const allPaths = (Object.keys(sections) as (keyof typeof sections)[]).flatMap(
+  paths,
+);
+
+describe("sitemap coverage", () => {
+  test("lists the standards added by the delegation rebuild", () => {
+    const standards = paths("standards");
+    expect(standards).toContain("/standards/std-08-delegation");
+    expect(standards).toContain("/standards/std-06-human-impact-safety-case");
+    expect(standards).toContain("/standards/laws");
+  });
+
+  test("lists every theory essay", () => {
+    const standards = paths("standards");
+    expect(standards).toContain("/research/theory/dependence-without-standing");
+    expect(standards).toContain("/research/theory/absorption-as-concealment");
+    expect(standards).toContain(
+      "/research/theory/democratic-vs-coercive-governability",
+    );
+    expect(standards).toContain("/research/theory/what-does-not-convert");
+    expect(standards).toContain("/research/theory/dependence-runs-both-ways");
+    expect(standards).toContain("/research/theory/endogenous-authorization");
+  });
+
+  test("lists the evidence packs, including the dynamic STD-08 route", () => {
+    const standards = paths("standards");
+    expect(standards).toContain("/evidence-packs/std-08");
+    expect(standards).toContain("/evidence-packs/std-01");
+  });
+
+  test("lists the taxonomy once, as a page, not as one URL per entry", () => {
+    // Entries are anchors on /taxonomy; their old paths redirect there.
+    expect(paths("core")).toContain("/taxonomy");
+    expect(allPaths.some((path) => path.startsWith("/taxonomy/"))).toBe(false);
+  });
+
+  test("lists the method page and the frontier doctrine scan", () => {
+    const core = paths("core");
+    expect(core).toContain("/method");
+    expect(core).toContain("/research/frontier-doctrine-scan");
+  });
+
+  test("lists every dynamic detail route, not only the page files", async () => {
+    // Dynamic routes are dropped from core, so these were missing until each
+    // was listed from the data its route renders.
+    const explainerFiles = await Array.fromAsync(
+      new Bun.Glob("src/content/explainers/*.mdx").scan({ cwd: process.cwd() }),
+    );
+    expect(explainerFiles.length).toBeGreaterThan(0);
+    for (const file of explainerFiles) {
+      const slug = file
+        .split("/")
+        .at(-1)!
+        .replace(/\.mdx$/, "");
+      expect(allPaths).toContain(`/explainers/${slug}`);
+    }
+    for (const suite of evalsContent.suites) {
+      expect(allPaths).toContain(`/evals/${suite.slug}`);
+    }
+    // Artifacts are anchors on /artifacts, not pages of their own.
+    expect(allPaths.some((path) => path.startsWith("/artifacts/"))).toBe(false);
+    for (const state of failureStates) {
+      expect(allPaths).toContain(`/triage/${state.slug}`);
+    }
+    for (const control of governanceCrosswalks) {
+      expect(allPaths).toContain(
+        `/standards/crosswalk/${control.controlId.toLowerCase()}`,
+      );
+    }
+  });
+
+  test("lists the /api reference page but not the JSON endpoints or noindex search", () => {
+    expect(allPaths).toContain("/api");
+    expect(allPaths.some((path) => path.startsWith("/api/"))).toBe(false);
+    expect(allPaths).not.toContain("/search");
+  });
+
+  test("lists every URL once across all sections", () => {
+    const seen = new Map<string, number>();
+    for (const path of allPaths) seen.set(path, (seen.get(path) ?? 0) + 1);
+    const duplicates = [...seen].filter(([, count]) => count > 1);
+    expect(duplicates).toEqual([]);
+  });
+
+  test("drops the retired /start-here route in favour of /start", () => {
+    const core = paths("core");
+    expect(core).toContain("/start");
+    expect(core).not.toContain("/start-here/");
+  });
+});
+
+/**
+ * The sitemap listed 104 URLs that did not answer 200 before anything checked
+ * it against the routes. scripts/check-sitemap.ts requests every URL from a
+ * built site; these hold the builder to the same rule without a server.
+ */
+describe("sitemap lists only routes that render", () => {
+  test("no listed path is one the middleware redirects", async () => {
+    const redirected: string[] = [];
+    for (const path of allPaths) {
+      const next = mock(() => Promise.resolve(new Response("next")));
+      const response = await onRequest(
+        {
+          request: new Request(`https://ethotechnics.org${path}`),
+          locals: {} as App.Locals,
+        } as APIContext,
+        next,
+      );
+      if (response?.status === 301 || response?.status === 302) {
+        redirected.push(`${path} -> ${response.headers.get("Location")}`);
+      }
+    }
+    expect(redirected).toEqual([]);
+  });
+
+  test("glossary lists exactly the entries /glossary/[slug] resolves", () => {
+    const entryIds = new Set(
+      glossaryContent.categories.flatMap((category) =>
+        category.entries.map((entry) => entry.id),
+      ),
+    );
+    const listed = paths("glossary")
+      .filter((path) => /^\/glossary\/[^/]+$/.test(path))
+      .map((path) => path.slice("/glossary/".length));
+
+    expect(new Set(listed)).toEqual(entryIds);
+  });
+
+  test("standards lists only slugs backed by an MDX document", async () => {
+    const standards = paths("standards").filter((path) =>
+      path.startsWith("/standards/"),
+    );
+    for (const path of standards) {
+      const slug = path.slice("/standards/".length);
+      expect(await Bun.file(`src/content/standards/${slug}.mdx`).exists()).toBe(
+        true,
+      );
+    }
+    // Registry entries without a page never reach the sitemap, whatever their
+    // listedOnSite flag says.
+    for (const standard of standardsContent.standards) {
+      if (standard.listedOnSite === false) {
+        expect(allPaths).not.toContain(`/standards/${standard.slug}`);
+      }
+    }
+    // Crosswalk controls render under /standards but are not MDX documents,
+    // so they are listed in core, never in the standards section.
+    expect(paths("standards")).not.toContain("/standards/crosswalk/ctrl-01");
+    expect(paths("core")).toContain("/standards/crosswalk/ctrl-01");
+  });
+
+  test("the taxonomy section lists the mechanism pages only", () => {
+    for (const path of paths("taxonomy")) {
+      expect(path).toMatch(/^\/mechanisms\/patterns\//);
+    }
+  });
+
+  test("core lists no redirect stubs", () => {
+    const core = paths("core");
+    for (const path of ["/contact", "/intake", "/library/", "/library/cite"]) {
+      expect(core).not.toContain(path);
+    }
+  });
+});
