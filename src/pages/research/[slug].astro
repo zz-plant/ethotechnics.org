@@ -1,0 +1,208 @@
+---
+import { getCollection, render } from "astro:content";
+import "../../styles/components/research.css";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import { derivePublicationMetadata } from "../../utils/publication";
+
+// Rendered on demand, matching /research/theory/[slug].astro: the entry is
+// resolved from the collection by slug at request time rather than through
+// getStaticPaths (ignored under output: "server").
+const entry = (await getCollection("researchEssays")).find(
+  (candidate) => candidate.id === Astro.params.slug,
+);
+if (!entry) return new Response("Not found", { status: 404 });
+const { Content } = await render(entry);
+const data = entry.data;
+
+// The essay body lives in MDX; these styles name the classes it uses. They
+// are global here because scoped styles in the route only reach elements
+// written in this file, and the prose markup comes from the collection.
+const publication = derivePublicationMetadata({
+  permalink: data.permalink,
+  published: data.published,
+  updated: data.updated,
+  authorName: data.authorName,
+  version: data.version,
+  changelogSummary: data.changelogSummary,
+});
+---
+
+<BaseLayout
+  title={data.pageTitle}
+  description={data.description}
+  publishedTime={publication.published}
+  modifiedTime={publication.updated}
+>
+  <PageIntro
+    eyebrow={data.eyebrow}
+    title={data.title}
+    description={data.description}
+    anchorLinks={data.anchorLinks}
+    version={data.version}
+    lastUpdated={data.lastUpdated}
+  >
+    {
+      data.actions && (
+        <div slot="actions">
+          {data.actions.map((action) => (
+            <a
+              class={`button ${action.variant}`}
+              href={action.href}
+            >{` ${action.label} `}</a>
+          ))}
+        </div>
+      )
+    }
+  </PageIntro>
+
+  <Content />
+
+  <style is:global>
+    .grid--spaced {
+      margin-top: var(--space-5);
+    }
+
+    .grid--nested {
+      margin-top: var(--space-3);
+    }
+
+    .sim-panel {
+      margin-top: var(--space-5);
+      padding: var(--space-container);
+    }
+
+    .sim-panel p {
+      margin: 0 0 var(--space-3);
+    }
+
+    .sim-panel p:last-child {
+      margin-bottom: 0;
+    }
+
+    .callout--spaced {
+      margin-top: var(--space-5);
+    }
+
+    .callout--spaced p + p {
+      margin-top: var(--space-3);
+    }
+
+    .illustrative-note {
+      margin: var(--space-4) 0 0;
+    }
+
+    .card-ol {
+      margin: var(--space-2) 0 var(--space-3);
+      padding-left: var(--space-4);
+    }
+
+    .card-ol li {
+      margin-bottom: var(--space-2);
+    }
+
+    .callout-list {
+      margin: var(--space-3) 0;
+      padding-left: var(--space-4);
+    }
+
+    .callout-list li {
+      margin-bottom: var(--space-2);
+    }
+
+    .formal-panel {
+      margin-top: var(--space-5);
+      padding: var(--space-container);
+    }
+
+    .formal-block {
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--color-border-subtle, #e0e0e0);
+    }
+
+    .formal-block:first-of-type {
+      padding-top: 0;
+      border-top: none;
+    }
+
+    .equation {
+      margin: var(--space-3) 0;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: var(--text-lg);
+      letter-spacing: 0.01em;
+    }
+
+    .definition-list {
+      margin: var(--space-2) 0 var(--space-3);
+      padding-left: var(--space-4);
+    }
+
+    .definition-list li {
+      margin-bottom: var(--space-1);
+    }
+
+    .table-wrapper {
+      padding: var(--space-4) var(--space-5);
+      overflow-x: auto;
+    }
+
+    .table-wrapper > * + * {
+      margin-top: var(--space-3);
+    }
+
+    .benchmark-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .benchmark-table th,
+    .benchmark-table td {
+      padding: var(--space-3);
+      text-align: left;
+    }
+
+    .benchmark-table thead tr,
+    .benchmark-table tbody tr:not(:last-child) {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .outcome-panel {
+      margin-top: var(--space-5);
+      padding: var(--space-container);
+      border-left: 4px solid var(--accent);
+    }
+
+    .outcome-heading {
+      font-size: var(--text-2xl);
+      margin: var(--space-2) 0;
+    }
+
+    .outcome-lead {
+      font-size: var(--text-lg);
+      line-height: 1.6;
+    }
+
+    .outcome-divider {
+      margin: var(--space-5) 0;
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    .outcome-panel p + p {
+      margin-top: var(--space-3);
+    }
+
+    .contribution-panel {
+      padding: var(--space-container);
+    }
+
+    .contribution-list {
+      margin: var(--space-4) 0;
+      padding-left: var(--space-4);
+    }
+
+    .margin-bottom-none {
+      margin-bottom: 0;
+    }
+  </style>
+</BaseLayout>

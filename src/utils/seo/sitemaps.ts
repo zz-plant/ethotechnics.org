@@ -286,6 +286,10 @@ export const buildSitemapSections = async () => {
   }));
 
   const theoryPaths = await mdxCollectionPaths("theory", "theory");
+  const researchEssayPaths = await mdxCollectionPaths(
+    "researchEssays",
+    "research-essays",
+  );
   const standardsCollectionPaths = await mdxCollectionPaths(
     "standards",
     "standards",
@@ -451,6 +455,7 @@ export const buildSitemapSections = async () => {
     ...explainerPaths,
     ...evalSuitePaths,
     ...failurePaths,
+    ...researchEssayPaths,
     // Crosswalk controls sit under /standards but are not MDX standards
     // documents, so they are listed with the core pages.
     ...crosswalkPaths,
