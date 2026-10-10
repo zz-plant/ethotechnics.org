@@ -4,7 +4,7 @@ Reference for contributor-safe commands and formatting expectations.
 
 ## Runtime and package manager
 
-- Use Node.js 20 (`nvm use`).
+- Use Node.js 22 (`nvm use`; see `.nvmrc`).
 - Use Bun for dependency management and scripts.
 - Do not replace Bun commands with npm or yarn commands in docs.
 
@@ -18,6 +18,15 @@ Reference for contributor-safe commands and formatting expectations.
 - Install git hooks: `bun run hooks:install`.
 - Format write: `bun run format`.
 - Format verify: `bun run format:check`.
+
+## Why two type-check runners
+
+- `bun run typecheck` runs `tsc` over the whole project (both `tsconfig.json` and
+  `tsconfig.typecheck.json` exclude tests and build output). It sees every `.ts`/`.tsx` file,
+  including `scripts/`, but cannot parse `.astro` files.
+- `bun run astro:check` type-checks `.astro` frontmatter and templates, which `tsc` cannot see.
+- Both stay in `bun run check` because each covers files the other cannot. The two tsconfig files
+  exist so the `tsc` pass can exclude test files that import Playwright-only globals.
 
 ## Formatting rules
 
