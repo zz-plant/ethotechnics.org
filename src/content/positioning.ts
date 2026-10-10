@@ -258,7 +258,7 @@ export const instruments: Instrument[] = [
     has: "Measurement of the learning, compliance, and psychological costs a process imposes on the people it serves, and the finding that burden is a policy choice.",
     instrument: "Compensated-performance accounting",
     supplies:
-      "The decomposition that turns burden measurement on the institution's own numbers: observed performance separates into intrinsic performance and compensatory human work, P_obs = C_des + H_comp. A system that meets its targets on unrecorded compensatory work is not performing better. It is moving the cost.",
+      "The decomposition that turns burden measurement on the institution's own numbers: observed performance (P_obs) is intrinsic performance, what the system does to standard on its own (C_des), plus the compensatory human work that covers the gap (H_comp). A system that meets its targets on unrecorded compensatory work is not performing better. It is moving the cost.",
     links: [
       {
         label: "Compensated performance, glossary",
@@ -427,7 +427,7 @@ export const convergence: Convergence[] = [
   {
     name: "Compensated-performance accounting",
     statement:
-      "Observed performance decomposed into intrinsic performance and the compensatory human work that bridges the difference: P_obs = C_des + H_comp.",
+      "Observed performance (P_obs) decomposed into intrinsic performance (C_des) and the compensatory human work that bridges the difference (H_comp).",
     question:
       "How much of the reported number is work moved onto people the metric does not count?",
   },

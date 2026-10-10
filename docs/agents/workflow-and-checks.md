@@ -69,10 +69,10 @@ For docs-only changes:
 ## API endpoints
 
 - Add each JSON endpoint once, in the `API_ENDPOINTS` manifest in
-  `src/utils/api-endpoints.ts` (path, one-line description, group).
+  `src/utils/api/api-endpoints.ts` (path, one-line description, group).
 - Add its response handler to the table in `src/pages/api/manifest.ts`.
 - The catch-all route `src/pages/api/[...endpoint].ts` serves every listed
   path; no per-endpoint route file is needed.
-- Response builders live in `src/utils/api-responses.ts`.
-- Run `bun test src/utils/api-tests/api-manifest.test.ts` to verify the
+- Response builders live in `src/utils/api/api-responses.ts`.
+- Run `bun test src/utils/api/tests/api-manifest.test.ts` to verify the
   manifest and handler table match.

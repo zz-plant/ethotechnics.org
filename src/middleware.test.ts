@@ -134,8 +134,26 @@ describe("middleware", () => {
         "/research/scholarly-crossings#corrigibility-ladder",
       ],
     ];
+    // Retired per-entry subpages that search engines still list. Each lands on
+    // its entry in one hop; a renamed entry lands on its new name.
+    const legacyGlossaryEntries = [
+      [
+        "/glossary/entries/design-authority/overview/",
+        "/glossary/design-authority",
+      ],
+      ["/glossary/entries/time-to-halt/status", "/glossary/time-to-halt"],
+      ["/glossary/entries/fail-silent", "/glossary/fail-silent"],
+      [
+        "/glossary/entries/contestability-guarantee/overview",
+        "/glossary/contestability",
+      ],
+    ];
     const pathCases = [
       ...glossaryAliases.map(([from, to]) => ({
+        url: `https://ethotechnics.org${from}`,
+        expectedLocation: `https://ethotechnics.org${to}`,
+      })),
+      ...legacyGlossaryEntries.map(([from, to]) => ({
         url: `https://ethotechnics.org${from}`,
         expectedLocation: `https://ethotechnics.org${to}`,
       })),
@@ -318,6 +336,53 @@ describe("middleware", () => {
       expect(response.status).toBe(301);
       expect(response.headers.get("Location")).toBe(expectedLocation);
       expect(next).not.toHaveBeenCalled();
+    }
+  });
+
+  it("redirects a taxonomy entry to its anchor and passes an unknown slug through to 404", async () => {
+    const known = [
+      [
+        "/taxonomy/experience/consent/revocation",
+        "/taxonomy#experience-consent-revocation",
+      ],
+      ["/experience/recourse", "/taxonomy#experience-recourse"],
+    ];
+    for (const [from, to] of known) {
+      const request = new Request(`https://ethotechnics.org${from}`);
+      const next = mock(() => Promise.resolve(new Response("next")));
+
+      const response = await onRequest(
+        { request, locals: {} as App.Locals } as APIContext,
+        next,
+      );
+
+      expect(response?.status).toBe(301);
+      expect(response?.headers.get("Location")).toBe(
+        `https://ethotechnics.org${to}`,
+      );
+      expect(next).not.toHaveBeenCalled();
+    }
+
+    const unknown = [
+      "/taxonomy/does-not-exist",
+      "/taxonomy/experience/does-not-exist",
+      "/experience/does-not-exist",
+      "/governance/does-not-exist",
+    ];
+    for (const path of unknown) {
+      const request = new Request(`https://ethotechnics.org${path}`);
+      const next = mock(() =>
+        Promise.resolve(new Response("not found", { status: 404 })),
+      );
+
+      const response = await onRequest(
+        { request, locals: {} as App.Locals } as APIContext,
+        next,
+      );
+
+      expect(response?.status).toBe(404);
+      expect(response?.headers.get("Location")).toBeNull();
+      expect(next).toHaveBeenCalledTimes(1);
     }
   });
 });

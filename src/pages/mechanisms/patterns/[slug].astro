@@ -43,14 +43,25 @@ const glossaryAnchors = pattern.glossaryRefs.map((slug) => ({
   label: getGlossaryLabel(slug),
   href: glossaryEntryPermalink(slug),
 }));
-const pageTitle = `${pattern.title} — Mechanism specification`;
+// A search title leads with the words people search for and moves the
+// catalog id to the end: "AI kill switch pattern for runaway automation
+// (MEC-05)" in place of "MEC-05 Kill switch for runaway automation".
+const catalogId = /^MEC-\d+/.exec(pattern.title)?.[0];
+const heading =
+  pattern.searchTitle && catalogId
+    ? `${pattern.searchTitle} (${catalogId})`
+    : pattern.title;
+const pageTitle = pattern.searchTitle
+  ? heading
+  : `${pattern.title} — Mechanism specification`;
 const pageDescription = pattern.summary;
+const metaDescription = pattern.metaDescription ?? pattern.summary;
 const permalink = `/mechanisms/patterns/${pattern.slug}`;
 const hasAntiPatterns = (pattern.antiPatterns?.length ?? 0) > 0;
 const anchorLinks = [
   { href: "#glossary", label: "Safeguards and terms" },
   { href: "#steps", label: "Steps" },
-  { href: "#assets", label: "Assets" },
+  { href: "#assets", label: "Records" },
   { href: "#reuse-snippets", label: "Reuse-ready snippets" },
   { href: "#example", label: "Example usage" },
   ...(hasAntiPatterns
@@ -62,19 +73,19 @@ const anchorLinks = [
 const breadcrumbItems = [
   { name: "Home", url: "/" },
   { name: "Mechanisms", url: "/mechanisms" },
-  { name: pattern.title, url: permalink },
+  { name: heading, url: permalink },
 ];
 ---
 
 <BaseLayout
   title={pageTitle}
-  description={pageDescription}
+  description={metaDescription}
   publishedTime="2025-06-01T00:00:00.000Z"
   breadcrumbItems={breadcrumbItems}
 >
   <PageIntro
     eyebrow="Specification sheet"
-    title={pattern.title}
+    title={heading}
     description={pageDescription}
     anchorLinks={anchorLinks}
   />
@@ -118,7 +129,7 @@ const breadcrumbItems = [
     id="steps"
     eyebrow="Steps"
     title="Put the mechanism in motion"
-    description={`${stepCount} steps, in order. Check each one off as it is done; the templates below record the work.`}
+    description={`${stepCount} steps, in order. Check each one off as it is done; the records below show the work was done.`}
   >
     <div class="pattern-detail__checklist-progress" hidden>
       <p class="muted small">
@@ -151,9 +162,9 @@ const breadcrumbItems = [
 
   <SectionBlock
     id="assets"
-    eyebrow="Assets"
-    title="Templates this mechanism produces"
-    description="Copy these into design docs, runbooks, and briefs, with the mechanism permalink."
+    eyebrow="Records"
+    title="Records this mechanism keeps"
+    description="What a team running this mechanism keeps, and what each record is for."
     variant="alt"
   >
     <CardGrid className="grid--two">
@@ -261,7 +272,9 @@ const breadcrumbItems = [
               <div class="pattern-detail__diagnostic-header">
                 <div>
                   <p class="muted">Diagnostic</p>
-                  <h3>{tool.title}</h3>
+                  <h3>
+                    <a href={`/diagnostics/${tool.slug}`}>{tool.title}</a>
+                  </h3>
                 </div>
                 <button
                   class="copy-button"

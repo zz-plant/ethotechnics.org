@@ -1,6 +1,6 @@
 // AUTO-GENERATED FILE. DO NOT EDIT.
 // Source of truth lives in the JSON file referenced below.
-// source-sha256: 0a22736e76f38c5a6789ef3dda1d077efb8591207f99726021907e745f64304f
+// source-sha256: ef59e2ed600e5a68ea993ffc014748a4ccd3fe114748a841bea7df94be36b95f
 import sourceData from "../library.json" with { type: "json" };
 
 export const libraryContentData = sourceData[0];

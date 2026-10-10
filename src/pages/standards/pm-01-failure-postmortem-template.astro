@@ -5,16 +5,16 @@ import CitationBlock from "../../components/CitationBlock.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import { derivePublicationMetadata } from "../../utils/publication";
 
-const pageTitle = "PM-01 — Institutional Failure Postmortem Template";
+const pageTitle = "AI incident postmortem template (PM-01)";
 const pageDescription =
-  "A one-page postmortem template for institutional failures, built on clocks, reversibility, burden allocation, and repair paths.";
+  "A postmortem template for AI and automated-decision failures: how long the harm ran, whether it could be undone, who carried it, and how it was repaired.";
 const permalink = "/standards/pm-01-failure-postmortem-template";
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
 const breadcrumbItems = [
   { name: "Home", url: new URL("/", siteBase).toString() },
   { name: "Standards", url: new URL("/standards", siteBase).toString() },
   {
-    name: "PM-01 — Institutional Failure Postmortem Template",
+    name: pageTitle,
     url: new URL(permalink, siteBase).toString(),
   },
 ];
@@ -155,9 +155,7 @@ const workedExample = `Worked example (hypothetical, anonymized)
     <header class="standard-header">
       <div>
         <p class="standard-header__id">STANDARD PM-01</p>
-        <h1 class="standard-header__title">
-          Institutional Failure Postmortem Template
-        </h1>
+        <h1 class="standard-header__title">AI incident postmortem template</h1>
       </div>
       <dl class="standard-header__meta">
         <div>
@@ -184,10 +182,11 @@ const workedExample = `Worked example (hypothetical, anonymized)
         <section class="standard-section">
           <h2>Standard intent</h2>
           <p>
-            This template documents institutional failures with enforceable
-            clocks, reversibility analysis, burden allocation, and repair paths.
-            It is for governance, compliance, and safety teams that need a
-            citable record rather than narrative commentary.
+            This template uses enforceable clocks, reversibility analysis,
+            burden allocation, and repair paths to document institutional
+            failures in AI and other automated decision systems. It is for
+            governance, compliance, and safety teams that need a citable record
+            rather than narrative commentary.
           </p>
         </section>
 

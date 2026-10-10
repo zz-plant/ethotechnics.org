@@ -2,6 +2,7 @@
 import InlineScript from "../../components/InlineScript.astro";
 import "../../styles/components/glossary.css";
 
+import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { glossaryContent } from "../../content/glossary";
 import { libraryContent } from "../../content/library";
@@ -14,6 +15,7 @@ import SemanticConnections from "../../components/SemanticConnections.astro";
 import { glossaryEntryPermalink } from "../../utils/glossary";
 import {
   getGlossaryEntryDefaults,
+  getRelatedGlossaryTerms,
   normalizeGlossaryHeading,
   stripHtml,
 } from "../../utils/glossary-helpers";
@@ -101,12 +103,10 @@ const termModified =
 // glossary's release date and version used to stand in for every term, so
 // 334 entries said they were updated the day the glossary last shipped.
 const termVersion = entry.termVersion;
-const termChangelog = entry.termChangelog ?? "/api/changelog.json";
 const termUpdatedDate = entry.termUpdated
   ? entry.termUpdated.split("T")[0]
   : null;
 const {
-  adjacentTerms,
   operationalTests,
   commonCounterfeits,
   minimumEvidence,
@@ -116,14 +116,7 @@ const {
 const presenceChecks = entry.presenceChecks ?? [];
 const missingExpectations = entry.missingExpectations ?? [];
 // Every entry's scope was its section's blurb, which the sidebar already
-// prints under "Glossary territory", so it is not repeated here.
-const metaItems = [
-  genealogy
-    ? { id: "genealogy", label: "Origin", value: genealogy }
-    : undefined,
-].filter((item): item is { id: string; label: string; value: string } =>
-  Boolean(item),
-);
+// prints under the section's name, so it is not repeated here.
 const minimumEvidenceItems = [
   { label: "Artifact", value: minimumEvidence.artifact },
   { label: "Behavior", value: minimumEvidence.behavior },
@@ -141,19 +134,6 @@ const minimumEvidenceItems = [
 // details was what kept them off the page. The generated sentences are gone,
 // so an entry that states its artifact, behavior, or metric can show it.
 const showMinimumEvidence = minimumEvidenceItems.length > 0;
-// The intro says what this entry actually carries. It used to promise
-// "definitions, checks, and evidence" on every entry, including the 161 that
-// have no tests and no evidence.
-const introCarries = [
-  "the definition",
-  operationalTests.length > 0 ? "tests that show it is in place" : null,
-  showMinimumEvidence ? "the evidence to keep" : null,
-].filter((item): item is string => Boolean(item));
-const introDescription = `Filed under ${categoryLabel}. This entry gives ${
-  introCarries.length > 1
-    ? `${introCarries.slice(0, -1).join(", ")}${introCarries.length > 2 ? "," : ""} and ${introCarries.at(-1)}`
-    : introCarries[0]
-}.`;
 const domains = entry.domains ?? [];
 const phases = entry.phase ?? [];
 const measurability = entry.measurability ?? "";
@@ -218,18 +198,6 @@ const relatedClusters = clusters
 // tagged "Structural" showed the same six links. Clusters are specific
 // enough to be related; domains stay as pills on the definition.
 const hasRelatedConcepts = relatedClusters.length > 0;
-const quickTakeawayLinks = [
-  { href: "#definition", label: "Definition" },
-  ...(presenceChecks.length
-    ? [{ href: "#presence-checks", label: "Presence checks" }]
-    : []),
-  ...(showMinimumEvidence
-    ? [{ href: "#minimum-evidence", label: "Minimum evidence" }]
-    : []),
-  ...(operationalTests.length
-    ? [{ href: "#operational-tests", label: "Operational tests" }]
-    : []),
-];
 const filterParams = Astro.url.searchParams;
 const filterBreadcrumbParts = [
   filterParams.get("domains")
@@ -264,10 +232,16 @@ const hasFilterBreadcrumb = filterBreadcrumbParts.length > 0;
 const patternIndex = new Map(
   libraryContent.patterns.entries.map((pattern) => [pattern.slug, pattern]),
 );
-const patternFilterLabels = Object.fromEntries(
-  libraryContent.patterns.filters.map((filter) => [filter.slug, filter.label]),
-);
-const relatedPatterns = (entry.relatedPatterns ?? [])
+// A pattern can name the term from either side: the entry lists the pattern,
+// or the pattern lists the term among its glossary references.
+const relatedPatterns = Array.from(
+  new Set([
+    ...(entry.relatedPatterns ?? []),
+    ...libraryContent.patterns.entries
+      .filter((pattern) => pattern.glossaryRefs.includes(entry.id))
+      .map((pattern) => pattern.slug),
+  ]),
+)
   .map((relatedSlug) => {
     const pattern = patternIndex.get(relatedSlug);
 
@@ -276,43 +250,24 @@ const relatedPatterns = (entry.relatedPatterns ?? [])
     }
 
     return {
-      title: pattern.title,
+      // The catalog number (MEC-01) means nothing to a reader who has not
+      // seen the catalog; the link carries them there.
+      title: pattern.title.replace(/^MEC-\d+\s+/, ""),
       href: `/mechanisms/patterns/${pattern.slug}`,
-      filterLabels: pattern.filters.map(
-        (filter) => patternFilterLabels[filter] ?? filter,
-      ),
     };
   })
-  .filter(
-    (
-      pattern,
-    ): pattern is { title: string; href: string; filterLabels: string[] } =>
-      Boolean(pattern),
+  .filter((pattern): pattern is { title: string; href: string } =>
+    Boolean(pattern),
   );
-const hasTestsAndEvidence =
-  operationalTests.length > 0 ||
-  commonCounterfeits.length > 0 ||
-  showMinimumEvidence ||
-  relatedPatterns.length > 0;
-const anchorLinks = [
-  { href: "#definition", label: "Definition" },
-  ...(adjacentTerms.length
-    ? [{ href: "#adjacent-terms", label: "Adjacent terms" }]
-    : []),
-  ...(presenceChecks.length
-    ? [{ href: "#presence-checks", label: "Presence checks" }]
-    : []),
-  ...(missingExpectations.length
-    ? [{ href: "#missing-expectations", label: "Missing expectations" }]
-    : []),
-  ...(showMinimumEvidence
-    ? [{ href: "#minimum-evidence", label: "Minimum evidence" }]
-    : []),
-  ...(entry.examples?.length
-    ? [{ href: "#example-corpus", label: "Hypothetical example" }]
-    : []),
-  ...(references.length ? [{ href: "#references", label: "References" }] : []),
-];
+const relatedTerms = getRelatedGlossaryTerms(entry, allEntries);
+// An explainer that names this term gives the longer account: a worked
+// example and the signals that tell the real thing from a stand-in.
+const explainers = (await getCollection("explainers")).filter(
+  (candidate) => candidate.data.glossaryRef === entry.id,
+);
+const explainer =
+  explainers.find((candidate) => candidate.id === entry.id) ?? explainers[0];
+const hasEntryDetails = Boolean(termUpdatedDate || termVersion);
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
@@ -388,28 +343,13 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       ))
     }
   </Fragment>
-  <PageIntro
-    eyebrow="Glossary entry"
-    title={entry.title}
-    description={introDescription}
-    anchorLinks={anchorLinks}
-  />
-  {
-    quickTakeawayLinks.length > 1 && (
-      <div class="callout glossary-entry__summary">
-        <p class="eyebrow">On this entry</p>
-        <ul class="pill-list pill-list--wrap glossary-entry__summary-links">
-          {quickTakeawayLinks.map((link) => (
-            <li>
-              <a class="pill-list__button" href={link.href}>
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    )
-  }
+  <PageIntro eyebrow="Glossary entry" title={entry.title} anchorLinks={[]}>
+    <Fragment slot="lede">
+      Ethotechnics publishes open standards and
+      <a href="/casebook">scored public failures</a> for one question: when an automated
+      decision system is wrong, does anyone have to change it?
+    </Fragment>
+  </PageIntro>
   <article
     class="glossary-entry glossary-entry--detail"
     itemscope
@@ -432,86 +372,90 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         </nav>
       )
     }
-    <header id="definition" class="glossary-entry__hero">
-      <div class="glossary-entry__hero-copy">
-        <p class="eyebrow">Definition</p>
-        <div
-          class="glossary-entry__body"
-          set:html={entry.bodyHtml}
-          itemprop="description"
-        />
-        {
-          domainPills.length > 0 && (
-            <div class="glossary-entry__tagline">
-              {domainPills.length > 0 && (
-                <div class="pill-row">
-                  {domainPills.map((domain) => (
-                    <span class="pill pill--ghost">{domain}</span>
-                  ))}
-                </div>
-              )}
-            </div>
-          )
-        }
-      </div>
-      {
-        metaItems.length > 0 && (
-          <dl class="glossary-entry__meta">
-            {metaItems.map((item) => (
-              <>
-                <dt id={item.id} class="glossary-entry__meta-term eyebrow">
-                  {item.label}
-                </dt>
-                <dd class="glossary-entry__meta-definition muted">
-                  {item.value}
-                </dd>
-              </>
-            ))}
-          </dl>
-        )
-      }
-    </header>
     <div class="glossary-entry__layout">
       <div class="glossary-entry__main">
-        {
-          adjacentTerms.length > 0 && (
-            <section id="adjacent-terms" class="glossary-entry__section">
-              <p class="eyebrow">Adjacent terms</p>
+        <header id="definition" class="glossary-entry__definition">
+          <p class="eyebrow">Definition</p>
+          <div
+            class="glossary-entry__body"
+            set:html={entry.bodyHtml}
+            itemprop="description"
+          />
+          {
+            domainPills.length > 0 && (
               <div class="pill-row">
-                {adjacentTerms.map((term) => (
-                  <a
-                    class="pill pill--muted"
-                    href={glossaryEntryPermalink(term)}
-                    itemprop="keywords"
-                  >
-                    {entryLabelIndex.get(term) ?? term}
-                  </a>
+                {domainPills.map((domain) => (
+                  <span class="pill pill--ghost">{domain}</span>
                 ))}
               </div>
+            )
+          }
+          {
+            explainer && (
+              <p class="glossary-entry__explainer">
+                <a href={explainer.data.permalink}>
+                  {explainer.data.title}
+                  <span aria-hidden="true"> &rarr;</span>
+                </a>
+                <span class="muted small">
+                  {" "}
+                  The explainer, with a worked example
+                </span>
+              </p>
+            )
+          }
+        </header>
+        {
+          operationalTests.length > 0 && (
+            <section id="operational-tests" class="glossary-entry__section">
+              <p class="eyebrow">Tests that show it is in place</p>
+              <ul>
+                {operationalTests.map((test) => (
+                  <li>{test}</li>
+                ))}
+              </ul>
             </section>
           )
         }
         {
-          hasRelatedConcepts && (
-            <section id="related-concepts" class="glossary-entry__section">
-              <p class="eyebrow">Related concepts</p>
-              {relatedClusters.map((group) => (
-                <div class="glossary-entry__related-group">
-                  <p class="muted small">
-                    Part of cluster: <strong>{group.label}</strong>
-                  </p>
-                  <div class="pill-row">
-                    {group.entries.map((term) => (
-                      <a
-                        class="pill pill--muted"
-                        href={glossaryEntryPermalink(term.id)}
-                      >
-                        {term.title}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              ))}
+          commonCounterfeits.length > 0 && (
+            <section id="common-counterfeits" class="glossary-entry__section">
+              <p class="eyebrow">Common counterfeits</p>
+              <ul>
+                {commonCounterfeits.map((counterfeit) => (
+                  <li>{counterfeit}</li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+        {
+          entry.examples && entry.examples.length > 0 && (
+            <section id="example-corpus" class="glossary-entry__section">
+              <p class="eyebrow">
+                {entry.examples.length > 1
+                  ? "Hypothetical examples"
+                  : "Hypothetical example"}
+              </p>
+              <ul>
+                {entry.examples.map((example) => (
+                  <li>{example}</li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+        {
+          showMinimumEvidence && (
+            <section id="minimum-evidence" class="glossary-entry__section">
+              <p class="eyebrow">Evidence to keep</p>
+              <ul>
+                {minimumEvidenceItems.map((item) => (
+                  <li>
+                    <strong>{item.label}:</strong> {item.value}
+                  </li>
+                ))}
+              </ul>
             </section>
           )
         }
@@ -550,18 +494,57 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           )
         }
         {
-          entry.examples && entry.examples.length > 0 && (
-            <section id="example-corpus" class="glossary-entry__section">
-              <p class="eyebrow">
-                {entry.examples.length > 1
-                  ? "Hypothetical examples"
-                  : "Hypothetical example"}
-              </p>
-              <ul class="muted">
-                {entry.examples.map((example) => (
-                  <li>{example}</li>
+          relatedPatterns.length > 0 && (
+            <section id="related-mechanisms" class="glossary-entry__section">
+              <p class="eyebrow">Related mechanisms</p>
+              <ul class="glossary-entry__resources">
+                {relatedPatterns.map((relatedPattern) => (
+                  <li>
+                    <a href={relatedPattern.href}>{relatedPattern.title}</a>
+                  </li>
                 ))}
               </ul>
+            </section>
+          )
+        }
+        {
+          hasRelatedConcepts && (
+            <section id="related-concepts" class="glossary-entry__section">
+              <p class="eyebrow">Related concepts</p>
+              {relatedClusters.map((group) => (
+                <div class="glossary-entry__related-group">
+                  <p class="muted small">
+                    Part of cluster: <strong>{group.label}</strong>
+                  </p>
+                  <div class="pill-row">
+                    {group.entries.map((term) => (
+                      <a
+                        class="pill pill--muted"
+                        href={glossaryEntryPermalink(term.id)}
+                      >
+                        {term.title}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </section>
+          )
+        }
+        {
+          relatedTerms.length > 0 && (
+            <section id="related-terms" class="glossary-entry__section">
+              <p class="eyebrow">Related terms</p>
+              <div class="pill-row">
+                {relatedTerms.map((term) => (
+                  <a
+                    class="pill pill--muted"
+                    href={glossaryEntryPermalink(term)}
+                  >
+                    {entryLabelIndex.get(term) ?? term}
+                  </a>
+                ))}
+              </div>
             </section>
           )
         }
@@ -585,111 +568,37 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </div>
       <aside class="glossary-entry__sidebar">
         {
+          genealogy && (
+            <section id="genealogy" class="glossary-entry__aside-section">
+              <p class="eyebrow">Origin</p>
+              <p class="muted">{genealogy}</p>
+            </section>
+          )
+        }
+        {
           category.descriptionHtml && (
-            <section class="glossary-entry__section">
-              <p class="eyebrow">Glossary territory</p>
+            <section class="glossary-entry__aside-section">
+              <p class="eyebrow">{categoryLabel}</p>
               <div
-                class="glossary-entry__body"
+                class="glossary-entry__body muted"
                 set:html={category.descriptionHtml}
               />
-              <p class="muted small">
-                Explore {categoryLabel} in the{" "}
-                <a href={glossaryPermalink}>glossary index</a>.
+              <p class="small">
+                <a href={`${glossaryPermalink}#${category.id}`}>
+                  All terms in this section
+                </a>
               </p>
             </section>
           )
         }
-        <section class="glossary-entry__section">
-          <p class="eyebrow">Entry details</p>
-          <ul class="muted">
-            {termUpdatedDate && <li>Last updated: {termUpdatedDate}</li>}
-            {termVersion && <li>Term version: {termVersion}</li>}
-            <li>
-              Changelog: <a href={termChangelog}>View updates</a>
-            </li>
-          </ul>
-        </section>
         {
-          hasTestsAndEvidence && (
-            <section class="glossary-entry__section glossary-entry__section--dense">
-              <p class="eyebrow">Tests and evidence</p>
-              <div class="glossary-entry__disclosures">
-                {operationalTests.length > 0 && (
-                  <details
-                    id="operational-tests"
-                    class="glossary-entry__disclosure"
-                  >
-                    <summary>
-                      Operational tests ({operationalTests.length})
-                    </summary>
-                    <ul class="muted">
-                      {operationalTests.map((test) => (
-                        <li>{test}</li>
-                      ))}
-                    </ul>
-                  </details>
-                )}
-                {commonCounterfeits.length > 0 && (
-                  <details
-                    id="common-counterfeits"
-                    class="glossary-entry__disclosure"
-                  >
-                    <summary>
-                      Common counterfeits ({commonCounterfeits.length})
-                    </summary>
-                    <ul class="muted">
-                      {commonCounterfeits.map((counterfeit) => (
-                        <li>{counterfeit}</li>
-                      ))}
-                    </ul>
-                  </details>
-                )}
-                {showMinimumEvidence && (
-                  <details
-                    id="minimum-evidence"
-                    class="glossary-entry__disclosure"
-                  >
-                    <summary>Minimum evidence checklist</summary>
-                    <ul class="muted">
-                      {minimumEvidenceItems.map((item) => (
-                        <li>
-                          <strong>{item.label}:</strong> {item.value}
-                        </li>
-                      ))}
-                    </ul>
-                  </details>
-                )}
-                {relatedPatterns.length > 0 && (
-                  <details
-                    id="related-mechanisms"
-                    class="glossary-entry__disclosure glossary-entry__section--patterns"
-                  >
-                    <summary>
-                      Related mechanisms ({relatedPatterns.length})
-                    </summary>
-                    <ul class="glossary-entry__patterns-list">
-                      {relatedPatterns.map((relatedPattern) => (
-                        <li class="glossary-entry__pattern-card">
-                          <a
-                            class="glossary-entry__pattern-link"
-                            href={relatedPattern.href}
-                          >
-                            <span class="glossary-entry__pattern-title">
-                              {relatedPattern.title}
-                            </span>
-                            <span class="muted small">
-                              {relatedPattern.filterLabels.join(", ")}
-                            </span>
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                    <p class="muted small glossary-entry__patterns-hint">
-                      See the full <a href="/mechanisms">mechanisms catalog</a>.
-                    </p>
-                  </details>
-                )}
-              </div>
+          hasEntryDetails && (
+            <section class="glossary-entry__aside-section">
+              <p class="eyebrow">This entry</p>
+              <ul class="muted">
+                {termUpdatedDate && <li>Last updated: {termUpdatedDate}</li>}
+                {termVersion && <li>Version: {termVersion}</li>}
+              </ul>
             </section>
           )
         }

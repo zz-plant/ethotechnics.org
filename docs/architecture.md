@@ -46,7 +46,7 @@ Rules that follow:
 - A Method page may cite Theory as motivation, never as a requirement.
 - The RAG corpus at `/api/rag-corpus.jsonl` tags every document with the layer it belongs to, so
   retrieval can keep the doctrine apart from the requirements. See `resolveCorpusLayer` in
-  `src/utils/api-responses.ts`.
+  `src/utils/api/api-responses.ts`.
 
 ## Content modules
 
@@ -58,7 +58,7 @@ Rules that follow:
 - MDX collections defined in `src/content.config.ts` carry the long-form layers: `standards`
   (including `laws.mdx` and `core-axioms.mdx`), `theory` at `/research/theory/[slug]`,
   `evidencePacks` at `/evidence-packs/[slug]`, and `explainers`. Each entry declares a `permalink`
-  in frontmatter; `src/utils/sitemaps.ts` reads that field so dynamic routes still reach the
+  in frontmatter; `src/utils/seo/sitemaps.ts` reads that field so dynamic routes still reach the
   sitemap.
 
 ## Evaluation stack

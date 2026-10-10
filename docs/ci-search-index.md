@@ -60,7 +60,7 @@ field so retrieval can keep the doctrine apart from the requirements:
 - `instrument` for `/diagnostics/*`, `/validators/*`, and `/tools/*`.
 - `method` for everything else.
 
-The layer is derived in `resolveCorpusLayer` in `src/utils/api-responses.ts`.
+The layer is derived in `resolveCorpusLayer` in `src/utils/api/api-responses.ts`.
 
 The Pagefind index does not carry the layer. Pagefind reads rendered HTML, so
 tagging it would mean emitting `data-pagefind-meta` attributes from the page

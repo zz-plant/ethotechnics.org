@@ -18,8 +18,6 @@ const fixture = () => `
     <div data-glossary-active hidden><div class="glossary-filter__active-chips"></div></div>
     <div class="glossary-filter__count" data-total="3">Showing 3 of 3 terms</div>
     <button data-clear-filter type="button">Clear</button>
-    <button data-glossary-expand type="button">Expand</button>
-    <button data-glossary-collapse type="button">Collapse</button>
     <button data-glossary-letter="all" type="button">All</button>
     <button data-glossary-letter="A" type="button">A</button>
     <button data-glossary-letter="B" type="button">B</button>
@@ -348,6 +346,89 @@ describe("glossary-filter", () => {
         document.querySelector<HTMLElement>(".glossary-filter__count")
           ?.textContent,
       ).toContain("3");
+    });
+  });
+
+  // The index page's rows carry no definitions; the filter fetches them from
+  // the search index on first use.
+  describe("search index", () => {
+    const lazyFixture = () => `
+      <div>
+        <input id="glossary-filter" type="text" data-search-index="/glossary/search-index.json" />
+        <div class="glossary-filter__count" data-total="2">Showing 2 of 2 terms</div>
+        <button data-clear-filter type="button">Clear</button>
+        <a class="glossary-index__item" href="/glossary/alpha" data-glossary-entry-link data-letter="A"><span>Alpha</span> <span>Core concepts</span></a>
+        <a class="glossary-index__item" href="/glossary/beta" data-glossary-entry-link data-letter="B"><span>Beta</span> <span>Failure modes</span></a>
+        <div class="glossary-index__empty"></div>
+      </div>`;
+    const originalFetch = globalThis.fetch;
+
+    async function initLazy(
+      respond: () => Promise<Response>,
+      url?: string,
+    ): Promise<ReturnType<typeof mock>> {
+      history.replaceState = origReplaceState;
+      window.location.href = url ?? BASE;
+      history.replaceState = mock(() => {});
+      const fetchMock = mock(respond);
+      globalThis.fetch = fetchMock as unknown as typeof fetch;
+      document.body.innerHTML = lazyFixture();
+      importId += 1;
+      await import(`./glossary-filter.ts?v=${importId}`);
+      return fetchMock;
+    }
+
+    const visibleTitles = () =>
+      Array.from(
+        document.querySelectorAll<HTMLElement>(".glossary-index__item"),
+      )
+        .filter((item) => !item.classList.contains("is-hidden"))
+        .map((item) => item.querySelector("span")?.textContent);
+
+    const type = async (value: string) => {
+      const input =
+        document.querySelector<HTMLInputElement>("#glossary-filter")!;
+      input.value = value;
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+      await new Promise((resolve) => setTimeout(resolve, 0));
+      await raf();
+    };
+
+    afterEach(() => {
+      globalThis.fetch = originalFetch;
+    });
+
+    it("matches definitions once the index arrives", async () => {
+      const fetchMock = await initLazy(() =>
+        Promise.resolve(
+          new Response(
+            JSON.stringify({ alpha: "alpha core concepts mentions widgets" }),
+          ),
+        ),
+      );
+      expect(fetchMock).not.toHaveBeenCalled();
+      await type("widgets");
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+      expect(visibleTitles()).toEqual(["Alpha"]);
+    });
+
+    it("matches titles and sections when the request fails", async () => {
+      await initLazy(() => Promise.resolve(new Response("", { status: 500 })));
+      await type("failure modes");
+      expect(visibleTitles()).toEqual(["Beta"]);
+    });
+
+    it("waits for the index before refiltering a query from the URL", async () => {
+      const fetchMock = await initLazy(
+        () =>
+          Promise.resolve(
+            new Response(JSON.stringify({ beta: "beta mentions widgets" })),
+          ),
+        `${BASE}?query=widgets`,
+      );
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+      await new Promise((resolve) => setTimeout(resolve, 0));
+      expect(visibleTitles()).toEqual(["Beta"]);
     });
   });
 });

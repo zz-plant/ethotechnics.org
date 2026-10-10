@@ -3,6 +3,8 @@ import type { PageWithPermalink, PublicationMetadata } from "./types";
 import { glossaryContentData } from "./generated/glossary.generated";
 import { z } from "zod";
 
+import { stripHtml } from "../utils/glossary-helpers";
+
 export type GlossaryTerm = {
   slug: string;
   term: string;
@@ -145,22 +147,12 @@ export const glossaryTermSeeds: GlossaryTermSeed[] = termSeedSchema
  * file.
  */
 const LABEL_SENTENCE = /^(normative|informative) definition\.$/i;
-const plainText = (html: string): string =>
-  html
-    .replace(/<[^>]+>/g, " ")
-    .replace(/&nbsp;/g, " ")
-    .replace(/&amp;/g, "&")
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;|&rsquo;/g, "’")
-    .replace(/\s+([,.;:!?])/g, "$1")
-    .replace(/\s+/g, " ")
-    .trim();
 // A sentence can end inside a closing quote or bracket: "mislabeled as
 // “resilience.” Ethotechnic practice…". Without the closing marks the first
 // sentence failed to match and the tooltip opened on a stray ” mid-entry.
 const SENTENCE = /[^.!?]+[.!?]+["”’)\]]*(?=\s|$)/g;
 const openingSentence = (html: string): string => {
-  const sentences = (plainText(html).match(SENTENCE) ?? [])
+  const sentences = (stripHtml(html).match(SENTENCE) ?? [])
     .map((sentence) => sentence.trim())
     .filter((sentence) => sentence && !LABEL_SENTENCE.test(sentence));
   let lead = "";

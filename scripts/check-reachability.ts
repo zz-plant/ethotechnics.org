@@ -27,6 +27,11 @@
  * section that had moved to its own page, and links into a page that was
  * retired. The crawl reads every id it renders, so it checks those too.
  *
+ * Dynamic routes have no file to list, so the sitemap stands in for them: a
+ * URL the sitemap asks crawlers to index has to be one a reader can click to.
+ * Three crosswalk control briefs, CTRL-05 to CTRL-07, sat in the sitemap for
+ * months with no link to them from anywhere on the site.
+ *
  * Run against a built site: bun run scripts/check-reachability.ts <baseUrl>
  */
 
@@ -61,6 +66,23 @@ async function staticRoutes(): Promise<string[]> {
     routes.push(normalize("/" + rel.replace(/\/?index$/, "")));
   }
   return [...new Set(routes)];
+}
+
+/** Every path the sitemap index and its sections list. */
+async function sitemapPaths(): Promise<string[]> {
+  const locs = async (path: string) => {
+    const response = await fetch(BASE + path);
+    if (!response.ok) {
+      throw new Error(`${path} answered ${response.status}`);
+    }
+    const xml = await response.text();
+    return [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(
+      (match) => new URL(match[1]!.trim()).pathname,
+    );
+  };
+  const sections = await locs("/sitemap.xml");
+  const paths = (await Promise.all(sections.map(locs))).flat();
+  return [...new Set(paths.map(normalize))];
 }
 
 /** What one link answered: its final status, and whether it got there by redirect. */
@@ -132,11 +154,15 @@ async function crawl(): Promise<Crawl> {
 }
 
 const routes = await staticRoutes();
+const listed = await sitemapPaths();
 const { reachable, outcomes, linkedFrom, ids, fragmentLinks } = await crawl();
 
 const orphans = routes.filter(
   (route) => !reachable.has(route) && !INTENTIONALLY_UNLINKED.has(route),
 );
+const unlinkedListed = listed
+  .filter((path) => !reachable.has(path))
+  .sort((a, b) => a.localeCompare(b));
 const staleAllowances = [...INTENTIONALLY_UNLINKED.keys()].filter(
   (route) => !routes.includes(route),
 );
@@ -211,6 +237,17 @@ if (orphans.length > 0) {
   process.exit(1);
 }
 
+if (unlinkedListed.length > 0) {
+  console.error(
+    `Reachability check failed: ${unlinkedListed.length} of ${listed.length} sitemap URLs cannot be reached by clicking from the homepage.\n`,
+  );
+  for (const path of unlinkedListed) console.error(`  - ${path}`);
+  console.error(
+    "\nLink each from the index its siblings are listed on, or drop it from the sitemap if it is not meant to be found.",
+  );
+  process.exit(1);
+}
+
 if (staleAllowances.length > 0) {
   console.error(
     `Reachability check failed: ${staleAllowances.length} allowlist entries name routes that no longer exist.\n`,
@@ -231,5 +268,5 @@ if (redirectedLinks.length > 0) {
 }
 
 console.log(
-  `Reachability check passed; all ${routes.length - INTENTIONALLY_UNLINKED.size} linkable static routes are reachable from the homepage, and all ${outcomes.size} internal links lead to a page, ${fragmentLinks.length} of them to a section that exists.`,
+  `Reachability check passed; all ${routes.length - INTENTIONALLY_UNLINKED.size} linkable static routes and all ${listed.length} sitemap URLs are reachable from the homepage, and all ${outcomes.size} internal links lead to a page, ${fragmentLinks.length} of them to a section that exists.`,
 );

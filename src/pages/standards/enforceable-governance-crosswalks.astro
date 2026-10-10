@@ -213,6 +213,7 @@ const keyTakeaways = [
     { href: "#guide", label: "Guide" },
     { href: "#summary", label: "Using a crosswalk row" },
     { href: "#controls", label: "Crosswalk" },
+    { href: "#control-briefs", label: "Control briefs" },
     { href: "#eu-ai-act-articles", label: "EU AI Act by article" },
     { href: "#framework-cards", label: "Framework cards" },
     { href: "#post-market", label: "Post-market" },
@@ -309,6 +310,22 @@ const keyTakeaways = [
         </tbody>
       </table>
     </div>
+    <h3 id="control-briefs">Every control brief</h3>
+    <p>
+      Each brief names the clauses a contract can cite and the evidence to
+      request, including for the controls no framework row maps to.
+    </p>
+    <ul>
+      {
+        governanceCrosswalks.map((control) => (
+          <li>
+            <a href={toCrosswalkDetailHref(control.controlId)}>
+              {control.controlId}: {control.topic}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
   </SectionBlock>
 
   <SectionBlock

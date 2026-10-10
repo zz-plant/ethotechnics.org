@@ -146,7 +146,7 @@ The scripts import only repository files, so the workflows run them without `bun
   - `src/utils/objection-link.ts`: the prefilled objection link.
   - `src/utils/changes-feed.ts`: the merged change list, its RSS, and release notes.
   - `src/utils/clause-match.ts`: keyword matching against the clause register, and the brief.
-  - `src/utils/presence-watch.ts`: watch queries, response parsing, dedupe state, and the issue.
+  - `scripts/presence/presence-watch.ts`: watch queries, response parsing, dedupe state, and the issue.
   - `src/utils/doi.ts`: which `doi` values are DOIs.
 - Network calls: `scripts/presence/github.ts` and the scripts beside it.
 - Pages: `src/pages/record.astro`, `src/pages/changes.xml.ts`, and

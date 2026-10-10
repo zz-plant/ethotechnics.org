@@ -9,6 +9,7 @@
  */
 import { extractLaws } from "../utils/laws";
 import { getStandardById } from "../content/standards";
+import { libraryContent } from "../content/library";
 
 interface Props {
   body: string;
@@ -25,6 +26,15 @@ const laws = extractLaws(body);
  */
 const REF = /STD-\d\d(?: Part [A-D])?|MEC-\d\d|§\d+(?:\.\d+)?/g;
 
+// Mechanism chips were plain text, which the page's own note says marks an
+// item not yet published, though every MEC page exists.
+const mechanismHrefs = new Map(
+  libraryContent.patterns.entries.flatMap((pattern) => {
+    const id = /^MEC-\d\d/.exec(pattern.title)?.[0];
+    return id ? [[id, `/mechanisms/patterns/${pattern.slug}`] as const] : [];
+  }),
+);
+
 const referencesIn = (text: string) => {
   const seen = new Set<string>();
   const refs: { label: string; href?: string }[] = [];
@@ -38,7 +48,10 @@ const referencesIn = (text: string) => {
     if (seen.has(label)) continue;
     seen.add(label);
     const std = getStandardById(label.slice(0, 6));
-    refs.push({ label, href: std ? `/standards/${std.slug}` : undefined });
+    refs.push({
+      label,
+      href: std ? `/standards/${std.slug}` : mechanismHrefs.get(label),
+    });
   }
   return refs;
 };
@@ -111,7 +124,13 @@ const referencesIn = (text: string) => {
                 })()}
                 <details class="laws-grid__more">
                   <summary>How</summary>
-                  <p>{law.bindsThrough}.</p>
+                  <p>
+                    {`${law.bindsThrough}.`
+                      .split("`")
+                      .map((part, index) =>
+                        index % 2 === 1 ? <code>{part}</code> : part,
+                      )}
+                  </p>
                 </details>
               </td>
             </tr>

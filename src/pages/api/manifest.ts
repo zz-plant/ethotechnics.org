@@ -40,7 +40,7 @@ const parseLimit = (request: Request) => {
  * The handler for each path in the API_ENDPOINTS manifest
  * (src/utils/api/api-endpoints.ts). The catch-all route looks up the path it
  * captured and delegates to the handler here. A test in
- * src/utils/api-tests holds this table to the manifest.
+ * src/utils/api/tests holds this table to the manifest.
  */
 export const apiRoutes: Record<string, (context: APIContext) => Response> = {
   "agent-index.json": () =>

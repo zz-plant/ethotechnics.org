@@ -9,6 +9,7 @@ const entry = (await getCollection("explainers")).find(
 if (!entry) return new Response("Not found", { status: 404 });
 const {
   title,
+  seoTitle,
   description,
   permalink,
   glossaryRef,
@@ -31,6 +32,7 @@ const { Content } = hasBody ? await render(entry) : { Content: null };
 
 <ExplainerLayout
   title={title}
+  seoTitle={seoTitle}
   description={description}
   permalink={permalink}
   glossary={{ href: `/glossary/${glossaryRef}`, label: glossaryLabel }}

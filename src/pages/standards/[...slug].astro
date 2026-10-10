@@ -36,9 +36,10 @@ const data = entry.data;
 const isLaws = slugStr === "laws";
 // Frontmatter carries no id; the registry keyed by slug is the one place a
 // standard's identifier is declared.
-const standardId = standardsContent.standards.find(
+const registryEntry = standardsContent.standards.find(
   (standard) => standard.slug === slugStr,
-)?.id;
+);
+const standardId = registryEntry?.id;
 const clausePartLabels: Record<string, Record<string, string>> = {
   "STD-07": {
     "1": "Article I: Time and immutability",
@@ -55,11 +56,19 @@ const clausePartLabels: Record<string, Record<string, string>> = {
   },
 };
 
+// The header prints lastUpdated, but the citation read only modifiedTime,
+// which most standards leave unset. STD-02's header said 2026-10-06 while its
+// citation said "Version Draft, last updated Jun 1, 2025" and an APA year of
+// 2025. The citation takes the same date and the registry's version.
 const publication = derivePublicationMetadata({
   permalink: data.permalink,
   published: data.publishedTime ?? "2025-06-01T00:00:00Z",
-  updated: data.modifiedTime ?? data.publishedTime ?? undefined,
-  version: data.version,
+  updated:
+    data.modifiedTime ??
+    (data.lastUpdated ? `${data.lastUpdated}T00:00:00Z` : undefined) ??
+    data.publishedTime ??
+    undefined,
+  version: data.version ?? registryEntry?.version,
 });
 
 const hasClauseRegister = Boolean(
