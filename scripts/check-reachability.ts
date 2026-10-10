@@ -30,10 +30,12 @@
  * Run against a built site: bun run scripts/check-reachability.ts <baseUrl>
  */
 
-import { readdir } from "node:fs/promises";
-import { join, relative } from "node:path";
+import { relative } from "node:path";
 
-const BASE = process.argv[2] ?? "http://127.0.0.1:4321";
+import { baseUrlArg } from "./lib/cli";
+import { walkFiles } from "./lib/walk";
+
+const BASE = baseUrlArg();
 const PAGES_DIR = "src/pages";
 const MAX_PAGES = 2000;
 
@@ -53,19 +55,11 @@ const normalize = (path: string) => path.replace(/\/+$/, "") || "/";
 /** Every static route the filesystem defines. Dynamic routes are out of scope. */
 async function staticRoutes(): Promise<string[]> {
   const routes: string[] = [];
-  async function walk(dir: string) {
-    for (const entry of await readdir(dir, { withFileTypes: true })) {
-      const full = join(dir, entry.name);
-      if (entry.isDirectory()) {
-        await walk(full);
-      } else if (entry.name.endsWith(".astro")) {
-        const rel = relative(PAGES_DIR, full).replace(/\.astro$/, "");
-        if (rel.includes("[")) continue;
-        routes.push(normalize("/" + rel.replace(/\/?index$/, "")));
-      }
-    }
+  for (const full of await walkFiles(PAGES_DIR, [".astro"])) {
+    const rel = relative(PAGES_DIR, full).replace(/\.astro$/, "");
+    if (rel.includes("[")) continue;
+    routes.push(normalize("/" + rel.replace(/\/?index$/, "")));
   }
-  await walk(PAGES_DIR);
   return [...new Set(routes)];
 }
 

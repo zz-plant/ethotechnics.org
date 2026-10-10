@@ -1,5 +1,6 @@
-import { readdirSync, readFileSync, statSync } from "node:fs";
-import { join } from "node:path";
+import { readFileSync } from "node:fs";
+
+import { walkFiles } from "./lib/walk";
 
 type Finding = {
   file: string;
@@ -10,28 +11,6 @@ type Finding = {
 
 const ROOT = "src";
 const FILE_EXTENSIONS = new Set([".astro", ".md", ".mdx", ".html", ".tsx"]);
-
-function walk(dir: string): string[] {
-  const entries = readdirSync(dir);
-  const files: string[] = [];
-
-  for (const entry of entries) {
-    const fullPath = join(dir, entry);
-    const stats = statSync(fullPath);
-
-    if (stats.isDirectory()) {
-      files.push(...walk(fullPath));
-      continue;
-    }
-
-    const extension = entry.slice(entry.lastIndexOf("."));
-    if (FILE_EXTENSIONS.has(extension)) {
-      files.push(fullPath);
-    }
-  }
-
-  return files;
-}
 
 function getLine(content: string, index: number): number {
   return content.slice(0, index).split("\n").length;
@@ -164,7 +143,8 @@ async function checkReachable(files: string[]): Promise<number> {
 }
 
 const candidateFiles = parseFileArgs();
-const sourceFiles = candidateFiles ?? walk(ROOT);
+const sourceFiles =
+  candidateFiles ?? (await walkFiles(ROOT, [...FILE_EXTENSIONS]));
 const findings = sourceFiles.flatMap((file) => findUnsafeBlankTargets(file));
 
 if (findings.length > 0) {
