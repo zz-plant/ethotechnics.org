@@ -29,8 +29,9 @@ type FooterNavSection = { heading: string; links: FooterNavLink[] };
 import "../styles/global.css";
 
 interface Props {
-  title?: string;
-  description?: string;
+  /** Required on every page: the <title> and meta description never go unset. */
+  title: string;
+  description: string;
   openGraphType?: string;
   robots?: string;
   publishedTime?: string;
@@ -63,8 +64,8 @@ const defaultRobots =
   "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
 
 const {
-  title = defaultTitle,
-  description = defaultDescription,
+  title,
+  description,
   openGraphType,
   robots = defaultRobots,
   publishedTime,
