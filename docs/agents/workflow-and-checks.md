@@ -35,7 +35,8 @@ For code or mixed changes, run:
 
 `bun run check` includes drift validation for generated content wrappers, linting, type checks,
 Astro checks, JSON/glossary validation, unit tests, review guardrails
-(`check:review-guardrails`), and `agent:doctor` preflight checks.
+(`check:review-guardrails`), and `agent:doctor` preflight checks. The steps run concurrently
+through `scripts/check-all.ts`; failures are summarized per step at the end.
 `agent:doctor` now also enforces research freshness for watchlisted standards pages
 via `scripts/research-watchlist.json`.
 

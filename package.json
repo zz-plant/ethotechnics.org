@@ -35,7 +35,7 @@
     "typecheck": "bunx tsc --noEmit --project tsconfig.typecheck.json",
     "lint": "bunx eslint \"src/**/*.{ts,tsx,astro}\" \"scripts/**/*.ts\"",
     "lint:fix": "bunx eslint \"src/**/*.{ts,tsx,astro}\" \"scripts/**/*.ts\" --fix",
-    "check": "bun run assets:check && bun run icons:check && bun run agent:doctor && bun run content:check && bun run conformance:action:check && bun run lint && bun run typecheck && bun run astro:check && bun run check:review-guardrails && bun run validate:json && bun run validate:glossary && bun run test:unit",
+    "check": "bun run scripts/check-all.ts",
     "check:full": "bun run check && bun run seo:audit && bun run test:unit:ci",
     "format": "bunx prettier --write .",
     "format:check": "bunx prettier --check .",
