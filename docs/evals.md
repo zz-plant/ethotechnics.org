@@ -5,7 +5,7 @@ research program but serve different readers. Do not merge them; know which one 
 
 ## 1. Eval case data + coverage pages
 
-- Data: `src/content/eval-test-cases.json` (benchmark cases; see
+- Data: `src/data/eval-test-cases.json` (benchmark cases; see
   `planning/content-layer-rationale-2026-10.md`), shapes and suites in `src/content/evals.ts`.
 - Rendered at `/evals` for readers: what each case tests and what coverage exists.
 
@@ -33,7 +33,7 @@ research program but serve different readers. Do not merge them; know which one 
 
 ## Adding a new eval case
 
-1. Add the case to `src/content/eval-test-cases.json` (keep the `_canary` field intact).
+1. Add the case to `src/data/eval-test-cases.json` (keep the `_canary` field intact).
 2. If a Tier 1 check covers it, extend `src/harness/checks.ts` and list it in `tier1Checks`.
 3. If it belongs in the interactive simulation or the LLM benchmark, extend
    `src/features/eval-runner/` or the corresponding runner section — the simulator and the LLM

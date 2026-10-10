@@ -388,30 +388,6 @@ const participation = defineCollection({
   }),
 });
 
-// The eval test-case corpus is zod-validated in src/content/eval-test-cases.ts,
-// which is the import surface consumers use. The collection below only keeps
-// the every-JSON-file-is-tracked invariant and checks the top-level shape.
-const evalTestCases = defineCollection({
-  loader: file("src/content/eval-test-cases.json"),
-  schema: z.object({
-    _canary: z.string(),
-    scales: z.record(
-      z.string(),
-      z.object({
-        scale: z.string(),
-        anchors: z.array(
-          z.object({
-            score: z.number(),
-            label: z.string(),
-            description: z.string(),
-          }),
-        ),
-      }),
-    ),
-    testCases: z.array(z.object({ id: z.string() }).passthrough()),
-  }),
-});
-
 const standards = defineCollection({
   loader: glob({ pattern: "**/*.mdx", base: "src/content/standards" }),
   schema: z.object({
@@ -595,5 +571,4 @@ export const collections = {
   library,
   fieldNotes,
   participation,
-  evalTestCases,
 };
