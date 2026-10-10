@@ -16,9 +16,10 @@ Run focused checks as you iterate:
 - `bun run typecheck`.
 - `bun run test:unit`.
 
-The unit command covers tests colocated under `src/` plus top-level `tests/*.test.ts` and
-`tests/*.spec.ts`. Browser suites remain isolated under `tests/e2e/**/*.e2e.ts` and run only
-through Playwright.
+The unit command covers tests colocated under `src/` and `packages/`, plus top-level
+`tests/*.test.ts`. One suffix everywhere: `*.test.ts` for unit and integration tests,
+`*.e2e.ts` for the Playwright suites under `tests/e2e/`, which run only through
+`bun run test:e2e`.
 
 - `bun run content:generate` after editing canonical `src/content/*.json` domains.
 - `bun run content:check` to catch stale generated content wrappers.
