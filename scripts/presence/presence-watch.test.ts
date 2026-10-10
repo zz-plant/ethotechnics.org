@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 
-import type { StandardClause } from "../content/standards";
+import type { StandardClause } from "../../src/content/standards";
 import {
   federalRegisterConsultationsUrl,
   federalRegisterMentionsUrl,

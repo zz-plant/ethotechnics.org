@@ -9,8 +9,8 @@
  * run. An item is new when its hash is not there. A source that fails keeps
  * its earlier hashes, so an outage does not make every item new again.
  */
-import type { StandardClause } from "../content/standards";
-import { clauseLabel, matchClauses } from "./clause-match";
+import type { StandardClause } from "../../src/content/standards";
+import { clauseLabel, matchClauses } from "../../src/utils/clause-match";
 
 export const WATCH_LABEL = "presence-watch";
 export const CONSULTATION_TERMS = [
