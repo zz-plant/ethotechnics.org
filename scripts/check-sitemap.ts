@@ -9,7 +9,7 @@
  * whose pages had been removed. Nothing caught any of it, because the sitemap
  * was assembled from content data and checked against nothing.
  *
- * src/utils/sitemaps.ts now derives every section from what the routes
+ * src/utils/seo/sitemaps.ts now derives every section from what the routes
  * resolve, and this holds it to that: fetch the index, fetch each section,
  * request every <loc>, and require 200. A redirect fails too — a crawler asked
  * to index a URL should not be sent somewhere else.
@@ -87,7 +87,7 @@ async function main(): Promise<void> {
       console.error(`  - ${shown}  ${path}  (${section})`);
     }
     console.error(
-      "\nEither give each a page or stop listing it: src/utils/sitemaps.ts must " +
+      "\nEither give each a page or stop listing it: src/utils/seo/sitemaps.ts must " +
         "derive every section from what the routes resolve.",
     );
     process.exit(1);
