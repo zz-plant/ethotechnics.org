@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 
 import { API_ENDPOINTS } from "../api-endpoints";
-import { apiRoutes } from "../../pages/api/manifest";
+import { apiRoutes } from "../../../pages/api/manifest";
 
 describe("API manifest", () => {
   test("every endpoint path is unique", () => {

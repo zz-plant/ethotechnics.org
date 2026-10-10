@@ -1,13 +1,13 @@
 import type { APIRoute } from "astro";
 
-import { applyApiCaching } from "../../utils/api-responses";
+import { applyApiCaching } from "../../utils/api/api-responses";
 import { apiRoutes } from "./manifest";
 
 /**
  * One server route serves every read-only API endpoint. The path captured
  * here (for example "glossary.json") is looked up in the handler table in
  * manifest.ts; the endpoint list and its descriptions live in
- * src/utils/api-endpoints.ts. Static routes under /api that need their own
+ * src/utils/api/api-endpoints.ts. Static routes under /api that need their own
  * logic (subscribe, readouts, evals/batch, og images) take precedence over
  * this catch-all.
  *

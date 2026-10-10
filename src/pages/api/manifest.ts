@@ -28,7 +28,7 @@ import {
   createStandingResponse,
   createSubstrateProfilesResponse,
   createValidatorsResponse,
-} from "../../utils/api-responses";
+} from "../../utils/api/api-responses";
 
 const parseLimit = (request: Request) => {
   const { searchParams } = new URL(request.url);
@@ -38,7 +38,7 @@ const parseLimit = (request: Request) => {
 
 /**
  * The handler for each path in the API_ENDPOINTS manifest
- * (src/utils/api-endpoints.ts). The catch-all route looks up the path it
+ * (src/utils/api/api-endpoints.ts). The catch-all route looks up the path it
  * captured and delegates to the handler here. A test in
  * src/utils/api-tests holds this table to the manifest.
  */

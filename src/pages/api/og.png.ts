@@ -4,7 +4,7 @@ import {
   isIfNoneMatchSatisfied,
   normalizeOgRequestInput,
   renderOgPng,
-} from "../../utils/og-image";
+} from "../../utils/seo/og-image";
 
 const OG_CACHE_CONTROL =
   "public, max-age=0, s-maxage=604800, stale-while-revalidate=86400, stale-if-error=604800";

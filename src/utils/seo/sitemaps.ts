@@ -1,22 +1,22 @@
-import { fieldNotesContent } from "../content/fieldNotes";
-import type { FieldNotesContent } from "../content/fieldNotes";
-import { glossaryContent } from "../content/glossary";
+import { fieldNotesContent } from "../../content/fieldNotes";
+import type { FieldNotesContent } from "../../content/fieldNotes";
+import { glossaryContent } from "../../content/glossary";
 import type {
   GlossaryCategory,
   GlossaryContent,
   GlossaryEntry,
-} from "../content/glossary";
-import { incidentLessons } from "../content/incidents";
-import { evalsContent } from "../content/evals";
-import { artifacts, failureStates } from "../content/institute-site";
-import { governanceCrosswalks } from "../content/crosswalks";
-import { cases } from "../content/casebook";
-import { libraryContent } from "../content/library";
-import type { LibraryContent, Pattern } from "../content/library";
-import { roles } from "../content/roles";
-import { researchContent } from "../content/research";
-import { standardsContent } from "../content/standards";
-import { glossaryEntryPermalink } from "../utils/glossary";
+} from "../../content/glossary";
+import { incidentLessons } from "../../content/incidents";
+import { evalsContent } from "../../content/evals";
+import { artifacts, failureStates } from "../../content/institute-site";
+import { governanceCrosswalks } from "../../content/crosswalks";
+import { cases } from "../../content/casebook";
+import { libraryContent } from "../../content/library";
+import type { LibraryContent, Pattern } from "../../content/library";
+import { roles } from "../../content/roles";
+import { researchContent } from "../../content/research";
+import { standardsContent } from "../../content/standards";
+import { glossaryEntryPermalink } from "../glossary";
 
 const getContentEntry = async (
   collection: string,

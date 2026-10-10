@@ -1,17 +1,17 @@
-import { evalTestCases } from "../content/eval-test-cases";
-import { evalsContent } from "../content/evals";
-import { glossaryContent } from "../content/glossary";
-import { libraryContent } from "../content/library";
+import { evalTestCases } from "../../content/eval-test-cases";
+import { evalsContent } from "../../content/evals";
+import { glossaryContent } from "../../content/glossary";
+import { libraryContent } from "../../content/library";
 import {
   governanceCrosswalks,
   postMarketWorkflow,
-} from "../content/crosswalks";
-import { standardClauses, standardsContent } from "../content/standards";
-import { validatorsContent } from "../content/validators";
+} from "../../content/crosswalks";
+import { standardClauses, standardsContent } from "../../content/standards";
+import { validatorsContent } from "../../content/validators";
 
-import { resolveDoi } from "./doi";
-import { glossaryEntryPermalink } from "./glossary";
-import { getMinimumEvidenceDefaults } from "./glossary-helpers";
+import { resolveDoi } from "../doi";
+import { glossaryEntryPermalink } from "../glossary";
+import { getMinimumEvidenceDefaults } from "../glossary-helpers";
 
 export const releaseInfo = {
   id: "2026.01",

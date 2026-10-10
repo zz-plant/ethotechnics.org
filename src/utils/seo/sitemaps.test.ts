@@ -1,12 +1,12 @@
 import { describe, expect, mock, test } from "bun:test";
 import type { APIContext } from "astro";
 
-import { governanceCrosswalks } from "../content/crosswalks";
-import { evalsContent } from "../content/evals";
-import { glossaryContent } from "../content/glossary";
-import { failureStates } from "../content/institute-site";
-import { standardsContent } from "../content/standards";
-import { onRequest } from "../middleware";
+import { governanceCrosswalks } from "../../content/crosswalks";
+import { evalsContent } from "../../content/evals";
+import { glossaryContent } from "../../content/glossary";
+import { failureStates } from "../../content/institute-site";
+import { standardsContent } from "../../content/standards";
+import { onRequest } from "../../middleware";
 import { buildSitemapSections } from "./sitemaps";
 
 const sections = await buildSitemapSections();

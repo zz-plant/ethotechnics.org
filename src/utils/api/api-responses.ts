@@ -1,20 +1,20 @@
-import { evalTestCases } from "../content/eval-test-cases";
-import { evalsContent } from "../content/evals";
-import { glossaryContent } from "../content/glossary";
-import { libraryContent } from "../content/library";
-import { researchContent } from "../content/research";
-import { standardsContent } from "../content/standards";
-import { validatorsContent } from "../content/validators";
-import agentSafetyObjectModelExample from "../../public/standards/examples/agent-safety-object-model.example.json";
-import authorityGrantExample from "../../public/standards/examples/authority-grant.example.json";
-import capabilityCatalogExample from "../../public/standards/examples/capability-catalog.example.json";
-import challengeExample from "../../public/standards/examples/challenge.example.json";
-import dependencyRecordExample from "../../public/standards/examples/dependency-record.example.json";
-import interventionSpecExample from "../../public/standards/examples/intervention-spec.example.json";
-import policyRecordExample from "../../public/standards/examples/policy-record.example.json";
-import reconsiderationExample from "../../public/standards/examples/reconsideration.example.json";
-import standingRegisterExample from "../../public/standards/examples/standing-register.example.json";
-import substrateProfileExample from "../../public/standards/examples/substrate-profile.example.json";
+import { evalTestCases } from "../../content/eval-test-cases";
+import { evalsContent } from "../../content/evals";
+import { glossaryContent } from "../../content/glossary";
+import { libraryContent } from "../../content/library";
+import { researchContent } from "../../content/research";
+import { standardsContent } from "../../content/standards";
+import { validatorsContent } from "../../content/validators";
+import agentSafetyObjectModelExample from "../../../public/standards/examples/agent-safety-object-model.example.json";
+import authorityGrantExample from "../../../public/standards/examples/authority-grant.example.json";
+import capabilityCatalogExample from "../../../public/standards/examples/capability-catalog.example.json";
+import challengeExample from "../../../public/standards/examples/challenge.example.json";
+import dependencyRecordExample from "../../../public/standards/examples/dependency-record.example.json";
+import interventionSpecExample from "../../../public/standards/examples/intervention-spec.example.json";
+import policyRecordExample from "../../../public/standards/examples/policy-record.example.json";
+import reconsiderationExample from "../../../public/standards/examples/reconsideration.example.json";
+import standingRegisterExample from "../../../public/standards/examples/standing-register.example.json";
+import substrateProfileExample from "../../../public/standards/examples/substrate-profile.example.json";
 
 import {
   diagnosticResultsCatalog,

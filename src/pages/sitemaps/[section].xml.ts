@@ -2,7 +2,7 @@ export const prerender = true;
 
 import type { APIContext } from "astro";
 
-import { buildSitemapSections, renderSitemap } from "../../utils/sitemaps";
+import { buildSitemapSections, renderSitemap } from "../../utils/seo/sitemaps";
 
 const fallbackSite = "https://ethotechnics.org";
 const validSections = ["core", "glossary", "standards", "taxonomy"] as const;

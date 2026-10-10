@@ -1,13 +1,13 @@
 import resvgWasmModule from "@resvg/resvg-wasm/index_bg.wasm";
-import serifSemiboldUrl from "../assets/fonts/source-serif-4-semibold-latin.ttf?url";
-import sansRegularUrl from "../assets/fonts/source-sans-3-regular-latin.ttf?url";
-import sansSemiboldUrl from "../assets/fonts/source-sans-3-semibold-latin.ttf?url";
+import serifSemiboldUrl from "../../assets/fonts/source-serif-4-semibold-latin.ttf?url";
+import sansRegularUrl from "../../assets/fonts/source-sans-3-regular-latin.ttf?url";
+import sansSemiboldUrl from "../../assets/fonts/source-sans-3-semibold-latin.ttf?url";
 import { createHash } from "node:crypto";
 import {
   OG_TEMPLATES,
   resolveOgTemplate,
   type OgTemplate,
-} from "./seo/og-template";
+} from "./og-template";
 
 const DEFAULT_TITLE = "Ethotechnics Institute";
 const DEFAULT_DESCRIPTION =

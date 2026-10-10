@@ -1,6 +1,6 @@
 import type { APIContext } from "astro";
 
-import { buildSitemapSections, renderSitemapIndex } from "../utils/sitemaps";
+import { buildSitemapSections, renderSitemapIndex } from "../utils/seo/sitemaps";
 
 const fallbackSite = "https://ethotechnics.org";
 
