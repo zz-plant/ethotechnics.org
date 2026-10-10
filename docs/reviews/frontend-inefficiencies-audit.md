@@ -2,7 +2,7 @@
 
 Historical audit. The Capacity Forecaster and Maintenance Simulator were retired on
 September 26, 2026; their findings below no longer describe active code. See the
-[retirement record](planning/pass-1-retirement-2026-09.md).
+[retirement record](../planning/pass-1-retirement-2026-09.md).
 
 ## Scope
 
