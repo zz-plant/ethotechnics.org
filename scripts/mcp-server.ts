@@ -408,7 +408,7 @@ const parseSkillFrontmatterValue = (content: string, key: string) => {
   const frontmatter = frontmatterMatch[1];
   const keyMatch = frontmatter.match(new RegExp(`^${key}:\\s*(.+)$`, "m"));
   if (!keyMatch) return null;
-  return keyMatch[1].trim().replace(/^['\"]|['\"]$/g, "");
+  return keyMatch[1].trim().replace(/^['"]|['"]$/g, "");
 };
 
 const listSkillSummaries = async (): Promise<SkillSummary[]> => {

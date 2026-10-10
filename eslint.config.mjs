@@ -94,4 +94,21 @@ export default defineConfig(
       "@typescript-eslint/unbound-method": "off",
     },
   },
+  {
+    // CLI tooling: same relaxations as tests. Scripts routinely parse
+    // untyped JSON output from child commands; the type-checked rules
+    // add noise there without catching real bugs.
+    files: ["scripts/**/*.{ts,tsx}"],
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
+      "@typescript-eslint/no-unsafe-call": "off",
+      "@typescript-eslint/no-unsafe-argument": "off",
+      "@typescript-eslint/no-unnecessary-type-assertion": "off",
+      "@typescript-eslint/no-base-to-string": "off",
+      "@typescript-eslint/restrict-template-expressions": "off",
+      "@typescript-eslint/require-await": "off",
+    },
+  },
 );

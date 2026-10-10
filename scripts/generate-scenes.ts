@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-/* eslint-disable no-console, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access, no-empty */
+/* eslint-disable no-console, no-empty */
 /**
  * generate-scenes.ts — renders source.svg into scene-specific PNGs with variation.
  * Usage: bun run scripts/generate-scenes.ts [--dry-run]
@@ -22,7 +22,6 @@ const PROJECT = basename(process.cwd());
 /** Warm paper and sapphire, from src/styles/theme.css. */
 const PAPER = "#faf8f5";
 const PANEL = "#f3efe8";
-const INK = "#1c1917";
 const SAPPHIRE = "#1e3a5f";
 const OBSIDIAN = "#18181b";
 

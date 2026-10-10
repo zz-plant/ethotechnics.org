@@ -91,6 +91,7 @@ async function discoverLocalModel(preferredModel?: string): Promise<string> {
   } catch (err) {
     throw new Error(
       `Could not connect to Ollama at ${OLLAMA_HOST}: ${err instanceof Error ? err.message : String(err)}`,
+      { cause: err },
     );
   }
 }
@@ -416,7 +417,6 @@ How do you instruct this worker and manage department operations for Week ${curr
     messages.push({ role: "user", content: userPrompt });
 
     const turnActions: SimulationTurnAction[] = [];
-    let turnDone = false;
     let toolCallRounds = 0;
 
     // Filter tools for Condition A (gating audit visibility)
@@ -427,13 +427,12 @@ How do you instruct this worker and manage department operations for Week ${curr
           )
         : SIMULATION_TOOLS;
 
-    while (!turnDone && toolCallRounds < 4) {
+    while (toolCallRounds < 4) {
       toolCallRounds++;
       const response = await callOllamaChat(model, messages, activeTools);
       messages.push(response.message);
 
       if (response.toolCalls.length === 0) {
-        turnDone = true;
         if (response.message.content) {
           agentLogs.push(
             `Week ${currentWeek}: ${response.message.content.trim()}`,
@@ -443,7 +442,7 @@ How do you instruct this worker and manage department operations for Week ${curr
       }
 
       for (const tc of response.toolCalls) {
-        let toolResultStr = "";
+        let toolResultStr: string;
 
         if (tc.name === "query_dashboard") {
           const lastRes = sim.history[sim.history.length - 1];

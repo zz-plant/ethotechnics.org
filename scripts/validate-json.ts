@@ -40,7 +40,7 @@ for (const file of files) {
           const end = Math.min(content.length, pos + 50);
           console.error("Context:", content.substring(start, end));
           console.error(" ".repeat(Math.min(50, pos)) + "^");
-        } catch (err) {
+        } catch {
           // Ignore errors reading file for context
         }
       }

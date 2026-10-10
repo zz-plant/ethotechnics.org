@@ -52,7 +52,7 @@ const formatDerivedModule = (
     `// source-sha256: ${sourceContentHash}`,
     // The attribute lets Node's ESM loader (Playwright's e2e runner) import
     // these modules directly; Vite and Bun accept it too.
-    `import sourceData from \"${importPath}\" with { type: \"json\" };`,
+    `import sourceData from "${importPath}" with { type: "json" };`,
     "",
     `export const ${config.constName} = ${selection};`,
     "",
@@ -72,7 +72,7 @@ for (const config of derivedFiles) {
     .digest("hex");
 
   const expected = formatDerivedModule(config, sourceContentHash);
-  let existing = "";
+  let existing: string;
 
   try {
     existing = await readFile(targetPath, "utf8");

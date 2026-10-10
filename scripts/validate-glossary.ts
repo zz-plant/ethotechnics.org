@@ -1,7 +1,7 @@
 import { join } from "node:path";
 import { z } from "zod";
 
-import { findGlossaryFiller } from "./src/utils/glossary-filler";
+import { findGlossaryFiller } from "../src/utils/glossary-filler";
 
 type GlossaryEntry = {
   id: string;
