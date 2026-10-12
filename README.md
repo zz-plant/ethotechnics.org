@@ -39,70 +39,15 @@ lean, fast-loading pages and clear storytelling.
 - **A machine-readable API.** JSON and JSONL surfaces at `/api`, JSON Schemas under
   `/standards`, plus `llms.txt`, `llms-full.txt`, and an agent spec.
 
-## Table of contents
-
-- [What this publishes](#what-this-publishes)
-- [Highlights](#highlights)
-- [Requirements](#requirements)
-- [Contributor quick start](#contributor-quick-start)
-- [Quick start](#quick-start)
-- [Common scripts](#common-scripts)
-- [Testing](#testing)
-- [Security headers](#security-headers)
-- [Deployment to Cloudflare Workers](#deployment-to-cloudflare-workers)
-- [Documentation map](#documentation-map)
-- [Project structure](#project-structure)
-- [Contributing](#contributing)
-- [Changelog](CHANGELOG.md)
-- [License](#license)
-
-## Highlights
-
-- Built with Astro 7 and TypeScript for fast, accessible content delivery.
-- Cloudflare Workers deployment with a dedicated `wrangler.toml` configuration.
-- Hardened security headers set in `src/middleware.ts`.
-- Playwright end-to-end tests plus Bun unit/component coverage.
-
-## Support the project
-
-- ⭐ Star the repo to help others discover sociotechnical governance and operational accountability resources.
-- Share the live site with teammates or students who care about responsible technology practice.
-  - X: <https://twitter.com/intent/tweet?text=Ethotechnics%3A%20sociotechnical%20governance%20and%20operational%20accountability&url=https%3A%2F%2Fethotechnics.org>
-  - LinkedIn: <https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fethotechnics.org>
-- Subscribe to Field Notes via RSS: <https://ethotechnics.org/field-notes/rss.xml>.
-- Follow updates on GitHub to track new essays, research notes, and design references.
-
-## Keywords
-
-AI accountability, AI governance, proposed standards, contestability, recourse, correction
-propagation, sociotechnical systems, Astro, Cloudflare Workers, accessible web performance,
-digital ethics, responsible innovation.
-
-## Requirements
-
-- Node.js 22.x (use `nvm use` to match the pinned toolchain).
-- Bun 1.3+ (see `.nvmrc` for the Node version and `bun.lock` for dependencies).
-
-## Contributor quick start
-
-1. Align toolchains: `nvm use`
-2. Install dependencies: `bun install`
-3. Run the default PR check suite: `bun run check`
-4. Run the full release/nightly checks when needed: `bun run check:full`
-
-For a one-shot bootstrap (great for Codex and fresh clones), run:
-
-```bash
-bun run setup:codex
-```
-
-## Quick start
+## Quick Start
 
 1. Install dependencies: `bun install`
-2. Run the dev server: `bun dev`
-3. Build the Worker bundle: `bun run build`
-4. Preview the build: `bun run preview` (Astro) or `bun run preview:cf` (Wrangler Worker)
-5. For deeper setup and troubleshooting tips, see [`docs/local-development.md`](docs/local-development.md).
+2. Run the dev server: `bun dev` (opens local Astro server)
+3. Run default PR validation: `bun run check`
+4. Build the Worker bundle: `bun run build`
+5. Preview build: `bun run preview` (Astro) or `bun run preview:cf` (Wrangler with local Cloudflare bindings)
+
+For one-shot Codex bootstrap, run `bun run setup:codex`. For deeper setup tips, see [`docs/local-development.md`](docs/local-development.md).
 
 ## Common scripts
 
