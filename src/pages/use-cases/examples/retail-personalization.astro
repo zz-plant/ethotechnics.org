@@ -1,19 +1,19 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import CitationBlock from "../../components/CitationBlock.astro";
-import PageIntro from "../../components/PageIntro.astro";
-import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
-import SectionBlock from "../../components/SectionBlock.astro";
-import UseCaseFit from "../../components/UseCaseFit.astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import CitationBlock from "../../../components/CitationBlock.astro";
+import PageIntro from "../../../components/PageIntro.astro";
+import ScholarlyMeta from "../../../components/ScholarlyMeta.astro";
+import SectionBlock from "../../../components/SectionBlock.astro";
+import UseCaseFit from "../../../components/UseCaseFit.astro";
 import {
   createImplementationPublication,
   implementationExampleAnchorLinks,
-} from "../../content/implementation-examples";
+} from "../../../content/implementation-examples";
 
 const pageTitle = "Retail personalization: implementation comparison";
 const pageDescription =
   "Recommendation systems governed two ways: review gates, or an off switch, plus reasons and an answered challenge where targeting sets a price or an offer.";
-const permalink = "/examples/retail-personalization";
+const permalink = "/use-cases/examples/retail-personalization";
 const anchorLinks = implementationExampleAnchorLinks;
 const publication = createImplementationPublication(
   permalink,

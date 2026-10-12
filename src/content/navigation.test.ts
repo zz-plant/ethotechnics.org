@@ -78,7 +78,14 @@ describe("navSections", () => {
   // already has.
   it("orders tools by input, workflow first", () => {
     expect(sectionLinks("Tools")[0]).toBe("/diagnostics/delegation-audit");
-    expect(sectionLinks("Tools").at(-1)).toBe("/diagnostics");
+  });
+
+  // The section description names five inputs, the fifth being "a decision
+  // made about you." The reader who brings that one is the person the system
+  // decided about — the audience the site's purpose statement names — so the
+  // link goes to their checks, not to a hub they then have to interpret.
+  it("gives the person a system decided about a direct link", () => {
+    expect(sectionLinks("Tools")).toContain("/diagnostics/self-defense-tools");
   });
 
   it("lists theory under knowledge", () => {

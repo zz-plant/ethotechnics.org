@@ -79,7 +79,30 @@ const REDIRECT_MAP: Record<string, string> = {
   "/finite": "/evals#finite",
   "/fast-path": "/start#fast-path",
   "/syllabus": "/mechanisms",
-  "/standards/implementation-examples": "/examples#domains",
+  // Two clause sets that lived as top-level routes. Each is citable by ID like a
+  // register entry — the exception classes and AW-01 to AW-04 — but neither had
+  // a nav path; only pages that reference them linked in. They are annexes of
+  // the standards register, so that is where they live now.
+  "/exceptions": "/standards/exceptions",
+  "/anti-weaponization": "/standards/anti-weaponization",
+  // The framework critiques were five standalone pages beside the register,
+  // which put crosswalk material in three places: them, the control briefs
+  // under /standards/crosswalk/, and the panels the standards index repeated.
+  // They live under one namespace now, beside the briefs, and the index
+  // points at the crosswalk hub instead of restating it.
+  "/standards/eu-ai-act": "/standards/critiques/eu-ai-act",
+  "/standards/nist-ai-rmf": "/standards/critiques/nist-ai-rmf",
+  "/standards/oecd-ai-principles": "/standards/critiques/oecd-ai-principles",
+  "/standards/corporate-responsible-ai":
+    "/standards/critiques/corporate-responsible-ai",
+  "/standards/iso-iec-42001": "/standards/critiques/iso-iec-42001",
+  // Two tools answered to "Burden Modeler" at the same slug in two sections:
+  // /diagnostics/burden-modeler rates the workload a system creates for the
+  // staff that run it, and VAL-01 at /validators scored the time a journey
+  // takes the person it decides about. VAL-01 keeps its ID and is now the
+  // Journey burden check at its own slug.
+  "/validators/burden-modeler": "/validators/journey-burden",
+  "/standards/implementation-examples": "/use-cases/examples#domains",
   "/standards/meta-critique": "/standards#governance-by-control",
   "/standards/micro-diagram-language": "/standards",
   "/agent-toolkit/prompt-packs": "/archive/retired-tools",
@@ -238,13 +261,29 @@ const resolveLegacyPathRedirect = (url: URL): string | null => {
     return target.toString();
   }
 
-  // Implementation examples consolidated under /examples
+  // Implementation examples consolidated under /use-cases/examples
   if (normalizedPath.startsWith("/standards/implementation-examples/")) {
     const target = new URL(
       normalizedPath.replace(
         /^\/standards\/implementation-examples/,
-        "/examples",
+        "/use-cases/examples",
       ),
+      url.origin,
+    );
+    target.search = url.search;
+    return target.toString();
+  }
+
+  // Worked examples lived at the top level, where their index had no nav path
+  // and a reader who landed on one met no standard and no tool. Every example
+  // already belonged to exactly one use-case context or boundary, so the pages
+  // hang off /use-cases, one level below the registry that claims them.
+  if (
+    normalizedPath === "/examples" ||
+    normalizedPath.startsWith("/examples/")
+  ) {
+    const target = new URL(
+      normalizedPath.replace(/^\/examples/, "/use-cases/examples"),
       url.origin,
     );
     target.search = url.search;

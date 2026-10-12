@@ -1,11 +1,11 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import PageIntro from "../../components/PageIntro.astro";
-import SectionBlock from "../../components/SectionBlock.astro";
-import UseCaseFit from "../../components/UseCaseFit.astro";
-import CardGrid from "../../components/CardGrid.astro";
-import CardItem from "../../components/CardItem.astro";
-import GlossaryAnchorsBlock from "../../components/GlossaryAnchorsBlock.astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import PageIntro from "../../../components/PageIntro.astro";
+import SectionBlock from "../../../components/SectionBlock.astro";
+import UseCaseFit from "../../../components/UseCaseFit.astro";
+import CardGrid from "../../../components/CardGrid.astro";
+import CardItem from "../../../components/CardItem.astro";
+import GlossaryAnchorsBlock from "../../../components/GlossaryAnchorsBlock.astro";
 
 const pageTitle = "Automated account lock & eligibility flip — Worked example";
 const pageDescription =
@@ -98,7 +98,7 @@ const artifacts = [
     title: "Exception log",
     description:
       "An exception entry with an end date, if the lock is tied to a security or legal hold.",
-    href: "/exceptions",
+    href: "/standards/exceptions",
   },
 ];
 ---
@@ -226,7 +226,7 @@ const artifacts = [
       <li>
         <strong>Escalation:</strong> Each exception is logged in the
         {" "}
-        <a href="/exceptions">Exceptions register</a>
+        <a href="/standards/exceptions">Exceptions register</a>
         {" "}
         with the date a steward will next review it.
       </li>

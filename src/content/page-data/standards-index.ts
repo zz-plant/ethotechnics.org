@@ -44,35 +44,35 @@ const adoptedStandards: StandardsCardModel[] = [
     title: "OECD AI Principles",
     description:
       "Non-binding principles: they ask for accountability and set no duty anyone can enforce.",
-    href: "/standards/oecd-ai-principles",
+    href: "/standards/critiques/oecd-ai-principles",
   },
   {
     eyebrow: "NIST",
     title: "NIST AI RMF 1.0",
     description:
       "Voluntary risk management that asks for feedback and impact mapping, and lets the operator decide what counts as done.",
-    href: "/standards/nist-ai-rmf",
+    href: "/standards/critiques/nist-ai-rmf",
   },
   {
     eyebrow: "ISO",
     title: "ISO/IEC 42001",
     description:
       "Certifies the management system. Nothing makes one system's authority to act expire.",
-    href: "/standards/iso-iec-42001",
+    href: "/standards/critiques/iso-iec-42001",
   },
   {
     eyebrow: "EU",
     title: "EU AI Act",
     description:
       "Most high-risk systems are self-assessed before release, and their authority does not lapse. A challenge need not reach the system.",
-    href: "/standards/eu-ai-act",
+    href: "/standards/critiques/eu-ai-act",
   },
   {
     eyebrow: "Corporate",
     title: "Responsible AI programs",
     description:
       "Internal boards and review gates that answer to the company, not to the people a system decides about.",
-    href: "/standards/corporate-responsible-ai",
+    href: "/standards/critiques/corporate-responsible-ai",
   },
   {
     eyebrow: "Meta-critique",
@@ -149,13 +149,13 @@ export const buildStandardsCardViewModels = (input: {
       title: "Implementation examples overview",
       description:
         "How the same system is built differently in each domain once it has to be stoppable and reversible.",
-      href: "/examples#domains",
+      href: "/use-cases/examples#domains",
       ctaLabel: "Read guide",
     },
     ...input.implementationExamples.map((example) => ({
       title: example.title,
       description: example.cardDescription,
-      href: `/examples/${example.slug}`,
+      href: `/use-cases/examples/${example.slug}`,
       ctaLabel: "Read example",
     })),
   ];

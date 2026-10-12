@@ -1,19 +1,19 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import CitationBlock from "../../components/CitationBlock.astro";
-import PageIntro from "../../components/PageIntro.astro";
-import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
-import SectionBlock from "../../components/SectionBlock.astro";
-import UseCaseFit from "../../components/UseCaseFit.astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import CitationBlock from "../../../components/CitationBlock.astro";
+import PageIntro from "../../../components/PageIntro.astro";
+import ScholarlyMeta from "../../../components/ScholarlyMeta.astro";
+import SectionBlock from "../../../components/SectionBlock.astro";
+import UseCaseFit from "../../../components/UseCaseFit.astro";
 import {
   createImplementationPublication,
   implementationExampleAnchorLinks,
-} from "../../content/implementation-examples";
+} from "../../../content/implementation-examples";
 
 const pageTitle = "Customer service chatbots: implementation comparison";
 const pageDescription =
   "Support chatbots governed two ways: escalation only on low confidence, or a person on request, a reply time, a named halt, and failed requests counted by flow.";
-const permalink = "/examples/customer-service-chatbots";
+const permalink = "/use-cases/examples/customer-service-chatbots";
 const anchorLinks = implementationExampleAnchorLinks;
 const publication = createImplementationPublication(
   permalink,

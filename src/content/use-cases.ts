@@ -9,9 +9,9 @@ import type { PageWithPermalink } from "./types";
  *
  * The standards are domain-neutral by construction: nothing in STD-07 or
  * STD-08 depends on the sector. That left no page saying where they earn their
- * cost and where they do not. /start sorts readers by role and /examples by
+ * cost and where they do not. /start sorts readers by role and /use-cases/examples by
  * scenario, and neither tells a reader whether their system is the kind the
- * casebook is about. The seven sector comparisons under /examples linked only
+ * casebook is about. The seven sector comparisons under /use-cases/examples linked only
  * to glossary entries, so a reader who found their sector there met no
  * standard and no tool.
  *
@@ -52,11 +52,12 @@ export type UseCase = {
    * The tool to run first, and what it tells you here. A slug names a
    * diagnostic; with `validator`, it names one of the /validators forms. The
    * diagnostic named Workload Modeler (at /diagnostics/burden-modeler) rates
-   * staff workload; VAL-01, the Burden Modeler, scores the affected person's
+   * staff workload; VAL-01, the Journey burden check, scores the affected
+   * person's
    * time.
    */
   runFirst: { slug: string; validator?: boolean; note: string };
-  /** Worked examples and sector comparisons under /examples. */
+  /** Worked examples and sector comparisons under /use-cases/examples. */
   examples: FitLink[];
   incidents: FitLink[];
   /** Law already in force that asks for the same evidence. Not legal advice. */
@@ -196,18 +197,18 @@ export const useCases: UseCase[] = [
     ],
     bind: ["STD-02", "STD-08", "STD-06"],
     runFirst: {
-      slug: "burden-modeler",
+      slug: "journey-burden",
       validator: true,
       note: "Score how long the claim or appeal journey takes the claimant, and whether it is hard enough to amount to a denial.",
     },
     examples: [
       {
         label: "Automated eligibility denial",
-        href: "/examples/automated-eligibility-denial",
+        href: "/use-cases/examples/automated-eligibility-denial",
       },
       {
         label: "Government public services",
-        href: "/examples/public-services",
+        href: "/use-cases/examples/public-services",
       },
     ],
     incidents: [
@@ -245,20 +246,23 @@ export const useCases: UseCase[] = [
     examples: [
       {
         label: "Automated account lock",
-        href: "/examples/automated-account-lock",
+        href: "/use-cases/examples/automated-account-lock",
       },
       {
         label: "Fraud hold with delayed notice",
-        href: "/examples/fraud-hold-delayed-notice",
+        href: "/use-cases/examples/fraud-hold-delayed-notice",
       },
       {
         label: "Irreversible payment with compensation",
-        href: "/examples/irreversible-payment-compensation",
+        href: "/use-cases/examples/irreversible-payment-compensation",
       },
-      { label: "Loan approval systems", href: "/examples/loan-approval" },
+      {
+        label: "Loan approval systems",
+        href: "/use-cases/examples/loan-approval",
+      },
       {
         label: "Financial fraud detection",
-        href: "/examples/financial-fraud-detection",
+        href: "/use-cases/examples/financial-fraud-detection",
       },
     ],
     incidents: [
@@ -296,11 +300,11 @@ export const useCases: UseCase[] = [
     examples: [
       {
         label: "Decision-model gate on refunds",
-        href: "/examples/decision-model-gate",
+        href: "/use-cases/examples/decision-model-gate",
       },
       {
         label: "Customer service chatbots",
-        href: "/examples/customer-service-chatbots",
+        href: "/use-cases/examples/customer-service-chatbots",
       },
     ],
     incidents: [],
@@ -333,11 +337,11 @@ export const useCases: UseCase[] = [
     examples: [
       {
         label: "Healthcare diagnostic AI",
-        href: "/examples/healthcare-diagnostics",
+        href: "/use-cases/examples/healthcare-diagnostics",
       },
       {
         label: "FHIR resources for healthcare interop",
-        href: "/examples/fhir-resources",
+        href: "/use-cases/examples/fhir-resources",
       },
     ],
     incidents: [
@@ -374,7 +378,7 @@ export const useCases: UseCase[] = [
     examples: [
       {
         label: "Content moderation takedown",
-        href: "/examples/content-moderation-takedown",
+        href: "/use-cases/examples/content-moderation-takedown",
       },
     ],
     incidents: [],
@@ -426,7 +430,7 @@ export const boundaries: Boundary[] = [
     examples: [
       {
         label: "Retail personalization",
-        href: "/examples/retail-personalization",
+        href: "/use-cases/examples/retail-personalization",
       },
     ],
   },
@@ -510,7 +514,7 @@ export const fitForExample = (
   | { kind: "context"; entry: UseCase }
   | { kind: "boundary"; entry: Boundary }
   | undefined => {
-  const href = `/examples/${slug}`;
+  const href = `/use-cases/examples/${slug}`;
   const context = useCases.find((entry) =>
     entry.examples.some((example) => example.href === href),
   );

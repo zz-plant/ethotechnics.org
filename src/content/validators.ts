@@ -64,10 +64,10 @@ export const validatorsContent: ValidatorsContent = {
   validators: [
     {
       id: "VAL-01",
-      title: "Burden Modeler",
+      title: "Journey burden check",
       description:
         "Scores how much time a user journey takes from people, and whether it is heavy enough to keep them from the service, from its duration, its step count, and whether every screen has an exit.",
-      slug: "burden-modeler",
+      slug: "journey-burden",
       standardRef: "STD-01",
       inputs: [
         {

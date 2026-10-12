@@ -155,10 +155,10 @@ const getSuggestedInternalTargets = (
   }
 
   if (relPath.includes("/explainers/")) {
-    return ["/taxonomy", "/standards", "/examples"];
+    return ["/taxonomy", "/standards", "/use-cases/examples"];
   }
 
-  if (relPath.includes("/examples/")) {
+  if (relPath.includes("/use-cases/examples/")) {
     return ["/explainers", "/validators", "/standards"];
   }
 

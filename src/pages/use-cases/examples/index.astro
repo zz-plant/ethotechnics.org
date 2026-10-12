@@ -1,10 +1,10 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import PageIntro from "../../components/PageIntro.astro";
-import SectionBlock from "../../components/SectionBlock.astro";
-import CardGrid from "../../components/CardGrid.astro";
-import CardItem from "../../components/CardItem.astro";
-import { implementationExamples } from "../../content/implementation-examples";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import PageIntro from "../../../components/PageIntro.astro";
+import SectionBlock from "../../../components/SectionBlock.astro";
+import CardGrid from "../../../components/CardGrid.astro";
+import CardItem from "../../../components/CardItem.astro";
+import { implementationExamples } from "../../../content/implementation-examples";
 
 const pageTitle = "Worked examples — Ethotechnics Institute";
 const pageDescription =
@@ -84,7 +84,7 @@ const requiredSignals = [
     ]}
   >
     <Fragment slot="actions">
-      <a class="button primary" href={`/examples/${featuredExample.slug}`}>
+      <a class="button primary" href={`/use-cases/examples/${featuredExample.slug}`}>
         View featured example
       </a>
       <a class="button ghost" href="#scenarios"> Browse scenarios </a>
@@ -111,7 +111,7 @@ const requiredSignals = [
         <a
           slot="footer"
           class="button ghost button--compact"
-          href={`/examples/${featuredExample.slug}`}
+          href={`/use-cases/examples/${featuredExample.slug}`}
         >
           View featured example
         </a>
@@ -137,7 +137,7 @@ const requiredSignals = [
             <a
               slot="footer"
               class="button ghost button--compact"
-              href={`/examples/${example.slug}`}
+              href={`/use-cases/examples/${example.slug}`}
             >
               View worked example
             </a>
@@ -166,7 +166,7 @@ const requiredSignals = [
             <a
               slot="footer"
               class="button ghost button--compact"
-              href={`/examples/${domain.slug}`}
+              href={`/use-cases/examples/${domain.slug}`}
             >
               View domain comparison
             </a>

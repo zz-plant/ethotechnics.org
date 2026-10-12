@@ -278,80 +278,19 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     title="How to compare the drafts with external frameworks"
     description="For risk owners and legal counsel: these are proposed technical correspondences, not a determination of legal compliance."
   >
-    <div class="grid grid--three">
-      <div class="panel stack-sm">
-        <p class="eyebrow">EU AI Act</p>
-        <p><strong>Articles 14, 86, and 12</strong></p>
-        <ul class="card__list">
-          <li>
-            <strong>Art. 14 (human oversight):</strong> STD-08 Part C requires every
-            oversight claim to name what the human can see, prevent, and alter. An
-            approval that cannot change the outcome does not count as a control.
-          </li>
-          <li>
-            <strong>Art. 86 (right to explanation):</strong> STD-02 Article I requires
-            the reasons for a decision with the decision, stating what it rested on.
-          </li>
-          <li>
-            <strong>Art. 12 (record-keeping):</strong> STD-07 Article V gives each
-            record a hash and chains the records in a system's stream, so a missing
-            or reordered record can be detected.
-          </li>
-        </ul>
-      </div>
-
-      <div class="panel stack-sm">
-        <p class="eyebrow">NIST AI RMF 1.0</p>
-        <p><strong>GOVERN 1.2, MEASURE 2.7, MANAGE 2.4</strong></p>
-        <ul class="card__list">
-          <li>
-            <strong>GOVERN 1.2 (Organizational practices):</strong> Integrates trustworthy-AI
-            characteristics into organizational policies and practices. Named ownership
-            is one part of that work.
-          </li>
-          <li>
-            <strong>MEASURE 2.7 (Security and resilience):</strong> Evaluates AI-system
-            security and resilience. Halt and rollback drills can contribute evidence
-            but do not cover the full outcome.
-          </li>
-          <li>
-            <strong>MANAGE 2.4 (Disengagement):</strong> Assigns mechanisms and responsibilities
-            to disengage systems whose outcomes conflict with intended use. STD-08's
-            halt roles and authority boundaries address this part.
-          </li>
-        </ul>
-        <p class="small">
-          <a href="https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
-            >NIST AI RMF 1.0</a
-          >
-        </p>
-      </div>
-
-      <div class="panel stack-sm">
-        <p class="eyebrow">GDPR and administrative law</p>
-        <p><strong>Article 22 and procedural due process</strong></p>
-        <ul class="card__list">
-          <li>
-            <strong>GDPR Art. 22 (automated decisions):</strong>
-            <a href="/standards/minimum-viable-contestability"
-              >Minimum viable contestability</a
-            > (MVC-01) sets eight commitments for contesting a decision, among them
-            a named responder and protection from retaliation.
-          </li>
-          <li>
-            <strong>Standing:</strong> STD-02 §8.4 gives standing to the people a
-            decision falls on and to the staff who handle its exceptions. Each can
-            compel a receipt, an answer by the published deadline, and a decision
-            against a published standard.
-          </li>
-          <li>
-            <strong>Restitution:</strong> STD-02 Article IV requires compensation
-            without a separate claim and correction of every affected case, not only
-            a reset flag in a database.
-          </li>
-        </ul>
-      </div>
-    </div>
+    <p class="muted">
+      The crosswalks live on one page. Each framework — the EU AI Act, NIST AI
+      RMF, ISO/IEC 42001, ISO/IEC 27001, SOC 2, IEC 61508 — is mapped to the
+      Ethotechnics controls, the clauses a contract can cite, and the evidence
+      an auditor should ask for.
+    </p>
+    <p class="small">
+      <a href="/standards/enforceable-governance-crosswalks"
+        >Open the crosswalk hub &rarr;</a
+      >
+      The critiques of each framework sit in{" "}
+      <a href="#adopted-standards">existing frameworks</a>, below.
+    </p>
   </SectionBlock>
 
   <SectionBlock
@@ -839,16 +778,17 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
         <p class="eyebrow">Used in examples</p>
         <ul class="muted">
           <li>
-            <a href="/examples/automated-account-lock">Automated account lock</a
+            <a href="/use-cases/examples/automated-account-lock"
+              >Automated account lock</a
             >
           </li>
           <li>
-            <a href="/examples/content-moderation-takedown"
+            <a href="/use-cases/examples/content-moderation-takedown"
               >Content moderation takedown</a
             >
           </li>
           <li>
-            <a href="/examples/automated-eligibility-denial"
+            <a href="/use-cases/examples/automated-eligibility-denial"
               >Automated eligibility denial</a
             >
           </li>

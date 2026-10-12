@@ -185,10 +185,10 @@ export const navSections: NavSection[] = [
           "Bring the decision it makes: six kinds of system, each with the check to run first",
       },
       {
-        href: "/diagnostics",
-        label: "All tools",
+        href: "/diagnostics/self-defense-tools",
+        label: "Self-defense checks",
         description:
-          "Bring a decision made about you: three checks, plus the corrective capacity self-assessment",
+          "Bring a decision made about you: can it be challenged, can the appeal change the outcome, and who can reverse it",
       },
     ],
   },

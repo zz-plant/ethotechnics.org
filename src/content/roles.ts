@@ -344,7 +344,7 @@ export const roles: Role[] = [
         description:
           "Score a real user journey for time spent, number of steps, and whether there is a way out. Use the result as a design brief.",
         ctaLabel: "Score one user journey",
-        ctaHref: "/validators/burden-modeler",
+        ctaHref: "/validators/journey-burden",
       },
       {
         number: 3,
