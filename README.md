@@ -114,8 +114,9 @@ remove dependencies and Playwright caches.
 
 - Copy `.env.example` to `.env.local` for local development. Astro automatically loads `.env`,
   `.env.local`, and environment-specific files (such as `.env.development`).
-- No environment variables are required today, but add new entries to `.env.example` if the project
-  adopts external services.
+- No external environment variables or API keys are required for core features today.
+- Local simulation via `bun run preview:cf` initializes Wrangler with local simulated bindings
+  (`READOUTS` KV namespace and static asset bindings) without requiring remote Cloudflare credentials.
 
 ## Security headers
 
