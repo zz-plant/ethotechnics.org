@@ -34,59 +34,77 @@ export const siteFooter: SiteFooterContent = {
       external: true,
     },
   },
+  // The footer mirrors the Browse panel's four sections (see
+  // src/content/navigation.ts) so the two taxonomies cannot drift, plus one
+  // Institute column for the site itself.
   navigation: [
     {
-      heading: "Method & standards",
+      heading: "Method",
       links: [
         { label: "The method", href: "/method" },
         { label: "Twelve laws", href: "/standards/laws" },
+        { label: "Low-leverage work", href: "/low-leverage" },
         { label: "Standards register", href: "/standards" },
+        { label: "Evidence packs", href: "/evidence-packs" },
         {
           label: "Regulatory crosswalks",
           href: "/standards/enforceable-governance-crosswalks",
         },
-        { label: "Evidence packs", href: "/evidence-packs" },
       ],
     },
     {
-      heading: "Mechanisms & diagnostics",
+      heading: "Mechanisms & evals",
       links: [
         { label: "Mechanisms catalog", href: "/mechanisms" },
-        { label: "Diagnostics suite", href: "/diagnostics" },
-        { label: "Delegation audit", href: "/diagnostics/delegation-audit" },
-        { label: "Evals & coverage", href: "/evals" },
+        { label: "Eval suites", href: "/evals" },
+        { label: "What we can check", href: "/evals/coverage" },
         { label: "Validators", href: "/validators" },
+        { label: "Measurement tiers", href: "/measurement-tiers" },
       ],
     },
     {
-      heading: "Knowledge & research",
+      heading: "Tools",
+      links: [
+        { label: "Delegation audit", href: "/diagnostics/delegation-audit" },
+        {
+          label: "Workload modeler",
+          href: "/diagnostics/burden-modeler",
+        },
+        {
+          label: "Record conformance",
+          href: "/diagnostics/record-conformance",
+        },
+        {
+          label: "Self-defense checks",
+          href: "/diagnostics/self-defense-tools",
+        },
+        { label: "Which tool for your system", href: "/use-cases" },
+        { label: "All tools", href: "/diagnostics" },
+      ],
+    },
+    {
+      heading: "Knowledge",
       links: [
         { label: "Glossary", href: "/glossary" },
         { label: "Practice taxonomy", href: "/taxonomy" },
         { label: "Failure casebook", href: "/casebook" },
-        { label: "Theory & foundations", href: "/research/theory" },
         { label: "Field notes", href: "/field-notes" },
-        { label: "Search", href: "/search" },
+        { label: "Theory & foundations", href: "/research/theory" },
       ],
     },
     {
-      heading: "Institute & governance",
+      heading: "Institute & connect",
       links: [
         { label: "Start here", href: "/start" },
-        { label: "Which systems this is for", href: "/use-cases" },
         { label: "About the Institute", href: "/about" },
         { label: "Governance process", href: "/institute/governance" },
+        { label: "The record", href: "/record" },
+        { label: "Reference API", href: "/api" },
         {
           label: "Security policy",
           href: "/security/vulnerability-disclosure",
         },
         { label: "Send feedback", href: "/participate#feedback" },
-        { label: "Reference API", href: "/api" },
-      ],
-    },
-    {
-      heading: "Ecosystem & connect",
-      links: [
         {
           label: "GitHub",
           href: "https://github.com/zz-plant/ethotechnics.org",
