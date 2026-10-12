@@ -19,7 +19,7 @@ import {
  * These tests are what notice when any of those stops being true.
  */
 
-const exampleSlugs = readdirSync("src/pages/examples")
+const exampleSlugs = readdirSync("src/pages/use-cases/examples")
   .filter((file) => file.endsWith(".astro") && file !== "index.astro")
   .map((file) => file.replace(/\.astro$/, ""));
 
@@ -53,7 +53,7 @@ const resolves = (href: string): boolean => {
 describe("every worked example belongs somewhere", () => {
   it("claims each example page for exactly one context or boundary", () => {
     for (const slug of exampleSlugs) {
-      const href = `/examples/${slug}`;
+      const href = `/use-cases/examples/${slug}`;
       const claims = [...useCases, ...boundaries].filter((entry) =>
         entry.examples.some((example) => example.href === href),
       );
@@ -68,7 +68,7 @@ describe("every worked example belongs somewhere", () => {
     for (const entry of [...useCases, ...boundaries]) {
       for (const example of entry.examples) {
         expect(
-          exampleSlugs.map((slug) => `/examples/${slug}`),
+          exampleSlugs.map((slug) => `/use-cases/examples/${slug}`),
           `${entry.id} claims ${example.href}`,
         ).toContain(example.href);
       }

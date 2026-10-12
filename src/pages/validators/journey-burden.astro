@@ -16,15 +16,15 @@ const breadcrumbItems = [
   { name: "Home", url: new URL("/", siteBase).toString() },
   { name: "Validators", url: new URL("/validators", siteBase).toString() },
   {
-    name: "VAL-01 Burden Modeler",
-    url: new URL("/validators/burden-modeler", siteBase).toString(),
+    name: "VAL-01 Journey burden check",
+    url: new URL("/validators/journey-burden", siteBase).toString(),
   },
 ];
 const validatorMetaJson = JSON.stringify(validatorMeta);
 ---
 
 <BaseLayout
-  title="VAL-01 Burden Modeler — validator specification"
+  title="VAL-01 Journey burden check — validator specification"
   description="Scores a user journey on its length, its step count, and whether every screen has an exit, and returns a red, yellow, or green report card."
   mainClass="page page--wide"
   breadcrumbItems={breadcrumbItems}
@@ -35,7 +35,7 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
     <header class="validator__header">
       <div>
         <p class="validator__id">VAL-01</p>
-        <h1>VAL-01 Burden Modeler — specification</h1>
+        <h1>VAL-01 Journey burden check — specification</h1>
         <p class="muted">
           Scores one user journey on its length, its step count, and whether
           every screen has an exit. To rate the workload a system creates for

@@ -1,20 +1,20 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import CitationBlock from "../../components/CitationBlock.astro";
-import PageIntro from "../../components/PageIntro.astro";
-import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
-import SectionBlock from "../../components/SectionBlock.astro";
-import UseCaseFit from "../../components/UseCaseFit.astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import CitationBlock from "../../../components/CitationBlock.astro";
+import PageIntro from "../../../components/PageIntro.astro";
+import ScholarlyMeta from "../../../components/ScholarlyMeta.astro";
+import SectionBlock from "../../../components/SectionBlock.astro";
+import UseCaseFit from "../../../components/UseCaseFit.astro";
 import {
   createImplementationPublication,
   implementationExampleAnchorLinks,
-} from "../../content/implementation-examples";
+} from "../../../content/implementation-examples";
 
 const pageTitle =
   "FHIR resources for healthcare interop: implementation comparison";
 const pageDescription =
   "Denials, appeals, repair status, and pending clocks as FHIR resources shared by payers, providers, and regulators, compared with case notes that stay behind.";
-const permalink = "/examples/fhir-resources";
+const permalink = "/use-cases/examples/fhir-resources";
 const anchorLinks = implementationExampleAnchorLinks;
 const publication = createImplementationPublication(
   permalink,

@@ -1,6 +1,6 @@
 // AUTO-GENERATED FILE. DO NOT EDIT.
 // Source of truth lives in the JSON file referenced below.
-// source-sha256: 56e84e2aa03d52605c47b07907473d728498fc1321f1f6bc921814609e9aa78d
+// source-sha256: 2c0f26e251b33c88bf00c38dc94ae3e716636c3479c773eb933db0cc01b26035
 import sourceData from "../field-notes.json" with { type: "json" };
 
 export const fieldNotesContentData = sourceData[0];

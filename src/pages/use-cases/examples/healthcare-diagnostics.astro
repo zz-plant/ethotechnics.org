@@ -1,19 +1,19 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import CitationBlock from "../../components/CitationBlock.astro";
-import PageIntro from "../../components/PageIntro.astro";
-import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
-import SectionBlock from "../../components/SectionBlock.astro";
-import UseCaseFit from "../../components/UseCaseFit.astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import CitationBlock from "../../../components/CitationBlock.astro";
+import PageIntro from "../../../components/PageIntro.astro";
+import ScholarlyMeta from "../../../components/ScholarlyMeta.astro";
+import SectionBlock from "../../../components/SectionBlock.astro";
+import UseCaseFit from "../../../components/UseCaseFit.astro";
 import {
   createImplementationPublication,
   implementationExampleAnchorLinks,
-} from "../../content/implementation-examples";
+} from "../../../content/implementation-examples";
 
 const pageTitle = "Healthcare diagnostic AI: implementation comparison";
 const pageDescription =
   "Diagnostic AI governed two ways: lifecycle review, or overrides counted against the model's rule, patient challenges answered by a date, and a named halt.";
-const permalink = "/examples/healthcare-diagnostics";
+const permalink = "/use-cases/examples/healthcare-diagnostics";
 const anchorLinks = implementationExampleAnchorLinks;
 const publication = createImplementationPublication(
   permalink,

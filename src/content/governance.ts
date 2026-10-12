@@ -157,7 +157,7 @@ export const governanceContent: GovernanceContent = {
       date: "2026-09-18",
       owner: "Kanav Jain",
       releaseVersion: "diagnostics-v2.0.0",
-      releaseHref: "/anti-weaponization",
+      releaseHref: "/standards/anti-weaponization",
     },
     {
       id: "DEC-2026-09-01",

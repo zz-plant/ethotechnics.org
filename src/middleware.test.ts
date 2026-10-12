@@ -205,11 +205,44 @@ describe("middleware", () => {
       },
       {
         url: "https://ethotechnics.org/standards/implementation-examples",
-        expectedLocation: "https://ethotechnics.org/examples#domains",
+        expectedLocation: "https://ethotechnics.org/use-cases/examples#domains",
       },
       {
         url: "https://ethotechnics.org/standards/implementation-examples/loan-approval",
-        expectedLocation: "https://ethotechnics.org/examples/loan-approval",
+        expectedLocation:
+          "https://ethotechnics.org/use-cases/examples/loan-approval",
+      },
+      {
+        url: "https://ethotechnics.org/examples",
+        expectedLocation: "https://ethotechnics.org/use-cases/examples",
+      },
+      {
+        url: "https://ethotechnics.org/examples/loan-approval",
+        expectedLocation:
+          "https://ethotechnics.org/use-cases/examples/loan-approval",
+      },
+      {
+        url: "https://ethotechnics.org/exceptions",
+        expectedLocation: "https://ethotechnics.org/standards/exceptions",
+      },
+      {
+        url: "https://ethotechnics.org/anti-weaponization",
+        expectedLocation:
+          "https://ethotechnics.org/standards/anti-weaponization",
+      },
+      {
+        url: "https://ethotechnics.org/standards/eu-ai-act",
+        expectedLocation:
+          "https://ethotechnics.org/standards/critiques/eu-ai-act",
+      },
+      {
+        url: "https://ethotechnics.org/standards/iso-iec-42001",
+        expectedLocation:
+          "https://ethotechnics.org/standards/critiques/iso-iec-42001",
+      },
+      {
+        url: "https://ethotechnics.org/validators/burden-modeler",
+        expectedLocation: "https://ethotechnics.org/validators/journey-burden",
       },
       {
         url: "https://ethotechnics.org/standards/meta-critique",
