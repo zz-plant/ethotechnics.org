@@ -2,6 +2,7 @@
 import StandardsLayout from "../../components/StandardsLayout.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import ActionIcon from "../../components/ActionIcon.astro";
 import SearchIds from "../../components/SearchIds.astro";
 import SummaryCallout from "../../components/SummaryCallout.astro";
 import {
@@ -224,22 +225,28 @@ const publication = derivePublicationMetadata({
     <ul class="muted">
       <li>
         <a href="/standards/decision-record.schema.json"
-          >Decision record schema</a
+          ><ActionIcon action="download" />Decision record schema</a
         >
       </li>
       <li>
-        <a href="/standards/appeal-event.schema.json">Appeal event schema</a>
+        <a href="/standards/appeal-event.schema.json"
+          ><ActionIcon action="download" />Appeal event schema</a
+        >
       </li>
       <li>
         <a href="/standards/pause-reversal.schema.json"
-          >Pause & reversal schema</a
+          ><ActionIcon action="download" />Pause & reversal schema</a
         >
       </li>
       <li>
-        <a href="/standards/burden-hours.schema.json">Burden hours schema</a>
+        <a href="/standards/burden-hours.schema.json"
+          ><ActionIcon action="download" />Burden hours schema</a
+        >
       </li>
       <li>
-        <a href="/standards/repair-sla.schema.json">Repair SLA schema</a>
+        <a href="/standards/repair-sla.schema.json"
+          ><ActionIcon action="download" />Repair SLA schema</a
+        >
       </li>
     </ul>
     <pre class="code-block">{agentReceiptSchema}</pre>

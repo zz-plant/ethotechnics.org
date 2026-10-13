@@ -1,6 +1,7 @@
 ---
 import { getEntry } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
+import ActionIcon from "../../../components/ActionIcon.astro";
 import CardGrid from "../../../components/CardGrid.astro";
 import CardItem from "../../../components/CardItem.astro";
 import CitationBlock from "../../../components/CitationBlock.astro";
@@ -288,7 +289,8 @@ const breadcrumbItems = [
                   data-copy-link={`/diagnostics/${tool.slug}`}
                   aria-label={`Copy link to ${tool.title}`}
                 >
-                  Copy link
+                  <ActionIcon action="copy" />
+                  <span data-button-label>Copy link</span>
                 </button>
               </div>
               <p class="muted">{tool.description}</p>
@@ -310,6 +312,11 @@ const breadcrumbItems = [
 </BaseLayout>
 
 <script>
+  import {
+    readButtonLabel,
+    setButtonLabel,
+  } from "../../../client/button-label";
+
   const copyButtons = Array.from(document.querySelectorAll("[data-copy-link]"));
 
   copyButtons.forEach((button) => {
@@ -318,7 +325,7 @@ const breadcrumbItems = [
     }
 
     const target = button.getAttribute("data-copy-link");
-    const defaultLabel = button.textContent?.trim() ?? "Copy link";
+    const defaultLabel = readButtonLabel(button) || "Copy link";
 
     if (!target) {
       return;
@@ -329,15 +336,15 @@ const breadcrumbItems = [
 
       try {
         await navigator.clipboard.writeText(link);
-        button.textContent = "Copied";
+        setButtonLabel(button, "Copied");
         window.setTimeout(() => {
-          button.textContent = defaultLabel;
+          setButtonLabel(button, defaultLabel);
         }, 1500);
       } catch (error) {
         console.error("Copy failed", error);
-        button.textContent = "Copy failed";
+        setButtonLabel(button, "Copy failed");
         window.setTimeout(() => {
-          button.textContent = defaultLabel;
+          setButtonLabel(button, defaultLabel);
         }, 1500);
       }
     });

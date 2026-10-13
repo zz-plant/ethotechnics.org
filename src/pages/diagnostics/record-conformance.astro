@@ -1,6 +1,7 @@
 ---
 import "../../styles/components/diagnostics.css";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ActionIcon from "../../components/ActionIcon.astro";
 import DiagnosticToolPage from "../../components/DiagnosticToolPage.astro";
 import { diagnosticsStudioOffRampCallout } from "../../content/callouts";
 import { diagnosticsContent } from "../../content/diagnostics";
@@ -59,7 +60,8 @@ const permalink = `/diagnostics/${tool.slug}`;
       <p class="small muted">
         <a
           href="https://github.com/zz-plant/ethotechnics.org/tree/main/packages/conformance"
-          rel="noopener noreferrer">Package and action documentation →</a
+          rel="noopener noreferrer"
+          >Package and action documentation<ActionIcon action="external" /></a
         >
       </p>
     </aside>

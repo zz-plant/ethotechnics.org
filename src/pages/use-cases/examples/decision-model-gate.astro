@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
+import ActionIcon from "../../../components/ActionIcon.astro";
 import PageIntro from "../../../components/PageIntro.astro";
 import SectionBlock from "../../../components/SectionBlock.astro";
 import UseCaseFit from "../../../components/UseCaseFit.astro";
@@ -331,7 +332,10 @@ const bindings = [
       {
         records.map((record) => (
           <li>
-            <a href={`${recordsBase}/${record.file}`}>{record.label}</a>
+            <a href={`${recordsBase}/${record.file}`}>
+              <ActionIcon action="download" />
+              {record.label}
+            </a>
           </li>
         ))
       }

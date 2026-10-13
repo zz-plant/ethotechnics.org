@@ -6,6 +6,7 @@ import {
   verdictLine,
   type SelfTestAnswer,
 } from "../utils/self-test";
+import { readButtonLabel, setButtonLabel } from "./button-label";
 
 const HASH_PREFIX = "#self-test=";
 
@@ -128,18 +129,18 @@ function init(): void {
   form.addEventListener("change", () => render(true));
 
   shareButton?.addEventListener("click", () => {
-    const original = shareButton.textContent;
+    const original = readButtonLabel(shareButton);
     const reset = () =>
       window.setTimeout(() => {
-        shareButton.textContent = original;
+        setButtonLabel(shareButton, original);
       }, 2000);
     navigator.clipboard
       .writeText(location.href)
       .then(() => {
-        shareButton.textContent = "Link copied";
+        setButtonLabel(shareButton, "Link copied");
       })
       .catch(() => {
-        shareButton.textContent = "Copy the address bar";
+        setButtonLabel(shareButton, "Copy the address bar");
       })
       .finally(reset);
   });

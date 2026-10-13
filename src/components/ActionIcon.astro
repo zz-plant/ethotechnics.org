@@ -1,0 +1,32 @@
+---
+/**
+ * The icon beside a print, copy, download, or external-link action, drawn
+ * the same way everywhere. It is decorative: the words beside it carry the
+ * meaning. Sizing and spacing live in button-pill.css (.action-icon).
+ *
+ * React islands draw the same icons with features/action-icon/ActionIcon.tsx.
+ */
+import { Icon } from "astro-icon/components";
+
+const icons = {
+  print: "lucide:printer",
+  copy: "lucide:copy",
+  download: "lucide:download",
+  external: "lucide:arrow-up-right",
+} as const;
+
+interface Props {
+  action: keyof typeof icons;
+}
+
+const { action }: Props = Astro.props;
+// An action icon leads its label; the external-link arrow trails it.
+const trailing = action === "external";
+---
+
+<Icon
+  name={icons[action]}
+  class:list={["action-icon", trailing && "action-icon--trailing"]}
+  aria-hidden="true"
+  focusable="false"
+/>

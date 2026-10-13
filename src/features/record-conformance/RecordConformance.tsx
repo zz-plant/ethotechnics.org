@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState } from "react";
+import { ActionIcon } from "../action-icon/ActionIcon";
 
 import {
   auditRecords,
@@ -353,6 +354,7 @@ function RecordConformance() {
                   className="record-conformance__button"
                   onClick={() => void copyReadout()}
                 >
+                  <ActionIcon action="copy" />
                   {copied ? "Copied" : "Copy the readout"}
                 </button>
               </div>

@@ -1,6 +1,7 @@
 ---
 import "../styles/components/intake-form.css";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import ActionIcon from "../components/ActionIcon.astro";
 import Logo from "../components/Logo.astro";
 import ClaimsTable from "../components/ClaimsTable.astro";
 import IntellectualLineage from "../components/IntellectualLineage.astro";
@@ -205,7 +206,7 @@ for (const entry of cases) {
         rel="noopener noreferrer"
         target="_blank"
       >
-        Visit Ethotechnics Studio →
+        Visit Ethotechnics Studio<ActionIcon action="external" />
       </a>
     </p>
   </section>

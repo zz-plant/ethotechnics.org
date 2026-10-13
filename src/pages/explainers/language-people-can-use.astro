@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ActionIcon from "../../components/ActionIcon.astro";
 import NextStep from "../../components/NextStep.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
@@ -97,6 +98,7 @@ const contextBlocks = [
   >
     <Fragment slot="actions">
       <button class="button ghost" type="button" data-language-print>
+        <ActionIcon action="print" />
         Print or save as PDF
       </button>
     </Fragment>

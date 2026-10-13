@@ -1,6 +1,7 @@
 ---
 import "../../styles/components/intake-form.css";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ActionIcon from "../../components/ActionIcon.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import { formatDate } from "../../utils/dates";
@@ -146,6 +147,7 @@ const changelog = [
             <h3>{download.label}</h3>
             <p class="muted">{download.detail}</p>
             <a class="button ghost" href={download.href}>
+              <ActionIcon action="download" />
               Download
             </a>
           </article>
@@ -340,15 +342,19 @@ const changelog = [
         </p>
         <div class="intake-form__actions">
           <button class="button primary" type="button" data-export="pdf">
+            <ActionIcon action="print" />
             Export PDF
           </button>
           <button class="button ghost" type="button" data-export="md">
+            <ActionIcon action="download" />
             Export Markdown
           </button>
           <button class="button ghost" type="button" data-export="csv">
+            <ActionIcon action="download" />
             Export CSV
           </button>
           <button class="button ghost" type="button" data-export="json">
+            <ActionIcon action="download" />
             Export JSON
           </button>
         </div>

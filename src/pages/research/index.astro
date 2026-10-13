@@ -3,6 +3,7 @@ import InlineScript from "../../components/InlineScript.astro";
 import "../../styles/components/research.css";
 import PageIntro from "../../components/PageIntro.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ActionIcon from "../../components/ActionIcon.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
@@ -402,6 +403,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                         : {})}
                     >
                       View artifact
+                      {artifact.href.startsWith("http") && (
+                        <ActionIcon action="external" />
+                      )}
                     </a>
                   </div>
                 </CardItem>

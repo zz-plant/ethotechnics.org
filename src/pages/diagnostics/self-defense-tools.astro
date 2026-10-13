@@ -1,6 +1,7 @@
 ---
 import "../../styles/components/diagnostics.css";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ActionIcon from "../../components/ActionIcon.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import PageIntro from "../../components/PageIntro.astro";
@@ -193,6 +194,7 @@ const tools = [
   >
     <Fragment slot="actions">
       <button class="button ghost" type="button" data-self-defense-print>
+        <ActionIcon action="print" />
         Print or save as PDF
       </button>
     </Fragment>
@@ -258,6 +260,7 @@ const tools = [
                             type="button"
                             data-self-defense-print
                           >
+                            <ActionIcon action="print" />
                             {step.label}
                           </button>
                         ) : (

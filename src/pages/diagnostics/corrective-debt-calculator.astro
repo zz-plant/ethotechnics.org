@@ -1,6 +1,7 @@
 ---
 import "../../styles/components/diagnostics.css";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ActionIcon from "../../components/ActionIcon.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
 import DiagnosticMethodology from "../../components/DiagnosticMethodology.astro";
 import PageIntro from "../../components/PageIntro.astro";
@@ -240,7 +241,8 @@ const anchorLinks = [
       </label>
       <div class="intake-form__actions">
         <button class="button ghost" type="button" data-debt-copy>
-          Copy share link
+          <ActionIcon action="copy" />
+          <span data-button-label>Copy share link</span>
         </button>
       </div>
     </div>
@@ -257,6 +259,8 @@ const anchorLinks = [
 </BaseLayout>
 
 <script>
+  import { readButtonLabel, setButtonLabel } from "../../client/button-label";
+
   const form = document.querySelector<HTMLFormElement>("[data-debt-form]");
   const results = document.querySelector<HTMLElement>("[data-debt-results]");
   const scoreValue = document.querySelector<HTMLElement>("[data-debt-score]");
@@ -634,11 +638,11 @@ const anchorLinks = [
     shareInput.select();
     try {
       await navigator.clipboard.writeText(shareInput.value);
-      const originalText = copyButton.textContent;
-      copyButton.textContent = "Copied!";
+      const originalText = readButtonLabel(copyButton);
+      setButtonLabel(copyButton, "Copied!");
       copyButton.setAttribute("aria-live", "polite");
       setTimeout(() => {
-        copyButton.textContent = originalText;
+        setButtonLabel(copyButton, originalText);
         copyButton.removeAttribute("aria-live");
       }, 2500);
     } catch {

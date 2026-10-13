@@ -1,4 +1,6 @@
 ---
+import ActionIcon from "./ActionIcon.astro";
+
 interface Props {
   title: string;
   summary: string;
@@ -30,6 +32,7 @@ const linkAriaLabel = ariaLabel ?? `Read more about ${title}`;
     rel={isExternal ? "noopener noreferrer" : undefined}
     target={isExternal ? "_blank" : undefined}
   >
-    {linkLabel} &rarr;
+    {linkLabel}
+    {isExternal ? <ActionIcon action="external" /> : <>&rarr;</>}
   </a>
 </aside>
