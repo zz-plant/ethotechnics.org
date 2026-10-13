@@ -52,6 +52,15 @@ const breakdown = stateVariables.map((v) => {
     ].filter((tag) => tag.n > 0),
   };
 });
+
+// The casebook's matrix footer used to give the failed count per safeguard in
+// text. The matrix is gone, so the chart's accessible name carries every
+// count the bars draw.
+const chartLabel = `Stacked bars, one per safeguard. ${breakdown
+  .map(
+    (item) => `${item.label}: ${item.tags.map((tag) => tag.text).join(", ")}`,
+  )
+  .join(". ")}.`;
 ---
 
 <figure class="state-diagram" aria-labelledby="casebook-chart-title">
@@ -80,7 +89,7 @@ const breakdown = stateVariables.map((v) => {
       viewBox="0 0 920 380"
       role="img"
       class="state-diagram__svg"
-      aria-label="Horizontal stacked bar chart showing the failure distribution across the six safeguards: Capability, Authority, Evidence, Dependency, Standing, and Correction."
+      aria-label={chartLabel}
     >
       <defs>
         <pattern
