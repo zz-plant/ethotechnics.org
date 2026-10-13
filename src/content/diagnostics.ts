@@ -172,7 +172,7 @@ export const diagnosticsContent: DiagnosticsContent = {
   },
   valueProps: [
     {
-      title: "One question per tool",
+      title: "Each tool answers one question",
       description:
         "Each diagnostic answers one question about one workflow, and its method card states what it does not measure.",
     },

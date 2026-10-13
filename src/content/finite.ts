@@ -153,7 +153,7 @@ export const finiteContent = {
   institutionalGames: {
     eyebrow: "Adversarial institutional drills",
     title:
-      "Five drills for a system that meets its targets by shifting the cost to people",
+      "Drills for a system that meets its targets by shifting the cost to people",
     description:
       "Each tests whether an automated system keeps its numbers looking healthy by using up unrecorded human time, shifting costs onto other organizations, or suppressing the signals that would correct it.",
     conditions: [

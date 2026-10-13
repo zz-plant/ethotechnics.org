@@ -9,7 +9,7 @@ const { test: applicability } = useCasesContent;
 
 const pageTitle = "Start: role paths";
 const pageDescription =
-  "Seven roles, one page each. Pick the one that describes your work and get the standards, tools, and checklists that apply to it.";
+  "Pick the role that describes your work and get the standards, tools, and checklists that apply to it.";
 ---
 
 <BaseLayout
@@ -24,8 +24,8 @@ const pageDescription =
         <span class="pill pill--ghost">Start</span>
         <h1 class="page-title">Find your path through Ethotechnics</h1>
         <p class="page-lede">
-          Seven roles, one page each. Pick the one closest to your work to see
-          the standards, tools, and first steps that apply to it.
+          Pick the role closest to your work to see the standards, tools, and
+          first steps that apply to it.
         </p>
         <p class="small muted">
           Or start from
@@ -95,7 +95,9 @@ const pageDescription =
             <div class="role-card__header">
               <span class="role-card__badge">{role.label}</span>
               <h2 class="role-card__title">
-                <a href={rolePermalink(role.id)}>{role.who.replace(/\.$/, "")}</a>
+                <a href={rolePermalink(role.id)}>
+                  {role.who.replace(/\.$/, "")}
+                </a>
               </h2>
               <p class="role-card__tagline">{role.tagline}</p>
             </div>

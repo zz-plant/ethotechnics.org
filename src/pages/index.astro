@@ -6,19 +6,6 @@ import HomeRail from "../components/home/HomeRail.astro";
 import RecordSpine from "../components/home/RecordSpine.astro";
 import SafeguardMap from "../components/home/SafeguardMap.astro";
 import SelfTest from "../components/home/SelfTest.astro";
-import { evalsContent } from "../content/evals";
-import { governanceContent } from "../content/governance";
-import { standardsContent } from "../content/standards";
-
-// The pillar counts are read from the same arrays the /standards and /evals
-// pages list from, so adding an entry updates this page instead of leaving a
-// stale number beside a live one. The failure count works the same way
-// against the governance page's archive.
-const draftStandards = standardsContent.standards.filter(
-  (standard) => standard.status === "Draft",
-).length;
-const suiteCount = evalsContent.suites.length;
-const failureCount = governanceContent.failureLog.length;
 
 /**
  * The front door as one story in reading order, told without ever holding
@@ -59,12 +46,12 @@ const doors = [
   {
     href: "/roles/executive",
     who: "I decide whether to deploy them",
-    what: "What five public failures cost, and what to check before you commit to a deployment.",
+    what: "What public failures have cost, and what to check before you commit to a deployment.",
   },
   {
     href: "/diagnostics/self-defense-tools",
     who: "A system decided something about me",
-    what: "Three checks: can this decision be challenged, can the appeal change the outcome, and who holds power here?",
+    what: "Can this decision be challenged, can the appeal change the outcome, and who holds power here?",
   },
   {
     href: "/research/scholarly-crossings",
@@ -105,21 +92,21 @@ const doors = [
     </div>
     <div class="home-pillars">
       <a class="home-pillar" href="/standards">
-        <strong>{draftStandards} draft standards</strong>
+        <strong>Draft standards</strong>
         <span class="small muted"
           >The records a running system has to keep: an answer to every
           objection, and authority that expires.</span
         >
       </a>
       <a class="home-pillar" href="/evals">
-        <strong>{suiteCount} eval suites</strong>
+        <strong>Eval suites</strong>
         <span class="small muted"
           >They test the deployment, not the model: whether a decision can be
           challenged, halted, and reversed.</span
         >
       </a>
       <a class="home-pillar" href="/diagnostics">
-        <strong>Free diagnostic tools</strong>
+        <strong>Diagnostic tools</strong>
         <span class="small muted"
           >Each takes one workflow or set of figures and returns a scored
           readout you can link or export.</span
@@ -160,7 +147,7 @@ const doors = [
       the fourth ruling would have sent the rule to its owner.
     </p>
     <p class="small muted">
-      This is Law VIII of the twelve the standards are built on: observability
+      This is Law VIII of the laws the standards are built on: observability
       without state transition is theater. A ruling that changes one case and
       not the rule is an observation the system never acts on.
       <a href="/standards/laws#law-viii">Read Law VIII</a> ·
@@ -181,8 +168,9 @@ const doors = [
 
   <nav class="home-doors" aria-labelledby="home-doors-heading">
     <div class="home-doors__header">
-      <p class="eyebrow">Start from where you are</p>
-      <h2 id="home-doors-heading" class="section__heading">Five ways in.</h2>
+      <h2 id="home-doors-heading" class="section__heading">
+        Start from where you are.
+      </h2>
     </div>
     <ul class="home-doors__list">
       {
@@ -244,7 +232,7 @@ const doors = [
           The framework keeps the record it asks of institutions: where its own
           instruments failed, and what changed because of it.
           <a href="/institute/governance#failure-archive">
-            Read the {failureCount === 1 ? "entry" : `${failureCount} entries`}
+            Read the failure archive
           </a>
         </p>
       </div>

@@ -95,7 +95,7 @@ export type UseCasesContent = PageWithPermalink & {
 export const useCasesContent: UseCasesContent = {
   pageTitle: "Which systems this is for — Ethotechnics",
   pageDescription:
-    "Six kinds of automated decision the standards, cases, and tools are built for, which standards and tool to start with in each, and six where the framework does less.",
+    "The kinds of automated decision the standards, cases, and tools are built for, which standard and tool to start with in each, and where the framework does less.",
   permalink: "/use-cases",
   eyebrow: "Fit",
   title: "Which systems this is for",
