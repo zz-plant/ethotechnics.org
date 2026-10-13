@@ -243,7 +243,7 @@ export const evalsContent: EvalsContent = {
         version: "1.4.0",
         date: "2026-09-11",
         summary:
-          "Adds Agent Chains (draft), bound to STD-09: whether a chain of delegations can be measured and stopped as one composition. Two machine-answerable cases — composed window and boundary halt — bring Tier 1 to twelve. 14 eval suites, 142 test cases.",
+          "Adds Agent chains (draft), bound to STD-09: whether a chain of delegations can be measured and stopped as one composition. Two machine-answerable cases — composed window and boundary halt — bring Tier 1 to twelve. 14 eval suites, 142 test cases.",
       },
       {
         version: "1.3.0",

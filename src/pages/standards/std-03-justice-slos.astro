@@ -4,15 +4,14 @@ import CitationBlock from "../../components/CitationBlock.astro";
 import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
 import { derivePublicationMetadata } from "../../utils/publication";
 
-const pageTitle =
-  "STD-03 — Justice SLOs (Targets, Budgets, and Breach Actions)";
+const pageTitle = "STD-03 — Justice SLOs: targets, budgets, and breach actions";
 const permalink = "/standards/std-03-justice-slos";
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
 const breadcrumbItems = [
   { name: "Home", url: new URL("/", siteBase).toString() },
   { name: "Standards", url: new URL("/standards", siteBase).toString() },
   {
-    name: "Justice SLOs (Targets, Budgets, and Breach Actions)",
+    name: "Justice SLOs: targets, budgets, and breach actions",
     url: new URL("/standards/std-03-justice-slos", siteBase).toString(),
   },
 ];
@@ -96,13 +95,13 @@ const structuredData = {
   "@context": "https://schema.org",
   "@type": "TechArticle",
   "@id": pageUrl,
-  headline: "STD-03 — Justice SLOs (Targets, Budgets, and Breach Actions)",
+  headline: "STD-03 — Justice SLOs: targets, budgets, and breach actions",
   description:
     "A draft standard: each justice metric needs a numeric threshold, a measurement window, a breach action, and a named owner.",
   url: pageUrl,
   datePublished: "2026-01-01",
-  dateModified: "2026-10-06",
-  version: "0.6.1",
+  dateModified: "2026-10-13",
+  version: "0.6.2",
   identifier: "STD-03",
   publisher: {
     "@type": "Organization",
@@ -134,10 +133,10 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 const publication = derivePublicationMetadata({
   permalink,
   published: "2026-01-01T00:00:00Z",
-  updated: "2026-10-06T00:00:00Z",
-  version: "v0.6.1",
+  updated: "2026-10-13T00:00:00Z",
+  version: "v0.6.2",
   changelogSummary:
-    "Editorial revision: one name, justice SLO, used throughout, and each metric defined. No requirement changed.",
+    'Editorial revision; no requirement changed. Retitled in sentence case; formerly "Justice SLOs (Targets, Budgets, and Breach Actions)".',
 });
 ---
 
@@ -157,7 +156,7 @@ const publication = derivePublicationMetadata({
       <div>
         <p class="standard-header__id">STANDARD STD-03</p>
         <h1 class="standard-header__title">
-          Justice SLOs (Targets, Budgets, and Breach Actions)
+          Justice SLOs: targets, budgets, and breach actions
         </h1>
       </div>
     </header>

@@ -91,7 +91,7 @@ export const methodContent: MethodContent = {
       currentAssets: [
         "Evidence packs for STD-01, STD-02, STD-06, STD-08, and STD-09",
         "Links on each decision record to the evidence it relied on",
-        "STD-06 Human Impact Safety Case",
+        "STD-06 Human impact safety case",
         "Burden Concealment evals",
         "Institutional debris as an evidence class: workaround logs, override records, grievance files, exception codes, and shadow spreadsheets — the second process that grew around the intended one",
         "STD-07 belief records, with what they rest on and what would invalidate them",
@@ -107,7 +107,7 @@ export const methodContent: MethodContent = {
           href: "/explainers/institutional-debris",
         },
         {
-          label: "STD-07 Revisable Delegation Record",
+          label: "STD-07 Revisable delegation record",
           href: "/standards/std-07-revisable-delegation-record",
         },
         { label: "STD-08 Delegation", href: "/standards/std-08-delegation" },
@@ -133,7 +133,7 @@ export const methodContent: MethodContent = {
       ],
       links: [
         {
-          label: "STD-07 Revisable Delegation Record",
+          label: "STD-07 Revisable delegation record",
           href: "/standards/std-07-revisable-delegation-record",
         },
         { label: "STD-08 Delegation", href: "/standards/std-08-delegation" },
@@ -166,7 +166,7 @@ export const methodContent: MethodContent = {
           href: "/mechanisms/patterns/decision-log",
         },
         {
-          label: "STD-07 Revisable Delegation Record",
+          label: "STD-07 Revisable delegation record",
           href: "/standards/std-07-revisable-delegation-record",
         },
       ],
@@ -195,7 +195,7 @@ export const methodContent: MethodContent = {
       title: "Challenge",
       question: "Who can contest the decision, and with what procedural force?",
       currentAssets: [
-        "STD-02 Contestability & Recourse",
+        "STD-02 Contestability and recourse",
         "Minimum viable contestability: standing, reasons, records, timelines, a named responder, defined effects, remedies, and no retaliation",
         "Appeal event schema",
         "MEC-06 appeal paths and MEC-08 contestation APIs",
@@ -216,7 +216,7 @@ export const methodContent: MethodContent = {
           href: "/mechanisms/patterns/contestation-apis",
         },
         {
-          label: "STD-07 Revisable Delegation Record",
+          label: "STD-07 Revisable delegation record",
           href: "/standards/std-07-revisable-delegation-record",
         },
       ],
@@ -240,7 +240,7 @@ export const methodContent: MethodContent = {
           href: "/mechanisms/patterns/escalation-slas",
         },
         {
-          label: "STD-07 Revisable Delegation Record",
+          label: "STD-07 Revisable delegation record",
           href: "/standards/std-07-revisable-delegation-record",
         },
         { label: "STD-08 Delegation", href: "/standards/std-08-delegation" },

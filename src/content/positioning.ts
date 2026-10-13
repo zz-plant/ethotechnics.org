@@ -223,7 +223,7 @@ export const instruments: Instrument[] = [
     has: "The diagnosis that responsibility for an automated failure collapses onto the operator nearest the point of failure, while control sat elsewhere.",
     instrument: "Power-responsibility matrix",
     supplies:
-      "The matrix that makes the mismatch legible before the failure: six variables — capability, authority, evidence, dependency, standing, correction — mapped separately for each role, so the single verdict of human error cannot absorb them.",
+      "The matrix that makes the mismatch legible before the failure: six safeguards — capability, authority, evidence, dependency, standing, correction — mapped separately for each role, so the single verdict of human error cannot absorb them.",
     links: [
       { label: "Crumple zone, glossary", href: "/glossary/crumple-zone" },
       { label: "Insulation", href: "/research/theory/insulation" },

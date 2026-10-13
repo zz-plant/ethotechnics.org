@@ -25,9 +25,9 @@ lean, fast-loading pages and clear storytelling.
 ## What this publishes
 
 - **Standards.** Citable, versioned specifications with numbered clauses, from temporal rights and
-  contestability through the delegation record, STD-08 Delegation, and STD-09 Agent Chains.
+  contestability through the delegation record, STD-08 Delegation, and STD-09 Agent chains.
 - **Laws.** Twelve laws of delegated intelligence, each with the invariant the standards bind, at
-  `/standards/laws`. The method that walks the chain and the six state variables is at `/method`.
+  `/standards/laws`. The method that walks the chain and the six safeguards is at `/method`.
 - **Mechanisms.** Operational blueprints for the controls the clauses call for: decision logs, kill
   switches, appeal paths, authority grant registers, dependency ledgers.
 - **Evals.** Governability evaluation suites and test cases that ask whether a deployed system is

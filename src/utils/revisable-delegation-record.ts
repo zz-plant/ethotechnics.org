@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 /**
- * STD-07 Revisable Delegation Record: the TypeScript validator that mirrors
+ * STD-07 Revisable delegation record: the TypeScript validator that mirrors
  * `public/api/schema/revisable-delegation-record.schema.json`.
  *
  * The JSON schema is the citable artifact; this module is what an emitting

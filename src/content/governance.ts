@@ -216,10 +216,10 @@ export const governanceContent: GovernanceContent = {
     },
     {
       id: "FE-2026-03",
-      title: "The casebook scored variables but not learning",
+      title: "The casebook scored safeguards but not learning",
       detected: "2026-09-18",
       detail:
-        "The casebook scored five public failures against the six state variables, which are present-tense properties of a deployment, and left unstated whether each failure trajectory ended in case resolution or in institutional revision. A framework about correction was missing its own historical category, and its central case — Robodebt — is one where the exceptions were all handled and nothing changed.",
+        "The casebook scored five public failures against the six safeguards, which are present-tense properties of a deployment, and left unstated whether each failure trajectory ended in case resolution or in institutional revision. A framework about correction was missing its own historical category, and its central case — Robodebt — is one where the exceptions were all handled and nothing changed.",
       revision:
         "Every case now carries a learning-outcome verdict, and the exception absorption versus exception learning distinction is formalized in the glossary, a theory essay, and the Corrective Learning eval suite.",
     },
