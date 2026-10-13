@@ -5,7 +5,8 @@
  * explainer, or a failure page otherwise reach the footer with nowhere to go.
  *
  * The case and the law come from src/utils/next-step.ts, which maps the
- * topic text to a state variable. Pass `variable` to skip the keyword match.
+ * topic text to a state variable and uses the page's path to choose among
+ * the cases that failed it. Pass `variable` to skip the keyword match.
  *
  * The action states the safeguard as the self-test's plain question rather
  * than as a law number: glossary and explainer readers arrive from search,
@@ -35,7 +36,11 @@ const { topic = [], variable, action, class: className }: Props = Astro.props;
 
 // No match, no block: a page whose topic names no safeguard shows no case
 // rather than a fallback that has nothing to do with it.
-const pick = pickMatchedCase(variable ?? variableForTopic(...topic));
+const pick = pickMatchedCase(
+  variable ?? variableForTopic(...topic),
+  undefined,
+  Astro.url.pathname,
+);
 const variableLabel = pick
   ? (stateVariables.find((item) => item.id === pick.finding.variable)?.label ??
     pick.finding.variable)

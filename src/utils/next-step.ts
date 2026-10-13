@@ -12,6 +12,11 @@
  *    failed variables: the case where this variable is the clearest cause.
  *    Ties go to casebook order. No failed case, or no topic match, falls
  *    back to Robodebt.
+ *
+ * Pages pass their own path as a seed, and the seed picks among every case
+ * where the variable failed. Without it, each variable always got its
+ * clearest case, so seventeen pages closed on the 2020 exam grades and
+ * fifteen on the childcare benefits scandal.
  */
 import {
   cases,
@@ -185,14 +190,27 @@ export function pickCase(
   return toPick(fallback, finding);
 }
 
+/** A stable index into `length` items for a string, e.g. a page path. */
+export function seedIndex(seed: string, length: number): number {
+  let hash = 0;
+  for (const char of seed) {
+    hash = (hash * 31 + char.charCodeAt(0)) >>> 0;
+  }
+  return length > 0 ? hash % length : 0;
+}
+
 /**
  * The case and finding for a state variable, or undefined when nothing
  * matches. Pages use this one: a fallback case shown on a page whose topic
  * matched nothing put Robodebt under 158 unrelated glossary entries.
+ *
+ * With a `seed`, any case where the variable failed can be chosen, the same
+ * one every time for the same seed. Without one, the clearest case wins.
  */
 export function pickMatchedCase(
   variable: StateVariableId | undefined,
   source: readonly Case[] = cases,
+  seed?: string,
 ): NextStepPick | undefined {
   if (!variable) return undefined;
   const candidates = source
@@ -207,7 +225,8 @@ export function pickMatchedCase(
       (a, b) =>
         failedCount(a.entry) - failedCount(b.entry) || a.index - b.index,
     );
-  const chosen = candidates[0]?.entry;
+  const index = seed ? seedIndex(seed, candidates.length) : 0;
+  const chosen = candidates[index]?.entry;
   const finding = chosen?.findings.find((item) => item.variable === variable);
   return chosen && finding ? toPick(chosen, finding) : undefined;
 }
