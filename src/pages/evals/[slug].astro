@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
+import EvalStackFigure from "../../components/EvalStackFigure.astro";
 import { evalsContent } from "../../content/evals";
 import { evalTestCases } from "../../content/eval-test-cases";
 import { getStandardById } from "../../content/standards";
@@ -76,6 +77,7 @@ const standardHref = (ref: string) => {
     title="Scope, scoring, and deliverables"
     description={suite.longDescription}
   >
+    {stackLayer && <EvalStackFigure layer={stackLayer.id} />}
     <div class="grid grid--two">
       <div class="panel stack-sm">
         <p class="eyebrow">Details</p>
@@ -127,17 +129,6 @@ const standardHref = (ref: string) => {
               </li>
             ))}
           </ul>
-        </div>
-      )
-    }
-
-    {
-      stackLayer && (
-        <div class="panel stack-sm">
-          <p class="eyebrow">Evaluation layer</p>
-          <p class="muted">
-            <a href="/evals#stack">{stackLayer.title}</a>: {stackLayer.question}
-          </p>
         </div>
       )
     }

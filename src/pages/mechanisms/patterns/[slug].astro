@@ -2,6 +2,7 @@
 import { getEntry } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import CardGrid from "../../../components/CardGrid.astro";
+import ChainPositionFigure from "../../../components/ChainPositionFigure.astro";
 import CardItem from "../../../components/CardItem.astro";
 import CitationBlock from "../../../components/CitationBlock.astro";
 import PageIntro from "../../../components/PageIntro.astro";
@@ -87,6 +88,10 @@ const breadcrumbItems = [
     anchorLinks={anchorLinks}
   />
   <SectionBlock id="glossary" title="Safeguards and terms" variant="alt">
+    <ChainPositionFigure
+      stages={pattern.chainStages}
+      note={pattern.chainNote}
+    />
     <div class="pattern-detail__tags">
       <p class="eyebrow">Serves</p>
       <ul class="pill-list pattern-detail__glossary-links">

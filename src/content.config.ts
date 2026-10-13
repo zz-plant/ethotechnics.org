@@ -13,6 +13,16 @@ const mechanismSafeguards = [
   "standing",
   "correction",
 ] as const;
+/** The seven stages of the method's chain, in order (src/content/method.ts). */
+const chainStageIds = [
+  "evidence",
+  "authority",
+  "decision",
+  "consequence",
+  "challenge",
+  "reconsideration",
+  "correction",
+] as const;
 const pageCopySchema = z.object({
   pageTitle: z.string(),
   pageDescription: z.string(),
@@ -219,6 +229,8 @@ const library = defineCollection({
           metaDescription: z.string().optional(),
           summary: z.string(),
           filters: z.array(z.enum(mechanismSafeguards)).min(1),
+          chainStages: z.array(z.enum(chainStageIds)).min(1),
+          chainNote: z.string(),
           glossaryRefs: z.array(z.string()),
           cues: z.array(z.string()),
           diagnostics: z.array(z.string()),
