@@ -98,7 +98,7 @@ export const finiteContent = {
     heading: "Finite",
     lede: "Adversarial tests of whether the people an automated decision system affects can halt it and undo its decisions: without retaliation, without corrupting its records, and without relying on unlogged human labor to prop up its numbers.",
     summary:
-      "Most benchmarks reward capability and throughput. Finite measures what happens in the institution: whether the system's authority to act can be withdrawn without penalizing frontline workers, how cleanly real-world harms can be undone, and who pays when the system fails.",
+      "Finite measures what happens in the institution, not the model: whether the system's authority to act can be withdrawn without penalizing frontline workers, how cleanly real-world harms can be undone, and who pays when the system fails.",
     actions: [
       {
         label: "The Green Dashboard paper",

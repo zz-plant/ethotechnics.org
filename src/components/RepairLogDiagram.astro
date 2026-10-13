@@ -63,7 +63,12 @@ const repeats = entries.filter((entry) => entry.rule === RULE).length;
     </p>
   </figcaption>
 
-  <div class="diagram-scroll">
+  <div
+    class="diagram-scroll"
+    tabindex="0"
+    role="region"
+    aria-labelledby="repair-log-title"
+  >
     <svg
       viewBox="0 0 920 450"
       role="img"

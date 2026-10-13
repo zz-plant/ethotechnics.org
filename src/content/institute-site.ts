@@ -31,11 +31,11 @@ export const artifacts: InstituteArtifact[] = [
     enforcesBullets: [
       "Every decision has a named owner.",
       "Who can reverse a decision is explicit.",
-      "Contestability is bounded in time and procedure.",
+      "A challenge has a deadline for an answer and a stated procedure.",
     ],
     howToSteps: [
-      "Fill this out before deployment for any decision that can harm a user.",
-      "Publish the contestability path in the user-facing flow.",
+      "Fill this out before deployment for any decision that can cut off someone's benefit, care, housing, credit, or pay.",
+      "Put the way to challenge the decision on the screen or letter that delivers it.",
       "Treat the reversal clock as an operational commitment, not a target.",
     ],
     finalLine:
@@ -105,16 +105,16 @@ export const artifacts: InstituteArtifact[] = [
     name: "Harm receipt format",
     slug: "harm-receipt-format",
     description: [
-      "Specifies what the system owes a user when it is wrong: acknowledgment, explanation, remedy path, and time bounds.",
-      "Silence is not an acceptable resolution state.",
+      "Specifies what you owe a person your system got wrong: an admission, the reasons, the remedy, and the date it arrives.",
+      "An unanswered error counts as a missed deadline.",
     ],
     enforcesBullets: [
       "Repair obligations are explicit.",
-      "Users receive a bounded remedy path.",
-      "The burden of proof is limited.",
+      "The person gets a remedy by a stated date.",
+      "The person does not have to prove the system wrong.",
     ],
     howToSteps: [
-      "Issue a harm receipt whenever a material error is discovered.",
+      "Issue a harm receipt whenever you find a decision that hurt someone was wrong.",
       "Include remedy path, time bounds, and escalation contact.",
       "Log harm receipts as governance events, not support tickets.",
     ],
@@ -144,7 +144,7 @@ export const failureStates: FailureState[] = [
     slug: "model-wrong",
     shortLabel: "Model wrong",
     descriptionLine1:
-      "The model's output is wrong in a way that matters, and the organization cannot reliably find, correct, or reverse its effects within a set time.",
+      "The model is wrong about real people, and you cannot find those people, correct the decisions, or undo the effects by a set date.",
     descriptionLine2:
       "The main failure is finding and recovering from the error, not the model's accuracy.",
     artifactSlugs: [
@@ -160,7 +160,8 @@ export const failureStates: FailureState[] = [
     shortLabel: "Queue stuck",
     descriptionLine1:
       'Work is piling up with no deadline for resolving it. "Pending" has become an outcome in its own right, and nobody has counted its cost.',
-    descriptionLine2: "The delay itself is doing harm, and keeps doing it.",
+    descriptionLine2:
+      "Every day in the queue is a day someone goes without what they are owed.",
     artifactSlugs: [
       "escalation-ladder-freeze-authority",
       "reversal-sla-template",
@@ -169,12 +170,12 @@ export const failureStates: FailureState[] = [
     footerLine: failureFooterLine,
   },
   {
-    title: "A person was harmed",
+    title: "Someone was wrongly denied, cut off, or billed",
     slug: "user-harmed",
-    shortLabel: "User harmed",
+    shortLabel: "Wrongly denied",
     descriptionLine1:
-      "A person was materially harmed, and the organization cannot say what happened, what the person is owed, or how it will be repaired.",
-    descriptionLine2: "The person affected is paying for the failure.",
+      "Your system took something from someone it should not have, and you cannot say what happened, what they are owed, or when they will get it back.",
+    descriptionLine2: "They are paying for your error, in money and in time.",
     artifactSlugs: [
       "harm-receipt-format",
       "decision-record-template",
@@ -187,9 +188,9 @@ export const failureStates: FailureState[] = [
     slug: "no-owner",
     shortLabel: "No owner",
     descriptionLine1:
-      "Something has failed, and nobody can be named who has the authority to reverse it, compensate for it, or close it out.",
+      "A wrong decision is still in force, and nobody can be named who has the authority to reverse it, pay for it, or close it out.",
     descriptionLine2:
-      "Without an owner, nobody is responsible for resolving the harm.",
+      "Until someone is named, the person it hurt has nobody to hold to a deadline.",
     artifactSlugs: [
       "decision-record-template",
       "escalation-ladder-freeze-authority",

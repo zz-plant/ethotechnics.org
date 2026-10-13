@@ -42,16 +42,18 @@ const publication = createImplementationPublication(
   }
   <UseCaseFit slug="retail-personalization">
     <p>
-      Personalization can quietly compound bias when users lack direct control
-      over targeting loops.
+      A retailer's targeting decides who sees which price, which offer, and
+      which job ad. A shopper who is shown worse terms because of their postcode
+      or age never sees the better ones, so has nothing to challenge.
     </p>
     <p>
       Standard governance relies on policy constraints and review gates with
       limited authority at runtime. It excludes sensitive attributes such as
       gender or age, runs cross-functional ethics reviews before deployment, and
-      publishes notices about data use and tracking. A person oversees
-      high-impact recommendation changes, and periodic audits look for
-      demographic skew or unintended patterns.
+      publishes notices about data use and tracking. A person signs off on large
+      changes to the recommender, and a periodic audit checks whether some
+      groups are shown worse prices or offers. None of it lets the shopper see
+      what they were not shown.
     </p>
   </UseCaseFit>
 
