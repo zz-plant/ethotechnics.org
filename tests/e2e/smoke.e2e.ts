@@ -184,15 +184,32 @@ test.describe("Diagnostics page", () => {
 });
 
 test.describe("Mechanisms library", () => {
-  test("offers copyable diagnostic links in pattern cards", async ({
+  test("leads from a pattern card to copyable diagnostic links", async ({
     page,
   }) => {
+    if (!MECHANISM_WITH_DIAGNOSTICS) {
+      throw new Error("No mechanism lists a diagnostic; check library.json.");
+    }
+    const { slug, title, diagnostics } = MECHANISM_WITH_DIAGNOSTICS;
+    const tool = diagnosticsContent.tools.find(
+      (entry) => entry.slug === diagnostics[0],
+    );
+    if (!tool) {
+      throw new Error(`${slug} lists an unknown diagnostic: ${diagnostics[0]}`);
+    }
     await page.goto("/mechanisms");
 
-    // The links sit in each card's disclosure, below its summary.
-    await page.getByText("Steps, terms, and diagnostics").first().click();
+    // A catalog card is its title and summary. The diagnostics and their
+    // copy buttons live on the mechanism's own page.
+    await page
+      .locator(`[data-pattern-card][id="${slug}"]`)
+      .getByRole("link", { name: title })
+      .click();
+    await expect(page).toHaveURL(`/mechanisms/patterns/${slug}`);
     await expect(
-      page.getByRole("button", { name: "Copy diagnostic links" }).first(),
+      page
+        .locator("#diagnostics")
+        .getByRole("button", { name: `Copy link to ${tool.title}` }),
     ).toBeVisible();
   });
 
