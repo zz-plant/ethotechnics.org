@@ -41,7 +41,9 @@ const failureCount = governanceContent.failureLog.length;
  * the fix, and the self-test draws the reader's system as a six-node ring.
  *
  * The role doors appear once, after the self-test. A reader who wants a role
- * page before the story has the header's Start button.
+ * page before the story has the header's Start button. The pillars stay
+ * links although the desktop bar repeats two of them: on a phone the bar
+ * shows no sections, and they are the first screen's only way to them.
  */
 const doors = [
   {
@@ -76,6 +78,7 @@ const doors = [
   title="Ethotechnics Institute — who has to act when a system is wrong?"
   description="Open standards, scored public failures, and free diagnostics for one question: when an automated decision system is wrong, does anyone have to change it?"
   structuredDataType="collection"
+  footerOmit={["/about", "/participate#feedback", "/institute/governance"]}
 >
   <HomeRail />
 
@@ -101,7 +104,6 @@ const doors = [
     </div>
     <div class="home-pillars">
       <a class="home-pillar" href="/standards">
-        <span class="eyebrow">Standards</span>
         <strong>{draftStandards} draft standards</strong>
         <span class="small muted"
           >The records a running system has to keep: an answer to every
@@ -109,16 +111,14 @@ const doors = [
         >
       </a>
       <a class="home-pillar" href="/evals">
-        <span class="eyebrow">Evaluations</span>
-        <strong>{suiteCount} test suites</strong>
+        <strong>{suiteCount} evaluation suites</strong>
         <span class="small muted"
           >They test the deployment, not the model: whether a decision can be
           challenged, halted, and reversed.</span
         >
       </a>
       <a class="home-pillar" href="/diagnostics">
-        <span class="eyebrow">Diagnostics</span>
-        <strong>Free browser tools</strong>
+        <strong>Free diagnostic tools</strong>
         <span class="small muted"
           >Each takes one workflow or set of figures and returns a scored
           readout you can link or export.</span
@@ -200,15 +200,16 @@ const doors = [
     </ul>
     <p class="home-doors__fit small muted">
       Not sure the framework applies to your system?
-      <a href="/use-cases">See which systems it is for →</a>
+      <a href="/use-cases">Which systems this is for →</a>
     </p>
   </nav>
 
   {
     /*
-      The site's own answer to the question it asks of institutions. The
-      global footer below carries the license and the link lists; this block
-      names the author and the routes a correction can take.
+      The site's own answer to the question it asks of institutions. It
+      names the author and the routes a correction can take, so the footer
+      below leaves out the About, feedback, and governance links it would
+      otherwise repeat (footerOmit above).
     */
   }
   <section

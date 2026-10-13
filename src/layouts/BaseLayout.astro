@@ -54,6 +54,12 @@ interface Props {
    */
   pageSchema?: "layout" | "route";
   canonical?: string;
+  /**
+   * Footer hrefs to leave out because the page links them just above the
+   * footer. The home page closes on who answers for the site, with links to
+   * /about and the feedback inbox; the footer under it would repeat them.
+   */
+  footerOmit?: string[];
 }
 
 const siteName = "Ethotechnics Institute";
@@ -78,6 +84,7 @@ const {
   structuredDataType = "auto",
   pageSchema = "layout",
   canonical: canonicalProp,
+  footerOmit = [],
 }: Props = Astro.props;
 
 const robotsProps = toSeoRobotsProps(robots);
@@ -104,7 +111,12 @@ const organizationId = `${siteBase}#organization`;
 const websiteId = `${siteBase}#website`;
 const webpageId = canonical;
 const { identity, navigation } = siteFooter;
-const footerNav = navigation as FooterNavSection[];
+const footerNav = (navigation as FooterNavSection[])
+  .map((section) => ({
+    ...section,
+    links: section.links.filter((link) => !footerOmit.includes(link.href)),
+  }))
+  .filter((section) => section.links.length > 0);
 const logoUrl = new URL(identity.brand.logoSrc, siteBase).toString();
 const logoId = `${siteBase}#logo`;
 const primaryImageId = `${canonical}#primaryimage`;
