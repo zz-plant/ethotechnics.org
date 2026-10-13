@@ -303,7 +303,7 @@ export const roles: Role[] = [
         number: 3,
         title: "Put a checkpoint where the harm happens",
         description:
-          "Design the checkpoints that stop, slow, or escalate a flow when the system is wrong, and put them where people can reach them.",
+          "Design the checkpoints that stop, slow, or escalate a flow when your rule is wrong, and put them where the people it decides about can reach them.",
         ctaLabel: "Read about checkpoints that pause a flow",
         ctaHref: "/explainers/ethical-interrupts",
       },
