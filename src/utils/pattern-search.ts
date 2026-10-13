@@ -8,6 +8,7 @@ import { getGlossaryLabel } from "./glossary";
  */
 export const buildPatternSearchText = (pattern: Pattern): string =>
   [
+    pattern.code,
     pattern.title,
     pattern.summary,
     pattern.cues.join(" "),

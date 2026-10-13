@@ -4,6 +4,12 @@ import { z } from "astro/zod";
 
 // Reuse common schemas
 
+/**
+ * A mechanism's catalog id, "MEC-05". It is cited in prose and shown beside
+ * the title, never inside it.
+ */
+const mechanismCode = z.string().regex(/^MEC-\d\d$/);
+
 /** The six safeguards, as the mechanism catalog files its patterns. */
 const mechanismSafeguards = [
   "capability",
@@ -207,6 +213,7 @@ const library = defineCollection({
       description: z.string(),
       items: z.array(
         z.object({
+          code: mechanismCode.optional(),
           title: z.string(),
           description: z.string(),
           href: z.string(),
@@ -224,6 +231,7 @@ const library = defineCollection({
       entries: z.array(
         z.object({
           slug: z.string(),
+          code: mechanismCode,
           title: z.string(),
           searchTitle: z.string().optional(),
           metaDescription: z.string().optional(),

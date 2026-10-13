@@ -9,7 +9,7 @@ const scannedExtensions = [".ts", ".json", ".mdx"];
 const mechanismReference = /MEC-(\d\d) ([^"\n<]+)/g;
 
 type LibraryFile = Array<{
-  patterns: { entries: Array<{ title: string }> };
+  patterns: { entries: Array<{ code: string; title: string }> };
 }>;
 
 const collectFiles = async (
@@ -40,10 +40,10 @@ const loadCanonicalTitles = async () => {
   const titles = new Map<string, string>();
 
   for (const entry of parsed[0]?.patterns.entries ?? []) {
-    const match = /^MEC-(\d\d) (.+)$/.exec(entry.title);
+    const match = /^MEC-(\d\d)$/.exec(entry.code);
 
     if (match) {
-      titles.set(match[1]!, match[2]!);
+      titles.set(match[1]!, entry.title);
     }
   }
 
@@ -72,6 +72,18 @@ const isPrefixOf = (shorter: string, longer: string) =>
   (longer.startsWith(shorter) && longer.charAt(shorter.length) === " ");
 
 describe("mechanism names", () => {
+  // The catalog id is metadata shown beside the name; a title that opens
+  // with it reads like a ticket.
+  it("keeps the catalog id out of every mechanism title", async () => {
+    const raw = await readFile(join(contentDir, "library.json"), "utf-8");
+    const [library] = JSON.parse(raw) as LibraryFile;
+    const coded = (library?.patterns.entries ?? [])
+      .map((entry) => entry.title)
+      .filter((title) => /\b[A-Z]{2,4}-\d+\b/.test(title));
+
+    expect(coded).toEqual([]);
+  });
+
   it("matches every MEC title reference against library.json", async () => {
     const canonicalTitles = await loadCanonicalTitles();
 

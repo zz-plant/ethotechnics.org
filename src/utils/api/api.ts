@@ -24,11 +24,6 @@ const standardSlugMap = new Map(
   standardsContent.standards.map((standard) => [standard.id, standard.slug]),
 );
 
-const extractMechanismId = (title: string, slug: string) => {
-  const match = title.match(/MEC-\d+/);
-  return match?.[0] ?? slug.toUpperCase();
-};
-
 export const buildClauseObject = (
   clause: (typeof standardClauses)[string][number],
 ) => {
@@ -100,7 +95,7 @@ export const getMechanismsForApi = () => {
   const publication = libraryContent.publication;
 
   return libraryContent.patterns.entries.map((pattern) => {
-    const id = extractMechanismId(pattern.title, pattern.slug);
+    const id = pattern.code;
     const href = `/mechanisms/patterns/${pattern.slug}`;
 
     return {
@@ -210,7 +205,7 @@ export const getGlossaryEntriesForApi = () =>
 
 export const getAntiPatternsForApi = () =>
   libraryContent.patterns.entries.flatMap((pattern) => {
-    const mechanismId = extractMechanismId(pattern.title, pattern.slug);
+    const mechanismId = pattern.code;
     const mechanismHref = `/mechanisms/patterns/${pattern.slug}`;
 
     return (pattern.antiPatterns ?? []).map((antiPattern, index) => ({

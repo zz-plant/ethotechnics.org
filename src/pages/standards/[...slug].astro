@@ -70,6 +70,13 @@ const publication = derivePublicationMetadata({
   version: data.version ?? registryEntry?.version,
 });
 
+// The heading carries the standard's name and the eyebrow its id; a citation
+// carries both, so it can be quoted without the page around it.
+const citationTitle =
+  standardId && !data.title.includes(standardId)
+    ? `${data.title} (${standardId})`
+    : data.title;
+
 const hasClauseRegister = Boolean(
   standardId &&
   entry.body &&
@@ -131,7 +138,7 @@ if (
     )}
   />
   <CitationBlock
-    title={data.title}
+    title={citationTitle}
     permalink={data.permalink}
     publication={publication}
   />
