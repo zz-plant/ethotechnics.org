@@ -2,9 +2,6 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageIntro from "../components/PageIntro.astro";
 import SectionBlock from "../components/SectionBlock.astro";
-import StateVariableGlyph, {
-  type StateVariableGlyphId,
-} from "../components/StateVariableGlyph.astro";
 import { methodContent } from "../content/method";
 import ChainDiagram from "../components/ChainDiagram.astro";
 import CircuitNavigator from "../components/CircuitNavigator.astro";
@@ -22,7 +19,6 @@ const {
   unitOfGovernance,
   invariant,
   chain,
-  stateVariables,
   laws,
   lenses,
   applicationSequence,
@@ -36,7 +32,6 @@ const anchorLinks = [
   { href: "#chain", label: "The chain" },
   { href: "#circuits", label: "The two circuits" },
   { href: "#state-variables", label: "The six safeguards" },
-  { href: "#matrix", label: "Safeguard matrix" },
   { href: "#laws", label: "The twelve laws" },
   { href: "#incompatible", label: "Sentences that block repair" },
   { href: "#lenses", label: "The three lenses" },
@@ -252,47 +247,15 @@ const substituteJustifications = [
     description="A well-built system records each of these explicitly. It becomes unsafe when they come apart: when it can do more than it is authorized to, or holds authority the evidence no longer supports. The laws call them state variables. The casebook and the self-test score the safeguard that keeps each one in check, so they call them safeguards."
   >
     <SafeguardEquilibriumDiagram />
-    <div class="mapping-table__wrapper">
-      <table class="mapping-table">
-        <thead>
-          <tr>
-            <th scope="col">State</th>
-            <th scope="col">Question</th>
-            <th scope="col">Drift it detects</th>
-            <th scope="col">Law</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            stateVariables.map((variable) => (
-              <tr>
-                <th scope="row">
-                  <StateVariableGlyph
-                    variable={
-                      variable.state.toLowerCase() as StateVariableGlyphId
-                    }
-                    label={variable.state}
-                  />
-                </th>
-                <td>{variable.question}</td>
-                <td>{variable.drift}</td>
-                <td>{variable.lawRefs}</td>
-              </tr>
-            ))
-          }
-        </tbody>
-      </table>
+    {
+      /* A table here gave each safeguard's question, drift, and laws, and the
+         matrix that followed as its own section gave the same three for each
+         safeguard with the standards, cases, essays, and tools beside them.
+         The matrix is the one map. */
+    }
+    <div id="matrix">
+      <SafeguardMatrix />
     </div>
-  </SectionBlock>
-
-  <SectionBlock
-    id="matrix"
-    eyebrow="Reference map"
-    title="The safeguard matrix"
-    description="Compare the laws, standards, scored cases, essays, and tools associated with each safeguard."
-    variant="alt"
-  >
-    <SafeguardMatrix />
   </SectionBlock>
 
   <SectionBlock

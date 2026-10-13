@@ -77,48 +77,49 @@ const standards = standardsContent.standards
     title="The site's own record"
     description="The standards on this site require an answer to every objection, by a date. The site keeps the same rule for objections to its own clauses. Each gets a public answer within 30 days, and every answer is listed here."
     anchorLinks={[
-      { href: "#rules", label: "The rules" },
       { href: "#objections", label: "Objections and answers" },
       { href: "#standards", label: "Standards and versions" },
-      { href: "#casebook", label: "Scored cases" },
     ]}
   />
-
-  <SectionBlock id="rules" title="The rules this site keeps">
-    <ol>
-      <li>
-        Anyone with a GitHub account can object to a clause of a standard. An
-        objection is a GitHub issue, filed from the Object link beside each
-        clause in a standard's clause register or from <a
-          href={OBJECTION_FORM_URL}>the objection form</a
-        >.
-      </li>
-      <li>
-        A bot replies when the objection is filed, with the date its answer is
-        due: {ANSWER_WINDOW_DAYS} days after it was opened.
-      </li>
-      <li>
-        The bot flags an objection with no answer at day {DUE_SOON_AFTER_DAYS} and
-        marks it overdue after day {ANSWER_WINDOW_DAYS}.
-      </li>
-      <li>
-        Each answer says whether the objection is upheld. An upheld objection
-        ends in a revision of the clause or a published reason for keeping it.
-        One upheld objection is enough to require that; there is no threshold.
-      </li>
-      <li>
-        The record below is generated from those GitHub issues. A weekly job
-        proposes the update, and it appears here when it is merged.
-      </li>
-    </ol>
-  </SectionBlock>
 
   <SectionBlock
     id="objections"
     title="Objections and answers"
-    description={`Generated from GitHub issues on ${generatedOn}.`}
-    variant="alt"
+    description={`The rules the site keeps, then the record they produce, generated from GitHub issues on ${generatedOn}.`}
   >
+    {
+      /* The rules had a section of their own above this one, and the empty
+         state below repeated the first rule. They head the record they
+         govern. */
+    }
+    <div id="rules">
+      <ol>
+        <li>
+          Anyone with a GitHub account can object to a clause of a standard. An
+          objection is a GitHub issue, filed from the Object link beside each
+          clause in a standard's clause register or from <a
+            href={OBJECTION_FORM_URL}>the objection form</a
+          >.
+        </li>
+        <li>
+          A bot replies when the objection is filed, with the date its answer is
+          due: {ANSWER_WINDOW_DAYS} days after it was opened.
+        </li>
+        <li>
+          The bot flags an objection with no answer at day {DUE_SOON_AFTER_DAYS} and
+          marks it overdue after day {ANSWER_WINDOW_DAYS}.
+        </li>
+        <li>
+          Each answer says whether the objection is upheld. An upheld objection
+          ends in a revision of the clause or a published reason for keeping it.
+          One upheld objection is enough to require that; there is no threshold.
+        </li>
+        <li>
+          The record below is generated from those GitHub issues. A weekly job
+          proposes the update, and it appears here when it is merged.
+        </li>
+      </ol>
+    </div>
     <div class="mapping-table__wrapper record-totals">
       <table class="mapping-table mapping-table--compare">
         <caption class="sr-only">Objection totals</caption>
@@ -136,11 +137,7 @@ const standards = standardsContent.standards
     </div>
     {
       objections.length === 0 ? (
-        <p>
-          No objections yet. To file one, open a standard's clause register and
-          use the Object link beside the clause, or use{" "}
-          <a href={OBJECTION_FORM_URL}>the objection form on GitHub</a>.
-        </p>
+        <p>No objections yet.</p>
       ) : (
         <>
           <div class="mapping-table__wrapper">
@@ -195,6 +192,7 @@ const standards = standardsContent.standards
   <SectionBlock
     id="standards"
     title="Standards and their current versions"
+    variant="alt"
     description="Each published standard, its version, and the date of its last recorded change."
   >
     <div class="mapping-table__wrapper">
@@ -227,21 +225,11 @@ const standards = standardsContent.standards
       </table>
     </div>
     <p class="small muted">
-      Every dated change to the standards, the glossary, the mechanisms, and the
-      casebook is in <a href="/changes.xml">one feed</a>.
-    </p>
-  </SectionBlock>
-
-  <SectionBlock
-    id="casebook"
-    title="Scored cases"
-    description={`The casebook scores ${cases.length} public failures. Each was established by a court, an inquiry, or a regulator.`}
-    variant="alt"
-  >
-    <p>
-      <a href="/casebook">Read the casebook</a>, or see <a href="/standards"
-        >the standards</a
-      > the cases are scored against.
+      The <a href="/casebook">casebook</a> scores {cases.length} public failures against
+      them, each established by a court, an inquiry, or a regulator. Every dated change
+      to the standards, the glossary, the mechanisms, and the casebook is in <a
+        href="/changes.xml">one feed</a
+      >.
     </p>
   </SectionBlock>
 </BaseLayout>

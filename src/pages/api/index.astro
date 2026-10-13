@@ -8,12 +8,10 @@ const pageTitle = "Reference API & ontology";
 const pageDescription =
   "Data objects, JSON schemas, OpenAPI and AsyncAPI specs, and read-only JSON endpoints for Ethotechnics standards, clauses, and mechanisms.";
 const anchorLinks = [
-  { href: "#objects", label: "Canonical objects" },
+  { href: "#objects", label: "Objects and schemas" },
   { href: "#interoperability", label: "Interoperability specs" },
-  { href: "#agent-model", label: "Agent object model" },
-  { href: "#endpoints", label: "Read-only endpoints" },
+  { href: "#endpoints", label: "Files and endpoints" },
   { href: "#versioning", label: "Versioning" },
-  { href: "#roadmap", label: "Roadmap" },
 ];
 
 const canonicalObjects = [
@@ -112,36 +110,26 @@ const canonicalObjects = [
   },
 ];
 
-const delegationSchemas = [
-  {
-    href: "/standards/capability-catalog.schema.json",
-    label: "Capability catalog",
-  },
-  { href: "/standards/authority-grant.schema.json", label: "Authority grant" },
-  { href: "/standards/policy-record.schema.json", label: "Policy record" },
-  {
-    href: "/standards/dependency-record.schema.json",
-    label: "Dependency record",
-  },
-  {
-    href: "/standards/standing-register.schema.json",
-    label: "Standing register",
-  },
-  { href: "/standards/challenge.schema.json", label: "Challenge" },
-  {
-    href: "/standards/intervention-spec.schema.json",
-    label: "Intervention spec",
-  },
-  { href: "/standards/reconsideration.schema.json", label: "Reconsideration" },
-  {
-    href: "/standards/substrate-profile.schema.json",
-    label: "Substrate profile",
-  },
-  {
-    href: "/standards/agent-safety-object-model.schema.json",
-    label: "Agent safety object model 2.0.0",
-  },
-];
+// Each object's JSON Schema, listed under the object it describes. They used
+// to be a second list under the agent model, naming the same objects again.
+const objectSchemas: Record<string, string[]> = {
+  "Agent safety object model": [
+    "/standards/agent-safety-object-model.schema.json",
+  ],
+  "Capability catalog": ["/standards/capability-catalog.schema.json"],
+  "Authority grant": ["/standards/authority-grant.schema.json"],
+  "Policy record": ["/standards/policy-record.schema.json"],
+  "Dependency record": ["/standards/dependency-record.schema.json"],
+  "Standing register and challenge": [
+    "/standards/standing-register.schema.json",
+    "/standards/challenge.schema.json",
+  ],
+  "Intervention spec and reconsideration": [
+    "/standards/intervention-spec.schema.json",
+    "/standards/reconsideration.schema.json",
+  ],
+  "Substrate profile": ["/standards/substrate-profile.schema.json"],
+};
 
 const interoperabilitySpecs = [
   {
@@ -179,15 +167,20 @@ const endpoints = API_ENDPOINTS.map((endpoint) => ({
 
   <SectionBlock
     id="objects"
-    eyebrow="Canonical objects"
     title="The object model behind the exports"
-    description="The names the endpoints and schemas below use. Use the same names in integrations and audit tooling."
+    description="The names the endpoints and schemas below use. Use the same names in integrations and audit tooling. Each version 2 schema has a validating example under /standards/examples/; together the examples describe one delegation scenario."
   >
     <ul class="muted">
       {
         canonicalObjects.map((object) => (
           <li>
             <strong>{object.name}:</strong> {object.description}
+            {(objectSchemas[object.name] ?? []).map((href) => (
+              <>
+                {" "}
+                <a href={href}>{href.split("/").pop()}</a>
+              </>
+            ))}
           </li>
         ))
       }
@@ -267,98 +260,33 @@ const endpoints = API_ENDPOINTS.map((endpoint) => ({
   </SectionBlock>
 
   <SectionBlock
-    id="agent-model"
-    eyebrow="Agent object model"
-    title="Agent Safety Object Model"
-    description="Publish a machine-readable profile for agent governance in tooling."
+    id="endpoints"
+    title="Files and endpoints"
+    description="Stable exports for tooling, audits, and archival use."
     variant="alt"
   >
     <ul class="muted">
       <li>
-        Spec page:
-        {" "}
-        <a href="/agents/spec">/agents/spec</a>
-      </li>
-      <li>
-        JSON schema:
-        {" "}
-        <a href="/agents/spec.json">/agents/spec.json</a>
+        The agent safety object model: the <a href="/agents/spec">spec page</a>,
+        its example as JSON at <a href="/agents/spec.json">/agents/spec.json</a
+        >, and the 1.1.0 instance at <a
+          href="/standards/agent-safety-object-model.json"
+          >/standards/agent-safety-object-model.json</a
+        >, served unchanged.
       </li>
       <li>
         Receipt and remedy schemas:
-        <ul>
-          <li>
-            <a href="/standards/agent-receipt-schema.json"
-              >/standards/agent-receipt-schema.json</a
-            >
-          </li>
-          <li>
-            <a href="/standards/decision-record.schema.json"
-              >/standards/decision-record.schema.json</a
-            >
-          </li>
-          <li>
-            <a href="/standards/appeal-event.schema.json"
-              >/standards/appeal-event.schema.json</a
-            >
-          </li>
-          <li>
-            <a href="/standards/pause-reversal.schema.json"
-              >/standards/pause-reversal.schema.json</a
-            >
-          </li>
-          <li>
-            <a href="/standards/burden-hours.schema.json"
-              >/standards/burden-hours.schema.json</a
-            >
-          </li>
-          <li>
-            <a href="/standards/repair-sla.schema.json"
-              >/standards/repair-sla.schema.json</a
-            >
-          </li>
-          <li>
-            <a href="/api/schema/revisable-delegation-record.schema.json"
-              >/api/schema/revisable-delegation-record.schema.json</a
-            >
-            (STD-07)
-          </li>
-        </ul>
+        <a href="/standards/agent-receipt-schema.json">agent receipt</a>,
+        <a href="/standards/decision-record.schema.json">decision record</a>,
+        <a href="/standards/appeal-event.schema.json">appeal event</a>,
+        <a href="/standards/pause-reversal.schema.json">pause and reversal</a>,
+        <a href="/standards/burden-hours.schema.json">burden hours</a>,
+        <a href="/standards/repair-sla.schema.json">repair SLA</a>, and the
+        <a href="/api/schema/revisable-delegation-record.schema.json"
+          >revisable delegation record</a
+        > (STD-07).
       </li>
     </ul>
-    <div>
-      <p class="eyebrow">Delegation state</p>
-      <h3>Object model v2 schemas</h3>
-      <p class="muted">
-        One JSON Schema per state variable (capability, authority, evidence,
-        dependency, standing, correction), each with a validating example under
-        <code>/standards/examples/</code> that together describe one delegation scenario.
-        The 1.1.0 instance at
-        <a href="/standards/agent-safety-object-model.json"
-          >/standards/agent-safety-object-model.json</a
-        >
-        stays served unchanged.
-      </p>
-      <ul class="muted">
-        {
-          delegationSchemas.map((schema) => (
-            <li>
-              <strong>{schema.label}:</strong>{" "}
-              <a href={schema.href}>{schema.href}</a>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </SectionBlock>
-
-  <SectionBlock
-    id="endpoints"
-    eyebrow="Read-only endpoints"
-    title="Current machine-readable exports"
-    description="Stable exports for tooling, audits, and archival use."
-    variant="alt"
-  >
     <div class="mapping-table__wrapper">
       <table class="mapping-table">
         <thead>
@@ -385,8 +313,7 @@ const endpoints = API_ENDPOINTS.map((endpoint) => ({
 
   <SectionBlock
     id="versioning"
-    eyebrow="Versioning"
-    title="Versioned citations stay stable"
+    title="Versions, and what is not built"
     description="Each object should carry a version, an updated timestamp, and a canonical permalink."
   >
     <ul class="muted">
@@ -397,19 +324,11 @@ const endpoints = API_ENDPOINTS.map((endpoint) => ({
       </li>
       <li>A release index at /api/releases.json.</li>
     </ul>
-  </SectionBlock>
-
-  <SectionBlock
-    id="roadmap"
-    eyebrow="Roadmap"
-    title="Planned additions"
-    description="Not yet built, and not scheduled. The OpenAPI and AsyncAPI drafts above are already published."
-    variant="alt"
-  >
-    <ul class="muted">
-      <li>Signed releases with verifiable citation hashes.</li>
-      <li>Schema validation automation for new objects.</li>
-      <li>Clause mappings for emerging external standards.</li>
-    </ul>
+    <p class="muted">
+      Not built, and not scheduled: signed releases with verifiable citation
+      hashes, automated schema validation for new objects, and clause mappings
+      for emerging external standards. The OpenAPI and AsyncAPI drafts above are
+      published.
+    </p>
   </SectionBlock>
 </BaseLayout>

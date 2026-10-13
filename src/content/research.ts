@@ -157,7 +157,6 @@ export const researchContent: ResearchContent = {
     { href: "#bridge-artifacts", label: "Bridge artifacts" },
     { href: "#standards-timeline", label: "Standards timeline" },
     { href: "#agenda", label: "Agenda" },
-    { href: "#focus-areas", label: "Focus areas" },
     { href: "#publications", label: "Publications" },
   ],
   standardsTimeline: [

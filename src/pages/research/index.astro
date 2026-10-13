@@ -33,7 +33,6 @@ const {
   lastUpdated,
   updateCadence,
 } = researchContent;
-const priorityAgenda = agenda.slice(0, 3);
 const essayCount = (await getCollection("theory")).length;
 
 // What the research has produced so far, read from the data each result
@@ -170,12 +169,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     title="Research"
     description={pageDescription}
     anchorLinks={anchorLinks}
-  >
-    <Fragment slot="actions">
-      <a class="button primary" href="#results">See the results</a>
-      <a class="button ghost" href="#agenda">View research agenda</a>
-    </Fragment>
-  </PageIntro>
+  />
   <SectionBlock
     id="results"
     eyebrow="Results so far"
@@ -193,29 +187,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           >
             <a slot="footer" href={result.href}>
               {result.label} →
-            </a>
-          </CardItem>
-        ))
-      }
-    </CardGrid>
-  </SectionBlock>
-  <SectionBlock
-    id="priorities"
-    eyebrow="Current priorities"
-    title="Agenda lines in progress"
-    description="The open lines of inquiry, each with its first goal."
-    variant="alt"
-  >
-    <CardGrid className="grid--two">
-      {
-        priorityAgenda.map((item) => (
-          <CardItem
-            meta={item.timeframe}
-            title={item.title}
-            description={item.goals?.[0]}
-          >
-            <a slot="footer" class="muted" href="#agenda">
-              View agenda entry
             </a>
           </CardItem>
         ))
@@ -448,11 +419,15 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 
   <SectionBlock
     id="agenda"
-    eyebrow="Agenda"
     title="Open questions"
-    description="Two questions the results so far leave open, the work each needs, and the glossary terms it uses."
+    description="Two questions the results so far leave open, the work each needs, and the glossary terms it uses. Then the three areas they sit in: two of the six safeguards, standing and correction, and the cost they keep with the institution, the work of correcting the system."
     variant="alt"
   >
+    {
+      /* "Agenda lines in progress" near the top of the page showed these
+         same two entries and linked down to them, and the three areas had a
+         section of their own after this one. One section holds both. */
+    }
     <details class="chunked-section" data-default-open="false">
       <summary class="chunked-section__summary">
         Agenda entries ({agenda.length})
@@ -489,14 +464,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         </CardGrid>
       </div>
     </details>
-  </SectionBlock>
-
-  <SectionBlock
-    id="focus-areas"
-    eyebrow="Focus areas"
-    title="Three areas"
-    description="Two of the six safeguards, standing and correction, and the cost they keep with the institution: the work of correcting the system."
-  >
+    <h3 id="focus-areas">Three areas</h3>
     <details class="chunked-section" data-default-open="false">
       <summary class="chunked-section__summary">
         Focus areas ({focusAreas.length})

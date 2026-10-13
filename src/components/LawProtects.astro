@@ -1,0 +1,47 @@
+---
+/**
+ * The line under a law's heading on /standards/laws naming which of the six
+ * state variables it protects. It reads the method page's lawRefs, the source
+ * the state-variable table uses, and renders nothing for a law none of them
+ * cites.
+ */
+import StateVariableGlyph, {
+  type StateVariableGlyphId,
+} from "./StateVariableGlyph.astro";
+import { variablesForLaw } from "../utils/laws";
+
+interface Props {
+  /** The law's roman numeral, e.g. "IV". */
+  law: string;
+}
+
+const { law } = Astro.props;
+const variables = variablesForLaw(law).map((state) => state.toLowerCase());
+---
+
+{
+  variables.length > 0 && (
+    <p class="law-protects">
+      Protects{" "}
+      {variables.map((variable, index) => (
+        <>
+          {index > 0 && (index === variables.length - 1 ? " and " : ", ")}
+          <StateVariableGlyph
+            variable={variable as StateVariableGlyphId}
+            label={variable}
+          />
+        </>
+      ))}
+    </p>
+  )
+}
+
+<style>
+  .law-protects {
+    margin: var(--space-1) 0 0;
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--accent-strong);
+  }
+</style>

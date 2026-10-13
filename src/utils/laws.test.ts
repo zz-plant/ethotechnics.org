@@ -33,8 +33,8 @@ describe("extractLaws", () => {
   });
 
   // Law X is bound by the shape of the eval stack rather than by a clause,
-  // and the grid should say so plainly. If a twelfth clause binding appears
-  // this count changes and the comment should go with it.
+  // and its binding line should say so plainly. If a twelfth clause binding
+  // appears this count changes and the comment should go with it.
   it("binds eleven laws through a standard and Law X through the evals", () => {
     const viaStandard = laws.filter((law) => /STD-\d\d/.test(law.bindsThrough));
     expect(viaStandard.map((law) => law.numeral)).not.toContain("X");

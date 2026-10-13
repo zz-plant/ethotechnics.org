@@ -180,20 +180,25 @@ import {
         ))
       }
     </CardGrid>
-  </SectionBlock>
-
-  <SectionBlock
-    id="next"
-    title="If your system fits"
-    description="Start with one workflow. The Delegation Audit takes it through six questions and lists the permissions nobody on your team can justify."
-    variant="alt"
-  >
-    <div class="actions">
-      <a class="button primary" href="/diagnostics/delegation-audit">
-        Run the delegation audit
-      </a>
-      <a class="button ghost" href="/#self-test">Take the 60-second self-test</a
-      >
+    {
+      /* "If your system fits" closed the page as a section of its own: this
+         sentence and the two buttons. They end this section, whose second
+         card already names the audit. */
+    }
+    <div class="stack-sm fit-next">
+      <p>
+        If your system fits, start with one workflow. The Delegation Audit takes
+        it through six questions and lists the permissions nobody on your team
+        can justify.
+      </p>
+      <div class="actions">
+        <a class="button primary" href="/diagnostics/delegation-audit">
+          Run the delegation audit
+        </a>
+        <a class="button ghost" href="/#self-test"
+          >Take the 60-second self-test</a
+        >
+      </div>
     </div>
   </SectionBlock>
 </BaseLayout>
@@ -248,6 +253,11 @@ import {
 
   .fit-not-covered {
     margin: 0;
+    max-width: 68ch;
+  }
+
+  .fit-next {
+    margin-top: var(--space-block);
     max-width: 68ch;
   }
 </style>

@@ -426,7 +426,7 @@ function partialDateToUtc(value: string): number {
 
 export const casesBySlug = new Map(cases.map((entry) => [entry.slug, entry]));
 
-/** Verdict counts per variable across the casebook, for the matrix footer. */
+/** Verdict counts per variable across the casebook, for the failure chart. */
 export function verdictTally(
   entries: Case[] = cases,
 ): Record<StateVariableId, Record<Verdict, number>> {

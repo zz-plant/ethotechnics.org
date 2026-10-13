@@ -94,69 +94,48 @@ const publication = createImplementationPublication(
   <SectionBlock
     id="ethotechnics"
     eyebrow="Ethotechnics implementation"
-    title="What changes when FHIR is the control plane"
+    title="FHIR as the control plane, and what to verify before launch"
     description="FHIR profiles that carry a denial, its appeal, and its repair with the decision."
   >
-    <ul class="card__list">
-      <li>
-        Custom FHIR profiles for <strong>Decision</strong>, <strong
-          >Denial</strong
-        >,
-        <strong>Appeal</strong>, <strong>RepairStatus</strong>, and
-        <strong>PendingClock</strong> resources.
-      </li>
-      <li>
-        A Denial resource names the clinical decision, the reason codes, and the
-        person or body that owns the decision.
-      </li>
-      <li>
-        An Appeal resource carries its status, the date it must be answered by,
-        who it escalates to, and the evidence attached.
-      </li>
-      <li>
-        An upheld Appeal points to the denial rule it overturned. A payer or a
-        regulator can then count upheld appeals by rule and send the count to
-        the rule's owner.
-      </li>
-      <li>
-        A RepairStatus update reaches every system that received the decision,
-        including the provider's record system and the regulator.
-      </li>
-      <li>
-        A PendingClock resource shows each organization how long a decision or a
-        repair has waited, and its deadline.
-      </li>
-    </ul>
-  </SectionBlock>
-
-  <SectionBlock
-    id="checklist"
-    eyebrow="Implementation checklist"
-    title="Signals to verify before launch"
-    description="Confirm that a denial, its appeal, and its repair survive the move between organizations."
-  >
-    <ul class="muted">
-      <li>
-        Register the profiles and confirm they validate in payer and provider
-        systems.
-      </li>
-      <li>
-        Map denial reasons to standardized codes and publish them through the
-        Denial resource.
-      </li>
-      <li>
-        Confirm a change in Appeal status reaches downstream systems within the
-        stated time.
-      </li>
-      <li>
-        Expose PendingClock resources through TEFCA-compatible exchange
-        endpoints.
-      </li>
-      <li>
-        Count upheld appeals by denial rule, and publish RepairStatus updates
-        for regulators and care teams.
-      </li>
-    </ul>
+    <div class="stack-sm">
+      <ul class="card__list">
+        <li>
+          Custom FHIR profiles for <strong>Decision</strong>, <strong
+            >Denial</strong
+          >,
+          <strong>Appeal</strong>, <strong>RepairStatus</strong>, and
+          <strong>PendingClock</strong> resources.
+        </li>
+        <li>
+          A Denial resource names the clinical decision, the reason codes, and
+          the person or body that owns the decision.
+        </li>
+        <li>
+          An Appeal resource carries its status, the date it must be answered
+          by, who it escalates to, and the evidence attached.
+        </li>
+        <li>
+          An upheld Appeal points to the denial rule it overturned. A payer or a
+          regulator can then count upheld appeals by rule and send the count to
+          the rule's owner.
+        </li>
+        <li>
+          A RepairStatus update reaches every system that received the decision,
+          including the provider's record system and the regulator.
+        </li>
+        <li>
+          A PendingClock resource shows each organization how long a decision or
+          a repair has waited, and its deadline.
+        </li>
+      </ul>
+      <p class="muted">
+        Before launch, register the profiles and confirm they validate in payer
+        and provider systems. Map denial reasons to standardized codes. Confirm
+        that a change in Appeal status reaches downstream systems within the
+        stated time, and expose PendingClock resources through TEFCA-compatible
+        exchange endpoints.
+      </p>
+    </div>
   </SectionBlock>
 
   <UseCaseFit slug="fhir-resources" />

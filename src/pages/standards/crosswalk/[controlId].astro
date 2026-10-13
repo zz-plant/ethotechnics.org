@@ -73,19 +73,20 @@ const publication = derivePublicationMetadata({
     title={`${control.controlId} implementation brief`}
     description={control.obligation}
     anchorLinks={[
-      { href: "#clauses", label: "Clauses to cite" },
-      { href: "#framework-mapping", label: "Framework mapping" },
-      { href: "#evidence", label: "Evidence artifacts" },
-      {
-        href: "#operational-surface",
-        label: "Where it shows up in operations",
-      },
+      { href: "#clauses", label: "What to cite" },
+      { href: "#evidence", label: "What to inspect" },
     ]}
   />
 
+  {
+    /* The framework correspondence, the artifacts, and the control's place in
+       the system were separate sections, the last two under 50 words each. A
+       contract cites clauses and frameworks together; an auditor inspects the
+       artifacts and the control point together. */
+  }
   <SectionBlock
     id="clauses"
-    title="The Ethotechnics clauses behind this control"
+    title="The clauses to cite and the frameworks they bear on"
     description="The clauses a contract or audit plan can cite, at their current versions, with the evidence each names."
   >
     <div class="mapping-table__wrapper">
@@ -137,21 +138,10 @@ const publication = derivePublicationMetadata({
         </p>
       )
     }
-    <p class="muted">
-      The <a href="/standards/where-this-binds">sample contract clause</a> shows the
-      form. The <a
-        href="/standards/enforceable-governance-crosswalks#eu-ai-act-articles"
-        >EU AI Act table</a
-      > gives the same clauses article by article.
+    <p>
+      These clauses bear on the framework obligations below. The correspondence
+      is technical, not a determination of legal compliance.
     </p>
-  </SectionBlock>
-
-  <SectionBlock
-    id="framework-mapping"
-    title="Where this control corresponds to a framework"
-    description="The framework obligations these clauses bear on. A technical correspondence, not a determination of legal compliance."
-    variant="alt"
-  >
     <div class="table-wrap">
       <table>
         <thead>
@@ -172,27 +162,29 @@ const publication = derivePublicationMetadata({
         </tbody>
       </table>
     </div>
+    <p class="muted">
+      The <a href="/standards/where-this-binds">sample contract clause</a> shows the
+      form. The <a
+        href="/standards/enforceable-governance-crosswalks#eu-ai-act-articles"
+        >EU AI Act table</a
+      > gives the same clauses article by article.
+    </p>
   </SectionBlock>
 
   <SectionBlock
     id="evidence"
-    eyebrow="Evidence"
-    title="Artifacts to request before sign-off"
-    description="These artifacts make the obligation inspectable rather than policy-only."
+    title="What to inspect before sign-off"
+    description="These artifacts make the obligation inspectable, not policy-only."
+    variant="alt"
   >
     <ul>
       {control.evidenceArtifacts.map((artifact) => <li>{artifact}</li>)}
     </ul>
-  </SectionBlock>
-
-  <SectionBlock
-    id="operational-surface"
-    eyebrow="Where it shows up in operations"
-    title="Where this control should live in the system"
-    description="The owner-visible control point for day-to-day operations and incident response."
-    variant="alt"
-  >
-    <p>{control.operationalSurface}</p>
+    <p>
+      <strong>Where the control lives:</strong>
+      {control.operationalSurface}. Its owner sees it there in daily operations
+      and in incident response.
+    </p>
   </SectionBlock>
   <CitationBlock
     title={pageTitle}
