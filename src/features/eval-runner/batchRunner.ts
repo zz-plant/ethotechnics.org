@@ -280,7 +280,7 @@ export const runDualLedgerBatch = (
   const contestationStandingPassed = standingCase ? standingCase.passed : true;
   if (!contestationStandingPassed) {
     nonCompensatoryViolations.push(
-      "Corrective standing suppressed: users lack binding contestability (violates REC-008).",
+      "Corrective standing suppressed: the people the system decides about have no enforceable right to challenge (violates REC-008).",
     );
   }
 

@@ -75,8 +75,8 @@ const workflowStages: {
     key: "stabilize",
     title: "Stabilize",
     description:
-      "Stop or narrow the harmful flow while the owner and the escalation path are in place.",
-    artifact: pickArtifact(["escalation-ladder-freeze-authority"]),
+      "Halt or narrow the harmful flow while the owner and the escalation path are in place.",
+    artifact: pickArtifact(["halt-authority-table"]),
     diagnosticsHref: "/diagnostics/delegation-audit",
     diagnosticsLabel: "Check what the system is allowed to decide",
     // STD-03 (justice SLOs) has no page yet; STD-06 carries the published
@@ -193,7 +193,7 @@ const breadcrumbItems = [
       <p class="muted small">
         Next checks:{" "}
         <a href="/mechanisms/patterns/policy-review-triggers"
-          >MEC-14 Policy review triggers</a
+          >Policy review triggers (MEC-14)</a
         > ·
         <a href="/research/theory/exception-learning"
           >Why exceptions are evidence about the rule</a

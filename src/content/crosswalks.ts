@@ -29,11 +29,11 @@ export type GovernanceCrosswalk = {
 export const governanceCrosswalks: GovernanceCrosswalk[] = [
   {
     controlId: "CTRL-01",
-    topic: "human oversight with stop authority",
+    topic: "human oversight with halt authority",
     metaDescription:
-      "Human oversight with a stop authority someone can use, mapped to EU AI Act Article 14, NIST AI RMF GOVERN 3.2 and MANAGE 2.4, and ISO/IEC 42001 clause 8.1.",
+      "Human oversight with a halt authority someone can use, mapped to EU AI Act Article 14, NIST AI RMF GOVERN 3.2 and MANAGE 2.4, and ISO/IEC 42001 clause 8.1.",
     obligation:
-      "Maintain human oversight with exercisable stop authority for high-risk decisions.",
+      "Maintain human oversight with exercisable halt authority for high-risk decisions.",
     euAiAct: "Article 14 (Human oversight)",
     nistAiRmf: "GOVERN 3.2, MANAGE 2.4",
     iso42001: "Clause 8.1 (Operational planning and control)",
@@ -41,7 +41,7 @@ export const governanceCrosswalks: GovernanceCrosswalk[] = [
     evidenceArtifacts: [
       "Intervention specification per oversight claim, naming states alterable and what happens on disagreement",
       "Named on-call oversight roster",
-      "Stop-action drill records",
+      "Halt drill records",
       "Override event log with timestamps",
     ],
     operationalSurface:
@@ -102,11 +102,11 @@ export const governanceCrosswalks: GovernanceCrosswalk[] = [
   },
   {
     controlId: "CTRL-04",
-    topic: "decision records for appeals",
+    topic: "decision records for challenges",
     metaDescription:
       "Decision records that let an affected decision be rebuilt and challenged, mapped to EU AI Act Article 12, NIST AI RMF MEASURE 2.8, and ISO/IEC 42001 clause 7.5.",
     obligation:
-      "Provide traceability so affected decisions can be reconstructed and contested.",
+      "Provide traceability so affected decisions can be reconstructed and challenged.",
     euAiAct: "Article 12 (Record-keeping)",
     nistAiRmf: "MEASURE 2.8, MEASURE 3.3",
     iso42001: "Clause 7.5 (Documented information)",
@@ -123,7 +123,7 @@ export const governanceCrosswalks: GovernanceCrosswalk[] = [
       "Appeal-event timeline",
       "Retention and retrieval policy",
     ],
-    operationalSurface: "Decision ledger and appeal history view",
+    operationalSurface: "Decision log and appeal history view",
   },
   {
     controlId: "CTRL-05",
@@ -267,7 +267,7 @@ export const euAiActArticleCoverage: EuAiActArticleCoverage[] = [
       "STD-02.6.3",
     ],
     covers:
-      "Records that are never edited and carry a hash of their content, with the moment a record describes kept apart from the moment it was written. An audit trail from each contested decision to its evidence, reviewers, and outcome, kept tamper-evident through the appeal period and the limitation window.",
+      "Records that are never edited and carry a hash of their content, with the moment a record describes kept apart from the moment it was written. A decision log that links each challenged decision to its evidence, reviewers, and outcome, kept tamper-evident through the appeal period and the limitation window.",
     leaves:
       "The logging capability built into the system (12(1)). The minimum log contents for remote biometric identification under Annex III, point 1(a) (12(3)).",
   },
@@ -322,7 +322,7 @@ export const postMarketWorkflow = [
   {
     stage: "Triage",
     outcome:
-      "Apply stop/degrade decisions and publish expected next update time.",
+      "Apply halt or degrade decisions and publish expected next update time.",
   },
   {
     stage: "Remediation",

@@ -43,7 +43,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
     title: "Automation and capture",
     href: "/research/theory/automation-and-capture",
     question:
-      "At what point does relying on a system leave an institution unable to question, replace, or stop it?",
+      "At what point does relying on a system leave an institution unable to question, replace, or halt it?",
     safeguard: "Dependency",
     mechanism:
       "Asymmetric lock-in and deskilling driven by unconstrained efficiency",
@@ -54,7 +54,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
     title: "Challenge density",
     href: "/research/theory/challenge-density",
     question:
-      "When appeals pile up, why should an institution add reviewers or narrow the system rather than limit who may appeal?",
+      "When challenges pile up, why should an institution add reviewers or narrow the system rather than limit who may challenge?",
     safeguard: "Standing",
     mechanism:
       "Congestion treated as a capacity failure rather than a standing threshold",
@@ -130,7 +130,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
     title: "Exception learning",
     href: "/research/theory/exception-learning",
     question:
-      "Why does resolving appeals one at a time leave the rule that caused them in place?",
+      "Why does resolving challenges one at a time leave the rule that caused them in place?",
     safeguard: "Correction",
     mechanism:
       "Separation of case corrigibility from structural rule modification",

@@ -53,7 +53,8 @@ export const explainerLinks = [
   },
   {
     title: "Repair log",
-    description: "Track remediation actions with receipts and owners.",
+    description:
+      "Track repairs, with their receipts, owners, and cost to the people repaired.",
     href: "/explainers/repair-log",
     glossarySlug: "repair-log",
   },
@@ -79,8 +80,8 @@ export const explainerLinks = [
     glossarySlug: "stoppability",
   },
   {
-    title: "Time-to-halt (TTH)",
-    description: "Define the latency budget for stopping automated actions.",
+    title: "Time to halt (TTH)",
+    description: "Define the latency budget for halting automated actions.",
     href: "/explainers/time-to-halt",
     glossarySlug: "time-to-halt",
   },

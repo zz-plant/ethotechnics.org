@@ -89,6 +89,80 @@ Additional guidance:
   "v1.0.2".
 - Version strings in data, schemas, and JSON keep their stored form.
 
+## House vocabulary
+
+Each word below names one thing. Pick the word for the thing you mean; do not swap a word for
+another because it reads better. Quotations, case names, statute and report titles, and other
+fields' terms of art keep their own wording; when citing a field, use its word and, if it differs,
+say once which house word it corresponds to.
+
+**Challenging a decision**
+
+- _Challenge_: the act of disputing a decision. "Upheld challenges" is the measure.
+- _Standing_: the right to have a challenge received, answered by a date, and able to change the
+  decision. It is the safeguard; a challenge is what standing lets someone make.
+- _Appeal_: a formal route to a tribunal, court, or ombudsman, or the operator's own named appeal
+  procedure. Not a synonym for challenge.
+- _Contestability_: the property as the design and law literature names it. Use it when engaging
+  that literature or naming STD-02; otherwise say what can be challenged and how.
+- _Complaint_: what an institution can file and close as an anecdote. Use it for that contrast.
+- _Remedy_: what the person receives when a challenge is upheld or harm is found. Use _redress_
+  only in legal or quoted contexts, and _recourse_ only for the existence of any route at all.
+
+**Stopping**
+
+- _Halt_: stopping a system, or one of its decision paths, for everyone. "Time to halt" is the
+  measure.
+- _Pause_: holding one case or one flow while a person looks, without stopping the system.
+- _Stoppability_: the property of being haltable by a named role without permission from above.
+- _Freeze_: holding one account or asset in place (a fraud freeze). Not a synonym for halt.
+- _Kill switch_ and _circuit breaker_ are engineering mechanisms that implement a halt; name them
+  only when describing the mechanism itself, and say what they halt.
+
+**Time**
+
+- _Deadline_: a date promised to a person ("answered by"). Breaching it is a breach.
+- _Clock_: the running measure against a deadline, started by an event.
+- _Time to halt_, _time to reverse_, _time to restore_, _time in harm_: the four measured intervals.
+- _SLO_ is STD-03's term for an internal target with an error budget; keep it there and in
+  engineering-facing material. Do not call a promise to a person an SLA.
+
+**Fixing what went wrong** (one verb per object)
+
+- _Reverse_ a decision. _Restore_ a person to where they would have been. _Repair_ the harm that
+  cannot be undone. _Correct_ the rule that produced it. A sentence that needs more than one says
+  each.
+- _Roll back_ a software change or an agent's action. _Recover_ a system after an incident.
+- _Remedy_ is what the person is owed (see above), and can include reversal, restoration, and
+  repair.
+
+**Records**
+
+- _Decision record_: one decision, with its inputs, rule, owner, and reasons (STD-07).
+- _Decision log_: where decision records are kept; MEC-01 adds dissent to it.
+- _Receipt_: what the person is handed, such as a harm receipt. A receipt cites the decision record.
+- _Evidence pack_: what an auditor is handed for a standard.
+- _Repair log_: the record of repairs and their cost to the people repaired.
+
+**Unseen work**
+
+- _Human subsidy_: the unpaid, unlogged work people do to keep a system's numbers looking right.
+  _Moral overhead_ is the ethical share of it; _absorption_ is the process by which it hides
+  failure. _Unlogged_ is an adjective, not a separate concept.
+
+**People**
+
+- Name the role when it is known: claimant, patient, applicant, tenant, worker, customer, student.
+- _The people it decides about_: the general term. _People affected_ is wider and includes those
+  who are not decided about (family, staff, a neighbourhood); use it when that is meant.
+
+**Safeguards**
+
+- The six _safeguards_ are capability, authority, evidence, dependency, standing, and correction.
+  The laws treat them as _state variables_: quantities that move over time and can be measured. Use
+  "safeguard" in interface and prose for readers, and "state variable" where the argument is
+  about how they move.
+
 ## Validation and checks
 
 - `bun run content:generate` refreshes derived `src/content/generated/*.generated.ts` files.

@@ -3,7 +3,7 @@
  * Ethical Interrupt Circuit Breaker Diagram (STD-01).
  *
  * Visualizes the 3-tier interrupt taxonomy (Soft Prompt, Hard Stop, Mandatory Escalation)
- * and the state machine governing automated halting, reviewer SLA clocks,
+ * and the state machine governing automated pauses, reviewer deadlines,
  * and immutable interrupt receipts.
  */
 interface Props {
@@ -21,7 +21,7 @@ const Heading = level;
       Where an ethical interrupt pauses the flow
     </Heading>
     <p class="muted">
-      Deliberate friction at quantified risk boundaries. Interrupts halt
+      Deliberate friction at quantified risk boundaries. Interrupts pause
       execution, issue receipts, and route to named human authorities before
       harm becomes irreversible.
     </p>
@@ -37,7 +37,7 @@ const Heading = level;
       viewBox="0 0 920 425"
       role="img"
       class="state-diagram__svg"
-      aria-label="State diagram of an ethical interrupt circuit breaker showing automated execution, risk trigger, hard-stop state, reviewer SLA triage, and auditable resolution."
+      aria-label="State diagram of an ethical interrupt circuit breaker showing automated execution, risk trigger, hard-stop state, reviewer triage against a binding deadline, and auditable resolution."
     >
       <defs>
         <marker
@@ -149,10 +149,10 @@ const Heading = level;
           fill="var(--status-danger)">2. Interrupt tripped</text
         >
         <text x="100" y="49" text-anchor="middle" class="state-diagram__clause"
-          >Execution suspended</text
+          >Execution paused</text
         >
         <text x="100" y="69" text-anchor="middle" class="state-diagram__label"
-          >Halt receipt published</text
+          >Pause receipt published</text
         >
         <text x="100" y="87" text-anchor="middle" class="state-diagram__label"
           >State checkpointed</text
@@ -189,7 +189,7 @@ const Heading = level;
           >Named on-call owner</text
         >
         <text x="87.5" y="67" text-anchor="middle" class="state-diagram__label"
-          >Enforceable SLA clock</text
+          >Binding deadline</text
         >
         <text x="87.5" y="87" text-anchor="middle" class="state-diagram__clause"
           >Reversal ready</text

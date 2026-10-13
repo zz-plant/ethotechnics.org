@@ -48,7 +48,7 @@ export const SPEC_FIELDS: SpecField[] = [
     id: "states_alterable",
     question: "Can the reviewer change a governing state?",
     off: "Approve or reject one item at a time. Nothing else is reachable.",
-    on: "The reviewer can move the grant for an action class to review_required, which pauses the class.",
+    on: "The reviewer can move the grant for an action class to review_required, which halts the class.",
     recorded: { off: [], on: ["grant.state → review_required"] },
   },
   {

@@ -57,9 +57,9 @@ const fieldGuide = [
   {
     field: "stop_override_authority",
     example: "Risk Operations / Risk Steward",
-    purpose: "Names the owner, on-call role, and kill-switch authority.",
+    purpose: "Names the owner, on-call role, and halt authority.",
     failure:
-      "No one can halt automation inside the halt deadline during an incident.",
+      "No one can halt automation within the time-to-halt target during an incident.",
   },
   {
     field: "receipt_schema",
@@ -72,8 +72,7 @@ const fieldGuide = [
     field: "clocks",
     example: "ack 2h / review 24h / remedy 72h",
     purpose: "Publishes acknowledgment, review, and remedy timers.",
-    failure:
-      "Contestability becomes unenforceable without time-bound obligations.",
+    failure: "Standing becomes unenforceable without time-bound obligations.",
   },
   {
     field: "evidence_pack_references",
@@ -202,11 +201,12 @@ const fieldGuide = [
     <ul class="muted">
       <li>
         Record the decision to deploy each agent release with the
-        <a href="/mechanisms/patterns/admission-gate">MEC-22 admission gate</a>.
+        <a href="/mechanisms/patterns/admission-gate">admission gate (MEC-22)</a
+        >.
       </li>
       <li>
         Map action classes to the controls in <a
-          href="/standards/ethotechnics-for-agents">Ethotechnics for Agents</a
+          href="/standards/ethotechnics-for-agents">Ethotechnics for agents</a
         >.
       </li>
       <li>

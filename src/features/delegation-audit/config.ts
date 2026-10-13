@@ -24,7 +24,7 @@ export const STATE_VARIABLE_QUESTIONS: Record<StateVariableId, string> = {
   dependency:
     "What now depends on this system, and how hard would it be to stop using it?",
   standing: "Who bears the errors, and can they make the system answer?",
-  correction: "Can you stop it, and can the institution carry on if you do?",
+  correction: "Can you halt it, and can the institution carry on if you do?",
 };
 
 export const CLAUSE_REFS = {
@@ -80,31 +80,31 @@ export const CLAUSE_REFS = {
 
 export const MECHANISM_REFS = {
   grantRegister: {
-    label: "MEC-13 Authority grant register",
+    label: "Authority grant register (MEC-13)",
     href: "/mechanisms/patterns/authority-grant-register",
   },
   policyTriggers: {
-    label: "MEC-14 Policy review triggers",
+    label: "Policy review triggers (MEC-14)",
     href: "/mechanisms/patterns/policy-review-triggers",
   },
   withdrawalRehearsal: {
-    label: "MEC-15 Withdrawal rehearsal",
+    label: "Withdrawal rehearsal (MEC-15)",
     href: "/mechanisms/patterns/withdrawal-rehearsal",
   },
   interventionSpec: {
-    label: "MEC-16 Intervention specification",
+    label: "Intervention specification (MEC-16)",
     href: "/mechanisms/patterns/intervention-specification",
   },
   capabilityCatalog: {
-    label: "MEC-17 Capability catalog",
+    label: "Capability catalog (MEC-17)",
     href: "/mechanisms/patterns/capability-catalog",
   },
   dependencyLedger: {
-    label: "MEC-18 Dependency ledger",
+    label: "Dependency ledger (MEC-18)",
     href: "/mechanisms/patterns/dependency-ledger",
   },
   expansionReview: {
-    label: "MEC-19 Expansion review",
+    label: "Expansion review (MEC-19)",
     href: "/mechanisms/patterns/expansion-review",
   },
 } as const satisfies Record<string, Reference>;

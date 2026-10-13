@@ -56,7 +56,7 @@ const layers: Layer[] = [
     href: "/research/theory",
     traceDetails: {
       contestability:
-        "Dependence without standing: an affected person has no route to alter system state.",
+        "Dependence without standing: the person the system decides about has no route to alter system state.",
       leases:
         "Endogenous authorization: authority is assumed from capability rather than leased.",
       resilience:
@@ -123,13 +123,13 @@ const layers: Layer[] = [
     href: "/standards",
     traceDetails: {
       contestability:
-        "STD-02 Contestability & Recourse: formal appeal paths and reason requirements.",
+        "STD-02 Contestability and recourse: formal appeal paths and reason requirements.",
       leases:
         "STD-08 Delegation: authority grants as expiring leases with review triggers.",
       resilience:
         "STD-01 Temporal Rights: response clocks that prevent indefinite pending states.",
       reversibility:
-        "STD-07 Revisable Delegation Record: actions pinned to authorizations with reversal logs.",
+        "STD-07 Revisable delegation record: actions pinned to authorizations with reversal logs.",
     },
   },
   {
@@ -139,13 +139,13 @@ const layers: Layer[] = [
     role: "Controls that meet a clause: decision logs, kill switches, appeal paths, authority grant registers, dependency ledgers.",
     href: "/mechanisms",
     traceDetails: {
-      contestability: "MEC-06 Appeal paths and MEC-08 Contestation APIs.",
+      contestability: "Appeal paths (MEC-06) and contestation APIs (MEC-08).",
       leases:
-        "MEC-13 Authority grant register: auditable log of active permissions.",
+        "Authority grant register (MEC-13): auditable log of active permissions.",
       resilience:
-        "MEC-01 Decision log with dissent and MEC-11 Escalation SLAs.",
+        "Decision log with dissent (MEC-01) and escalation deadlines (MEC-11).",
       reversibility:
-        "MEC-10 Reversibility audit logs and MEC-12 Stoppability testing.",
+        "Reversibility audit logs (MEC-10) and stoppability testing (MEC-12).",
     },
   },
   {
@@ -178,7 +178,7 @@ const layers: Layer[] = [
     href: "/casebook",
     traceDetails: {
       contestability:
-        "Robodebt (Australia): contestability was dismantled to enforce algorithmic debt notices.",
+        "Robodebt (Australia): the routes to challenge algorithmic debt notices were dismantled so the notices could be enforced.",
       leases:
         "Horizon (UK Post Office): branch accounting authority was delegated without verifiable evidence.",
       resilience:
@@ -200,7 +200,7 @@ const traces = [
     id: "contestability",
     label: "Trace: Contestability",
     tagline:
-      "How the right to contest an automated decision is traced from Consent down to Robodebt.",
+      "How the right to challenge an automated decision is traced from Consent down to Robodebt.",
   },
   {
     id: "leases",
@@ -362,7 +362,7 @@ const views = [
       const taglines: Record<string, string> = {
         all: "The complete stack from normative theory to public failure records.",
         contestability:
-          "How the right to contest an automated decision is traced from Consent down to Robodebt.",
+          "How the right to challenge an automated decision is traced from Consent down to Robodebt.",
         leases:
           "How authority as an expiring lease is traced from Stewardship down to the Horizon failure.",
         resilience:

@@ -136,7 +136,7 @@ export const useCasesContent: UseCasesContent = {
       "A named institution operates it and can be held to a clause by a contract, a regulator, or a court.",
     ],
     after:
-      "When all four hold, the casebook pattern can recur: appeals are won one at a time while the rule that produced them keeps running. When one is missing, the framework does less. The boundaries below say what.",
+      "When all four hold, the casebook pattern can recur: challenges are upheld one at a time while the rule that produced them keeps running. When one is missing, the framework does less. The boundaries below say what.",
   },
   tooling: [
     {
@@ -183,11 +183,11 @@ export const useCases: UseCase[] = [
       "Whether a person gets a benefit, how much, and whether they owe it back.",
     systems:
       "Eligibility checks, overpayment and debt raising, fraud risk scores on claims, data matching across agencies.",
-    why: "Two of the five scored cases are here. In both, people contested their decisions for years while the rule that produced the errors kept running. The burden of disproof often falls on the claimant, and a wrong debt stands while they contest it.",
+    why: "Two of the five scored cases are here. In both, people challenged their decisions for years while the rule that produced the errors kept running. The burden of disproof often falls on the claimant, and a wrong debt stands while they challenge it.",
     defense: {
-      said: "Each wrong decision was corrected on appeal.",
+      said: "Each wrong decision was reversed on appeal.",
       answer:
-        "A corrected case is not a corrected rule. A claimant who cannot opt out is owed more correction, not less.",
+        "A reversed decision is not a corrected rule. A claimant who cannot opt out is owed more correction, not less.",
     },
     cases: [
       { slug: "robodebt", clause: { standard: "STD-08", clause: "§2.3" } },
@@ -320,7 +320,7 @@ export const useCases: UseCase[] = [
       "Whether a treatment is authorized or a claim is paid, and how a patient is triaged.",
     systems:
       "Prior authorization and utilization review, claim denials, clinical risk scores that set a care pathway, triage.",
-    why: "Coverage decisions are frequent, each one is consequential, and a delay is itself a harm. Patients and clinicians already appeal them, so the casebook's question applies directly: does a won appeal change the rule?",
+    why: "Coverage decisions are frequent, each one is consequential, and a delay is itself a harm. Patients and clinicians already appeal them, so the casebook's question applies directly: does an upheld challenge change the rule?",
     defense: {
       said: "Patients can appeal.",
       answer:
@@ -367,14 +367,14 @@ export const useCases: UseCase[] = [
     defense: {
       said: "Users can appeal a takedown.",
       answer:
-        "An appeal is a remedy only if an overturned takedown restores the content by a deadline.",
+        "An appeal leads to a remedy only if an overturned takedown restores the content by a deadline.",
     },
     cases: [],
     noCaseNote: "No platform case has been scored yet.",
     bind: ["MVC-01", "STD-02"],
     runFirst: {
       slug: "corrective-debt-calculator",
-      note: "Ask whether a successful appeal changes the filter or only restores one post.",
+      note: "Ask whether an upheld challenge changes the filter or only restores one post.",
     },
     examples: [
       {
@@ -427,7 +427,7 @@ export const boundaries: Boundary[] = [
   {
     id: "personalization",
     title: "Recommendations and personalization",
-    why: "No single recommendation changes a person's status, access, money, or risk, so there is no decision to contest. The framework applies where personalization sets a price, a credit offer, or who is shown a job.",
+    why: "No single recommendation changes a person's status, access, money, or risk, so there is no decision to challenge. The framework applies where personalization sets a price, a credit offer, or who is shown a job.",
     examples: [
       {
         label: "Retail personalization",

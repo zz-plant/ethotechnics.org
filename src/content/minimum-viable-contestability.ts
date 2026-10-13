@@ -56,7 +56,7 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
         {
           title: "Timelines",
           description:
-            "Published review clocks force a final response and escalation path.",
+            "Published review deadlines force a final response and escalation path.",
         },
         {
           title: "Responder and standard",
@@ -71,28 +71,28 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
         {
           title: "Remedies",
           description:
-            "A person can reach reversal, correction, or compensation, and see when it was delivered.",
+            "A person can reach a remedy, whether reversal, restoration, or compensation, and see when it was delivered.",
         },
         {
           title: "Non-retaliation",
           description:
-            "Contestants cannot be punished for using the review process.",
+            "People who challenge a decision cannot be punished for using the review process.",
         },
       ],
     },
     sections: [
       {
         id: "standing",
-        title: "Standing (who can contest)",
+        title: "Standing (who can challenge)",
         summary:
           "People affected by a decision can open review without gatekeeping.",
         requirements: [
-          "Allow the affected person to file a contest without extra approvals.",
+          "Allow the person the decision is about to file a challenge without extra approvals.",
           "Allow trusted representatives to file with consent.",
           "Impose no paywalls, hidden prerequisites, or behavior tests before filing.",
         ],
         evidence: [
-          "Visible contest entry point.",
+          "Visible challenge entry point.",
           "Receipt confirming submission.",
           "Policy stating who can file and how.",
         ],
@@ -116,16 +116,16 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
         id: "records",
         title: "Records (receipts and logs)",
         summary:
-          "Every contestable decision leaves a traceable, shareable record.",
+          "Every decision that can be challenged leaves a traceable, shareable record.",
         requirements: [
           "Issue a decision record with a unique ID and timestamp.",
-          "Keep the record accessible to the affected person.",
+          "Keep the record accessible to the person the decision is about.",
           "Log updates, evidence, and outcomes in a repair log.",
         ],
         evidence: [
           "Decision record or receipt with unique ID.",
-          "Accessible record history for the affected person.",
-          "Repair log or decision ledger entry.",
+          "Accessible record history for the person the decision is about.",
+          "Repair log or decision log entry.",
         ],
       },
       {
@@ -139,7 +139,7 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
           "If deadlines are missed, default to human review or pause.",
         ],
         evidence: [
-          "Published SLA or review clock.",
+          "Published review deadline, with the event that starts its clock.",
           "Status tracker or timeline receipt.",
           "Escalation rule documentation.",
         ],
@@ -152,13 +152,13 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
         requirements: [
           "Name the responder for each decision class, by role and contact, not by inbox.",
           "Publish the standard of review: policy conformance, policy correctness, evidentiary support, or reasonableness of outcome.",
-          "State what evidence the responder must accept from the contestant.",
+          "State what evidence the responder must accept from the person challenging.",
           "Record the answer against the published standard, including reasoned refusals.",
         ],
         evidence: [
           "Standing register entry with responder and standard of review.",
           "Answered cases showing the standard applied.",
-          "Admissible evidence list published with the contest path.",
+          "Admissible evidence list published with the challenge path.",
         ],
       },
       {
@@ -181,25 +181,25 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
         id: "remedies",
         title: "Remedies (reversal and repair)",
         summary:
-          "A person can reach reversal, correction, or compensation, and can see when it was delivered.",
+          "A person can reach a remedy, whether reversal, restoration, or compensation, and can see when it was delivered.",
         requirements: [
-          "Offer a clear path to reversal or correction.",
+          "Offer a clear path to reversal and restoration.",
           "List any compensation or remedy options.",
           "Show proof that remedy was delivered once complete.",
         ],
         evidence: [
           "Remedy options published with the decision record.",
           "Completion receipt for remedy actions.",
-          "Audit trail showing reversal or correction.",
+          "Decision log entry recording the reversal and the restoration.",
         ],
       },
       {
         id: "non-retaliation",
-        title: "Non-retaliation (safe to contest)",
+        title: "Non-retaliation (safe to challenge)",
         summary:
-          "People are protected from penalties for contesting decisions.",
+          "People are protected from penalties for challenging decisions.",
         requirements: [
-          "State a no-retaliation guarantee in the contest flow.",
+          "State a no-retaliation guarantee in the challenge flow.",
           "Prohibit increased friction, fees, or access loss after filing.",
           "Track any adverse treatment of people who filed, and reverse it as soon as it is found.",
         ],

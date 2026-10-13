@@ -18,7 +18,7 @@ const heroCopy =
 const coreImplications = [
   {
     id: "standing",
-    title: "People affected gain standing, not only visibility",
+    title: "People a system decides about gain standing, not only visibility",
     commonModel:
       "Transparency, an explanation, and appeals that may not change the outcome.",
     ethotechnicsModel:
@@ -36,7 +36,7 @@ const coreImplications = [
     id: "rule",
     title: "Upheld challenges reach the rule",
     commonModel:
-      "Each upheld appeal is resolved as one case. The rule that produced it stays.",
+      "Each upheld challenge is resolved as one case. The rule that produced it stays.",
     ethotechnicsModel:
       "An upheld challenge is evidence about the rule. Repeated ones oblige the rule's owner to revise it or publish why not.",
     implication:
@@ -48,8 +48,8 @@ const coreImplications = [
       "Exception codes reviewed as evidence about the rule, not only as workload.",
     ],
     signals: [
-      "Upheld appeals are reported as proof the system works.",
-      "Nobody can name the last rule an appeal changed.",
+      "Upheld challenges are reported as proof the system works.",
+      "Nobody can name the last rule a challenge changed.",
     ],
   },
   {
@@ -58,18 +58,18 @@ const coreImplications = [
     commonModel:
       "Governance is demonstrated through policies, principles, reviews, and artifacts.",
     ethotechnicsModel:
-      "Governance is shown by what the running system can do: halt harmful behavior, reverse decisions, and restore the people affected.",
+      "Governance is shown by what the running system can do: halt harmful behavior, reverse decisions, and restore the people those decisions harmed.",
     implication:
       "Responsibility is measured by what the system can do, not by what its builders intend.",
     requirements: [
-      "Stop conditions in production (“if X, halt Y”), and a stated route by which each one fires.",
+      "Halt conditions in production (“if X, halt Y”), and a stated route by which each one fires.",
       "A rollback or safe mode that returns the system to its last safe state.",
       "A restoration route that changes the person's record, not only a ticket's status.",
-      "Regular drills that run stop, rollback, and restore from start to finish.",
-      "Measured time-to-halt, time-to-restore, and time-in-harm.",
+      "Regular drills that run halt, rollback, and restore from start to finish.",
+      "Measured time to halt, time to restore, and time in harm.",
     ],
     signals: [
-      "Only an executive can stop the system.",
+      "Only an executive can halt the system.",
       '"Fix forward" is treated as the only option.',
     ],
   },
@@ -82,11 +82,11 @@ const coreImplications = [
       "The time a person spends harmed is what gets measured. A review with no end date is itself a harm.",
     implication: "Waiting with no end date is a governance failure.",
     requirements: [
-      "A binding maximum time for each contested state.",
-      "Protection while the dispute runs, such as continued service or a safe default.",
+      "A binding maximum time for each state under challenge.",
+      "Protection while the challenge runs, such as continued service or a safe default.",
       "When a clock runs out, the case returns to the safer state.",
       "A named owner for each pending state and for the growth of its queue.",
-      "Reports of time-in-harm that show the slowest cases, not only the average.",
+      "Reports of time in harm that show the slowest cases, not only the average.",
     ],
     signals: [
       "Appeals timelines are undefined.",
@@ -95,7 +95,7 @@ const coreImplications = [
   },
   {
     id: "recovery",
-    title: "Maturity is measured by recovery, not coverage",
+    title: "Maturity is measured by restoration, not coverage",
     commonModel:
       "Maturity means policy coverage, named owners, monitoring, and readiness for audit.",
     ethotechnicsModel:
@@ -107,24 +107,24 @@ const coreImplications = [
       "A restore route for each workflow, not one general support channel.",
       "A written restoration procedure that works the same way each time.",
       "Actions after an incident that change the controls, not only the incident report.",
-      "Recovery tools and staffing tested at full load.",
+      "Restoration tools and staffing tested at full load.",
     ],
   },
   {
     id: "stop-rights",
     title: "Authority to halt does not wait for consensus",
     commonModel:
-      "Committees and escalation chains decide whether to stop the system.",
+      "Committees and escalation chains decide whether to halt the system.",
     ethotechnicsModel:
       "A named person can halt the system without waiting for a committee. The halt contains the harm while the rule is fixed.",
     implication:
       "The organization names who can halt, and protects them from retaliation.",
     requirements: [
-      "Named stop roles, each stating what it can stop, when, and how.",
-      "Protection from retaliation for anyone who uses a stop.",
-      "A design in which stopping the system leaves it in a safe state.",
-      "Stop authority that does not need a committee's approval.",
-      "After a stop, a procedure aimed at restoring people and fixing the rule, not at blame.",
+      "Named halt roles, each stating what it can halt, when, and how.",
+      "Protection from retaliation for anyone who uses a halt.",
+      "A design in which halting the system leaves it in a safe state.",
+      "Halt authority that does not need a committee's approval.",
+      "After a halt, a procedure aimed at restoring people and correcting the rule, not at blame.",
     ],
   },
   {
@@ -132,10 +132,10 @@ const coreImplications = [
     title: "Monitoring without intervention becomes liability",
     commonModel: "Monitoring is treated as governance progress.",
     ethotechnicsModel:
-      "An operator who can see harm and cannot stop it is more responsible, not less. Knowing and continuing is a choice.",
+      "An operator who can see harm and cannot halt it is more responsible, not less. Knowing and continuing is a choice.",
     implication: "Once a team can see harm, it has a duty to act on it.",
     requirements: [
-      "Monitoring that can trigger a stop condition or a safe state.",
+      "Monitoring that can trigger a halt condition or a safe state.",
       "Runbooks that include halt and restore steps, not only investigation.",
       "Enough staff to act before the harm budget is spent.",
       "Few enough alerts that people still act on them.",
@@ -160,7 +160,7 @@ const additionalImplications = [
     id: "slow-harm",
     title: "Slow, diffuse harm becomes structurally unacceptable",
     implication:
-      "People who give up count as harmed, measured by time-in-harm and by the burden moved onto them.",
+      "People who give up count as harmed, measured by time in harm and by the burden moved onto them.",
     requirements: [
       "Measures of who carries the harm, not only totals.",
       "Thresholds that force safe mode or reversal when the slowest cases get slower.",
@@ -184,7 +184,7 @@ const additionalImplications = [
       "Enforcement works best as limits built into the system, not as penalties after the fact.",
     requirements: [
       "Binding clocks, with a return to the safe state when one runs out.",
-      "A stop right held by someone independent of the operator.",
+      "A halt right held by someone independent of the operator.",
       "Drills that show the limits hold under load.",
     ],
   },
@@ -193,8 +193,8 @@ const additionalImplications = [
     title: "Culture stops being the primary safeguard",
     implication: "If ethics requires heroism, the system is unethical.",
     requirements: [
-      "Protection, in policy and contract, for people who stop the system or report harm.",
-      "Enough tools and staff to stop the system when it has to be stopped.",
+      "Protection, in policy and contract, for people who halt the system or report harm.",
+      "Enough tools and staff to halt the system when it has to be halted.",
       "Incentives that do not reward quiet overrides.",
     ],
   },
@@ -252,9 +252,9 @@ const buildAnchor = (id: string) =>
       pattern of exceptions is evidence against the rule, and its owner must
       answer it. Halt, reverse, and restore must work under load. Slow reversals
       and cases left pending are governance failures. Maturity is measured by
-      recovery, because a document does not restore anyone. A named person can
-      halt without waiting for consensus. Knowing about harm and continuing is a
-      choice.
+      restoration, because a document does not restore anyone. A named person
+      can halt without waiting for consensus. Knowing about harm and continuing
+      is a choice.
     </p>
   </SectionBlock>
 

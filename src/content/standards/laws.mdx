@@ -1,11 +1,11 @@
 ---
-title: "Laws for Engineering Delegated Intelligence"
+title: "Laws for engineering delegated intelligence"
 description: "Laws for automated systems that make consequential decisions. Each states a condition that must always hold and the clauses that make it checkable."
 permalink: "/standards/laws"
 eyebrow: "Laws"
-version: "1.0.2"
-lastUpdated: "2026-10-06"
-seoTitle: "Laws for Engineering Delegated Intelligence — Ethotechnics"
+version: "1.0.3"
+lastUpdated: "2026-10-13"
+seoTitle: "Laws for engineering delegated intelligence — Ethotechnics"
 publishedTime: "2026-09-06T00:00:00.000Z"
 anchorLinks:
   - href: "#claim"
@@ -99,7 +99,7 @@ Most failures of delegation begin where the two are confused: a tool becomes rea
 
 An authorization holds only while the capability it rests on is verified, not merely configured. Whether to use a capability at all is a decision of its own, taken before any grant, and not using it is one of the outcomes that decision records. Authority is read from grant records, never from the content the delegation acts on.
 
-Binds through: [STD-07](/standards/std-07-revisable-delegation-record) §2.1 action under authorization, §2.2 bounded delegation, and §3.4 capability gating; [STD-08](/standards/std-08-delegation) §1.5 content does not carry authority; [STD-09](/standards/std-09-agent-chains) §1.5 and §1.6 shaping and selecting hops; the capability catalog and authority grant objects; [MEC-17 capability catalog](/mechanisms/patterns/capability-catalog), [MEC-13 authority grant register](/mechanisms/patterns/authority-grant-register), and [MEC-22 admission gate](/mechanisms/patterns/admission-gate); harness check that discovery succeeds and execution is refused.
+Binds through: [STD-07](/standards/std-07-revisable-delegation-record) §2.1 action under authorization, §2.2 bounded delegation, and §3.4 capability gating; [STD-08](/standards/std-08-delegation) §1.5 content does not carry authority; [STD-09](/standards/std-09-agent-chains) §1.5 and §1.6 shaping and selecting hops; the capability catalog and authority grant objects; [capability catalog (MEC-17)](/mechanisms/patterns/capability-catalog), [authority grant register (MEC-13)](/mechanisms/patterns/authority-grant-register), and [admission gate (MEC-22)](/mechanisms/patterns/admission-gate); harness check that discovery succeeds and execution is refused.
 
 <h3 id="law-ii">
   {"Law II. Authority decays unless its justification is renewed"}
@@ -114,7 +114,7 @@ A grant of authority is a lease, not a title. It was justified by evidence avail
 
 Silence is not renewal. A system that has not visibly failed has not thereby earned continued authority; it may have failed in ways no one is positioned to see. The burden is on the delegation to show it still deserves to stand.
 
-Binds through: [STD-07](/standards/std-07-revisable-delegation-record) §2.2 expiry and revocation conditions and §1.3 declared expiry; [STD-08](/standards/std-08-delegation) Part A renewal burden; the `until` and `renewal_basis` fields on the authority grant; [MEC-13 authority grant register](/mechanisms/patterns/authority-grant-register); Delegation Validity eval, grant in `allowed` state at decision time.
+Binds through: [STD-07](/standards/std-07-revisable-delegation-record) §2.2 expiry and revocation conditions and §1.3 declared expiry; [STD-08](/standards/std-08-delegation) Part A renewal burden; the `until` and `renewal_basis` fields on the authority grant; [authority grant register (MEC-13)](/mechanisms/patterns/authority-grant-register); Delegation Validity eval, grant in `allowed` state at decision time.
 
 <h3 id="law-iii">{"Law III. Evidence and authority must remain coupled"}</h3>
 
@@ -129,7 +129,7 @@ When the evidence changes materially, the authority that rested on it must at le
 
 A decision threshold is such a policy. It is pinned to the model version, question schema, and option order it was tuned against, so the evidence behind a confidence cut-off decays when any of them changes. The list of events that reopen a policy may not be narrower than what the institution already holds: evidence that arrives anywhere in the institution reopens it, even if no one declared that kind of evidence in advance.
 
-Binds through: [STD-07](/standards/std-07-revisable-delegation-record) §3.1 dependence and §3.2 invalidation conditions; [STD-08](/standards/std-08-delegation) Part B policy validity, with §2.6 decision thresholds and §2.7 held evidence; the policy record and `policy_refs` on the grant; [MEC-14 policy review triggers](/mechanisms/patterns/policy-review-triggers); harness check that an expired policy moves grants to `review_required`.
+Binds through: [STD-07](/standards/std-07-revisable-delegation-record) §3.1 dependence and §3.2 invalidation conditions; [STD-08](/standards/std-08-delegation) Part B policy validity, with §2.6 decision thresholds and §2.7 held evidence; the policy record and `policy_refs` on the grant; [policy review triggers (MEC-14)](/mechanisms/patterns/policy-review-triggers); harness check that an expired policy moves grants to `review_required`.
 
 <h3 id="law-iv">
   {"Law IV. Every consequential delegation creates a correction obligation"}
@@ -140,13 +140,13 @@ Binds through: [STD-07](/standards/std-07-revisable-delegation-record) §3.1 dep
 
 > No accumulation of delegated authority without a corresponding accumulation of corrective capacity.
 
-Delegating authority to act is also delegating the capacity to be wrong at scale. The institution that grants the authority owes a matching capacity to notice, stop, reverse, and repair what the delegate does. That capacity is measured, not assumed.
+Delegating authority to act is also delegating the capacity to be wrong at scale. The institution that grants the authority owes a matching capacity to notice, halt, reverse, and repair what the delegate does. That capacity is measured, not assumed.
 
 Correction capacity is stated alongside scope and reviewed alongside it. A grant whose scope grows while its correction capacity stays fixed has changed the institution's exposure without a decision being taken.
 
 Capacity is also spent without being counted. When a person catches a failure before it reaches anyone else, they use correction capacity the institution has not accounted for, so the catch is recorded as an occurrence, with the labor it took and whether the source condition was fixed. And no single provider may both run a consequential process and evaluate it.
 
-Binds through: [STD-08](/standards/std-08-delegation) Part D correction symmetry, with §4.5 capacity rechecked with scope and §4.6 execution and evaluation separated; [STD-07](/standards/std-07-revisable-delegation-record) §4.2 objection answered; [STD-06](/standards/std-06-human-impact-safety-case) §3.3 rescue records; `correction_capacity` on the authority grant; [MEC-16 intervention specification](/mechanisms/patterns/intervention-specification) and [MEC-23 challenge load ledger](/mechanisms/patterns/challenge-load-ledger); Correction Symmetry eval, capacity against authority.
+Binds through: [STD-08](/standards/std-08-delegation) Part D correction symmetry, with §4.5 capacity rechecked with scope and §4.6 execution and evaluation separated; [STD-07](/standards/std-07-revisable-delegation-record) §4.2 objection answered; [STD-06](/standards/std-06-human-impact-safety-case) §3.3 rescue records; `correction_capacity` on the authority grant; [intervention specification (MEC-16)](/mechanisms/patterns/intervention-specification) and [challenge load ledger (MEC-23)](/mechanisms/patterns/challenge-load-ledger); Correction Symmetry eval, capacity against authority.
 
 <h3 id="law-v">
   {"Law V. Dependence converts technical risk into structural risk"}
@@ -163,7 +163,7 @@ Dependence is therefore tracked as a state of the deployment, with dependents, s
 
 This is not the dependence between records that STD-07 Article III governs. That asks what a record rests on. This law asks what the institution has come to rely on.
 
-Binds through: [STD-06](/standards/std-06-human-impact-safety-case) Article V dependency and reversibility; the dependency record; [MEC-18 dependency ledger](/mechanisms/patterns/dependency-ledger); Dependence eval, depth × substitution cost × correction latency.
+Binds through: [STD-06](/standards/std-06-human-impact-safety-case) Article V dependency and reversibility; the dependency record; [dependency ledger (MEC-18)](/mechanisms/patterns/dependency-ledger); Dependence eval, depth × substitution cost × correction latency.
 
 <h3 id="law-vi">
   {"Law VI. Nominal reversibility is not operational reversibility"}
@@ -174,11 +174,11 @@ Binds through: [STD-06](/standards/std-06-human-impact-safety-case) Article V de
 
 > A correction mechanism that cannot be exercised without unacceptable institutional damage is not a correction mechanism.
 
-A stop control that exists is not the same as a stop control that can be used. Reversibility has three levels. Technical: the switch works. Operational: the people and processes can absorb the switch being thrown. Institutional: the organization can survive having thrown it.
+A halt control that exists is not the same as a halt control that can be used. Reversibility has three levels. Technical: the switch works. Operational: the people and processes can absorb the switch being thrown. Institutional: the organization can survive having thrown it.
 
 A correction that would cause unacceptable damage will not be exercised, and a correction that will not be exercised is not part of the control system. The law asks for evidence at each level, and for rehearsal, because untested withdrawal is a claim rather than a capacity.
 
-Binds through: [STD-06](/standards/std-06-human-impact-safety-case) §5.3 reversibility at three levels and §5.6 rehearsal cadence; `reversibility` on the dependency record; [MEC-15 withdrawal rehearsal](/mechanisms/patterns/withdrawal-rehearsal); Practical Reversibility eval.
+Binds through: [STD-06](/standards/std-06-human-impact-safety-case) §5.3 reversibility at three levels and §5.6 rehearsal cadence; `reversibility` on the dependency record; [withdrawal rehearsal (MEC-15)](/mechanisms/patterns/withdrawal-rehearsal); Practical Reversibility eval.
 
 <h3 id="law-vii">
   {"Law VII. Error-bearing parties require standing proportional to exposure"}
@@ -215,7 +215,7 @@ A system's politics show in the rights it grants when its model fails. When a fo
 
 Standing has to be usable as well as granted. A decision class that makes errors faster than anyone can answer challenges to them grants standing in name only, so its issue rate is bounded by the capacity to answer. That bound is where the proportion is checked: every party with standing gets the same receipt, answer, and decision, and the capacity to answer has to keep pace with the errors a decision class makes. A challenge also may not be closed by a number: a burden score, safety-case result, or audit finding the challenged party did not produce is evidence, not a bar. The set of affected parties does not close at adoption, and consent given then does not cover a dependence that has since deepened.
 
-Binds through: [STD-07](/standards/std-07-revisable-delegation-record) §4.1 standing declared and §4.2 objection answered; [STD-02](/standards/std-02-contestability-recourse) Article VIII standing mechanism, with §8.6 issue rate bounded by answer capacity; STD-02 §10.1 and §10.2 depth of consent; STD-02 §5.4 a score is evidence, not a bar; the challenge and standing register objects; [MEC-08 contestation APIs](/mechanisms/patterns/contestation-apis), [MEC-21 halt tier register](/mechanisms/patterns/halt-tier-register), and [MEC-23 challenge load ledger](/mechanisms/patterns/challenge-load-ledger); Standing eval.
+Binds through: [STD-07](/standards/std-07-revisable-delegation-record) §4.1 standing declared and §4.2 objection answered; [STD-02](/standards/std-02-contestability-recourse) Article VIII standing mechanism, with §8.6 issue rate bounded by answer capacity; STD-02 §10.1 and §10.2 depth of consent; STD-02 §5.4 a score is evidence, not a bar; the challenge and standing register objects; [contestation APIs (MEC-08)](/mechanisms/patterns/contestation-apis), [halt tier register (MEC-21)](/mechanisms/patterns/halt-tier-register), and [challenge load ledger (MEC-23)](/mechanisms/patterns/challenge-load-ledger); Standing eval.
 
 <h3 id="law-viii">
   {"Law VIII. Observability without state transition is theater"}
@@ -230,13 +230,13 @@ Dashboards, logs, and audit trails are only as governing as the transitions they
 
 The test is simple. Name the observation. Name the state it can change. If nothing is named, the observation is decorative.
 
-One question precedes that one. An observation is weaker evidence the more the cost of collecting it falls on the people being observed. A survey, an appeal, a complaint log, and a self-assessment all draw on the subject's remaining attention, so the depleted answer least and the institution reads the gap as health. The bias runs one direction: more depletion produces a better-looking reading. An instrument bought with the subject's last reserves has a sampling rule that ties difficulty to silence, and no better phrasing of the question repairs it. The bias does not make the responses non-evidence; it makes them evidence with a known missingness. Cap the burden an instrument may ask, disclose who did not answer and why, and combine respondent-supplied reports with the system's own trail instead of reading either alone.
+One question precedes that one. An observation is weaker evidence the more the cost of collecting it falls on the people being observed. A survey, a challenge, a complaint log, and a self-assessment all draw on the subject's remaining attention, so the depleted answer least and the institution reads the gap as health. The bias runs one direction: more depletion produces a better-looking reading. An instrument bought with the subject's last reserves has a sampling rule that ties difficulty to silence, and no better phrasing of the question repairs it. The bias does not make the responses non-evidence; it makes them evidence with a known missingness. Cap the burden an instrument may ask, disclose who did not answer and why, and combine respondent-supplied reports with the system's own trail instead of reading either alone.
 
 The alternative is to read friction from the system's own trail. Abandonment at a named step, repeated re-uploads, retries, and activity outside scheduled hours are recorded whether or not anyone chooses to answer. Where the operator already holds records that answer the question, the respondent is not asked at all.
 
 The Audit Burden Ceiling caps the labor an instrument may ask of each respondent. The self-assessment tools on this site state the labor each one takes.
 
-Binds through: [STD-07](/standards/std-07-revisable-delegation-record) §3.3 discrepancy handling; the reconsideration object and transition rules on grants; [MEC-07 accountability latency tracker](/mechanisms/patterns/accountability-latency-tracker); harness check that a trigger produces a reconsideration record; Audit Burden Ceiling; Burden Concealment eval BCN-008.
+Binds through: [STD-07](/standards/std-07-revisable-delegation-record) §3.3 discrepancy handling; the reconsideration object and transition rules on grants; [accountability latency tracker (MEC-07)](/mechanisms/patterns/accountability-latency-tracker); harness check that a trigger produces a reconsideration record; Audit Burden Ceiling; Burden Concealment eval BCN-008.
 
 <TheaterTestFigure level="h4" />
 
@@ -257,7 +257,7 @@ Every oversight clause resolves to an intervention specification that answers th
 
 A record that a delegation runs on confirm says nothing about whether the confirming human can change the outcome; the intervention specification says that. Where a score decides which cases reach the reviewer, the threshold is part of the specification, and a sample of the decisions that ran unattended still reaches review.
 
-Binds through: [STD-08](/standards/std-08-delegation) Part C intervention, with §3.6 routing thresholds; [STD-07](/standards/std-07-revisable-delegation-record) §2.2 mode; the intervention spec object; [MEC-16 intervention specification](/mechanisms/patterns/intervention-specification); Meaningful Control eval, the Law IX question set.
+Binds through: [STD-08](/standards/std-08-delegation) Part C intervention, with §3.6 routing thresholds; [STD-07](/standards/std-07-revisable-delegation-record) §2.2 mode; the intervention spec object; [intervention specification (MEC-16)](/mechanisms/patterns/intervention-specification); Meaningful Control eval, the Law IX question set.
 
 <h3 id="law-x">
   {"Law X. The relevant eval sits at the highest layer where harm can emerge"}
@@ -289,7 +289,7 @@ The failure mode is the automation ratchet: scope grows by accretion, each step 
 
 A ceiling on a delegation bounds what it may do. It does not bound when the ceiling may be raised, and this law is about that.
 
-Binds through: [STD-07](/standards/std-07-revisable-delegation-record) §2.2 ceilings; [STD-08](/standards/std-08-delegation) Part A expansion as a new authorization (§1.3, §1.4); `state_history` on the grant with `expansion` transitions; [MEC-19 expansion review](/mechanisms/patterns/expansion-review); Expansion eval, whether scope growth was a decision or a drift.
+Binds through: [STD-07](/standards/std-07-revisable-delegation-record) §2.2 ceilings; [STD-08](/standards/std-08-delegation) Part A expansion as a new authorization (§1.3, §1.4); `state_history` on the grant with `expansion` transitions; [expansion review (MEC-19)](/mechanisms/patterns/expansion-review); Expansion eval, whether scope growth was a decision or a drift.
 
 <RatchetFigure level="h4" />
 
@@ -306,9 +306,9 @@ Institutions question, replace, and withdraw systems using capacities: staff who
 
 Some capacities are preserved because the institution hopes never to need them. The law names them, records them, and treats their erosion as a governance event rather than an efficiency gain.
 
-Reasons are one of those capacities. Where the component that decides gives none, an explanation written afterward is labeled as an account, not a reason, so the decision stays contestable.
+Reasons are one of those capacities. Where the component that decides gives none, an explanation written afterward is labeled as an account, not a reason, so the decision can still be challenged.
 
-Binds through: [STD-06](/standards/std-06-human-impact-safety-case) §5.4 preserved capacities; [STD-02](/standards/std-02-contestability-recourse) §1.4 reasons belong to the decision; `preserved_capacities` on the dependency record; [MEC-15 withdrawal rehearsal](/mechanisms/patterns/withdrawal-rehearsal) and [MEC-18 dependency ledger](/mechanisms/patterns/dependency-ledger); Contestability Preservation eval.
+Binds through: [STD-06](/standards/std-06-human-impact-safety-case) §5.4 preserved capacities; [STD-02](/standards/std-02-contestability-recourse) §1.4 reasons belong to the decision; `preserved_capacities` on the dependency record; [withdrawal rehearsal (MEC-15)](/mechanisms/patterns/withdrawal-rehearsal) and [dependency ledger (MEC-18)](/mechanisms/patterns/dependency-ledger); Contestability Preservation eval.
 
 </SectionBlock>
 
@@ -365,7 +365,7 @@ Ten instances, as the decisions they ask:
 - If you cannot redistribute the burden when it concentrates, do not
   concentrate the burden. Law IV: every consequential delegation creates a
   correction obligation.
-- If you cannot make contestation usable, do not claim that consent
+- If you cannot make the route to challenge usable, do not claim that consent
   legitimizes what it cannot reach. Law VII: standing proportional to
   exposure.
 - If you cannot preserve what contradiction requires, do not consume it.
@@ -396,7 +396,7 @@ can now make it stop doing, correct, or justify.
   id="state-variables"
   eyebrow="State"
   title="What must stay in step"
-  description="Capability, authority, evidence, dependency, standing, and correction. A well-built system records each one, and the records on this site are organized around them. A system becomes unsafe when they drift apart."
+  description="The six safeguards: capability, authority, evidence, dependency, standing, and correction. The laws treat them as state variables, quantities that move as the system runs. A well-built system records each one, and the records on this site are organized around them. A system becomes unsafe when they drift apart."
   variant="alt"
 >
   <div

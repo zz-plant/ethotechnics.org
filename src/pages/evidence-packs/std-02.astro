@@ -7,7 +7,7 @@ import { standardClauses } from "../../content/standards";
 
 const pageTitle = "STD-02 Evidence Pack — Ethotechnics Institute";
 const pageDescription =
-  "What to show for STD-02 appeals, review clocks, and remedies at three tiers, from a working appeal path to proof under incident load, and what auditors ask.";
+  "What to show for STD-02 challenges, review clocks, and remedies at three tiers, from a working appeal path to proof under incident load, and what auditors ask.";
 
 const clauses = standardClauses["STD-02"];
 const clauseAnchor = (id: string) =>
@@ -16,20 +16,19 @@ const clauseAnchor = (id: string) =>
 const tiers = [
   {
     tier: "Tier 0 (minimum)",
-    description:
-      "Proof the contestation path exists and is reachable in-product.",
+    description: "Proof the appeal path exists and is reachable in-product.",
     evidence: "UI links, receipt payloads, and appeal intake records.",
   },
   {
     tier: "Tier 1 (operational)",
-    description: "Proof that appeals are reviewed and clocks are honored.",
+    description: "Proof that challenges are reviewed and clocks are honored.",
     evidence:
       "Reviewer rosters, appeal outcomes, and clock compliance dashboards.",
   },
   {
     tier: "Tier 2 (resilient)",
     description:
-      "Proof that contestation survives scale, incident load, and exceptions.",
+      "Proof that the challenge route survives scale, incident load, and exceptions.",
     evidence: "Postmortems, exception audits, and throughput stress tests.",
   },
 ];
@@ -106,7 +105,7 @@ const tiers = [
   >
     <ul class="muted">
       <li>
-        <strong>AW-01:</strong> Burden remediation plan tied to contestability metrics.
+        <strong>AW-01:</strong> Burden remediation plan tied to challenge metrics.
       </li>
       <li>
         <strong>AW-02:</strong> Appeal path regression tests + public replacement
@@ -136,10 +135,13 @@ const tiers = [
   >
     <ul class="muted">
       <li>Appeal links exist but lead to dead ends or generic inboxes.</li>
-      <li>Review clocks are defined but not visible to impacted people.</li>
       <li>
-        Manual review happens, but there is no audit trail of outcomes or
-        reversals.
+        Review clocks are defined but not visible to the people the decisions
+        are about.
+      </li>
+      <li>
+        Manual review happens, but outcomes and reversals are not entered in the
+        decision log.
       </li>
       <li>
         Exception paths are used to avoid remedies without any expiry or review
@@ -169,7 +171,7 @@ const tiers = [
         Show how decision logs reference evidence packs for contested decisions.
       </li>
       <li>
-        Show, for each decision class, how many appeals were upheld, and what
+        Show, for each decision class, how many challenges were upheld, and what
         changed in the rule after them, or the STD-07 reconsideration record
         that kept it.
       </li>

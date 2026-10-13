@@ -138,7 +138,7 @@ export const roles: Role[] = [
     label: "Policy and compliance",
     who: "You write the rules the system has to satisfy, or prove to a regulator that it does.",
     tagline:
-      "Turn the standards into obligations a regulator or a contract can enforce: mappings to the law, numeric targets for appeals, and clauses a vendor has to sign.",
+      "Turn the standards into obligations a regulator or a contract can enforce: mappings to the law, numeric targets for challenges, and clauses a vendor has to sign.",
     orientation: [
       {
         number: 1,
@@ -150,10 +150,10 @@ export const roles: Role[] = [
       },
       {
         number: 2,
-        title: "Set measurable targets for appeals",
+        title: "Set measurable targets for challenges",
         description:
-          "Commit to numbers: how many appeals get through, how fast, and a promise that appealing carries no penalty.",
-        ctaLabel: "Read the standard for appeal targets",
+          "Commit to numbers: how many challenges are upheld, how fast they are answered, and a promise that challenging a decision carries no penalty.",
+        ctaLabel: "Read the standard for challenge targets",
         ctaHref: "/standards/std-03-justice-slos",
       },
       {
@@ -180,8 +180,8 @@ export const roles: Role[] = [
       ],
     },
     adoptionChecklist: [
-      "Give every right to appeal a named owner and a response deadline.",
-      "Define restitution pathways for harms that cannot be fully reversed.",
+      "Give every right to challenge a named owner and a response deadline.",
+      "Define restitution pathways for harms that cannot be fully undone.",
       "Set incident disclosure expectations for high-impact failures.",
       "Name who must sign off before a halted system restarts.",
     ],
@@ -255,21 +255,21 @@ export const roles: Role[] = [
         title: "Put escalation on a deadline",
         description:
           "Give every stalled case a named owner and a deadline that escalates itself, rather than an inbox that ages quietly.",
-        ctaLabel: "Inspect escalation SLAs",
-        ctaHref: "/mechanisms/patterns/escalation-slas",
+        ctaLabel: "Inspect escalation deadlines",
+        ctaHref: "/mechanisms/patterns/escalation-deadlines",
       },
       {
         number: 3,
         title: "Read the queue as a capacity signal",
         description:
-          "Compare the number of appeals with the staff assigned to answer them. When the queue backs up, add staff or narrow the system, on the record. Never narrow who may appeal.",
-        ctaLabel: "See the appeal load ledger",
+          "Compare the number of challenges with the staff assigned to answer them. When the queue backs up, add staff or narrow the system, on the record. Never narrow who may challenge.",
+        ctaLabel: "See the challenge load ledger",
         ctaHref: "/mechanisms/patterns/challenge-load-ledger",
       },
     ],
     adoptionChecklist: [
       "Set up a way to report harm, with named triage categories.",
-      "Set escalation SLAs by severity and route to named responders.",
+      "Set escalation deadlines by severity and route to named responders.",
       "Track queue age and auto-escalate stalled cases.",
       "Publish a repair log showing what has been fixed, what has not, and who owns each item.",
     ],
@@ -303,7 +303,7 @@ export const roles: Role[] = [
         number: 3,
         title: "Put a checkpoint where the harm happens",
         description:
-          "Design the checkpoints that stop, slow, or escalate a flow when your rule is wrong, and put them where the people it decides about can reach them.",
+          "Design the checkpoints that pause, slow, or escalate a flow when your rule is wrong, and put them where the people it decides about can reach them.",
         ctaLabel: "Read about checkpoints that pause a flow",
         ctaHref: "/explainers/ethical-interrupts",
       },
@@ -418,7 +418,7 @@ export const roles: Role[] = [
         number: 3,
         title: "Benchmark governance maturity",
         description:
-          "Place the organization on a scale that runs from a basic pause control to published appeal targets and funded maintenance.",
+          "Place the organization on a scale that runs from a basic halt control to published challenge targets and funded maintenance.",
         ctaLabel: "Explore maturity scale",
         ctaHref: "/glossary/ethotechnic-maturity",
       },

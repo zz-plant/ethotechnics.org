@@ -18,9 +18,9 @@ import { derivePublicationMetadata } from "../../utils/publication";
 import agentReceiptSchemaData from "../../../public/standards/agent-receipt-schema.json";
 import agentSafetyObjectModelData from "../../data/agents-spec.json";
 
-const pageTitle = "Ethotechnics for Agents";
+const pageTitle = "Ethotechnics for agents";
 const pageDescription =
-  "Mechanism-first practice for teams building and operating agents: a receipt schema, action classes, contestability surfaces, and deployment gates.";
+  "Mechanism-first practice for teams building and operating agents: a receipt schema, action classes, challenge surfaces, and deployment gates.";
 const permalink = "/standards/ethotechnics-for-agents";
 // Bundled at build time: the page is server-rendered on Workers, where
 // there is no filesystem to read the published copies from.
@@ -95,7 +95,7 @@ const publication = derivePublicationMetadata({
           >
           <br />
           <a href="/standards/std-02-contestability-recourse">
-            STD-02: Contestability &amp; Recourse
+            STD-02: Contestability and recourse
           </a>
         </dd>
       </div>
@@ -110,7 +110,7 @@ const publication = derivePublicationMetadata({
     variant="alt"
   >
     <p>
-      Ethotechnics for Agents is a practice. It turns safety and ethics goals
+      Ethotechnics for agents is a practice. It turns safety and ethics goals
       into design and operating decisions for agents, each of which can be
       specified, built, tested, audited, and given an owner.
     </p>
@@ -124,15 +124,17 @@ const publication = derivePublicationMetadata({
     id="core-premise"
     eyebrow="Core premise"
     title="Agents are actors, and humans live with the outcomes"
-    description="Any acting system must define constraints and recourse for both operators and affected people."
+    description="Any acting system must define its constraints and how operators and the people it decides about can challenge what it does."
   >
     <p>Any system that can act must define:</p>
     <ul class="standard-clauses">
       <li>What it can do.</li>
       <li>Under what conditions it can do it.</li>
-      <li>Who can stop it.</li>
+      <li>Who can halt it.</li>
       <li>How failure is detected and contained.</li>
-      <li>How operators and affected users can contest outcomes.</li>
+      <li>
+        How operators and the people it decides about can challenge outcomes.
+      </li>
     </ul>
     <p>
       If a safety claim cannot be expressed as a constraint, control surface, or
@@ -149,8 +151,8 @@ const publication = derivePublicationMetadata({
     <p>
       The practice shifts review conversations from
       <em>declared intent</em> to <em>enforceable system behavior</em>: who can
-      act, who can stop, what clocks run, where reversal paths exist, and how
-      those paths stay legible to people affected by decisions.
+      act, who can halt, what clocks run, where reversal paths exist, and how
+      those paths stay legible to the people the agent decides about.
     </p>
     <ul class="standard-clauses">
       <li>From values-only claims to testable controls and receipts.</li>
@@ -177,8 +179,8 @@ const publication = derivePublicationMetadata({
             <strong>Intent theater:</strong> policy statements substitute for enforceability.
           </li>
           <li>
-            <strong>Explainability decoy:</strong> narratives stand in for real recourse
-            people can use.
+            <strong>Explainability decoy:</strong> narratives stand in for a real
+            way to challenge the decision.
           </li>
           <li>
             <strong>Memory loss:</strong> incidents are discussed, then forgotten
@@ -191,7 +193,7 @@ const publication = derivePublicationMetadata({
         <ul class="muted">
           <li>Action classes + approval gates + accountable owners.</li>
           <li>
-            Contestability surfaces with live appeals and hard clocks that
+            Challenge surfaces with live appeal routes and hard deadlines that
             humans can access.
           </li>
           <li>
@@ -245,7 +247,7 @@ const publication = derivePublicationMetadata({
       </li>
       <li>
         <a href="/standards/repair-sla.schema.json"
-          ><ActionIcon action="download" />Repair SLA schema</a
+          ><ActionIcon action="download" />Repair deadline schema</a
         >
       </li>
     </ul>
@@ -265,8 +267,8 @@ const publication = derivePublicationMetadata({
             and remedy, so a missed one shows up in the record.
           </li>
           <li>
-            <strong>appeal_path:</strong> gives the impacted person a live contestation
-            route.
+            <strong>appeal_path:</strong> gives the person the decision is about a
+            live route to challenge it.
           </li>
         </ul>
       </div>
@@ -274,13 +276,13 @@ const publication = derivePublicationMetadata({
         <p class="eyebrow">What breaks if missing</p>
         <ul class="muted">
           <li>
-            Missing owner: no accountable steward to respond within clocks.
+            Missing owner: no accountable steward to respond by the deadline.
           </li>
           <li>
             Missing action class: approvals and reversibility checks cannot run.
           </li>
           <li>
-            Missing clocks: remedies become optional rather than enforceable.
+            Missing deadlines: remedies become optional rather than enforceable.
           </li>
           <li>
             Missing evidence links: audits cannot trace proof back to clauses.
@@ -341,8 +343,8 @@ const publication = derivePublicationMetadata({
   <SectionBlock
     id="contestability-surface"
     eyebrow="P1 artifact"
-    title="Contestability surface: minimum shipping spec"
-    description="The UI patterns, copy, and escalation ladder a person needs to contest a decision."
+    title="Challenge surface: minimum shipping spec"
+    description="The UI patterns, copy, and escalation ladder a person needs to challenge a decision."
     variant="alt"
   >
     <div class="grid grid--two">
@@ -363,7 +365,7 @@ const publication = derivePublicationMetadata({
           <li>“Why this happened” field with reason codes and inputs used.</li>
           <li>State the decision owner and how to reach a reviewer.</li>
           <li>Provide clock timelines: acknowledge, review, remedy.</li>
-          <li>Explain what changes if the appeal is upheld.</li>
+          <li>Explain what changes if the challenge is upheld.</li>
         </ul>
       </div>
     </div>
@@ -552,7 +554,7 @@ const publication = derivePublicationMetadata({
   >
     <p>
       This practice does not eliminate tradeoffs or value conflicts. It keeps
-      safety grounded in permissions, controls, ownership, contestability, and
+      safety grounded in permissions, controls, ownership, challenge routes, and
       recovery — the parts of the system that can be improved.
     </p>
     <p>
@@ -571,24 +573,25 @@ const publication = derivePublicationMetadata({
     <ol class="standard-clauses">
       <li>
         Ship{" "}
-        <a href="/mechanisms/patterns/decision-log">MEC-01 Decision log</a>
+        <a href="/mechanisms/patterns/decision-log">Decision log (MEC-01)</a>
         {" "}
         with dissent and owner sign-off.
       </li>
       <li>
         Implement{" "}
-        <a href="/mechanisms/patterns/kill-switch">MEC-05 Kill switch</a>
+        <a href="/mechanisms/patterns/kill-switch">Kill switch (MEC-05)</a>
         {" "}
         with rollback criteria and on-call authority.
       </li>
       <li>
         Embed{" "}
-        <a href="/mechanisms/patterns/appeal-paths">MEC-06 Appeal paths</a>
+        <a href="/mechanisms/patterns/appeal-paths">Appeal paths (MEC-06)</a>
         {" "}
         in the UI with clocks and an escalation ladder.
       </li>
       <li>
-        Emit receipts using the canonical schema, and publish clocks in the UI.
+        Emit receipts using the canonical schema, and publish deadlines in the
+        UI.
       </li>
       <li>
         Register action classes with reversible/irreversible flags and

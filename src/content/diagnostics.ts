@@ -241,7 +241,7 @@ export const diagnosticsContent: DiagnosticsContent = {
           "The name of one workflow the system takes part in.",
           "Each action class with its authorizer, evidence basis, affected people, and end condition.",
           "Dependents with criticality, substitution cost in staff-weeks, and correction latency in hours.",
-          "Standing and correction answers: who bears errors, who answers, what can be stopped.",
+          "Standing and correction answers: who bears errors, who answers, what can be halted.",
         ],
         procedure: [
           "Answer the six questions in order, in plain language.",
@@ -263,7 +263,7 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Does the policy it applies have a review trigger and an expiry, and when was it last reviewed?",
           "What depends on this system, how long would the workflow take without it, and when was the alternative last run?",
           "Who bears the errors, can they raise one, who must answer, and by when?",
-          "Can you stop it, can the institution keep functioning if you do, and does anyone still hold the expertise?",
+          "Can you halt it, can the institution keep functioning if you do, and does anyone still hold the expertise?",
         ],
         rubric: [
           "Grounded: 70 or above out of 100 on that question.",
@@ -286,9 +286,9 @@ export const diagnosticsContent: DiagnosticsContent = {
         failureModes: [
           "Scoping the audit to a whole product instead of one workflow.",
           "Estimating substitution cost without having run the alternative.",
-          "Recording an untested stop as working reversibility.",
+          "Recording an untested halt as working reversibility.",
           "Treating a permission nobody can justify as a violation instead of an open question.",
-          "Treating human review as a control when the reviewer cannot stop or change an automated action without penalty.",
+          "Treating human review as a control when the reviewer cannot pause or change an automated action without penalty.",
         ],
       },
       collectionCost: {
@@ -600,7 +600,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       methodCards: {
         measures: [
           "The action-capacity growth band selected by the operator.",
-          "Reported challenge intake, reversal latency, upstream revision, and workaround handling.",
+          "Reported challenge intake, time to reverse, upstream revision, and workaround handling.",
           "A fixed-weight concern score derived from those answers.",
         ],
         doesNotMeasure: [
@@ -619,7 +619,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         inputs: [
           "Action-capacity growth band for the last year.",
           "How challenges and exceptions are received and answered.",
-          "Reversal latency from challenge to restored state.",
+          "Time to reverse, from challenge to restored state.",
           "Whether handled exceptions ever change the rule that produced them.",
           "Whether recurring workarounds are inventoried and reviewed.",
         ],
@@ -638,7 +638,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         prompts: [
           "Action-capacity growth: compounding, steady, or flat over twelve months.",
           "Challenge intake: dedicated resourced team, shared inbox, or no route.",
-          "Reversal latency: same day, days to weeks, unknown or unbounded.",
+          "Time to reverse: same day, days to weeks, unknown or unbounded.",
           "Upstream revision: never, occasionally, or regularly.",
           "Workaround register: inventoried and reviewed, informal only, or none.",
           "Optional, not scored: who holds authority over budget, staffing, and priorities for the conditions that produce the workarounds.",
@@ -680,7 +680,7 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Respondent-supplied. The cost falls on whoever holds the corrective record.",
         answeredFromRecords: [
           "Decision volume and automation growth come from the delegation register.",
-          "Reversal latency comes from the reconsideration record.",
+          "Time to reverse comes from the reconsideration record.",
           "Challenge intake comes from the challenge register.",
         ],
         nonResponse:
@@ -712,11 +712,11 @@ export const diagnosticsContent: DiagnosticsContent = {
       estimatedTime: "10–12 minutes",
       prepChecklist: [
         "Decision volume and automation growth for the last year.",
-        "Challenge intake route, staffing, and reversal latency.",
+        "Challenge intake route, staffing, and time to reverse.",
         "The last time a handled exception changed an upstream rule.",
       ],
       studioNote:
-        "For a healthcare AI system, Ethotechnics Studio's readiness sprint maps one workflow end to end: who can stop it, how fast, and who owns each fix.",
+        "For a healthcare AI system, Ethotechnics Studio's readiness sprint maps one workflow end to end: who can halt it, how fast, and who owns each fix.",
       ctaLabel: "Run the corrective capacity self-assessment",
       ctaHref: "/diagnostics/corrective-debt-calculator",
       ctaAriaLabel:

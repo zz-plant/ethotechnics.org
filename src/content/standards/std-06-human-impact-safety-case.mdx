@@ -1,11 +1,11 @@
 ---
-title: "AI safety case for human impact (STD-06)"
+title: "AI safety case for human impact"
 description: "A draft safety case standard for AI and other automated systems: tests, thresholds, evidence, do-not-deploy limits, and dependence tracked after launch."
 permalink: "/standards/std-06-human-impact-safety-case"
-eyebrow: "Standard"
+eyebrow: "Standard STD-06"
 seoTitle: "AI safety case for human impact (STD-06)"
-version: "0.7"
-lastUpdated: "2026-10-06"
+version: "0.7.1"
+lastUpdated: "2026-10-13"
 publishedTime: "2026-03-01T00:00:00.000Z"
 modifiedTime: "2026-10-06T00:00:00.000Z"
 mainClass: "page page--wide standard-document"
@@ -87,7 +87,7 @@ export const artifacts = [
 export const battery = [
   "Time-to-halt logs and halt receipts with stopwatch measurement.",
   "Time-to-remedy tracking with evidence of verification and follow-up.",
-  "Contestability access audit, including the one-step test and the no-paywall test.",
+  "Challenge access audit, including the one-step test and the no-paywall test.",
   "Burden ceiling measurements with flow maps for the affected journey.",
   "Disclosure latency report with receipt delivery timestamps.",
   "Silent-harm discovery: error, reversal, and remedy rates computed per affected population from records the operator already retains, without waiting for a challenge or claim.",
@@ -102,8 +102,8 @@ export const structuredData = {
     "Tests, thresholds, evidence artifacts, and do-not-deploy boundaries for a human impact safety case.",
   url: "https://ethotechnics.org/standards/std-06-human-impact-safety-case",
   datePublished: "2026-03-01",
-  dateModified: "2026-10-06",
-  version: "0.7",
+  dateModified: "2026-10-13",
+  version: "0.7.1",
   identifier: "STD-06",
   publisher: {
     "@type": "Organization",
@@ -216,7 +216,7 @@ export const structuredData = {
           </li>
           <li>
             <span class="standard-clause-id">§2.3</span>
-            Measured, not attested: Time-to-halt and time-to-remedy are measured
+            Measured, not attested: Time to halt and time to remedy are measured
             against a clock, not attested by the team that owns the control.
           </li>
           <li>
@@ -226,7 +226,7 @@ export const structuredData = {
             from records the operator retains, and a materially worse rate for
             any population is treated as a threshold breach under §2.2. The
             duty to find silent harm rests on the deployer, not on the harmed
-            party's willingness or capacity to complain: standing under STD-02
+            party's willingness or capacity to challenge: standing under STD-02
             gives those who challenge a route in, and this clause covers those
             who never do.
           </li>
@@ -415,7 +415,7 @@ export const structuredData = {
         <DemoFigure
           id="withdrawal-figure"
           title="The kill switch you cannot throw"
-          lede="A stop control is green at the technical level in every state below. Press it in year one, then in year three, and read what the other two levels say. The sliders are the dependency record's own fields; rehearsal is the only control that moves the operational level, and only replenishment moves the institutional one."
+          lede="A halt control is green at the technical level in every state below. Press it in year one, then in year three, and read what the other two levels say. The sliders are the dependency record's own fields; rehearsal is the only control that moves the operational level, and only replenishment moves the institutional one."
         >
           <WithdrawalFigure client:visible />
         </DemoFigure>
@@ -424,6 +424,13 @@ export const structuredData = {
       <section id="publication-history" class="standard-section">
         <h2>Publication history</h2>
         <ul>
+          <li>
+            <strong>v0.7.1 (Oct 13, 2026):</strong> Editorial revision; no
+            clause changed. The registry title is now in sentence case;
+            formerly "Human Impact Safety Case". References to STD-02, STD-07,
+            and the laws use their sentence-case titles. The contestability
+            access audit is now the challenge access audit.
+          </li>
           <li>
             <strong>v0.7 (Oct 6, 2026):</strong> §5.2 defines dependency depth
             as the number of dependents marked high or critical, and states the
@@ -464,10 +471,10 @@ export const structuredData = {
             <a href="/standards/std-08-delegation">STD-08: Delegation</a>
           </li>
           <li>
-            <a href="/standards/std-07-revisable-delegation-record">STD-07: Revisable Delegation Record</a>
+            <a href="/standards/std-07-revisable-delegation-record">STD-07: Revisable delegation record</a>
           </li>
           <li>
-            <a href="/standards/std-02-contestability-recourse">STD-02: Contestability &amp; Recourse</a>
+            <a href="/standards/std-02-contestability-recourse">STD-02: Contestability and recourse</a>
           </li>
         </ul>
       </div>
@@ -478,7 +485,7 @@ export const structuredData = {
             <a href="/evidence-packs/std-06">STD-06 evidence pack</a>
           </li>
           <li>
-            <a href="/standards/laws">Laws for Engineering Delegated Intelligence</a>
+            <a href="/standards/laws">Laws for engineering delegated intelligence</a>
           </li>
         </ul>
       </div>

@@ -1,21 +1,21 @@
 ---
 slug: "std-02"
 title: "STD-02 evidence pack"
-description: "What to show for STD-02 appeals, review clocks, and remedies at three tiers, from a working appeal path to proof under incident load, and what auditors ask."
+description: "What to show for STD-02 challenges, review clocks, and remedies at three tiers, from a working appeal path to proof under incident load, and what auditors ask."
 permalink: "/evidence-packs/std-02"
 eyebrow: "Evidence pack"
 standardId: "STD-02"
-standardTitle: "Contestability & Recourse"
+standardTitle: "Contestability and recourse"
 published: "2025-06-01"
 updated: "2026-10-06"
 sections:
   - title: "Tiered evidence model"
     content: |
-      **Tier 0 (minimum):** Proof the contestation path exists and is reachable in-product. Evidence: UI links, receipt payloads, and appeal intake records.
+      **Tier 0 (minimum):** Proof the appeal path exists and is reachable in-product. Evidence: UI links, receipt payloads, and appeal intake records.
 
-      **Tier 1 (operational):** Proof that appeals are reviewed and clocks are honored. Evidence: Reviewer rosters, appeal outcomes, and clock compliance dashboards.
+      **Tier 1 (operational):** Proof that challenges are reviewed and clocks are honored. Evidence: Reviewer rosters, appeal outcomes, and clock compliance dashboards.
 
-      **Tier 2 (resilient):** Proof that contestation survives scale, incident load, and exceptions. Evidence: Postmortems, exception audits, and throughput stress tests.
+      **Tier 2 (resilient):** Proof that the challenge route survives scale, incident load, and exceptions. Evidence: Postmortems, exception audits, and throughput stress tests.
 
       Receipt payloads should conform to the Agent Receipt schema, so an auditor's tools can read them.
     required: true
@@ -24,7 +24,7 @@ sections:
     required: true
   - title: "Anti-weaponization evidence"
     content: |
-      **AW-01:** Burden remediation plan tied to contestability metrics.
+      **AW-01:** Burden remediation plan tied to challenge metrics.
 
       **AW-02:** Appeal path regression tests + public replacement notice.
 
@@ -37,8 +37,8 @@ sections:
   - title: "How teams fake this"
     content: |
       - Appeal links exist but lead to dead ends or generic inboxes.
-      - Review clocks are defined but not visible to impacted people.
-      - Manual review happens, but there is no audit trail of outcomes or reversals.
+      - Review clocks are defined but not visible to the people the decisions are about.
+      - Manual review happens, but outcomes and reversals are not entered in the decision log.
       - Exception paths are used to avoid remedies without any expiry or review cadence.
     required: true
   - title: "What auditors ask"
@@ -47,12 +47,12 @@ sections:
       - Demonstrate how many remedies were delivered within the remedy clock.
       - Provide evidence that exception classes are time-bounded and reviewed.
       - Show how decision logs reference evidence packs for contested decisions.
-      - Show, for each decision class, how many appeals were upheld, and what changed in the rule after them, or the STD-07 reconsideration record that kept it.
+      - Show, for each decision class, how many challenges were upheld, and what changed in the rule after them, or the STD-07 reconsideration record that kept it.
     required: true
 checklists:
   - title: "Referenced by"
     items:
       - "Used in examples: Automated eligibility denial, Content moderation takedown, Fraud hold with delayed notice"
-      - "Required by bindings: Incident triggers, MEC-22 Admission gate"
+      - "Required by bindings: Incident triggers, Admission gate (MEC-22)"
       - "Verified by evidence packs: STD-01 evidence pack, STD-02 evidence pack, Validators (VAL-01–VAL-03)"
 ---

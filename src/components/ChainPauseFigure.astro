@@ -2,8 +2,8 @@
 /**
  * Two STD-09 anti-patterns, drawn from the standard's own list.
  *
- * Per-hop pause theater: every hop has a working stop, one is thrown, and
- * the chain never stops, because the next hop continues on the stopped hop's
+ * Per-hop halt theater: every hop has a working halt, one is thrown, and
+ * the chain never stops, because the next hop continues on the halted hop's
  * last output and the last hop re-triggers it. Latency laundering: every
  * hop's clock is compliant, and the composed clock has consumed the human
  * window. The prose for both is read from the antiPatterns the standard
@@ -36,7 +36,7 @@ const declared = (title: string): AntiPattern => {
   return found;
 };
 
-const pause = declared("Per-hop pause theater");
+const pause = declared("Per-hop halt theater");
 const laundering = declared("Latency laundering");
 
 const hops = [
@@ -68,8 +68,8 @@ const barScale = 600 / composedHours;
   id="chain-pause-figure"
   class="chain-pause"
   level={level}
-  title="Every hop stops; the chain does not"
-  lede="Four hops, each with a working stop and a compliant clock. One hop is stopped; each hop promises review inside a day. Read what the chain does with either."
+  title="Every hop halts; the chain does not"
+  lede="Four hops, each with a working halt and a compliant clock. One hop is halted; each hop promises review inside a day. Read what the chain does with either."
 >
   <div class="demo-figure__frame">
     <div
@@ -81,7 +81,7 @@ const barScale = 600 / composedHours;
       <svg
         viewBox="0 0 800 440"
         role="img"
-        aria-label={`Row one: four hops in series, each marked stop works. Hop two, ${hops[stoppedIndex].label}, is stopped, but hop three continues on its stale output and hop four re-triggers hop two; a bracket over all four marks one intervention at the chain boundary. Row two: four bars of ${perHopHours} hours each, all compliant, composing to ${composedHours} hours against a human window of ${humanWindowHours} hours.`}
+        aria-label={`Row one: four hops in series, each marked halt works. Hop two, ${hops[stoppedIndex].label}, is halted, but hop three continues on its stale output and hop four re-triggers hop two; a bracket over all four marks one intervention at the chain boundary. Row two: four bars of ${perHopHours} hours each, all compliant, composing to ${composedHours} hours against a human window of ${humanWindowHours} hours.`}
         class="chain-pause__svg"
       >
         <defs>
@@ -122,11 +122,11 @@ const barScale = 600 / composedHours;
                   {hop.label}
                 </text>
                 <text x={x + 12} y={hopY + 44} class="demo-figure__svg-label">
-                  stop works ✓
+                  halt works ✓
                 </text>
                 {stopped && (
                   <text x={x + 12} y={hopY + 61} class="demo-figure__svg-label">
-                    STOPPED
+                    HALTED
                   </text>
                 )}
                 {index < hops.length - 1 && (
@@ -158,7 +158,7 @@ const barScale = 600 / composedHours;
           >
         </text>
 
-        {/* Fulfilment re-triggers the stopped hop. */}
+        {/* Fulfilment re-triggers the halted hop. */}
         <path
           d={`M ${hopX(3) + hopWidth / 2} ${hopY + hopHeight + 2} Q ${hopX(3) + hopWidth / 2} ${hopY + hopHeight + 52} ${(hopX(1) + hopX(3) + hopWidth) / 2} ${hopY + hopHeight + 52} Q ${hopX(1) + hopWidth / 2} ${hopY + hopHeight + 52} ${hopX(1) + hopWidth / 2} ${hopY + hopHeight + 4}`}
           class="chain-pause__edge chain-pause__edge--retrigger"
@@ -169,7 +169,7 @@ const barScale = 600 / composedHours;
           text-anchor="middle"
           class="demo-figure__svg-label"
         >
-          re-triggers the stopped hop
+          re-triggers the halted hop
         </text>
 
         {/* The counterfactual: one intervention at the chain boundary. */}

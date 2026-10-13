@@ -37,12 +37,12 @@ export const anchorLinks = [
   { href: "#epistemic-obstacles", label: "Epistemic obstacles" },
   { href: "#receipt-schema", label: "Agent receipt schema" },
   { href: "#action-taxonomy", label: "Action-class taxonomy" },
-  { href: "#contestability-surface", label: "Contestability surface" },
+  { href: "#contestability-surface", label: "Challenge surface" },
   { href: "#exception-policy", label: "Exception policy" },
   { href: "#requirements", label: "1. Requirements" },
   { href: "#failure-design", label: "2. Failure-first design" },
   { href: "#accountability", label: "3. Accountability" },
-  { href: "#contestability", label: "4. Contestability" },
+  { href: "#contestability", label: "4. Challenging a decision" },
   { href: "#risk-backlog", label: "5. Risk backlog" },
   { href: "#pressure-test", label: "6. Pressure-test claims" },
   { href: "#signal-integrity", label: "Signal integrity" },
@@ -56,7 +56,7 @@ export const summaryTakeaways = [
   "Align agent capabilities with explicit action classes and receipts.",
   "Replace claims about intent with controls, deadlines, and appeal paths that someone can check.",
   "Use failure-first controls like kill switches, hard clocks, and rollback paths.",
-  "Anchor remediation with contestability paths and evidence packs.",
+  "Anchor remediation with challenge routes and evidence packs.",
 ];
 
 export const summaryRelatedLinks = [
@@ -120,7 +120,7 @@ export const actionClassRows: ActionClassRow[] = [
     examples: "Run scripts, deploy changes, trigger workflows.",
     reversibility: "Irreversible",
     controls:
-      "Sandbox first. Manual approval for prod. Circuit breaker on anomaly.",
+      "Sandbox first. Manual approval for prod. A circuit breaker halts the action class on anomaly.",
   },
 ];
 
@@ -157,7 +157,7 @@ export const signalIntegrityRows: SignalIntegrityRow[] = [
       "Tier 0: aggregate success rate. Tier 1: success with cost tagging. Tier 2: cost + blast radius per action class.",
   },
   {
-    signal: "Human compensatory subsidy",
+    signal: "Human subsidy",
     gaming:
       "Leave unlogged human fixes, prompt rewording, and error cleanup out of the telemetry, so they count as free.",
     detection:
@@ -215,15 +215,15 @@ export const practiceSections: PracticeSection[] = [
     ],
     mechanisms: [
       {
-        title: "MEC-02 Progressive consent prompts",
+        title: "Progressive consent prompts (MEC-02)",
         href: "/mechanisms/patterns/progressive-consent",
       },
       {
-        title: "MEC-01 Decision log with dissent",
+        title: "Decision log with dissent (MEC-01)",
         href: "/mechanisms/patterns/decision-log",
       },
       {
-        title: "MEC-04 Hard clock",
+        title: "Hard clock (MEC-04)",
         href: "/mechanisms/patterns/hard-clock",
       },
     ],
@@ -240,7 +240,7 @@ export const practiceSections: PracticeSection[] = [
     summary:
       "Agent failure is assumed; the goal is containment, recovery, and bounded harm.",
     requirements: [
-      "Pause / disable authority with escalation paths",
+      "Authority to pause one run or halt the agent, with escalation paths",
       "Confirmation gates for high-impact actions",
       "Rate limits and circuit breakers by action class",
       "Sandbox or dry-run mode",
@@ -250,20 +250,20 @@ export const practiceSections: PracticeSection[] = [
     ],
     mechanisms: [
       {
-        title: "MEC-05 Kill switch for runaway automation",
+        title: "Kill switch for runaway automation (MEC-05)",
         href: "/mechanisms/patterns/kill-switch",
       },
       {
-        title: "MEC-04 Hard clock",
+        title: "Hard clock (MEC-04)",
         href: "/mechanisms/patterns/hard-clock",
       },
       {
-        title: "MEC-03 Maintenance windowing",
+        title: "Maintenance windowing (MEC-03)",
         href: "/mechanisms/patterns/maintenance-windowing",
       },
     ],
     gaps: [
-      "Exception policy for re-enabling automation after a kill switch.",
+      "Exception policy for re-enabling automation after a kill-switch halt.",
       "Safe-mode playbook that keeps humans in control.",
       "Live-trust system for throttling or shutting down on anomaly.",
     ],
@@ -284,11 +284,11 @@ export const practiceSections: PracticeSection[] = [
     ],
     mechanisms: [
       {
-        title: "MEC-01 Decision log with dissent",
+        title: "Decision log with dissent (MEC-01)",
         href: "/mechanisms/patterns/decision-log",
       },
       {
-        title: "MEC-06 Appeal paths inside the UI",
+        title: "Appeal paths inside the UI (MEC-06)",
         href: "/mechanisms/patterns/appeal-paths",
       },
       {
@@ -305,29 +305,29 @@ export const practiceSections: PracticeSection[] = [
   {
     id: "contestability",
     eyebrow: "Practice 4",
-    title: "Show people how to contest",
+    title: "Show people how to challenge a decision",
     summary:
-      "People must see how to contest, reverse, and seek remedy when automation affects them.",
+      "People must see how to challenge a decision, have it reversed, and seek remedy when automation affects them.",
     requirements: [
       "Appeal path visible in every UI where automation acts",
-      "Published clocks for acknowledgment, review, and remedy",
+      "Published deadlines for acknowledgment, review, and remedy",
       "Escalation ladder with accountable decision owners",
-      "Audit trail linking appeals to receipts and outcomes",
+      "Decision log linking challenges to receipts and outcomes",
       "Evidence parity between automated and human decisions",
     ],
     mechanisms: [
       {
-        title: "MEC-06 Appeal paths inside the UI",
+        title: "Appeal paths inside the UI (MEC-06)",
         href: "/mechanisms/patterns/appeal-paths",
       },
       {
-        title: "MEC-04 Hard clock",
+        title: "Hard clock (MEC-04)",
         href: "/mechanisms/patterns/hard-clock",
       },
     ],
     gaps: [
-      "Contestability receipts linked to appeals and remediation outcomes.",
-      "Appeal intake templates for agent decisions.",
+      "Challenge receipts linked to the challenge and the remedies delivered.",
+      "Challenge intake templates for agent decisions.",
       "Escalation system that ties into incident response.",
     ],
   },
@@ -345,11 +345,11 @@ export const practiceSections: PracticeSection[] = [
     ],
     mechanisms: [
       {
-        title: "MEC-01 Decision log with dissent",
+        title: "Decision log with dissent (MEC-01)",
         href: "/mechanisms/patterns/decision-log",
       },
       {
-        title: "MEC-05 Kill switch for runaway automation",
+        title: "Kill switch for runaway automation (MEC-05)",
         href: "/mechanisms/patterns/kill-switch",
       },
     ],
@@ -368,11 +368,11 @@ export const practiceSections: PracticeSection[] = [
       "Stress tests for unsafe-action rates and override response",
       "Simulations for repeated override or policy conflict",
       "Failure rehearsals for kill switch or rollback",
-      "Scenario drills for contested decisions and appeals",
+      "Scenario drills for challenges and appeals",
     ],
     mechanisms: [
       {
-        title: "MEC-05 Kill switch for runaway automation",
+        title: "Kill switch for runaway automation (MEC-05)",
         href: "/mechanisms/patterns/kill-switch",
       },
       {

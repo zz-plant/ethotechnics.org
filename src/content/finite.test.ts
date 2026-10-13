@@ -95,7 +95,7 @@ describe("Finite content specification", () => {
     expect(finiteContent.keyTakeaways.bullets.length).toBeGreaterThanOrEqual(5);
     const text = finiteContent.keyTakeaways.bullets.join(" ");
     expect(text).toContain("Dashboard against audit");
-    expect(text).toContain("Non-retaliatory stop");
+    expect(text).toContain("Non-retaliatory halt");
     expect(text).toContain("Restitution over rollback");
   });
 

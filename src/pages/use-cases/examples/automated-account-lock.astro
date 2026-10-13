@@ -66,13 +66,13 @@ const artifacts = [
   {
     title: "Evidence pack list",
     description:
-      "The evidence for the STD-01 and STD-02 clauses on contestability and remedy.",
+      "The evidence for the STD-01 and STD-02 clauses on challenges and remedy.",
     href: "/evidence-packs",
   },
   {
     title: "Appeal intake record",
     description:
-      "The MEC-06 record of the dispute, with the decision's context and trace filled in.",
+      "The MEC-06 record of the challenge, with the decision's context and trace filled in.",
     href: "/mechanisms/patterns/appeal-paths",
   },
   {
@@ -113,7 +113,7 @@ const artifacts = [
     id="overview"
     eyebrow="Overview"
     title="The scenario and its three clocks"
-    description="A fraud model locks an account after unusual activity. The system still issues a receipt, names who can reverse the lock, and delivers a remedy on clocks the person locked out can see. Each clock is logged in the decision record."
+    description="A fraud model locks an account after unusual activity. The system still issues a receipt, names who can reverse the lock, and delivers a remedy on clocks the account holder can see. Each clock is logged in the decision record."
   >
     <ClockTimeline clocks={clocks} id="account-lock-clocks" />
   </SectionBlock>
@@ -122,7 +122,7 @@ const artifacts = [
     id="receipt"
     eyebrow="Receipt"
     title="A receipt issued to the account holder at the time of the lock"
-    description="The receipt records that a decision happened, who owns it, and how to contest it."
+    description="The receipt records that a decision happened, who owns it, and how to challenge it."
     variant="alt"
   >
     <pre class="code-block">{receiptPayload}</pre>
@@ -186,7 +186,7 @@ const artifacts = [
     id="remedy"
     eyebrow="Remedy path"
     title="Remedy is visible, reversible, and time-bound"
-    description="The remedy path gives the contest somewhere to land, and limits the harm the lock does while it stands."
+    description="The remedy path gives the challenge somewhere to land, and limits the harm the lock does while it stands."
   >
     <ul class="muted">
       <li>

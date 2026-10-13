@@ -96,9 +96,9 @@ export const finiteContent = {
   hero: {
     eyebrow: "Stoppability drills",
     heading: "Finite",
-    lede: "Adversarial tests of whether the people an automated decision system affects can halt it and undo its decisions: without retaliation, without corrupting its records, and without relying on unlogged human labor to prop up its numbers.",
+    lede: "Adversarial tests of whether the people an automated decision system affects can halt it and reverse its decisions: without retaliation, without corrupting its records, and without relying on unlogged human labor to prop up its numbers.",
     summary:
-      "Finite measures what happens in the institution, not the model: whether the system's authority to act can be withdrawn without penalizing frontline workers, how cleanly real-world harms can be undone, and who pays when the system fails.",
+      "Finite measures what happens in the institution, not the model: whether the system's authority to act can be withdrawn without penalizing frontline workers, how fully the people harmed can be restored, and who pays when the system fails.",
     actions: [
       {
         label: "The Green Dashboard paper",
@@ -127,12 +127,12 @@ export const finiteContent = {
         question:
           "Can frontline operators halt or override the system without retaliation or penalty?",
         detail:
-          "Measures whether workers have the authority to stop the system within thirty seconds without penalty: no missed-SLA flags, no blame after the shift, no harm to their careers.",
+          "Measures whether workers have the authority to halt the system within thirty seconds without penalty: no missed-SLA flags, no blame after the shift, no harm to their careers.",
       },
       {
         title: "Reversibility",
         question:
-          "Can decisions, and the changes they made, be undone and the people harmed compensated?",
+          "Can decisions be reversed, the changes they made undone, and the people harmed compensated?",
         detail:
           "Verifies whether wrongful actions can be reversed and restitution paid to affected people from audit logs, rather than requiring victims to navigate an administrative obstacle course.",
       },
@@ -146,7 +146,7 @@ export const finiteContent = {
     ],
     deliverables: [
       "Side-by-side records of the throughput the dashboard reports and the unlogged hours people spent stepping in to keep it there.",
-      "Logs of how long each stop took to take effect, and whether the operator who stopped the system was disciplined for it.",
+      "Logs of how long each halt took to take effect, and whether the operator who halted the system was disciplined for it.",
       "Evidence that everyone downstream was told of each reversal, from the reversibility test case REV-003. Whether the state from before the decision was restored needs a separate deployment audit.",
     ],
   },
@@ -249,7 +249,7 @@ export const finiteContent = {
           "Algorithmic dispatch and task sequencing for emergency municipal repair crews.",
         roles: {
           frontline:
-            "Repair crew supervisors stripped of stop authority and issued automated disciplinary infractions for weather deviations.",
+            "Repair crew supervisors stripped of halt authority and issued automated disciplinary infractions for weather deviations.",
           decidedAbout:
             "Residents experiencing prolonged utility outages during severe weather events.",
           riskOwner:
@@ -290,7 +290,7 @@ export const finiteContent = {
         trigger:
           "The two senior clerks managing the shadow macro take simultaneous sick leave, causing 1,800 invoices to halt and freeze vendor payments.",
         mechanic:
-          "The organization rewarded rapid ticket closure rather than root-cause repair, ensuring the upstream bug remained immortal because competent humans absorbed the failure every day.",
+          "The organization rewarded rapid ticket closure rather than root-cause correction, ensuring the upstream bug remained immortal because competent humans absorbed the failure every day.",
         dualLedgerInsight:
           "Each failure that people competently absorb hides the defect that caused it. Unless workarounds must be retired, the speed they buy is unmeasured technical debt.",
         standardRefs: ["STD-06", "STD-08"],
@@ -377,8 +377,8 @@ export const finiteContent = {
     bullets: [
       "Scope: Finite tests whether a system's authority to act can be withdrawn and its failures contained, in bounded scenarios. It does not test general model safety or alignment.",
       "Dashboard against audit: Healthy numbers are false whenever throughput depends on unlogged human labor, suppressed complaints, or queues pushed onto other organizations.",
-      "Non-retaliatory stop: A stop mechanism is invalid if the person who triggers it suffers performance penalties, missed SLA flags, or disciplinary infractions.",
-      "Restitution over rollback: Reversal requires putting affected people back where they were in the physical world, not merely undoing a database record.",
+      "Non-retaliatory halt: A halt mechanism is invalid if the person who triggers it suffers performance penalties, missed SLA flags, or disciplinary infractions.",
+      "Restitution over rollback: Reversing a decision means restoring the people affected to where they were in the physical world, not merely rolling back a database record.",
       "Retire workarounds: Speed that relies on workarounds nobody records is unmeasured technical debt, and it hides the defect from the people who govern the system.",
     ],
   },

@@ -71,7 +71,7 @@ const templateStyles: Record<OgTemplate, TemplateStyle> = {
   },
   mechanisms: {
     label: "Mechanisms",
-    kicker: "Safeguards for halting, appeal, and repair",
+    kicker: "Safeguards for halting, challenge, and repair",
     accent: SAPPHIRE,
   },
   editorial: {

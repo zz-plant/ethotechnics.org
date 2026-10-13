@@ -2,7 +2,7 @@
  * Frontier doctrine scan, 2026-09.
  *
  * Scores the PUBLIC DOCTRINE AND PRODUCT ARCHITECTURE of ten frontier labs
- * against the twelve Laws for Engineering Delegated Intelligence. It does not
+ * against the twelve laws for engineering delegated intelligence. It does not
  * score safety performance, internal practice, or intent. A 0 means no
  * meaningful public analogue was found, not that the lab rejects the
  * principle. No score has a source attached yet; see `sourcesNote`.
@@ -269,7 +269,7 @@ export const frontierDoctrineScan: FrontierDoctrineScan = {
   refreshCadence: "No refresh is scheduled.",
   staleAfter: "2027-06",
   scope:
-    "Ten frontier labs scored against the twelve Laws for Engineering Delegated Intelligence, on the Institute's reading of their public doctrine and product architecture. No individual score has a source attached yet.",
+    "Ten frontier labs scored against the twelve laws for engineering delegated intelligence, on the Institute's reading of their public doctrine and product architecture. No individual score has a source attached yet.",
   disclaimer: [
     "No score has a source attached yet. Each is the Institute's reading of public material, and the documents and product surfaces it was read from are not listed. Treat the scores as unsourced until they are.",
     "This scan scores public doctrine and product architecture. It does not score safety performance, internal practice, or intent.",

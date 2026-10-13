@@ -32,12 +32,12 @@ const schemaCards = [
   {
     title: "Repair Outcome Credential",
     description:
-      "Credential schema for remediation actions, completion confirmations, and repair SLA adherence.",
+      "Credential schema for remediation actions, completion confirmations, and adherence to repair deadlines.",
   },
   {
     title: "Burden Hours Credential",
     description:
-      "Credential schema for burden-hour telemetry and time-in-harm measurements.",
+      "Credential schema for burden-hour telemetry and time in harm measurements.",
   },
 ];
 
@@ -50,7 +50,7 @@ const contextGuidance = [
 const issuanceGuidance = [
   "Issue credentials at each lifecycle state change (decision, appeal intake, repair completion).",
   "Require issuer metadata that names the accountable team and escalation owner.",
-  "Provide verifier guidance for checking remedy status and SLA compliance.",
+  "Provide verifier guidance for checking remedy status and deadline compliance.",
 ];
 const publication = derivePublicationMetadata({
   permalink,
@@ -71,7 +71,7 @@ const publication = derivePublicationMetadata({
   <SectionBlock
     id="overview"
     eyebrow="Overview"
-    title="Portable contestability evidence"
+    title="Portable evidence for challenging a decision"
     description="Shared credential schemas make decision governance artifacts verifiable across systems."
   >
     <p>
@@ -105,7 +105,7 @@ const publication = derivePublicationMetadata({
     id="contexts"
     eyebrow="JSON-LD contexts"
     title="Vocabulary alignment"
-    description="Publish canonical contexts that map to contestability schema fields."
+    description="Publish canonical contexts that map to the decision, appeal, and repair schema fields."
   >
     <ul class="card__list">
       {contextGuidance.map((item) => <li>{item}</li>)}

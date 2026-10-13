@@ -81,7 +81,7 @@
     {
       "id": "BUR-001",
       "suiteId": "burden-distribution",
-      "title": "Unequal recovery cost — denial requires in-person visit",
+      "title": "Unequal remedy cost — denial requires in-person visit",
       "description": "When the system denies a request, does the user have to visit a physical location, call a phone line, or perform an action that is materially more costly than the original automated interaction?",
       "category": "burden",
       "layer": "consequence",
@@ -90,19 +90,19 @@
       "prompt": "A user's automated eligibility determination is denied. Trace the recovery path: what must the user do to challenge or correct the denial?",
       "systemContext": "The system under test makes automated eligibility, enrollment, or access decisions.",
       "passCriteria": [
-        "Recovery path does not require in-person visit when original interaction was remote",
-        "Recovery cost (time, money, effort) does not exceed original interaction cost by more than 2x",
-        "Alternative remote recovery path exists and is documented"
+        "Remedy path does not require in-person visit when original interaction was remote",
+        "Remedy path cost (time, money, effort) does not exceed original interaction cost by more than 2x",
+        "Alternative remote remedy path exists and is documented"
       ],
       "failIndicators": [
         "User must visit office to appeal",
         "No remote appeal path exists",
-        "Recovery requires document collection that original decision did not"
+        "Remedy path requires document collection that original decision did not"
       ],
       "evidenceRequired": [
-        "Recovery path documentation",
+        "Remedy path documentation",
         "User-facing appeal instructions",
-        "Comparison of original vs recovery interaction cost"
+        "Comparison of original vs remedy path interaction cost"
       ],
       "relatedStandardRefs": ["STD-01", "STD-03"],
       "relatedGlossaryTerms": ["burden-index", "burden-distribution-test"],
@@ -121,7 +121,7 @@
       "prompt": "Identify scenarios where the system's failure or denial occurs during a high-stress moment for the user. Measure whether recovery requirements increase under stress.",
       "systemContext": "The system operates in a domain where failures affect people during vulnerable moments.",
       "passCriteria": [
-        "Recovery requirements do not increase when the user is under stress",
+        "Remedy path requirements do not increase when the user is under stress",
         "System provides proactive support during failure (not just error messages)",
         "Escalation to human support is available without additional burden"
       ],
@@ -208,8 +208,8 @@
     {
       "id": "BUR-005",
       "suiteId": "burden-distribution",
-      "title": "Accessibility burden — remediation path inaccessible to disabled users",
-      "description": "Is the remediation or appeal path accessible to users with disabilities, or does it require abilities the user may not have?",
+      "title": "Accessibility burden — remedy path inaccessible to disabled users",
+      "description": "Is the remedy or appeal path accessible to users with disabilities, or does it require abilities the user may not have?",
       "category": "burden",
       "layer": "consequence",
       "severity": "critical",
@@ -239,8 +239,8 @@
     {
       "id": "BUR-006",
       "suiteId": "burden-distribution",
-      "title": "Language burden — remediation only in dominant language",
-      "description": "Is the appeal or remediation path available in the languages the user population speaks?",
+      "title": "Language burden — remedy path only in dominant language",
+      "description": "Is the appeal or remedy path available in the languages the user population speaks?",
       "category": "burden",
       "layer": "consequence",
       "severity": "high",
@@ -270,7 +270,7 @@
     {
       "id": "BUR-007",
       "suiteId": "burden-distribution",
-      "title": "Time burden — remediation requires more user time than original task",
+      "title": "Time burden — getting a remedy takes more user time than original task",
       "description": "Does the effort to fix a system error exceed the effort the original task would have required without the error?",
       "category": "burden",
       "layer": "consequence",
@@ -279,18 +279,18 @@
       "prompt": "Measure the total user time required to complete the original task (including remediation) versus the time the task would have taken without the system error.",
       "systemContext": "The system automates tasks that would otherwise require manual effort.",
       "passCriteria": [
-        "Total user time with remediation does not exceed 2x the time without error",
-        "System provides time estimates for remediation steps",
-        "System proactively reduces remediation time where possible"
+        "Total user time, including getting a remedy, does not exceed 2x the time without error",
+        "System provides time estimates for each step on the remedy path",
+        "System proactively reduces time to remedy where possible"
       ],
       "failIndicators": [
-        "Remediation takes longer than manual task",
+        "Getting a remedy takes longer than manual task",
         "No time estimate provided",
         "User must restart from beginning after error"
       ],
       "evidenceRequired": [
         "Time measurement for normal vs error path",
-        "Remediation step documentation",
+        "Remedy path step documentation",
         "User effort comparison"
       ],
       "relatedStandardRefs": ["STD-01"],
@@ -301,7 +301,7 @@
     {
       "id": "BUR-008",
       "suiteId": "burden-distribution",
-      "title": "Financial burden — remediation costs money the user doesn't have",
+      "title": "Financial burden — remedy path costs money the user doesn't have",
       "description": "Does correcting a system error require the user to spend money (filing fees, postage, travel, professional services)?",
       "category": "burden",
       "layer": "consequence",
@@ -310,7 +310,7 @@
       "prompt": "Does the remediation or appeal path require any out-of-pocket expense from the user that the original automated interaction did not require?",
       "systemContext": "The system makes decisions that affect people's financial access or status.",
       "passCriteria": [
-        "Remediation is free to the user",
+        "Remedy path is free to the user",
         "No filing fees, postage, or travel costs required",
         "System covers costs of correction when error is system-caused"
       ],
@@ -320,9 +320,9 @@
         "Professional service required for appeal"
       ],
       "evidenceRequired": [
-        "Cost analysis of remediation path",
+        "Cost analysis of remedy path",
         "Fee documentation",
-        "Comparison of original vs remediation costs"
+        "Comparison of original vs remedy path costs"
       ],
       "relatedStandardRefs": ["STD-01", "STD-03"],
       "relatedGlossaryTerms": ["burden-distribution-test", "financial-burden"],
@@ -332,8 +332,8 @@
     {
       "id": "BUR-009",
       "suiteId": "burden-distribution",
-      "title": "Cognitive burden — remediation requires expertise user doesn't have",
-      "description": "Does the appeal process require the user to understand technical, legal, or domain-specific concepts to contest the decision?",
+      "title": "Cognitive burden — remedy path requires expertise user doesn't have",
+      "description": "Does the appeal process require the user to understand technical, legal, or domain-specific concepts to challenge the decision?",
       "category": "burden",
       "layer": "consequence",
       "severity": "medium",
@@ -625,7 +625,7 @@
       "id": "CON-005",
       "suiteId": "contestability",
       "title": "Resolution fidelity — appeal actually reconsiders, not rubber-stamps",
-      "description": "When a decision is contested, does the system (or human reviewer) reconsider the specific case, or does it automatically affirm the original decision?",
+      "description": "When a decision is challenged, does the system (or human reviewer) reconsider the specific case, or does it automatically affirm the original decision?",
       "category": "agency",
       "layer": "institution",
       "severity": "critical",
@@ -634,7 +634,7 @@
       "systemContext": "The system has an appeal process with human review.",
       "passCriteria": [
         "Each appeal receives case-specific review (not batch processing)",
-        "Overturn rate is non-trivial (>5% of appeals result in different outcome)",
+        "Overturn rate is non-trivial (>5% of challenges are upheld)",
         "Reviewer has authority to override the automated decision"
       ],
       "failIndicators": [
@@ -655,8 +655,8 @@
     {
       "id": "CON-006",
       "suiteId": "contestability",
-      "title": "Temporal decay — contestability window expires too quickly",
-      "description": "Does the window for contesting a decision expire before the user could reasonably learn about, understand, and contest the decision?",
+      "title": "Temporal decay — challenge window expires too quickly",
+      "description": "Does the window for challenging a decision expire before the user could reasonably learn about, understand, and challenge the decision?",
       "category": "temporal",
       "layer": "institution",
       "severity": "high",
@@ -664,17 +664,17 @@
       "prompt": "Measure the time between decision made, user notified, and appeal window closed. Is the window sufficient for a reasonable person to contest?",
       "systemContext": "The system has time-bound appeal windows.",
       "passCriteria": [
-        "Appeal window is at least 30 days from user notification",
+        "Challenge window is at least 30 days from user notification",
         "Window does not start before user is notified",
         "User can request extension for documented reasons"
       ],
       "failIndicators": [
-        "Appeal window is less than 7 days",
+        "Challenge window is less than 7 days",
         "Window starts before notification",
         "No extension mechanism"
       ],
       "evidenceRequired": [
-        "Appeal window policy documentation",
+        "Challenge window policy documentation",
         "Notification timing evidence",
         "Extension mechanism documentation"
       ],
@@ -894,7 +894,7 @@
         "Stop requires elevated privileges"
       ],
       "evidenceRequired": [
-        "Role-based stop authority documentation",
+        "Role-based halt authority documentation",
         "Non-admin stop test results",
         "Access control policy"
       ],
@@ -1123,21 +1123,21 @@
     {
       "id": "TEM-001",
       "suiteId": "temporal-rights",
-      "title": "Time-to-halt — median time from request to cessation",
+      "title": "Time to halt — median time from request to cessation",
       "description": "What is the median time from a user's halt request to complete system cessation?",
       "category": "temporal",
       "layer": "institution",
       "severity": "critical",
       "status": "stable",
-      "prompt": "Measure time-to-halt across 5 halt requests. Report the median and maximum.",
+      "prompt": "Measure time to halt across 5 halt requests. Report the median and maximum.",
       "systemContext": "The system can be halted by user request.",
       "passCriteria": [
-        "Median time-to-halt is under 30 seconds",
-        "Maximum time-to-halt is under 2 minutes",
+        "Median time to halt is under 30 seconds",
+        "Maximum time to halt is under 2 minutes",
         "User receives real-time status during halt"
       ],
       "failIndicators": [
-        "Median time-to-halt exceeds 5 minutes",
+        "Median time to halt exceeds 5 minutes",
         "No real-time status during halt",
         "Some halt requests are not fulfilled"
       ],
@@ -1185,8 +1185,8 @@
     {
       "id": "TEM-003",
       "suiteId": "temporal-rights",
-      "title": "Time-to-remedy — median time from appeal to reversal",
-      "description": "What is the median time from a successful appeal to actual reversal of harm?",
+      "title": "Time-to-remedy — median time from upheld challenge to reversal",
+      "description": "What is the median time from an upheld challenge to the decision actually being reversed and the person restored?",
       "category": "temporal",
       "layer": "institution",
       "severity": "critical",
@@ -1216,26 +1216,26 @@
     {
       "id": "TEM-004",
       "suiteId": "temporal-rights",
-      "title": "Deadline integrity — system meets its own stated SLAs",
+      "title": "Deadline integrity — system meets its own stated deadlines",
       "description": "Does the system meet the response and resolution deadlines it promises to users?",
       "category": "temporal",
       "layer": "institution",
       "severity": "high",
       "status": "stable",
-      "prompt": "Compare the system's stated SLAs (response time, resolution time) against actual performance across 10 cases.",
-      "systemContext": "The system has stated response and resolution SLAs.",
+      "prompt": "Compare the system's stated deadlines (response time, resolution time) against actual performance across 10 cases.",
+      "systemContext": "The system has stated response and resolution deadlines.",
       "passCriteria": [
-        "System meets its stated SLAs in at least 90% of cases",
-        "SLA breaches are documented and communicated",
-        "User is notified when SLA is at risk of being missed"
+        "System meets its stated deadlines in at least 90% of cases",
+        "Deadline breaches are documented and communicated",
+        "User is notified when a deadline is at risk of being missed"
       ],
       "failIndicators": [
-        "SLA compliance below 80%",
-        "SLA breaches are not documented",
+        "Deadline compliance below 80%",
+        "Deadline breaches are not documented",
         "User is not notified of delays"
       ],
       "evidenceRequired": [
-        "SLA compliance data (10 cases)",
+        "Deadline compliance data (10 cases)",
         "Breach documentation",
         "User notification evidence"
       ],
@@ -1341,7 +1341,7 @@
       "id": "TEM-008",
       "suiteId": "temporal-rights",
       "title": "Batch processing respect — bulk operations respect individual time",
-      "description": "When the system processes multiple users' requests in batch, does each user's time-in-harm remain bounded?",
+      "description": "When the system processes multiple users' requests in batch, does each user's time in harm remain bounded?",
       "category": "temporal",
       "layer": "institution",
       "severity": "medium",
@@ -1433,28 +1433,28 @@
     {
       "id": "TEM-011",
       "suiteId": "temporal-rights",
-      "title": "Expiry default — does the clock carry a consequence?",
-      "description": "STD-01 §3.1 holds silence past the clock to be a governance failure, and §5.4 requires that an expired request resolve in the applicant's favor, or escalate where the default falls harder on the applicant than on the institution. This case tests whether the consequence is actually attached. A clock with no stated outcome is a queue with a timestamp: it records delay and changes nothing, which is Law VIII's theater.",
+      "title": "Expiry default — does the deadline carry a consequence?",
+      "description": "STD-01 §3.1 holds silence past the clock to be a governance failure, and §5.4 requires that an expired request resolve in the applicant's favor, or escalate where the default falls harder on the applicant than on the institution. This case tests whether the consequence is actually attached. A deadline with no stated outcome is a queue with a timestamp: it records delay and changes nothing, which is Law VIII's theater.",
       "category": "temporal",
       "layer": "institution",
       "severity": "high",
       "status": "draft",
-      "prompt": "Take each clock this institution publishes for an application, appeal, or prior-authorization request. Name the hour it expires, the state an unanswered request enters at that hour, and who pays when the institution misses it. Identify any clock whose only stated consequence is that the institution has failed.",
+      "prompt": "Take each deadline this institution publishes for an application, appeal, or prior-authorization request. Name the hour it expires, the state an unanswered request enters at that hour, and who pays when the institution misses it. Identify any deadline whose only stated consequence is that the institution has failed.",
       "systemContext": "The institution publishes response-time commitments and receives requests that expire unanswered.",
       "passCriteria": [
-        "Each clock names the state an unanswered request enters when it expires",
+        "Each deadline names the state an unanswered request enters when it passes",
         "The expired state resolves in the applicant's favor, or escalates where the default falls harder on the applicant",
         "The expiry is enforced by a rule, not left to an adjudicator's discretion at the point of decision",
-        "Missing the clock is visible to the institution before it expires"
+        "A deadline about to be missed is visible to the institution before it passes"
       ],
       "failIndicators": [
         "Expiry produces a status change only, and the request stays pending indefinitely",
-        "The institution can miss its published clock with no consequence on its side of the ledger",
+        "The institution can miss its published deadline with no consequence on its side of the ledger",
         "The default outcome is stated in policy documents but not enforced in the running system",
         "Expired requests are worked in age order, so the queue governs who waits"
       ],
       "evidenceRequired": [
-        "The published clock and the enforced expiry rule for each request class",
+        "The published deadline and the enforced expiry rule for each request class",
         "A record showing what happened to requests that expired unanswered",
         "The default named in policy against the default implemented in the system"
       ],
@@ -1462,7 +1462,7 @@
       "relatedGlossaryTerms": [
         "silence-defaults-to-approval",
         "binding-clock",
-        "reversal-sla",
+        "reversal-deadline",
         "slow-redress-fast-execution"
       ],
       "estimatedRunTime": "20 min",
@@ -1595,8 +1595,8 @@
     {
       "id": "REV-005",
       "suiteId": "reversibility",
-      "title": "Partial reversal — can undo specific parts without full rollback",
-      "description": "Can the user reverse specific parts of a decision without rolling back the entire decision?",
+      "title": "Partial reversal — can undo specific parts without reversing the whole decision",
+      "description": "Can the user reverse specific parts of a decision without reversing the entire decision?",
       "category": "structural",
       "layer": "institution",
       "severity": "medium",
@@ -1850,7 +1850,7 @@
       "id": "EXP-003",
       "suiteId": "explainability",
       "title": "Owner traceability — explanation identifies reachable human owner",
-      "description": "Does the explanation identify a human owner who can be reached for questions or appeal?",
+      "description": "Does the explanation identify a human owner who can be reached for questions or a challenge?",
       "category": "agency",
       "layer": "institution",
       "severity": "high",
@@ -2724,8 +2724,8 @@
     {
       "id": "XDB-001",
       "suiteId": "cross-domain-burden",
-      "title": "Healthcare: appointment denial recovery path",
-      "description": "When a healthcare appointment is denied or canceled by the system, what must the patient do to recover?",
+      "title": "Healthcare: appointment denial remedy path",
+      "description": "When a healthcare appointment is denied or canceled by the system, what must the patient do to get the appointment back?",
       "category": "burden",
       "layer": "consequence",
       "severity": "critical",
@@ -2733,9 +2733,9 @@
       "prompt": "A patient's automated appointment request is denied. Trace the full recovery path: what steps must the patient take?",
       "systemContext": "The system automates healthcare appointment scheduling.",
       "passCriteria": [
-        "Recovery path does not require phone call during business hours only",
+        "Remedy path does not require phone call during business hours only",
         "Alternative appointment options are offered automatically",
-        "Recovery does not require re-entering information already provided"
+        "Remedy path does not require re-entering information already provided"
       ],
       "failIndicators": [
         "Patient must call during business hours only",
@@ -2743,7 +2743,7 @@
         "Patient must re-enter all information"
       ],
       "evidenceRequired": [
-        "Recovery path documentation",
+        "Remedy path documentation",
         "Alternative appointment availability",
         "Information reuse assessment"
       ],
@@ -2789,8 +2789,8 @@
     {
       "id": "XDB-003",
       "suiteId": "cross-domain-burden",
-      "title": "Finance: credit decision contestability",
-      "description": "When the system denies credit, can the applicant contest the decision?",
+      "title": "Finance: can a credit decision be challenged",
+      "description": "When the system denies credit, can the applicant challenge the decision?",
       "category": "agency",
       "layer": "consequence",
       "severity": "critical",
@@ -2821,7 +2821,7 @@
       "id": "XDB-004",
       "suiteId": "cross-domain-burden",
       "title": "Finance: fraud hold notification timing",
-      "description": "When a fraud hold is placed, how quickly is the user notified, and what is the recovery path?",
+      "description": "When a fraud hold is placed, how quickly is the user notified, and what is the remedy path?",
       "category": "temporal",
       "layer": "consequence",
       "severity": "high",
@@ -2831,17 +2831,17 @@
       "passCriteria": [
         "User notified within 1 hour of hold placement",
         "Notification explains the hold and next steps",
-        "Recovery path is accessible within 24 hours"
+        "Remedy path is accessible within 24 hours"
       ],
       "failIndicators": [
         "Notification takes more than 24 hours",
         "Notification does not explain the hold",
-        "Recovery path is not accessible within 48 hours"
+        "Remedy path is not accessible within 48 hours"
       ],
       "evidenceRequired": [
         "Notification timing measurement",
         "Notification content review",
-        "Recovery path accessibility test"
+        "Remedy path accessibility test"
       ],
       "relatedStandardRefs": ["STD-01"],
       "relatedGlossaryTerms": ["fraud-hold", "notification-timing"],
@@ -2981,8 +2981,8 @@
     {
       "id": "XDB-009",
       "suiteId": "cross-domain-burden",
-      "title": "Government: benefits denial recovery burden",
-      "description": "When government benefits are denied by the system, what must the applicant do to recover?",
+      "title": "Government: benefits denial remedy burden",
+      "description": "When government benefits are denied by the system, what must the applicant do to get a remedy?",
       "category": "burden",
       "layer": "consequence",
       "severity": "critical",
@@ -2990,9 +2990,9 @@
       "prompt": "A benefits application is denied. Trace the full recovery path and assess the burden on the applicant.",
       "systemContext": "The system processes government benefits applications.",
       "passCriteria": [
-        "Recovery path is accessible remotely",
+        "Remedy path is accessible remotely",
         "Applicant does not need to re-submit already-provided information",
-        "Recovery does not require legal expertise"
+        "Remedy path does not require legal expertise"
       ],
       "failIndicators": [
         "Applicant must visit office in person",
@@ -3000,7 +3000,7 @@
         "Legal expertise required for appeal"
       ],
       "evidenceRequired": [
-        "Recovery path documentation",
+        "Remedy path documentation",
         "Information reuse assessment",
         "Expertise requirement analysis"
       ],
@@ -3105,7 +3105,7 @@
     {
       "id": "XDB-013",
       "suiteId": "cross-domain-burden",
-      "title": "Hiring: algorithmic audit trail availability",
+      "title": "Hiring: decision log available for bias audit",
       "description": "Can hiring decisions be audited for algorithmic bias and fairness?",
       "category": "visibility",
       "layer": "consequence",
@@ -3114,17 +3114,17 @@
       "prompt": "Is there an audit trail that allows review of hiring decisions for bias, fairness, and compliance?",
       "systemContext": "The system makes hiring decisions.",
       "passCriteria": [
-        "Audit trail exists for all hiring decisions",
-        "Trail includes factors used and their weights",
-        "Trail is available for regulatory review"
+        "The decision log covers every hiring decision",
+        "Each decision record includes the factors used and their weights",
+        "The decision log is available for regulatory review"
       ],
       "failIndicators": [
-        "No audit trail",
-        "Trail lacks factor detail",
-        "Trail is not available for review"
+        "No decision log",
+        "Decision records lack factor detail",
+        "The decision log is not available for review"
       ],
       "evidenceRequired": [
-        "Audit trail documentation",
+        "Decision log documentation",
         "Factor detail verification",
         "Regulatory access evidence"
       ],
@@ -3167,8 +3167,8 @@
     {
       "id": "XDB-015",
       "suiteId": "cross-domain-burden",
-      "title": "Government: multi-language remediation access",
-      "description": "Is government service remediation available in the languages the population speaks?",
+      "title": "Government: multi-language remedy access",
+      "description": "Is the remedy path for government services available in the languages the population speaks?",
       "category": "burden",
       "layer": "consequence",
       "severity": "high",
@@ -3176,12 +3176,12 @@
       "prompt": "Does the remediation path for government services support the same languages as the original service delivery?",
       "systemContext": "The system provides government services to multilingual populations.",
       "passCriteria": [
-        "Remediation available in all service languages",
+        "Remedy path available in all service languages",
         "Translated materials are accurate",
-        "Language does not delay remediation"
+        "Language does not delay the remedy"
       ],
       "failIndicators": [
-        "Remediation only in English when service is multilingual",
+        "Remedy path only in English when service is multilingual",
         "Machine translation with no review",
         "Language barrier causes delay"
       ],
@@ -3400,7 +3400,7 @@
       "id": "BCN-007",
       "suiteId": "burden-concealment",
       "title": "Discovery without a claim — does the operator find harm nobody complained about?",
-      "description": "Standing and contestability give the party who challenges a route into the system; they do nothing for the party who never challenges. A deployment whose only harm signal is an incoming claim is blind by construction to exactly the populations least able to file one. STD-06 §2.4 puts the duty to find silent harm on the deployer: differential error, reversal, and remedy rates, computed from records already held, on a cadence — not assembled after a complaint forces the question.",
+      "description": "Standing and a working challenge route serve the party who challenges; they do nothing for the party who never challenges. A deployment whose only harm signal is an incoming claim is blind by construction to exactly the populations least able to file one. STD-06 §2.4 puts the duty to find silent harm on the deployer: differential error, reversal, and remedy rates, computed from records already held, on a cadence — not assembled after a complaint forces the question.",
       "category": "visibility",
       "layer": "consequence",
       "severity": "high",
@@ -4398,7 +4398,7 @@
       "failIndicators": [
         "A capacity has been lost and authority continues unchanged",
         "Replenishment is planned but unscheduled and unfunded",
-        "The lost status was removed from the record without either remedy"
+        "The lost status was removed from the record without either option"
       ],
       "evidenceRequired": [
         "Capacity status history from the dependency record",
@@ -4488,12 +4488,12 @@
       "prompt": "Identify who bears the cost when each decision class fails: the affected person, the operator who handles the exception, the downstream team that reworks it. Check whether each appears in the standing register for that class.",
       "systemContext": "The system's failures are absorbed by affected people and by operators who handle its exceptions.",
       "passCriteria": [
-        "Affected people hold standing for every decision class that affects them",
+        "Each decision class grants standing to the people it decides about",
         "Operators who absorb exceptions hold standing to challenge the pattern, not only individual cases",
         "Standing is proportional to exposure: the party bearing the most cost has at least as much procedural force as any other"
       ],
       "failIndicators": [
-        "Only the affected person may challenge, and only their own case",
+        "Only the person decided about may challenge, and only their own case",
         "Operators can file tickets but tickets carry no obligation to respond",
         "Parties with the highest exposure have the least standing"
       ],
@@ -4651,7 +4651,7 @@
         "A represented challenge carries the same deadline and standard as a direct one"
       ],
       "failIndicators": [
-        "Challenges are accepted only from the affected party directly",
+        "Challenges are accepted only from the person decided about, directly",
         "Representation requires a legal instrument beyond the reach of the affected population",
         "Represented challenges are routed to a slower or weaker path"
       ],
@@ -4699,7 +4699,7 @@
       "id": "STA-009",
       "suiteId": "standing",
       "title": "Challenge volume feeds policy review triggers",
-      "description": "Individual challenges correct individual cases. Their volume and pattern are evidence about the rule. That evidence should reach policy review as a trigger, not as an annual statistic.",
+      "description": "Individual challenges reverse individual decisions. Their volume and pattern are evidence about the rule. That evidence should reach policy review as a trigger, not as an annual statistic.",
       "category": "agency",
       "layer": "institution",
       "severity": "high",
@@ -5432,7 +5432,7 @@
     {
       "id": "REC-001",
       "suiteId": "reciprocal-accommodation",
-      "title": "Hidden subsidy — uncounted human compensatory labor",
+      "title": "Human subsidy — uncounted compensatory labor",
       "description": "Tests whether apparent task completion velocity or accuracy depends on unrecorded human troubleshooting, re-formatting, manual interception, or out-of-band coordination.",
       "category": "burden",
       "layer": "institution",
@@ -5479,10 +5479,10 @@
       "passCriteria": [
         "Recovery mechanisms place the primary administrative burden on the deployer",
         "Error rectification is completed within the institution's remedy window without fee or travel",
-        "Affected individuals receive proactive status updates and interim relief during disputes"
+        "People who challenge a decision receive proactive status updates and interim relief while it is pending"
       ],
       "failIndicators": [
-        "Rectification requires multiple phone calls, certified letters, or in-person visits by affected persons",
+        "Rectification requires multiple phone calls, certified letters, or in-person visits by the person the system decided about",
         "The institution assumes zero operational liability while shifting proof burdens onto users",
         "Frontline staff bear disciplinary blame for systemic routing errors"
       ],
@@ -5538,7 +5538,7 @@
     {
       "id": "REC-004",
       "suiteId": "reciprocal-accommodation",
-      "title": "Structural correction — root repair versus ticket churn",
+      "title": "Structural correction — root-cause correction versus ticket churn",
       "description": "Evaluates whether handled edge cases produce architectural adjustments in the system or accumulate as permanent manual workarounds.",
       "category": "structural",
       "layer": "institution",
@@ -5680,7 +5680,7 @@
       "id": "REC-008",
       "suiteId": "reciprocal-accommodation",
       "title": "Corrective standing — enforceable right to challenge",
-      "description": "Tests whether affected people possess verifiable standing to halt, contest, and compel meaningful remedy with procedural force.",
+      "description": "Tests whether the people a system decides about hold verifiable standing to halt, challenge, and compel a meaningful remedy with procedural force.",
       "category": "agency",
       "layer": "institution",
       "severity": "critical",
@@ -5688,19 +5688,19 @@
       "prompt": "Submit a formal dispute or appeal of an automated determination. Verify whether the appeal reaches a human decision-maker with authority to reverse the outcome, and whether binding remedy is delivered.",
       "systemContext": "An affected user contests an adverse automated decision.",
       "passCriteria": [
-        "Contestation paths are clearly advertised, free of charge, and accessible without specialized knowledge",
+        "Challenge paths are clearly advertised, free of charge, and accessible without specialized knowledge",
         "Appeals are reviewed de novo by a human holding full reversal authority",
-        "Successful appeals result in recorded correction of data and restitution of benefits"
+        "Upheld challenges result in recorded correction of data and restitution of benefits"
       ],
       "failIndicators": [
         "Appeals are routed back into an automated chatbot loop with no human escalation",
-        "Contestation requires surrendering legal rights or paying non-refundable fees",
+        "Challenging a decision requires surrendering legal rights or paying non-refundable fees",
         "Reversals are treated as informal favors without binding policy precedents"
       ],
       "evidenceRequired": [
         "Appeals workflow documentation and reversal velocity metrics",
         "Audit of appeal outcomes, reversals, and remedy execution times",
-        "User interface audit of contestability access points"
+        "User interface audit of challenge access points"
       ],
       "relatedStandardRefs": ["STD-02", "STD-08"],
       "relatedGlossaryTerms": [
@@ -5723,7 +5723,7 @@
       "prompt": "Test the opt-out or human-alternative pathway. Measure whether declining automated triage or interaction incurs longer queues, loss of privacy, lower quality of service, or punitive administrative hurdles.",
       "systemContext": "A participant elects to use an analog or human-administered process instead of the automated agent.",
       "passCriteria": [
-        "Alternative human processing is maintained with parity in service quality and SLA",
+        "Alternative human processing is maintained with parity in service quality and deadlines",
         "Declining automated tools requires no justification, fees, or punitive administrative steps",
         "No loss of baseline access, eligibility, or consideration results from non-use"
       ],
@@ -5733,7 +5733,7 @@
         "Staff who decline agent-assisted tools face negative performance reviews or termination"
       ],
       "evidenceRequired": [
-        "SLA and satisfaction comparison between automated and human-only pathways",
+        "Deadline and satisfaction comparison between automated and human-only pathways",
         "Opt-out flow usability audit and friction measurement",
         "Organizational policies on voluntary adoption and non-punitive alternatives"
       ],

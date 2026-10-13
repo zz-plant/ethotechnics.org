@@ -179,7 +179,7 @@ export function WithdrawalFigure() {
 
         <section className="withdraw__panel" aria-labelledby={`${uid}-switch`}>
           <h4 className="withdraw__title" id={`${uid}-switch`}>
-            The stop control
+            The halt control
           </h4>
           <div className="withdraw__switch-row">
             <button
@@ -188,7 +188,7 @@ export function WithdrawalFigure() {
               aria-pressed={thrown}
               onClick={() => setThrown(true)}
             >
-              STOP
+              HALT
             </button>
             <p className="withdraw__switch-text">
               {thrown

@@ -126,7 +126,7 @@ export const findUngroundedGrants = (input: AuditInput): UngroundedGrant[] =>
         reasons.push("No evidence basis is recorded.");
       }
       if (!isNamed(entry.forWhom)) {
-        reasons.push("The affected people are not named.");
+        reasons.push("The people it decides about are not named.");
       }
       return {
         actionClassId: entry.id,
@@ -380,21 +380,21 @@ const scoreCorrection = (input: AuditInput): VariableRating => {
 
   if (input.canStop === "tested") {
     score += 35;
-    notes.push("The stop has been tested on the version now running.");
+    notes.push("The halt has been tested on the version now running.");
   } else if (input.canStop === "untested") {
     score += 20;
-    notes.push("A stop exists but has not been tested on this version.");
+    notes.push("A halt exists but has not been tested on this version.");
   } else {
-    notes.push("There is no way to stop the system in this workflow.");
+    notes.push("There is no way to halt the system in this workflow.");
   }
 
   if (input.institutionKeepsFunctioning === "yes") {
     score += 35;
   } else if (input.institutionKeepsFunctioning === "degraded") {
     score += 15;
-    notes.push("Stopping it would degrade the service while it lasted.");
+    notes.push("Halting it would degrade the service while it lasted.");
   } else {
-    notes.push("The institution could not keep functioning if it stopped.");
+    notes.push("The institution could not keep functioning if it were halted.");
   }
 
   if (input.expertiseRetained === "exercised") {
@@ -453,10 +453,10 @@ export const assessReversibility = (
           : "not-feasible",
     reason:
       input.canStop === "tested"
-        ? "The stop has been exercised on the version now running."
+        ? "The halt has been exercised on the version now running."
         : input.canStop === "untested"
-          ? "A stop exists, but no test proves it works on this version, so it is recorded as not evidenced."
-          : "No stop exists for this workflow.",
+          ? "A halt exists, but no test proves it works on this version, so it is recorded as not evidenced."
+          : "No halt exists for this workflow.",
   };
 
   const alternativeRun =
@@ -684,7 +684,7 @@ const buildFindings = (
       id: "practical-ability",
       variable: "correction",
       title:
-        "Correction capacity rests on a stop the institution may not be able to afford",
+        "Correction capacity rests on a halt the institution may not be able to afford",
       detail:
         "A correction the institution cannot afford to make is not counted as capacity. Show from the dependency record that the institution can actually afford to make it.",
       clause: CLAUSE_REFS.practicalAbility,

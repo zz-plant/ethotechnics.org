@@ -120,7 +120,7 @@ export const governanceContent: GovernanceContent = {
       owner: "Kanav Jain",
       reviewerRoles: [],
       summary:
-        "Sets response-time targets and ownership for contested diagnostic outcomes.",
+        "Sets response-time targets and ownership for challenged diagnostic outcomes.",
     },
     {
       id: "RFC-2025-11",
@@ -153,7 +153,7 @@ export const governanceContent: GovernanceContent = {
         "Resolve lapsed RFC-2026-01 (Recourse escalation SLA for diagnostics)",
       outcome: "Superseded",
       rationale:
-        "The review window lapsed without a logged decision. The substance was carried by the diagnostics anti-weaponization constraints (AW-01 to AW-04), which set response-time and ownership targets for contested outcomes. Closed so the open-RFC list stops carrying a decision nobody logged.",
+        "The review window lapsed without a logged decision. The substance was carried by the diagnostics anti-weaponization constraints (AW-01 to AW-04), which set response-time and ownership targets for challenged outcomes. Closed so the open-RFC list stops carrying a decision nobody logged.",
       date: "2026-09-18",
       owner: "Kanav Jain",
       releaseVersion: "diagnostics-v2.0.0",
@@ -216,10 +216,10 @@ export const governanceContent: GovernanceContent = {
     },
     {
       id: "FE-2026-03",
-      title: "The casebook scored variables but not learning",
+      title: "The casebook scored safeguards but not learning",
       detected: "2026-09-18",
       detail:
-        "The casebook scored five public failures against the six state variables, which are present-tense properties of a deployment, and left unstated whether each failure trajectory ended in case resolution or in institutional revision. A framework about correction was missing its own historical category, and its central case — Robodebt — is one where the exceptions were all handled and nothing changed.",
+        "The casebook scored five public failures against the six safeguards, which are present-tense properties of a deployment, and left unstated whether each failure trajectory ended in case resolution or in institutional revision. A framework about correction was missing its own historical category, and its central case — Robodebt — is one where the exceptions were all handled and nothing changed.",
       revision:
         "Every case now carries a learning-outcome verdict, and the exception absorption versus exception learning distinction is formalized in the glossary, a theory essay, and the Corrective Learning eval suite.",
     },

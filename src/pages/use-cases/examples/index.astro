@@ -63,7 +63,7 @@ const requiredSignals = [
   "Exception handling with bounded duration and review cadence.",
   "Remedy path with reversal, compensation, or safe fallback.",
   "Upheld challenges counted against the rule and sent to its owner.",
-  "Generated artifacts (decision log, evidence pack list, audit trail).",
+  "Generated artifacts (decision log, evidence pack list, appeal record).",
 ];
 ---
 
@@ -189,7 +189,7 @@ const requiredSignals = [
     id="requirements"
     eyebrow="Required signals"
     title="What every worked example must show"
-    description="A scenario missing any of these describes a decision. It does not show one that can be enforced or contested."
+    description="A scenario missing any of these describes a decision. It does not show one that can be enforced or challenged."
   >
     <ul class="muted">
       {requiredSignals.map((item) => <li>{item}</li>)}

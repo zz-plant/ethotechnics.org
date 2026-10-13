@@ -46,14 +46,12 @@ const glossaryAnchors = pattern.glossaryRefs.map((slug) => ({
   label: getGlossaryLabel(slug),
   href: glossaryEntryPermalink(slug),
 }));
-// A search title leads with the words people search for and moves the
-// catalog id to the end: "AI kill switch pattern for runaway automation
-// (MEC-05)" in place of "MEC-05 Kill switch for runaway automation".
-const catalogId = /^MEC-\d+/.exec(pattern.title)?.[0];
-const heading =
-  pattern.searchTitle && catalogId
-    ? `${pattern.searchTitle} (${catalogId})`
-    : pattern.title;
+// The heading is the mechanism's name, led by the words people search for
+// where those differ from the catalog's. The catalog id is metadata: the
+// eyebrow shows it above the heading, and the document title and citation
+// carry it after the name so a search result still shows what to cite.
+const heading = pattern.searchTitle ?? pattern.title;
+const citedHeading = `${heading} (${pattern.code})`;
 const pageDescription = pattern.summary;
 const metaDescription = pattern.metaDescription ?? pattern.summary;
 const permalink = `/mechanisms/patterns/${pattern.slug}`;
@@ -78,13 +76,13 @@ const breadcrumbItems = [
 ---
 
 <BaseLayout
-  title={heading}
+  title={citedHeading}
   description={metaDescription}
   publishedTime="2025-06-01T00:00:00.000Z"
   breadcrumbItems={breadcrumbItems}
 >
   <PageIntro
-    eyebrow="Specification sheet"
+    eyebrow={`Mechanism ${pattern.code}`}
     title={heading}
     description={pageDescription}
     anchorLinks={anchorLinks}
@@ -307,7 +305,7 @@ const breadcrumbItems = [
   </SectionBlock>
 
   <CitationBlock
-    title={pattern.title}
+    title={`${pattern.title} (${pattern.code})`}
     permalink={permalink}
     publication={publication}
     citationKey={`mechanism_${pattern.slug}`}

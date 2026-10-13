@@ -91,7 +91,7 @@ export const methodContent: MethodContent = {
       currentAssets: [
         "Evidence packs for STD-01, STD-02, STD-06, STD-08, and STD-09",
         "Links on each decision record to the evidence it relied on",
-        "STD-06 Human Impact Safety Case",
+        "STD-06 Human impact safety case",
         "Burden Concealment evals",
         "Institutional debris as an evidence class: workaround logs, override records, grievance files, exception codes, and shadow spreadsheets — the second process that grew around the intended one",
         "STD-07 belief records, with what they rest on and what would invalidate them",
@@ -107,7 +107,7 @@ export const methodContent: MethodContent = {
           href: "/explainers/institutional-debris",
         },
         {
-          label: "STD-07 Revisable Delegation Record",
+          label: "STD-07 Revisable delegation record",
           href: "/standards/std-07-revisable-delegation-record",
         },
         { label: "STD-08 Delegation", href: "/standards/std-08-delegation" },
@@ -123,8 +123,8 @@ export const methodContent: MethodContent = {
       question:
         "Which actions is the system permitted to perform, for whom, and until when?",
       currentAssets: [
-        "Agent schema fields for who can stop or override an agent, how much it does unattended, and which kinds of action it may take",
-        "MEC-13 authority grant register",
+        "Agent schema fields for who can halt or override an agent, how much it does unattended, and which kinds of action it may take",
+        "Authority grant register (MEC-13)",
         "Glossary entries on design authority, the authority to reverse a decision, permission surfaces, and override lanes",
         "STD-07 Article II: every action names the authorization it ran under, and a delegation with no revocation conditions is a transfer",
         "STD-08 Part A: a grant is a lease, renewal states its evidence in advance, and widening scope is a new authorization",
@@ -133,7 +133,7 @@ export const methodContent: MethodContent = {
       ],
       links: [
         {
-          label: "STD-07 Revisable Delegation Record",
+          label: "STD-07 Revisable delegation record",
           href: "/standards/std-07-revisable-delegation-record",
         },
         { label: "STD-08 Delegation", href: "/standards/std-08-delegation" },
@@ -155,18 +155,18 @@ export const methodContent: MethodContent = {
       currentAssets: [
         "Decision record schema and its JSON endpoint",
         "Agent receipt schema",
-        "MEC-01 decision log with dissent",
+        "Decision log with dissent (MEC-01)",
         "STD-07 action records, pinned to their authorization",
         "A field on the decision record for the model or person that decided, the questions it answered, what it returned, and where any reason came from",
         "STD-02 §1.4: a reason states what the decision rested on, and an explanation written afterward is labeled as an account",
       ],
       links: [
         {
-          label: "MEC-01 Decision log",
+          label: "Decision log (MEC-01)",
           href: "/mechanisms/patterns/decision-log",
         },
         {
-          label: "STD-07 Revisable Delegation Record",
+          label: "STD-07 Revisable delegation record",
           href: "/standards/std-07-revisable-delegation-record",
         },
       ],
@@ -193,12 +193,13 @@ export const methodContent: MethodContent = {
     {
       id: "challenge",
       title: "Challenge",
-      question: "Who can contest the decision, and with what procedural force?",
+      question:
+        "Who can challenge the decision, and with what procedural force?",
       currentAssets: [
-        "STD-02 Contestability & Recourse",
+        "STD-02 Contestability and recourse",
         "Minimum viable contestability: standing, reasons, records, timelines, a named responder, defined effects, remedies, and no retaliation",
         "Appeal event schema",
-        "MEC-06 appeal paths and MEC-08 contestation APIs",
+        "Appeal paths (MEC-06) and contestation APIs (MEC-08)",
         "STD-02 §8.6: a class whose expected errors outrun the capacity to answer them is uncontestable in practice",
       ],
       links: [
@@ -216,7 +217,7 @@ export const methodContent: MethodContent = {
           href: "/mechanisms/patterns/contestation-apis",
         },
         {
-          label: "STD-07 Revisable Delegation Record",
+          label: "STD-07 Revisable delegation record",
           href: "/standards/std-07-revisable-delegation-record",
         },
       ],
@@ -229,18 +230,18 @@ export const methodContent: MethodContent = {
       currentAssets: [
         "Pause and reversal schema",
         "Events that fire when a decision deadline nears and when an appeal deadline is missed",
-        "MEC-11 escalation SLAs",
+        "Escalation deadlines (MEC-11)",
         "STD-07 discrepancy handling: silence past the clock is a governance failure, not a pending state",
         "STD-08 §2.3 and §2.4: a fired review trigger sends the policy, and every grant that cites it, back for review",
         "Record conformance checker: reports discrepancies that were never answered inside their clock",
       ],
       links: [
         {
-          label: "Escalation SLAs",
-          href: "/mechanisms/patterns/escalation-slas",
+          label: "Escalation deadlines",
+          href: "/mechanisms/patterns/escalation-deadlines",
         },
         {
-          label: "STD-07 Revisable Delegation Record",
+          label: "STD-07 Revisable delegation record",
           href: "/standards/std-07-revisable-delegation-record",
         },
         { label: "STD-08 Delegation", href: "/standards/std-08-delegation" },
@@ -254,12 +255,12 @@ export const methodContent: MethodContent = {
       id: "correction",
       title: "Correction",
       question:
-        "Can the institution stop, reverse, or repair, at acceptable cost?",
+        "Can the institution halt, reverse, or repair, at acceptable cost?",
       currentAssets: [
         "Repair deadline schema and its JSON endpoint",
-        "MEC-10 reversibility audit logs",
-        "MEC-12 stoppability testing",
-        "Tier 1 harness: tests that stop, override, and audit records work",
+        "Reversibility audit logs (MEC-10)",
+        "Stoppability testing (MEC-12)",
+        "Tier 1 harness: tests that halt, override, and audit records work",
         "STD-08 Part D: correction capacity is stated across seven components and must grow when authority does",
         "Delegation audit (self-report): the team's own reading of reversibility at the technical, operational, and institutional levels",
       ],
@@ -307,7 +308,7 @@ export const methodContent: MethodContent = {
       tag: "Correction",
       description:
         "The same scaled system, built so that the people it can misjudge can reach it: a challenge that has to be answered, deadlines that are kept, records that follow the case, halts sized to how much harm is at stake, and performance that does not depend on people quietly absorbing its errors.",
-      cost: "The friction is built back in on purpose: time spent answering appeals, the cost of halting, and the work of restoring what was lost. That cost is planned, funded, and recorded. The challenge load ledger counts it the way the burden ledger counts absorbed errors.",
+      cost: "The friction is built back in on purpose: time spent answering challenges, the cost of halting, and the work of restoring what was lost. That cost is planned, funded, and recorded. The challenge load ledger counts it the way the burden ledger counts absorbed errors.",
       links: [
         {
           label: "Challenge density",

@@ -12,6 +12,8 @@ const WWW_ORG_HOST_RE = /^www\.ethotechnics\.org$/i;
 
 const REDIRECT_MAP: Record<string, string> = {
   "/glossary/contestability-guarantee": "/glossary/contestability",
+  // A promise to a person is a deadline, not an SLA (house vocabulary).
+  "/glossary/reversal-sla": "/glossary/reversal-deadline",
   "/glossary/structural-corrigibility": "/glossary/exception-learning",
   "/glossary/human-override-lanes": "/glossary/override-path",
   "/glossary/utility-expiry": "/glossary/constructive-denial",
@@ -57,6 +59,23 @@ const REDIRECT_MAP: Record<string, string> = {
   // One noun for the artifact family. The index was plural and the detail
   // pages singular, which is the only family on the site split that way.
   "/artifact": "/artifacts",
+  // The appeals playbook was renamed for the act it handles: a challenge.
+  // An appeal is one formal route among several.
+  "/artifacts/contestability-appeals-playbook": "/artifacts#challenge-playbook",
+  "/artifact/contestability-appeals-playbook": "/artifacts#challenge-playbook",
+  // The checklist asks whether a decision can be challenged and how; it
+  // does not engage the contestability literature, so it no longer uses its
+  // name.
+  "/explainers/contestability-checklist": "/explainers/challenge-checklist",
+  // Two templates renamed to the house vocabulary: a promise to a person is a
+  // deadline, not an SLA, and stopping a system for everyone is a halt, not a
+  // freeze. The old detail paths land on the renamed anchors.
+  "/artifacts/reversal-sla-template": "/artifacts#reversal-deadline-template",
+  "/artifact/reversal-sla-template": "/artifacts#reversal-deadline-template",
+  "/artifacts/escalation-ladder-freeze-authority":
+    "/artifacts#halt-authority-table",
+  "/artifact/escalation-ladder-freeze-authority":
+    "/artifacts#halt-authority-table",
   // Two calculators that were their own top-level noun. They take numbers and
   // report a score, which is what the other instruments do.
   "/tools": "/diagnostics",
@@ -184,6 +203,11 @@ const REDIRECT_MAP: Record<string, string> = {
   "/mechanisms/mec-04-hard-clock": "/mechanisms/patterns/hard-clock",
   "/mechanisms/moral-circuit-breakers":
     "/mechanisms/patterns/halt-tier-register",
+  // MEC-11 promises a person an answer by a date: a deadline, not an SLA.
+  "/mechanisms/patterns/escalation-slas":
+    "/mechanisms/patterns/escalation-deadlines",
+  "/library/patterns/escalation-slas":
+    "/mechanisms/patterns/escalation-deadlines",
 };
 
 const resolveLegacyPathRedirect = (url: URL): string | null => {

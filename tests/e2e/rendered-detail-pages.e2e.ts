@@ -16,7 +16,7 @@ const PAGES = [
   { path: "/evals/stoppability", family: "eval suite" },
   // Deliberately unshadowed slugs. Static pages exist at
   // src/pages/evidence-packs/std-01.astro and
-  // src/pages/explainers/contestability-checklist.astro, and Astro gives those
+  // src/pages/explainers/challenge-checklist.astro, and Astro gives those
   // precedence over their dynamic siblings — so testing them would let the
   // changed [slug].astro renderers stay broken while the suite passed.
   { path: "/evidence-packs/std-08", family: "evidence pack" },

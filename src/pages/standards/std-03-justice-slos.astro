@@ -4,15 +4,14 @@ import CitationBlock from "../../components/CitationBlock.astro";
 import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
 import { derivePublicationMetadata } from "../../utils/publication";
 
-const pageTitle =
-  "STD-03 — Justice SLOs (Targets, Budgets, and Breach Actions)";
+const pageTitle = "STD-03 — Justice SLOs: targets, budgets, and breach actions";
 const permalink = "/standards/std-03-justice-slos";
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
 const breadcrumbItems = [
   { name: "Home", url: new URL("/", siteBase).toString() },
   { name: "Standards", url: new URL("/standards", siteBase).toString() },
   {
-    name: "Justice SLOs (Targets, Budgets, and Breach Actions)",
+    name: "Justice SLOs: targets, budgets, and breach actions",
     url: new URL("/standards/std-03-justice-slos", siteBase).toString(),
   },
 ];
@@ -21,7 +20,7 @@ const standardFields = [
   {
     title: "Metric",
     description:
-      "The justice metric the objective covers: time-to-restore, time-to-halt, appeal passage rate, user burden ratio, or irreversibility index.",
+      "The justice metric the objective covers: time to restore, time to halt, appeal passage rate, user burden ratio, or irreversibility index.",
   },
   {
     title: "Target, budget, or ceiling",
@@ -41,7 +40,7 @@ const standardFields = [
   {
     title: "Owner",
     description:
-      "The named person accountable for the objective, who can pause the workflow or order the remedy.",
+      "The named person accountable for the objective, who can halt the workflow or order the remedy.",
   },
   {
     title: "Public surface",
@@ -52,13 +51,13 @@ const standardFields = [
 
 const metricLinks = [
   {
-    title: "Time-to-restore (TTR)",
+    title: "Time to restore (TTR)",
     description:
-      "How long it takes to reverse a harm and return a person to their prior state.",
+      "How long it takes, once a harm is confirmed, to restore the person to their prior state.",
     href: "/glossary/time-to-restore",
   },
   {
-    title: "Time-to-halt (TTH)",
+    title: "Time to halt (TTH)",
     description:
       "The time between a harmful process starting and the system stopping it.",
     href: "/glossary/time-to-halt",
@@ -66,7 +65,7 @@ const metricLinks = [
   {
     title: "Appeal passage rate",
     description:
-      "The share of appeals resolved in the person's favor, for each decision class.",
+      "The share of challenges resolved in the person's favor, for each decision class.",
     href: "/glossary/appeal-passage-rate",
   },
   {
@@ -83,7 +82,7 @@ const metricLinks = [
 ];
 
 const breachPlaybook = [
-  "Safe pause for the affected workflow class.",
+  "A halt on the affected workflow class, with its open cases held in a safe pause.",
   "An ethical circuit breaker trips and the case escalates.",
   "A rollback lane opens, or the workflow moves to manual handling for a set period.",
   "Added staff or a dedicated remediation queue.",
@@ -96,13 +95,13 @@ const structuredData = {
   "@context": "https://schema.org",
   "@type": "TechArticle",
   "@id": pageUrl,
-  headline: "STD-03 — Justice SLOs (Targets, Budgets, and Breach Actions)",
+  headline: "STD-03 — Justice SLOs: targets, budgets, and breach actions",
   description:
     "A draft standard: each justice metric needs a numeric threshold, a measurement window, a breach action, and a named owner.",
   url: pageUrl,
   datePublished: "2026-01-01",
-  dateModified: "2026-10-06",
-  version: "0.6.1",
+  dateModified: "2026-10-13",
+  version: "0.6.2",
   identifier: "STD-03",
   publisher: {
     "@type": "Organization",
@@ -134,16 +133,16 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 const publication = derivePublicationMetadata({
   permalink,
   published: "2026-01-01T00:00:00Z",
-  updated: "2026-10-06T00:00:00Z",
-  version: "v0.6.1",
+  updated: "2026-10-13T00:00:00Z",
+  version: "v0.6.2",
   changelogSummary:
-    "Editorial revision: one name, justice SLO, used throughout, and each metric defined. No requirement changed.",
+    'Editorial revision; no requirement changed. Retitled in sentence case; formerly "Justice SLOs (Targets, Budgets, and Breach Actions)".',
 });
 ---
 
 <BaseLayout
-  title="STD-03: Justice SLOs"
-  description="A draft standard: each justice metric, such as time-to-halt, needs a target, a measurement window, a breach action, and a named owner."
+  title="Justice SLOs (STD-03)"
+  description="A draft standard: each justice metric, such as time to halt, needs a target, a measurement window, a breach action, and a named owner."
   publishedTime="2025-06-01T00:00:00.000Z"
   mainClass="page page--wide standard-document"
   enableGlossaryHighlights={false}
@@ -157,7 +156,7 @@ const publication = derivePublicationMetadata({
       <div>
         <p class="standard-header__id">STANDARD STD-03</p>
         <h1 class="standard-header__title">
-          Justice SLOs (Targets, Budgets, and Breach Actions)
+          Justice SLOs: targets, budgets, and breach actions
         </h1>
       </div>
     </header>
@@ -169,10 +168,11 @@ const publication = derivePublicationMetadata({
           <p>
             A justice service-level objective (justice SLO) is a target for how
             a system treats the people it decides about: how fast it stops a
-            harm, how fast it reverses one, how often an appeal succeeds. This
-            standard requires every justice SLO to carry an explicit target,
-            budget, or ceiling, and a breach action. Without them, the objective
-            is a word in a report. With them, missing it obliges someone to act.
+            harm, how fast it reverses one, how often a challenge is upheld.
+            This standard requires every justice SLO to carry an explicit
+            target, budget, or ceiling, and a breach action. Without them, the
+            objective is a word in a report. With them, missing it obliges
+            someone to act.
           </p>
         </section>
 
@@ -238,10 +238,10 @@ const publication = derivePublicationMetadata({
           <h2>Ownership and public surface</h2>
           <p>
             Each justice SLO must name an accountable owner with authority to
-            pause the workflow, roll it back, or staff the remedy. The public
+            halt the workflow, roll it back, or staff the remedy. The public
             surface must show how long the process takes and link to the
-            decision records, so the people affected can check that a breach
-            action happened.
+            decision records, so the people it decides about can check that a
+            breach action happened.
           </p>
         </section>
       </div>
@@ -252,7 +252,9 @@ const publication = derivePublicationMetadata({
           <ul>
             <li>Targets, budgets, or ceilings set by workflow class.</li>
             <li>Measurement windows defined (p95, weekly, rolling).</li>
-            <li>Breach actions wired to pause, rollback, or escalation.</li>
+            <li>
+              Breach actions wired to a halt or pause, rollback, or escalation.
+            </li>
             <li>Named owner with authority to remediate.</li>
           </ul>
         </div>
