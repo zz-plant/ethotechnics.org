@@ -68,14 +68,15 @@ export const navSections: NavSection[] = [
       },
       {
         href: "/standards/laws",
-        label: "The twelve laws",
+        label: "The laws",
         description:
-          "Twelve conditions that must always hold, and the clauses behind each",
+          "Conditions that must always hold, and the clauses that make each one checkable",
       },
       {
         href: "/low-leverage",
         label: "Low-leverage work",
-        description: "Eleven approaches that fail, and what replaces each",
+        description:
+          "Familiar projects that leave the rule in place, and what to do instead",
       },
       {
         href: "/standards",
@@ -158,7 +159,7 @@ export const navSections: NavSection[] = [
         href: "/use-cases",
         label: "Which tool for your system",
         description:
-          "Bring the decision it makes: six kinds of system, each with the check to run first",
+          "Bring the decision it makes: the check to run first for that kind of system",
       },
       {
         href: "/diagnostics/self-defense-tools",
@@ -187,7 +188,8 @@ export const navSections: NavSection[] = [
       {
         href: "/casebook",
         label: "Casebook",
-        description: "Five public failures scored on six safeguards",
+        description:
+          "Public failures a court or inquiry established, scored by which safeguard broke",
       },
       {
         href: "/field-notes",
