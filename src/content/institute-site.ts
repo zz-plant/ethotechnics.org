@@ -144,7 +144,7 @@ export const failureStates: FailureState[] = [
     slug: "model-wrong",
     shortLabel: "Model wrong",
     descriptionLine1:
-      "The model is wrong about real people, and you cannot find those people, correct the decisions, or undo the effects by a set date.",
+      "The model is wrong about real people, and you cannot find those people, reverse the decisions, or restore them by a set date.",
     descriptionLine2:
       "The main failure is finding and recovering from the error, not the model's accuracy.",
     artifactSlugs: [
@@ -203,7 +203,7 @@ export const failureStates: FailureState[] = [
     slug: "cant-explain",
     shortLabel: "Can’t explain",
     descriptionLine1:
-      "The system cannot give an explanation specific enough for someone to challenge the decision, oversee it, or repair it.",
+      "The system cannot give an explanation specific enough for someone to challenge the decision, oversee it, or reverse it.",
     descriptionLine2:
       "Without reasons specific to the case, the person cannot challenge it and nobody can tell whether the rule is wrong.",
     artifactSlugs: [

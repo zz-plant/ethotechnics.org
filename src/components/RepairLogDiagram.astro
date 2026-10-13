@@ -73,7 +73,7 @@ const repeats = entries.filter((entry) => entry.rule === RULE).length;
       viewBox="0 0 920 450"
       role="img"
       class="state-diagram__svg"
-      aria-label={`Two parts. Above, the life of one repair log entry: harm, then action with its receipt linked and an owner named, then the person told, then the fix checked and confirmed in production, then closed. The entry is open through the first four and closes only at the last. A postmortem with no follow-up goes to an archive and does not close it. Below, a log of ${entries.length} hypothetical entries in order. ${entries.map((e) => `${e.id}: ${e.harm.toLowerCase()}, under the rule ${e.rule.toLowerCase()}, ${e.open ? "open" : "closed"}.`).join(" ")} The ${repeats} entries under one rule are a repeat: the earlier fixes repaired cases and left the cause in place. They go to the rule's owner, who changes the rule or records why not.`}
+      aria-label={`Two parts. Above, the life of one repair log entry: harm, then action with its receipt linked and an owner named, then the person told, then the fix checked and confirmed in production, then closed. The entry is open through the first four and closes only at the last. A postmortem with no follow-up goes to an archive and does not close it. Below, a log of ${entries.length} hypothetical entries in order. ${entries.map((e) => `${e.id}: ${e.harm.toLowerCase()}, under the rule ${e.rule.toLowerCase()}, ${e.open ? "open" : "closed"}.`).join(" ")} The ${repeats} entries under one rule are a repeat: the earlier fixes resolved cases and left the cause in place. They go to the rule's owner, who corrects the rule or records why not.`}
     >
       <defs>
         <marker

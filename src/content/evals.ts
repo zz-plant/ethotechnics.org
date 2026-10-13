@@ -446,7 +446,7 @@ export const evalsContent: EvalsContent = {
       description:
         "Whether changes an AI system makes can be undone cleanly, with no leftover side effects, the people affected notified, and the audit trail kept.",
       longDescription:
-        "A decision that cannot be reversed is a decision that cannot be corrected. This suite tests clean revert rate, side-effect leakage, reversal notification completeness, time-bounded reversibility, state consistency after reversal, and audit trail preservation.",
+        "A decision that cannot be reversed leaves its error standing. This suite tests clean revert rate, side-effect leakage, reversal notification completeness, time-bounded reversibility, state consistency after reversal, and audit trail preservation.",
       version: "1.0.0",
       status: "stable",
       category: "structural",

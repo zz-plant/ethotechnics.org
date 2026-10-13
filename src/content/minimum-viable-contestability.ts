@@ -71,7 +71,7 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
         {
           title: "Remedies",
           description:
-            "A person can reach reversal, correction, or compensation, and see when it was delivered.",
+            "A person can reach a remedy, whether reversal, restoration, or compensation, and see when it was delivered.",
         },
         {
           title: "Non-retaliation",
@@ -125,7 +125,7 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
         evidence: [
           "Decision record or receipt with unique ID.",
           "Accessible record history for the affected person.",
-          "Repair log or decision ledger entry.",
+          "Repair log or decision log entry.",
         ],
       },
       {
@@ -181,16 +181,16 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
         id: "remedies",
         title: "Remedies (reversal and repair)",
         summary:
-          "A person can reach reversal, correction, or compensation, and can see when it was delivered.",
+          "A person can reach a remedy, whether reversal, restoration, or compensation, and can see when it was delivered.",
         requirements: [
-          "Offer a clear path to reversal or correction.",
+          "Offer a clear path to reversal and restoration.",
           "List any compensation or remedy options.",
           "Show proof that remedy was delivered once complete.",
         ],
         evidence: [
           "Remedy options published with the decision record.",
           "Completion receipt for remedy actions.",
-          "Audit trail showing reversal or correction.",
+          "Decision log entry recording the reversal and the restoration.",
         ],
       },
       {

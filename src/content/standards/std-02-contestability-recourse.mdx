@@ -73,18 +73,18 @@ export const rights = [
       "Reversal is the default remedy for upheld appeals.",
       "Wrongful harm triggers credits, fee waivers, or restitution.",
       "Remedy delivery is tracked and verified.",
-      "A defect in a rule, model, or notice is corrected in every affected case.",
+      "A defective rule, model, or notice is corrected, and the remedy reaches every case it affected.",
     ],
   },
   {
     id: "evidence",
     title: "Evidence and accountability",
     summary:
-      "Every decision has a receipt, contested cases have an audit trail, and appeal outcomes are published.",
+      "Every decision has a receipt, every contested decision is in the decision log, and appeal outcomes are published.",
     clauses: [
       "Every decision emits a receipt with timestamp and owner.",
       "Appeal passage rates and reversal rates are published.",
-      "Audit trails link decisions to evidence and reviewers.",
+      "The decision log links each contested decision to its evidence and reviewers.",
       "A score the challenged party did not produce is evidence, not a bar.",
     ],
   },
@@ -99,7 +99,8 @@ export const explainerLinks = [
   },
   {
     title: "Repair log",
-    description: "Remediation actions recorded against receipts and owners.",
+    description:
+      "Repairs recorded against receipts and owners, with their cost to the people repaired.",
     href: "/explainers/repair-log",
   },
   {
@@ -267,7 +268,7 @@ export const structuredData = {
           </li>
           <li>
             <span class="standard-clause-id">§4.4</span>
-            Scope of remedy: Where a defect is found to arise from a rule, a model, or a notice rather than from one decision, the remedy reaches every affected case without a further claim. The institution enumerates the affected population from its own records, corrects those cases, and tells each person what was corrected. Remediation reachable only by individual appeal does not discharge the obligation.
+            Scope of remedy: Where a defect is found to arise from a rule, a model, or a notice rather than from one decision, the remedy reaches every affected case without a further claim. The institution enumerates the affected population from its own records, reverses each affected decision, restores each person it harmed, and tells each person what was reversed and how they were restored. A remedy reachable only by individual appeal does not discharge the obligation.
           </li>
         </ol>
       </section>
@@ -275,14 +276,14 @@ export const structuredData = {
       <section class="standard-section">
         <h2>Article V: The right to evidence and accountability</h2>
         <p class="standard-article-quote">
-          Every decision leaves a receipt, and every contested decision leaves
-          an audit trail. Appeal outcomes are published. A score is evidence in
-          a challenge, not the answer to it.
+          Every decision leaves a receipt, and every contested decision is
+          entered in the decision log. Appeal outcomes are published. A score
+          is evidence in a challenge, not the answer to it.
         </p>
         <ol class="standard-clauses">
           <li>
             <span class="standard-clause-id">§5.1</span>
-            Decision receipts: Every decision emits a receipt with timestamp, owner, and decision object reference.
+            Receipts: Every decision emits a receipt with timestamp, owner, and a reference to its decision record.
           </li>
           <li>
             <span class="standard-clause-id">§5.2</span>
@@ -290,7 +291,7 @@ export const structuredData = {
           </li>
           <li>
             <span class="standard-clause-id">§5.3</span>
-            Audit trails: Audit trails link decisions to evidence, reviewers, and outcomes for every contested case.
+            Decision log: The decision log links every contested decision to its evidence, reviewers, and outcome.
           </li>
           <li>
             <span class="standard-clause-id">§5.4</span>
