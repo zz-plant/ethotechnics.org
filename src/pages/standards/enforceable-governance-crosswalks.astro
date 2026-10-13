@@ -215,7 +215,6 @@ const keyTakeaways = [
   eyebrow="Crosswalk"
   anchorLinks={[
     { href: "#guide", label: "Guide" },
-    { href: "#summary", label: "Using a crosswalk entry" },
     { href: "#controls", label: "Crosswalk" },
     { href: "#control-briefs", label: "Control briefs" },
     { href: "#eu-ai-act-articles", label: "EU AI Act by article" },
@@ -237,25 +236,6 @@ const keyTakeaways = [
     </ul>
   </SectionBlock>
 
-  <SectionBlock
-    id="summary"
-    title="Using a crosswalk entry"
-    description="Pick a framework, check its status, take the first step, then request the listed evidence."
-    variant="alt"
-  >
-    <ol>
-      <li>
-        Read the status. For the EU AI Act, read the <a
-          href="#eu-ai-act-articles">article table</a
-        > too: it says what each clause leaves to you.
-      </li>
-      <li>Name the person accountable for the first step.</li>
-      <li>
-        Request evidence artifacts before contract sign-off or audit close.
-      </li>
-    </ol>
-  </SectionBlock>
-
   {
     /* One block per framework. The page had a summary table and, further
        down, a collapsed card per framework that repeated its status,
@@ -267,6 +247,21 @@ const keyTakeaways = [
     title="Framework-by-framework crosswalk"
     description="For each framework: the Ethotechnics controls it maps to, what they cover, how much is left to you, and the checks and evidence requests to put in a procurement packet or an audit walkthrough."
   >
+    {
+      /* How to use an entry had a section of its own between the guide and
+         the entries: three steps, 37 words. They sit above the entries. */
+    }
+    <ol id="summary">
+      <li>
+        Read the status. For the EU AI Act, read the <a
+          href="#eu-ai-act-articles">article table</a
+        > too: it says what each clause leaves to you.
+      </li>
+      <li>Name the person accountable for the first step.</li>
+      <li>
+        Request evidence artifacts before contract sign-off or audit close.
+      </li>
+    </ol>
     <div class="framework-list">
       {
         frameworkCards.map((item) => {
