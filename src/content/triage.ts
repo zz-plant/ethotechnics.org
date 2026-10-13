@@ -34,7 +34,7 @@ export const failureFirstMoves: Record<string, string> = {
   "user-harmed":
     "Answer the person: what happened, what they are owed, and by when.",
   "no-owner":
-    "Name one person who can reverse the failure, compensate for it, or close it out.",
+    "Name one person who can reverse the decision, compensate the person harmed, or close it out.",
   "cant-explain":
     "Record the reasons the decision rested on, as they stand today.",
   "cant-stop":

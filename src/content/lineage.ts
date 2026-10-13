@@ -211,7 +211,7 @@ export const neighboringFields: NeighboringField[] = [
     ],
     sees: "A person decided about by a machine is owed notice, a hearing, and a way to contest the decision.",
     stops:
-      "It attaches the remedy to one decision. The individual appeal then becomes the channel that absorbs the evidence: each case is fixed and the rule stays.",
+      "It attaches the remedy to one decision. The individual appeal then becomes the channel that absorbs the evidence: each decision is reversed and the rule stays.",
     essay: {
       title: "Exception learning",
       href: "/research/theory/exception-learning",

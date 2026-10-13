@@ -123,7 +123,7 @@ export const governanceCrosswalks: GovernanceCrosswalk[] = [
       "Appeal-event timeline",
       "Retention and retrieval policy",
     ],
-    operationalSurface: "Decision ledger and appeal history view",
+    operationalSurface: "Decision log and appeal history view",
   },
   {
     controlId: "CTRL-05",
@@ -267,7 +267,7 @@ export const euAiActArticleCoverage: EuAiActArticleCoverage[] = [
       "STD-02.6.3",
     ],
     covers:
-      "Records that are never edited and carry a hash of their content, with the moment a record describes kept apart from the moment it was written. An audit trail from each challenged decision to its evidence, reviewers, and outcome, kept tamper-evident through the appeal period and the limitation window.",
+      "Records that are never edited and carry a hash of their content, with the moment a record describes kept apart from the moment it was written. A decision log that links each challenged decision to its evidence, reviewers, and outcome, kept tamper-evident through the appeal period and the limitation window.",
     leaves:
       "The logging capability built into the system (12(1)). The minimum log contents for remote biometric identification under Annex III, point 1(a) (12(3)).",
   },

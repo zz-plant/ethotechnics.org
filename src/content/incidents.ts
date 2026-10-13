@@ -43,7 +43,7 @@ export const incidentLessons: IncidentLesson[] = [
     slug: "appeals-backlog-trigger",
     title: "Appeals backlog triggers unnoticed harm loops",
     summary:
-      "A surge in appeal volume stalled remediation timelines, leaving account holders in unresolved states for weeks.",
+      "A surge in appeal volume stalled remedies, leaving account holders in unresolved states for weeks.",
     published: "2026-02-14T00:00:00Z",
     updated: "2026-02-20T00:00:00Z",
     glossaryRefs: ["appeal-event", "repair-sla", "burden-hours"],
@@ -117,30 +117,31 @@ export const incidentLessons: IncidentLesson[] = [
     slug: "appeal-remedy-mismatch",
     title: "Appeal accepted without remedy follow-through",
     summary:
-      "Appeals were marked resolved, but remediation actions failed to reach the teams responsible for execution.",
+      "Appeals were marked resolved, but the remedies they granted never reached the teams responsible for delivering them.",
     published: "2026-01-22T00:00:00Z",
     glossaryRefs: ["appeal-event", "remedy"],
     incident: {
-      headline: "Appeals were marked resolved before the repair was done.",
+      headline:
+        "Appeals were marked resolved before the decisions were reversed.",
       impact:
-        "People won their appeals, and their outcomes were never corrected.",
+        "People won their appeals, and their decisions were never reversed.",
       sector: "Healthcare",
       timeframe: "Composite, not a dated event",
     },
     governanceFailures: [
       "No confirmation loop between appeal resolution and delivery teams.",
       "Remedy ownership unclear across internal workflows.",
-      "Status updates not tied to verified repair completion.",
+      "Status updates not tied to verified remedy delivery.",
     ],
     signalsToWatch: [
-      "Gap between appeal approvals and repair completions.",
-      "Number of appeals lacking assigned remediation owners.",
-      "Time from approval to confirmed repair delivery.",
+      "Gap between appeal approvals and remedies delivered.",
+      "Number of appeals lacking an assigned remedy owner.",
+      "Time from approval to confirmed remedy delivery.",
     ],
     remediationChecklist: [
       "Assign remedy ownership at appeal decision time.",
       "Require confirmation before closing appeal records.",
-      "Track repair completions against appeal outcomes.",
+      "Track remedies delivered against appeal outcomes.",
     ],
     sources: [
       {

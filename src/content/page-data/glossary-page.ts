@@ -53,7 +53,8 @@ export const explainerLinks = [
   },
   {
     title: "Repair log",
-    description: "Track remediation actions with receipts and owners.",
+    description:
+      "Track repairs, with their receipts, owners, and cost to the people repaired.",
     href: "/explainers/repair-log",
     glossarySlug: "repair-log",
   },

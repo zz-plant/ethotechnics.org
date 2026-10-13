@@ -181,7 +181,7 @@ export const roles: Role[] = [
     },
     adoptionChecklist: [
       "Give every right to challenge a named owner and a response deadline.",
-      "Define restitution pathways for harms that cannot be fully reversed.",
+      "Define restitution pathways for harms that cannot be fully undone.",
       "Set incident disclosure expectations for high-impact failures.",
       "Name who must sign off before a halted system restarts.",
     ],

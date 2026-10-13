@@ -157,7 +157,7 @@ export const signalIntegrityRows: SignalIntegrityRow[] = [
       "Tier 0: aggregate success rate. Tier 1: success with cost tagging. Tier 2: cost + blast radius per action class.",
   },
   {
-    signal: "Human compensatory subsidy",
+    signal: "Human subsidy",
     gaming:
       "Leave unlogged human fixes, prompt rewording, and error cleanup out of the telemetry, so they count as free.",
     detection:
@@ -312,7 +312,7 @@ export const practiceSections: PracticeSection[] = [
       "Appeal path visible in every UI where automation acts",
       "Published clocks for acknowledgment, review, and remedy",
       "Escalation ladder with accountable decision owners",
-      "Audit trail linking challenges to receipts and outcomes",
+      "Decision log linking challenges to receipts and outcomes",
       "Evidence parity between automated and human decisions",
     ],
     mechanisms: [
@@ -326,7 +326,7 @@ export const practiceSections: PracticeSection[] = [
       },
     ],
     gaps: [
-      "Challenge receipts linked to the challenge and its remediation outcome.",
+      "Challenge receipts linked to the challenge and the remedies delivered.",
       "Challenge intake templates for agent decisions.",
       "Escalation system that ties into incident response.",
     ],

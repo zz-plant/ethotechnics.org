@@ -185,9 +185,9 @@ export const useCases: UseCase[] = [
       "Eligibility checks, overpayment and debt raising, fraud risk scores on claims, data matching across agencies.",
     why: "Two of the five scored cases are here. In both, people challenged their decisions for years while the rule that produced the errors kept running. The burden of disproof often falls on the claimant, and a wrong debt stands while they challenge it.",
     defense: {
-      said: "Each wrong decision was corrected on appeal.",
+      said: "Each wrong decision was reversed on appeal.",
       answer:
-        "A corrected case is not a corrected rule. A claimant who cannot opt out is owed more correction, not less.",
+        "A reversed decision is not a corrected rule. A claimant who cannot opt out is owed more correction, not less.",
     },
     cases: [
       { slug: "robodebt", clause: { standard: "STD-08", clause: "§2.3" } },

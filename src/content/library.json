@@ -225,7 +225,7 @@
             {
               "title": "Reasons kept in private documents",
               "failure": "The reasoning sits in a private document or chat thread, so the people affected and later reviewers cannot find it.",
-              "counterfactual": "The entry lives in the system of record, and each decision receipt links to it.",
+              "counterfactual": "The entry lives in the system of record, and each receipt links to it.",
               "warning": "Personal or security-sensitive details can be redacted, as long as the entry ID and the decision itself stay referenceable."
             }
           ]
@@ -411,7 +411,7 @@
           "title": "Kill switch for runaway automation",
           "searchTitle": "AI kill switch pattern for runaway automation",
           "metaDescription": "A pre-authorized halt for an AI or other automated system: a named roster, harm-indicator triggers, a time-to-halt target, and restoration for those harmed.",
-          "summary": "Give a named roster pre-authorized power to halt an automated system when harm indicators fire. The halt contains harm while the rule's owner fixes the rule and the people harmed are restored.",
+          "summary": "Give a named roster pre-authorized power to halt an automated system when harm indicators fire. The halt contains harm while the rule's owner corrects the rule and the people harmed are restored.",
           "filters": ["correction"],
           "chainStages": ["correction"],
           "chainNote": "It halts the system when harm indicators fire, so harm stops spreading while the rule is fixed.",
@@ -451,7 +451,7 @@
           ],
           "example": {
             "title": "Halting a disconnection notice run",
-            "description": "After a meter-data change, a utility's billing rule flags three times the usual number of homes for disconnection, and upheld disputes spike. The on-call operator halts disconnection notices in four minutes. The rule's owner fixes how the rule reads the new meter format. The 310 households already notified get a withdrawal letter and a fee refund. Then notices resume."
+            "description": "After a meter-data change, a utility's billing rule flags three times the usual number of homes for disconnection, and upheld disputes spike. The on-call operator halts disconnection notices in four minutes. The rule's owner corrects how the rule reads the new meter format. The 310 households already notified get a withdrawal letter and a fee refund. Then notices resume."
           },
           "antiPatterns": [
             {
@@ -529,7 +529,7 @@
             },
             {
               "title": "Appeals that only fix cases",
-              "failure": "Each upheld challenge corrects one decision. The rule that produced it stays, and the next person meets the same error.",
+              "failure": "Each upheld challenge reverses one decision. The rule that produced it stays, and the next person meets the same error.",
               "counterfactual": "Upheld challenges are counted by rule, and a set number obliges the rule's owner to revise it or publish why not.",
               "warning": "A challenge upheld because of a data-entry error in one case need not count against the rule, if that reason is recorded."
             }
@@ -1038,18 +1038,18 @@
           ],
           "cues": [
             "Rehearse the workflow without the system rather than testing that the switch flips.",
-            "Measure cost, the expertise still available, and time to restore at each reversibility level.",
+            "Measure cost, the expertise still available, and time to recover at each reversibility level.",
             "Record which capacities have to be preserved to keep the rehearsal possible next year."
           ],
           "diagnostics": ["delegation-audit"],
           "steps": [
             "Pick a bounded slice of the workflow and run it without the system for a defined window.",
-            "Record the cost, the people who still hold the expertise, and the time to restore service at the technical, operational, and institutional levels.",
+            "Record the cost, the people who still hold the expertise, and the time to recover service at the technical, operational, and institutional levels.",
             "Publish the gaps as preserved capacities with owners and a date for the next rehearsal."
           ],
-          "policyRequirement": "Policy requirement (MEC-15 Withdrawal rehearsal)\n- Rehearse operating the workflow without the system on a published schedule.\n- Record cost, expertise available, and time to restore at the technical, operational, and institutional levels.\nReference: https://ethotechnics.org/mechanisms/patterns/withdrawal-rehearsal",
+          "policyRequirement": "Policy requirement (MEC-15 Withdrawal rehearsal)\n- Rehearse operating the workflow without the system on a published schedule.\n- Record cost, expertise available, and time to recover at the technical, operational, and institutional levels.\nReference: https://ethotechnics.org/mechanisms/patterns/withdrawal-rehearsal",
           "productRequirement": "Product requirement (MEC-15)\n- The system supports a rehearsal mode that suspends automated handling for a defined scope and window.\n- Rehearsal outcomes are recorded against the dependency record for the workflow.",
-          "auditEvidenceChecklist": "Audit evidence checklist (MEC-15)\n[ ] Rehearsals ran on schedule with a defined scope and window.\n[ ] Results state cost, expertise available, and time to restore at all three levels.\n[ ] Preserved capacities have named owners and review dates.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-15)\n[ ] Rehearsals ran on schedule with a defined scope and window.\n[ ] Results state cost, expertise available, and time to recover at all three levels.\n[ ] Preserved capacities have named owners and review dates.",
           "postmortemTrigger": "Postmortem trigger (MEC-15)\nTrigger review when a rehearsal is skipped, or when it shows the workflow can no longer be run without the system.",
           "artifacts": [
             {
@@ -1058,7 +1058,7 @@
             },
             {
               "name": "Three-level reversibility readout",
-              "purpose": "Cost and time to restore recorded separately for technical, operational, and institutional withdrawal."
+              "purpose": "Cost and time to recover recorded separately for technical, operational, and institutional withdrawal."
             },
             {
               "name": "Preserved capacity list",
@@ -1079,7 +1079,7 @@
             {
               "title": "Rehearsal without a record",
               "failure": "The drill happens but produces no measurement, so nothing can be compared to last year.",
-              "counterfactual": "Each rehearsal records cost, expertise, and restore time against the dependency record.",
+              "counterfactual": "Each rehearsal records cost, expertise, and recovery time against the dependency record.",
               "warning": "Qualitative findings are useful, but at least one comparable measure has to survive the exercise."
             }
           ]
@@ -1343,27 +1343,27 @@
           ],
           "cues": [
             "Rank halt instruments by blast radius: one case, one queue, one workflow, the whole system.",
-            "Name who can fire each tier and what restoration at that tier requires.",
+            "Name who can fire each tier and what recovery at that tier requires.",
             "Keep the lowest tier unescalated: a frontline pause that needs a committee is not a tier; it is theater."
           ],
           "diagnostics": ["delegation-audit"],
           "steps": [
-            "List the halt instruments the deployment has today and sort them by blast radius, restoration cost, and who can reach them.",
-            "Write the tier register: per tier, the authorized roles, what halts, the restoration path, the notification duty, and the evidence the halt leaves behind.",
-            "Provision restoration at every tier and rehearse at least the bottom two, where halts are cheap enough that drills are honest."
+            "List the halt instruments the deployment has today and sort them by blast radius, recovery cost, and who can reach them.",
+            "Write the tier register: per tier, the authorized roles, what halts, the recovery path, the notification duty, and the evidence the halt leaves behind.",
+            "Provision recovery at every tier and rehearse at least the bottom two, where halts are cheap enough that drills are honest."
           ],
-          "policyRequirement": "Policy requirement (MEC-21 Halt tier register)\n- Halt authority is tiered by blast radius, with authorized roles, restoration paths, and notification duties recorded per tier.\n- The lowest tier is reachable by exposed parties and frontline operators without escalation.\nReference: https://ethotechnics.org/mechanisms/patterns/halt-tier-register",
-          "productRequirement": "Product requirement (MEC-21)\n- Each tier exposes only the controls that tier's blast radius justifies.\n- Halt events record the tier that fired, the restoration path taken, and everyone notified.",
-          "auditEvidenceChecklist": "Audit evidence checklist (MEC-21)\n[ ] The tier register exists and names roles, blast radius, restoration, and notification per tier.\n[ ] Drills demonstrate halts at the lowest tiers, not only the system-wide stop.\n[ ] Restoration capacity is evidenced at each tier, not only at the top.",
-          "postmortemTrigger": "Postmortem trigger (MEC-21)\nTrigger review when a halt had to escalate two or more tiers to take effect, or when a tier's restoration path was exercised without provision behind it.",
+          "policyRequirement": "Policy requirement (MEC-21 Halt tier register)\n- Halt authority is tiered by blast radius, with authorized roles, recovery paths, and notification duties recorded per tier.\n- The lowest tier is reachable by exposed parties and frontline operators without escalation.\nReference: https://ethotechnics.org/mechanisms/patterns/halt-tier-register",
+          "productRequirement": "Product requirement (MEC-21)\n- Each tier exposes only the controls that tier's blast radius justifies.\n- Halt events record the tier that fired, the recovery path taken, and everyone notified.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-21)\n[ ] The tier register exists and names roles, blast radius, recovery, and notification per tier.\n[ ] Drills demonstrate halts at the lowest tiers, not only the system-wide stop.\n[ ] Recovery capacity is evidenced at each tier, not only at the top.",
+          "postmortemTrigger": "Postmortem trigger (MEC-21)\nTrigger review when a halt had to escalate two or more tiers to take effect, or when a tier's recovery path was exercised without provision behind it.",
           "artifacts": [
             {
               "name": "Halt tier register",
-              "purpose": "Tiers, authorized roles, blast radius, restoration paths, and notification duties per tier."
+              "purpose": "Tiers, authorized roles, blast radius, recovery paths, and notification duties per tier."
             },
             {
               "name": "Tier drill log",
-              "purpose": "Evidence that low tiers fire and restore without escalation, dated and signed."
+              "purpose": "Evidence that low tiers fire and recover without escalation, dated and signed."
             },
             {
               "name": "Escalation map",
@@ -1372,14 +1372,14 @@
           ],
           "example": {
             "title": "One caseworker, one paused claim",
-            "description": "A caseworker pauses a single claim the system is about to mispay, using a tier-1 control that needs no approval. The queue keeps moving; the claim routes to a human; the register records the pause and the restoration, and nobody outside the office is paged."
+            "description": "A caseworker pauses a single claim the system is about to mispay, using a tier-1 control that needs no approval. The queue keeps moving; the claim routes to a human; the register records the pause and the recovery, and nobody outside the office is paged."
           },
           "antiPatterns": [
             {
               "title": "One halt authority for every tier",
               "failure": "Every halt requires the same senior authority, so low-tier problems either wait or fire the system-wide stop.",
               "counterfactual": "Tiers match blast radius: small halts are cheap and local; big halts are deliberate.",
-              "warning": "A small authorized tier is not a governance gap; the gap is a big tier with no rehearsed restoration."
+              "warning": "A small authorized tier is not a governance gap; the gap is a big tier with no rehearsed recovery."
             },
             {
               "title": "Tier theater",
