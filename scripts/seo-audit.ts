@@ -1,6 +1,8 @@
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 
+import { formatDocumentTitle } from "../src/utils/seo/document-title";
+
 const repoRoot = process.cwd();
 const srcRoot = path.join(repoRoot, "src");
 const pagesRoot = path.join(srcRoot, "pages");
@@ -294,17 +296,22 @@ for (const filePath of pageAstroFiles) {
   const descriptionLiteral = findLiteralBaseLayoutProp(source, "description");
 
   if (titleLiteral) {
-    collectPagesForValue(titleToPages, titleLiteral, relPath);
+    // Measure the <title> BaseLayout renders, brand suffix included.
+    const baseLayoutTag = /<BaseLayout[\s\S]*?>/m.exec(source)?.[0] ?? "";
+    const documentTitle = formatDocumentTitle(titleLiteral, {
+      suffix: !/\btitleSuffix=\{false\}/.test(baseLayoutTag),
+    });
+    collectPagesForValue(titleToPages, documentTitle, relPath);
 
-    if (titleLiteral.length < titleLengthRange.min) {
+    if (documentTitle.length < titleLengthRange.min) {
       warnings.push(
-        `${relPath}: title is ${titleLiteral.length} chars; target ${titleLengthRange.min}-${titleLengthRange.max} characters for stronger SERP snippets.`,
+        `${relPath}: title is ${documentTitle.length} chars; target ${titleLengthRange.min}-${titleLengthRange.max} characters for stronger SERP snippets.`,
       );
     }
 
-    if (titleLiteral.length > titleLengthRange.max) {
+    if (documentTitle.length > titleLengthRange.max) {
       warnings.push(
-        `${relPath}: title is ${titleLiteral.length} chars; target ${titleLengthRange.min}-${titleLengthRange.max} characters to reduce truncation risk.`,
+        `${relPath}: title is ${documentTitle.length} chars; target ${titleLengthRange.min}-${titleLengthRange.max} characters to reduce truncation risk.`,
       );
     }
   }

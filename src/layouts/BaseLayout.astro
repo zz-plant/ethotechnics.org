@@ -15,6 +15,10 @@ import {
   normalizeDateTime,
   stringifyJsonLd,
 } from "../utils/seo/alternate-jsonld";
+import {
+  formatDocumentTitle,
+  stripBrandSuffix,
+} from "../utils/seo/document-title";
 import { resolveOgTemplate } from "../utils/seo/og-template";
 import { toSeoRobotsProps } from "../utils/seo/robots";
 import {
@@ -30,8 +34,17 @@ type FooterNavSection = { heading: string; links: FooterNavLink[] };
 import "../styles/global.css";
 
 interface Props {
-  /** Required on every page: the <title> and meta description never go unset. */
+  /**
+   * Required on every page: the <title> and meta description never go unset.
+   * Pass the page name; the layout appends " — Ethotechnics"
+   * (see utils/seo/document-title).
+   */
   title: string;
+  /**
+   * Set false to use `title` as the whole document title. Only the home page
+   * and the glossary do.
+   */
+  titleSuffix?: boolean;
   description: string;
   openGraphType?: string;
   robots?: string;
@@ -72,6 +85,7 @@ const defaultRobots =
 
 const {
   title,
+  titleSuffix = true,
   description,
   openGraphType,
   robots = defaultRobots,
@@ -88,6 +102,12 @@ const {
 }: Props = Astro.props;
 
 const robotsProps = toSeoRobotsProps(robots);
+
+// <title>, og:title, twitter:title, and the page's JSON-LD carry the document
+// title. The share image, the breadcrumb trail, and site search get the page
+// name alone: each already sits under the brand.
+const documentTitle = formatDocumentTitle(title, { suffix: titleSuffix });
+const pageName = titleSuffix ? stripBrandSuffix(title) : title;
 
 const canonical =
   canonicalProp ||
@@ -122,7 +142,7 @@ const logoId = `${siteBase}#logo`;
 const primaryImageId = `${canonical}#primaryimage`;
 
 const ogImageUrl = new URL("/api/og.png", siteBase);
-ogImageUrl.searchParams.set("title", title);
+ogImageUrl.searchParams.set("title", pageName);
 ogImageUrl.searchParams.set("description", description);
 ogImageUrl.searchParams.set(
   "template",
@@ -132,7 +152,7 @@ ogImageUrl.searchParams.set("path", currentPath);
 
 const seoImage = {
   src: ogImageUrl.toString(),
-  alt: `${title} — Ethotechnics Institute`,
+  alt: `${pageName} — Ethotechnics Institute`,
   width: 1200,
   height: 630,
 };
@@ -140,7 +160,7 @@ const seoImage = {
 const normalizedBreadcrumbItems = normalizeBreadcrumbItems({
   siteBase,
   currentPath,
-  title,
+  title: pageName,
   breadcrumbItems,
 });
 
@@ -149,7 +169,7 @@ const structuredData = buildSchemaGraph({
   siteBase,
   siteDescription: defaultDescription,
   canonical,
-  title,
+  title: documentTitle,
   description,
   seoImage,
   organizationId,
@@ -230,7 +250,7 @@ const pagefindType = pathSegments[0] ?? "";
     />
     <InlineStyle css={criticalCss} />
     <SEO
-      title={title}
+      title={documentTitle}
       titleDefault={defaultTitle}
       description={description}
       canonical={canonical}
@@ -238,7 +258,7 @@ const pagefindType = pathSegments[0] ?? "";
       languageAlternates={languageAlternates}
       openGraph={{
         basic: {
-          title,
+          title: documentTitle,
           type: resolvedOpenGraphType,
           image: seoImage.src,
           url: canonical,
@@ -265,7 +285,7 @@ const pagefindType = pathSegments[0] ?? "";
       }}
       twitter={{
         card: "summary_large_image",
-        title,
+        title: documentTitle,
         description,
         image: seoImage.src,
         imageAlt: seoImage.alt,
@@ -327,7 +347,7 @@ const pagefindType = pathSegments[0] ?? "";
       }}
     />
     <InlineScript type="application/ld+json" code={structuredDataJson} />
-    <meta data-pagefind-meta="title" content={title} />
+    <meta data-pagefind-meta="title" content={pageName} />
     <meta data-pagefind-meta="description" content={description} />
     {
       pagefindType ? (
