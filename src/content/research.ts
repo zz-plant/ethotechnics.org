@@ -313,16 +313,16 @@ export const researchContent: ResearchContent = {
       type: "report",
       status: "planned",
       summary:
-        "Planned pilot to test which operational signals the Workload Modeler should weight most.",
+        "Planned pilot to test which operational signals the workload modeler should weight most.",
       tags: ["diagnostics", "measurement", "governance"],
       glossaryRefs: ["burden-index", "signal-credibility"],
       href: "/diagnostics/burden-modeler",
-      ctaLabel: "Open the Workload Modeler",
+      ctaLabel: "Open the workload modeler",
       structuredAbstract: {
         question:
           "Which operational signals most reliably predict sustained burden?",
         method:
-          "Planned: Workload Modeler outputs compared with debriefs from the teams involved.",
+          "Planned: Workload modeler outputs compared with debriefs from the teams involved.",
         sample: "No scenarios have been collected.",
         findings: "None yet.",
         limitations:

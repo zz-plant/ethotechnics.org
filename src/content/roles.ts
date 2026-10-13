@@ -247,7 +247,7 @@ export const roles: Role[] = [
         title: "Model the load the system pushes onto people",
         description:
           "Count, in hours, who picks up the extra work a workflow creates, before a growing queue starts hiding its errors.",
-        ctaLabel: "Run the Workload Modeler",
+        ctaLabel: "Run the workload modeler",
         ctaHref: "/diagnostics/burden-modeler",
       },
       {

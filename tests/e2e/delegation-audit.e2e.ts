@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 const AUDIT_URL = "/diagnostics/delegation-audit";
 
-test.describe("Delegation Audit page", () => {
+test.describe("Delegation audit page", () => {
   test("responds with status 200", async ({ request }) => {
     const response = await request.get(AUDIT_URL);
     expect(response.status()).toBe(200);
@@ -10,7 +10,7 @@ test.describe("Delegation Audit page", () => {
 
   test("has proper title and description", async ({ page }) => {
     await page.goto(AUDIT_URL);
-    await expect(page).toHaveTitle(/Delegation Audit.+Diagnostics/);
+    await expect(page).toHaveTitle(/^Delegation audit\b/);
     await expect(page.locator('meta[name="description"]')).toHaveAttribute(
       "content",
       /.+/,

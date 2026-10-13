@@ -16,7 +16,7 @@ const breadcrumbItems = [
   { name: "Home", url: new URL("/", siteBase).toString() },
   { name: "Validators", url: new URL("/validators", siteBase).toString() },
   {
-    name: "Latency Audit",
+    name: "Latency audit",
     url: new URL("/validators/latency-audit", siteBase).toString(),
   },
 ];
@@ -24,7 +24,7 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
 ---
 
 <BaseLayout
-  title="VAL-03 Latency Audit — validator specification"
+  title="VAL-03 Latency audit — validator specification"
   description="Compares a declared timeout with observed maximum latency, checks for a human escalation path, and returns a red, yellow, or green report card."
   mainClass="page page--wide"
   breadcrumbItems={breadcrumbItems}
@@ -35,7 +35,7 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
     <header class="validator__header">
       <div>
         <p class="validator__id">VAL-03</p>
-        <h1>Latency Audit</h1>
+        <h1>Latency audit</h1>
         <p class="muted">
           Compares a declared timeout with the longest latency observed, and
           checks for a human escalation path. It tests the STD-01 rule that

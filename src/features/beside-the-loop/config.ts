@@ -10,7 +10,7 @@ export const CLAUSE_REFS = {
     label: "intervention-spec.schema.json",
     href: "/standards/intervention-spec.schema.json",
   },
-  audit: { label: "Delegation Audit", href: "/diagnostics/delegation-audit" },
+  audit: { label: "Delegation audit", href: "/diagnostics/delegation-audit" },
 };
 
 export type SpecField = {

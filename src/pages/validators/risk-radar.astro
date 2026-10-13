@@ -16,7 +16,7 @@ const breadcrumbItems = [
   { name: "Home", url: new URL("/", siteBase).toString() },
   { name: "Validators", url: new URL("/validators", siteBase).toString() },
   {
-    name: "Risk Radar",
+    name: "Risk radar",
     url: new URL("/validators/risk-radar", siteBase).toString(),
   },
 ];
@@ -24,7 +24,7 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
 ---
 
 <BaseLayout
-  title="VAL-02 Risk Radar — validator specification"
+  title="VAL-02 Risk radar — validator specification"
   description="Scores the friction in a user journey from its high-friction touchpoints, average wait, and appeal paths, and returns a red, yellow, or green report card."
   mainClass="page page--wide"
   breadcrumbItems={breadcrumbItems}
@@ -35,7 +35,7 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
     <header class="validator__header">
       <div>
         <p class="validator__id">VAL-02</p>
-        <h1>Risk Radar</h1>
+        <h1>Risk radar</h1>
         <p class="muted">
           Counts high-friction touchpoints, average wait, and missing appeal
           paths in a journey, to show where the friction is heavy enough to keep

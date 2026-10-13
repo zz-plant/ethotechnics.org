@@ -283,7 +283,7 @@ export function WithdrawalFigure() {
         , the exposure score is the record's own formula, and a test holds the
         levels and enums to the schema. To get a reversibility verdict on a real
         workflow, run the{" "}
-        <a href="/diagnostics/delegation-audit">Delegation Audit</a>.
+        <a href="/diagnostics/delegation-audit">Delegation audit</a>.
       </p>
     </div>
   );

@@ -149,10 +149,10 @@ const REDIRECT_MAP: Record<string, string> = {
     "/archive/retired-tools/ethotechnics-agent-prompt-pack-v1.1.0.md",
   // Five diagnostics were retired in September 2026. A regex auditor over a
   // system prompt cannot tell whether the surrounding institution can correct
-  // a decision, and it read as a second opinion next to the Delegation Audit,
+  // a decision, and it read as a second opinion next to the delegation audit,
   // which asks that question directly. Capacity planning and maintenance
   // scheduling are ordinary operational planning. The seven-question
-  // governance score duplicated the Delegation Audit on weaker evidence.
+  // governance score duplicated the delegation audit on weaker evidence.
   // Each answers to the tool that now holds the question.
   "/diagnostics/system-auditor": "/diagnostics/delegation-audit",
   "/diagnostics/governance-gap-score": "/diagnostics/delegation-audit",

@@ -51,7 +51,7 @@ export type UseCase = {
   /**
    * The tool to run first, and what it tells you here. A slug names a
    * diagnostic; with `validator`, it names one of the /validators forms. The
-   * diagnostic named Workload Modeler (at /diagnostics/burden-modeler) rates
+   * diagnostic named workload modeler (at /diagnostics/burden-modeler) rates
    * staff workload; VAL-01, the Journey burden check, scores the affected
    * person's
    * time.
@@ -141,10 +141,10 @@ export const useCasesContent: UseCasesContent = {
     {
       title: "Checks evidence",
       description:
-        "The Record Conformance Checker reads the decision records a system exports, checks them against the published schema, recomputes the hashes that link them, and reports the conformance level they earn. The receipt and record formats are published as JSON Schemas that any validator can run in CI.",
+        "The record conformance checker reads the decision records a system exports, checks them against the published schema, recomputes the hashes that link them, and reports the conformance level they earn. The receipt and record formats are published as JSON Schemas that any validator can run in CI.",
       links: [
         {
-          label: "Record Conformance Checker",
+          label: "Record conformance checker",
           href: "/diagnostics/record-conformance",
         },
         {
@@ -156,9 +156,9 @@ export const useCasesContent: UseCasesContent = {
     {
       title: "Organizes a self-report",
       description:
-        "The Delegation Audit, the corrective capacity self-assessment, the Workload Modeler, the three validators, and the 60-second self-test score what a team enters about its system. None of them verifies it.",
+        "The delegation audit, the corrective capacity self-assessment, the workload modeler, the three validators, and the 60-second self-test score what a team enters about its system. None of them verifies it.",
       links: [
-        { label: "Delegation Audit", href: "/diagnostics/delegation-audit" },
+        { label: "Delegation audit", href: "/diagnostics/delegation-audit" },
         { label: "All diagnostics", href: "/diagnostics" },
       ],
     },
@@ -295,7 +295,7 @@ export const useCases: UseCase[] = [
     bind: ["STD-07", "STD-08", "STD-09"],
     runFirst: {
       slug: "record-conformance",
-      note: "Grade the decision records the agent exports. If it exports none yet, start with the Delegation Audit.",
+      note: "Grade the decision records the agent exports. If it exports none yet, start with the delegation audit.",
     },
     examples: [
       {
