@@ -266,7 +266,12 @@ const bindings = [
     description="How the typed_judgment fields map to the response of Jev as exposed by the Pydantic AI integration. The same mapping applies to any model that returns typed answers with probabilities."
     variant="alt"
   >
-    <div class="mapping-table__wrapper">
+    <div
+      class="mapping-table__wrapper"
+      tabindex="0"
+      role="region"
+      aria-label="Filling the record from a typed decision model's response"
+    >
       <table class="mapping-table">
         <thead>
           <tr>
@@ -308,7 +313,12 @@ const bindings = [
     title="The records, and the clause each answers"
     description="Where each clause added for typed decision models lands in this deployment."
   >
-    <div class="mapping-table__wrapper">
+    <div
+      class="mapping-table__wrapper"
+      tabindex="0"
+      role="region"
+      aria-label="The records, and the clause each answers"
+    >
       <table class="mapping-table">
         <thead>
           <tr>

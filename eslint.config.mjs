@@ -49,16 +49,10 @@ export default defineConfig(
   jsxA11y.flatConfigs.recommended,
   ...astroRecommended,
   {
-    files: [
-      "src/components/CasebookFailureChart.astro",
-      "src/components/FailurePointDiagram.astro",
-      "src/components/OutcomesHideDiagram.astro",
-      "src/components/RatchetFigure.astro",
-      "src/pages/start.astro",
-      "src/pages/casebook/index.astro",
-    ],
+    files: ["src/**/*.astro"],
     rules: {
-      // Named chart and code regions must receive focus for keyboard scrolling.
+      // Named chart, table, and code regions must receive focus for keyboard
+      // scrolling. diagram-sources.test.ts requires it of every scroller.
       "jsx-a11y/no-noninteractive-tabindex": ["error", { roles: ["region"] }],
     },
   },

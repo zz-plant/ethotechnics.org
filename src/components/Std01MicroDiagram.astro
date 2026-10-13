@@ -4,87 +4,99 @@ import "../styles/components/figures.css";
 ---
 
 <figure class="standard-diagram">
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 960 260"
-    role="img"
-    aria-labelledby="title desc"
+  <div
+    class="diagram-scroll"
+    tabindex="0"
+    role="region"
+    aria-labelledby="std01-micro-title"
   >
-    <title id="title">STD-01 time mismatch micro-diagram</title>
-    <desc id="desc">
-      Two timelines compare machine execution speed with human redress latency
-      and highlight the irreversibility window STD-01 aims to constrain.
-    </desc>
-
-    <rect x="24" y="36" width="912" height="84" class="band-a" rx="14"></rect>
-    <rect x="24" y="140" width="912" height="84" class="band-b" rx="14"></rect>
-
-    <text x="40" y="62" class="title ink">Execution (machine speed)</text>
-    <text x="40" y="166" class="title ink">Redress (human speed)</text>
-
-    <line x1="40" y1="96" x2="676" y2="96" class="line"></line>
-    <line x1="40" y1="200" x2="676" y2="200" class="line"></line>
-
-    <path d="M690 96 L676 88 L676 104 Z" class="fill-border"></path>
-    <path d="M690 200 L676 192 L676 208 Z" class="fill-border"></path>
-
-    <rect x="80" y="70" width="140" height="34" class="chip chip-state"></rect>
-    <text x="150" y="92" text-anchor="middle" class="label ink"
-      >Submit request</text
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 960 260"
+      role="img"
+      aria-labelledby="std01-micro-title std01-micro-desc"
     >
+      <title id="std01-micro-title">STD-01 time mismatch micro-diagram</title>
+      <desc id="std01-micro-desc">
+        Two timelines compare machine execution speed with human redress latency
+        and highlight the irreversibility window STD-01 aims to constrain.
+      </desc>
 
-    <rect x="80" y="174" width="140" height="34" class="chip chip-state"></rect>
-    <text x="150" y="196" text-anchor="middle" class="label ink"
-      >Submit request</text
-    >
+      <rect x="24" y="36" width="912" height="84" class="band-a" rx="14"></rect>
+      <rect x="24" y="140" width="912" height="84" class="band-b" rx="14"
+      ></rect>
 
-    <rect x="290" y="70" width="130" height="34" class="chip chip-state"></rect>
-    <text x="355" y="92" text-anchor="middle" class="label ink"
-      >State flips</text
-    >
-    <text x="355" y="116" text-anchor="middle" class="small muted"
-      >ms–seconds</text
-    >
+      <text x="40" y="62" class="title ink">Execution (machine speed)</text>
+      <text x="40" y="166" class="title ink">Redress (human speed)</text>
 
-    <rect x="480" y="174" width="150" height="34" class="chip chip-state"
-    ></rect>
-    <text x="555" y="196" text-anchor="middle" class="label ink"
-      >Appeal / review</text
-    >
-    <text x="555" y="220" text-anchor="middle" class="small muted"
-      >days–weeks</text
-    >
+      <line x1="40" y1="96" x2="676" y2="96" class="line"></line>
+      <line x1="40" y1="200" x2="676" y2="200" class="line"></line>
 
-    <rect
-      x="290"
-      y="128"
-      width="340"
-      height="8"
-      class="fill-border"
-      opacity="0.10"></rect>
-    <line x1="290" y1="104" x2="290" y2="200" class="line dash"></line>
-    <line x1="630" y1="96" x2="630" y2="174" class="line dash"></line>
+      <path d="M690 96 L676 88 L676 104 Z" class="fill-border"></path>
+      <path d="M690 200 L676 192 L676 208 Z" class="fill-border"></path>
 
-    <rect x="362" y="120" width="196" height="28" class="chip chip-badge"
-    ></rect>
-    <text x="460" y="139" text-anchor="middle" class="label ink"
-      >Irreversibility window</text
-    >
+      <rect x="80" y="70" width="140" height="34" class="chip chip-state"
+      ></rect>
+      <text x="150" y="92" text-anchor="middle" class="label ink"
+        >Submit request</text
+      >
 
-    <rect x="690" y="70" width="230" height="34" class="chip chip-agent"></rect>
-    <text x="805" y="92" text-anchor="middle" class="label ink">
-      Bounded duration [RIGHT]
-    </text>
+      <rect x="80" y="174" width="140" height="34" class="chip chip-state"
+      ></rect>
+      <text x="150" y="196" text-anchor="middle" class="label ink"
+        >Submit request</text
+      >
 
-    <rect x="690" y="174" width="230" height="34" class="chip chip-agent"
-    ></rect>
-    <text x="805" y="196" text-anchor="middle" class="label ink">
-      Reach a human [RIGHT]
-    </text>
+      <rect x="290" y="70" width="130" height="34" class="chip chip-state"
+      ></rect>
+      <text x="355" y="92" text-anchor="middle" class="label ink"
+        >State flips</text
+      >
+      <text x="355" y="116" text-anchor="middle" class="small muted"
+        >ms–seconds</text
+      >
 
-    <text x="40" y="246" class="small muted">
-      Purpose: make the execution/redress clock mismatch legible. STD-01
-      constrains the gap via hard clocks, reversibility, and appeals.
-    </text>
-  </svg>
+      <rect x="480" y="174" width="150" height="34" class="chip chip-state"
+      ></rect>
+      <text x="555" y="196" text-anchor="middle" class="label ink"
+        >Appeal / review</text
+      >
+      <text x="555" y="220" text-anchor="middle" class="small muted"
+        >days–weeks</text
+      >
+
+      <rect
+        x="290"
+        y="128"
+        width="340"
+        height="8"
+        class="fill-border"
+        opacity="0.10"></rect>
+      <line x1="290" y1="104" x2="290" y2="200" class="line dash"></line>
+      <line x1="630" y1="96" x2="630" y2="174" class="line dash"></line>
+
+      <rect x="362" y="120" width="196" height="28" class="chip chip-badge"
+      ></rect>
+      <text x="460" y="139" text-anchor="middle" class="label ink"
+        >Irreversibility window</text
+      >
+
+      <rect x="690" y="70" width="230" height="34" class="chip chip-agent"
+      ></rect>
+      <text x="805" y="92" text-anchor="middle" class="label ink">
+        Bounded duration [RIGHT]
+      </text>
+
+      <rect x="690" y="174" width="230" height="34" class="chip chip-agent"
+      ></rect>
+      <text x="805" y="196" text-anchor="middle" class="label ink">
+        Reach a human [RIGHT]
+      </text>
+
+      <text x="40" y="246" class="small muted">
+        Purpose: make the execution/redress clock mismatch legible. STD-01
+        constrains the gap via hard clocks, reversibility, and appeals.
+      </text>
+    </svg>
+  </div>
 </figure>

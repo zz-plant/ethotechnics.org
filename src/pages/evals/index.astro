@@ -83,7 +83,12 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     title="The suite register"
     description="Each suite tests one property at one layer of the stack. Evaluate at the highest layer capable of producing the failure you care about; a clean result at a lower layer is not evidence about a higher one."
   >
-    <div class="mapping-table__wrapper">
+    <div
+      class="mapping-table__wrapper"
+      tabindex="0"
+      role="region"
+      aria-label="The suite register"
+    >
       <table class="mapping-table mapping-table--stack catalogue-table">
         <thead>
           <tr>

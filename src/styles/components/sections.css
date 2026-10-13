@@ -510,7 +510,14 @@
     min-width: 0;
   }
 
-  .diagram-scroll:focus-visible {
+  /* Every sideways scroller takes focus so a keyboard can scroll it, and
+     shows that it has it. */
+  :is(
+    .diagram-scroll,
+    .table-wrap,
+    .table-responsive,
+    .mapping-table__wrapper
+  ):focus-visible {
     outline: var(--focus-outline);
     outline-offset: var(--focus-outline-offset);
     border-radius: var(--radius-md);

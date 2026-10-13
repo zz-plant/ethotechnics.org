@@ -60,7 +60,12 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     title="Every validator, in one table"
     description="The standard each one checks against, the inputs it takes, and the clauses and mechanisms it points to."
   >
-    <div class="mapping-table__wrapper">
+    <div
+      class="mapping-table__wrapper"
+      tabindex="0"
+      role="region"
+      aria-label="Every validator, in one table"
+    >
       <table class="mapping-table mapping-table--stack catalogue-table">
         <thead>
           <tr>
