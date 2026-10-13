@@ -6,6 +6,8 @@ import UseCaseFit from "../../../components/UseCaseFit.astro";
 import CardGrid from "../../../components/CardGrid.astro";
 import CardItem from "../../../components/CardItem.astro";
 import WorkedExampleTerms from "../../../components/WorkedExampleTerms.astro";
+import ClockTimeline from "../../../components/ClockTimeline.astro";
+import { useCaseClocks } from "../../../content/use-case-clocks";
 import questionSchema from "../../../../public/standards/worked-examples/decision-model-gate/question-schema.json";
 import policyRecord from "../../../../public/standards/worked-examples/decision-model-gate/policy-record.json";
 import authorityGrant from "../../../../public/standards/worked-examples/decision-model-gate/authority-grant.json";
@@ -248,6 +250,12 @@ const bindings = [
       different number, and the record says so.
     </p>
     <pre class="code-block">{pretty(decisionRecord.typed_judgment)}</pre>
+    <ClockTimeline
+      clocks={useCaseClocks["decision-model-gate"]}
+      id="refund-clocks"
+      title="The record's clocks, drawn to one scale"
+      caption="The decision record's clocks block sets these deadlines. Each bar runs from the decision to one of them."
+    />
   </SectionBlock>
 
   <SectionBlock

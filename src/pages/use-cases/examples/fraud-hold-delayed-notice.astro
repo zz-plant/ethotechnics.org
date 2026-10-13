@@ -3,13 +3,19 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
 import PageIntro from "../../../components/PageIntro.astro";
 import SectionBlock from "../../../components/SectionBlock.astro";
 import UseCaseFit from "../../../components/UseCaseFit.astro";
-import CardGrid from "../../../components/CardGrid.astro";
-import CardItem from "../../../components/CardItem.astro";
 import WorkedExampleTerms from "../../../components/WorkedExampleTerms.astro";
+import ClockTimeline from "../../../components/ClockTimeline.astro";
+import {
+  clockHours,
+  clockHoursPhrase,
+  receiptClocksText,
+  useCaseClocks,
+} from "../../../content/use-case-clocks";
+
+const clocks = useCaseClocks["fraud-hold-delayed-notice"];
 
 const pageTitle = "Fraud hold with delayed notice: worked example";
-const pageDescription =
-  "A fraud hold whose notice is delayed up to 24 hours for investigation. The receipt is issued at once and the 1-, 12-, and 48-hour clocks keep running.";
+const pageDescription = `A fraud hold whose notice is delayed up to ${clockHours(clocks, "notice")} hours for investigation. The receipt is issued at once and the ${clockHoursPhrase(clocks)} clocks keep running.`;
 
 const receiptPayload = `{
   "schema_version": "1.0.0",
@@ -19,8 +25,8 @@ const receiptPayload = `{
   "subject": { "id": "acct-55129", "type": "account" },
   "action": { "class": "WRITE", "description": "Place fraud hold", "reversible": true },
   "decision": { "decision_type": "fraud_hold", "reason_codes": ["VELOCITY", "DEVICE-MISMATCH"] },
-  "clocks": { "ack": { "hours": 1 }, "review": { "hours": 12 }, "remedy": { "hours": 48 } },
-  "notice": { "delayed": true, "delay_hours": 24 },
+  "clocks": ${receiptClocksText(clocks)},
+  "notice": { "delayed": true, "delay_hours": ${clockHours(clocks, "notice")} },
   "appeal_path": { "url": "/appeals/fraud-hold", "channel": "secure inbox" }
 }`;
 ---
@@ -59,24 +65,7 @@ const receiptPayload = `{
     description="The clocks start when the hold is placed, not when notice goes out."
     variant="alt"
   >
-    <CardGrid className="grid--three">
-      <CardItem title="Ack clock" description="1 hour">
-        <p class="muted">
-          The owner acknowledges the hold and assigns a reviewer.
-        </p>
-      </CardItem>
-      <CardItem title="Review clock" description="12 hours">
-        <p class="muted">
-          A person reviews the hold and keeps it, narrows it, or removes it.
-        </p>
-      </CardItem>
-      <CardItem title="Remedy clock" description="48 hours">
-        <p class="muted">
-          The hold is released, or the account holder is told and given limited
-          access.
-        </p>
-      </CardItem>
-    </CardGrid>
+    <ClockTimeline clocks={clocks} id="fraud-hold-clocks" />
   </SectionBlock>
 
   <SectionBlock
@@ -87,7 +76,6 @@ const receiptPayload = `{
   >
     <ul class="muted">
       <li>Notice can be delayed only while a fraud investigation is open.</li>
-      <li>Notice must go out within 24 hours of the hold.</li>
       <li>
         A steward reviews each delay, and it is logged in the
         <a href="/standards/exceptions">Exceptions framework</a>.
@@ -98,7 +86,7 @@ const receiptPayload = `{
   <SectionBlock
     id="remedy"
     eyebrow="Remedy"
-    title="Release or compensate within 48 hours"
+    title="Release or compensate on the remedy clock"
     description="The notice shows the remedy the moment it is delivered."
     variant="alt"
   >
