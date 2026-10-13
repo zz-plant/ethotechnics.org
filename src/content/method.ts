@@ -183,7 +183,7 @@ export const methodContent: MethodContent = {
       ],
       links: [
         {
-          label: "STD-01 Temporal rights",
+          label: "STD-01 The Temporal Bill of Rights",
           href: "/standards/std-01-temporal-rights",
         },
         { label: "Diagnostics", href: "/diagnostics" },
@@ -195,7 +195,7 @@ export const methodContent: MethodContent = {
       title: "Challenge",
       question: "Who can contest the decision, and with what procedural force?",
       currentAssets: [
-        "STD-02 Contestability and Recourse",
+        "STD-02 Contestability & Recourse",
         "Minimum viable contestability: standing, reasons, records, timelines, a named responder, defined effects, remedies, and no retaliation",
         "Appeal event schema",
         "MEC-06 appeal paths and MEC-08 contestation APIs",
