@@ -138,14 +138,9 @@ export const buildGlossaryIndexFacets = (
     ),
   ).sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }));
 
-  const territoryCounts = new Map(
-    categories.map((category) => [category.id, category.entries.length]),
-  );
-
   return {
     statusFilters,
     glossaryLetters,
-    territoryCounts,
   };
 };
 

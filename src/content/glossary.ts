@@ -28,12 +28,6 @@ type GlossaryTermSeed = Omit<GlossaryTerm, "definition"> & {
   definition?: string;
 };
 
-export type GlossaryTerritory = {
-  id: string;
-  label: string;
-  tooltip: string;
-};
-
 export type GlossaryResource = {
   label: string;
   href: string;
@@ -112,10 +106,8 @@ export type GlossaryCategory = {
 
 export type GlossaryContent = PageWithPermalink & {
   publication: PublicationMetadata;
-  territoryMap: GlossaryTerritory[];
   categories: GlossaryCategory[];
   starterTerms: { id: string; label: string; description: string }[];
-  categoryHighlights: { id: string; label: string; description: string }[];
 };
 
 export const glossaryContent: GlossaryContent =

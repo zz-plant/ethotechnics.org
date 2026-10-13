@@ -58,7 +58,13 @@ const initGlossaryFilter = () => {
 
   const total = Number(count.dataset.total) || items.length;
 
-  const facetKeys = ["domains", "phases", "measurability", "status"] as const;
+  const facetKeys = [
+    "section",
+    "domains",
+    "phases",
+    "measurability",
+    "status",
+  ] as const;
   const QUERY_PARAM_KEY = "query";
   type FacetKey = (typeof facetKeys)[number];
   type FacetSelections = Record<FacetKey, string[]>;
@@ -137,6 +143,7 @@ const initGlossaryFilter = () => {
       item.textContent?.replace(/\s+/g, " ").trim().toLowerCase() ??
       "",
     letter: item.dataset.letter ?? "",
+    section: item.dataset.section ?? "",
     domains: (item.dataset.domains ?? "").split(" ").filter(Boolean),
     phases: (item.dataset.phases ?? "").split(" ").filter(Boolean),
     measurability: item.dataset.measurability ?? "",
@@ -197,6 +204,9 @@ const initGlossaryFilter = () => {
     const matchesQuery = item.searchText.includes(query);
     const matchesLetter =
       activeLetter === "all" || item.letter === activeLetter;
+    const matchesSection =
+      selections.section.length === 0 ||
+      selections.section.includes(item.section);
     const matchesDomains =
       selections.domains.length === 0 ||
       selections.domains.some((domain) => item.domains.includes(domain));
@@ -212,6 +222,7 @@ const initGlossaryFilter = () => {
     return (
       matchesQuery &&
       matchesLetter &&
+      matchesSection &&
       matchesDomains &&
       matchesPhases &&
       matchesMeasurability &&
@@ -368,13 +379,15 @@ const initGlossaryFilter = () => {
     applyInitialSelection(key, initialState.selections[key]);
   });
 
-  const initialTab = initialState.selections.domains.length
-    ? "domains"
-    : initialState.selections.phases.length
-      ? "phases"
-      : initialState.selections.measurability.length
-        ? "measurability"
-        : "all";
+  const initialTab = initialState.selections.section.length
+    ? "section"
+    : initialState.selections.domains.length
+      ? "domains"
+      : initialState.selections.phases.length
+        ? "phases"
+        : initialState.selections.measurability.length
+          ? "measurability"
+          : "all";
   setActiveTab(initialTab);
 
   let animationFrame: number | null = null;

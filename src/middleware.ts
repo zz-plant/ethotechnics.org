@@ -18,7 +18,7 @@ const REDIRECT_MAP: Record<string, string> = {
   "/glossary/moral-drift-control": "/standards/std-08-delegation",
   "/glossary/distributed-accountability-protocols":
     "/glossary/obligation-continuity",
-  "/glossary/ethotechnic-failure-taxonomy": "/glossary#failure-modes",
+  "/glossary/ethotechnic-failure-taxonomy": "/glossary?section=failure-modes",
   "/glossary/boundary-of-acceptable-harm":
     "/standards/std-06-human-impact-safety-case",
   "/glossary/decision-debt-ledger": "/glossary/corrective-debt",
@@ -192,7 +192,9 @@ const resolveLegacyPathRedirect = (url: URL): string | null => {
   // Check direct lookup
   if (REDIRECT_MAP[normalizedPath]) {
     const target = new URL(REDIRECT_MAP[normalizedPath], url.origin);
-    target.search = url.search;
+    // A target may carry its own query (a glossary section filter); the
+    // request's query replaces it only when there is one.
+    if (url.search) target.search = url.search;
     return target.toString();
   }
 

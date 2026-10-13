@@ -122,7 +122,10 @@ describe("middleware", () => {
         "/glossary/distributed-accountability-protocols",
         "/glossary/obligation-continuity",
       ],
-      ["/glossary/ethotechnic-failure-taxonomy", "/glossary#failure-modes"],
+      [
+        "/glossary/ethotechnic-failure-taxonomy",
+        "/glossary?section=failure-modes",
+      ],
       [
         "/glossary/boundary-of-acceptable-harm",
         "/standards/std-06-human-impact-safety-case",
