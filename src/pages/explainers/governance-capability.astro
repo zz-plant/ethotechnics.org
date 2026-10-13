@@ -5,8 +5,6 @@ import NextStep from "../../components/NextStep.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionActions from "../../components/SectionActions.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
-import PullQuote from "../../components/PullQuote.astro";
-import WithSidebar from "../../components/WithSidebar.astro";
 
 const pageTitle = "Governance as operational capability";
 const pageDescription =
@@ -15,37 +13,6 @@ const permalink = "/explainers/governance-capability";
 
 const heroCopy =
   "Most AI governance frameworks improve documentation, oversight, and accountability. Ethotechnics asks a narrower question: when a running system is wrong, does evidence of the harm reach someone who has to change it? Halting, reversing, and restoring are part of the answer. They are not all of it. A system that can be stopped can still fix one case at a time and never change the rule.";
-
-const executiveSummary = [
-  {
-    href: "#standing",
-    text: "People affected gain standing. A challenge must be answered, and an upheld one changes the decision.",
-  },
-  {
-    href: "#rule",
-    text: "Upheld challenges reach the rule. A pattern of exceptions is evidence against the rule, and its owner must answer it.",
-  },
-  {
-    href: "#performance-spec",
-    text: "Governance becomes a performance specification. Halt, reverse, and restore must work under load.",
-  },
-  {
-    href: "#time",
-    text: "Time spent waiting is part of the harm. Slow reversals and cases left pending are governance failures.",
-  },
-  {
-    href: "#recovery",
-    text: "Maturity is measured by recovery, not coverage. A document does not restore anyone.",
-  },
-  {
-    href: "#stop-rights",
-    text: "Authority to halt does not wait for consensus. A halt contains the harm while the rule is fixed.",
-  },
-  {
-    href: "#monitoring-liability",
-    text: "Monitoring without intervention becomes liability. Knowing about harm and continuing is a choice.",
-  },
-];
 
 const coreImplications = [
   {
@@ -250,9 +217,11 @@ const relatedLinks = [
   { href: "/taxonomy", label: "Taxonomy" },
 ];
 
-const anchorLinks = executiveSummary.map(({ href, text }) => ({
-  href,
-  label: text.split(". ")[0],
+// The intro outline is the page's one list of the seven implications. A
+// sidebar nav and a linked executive-summary list used to repeat it.
+const anchorLinks = coreImplications.map(({ id, title }) => ({
+  href: `#${id}`,
+  label: title,
 }));
 
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
@@ -272,254 +241,230 @@ const buildAnchor = (id: string) =>
     anchorLinks={anchorLinks}
   />
 
-  <WithSidebar>
-    <Fragment slot="sidebar">
-      <p class="toc-heading">On this page</p>
-      <nav>
-        <ul>
-          {
-            executiveSummary.map((item) => (
-              <li>
-                <a href={item.href}>{item.text.split(". ")[0]}</a>
-              </li>
-            ))
-          }
-        </ul>
-      </nav>
-    </Fragment>
+  <SectionBlock
+    id="executive-summary"
+    eyebrow="Executive summary"
+    title="Seven implications that change governance"
+  >
+    <p class="executive-summary">
+      A challenge must be answered, and an upheld one changes the decision. A
+      pattern of exceptions is evidence against the rule, and its owner must
+      answer it. Halt, reverse, and restore must work under load. Slow reversals
+      and cases left pending are governance failures. Maturity is measured by
+      recovery, because a document does not restore anyone. A named person can
+      halt without waiting for consensus. Knowing about harm and continuing is a
+      choice.
+    </p>
+  </SectionBlock>
 
-    <SectionBlock
-      id="executive-summary"
-      eyebrow="Executive summary"
-      title="Seven implications that change governance"
+  <SectionBlock
+    id="core-implications"
+    eyebrow="Core implications"
+    title="What operational governance reveals"
+    description="Each implication sets the common model against the Ethotechnics model and lists what it requires."
+    variant="alt"
+  >
+    <SectionActions
+      className="implication-controls"
+      ariaLabel="Implication controls"
     >
-      <ul class="summary-list">
+      <button class="button ghost" type="button" data-expand-all>
+        Expand all
+      </button>
+      <button class="button ghost" type="button" data-collapse-all>
+        Collapse all
+      </button>
+    </SectionActions>
+    <div class="implications" data-implications>
+      {
+        coreImplications.map((item) => (
+          <details
+            class="implication"
+            open
+            data-default-open="true"
+            data-implication
+            data-implication-id={item.id}
+          >
+            <summary class="implication__summary">
+              <div class="implication__summary-main">
+                <h3 id={item.id} class="implication__title">
+                  {item.title}
+                </h3>
+              </div>
+              <span class="implication__toggle" aria-hidden="true">
+                <span class="implication__toggle-text--expand">Expand</span>
+                <span class="implication__toggle-text--collapse">Collapse</span>
+              </span>
+            </summary>
+            <div class="implication__body">
+              <div class="implication__actions">
+                <a
+                  class="implication__permalink"
+                  href={`#${item.id}`}
+                  aria-label={`Permalink to ${item.title}`}
+                  data-implication-anchor
+                >
+                  #
+                </a>
+                <button
+                  class="copy-button"
+                  type="button"
+                  data-copy-link
+                  data-copy-value={buildAnchor(item.id)}
+                  aria-label={`Copy link to ${item.title}`}
+                >
+                  Copy link
+                </button>
+                <span
+                  class="implication__status"
+                  data-copy-status
+                  role="status"
+                  aria-live="polite"
+                />
+              </div>
+              <p class="implication__label">Common model</p>
+              <p>{item.commonModel}</p>
+              <p class="implication__label">Ethotechnics model</p>
+              <p>{item.ethotechnicsModel}</p>
+              <p class="implication__statement">
+                <strong>Implication:</strong> {item.implication}
+              </p>
+              <div class="implication__requirements">
+                <p class="implication__label">What this requires</p>
+                <ul>
+                  {item.requirements.map((requirement) => (
+                    <li>{requirement}</li>
+                  ))}
+                </ul>
+              </div>
+              {item.signals && (
+                <details class="implication__signals" data-default-open="false">
+                  <summary>Signals you’re failing this</summary>
+                  <ul>
+                    {item.signals.map((signal) => (
+                      <li>{signal}</li>
+                    ))}
+                  </ul>
+                </details>
+              )}
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="additional-implications"
+    eyebrow="Additional implications"
+    title="Secondary shifts once capability is required"
+    description="Five further shifts that follow once a system must answer challenges and act on what they show."
+  >
+    <div class="implications" data-implications>
+      {
+        additionalImplications.map((item) => (
+          <details
+            class="implication"
+            data-default-open="false"
+            data-implication
+            data-implication-id={item.id}
+          >
+            <summary class="implication__summary">
+              <div class="implication__summary-main">
+                <h3 id={item.id} class="implication__title">
+                  {item.title}
+                </h3>
+              </div>
+              <span class="implication__toggle" aria-hidden="true">
+                <span class="implication__toggle-text--expand">Expand</span>
+                <span class="implication__toggle-text--collapse">Collapse</span>
+              </span>
+            </summary>
+            <div class="implication__body">
+              <div class="implication__actions">
+                <a
+                  class="implication__permalink"
+                  href={`#${item.id}`}
+                  aria-label={`Permalink to ${item.title}`}
+                  data-implication-anchor
+                >
+                  #
+                </a>
+                <button
+                  class="copy-button"
+                  type="button"
+                  data-copy-link
+                  data-copy-value={buildAnchor(item.id)}
+                  aria-label={`Copy link to ${item.title}`}
+                >
+                  Copy link
+                </button>
+                <span
+                  class="implication__status"
+                  data-copy-status
+                  role="status"
+                  aria-live="polite"
+                />
+              </div>
+              <p class="implication__statement">
+                <strong>Implication:</strong> {item.implication}
+              </p>
+              <div class="implication__requirements">
+                <p class="implication__label">What this requires</p>
+                <ul>
+                  {item.requirements.map((requirement) => (
+                    <li>{requirement}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="legitimacy-standard"
+    eyebrow="Legitimacy standard"
+    title="The legitimacy standard"
+    description="One test for whether a system is responsible in operation."
+    variant="alt"
+  >
+    <div class="legitimacy-standard">
+      {
+        /* The standard is stated here once. A pull quote after the next step
+           used to repeat its second sentence. */
+      }
+      <p>
+        A system is not responsible because it intends to be fair, documents its
+        risks, or convenes oversight committees. It is responsible only when the
+        people it decides about can make it answer, and when what they show it
+        reaches the rule.
+      </p>
+      <p class="muted">
+        Many systems now called “compliant” would fail this standard. They are
+        not malicious. Their appeals fix one case at a time.
+      </p>
+    </div>
+    <div class="related">
+      <p class="related__label">Related:</p>
+      <ul class="related-links">
         {
-          executiveSummary.map((item) => (
+          relatedLinks.map((link) => (
             <li>
-              <a href={item.href}>{item.text}</a>
+              <a href={link.href}>{link.label}</a>
             </li>
           ))
         }
       </ul>
-    </SectionBlock>
-
-    <SectionBlock
-      id="core-implications"
-      eyebrow="Core implications"
-      title="What operational governance reveals"
-      description="Each implication sets the common model against the Ethotechnics model and lists what it requires."
-      variant="alt"
-    >
-      <SectionActions
-        className="implication-controls"
-        ariaLabel="Implication controls"
-      >
-        <button class="button ghost" type="button" data-expand-all>
-          Expand all
-        </button>
-        <button class="button ghost" type="button" data-collapse-all>
-          Collapse all
-        </button>
-      </SectionActions>
-      <div class="implications" data-implications>
-        {
-          coreImplications.map((item) => (
-            <details
-              class="implication"
-              open
-              data-default-open="true"
-              data-implication
-              data-implication-id={item.id}
-            >
-              <summary class="implication__summary">
-                <div class="implication__summary-main">
-                  <h3 id={item.id} class="implication__title">
-                    {item.title}
-                  </h3>
-                </div>
-                <span class="implication__toggle" aria-hidden="true">
-                  <span class="implication__toggle-text--expand">Expand</span>
-                  <span class="implication__toggle-text--collapse">
-                    Collapse
-                  </span>
-                </span>
-              </summary>
-              <div class="implication__body">
-                <div class="implication__actions">
-                  <a
-                    class="implication__permalink"
-                    href={`#${item.id}`}
-                    aria-label={`Permalink to ${item.title}`}
-                    data-implication-anchor
-                  >
-                    #
-                  </a>
-                  <button
-                    class="copy-button"
-                    type="button"
-                    data-copy-link
-                    data-copy-value={buildAnchor(item.id)}
-                    aria-label={`Copy link to ${item.title}`}
-                  >
-                    Copy link
-                  </button>
-                  <span
-                    class="implication__status"
-                    data-copy-status
-                    role="status"
-                    aria-live="polite"
-                  />
-                </div>
-                <p class="implication__label">Common model</p>
-                <p>{item.commonModel}</p>
-                <p class="implication__label">Ethotechnics model</p>
-                <p>{item.ethotechnicsModel}</p>
-                <p class="implication__statement">
-                  <strong>Implication:</strong> {item.implication}
-                </p>
-                <div class="implication__requirements">
-                  <p class="implication__label">What this requires</p>
-                  <ul>
-                    {item.requirements.map((requirement) => (
-                      <li>{requirement}</li>
-                    ))}
-                  </ul>
-                </div>
-                {item.signals && (
-                  <details
-                    class="implication__signals"
-                    data-default-open="false"
-                  >
-                    <summary>Signals you’re failing this</summary>
-                    <ul>
-                      {item.signals.map((signal) => (
-                        <li>{signal}</li>
-                      ))}
-                    </ul>
-                  </details>
-                )}
-              </div>
-            </details>
-          ))
-        }
-      </div>
-    </SectionBlock>
-
-    <SectionBlock
-      id="additional-implications"
-      eyebrow="Additional implications"
-      title="Secondary shifts once capability is required"
-      description="Five further shifts that follow once a system must answer challenges and act on what they show."
-    >
-      <div class="implications" data-implications>
-        {
-          additionalImplications.map((item) => (
-            <details
-              class="implication"
-              data-default-open="false"
-              data-implication
-              data-implication-id={item.id}
-            >
-              <summary class="implication__summary">
-                <div class="implication__summary-main">
-                  <h3 id={item.id} class="implication__title">
-                    {item.title}
-                  </h3>
-                </div>
-                <span class="implication__toggle" aria-hidden="true">
-                  <span class="implication__toggle-text--expand">Expand</span>
-                  <span class="implication__toggle-text--collapse">
-                    Collapse
-                  </span>
-                </span>
-              </summary>
-              <div class="implication__body">
-                <div class="implication__actions">
-                  <a
-                    class="implication__permalink"
-                    href={`#${item.id}`}
-                    aria-label={`Permalink to ${item.title}`}
-                    data-implication-anchor
-                  >
-                    #
-                  </a>
-                  <button
-                    class="copy-button"
-                    type="button"
-                    data-copy-link
-                    data-copy-value={buildAnchor(item.id)}
-                    aria-label={`Copy link to ${item.title}`}
-                  >
-                    Copy link
-                  </button>
-                  <span
-                    class="implication__status"
-                    data-copy-status
-                    role="status"
-                    aria-live="polite"
-                  />
-                </div>
-                <p class="implication__statement">
-                  <strong>Implication:</strong> {item.implication}
-                </p>
-                <div class="implication__requirements">
-                  <p class="implication__label">What this requires</p>
-                  <ul>
-                    {item.requirements.map((requirement) => (
-                      <li>{requirement}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </details>
-          ))
-        }
-      </div>
-    </SectionBlock>
-
-    <SectionBlock
-      id="legitimacy-standard"
-      eyebrow="Legitimacy standard"
-      title="The legitimacy standard"
-      description="One test for whether a system is responsible in operation."
-      variant="alt"
-    >
-      <div class="legitimacy-standard">
-        <p>
-          A system is not responsible because it intends to be fair, documents
-          its risks, or convenes oversight committees. It is responsible only
-          when the people it decides about can make it answer, and when what
-          they show it reaches the rule.
-        </p>
-        <p class="muted">
-          Many systems now called “compliant” would fail this standard. They are
-          not malicious. Their appeals fix one case at a time.
-        </p>
-      </div>
-      <div class="related">
-        <p class="related__label">Related:</p>
-        <ul class="related-links">
-          {
-            relatedLinks.map((link) => (
-              <li>
-                <a href={link.href}>{link.label}</a>
-              </li>
-            ))
-          }
-        </ul>
-        <p class="muted small">
-          Use stable anchors when citing this spec in memos, briefs, or
-          governance playbooks.
-        </p>
-      </div>
-    </SectionBlock>
-  </WithSidebar>
+      <p class="muted small">
+        Use stable anchors when citing this spec in memos, briefs, or governance
+        playbooks.
+      </p>
+    </div>
+  </SectionBlock>
   <NextStep variable="correction" />
-  <PullQuote
-    quote="A system is responsible only when the people it decides about can make it answer, and when what they show it reaches the rule."
-    variant="accent"
-  />
 </BaseLayout>
 
 <script>
@@ -527,21 +472,9 @@ const buildAnchor = (id: string) =>
 </script>
 
 <style>
-  .summary-list {
+  .executive-summary {
     margin: 0;
-    padding-left: var(--space-4);
-    display: grid;
-    gap: var(--space-3);
-  }
-
-  .summary-list a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  .summary-list a:hover,
-  .summary-list a:focus {
-    text-decoration: underline;
+    max-width: 70ch;
   }
 
   .implication-controls {
