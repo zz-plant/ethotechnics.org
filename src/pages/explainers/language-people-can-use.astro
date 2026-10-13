@@ -10,11 +10,11 @@ const pageTitle = "Language people can use";
 const pageDescription =
   "Questions to send when an automated decision affects you. Each asks for one thing: the reasons, the record, who can change it, or when you will hear back.";
 const permalink = "/explainers/language-people-can-use";
+const pageUrl = new URL(permalink, Astro.site ?? Astro.url.origin).toString();
 
 const anchorLinks = [
   { href: "#phrases", label: "Questions to send" },
   { href: "#contexts", label: "By setting" },
-  { href: "#print", label: "Printable sheet" },
 ];
 
 const phrases = [
@@ -82,30 +82,6 @@ const contextBlocks = [
     ],
   },
 ];
-
-const printSheet = {
-  title: "Language people can use",
-  intro:
-    "Each question asks for one thing: the reasons, the record, who can change the decision, when you will hear back, or what happens if it was wrong.",
-  sections: [
-    {
-      title: "Six questions",
-      items: phrases.map((item) => item.title),
-    },
-    {
-      title: "Workplace systems",
-      items: contextBlocks[0].phrases,
-    },
-    {
-      title: "Public services",
-      items: contextBlocks[1].phrases,
-    },
-    {
-      title: "Platforms and marketplaces",
-      items: contextBlocks[2].phrases,
-    },
-  ],
-};
 ---
 
 <BaseLayout
@@ -118,7 +94,13 @@ const printSheet = {
     title={pageTitle}
     description={pageDescription}
     anchorLinks={anchorLinks}
-  />
+  >
+    <Fragment slot="actions">
+      <button class="button ghost" type="button" data-language-print>
+        Print or save as PDF
+      </button>
+    </Fragment>
+  </PageIntro>
 
   <SectionBlock
     id="phrases"
@@ -163,64 +145,11 @@ const printSheet = {
         ))
       }
     </CardGrid>
-  </SectionBlock>
-
-  <SectionBlock
-    id="print"
-    eyebrow="Printable"
-    title="One-page language sheet"
-    description="Print this sheet or save it as a PDF to keep with your papers."
-  >
-    <div class="language-print screen-only">
-      <div class="language-print__panel">
-        <p class="eyebrow">Print or save</p>
-        <h3>{printSheet.title}</h3>
-        <p class="muted">{printSheet.intro}</p>
-        <div class="actions">
-          <button class="button ghost" type="button" data-language-print>
-            Print sheet
-          </button>
-        </div>
-      </div>
-      <div class="language-print__preview" aria-label="Printable preview">
-        {
-          printSheet.sections.map((section) => (
-            <div class="language-print__section">
-              <p class="language-print__title">{section.title}</p>
-              <ul>
-                {section.items.map((item) => (
-                  <li>{item}</li>
-                ))}
-              </ul>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-    <div
-      class="language-print language-print--print print-only"
-      aria-label="Printable sheet"
-    >
-      <h2>{printSheet.title}</h2>
-      <p>{printSheet.intro}</p>
-      {
-        printSheet.sections.map((section) => (
-          <div class="language-print__section">
-            <p class="language-print__title">{section.title}</p>
-            <ul>
-              {section.items.map((item) => (
-                <li>{item}</li>
-              ))}
-            </ul>
-          </div>
-        ))
-      }
-      <p class="muted language-print__note">
-        Source: Ethotechnics contestability guidance · <a href={permalink}
-          >{permalink}</a
-        >
-      </p>
-    </div>
+    <p class="muted small language-source">
+      Source: Ethotechnics contestability guidance · <a href={permalink}
+        >{pageUrl}</a
+      >
+    </p>
   </SectionBlock>
 
   <NextStep
@@ -231,7 +160,7 @@ const printSheet = {
     }}
   />
 
-  <p class="muted" style="margin-top:var(--space-6)">
+  <p class="muted language-see-also" style="margin-top:var(--space-6)">
     See also: <a href="/taxonomy">Taxonomy</a> &middot; <a href="/standards"
       >Standards</a
     >
@@ -251,14 +180,6 @@ const printSheet = {
 </script>
 
 <style>
-  .screen-only {
-    display: block;
-  }
-
-  .print-only {
-    display: none;
-  }
-
   .language-list {
     list-style: disc;
     padding-left: var(--space-4);
@@ -267,76 +188,32 @@ const printSheet = {
     gap: var(--space-2);
   }
 
-  .language-print {
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    padding: var(--space-5);
-    background: var(--surface);
-    display: grid;
-    gap: var(--space-5);
+  .language-source {
+    display: none;
   }
 
-  .language-print__panel {
-    display: grid;
-    gap: var(--space-3);
-  }
-
-  .language-print__preview {
-    display: grid;
-    gap: var(--space-4);
-  }
-
-  .language-print__section {
-    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
-    border-radius: var(--radius-md);
-    padding: var(--space-4);
-  }
-
-  .language-print__title {
-    font-weight: 600;
-    margin-bottom: var(--space-2);
-  }
-
-  .language-print__note {
-    margin-top: var(--space-5);
-  }
-
-  .language-print--print {
-    gap: var(--space-4);
-  }
-
-  .language-print--print h2 {
-    margin-bottom: var(--space-2);
-  }
-
-  .language-print--print ul {
-    padding-left: var(--space-4);
-  }
-
-  @media (min-width: 960px) {
-    .language-print {
-      grid-template-columns: minmax(0, 240px) minmax(0, 1fr);
-      align-items: start;
-    }
-  }
-
+  /* The page itself is the printable sheet. It used to end in a "One-page
+     language sheet" section that held two more copies of the questions, a
+     preview and a print-only list. */
   @media print {
-    .screen-only {
-      display: none;
+    :global(:root) {
+      --space-section: var(--space-5);
     }
 
-    .print-only {
-      display: block;
+    :global(.page-breadcrumbs),
+    :global(.page-intro__actions),
+    :global(.next-step),
+    .language-see-also {
+      display: none !important;
     }
 
-    .language-print--print {
-      border: none;
-      padding: 0;
-    }
-
-    .language-print__section {
-      border: 1px solid var(--border);
+    :global(.card) {
       break-inside: avoid;
+    }
+
+    .language-source {
+      display: block;
+      margin-top: var(--space-5);
     }
   }
 </style>
