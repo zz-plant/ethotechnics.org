@@ -5,10 +5,7 @@ import PageIntro from "../../../components/PageIntro.astro";
 import ScholarlyMeta from "../../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../../components/SectionBlock.astro";
 import UseCaseFit from "../../../components/UseCaseFit.astro";
-import {
-  createImplementationPublication,
-  implementationExampleAnchorLinks,
-} from "../../../content/implementation-examples";
+import { createImplementationPublication } from "../../../content/implementation-examples";
 
 const pageTitle =
   "An AI agent acting for one person: implementation comparison";
@@ -17,13 +14,11 @@ const pageDescription =
 const permalink = "/use-cases/examples/personal-agent";
 const recordsBase = "/standards/worked-examples/personal-agent";
 const anchorLinks = [
-  ...implementationExampleAnchorLinks.filter(
-    (link) => link.href !== "#fit" && link.href !== "#citations",
-  ),
+  { href: "#fit", label: "Where this fits" },
+  { href: "#standard", label: "Standard governance" },
+  { href: "#ethotechnics", label: "Ethotechnics implementation" },
   { href: "#record", label: "The grant as a record" },
-  ...implementationExampleAnchorLinks.filter(
-    (link) => link.href === "#fit" || link.href === "#citations",
-  ),
+  { href: "#citations", label: "Cite this page" },
 ];
 const publication = {
   ...createImplementationPublication(
@@ -54,25 +49,21 @@ const publication = {
     anchorLinks={anchorLinks}
   />
 
-  <SectionBlock
-    id="overview"
-    eyebrow="Overview"
-    title="Where governance breaks down"
-    description="The person who delegates is the person the agent's mistakes land on, and what they hold are settings."
-  >
+  {
+    /* The page opened on "Where governance breaks down", whose second
+       paragraph said what the boundary case says: the person granted the
+       delegation, can end it, and no institution answers for it. The fit
+       leads, as on the retail example, with the scenario inside it. */
+  }
+  <UseCaseFit slug="personal-agent">
     <p>
       A person connects an assistant to their email, their calendar, one card,
       and their health insurer's portal. It drafts replies, books appointments,
       pays recurring bills, and resubmits a claim the insurer rejected. Reading
-      and drafting run without a prompt. Sending and paying wait for a tap.
+      and drafting run without a prompt. Sending and paying wait for a tap. The
+      people it writes to and pays never agreed to the delegation.
     </p>
-    <p>
-      No institution operates this delegation. The person granted it and can end
-      it, so the framework does less here than where an institution decides
-      about many people. What remains is the delegation itself, and the people
-      the agent writes to and pays, who never agreed to it.
-    </p>
-  </SectionBlock>
+  </UseCaseFit>
 
   <SectionBlock
     id="standard"
@@ -200,8 +191,6 @@ const publication = {
       <a href="/agents">what it should ask, and write down for the person</a>.
     </p>
   </SectionBlock>
-
-  <UseCaseFit slug="personal-agent" />
 
   <div id="citations">
     <CitationBlock
