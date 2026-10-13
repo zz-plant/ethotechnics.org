@@ -142,8 +142,6 @@ const REDIRECT_MAP: Record<string, string> = {
   // that the governance log records never existed. What remained true, the
   // Institute and the Studio and how they differ, is on /about.
   "/institute": "/about",
-  // /agents has one page, the spec. A bare hit on the directory 404ed.
-  "/agents": "/agents/spec",
   "/agent-toolkit": "/archive/retired-tools",
   "/agent-toolkit/ethotechnics-agent-prompt-pack-v1.0.0.md":
     "/archive/retired-tools/ethotechnics-agent-prompt-pack-v1.0.0.md",

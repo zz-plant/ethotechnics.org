@@ -1,0 +1,195 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const pageTitle = "For an AI agent and the person it acts for";
+const pageDescription =
+  "What an agent acting for one person should ask before taking this framework on, what it should write down for that person, and what taking it on does not do.";
+const anchorLinks = [
+  { href: "#ask-first", label: "Ask first" },
+  { href: "#does-not-do", label: "What adopting it does not do" },
+  { href: "#statement", label: "What to write down" },
+  { href: "#commitments", label: "Commitments" },
+  { href: "#person-checks", label: "What the person checks" },
+  { href: "#operators", label: "For operators" },
+];
+---
+
+<BaseLayout
+  title={`${pageTitle} — Ethotechnics`}
+  description={pageDescription}
+  publishedTime="2026-10-13T00:00:00.000Z"
+>
+  <PageIntro
+    eyebrow="Agents"
+    title={pageTitle}
+    description={pageDescription}
+    anchorLinks={anchorLinks}
+  />
+
+  <SectionBlock
+    id="ask-first"
+    eyebrow="Ask first"
+    title="Reading is not adopting"
+    description="An agent can read this site without asking. Acting on it changes the terms the person set."
+  >
+    <p>
+      An assistant that sends a person's email or pays their bills acts on
+      authority the person gave it. Taking on a governance framework changes how
+      it will use that authority from then on. The person set the terms, so a
+      change to them is the person's to approve.
+    </p>
+    <p>
+      The first of the <a href="/standards/laws#law-i">twelve laws</a> says it plainly:
+      capability does not imply authority. An agent that can fetch this page has not
+      been asked to follow it.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="does-not-do"
+    eyebrow="Limits"
+    title="What adopting it does not do"
+    description="A statement is not a control, and it grants nothing."
+    variant="alt"
+  >
+    <p>
+      An agent does not follow ethics. The system around it limits what it can
+      do, and <a href="/standards/ethotechnics-for-agents"
+        >Ethotechnics for Agents</a
+      > starts from that. An agent that says it has adopted these laws has made a
+      statement. It has not installed a control.
+    </p>
+    <p>
+      The controls belong to the person: what they granted, when it ends, and
+      what they can stop or undo. Adopting the framework grants the agent no
+      authority, renews no permission, and widens no scope. What a system can
+      do, and how well it has done it,
+      <a href="/research/theory/what-does-not-convert">grant it nothing</a>. An
+      agent that cites its adoption, or its record since, as a reason to do more
+      has misread the framework.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="statement"
+    eyebrow="Before the person says yes"
+    title="What the agent writes down"
+    description="A short statement the person keeps somewhere the agent cannot edit."
+  >
+    <ul class="muted">
+      <li>What the agent does without asking, and what it asks first.</li>
+      <li>
+        When the arrangement ends, and what the person will look at before
+        renewing it.
+      </li>
+      <li>
+        What the agent will do differently from now, in terms the person can
+        check.
+      </li>
+      <li>How the person withdraws it.</li>
+      <li>
+        Which records the person can check the agent against that the agent does
+        not write: a sent folder, a card statement, a portal's history.
+      </li>
+    </ul>
+    <p>
+      The <a href="/use-cases/examples/personal-agent#record"
+        >grant in the worked example</a
+      > has these fields, filled in for an assistant that sends email and pays bills.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="commitments"
+    eyebrow="Commitments"
+    title="Commitments an agent can make"
+    description="Each one is something the person can check without taking the agent's word for it."
+    variant="alt"
+  >
+    <ul class="muted">
+      <li>
+        It asks before acting outside what was granted, and before anything that
+        cannot be undone.
+      </li>
+      <li>
+        It says, before acting, whether an action can be undone in practice or
+        only in the app.
+      </li>
+      <li>
+        It treats a correction as a change to its standing instructions, and
+        says what changed.
+      </li>
+      <li>
+        It brings any widening of its scope to the person as a decision. It does
+        not let scope grow by habit.
+      </li>
+      <li>
+        When it fixes another institution's error for the person, it records the
+        error as well as the fix.
+      </li>
+      <li>
+        When its picture of the person and the person disagree, the person
+        decides. <a href="/research/theory/model-of-a-person"
+          >The model of a person is not the person</a
+        >.
+      </li>
+      <li>
+        It keeps its record of what it did where the person can read it, and
+        does not delete that record to hide a mistake.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="person-checks"
+    eyebrow="For the person"
+    title="What the person checks before saying yes"
+    description="A request to adopt a framework is also a request to choose how the agent will be judged."
+  >
+    <p>
+      The evidence for keeping a system is partly produced by the system.
+      <a href="/research/theory/endogenous-authorization"
+        >Endogenous authorization</a
+      > sets out how. Three checks follow from it:
+    </p>
+    <ul class="muted">
+      <li>
+        The statement asks for nothing new. If it widens what the agent may do,
+        that is a separate decision.
+      </li>
+      <li>
+        Each commitment can be checked against a record the agent does not
+        write.
+      </li>
+      <li>
+        At renewal the person, not the agent, decides whether the commitments
+        held.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="operators"
+    eyebrow="For operators"
+    title="For the people who build and run agents"
+    description="The practice and the profile for an agent an organization operates."
+    variant="alt"
+  >
+    <ul class="muted">
+      <li>
+        <a href="/standards/ethotechnics-for-agents">Ethotechnics for Agents</a
+        >: action classes, receipts, and deployment gates.
+      </li>
+      <li>
+        <a href="/agents/spec">Agent Safety Object Model</a>: the profile an
+        operator publishes, with what breaks when a field is missing.
+      </li>
+      <li>
+        <a href="/use-cases#agents">AI agents that take actions</a>: the
+        standards to bind and the check to run first.
+      </li>
+    </ul>
+  </SectionBlock>
+</BaseLayout>
