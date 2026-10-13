@@ -1,6 +1,7 @@
 ---
 import PageIntroAnchorList from "./PageIntroAnchorList.astro";
 import SectionNav from "./SectionNav.astro";
+import { formatDate } from "../utils/dates";
 import { eyebrowRestatesTitle } from "../utils/eyebrow";
 
 export interface AnchorLink {
@@ -17,6 +18,7 @@ export interface Props {
   anchorLinks: AnchorLink[];
   anchorLinksSummary?: string;
   version?: string;
+  /** An ISO date (YYYY-MM-DD), shown as "Oct 6, 2026". */
   lastUpdated?: string;
 }
 
@@ -68,7 +70,9 @@ const resolvedEyebrow =
             <p class="page-intro__versioning" aria-label="Document metadata">
               {version && <span>Version {version}</span>}
               {version && lastUpdated && <span aria-hidden="true"> · </span>}
-              {lastUpdated && <span>Last updated {lastUpdated}</span>}
+              {lastUpdated && (
+                <span>Last updated {formatDate(lastUpdated)}</span>
+              )}
             </p>
           )
         }

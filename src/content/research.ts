@@ -200,7 +200,7 @@ export const researchContent: ResearchContent = {
   bridgeArtifacts: [
     {
       slug: "scholarly-crossings",
-      title: "Scholarly crossings (2026-10)",
+      title: "Scholarly crossings (Oct 2026)",
       type: "Dated research note",
       summary:
         "What the framework supplies to scholars who already hold the values, to governance mechanisms it does not replace, and to the counterpositions that would make it unnecessary overhead, with six worked examples.",
@@ -209,7 +209,7 @@ export const researchContent: ResearchContent = {
     },
     {
       slug: "frontier-doctrine-scan",
-      title: "Frontier doctrine scan (2026-09)",
+      title: "Frontier doctrine scan (Sep 2026)",
       type: "Dated research note",
       summary:
         "Ten frontier labs scored 0 to 4 against the twelve laws on public doctrine and product architecture, not safety performance.",

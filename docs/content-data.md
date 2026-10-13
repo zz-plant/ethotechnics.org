@@ -71,6 +71,17 @@ Additional guidance:
 - When you add or rename glossary term IDs or library pattern slugs, confirm cross-links are
   updated everywhere they are referenced.
 
+## Dates shown to readers
+
+- Store a date as ISO (`2026-10-06`) and render it with `formatDate` or `formatMonth` from
+  `src/utils/dates.ts`.
+- Metadata, tables, lists, changelog lines, and badges use the compact form: "Oct 6, 2026", or
+  "Oct 2026" for a month.
+- Running prose uses the full month in American order: "October 6, 2026", or "October 2026"
+  (`formatDate(value, "prose")`). Write hand-typed prose dates the same way, never "6 October 2026".
+- ISO stays where it is data: code samples, JSON, schema examples, URLs, `datetime` attributes,
+  exports, and filenames.
+
 ## Validation and checks
 
 - `bun run content:generate` refreshes derived `src/content/generated/*.generated.ts` files.

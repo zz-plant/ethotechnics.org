@@ -1,5 +1,6 @@
 ---
 import type { PublicationMetadata } from "../content/types";
+import { formatDate } from "../utils/dates";
 import { resolveDoi } from "../utils/doi";
 
 type Props = {
@@ -39,20 +40,9 @@ const pageUrl = permalink
 const archiveUrl =
   publication.archiveUrl ??
   (pageUrl ? `https://web.archive.org/web/*/${pageUrl}` : null);
-const publishedDate = new Date(publication.published).toLocaleDateString(
-  "en-US",
-  {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  },
-);
+const publishedDate = formatDate(publication.published);
 const updatedDate = publication.updated
-  ? new Date(publication.updated).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    })
+  ? formatDate(publication.updated)
   : null;
 const [latestChange, ...earlierChanges] = publication.changelog;
 // Only a real DOI is printed; a placeholder such as "Pending Zenodo deposit"
@@ -165,8 +155,8 @@ const doi = resolveDoi(publication.doi);
       <div class="scholarly-meta__changelog">
         <p class="muted small">Latest change</p>
         <p>
-          <strong>{latestChange.version}</strong> · {latestChange.date} —{" "}
-          {latestChange.summary}
+          <strong>{latestChange.version}</strong> ·{" "}
+          {formatDate(latestChange.date)} — {latestChange.summary}
         </p>
         {earlierChanges.length > 0 && historyHref && (
           <p class="muted small">
@@ -181,7 +171,7 @@ const doi = resolveDoi(publication.doi);
             <ul>
               {earlierChanges.map((entry) => (
                 <li>
-                  <strong>{entry.version}</strong> · {entry.date} —{" "}
+                  <strong>{entry.version}</strong> · {formatDate(entry.date)} —{" "}
                   {entry.summary}
                 </li>
               ))}

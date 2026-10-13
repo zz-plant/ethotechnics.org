@@ -267,7 +267,15 @@ export function EvalRunner() {
         </div>
 
         <p className="muted small">
-          Completed {new Date(summary.completedAt).toLocaleString()}
+          {/* The reader's own clock: "Oct 13, 2026, 3:04 PM". */}
+          Completed{" "}
+          {new Date(summary.completedAt).toLocaleString("en-US", {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+            hour: "numeric",
+            minute: "2-digit",
+          })}
         </p>
 
         <div className="eval-results">

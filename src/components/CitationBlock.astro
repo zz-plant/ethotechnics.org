@@ -1,5 +1,6 @@
 ---
 import type { PublicationMetadata } from "../content/types";
+import { formatDate } from "../utils/dates";
 import { resolveDoi } from "../utils/doi";
 
 type Props = {
@@ -30,13 +31,7 @@ const year = new Date(
   publication.updated ?? publication.published,
 ).getFullYear();
 const authorNames = publication.authors.map((author) => author.name).join(", ");
-const updatedDate = new Date(
-  publication.updated ?? publication.published,
-).toLocaleDateString("en-US", {
-  year: "numeric",
-  month: "short",
-  day: "numeric",
-});
+const updatedDate = formatDate(publication.updated ?? publication.published);
 const citationKeyValue =
   citationKey ??
   `ethotechnics_${permalink.replace(/[^a-zA-Z0-9]+/g, "_").replace(/^_+|_+$/g, "")}`;

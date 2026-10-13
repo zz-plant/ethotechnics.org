@@ -2,6 +2,7 @@
 import StandardsLayout from "../../../components/StandardsLayout.astro";
 import CitationBlock from "../../../components/CitationBlock.astro";
 import SectionBlock from "../../../components/SectionBlock.astro";
+import { formatDate } from "../../../utils/dates";
 import { derivePublicationMetadata } from "../../../utils/publication";
 
 const pageTitle = "EU AI Act";
@@ -24,42 +25,42 @@ const publication = derivePublicationMetadata({
   published: publishedTime,
   updated: modifiedTime,
   changelogSummary:
-    "Listed the application dates from Article 113 as amended by the Digital Omnibus on AI, Regulation (EU) 2026/1744, which moved the Annex III high-risk date to 2 December 2027 and the Annex I date to 2 August 2028. Removed the overview of the Act.",
+    "Listed the application dates from Article 113 as amended by the Digital Omnibus on AI, Regulation (EU) 2026/1744, which moved the Annex III high-risk date to December 2, 2027 and the Annex I date to August 2, 2028. Removed the overview of the Act.",
 });
 
 // Article 113 of Regulation (EU) 2024/1689, as amended by Regulation (EU)
 // 2026/1744, checked against the Commission's AI Act Service Desk timeline.
 const applicationDates = [
-  { date: "1 August 2024", applies: "Entry into force." },
+  { date: "2024-08-01", applies: "Entry into force." },
   {
-    date: "2 February 2025",
+    date: "2025-02-02",
     applies:
       "Chapters I and II: general provisions, including AI literacy (Art. 4), and the prohibited practices in Art. 5.",
   },
   {
-    date: "2 August 2025",
+    date: "2025-08-02",
     applies:
       "Obligations for general-purpose AI models (Chapter V), governance (Chapter VII), penalties (Chapter XII, except Art. 101), and notified bodies (Chapter III, Section 4).",
   },
   {
-    date: "2 August 2026",
+    date: "2026-08-02",
     applies:
       "The general application date: most remaining provisions, including the transparency obligations in Art. 50.",
   },
   {
-    date: "2 December 2026",
+    date: "2026-12-02",
     applies:
-      "The prohibitions the omnibus added: AI systems that generate non-consensual intimate imagery or child sexual abuse material. The Art. 50(2) transition ends for certain providers of systems that generate synthetic content and were on the market before 2 August 2026.",
+      "The prohibitions the omnibus added: AI systems that generate non-consensual intimate imagery or child sexual abuse material. The Art. 50(2) transition ends for certain providers of systems that generate synthetic content and were on the market before August 2, 2026.",
   },
   {
-    date: "2 December 2027",
+    date: "2027-12-02",
     applies:
-      "Chapter III, Sections 1 to 3, for high-risk systems under Art. 6(2) and Annex III. The original date was 2 August 2026.",
+      "Chapter III, Sections 1 to 3, for high-risk systems under Art. 6(2) and Annex III. The original date was August 2, 2026.",
   },
   {
-    date: "2 August 2028",
+    date: "2028-08-02",
     applies:
-      "Chapter III, Sections 1 to 3, for high-risk systems under Art. 6(1) and Annex I, AI in products covered by EU harmonisation legislation. The original date was 2 August 2027.",
+      "Chapter III, Sections 1 to 3, for high-risk systems under Art. 6(1) and Annex I, AI in products covered by EU harmonisation legislation. The original date was August 2, 2027.",
   },
 ];
 ---
@@ -134,7 +135,7 @@ const applicationDates = [
     id="timeline"
     eyebrow="Application dates"
     title="When each part applies"
-    description="Article 113, as amended by Regulation (EU) 2026/1744, the Digital Omnibus on AI, in force since 27 July 2026."
+    description="Article 113, as amended by Regulation (EU) 2026/1744, the Digital Omnibus on AI, in force since July 27, 2026."
     variant="alt"
   >
     <div class="mapping-table__wrapper">
@@ -149,7 +150,9 @@ const applicationDates = [
           {
             applicationDates.map((row) => (
               <tr>
-                <th scope="row">{row.date}</th>
+                <th scope="row">
+                  <time datetime={row.date}>{formatDate(row.date)}</time>
+                </th>
                 <td data-label="What applies">{row.applies}</td>
               </tr>
             ))
@@ -158,7 +161,7 @@ const applicationDates = [
       </table>
     </div>
     <p class="muted">
-      Checked on {datesChecked} against the Commission's <a
+      Checked on {formatDate(datesChecked, "prose")} against the Commission's <a
         href="https://ai-act-service-desk.ec.europa.eu/en/ai-act/timeline/timeline-implementation-eu-ai-act"
         >AI Act Service Desk timeline</a
       >, which reflects the omnibus amendments.

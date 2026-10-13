@@ -7,6 +7,7 @@ import InstituteStudioComparison from "../../components/InstituteStudioCompariso
 import StudioBadge from "../../components/StudioBadge.astro";
 import { instituteStudioComparisonContent } from "../../content/comparison";
 import { studio, studioMailto } from "../../content/studio";
+import { formatDate } from "../../utils/dates";
 
 const pageTitle = "How Studio fits";
 const pageDescription =
@@ -77,7 +78,7 @@ const anchorLinks = [
     id="offers"
     eyebrow="Commissioned work"
     title="What the Studio does"
-    description={`${studio.focus}, for ${studio.clients}. As listed on ethotechnics.com on ${studio.checked}.`}
+    description={`${studio.focus}, for ${studio.clients}. As listed on ethotechnics.com on ${formatDate(studio.checked, "prose")}.`}
   >
     <ul class="muted">
       {

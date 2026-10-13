@@ -12,6 +12,7 @@ import NextStep from "../../components/NextStep.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SemanticConnections from "../../components/SemanticConnections.astro";
+import { formatDate } from "../../utils/dates";
 import { glossaryEntryPermalink } from "../../utils/glossary";
 import {
   getGlossaryEntryDefaults,
@@ -104,7 +105,7 @@ const termModified =
 // 334 entries said they were updated the day the glossary last shipped.
 const termVersion = entry.termVersion;
 const termUpdatedDate = entry.termUpdated
-  ? entry.termUpdated.split("T")[0]
+  ? formatDate(entry.termUpdated)
   : null;
 const {
   operationalTests,

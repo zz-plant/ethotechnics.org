@@ -3,6 +3,7 @@ import "../../styles/components/intake-form.css";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import { formatDate } from "../../utils/dates";
 
 const pageTitle = "Burden budget worksheet";
 const pageDescription =
@@ -431,7 +432,8 @@ const changelog = [
         {
           changelog.map((entry) => (
             <li>
-              <strong>{entry.version}</strong> — {entry.date}: {entry.summary}
+              <strong>{entry.version}</strong> — {formatDate(entry.date)}:{" "}
+              {entry.summary}
             </li>
           ))
         }

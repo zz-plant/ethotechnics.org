@@ -12,6 +12,7 @@ import SectionBlock from "../components/SectionBlock.astro";
 import { cases } from "../content/casebook";
 import { objectionRecord } from "../content/objection-record";
 import { getStandardById, standardsContent } from "../content/standards";
+import { formatDate } from "../utils/dates";
 import {
   OBJECTION_FORM_URL,
   OBJECTION_ISSUES_URL,
@@ -85,7 +86,7 @@ const standards = standardsContent.standards
   <SectionBlock
     id="objections"
     title="Objections and answers"
-    description={`The rules the site keeps, then the record they produce, generated from GitHub issues on ${generatedOn}.`}
+    description={`The rules the site keeps, then the record they produce, generated from GitHub issues on ${formatDate(generatedOn, "prose")}.`}
   >
     {
       /* The rules had a section of their own above this one, and the empty
@@ -165,8 +166,10 @@ const standards = standardsContent.standards
                       <th scope="row">
                         {href ? <a href={href}>{label}</a> : label}
                       </th>
-                      <td data-label="Opened">{isoDate(objection.openedAt)}</td>
-                      <td data-label="Due">{objection.dueAt}</td>
+                      <td data-label="Opened">
+                        {formatDate(objection.openedAt)}
+                      </td>
+                      <td data-label="Due">{formatDate(objection.dueAt)}</td>
                       <td data-label="Status">{objectionStatus(objection)}</td>
                       <td data-label="Outcome">
                         {outcomeLabels[objection.outcome]}
@@ -217,7 +220,9 @@ const standards = standardsContent.standards
                 <td data-label="Title">{standard.title}</td>
                 <td data-label="Status">{standard.status}</td>
                 <td data-label="Version">{standard.version}</td>
-                <td data-label="Last change">{standard.lastChange}</td>
+                <td data-label="Last change">
+                  {formatDate(standard.lastChange)}
+                </td>
               </tr>
             ))
           }
