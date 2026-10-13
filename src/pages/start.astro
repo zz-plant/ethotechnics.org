@@ -140,16 +140,11 @@ const pageDescription =
       <h2>Find the guidance for your work</h2>
     </div>
 
-    <nav class="role-chips" aria-label="Jump to a role">
-      {
-        roles.map((role) => (
-          <a class="role-chip" href={`#${role.id}`}>
-            <span>{role.label}</span>
-          </a>
-        ))
-      }
-    </nav>
-
+    {
+      /* Each card names who the role is and links to its page. The role page
+         opens on that role's first steps; listing all seven sets of them here
+         as well made this page a copy of seven others. */
+    }
     <div class="role-grid">
       {
         roles.map((role) => (
@@ -161,27 +156,6 @@ const pageDescription =
               </h2>
               <p class="role-card__tagline">{role.tagline}</p>
             </div>
-
-            {role.orientation?.length ? (
-              <div class="role-card__steps">
-                <span class="role-card__steps-heading">Where to start</span>
-                <ol class="role-card__step-list">
-                  {role.orientation.map((step) => (
-                    <li class="role-card__step-item">
-                      <div class="role-card__step-content">
-                        <strong class="role-card__step-title">
-                          {step.title}
-                        </strong>
-                        <p class="role-card__step-desc">{step.description}</p>
-                        <a href={step.ctaHref} class="role-card__step-link">
-                          {step.ctaLabel} &rarr;
-                        </a>
-                      </div>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            ) : null}
           </article>
         ))
       }
@@ -334,58 +308,6 @@ const pageDescription =
         </div>
       </div>
     </section>
-
-    <!-- Repository surfaces index -->
-    <section class="repository-sections" aria-label="Core repository sections">
-      <div class="repository-sections__header">
-        <span class="eyebrow">Index</span>
-        <h2>The main sections</h2>
-        <p class="muted">
-          Numbered standards, safeguards, diagnostic tools, and scored cases.
-        </p>
-      </div>
-      <div class="repository-sections__grid">
-        <a href="/standards" class="section-card">
-          <span class="section-card__tag">Rulebook</span>
-          <h3 class="section-card__title">Standards &rarr;</h3>
-          <p class="section-card__desc">
-            Numbered clauses for delegation, contestability, people's time, and
-            the records that show each was met.
-          </p>
-        </a>
-        <a href="/mechanisms" class="section-card">
-          <span class="section-card__tag">Architecture</span>
-          <h3 class="section-card__title">Mechanisms &rarr;</h3>
-          <p class="section-card__desc">
-            Specifications for appeal paths that reach the rule, decision logs
-            that record dissent, and a named person who can halt the system.
-          </p>
-        </a>
-        <a href="/diagnostics" class="section-card">
-          <span class="section-card__tag">Assessment</span>
-          <h3 class="section-card__title">Diagnostics &rarr;</h3>
-          <p class="section-card__desc">
-            Tools that check what a system may still decide, who bears the cost
-            of each step, and whether its records meet the level they claim.
-          </p>
-        </a>
-        <a href="/casebook" class="section-card">
-          <span class="section-card__tag">Empirical evidence</span>
-          <h3 class="section-card__title">Casebook &rarr;</h3>
-          <p class="section-card__desc">
-            Public failures of automated decision systems, each scored against
-            the standards.
-          </p>
-        </a>
-        <a href="/glossary" class="section-card">
-          <span class="section-card__tag">Reference</span>
-          <h3 class="section-card__title">Glossary &rarr;</h3>
-          <p class="section-card__desc">
-            Definitions of the terms the standards and tools use.
-          </p>
-        </a>
-      </div>
-    </section>
   </section>
 </BaseLayout>
 
@@ -404,52 +326,6 @@ const pageDescription =
   .start-hero__main {
     display: grid;
     gap: var(--space-2);
-  }
-
-  .role-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-    margin-top: var(--space-5);
-  }
-
-  .role-chip {
-    display: inline-flex;
-    align-items: center;
-    padding: var(--space-1) var(--space-3);
-    border-radius: var(--radius-pill);
-    border: 1px solid var(--border);
-    background: var(--panel);
-    font-family: var(--sans);
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--text);
-    text-decoration: none;
-    transition:
-      border-color var(--motion-fast) ease,
-      background-color var(--motion-fast) ease;
-  }
-
-  .role-chip:hover,
-  .role-chip:focus-visible {
-    border-color: var(--accent);
-    background: color-mix(in srgb, var(--accent) 10%, var(--panel));
-  }
-
-  @media (max-width: 640px) {
-    .role-chips {
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      padding-bottom: var(--space-1);
-      scrollbar-width: none;
-    }
-    .role-chip {
-      flex: 0 0 auto;
-    }
-  }
-
-  .role-card {
-    scroll-margin-top: 0.5rem;
   }
 
   .role-grid {
@@ -476,8 +352,6 @@ const pageDescription =
   .role-card__header {
     display: grid;
     gap: var(--space-2);
-    border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
-    padding-bottom: var(--space-4);
   }
 
   .role-card__badge {
@@ -516,62 +390,6 @@ const pageDescription =
     font-size: var(--text-sm);
     color: var(--muted);
     line-height: 1.45;
-  }
-
-  .role-card__steps {
-    display: grid;
-    gap: var(--space-3);
-  }
-
-  .role-card__steps-heading {
-    font-size: var(--text-xs);
-    font-family: var(--sans);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-label);
-    color: var(--muted);
-  }
-
-  .role-card__step-list {
-    list-style: decimal;
-    margin: 0;
-    padding-left: var(--space-4);
-    display: grid;
-    gap: var(--space-4);
-  }
-
-  .role-card__step-item {
-    font-size: var(--text-sm);
-    color: var(--text);
-  }
-
-  .role-card__step-title {
-    display: block;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: var(--space-1);
-  }
-
-  .role-card__step-desc {
-    margin: 0 0 var(--space-1) 0;
-    font-size: var(--text-sm);
-    color: var(--muted);
-    line-height: 1.4;
-  }
-
-  .role-card__step-link {
-    font-size: var(--text-xs);
-    font-weight: 650;
-    color: var(--accent);
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-1);
-  }
-
-  .role-card__step-link:hover {
-    text-decoration: underline;
-    color: var(--accent-strong);
   }
 
   .fast-path-section {
@@ -731,80 +549,6 @@ const pageDescription =
 
   .deliverables-list a:hover {
     text-decoration: underline;
-  }
-
-  /* Repository core surfaces index */
-  .repository-sections {
-    margin: var(--space-8) 0 var(--space-6);
-    padding-top: var(--space-6);
-    border-top: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-    display: grid;
-    gap: var(--space-5);
-  }
-
-  .repository-sections__header h2 {
-    margin: var(--space-1) 0 var(--space-1);
-    font-size: var(--text-xl);
-  }
-
-  .repository-sections__header p {
-    margin: 0;
-    font-size: var(--text-sm);
-  }
-
-  .repository-sections__grid {
-    display: grid;
-    gap: var(--space-4);
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
-  }
-
-  .section-card {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    padding: var(--space-container-compact);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-    text-decoration: none;
-    color: var(--text);
-    transition:
-      border-color var(--motion-fast) ease,
-      transform var(--motion-fast) ease;
-  }
-
-  .section-card:hover,
-  .section-card:focus-visible {
-    border-color: var(--accent);
-    text-decoration: none;
-  }
-
-  .section-card__tag {
-    font-size: var(--text-xs);
-    font-family: var(--sans);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-label);
-    color: var(--muted);
-  }
-
-  .section-card__title {
-    margin: 0;
-    font-size: var(--text-base);
-    font-family: var(--sans);
-    font-weight: 700;
-    color: var(--text);
-  }
-
-  .section-card:hover .section-card__title {
-    color: var(--accent);
-  }
-
-  .section-card__desc {
-    margin: 0;
-    font-size: var(--text-xs);
-    color: var(--muted);
-    line-height: 1.4;
   }
 
   .start-applicability {
