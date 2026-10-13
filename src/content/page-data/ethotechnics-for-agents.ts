@@ -50,7 +50,6 @@ export const anchorLinks = [
   { href: "#safety-object-model", label: "Agent safety object model" },
   { href: "#boundaries", label: "Practice boundaries" },
   { href: "#fast-path", label: "Fast path" },
-  { href: "#referenced-by", label: "Referenced by" },
 ];
 
 export const summaryTakeaways = [

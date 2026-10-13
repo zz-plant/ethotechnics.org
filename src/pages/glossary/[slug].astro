@@ -343,13 +343,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       ))
     }
   </Fragment>
-  <PageIntro eyebrow="Glossary entry" title={entry.title} anchorLinks={[]}>
-    <Fragment slot="lede">
-      Ethotechnics publishes open standards and
-      <a href="/casebook">scored public failures</a> for one question: when an automated
-      decision system is wrong, does anyone have to change it?
-    </Fragment>
-  </PageIntro>
+  <PageIntro eyebrow="Glossary entry" title={entry.title} anchorLinks={[]} />
   <article
     class="glossary-entry glossary-entry--detail"
     itemscope
@@ -618,7 +612,11 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     citationKey={`glossary_${entry.id}`}
     summaryLabel="Cite this glossary entry"
   />
-  <ScholarlyMeta publication={publication} permalink={pagePermalink} />
+  <ScholarlyMeta
+    publication={publication}
+    permalink={pagePermalink}
+    historyHref="/glossary#glossary-history"
+  />
 
   <InlineScript type="application/ld+json" code={structuredDataJson} />
 </BaseLayout>

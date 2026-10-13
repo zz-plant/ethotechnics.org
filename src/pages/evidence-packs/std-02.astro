@@ -50,7 +50,6 @@ const tiers = [
       { href: "#anti-weaponization", label: "Anti-weaponization evidence" },
       { href: "#anti-fraud", label: "How teams fake this" },
       { href: "#auditors", label: "What auditors ask" },
-      { href: "#referenced-by", label: "Referenced by" },
     ]}
   />
 
@@ -178,70 +177,18 @@ const tiers = [
     </ul>
   </SectionBlock>
 
-  <SectionBlock
-    id="referenced-by"
-    eyebrow="Referenced by"
-    title="Where STD-02 evidence is asked for"
-    description="The worked examples, bindings, and validators that depend on this evidence."
-  >
-    <div class="grid grid--three">
-      <div class="panel">
-        <p class="eyebrow">Used in examples</p>
-        <ul class="muted">
-          <li>
-            <a href="/use-cases/examples/automated-eligibility-denial"
-              >Automated eligibility denial</a
-            >
-          </li>
-          <li>
-            <a href="/use-cases/examples/content-moderation-takedown"
-              >Content moderation takedown</a
-            >
-          </li>
-          <li>
-            <a href="/use-cases/examples/fraud-hold-delayed-notice"
-              >Fraud hold with delayed notice</a
-            >
-          </li>
-        </ul>
-      </div>
-      <div class="panel">
-        <p class="eyebrow">Required by bindings</p>
-        <ul class="muted">
-          <li>
-            <a href="/mechanisms/patterns/admission-gate"
-              >MEC-22 Admission gate</a
-            >
-          </li>
-          <li>
-            <a href="/incidents">Incident triggers</a>
-          </li>
-        </ul>
-      </div>
-      <div class="panel">
-        <p class="eyebrow">Verified by evidence packs</p>
-        <ul class="muted">
-          <li>
-            <a href="/evidence-packs/std-01">STD-01 Evidence Pack</a>
-          </li>
-          <li>
-            <a href="/validators">Validators (VAL-01–VAL-03)</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <SearchIds
-      ids={[
-        "STD-02",
-        "STD-02.2.1",
-        "STD-02.3.1",
-        "AW-01",
-        "AW-02",
-        "AW-03",
-        "AW-04",
-        "VAL-02",
-        "VAL-03",
-      ]}
-    />
-  </SectionBlock>
+  {/* IDs a site search should match to this page. */}
+  <SearchIds
+    ids={[
+      "STD-02",
+      "STD-02.2.1",
+      "STD-02.3.1",
+      "AW-01",
+      "AW-02",
+      "AW-03",
+      "AW-04",
+      "VAL-02",
+      "VAL-03",
+    ]}
+  />
 </BaseLayout>

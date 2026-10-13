@@ -25,11 +25,12 @@ const anchorLinks = [
   role.orientation?.length
     ? { href: "#first-moves", label: "Where to start" }
     : null,
-  role.featuredDiagnostics?.length || role.featuredStandards?.length
-    ? { href: "#tools", label: "Tools and standards" }
+  role.featuredDiagnostics?.length ||
+  role.featuredStandards?.length ||
+  role.guide?.keyLinks.length
+    ? { href: "#tools", label: "What to open" }
     : null,
   role.guide ? { href: "#focus", label: "What to attend to" } : null,
-  role.guide ? { href: "#reads", label: "What to open" } : null,
   role.adoptionChecklist?.length
     ? { href: "#adopt", label: "Adoption checklist" }
     : null,
@@ -104,14 +105,21 @@ const breadcrumbItems = [
   }
 
   {
-    (role.featuredDiagnostics?.length || role.featuredStandards?.length) && (
+    /* One section for everything the role should open. Diagnostics and
+       standards used to sit here and a reading list in a second section
+       further down, which also linked the hubs the header already reaches. */
+  }
+  {
+    (role.featuredDiagnostics?.length ||
+      role.featuredStandards?.length ||
+      role.guide?.keyLinks.length) && (
       <SectionBlock
         id="tools"
-        eyebrow="Tools and standards"
-        title="What to run and what to satisfy"
-        description="The diagnostics that show risk in this role's work, and the standards that apply to it."
+        eyebrow="What to open"
+        title="What to run, satisfy, and read"
+        description="The diagnostics that show risk in this role's work, the standards that apply to it, and the reading behind them."
       >
-        <div class="grid grid--two">
+        <div class="grid grid--three">
           {role.featuredDiagnostics?.length ? (
             <div class="card stack-sm">
               <p class="eyebrow">Diagnostics</p>
@@ -136,6 +144,19 @@ const breadcrumbItems = [
               </ul>
             </div>
           ) : null}
+          {role.guide?.keyLinks.length ? (
+            <div class="card stack-sm">
+              <p class="eyebrow">Reading</p>
+              <ul class="card__list">
+                {role.guide.keyLinks.map((link) => (
+                  <li>
+                    <a href={link.href}>{link.label}</a>
+                    {link.note && <span class="muted"> — {link.note}</span>}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
         </div>
       </SectionBlock>
     )
@@ -152,25 +173,6 @@ const breadcrumbItems = [
         <ul class="card__list">
           {role.guide.focusAreas.map((area) => (
             <li>{area}</li>
-          ))}
-        </ul>
-      </SectionBlock>
-    )
-  }
-
-  {
-    role.guide && (
-      <SectionBlock
-        id="reads"
-        eyebrow="What to open"
-        title="Where the material is"
-      >
-        <ul class="card__list">
-          {role.guide.keyLinks.map((link) => (
-            <li>
-              <a href={link.href}>{link.label}</a>
-              {link.note && <span class="muted"> — {link.note}</span>}
-            </li>
           ))}
         </ul>
       </SectionBlock>

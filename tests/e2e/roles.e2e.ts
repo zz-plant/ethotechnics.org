@@ -42,10 +42,13 @@ test.describe("Role pages", () => {
         await expect(page.locator("#focus li")).toHaveCount(
           role.guide.focusAreas.length,
         );
-        await expect(page.locator("#reads")).toBeVisible();
+        for (const link of role.guide.keyLinks) {
+          await expect(
+            page.locator(`#tools a[href="${link.href}"]`),
+          ).toBeVisible();
+        }
       } else {
         await expect(page.locator("#focus")).toHaveCount(0);
-        await expect(page.locator("#reads")).toHaveCount(0);
       }
 
       if (role.adoptionChecklist?.length) {

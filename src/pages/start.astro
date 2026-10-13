@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { roles, rolePermalink } from "../content/roles";
-import SymptomTriage from "../components/SymptomTriage.astro";
 import RosettaStone from "../components/RosettaStone.astro";
 import { useCasesContent } from "../content/use-cases";
 
@@ -30,7 +29,7 @@ const pageDescription =
         </p>
         <p class="small muted">
           Or start from
-          <a href="#symptoms">a symptom you see</a>{" "}·{" "}
+          <a href="/triage#symptoms">a symptom you see</a>{" "}·{" "}
           <a href="#translation">an industry term</a>{" "}·{" "}
           <a href="#fast-path">the one-sprint plan</a>
         </p>
@@ -79,6 +78,32 @@ const pageDescription =
        readers two main landmarks to choose between. */
   }
   <section class="container">
+    <div class="stack-xs role-section-header">
+      <p class="eyebrow">Start by role</p>
+      <h2>Find the guidance for your work</h2>
+    </div>
+
+    {
+      /* Each card names who the role is and links to its page. The role page
+         opens on that role's first steps; listing all seven sets of them here
+         as well made this page a copy of seven others. */
+    }
+    <div class="role-grid">
+      {
+        roles.map((role) => (
+          <article class="role-card" id={role.id}>
+            <div class="role-card__header">
+              <span class="role-card__badge">{role.label}</span>
+              <h2 class="role-card__title">
+                <a href={rolePermalink(role.id)}>{role.who} &rarr;</a>
+              </h2>
+              <p class="role-card__tagline">{role.tagline}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
     <div class="time-ladder stack-sm">
       <div class="time-ladder__header">
         <p class="eyebrow">Start by time available</p>
@@ -93,7 +118,9 @@ const pageDescription =
             nobody can justify, and whether its decisions can be undone.
           </p>
           <p class="small">
-            <a href="/diagnostics/delegation-audit">Run audit &rarr;</a>
+            <a href="/diagnostics/delegation-audit"
+              >Run the delegation audit &rarr;</a
+            >
           </p>
         </article>
         <article class="card stack-xs">
@@ -121,44 +148,6 @@ const pageDescription =
           </p>
         </article>
       </div>
-    </div>
-
-    <section id="symptoms" class="start-symptoms stack-sm">
-      <div class="start-symptoms__header">
-        <p class="eyebrow">Operational triage</p>
-        <h2>Start by failure symptom</h2>
-        <p class="section-lead">
-          Match a problem you observe to a diagnostic, a standard, and a scored
-          case. The cards suggest where to investigate.
-        </p>
-      </div>
-      <SymptomTriage />
-    </section>
-
-    <div class="stack-xs role-section-header">
-      <p class="eyebrow">Start by role</p>
-      <h2>Find the guidance for your work</h2>
-    </div>
-
-    {
-      /* Each card names who the role is and links to its page. The role page
-         opens on that role's first steps; listing all seven sets of them here
-         as well made this page a copy of seven others. */
-    }
-    <div class="role-grid">
-      {
-        roles.map((role) => (
-          <article class="role-card" id={role.id}>
-            <div class="role-card__header">
-              <span class="role-card__badge">{role.label}</span>
-              <h2 class="role-card__title">
-                <a href={rolePermalink(role.id)}>{role.who} &rarr;</a>
-              </h2>
-              <p class="role-card__tagline">{role.tagline}</p>
-            </div>
-          </article>
-        ))
-      }
     </div>
 
     <!-- Industry translation guide -->
@@ -332,7 +321,7 @@ const pageDescription =
     display: grid;
     gap: var(--space-5);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
-    margin-top: var(--space-6);
+    margin: var(--space-6) 0 var(--space-8);
   }
 
   .role-card {
@@ -579,14 +568,12 @@ const pageDescription =
     margin-bottom: var(--space-4);
   }
 
-  .start-symptoms,
   .start-translation {
     margin-bottom: var(--space-8);
     padding-bottom: var(--space-6);
     border-bottom: 1px solid var(--border);
   }
 
-  .start-symptoms__header,
   .start-translation__header {
     margin-bottom: var(--space-4);
   }

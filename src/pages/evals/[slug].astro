@@ -54,7 +54,7 @@ const standardHref = (ref: string) => {
     description={suite.description}
     anchorLinks={[
       { href: "#about", label: "About this suite" },
-      { href: "#test-cases", label: `Test cases (${testCases.length})` },
+      { href: "#test-cases", label: "Test cases" },
       { href: "#run", label: "Run this eval" },
       { href: "#citation", label: "Citation" },
     ]}
@@ -63,7 +63,7 @@ const standardHref = (ref: string) => {
   <SectionBlock
     id="about"
     eyebrow="About this suite"
-    title={suite.title}
+    title="Scope, scoring, and deliverables"
     description={suite.longDescription}
   >
     <div class="grid grid--two">
@@ -78,10 +78,7 @@ const standardHref = (ref: string) => {
             </span>
           </li>
           <li>Estimated time: {suite.estimatedTime}</li>
-          <li>Test cases: {testCases.length}</li>
-          <li>
-            Layer: <a href="/evals#stack">{stackLayer?.title ?? suite.layer}</a>
-          </li>
+          {!stackLayer && <li>Layer: {suite.layer}</li>}
         </ul>
       </div>
       <div class="panel stack-sm">
@@ -127,11 +124,9 @@ const standardHref = (ref: string) => {
     {
       stackLayer && (
         <div class="panel stack-sm">
-          <p class="eyebrow">Evaluation layer: {stackLayer.title}</p>
-          <p class="muted">{stackLayer.question}</p>
-          <p class="muted small">
-            Evaluate at the highest layer capable of producing the failure you
-            care about. Cases in this suite are tagged with the layer they test.
+          <p class="eyebrow">Evaluation layer</p>
+          <p class="muted">
+            <a href="/evals#stack">{stackLayer.title}</a>: {stackLayer.question}
           </p>
         </div>
       )
@@ -149,7 +144,6 @@ const standardHref = (ref: string) => {
     id="test-cases"
     eyebrow="Test cases"
     title={`${testCases.length} test case${testCases.length === 1 ? "" : "s"}`}
-    description="Each test case includes a prompt, pass criteria, fail indicators, a scoring rubric, and evidence requirements."
     variant="alt"
   >
     {

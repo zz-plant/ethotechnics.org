@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
+import SymptomTriage from "../../components/SymptomTriage.astro";
 import { failureStates } from "../../content/institute-site";
 import {
   failureChoiceLabels,
@@ -113,14 +114,20 @@ const failureChoiceIcons: Record<string, string[]> = {
       These routes are for a live case: a person, a queue, or a decision that
       needs attention now.
     </p>
+  </section>
 
-    <div class="panel stack-sm">
-      <p class="eyebrow">A pattern, not one case</p>
-      <p class="small">
-        If the same failure keeps recurring across cases, the
-        <a href="/start#symptoms">symptom matrix</a> matches it to a diagnostic, a
-        standard, and a scored public failure.
-      </p>
-    </div>
+  {
+    /* The symptom matrix lived on /start as a second way to route by symptom.
+       It belongs with the live-case routes: one page answers "something is
+       wrong", whether it is one case or a pattern. */
+  }
+  <section id="symptoms" class="container stack-sm section">
+    <p class="eyebrow">A pattern, not one case</p>
+    <h2>When the same failure keeps recurring</h2>
+    <p class="section-lead">
+      Match what you keep seeing to a diagnostic, a standard, and a scored
+      public failure.
+    </p>
+    <SymptomTriage />
   </section>
 </BaseLayout>

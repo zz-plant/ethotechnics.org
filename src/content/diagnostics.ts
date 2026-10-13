@@ -335,9 +335,9 @@ export const diagnosticsContent: DiagnosticsContent = {
         "Who authorized each one, if anyone can be named.",
         "A rough count of staff-weeks to run the workflow without it.",
       ],
-      ctaLabel: "Start the Delegation Audit",
+      ctaLabel: "Run the delegation audit",
       ctaHref: "/diagnostics/delegation-audit",
-      ctaAriaLabel: "Start the Delegation Audit diagnostic tool",
+      ctaAriaLabel: "Run the delegation audit diagnostic tool",
       exampleLabel: "View sample output",
       exampleHref:
         "https://github.com/zz-plant/ethotechnics.org/blob/main/docs/diagnostics-outputs.md#delegation-audit",
@@ -581,9 +581,9 @@ export const diagnosticsContent: DiagnosticsContent = {
         "Rough task volume or handoff counts.",
         "Known friction points or escalation paths.",
       ],
-      ctaLabel: "Start the Workload Modeler",
+      ctaLabel: "Run the Workload Modeler",
       ctaHref: "/diagnostics/burden-modeler",
-      ctaAriaLabel: "Start the Workload Modeler diagnostic tool",
+      ctaAriaLabel: "Run the Workload Modeler diagnostic tool",
       exampleLabel: "View sample output",
       exampleHref:
         "https://github.com/zz-plant/ethotechnics.org/blob/main/docs/diagnostics-outputs.md#burden-modeler",
@@ -717,10 +717,10 @@ export const diagnosticsContent: DiagnosticsContent = {
       ],
       studioNote:
         "For a healthcare AI system, Ethotechnics Studio's readiness sprint maps one workflow end to end: who can stop it, how fast, and who owns each fix.",
-      ctaLabel: "Start the corrective capacity self-assessment",
+      ctaLabel: "Run the corrective capacity self-assessment",
       ctaHref: "/diagnostics/corrective-debt-calculator",
       ctaAriaLabel:
-        "Start the corrective capacity self-assessment diagnostic tool",
+        "Run the corrective capacity self-assessment diagnostic tool",
       exampleLabel: "View sample output",
       exampleHref: "/diagnostics#output-baseline",
       deliveryType: "self-serve",

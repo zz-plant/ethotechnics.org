@@ -81,7 +81,6 @@ const releaseGateBinding = `Release gate checklist (AW-01\u2013AW-04)
       })),
       { href: "#evidence", label: "Evidence requirements" },
       { href: "#bindings", label: "Bindings" },
-      { href: "#referenced-by", label: "Referenced by" },
     ]}
   />
 
@@ -181,72 +180,18 @@ const releaseGateBinding = `Release gate checklist (AW-01\u2013AW-04)
     </ul>
   </SectionBlock>
 
-  <SectionBlock
-    id="referenced-by"
-    eyebrow="Referenced by"
-    title="Where anti-weaponization is enforced"
-    description="The examples, bindings, and evidence packs that cite AW-01 through AW-04."
-  >
-    <div class="grid grid--three">
-      <div class="panel">
-        <p class="eyebrow">Used in examples</p>
-        <ul class="muted">
-          <li>
-            <a href="/use-cases/examples/fraud-hold-delayed-notice"
-              >Fraud hold with delayed notice</a
-            >
-          </li>
-          <li>
-            <a href="/use-cases/examples/content-moderation-takedown"
-              >Content moderation takedown</a
-            >
-          </li>
-          <li>
-            <a href="/use-cases/examples/automated-eligibility-denial"
-              >Automated eligibility denial</a
-            >
-          </li>
-        </ul>
-      </div>
-      <div class="panel">
-        <p class="eyebrow">Required by bindings</p>
-        <ul class="muted">
-          <li>
-            <a href="/evidence-packs">Release gate checklist</a>
-          </li>
-        </ul>
-      </div>
-      <div class="panel">
-        <p class="eyebrow">Verified by evidence packs</p>
-        <ul class="muted">
-          <li>
-            <a href="/evidence-packs/std-01#anti-weaponization"
-              >STD-01 AW evidence</a
-            >
-          </li>
-          <li>
-            <a href="/evidence-packs/std-02#anti-weaponization"
-              >STD-02 AW evidence</a
-            >
-          </li>
-          <li>
-            <a href="/diagnostics#anti-weaponization">Diagnostics checks</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <SearchIds
-      ids={[
-        "AW-01",
-        "AW-02",
-        "AW-03",
-        "AW-04",
-        "STD-01.1.1",
-        "STD-02.2.1",
-        "VAL-01",
-        "VAL-02",
-        "VAL-03",
-      ]}
-    />
-  </SectionBlock>
+  {/* IDs a site search should match to this page. */}
+  <SearchIds
+    ids={[
+      "AW-01",
+      "AW-02",
+      "AW-03",
+      "AW-04",
+      "STD-01.1.1",
+      "STD-02.2.1",
+      "VAL-01",
+      "VAL-02",
+      "VAL-03",
+    ]}
+  />
 </BaseLayout>

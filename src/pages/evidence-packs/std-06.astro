@@ -110,7 +110,6 @@ const portabilityChecklist = [
       { href: "#portability", label: "Portability checklist" },
       { href: "#auditors", label: "What auditors ask" },
       { href: "#dependency", label: "Dependency and reversibility" },
-      { href: "#referenced-by", label: "Referenced by" },
     ]}
   />
 
@@ -212,42 +211,6 @@ const portabilityChecklist = [
     </ul>
   </SectionBlock>
 
-  <SectionBlock
-    id="referenced-by"
-    eyebrow="Referenced by"
-    title="Where STD-06 evidence is asked for"
-    description="The standard, bindings, and validators that depend on this evidence."
-  >
-    <div class="grid grid--three">
-      <div class="panel">
-        <p class="eyebrow">Standard</p>
-        <ul class="muted">
-          <li>
-            <a href="/standards/std-06-human-impact-safety-case"
-              >STD-06 Safety Case</a
-            >
-          </li>
-        </ul>
-      </div>
-      <div class="panel">
-        <p class="eyebrow">Required by bindings</p>
-        <ul class="muted">
-          <li>
-            <a href="/standards/std-06-human-impact-safety-case"
-              >Safety case bindings</a
-            >
-          </li>
-        </ul>
-      </div>
-      <div class="panel">
-        <p class="eyebrow">Verified by</p>
-        <ul class="muted">
-          <li>
-            <a href="/validators">Validators (VAL-01–VAL-03)</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <SearchIds ids={["STD-06"]} />
-  </SectionBlock>
+  {/* IDs a site search should match to this page. */}
+  <SearchIds ids={["STD-06"]} />
 </BaseLayout>

@@ -12,6 +12,7 @@ import {
   pickCase,
   pickMatchedCase,
   pickNextStep,
+  seedIndex,
   variableForTopic,
 } from "./next-step";
 
@@ -121,6 +122,33 @@ describe("pickMatchedCase", () => {
       if (!matched) continue;
       expect(matched.entry.slug).toBe(pickCase(variable).entry.slug);
       expect(matched.finding.variable).toBe(variable);
+    }
+  });
+
+  it("keeps one case per seed and spreads seeds across the failed cases", () => {
+    const seeds = Array.from({ length: 40 }, (_, i) => `/explainers/p-${i}`);
+    const picks = seeds.map(
+      (seed) => pickMatchedCase("standing", fixtures, seed)?.entry.slug,
+    );
+    expect(pickMatchedCase("standing", fixtures, seeds[0])?.entry.slug).toBe(
+      picks[0],
+    );
+    expect(new Set(picks)).toEqual(new Set(["broad", "robodebt", "narrow"]));
+  });
+
+  it("only seeds among cases where the variable failed", () => {
+    for (const seed of ["/a", "/b", "/c", "/d"]) {
+      expect(pickMatchedCase("dependency", fixtures, seed)).toBeUndefined();
+    }
+  });
+});
+
+describe("seedIndex", () => {
+  it("stays in range", () => {
+    for (const seed of ["", "/", "/glossary/abstention", "x".repeat(500)]) {
+      const index = seedIndex(seed, 3);
+      expect(index).toBeGreaterThanOrEqual(0);
+      expect(index).toBeLessThan(3);
     }
   });
 });
