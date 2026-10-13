@@ -1,0 +1,216 @@
+---
+/**
+ * The consumption of adaptive capacity, drawn (theory essay of the same name).
+ *
+ * Two readings of the same weeks. Above, what the institution's dashboard
+ * shows: observed performance, made of designed capacity and human
+ * compensation, holding level. Below, the reserve the compensation is drawn
+ * from: people's attention, evenings, sleep and patience. Each week some is
+ * spent and less comes back, so the reserve falls while the line above stays
+ * flat. The dashed line is what contesting a decision costs (Law XII): once
+ * the reserve stays below it, the person can no longer object.
+ *
+ * Qualitative throughout. The rates are chosen to draw the shape, not taken
+ * from any measurement.
+ */
+interface Props {
+  level?: "h2" | "h3";
+}
+
+const { level = "h3" }: Props = Astro.props;
+const Heading = level;
+
+const plotX = 220;
+const plotWidth = 660;
+const WEEKS = 12;
+const weekWidth = plotWidth / WEEKS;
+const SPENT = 24; // drawn per week, in drawing units
+const RETURNED = 13; // recovered per week
+const reserveTop = 290;
+const contestY = 372;
+
+// The reserve, as a sawtooth: spent across most of each week, partly
+// recovered by its end.
+const reservePoints: [number, number][] = [[plotX, reserveTop]];
+let reserve = reserveTop;
+for (let week = 0; week < WEEKS; week++) {
+  const start = plotX + week * weekWidth;
+  reserve += SPENT;
+  reservePoints.push([start + weekWidth * 0.65, reserve]);
+  reserve -= RETURNED;
+  reservePoints.push([start + weekWidth, reserve]);
+}
+const reservePath = reservePoints
+  .map(([x, y], i) => `${i === 0 ? "M" : "L"} ${x.toFixed(1)} ${y}`)
+  .join(" ");
+
+// The week after which even the recovered level stays below the cost of
+// contesting.
+const belowWeek = Math.ceil((contestY - reserveTop) / (SPENT - RETURNED));
+const belowX = plotX + belowWeek * weekWidth;
+
+const drawWeeks = [1, 5, 9];
+const levelAfter = (week: number) =>
+  reserveTop + (week - 1) * (SPENT - RETURNED);
+---
+
+<figure class="state-diagram" aria-labelledby="adaptive-capacity-title">
+  <figcaption>
+    <p class="eyebrow">Theory, drawn</p>
+    <Heading id="adaptive-capacity-title">
+      A level dashboard over a falling reserve
+    </Heading>
+    <p class="muted">
+      Observed performance is designed capacity plus human compensation, and the
+      dashboard shows only the sum. The sum holds level. The compensation is
+      drawn each week from people's attention, evenings and sleep, and less
+      comes back than was spent. Below the dashed line, the person no longer has
+      what contesting a decision takes. A demonstration: no data behind the
+      shapes.
+    </p>
+  </figcaption>
+
+  <div class="diagram-scroll">
+    <svg
+      viewBox="0 0 920 500"
+      role="img"
+      class="state-diagram__svg"
+      aria-label="Two charts over the same weeks, with no numeric scale. Top, what the dashboard reports: observed performance, a stack of designed capacity and human compensation, flat across every week. Bottom, people's adaptive capacity: attention, evenings, sleep, patience. Each week some is spent on compensation and less is recovered, so the reserve falls in a sawtooth while the dashboard line stays flat. A dashed line marks what contesting a decision costs. Partway through, the reserve falls below it and stays there: the person can no longer contest, and the system wins by attrition."
+    >
+      <defs>
+        <marker
+          id="adaptive-capacity-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--status-warning)"></path>
+        </marker>
+      </defs>
+
+      {/* What the dashboard reports */}
+      <text x="30" y="36" class="state-diagram__state"
+        >What the dashboard reports</text
+      >
+      <text x={plotX} y="64" class="state-diagram__label"
+        >observed performance = designed capacity + human compensation</text
+      >
+      <rect
+        x={plotX}
+        y="80"
+        width={plotWidth}
+        height="45"
+        fill="color-mix(in srgb, var(--accent) 22%, var(--panel))"
+        stroke="none"></rect>
+      <rect
+        x={plotX}
+        y="125"
+        width={plotWidth}
+        height="45"
+        fill="color-mix(in srgb, var(--status-warning) 24%, var(--panel))"
+        stroke="none"></rect>
+      <line
+        x1={plotX}
+        x2={plotX + plotWidth}
+        y1="80"
+        y2="80"
+        stroke="var(--accent)"
+        stroke-width="3"></line>
+      <text x="30" y="84" class="state-diagram__clause">Observed: level</text>
+      <text x="30" y="108" class="state-diagram__label">Designed capacity</text>
+      <text x="30" y="153" class="state-diagram__label">Human compensation</text
+      >
+
+      {/* Drawn from the reserve */}
+      {
+        drawWeeks.map((week) => {
+          const x = plotX + (week - 0.5) * weekWidth;
+          return (
+            <line
+              x1={x}
+              x2={x}
+              y1="172"
+              y2={levelAfter(week) - 8}
+              stroke="var(--status-warning)"
+              stroke-width="1.5"
+              stroke-dasharray="4 4"
+              marker-end="url(#adaptive-capacity-arrow)"
+            />
+          );
+        })
+      }
+      <text
+        x={plotX + 1.5 * weekWidth - 16}
+        y="214"
+        class="state-diagram__label">Drawn each week</text
+      >
+
+      {/* The reserve */}
+      <text x="30" y="250" class="state-diagram__state">People's adaptive</text>
+      <text x="30" y="270" class="state-diagram__state">capacity</text>
+      <text x="30" y="292" class="state-diagram__label"
+        >Attention, evenings,</text
+      >
+      <text x="30" y="310" class="state-diagram__label">sleep, patience</text>
+
+      <rect
+        x={belowX}
+        y={contestY}
+        width={plotX + plotWidth - belowX}
+        height={460 - contestY}
+        fill="color-mix(in srgb, var(--status-danger) 10%, transparent)"
+        stroke="none"></rect>
+      <path
+        d={reservePath}
+        fill="none"
+        stroke="var(--status-warning)"
+        stroke-width="2.5"
+        stroke-linejoin="round"></path>
+      <line
+        x1={plotX}
+        x2={plotX + plotWidth}
+        y1={contestY}
+        y2={contestY}
+        stroke="var(--status-danger)"
+        stroke-width="1.5"
+        stroke-dasharray="6 4"></line>
+      <text
+        x="30"
+        y={contestY - 4}
+        class="state-diagram__clause"
+        fill="var(--status-danger)">What contesting</text
+      >
+      <text
+        x="30"
+        y={contestY + 14}
+        class="state-diagram__clause"
+        fill="var(--status-danger)">a decision costs</text
+      >
+      <text
+        x={belowX + 12}
+        y="454"
+        class="state-diagram__clause"
+        fill="var(--status-danger)">Can no longer contest</text
+      >
+
+      {/* Time */}
+      <line
+        x1={plotX}
+        x2={plotX + plotWidth}
+        y1="460"
+        y2="460"
+        stroke="var(--border)"
+        stroke-width="1"></line>
+      <text x={plotX} y="484" class="state-diagram__label">Week 1</text>
+      <text
+        x={plotX + plotWidth}
+        y="484"
+        text-anchor="end"
+        class="state-diagram__label">Week {WEEKS}</text
+      >
+    </svg>
+  </div>
+</figure>
