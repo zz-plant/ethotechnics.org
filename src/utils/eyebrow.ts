@@ -2,7 +2,7 @@
  * Whether an eyebrow only repeats its heading.
  *
  * An eyebrow earns its place when it says something the heading does not.
- * "Evidence pack" over "STD-01 Evidence Pack", or "Test cases" over "12 test
+ * "Evidence pack" over "STD-01 evidence pack", or "Test cases" over "12 test
  * cases", is a second label on the same thing. The test: every word of the
  * eyebrow longer than two letters already appears in the heading.
  */
