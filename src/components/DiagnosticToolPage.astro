@@ -14,7 +14,6 @@ interface Props {
   permalink: string;
   overviewTitle: string;
   methodologyDescription: string;
-  sampleOutputTitle: string;
   sampleOutputDescription: string;
   runSectionTitle: string;
   runSectionDescription: string;
@@ -36,7 +35,6 @@ const {
   permalink,
   overviewTitle,
   methodologyDescription,
-  sampleOutputTitle,
   sampleOutputDescription,
   runSectionTitle,
   runSectionDescription,
@@ -53,7 +51,6 @@ const {
 const anchorLinks = [
   { href: `#${runSectionId}`, label: runSectionEyebrow },
   { href: "#overview", label: "When to use it" },
-  { href: "#sample-output", label: "Sample output" },
   { href: "#methodology", label: "Methodology" },
 ];
 ---
@@ -78,6 +75,15 @@ const anchorLinks = [
   description={runSectionDescription}
   variant={runSectionVariant}
 >
+  {
+    /* What the readout contains used to be a section of its own further
+       down: a title, this sentence, and the sample link. It sits with the
+       tool that produces it. */
+  }
+  <p class="muted small">
+    Readout: {sampleOutputDescription}
+    <a href={tool.exampleHref}>{tool.exampleLabel}</a>
+  </p>
   <slot />
 </SectionBlock>
 
@@ -98,17 +104,6 @@ const anchorLinks = [
     ariaLabel={studioOffRamp.ariaLabel}
   />
   {tool.studioNote && <p class="muted small">{tool.studioNote}</p>}
-</SectionBlock>
-
-<SectionBlock
-  id="sample-output"
-  eyebrow="Sample output"
-  title={sampleOutputTitle}
-  description={sampleOutputDescription}
->
-  <a class="button ghost" href={tool.exampleHref}>
-    {tool.exampleLabel}
-  </a>
 </SectionBlock>
 
 <SectionBlock
