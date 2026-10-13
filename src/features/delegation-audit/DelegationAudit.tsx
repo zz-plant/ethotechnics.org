@@ -322,7 +322,7 @@ export function DelegationAudit() {
                       className="delegation-audit__label"
                       htmlFor={`${entry.id}-for-whom`}
                     >
-                      Which people it decides about
+                      Who it decides about
                     </label>
                     <input
                       id={`${entry.id}-for-whom`}
