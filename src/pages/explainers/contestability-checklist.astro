@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ActionIcon from "../../components/ActionIcon.astro";
 import NextStep from "../../components/NextStep.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
@@ -120,10 +121,12 @@ const checklistItems = [
         </p>
         <div class="contestability-summary__actions">
           <button class="button ghost" type="button" data-checklist-print>
+            <ActionIcon action="print" />
             Print checklist
           </button>
           <button class="button ghost" type="button" data-checklist-copy>
-            Copy checklist
+            <ActionIcon action="copy" />
+            <span data-button-label>Copy checklist</span>
           </button>
         </div>
       </aside>
@@ -140,6 +143,8 @@ const checklistItems = [
 </BaseLayout>
 
 <script>
+  import { setButtonLabel } from "../../client/button-label";
+
   const copyButton = document.querySelector<HTMLButtonElement>(
     "[data-checklist-copy]",
   );
@@ -170,14 +175,14 @@ const checklistItems = [
         .join("\n");
       try {
         await navigator.clipboard.writeText(checklistText);
-        copyButton.textContent = "Checklist copied";
+        setButtonLabel(copyButton, "Checklist copied");
         window.setTimeout(() => {
-          copyButton.textContent = "Copy checklist";
+          setButtonLabel(copyButton, "Copy checklist");
         }, 2000);
       } catch (error) {
-        copyButton.textContent = "Copy failed";
+        setButtonLabel(copyButton, "Copy failed");
         window.setTimeout(() => {
-          copyButton.textContent = "Copy checklist";
+          setButtonLabel(copyButton, "Copy checklist");
         }, 2000);
       }
     });

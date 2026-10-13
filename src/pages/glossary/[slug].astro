@@ -4,6 +4,7 @@ import "../../styles/components/glossary.css";
 
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ActionIcon from "../../components/ActionIcon.astro";
 import { glossaryContent } from "../../content/glossary";
 import { libraryContent } from "../../content/library";
 
@@ -549,7 +550,12 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
               <ul class="muted glossary-entry__resources">
                 {references.map((resource) => (
                   <li>
-                    <a href={resource.href}>{resource.label}</a>
+                    <a href={resource.href}>
+                      {resource.label}
+                      {resource.href.startsWith("http") && (
+                        <ActionIcon action="external" />
+                      )}
+                    </a>
                     {resource.type && (
                       <span class="muted"> · {resource.type}</span>
                     )}

@@ -1,4 +1,5 @@
 ---
+import ActionIcon from "./ActionIcon.astro";
 import type { PublicationMetadata } from "../content/types";
 import { formatDate } from "../utils/dates";
 import { resolveDoi } from "../utils/doi";
@@ -100,7 +101,8 @@ const hasMeta = Astro.slots.has("default");
             data-citation-text={apa}
             data-citation-format="APA"
           >
-            Copy APA
+            <ActionIcon action="copy" />
+            <span data-button-label>Copy APA</span>
           </button>
         )
       }
@@ -110,7 +112,8 @@ const hasMeta = Astro.slots.has("default");
         data-citation-text={pageUrl}
         data-citation-format="Permalink"
       >
-        Copy permalink
+        <ActionIcon action="copy" />
+        <span data-button-label>Copy permalink</span>
       </button>
       {
         variant === "compact" && (
@@ -166,7 +169,8 @@ const hasMeta = Astro.slots.has("default");
                 data-citation-text={apa}
                 data-citation-format="APA"
               >
-                Copy APA
+                <ActionIcon action="copy" />
+                <span data-button-label>Copy APA</span>
               </button>
             </div>
             <div class="citation-block__format">
@@ -178,7 +182,8 @@ const hasMeta = Astro.slots.has("default");
                 data-citation-text={mla}
                 data-citation-format="MLA"
               >
-                Copy MLA
+                <ActionIcon action="copy" />
+                <span data-button-label>Copy MLA</span>
               </button>
             </div>
             <div class="citation-block__format">
@@ -190,7 +195,8 @@ const hasMeta = Astro.slots.has("default");
                 data-citation-text={chicago}
                 data-citation-format="Chicago"
               >
-                Copy Chicago
+                <ActionIcon action="copy" />
+                <span data-button-label>Copy Chicago</span>
               </button>
             </div>
             <div class="citation-block__format">
@@ -202,7 +208,8 @@ const hasMeta = Astro.slots.has("default");
                 data-citation-text={bibtex}
                 data-citation-format="BibTeX"
               >
-                Copy BibTeX
+                <ActionIcon action="copy" />
+                <span data-button-label>Copy BibTeX</span>
               </button>
             </div>
             <div class="citation-block__format">
@@ -214,7 +221,8 @@ const hasMeta = Astro.slots.has("default");
                 data-citation-text={ris}
                 data-citation-format="RIS"
               >
-                Copy RIS
+                <ActionIcon action="copy" />
+                <span data-button-label>Copy RIS</span>
               </button>
             </div>
           </div>

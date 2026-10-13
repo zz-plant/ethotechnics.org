@@ -1,6 +1,7 @@
 ---
 import "../../styles/components/intake-form.css";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ActionIcon from "../../components/ActionIcon.astro";
 import NextStep from "../../components/NextStep.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionActions from "../../components/SectionActions.astro";
@@ -313,6 +314,7 @@ const buildAnchor = (id: string) =>
                   data-copy-value={buildAnchor(item.id)}
                   aria-label={`Copy link to ${item.title}`}
                 >
+                  <ActionIcon action="copy" />
                   Copy link
                 </button>
                 <span
@@ -397,6 +399,7 @@ const buildAnchor = (id: string) =>
                   data-copy-value={buildAnchor(item.id)}
                   aria-label={`Copy link to ${item.title}`}
                 >
+                  <ActionIcon action="copy" />
                   Copy link
                 </button>
                 <span

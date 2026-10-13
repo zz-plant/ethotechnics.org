@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ActionIcon from "../../components/ActionIcon.astro";
 import PageIntro from "../../components/PageIntro.astro";
 
 const title = "Retired tools";
@@ -68,24 +69,26 @@ const description =
     <ul>
       <li>
         <a href="/archive/retired-tools/source.tar.gz" download
-          >Download source archive</a
+          ><ActionIcon action="download" />Download source archive</a
         >
       </li>
       <li>
         <a href="/archive/retired-tools/manifest.json"
-          >Archive manifest and SHA-256 checksum</a
+          ><ActionIcon action="download" />Archive manifest and SHA-256 checksum</a
         >
       </li>
       <li>
         <a
           href="/archive/retired-tools/ethotechnics-agent-prompt-pack-v1.0.0.md"
-          download>Historical prompt pack v1.0.0</a
+          download
+          ><ActionIcon action="download" />Historical prompt pack v1.0.0</a
         >
       </li>
       <li>
         <a
           href="/archive/retired-tools/ethotechnics-agent-prompt-pack-v1.1.0.md"
-          download>Historical prompt pack v1.1.0</a
+          download
+          ><ActionIcon action="download" />Historical prompt pack v1.1.0</a
         >
       </li>
     </ul>

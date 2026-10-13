@@ -1,5 +1,6 @@
 ---
 import { SEO } from "astro-seo";
+import ActionIcon from "../components/ActionIcon.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import InlineScript from "../components/InlineScript.astro";
 import InlineStyle from "../components/InlineStyle.astro";
@@ -440,6 +441,7 @@ const pagefindType = pathSegments[0] ?? "";
                             target={link.external ? "_blank" : undefined}
                           >
                             {link.label}
+                            {link.external && <ActionIcon action="external" />}
                           </a>
                         </li>
                       ))}

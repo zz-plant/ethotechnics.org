@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { ActionIcon } from "../action-icon/ActionIcon";
 import {
   buildDefaultInput,
   createActionClass,
@@ -884,6 +885,7 @@ export function DelegationAudit() {
                 className="button ghost button--compact"
                 onClick={copyReadout}
               >
+                <ActionIcon action="copy" />
                 {copied ? "Copied" : "Copy readout"}
               </button>
               <button
@@ -891,6 +893,7 @@ export function DelegationAudit() {
                 className="button ghost button--compact"
                 onClick={exportSnapshot}
               >
+                <ActionIcon action="download" />
                 Export JSON
               </button>
               <button

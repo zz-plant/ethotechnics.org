@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ActionIcon from "../../components/ActionIcon.astro";
 import ValidatorMicroDiagram from "../../components/ValidatorMicroDiagram.astro";
 import { validatorsContent } from "../../content/validators";
 
@@ -106,6 +107,7 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
         >.
       </p>
       <button class="button ghost" type="button" data-validator-download>
+        <ActionIcon action="download" />
         Download JSON
       </button>
     </div>

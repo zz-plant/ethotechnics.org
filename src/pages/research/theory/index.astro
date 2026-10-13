@@ -4,6 +4,9 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
 import CardGrid from "../../../components/CardGrid.astro";
 import PageIntro from "../../../components/PageIntro.astro";
 import SectionBlock from "../../../components/SectionBlock.astro";
+import StateVariableGlyph, {
+  type StateVariableGlyphId,
+} from "../../../components/StateVariableGlyph.astro";
 
 import {
   safeguardsInTaxonomy,
@@ -107,7 +110,12 @@ const readingOrder = [
           return (
             <article class="card stack-sm">
               <div class="stack-xs">
-                <p class="eyebrow">{safeguard}</p>
+                <p class="eyebrow">
+                  <StateVariableGlyph
+                    variable={safeguard.toLowerCase() as StateVariableGlyphId}
+                    label={safeguard}
+                  />
+                </p>
                 <p class="small muted">
                   {items.length} {items.length === 1 ? "inquiry" : "inquiries"}
                 </p>
