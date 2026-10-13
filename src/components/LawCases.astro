@@ -1,0 +1,51 @@
+---
+/**
+ * The line under a law on /standards/laws naming the scored public failures
+ * whose findings cite it. The laws page used to state every law without a
+ * case, while the casebook tagged each finding with the laws it shows. This
+ * reads those tags, so a case added to the casebook appears here, and a law
+ * no finding cites says so instead of borrowing a case.
+ */
+import { cases } from "../content/casebook";
+
+interface Props {
+  /** The law's roman numeral, e.g. "IV". */
+  law: string;
+}
+
+const { law } = Astro.props;
+const cited = cases
+  .map((entry) => ({
+    slug: entry.slug,
+    title: entry.title,
+    variables: entry.findings
+      .filter((finding) => (finding.laws as string[]).includes(law))
+      .map((finding) => finding.variable.toLowerCase()),
+  }))
+  .filter((entry) => entry.variables.length > 0);
+---
+
+{
+  cited.length > 0 ? (
+    <p class="law-cases">
+      In the casebook:{" "}
+      {cited.map((entry, index) => (
+        <span>
+          <a href={`/casebook/${entry.slug}`}>{entry.title}</a>
+          {` (${entry.variables.join(", ")})${index === cited.length - 1 ? "." : ";"}`}
+        </span>
+      ))}
+    </p>
+  ) : (
+    <p class="law-cases">No scored case in the casebook cites this law yet.</p>
+  )
+}
+
+<style>
+  .law-cases {
+    margin: var(--space-1) 0 0;
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+</style>

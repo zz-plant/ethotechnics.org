@@ -902,6 +902,12 @@ export function DelegationAudit() {
                 {share.state === "saving" ? "Saving…" : "Share readout"}
               </button>
             </div>
+            <p className="delegation-audit__note">
+              Share readout stores your answers, including anything you typed,
+              on ethotechnics.org. Anyone with the link can open them for a
+              year, and there is no way to delete them before then. Copy readout
+              and Export JSON keep everything on this device.
+            </p>
             {share.state === "saved" && (
               <p className="delegation-audit__note" role="status">
                 Link copied:{" "}

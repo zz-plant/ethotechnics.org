@@ -250,7 +250,7 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Copy the readout or export the JSON snapshot for the record.",
         ],
         outputs: [
-          "Exposure score in workflow staff-week hours with its three inputs.",
+          "Exposure score with its three inputs. The bands (under 100 contained, under 1,000 material, 1,000 and over heavy) are this tool's convention, not a measured threshold; compare a workflow with its own earlier runs. Because the inputs are self-reported, the score does not meet the glossary's definition of an exposure score, which requires figures taken from records.",
           "A rating for each of the six questions, with the reasons behind it.",
           "A list of permissions nobody can justify, and whether decisions can be undone at three levels: technical, operational, and institutional.",
           "Findings linked to the STD-08 and STD-06 clause, the mechanism, and the eval suite.",
@@ -293,7 +293,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       },
       collectionCost: {
         respondentLabor:
-          "Twenty to thirty minutes of one person's time, declared before they begin. Past thirty minutes the readout returns not established rather than a score.",
+          "Twenty to thirty minutes of one person's time, declared before they begin. If it runs past thirty minutes, stop and record the workflow as not established; the tool still produces a score, and that score should not be used.",
         inputSource:
           "Respondent-supplied. The cost is the attention of whoever holds the answers, which is usually also whoever is audited.",
         answeredFromRecords: [
@@ -499,7 +499,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       methodOverview: {
         inputs: [
           "Scenario name and primary workflow.",
-          "Estimated task volume and handoff counts.",
+          "A 0–10 rating for each of seven workload drivers. The tool does not take task volume or handoff counts; note them beside the ratings if you have them.",
           "Known friction points and escalation paths.",
         ],
         procedure: [
@@ -541,13 +541,13 @@ export const diagnosticsContent: DiagnosticsContent = {
       },
       collectionCost: {
         respondentLabor:
-          "Ten to fifteen minutes for a group rating together. Past fifteen, the scenario is returned unscored.",
+          "Ten to fifteen minutes for a group rating together. If rating runs past fifteen minutes, record the scenario as unscored; the tool does not stop the group.",
         inputSource:
           "Respondent-supplied. The cost falls on the people who do the workflow, which is where the burden already sits.",
         answeredFromRecords: [
           "Handoff counts and task volume come from ticketing and workflow logs where they exist.",
           "Escalation frequency comes from the escalation and appeal record.",
-          "Friction points listed during prep are already documented as institutional debris.",
+          "Friction points listed during prep are already written down somewhere, such as a ticket or a runbook.",
         ],
         nonResponse:
           "A workflow nobody will rate is not a workflow without burden. The readout records the gap and stops there.",
@@ -653,7 +653,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         ],
         scoringLogic: [
           "Each component contributes its band weight; the total normalizes to 0–100.",
-          "Concern bands: critical, high, moderate, low.",
+          "Concern bands on the 0–100 total: critical from 80, high from 60, moderate from 40, low below 40. The cut points are this tool's convention, not a measured threshold.",
           "The score does not estimate how much extra work staff take on to cover for the system, financial cost, or a future trajectory.",
           "The two context questions never change the score. They add a readout line that says whether the answers describe an institution that lacks information or one that holds sole authority and has chosen to keep the arrangement.",
         ],
@@ -684,7 +684,7 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Challenge intake comes from the challenge register.",
         ],
         nonResponse:
-          "Unstated challenge volume is not low challenge volume. The score is withheld rather than reported as zero.",
+          "Unstated challenge volume is not low challenge volume. The form fills a default for every field, so a score always appears; if challenge volume is unknown, do not report that score.",
       },
       replicability: {
         runSteps: [

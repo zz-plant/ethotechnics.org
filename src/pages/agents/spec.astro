@@ -129,10 +129,16 @@ const fieldGuide = [
   <SectionBlock
     id="example"
     title="The object, by example"
-    description="Validate against the v2.0.0 schema, not this example. The example is in the v1.1.0 shape: v2.0.0 replaces approval_required with a grant reference for each action class and stop_override_authority with an intervention reference. Replace the IDs and clocks with your system's values."
+    description="This example is in the v1.1.0 shape and fails the v2.0.0 schema; a v2.0.0 instance that validates is linked below. In v2.0.0 four references are required (capability catalog, dependency record, intervention specification, substrate profile), a grant reference replaces approval_required for each action class, and an intervention reference replaces stop_override_authority. Replace the IDs and clocks with your system's values."
     variant="alt"
   >
     <ul class="muted">
+      <li>
+        Example that validates against v2.0.0:
+        <a href="/standards/examples/agent-safety-object-model.example.json"
+          >/standards/examples/agent-safety-object-model.example.json</a
+        >
+      </li>
       <li>
         Object model schema, v2.0.0:
         <a href="/standards/agent-safety-object-model.schema.json"

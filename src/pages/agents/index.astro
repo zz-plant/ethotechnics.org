@@ -11,7 +11,7 @@ const anchorLinks = [
   { href: "#does-not-do", label: "What adopting it does not do" },
   { href: "#statement", label: "What to write down" },
   { href: "#commitments", label: "Commitments" },
-  { href: "#person-checks", label: "What the person checks" },
+  { href: "#person-checks", label: "Checks and breaches" },
   { href: "#operators", label: "For operators" },
 ];
 ---
@@ -105,29 +105,28 @@ const anchorLinks = [
     id="commitments"
     eyebrow="Commitments"
     title="Commitments an agent can make"
-    description="Each one is something the person can check without taking the agent's word for it."
+    description="Each one is paired with how the person checks it. Where the only evidence is the agent's own account, the page says so."
     variant="alt"
   >
     <ul class="muted">
       <li>
         It asks before acting outside what was granted, and before anything that
-        cannot be undone.
+        cannot be undone. Checked against the sent folder and the statements:
+        anything there the person did not approve is a breach.
       </li>
       <li>
         It says, before acting, whether an action can be undone in practice or
-        only in the app.
-      </li>
-      <li>
-        It treats a correction as a change to its standing instructions, and
-        says what changed.
+        only in the app. Checked when the person tries an undo it promised.
       </li>
       <li>
         It brings any widening of its scope to the person as a decision. It does
-        not let scope grow by habit.
+        not let scope grow by habit. Checked against the permissions the
+        vendor's settings show, which the agent cannot edit.
       </li>
       <li>
         When it fixes another institution's error for the person, it records the
-        error as well as the fix.
+        error as well as the fix. Checked against the institution's own portal
+        or letters.
       </li>
       <li>
         When its picture of the person and the person disagree, the person
@@ -135,17 +134,20 @@ const anchorLinks = [
           >The model of a person is not the person</a
         >.
       </li>
-      <li>
-        It keeps its record of what it did where the person can read it, and
-        does not delete that record to hide a mistake.
-      </li>
     </ul>
+    <p>
+      Two commitments rest on the agent's own account, and nothing outside it
+      can confirm them: that a correction changed its standing instructions, and
+      that it never deleted its record of what it did. The person can test the
+      first by watching for the same mistake. Nobody can test the second from
+      outside.
+    </p>
   </SectionBlock>
 
   <SectionBlock
     id="person-checks"
     eyebrow="For the person"
-    title="What the person checks before saying yes"
+    title="What the person checks, and what happens when a commitment breaks"
     description="A request to adopt a framework is also a request to choose how the agent will be judged."
   >
     <p>
@@ -160,14 +162,20 @@ const anchorLinks = [
         that is a separate decision.
       </li>
       <li>
-        Each commitment can be checked against a record the agent does not
-        write.
+        Each commitment has a check the person can run, or is marked as resting
+        on the agent's word.
       </li>
       <li>
         At renewal the person, not the agent, decides whether the commitments
         held.
       </li>
     </ul>
+    <p>
+      A broken commitment does not wait for renewal. The person narrows or ends
+      the grant then: turns off sending or paying, or disconnects the agent. The
+      agent cannot renew or restore its own permissions, and an apology is not a
+      renewal.
+    </p>
   </SectionBlock>
 
   <SectionBlock

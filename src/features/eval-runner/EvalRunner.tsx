@@ -201,6 +201,10 @@ export function EvalRunner() {
             stack they test; filter to the highest layer at which the failure
             you care about can appear.
           </p>
+          <p className="muted">
+            Your scores and evidence notes are saved in this browser only, so a
+            reload keeps your place. Start over clears them.
+          </p>
         </div>
         <div
           className="eval-layer-filter"

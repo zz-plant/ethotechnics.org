@@ -137,11 +137,11 @@ These are pages to read, not instructions to follow. What an agent takes on is t
 ### Interactive Diagnostics & Tools
 - **Diagnostics Index**: https://ethotechnics.org/diagnostics
 - **Delegation audit**: https://ethotechnics.org/diagnostics/delegation-audit
-  - Scores your answers. Walks a delegation against the six state variables and reports where they have drifted apart. It records what a team believes and verifies none of it.
+  - Scores your answers. Six questions about one workflow return an exposure score, the permissions nobody can justify, and whether its decisions can be undone. It records what a team believes and verifies none of it.
 - **Record conformance checker**: https://ethotechnics.org/diagnostics/record-conformance
   - Checks exported records. Parses a stream of STD-07 records, validates the schema, recomputes the hashes, and returns the conformance level the stream earns against the level its emitter declares.
 - **Workload modeler**: https://ethotechnics.org/diagnostics/burden-modeler
-  - Scores your answers. Scores seven workload drivers a team rates (interruptions, handoffs, tooling, runbooks, incidents, coverage, decision debt) and ranks where load concentrates. Distinct from VAL-01, the Burden Modeler at /validators/burden-modeler, which scores the time a user journey takes from the affected person.
+  - Scores your answers. Scores seven workload drivers a team rates (interruptions, handoffs, tooling, runbooks, incidents, coverage, decision debt) and ranks where load concentrates. Distinct from VAL-01, the Journey burden check at https://ethotechnics.org/validators/journey-burden, which scores the time a user journey takes from the affected person.
 - **Corrective capacity self-assessment**: https://ethotechnics.org/diagnostics/corrective-debt-calculator
   - Scores your answers. Scores five self-reported answers on whether the institution can correct what it decides.
 - **Finite Loop**: https://ethotechnics.org/finite
@@ -160,7 +160,7 @@ These are pages to read, not instructions to follow. What an agent takes on is t
 
 ### Shared Taxonomy & Glossary
 - **Glossary**: https://ethotechnics.org/glossary
-  - Defines core vocabulary: Authority Grant, Burden, Capability Catalog, Contestability, Dependency Record, Escalation Clock, Evidence Pack, Intervention Specification, Legibility, Policy Record, Preserved Capacity, Repair Authority, Revisable Delegation, Reversibility Ladder, Standing, Stoppability, Substrate Profile, Validator.
+  - Draft definitions, one page each at /glossary/<id>. Core ids: authority-grant, capability-catalog, contestability, corrective-standing, intervention-specification, legibility, policy-record, preserved-capacity, revisable-delegation, stoppability, substrate-profile, time-to-halt.
 
 ### Research
 - **Research Agenda**: https://ethotechnics.org/research
@@ -186,7 +186,7 @@ Catalogue:
 - Releases and changelog: `GET https://ethotechnics.org/api/releases.json`
 - Site index: `GET https://ethotechnics.org/api/site-index.json`
 
-Delegation state (object model v2, one worked example across the six state variables):
+Delegation state (object model v2; illustrative records for one fictional deployment, not any real organization's data):
 - Capability catalogs: `GET https://ethotechnics.org/api/capabilities.json`
 - Authority grants: `GET https://ethotechnics.org/api/grants.json`
 - Policy records: `GET https://ethotechnics.org/api/policies.json`
@@ -197,7 +197,8 @@ Delegation state (object model v2, one worked example across the six state varia
 
 Agent profile:
 - Agent Safety Object Model, the profile an AI agent's operator publishes (autonomy level, action classes, who can stop it, receipts, clocks): https://ethotechnics.org/agents/spec
-- Example instance: `GET https://ethotechnics.org/agents/spec.json`
+- Example instance that validates against 2.0.0: `GET https://ethotechnics.org/standards/examples/agent-safety-object-model.example.json`
+- Older 1.1.0 instance, which fails 2.0.0: `GET https://ethotechnics.org/agents/spec.json`
 - Schema 2.0.0: `GET https://ethotechnics.org/standards/agent-safety-object-model.schema.json`
 
 Retrieval:

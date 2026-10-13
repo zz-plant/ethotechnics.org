@@ -87,7 +87,11 @@ const standardHref = (ref: string) => {
               {suite.status}
             </span>
           </li>
-          <li>Estimated time: {suite.estimatedTime}</li>
+          <li>
+            Estimated time: {suite.estimatedTime}, for a reviewer who knows the
+            protocol and has the evidence in hand. Gathering the evidence first
+            takes three to four times as long.
+          </li>
           {!stackLayer && <li>Layer: {suite.layer}</li>}
         </ul>
       </div>
@@ -97,7 +101,15 @@ const standardHref = (ref: string) => {
           <li>Method: {scoringMethodLabel}</li>
           <li>Passing score: {suite.scoringMethod.passingScore}%</li>
           <li>Failure threshold: {suite.scoringMethod.failureThreshold}%</li>
+          <li>
+            Between the two is neither: re-run the cases that scored low before
+            reporting a result.
+          </li>
         </ul>
+        <p class="small muted">
+          A pass is a reviewer's score against a written rubric. It is not a
+          certification, and no one issues one.
+        </p>
       </div>
     </div>
 
