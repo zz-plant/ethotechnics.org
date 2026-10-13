@@ -170,7 +170,9 @@ const doi = resolveDoi(publication.doi);
         </p>
         {earlierChanges.length > 0 && historyHref && (
           <p class="muted small">
-            <a href={historyHref}>Earlier versions ({earlierChanges.length})</a>
+            <a href={historyHref}>
+              Earlier versions ({earlierChanges.length}) &rarr;
+            </a>
           </p>
         )}
         {earlierChanges.length > 0 && !historyHref && (

@@ -44,7 +44,7 @@ const HeadingTag = `h${titleLevel}` as const;
 // several pages fed it the section name itself, so the page rendered a label
 // on a label: STANDARDS over *Standards*, FINITE [BETA] over *Finite [Beta]*.
 // Drop it when it adds nothing, including when the title already contains
-// it: EVIDENCE PACK over *STD-01 Evidence Pack*.
+// it: EVIDENCE PACK over *STD-01 evidence pack*.
 const trimmedEyebrow = eyebrow?.trim();
 const resolvedEyebrow =
   !trimmedEyebrow || eyebrowRestatesTitle(trimmedEyebrow, title)

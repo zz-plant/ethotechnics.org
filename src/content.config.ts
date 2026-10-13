@@ -499,7 +499,7 @@ const evidencePackSchema = z.object({
   title: z.string(),
   description: z.string(),
   permalink: z.string(),
-  eyebrow: z.string().optional().default("Evidence Pack"),
+  eyebrow: z.string().optional().default("Evidence pack"),
   standardId: z.string(),
   standardTitle: z.string(),
   published: z.string(),

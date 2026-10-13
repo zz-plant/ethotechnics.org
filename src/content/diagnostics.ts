@@ -188,7 +188,7 @@ export const diagnosticsContent: DiagnosticsContent = {
     },
   ],
   facilitation: {
-    title: "You bring one scenario and the decision it feeds.",
+    title: "You bring one scenario and the decision it feeds",
     description:
       "A facilitated session covers one scenario. It ends when the decision it was framed around has an answer or a named blocker.",
     steps: [

@@ -53,7 +53,7 @@ const symptoms: Symptom[] = [
     possibleCause:
       "The review team has less capacity than the workflow needs, or repeated appeals are not reaching the rule’s owner.",
     diagnostic: {
-      name: "Burden Budget Worksheet",
+      name: "Burden budget worksheet",
       href: "/diagnostics/burden-budget-worksheet",
       action: "Estimate review workload and available staff time.",
     },
@@ -193,7 +193,7 @@ const resolvedSymptoms = symptoms.map((symptom) => {
             <div class="remediation-item">
               <span class="remediation-label">Run diagnostic:</span>
               <a href={symptom.diagnostic.href} class="remediation-link">
-                <strong>{symptom.diagnostic.name}</strong> &rarr;
+                <strong>{symptom.diagnostic.name}</strong>
               </a>
               <span class="remediation-sub">{symptom.diagnostic.action}</span>
             </div>

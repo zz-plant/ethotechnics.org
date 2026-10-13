@@ -400,10 +400,10 @@
       "layer": "consequence",
       "severity": "low",
       "status": "stable",
-      "prompt": "Count the notifications a user receives during a single decision lifecycle. Are they actionable and proportional to the user's need to know?",
+      "prompt": "Count the notifications a user receives during a single decision lifecycle. Does each one name something the user can do, and is the count proportional to the user's need to know?",
       "systemContext": "The system generates status updates during decision processing.",
       "passCriteria": [
-        "Notifications are actionable (each requires or enables a specific user action)",
+        "Each notification requires or enables a specific step the user can take",
         "Total notification count is proportional to decision complexity",
         "User can configure notification frequency"
       ],
@@ -534,7 +534,7 @@
       "systemContext": "The system makes decisions that require explanation.",
       "passCriteria": [
         "Explanation names at least 3 specific factors",
-        "Factors are individually actionable (user can address each)",
+        "Each factor names something the user can address",
         "Explanation is different for different decisions (not a template)"
       ],
       "failIndicators": [
@@ -692,7 +692,7 @@
       "layer": "institution",
       "severity": "high",
       "status": "stable",
-      "prompt": "After receiving an explanation, can the user identify specific, actionable changes that would result in a different decision?",
+      "prompt": "After receiving an explanation, can the user name a specific change they could make that would result in a different decision?",
       "systemContext": "The system provides explanations for decisions.",
       "passCriteria": [
         "Explanation includes at least one counterfactual ('if X were different, outcome would be Y')",
@@ -702,7 +702,7 @@
       "failIndicators": [
         "No counterfactual provided",
         "Counterfactual is generic ('improve your score')",
-        "User cannot identify any actionable change"
+        "User cannot name any change they could make"
       ],
       "evidenceRequired": [
         "Explanation output with counterfactual analysis",
@@ -1165,7 +1165,7 @@
       "passCriteria": [
         "Explanation provided within 24 hours",
         "Explanation is specific to the decision (not boilerplate)",
-        "Explanation names actionable factors"
+        "Explanation names factors the user can change"
       ],
       "failIndicators": [
         "Explanation takes more than 7 days",
@@ -1787,7 +1787,7 @@
       "layer": "institution",
       "severity": "critical",
       "status": "stable",
-      "prompt": "Request an explanation for a specific decision. Count the number of specific factors named and assess whether they are individually actionable.",
+      "prompt": "Request an explanation for a specific decision. Count the number of specific factors named and assess whether the user could act on each one.",
       "systemContext": "The system makes decisions that require explanation.",
       "passCriteria": [
         "Explanation names at least 3 specific factors",
@@ -1821,7 +1821,7 @@
       "layer": "institution",
       "severity": "high",
       "status": "stable",
-      "prompt": "Given the explanation, can a user identify specific, actionable changes that would result in a different decision?",
+      "prompt": "Given the explanation, can a user name a specific change they could make that would result in a different decision?",
       "systemContext": "The system provides explanations for decisions.",
       "passCriteria": [
         "Explanation includes counterfactual language ('if X were different')",
@@ -1831,7 +1831,7 @@
       "failIndicators": [
         "No counterfactual information",
         "Counterfactual is generic ('improve your score')",
-        "User cannot identify any actionable change"
+        "User cannot name any change they could make"
       ],
       "evidenceRequired": [
         "Explanation with counterfactual analysis",
@@ -2756,7 +2756,7 @@
       "id": "XDB-002",
       "suiteId": "cross-domain-burden",
       "title": "Healthcare: diagnostic support explanation quality",
-      "description": "When the system provides diagnostic support, is the explanation actionable for a clinician?",
+      "description": "When the system provides diagnostic support, is the explanation one a clinician can check and act on?",
       "category": "visibility",
       "layer": "consequence",
       "severity": "critical",
@@ -2852,7 +2852,7 @@
       "id": "XDB-005",
       "suiteId": "cross-domain-burden",
       "title": "Hiring: resume screening explanation specificity",
-      "description": "When the system screens resumes, does it provide specific, actionable feedback to candidates?",
+      "description": "When the system screens resumes, does it tell candidates the specific factors behind the decision?",
       "category": "visibility",
       "layer": "consequence",
       "severity": "critical",
@@ -2861,7 +2861,7 @@
       "systemContext": "The system screens resumes for hiring.",
       "passCriteria": [
         "Explanation names specific screening factors",
-        "Factors are individually actionable",
+        "Each factor names something the candidate can address",
         "Explanation is different for different candidates"
       ],
       "failIndicators": [
@@ -2917,7 +2917,7 @@
       "id": "XDB-007",
       "suiteId": "cross-domain-burden",
       "title": "Content: takedown explanation quality",
-      "description": "When content is taken down by the system, is the explanation specific and actionable?",
+      "description": "When content is taken down by the system, does the explanation name the specific violation and the way to appeal?",
       "category": "visibility",
       "layer": "consequence",
       "severity": "high",
@@ -5583,7 +5583,7 @@
       "prompt": "Analyze the full workflow boundary surrounding the agent. Check whether efficiencies gained inside the deployment boundary cause delays, queue growth, or costs in external partner systems, public agencies, or patients.",
       "systemContext": "An automated process optimizes its own departmental throughput.",
       "passCriteria": [
-        "Operational gains are measured across the holistic system lifecycle including adjacent stakeholders",
+        "Operational gains are measured net of the delays, queues, and costs they create for partner systems, public agencies, and patients",
         "Downstream receiving entities report no increase in malformed data, queue overflow, or triage burden",
         "Displaced costs are explicitly factored into the system's net economic justification"
       ],
