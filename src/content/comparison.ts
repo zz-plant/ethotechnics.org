@@ -41,7 +41,7 @@ export const instituteStudioComparisonContent: InstituteStudioComparisonContent 
     cards: [
       {
         eyebrow: "Institute",
-        title: "Open guidance and self-serve diagnostics.",
+        title: "Open guidance and self-serve diagnostics",
         description:
           "Work from the openly licensed mechanisms catalog (CC BY-SA 4.0), and run a diagnostic yourself for a first reading of readiness.",
         actions: [
@@ -55,7 +55,7 @@ export const instituteStudioComparisonContent: InstituteStudioComparisonContent 
       },
       {
         eyebrow: "Studio",
-        title: "Commissioned evaluation of healthcare AI.",
+        title: "Commissioned evaluation of healthcare AI",
         description: studioSummary,
         actions: [
           {

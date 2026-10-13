@@ -122,7 +122,7 @@ export function BurdenModeler() {
     <div className="panel panel--glass burden-modeler" data-burden-modeler>
       <div className="burden-modeler__header">
         <p className="eyebrow">Workload Modeler</p>
-        <h2>See where the workload piles up and what would reduce it.</h2>
+        <h2>See where the workload piles up and what would reduce it</h2>
         <p className="muted">
           Rate from 0 to 10 how much operational and cognitive load each factor
           adds to your scenario. The model returns a burden index, ranks the
