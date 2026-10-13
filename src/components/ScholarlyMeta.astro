@@ -6,12 +6,22 @@ type Props = {
   publication: PublicationMetadata;
   label?: string;
   permalink?: string;
+  /** Anchor for this block, so another page can link its history. */
+  id?: string;
+  /**
+   * Where the full history is published, when this page shares another
+   * page's publication record. Glossary entries carry the glossary's
+   * changelog, and 386 of them listed the same eighteen versions.
+   */
+  historyHref?: string;
 };
 
 const {
   publication,
   label = "Scholarly metadata",
   permalink,
+  id,
+  historyHref,
 }: Props = Astro.props;
 const pageUrl = permalink
   ? Astro.site
@@ -49,7 +59,7 @@ const doi = resolveDoi(publication.doi);
      reader scans for; the latest change shows when opened, and the rest of
      the history sits behind its own toggle. */
 }
-<details class="callout scholarly-meta">
+<details class="callout scholarly-meta" id={id}>
   <summary class="scholarly-meta__summary">
     <span class="eyebrow">{label}</span>
     <span class="muted small">
@@ -145,7 +155,12 @@ const doi = resolveDoi(publication.doi);
           <strong>{latestChange.version}</strong> · {latestChange.date} —{" "}
           {latestChange.summary}
         </p>
-        {earlierChanges.length > 0 && (
+        {earlierChanges.length > 0 && historyHref && (
+          <p class="muted small">
+            <a href={historyHref}>Earlier versions ({earlierChanges.length})</a>
+          </p>
+        )}
+        {earlierChanges.length > 0 && !historyHref && (
           <details class="scholarly-meta__history">
             <summary class="muted small">
               Earlier versions ({earlierChanges.length})
