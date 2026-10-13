@@ -1,0 +1,106 @@
+---
+/**
+ * A worked example's clocks, one bar per clock on one linear scale of hours.
+ * Every clock starts at the decision, so every bar starts at zero and its
+ * length is the deadline. Under each bar: what is due by then, and what
+ * happens when the deadline passes. The list is the content; the bars and the
+ * axis are aria-hidden. The hours come from `src/content/use-case-clocks.ts`,
+ * which the page's receipt payload reads too.
+ */
+import "../styles/components/clock-timeline.css";
+import type { ClockSet } from "../content/use-case-clocks";
+
+interface Props {
+  clocks: ClockSet;
+  /** Prefix for the heading id, unique on the page. */
+  id?: string;
+  level?: "h2" | "h3";
+  title?: string;
+  /** One sentence under the title. */
+  caption?: string;
+}
+
+const {
+  clocks,
+  id = "clock-timeline",
+  level = "h3",
+  title = "The clocks, drawn to one scale",
+  caption = "Each bar runs from the decision to its deadline, on one scale of hours.",
+}: Props = Astro.props;
+const Heading = level;
+
+const longest = Math.max(...clocks.clocks.map((clock) => clock.hours));
+const step = longest > 48 ? 24 : longest > 24 ? 12 : longest > 12 ? 6 : 2;
+const scaleHours = Math.ceil(longest / step) * step;
+const ticks = Array.from(
+  { length: scaleHours / step + 1 },
+  (_, index) => index * step,
+);
+const lastTick = ticks[ticks.length - 1];
+
+const formatHours = (hours: number) => {
+  const base = `${hours} ${hours === 1 ? "hour" : "hours"}`;
+  return hours >= 48 && hours % 24 === 0
+    ? `${base} (${hours / 24} days)`
+    : base;
+};
+---
+
+<figure
+  class="clock-timeline"
+  aria-labelledby={`${id}-title`}
+  style={`--clock-steps: ${ticks.length - 1}`}
+>
+  <figcaption class="clock-timeline__caption">
+    <Heading id={`${id}-title`} class="clock-timeline__title">{title}</Heading>
+    <p class="small muted">{caption}</p>
+  </figcaption>
+  <p class="clock-timeline__start">
+    <span class="clock-timeline__hour">Hour 0</span>
+    <span>{clocks.start}</span>
+  </p>
+  <ol class="clock-timeline__list">
+    {
+      clocks.clocks.map((clock) => (
+        <li class="clock-timeline__row">
+          <span class="clock-timeline__name">{clock.label}</span>
+          <span class="clock-timeline__value">{formatHours(clock.hours)}</span>
+          <span class="clock-timeline__track" aria-hidden="true">
+            <span
+              class="clock-timeline__bar"
+              style={`--clock-share: ${(clock.hours / scaleHours).toFixed(4)}`}
+            />
+          </span>
+          <dl class="clock-timeline__terms">
+            <div>
+              <dt>Due</dt>
+              <dd>{clock.due}</dd>
+            </div>
+            <div class="clock-timeline__missed">
+              <dt>If missed</dt>
+              <dd>{clock.ifMissed}</dd>
+            </div>
+          </dl>
+        </li>
+      ))
+    }
+  </ol>
+  <div class="clock-timeline__axis" aria-hidden="true">
+    {
+      ticks.map((hour) => (
+        <span
+          class:list={[
+            "clock-timeline__tick",
+            { "clock-timeline__tick--end": hour === lastTick },
+          ]}
+          style={`--tick-at: ${(hour / scaleHours).toFixed(4)}`}
+        >
+          {hour}
+          {hour === lastTick && (
+            <span class="clock-timeline__unit"> hours</span>
+          )}
+        </span>
+      ))
+    }
+  </div>
+</figure>
