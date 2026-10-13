@@ -56,7 +56,7 @@ function init(): void {
     if (item.dataset.caseHref && item.dataset.caseTitle) {
       const link = document.createElement("a");
       link.href = item.dataset.caseHref;
-      link.textContent = `See it go wrong in ${item.dataset.caseTitle} →`;
+      link.textContent = `See it go wrong in ${item.dataset.caseTitle}`;
       li.appendChild(link);
     }
     return li;

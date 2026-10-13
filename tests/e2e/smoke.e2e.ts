@@ -47,7 +47,7 @@ test.describe("Homepage smoke", () => {
       page.getByRole("link", { name: "Test your system in 60 seconds" }),
     ).toBeVisible();
     await expect(
-      page.getByRole("link", { name: "Triage a failure in progress →" }),
+      page.getByRole("link", { name: "Triage a failure in progress" }),
     ).toBeVisible();
   });
 });

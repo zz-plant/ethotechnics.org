@@ -387,13 +387,10 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           {
             explainer && (
               <p class="glossary-entry__explainer">
-                <a href={explainer.data.permalink}>
-                  {explainer.data.title}
-                  <span aria-hidden="true"> &rarr;</span>
-                </a>
+                <a href={explainer.data.permalink}>{explainer.data.title}</a>
                 <span class="muted small">
                   {" "}
-                  The explainer, with a worked example
+                  — the explainer, with a worked example
                 </span>
               </p>
             )
