@@ -1,0 +1,262 @@
+---
+/**
+ * The human subsidy, drawn (theory essay "The human subsidy to institutional
+ * continuity").
+ *
+ * Three parts of one mechanism, top to bottom. Accommodation runs from the
+ * person to the institution, the reverse of the usual assumption. The outcome
+ * the institution reports is its formal organization plus the uncounted work
+ * of the people it relies on, in the essay's eight kinds. The institution
+ * books that work as its people's character, where the essay reads a debt it
+ * owes. No quantities: the split of the bar is not a measurement.
+ */
+interface Props {
+  level?: "h2" | "h3";
+}
+
+const { level = "h3" }: Props = Astro.props;
+const Heading = level;
+
+const kinds = [
+  "Repair",
+  "Coordination",
+  "Interpretive",
+  "Anticipatory",
+  "Affective",
+  "Self-regulatory",
+  "Risk-bearing",
+  "Temporal",
+];
+
+const subsidyX = 410;
+// Uneven columns, so the longest names in the second row have room at the
+// larger phone label size.
+const kindColumns = [0, 100, 240, 360];
+const subsidyWidth = 480;
+---
+
+<figure class="state-diagram" aria-labelledby="human-subsidy-title">
+  <figcaption>
+    <p class="eyebrow">Theory, drawn</p>
+    <Heading id="human-subsidy-title">Whose work the outcome runs on</Heading>
+    <p class="muted">
+      The institution reports one outcome and credits it to its formal parts.
+      Part of that outcome is work supplied by people it does not count, and the
+      accommodation runs from them to it. The institution books their work as
+      their character, not as its debt. The split of the bar is drawn, not
+      measured.
+    </p>
+  </figcaption>
+
+  <div class="diagram-scroll">
+    <svg
+      viewBox="0 0 920 520"
+      role="img"
+      class="state-diagram__svg"
+      aria-label="Diagram in three parts. Top: the institution on the left and the people it does not count on the right, staff, patients, claimants and families. The assumed direction, the institution accommodating the person, is drawn dashed. The direction in operation, the person accommodating the institution, is drawn solid. Middle: the outcome the institution reports, one bar. Its left part is the formal organization, which is counted. Its right part is uncounted work supplied by the people: repair, coordination, interpretive, anticipatory, affective, self-regulatory, risk-bearing and temporal. Bottom: the institution books that work as its people's character, dependable, flexible, professional, experienced, resilient. The essay reads it as a debt the institution owes, which comes due when one person can no longer carry it."
+    >
+      <defs>
+        <marker
+          id="human-subsidy-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--border)"></path>
+        </marker>
+        <marker
+          id="human-subsidy-warning-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--status-warning)"></path>
+        </marker>
+      </defs>
+
+      {/* The two parties */}
+      <g class="state-diagram__node" transform="translate(30, 30)">
+        <rect
+          width="230"
+          height="120"
+          rx="8"
+          fill="var(--panel)"
+          stroke="var(--accent)"></rect>
+        <text x="115" y="44" text-anchor="middle" class="state-diagram__state"
+          >The institution</text
+        >
+        <text x="115" y="72" text-anchor="middle" class="state-diagram__label"
+          >Staffing, software,</text
+        >
+        <text x="115" y="92" text-anchor="middle" class="state-diagram__label"
+          >protocols, budget</text
+        >
+      </g>
+
+      <g class="state-diagram__node" transform="translate(660, 30)">
+        <rect width="230" height="120" rx="8"></rect>
+        <text x="115" y="44" text-anchor="middle" class="state-diagram__state"
+          >People it does not count</text
+        >
+        <text x="115" y="72" text-anchor="middle" class="state-diagram__label"
+          >Staff, patients,</text
+        >
+        <text x="115" y="92" text-anchor="middle" class="state-diagram__label"
+          >claimants, families</text
+        >
+      </g>
+
+      {/* Assumed direction */}
+      <line
+        x1="262"
+        y1="66"
+        x2="656"
+        y2="66"
+        stroke="var(--border)"
+        stroke-width="2"
+        stroke-dasharray="4 5"
+        marker-end="url(#human-subsidy-arrow)"></line>
+      <text x="460" y="54" text-anchor="middle" class="state-diagram__label"
+        >Assumed: the institution accommodates the person</text
+      >
+
+      {/* Direction in operation */}
+      <line
+        x1="658"
+        y1="124"
+        x2="264"
+        y2="124"
+        stroke="var(--status-warning)"
+        stroke-width="2.5"
+        marker-end="url(#human-subsidy-warning-arrow)"></line>
+      <text x="460" y="174" text-anchor="middle" class="state-diagram__clause"
+        >In operation: the person accommodates the institution</text
+      >
+
+      {/* Their work fills the uncounted part of the outcome */}
+      <line
+        x1="775"
+        y1="152"
+        x2="775"
+        y2="222"
+        stroke="var(--status-warning)"
+        stroke-width="2"
+        marker-end="url(#human-subsidy-warning-arrow)"></line>
+      <text x="787" y="200" class="state-diagram__label">Their work</text>
+
+      {/* The outcome it reports */}
+      <text x="30" y="214" class="state-diagram__state"
+        >The outcome it reports</text
+      >
+      <rect
+        x="30"
+        y="228"
+        width={subsidyX - 30}
+        height="44"
+        rx="4"
+        fill="color-mix(in srgb, var(--accent) 22%, var(--panel))"
+        stroke="var(--accent)"></rect>
+      <rect
+        x={subsidyX}
+        y="228"
+        width={subsidyWidth}
+        height="44"
+        rx="4"
+        fill="color-mix(in srgb, var(--status-warning) 22%, var(--panel))"
+        stroke="var(--status-warning)"></rect>
+      {
+        kinds
+          .slice(1)
+          .map((_, i) => (
+            <line
+              x1={subsidyX + ((i + 1) * subsidyWidth) / kinds.length}
+              x2={subsidyX + ((i + 1) * subsidyWidth) / kinds.length}
+              y1="228"
+              y2="272"
+              stroke="var(--status-warning)"
+              stroke-width="1"
+            />
+          ))
+      }
+      <text x="220" y="255" text-anchor="middle" class="state-diagram__state"
+        >Formal organization</text
+      >
+      {
+        kinds.map((_, i) => (
+          <text
+            x={subsidyX + ((i + 0.5) * subsidyWidth) / kinds.length}
+            y="255"
+            text-anchor="middle"
+            class="state-diagram__state"
+          >
+            {i + 1}
+          </text>
+        ))
+      }
+      <text x="220" y="296" text-anchor="middle" class="state-diagram__clause"
+        >Counted</text
+      >
+      <text
+        x={subsidyX}
+        y="296"
+        class="state-diagram__clause"
+        fill="var(--status-danger)">Uncounted: eight kinds of work</text
+      >
+      {
+        kinds.map((kind, i) => (
+          <text
+            x={subsidyX + kindColumns[i % 4]}
+            y={322 + Math.floor(i / 4) * 22}
+            class="state-diagram__label"
+          >
+            {i + 1}. {kind}
+          </text>
+        ))
+      }
+
+      {/* How it is booked, and what it is */}
+      <line
+        x1="30"
+        y1="376"
+        x2="890"
+        y2="376"
+        stroke="var(--border)"
+        stroke-width="1"
+        stroke-dasharray="4 4"></line>
+
+      <text x="30" y="410" class="state-diagram__state">Booked as</text>
+      <text x="200" y="410" class="state-diagram__label"
+        >The people's character: dependable, flexible, professional,</text
+      >
+      <text x="200" y="430" class="state-diagram__label"
+        >experienced, resilient. An asset the institution has.</text
+      >
+
+      <text
+        x="30"
+        y="472"
+        class="state-diagram__state"
+        fill="var(--status-danger)">What it is</text
+      >
+      <text
+        x="200"
+        y="472"
+        class="state-diagram__clause"
+        fill="var(--status-danger)"
+        >A debt the institution owes, unrecorded.</text
+      >
+      <text x="200" y="492" class="state-diagram__label"
+        >It comes due where one person can no longer carry it, which is</text
+      >
+      <text x="200" y="512" class="state-diagram__label"
+        >where the failure shows, not where it started.</text
+      >
+    </svg>
+  </div>
+</figure>

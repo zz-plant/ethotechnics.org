@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { ActionIcon } from "../action-icon/ActionIcon";
 import {
   suiteOptions,
   layerOptions,
@@ -311,6 +312,7 @@ export function EvalRunner() {
 
         <div className="eval-actions">
           <button type="button" className="button ghost" onClick={handleExport}>
+            <ActionIcon action="download" />
             Export results
           </button>
           <button

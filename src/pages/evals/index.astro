@@ -4,6 +4,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import FiniteSection from "../../components/FiniteSection.astro";
+import EvalStackFigure from "../../components/EvalStackFigure.astro";
 import { evalsContent } from "../../content/evals";
 import { evalTestCases } from "../../content/eval-test-cases";
 import { tier1Checks } from "../../harness/checks";
@@ -21,8 +22,6 @@ const {
   suites,
   evaluationStack,
 } = evalsContent;
-
-const layersWithSuites = new Set(suites.map((suite) => suite.layer));
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -71,25 +70,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     title={evaluationStack.title}
     description={evaluationStack.description}
   >
-    <ol class="eval-stack">
-      {
-        evaluationStack.layers.map((layer) => (
-          <li class="eval-stack__layer">
-            <p class="eyebrow">{layer.title}</p>
-            <p>
-              <strong>{layer.question}</strong>
-            </p>
-            <p class="muted small">{layer.example}</p>
-            {!layersWithSuites.has(layer.id) && (
-              <p class="muted small">
-                No suite here sits at this layer; the site assumes it has been
-                evaluated elsewhere.
-              </p>
-            )}
-          </li>
-        ))
-      }
-    </ol>
+    <EvalStackFigure detail />
   </SectionBlock>
 
   {
@@ -252,26 +233,3 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 
   <InlineScript type="application/ld+json" code={structuredDataJson} />
 </BaseLayout>
-
-<style>
-  .eval-stack {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--space-3);
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    counter-reset: layer;
-  }
-
-  .eval-stack__layer {
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    padding: var(--space-4);
-    counter-increment: layer;
-  }
-
-  .eval-stack__layer .eyebrow::before {
-    content: counter(layer) ". ";
-  }
-</style>

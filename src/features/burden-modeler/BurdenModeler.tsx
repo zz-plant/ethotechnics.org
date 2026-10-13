@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { ActionIcon } from "../action-icon/ActionIcon";
 import {
   burdenCategories,
   burdenDrivers,
@@ -340,6 +341,7 @@ export function BurdenModeler() {
               className="button ghost button--compact"
               onClick={exportSnapshot}
             >
+              <ActionIcon action="download" />
               Export JSON
             </button>
           </div>
@@ -449,6 +451,7 @@ export function BurdenModeler() {
               rel="noopener noreferrer"
             >
               Ethotechnics Studio
+              <ActionIcon action="external" />
             </a>
           </div>
         </div>

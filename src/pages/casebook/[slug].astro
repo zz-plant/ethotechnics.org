@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ActionIcon from "../../components/ActionIcon.astro";
 import { formatDate } from "../../utils/dates";
 import CaseTimeline from "../../components/CaseTimeline.astro";
 import PageIntro from "../../components/PageIntro.astro";
@@ -256,7 +257,8 @@ const sourceKind = {
               rel="noopener noreferrer"
             >
               <strong>{entry.diagnosticStudy.title}</strong> ·{" "}
-              {entry.diagnosticStudy.source} ↗
+              {entry.diagnosticStudy.source}
+              <ActionIcon action="external" />
             </a>
           </p>
           <p class="case-diagnostic-card__summary">
@@ -282,6 +284,9 @@ const sourceKind = {
             {source.href ? (
               <a href={source.href} rel="noopener noreferrer">
                 {source.label}
+                {source.href.startsWith("http") && (
+                  <ActionIcon action="external" />
+                )}
               </a>
             ) : (
               <span>{source.label}</span>

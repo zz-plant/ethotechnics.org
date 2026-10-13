@@ -1,0 +1,189 @@
+/* A worked example's clocks (ClockTimeline.astro). One bar per clock on a
+   shared linear axis of hours, every bar starting at the decision. Each bar's
+   length comes from `--clock-share`, its hours over the scale's hours, set on
+   the element; `--clock-steps`, the number of axis steps, draws a faint
+   gridline in every track at each tick. A bar too short to see keeps a minimum width; the label beside
+   it carries the figure. The axis follows halt-bars.css. */
+@layer components {
+  .clock-timeline {
+    display: grid;
+    gap: var(--space-4);
+    margin: var(--space-5) 0 0;
+    min-width: 0;
+    color: var(--text);
+  }
+
+  .clock-timeline__caption {
+    display: grid;
+    gap: var(--space-2);
+    max-width: 68ch;
+  }
+
+  .clock-timeline__title {
+    margin: 0;
+    font-size: var(--text-h4);
+  }
+
+  .clock-timeline__caption p {
+    margin: 0;
+  }
+
+  .clock-timeline__start {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-1) var(--space-3);
+    margin: 0;
+    padding-inline-start: var(--space-3);
+    border-inline-start: 2px solid var(--accent);
+    font-size: var(--text-sm);
+  }
+
+  .clock-timeline__hour {
+    font-family: var(--sans);
+    font-weight: 650;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .clock-timeline__list {
+    display: grid;
+    gap: var(--space-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Name and value share a line where they fit; the value wraps below the
+     name, still right-aligned, where they do not. */
+  .clock-timeline__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-2) var(--space-3);
+  }
+
+  .clock-timeline__name {
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    font-weight: 650;
+  }
+
+  .clock-timeline__value {
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    margin-inline-start: auto;
+    text-align: end;
+  }
+
+  .clock-timeline__track {
+    flex: 1 0 100%;
+    display: block;
+    height: var(--space-3);
+    border-radius: var(--radius-xs);
+    background:
+      repeating-linear-gradient(
+        to right,
+        var(--border) 0 1px,
+        transparent 1px calc(100% / var(--clock-steps, 1))
+      ),
+      color-mix(in srgb, var(--border) 45%, transparent);
+  }
+
+  /* The bar ends in a darker cap: the deadline itself. */
+  .clock-timeline__bar {
+    display: block;
+    height: 100%;
+    width: max(0.35rem, calc(var(--clock-share, 0) * 100%));
+    border-radius: var(--radius-xs);
+    background: linear-gradient(
+      to left,
+      var(--accent-strong) 0.25rem,
+      var(--accent) 0.25rem
+    );
+  }
+
+  .clock-timeline__terms {
+    flex: 1 0 100%;
+    display: grid;
+    gap: var(--space-1);
+    margin: 0;
+    font-size: var(--text-sm);
+  }
+
+  .clock-timeline__terms div {
+    display: grid;
+    grid-template-columns: 6.5em 1fr;
+    gap: var(--space-3);
+  }
+
+  .clock-timeline__terms dt {
+    font-family: var(--sans);
+    font-weight: 650;
+    color: var(--muted);
+  }
+
+  .clock-timeline__terms dd {
+    margin: 0;
+  }
+
+  .clock-timeline__missed dt {
+    color: var(--text);
+  }
+
+  @media (max-width: 480px) {
+    .clock-timeline__terms div {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .clock-timeline__unit {
+      display: none;
+    }
+  }
+
+  .clock-timeline__axis {
+    position: relative;
+    height: 1.9em;
+    border-top: 1px solid var(--border);
+    font-family: var(--sans);
+    font-size: var(--text-xs);
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .clock-timeline__tick {
+    position: absolute;
+    top: 0.25em;
+    left: calc(var(--tick-at, 0) * 100%);
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+
+  .clock-timeline__tick:first-child {
+    transform: none;
+  }
+
+  .clock-timeline__tick--end {
+    transform: translateX(-100%);
+  }
+
+  .clock-timeline__tick::before {
+    content: "";
+    position: absolute;
+    top: -0.3em;
+    left: 50%;
+    width: 1px;
+    height: 0.25em;
+    background: var(--border);
+  }
+
+  .clock-timeline__tick:first-child::before {
+    left: 0;
+  }
+
+  .clock-timeline__tick--end::before {
+    left: 100%;
+  }
+}

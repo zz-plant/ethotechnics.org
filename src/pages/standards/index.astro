@@ -4,6 +4,7 @@ import InlineScript from "../../components/InlineScript.astro";
 import "../../styles/components/standards.css";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
+import ActionIcon from "../../components/ActionIcon.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import SearchIds from "../../components/SearchIds.astro";
 import CardGrid from "../../components/CardGrid.astro";
@@ -257,7 +258,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           <a href="/standards/authority-grant.schema.json"
             >Published authority-grant schema</a
           > · <a href="/standards/examples/authority-grant.example.json"
-            >Download example</a
+            ><ActionIcon action="download" />Download example</a
           >
         </p>
         <div class="standards-code-card__header">

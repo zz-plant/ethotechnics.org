@@ -188,6 +188,25 @@
     box-shadow: var(--focus-ring);
   }
 
+  /* Print, copy, download, and external-link icons (ActionIcon). Sized to
+     the text. The margin is the gap where the parent is not a flex row: an
+     action icon leads its label, an external-link arrow trails it. */
+  .action-icon {
+    flex: none;
+    inline-size: 1em;
+    block-size: 1em;
+    margin-inline-end: 0.4em;
+    vertical-align: -0.125em;
+  }
+
+  .action-icon--trailing {
+    margin-inline: 0.25em 0;
+  }
+
+  .button > .action-icon {
+    margin: 0;
+  }
+
   .status-pill {
     display: inline-flex;
     align-items: center;

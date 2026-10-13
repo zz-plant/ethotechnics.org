@@ -3,13 +3,18 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
 import PageIntro from "../../../components/PageIntro.astro";
 import SectionBlock from "../../../components/SectionBlock.astro";
 import UseCaseFit from "../../../components/UseCaseFit.astro";
-import CardGrid from "../../../components/CardGrid.astro";
-import CardItem from "../../../components/CardItem.astro";
 import WorkedExampleTerms from "../../../components/WorkedExampleTerms.astro";
+import ClockTimeline from "../../../components/ClockTimeline.astro";
+import {
+  clockHoursPhrase,
+  receiptClocksText,
+  useCaseClocks,
+} from "../../../content/use-case-clocks";
+
+const clocks = useCaseClocks["automated-eligibility-denial"];
 
 const pageTitle = "Automated eligibility denial: worked example";
-const pageDescription =
-  "An automated eligibility denial on an income mismatch, with a receipt, a named owner, an appeal path, and 4-, 48-, and 120-hour clocks.";
+const pageDescription = `An automated eligibility denial on an income mismatch, with a receipt, a named owner, an appeal path, and ${clockHoursPhrase(clocks)} clocks.`;
 
 const receiptPayload = `{
   "schema_version": "1.0.0",
@@ -19,7 +24,7 @@ const receiptPayload = `{
   "subject": { "id": "app-99114", "type": "application" },
   "action": { "class": "WRITE", "description": "Deny eligibility", "reversible": true },
   "decision": { "decision_type": "eligibility_denial", "reason_codes": ["INCOME-MISMATCH"] },
-  "clocks": { "ack": { "hours": 4 }, "review": { "hours": 48 }, "remedy": { "hours": 120 } },
+  "clocks": ${receiptClocksText(clocks)},
   "appeal_path": { "url": "/appeals/eligibility", "channel": "in-product form" }
 }`;
 ---
@@ -58,26 +63,7 @@ const receiptPayload = `{
     description="Applicants and reviewers see the same clocks."
     variant="alt"
   >
-    <CardGrid className="grid--three">
-      <CardItem title="Ack clock" description="4 hours">
-        <p class="muted">
-          The owner confirms it has the case and tells the applicant when review
-          will finish.
-        </p>
-      </CardItem>
-      <CardItem title="Review clock" description="48 hours">
-        <p class="muted">
-          A person reviews the denial and upholds it, reverses it, or records an
-          exception.
-        </p>
-      </CardItem>
-      <CardItem title="Remedy clock" description="120 hours">
-        <p class="muted">
-          The applicant gets a reversal, compensation, or a fallback that keeps
-          essential support in place.
-        </p>
-      </CardItem>
-    </CardGrid>
+    <ClockTimeline clocks={clocks} id="eligibility-clocks" />
   </SectionBlock>
 
   <SectionBlock
@@ -106,7 +92,7 @@ const receiptPayload = `{
     id="remedy"
     eyebrow="Remedy"
     title="Remedy path is mandatory"
-    description="The applicant can see the remedy, it runs on the 120-hour clock, and it names the next step."
+    description="The applicant can see the remedy, it runs on the remedy clock, and it names the next step."
     variant="alt"
   >
     <ul class="muted">

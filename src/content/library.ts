@@ -19,6 +19,16 @@ export type PatternFilter = {
   description: string;
 };
 
+/** A stage of the method's seven-stage chain; see `methodContent.chain`. */
+export type ChainStageId =
+  | "evidence"
+  | "authority"
+  | "decision"
+  | "consequence"
+  | "challenge"
+  | "reconsideration"
+  | "correction";
+
 export type Pattern = {
   slug: string;
   /** Catalog title, "MEC-05 Kill switch for runaway automation". */
@@ -32,6 +42,10 @@ export type Pattern = {
   metaDescription?: string;
   summary: string;
   filters: PatternFilter["slug"][];
+  /** The chain stage or stages the mechanism acts on. */
+  chainStages: ChainStageId[];
+  /** One sentence on why it acts there, shown under the chain figure. */
+  chainNote: string;
   glossaryRefs: string[];
   cues: string[];
   diagnostics: string[];

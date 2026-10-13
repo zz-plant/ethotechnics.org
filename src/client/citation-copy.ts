@@ -1,3 +1,5 @@
+import { readButtonLabel, setButtonLabel } from "./button-label";
+
 const citationButtons = Array.from(
   document.querySelectorAll<HTMLButtonElement>("[data-citation-text]"),
 );
@@ -23,7 +25,7 @@ const showCopyPopover = (message: string) => {
 citationButtons.forEach((button) => {
   const citationText = button.getAttribute("data-citation-text");
   const format = button.getAttribute("data-citation-format") ?? "citation";
-  const defaultLabel = button.textContent?.trim() ?? "Copy";
+  const defaultLabel = readButtonLabel(button) || "Copy";
 
   if (!citationText) {
     return;
@@ -33,20 +35,20 @@ citationButtons.forEach((button) => {
     void (async () => {
       try {
         await navigator.clipboard.writeText(citationText);
-        button.textContent = "Copied";
+        setButtonLabel(button, "Copied");
         button.setAttribute("aria-live", "polite");
         button.setAttribute("aria-label", `${format} copied`);
         showCopyPopover(`${format} copied.`);
         window.setTimeout(() => {
-          button.textContent = defaultLabel;
+          setButtonLabel(button, defaultLabel);
           button.setAttribute("aria-label", `Copy ${format}`);
         }, POPOVER_VISIBILITY_DURATION);
       } catch (error) {
         console.error("Unable to copy citation", error);
-        button.textContent = "Copy failed";
+        setButtonLabel(button, "Copy failed");
         showCopyPopover("Copy failed.");
         window.setTimeout(() => {
-          button.textContent = defaultLabel;
+          setButtonLabel(button, defaultLabel);
         }, POPOVER_VISIBILITY_DURATION);
       }
     })().catch((err) => console.error("Async click handler failed", err));

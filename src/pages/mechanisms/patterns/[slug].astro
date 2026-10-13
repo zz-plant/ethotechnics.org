@@ -1,12 +1,15 @@
 ---
 import { getEntry } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
+import ActionIcon from "../../../components/ActionIcon.astro";
 import CardGrid from "../../../components/CardGrid.astro";
+import ChainPositionFigure from "../../../components/ChainPositionFigure.astro";
 import CardItem from "../../../components/CardItem.astro";
 import CitationBlock from "../../../components/CitationBlock.astro";
 import PageIntro from "../../../components/PageIntro.astro";
 import ScholarlyMeta from "../../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../../components/SectionBlock.astro";
+import StateVariableGlyph from "../../../components/StateVariableGlyph.astro";
 import "../../../styles/components/pattern-browser.css";
 import type { DiagnosticTool } from "../../../content/diagnostics";
 import { diagnosticsContent } from "../../../content/diagnostics";
@@ -87,6 +90,10 @@ const breadcrumbItems = [
     anchorLinks={anchorLinks}
   />
   <SectionBlock id="glossary" title="Safeguards and terms" variant="alt">
+    <ChainPositionFigure
+      stages={pattern.chainStages}
+      note={pattern.chainNote}
+    />
     <div class="pattern-detail__tags">
       <p class="eyebrow">Serves</p>
       <ul class="pill-list pattern-detail__glossary-links">
@@ -97,7 +104,11 @@ const breadcrumbItems = [
                 class="pill-list__button"
                 href={`/mechanisms?filter=${filter}#mechanisms`}
               >
-                {filterLabels[filter] ?? filter}
+                <StateVariableGlyph
+                  variable={filter}
+                  label={filterLabels[filter] ?? filter}
+                  size="0.95em"
+                />
               </a>
             </li>
           ))
@@ -252,7 +263,11 @@ const breadcrumbItems = [
           pattern.filters.map((filter) => (
             <li>
               <a class="pill-list__button" href={`/mechanisms#${filter}`}>
-                {filterLabels[filter] ?? filter}
+                <StateVariableGlyph
+                  variable={filter}
+                  label={filterLabels[filter] ?? filter}
+                  size="0.95em"
+                />
               </a>
             </li>
           ))
@@ -279,7 +294,8 @@ const breadcrumbItems = [
                   data-copy-link={`/diagnostics/${tool.slug}`}
                   aria-label={`Copy link to ${tool.title}`}
                 >
-                  Copy link
+                  <ActionIcon action="copy" />
+                  <span data-button-label>Copy link</span>
                 </button>
               </div>
               <p class="muted">{tool.description}</p>
@@ -301,6 +317,11 @@ const breadcrumbItems = [
 </BaseLayout>
 
 <script>
+  import {
+    readButtonLabel,
+    setButtonLabel,
+  } from "../../../client/button-label";
+
   const copyButtons = Array.from(document.querySelectorAll("[data-copy-link]"));
 
   copyButtons.forEach((button) => {
@@ -309,7 +330,7 @@ const breadcrumbItems = [
     }
 
     const target = button.getAttribute("data-copy-link");
-    const defaultLabel = button.textContent?.trim() ?? "Copy link";
+    const defaultLabel = readButtonLabel(button) || "Copy link";
 
     if (!target) {
       return;
@@ -320,15 +341,15 @@ const breadcrumbItems = [
 
       try {
         await navigator.clipboard.writeText(link);
-        button.textContent = "Copied";
+        setButtonLabel(button, "Copied");
         window.setTimeout(() => {
-          button.textContent = defaultLabel;
+          setButtonLabel(button, defaultLabel);
         }, 1500);
       } catch (error) {
         console.error("Copy failed", error);
-        button.textContent = "Copy failed";
+        setButtonLabel(button, "Copy failed");
         window.setTimeout(() => {
-          button.textContent = defaultLabel;
+          setButtonLabel(button, defaultLabel);
         }, 1500);
       }
     });

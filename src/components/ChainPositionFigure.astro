@@ -1,0 +1,184 @@
+---
+/**
+ * Where a mechanism sits on the method's seven-stage chain.
+ *
+ * The full chain on /method is an interactive inspector with its return
+ * loops drawn; a mechanism page needs only the row of stages and a mark on
+ * the one or two it acts on. The marked stages carry the words "acts here",
+ * so the figure does not depend on colour, and the caption says why.
+ */
+import { methodContent } from "../content/method";
+import type { ChainStageId } from "../content/library";
+
+interface Props {
+  /** The stages to mark, by id. */
+  stages: ChainStageId[];
+  /** One sentence on why the mechanism acts there. */
+  note: string;
+}
+
+const { stages: marked, note }: Props = Astro.props;
+const chain = methodContent.chain;
+
+const unknown = marked.filter((id) => !chain.some((stage) => stage.id === id));
+if (unknown.length > 0) {
+  throw new Error(
+    `ChainPositionFigure: no chain stage "${unknown.join('", "')}"`,
+  );
+}
+
+const markedTitles = chain
+  .filter((stage) => marked.includes(stage.id as ChainStageId))
+  .map((stage) => stage.title);
+if (markedTitles.length > 2) {
+  throw new Error("ChainPositionFigure: a mechanism marks one or two stages");
+}
+const where = markedTitles.join(" and ");
+---
+
+<figure class="chain-position" aria-label={`The chain, with ${where} marked`}>
+  <ol class="chain-position__stages">
+    {
+      chain.map((stage, index) => {
+        const acts = marked.includes(stage.id as ChainStageId);
+        return (
+          <li
+            class:list={[
+              "chain-position__stage",
+              { "chain-position__stage--marked": acts },
+            ]}
+          >
+            <span class="chain-position__index">{index + 1}</span>
+            <span class="chain-position__title">{stage.title}</span>
+            {acts && <span class="chain-position__tag">acts here</span>}
+          </li>
+        );
+      })
+    }
+  </ol>
+  <figcaption>
+    <p class="eyebrow">Where it acts</p>
+    <p>
+      At <strong>{where}</strong>, {markedTitles.length === 1 ? "one" : "two"}
+      of the <a href="/method#chain">seven stages</a> every consequential decision
+      passes through. {note}
+    </p>
+  </figcaption>
+</figure>
+
+<style>
+  .chain-position {
+    display: grid;
+    gap: var(--space-3);
+    margin: 0;
+    container-type: inline-size;
+    font-family: var(--sans);
+  }
+
+  .chain-position figcaption {
+    display: grid;
+    gap: var(--space-1);
+    max-width: 68ch;
+  }
+
+  .chain-position figcaption p {
+    margin: 0;
+  }
+
+  .chain-position__stages {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .chain-position__stage {
+    position: relative;
+    display: grid;
+    align-content: start;
+    justify-items: center;
+    gap: 2px;
+    padding: var(--space-2) var(--space-1);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--panel);
+    color: var(--muted);
+    text-align: center;
+  }
+
+  /* The forward arrow sits in the gap after every stage but the last. */
+  .chain-position__stage:not(:last-child)::after {
+    content: "→" / "";
+    position: absolute;
+    top: 50%;
+    right: calc(-1 * var(--space-4));
+    width: var(--space-4);
+    transform: translateY(-50%);
+    color: color-mix(in srgb, var(--muted) 70%, var(--text));
+    text-align: center;
+    font-size: var(--text-sm);
+  }
+
+  .chain-position__index {
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--accent-strong);
+  }
+
+  .chain-position__title {
+    font-size: var(--text-sm);
+    font-weight: 650;
+    hyphens: auto;
+    overflow-wrap: normal;
+  }
+
+  .chain-position__tag {
+    font-size: var(--text-xs);
+    color: var(--accent-strong);
+  }
+
+  .chain-position__stage--marked {
+    border: 2px solid var(--accent);
+    background: color-mix(in srgb, var(--accent) 14%, var(--panel));
+    color: var(--text);
+  }
+
+  .chain-position__stage--marked .chain-position__title {
+    font-weight: 700;
+  }
+
+  /* Seven boxes in a row need about 54rem before "Reconsideration" fits on
+     one line; below that the chain runs down the page, one stage per line,
+     with the arrows pointing down. */
+  @container (max-width: 54rem) {
+    .chain-position__stages {
+      grid-template-columns: minmax(0, 22rem);
+      gap: var(--space-3);
+    }
+
+    .chain-position__stage {
+      grid-template-columns: 1.5rem 1fr auto;
+      align-items: baseline;
+      justify-items: start;
+      gap: var(--space-2);
+      padding: var(--space-1) var(--space-3);
+      text-align: left;
+    }
+
+    .chain-position__stage:not(:last-child)::after {
+      content: "↓" / "";
+      top: auto;
+      bottom: calc(-1 * var(--space-3));
+      right: auto;
+      left: 0.75rem;
+      width: auto;
+      height: var(--space-3);
+      line-height: var(--space-3);
+      transform: none;
+      font-size: var(--text-xs);
+    }
+  }
+</style>
