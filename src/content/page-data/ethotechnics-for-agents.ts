@@ -215,15 +215,15 @@ export const practiceSections: PracticeSection[] = [
     ],
     mechanisms: [
       {
-        title: "MEC-02 Progressive consent prompts",
+        title: "Progressive consent prompts (MEC-02)",
         href: "/mechanisms/patterns/progressive-consent",
       },
       {
-        title: "MEC-01 Decision log with dissent",
+        title: "Decision log with dissent (MEC-01)",
         href: "/mechanisms/patterns/decision-log",
       },
       {
-        title: "MEC-04 Hard clock",
+        title: "Hard clock (MEC-04)",
         href: "/mechanisms/patterns/hard-clock",
       },
     ],
@@ -250,15 +250,15 @@ export const practiceSections: PracticeSection[] = [
     ],
     mechanisms: [
       {
-        title: "MEC-05 Kill switch for runaway automation",
+        title: "Kill switch for runaway automation (MEC-05)",
         href: "/mechanisms/patterns/kill-switch",
       },
       {
-        title: "MEC-04 Hard clock",
+        title: "Hard clock (MEC-04)",
         href: "/mechanisms/patterns/hard-clock",
       },
       {
-        title: "MEC-03 Maintenance windowing",
+        title: "Maintenance windowing (MEC-03)",
         href: "/mechanisms/patterns/maintenance-windowing",
       },
     ],
@@ -284,11 +284,11 @@ export const practiceSections: PracticeSection[] = [
     ],
     mechanisms: [
       {
-        title: "MEC-01 Decision log with dissent",
+        title: "Decision log with dissent (MEC-01)",
         href: "/mechanisms/patterns/decision-log",
       },
       {
-        title: "MEC-06 Appeal paths inside the UI",
+        title: "Appeal paths inside the UI (MEC-06)",
         href: "/mechanisms/patterns/appeal-paths",
       },
       {
@@ -317,11 +317,11 @@ export const practiceSections: PracticeSection[] = [
     ],
     mechanisms: [
       {
-        title: "MEC-06 Appeal paths inside the UI",
+        title: "Appeal paths inside the UI (MEC-06)",
         href: "/mechanisms/patterns/appeal-paths",
       },
       {
-        title: "MEC-04 Hard clock",
+        title: "Hard clock (MEC-04)",
         href: "/mechanisms/patterns/hard-clock",
       },
     ],
@@ -345,11 +345,11 @@ export const practiceSections: PracticeSection[] = [
     ],
     mechanisms: [
       {
-        title: "MEC-01 Decision log with dissent",
+        title: "Decision log with dissent (MEC-01)",
         href: "/mechanisms/patterns/decision-log",
       },
       {
-        title: "MEC-05 Kill switch for runaway automation",
+        title: "Kill switch for runaway automation (MEC-05)",
         href: "/mechanisms/patterns/kill-switch",
       },
     ],
@@ -372,7 +372,7 @@ export const practiceSections: PracticeSection[] = [
     ],
     mechanisms: [
       {
-        title: "MEC-05 Kill switch for runaway automation",
+        title: "Kill switch for runaway automation (MEC-05)",
         href: "/mechanisms/patterns/kill-switch",
       },
       {

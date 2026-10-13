@@ -31,11 +31,13 @@ export type ChainStageId =
 
 export type Pattern = {
   slug: string;
-  /** Catalog title, "MEC-05 Kill switch for runaway automation". */
+  /** Catalog id, "MEC-05": cited in prose, shown beside the title. */
+  code: string;
+  /** Catalog name without the id, "Kill switch for runaway automation". */
   title: string;
   /**
    * The page's <title> and heading when search uses other words than the
-   * catalog: led by those words, with the catalog id moved to the end.
+   * catalog name.
    */
   searchTitle?: string;
   /** Page meta description, where the summary runs past 160 characters. */
@@ -73,7 +75,12 @@ export type LibraryContent = PageWithPermalink &
     recommended: {
       title: string;
       description: string;
-      items: { title: string; description: string; href: string }[];
+      items: {
+        code?: string;
+        title: string;
+        description: string;
+        href: string;
+      }[];
     };
   };
 

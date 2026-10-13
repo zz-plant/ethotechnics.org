@@ -255,7 +255,7 @@ const relatedPatterns = Array.from(
     return {
       // The catalog number (MEC-01) means nothing to a reader who has not
       // seen the catalog; the link carries them there.
-      title: pattern.title.replace(/^MEC-\d+\s+/, ""),
+      title: pattern.title,
       href: `/mechanisms/patterns/${pattern.slug}`,
     };
   })

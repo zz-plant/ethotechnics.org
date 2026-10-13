@@ -121,6 +121,8 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
             data-search={searchContent}
           >
             <p class="muted small">
+              <span class="pattern-card__code">{pattern.code}</span>
+              <span aria-hidden="true"> · </span>
               {pattern.filters.map((filter, index) => (
                 <>
                   {index > 0 && ", "}

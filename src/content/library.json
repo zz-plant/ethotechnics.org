@@ -58,17 +58,20 @@
       "description": "A challenge route, a trigger that sends the rule back for review, and a record of who decided.",
       "items": [
         {
-          "title": "MEC-06 Appeal paths inside the UI",
+          "code": "MEC-06",
+          "title": "Appeal paths inside the UI",
           "description": "Put the challenge route inside the product, and count upheld challenges by the rule that produced them.",
           "href": "/mechanisms/patterns/appeal-paths"
         },
         {
-          "title": "MEC-14 Policy review triggers",
+          "code": "MEC-14",
+          "title": "Policy review triggers",
           "description": "Give every policy an expiry date and named triggers that send it back to review.",
           "href": "/mechanisms/patterns/policy-review-triggers"
         },
         {
-          "title": "MEC-01 Decision log with dissent",
+          "code": "MEC-01",
+          "title": "Decision log with dissent",
           "description": "Record each decision with its owner, any dissent, and a follow-up date.",
           "href": "/mechanisms/patterns/decision-log"
         }
@@ -110,7 +113,8 @@
       "entries": [
         {
           "slug": "chain-boundary-intervention",
-          "title": "MEC-20 Chain-boundary intervention",
+          "code": "MEC-20",
+          "title": "Chain-boundary intervention",
           "summary": "Give a chain of automated systems one stop control that reaches every step, so the chain is paused, measured, and held to account as one system.",
           "filters": ["correction", "capability"],
           "chainStages": ["correction"],
@@ -171,7 +175,8 @@
         },
         {
           "slug": "decision-log",
-          "title": "MEC-01 Decision log with dissent",
+          "code": "MEC-01",
+          "title": "Decision log with dissent",
           "summary": "Record each consequential decision with its decider, the dissent, the options ruled out, and a review date, so the people it affects and later reviewers can see why it was made.",
           "filters": ["authority", "evidence"],
           "chainStages": ["decision"],
@@ -227,7 +232,8 @@
         },
         {
           "slug": "progressive-consent",
-          "title": "MEC-02 Progressive consent prompts",
+          "code": "MEC-02",
+          "title": "Progressive consent prompts",
           "summary": "Ask a person for each permission when the system needs it, with the reason and how to withdraw it. A withdrawal stops the automation it covered and does not cost them core service.",
           "filters": ["standing", "dependency"],
           "chainStages": ["authority"],
@@ -287,7 +293,8 @@
         },
         {
           "slug": "maintenance-windowing",
-          "title": "MEC-03 Maintenance windowing",
+          "code": "MEC-03",
+          "title": "Maintenance windowing",
           "summary": "Make changes to a decision system in published windows, each with a named owner, a rollback plan, and notice to the people the change affects.",
           "filters": ["dependency", "correction"],
           "chainStages": ["correction"],
@@ -347,7 +354,8 @@
         },
         {
           "slug": "hard-clock",
-          "title": "MEC-04 Hard clock",
+          "code": "MEC-04",
+          "title": "Hard clock",
           "summary": "Give every state a case can occupy a declared maximum duration, so no one waits in pending forever. At the limit, the case fails safe or goes to a named person who must decide.",
           "filters": ["standing", "correction"],
           "chainStages": ["consequence", "reconsideration"],
@@ -399,7 +407,8 @@
         },
         {
           "slug": "kill-switch",
-          "title": "MEC-05 Kill switch for runaway automation",
+          "code": "MEC-05",
+          "title": "Kill switch for runaway automation",
           "searchTitle": "AI kill switch pattern for runaway automation",
           "metaDescription": "A pre-authorized halt for an AI or other automated system: a named roster, harm-indicator triggers, a time-to-halt target, and restoration for those harmed.",
           "summary": "Give a named roster pre-authorized power to halt an automated system when harm indicators fire. The halt contains harm while the rule's owner fixes the rule and the people harmed are restored.",
@@ -461,7 +470,8 @@
         },
         {
           "slug": "appeal-paths",
-          "title": "MEC-06 Appeal paths inside the UI",
+          "code": "MEC-06",
+          "title": "Appeal paths inside the UI",
           "summary": "Put an appeal next to each automated decision, so the person decided about can dispute it and get a human answer by a stated date. Upheld appeals count against the rule.",
           "filters": ["standing", "correction"],
           "chainStages": ["challenge"],
@@ -527,7 +537,8 @@
         },
         {
           "slug": "accountability-latency-tracker",
-          "title": "MEC-07 Accountability latency tracker",
+          "code": "MEC-07",
+          "title": "Accountability latency tracker",
           "summary": "Measure the time from a trigger firing to a named person intervening, halting the system, and restoring the people harmed, so the risk owner sees every missed target.",
           "filters": ["correction", "evidence"],
           "chainStages": ["correction"],
@@ -589,7 +600,8 @@
         },
         {
           "slug": "contestation-apis",
-          "title": "MEC-08 Contestation APIs",
+          "code": "MEC-08",
+          "title": "Contestation APIs",
           "summary": "Let the person decided about, or someone acting for them, challenge a decision through a published API and get an answer by a deadline. An upheld challenge changes the decision.",
           "filters": ["standing"],
           "chainStages": ["challenge"],
@@ -655,7 +667,8 @@
         },
         {
           "slug": "burden-dashboards",
-          "title": "MEC-09 Burden dashboards",
+          "code": "MEC-09",
+          "title": "Burden dashboards",
           "summary": "Measure the time, steps, documents, and waiting a person spends to use or correct the system, split by group, and send each breach to a named owner.",
           "filters": ["evidence", "standing"],
           "chainStages": ["consequence"],
@@ -711,7 +724,8 @@
         },
         {
           "slug": "reversibility-audit-logs",
-          "title": "MEC-10 Reversibility audit logs",
+          "code": "MEC-10",
+          "title": "Reversibility audit logs",
           "summary": "Record whether each consequential action can be undone, by whom, and how fast, so a person wrongly decided about can be put back. Require a stated reason for any that cannot.",
           "filters": ["correction", "evidence"],
           "chainStages": ["correction"],
@@ -771,7 +785,8 @@
         },
         {
           "slug": "escalation-slas",
-          "title": "MEC-11 Escalation SLAs",
+          "code": "MEC-11",
+          "title": "Escalation SLAs",
           "summary": "Publish a deadline for a human answer when a person escalates an automated decision, and staff to meet it. A missed deadline triggers a stated fallback, such as pausing the decision.",
           "filters": ["correction", "standing"],
           "chainStages": ["reconsideration"],
@@ -831,7 +846,8 @@
         },
         {
           "slug": "stoppability-testing",
-          "title": "MEC-12 Stoppability testing",
+          "code": "MEC-12",
+          "title": "Stoppability testing",
           "summary": "Before launch and after each major change, test that the people authorized to halt the system can do it within the target time, and that cases in flight stop safely.",
           "filters": ["correction"],
           "chainStages": ["correction"],
@@ -887,7 +903,8 @@
         },
         {
           "slug": "authority-grant-register",
-          "title": "MEC-13 Authority grant register",
+          "code": "MEC-13",
+          "title": "Authority grant register",
           "summary": "Hold every delegated authority as a stateful record with provenance, scope, evidence basis, expiry, revocation conditions, and state history.",
           "filters": ["authority"],
           "chainStages": ["authority"],
@@ -947,7 +964,8 @@
         },
         {
           "slug": "policy-review-triggers",
-          "title": "MEC-14 Policy review triggers",
+          "code": "MEC-14",
+          "title": "Policy review triggers",
           "summary": "Give every policy an expiry date and named triggers that send the authority grants that depend on it back to review when conditions change.",
           "filters": ["evidence", "authority"],
           "chainStages": ["evidence", "reconsideration"],
@@ -1007,7 +1025,8 @@
         },
         {
           "slug": "withdrawal-rehearsal",
-          "title": "MEC-15 Withdrawal rehearsal",
+          "code": "MEC-15",
+          "title": "Withdrawal rehearsal",
           "summary": "Run the workflow without the system on a schedule and measure what withdrawal would cost at the technical, operational, and institutional levels.",
           "filters": ["dependency", "correction"],
           "chainStages": ["correction"],
@@ -1067,7 +1086,8 @@
         },
         {
           "slug": "intervention-specification",
-          "title": "MEC-16 Intervention specification",
+          "code": "MEC-16",
+          "title": "Intervention specification",
           "summary": "Replace the human-in-the-loop checkbox with a specification of who intervenes, what they can see, what they can prevent or alter, and what happens when they disagree.",
           "filters": ["correction", "authority"],
           "chainStages": ["decision"],
@@ -1127,7 +1147,8 @@
         },
         {
           "slug": "capability-catalog",
-          "title": "MEC-17 Capability catalog",
+          "code": "MEC-17",
+          "title": "Capability catalog",
           "summary": "List what a system could do separately from the register of what it is permitted to do, so knowing a capability never grants it.",
           "filters": ["capability"],
           "chainStages": ["authority"],
@@ -1187,7 +1208,8 @@
         },
         {
           "slug": "dependency-ledger",
-          "title": "MEC-18 Dependency ledger",
+          "code": "MEC-18",
+          "title": "Dependency ledger",
           "summary": "Track who now depends on the system, what substitution would cost, which expertise remains, and which capacities are being preserved to keep withdrawal possible.",
           "filters": ["dependency"],
           "chainStages": ["correction"],
@@ -1247,7 +1269,8 @@
         },
         {
           "slug": "expansion-review",
-          "title": "MEC-19 Expansion review",
+          "code": "MEC-19",
+          "title": "Expansion review",
           "summary": "Make scope growth its own authorization decision, with fresh evidence and a check that correction capacity grew with it.",
           "filters": ["capability", "authority"],
           "chainStages": ["authority"],
@@ -1307,7 +1330,8 @@
         },
         {
           "slug": "halt-tier-register",
-          "title": "MEC-21 Halt tier register",
+          "code": "MEC-21",
+          "title": "Halt tier register",
           "summary": "Tier halt authority by blast radius so the power to stop scales with the size of what is being stopped, and the smallest tiers stay cheap enough to use.",
           "filters": ["correction"],
           "chainStages": ["correction"],
@@ -1367,7 +1391,8 @@
         },
         {
           "slug": "admission-gate",
-          "title": "MEC-22 Admission gate",
+          "code": "MEC-22",
+          "title": "Admission gate",
           "summary": "Treat the decision to deploy at all as an authorization, with evidence and a recorded outcome. Choosing not to deploy is a valid result.",
           "filters": ["authority", "evidence"],
           "chainStages": ["evidence", "authority"],
@@ -1427,7 +1452,8 @@
         },
         {
           "slug": "challenge-load-ledger",
-          "title": "MEC-23 Challenge load ledger",
+          "code": "MEC-23",
+          "title": "Challenge load ledger",
           "summary": "Track challenge volume against response capacity, so sustained congestion triggers a resourcing or scope decision instead of a narrowing of who may challenge.",
           "filters": ["standing", "correction"],
           "chainStages": ["challenge"],
@@ -1487,7 +1513,8 @@
         },
         {
           "slug": "rescue-register",
-          "title": "MEC-24 Rescue register",
+          "code": "MEC-24",
+          "title": "Rescue register",
           "summary": "Record every failure a person caught before it reached someone else, so near-misses become evidence about the condition rather than silence in the incident count.",
           "filters": ["correction", "evidence"],
           "chainStages": ["evidence"],
@@ -1547,7 +1574,8 @@
         },
         {
           "slug": "procurement-stress-test",
-          "title": "MEC-25 Procurement stress test",
+          "code": "MEC-25",
+          "title": "Procurement stress test",
           "summary": "Evaluate a candidate system before money moves by making frontline personnel run adversarial scenarios, with hard disqualifiers that outrank any composite score.",
           "filters": ["authority", "evidence"],
           "chainStages": ["evidence"],

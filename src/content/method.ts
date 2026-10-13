@@ -124,7 +124,7 @@ export const methodContent: MethodContent = {
         "Which actions is the system permitted to perform, for whom, and until when?",
       currentAssets: [
         "Agent schema fields for who can stop or override an agent, how much it does unattended, and which kinds of action it may take",
-        "MEC-13 authority grant register",
+        "Authority grant register (MEC-13)",
         "Glossary entries on design authority, the authority to reverse a decision, permission surfaces, and override lanes",
         "STD-07 Article II: every action names the authorization it ran under, and a delegation with no revocation conditions is a transfer",
         "STD-08 Part A: a grant is a lease, renewal states its evidence in advance, and widening scope is a new authorization",
@@ -155,14 +155,14 @@ export const methodContent: MethodContent = {
       currentAssets: [
         "Decision record schema and its JSON endpoint",
         "Agent receipt schema",
-        "MEC-01 decision log with dissent",
+        "Decision log with dissent (MEC-01)",
         "STD-07 action records, pinned to their authorization",
         "A field on the decision record for the model or person that decided, the questions it answered, what it returned, and where any reason came from",
         "STD-02 §1.4: a reason states what the decision rested on, and an explanation written afterward is labeled as an account",
       ],
       links: [
         {
-          label: "MEC-01 Decision log",
+          label: "Decision log (MEC-01)",
           href: "/mechanisms/patterns/decision-log",
         },
         {
@@ -198,7 +198,7 @@ export const methodContent: MethodContent = {
         "STD-02 Contestability & Recourse",
         "Minimum viable contestability: standing, reasons, records, timelines, a named responder, defined effects, remedies, and no retaliation",
         "Appeal event schema",
-        "MEC-06 appeal paths and MEC-08 contestation APIs",
+        "Appeal paths (MEC-06) and contestation APIs (MEC-08)",
         "STD-02 §8.6: a class whose expected errors outrun the capacity to answer them is uncontestable in practice",
       ],
       links: [
@@ -229,7 +229,7 @@ export const methodContent: MethodContent = {
       currentAssets: [
         "Pause and reversal schema",
         "Events that fire when a decision deadline nears and when an appeal deadline is missed",
-        "MEC-11 escalation SLAs",
+        "Escalation SLAs (MEC-11)",
         "STD-07 discrepancy handling: silence past the clock is a governance failure, not a pending state",
         "STD-08 §2.3 and §2.4: a fired review trigger sends the policy, and every grant that cites it, back for review",
         "Record conformance checker: reports discrepancies that were never answered inside their clock",
@@ -257,8 +257,8 @@ export const methodContent: MethodContent = {
         "Can the institution stop, reverse, or repair, at acceptable cost?",
       currentAssets: [
         "Repair deadline schema and its JSON endpoint",
-        "MEC-10 reversibility audit logs",
-        "MEC-12 stoppability testing",
+        "Reversibility audit logs (MEC-10)",
+        "Stoppability testing (MEC-12)",
         "Tier 1 harness: tests that stop, override, and audit records work",
         "STD-08 Part D: correction capacity is stated across seven components and must grow when authority does",
         "Delegation audit (self-report): the team's own reading of reversibility at the technical, operational, and institutional levels",

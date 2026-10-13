@@ -37,6 +37,7 @@ const structuredData = {
   hasPart: patterns.entries.map((pattern) => ({
     "@type": "CreativeWork",
     name: pattern.title,
+    identifier: pattern.code,
     description: pattern.summary,
     url: Astro.site
       ? new URL(`/mechanisms/patterns/${pattern.slug}`, Astro.site).toString()
@@ -69,11 +70,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     }
     <p class="mechanisms__links">
       <span>New to mechanisms? Start with three:</span>
-      {
-        recommended.items.map((item) => (
-          <a href={item.href}>{item.title.replace(/^MEC-\d+\s+/, "")}</a>
-        ))
-      }
+      {recommended.items.map((item) => <a href={item.href}>{item.title}</a>)}
     </p>
     <div class="pattern-filter__anchors" aria-hidden="true">
       {
