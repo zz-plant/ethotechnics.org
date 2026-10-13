@@ -5,9 +5,9 @@ import NextStep from "../../components/NextStep.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 
-const pageTitle = "Contestability checklist";
+const pageTitle = "Can this decision be challenged?";
 const pageDescription =
-  "Seven pass/fail questions that test whether a person can contest an automated decision, each with what a failing answer means.";
+  "Seven pass/fail questions that test whether a person can challenge an automated decision and change it, each with what a failing answer means.";
 
 const anchorLinks = [{ href: "#checklist", label: "Checklist" }];
 
@@ -24,7 +24,7 @@ const checklistItems = [
   {
     question: "Can a named person change or reverse the decision?",
     ifNot:
-      "The appeal is for show: it hides who decides. An appeal changes the outcome only when it reaches someone who can reverse the decision, and the evidence the person sends is weighed.",
+      "The route is for show: it hides who decides. A challenge changes the outcome only when it reaches someone who can reverse the decision, and the evidence the person sends is weighed.",
   },
   {
     question: "Is there a deadline by which the person must get an answer?",
@@ -33,26 +33,26 @@ const checklistItems = [
   },
   {
     question:
-      "Can the person appeal without asking permission or meeting hidden conditions first?",
+      "Can the person challenge the decision without asking permission or meeting hidden conditions first?",
     ifNot:
-      "The case never reaches a state the system has to answer. There is no contestability, even if there is a form or a hotline.",
+      "The case never reaches a state the system has to answer. The person has no standing, even if there is a form or a hotline.",
   },
   {
     question:
-      "If the appeal succeeds, is there a set way to reverse the decision or remedy the harm?",
+      "If the challenge is upheld, is there a set way to reverse the decision or repair the harm?",
     ifNot: "Winning changes nothing. Due process needs a decision that binds.",
   },
   {
     question:
-      "Is there a record that appeals have succeeded, not only that they were processed?",
+      "Is there a record that challenges have been upheld, not only that they were processed?",
     ifNot:
-      "The route may be for show, ending in a queue no one can trace. A real appeal route publishes how often appeals succeed, names who can reverse outcomes, and shows where the evidence is weighed.",
+      "The route may be for show, ending in a queue no one can trace. A working route publishes how often challenges are upheld, names who can reverse outcomes, and shows where the evidence is weighed.",
   },
   {
     question:
-      "Are upheld appeals counted against the rule that produced them, and is the count sent to the rule's owner?",
+      "Are upheld challenges counted against the rule that produced them, and is the count sent to the rule's owner?",
     ifNot:
-      "The rule keeps running. When appeals against one rule keep winning, the rule is wrong. The count goes to the rule's owner, who changes the rule.",
+      "The rule keeps running. When challenges to one rule keep being upheld, the rule is wrong. The count goes to the rule's owner, who changes the rule.",
   },
 ];
 ---
@@ -71,20 +71,20 @@ const checklistItems = [
 
   <SectionBlock
     id="checklist"
-    eyebrow="Can a person contest this?"
-    title="Contestability checklist"
+    eyebrow="Can a person challenge this?"
+    title="Challenge checklist"
     description="Seven pass/fail questions to run over a decision flow before it ships or when it is audited."
   >
     <div class="contestability-layout">
       <div
         class="contestability-checklist"
         role="group"
-        aria-label="Contestability checklist"
+        aria-label="Challenge checklist"
       >
         <p>
-          Contestability turns “that’s wrong” into something the system has to
-          answer: a decision with reasons, a deadline, a named person who can
-          change it, and a route to reversal.
+          Standing turns “that’s wrong” into something the system has to answer:
+          a decision with reasons, a deadline, a named person who can change it,
+          and a route to reversal.
         </p>
         <ul>
           {
@@ -167,7 +167,7 @@ const checklistItems = [
         (question) => question.textContent?.trim() ?? "",
       );
       const checklistText = [
-        "Contestability checklist",
+        "Challenge checklist",
         "",
         ...items.map((item) => `- ${item}`),
       ]

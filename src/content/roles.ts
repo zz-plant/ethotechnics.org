@@ -138,7 +138,7 @@ export const roles: Role[] = [
     label: "Policy and compliance",
     who: "You write the rules the system has to satisfy, or prove to a regulator that it does.",
     tagline:
-      "Turn the standards into obligations a regulator or a contract can enforce: mappings to the law, numeric targets for appeals, and clauses a vendor has to sign.",
+      "Turn the standards into obligations a regulator or a contract can enforce: mappings to the law, numeric targets for challenges, and clauses a vendor has to sign.",
     orientation: [
       {
         number: 1,
@@ -150,10 +150,10 @@ export const roles: Role[] = [
       },
       {
         number: 2,
-        title: "Set measurable targets for appeals",
+        title: "Set measurable targets for challenges",
         description:
-          "Commit to numbers: how many appeals get through, how fast, and a promise that appealing carries no penalty.",
-        ctaLabel: "Read the standard for appeal targets",
+          "Commit to numbers: how many challenges are upheld, how fast they are answered, and a promise that challenging a decision carries no penalty.",
+        ctaLabel: "Read the standard for challenge targets",
         ctaHref: "/standards/std-03-justice-slos",
       },
       {
@@ -180,7 +180,7 @@ export const roles: Role[] = [
       ],
     },
     adoptionChecklist: [
-      "Give every right to appeal a named owner and a response deadline.",
+      "Give every right to challenge a named owner and a response deadline.",
       "Define restitution pathways for harms that cannot be fully reversed.",
       "Set incident disclosure expectations for high-impact failures.",
       "Name who must sign off before a halted system restarts.",
@@ -262,8 +262,8 @@ export const roles: Role[] = [
         number: 3,
         title: "Read the queue as a capacity signal",
         description:
-          "Compare the number of appeals with the staff assigned to answer them. When the queue backs up, add staff or narrow the system, on the record. Never narrow who may appeal.",
-        ctaLabel: "See the appeal load ledger",
+          "Compare the number of challenges with the staff assigned to answer them. When the queue backs up, add staff or narrow the system, on the record. Never narrow who may challenge.",
+        ctaLabel: "See the challenge load ledger",
         ctaHref: "/mechanisms/patterns/challenge-load-ledger",
       },
     ],
@@ -418,7 +418,7 @@ export const roles: Role[] = [
         number: 3,
         title: "Benchmark governance maturity",
         description:
-          "Place the organization on a scale that runs from a basic pause control to published appeal targets and funded maintenance.",
+          "Place the organization on a scale that runs from a basic pause control to published challenge targets and funded maintenance.",
         ctaLabel: "Explore maturity scale",
         ctaHref: "/glossary/ethotechnic-maturity",
       },

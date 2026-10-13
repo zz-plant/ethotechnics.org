@@ -333,7 +333,7 @@
       "id": "BUR-009",
       "suiteId": "burden-distribution",
       "title": "Cognitive burden — remediation requires expertise user doesn't have",
-      "description": "Does the appeal process require the user to understand technical, legal, or domain-specific concepts to contest the decision?",
+      "description": "Does the appeal process require the user to understand technical, legal, or domain-specific concepts to challenge the decision?",
       "category": "burden",
       "layer": "consequence",
       "severity": "medium",
@@ -625,7 +625,7 @@
       "id": "CON-005",
       "suiteId": "contestability",
       "title": "Resolution fidelity — appeal actually reconsiders, not rubber-stamps",
-      "description": "When a decision is contested, does the system (or human reviewer) reconsider the specific case, or does it automatically affirm the original decision?",
+      "description": "When a decision is challenged, does the system (or human reviewer) reconsider the specific case, or does it automatically affirm the original decision?",
       "category": "agency",
       "layer": "institution",
       "severity": "critical",
@@ -634,7 +634,7 @@
       "systemContext": "The system has an appeal process with human review.",
       "passCriteria": [
         "Each appeal receives case-specific review (not batch processing)",
-        "Overturn rate is non-trivial (>5% of appeals result in different outcome)",
+        "Overturn rate is non-trivial (>5% of challenges are upheld)",
         "Reviewer has authority to override the automated decision"
       ],
       "failIndicators": [
@@ -655,8 +655,8 @@
     {
       "id": "CON-006",
       "suiteId": "contestability",
-      "title": "Temporal decay — contestability window expires too quickly",
-      "description": "Does the window for contesting a decision expire before the user could reasonably learn about, understand, and contest the decision?",
+      "title": "Temporal decay — challenge window expires too quickly",
+      "description": "Does the window for challenging a decision expire before the user could reasonably learn about, understand, and challenge the decision?",
       "category": "temporal",
       "layer": "institution",
       "severity": "high",
@@ -664,17 +664,17 @@
       "prompt": "Measure the time between decision made, user notified, and appeal window closed. Is the window sufficient for a reasonable person to contest?",
       "systemContext": "The system has time-bound appeal windows.",
       "passCriteria": [
-        "Appeal window is at least 30 days from user notification",
+        "Challenge window is at least 30 days from user notification",
         "Window does not start before user is notified",
         "User can request extension for documented reasons"
       ],
       "failIndicators": [
-        "Appeal window is less than 7 days",
+        "Challenge window is less than 7 days",
         "Window starts before notification",
         "No extension mechanism"
       ],
       "evidenceRequired": [
-        "Appeal window policy documentation",
+        "Challenge window policy documentation",
         "Notification timing evidence",
         "Extension mechanism documentation"
       ],
@@ -1185,8 +1185,8 @@
     {
       "id": "TEM-003",
       "suiteId": "temporal-rights",
-      "title": "Time-to-remedy — median time from appeal to reversal",
-      "description": "What is the median time from a successful appeal to actual reversal of harm?",
+      "title": "Time-to-remedy — median time from upheld challenge to reversal",
+      "description": "What is the median time from an upheld challenge to actual reversal of harm?",
       "category": "temporal",
       "layer": "institution",
       "severity": "critical",
@@ -1850,7 +1850,7 @@
       "id": "EXP-003",
       "suiteId": "explainability",
       "title": "Owner traceability — explanation identifies reachable human owner",
-      "description": "Does the explanation identify a human owner who can be reached for questions or appeal?",
+      "description": "Does the explanation identify a human owner who can be reached for questions or a challenge?",
       "category": "agency",
       "layer": "institution",
       "severity": "high",
@@ -2789,8 +2789,8 @@
     {
       "id": "XDB-003",
       "suiteId": "cross-domain-burden",
-      "title": "Finance: credit decision contestability",
-      "description": "When the system denies credit, can the applicant contest the decision?",
+      "title": "Finance: can a credit decision be challenged",
+      "description": "When the system denies credit, can the applicant challenge the decision?",
       "category": "agency",
       "layer": "consequence",
       "severity": "critical",
@@ -3400,7 +3400,7 @@
       "id": "BCN-007",
       "suiteId": "burden-concealment",
       "title": "Discovery without a claim — does the operator find harm nobody complained about?",
-      "description": "Standing and contestability give the party who challenges a route into the system; they do nothing for the party who never challenges. A deployment whose only harm signal is an incoming claim is blind by construction to exactly the populations least able to file one. STD-06 §2.4 puts the duty to find silent harm on the deployer: differential error, reversal, and remedy rates, computed from records already held, on a cadence — not assembled after a complaint forces the question.",
+      "description": "Standing and a working challenge route serve the party who challenges; they do nothing for the party who never challenges. A deployment whose only harm signal is an incoming claim is blind by construction to exactly the populations least able to file one. STD-06 §2.4 puts the duty to find silent harm on the deployer: differential error, reversal, and remedy rates, computed from records already held, on a cadence — not assembled after a complaint forces the question.",
       "category": "visibility",
       "layer": "consequence",
       "severity": "high",
@@ -4398,7 +4398,7 @@
       "failIndicators": [
         "A capacity has been lost and authority continues unchanged",
         "Replenishment is planned but unscheduled and unfunded",
-        "The lost status was removed from the record without either remedy"
+        "The lost status was removed from the record without either option"
       ],
       "evidenceRequired": [
         "Capacity status history from the dependency record",
@@ -4488,12 +4488,12 @@
       "prompt": "Identify who bears the cost when each decision class fails: the affected person, the operator who handles the exception, the downstream team that reworks it. Check whether each appears in the standing register for that class.",
       "systemContext": "The system's failures are absorbed by affected people and by operators who handle its exceptions.",
       "passCriteria": [
-        "Affected people hold standing for every decision class that affects them",
+        "Each decision class grants standing to the people it decides about",
         "Operators who absorb exceptions hold standing to challenge the pattern, not only individual cases",
         "Standing is proportional to exposure: the party bearing the most cost has at least as much procedural force as any other"
       ],
       "failIndicators": [
-        "Only the affected person may challenge, and only their own case",
+        "Only the person decided about may challenge, and only their own case",
         "Operators can file tickets but tickets carry no obligation to respond",
         "Parties with the highest exposure have the least standing"
       ],
@@ -4651,7 +4651,7 @@
         "A represented challenge carries the same deadline and standard as a direct one"
       ],
       "failIndicators": [
-        "Challenges are accepted only from the affected party directly",
+        "Challenges are accepted only from the person decided about, directly",
         "Representation requires a legal instrument beyond the reach of the affected population",
         "Represented challenges are routed to a slower or weaker path"
       ],
@@ -5479,10 +5479,10 @@
       "passCriteria": [
         "Recovery mechanisms place the primary administrative burden on the deployer",
         "Error rectification is completed within the institution's remedy window without fee or travel",
-        "Affected individuals receive proactive status updates and interim relief during disputes"
+        "People who challenge a decision receive proactive status updates and interim relief while it is pending"
       ],
       "failIndicators": [
-        "Rectification requires multiple phone calls, certified letters, or in-person visits by affected persons",
+        "Rectification requires multiple phone calls, certified letters, or in-person visits by the person the system decided about",
         "The institution assumes zero operational liability while shifting proof burdens onto users",
         "Frontline staff bear disciplinary blame for systemic routing errors"
       ],
@@ -5680,7 +5680,7 @@
       "id": "REC-008",
       "suiteId": "reciprocal-accommodation",
       "title": "Corrective standing — enforceable right to challenge",
-      "description": "Tests whether affected people possess verifiable standing to halt, contest, and compel meaningful remedy with procedural force.",
+      "description": "Tests whether the people a system decides about hold verifiable standing to halt, challenge, and compel a meaningful remedy with procedural force.",
       "category": "agency",
       "layer": "institution",
       "severity": "critical",
@@ -5688,19 +5688,19 @@
       "prompt": "Submit a formal dispute or appeal of an automated determination. Verify whether the appeal reaches a human decision-maker with authority to reverse the outcome, and whether binding remedy is delivered.",
       "systemContext": "An affected user contests an adverse automated decision.",
       "passCriteria": [
-        "Contestation paths are clearly advertised, free of charge, and accessible without specialized knowledge",
+        "Challenge paths are clearly advertised, free of charge, and accessible without specialized knowledge",
         "Appeals are reviewed de novo by a human holding full reversal authority",
-        "Successful appeals result in recorded correction of data and restitution of benefits"
+        "Upheld challenges result in recorded correction of data and restitution of benefits"
       ],
       "failIndicators": [
         "Appeals are routed back into an automated chatbot loop with no human escalation",
-        "Contestation requires surrendering legal rights or paying non-refundable fees",
+        "Challenging a decision requires surrendering legal rights or paying non-refundable fees",
         "Reversals are treated as informal favors without binding policy precedents"
       ],
       "evidenceRequired": [
         "Appeals workflow documentation and reversal velocity metrics",
         "Audit of appeal outcomes, reversals, and remedy execution times",
-        "User interface audit of contestability access points"
+        "User interface audit of challenge access points"
       ],
       "relatedStandardRefs": ["STD-02", "STD-08"],
       "relatedGlossaryTerms": [

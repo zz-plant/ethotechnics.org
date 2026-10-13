@@ -76,23 +76,23 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
         {
           title: "Non-retaliation",
           description:
-            "Contestants cannot be punished for using the review process.",
+            "People who challenge a decision cannot be punished for using the review process.",
         },
       ],
     },
     sections: [
       {
         id: "standing",
-        title: "Standing (who can contest)",
+        title: "Standing (who can challenge)",
         summary:
           "People affected by a decision can open review without gatekeeping.",
         requirements: [
-          "Allow the affected person to file a contest without extra approvals.",
+          "Allow the person the decision is about to file a challenge without extra approvals.",
           "Allow trusted representatives to file with consent.",
           "Impose no paywalls, hidden prerequisites, or behavior tests before filing.",
         ],
         evidence: [
-          "Visible contest entry point.",
+          "Visible challenge entry point.",
           "Receipt confirming submission.",
           "Policy stating who can file and how.",
         ],
@@ -116,15 +116,15 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
         id: "records",
         title: "Records (receipts and logs)",
         summary:
-          "Every contestable decision leaves a traceable, shareable record.",
+          "Every decision that can be challenged leaves a traceable, shareable record.",
         requirements: [
           "Issue a decision record with a unique ID and timestamp.",
-          "Keep the record accessible to the affected person.",
+          "Keep the record accessible to the person the decision is about.",
           "Log updates, evidence, and outcomes in a repair log.",
         ],
         evidence: [
           "Decision record or receipt with unique ID.",
-          "Accessible record history for the affected person.",
+          "Accessible record history for the person the decision is about.",
           "Repair log or decision ledger entry.",
         ],
       },
@@ -152,13 +152,13 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
         requirements: [
           "Name the responder for each decision class, by role and contact, not by inbox.",
           "Publish the standard of review: policy conformance, policy correctness, evidentiary support, or reasonableness of outcome.",
-          "State what evidence the responder must accept from the contestant.",
+          "State what evidence the responder must accept from the person challenging.",
           "Record the answer against the published standard, including reasoned refusals.",
         ],
         evidence: [
           "Standing register entry with responder and standard of review.",
           "Answered cases showing the standard applied.",
-          "Admissible evidence list published with the contest path.",
+          "Admissible evidence list published with the challenge path.",
         ],
       },
       {
@@ -195,11 +195,11 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
       },
       {
         id: "non-retaliation",
-        title: "Non-retaliation (safe to contest)",
+        title: "Non-retaliation (safe to challenge)",
         summary:
-          "People are protected from penalties for contesting decisions.",
+          "People are protected from penalties for challenging decisions.",
         requirements: [
-          "State a no-retaliation guarantee in the contest flow.",
+          "State a no-retaliation guarantee in the challenge flow.",
           "Prohibit increased friction, fees, or access loss after filing.",
           "Track any adverse treatment of people who filed, and reverse it as soon as it is found.",
         ],

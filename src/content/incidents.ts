@@ -43,7 +43,7 @@ export const incidentLessons: IncidentLesson[] = [
     slug: "appeals-backlog-trigger",
     title: "Appeals backlog triggers unnoticed harm loops",
     summary:
-      "A surge in appeal volume stalled remediation timelines, leaving affected users in unresolved states for weeks.",
+      "A surge in appeal volume stalled remediation timelines, leaving account holders in unresolved states for weeks.",
     published: "2026-02-14T00:00:00Z",
     updated: "2026-02-20T00:00:00Z",
     glossaryRefs: ["appeal-event", "repair-sla", "burden-hours"],

@@ -126,7 +126,7 @@ export const findUngroundedGrants = (input: AuditInput): UngroundedGrant[] =>
         reasons.push("No evidence basis is recorded.");
       }
       if (!isNamed(entry.forWhom)) {
-        reasons.push("The affected people are not named.");
+        reasons.push("The people it decides about are not named.");
       }
       return {
         actionClassId: entry.id,

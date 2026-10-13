@@ -1,6 +1,6 @@
 ---
 title: "STD-02 — Contestability & Recourse"
-description: "A draft standard for challenging an automated decision: notice and reasons, an appeal path, a review clock, remedy and reversal, and who has standing to appeal."
+description: "A draft standard for challenging an automated decision: notice and reasons, an appeal path, a review clock, remedy and reversal, and who has standing to challenge."
 permalink: "/standards/std-02-contestability-recourse"
 eyebrow: "Standard"
 seoTitle: "STD-02 — Contestability & Recourse"
@@ -46,7 +46,7 @@ export const rights = [
     id: "appeal",
     title: "Appeal path",
     summary:
-      "The appeal starts from the decision and names who can reverse it.",
+      "The appeal path starts from the decision and names who can reverse it.",
     clauses: [
       "Appeal intake is reachable from the decision surface.",
       "Appeal path includes a named, accountable authority.",
@@ -68,9 +68,9 @@ export const rights = [
     id: "remedy",
     title: "Remedy and reversal",
     summary:
-      "An upheld appeal reverses the decision, and wrongful harm is compensated without a separate claim.",
+      "An upheld challenge reverses the decision, and wrongful harm is compensated without a separate claim.",
     clauses: [
-      "Reversal is the default remedy for upheld appeals.",
+      "Reversal is the default remedy for upheld challenges.",
       "Wrongful harm triggers credits, fee waivers, or restitution.",
       "Remedy delivery is tracked and verified.",
       "A defect in a rule, model, or notice is corrected in every affected case.",
@@ -105,7 +105,7 @@ export const explainerLinks = [
   {
     title: "Remedy essentials",
     description:
-      "Eight mechanisms an appeal needs before it can change an outcome.",
+      "Eight mechanisms a challenge needs before it can change an outcome.",
     href: "/explainers/remedy-essentials",
   },
 ];
@@ -116,7 +116,7 @@ export const structuredData = {
   "@id": "https://ethotechnics.org/standards/std-02-contestability-recourse",
   headline: "STD-02 — Contestability & Recourse",
   description:
-    "A draft standard for challenging an automated decision: notice and reasons, an appeal path, a review clock, remedy and reversal, and who has standing to appeal.",
+    "A draft standard for challenging an automated decision: notice and reasons, an appeal path, a review clock, remedy and reversal, and who has standing to challenge.",
   url: "https://ethotechnics.org/standards/std-02-contestability-recourse",
   datePublished: "2026-01-01",
   dateModified: "2026-10-06",
@@ -168,8 +168,8 @@ export const structuredData = {
       <section id="articles" class="standard-section">
         <h2>Article I: The right to notice and reasons</h2>
         <p class="standard-article-quote">
-          A person subject to an automated decision gets the reasons for it,
-          in plain language, when the decision is made.
+          A person an automated system decides about gets the reasons for the
+          decision, in plain language, when it is made.
         </p>
         <ol class="standard-clauses">
           <li>
@@ -204,8 +204,8 @@ export const structuredData = {
       <section class="standard-section">
         <h2>Article II: The right to an appeal path</h2>
         <p class="standard-article-quote">
-          The appeal starts from the decision itself and reaches someone who
-          can reverse it.
+          The appeal path starts from the decision itself and reaches someone
+          who can reverse it.
         </p>
         <ol class="standard-clauses">
           <li>
@@ -240,7 +240,7 @@ export const structuredData = {
           </li>
           <li>
             <span class="standard-clause-id">§3.3</span>
-            Interim protections: While review is pending, the affected party must receive provisional protection (continued access, status quo, safe fallback).
+            Interim protections: While review is pending, the person the decision is about must receive provisional protection (continued access, status quo, safe fallback).
           </li>
         </ol>
       </section>
@@ -248,14 +248,14 @@ export const structuredData = {
       <section class="standard-section">
         <h2>Article IV: The right to remedy and reversal</h2>
         <p class="standard-article-quote">
-          An upheld appeal reverses the decision. Wrongful harm is compensated
+          An upheld challenge reverses the decision. Wrongful harm is compensated
           without a separate claim, and a defect in a rule reaches everyone it
           affected.
         </p>
         <ol class="standard-clauses">
           <li>
             <span class="standard-clause-id">§4.1</span>
-            Reversal as default: Upheld appeals result in reversal of the contested decision unless safety criteria explicitly prohibit it.
+            Reversal as default: Upheld challenges result in reversal of the contested decision unless safety criteria explicitly prohibit it.
           </li>
           <li>
             <span class="standard-clause-id">§4.2</span>
@@ -263,11 +263,11 @@ export const structuredData = {
           </li>
           <li>
             <span class="standard-clause-id">§4.3</span>
-            Verified delivery: Remedy delivery is tracked with timestamps and verified by the affected party.
+            Verified delivery: Remedy delivery is tracked with timestamps and verified by the person it is owed to.
           </li>
           <li>
             <span class="standard-clause-id">§4.4</span>
-            Scope of remedy: Where a defect is found to arise from a rule, a model, or a notice rather than from one decision, the remedy reaches every affected case without a further claim. The institution enumerates the affected population from its own records, corrects those cases, and tells each person what was corrected. Remediation reachable only by individual appeal does not discharge the obligation.
+            Scope of remedy: Where a defect is found to arise from a rule, a model, or a notice rather than from one decision, the remedy reaches every affected case without a further claim. The institution enumerates the affected population from its own records, corrects those cases, and tells each person what was corrected. A remedy reachable only by individual challenge does not discharge the obligation.
           </li>
         </ol>
       </section>
@@ -328,7 +328,7 @@ export const structuredData = {
           </li>
           <li>
             <span class="standard-clause-id">§6.3</span>
-            Tamper-evident retention: Where logs support review or redress,
+            Tamper-evident retention: Where logs support review or remedy,
             they are retained for at least the full review and appeal period
             plus the limitation window, and they are tamper-evident: a deletion
             or modification after a dispute begins is itself recorded. A log
@@ -360,8 +360,8 @@ export const structuredData = {
             <span class="standard-clause-id">§7.2</span>
             Vendor-managed infrastructure: Where a vendor operates the logs,
             the models, or the controls, the operating institution still
-            guarantees the affected person's access and remedy. A contract with
-            a vendor is not visible to the person the system decided about and
+            guarantees access and remedy to the person the system decided
+            about. A contract with a vendor is not visible to that person and
             does not shorten their route. The obligation survives the
             outsourcing.
           </li>
@@ -392,7 +392,7 @@ export const structuredData = {
         decision by a deadline, against a published standard, with a published
         set of outcomes.
 
-        Contestability requires seven things to be named together: who may
+        A route to challenge requires seven things to be named together: who may
         challenge, what may be challenged, what evidence is admissible, who
         is obliged to respond, by what deadline, against what standard of
         review, and which state transitions a successful challenge can
@@ -438,7 +438,7 @@ export const structuredData = {
             reconsideration outcome: the decision stands, is narrowed,
             suspended, reversed, corrected, or the grant behind it is expanded
             or withdrawn. A challenge route with no enumerated transition is
-            correspondence, not recourse.
+            correspondence, not standing.
           </li>
           <li>
             <span class="standard-clause-id">§8.4</span>
@@ -642,7 +642,7 @@ export const structuredData = {
             <a href="/evidence-packs/std-02">STD-02 evidence pack</a>
           </li>
           <li>
-            <a href="/explainers/contestability-checklist">Contestability checklist</a>
+            <a href="/explainers/challenge-checklist">Can this decision be challenged?</a>
           </li>
         </ul>
       </div>

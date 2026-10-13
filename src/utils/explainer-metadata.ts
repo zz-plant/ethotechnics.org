@@ -29,7 +29,7 @@ const explainerMetadataBySlug: Record<string, ExplainerSeoMetadata> = {
     publishedTime: "2025-03-20T00:00:00.000Z",
     modifiedTime: "2026-10-08T00:00:00.000Z",
   },
-  "contestability-checklist": {
+  "challenge-checklist": {
     publishedTime: "2025-04-01T00:00:00.000Z",
     modifiedTime: "2026-10-06T00:00:00.000Z",
   },

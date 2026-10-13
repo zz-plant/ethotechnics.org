@@ -51,7 +51,7 @@ const receiptPayload = `{
     id="receipt"
     eyebrow="Receipt"
     title="Receipt issued at decision time"
-    description="The receipt names the reason code, the owner, and the appeal route, so the applicant can contest the denial."
+    description="The receipt names the reason code, the owner, and the appeal route, so the applicant can challenge the denial."
   >
     <pre class="code-block">{receiptPayload}</pre>
   </SectionBlock>
@@ -105,10 +105,10 @@ const receiptPayload = `{
         The applicant is told the next step and which documents are needed.
       </li>
       <li>
-        Each INCOME-MISMATCH denial reversed on appeal is counted against the
-        income-matching rule. The count goes to Eligibility Operations, which
-        owns the rule. When the count passes a set number, it reviews the rule
-        and records what changed.
+        Each INCOME-MISMATCH denial reversed after a challenge is counted
+        against the income-matching rule. The count goes to Eligibility
+        Operations, which owns the rule. When the count passes a set number, it
+        reviews the rule and records what changed.
       </li>
     </ul>
   </SectionBlock>

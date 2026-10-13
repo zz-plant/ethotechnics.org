@@ -56,7 +56,7 @@ export const summaryTakeaways = [
   "Align agent capabilities with explicit action classes and receipts.",
   "Replace claims about intent with controls, deadlines, and appeal paths that someone can check.",
   "Use failure-first controls like kill switches, hard clocks, and rollback paths.",
-  "Anchor remediation with contestability paths and evidence packs.",
+  "Anchor remediation with challenge routes and evidence packs.",
 ];
 
 export const summaryRelatedLinks = [
@@ -305,14 +305,14 @@ export const practiceSections: PracticeSection[] = [
   {
     id: "contestability",
     eyebrow: "Practice 4",
-    title: "Show people how to contest",
+    title: "Show people how to challenge a decision",
     summary:
-      "People must see how to contest, reverse, and seek remedy when automation affects them.",
+      "People must see how to challenge a decision, have it reversed, and seek remedy when automation affects them.",
     requirements: [
       "Appeal path visible in every UI where automation acts",
       "Published clocks for acknowledgment, review, and remedy",
       "Escalation ladder with accountable decision owners",
-      "Audit trail linking appeals to receipts and outcomes",
+      "Audit trail linking challenges to receipts and outcomes",
       "Evidence parity between automated and human decisions",
     ],
     mechanisms: [
@@ -326,8 +326,8 @@ export const practiceSections: PracticeSection[] = [
       },
     ],
     gaps: [
-      "Contestability receipts linked to appeals and remediation outcomes.",
-      "Appeal intake templates for agent decisions.",
+      "Challenge receipts linked to the challenge and its remediation outcome.",
+      "Challenge intake templates for agent decisions.",
       "Escalation system that ties into incident response.",
     ],
   },
@@ -368,7 +368,7 @@ export const practiceSections: PracticeSection[] = [
       "Stress tests for unsafe-action rates and override response",
       "Simulations for repeated override or policy conflict",
       "Failure rehearsals for kill switch or rollback",
-      "Scenario drills for contested decisions and appeals",
+      "Scenario drills for challenges and appeals",
     ],
     mechanisms: [
       {

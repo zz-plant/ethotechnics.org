@@ -57,6 +57,14 @@ const REDIRECT_MAP: Record<string, string> = {
   // One noun for the artifact family. The index was plural and the detail
   // pages singular, which is the only family on the site split that way.
   "/artifact": "/artifacts",
+  // The appeals playbook was renamed for the act it handles: a challenge.
+  // An appeal is one formal route among several.
+  "/artifacts/contestability-appeals-playbook": "/artifacts#challenge-playbook",
+  "/artifact/contestability-appeals-playbook": "/artifacts#challenge-playbook",
+  // The checklist asks whether a decision can be challenged and how; it
+  // does not engage the contestability literature, so it no longer uses its
+  // name.
+  "/explainers/contestability-checklist": "/explainers/challenge-checklist",
   // Two calculators that were their own top-level noun. They take numbers and
   // report a score, which is what the other instruments do.
   "/tools": "/diagnostics",

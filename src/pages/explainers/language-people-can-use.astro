@@ -9,7 +9,7 @@ import SectionBlock from "../../components/SectionBlock.astro";
 
 const pageTitle = "Language people can use";
 const pageDescription =
-  "Questions to send when an automated decision affects you. Each asks for one thing: the reasons, the record, who can change it, or when you will hear back.";
+  "Questions to send when an automated decision is made about you. Each asks for one thing: the reasons, the record, who can change it, or when you will hear back.";
 const permalink = "/explainers/language-people-can-use";
 const pageUrl = new URL(permalink, Astro.site ?? Astro.url.origin).toString();
 
@@ -36,12 +36,13 @@ const phrases = [
   },
   {
     title: "If this decision was wrong, what will you do to put it right?",
-    description: "Use before you appeal, to learn what winning would get you.",
+    description:
+      "Use before you challenge it, to learn what winning would get you.",
   },
   {
     title: "Have other decisions made under the same rule been overturned?",
     description:
-      "Use when you think your case is not the only one. It asks whether wins on appeal have changed the rule.",
+      "Use when you think your case is not the only one. It asks whether upheld challenges have changed the rule.",
   },
   {
     title:
@@ -148,8 +149,8 @@ const contextBlocks = [
       }
     </CardGrid>
     <p class="muted small language-source">
-      Source: Ethotechnics contestability guidance · <a href={permalink}
-        >{pageUrl}</a
+      Source: Ethotechnics guidance on challenging a decision · <a
+        href={permalink}>{pageUrl}</a
       >
     </p>
   </SectionBlock>

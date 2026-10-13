@@ -43,7 +43,7 @@ const artifacts = [
   {
     title: "Disclosure packet",
     details:
-      "Receipt, reason, appeal path, and clock visibility for affected people.",
+      "Receipt, reason, appeal path, and clock visibility for the people the system decides about.",
   },
   {
     title: "Do-not-deploy boundary register",
@@ -69,7 +69,7 @@ const artifacts = [
 const testEvidence = [
   "Time-to-halt logs + halt receipts with stopwatch measurement.",
   "Time-to-remedy tracking with evidence of verification and follow-up.",
-  "Contestability access audit (1-step test, no-paywall).",
+  "Challenge access audit (1-step test, no-paywall).",
   "Burden ceiling measurements with UX flow maps.",
   "Disclosure latency report with receipt delivery timestamps.",
   "Per-population rate comparison computed without waiting for a challenge or claim (§2.4).",
@@ -89,7 +89,7 @@ const dependencyChecklist = [
 const portabilityChecklist = [
   "Artifacts exportable as PDF + JSON/CSV with stable IDs.",
   "Timestamped, signed, and linked to receipt IDs.",
-  "Plain-language summary included for impacted people.",
+  "Plain-language summary included for the people affected.",
   "Retention policy documented and published in the safety case.",
 ];
 ---
@@ -186,7 +186,8 @@ const portabilityChecklist = [
       </li>
       <li>Demonstrate remedy clock compliance with verification evidence.</li>
       <li>
-        Show the public-facing disclosure packet used for affected people.
+        Show the public-facing disclosure packet used for the people the system
+        decides about.
       </li>
       <li>
         Show the dependency ledger and how the exposure score moved since the

@@ -5,9 +5,9 @@
  * now." Both read from here, so the page starts with the move its badge names.
  */
 export const failureChoiceLabels: Record<string, string> = {
-  "decision-appealed": "Decision appealed",
+  "decision-appealed": "Decision challenged",
   "model-wrong": "Model made a harmful error",
-  "queue-stuck": "Appeals or reviews are stuck",
+  "queue-stuck": "Challenges or reviews are stuck",
   "user-harmed": "A user was harmed",
   "no-owner": "No owner is assigned",
   "cant-explain": "Decision cannot be clearly explained",
@@ -26,7 +26,7 @@ export const failurePriorityBadges: Record<string, string> = {
 
 export const failureFirstMoves: Record<string, string> = {
   "decision-appealed":
-    "Name the person who must answer this appeal, and the date they must answer by.",
+    "Name the person who must answer this challenge, and the date they must answer by.",
   "model-wrong":
     "Contain the error: narrow or pause the decisions it affects, and record who decided.",
   "queue-stuck":

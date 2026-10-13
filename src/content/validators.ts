@@ -172,7 +172,7 @@ export const validatorsContent: ValidatorsContent = {
       id: "VAL-02",
       title: "Risk radar",
       description:
-        "Scores the friction a journey adds up to, from the number of hard steps, the average wait, and whether each step can be appealed.",
+        "Scores the friction a journey adds up to, from the number of hard steps, the average wait, and whether each step can be challenged.",
       slug: "risk-radar",
       standardRef: "STD-01",
       inputs: [

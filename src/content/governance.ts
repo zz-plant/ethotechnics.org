@@ -120,7 +120,7 @@ export const governanceContent: GovernanceContent = {
       owner: "Kanav Jain",
       reviewerRoles: [],
       summary:
-        "Sets response-time targets and ownership for contested diagnostic outcomes.",
+        "Sets response-time targets and ownership for challenged diagnostic outcomes.",
     },
     {
       id: "RFC-2025-11",
@@ -153,7 +153,7 @@ export const governanceContent: GovernanceContent = {
         "Resolve lapsed RFC-2026-01 (Recourse escalation SLA for diagnostics)",
       outcome: "Superseded",
       rationale:
-        "The review window lapsed without a logged decision. The substance was carried by the diagnostics anti-weaponization constraints (AW-01 to AW-04), which set response-time and ownership targets for contested outcomes. Closed so the open-RFC list stops carrying a decision nobody logged.",
+        "The review window lapsed without a logged decision. The substance was carried by the diagnostics anti-weaponization constraints (AW-01 to AW-04), which set response-time and ownership targets for challenged outcomes. Closed so the open-RFC list stops carrying a decision nobody logged.",
       date: "2026-09-18",
       owner: "Kanav Jain",
       releaseVersion: "diagnostics-v2.0.0",
