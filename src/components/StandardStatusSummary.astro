@@ -1,5 +1,6 @@
 ---
 import { getStandardBySlug } from "../content/standards";
+import { formatDate, formatDatesInText } from "../utils/dates";
 
 interface Props {
   slug: string;
@@ -26,7 +27,9 @@ const statusClass = standard.status.toLowerCase();
     >
     <span class="muted">{standard.id} · v{standard.version}</span>
   </p>
-  <p class="muted small">Effective: {standard.effectiveDate}</p>
+  <p class="muted small">
+    Effective: {formatDatesInText(standard.effectiveDate)}
+  </p>
   <p class="muted small">Stable criteria: {standard.stableCriteria}</p>
   {
     standard.changelogEntries && standard.changelogEntries.length > 0 && (
@@ -38,7 +41,7 @@ const statusClass = standard.status.toLowerCase();
             ) : (
               `v${entry.version}`
             )}{" "}
-            ({entry.date}): {entry.summary}
+            ({formatDate(entry.date)}): {entry.summary}
           </li>
         ))}
       </ul>
@@ -47,7 +50,7 @@ const statusClass = standard.status.toLowerCase();
   {
     standard.changelogHref && (
       <p class="small">
-        <a href={standard.changelogHref}>View changelog</a>
+        <a href={standard.changelogHref}>View changelog &rarr;</a>
       </p>
     )
   }

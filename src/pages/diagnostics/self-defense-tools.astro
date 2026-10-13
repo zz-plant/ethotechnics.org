@@ -11,6 +11,7 @@ const pageTitle = "Self-defense diagnostic tools";
 const pageDescription =
   "Three checks for a person facing an automated decision: whether it can be challenged, whether the appeal can change the outcome, and who can reverse it.";
 const permalink = "/diagnostics/self-defense-tools";
+const pageUrl = new URL(permalink, Astro.site ?? Astro.url.origin).toString();
 
 // What the law already lets the reader ask for, from the same registry that
 // tells operators what to bind. The checks below ask whether a decision can be
@@ -21,7 +22,6 @@ const anchorLinks = [
   { href: "#governable", label: "Can this decision be challenged?" },
   { href: "#appeal-real", label: "Can the appeal change anything?" },
   { href: "#power-map", label: "Who holds power?" },
-  { href: "#print", label: "Printable sheet" },
 ];
 
 const ask = "/explainers/language-people-can-use";
@@ -57,10 +57,7 @@ const tools = [
             label: "Check whether an appeal can change the outcome",
             href: "#appeal-real",
           },
-          {
-            label: "Print the checks to keep with your papers",
-            href: "#print",
-          },
+          { label: "Print the checks to keep with your papers", print: true },
         ],
       },
       {
@@ -159,10 +156,7 @@ const tools = [
             label: "Questions for your kind of organization",
             href: `${ask}#contexts`,
           },
-          {
-            label: "Print the checks to keep with your papers",
-            href: "#print",
-          },
+          { label: "Print the checks to keep with your papers", print: true },
         ],
       },
       {
@@ -184,19 +178,10 @@ const tools = [
     ],
   },
 ];
-
-const printSheet = {
-  title: "Self-defense diagnostic tools",
-  intro: "All three checks on one page, for use during an appeal or review.",
-  sections: tools.map((tool) => ({
-    title: tool.title,
-    items: tool.questions,
-  })),
-};
 ---
 
 <BaseLayout
-  title={`${pageTitle} — Diagnostics`}
+  title={pageTitle}
   description={pageDescription}
   publishedTime="2025-06-01T00:00:00.000Z"
 >
@@ -205,7 +190,13 @@ const printSheet = {
     title={pageTitle}
     description={pageDescription}
     anchorLinks={anchorLinks}
-  />
+  >
+    <Fragment slot="actions">
+      <button class="button ghost" type="button" data-self-defense-print>
+        Print or save as PDF
+      </button>
+    </Fragment>
+  </PageIntro>
 
   <SectionBlock
     id="your-rights"
@@ -231,7 +222,7 @@ const printSheet = {
   </SectionBlock>
 
   {
-    tools.map((tool) => (
+    tools.map((tool, index) => (
       <SectionBlock
         id={tool.id}
         eyebrow={tool.eyebrow}
@@ -248,7 +239,7 @@ const printSheet = {
               ))}
             </ol>
           </div>
-          <div>
+          <div class="self-defense__outcomes">
             <p class="eyebrow">What your answers mean</p>
             <CardGrid className="grid--two">
               {tool.outcomes.map((outcome) => (
@@ -261,7 +252,17 @@ const printSheet = {
                   <ul class="self-defense__next-steps">
                     {outcome.nextSteps.map((step) => (
                       <li>
-                        <a href={step.href}>{step.label}</a>
+                        {step.print ? (
+                          <button
+                            class="self-defense__print-step"
+                            type="button"
+                            data-self-defense-print
+                          >
+                            {step.label}
+                          </button>
+                        ) : (
+                          <a href={step.href}>{step.label}</a>
+                        )}
                       </li>
                     ))}
                   </ul>
@@ -270,85 +271,33 @@ const printSheet = {
             </CardGrid>
           </div>
         </div>
+        {index === tools.length - 1 && (
+          <p class="muted small self-defense-source">
+            Source: Ethotechnics self-defense diagnostics ·{" "}
+            <a href={permalink}>{pageUrl}</a>
+          </p>
+        )}
       </SectionBlock>
     ))
   }
-
-  <SectionBlock
-    id="print"
-    eyebrow="Printable"
-    title="One-page self-defense sheet"
-    description="Print the three checks, or save them as a PDF, to keep with your papers."
-  >
-    <div class="self-defense-print" data-glossary-ignore>
-      <div class="self-defense-print__panel">
-        <p class="eyebrow">Print or save</p>
-        <h3>{printSheet.title}</h3>
-        <p class="muted">{printSheet.intro}</p>
-        <div class="actions">
-          <button class="button ghost" type="button" data-self-defense-print>
-            Print sheet
-          </button>
-        </div>
-      </div>
-      <div class="self-defense-print__preview" aria-label="Printable sheet">
-        <h2
-          class="print-only"
-          style="margin-top: 0; margin-bottom: var(--space-2);"
-        >
-          {printSheet.title}
-        </h2>
-        <p
-          class="print-only"
-          style="margin-bottom: var(--space-5); color: var(--muted);"
-        >
-          {printSheet.intro}
-        </p>
-        {
-          printSheet.sections.map((section) => (
-            <div class="self-defense-print__section">
-              <p class="self-defense-print__title">{section.title}</p>
-              <ol>
-                {section.items.map((item) => (
-                  <li>{item}</li>
-                ))}
-              </ol>
-            </div>
-          ))
-        }
-        <p
-          class="muted self-defense-print__note print-only"
-          style="margin-top: var(--space-6); font-size: var(--text-sm);"
-        >
-          Source: Ethotechnics self-defense diagnostics · <a href={permalink}
-            >ethotechnics.org{permalink}</a
-          >
-        </p>
-      </div>
-    </div>
-  </SectionBlock>
 </BaseLayout>
 
 <script>
-  const printButton = document.querySelector<HTMLButtonElement>(
+  const printButtons = document.querySelectorAll<HTMLButtonElement>(
     "[data-self-defense-print]",
   );
 
-  if (printButton) {
-    printButton.addEventListener("click", () => {
+  printButtons.forEach((button) => {
+    button.addEventListener("click", () => {
       window.print();
     });
-  }
+  });
 </script>
 
 <style>
   /* Four rights read as two rows of two, not three and one. */
   :global(.self-defense__rights) {
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr));
-  }
-
-  .print-only {
-    display: none;
   }
 
   .self-defense__questions,
@@ -368,50 +317,31 @@ const printSheet = {
     margin-top: var(--space-3);
   }
 
-  .self-defense-print {
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    padding: var(--space-5);
-    background: var(--surface);
-    display: grid;
-    gap: var(--space-5);
+  /* A next step that prints the page instead of going somewhere; it reads
+     as one more link in the list. */
+  .self-defense__print-step {
+    appearance: none;
+    background: none;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    text-align: start;
+    color: var(--link);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--link) 45%, transparent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    cursor: pointer;
   }
 
-  .self-defense-print__panel {
-    display: grid;
-    gap: var(--space-3);
+  .self-defense__print-step:hover,
+  .self-defense__print-step:focus-visible {
+    color: var(--link-hover);
+    text-decoration-color: currentColor;
   }
 
-  .self-defense-print__preview {
-    display: grid;
-    gap: var(--space-4);
-  }
-
-  .self-defense-print__section {
-    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
-    border-radius: var(--radius-md);
-    padding: var(--space-4);
-  }
-
-  .self-defense-print__title {
-    font-weight: 600;
-    margin-bottom: var(--space-2);
-  }
-
-  .self-defense-print__note {
-    margin-top: var(--space-5);
-  }
-
-  .self-defense-print--print {
-    gap: var(--space-4);
-  }
-
-  .self-defense-print--print h2 {
-    margin-bottom: var(--space-2);
-  }
-
-  .self-defense-print--print ol {
-    padding-left: var(--space-4);
+  .self-defense-source {
+    display: none;
   }
 
   @media (min-width: 960px) {
@@ -419,68 +349,32 @@ const printSheet = {
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       align-items: start;
     }
-
-    .self-defense-print {
-      grid-template-columns: minmax(0, 240px) minmax(0, 1fr);
-      align-items: start;
-    }
   }
 
+  /* The page itself is the printable sheet: the three checks and their
+     questions on one page. It used to end in a "One-page self-defense sheet"
+     section that repeated all fifteen questions on screen and again in a
+     print-only list. The rights, the outcome cards, and their links stay on
+     screen; paper keeps the questions. */
   @media print {
-    .print-only {
-      display: block !important;
+    :global(:root) {
+      --space-section: var(--space-5);
     }
 
-    /* Hide non-printable elements */
-    .site-header,
-    .institute-banner,
-    .nav,
-    .page-breadcrumbs,
-    .page-intro,
-    .footer,
-    #governable,
-    #appeal-real,
-    #power-map,
-    .self-defense-print__panel {
+    :global(.page-breadcrumbs),
+    :global(.page-intro__actions),
+    :global(#your-rights),
+    .self-defense__outcomes {
       display: none !important;
     }
 
-    /* Reset shell layout constraints for clean print output */
-    body,
-    html {
-      background: #fff !important;
-      color: #000 !important;
-    }
-
-    .page-shell,
-    .page-shell__canvas,
-    .page-shell__panel,
-    .page-shell__content,
-    main {
-      padding: 0 !important;
-      margin: 0 !important;
-      background: transparent !important;
-      border: none !important;
-      box-shadow: none !important;
-    }
-
-    .self-defense-print {
-      border: none !important;
-      padding: 0 !important;
-      background: transparent !important;
-      display: block !important;
-    }
-
-    .self-defense-print__preview {
-      display: grid !important;
-      gap: var(--space-5) !important;
-      width: 100% !important;
-    }
-
-    .self-defense-print__section {
-      border: 1px solid #000 !important;
-      page-break-inside: avoid;
+    .self-defense__questions {
       break-inside: avoid;
+    }
+
+    .self-defense-source {
+      display: block;
+      margin-top: var(--space-5);
     }
   }
 </style>

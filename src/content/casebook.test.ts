@@ -38,7 +38,7 @@ function yearsIn(when: string): string[] {
 
 /** The start of a `when`, as a year and, where named, a month index. */
 function startOf(when: string): { year: number; month?: number } {
-  const match = /(?:\b([A-Z][a-z]{2}) )?(\d{4})/.exec(when);
+  const match = /(?:\b([A-Z][a-z]{2}) (?:\d{1,2}, )?)?(\d{4})/.exec(when);
   const month = match?.[1] ? months.indexOf(match[1]) : -1;
   return {
     year: Number(match?.[2]),
@@ -253,14 +253,14 @@ function proseDays(label: string): number {
 
 type DateParts = { year: number; month?: number; day?: number };
 
-/** A `when` ("2016", "Jul 2016", "13 Aug 2020") as the parts it names. */
+/** A `when` ("2016", "Jul 2016", "Aug 13, 2020") as the parts it names. */
 function dateOf(when: string): DateParts {
-  const match = /^(?:(\d{1,2}) )?(?:([A-Z][a-z]{2}) )?(\d{4})/.exec(when);
-  const month = match?.[2] ? months.indexOf(match[2]) : -1;
+  const match = /^(?:([A-Z][a-z]{2}) )?(?:(\d{1,2}), )?(\d{4})/.exec(when);
+  const month = match?.[1] ? months.indexOf(match[1]) : -1;
   return {
     year: Number(match?.[3]),
     ...(month >= 0 ? { month } : {}),
-    ...(match?.[1] ? { day: Number(match[1]) } : {}),
+    ...(match?.[2] ? { day: Number(match[2]) } : {}),
   };
 }
 

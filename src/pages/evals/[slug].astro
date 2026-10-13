@@ -6,6 +6,7 @@ import CitationBlock from "../../components/CitationBlock.astro";
 import { evalsContent } from "../../content/evals";
 import { evalTestCases } from "../../content/eval-test-cases";
 import { getStandardById } from "../../content/standards";
+import { formatVersion } from "../../utils/versions";
 import type { EvalTestCase } from "../../content/evals";
 
 const suite = evalsContent.suites.find(
@@ -79,7 +80,7 @@ const standardHref = (ref: string) => {
       <div class="panel stack-sm">
         <p class="eyebrow">Details</p>
         <ul class="card__list">
-          <li>Version: {suite.version}</li>
+          <li>Version: {formatVersion(suite.version)}</li>
           <li>
             Status:
             <span class={`status-badge status-badge--${suite.status}`}>

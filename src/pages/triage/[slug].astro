@@ -9,6 +9,7 @@ import {
   type InstituteArtifact,
 } from "../../content/institute-site";
 import { failureFirstMoves } from "../../content/triage";
+import { getStandardBySlug } from "../../content/standards";
 
 const slug = Astro.params.slug;
 const state =
@@ -59,7 +60,6 @@ const workflowStages: {
   diagnosticsHref: string;
   diagnosticsLabel: string;
   standardsHref: string;
-  standardsLabel: string;
 }[] = [
   {
     key: "triage",
@@ -70,7 +70,6 @@ const workflowStages: {
     diagnosticsHref: "/diagnostics/self-defense-tools#governable",
     diagnosticsLabel: "Check whether the decision can be challenged",
     standardsHref: "/standards/std-02-contestability-recourse",
-    standardsLabel: "Review STD-02: Contestability and recourse",
   },
   {
     key: "stabilize",
@@ -83,7 +82,6 @@ const workflowStages: {
     // STD-03 (justice SLOs) has no page yet; STD-06 carries the published
     // thresholds and breach actions.
     standardsHref: "/standards/std-06-human-impact-safety-case",
-    standardsLabel: "Review STD-06: Human impact safety case",
   },
   {
     key: "evidence",
@@ -94,9 +92,16 @@ const workflowStages: {
     diagnosticsHref: "/diagnostics/record-conformance",
     diagnosticsLabel: "Check record conformance",
     standardsHref: "/standards/std-01-temporal-rights",
-    standardsLabel: "Review STD-01: Deadlines for decisions and reversals",
   },
 ];
+
+// Standard names come from the register: the labels here were written by
+// hand and named STD-01 "Deadlines for decisions and reversals".
+const standardLabel = (href: string) => {
+  const standard = getStandardBySlug(href.split("/").pop() ?? "");
+  if (!standard) throw new Error(`Triage links an unknown standard: ${href}`);
+  return `Review ${standard.id}: ${standard.title}`;
+};
 
 const orderedWorkflowStages = workflowStages.filter(
   (stage, index, stages) =>
@@ -113,7 +118,7 @@ const breadcrumbItems = [
 ---
 
 <BaseLayout
-  title={`${state.title} — Incident triage — Ethotechnics`}
+  title={`${state.title}: incident triage`}
   description={state.descriptionLine1}
   publishedTime="2025-06-01T00:00:00.000Z"
   breadcrumbItems={breadcrumbItems}
@@ -167,7 +172,9 @@ const breadcrumbItems = [
             <p class="muted small">
               Next checks:{" "}
               <a href={stage.diagnosticsHref}>{stage.diagnosticsLabel}</a> ·
-              <a href={stage.standardsHref}>{stage.standardsLabel}</a>
+              <a href={stage.standardsHref}>
+                {standardLabel(stage.standardsHref)}
+              </a>
             </p>
           </li>
         ))

@@ -76,6 +76,7 @@ const doors = [
 
 <BaseLayout
   title="Ethotechnics Institute — who has to act when a system is wrong?"
+  titleSuffix={false}
   description="Open standards, scored public failures, and free diagnostics for one question: when an automated decision system is wrong, does anyone have to change it?"
   structuredDataType="collection"
   footerOmit={["/about", "/participate#feedback", "/institute/governance"]}
@@ -98,7 +99,7 @@ const doors = [
           Test your system in 60 seconds
         </a>
         <a class="button ghost institute-hero__triage-link" href="/triage">
-          Triage a failure in progress →
+          Triage a failure in progress
         </a>
       </div>
     </div>
@@ -111,7 +112,7 @@ const doors = [
         >
       </a>
       <a class="home-pillar" href="/evals">
-        <strong>{suiteCount} evaluation suites</strong>
+        <strong>{suiteCount} eval suites</strong>
         <span class="small muted"
           >They test the deployment, not the model: whether a decision can be
           challenged, halted, and reversed.</span
@@ -162,9 +163,9 @@ const doors = [
       This is Law VIII of the twelve the standards are built on: observability
       without state transition is theater. A ruling that changes one case and
       not the rule is an observation the system never acts on.
-      <a href="/standards/laws#law-viii">Read Law VIII →</a>
+      <a href="/standards/laws#law-viii">Read Law VIII</a> ·
       <a href="/research/theory/exception-learning"
-        >Read the essay on exception learning →</a
+        >Read the essay on exception learning</a
       >
     </p>
   </section>
@@ -200,7 +201,7 @@ const doors = [
     </ul>
     <p class="home-doors__fit small muted">
       Not sure the framework applies to your system?
-      <a href="/use-cases">Which systems this is for →</a>
+      <a href="/use-cases">Which systems this is for</a>
     </p>
   </nav>
 
@@ -226,7 +227,7 @@ const doors = [
         <p class="home-colophon__text">
           Kanav Jain writes the framework as part of an institutional
           error-accounting research program.
-          <a href="/about">About the framework →</a>
+          <a href="/about">About the framework</a>
         </p>
       </div>
       <div>
@@ -234,7 +235,7 @@ const doors = [
         <p class="home-colophon__text">
           If a case score, a clause, or any claim on this site is wrong, send
           the record that shows it.
-          <a href="/participate#feedback">Send a correction →</a>
+          <a href="/participate#feedback">Send a correction</a>
         </p>
       </div>
       <div>
@@ -244,7 +245,6 @@ const doors = [
           instruments failed, and what changed because of it.
           <a href="/institute/governance#failure-archive">
             Read the {failureCount === 1 ? "entry" : `${failureCount} entries`}
-            →
           </a>
         </p>
       </div>
@@ -254,7 +254,7 @@ const doors = [
           The Institute publishes the framework. Ethotechnics Studio applies it
           to one organization's healthcare AI system at a time, under
           commission.
-          <a href="/institute/how-studio-fits">How the two fit →</a>
+          <a href="/institute/how-studio-fits">How the two fit</a>
         </p>
       </div>
     </div>

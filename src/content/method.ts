@@ -69,7 +69,7 @@ export type MethodContent = {
 };
 
 export const methodContent: MethodContent = {
-  pageTitle: "The Ethotechnics method: keeping automated decisions answerable",
+  pageTitle: "The method: keeping automated decisions answerable",
   pageDescription:
     "Evidence that an automated decision is wrong is settled one case at a time and never reaches the rule. The method puts it on the record, one workflow at a time.",
   permalink: "/method",
@@ -96,7 +96,7 @@ export const methodContent: MethodContent = {
         "Institutional debris as an evidence class: workaround logs, override records, grievance files, exception codes, and shadow spreadsheets — the second process that grew around the intended one",
         "STD-07 belief records, with what they rest on and what would invalidate them",
         "STD-08 Part B: the policies a grant rests on are records with provenance, review triggers, and an expiry, and an expired policy stops justifying the grant",
-        "Record Conformance Checker: grades whether an exported record stream states what would invalidate its beliefs",
+        "Record conformance checker: grades whether an exported record stream states what would invalidate its beliefs",
         "STD-08 §2.6: a decision threshold is a policy record, pinned to the model version, question schema, and option order it was tuned against",
       ],
       links: [
@@ -112,7 +112,7 @@ export const methodContent: MethodContent = {
         },
         { label: "STD-08 Delegation", href: "/standards/std-08-delegation" },
         {
-          label: "Record Conformance Checker",
+          label: "Record conformance checker",
           href: "/diagnostics/record-conformance",
         },
       ],
@@ -128,7 +128,7 @@ export const methodContent: MethodContent = {
         "Glossary entries on design authority, the authority to reverse a decision, permission surfaces, and override lanes",
         "STD-07 Article II: every action names the authorization it ran under, and a delegation with no revocation conditions is a transfer",
         "STD-08 Part A: a grant is a lease, renewal states its evidence in advance, and widening scope is a new authorization",
-        "Delegation Audit (self-report): lists the kinds of action no written grant covers",
+        "Delegation audit (self-report): lists the kinds of action no written grant covers",
         "STD-08 §1.5: authority is read from grant and authorization records, never from content the delegation acts on",
       ],
       links: [
@@ -138,7 +138,7 @@ export const methodContent: MethodContent = {
         },
         { label: "STD-08 Delegation", href: "/standards/std-08-delegation" },
         {
-          label: "Delegation Audit",
+          label: "Delegation audit",
           href: "/diagnostics/delegation-audit",
         },
         {
@@ -177,13 +177,13 @@ export const methodContent: MethodContent = {
       question: "Who carries the burden of this decision, and for how long?",
       currentAssets: [
         "Burden hours schema",
-        "VAL-01 Burden Modeler and the burden budget worksheet",
+        "VAL-01 Journey burden check and the burden budget worksheet",
         "The three lenses, in the method",
         "STD-01 Temporal Bill of Rights clocks",
       ],
       links: [
         {
-          label: "STD-01 Temporal rights",
+          label: "STD-01 The Temporal Bill of Rights",
           href: "/standards/std-01-temporal-rights",
         },
         { label: "Diagnostics", href: "/diagnostics" },
@@ -195,7 +195,7 @@ export const methodContent: MethodContent = {
       title: "Challenge",
       question: "Who can contest the decision, and with what procedural force?",
       currentAssets: [
-        "STD-02 Contestability and Recourse",
+        "STD-02 Contestability & Recourse",
         "Minimum viable contestability: standing, reasons, records, timelines, a named responder, defined effects, remedies, and no retaliation",
         "Appeal event schema",
         "MEC-06 appeal paths and MEC-08 contestation APIs",
@@ -232,7 +232,7 @@ export const methodContent: MethodContent = {
         "MEC-11 escalation SLAs",
         "STD-07 discrepancy handling: silence past the clock is a governance failure, not a pending state",
         "STD-08 §2.3 and §2.4: a fired review trigger sends the policy, and every grant that cites it, back for review",
-        "Record Conformance Checker: reports discrepancies that were never answered inside their clock",
+        "Record conformance checker: reports discrepancies that were never answered inside their clock",
       ],
       links: [
         {
@@ -245,7 +245,7 @@ export const methodContent: MethodContent = {
         },
         { label: "STD-08 Delegation", href: "/standards/std-08-delegation" },
         {
-          label: "Record Conformance Checker",
+          label: "Record conformance checker",
           href: "/diagnostics/record-conformance",
         },
       ],
@@ -261,12 +261,12 @@ export const methodContent: MethodContent = {
         "MEC-12 stoppability testing",
         "Tier 1 harness: tests that stop, override, and audit records work",
         "STD-08 Part D: correction capacity is stated across seven components and must grow when authority does",
-        "Delegation Audit (self-report): the team's own reading of reversibility at the technical, operational, and institutional levels",
+        "Delegation audit (self-report): the team's own reading of reversibility at the technical, operational, and institutional levels",
       ],
       links: [
         { label: "STD-08 Delegation", href: "/standards/std-08-delegation" },
         {
-          label: "Delegation Audit",
+          label: "Delegation audit",
           href: "/diagnostics/delegation-audit",
         },
         { label: "Kill switch", href: "/mechanisms/patterns/kill-switch" },

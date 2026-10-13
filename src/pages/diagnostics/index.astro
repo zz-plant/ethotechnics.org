@@ -28,7 +28,7 @@ const anchorLinks = [
   { href: "#how-it-works", label: "Facilitated sessions" },
 ];
 const introDescription =
-  "For operators, governance teams, and auditors. Three of the four tools score what you enter about a workflow. The Record Conformance Checker grades the records a system exports.";
+  "For operators, governance teams, and auditors. Three of the four tools score what you enter about a workflow. The record conformance checker grades the records a system exports.";
 // The page's one list of tools. Each card is a single link to the tool; the
 // card id keeps the /diagnostics#<slug> links from other pages working.
 const quickTriagePrompts = [
@@ -76,7 +76,7 @@ const toolCards = quickTriagePrompts.flatMap((prompt) => {
 // against. Both render as links, since the page introduces neither.
 const standardsMap = [
   {
-    tool: "Workload Modeler",
+    tool: "Workload modeler",
     symptom:
       "Staff absorb the system's errors where nobody counts them: burnout, manual overrides, hours spent on workarounds.",
     output: "Burden score and where the load concentrates",
@@ -84,7 +84,7 @@ const standardsMap = [
     law: "IV",
   },
   {
-    tool: "Delegation Audit",
+    tool: "Delegation audit",
     symptom:
       "Nobody clearly owns an outage, and nobody has rehearsed the fallback.",
     output: "Permissions nobody can justify",
@@ -100,7 +100,7 @@ const standardsMap = [
     law: "IV",
   },
   {
-    tool: "Record Conformance Checker",
+    tool: "Record conformance checker",
     symptom:
       "The records do not show who authorized each action, or whether a person can contest it.",
     output: "Conformance level the records earn",
@@ -210,7 +210,7 @@ const selfDefenseTools = [
             descriptionTone="default"
           >
             <a slot="footer" class="muted" href={tool.href}>
-              {tool.label}
+              {tool.label} &rarr;
             </a>
           </CardItem>
         ))
@@ -369,7 +369,7 @@ const selfDefenseTools = [
         target="_blank"
         rel="noopener noreferrer"
       >
-        Engage Ethotechnics Studio →
+        Visit Ethotechnics Studio
       </a>
       <a class="button ghost" href="/participate">
         Submit community feedback
@@ -410,6 +410,8 @@ const selfDefenseTools = [
     import "../../client/route-metrics.ts";
   </script>
   <p class="muted">
-    <a href="/archive/retired-tools">Retired tools and historical source</a>
+    <a href="/archive/retired-tools"
+      >Retired tools and historical source &rarr;</a
+    >
   </p>
 </BaseLayout>

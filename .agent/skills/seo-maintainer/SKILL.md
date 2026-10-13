@@ -18,6 +18,10 @@ Use when requests involve SEO audits, search visibility, metadata quality, sitem
 
 2. **Metadata and social cards**
    - Ensure each changed route has a unique title and description.
+   - Pass `BaseLayout` the page name; it appends " — Ethotechnics"
+     (`src/utils/seo/document-title.ts`). A page type the name does not convey
+     follows a colon ("Engineering: role path"). Only the home page and the
+     glossary set `titleSuffix={false}`.
    - Validate Open Graph/Twitter card fields and image fallbacks.
 
 3. **Indexing and crawlability**

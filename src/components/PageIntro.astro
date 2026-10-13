@@ -1,7 +1,9 @@
 ---
 import PageIntroAnchorList from "./PageIntroAnchorList.astro";
 import SectionNav from "./SectionNav.astro";
+import { formatDate } from "../utils/dates";
 import { eyebrowRestatesTitle } from "../utils/eyebrow";
+import { formatVersion } from "../utils/versions";
 
 export interface AnchorLink {
   href: string;
@@ -17,6 +19,7 @@ export interface Props {
   anchorLinks: AnchorLink[];
   anchorLinksSummary?: string;
   version?: string;
+  /** An ISO date (YYYY-MM-DD), shown as "Oct 6, 2026". */
   lastUpdated?: string;
 }
 
@@ -44,7 +47,7 @@ const HeadingTag = `h${titleLevel}` as const;
 // several pages fed it the section name itself, so the page rendered a label
 // on a label: STANDARDS over *Standards*, FINITE [BETA] over *Finite [Beta]*.
 // Drop it when it adds nothing, including when the title already contains
-// it: EVIDENCE PACK over *STD-01 Evidence Pack*.
+// it: EVIDENCE PACK over *STD-01 evidence pack*.
 const trimmedEyebrow = eyebrow?.trim();
 const resolvedEyebrow =
   !trimmedEyebrow || eyebrowRestatesTitle(trimmedEyebrow, title)
@@ -66,9 +69,11 @@ const resolvedEyebrow =
         {
           (version || lastUpdated) && (
             <p class="page-intro__versioning" aria-label="Document metadata">
-              {version && <span>Version {version}</span>}
+              {version && <span>{formatVersion(version)}</span>}
               {version && lastUpdated && <span aria-hidden="true"> · </span>}
-              {lastUpdated && <span>Last updated {lastUpdated}</span>}
+              {lastUpdated && (
+                <span>Last updated {formatDate(lastUpdated)}</span>
+              )}
             </p>
           )
         }

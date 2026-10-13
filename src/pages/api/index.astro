@@ -71,7 +71,7 @@ const canonicalObjects = [
   {
     name: "Agent safety object model",
     description:
-      "Machine-readable profile for autonomy level, action classes, and receipts; 2.0.0 points each action class at its authority grant.",
+      "Machine-readable profile for autonomy level, action classes, and receipts; v2.0.0 points each action class at its authority grant.",
   },
   {
     name: "Capability catalog",
@@ -136,13 +136,13 @@ const interoperabilitySpecs = [
     name: "Control plane OpenAPI",
     href: "/standards/ethotechnics-control-plane.openapi.yaml",
     description:
-      "Decision retrieval, appeal intake, and (0.3.0) capability, grant, policy, dependency, standing, challenge, and reconsideration endpoints.",
+      "Decision retrieval, appeal intake, and (v0.3.0) capability, grant, policy, dependency, standing, challenge, and reconsideration endpoints.",
   },
   {
     name: "Events AsyncAPI",
     href: "/standards/ethotechnics-events.asyncapi.yaml",
     description:
-      "Deadline and repair log events, plus (0.3.0) grant, policy, dependency, challenge, and reconsideration state events.",
+      "Deadline and repair log events, plus (v0.3.0) grant, policy, dependency, challenge, and reconsideration state events.",
   },
 ];
 
@@ -168,7 +168,7 @@ const endpoints = API_ENDPOINTS.map((endpoint) => ({
   <SectionBlock
     id="objects"
     title="The object model behind the exports"
-    description="The names the endpoints and schemas below use. Use the same names in integrations and audit tooling. Each version 2 schema has a validating example under /standards/examples/; together the examples describe one delegation scenario."
+    description="The names the endpoints and schemas below use. Use the same names in integrations and audit tooling. Each v2 schema has a validating example under /standards/examples/; together the examples describe one delegation scenario."
   >
     <ul class="muted">
       {
@@ -269,7 +269,7 @@ const endpoints = API_ENDPOINTS.map((endpoint) => ({
       <li>
         The agent safety object model: the <a href="/agents/spec">spec page</a>,
         its example as JSON at <a href="/agents/spec.json">/agents/spec.json</a
-        >, and the 1.1.0 instance at <a
+        >, and the v1.1.0 instance at <a
           href="/standards/agent-safety-object-model.json"
           >/standards/agent-safety-object-model.json</a
         >, served unchanged.

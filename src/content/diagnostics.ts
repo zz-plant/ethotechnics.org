@@ -125,7 +125,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         version: "v1.6.0",
         date: "2026-10-02",
         summary:
-          "Added checks for unrecorded repair work and staff workarounds to the Workload Modeler and corrective capacity self-assessment.",
+          "Added checks for unrecorded repair work and staff workarounds to the workload modeler and corrective capacity self-assessment.",
       },
       {
         version: "v1.5.0",
@@ -149,7 +149,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         version: "v1.2.0",
         date: "2026-09-06",
         summary:
-          "Added the Delegation Audit, which takes one workflow through six questions.",
+          "Added the delegation audit, which takes one workflow through six questions.",
       },
       {
         version: "v1.1.0",
@@ -188,7 +188,7 @@ export const diagnosticsContent: DiagnosticsContent = {
     },
   ],
   facilitation: {
-    title: "You bring one scenario and the decision it feeds.",
+    title: "You bring one scenario and the decision it feeds",
     description:
       "A facilitated session covers one scenario. It ends when the decision it was framed around has an answer or a named blocker.",
     steps: [
@@ -213,10 +213,10 @@ export const diagnosticsContent: DiagnosticsContent = {
   tools: [
     {
       slug: "delegation-audit",
-      title: "Delegation Audit",
+      title: "Delegation audit",
       tier: "Scores your answers",
       description:
-        "Walks a team through one workflow against six questions and returns an exposure score, the permissions nobody can justify, and whether its decisions can be undone. Start here when the system keeps no decision records yet; use the Record Conformance Checker once it does.",
+        "Walks a team through one workflow against six questions and returns an exposure score, the permissions nobody can justify, and whether its decisions can be undone. Start here when the system keeps no decision records yet; use the record conformance checker once it does.",
       metaDescription:
         "Six questions about one workflow return an exposure score, unjustified permissions, and whether its decisions can be undone. For systems that keep no decision records.",
       methodCards: {
@@ -345,10 +345,10 @@ export const diagnosticsContent: DiagnosticsContent = {
     },
     {
       slug: "record-conformance",
-      title: "Record Conformance Checker",
+      title: "Record conformance checker",
       tier: "Checks exported records",
       description:
-        "Reads the decision records a system exports in STD-07, the Institute's draft record format for work delegated to machines. It checks them against the schema, recomputes the hashes, and compares the conformance level the records earn with the level the system claims. Use it when a system already produces records; use the Delegation Audit when it does not.",
+        "Reads the decision records a system exports in STD-07, the Institute's draft record format for work delegated to machines. It checks them against the schema, recomputes the hashes, and compares the conformance level the records earn with the level the system claims. Use it when a system already produces records; use the delegation audit when it does not.",
       metaDescription:
         "Checks a system's decision records against the STD-07 record schema, recomputes their hashes, and compares the level they earn with the level it claims.",
       methodCards: {
@@ -466,16 +466,16 @@ export const diagnosticsContent: DiagnosticsContent = {
         "The conformance level that system publishes, if any.",
         "The time the export was taken.",
       ],
-      ctaLabel: "Open the Record Conformance Checker",
+      ctaLabel: "Open the record conformance checker",
       ctaHref: "/diagnostics/record-conformance",
-      ctaAriaLabel: "Open the Record Conformance Checker diagnostic tool",
+      ctaAriaLabel: "Open the record conformance checker diagnostic tool",
       exampleLabel: "Read STD-07",
       exampleHref: "/standards/std-07-revisable-delegation-record",
       deliveryType: "self-serve",
     },
     {
       slug: "burden-modeler",
-      title: "Workload Modeler",
+      title: "Workload modeler",
       tier: "Scores your answers",
       description:
         "Rate seven sources of workload, such as interruptions, handoffs, and incidents. Get a burden score out of 100 and the three places where reducing load would help most.",
@@ -581,9 +581,9 @@ export const diagnosticsContent: DiagnosticsContent = {
         "Rough task volume or handoff counts.",
         "Known friction points or escalation paths.",
       ],
-      ctaLabel: "Run the Workload Modeler",
+      ctaLabel: "Run the workload modeler",
       ctaHref: "/diagnostics/burden-modeler",
-      ctaAriaLabel: "Run the Workload Modeler diagnostic tool",
+      ctaAriaLabel: "Run the workload modeler diagnostic tool",
       exampleLabel: "View sample output",
       exampleHref:
         "https://github.com/zz-plant/ethotechnics.org/blob/main/docs/diagnostics-outputs.md#burden-modeler",

@@ -9,6 +9,7 @@
 import type { Case } from "../content/casebook";
 import type { StandardEntry } from "../content/standards";
 import type { PublicationMetadata } from "../content/types";
+import { formatVersion } from "./versions";
 
 export interface ChangeEntry {
   /** What changed: a standard id, "Glossary", "Mechanisms", or "Casebook". */
@@ -33,8 +34,6 @@ export interface ChangeSources {
 export const CHANGES_FEED_LIMIT = 50;
 
 const day = (value: string): string => value.slice(0, 10);
-const versionLabel = (version: string): string =>
-  `v${version.replace(/^v/i, "")}`;
 
 const fromPublication = (
   source: string,
@@ -43,11 +42,11 @@ const fromPublication = (
 ): ChangeEntry[] =>
   content.publication.changelog.map((entry) => ({
     source,
-    title: `${name} ${versionLabel(entry.version)}`,
+    title: `${name} ${formatVersion(entry.version)}`,
     date: day(entry.date),
     summary: entry.summary,
     href: content.permalink,
-    id: `${source.toLowerCase()}:${versionLabel(entry.version)}:${day(entry.date)}`,
+    id: `${source.toLowerCase()}:${formatVersion(entry.version)}:${day(entry.date)}`,
   }));
 
 /** Every dated change, in no particular order. */
@@ -62,12 +61,12 @@ export const collectChanges = ({
     .flatMap((standard) =>
       (standard.changelogEntries ?? []).map((entry) => ({
         source: standard.id,
-        title: `${standard.id} ${versionLabel(entry.version)}: ${standard.title}`,
+        title: `${standard.id} ${formatVersion(entry.version)}: ${standard.title}`,
         date: day(entry.date),
         summary: entry.summary,
         href:
           entry.href ?? standard.changelogHref ?? `/standards/${standard.slug}`,
-        id: `${standard.id}:${versionLabel(entry.version)}:${day(entry.date)}`,
+        id: `${standard.id}:${formatVersion(entry.version)}:${day(entry.date)}`,
       })),
     ),
   ...fromPublication("Glossary", "Glossary", glossary),

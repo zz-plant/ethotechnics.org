@@ -20,7 +20,7 @@ test.describe("404 Error Page", () => {
     await expect(page.getByText("Error 404", { exact: true })).toBeVisible();
 
     // Check the return link works
-    await page.getByRole("link", { name: "Return Home" }).click();
+    await page.getByRole("link", { name: "Return home" }).click();
     await expect(page).toHaveURL(/\/$/); // Should be at root
   });
 });

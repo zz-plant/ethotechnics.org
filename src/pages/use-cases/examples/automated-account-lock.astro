@@ -7,7 +7,7 @@ import CardGrid from "../../../components/CardGrid.astro";
 import CardItem from "../../../components/CardItem.astro";
 import WorkedExampleTerms from "../../../components/WorkedExampleTerms.astro";
 
-const pageTitle = "Automated account lock & eligibility flip — Worked example";
+const pageTitle = "Account lock and eligibility flip: worked example";
 const pageDescription =
   "A fraud model locks an account. The worked example traces the receipt, the named owner, the 2-, 24-, and 72-hour clocks, the exceptions, and the remedy.";
 
@@ -249,7 +249,7 @@ const artifacts = [
         artifacts.map((artifact) => (
           <CardItem title={artifact.title} description={artifact.description}>
             <a slot="footer" class="muted" href={artifact.href}>
-              Open artifact
+              Open artifact &rarr;
             </a>
           </CardItem>
         ))

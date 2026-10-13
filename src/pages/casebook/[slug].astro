@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { formatDate } from "../../utils/dates";
 import CaseTimeline from "../../components/CaseTimeline.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
@@ -35,7 +36,7 @@ const sourceKind = {
 ---
 
 <BaseLayout
-  title={`${entry.title} — Casebook — Ethotechnics`}
+  title={`${entry.title}: casebook entry`}
   description={entry.metaDescription ?? entry.summary}
   publishedTime={entry.published}
   modifiedTime={entry.updated ?? entry.published}
@@ -178,7 +179,7 @@ const sourceKind = {
             <p class="eyebrow">1. Run the diagnostic</p>
             <p>
               <a href={entry.remediation.diagnostic.href}>
-                <strong>{entry.remediation.diagnostic.name} &rarr;</strong>
+                <strong>{entry.remediation.diagnostic.name}</strong>
               </a>
             </p>
             <p class="small muted">{entry.remediation.diagnostic.purpose}</p>
@@ -190,7 +191,7 @@ const sourceKind = {
               <a href={entry.remediation.standard.href}>
                 <strong>
                   {entry.remediation.standard.id}:{" "}
-                  {entry.remediation.standard.name} &rarr;
+                  {entry.remediation.standard.name}
                 </strong>
               </a>
             </p>
@@ -201,7 +202,7 @@ const sourceKind = {
             <p class="eyebrow">3. Read why it recurs</p>
             <p>
               <a href={entry.remediation.theory.href}>
-                <strong>{entry.remediation.theory.title} &rarr;</strong>
+                <strong>{entry.remediation.theory.title}</strong>
               </a>
             </p>
             <p class="small muted">{entry.remediation.theory.question}</p>
@@ -285,7 +286,7 @@ const sourceKind = {
             ) : (
               <span>{source.label}</span>
             )}
-            <span class="muted small"> · {source.date}</span>
+            <span class="muted small"> · {formatDate(source.date)}</span>
           </li>
         ))
       }

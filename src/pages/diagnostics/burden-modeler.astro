@@ -17,7 +17,7 @@ if (!tool) {
 }
 
 const { publication } = diagnosticsContent;
-const pageTitle = `${tool.title} — Diagnostics`;
+const pageTitle = tool.title;
 const pageDescription = tool.description;
 const permalink = `/diagnostics/${tool.slug}`;
 ---
@@ -32,7 +32,7 @@ const permalink = `/diagnostics/${tool.slug}`;
     tool={tool}
     publication={publication}
     permalink={permalink}
-    overviewTitle="When to use the Workload Modeler"
+    overviewTitle="When to use the workload modeler"
     methodologyDescription="Inputs, scoring logic, validation notes, and failure modes used in the model."
     sampleOutputDescription="The burden index, the hotspot ranking, and the mitigations listed for each hotspot."
     runSectionTitle="Start a new burden scenario"

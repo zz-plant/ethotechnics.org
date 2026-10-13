@@ -170,7 +170,7 @@ export const validatorsContent: ValidatorsContent = {
     },
     {
       id: "VAL-02",
-      title: "Risk Radar",
+      title: "Risk radar",
       description:
         "Scores the friction a journey adds up to, from the number of hard steps, the average wait, and whether each step can be appealed.",
       slug: "risk-radar",
@@ -277,7 +277,7 @@ export const validatorsContent: ValidatorsContent = {
     },
     {
       id: "VAL-03",
-      title: "Latency Audit",
+      title: "Latency audit",
       description:
         "Checks observed latency against the declared timeout and whether a human escalation path exists.",
       slug: "latency-audit",
