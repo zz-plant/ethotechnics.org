@@ -6,56 +6,52 @@ import SectionBlock from "../../components/SectionBlock.astro";
 
 const pageTitle = "Contestability checklist";
 const pageDescription =
-  "Seven pass/fail questions that test whether a person can contest an automated decision, with three short notes on what a failing answer means.";
+  "Seven pass/fail questions that test whether a person can contest an automated decision, each with what a failing answer means.";
 
-const anchorLinks = [
-  { href: "#checklist", label: "Checklist" },
-  { href: "#explainers", label: "Explainers" },
-];
+const anchorLinks = [{ href: "#checklist", label: "Checklist" }];
 
+// What a failing answer means used to sit below the checklist as three
+// expandable notes, and a reader had to match each note back to its
+// questions. Each note's sentences now sit under the question they explain.
 const checklistItems = [
-  "Does the person receive a decision record with the reasons, the date, and what the decision covers?",
-  "Can a named person change or reverse the decision?",
-  "Is there a deadline by which the person must get an answer?",
-  "Can the person appeal without asking permission or meeting hidden conditions first?",
-  "If the appeal succeeds, is there a set way to reverse the decision or remedy the harm?",
-  "Is there a record that appeals have succeeded, not only that they were processed?",
-  "Are upheld appeals counted against the rule that produced them, and is the count sent to the rule's owner?",
-];
-
-const explainerItems = [
   {
-    title: "What contestability means",
-    body: [
-      "Contestability turns “that’s wrong” into something the system has to answer: a decision with reasons, a deadline, a named person who can change it, and a route to reversal.",
-      "If a person cannot get their case into that state, there is no contestability, even if there is a form or a hotline.",
-    ],
-    link: {
-      href: "/glossary/contestability",
-      label: "Read the glossary definition",
-    },
-  },
-  {
-    title: "Why “contact support” is not due process",
-    body: [
+    question:
+      "Does the person receive a decision record with the reasons, the date, and what the decision covers?",
+    ifNot:
       "“Contact support” is a queue. Without a receipt, a deadline, and a named person who can decide, it is only a request for help.",
-      "Due process needs a deadline, escalation that has to happen, and a decision that binds. Without them, requests sit in the queue and are never reversed.",
-    ],
-    link: {
-      href: "/standards/std-02-contestability-recourse",
-      label: "Review STD-02 contestability obligations",
-    },
   },
   {
-    title: "What makes an appeal able to change the outcome",
-    body: [
-      "An appeal can change the outcome when it reaches someone who can reverse the decision, and the evidence the person sends is weighed. A real appeal route publishes how often appeals succeed, names who can reverse outcomes, and shows where the evidence is weighed.",
-      "An appeal for show hides who decides, does not publish how often appeals win, or ends in a queue no one can trace. When appeals against one rule keep winning, the rule is wrong. The count goes to the rule's owner, who changes the rule.",
-    ],
-    link: {
-      href: "/standards/std-02-contestability-recourse",
-      label: "See the standard for clear appeal paths",
-    },
+    question: "Can a named person change or reverse the decision?",
+    ifNot:
+      "The appeal is for show: it hides who decides. An appeal changes the outcome only when it reaches someone who can reverse the decision, and the evidence the person sends is weighed.",
+  },
+  {
+    question: "Is there a deadline by which the person must get an answer?",
+    ifNot:
+      "Requests sit in the queue and are never reversed. Due process needs a deadline and escalation that has to happen.",
+  },
+  {
+    question:
+      "Can the person appeal without asking permission or meeting hidden conditions first?",
+    ifNot:
+      "The case never reaches a state the system has to answer. There is no contestability, even if there is a form or a hotline.",
+  },
+  {
+    question:
+      "If the appeal succeeds, is there a set way to reverse the decision or remedy the harm?",
+    ifNot: "Winning changes nothing. Due process needs a decision that binds.",
+  },
+  {
+    question:
+      "Is there a record that appeals have succeeded, not only that they were processed?",
+    ifNot:
+      "The route may be for show, ending in a queue no one can trace. A real appeal route publishes how often appeals succeed, names who can reverse outcomes, and shows where the evidence is weighed.",
+  },
+  {
+    question:
+      "Are upheld appeals counted against the rule that produced them, and is the count sent to the rule's owner?",
+    ifNot:
+      "The rule keeps running. When appeals against one rule keep winning, the rule is wrong. The count goes to the rule's owner, who changes the rule.",
   },
 ];
 ---
@@ -78,35 +74,46 @@ const explainerItems = [
     title="Contestability checklist"
     description="Seven pass/fail questions to run over a decision flow before it ships or when it is audited."
   >
-    <div class="contestability-layout screen-only">
-      <div class="contestability-layout__main">
-        <div
-          class="contestability-checklist"
-          role="group"
-          aria-label="Contestability checklist"
-        >
-          <p class="contestability-checklist__title">
-            Can a person contest this?
-          </p>
-          <ul data-checklist-items>
-            {checklistItems.map((item) => <li>{item}</li>)}
-          </ul>
-          <p class="muted contestability-checklist__note">
-            Built from the contestability definition in the glossary.
-            {" "}
-            <a href="/glossary/contestability">Glossary term</a>
-            {" "}
-            ·
-            {" "}
-            <a href="/standards/std-02-contestability-recourse">STD-02</a>
-          </p>
-        </div>
+    <div class="contestability-layout">
+      <div
+        class="contestability-checklist"
+        role="group"
+        aria-label="Contestability checklist"
+      >
+        <p>
+          Contestability turns “that’s wrong” into something the system has to
+          answer: a decision with reasons, a deadline, a named person who can
+          change it, and a route to reversal.
+        </p>
+        <ul>
+          {
+            checklistItems.map((item) => (
+              <li>
+                <p
+                  class="contestability-checklist__question"
+                  data-checklist-question
+                >
+                  {item.question}
+                </p>
+                <p class="muted">
+                  <strong>If not.</strong> {item.ifNot}
+                </p>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="muted small">
+          The questions come from the <a href="/glossary/contestability"
+            >glossary definition</a
+          >. The contestability standard, <a
+            href="/standards/std-02-contestability-recourse">STD-02</a
+          >, sets the obligations behind them, including clear appeal paths.
+        </p>
       </div>
       <aside class="contestability-summary" aria-label="Checklist summary">
         <p class="eyebrow contestability-summary__eyebrow">
           2-minute checklist
         </p>
-        <p class="contestability-summary__title">Contestability checklist</p>
         <p class="muted contestability-summary__copy">
           Each question asks for a record: a reversal that happened, a review
           that met its clock.
@@ -120,61 +127,6 @@ const explainerItems = [
           </button>
         </div>
       </aside>
-    </div>
-    <div
-      class="contestability-checklist contestability-checklist--print print-only"
-      role="group"
-      aria-label="Contestability checklist"
-    >
-      <p class="contestability-checklist__title">Contestability checklist</p>
-      <ul>
-        {checklistItems.map((item) => <li>{item}</li>)}
-      </ul>
-      <p class="muted contestability-checklist__note">
-        Built from the contestability definition in the glossary.
-        {" "}
-        <a href="/glossary/contestability">Glossary term</a>
-        {" "}
-        ·
-        {" "}
-        <a href="/standards/std-02-contestability-recourse">STD-02</a>
-      </p>
-    </div>
-  </SectionBlock>
-
-  <SectionBlock
-    id="explainers"
-    eyebrow="Explainers"
-    title="Three notes on the checklist"
-    description="Each note says what a failing answer means and what to fix."
-    variant="alt"
-  >
-    <div class="contestability-expanders">
-      {
-        explainerItems.map((item) => (
-          <details class="contestability-expander">
-            <summary>
-              <span class="contestability-expander__title">{item.title}</span>
-              <span class="contestability-expander__toggle" aria-hidden="true">
-                <span class="contestability-expander__toggle-text--expand">
-                  Expand
-                </span>
-                <span class="contestability-expander__toggle-text--collapse">
-                  Collapse
-                </span>
-              </span>
-            </summary>
-            <div class="contestability-expander__body">
-              {item.body.map((paragraph) => (
-                <p>{paragraph}</p>
-              ))}
-              <p>
-                <a href={item.link.href}>{item.link.label}</a>
-              </p>
-            </div>
-          </details>
-        ))
-      }
     </div>
   </SectionBlock>
 
@@ -194,8 +146,8 @@ const explainerItems = [
   const printButton = document.querySelector<HTMLButtonElement>(
     "[data-checklist-print]",
   );
-  const checklistItemsList = document.querySelector<HTMLUListElement>(
-    "[data-checklist-items]",
+  const questions = document.querySelectorAll<HTMLElement>(
+    "[data-checklist-question]",
   );
 
   if (printButton) {
@@ -204,10 +156,10 @@ const explainerItems = [
     });
   }
 
-  if (copyButton && checklistItemsList) {
+  if (copyButton && questions.length > 0) {
     copyButton.addEventListener("click", async () => {
-      const items = Array.from(checklistItemsList.querySelectorAll("li")).map(
-        (item) => item.textContent?.trim() ?? "",
+      const items = Array.from(questions).map(
+        (question) => question.textContent?.trim() ?? "",
       );
       const checklistText = [
         "Contestability checklist",
@@ -233,42 +185,36 @@ const explainerItems = [
 </script>
 
 <style>
-  .screen-only {
-    display: block;
-  }
-
-  .print-only {
-    display: none;
-  }
-
   .contestability-layout {
     display: grid;
     gap: var(--space-5);
   }
 
-  .contestability-layout__main {
-    min-width: 0;
-  }
-
   .contestability-checklist {
+    min-width: 0;
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
     padding: var(--space-5);
     background: var(--surface);
   }
 
-  .contestability-checklist__title {
-    font-weight: 600;
-    margin-bottom: var(--space-3);
-  }
-
   .contestability-checklist ul {
-    margin: 0 0 var(--space-4);
+    margin: var(--space-4) 0;
     padding-left: var(--space-4);
+    display: grid;
+    gap: var(--space-4);
   }
 
-  .contestability-checklist__note {
+  .contestability-checklist li > p {
     margin: 0;
+  }
+
+  .contestability-checklist li > p + p {
+    margin-top: var(--space-1);
+  }
+
+  .contestability-checklist__question {
+    font-weight: 600;
   }
 
   .contestability-summary {
@@ -284,11 +230,6 @@ const explainerItems = [
     margin: 0;
   }
 
-  .contestability-summary__title {
-    font-weight: 600;
-    margin: 0;
-  }
-
   .contestability-summary__copy {
     margin: 0;
   }
@@ -296,51 +237,6 @@ const explainerItems = [
   .contestability-summary__actions {
     display: grid;
     gap: var(--space-2);
-  }
-
-  .contestability-expanders {
-    display: grid;
-    gap: var(--space-4);
-  }
-
-  .contestability-expander {
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    padding: var(--space-4) var(--space-4);
-    background: var(--surface);
-  }
-
-  .contestability-expander summary {
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-4);
-  }
-
-  .contestability-expander__toggle {
-    font-size: var(--text-sm);
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-label);
-    color: var(--muted);
-  }
-
-  .contestability-expander__toggle-text--collapse {
-    display: none;
-  }
-
-  .contestability-expander[open] .contestability-expander__toggle-text--expand {
-    display: none;
-  }
-
-  .contestability-expander[open]
-    .contestability-expander__toggle-text--collapse {
-    display: inline;
-  }
-
-  .contestability-expander__body {
-    margin-top: var(--space-3);
   }
 
   @media (min-width: 900px) {
@@ -355,25 +251,25 @@ const explainerItems = [
     }
   }
 
+  /* The checklist itself prints; a second, print-only copy of it used to. */
   @media print {
-    .screen-only {
-      display: none;
-    }
-
-    .print-only {
+    .contestability-layout {
       display: block;
     }
 
+    .contestability-summary {
+      display: none;
+    }
+
     .contestability-checklist {
-      break-inside: avoid;
-      page-break-inside: avoid;
       background: #fff;
       border: 2px solid #111;
       box-shadow: none;
     }
 
-    .contestability-checklist__note {
-      font-size: var(--text-sm);
+    .contestability-checklist li {
+      break-inside: avoid;
+      page-break-inside: avoid;
     }
   }
 </style>

@@ -232,6 +232,8 @@ const additionalImplications = [
   },
 ];
 
+// These links were a "Related" section of their own, 43 words with a second
+// link to /standards. They now close the legitimacy standard, the last section.
 const relatedLinks = [
   {
     href: "/mechanisms#correction",
@@ -245,6 +247,7 @@ const relatedLinks = [
     href: "/field-notes",
     label: "Field notes (examples of compounding harm)",
   },
+  { href: "/taxonomy", label: "Taxonomy" },
 ];
 
 const anchorLinks = executiveSummary.map(({ href, text }) => ({
@@ -494,27 +497,22 @@ const buildAnchor = (id: string) =>
           not malicious. Their appeals fix one case at a time.
         </p>
       </div>
-    </SectionBlock>
-
-    <SectionBlock id="related" eyebrow="Related" title="Related">
-      <ul class="related-links">
-        {
-          relatedLinks.map((link) => (
-            <li>
-              <a href={link.href}>{link.label}</a>
-            </li>
-          ))
-        }
-      </ul>
-      <p class="muted small footnote">
-        Use stable anchors when citing this spec in memos, briefs, or governance
-        playbooks.
-      </p>
-      <p class="muted small footnote">
-        See also: <a href="/taxonomy">Taxonomy</a> &middot; <a href="/standards"
-          >Standards</a
-        >
-      </p>
+      <div class="related">
+        <p class="related__label">Related:</p>
+        <ul class="related-links">
+          {
+            relatedLinks.map((link) => (
+              <li>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="muted small">
+          Use stable anchors when citing this spec in memos, briefs, or
+          governance playbooks.
+        </p>
+      </div>
     </SectionBlock>
   </WithSidebar>
   <NextStep variable="correction" />
@@ -693,16 +691,26 @@ const buildAnchor = (id: string) =>
     max-width: 70ch;
   }
 
+  .related {
+    margin-top: var(--space-6);
+    max-width: 70ch;
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .related > p {
+    margin: 0;
+  }
+
+  .related__label {
+    font-weight: 600;
+  }
+
   .related-links {
     margin: 0;
     padding-left: var(--space-4);
     display: grid;
     gap: var(--space-3);
-  }
-
-  .footnote {
-    margin-top: var(--space-5);
-    max-width: 70ch;
   }
 
   @media (max-width: 720px) {

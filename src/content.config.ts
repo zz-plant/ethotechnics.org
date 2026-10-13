@@ -422,7 +422,6 @@ const explainerSchema = z.object({
       title: z.string(),
       description: z.string(),
       href: z.string(),
-      ctaLabel: z.string(),
     }),
   ),
   faqs: z.array(
