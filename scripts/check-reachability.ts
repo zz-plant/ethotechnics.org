@@ -32,6 +32,13 @@
  * Three crosswalk control briefs, CTRL-05 to CTRL-07, sat in the sitemap for
  * months with no link to them from anywhere on the site.
  *
+ * llms.txt and llms-full.txt are how an AI agent finds its way around without
+ * crawling, and both are written by hand. An allowlist entry excused
+ * /agents/spec from this check because llms.txt cited it; neither file did,
+ * and /api had linked the page all along. The check now requires every site
+ * URL the two files name to be a page, and fails on an allowlist entry whose
+ * route a reader can click to, so an excuse cannot outlive its reason.
+ *
  * Run against a built site: bun run scripts/check-reachability.ts <baseUrl>
  */
 
@@ -52,8 +59,14 @@ const MAX_PAGES = 2000;
 const INTENTIONALLY_UNLINKED = new Map<string, string>([
   ["/404", "the error page; reached by failing to find something else"],
   ["/components-preview", "a development gallery, not site content"],
-  ["/agents/spec", "a machine surface, cited by llms.txt rather than linked"],
+  [
+    "/search",
+    "readers search through the dialog the header button opens; the page is the SearchAction target and the 404 page's way out",
+  ],
 ]);
+
+/** The plain-text indexes an AI agent reads in place of crawling. */
+const AGENT_INDEXES = ["/llms.txt", "/llms-full.txt"];
 
 const normalize = (path: string) => path.replace(/\/+$/, "") || "/";
 
@@ -87,6 +100,50 @@ async function sitemapPaths(): Promise<string[]> {
 
 /** What one link answered: its final status, and whether it got there by redirect. */
 type LinkOutcome = { status: number; redirected: boolean };
+
+/** Every site path the agent indexes name, with the indexes that name it. */
+async function agentIndexPaths(): Promise<Map<string, Set<string>>> {
+  const named = new Map<string, Set<string>>();
+  for (const index of AGENT_INDEXES) {
+    const response = await fetch(BASE + index);
+    if (!response.ok) {
+      throw new Error(`${index} answered ${response.status}`);
+    }
+    const text = await response.text();
+    const absolute = [
+      ...text.matchAll(/https:\/\/ethotechnics\.org(\/[^\s)`"'<>,]*)/g),
+    ];
+    const bare = [...text.matchAll(/(?:^|[\s(])(\/[a-z][\w.~/-]*)/gm)];
+    for (const match of [...absolute, ...bare]) {
+      const path = normalize(
+        match[1]!.split(/[?#]/)[0]!.replace(/[.,;:]+$/, ""),
+      );
+      if (!named.has(path)) named.set(path, new Set());
+      named.get(path)!.add(index);
+    }
+  }
+  return named;
+}
+
+/** What each path an agent index names answers. */
+async function agentIndexOutcomes(
+  paths: Iterable<string>,
+): Promise<Map<string, LinkOutcome>> {
+  const outcomes = new Map<string, LinkOutcome>();
+  for (const path of paths) {
+    try {
+      const response = await fetch(BASE + path, { redirect: "follow" });
+      await response.body?.cancel();
+      outcomes.set(path, {
+        status: response.status,
+        redirected: response.redirected,
+      });
+    } catch {
+      outcomes.set(path, { status: -1, redirected: false });
+    }
+  }
+  return outcomes;
+}
 
 /** A link that named a section: where it came from, and what it asked for. */
 type FragmentLink = { from: string; to: string; fragment: string };
@@ -156,6 +213,8 @@ async function crawl(): Promise<Crawl> {
 const routes = await staticRoutes();
 const listed = await sitemapPaths();
 const { reachable, outcomes, linkedFrom, ids, fragmentLinks } = await crawl();
+const agentIndexed = await agentIndexPaths();
+const agentOutcomes = await agentIndexOutcomes(agentIndexed.keys());
 
 const orphans = routes.filter(
   (route) => !reachable.has(route) && !INTENTIONALLY_UNLINKED.has(route),
@@ -166,6 +225,12 @@ const unlinkedListed = listed
 const staleAllowances = [...INTENTIONALLY_UNLINKED.keys()].filter(
   (route) => !routes.includes(route),
 );
+const outlivedAllowances = [...INTENTIONALLY_UNLINKED.keys()].filter((route) =>
+  reachable.has(route),
+);
+const brokenAgentLinks = [...agentOutcomes.entries()]
+  .filter(([, outcome]) => outcome.status !== 200)
+  .sort(([a], [b]) => a.localeCompare(b));
 const brokenLinks = [...outcomes.entries()]
   .filter(([, outcome]) => outcome.status !== 200)
   .sort(([a], [b]) => a.localeCompare(b));
@@ -256,6 +321,34 @@ if (staleAllowances.length > 0) {
   process.exit(1);
 }
 
+if (outlivedAllowances.length > 0) {
+  console.error(
+    `Reachability check failed: ${outlivedAllowances.length} allowlist entries excuse routes a reader can click to.\n`,
+  );
+  for (const route of outlivedAllowances) {
+    console.error(`  - ${route}  <- ${describeSources(route)}`);
+  }
+  console.error(
+    "\nDrop each from INTENTIONALLY_UNLINKED; the exception no longer applies.",
+  );
+  process.exit(1);
+}
+
+if (brokenAgentLinks.length > 0) {
+  console.error(
+    `Reachability check failed: ${brokenAgentLinks.length} site URLs named in ${AGENT_INDEXES.join(" or ")} are not pages.\n`,
+  );
+  for (const [path, outcome] of brokenAgentLinks) {
+    const status = outcome.status === -1 ? "no response" : outcome.status;
+    const sources = [...(agentIndexed.get(path) ?? [])].join(", ");
+    console.error(`  - ${status}  ${path}  <- ${sources}`);
+  }
+  console.error(
+    "\nPoint the entry at the page that replaced it, or drop it from the index.",
+  );
+  process.exit(1);
+}
+
 if (redirectedLinks.length > 0) {
   // Not a failure: the reader arrives. But each is a link that could name
   // its destination, and the list is where a retired path shows up first.
@@ -268,5 +361,5 @@ if (redirectedLinks.length > 0) {
 }
 
 console.log(
-  `Reachability check passed; all ${routes.length - INTENTIONALLY_UNLINKED.size} linkable static routes and all ${listed.length} sitemap URLs are reachable from the homepage, and all ${outcomes.size} internal links lead to a page, ${fragmentLinks.length} of them to a section that exists.`,
+  `Reachability check passed; all ${routes.length - INTENTIONALLY_UNLINKED.size} linkable static routes and all ${listed.length} sitemap URLs are reachable from the homepage, all ${outcomes.size} internal links lead to a page, ${fragmentLinks.length} of them to a section that exists, and all ${agentOutcomes.size} site URLs in the agent indexes answer.`,
 );

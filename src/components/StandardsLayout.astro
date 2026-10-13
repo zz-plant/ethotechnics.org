@@ -27,6 +27,7 @@ interface Props {
 const {
   title,
   description,
+  permalink,
   eyebrow = "Standard",
   anchorLinks,
   version,
@@ -38,6 +39,20 @@ const {
   jsonAlternates,
   pageSchema,
 } = Astro.props as Props;
+
+// The critiques have no index of their own; the framework map lists them,
+// and a crumb derived from the path would point at a page that does not exist.
+const breadcrumbItems = permalink.startsWith("/standards/critiques/")
+  ? [
+      { name: "Home", url: "/" },
+      { name: "Standards", url: "/standards" },
+      {
+        name: "Framework map for buyers and auditors",
+        url: "/standards/enforceable-governance-crosswalks",
+      },
+      { name: title, url: permalink },
+    ]
+  : undefined;
 ---
 
 <BaseLayout
@@ -48,6 +63,7 @@ const {
   pageSchema={pageSchema}
   mainClass={mainClass}
   jsonAlternates={jsonAlternates}
+  breadcrumbItems={breadcrumbItems}
 >
   <slot name="pre-intro" />
   <PageIntro
