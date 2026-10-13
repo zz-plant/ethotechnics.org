@@ -1,6 +1,7 @@
 ---
 import PageIntroAnchorList from "./PageIntroAnchorList.astro";
 import SectionNav from "./SectionNav.astro";
+import { eyebrowRestatesTitle } from "../utils/eyebrow";
 
 export interface AnchorLink {
   href: string;
@@ -42,11 +43,11 @@ const HeadingTag = `h${titleLevel}` as const;
 // The eyebrow is meant to say what kind of page this is. On the section hubs
 // several pages fed it the section name itself, so the page rendered a label
 // on a label: STANDARDS over *Standards*, FINITE [BETA] over *Finite [Beta]*.
-// Drop it when it adds nothing.
-const norm = (value?: string) => value?.trim().toLowerCase() ?? "";
+// Drop it when it adds nothing, including when the title already contains
+// it: EVIDENCE PACK over *STD-01 Evidence Pack*.
 const trimmedEyebrow = eyebrow?.trim();
 const resolvedEyebrow =
-  !trimmedEyebrow || norm(trimmedEyebrow) === norm(title)
+  !trimmedEyebrow || eyebrowRestatesTitle(trimmedEyebrow, title)
     ? undefined
     : trimmedEyebrow;
 ---

@@ -10,6 +10,8 @@
  * - variant: Toggle the alt background style ("alt" adds `section--alt`).
  * - className: Additional class names appended to the section container.
  */
+import { eyebrowRestatesTitle } from "../utils/eyebrow";
+
 interface Props {
   id?: string;
   eyebrow?: string;
@@ -78,19 +80,11 @@ const GENERIC_EYEBROWS = new Set([
   "what you get",
   "facilitated sessions",
 ]);
-const words = (value: string) =>
-  value
-    .toLowerCase()
-    .split(/[^a-z0-9]+/)
-    .filter((word) => word.length > 2);
 const shownEyebrow = (() => {
   const text = eyebrow?.trim();
   if (!text) return undefined;
   if (GENERIC_EYEBROWS.has(text.toLowerCase())) return undefined;
-  const titleWords = new Set(words(title));
-  const eyebrowWords = words(text);
-  if (eyebrowWords.length > 0 && eyebrowWords.every((w) => titleWords.has(w)))
-    return undefined;
+  if (eyebrowRestatesTitle(text, title)) return undefined;
   return text;
 })();
 
