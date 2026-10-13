@@ -13,9 +13,9 @@ import {
 
 type FrameworkCard = {
   framework: string;
-  anchor: string;
-  mappedControlId: string;
-  mappedControlIds?: string[];
+  /** Anchor id; /standards/critiques/nist-ai-rmf links to #nist. */
+  id: string;
+  mappedControlIds: string[];
   standardReference: string;
   status: "Partial: listed clauses only" | "Supporting evidence only";
   whatEthotechnicsCovers: string;
@@ -55,8 +55,7 @@ const toCrosswalkDetailHref = (controlId: string) =>
 const frameworkCards: FrameworkCard[] = [
   {
     framework: "EU AI Act (high-risk context)",
-    anchor: "#eu-ai-act",
-    mappedControlId: "CTRL-03",
+    id: "eu-ai-act",
     mappedControlIds: ["CTRL-01", "CTRL-02", "CTRL-03", "CTRL-04"],
     standardReference: "Articles 9, 12, 14, and 72 in part; not Article 73",
     status: "Partial: listed clauses only",
@@ -80,8 +79,8 @@ const frameworkCards: FrameworkCard[] = [
   },
   {
     framework: "NIST AI RMF 1.0",
-    anchor: "#nist",
-    mappedControlId: "CTRL-02",
+    id: "nist",
+    mappedControlIds: ["CTRL-02"],
     standardReference: "MANAGE 1.1, MANAGE 1.3, MEASURE 2.5",
     status: "Partial: listed clauses only",
     whatEthotechnicsCovers:
@@ -106,8 +105,7 @@ const frameworkCards: FrameworkCard[] = [
   },
   {
     framework: "ISO/IEC 42001",
-    anchor: "#iso42001",
-    mappedControlId: "CTRL-02",
+    id: "iso42001",
     mappedControlIds: ["CTRL-02", "CTRL-03"],
     standardReference: "Clauses 6.1, 8.1, 8.2, 9.1, 10.1",
     status: "Partial: listed clauses only",
@@ -130,8 +128,8 @@ const frameworkCards: FrameworkCard[] = [
   },
   {
     framework: "ISO/IEC 27001",
-    anchor: "#iso27001",
-    mappedControlId: "CTRL-04",
+    id: "iso27001",
+    mappedControlIds: ["CTRL-04"],
     standardReference: "Annex A control families + ISMS records",
     status: "Supporting evidence only",
     whatEthotechnicsCovers:
@@ -153,8 +151,8 @@ const frameworkCards: FrameworkCard[] = [
   },
   {
     framework: "SOC 2 (AICPA TSC)",
-    anchor: "#soc2",
-    mappedControlId: "CTRL-01",
+    id: "soc2",
+    mappedControlIds: ["CTRL-01"],
     standardReference: "CC-series (security, availability, integrity)",
     status: "Supporting evidence only",
     whatEthotechnicsCovers:
@@ -179,8 +177,8 @@ const frameworkCards: FrameworkCard[] = [
   },
   {
     framework: "IEC 61508",
-    anchor: "#iec61508",
-    mappedControlId: "CTRL-01",
+    id: "iec61508",
+    mappedControlIds: ["CTRL-01"],
     standardReference: "Safety lifecycle obligations",
     status: "Supporting evidence only",
     whatEthotechnicsCovers:
@@ -205,7 +203,7 @@ const frameworkCards: FrameworkCard[] = [
 const keyTakeaways = [
   "Checked on 2026-10-06 against the Ethotechnics clause register, the EU AI Act as amended by Regulation (EU) 2026/1744, and NIST AI 100-1.",
   "“Partial: listed clauses only” means Ethotechnics clauses bear on part of each framework clause listed, and the rest stays with you. “Supporting evidence only” means Ethotechnics records can serve as evidence inside controls your organization owns.",
-  "No row is a determination of legal compliance. Each links to control briefs that name the Ethotechnics clauses a contract can cite and the records to request.",
+  "No entry is a determination of legal compliance. Each links to control briefs that name the Ethotechnics clauses a contract can cite and the records to request.",
 ];
 ---
 
@@ -217,11 +215,10 @@ const keyTakeaways = [
   eyebrow="Crosswalk"
   anchorLinks={[
     { href: "#guide", label: "Guide" },
-    { href: "#summary", label: "Using a crosswalk row" },
+    { href: "#summary", label: "Using a crosswalk entry" },
     { href: "#controls", label: "Crosswalk" },
     { href: "#control-briefs", label: "Control briefs" },
     { href: "#eu-ai-act-articles", label: "EU AI Act by article" },
-    { href: "#framework-cards", label: "Framework cards" },
     { href: "#post-market", label: "Post-market" },
     { href: "#citations", label: "Citation" },
   ]}
@@ -242,7 +239,7 @@ const keyTakeaways = [
 
   <SectionBlock
     id="summary"
-    title="Using a crosswalk row"
+    title="Using a crosswalk entry"
     description="Pick a framework, check its status, take the first step, then request the listed evidence."
     variant="alt"
   >
@@ -259,67 +256,122 @@ const keyTakeaways = [
     </ol>
   </SectionBlock>
 
+  {
+    /* One block per framework. The page had a summary table and, further
+       down, a collapsed card per framework that repeated its status,
+       controls, and coverage; each block states those once, with the checks
+       beneath. */
+  }
   <SectionBlock
     id="controls"
-    eyebrow="Overview"
     title="Framework-by-framework crosswalk"
-    description="One row per framework: the Ethotechnics control it maps to, what that control covers, and how much is left to you."
+    description="For each framework: the Ethotechnics controls it maps to, what they cover, how much is left to you, and the checks and evidence requests to put in a procurement packet or an audit walkthrough."
   >
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th scope="col">Framework</th>
-            <th scope="col">Status</th>
-            <th scope="col">Ethotechnics control and framework clauses</th>
-            <th scope="col">What Ethotechnics covers</th>
-            <th scope="col">First step</th>
-            <th scope="col">Details</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            frameworkCards.map((framework) => (
-              <tr>
-                <th scope="row">{framework.framework}</th>
-                <td>
-                  <span
-                    class:list={{
-                      badge: true,
-                      "badge--partial":
-                        framework.status === "Partial: listed clauses only",
-                      "badge--evidence":
-                        framework.status === "Supporting evidence only",
-                    }}
-                  >
-                    {framework.status}
-                  </span>
-                </td>
-                <td>
-                  <strong>{framework.mappedControlId}</strong>:{" "}
-                  {findControl(framework.mappedControlId).obligation}
-                  <br />
-                  <span class="muted">{framework.standardReference}</span>
-                </td>
-                <td>{framework.whatEthotechnicsCovers}</td>
-                <td>{framework.firstMove}</td>
-                <td>
-                  <a href={toCrosswalkDetailHref(framework.mappedControlId)}>
-                    Open control brief
-                  </a>
-                  <br />
-                  <a href={framework.anchor}>Open framework details</a>
-                </td>
-              </tr>
-            ))
-          }
-        </tbody>
-      </table>
+    <div class="framework-list">
+      {
+        frameworkCards.map((item) => {
+          const mappedControls = item.mappedControlIds.map(findControl);
+          const evidenceArtifacts = [
+            ...new Set(
+              mappedControls.flatMap((control) => control.evidenceArtifacts),
+            ),
+          ];
+          const operationalSurfaces = [
+            ...new Set(
+              mappedControls.map((control) => control.operationalSurface),
+            ),
+          ];
+          return (
+            <article id={item.id} class="panel framework">
+              <div class="framework__header">
+                <h3>{item.framework}</h3>
+                <span
+                  class:list={{
+                    badge: true,
+                    "badge--partial":
+                      item.status === "Partial: listed clauses only",
+                    "badge--evidence":
+                      item.status === "Supporting evidence only",
+                  }}
+                >
+                  {item.status}
+                </span>
+              </div>
+              <p>
+                <strong>Framework reference:</strong> {item.standardReference}
+              </p>
+              <p>
+                <strong>Mapped Ethotechnics controls:</strong>{" "}
+                {mappedControls.map((control, index) => (
+                  <>
+                    <span>
+                      <a href={toCrosswalkDetailHref(control.controlId)}>
+                        {control.controlId}
+                      </a>{" "}
+                      — {control.obligation}
+                    </span>
+                    {index < mappedControls.length - 1 && <span>; </span>}
+                  </>
+                ))}
+              </p>
+              <p>{item.whatEthotechnicsCovers}</p>
+              <p>
+                <strong>First step:</strong> {item.firstMove}
+              </p>
+              <details>
+                <summary>What to check and the evidence to request</summary>
+                <p>
+                  <strong>What a buyer or auditor should check:</strong>
+                </p>
+                <ul>
+                  {item.buyerAuditorChecks.map((check) => (
+                    <li>{check}</li>
+                  ))}
+                </ul>
+                <p>
+                  <strong>Evidence to request first:</strong>
+                </p>
+                <ul>
+                  {evidenceArtifacts.map((artifact) => (
+                    <li>{artifact}</li>
+                  ))}
+                </ul>
+                <p>
+                  <strong>Where it shows up in operations:</strong>{" "}
+                  {operationalSurfaces.map((surface, index) => (
+                    <>
+                      <a href="/mechanisms">{surface}</a>
+                      {index < operationalSurfaces.length - 1 && (
+                        <span> · </span>
+                      )}
+                    </>
+                  ))}
+                </p>
+                <p>
+                  <strong>Related pages:</strong>{" "}
+                  {item.detailedLinks.map((link, index) => (
+                    <>
+                      <a href={link.href}>{link.label}</a>
+                      {index < item.detailedLinks.length - 1 && (
+                        <span> · </span>
+                      )}
+                    </>
+                  ))}
+                </p>
+              </details>
+            </article>
+          );
+        })
+      }
     </div>
+    <p>
+      Pair these controls with the <a href="/evidence-packs">evidence packs</a>
+      before launch and after any major incident.
+    </p>
     <h3 id="control-briefs">Every control brief</h3>
     <p>
       Each brief names the clauses a contract can cite and the evidence to
-      request, including for the controls no framework row maps to.
+      request, including for the controls no framework entry maps to.
     </p>
     <ul>
       {
@@ -397,102 +449,10 @@ const keyTakeaways = [
   </SectionBlock>
 
   <SectionBlock
-    id="framework-cards"
-    eyebrow="Details"
-    title="Framework details"
-    description="Each card lists the checks and evidence requests to put in a procurement packet or an audit walkthrough."
-  >
-    <div class="framework-details">
-      {
-        frameworkCards.map((item) => {
-          const mappedControls = (
-            item.mappedControlIds ?? [item.mappedControlId]
-          ).map((controlId) => findControl(controlId));
-          const evidenceArtifacts = [
-            ...new Set(
-              mappedControls.flatMap((control) => control.evidenceArtifacts),
-            ),
-          ];
-          const operationalSurfaces = [
-            ...new Set(
-              mappedControls.map((control) => control.operationalSurface),
-            ),
-          ];
-          return (
-            <details id={item.anchor.replace("#", "")}>
-              <summary>{item.framework}</summary>
-              <p>
-                <strong>Status:</strong> {item.status}
-              </p>
-              <p>
-                <strong>Mapped Ethotechnics controls:</strong>{" "}
-                {mappedControls.map((control, index) => (
-                  <>
-                    <span>
-                      <a href={toCrosswalkDetailHref(control.controlId)}>
-                        {control.controlId}
-                      </a>{" "}
-                      — {control.obligation}
-                    </span>
-                    {index < mappedControls.length - 1 && <span>; </span>}
-                  </>
-                ))}
-              </p>
-              <p>
-                <strong>Framework reference:</strong> {item.standardReference}
-              </p>
-              <p>{item.whatEthotechnicsCovers}</p>
-              <p>
-                <strong>What a buyer or auditor should check:</strong>
-              </p>
-              <ul>
-                {item.buyerAuditorChecks.map((check) => (
-                  <li>{check}</li>
-                ))}
-              </ul>
-              <p>
-                <strong>Evidence to request first:</strong>
-              </p>
-              <ul>
-                {evidenceArtifacts.map((artifact) => (
-                  <li>{artifact}</li>
-                ))}
-              </ul>
-              <p>
-                <strong>Where it shows up in operations:</strong>{" "}
-                {operationalSurfaces.map((surface, index) => (
-                  <>
-                    <a href="/mechanisms">{surface}</a>
-                    {index < operationalSurfaces.length - 1 && <span> · </span>}
-                  </>
-                ))}
-              </p>
-              <p>
-                <strong>Related pages:</strong>{" "}
-                {item.detailedLinks.map((link, index) => (
-                  <>
-                    <a href={link.href}>{link.label}</a>
-                    {index < item.detailedLinks.length - 1 && <span> · </span>}
-                  </>
-                ))}
-              </p>
-            </details>
-          );
-        })
-      }
-    </div>
-    <p>
-      Pair these controls with the <a href="/evidence-packs">evidence packs</a>
-      before launch and after any major incident.
-    </p>
-  </SectionBlock>
-
-  <SectionBlock
     id="post-market"
     eyebrow="Post-market"
     title="Incident reporting as its own governance process"
     description="Monitoring after release needs a route, a clock, and an export to the regulator. Without them it ends up buried in retrospectives."
-    variant="alt"
   >
     <ol>
       {
@@ -519,6 +479,7 @@ const keyTakeaways = [
     eyebrow="Citation"
     title="Reference this crosswalk"
     description="Cite the permalink and version in policy, procurement, and audit documents, so they point at a fixed text."
+    variant="alt"
   >
     <CitationBlock
       title={pageTitle}
@@ -553,20 +514,24 @@ const keyTakeaways = [
     border-color: color-mix(in srgb, var(--gold) 55%, var(--border));
   }
 
-  .framework-details {
+  .framework-list {
     display: grid;
-    gap: var(--space-3);
+    gap: var(--space-4);
     margin-bottom: var(--space-4);
   }
 
-  .framework-details details {
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: var(--space-3);
-    background: color-mix(in srgb, var(--surface) 95%, white 5%);
+  .framework__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2) var(--space-3);
   }
 
-  .framework-details summary {
+  .framework__header h3 {
+    margin: 0;
+  }
+
+  .framework summary {
     cursor: pointer;
     font-weight: 600;
   }
