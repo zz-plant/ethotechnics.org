@@ -10,7 +10,7 @@ test.describe("Delegation audit page", () => {
 
   test("has proper title and description", async ({ page }) => {
     await page.goto(AUDIT_URL);
-    await expect(page).toHaveTitle(/^Delegation audit\b/);
+    await expect(page).toHaveTitle(/^Delegation audit — Ethotechnics$/i);
     await expect(page.locator('meta[name="description"]')).toHaveAttribute(
       "content",
       /.+/,

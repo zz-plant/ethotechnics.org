@@ -164,7 +164,7 @@ export const researchContent: ResearchContent = {
       period: "2026 Q1",
       title: "STD-01 ratification draft",
       summary:
-        "Version 1.0 was released for public review. It stays a draft until it has two independent implementation reports and a decision recorded through the public request-for-comments process.",
+        "v1.0 was released for public review. It stays a draft until it has two independent implementation reports and a decision recorded through the public request-for-comments process.",
       standardRef: "STD-01",
       href: "/standards/std-01-temporal-rights",
     },
@@ -200,7 +200,7 @@ export const researchContent: ResearchContent = {
   bridgeArtifacts: [
     {
       slug: "scholarly-crossings",
-      title: "Scholarly crossings (2026-10)",
+      title: "Scholarly crossings (Oct 2026)",
       type: "Dated research note",
       summary:
         "What the framework supplies to scholars who already hold the values, to governance mechanisms it does not replace, and to the counterpositions that would make it unnecessary overhead, with six worked examples.",
@@ -209,7 +209,7 @@ export const researchContent: ResearchContent = {
     },
     {
       slug: "frontier-doctrine-scan",
-      title: "Frontier doctrine scan (2026-09)",
+      title: "Frontier doctrine scan (Sep 2026)",
       type: "Dated research note",
       summary:
         "Ten frontier labs scored 0 to 4 against the twelve laws on public doctrine and product architecture, not safety performance.",

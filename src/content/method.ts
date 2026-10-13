@@ -69,7 +69,7 @@ export type MethodContent = {
 };
 
 export const methodContent: MethodContent = {
-  pageTitle: "The Ethotechnics method: keeping automated decisions answerable",
+  pageTitle: "The method: keeping automated decisions answerable",
   pageDescription:
     "Evidence that an automated decision is wrong is settled one case at a time and never reaches the rule. The method puts it on the record, one workflow at a time.",
   permalink: "/method",

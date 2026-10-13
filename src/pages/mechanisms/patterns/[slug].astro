@@ -51,9 +51,6 @@ const heading =
   pattern.searchTitle && catalogId
     ? `${pattern.searchTitle} (${catalogId})`
     : pattern.title;
-const pageTitle = pattern.searchTitle
-  ? heading
-  : `${pattern.title} — Mechanism specification`;
 const pageDescription = pattern.summary;
 const metaDescription = pattern.metaDescription ?? pattern.summary;
 const permalink = `/mechanisms/patterns/${pattern.slug}`;
@@ -78,7 +75,7 @@ const breadcrumbItems = [
 ---
 
 <BaseLayout
-  title={pageTitle}
+  title={heading}
   description={metaDescription}
   publishedTime="2025-06-01T00:00:00.000Z"
   breadcrumbItems={breadcrumbItems}

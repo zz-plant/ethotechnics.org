@@ -21,7 +21,7 @@ test.describe("Burden Modeler page", () => {
 
   test("has proper title and description", async ({ page }) => {
     await page.goto(BURDEN_URL);
-    await expect(page).toHaveTitle(/^Workload modeler\b/);
+    await expect(page).toHaveTitle(/^Workload modeler — Ethotechnics$/i);
     await expect(page.locator('meta[name="description"]')).toHaveAttribute(
       "content",
       /.+/,

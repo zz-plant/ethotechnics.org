@@ -7,6 +7,8 @@ import StateVariableGlyph from "../../components/StateVariableGlyph.astro";
 import { diagnosticsContent } from "../../content/diagnostics";
 import { runDelegationAudit } from "../../features/delegation-audit/auditLogic";
 import { resolveEnv } from "../../utils/cloudflare-env";
+import { formatDate } from "../../utils/dates";
+import { formatVersion } from "../../utils/versions";
 import { loadReadout, type ReadoutEnv } from "../../utils/readouts";
 
 /**
@@ -22,9 +24,9 @@ if (!record) return Astro.rewrite("/404");
 const tool = diagnosticsContent.tools.find(
   (entry) => entry.slug === record.tool_id,
 );
-const toolVersion = diagnosticsContent.publication.version;
+const toolVersion = formatVersion(diagnosticsContent.publication.version);
 const result = runDelegationAudit(record.inputs);
-const capturedDate = record.captured_at.slice(0, 10);
+const capturedDate = formatDate(record.captured_at, "prose");
 const readoutUrl = new URL(
   Astro.url.pathname,
   Astro.site ?? Astro.url,
@@ -38,7 +40,7 @@ const statusLabel = {
 ---
 
 <BaseLayout
-  title={`${result.workflow} — Delegation audit readout`}
+  title={`${result.workflow}: delegation audit readout`}
   description={`Exposure ${result.exposure.score} (${result.exposure.bandLabel}), ${result.ungroundedGrants.length} permissions nobody can justify, reversibility weakest at the ${result.reversibility.weakest.label.toLowerCase()} level. Captured ${capturedDate}.`}
   robots="noindex, nofollow"
 >
@@ -196,7 +198,7 @@ const statusLabel = {
     <p class="small muted">
       This readout records what a team believed about one workflow on
       {capturedDate}. It is not an audit. The scoring is the delegation audit's,
-      version {toolVersion}; the inputs are stored at
+      {toolVersion}; the inputs are stored at
       <code>{readoutUrl}.json</code> and anyone with the link can rerun them. Readouts
       expire a year after capture.
     </p>

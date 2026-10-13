@@ -3,6 +3,7 @@ import { diagnosticsContent } from "./diagnostics";
 import { standardsContent } from "./standards";
 import { validatorsContent } from "./validators";
 import type { PageWithPermalink } from "./types";
+import { formatVersion } from "../utils/versions";
 
 /**
  * Which systems the framework is for, sorted by what the system decides.
@@ -218,7 +219,7 @@ export const useCases: UseCase[] = [
       },
     ],
     alreadyRequired:
-      "EU AI Act Annex III, point 5(a), makes high-risk the systems public authorities use to grant, reduce, revoke, or reclaim public assistance benefits, with obligations from 2 December 2027. GDPR Article 22 gives a right to contest a decision based solely on automated processing.",
+      "EU AI Act Annex III, point 5(a), makes high-risk the systems public authorities use to grant, reduce, revoke, or reclaim public assistance benefits, with obligations from December 2, 2027. GDPR Article 22 gives a right to contest a decision based solely on automated processing.",
     personCanAsk:
       "In the EU, if a decision about you was made solely by automated processing, GDPR Article 22 lets you ask for a person to review it, give your view, and contest it. Article 15 lets you ask for meaningful information about the logic involved.",
   },
@@ -482,7 +483,12 @@ export const standardLink = (id: string) => {
   return {
     label: `${standard.id} ${standard.title}`,
     href: `/standards/${standard.slug}`,
-    status: [standard.status, standard.version].filter(Boolean).join(" "),
+    status: [
+      standard.status,
+      standard.version && formatVersion(standard.version),
+    ]
+      .filter(Boolean)
+      .join(" "),
   };
 };
 

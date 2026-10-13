@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { formatDate } from "../../utils/dates";
 import CaseTimeline from "../../components/CaseTimeline.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
@@ -35,7 +36,7 @@ const sourceKind = {
 ---
 
 <BaseLayout
-  title={`${entry.title} — Casebook — Ethotechnics`}
+  title={`${entry.title}: casebook entry`}
   description={entry.metaDescription ?? entry.summary}
   publishedTime={entry.published}
   modifiedTime={entry.updated ?? entry.published}
@@ -285,7 +286,7 @@ const sourceKind = {
             ) : (
               <span>{source.label}</span>
             )}
-            <span class="muted small"> · {source.date}</span>
+            <span class="muted small"> · {formatDate(source.date)}</span>
           </li>
         ))
       }

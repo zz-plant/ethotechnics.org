@@ -104,10 +104,13 @@ const glossaryKeywordsNode = structuredData["@graph"].find(
 const glossaryKeywordsContent =
   glossaryKeywordsNode?.keywords?.join(", ") ?? "";
 const structuredDataJson = JSON.stringify(structuredData);
+// The title leads with the glossary's name, which already carries the brand.
+const documentTitle = pageTitle.replace(" — ", ": ");
 ---
 
 <BaseLayout
-  title={pageTitle}
+  title={documentTitle}
+  titleSuffix={false}
   description={pageDescription}
   enableGlossaryHighlights={false}
   jsonAlternates={[{ href: "/api/glossary.json", title: "Glossary JSON" }]}

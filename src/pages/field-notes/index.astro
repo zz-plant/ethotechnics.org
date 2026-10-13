@@ -5,6 +5,7 @@ import { getEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import FieldNotesTabs from "../../components/FieldNotesTabs.astro";
+import { formatMonth } from "../../utils/dates";
 
 const fieldNotesEntry = (await getEntry("fieldNotes", "field-notes"))!;
 const {
@@ -20,10 +21,7 @@ const anchorLinks = sections.map((section) => ({
   href: `#${section.format}`,
   label: section.title,
 }));
-const latestUpdateLabel = new Date(latestUpdate).toLocaleDateString("en-US", {
-  month: "short",
-  year: "numeric",
-});
+const latestUpdateLabel = formatMonth(latestUpdate);
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>

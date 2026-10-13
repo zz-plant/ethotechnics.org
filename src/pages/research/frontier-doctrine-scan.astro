@@ -8,10 +8,11 @@ import {
   frontierDoctrineScan,
   LAW_NUMERALS,
 } from "../../content/frontier-doctrine-scan";
+import { formatMonth } from "../../utils/dates";
 import { derivePublicationMetadata } from "../../utils/publication";
 
 const scan = frontierDoctrineScan;
-const pageTitle = `${scan.title} (${scan.scanDate}) — Ethotechnics Institute`;
+const pageTitle = `${scan.title} (${formatMonth(scan.scanDate)}) — Ethotechnics Institute`;
 const pageDescription =
   "Ten frontier AI labs scored 0 to 4 on each of the twelve laws, from their published policies and product design. A dated research note, not a safety ranking.";
 const anchorLinks = [
@@ -44,7 +45,7 @@ const formatAverage = (value: number) => value.toFixed(1);
 >
   <PageIntro
     eyebrow="Research note"
-    title={`${scan.title}, ${scan.scanDate}`}
+    title={`${scan.title}, ${formatMonth(scan.scanDate, "prose")}`}
     description={pageDescription}
     anchorLinks={anchorLinks}
     version="1.0.0"
@@ -272,12 +273,12 @@ const formatAverage = (value: number) => value.toFixed(1);
     <p>{scan.sourcesNote}</p>
     <p>
       {scan.refreshCadence} If no refresh has been published by{" "}
-      {scan.staleAfter}, treat this scan as stale.
+      {formatMonth(scan.staleAfter, "prose")}, treat this scan as stale.
     </p>
   </SectionBlock>
 
   <CitationBlock
-    title={`${scan.title} (${scan.scanDate})`}
+    title={`${scan.title} (${formatMonth(scan.scanDate)})`}
     permalink={scan.permalink}
     publication={publication}
   />

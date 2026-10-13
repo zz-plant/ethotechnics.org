@@ -1,3 +1,5 @@
+import { stripBrandSuffix } from "../utils/seo/document-title";
+
 export interface BreadcrumbInputItem {
   name: string;
   url: string;
@@ -8,8 +10,6 @@ export interface BreadcrumbItem {
   href: string;
   absoluteUrl: string;
 }
-
-const TITLE_SUFFIX_PATTERN = /\s+[—-]\s+Ethotechnics Institute$/;
 
 const titleizeSegment = (segment: string) =>
   segment
@@ -33,7 +33,7 @@ const cleanPageTitle = (title?: string) => {
     return undefined;
   }
 
-  return title.replace(TITLE_SUFFIX_PATTERN, "").trim();
+  return stripBrandSuffix(title);
 };
 
 const normalizeHref = (url: string, siteBase: string) => {

@@ -5,6 +5,7 @@ import CardItem from "../../components/CardItem.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import { governanceContent } from "../../content/governance";
+import { formatDate, formatDatesInText } from "../../utils/dates";
 import { readReviewWindow, todayIso } from "../../utils/review-window";
 
 const {
@@ -39,10 +40,13 @@ const rfcSectionDescription =
 // The page used to promise a quarterly cadence it did not keep. It reports
 // the date of the most recent update and leaves the reader to judge the gap,
 // which is the same test Law II applies to a grant: silence is not renewal.
-const latestGovernanceUpdate = [...quarterlyUpdates]
-  .map((entry) => entry.date)
-  .sort()
-  .at(-1);
+const latestGovernanceUpdate = formatDate(
+  [...quarterlyUpdates]
+    .map((entry) => entry.date)
+    .sort()
+    .at(-1) ?? "",
+  "prose",
+);
 ---
 
 <BaseLayout
@@ -101,13 +105,14 @@ const latestGovernanceUpdate = [...quarterlyUpdates]
                 meta={`Status: ${rfc.status}`}
                 description={rfc.summary}
               >
-                <p class="muted small">Opened: {rfc.openedOn}</p>
+                <p class="muted small">Opened: {formatDate(rfc.openedOn)}</p>
                 <p class="muted small">
-                  Review window: {rfc.reviewWindow}
-                  {rfc.review.lapsed && (
+                  Review window: {formatDatesInText(rfc.reviewWindow)}
+                  {rfc.review.lapsed && rfc.review.closesOn && (
                     <strong>
                       {" "}
-                      — closed {rfc.review.closesOn}, no decision logged
+                      — closed {formatDate(rfc.review.closesOn)}, no decision
+                      logged
                     </strong>
                   )}
                 </p>
@@ -137,7 +142,7 @@ const latestGovernanceUpdate = [...quarterlyUpdates]
         decisions.map((record) => (
           <CardItem
             title={`${record.id}: ${record.title}`}
-            meta={`${record.outcome} • ${record.date}`}
+            meta={`${record.outcome} • ${formatDate(record.date)}`}
             description={record.rationale}
           >
             <p class="muted small">Owner: {record.owner}</p>
@@ -162,7 +167,7 @@ const latestGovernanceUpdate = [...quarterlyUpdates]
         failureLog.map((entry) => (
           <CardItem
             title={`${entry.id}: ${entry.title}`}
-            meta={`Detected ${entry.detected}`}
+            meta={`Detected ${formatDate(entry.detected)}`}
             description={entry.detail}
           >
             <p class="muted small">
@@ -190,7 +195,7 @@ const latestGovernanceUpdate = [...quarterlyUpdates]
         quarterlyUpdates.map((entry) => (
           <CardItem
             title={entry.title}
-            meta={entry.date}
+            meta={formatDate(entry.date)}
             description={entry.summary}
           />
         ))
