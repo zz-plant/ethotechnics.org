@@ -29,7 +29,7 @@ export type RoleId =
   | "research"
   | "executive";
 
-/** A first move with somewhere to go, shown on /start and atop the role page. */
+/** A first move with somewhere to go, shown atop the role page. */
 export type OrientationStep = {
   number: number;
   title: string;
@@ -38,11 +38,14 @@ export type OrientationStep = {
   ctaHref: string;
 };
 
-/** The longer read: what to attend to, what to open, what to do first. */
+/**
+ * The longer read: what to attend to and what to open. It carried a third
+ * list, "what to do first", until every role had orientation steps; the page
+ * then opened on one set of first steps and closed on another.
+ */
 export type RoleGuide = {
   focusAreas: string[];
   keyLinks: { label: string; href: string; note?: string }[];
-  firstMoves: string[];
 };
 
 export type Role = {
@@ -131,11 +134,6 @@ export const roles: Role[] = [
           note: "Which governance properties an automated test can confirm, and which it cannot.",
         },
       ],
-      firstMoves: [
-        "Match the logs you already collect to the validators that measure the work a system pushes onto people and how long people wait on its decisions.",
-        "Build one control from the mechanisms catalog as a feature flag or a runtime check.",
-        "Agree with the system's owners who owns rollback and who owns escalation.",
-      ],
     },
     adoptionChecklist: [
       "Set explicit action boundaries for high-risk automations.",
@@ -219,11 +217,6 @@ export const roles: Role[] = [
           href: "/explainers/language-people-can-use",
           note: "The questions people send about a decision. A public summary should answer them.",
         },
-      ],
-      firstMoves: [
-        "Pick the standard your policy should reference and cite its defined terms.",
-        "Run a validator to gather baseline risk and burden scores.",
-        "Check each public summary against language people can use: it should say who can change a decision, why it was made, and by what date a challenge gets an answer.",
       ],
     },
     adoptionChecklist: [
@@ -401,11 +394,6 @@ export const roles: Role[] = [
           note: "Defined terms for internal specs, not for the screen.",
         },
       ],
-      firstMoves: [
-        "Pick the step in your flow where a decision lands on a person, and find the control in the mechanisms catalog that fits it.",
-        "Score one real journey with the burden modeler and share the result as the design brief.",
-        "Before release, check that the screen answers the questions in language people can use: who can change this decision, why it was made, and by what date a challenge gets an answer.",
-      ],
     },
     featuredDiagnostics: ["burden-modeler"],
     formerPaths: ["/quick-start/designers"],
@@ -474,11 +462,6 @@ export const roles: Role[] = [
           href: "/field-notes",
           note: "Dated notes on outside changes that bear on the standards.",
         },
-      ],
-      firstMoves: [
-        "Pick the glossary terms your research uses and cite them consistently.",
-        "Send protocol drafts through the Participate page.",
-        "Write up how a finding would change a mechanism, and publish it.",
       ],
     },
     formerPaths: ["/quick-start/researchers"],
