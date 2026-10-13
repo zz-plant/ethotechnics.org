@@ -5,7 +5,7 @@ import SectionBlock from "../../../components/SectionBlock.astro";
 import UseCaseFit from "../../../components/UseCaseFit.astro";
 import CardGrid from "../../../components/CardGrid.astro";
 import CardItem from "../../../components/CardItem.astro";
-import GlossaryAnchorsBlock from "../../../components/GlossaryAnchorsBlock.astro";
+import WorkedExampleTerms from "../../../components/WorkedExampleTerms.astro";
 
 const pageTitle = "Content moderation takedown — Worked example";
 const pageDescription =
@@ -38,9 +38,7 @@ const receiptPayload = `{
       { href: "#clocks", label: "Clocks" },
       { href: "#exceptions", label: "Exceptions" },
       { href: "#remedy", label: "Remedy" },
-      { href: "#bindings", label: "Bindings" },
       { href: "#fit", label: "Where this fits" },
-      { href: "#glossary-anchors", label: "Glossary anchors" },
     ]}
   />
 
@@ -131,25 +129,12 @@ const receiptPayload = `{
     </ul>
   </SectionBlock>
 
-  <SectionBlock
-    id="bindings"
-    eyebrow="Bindings"
-    title="Bind the scenario to enforceable controls"
-    description="Release gates and evidence packs make every takedown run the same way."
-  >
-    <ul class="muted">
-      <li>
-        Attach receipts to the <a href="/evidence-packs">evidence pack</a> for each
-        release.
-      </li>
-      <li>
-        Map each receipt to the <a href="/evidence-packs">evidence packs</a> for STD-01
-        and STD-02.
-      </li>
-    </ul>
-  </SectionBlock>
-
-  <UseCaseFit slug="content-moderation-takedown" />
-
-  <GlossaryAnchorsBlock />
+  <UseCaseFit slug="content-moderation-takedown">
+    <p class="small">
+      Release gates and <a href="/evidence-packs">evidence packs</a> make every takedown
+      run the same way. Each release attaches its receipts to its pack, and each receipt
+      maps to the packs for STD-01 and STD-02.
+    </p>
+    <WorkedExampleTerms />
+  </UseCaseFit>
 </BaseLayout>

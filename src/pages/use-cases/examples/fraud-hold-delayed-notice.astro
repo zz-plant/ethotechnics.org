@@ -5,7 +5,7 @@ import SectionBlock from "../../../components/SectionBlock.astro";
 import UseCaseFit from "../../../components/UseCaseFit.astro";
 import CardGrid from "../../../components/CardGrid.astro";
 import CardItem from "../../../components/CardItem.astro";
-import GlossaryAnchorsBlock from "../../../components/GlossaryAnchorsBlock.astro";
+import WorkedExampleTerms from "../../../components/WorkedExampleTerms.astro";
 
 const pageTitle = "Fraud hold with delayed notice — Worked example";
 const pageDescription =
@@ -39,9 +39,7 @@ const receiptPayload = `{
       { href: "#clocks", label: "Clocks" },
       { href: "#exceptions", label: "Exceptions" },
       { href: "#remedy", label: "Remedy" },
-      { href: "#bindings", label: "Bindings" },
       { href: "#fit", label: "Where this fits" },
-      { href: "#glossary-anchors", label: "Glossary anchors" },
     ]}
   />
 
@@ -125,32 +123,14 @@ const receiptPayload = `{
     </ul>
   </SectionBlock>
 
-  <SectionBlock
-    id="bindings"
-    eyebrow="Bindings"
-    title="Tie the hold to enforceable artifacts"
-    description="Bindings and evidence packs give an auditor the record of each hold."
-  >
-    <ul class="muted">
-      <li>
-        Require receipts in the <a href="/evidence-packs">evidence pack</a> for each
-        release.
-      </li>
-      <li>
-        Link the evidence in the <a href="/evidence-packs"
-          >STD-01 and STD-02 packs</a
-        >.
-      </li>
-      <li>
-        Apply the
-        <a href="/standards/anti-weaponization"
-          >anti-weaponization constraints</a
-        > to delayed notice.
-      </li>
-    </ul>
-  </SectionBlock>
-
-  <UseCaseFit slug="fraud-hold-delayed-notice" />
-
-  <GlossaryAnchorsBlock />
+  <UseCaseFit slug="fraud-hold-delayed-notice">
+    <p class="small">
+      <a href="/evidence-packs">Evidence packs</a> give an auditor the record of each
+      hold. Each release's pack must hold its receipts and link the evidence in the
+      STD-01 and STD-02 packs. The
+      <a href="/standards/anti-weaponization">anti-weaponization constraints</a>
+      apply to delayed notice.
+    </p>
+    <WorkedExampleTerms />
+  </UseCaseFit>
 </BaseLayout>

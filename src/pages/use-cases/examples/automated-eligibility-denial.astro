@@ -5,7 +5,7 @@ import SectionBlock from "../../../components/SectionBlock.astro";
 import UseCaseFit from "../../../components/UseCaseFit.astro";
 import CardGrid from "../../../components/CardGrid.astro";
 import CardItem from "../../../components/CardItem.astro";
-import GlossaryAnchorsBlock from "../../../components/GlossaryAnchorsBlock.astro";
+import WorkedExampleTerms from "../../../components/WorkedExampleTerms.astro";
 
 const pageTitle = "Automated eligibility denial — Worked example";
 const pageDescription =
@@ -38,9 +38,7 @@ const receiptPayload = `{
       { href: "#clocks", label: "Clocks" },
       { href: "#exceptions", label: "Exceptions" },
       { href: "#remedy", label: "Remedy" },
-      { href: "#bindings", label: "Bindings" },
       { href: "#fit", label: "Where this fits" },
-      { href: "#glossary-anchors", label: "Glossary anchors" },
     ]}
   />
 
@@ -129,30 +127,13 @@ const receiptPayload = `{
     </ul>
   </SectionBlock>
 
-  <SectionBlock
-    id="bindings"
-    eyebrow="Bindings"
-    title="Bind eligibility decisions to enforceable controls"
-    description="Each denial record carries its evidence pack and is checked at a release gate."
-  >
-    <ul class="muted">
-      <li>
-        Check decision records against the
-        <a href="/evidence-packs">evidence packs</a> before each release.
-      </li>
-      <li>
-        Attach <a href="/evidence-packs">evidence packs</a> to denial records.
-      </li>
-      <li>
-        Apply the
-        <a href="/standards/anti-weaponization"
-          >anti-weaponization constraints</a
-        > to burden checks.
-      </li>
-    </ul>
-  </SectionBlock>
-
-  <UseCaseFit slug="automated-eligibility-denial" />
-
-  <GlossaryAnchorsBlock />
+  <UseCaseFit slug="automated-eligibility-denial">
+    <p class="small">
+      Each denial record carries its <a href="/evidence-packs">evidence pack</a
+      >, and a release gate checks each record against its pack. The
+      <a href="/standards/anti-weaponization">anti-weaponization constraints</a>
+      apply to burden checks.
+    </p>
+    <WorkedExampleTerms />
+  </UseCaseFit>
 </BaseLayout>

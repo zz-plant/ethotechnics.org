@@ -10,6 +10,11 @@
  *
  * Props:
  * - slug: The example's path segment under /use-cases/examples.
+ *
+ * Slot: copy that belongs with the fit, set above the link to /use-cases.
+ * The scenarios put their bindings and the terms they use here, which used
+ * to be two thin sections of their own; retail personalization puts its
+ * opening here, which said what the boundary already says.
  */
 import FitFacts from "./FitFacts.astro";
 import SectionBlock from "./SectionBlock.astro";
@@ -39,6 +44,7 @@ const href = `/use-cases#${fit.entry.id}`;
     >
       <div class="stack-sm">
         <FitFacts context={fit.entry} compact />
+        <slot />
         <p class="small">
           <a href={href}>
             The full entry, and where the framework does less &rarr;
@@ -53,9 +59,12 @@ const href = `/use-cases#${fit.entry.id}`;
       title={`A boundary case: ${fit.entry.title.toLowerCase()}`}
       description={fit.entry.why}
     >
-      <p class="small">
-        <a href={href}>Where the framework does less &rarr;</a>
-      </p>
+      <div class="stack-sm">
+        <slot />
+        <p class="small">
+          <a href={href}>Where the framework does less &rarr;</a>
+        </p>
+      </div>
     </SectionBlock>
   )
 }

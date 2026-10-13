@@ -67,59 +67,42 @@ const publication = createImplementationPublication(
   <SectionBlock
     id="ethotechnics"
     eyebrow="Ethotechnics implementation"
-    title="What changes when governance becomes infrastructure"
+    title="What changes, and what to verify before launch"
     description="Clinicians' overrides are recorded and counted against the model's rule."
   >
-    <ul class="card__list">
-      <li>
-        A named clinician can override any recommendation. The override is
-        recorded with its reason.
-      </li>
-      <li>
-        Overrides are counted by model rule. The count goes to the model's
-        owner, who reviews the rule and records what changed.
-      </li>
-      <li>
-        A patient can challenge a risk classification. A named owner answers by
-        a stated date and can change it. That is what
-        <a href="/glossary/contestability">contestability</a> means here.
-      </li>
-      <li>
-        A named person can halt the model in one workflow while it is reviewed.
-        The halt contains the harm. The review changes the rule.
-        <a href="/explainers/time-to-halt">Time-to-halt</a> measures how long the
-        halt takes.
-      </li>
-      <li>
-        When a recommendation is <a href="/glossary/reversibility">reversed</a>,
-        care it delayed is rescheduled and the delay is recorded.
-      </li>
-    </ul>
-  </SectionBlock>
-
-  <SectionBlock
-    id="checklist"
-    eyebrow="Implementation checklist"
-    title="Signals to verify before launch"
-    description="Confirm who can override and halt, and where the overrides go, before clinical deployment."
-  >
-    <ul class="muted">
-      <li>
-        Name who can halt the model in each workflow, and how they are told.
-      </li>
-      <li>Set a time-to-halt target for each diagnostic workflow.</li>
-      <li>
-        Give patients a challenge route with a named owner and an answer date.
-      </li>
-      <li>
-        Publish the <a href="/glossary/safety-valve">safety valve</a> procedure for
-        pausing the model.
-      </li>
-      <li>
-        Count overrides by rule, and record whether care delayed by a wrong
-        recommendation was restored.
-      </li>
-    </ul>
+    <div class="stack-sm">
+      <ul class="card__list">
+        <li>
+          A named clinician can override any recommendation. The override is
+          recorded with its reason.
+        </li>
+        <li>
+          Overrides are counted by model rule. The count goes to the model's
+          owner, who reviews the rule and records what changed.
+        </li>
+        <li>
+          A patient can challenge a risk classification. A named owner answers
+          by a stated date and can change it. That is what
+          <a href="/glossary/contestability">contestability</a> means here.
+        </li>
+        <li>
+          A named person can halt the model in one workflow while it is
+          reviewed. The halt contains the harm. The review changes the rule.
+          <a href="/explainers/time-to-halt">Time-to-halt</a> measures how long the
+          halt takes.
+        </li>
+        <li>
+          When a recommendation is <a href="/glossary/reversibility">reversed</a
+          >, care it delayed is rescheduled and the delay is recorded.
+        </li>
+      </ul>
+      <p class="muted">
+        Before clinical deployment, set a time-to-halt target for each workflow
+        and decide how the person who can halt the model there is told. Publish
+        the <a href="/glossary/safety-valve">safety valve</a> procedure for pausing
+        the model.
+      </p>
+    </div>
   </SectionBlock>
 
   <UseCaseFit slug="healthcare-diagnostics" />

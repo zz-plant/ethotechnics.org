@@ -68,59 +68,43 @@ const publication = createImplementationPublication(
   <SectionBlock
     id="ethotechnics"
     eyebrow="Ethotechnics implementation"
-    title="What changes when governance becomes infrastructure"
+    title="What changes, and what to verify before launch"
     description="Reaching a person is a right, and the requests the bot fails are counted against its design."
   >
-    <ul class="card__list">
-      <li>
-        A customer can ask for a person at any point, not only when the bot's
-        confidence is low. The bot passes on the conversation with its history.
-      </li>
-      <li>
-        Each hand-off names the team that owns the case and the time by which
-        they will reply. That is what
-        <a href="/glossary/contestability">contestability</a> means here.
-      </li>
-      <li>
-        Requests the bot failed to resolve or hand off are counted by flow. The
-        count goes to the owner of that flow, who records what changed.
-      </li>
-      <li>
-        A named staff member can switch off one bot flow while it is reviewed.
-        Switching it off contains the harm. Changing the flow fixes it.
-        <a href="/explainers/time-to-halt">Time-to-halt</a> measures how long the
-        switch-off takes.
-      </li>
-      <li>
-        When the bot gave wrong advice or wrongly refused a request, the
-        customer is contacted and the outcome is corrected.
-      </li>
-    </ul>
-  </SectionBlock>
-
-  <SectionBlock
-    id="checklist"
-    eyebrow="Implementation checklist"
-    title="Signals to verify before launch"
-    description="Confirm that a customer can reach a person, and that the bot's failures reach its owner."
-  >
-    <ul class="muted">
-      <li>
-        Show a control that reaches a person, with no penalty and no lost
-        history.
-      </li>
-      <li>
-        Publish the reply time for a hand-off in the confirmation the customer
-        receives.
-      </li>
-      <li>Name the staff member who can switch off each bot flow.</li>
-      <li>
-        Document how wrong advice or a wrongly refused request is corrected.
-      </li>
-      <li>
-        Count failed requests by flow, and record what changed in response.
-      </li>
-    </ul>
+    <div class="stack-sm">
+      <ul class="card__list">
+        <li>
+          A customer can ask for a person at any point, not only when the bot's
+          confidence is low. The bot passes on the conversation with its
+          history.
+        </li>
+        <li>
+          Each hand-off names the team that owns the case and the time by which
+          they will reply. That is what
+          <a href="/glossary/contestability">contestability</a> means here.
+        </li>
+        <li>
+          Requests the bot failed to resolve or hand off are counted by flow.
+          The count goes to the owner of that flow, who records what changed.
+        </li>
+        <li>
+          A named staff member can switch off one bot flow while it is reviewed.
+          Switching it off contains the harm. Changing the flow fixes it.
+          <a href="/explainers/time-to-halt">Time-to-halt</a> measures how long the
+          switch-off takes.
+        </li>
+        <li>
+          When the bot gave wrong advice or wrongly refused a request, the
+          customer is contacted and the outcome is corrected.
+        </li>
+      </ul>
+      <p class="muted">
+        Before launch, show the control that reaches a person, with no penalty
+        for using it. Put the hand-off's reply time in the confirmation the
+        customer receives, and document how wrong advice or a wrongly refused
+        request is corrected.
+      </p>
+    </div>
   </SectionBlock>
 
   <UseCaseFit slug="customer-service-chatbots" />
