@@ -81,7 +81,7 @@ export const roles: Role[] = [
         title: "Check what a workflow is allowed to decide",
         description:
           "Take one workflow through six questions. Get back the permissions nobody can justify, and whether its decisions can be undone.",
-        ctaLabel: "Open Delegation Audit",
+        ctaLabel: "Run the delegation audit",
         ctaHref: "/diagnostics/delegation-audit",
       },
       {
@@ -109,29 +109,9 @@ export const roles: Role[] = [
       ],
       keyLinks: [
         {
-          label: "Standards",
-          href: "/standards",
-          note: "The rules and rights to write into system guardrails.",
-        },
-        {
-          label: "Mechanisms catalog",
-          href: "/mechanisms",
-          note: "Specifications for controls that pause, slow, route, or reverse a decision.",
-        },
-        {
           label: "What outcomes hide",
           href: "/research/theory/what-outcomes-hide",
           note: "Why judging a system by outcomes is not enough: also count what people had to adapt to, and whether they could get errors corrected.",
-        },
-        {
-          label: "Validators",
-          href: "/validators",
-          note: "Checks that show operational risk.",
-        },
-        {
-          label: "What we can check",
-          href: "/evals/coverage",
-          note: "Which governance properties an automated test can confirm, and which it cannot.",
         },
       ],
     },
@@ -192,26 +172,6 @@ export const roles: Role[] = [
         "Write public summaries in the words people use to challenge a decision. Keep the glossary's defined terms in the policy text.",
       ],
       keyLinks: [
-        {
-          label: "STD-01: The Temporal Bill of Rights",
-          href: "/standards/std-01-temporal-rights",
-          note: "The rights to cite in policy language.",
-        },
-        {
-          label: "Mechanisms catalog",
-          href: "/mechanisms",
-          note: "Policy and governance controls ready to cite.",
-        },
-        {
-          label: "Validators",
-          href: "/validators",
-          note: "Audit tools to assess compliance and burden.",
-        },
-        {
-          label: "Glossary",
-          href: "/glossary",
-          note: "Defined terms to cite in policy text.",
-        },
         {
           label: "Language people can use",
           href: "/explainers/language-people-can-use",
@@ -369,29 +329,9 @@ export const roles: Role[] = [
           note: "The design stance: the institution should adapt before it asks people to.",
         },
         {
-          label: "Mechanisms catalog",
-          href: "/mechanisms",
-          note: "Specifications for controls that pause, slow, route, or reverse a decision, with implementation notes.",
-        },
-        {
-          label: "Field notes",
-          href: "/field-notes",
-          note: "Dated notes on outside changes that bear on the standards.",
-        },
-        {
-          label: "Diagnostics",
-          href: "/diagnostics",
-          note: "Interactive tools for testing a flow before release.",
-        },
-        {
           label: "Language people can use",
           href: "/explainers/language-people-can-use",
           note: "The questions people send about a decision. The screen should answer them.",
-        },
-        {
-          label: "Glossary",
-          href: "/glossary",
-          note: "Defined terms for internal specs, not for the screen.",
         },
       ],
     },
@@ -443,24 +383,9 @@ export const roles: Role[] = [
           note: "Current agendas, focus areas, and publications.",
         },
         {
-          label: "Theory essays",
-          href: "/research/theory",
-          note: "The argument behind the laws, including the design and evaluation essays.",
-        },
-        {
-          label: "Glossary",
-          href: "/glossary",
-          note: "Defined terms to use in research protocols.",
-        },
-        {
           label: "Participate",
           href: "/participate",
           note: "Send findings, cases, and corrections.",
-        },
-        {
-          label: "Field notes",
-          href: "/field-notes",
-          note: "Dated notes on outside changes that bear on the standards.",
         },
       ],
     },

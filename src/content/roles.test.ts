@@ -1,5 +1,6 @@
 import { describe, expect, it } from "bun:test";
 
+import { navPrimaryLinks, navSections } from "./navigation";
 import { roles, rolePermalink, getRole, roleMaterial } from "./roles";
 
 /**
@@ -77,6 +78,33 @@ describe("every audience that used to be addressed still is", () => {
       "/adopt/policy",
     ]) {
       expect(former, `${path} lost its audience`).toContain(path);
+    }
+  });
+});
+
+describe("a role page's reading list", () => {
+  // The list used to open with Standards, Mechanisms catalog, and Glossary:
+  // destinations the header reaches from every page, restated under a
+  // heading of their own.
+  it("links nothing the header or the same page already links", () => {
+    const header = new Set([
+      ...navPrimaryLinks.map((link) => link.href),
+      ...navSections.flatMap((section) => [
+        ...(section.href ? [section.href] : []),
+        ...section.links.map((link) => link.href),
+      ]),
+    ]);
+    for (const role of roles) {
+      const onPage = new Set([
+        ...(role.featuredDiagnostics ?? []).map(
+          (slug) => `/diagnostics/${slug}`,
+        ),
+        ...(role.featuredStandards ?? []).map((slug) => `/standards/${slug}`),
+      ]);
+      for (const link of role.guide?.keyLinks ?? []) {
+        expect(header.has(link.href), `${role.id}: ${link.href}`).toBe(false);
+        expect(onPage.has(link.href), `${role.id}: ${link.href}`).toBe(false);
+      }
     }
   });
 });
