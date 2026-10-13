@@ -4,7 +4,6 @@ import { getEntry, render } from "astro:content";
 import CitationBlock from "../../components/CitationBlock.astro";
 import SemanticConnections from "../../components/SemanticConnections.astro";
 import StandardsLayout from "../../components/StandardsLayout.astro";
-import LawsGrid from "../../components/LawsGrid.astro";
 import ClauseRegister from "../../components/ClauseRegister.astro";
 import GrantStateDiagram from "../../components/GrantStateDiagram.astro";
 import StandardPager from "../../components/StandardPager.astro";
@@ -103,7 +102,11 @@ if (
   pageSchema={pageSchema}
   mainClass={data.mainClass}
 >
-  {isLaws && entry.body && <LawsGrid body={entry.body} />}
+  {
+    /* The laws page opened with a twelve-row table that repeated each law's
+       condition and clauses before the essay stated them again. Each law is
+       now stated once, with what it protects under its heading. */
+  }
   {standardId === "STD-08" && <GrantStateDiagram />}
   {
     hasClauseRegister && entry.body && standardId && (
