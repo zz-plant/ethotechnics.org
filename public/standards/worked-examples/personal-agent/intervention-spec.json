@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "spec_id": "INT-PERSONAL-CONFIRM-1",
+  "system_ref": "assistant (vendor-hosted)",
+  "owner": {
+    "name": "The person",
+    "role": "Principal",
+    "contact": "The prompt on the person's phone"
+  },
+  "information_available": [
+    "The full message and its recipients, or the payee, the amount, and the bill it pays",
+    "Whether the recipient or payee is new",
+    "Whether the action can be undone, and how: the mail provider's 30-second undo, or a card dispute"
+  ],
+  "actions_preventable": ["SEND", "PAY"],
+  "states_alterable": [
+    "message text and recipients, before sending",
+    "payment amount and date, before paying",
+    "grant.state (allowed -> suspended), by turning sending or paying off"
+  ],
+  "on_disagreement": "The person's edit or refusal stands. The assistant records it as a correction to its standing instructions, not only to this action, and says what changed.",
+  "incentives": "The prompt arrives while the person is doing something else, and approving takes one tap. Nothing rewards reading it.",
+  "cost_to_exercise": "Refusing is one tap. Editing means opening the draft.",
+  "reach_time_target": "PT15M",
+  "non_retaliation": {
+    "policy_ref": "Not applicable: the owner is the principal, and no one can penalize them for refusing.",
+    "attested": false
+  },
+  "mechanism": "hold"
+}

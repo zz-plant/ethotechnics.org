@@ -15,7 +15,7 @@ import type { PageWithPermalink } from "./types";
  * to glossary entries, so a reader who found their sector there met no
  * standard and no tool.
  *
- * This registry names six contexts and five boundaries. Every worked example
+ * This registry names six contexts and six boundaries. Every worked example
  * belongs to exactly one of them, and each example page reads its entry back,
  * so the page names the standards to bind and the check to run first.
  * Standards, tools, and cases are referenced by id and resolved from their own
@@ -94,7 +94,7 @@ export type UseCasesContent = PageWithPermalink & {
 export const useCasesContent: UseCasesContent = {
   pageTitle: "Which systems this is for — Ethotechnics",
   pageDescription:
-    "Six kinds of automated decision the standards, cases, and tools are built for, which standards and tool to start with in each, and five where the framework does less.",
+    "Six kinds of automated decision the standards, cases, and tools are built for, which standards and tool to start with in each, and six where the framework does less.",
   permalink: "/use-cases",
   eyebrow: "Fit",
   title: "Which systems this is for",
@@ -460,6 +460,18 @@ export const boundaries: Boundary[] = [
     why: "A build pipeline or an internal dashboard changes no one's status. The exception is an agent with write access to customer accounts or production records. That agent acts on authority someone delegated to it, and the agents context applies.",
     link: { label: "AI agents that take actions", href: "#agents" },
     examples: [],
+  },
+  {
+    id: "one-person-agent",
+    title: "An agent acting for one person",
+    why: "The person who grants the agent its authority is usually the person its mistakes land on, and can stop it at any time. No institution operates the delegation, so no one answers to a clause for it. What still applies is the delegation: a scope that ends, a stop that works, a record the person can check without the agent, and a way for the people the agent writes to or pays to reach the person. When a vendor runs the same agent for many people, the agents context applies to the vendor.",
+    link: { label: "AI agents that take actions", href: "#agents" },
+    examples: [
+      {
+        label: "An AI agent acting for one person",
+        href: "/use-cases/examples/personal-agent",
+      },
+    ],
   },
 ];
 

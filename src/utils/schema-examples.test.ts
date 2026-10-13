@@ -1086,3 +1086,54 @@ describe("worked example: a decision-model gate on refunds", () => {
     expect(validate(schemaFor("intervention-spec"), plainSpec)).toEqual([]);
   });
 });
+
+describe("worked example: an agent acting for one person", () => {
+  const workedDir = join(standardsDir, "worked-examples", "personal-agent");
+  const grant = readJson(join(workedDir, "authority-grant.json"));
+  const spec = readJson(join(workedDir, "intervention-spec.json"));
+  const schemaFor = (name: string) =>
+    readJson<JsonSchema>(join(standardsDir, `${name}.schema.json`));
+
+  test("both records validate against the published schemas", () => {
+    for (const [name, record] of [
+      ["authority-grant", grant],
+      ["intervention-spec", spec],
+    ] as const) {
+      const errors = validate(schemaFor(name), record);
+      expect(errors, `${name}: ${formatErrors(errors)}`).toEqual([]);
+    }
+  });
+
+  test("STD-08 §3.2: the confirm prompt is the specification the grant names", () => {
+    expect(grant.mode).toBe("confirm");
+    expect(grant.intervention_ref).toBe(spec.spec_id);
+    expect(spec.actions_preventable).toEqual(grant.action_classes);
+    expect(spec.states_alterable.length).toBeGreaterThan(0);
+  });
+
+  test("STD-08 §1.4: adding PAY is its own expansion entry", () => {
+    const expansions = grant.state_history.filter(
+      (entry: { reason: string }) => entry.reason === "expansion",
+    );
+    expect(expansions).toHaveLength(1);
+    expect(expansions[0].note).toContain("PAY");
+  });
+
+  // The page says the person checks the agent against records it does not
+  // write, and that the people it writes to have no way in. The record has
+  // to say the same, or the page is describing a different delegation.
+  test("STD-08 §4.6: detection does not rest on the agent's own history", () => {
+    expect(grant.correction_capacity.detection.independent_of_executor).toBe(
+      true,
+    );
+    expect(grant.correction_capacity.standing.present).toBe(false);
+  });
+
+  // Where the schema asks for something a person cannot supply, the record
+  // says so rather than inventing a value that would pass.
+  test("the record names what a person cannot supply instead of inventing it", () => {
+    expect(grant.attestation.signature.startsWith("none")).toBe(true);
+    expect(grant.liability.accepted_by.name).toBe("The person");
+    expect(spec.non_retaliation.attested).toBe(false);
+  });
+});

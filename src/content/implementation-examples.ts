@@ -9,7 +9,7 @@ export type ImplementationExample = {
 };
 
 // Strongest fit first, by /use-cases: benefits, credit, health, agents, and
-// the one boundary case last.
+// the boundary cases last.
 export const implementationExamples: ImplementationExample[] = [
   {
     slug: "public-services",
@@ -73,6 +73,15 @@ export const implementationExamples: ImplementationExample[] = [
     tags: ["Boundary case", "Reasons", "Rollback"],
     cardDescription:
       "Recommendations a person can turn off, with challenges where targeting sets a price or an offer.",
+  },
+  {
+    slug: "personal-agent",
+    title: "An AI agent acting for one person",
+    summary:
+      "A boundary case. The person who grants the agent its authority is usually the one its mistakes land on, and no institution answers for the delegation.",
+    tags: ["Boundary case", "Expiry", "Independent records"],
+    cardDescription:
+      "An assistant with a grant that ends, a stop that works, and records the person checks it against.",
   },
 ];
 

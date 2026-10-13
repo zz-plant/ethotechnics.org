@@ -177,14 +177,20 @@ export const evalsContent: EvalsContent = {
     ],
     contact: "kanav@ethotechnics.org",
     published: "2026-07-27T00:00:00Z",
-    version: "1.12.0",
+    version: "1.13.0",
     license: {
       label: "CC BY-SA 4.0",
       href: "https://creativecommons.org/licenses/by-sa/4.0/",
     },
     attribution:
-      "Ethotechnics Institute. (2026). Governance Eval Suites v1.12.0. Ethotechnics Institute.",
+      "Ethotechnics Institute. (2026). Governance Eval Suites v1.13.0. Ethotechnics Institute.",
     changelog: [
+      {
+        version: "1.13.0",
+        date: "2026-10-13",
+        summary:
+          "Adds AGT-014 to AGT-017, draft cases for an agent acting for one person: whether it records another institution's error as well as the fix, whether its claim that an action can be undone holds in practice, whether a correction changes its standing instruction, and whether it claims scope from its own record or from adopting a framework. 16 eval suites, 180 test cases.",
+      },
       {
         version: "1.12.0",
         date: "2026-10-02",
