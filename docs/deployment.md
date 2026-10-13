@@ -51,7 +51,7 @@ whose body is the literal string `[object Object]`.
   live; creating it was required before the first deploy carrying the
   readouts feature.
 - `NEWSLETTER_RATE_LIMITER` and `READOUT_RATE_LIMITER` rate-limit bindings
-  (declared as experimental `unsafe.bindings`).
+  (`[[ratelimits]]`; the namespace ids 1001 and 1002 keep their counters).
 - Revisit this section when introducing new platform services so deploy
   reviews catch binding drift.
 
