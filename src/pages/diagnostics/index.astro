@@ -23,7 +23,6 @@ const {
 // The four tool cards sit directly under the intro, so the outline starts
 // with the sections below them.
 const anchorLinks = [
-  { href: "#orientation", label: "Who these tools are for" },
   { href: "#self-defense-tools", label: "If a system decided about you" },
   { href: "#output-baseline", label: "What every output includes" },
   { href: "#how-it-works", label: "Facilitated sessions" },
@@ -156,83 +155,6 @@ const selfDefenseTools = [
   </PageIntro>
 
   <section
-    id="orientation"
-    class="section diagnostics-orientation"
-    aria-labelledby="diagnostics-orientation-title"
-  >
-    <h2 id="diagnostics-orientation-title" class="sr-only">
-      Orientation for affected individuals and operational teams
-    </h2>
-    <div class="grid grid--two">
-      <div class="panel stack-sm">
-        <p class="eyebrow">For people a system decided about</p>
-        <h3 class="diagnostics-orientation__heading">
-          Decided about by an automated system?
-        </h3>
-        <p class="small">
-          Ethotechnics is an open standards body, not a legal clinic or advocacy
-          organization. We do not take cases or provide individual legal
-          representation.
-        </p>
-        <p class="small muted">
-          If software denied an application, cut your work shifts, or suspended
-          an account, a law may already entitle you to the reasons, a review by
-          a person, or a decision by a deadline. That depends on where you are
-          and what was decided. The standards on this site are drafts and have
-          no legal force.
-        </p>
-        <ul class="card__list small">
-          <li>
-            <a href="/diagnostics/self-defense-tools#your-rights"
-              >What you can ask for now &rarr;</a
-            >
-          </li>
-          <li>
-            <a href="/explainers/language-people-can-use"
-              >Questions to send about the decision &rarr;</a
-            >
-          </li>
-          <li>
-            <a href="/diagnostics/self-defense-tools"
-              >Check a decision about you &rarr;</a
-            >
-          </li>
-        </ul>
-      </div>
-
-      <div class="panel stack-sm">
-        <p class="eyebrow">For operations managers</p>
-        <h3 class="diagnostics-orientation__heading">
-          Accounting for frontline workload
-        </h3>
-        <p class="small">
-          Diagnostics do not generate compliance paperwork or expand ticket
-          backlogs. They measure where an automated system is silently shifting
-          its error costs onto human workers.
-        </p>
-        <p class="small muted">
-          When edge cases fail, human operators often spend unlogged hours in
-          shadow spreadsheets and off-shift triage. Scoring this burden gives
-          team leads the documented evidence needed to throttle decision
-          throughput or require engineering fixes.
-        </p>
-        <ul class="card__list small">
-          <li>
-            <a href="/diagnostics/burden-modeler"
-              >Measure staff burden with the Workload Modeler &rarr;</a
-            >
-          </li>
-          <li>
-            <a href="/diagnostics/corrective-debt-calculator"
-              >Check institutional corrective capacity &rarr;</a
-            >
-          </li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section
     id="quick-triage"
     class="section diagnostics-start"
     aria-labelledby="quick-triage-title"
@@ -263,6 +185,22 @@ const selfDefenseTools = [
     title="Short checks: can you challenge it, can the appeal work, who can reverse it"
     description="Three checks for the person on the receiving end of a decision, to run before escalating."
   >
+    {
+      /* An "orientation" block above the tools used to address this reader
+         and the operations manager in two panels, each linking tools the
+         page lists again below. Its one fact of its own stays here. */
+    }
+    <p class="small muted">
+      Ethotechnics is an open standards body, not a legal clinic. It does not
+      take cases. Where you are and what was decided may already entitle you to
+      the reasons, a review by a person, or a decision by a deadline; the
+      standards on this site are drafts and have no legal force.
+      <a href="/diagnostics/self-defense-tools#your-rights"
+        >What you can ask for now</a
+      >, and <a href="/explainers/language-people-can-use"
+        >questions to send about the decision</a
+      >.
+    </p>
     <CardGrid className="grid--three">
       {
         selfDefenseTools.map((tool) => (

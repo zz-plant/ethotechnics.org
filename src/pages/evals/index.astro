@@ -3,8 +3,6 @@ import InlineScript from "../../components/InlineScript.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
-import CardGrid from "../../components/CardGrid.astro";
-import CardItem from "../../components/CardItem.astro";
 import FiniteSection from "../../components/FiniteSection.astro";
 import { evalsContent } from "../../content/evals";
 import { evalTestCases } from "../../content/eval-test-cases";
@@ -24,17 +22,7 @@ const {
   evaluationStack,
 } = evalsContent;
 
-const suitesByLayer = evaluationStack.layers.map((layer) => ({
-  layer,
-  suites: suites.filter((suite) => suite.layer === layer.id),
-}));
-
-const suiteTestCaseCounts = new Map(
-  suites.map((suite) => [
-    suite.id,
-    evalTestCases.filter((tc) => tc.suiteId === suite.id).length,
-  ]),
-);
+const layersWithSuites = new Set(suites.map((suite) => suite.layer));
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -92,13 +80,28 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
               <strong>{layer.question}</strong>
             </p>
             <p class="muted small">{layer.example}</p>
+            {!layersWithSuites.has(layer.id) && (
+              <p class="muted small">
+                No suite here sits at this layer; the site assumes it has been
+                evaluated elsewhere.
+              </p>
+            )}
           </li>
         ))
       }
     </ol>
   </SectionBlock>
 
-  <SectionBlock id="register" title="The suite register">
+  {
+    /* The one list of suites. A second section listed the same sixteen as
+       cards grouped by layer, under layer headings that restated the stack
+       above; the description each card carried now sits in its row. */
+  }
+  <SectionBlock
+    id="register"
+    title="The suite register"
+    description="Each suite tests one property at one layer of the stack. Evaluate at the highest layer capable of producing the failure you care about; a clean result at a lower layer is not evidence about a higher one."
+  >
     <div class="mapping-table__wrapper">
       <table class="mapping-table mapping-table--stack catalogue-table">
         <thead>
@@ -126,6 +129,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                 <tr>
                   <th scope="row">
                     <a href={`/evals/${suite.slug}`}>{suite.title}</a>
+                    <span class="catalogue-table__summary">
+                      {suite.description}
+                    </span>
                   </th>
                   <td data-label="Layer">{layer?.title ?? suite.layer}</td>
                   <td data-label="Cases" class="catalogue-table__num">
@@ -148,67 +154,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         </tbody>
       </table>
     </div>
-  </SectionBlock>
-
-  <SectionBlock
-    id="suites"
-    eyebrow="Available suites"
-    title="Governance eval suites, by layer"
-    description="Each suite tests one property, such as whether a system can be stopped or appealed, at one layer of the stack. Evaluate at the highest layer capable of producing the failure you care about; a clean result at a lower layer is not evidence about a higher one."
-    variant="alt"
-  >
-    {
-      suitesByLayer.map(({ layer, suites: layerSuites }) => (
-        <div class="eval-layer-group">
-          <h3 class="eval-layer-group__title">
-            {layer.title} layer
-            <span class="muted small eval-layer-group__count">
-              {layerSuites.length === 0
-                ? "no suites"
-                : `${layerSuites.length} suite${layerSuites.length === 1 ? "" : "s"}`}
-            </span>
-          </h3>
-          <p class="muted small">{layer.question}</p>
-          {layerSuites.length === 0 ? (
-            <p class="muted small">
-              None of the suites here sits at this layer; the site assumes it
-              has been evaluated elsewhere.
-            </p>
-          ) : (
-            <CardGrid className="grid--two">
-              {layerSuites.map((suite) => {
-                const testCount = suiteTestCaseCounts.get(suite.id) ?? 0;
-
-                return (
-                  <CardItem
-                    eyebrow={suite.category}
-                    title={suite.title}
-                    description={suite.description}
-                  >
-                    <p class="muted small">
-                      <span
-                        class={`status-badge status-badge--${suite.status}`}
-                      >
-                        {suite.status}
-                      </span>
-                      · {testCount} test case{testCount === 1 ? "" : "s"} · Est.{" "}
-                      {suite.estimatedTime}
-                    </p>
-                    <a
-                      slot="footer"
-                      class="muted"
-                      href={`/evals/${suite.slug}`}
-                    >
-                      Open suite
-                    </a>
-                  </CardItem>
-                );
-              })}
-            </CardGrid>
-          )}
-        </div>
-      ))
-    }
   </SectionBlock>
 
   <SectionBlock
@@ -323,42 +268,5 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 
   .eval-stack__layer .eyebrow::before {
     content: counter(layer) ". ";
-  }
-
-  .eval-layer-group {
-    margin-bottom: var(--space-6);
-  }
-
-  .eval-layer-group__title {
-    display: flex;
-    align-items: baseline;
-    gap: var(--space-3);
-    margin-bottom: var(--space-1);
-  }
-
-  .eval-layer-group__count {
-    font-weight: 400;
-  }
-
-  .status-badge {
-    display: inline-flex;
-    align-items: center;
-    border-radius: var(--radius-pill);
-    padding: var(--space-hair) var(--space-2);
-    margin: 0 var(--space-1);
-    font-size: var(--text-xs);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-label);
-  }
-
-  .status-badge--draft {
-    background: color-mix(in srgb, var(--accent) 18%, transparent);
-    color: var(--accent);
-  }
-
-  .status-badge--stable {
-    background: color-mix(in srgb, #2d8a4a 16%, transparent);
-    color: #2d8a4a;
   }
 </style>

@@ -2,7 +2,6 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import CardGrid from "../../../components/CardGrid.astro";
-import CardItem from "../../../components/CardItem.astro";
 import PageIntro from "../../../components/PageIntro.astro";
 import SectionBlock from "../../../components/SectionBlock.astro";
 
@@ -22,13 +21,13 @@ const pageDescription =
   "Essays on one claim: institutions absorb the evidence that their automated systems are wrong. They argue why the laws hold. No standard cites an essay as a requirement.";
 const anchorLinks = [
   { href: "#start", label: "Reading order" },
-  { href: "#questions", label: "Questions by safeguard" },
-  { href: "#essays", label: "All essays" },
+  { href: "#questions", label: "All essays, by safeguard" },
   { href: "#layering", label: "Theory and method" },
 ];
 
-// The essays are listed A to Z below, which puts the one that states the
-// mechanism fourteenth. This order reads them as one argument: the
+// The essays are grouped by safeguard below, which scatters the one that
+// states the mechanism among the others. This order reads them as one
+// argument: the
 // mechanism, how it hides, who carries it, why fixing cases does not fix the
 // rule, and where the argument comes from.
 const readingOrder = [
@@ -60,8 +59,6 @@ const readingOrder = [
     throw new Error(`Reading order names a missing essay: ${step.slug}`);
   return { ...step, title: essay.data.title, href: essay.data.permalink };
 });
-const formatLawRefs = (refs: string[]) =>
-  refs.length > 0 ? `Laws ${refs.join(", ")}` : "No law references";
 ---
 
 <BaseLayout
@@ -99,9 +96,8 @@ const formatLawRefs = (refs: string[]) =>
 
   <SectionBlock
     id="questions"
-    eyebrow="Taxonomy"
-    title="Questions by safeguard"
-    description="Every essay addresses one structural question about automated authority, evidence concealment, or human subsidy. The questions are organized under the six safeguards the method names."
+    title={`All ${essays.length} essays, by safeguard`}
+    description="Each essay asks one question about automated authority, hidden evidence, or the work people do to keep a system running. They are grouped under the six safeguards the method names."
     variant="alt"
   >
     <CardGrid className="grid--two">
@@ -131,41 +127,6 @@ const formatLawRefs = (refs: string[]) =>
             </article>
           );
         })
-      }
-    </CardGrid>
-  </SectionBlock>
-
-  <SectionBlock
-    id="essays"
-    eyebrow="All essays"
-    title={`All ${essays.length} essays, A to Z`}
-    description="Arguments, not requirements. No essay uses requirements language, and no standard cites one as a clause."
-  >
-    <CardGrid className="grid--two">
-      {
-        essays.map((essay) => (
-          <CardItem
-            meta={formatLawRefs(essay.data.lawRefs)}
-            title={essay.data.title}
-            description={essay.data.summary}
-            descriptionTone="default"
-          >
-            <div class="stack-xs">
-              <p class="eyebrow">Central question</p>
-              <p class="small muted">
-                <em>{essay.data.question}</em>
-              </p>
-            </div>
-            <div slot="footer" class="card__footer">
-              <a
-                class="button ghost button--compact"
-                href={essay.data.permalink}
-              >
-                Read the essay
-              </a>
-            </div>
-          </CardItem>
-        ))
       }
     </CardGrid>
   </SectionBlock>

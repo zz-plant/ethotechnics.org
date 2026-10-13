@@ -57,8 +57,7 @@ export const validatorsContent: ValidatorsContent = {
     "Three forms that score a user journey against STD-01, the temporal rights standard, and return a red, yellow, or green status, the clauses at risk, and a fix.",
   permalink: "/validators",
   anchorLinks: [
-    { href: "#focus", label: "Browse by focus" },
-    { href: "#tools", label: "Validator tools" },
+    { href: "#register", label: "Every validator" },
     { href: "#method", label: "Method" },
   ],
   validators: [

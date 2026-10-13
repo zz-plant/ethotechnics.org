@@ -59,16 +59,21 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     description={pageDescription}
     anchorLinks={[
       { href: "#mechanisms", label: "Mechanism catalog" },
-      { href: "#start-here", label: "Three to read first" },
       { href: "#references", label: "References" },
     ]}
   />
   <SectionBlock id="mechanisms" title="Mechanism catalog">
+    {
+      /* The three starters used to get a card section of their own below the
+         catalog, which lists the same three. One line names them here. */
+    }
     <p class="mechanisms__links">
-      <span>New to mechanisms?</span>
-      <a href="#start-here">Read three first</a>
-      <a href="/standards/std-01-rights-matrix">Rights matrix</a>
-      <a href="/validators">Validators</a>
+      <span>New to mechanisms? Start with three:</span>
+      {
+        recommended.items.map((item) => (
+          <a href={item.href}>{item.title.replace(/^MEC-\d+\s+/, "")}</a>
+        ))
+      }
     </p>
     <div class="pattern-filter__anchors" aria-hidden="true">
       {
@@ -78,29 +83,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       }
     </div>
     <PatternFilter filters={patterns.filters} entries={patterns.entries} />
-  </SectionBlock>
-
-  <SectionBlock
-    id="start-here"
-    eyebrow="Start here"
-    title="Three to read first"
-    description={recommended.description}
-    variant="alt"
-  >
-    <div class="pattern-filter__results">
-      {
-        recommended.items.map((item) => (
-          <article class="card pattern-card">
-            <h3 class="pattern-card__heading">
-              <a class="pattern-card__title" href={item.href}>
-                {item.title}
-              </a>
-            </h3>
-            <p class="pattern-card__summary">{item.description}</p>
-          </article>
-        ))
-      }
-    </div>
   </SectionBlock>
 
   <SectionBlock
@@ -153,12 +135,13 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     </div>
   </SectionBlock>
 
-  <ScholarlyMeta publication={publication} permalink={permalink} />
   <CitationBlock
     title={pageTitle}
     permalink={permalink}
     publication={publication}
     variant="compact"
-  />
+  >
+    <ScholarlyMeta bare publication={publication} permalink={permalink} />
+  </CitationBlock>
   <InlineScript type="application/ld+json" code={structuredDataJson} />
 </BaseLayout>
