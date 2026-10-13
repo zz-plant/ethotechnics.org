@@ -1,0 +1,236 @@
+---
+/**
+ * Safety valve, drawn (explainer).
+ *
+ * Two paths to an outcome and one path to a rule's owner. A case goes to the
+ * automated decision until a threshold trips; then the valve opens on its
+ * own and the case goes to a logged fallback with a named owner instead of
+ * being denied. Every opening is counted against the rule that produced it,
+ * and a rule that keeps opening the valve goes to its owner.
+ */
+interface Props {
+  level?: "h2" | "h3";
+}
+
+const { level = "h3" }: Props = Astro.props;
+const Heading = level;
+---
+
+<figure class="state-diagram" aria-labelledby="safety-valve-title">
+  <figcaption>
+    <p class="eyebrow">Mechanism, drawn</p>
+    <Heading id="safety-valve-title">Where the valve sends a case</Heading>
+    <p class="muted">
+      A case goes to the automated decision until a threshold trips. Then the
+      valve opens without waiting for approval, and the case goes to a fallback
+      that logs it under a named owner. Each opening is also counted against the
+      rule that produced the case, and a rule that keeps opening the valve goes
+      to its owner.
+    </p>
+  </figcaption>
+
+  <div class="diagram-scroll">
+    <svg
+      viewBox="0 0 920 450"
+      role="img"
+      class="state-diagram__svg"
+      aria-label="Flow diagram. Incoming cases go to the automated decision, which sends an outcome. When a threshold trips, an uncertainty jump, a growing queue or an anomaly, the valve opens on its own, without waiting for approval, and switching it off is logged. The valve routes the case, instead of denying it, to a human fallback with a named owner, a log entry and a deadline, and the person there decides the outcome. Each opening is counted against the rule that produced the case. A rule that keeps opening the valve goes to its owner, who changes the rule or records why not."
+    >
+      <defs>
+        <marker
+          id="safety-valve-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--border)"></path>
+        </marker>
+        <marker
+          id="safety-valve-accent-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)"></path>
+        </marker>
+      </defs>
+
+      {/* Row 1: the automated path */}
+      <g class="state-diagram__node" transform="translate(30, 40)">
+        <rect width="170" height="80" rx="8"></rect>
+        <text x="85" y="46" text-anchor="middle" class="state-diagram__state"
+          >Incoming cases</text
+        >
+      </g>
+      <line
+        x1="200"
+        y1="80"
+        x2="267"
+        y2="80"
+        stroke="var(--border)"
+        stroke-width="2"
+        marker-end="url(#safety-valve-arrow)"></line>
+
+      <g class="state-diagram__node" transform="translate(270, 40)">
+        <rect width="200" height="80" rx="8"></rect>
+        <text x="100" y="46" text-anchor="middle" class="state-diagram__state"
+          >Automated decision</text
+        >
+      </g>
+      <line
+        x1="470"
+        y1="80"
+        x2="717"
+        y2="80"
+        stroke="var(--border)"
+        stroke-width="2"
+        marker-end="url(#safety-valve-arrow)"></line>
+      <text x="594" y="68" text-anchor="middle" class="state-diagram__label"
+        >Decided by the system</text
+      >
+
+      <g class="state-diagram__node" transform="translate(720, 40)">
+        <rect width="170" height="80" rx="8"></rect>
+        <text x="85" y="36" text-anchor="middle" class="state-diagram__state"
+          >Outcome</text
+        >
+        <text x="85" y="58" text-anchor="middle" class="state-diagram__label"
+          >Sent with its record</text
+        >
+      </g>
+
+      {/* Row 2: the valve and the fallback */}
+      <line
+        x1="370"
+        y1="120"
+        x2="370"
+        y2="197"
+        stroke="var(--accent)"
+        stroke-width="2"
+        marker-end="url(#safety-valve-accent-arrow)"></line>
+      <text x="382" y="164" class="state-diagram__clause">Threshold trips</text>
+
+      <g
+        class="state-diagram__node state-diagram__node--active"
+        transform="translate(270, 200)"
+      >
+        <rect width="200" height="100" rx="8"></rect>
+        <text x="100" y="28" text-anchor="middle" class="state-diagram__state"
+          >Valve opens</text
+        >
+        <text x="100" y="52" text-anchor="middle" class="state-diagram__label"
+          >Uncertainty jumps</text
+        >
+        <text x="100" y="70" text-anchor="middle" class="state-diagram__label"
+          >Queue grows</text
+        >
+        <text x="100" y="88" text-anchor="middle" class="state-diagram__label"
+          >Anomaly appears</text
+        >
+      </g>
+
+      <text x="30" y="226" class="state-diagram__clause">Opens on its own</text>
+      <text x="30" y="248" class="state-diagram__label"
+        >A valve that waits for</text
+      >
+      <text x="30" y="266" class="state-diagram__label"
+        >approval opens too late.</text
+      >
+      <text x="30" y="288" class="state-diagram__label"
+        >Switching it off is logged.</text
+      >
+
+      <line
+        x1="470"
+        y1="250"
+        x2="717"
+        y2="250"
+        stroke="var(--accent)"
+        stroke-width="2"
+        marker-end="url(#safety-valve-accent-arrow)"></line>
+      <text x="594" y="238" text-anchor="middle" class="state-diagram__clause"
+        >Routed, not denied</text
+      >
+
+      <g
+        class="state-diagram__node state-diagram__node--active"
+        transform="translate(720, 200)"
+      >
+        <rect width="170" height="100" rx="8"></rect>
+        <text x="85" y="28" text-anchor="middle" class="state-diagram__state"
+          >Human fallback</text
+        >
+        <text x="85" y="52" text-anchor="middle" class="state-diagram__label"
+          >Named owner</text
+        >
+        <text x="85" y="70" text-anchor="middle" class="state-diagram__label"
+          >Logged case</text
+        >
+        <text x="85" y="88" text-anchor="middle" class="state-diagram__label"
+          >Deadline</text
+        >
+      </g>
+      <line
+        x1="805"
+        y1="200"
+        x2="805"
+        y2="123"
+        stroke="var(--accent)"
+        stroke-width="2"
+        marker-end="url(#safety-valve-accent-arrow)"></line>
+      <text x="793" y="164" text-anchor="end" class="state-diagram__label"
+        >Decided by a person</text
+      >
+
+      {/* Row 3: the count goes to the rule's owner */}
+      <line
+        x1="370"
+        y1="300"
+        x2="370"
+        y2="347"
+        stroke="var(--border)"
+        stroke-width="2"
+        marker-end="url(#safety-valve-arrow)"></line>
+
+      <g class="state-diagram__node" transform="translate(270, 350)">
+        <rect width="200" height="80" rx="8"></rect>
+        <text x="100" y="34" text-anchor="middle" class="state-diagram__state"
+          >Openings counted</text
+        >
+        <text x="100" y="56" text-anchor="middle" class="state-diagram__label"
+          >against the rule</text
+        >
+      </g>
+      <line
+        x1="470"
+        y1="390"
+        x2="717"
+        y2="390"
+        stroke="var(--border)"
+        stroke-width="2"
+        marker-end="url(#safety-valve-arrow)"></line>
+      <text x="594" y="378" text-anchor="middle" class="state-diagram__label"
+        >Keeps opening under one rule</text
+      >
+
+      <g class="state-diagram__node" transform="translate(720, 350)">
+        <rect width="170" height="80" rx="8"></rect>
+        <text x="85" y="28" text-anchor="middle" class="state-diagram__state"
+          >Rule's owner</text
+        >
+        <text x="85" y="50" text-anchor="middle" class="state-diagram__label"
+          >Changes the rule</text
+        >
+        <text x="85" y="68" text-anchor="middle" class="state-diagram__label"
+          >or records why not</text
+        >
+      </g>
+    </svg>
+  </div>
+</figure>

@@ -1,0 +1,209 @@
+---
+/**
+ * Where difficulty lives, drawn (theory essay of the same name).
+ *
+ * The same six functions in two arrangements. In the first, the
+ * responsibility line sits close to the institution and every function is
+ * done by hand inside a person's life. In the second, the line has moved and
+ * each function is done by a mechanism upstream. Nothing is abolished between
+ * the two panels: the functions are the same, only their place changes. Each
+ * function and each mechanism is one the essay names.
+ */
+interface Props {
+  level?: "h2" | "h3";
+}
+
+const { level = "h3" }: Props = Astro.props;
+const Heading = level;
+
+const functions = [
+  {
+    name: "Coordinate",
+    byHand: "The patient chases five specialists",
+    upstream: "Accountable coordination",
+  },
+  {
+    name: "Verify",
+    byHand: "Applicant proves eligibility again",
+    upstream: "Records it already holds",
+  },
+  {
+    name: "Catch errors",
+    byHand: "The nurse's permanent vigilance",
+    upstream: "Error-proofing, forcing functions",
+  },
+  {
+    name: "Remember",
+    byHand: "People recall what the system forgot",
+    upstream: "Institutional memory",
+  },
+  {
+    name: "Absorb fluctuation",
+    byHand: "Workers take every swing in demand",
+    upstream: "Spare capacity, staffing reserves",
+  },
+  {
+    name: "Route the problem",
+    byHand: "Hours finding who has authority",
+    upstream: "Escalation with a named owner",
+  },
+];
+
+const chipWidth = 285;
+const chipHeight = 58;
+const panels = [
+  {
+    key: "exported",
+    title: "Exported into people's lives",
+    top: 40,
+    lineX: 270,
+    chipX: 300,
+    text: "byHand" as const,
+    tone: "var(--status-warning)",
+  },
+  {
+    key: "upstream",
+    title: "Moved upstream",
+    top: 360,
+    lineX: 630,
+    chipX: 30,
+    text: "upstream" as const,
+    tone: "var(--accent)",
+  },
+];
+const panelHeight = 280;
+---
+
+<figure class="state-diagram" aria-labelledby="where-difficulty-title">
+  <figcaption>
+    <p class="eyebrow">Theory, drawn</p>
+    <Heading id="where-difficulty-title">
+      The same functions on either side of the line
+    </Heading>
+    <p class="muted">
+      Someone has to coordinate, verify, catch errors, remember, absorb
+      fluctuation and route problems. The responsibility line decides whether a
+      person does it by hand or the institution and its technology do it. Moving
+      the line moves the functions. It abolishes none of them.
+    </p>
+  </figcaption>
+
+  <div class="diagram-scroll">
+    <svg
+      viewBox="0 0 920 660"
+      role="img"
+      class="state-diagram__svg"
+      aria-label={`Two panels with the same six functions, split by a vertical responsibility line. Institution and its technology on the left, the person on the right. Top panel, exported into people's lives: the line sits near the institution, which records the outcome, and every function is on the person's side, done by hand. ${functions.map((f) => `${f.name}: ${f.byHand.toLowerCase()}.`).join(" ")} Bottom panel, moved upstream: the line sits near the person, and every function is on the institution's side, done by a mechanism. ${functions.map((f) => `${f.name}: ${f.upstream.toLowerCase()}.`).join(" ")} The compensating work is retired, and checked for reappearing elsewhere. Effort the activity itself requires stays with the person in both.`}
+    >
+      {
+        panels.map((panel) => (
+          <g>
+            <rect
+              x="20"
+              y={panel.top}
+              width="880"
+              height={panelHeight}
+              rx="8"
+              fill="var(--surface)"
+              stroke="var(--border)"
+            />
+            <text
+              x="36"
+              y={panel.top + 28}
+              class="state-diagram__state"
+              fill={panel.tone}
+            >
+              {panel.title}
+            </text>
+            <text
+              x={panel.lineX - 12}
+              y={panel.top + 56}
+              text-anchor="end"
+              class="state-diagram__label"
+            >
+              Institution and its technology
+            </text>
+            <text
+              x={panel.lineX + 12}
+              y={panel.top + 56}
+              class="state-diagram__label"
+            >
+              The person
+            </text>
+            <line
+              x1={panel.lineX}
+              x2={panel.lineX}
+              y1={panel.top + 40}
+              y2={panel.top + panelHeight - 10}
+              stroke="var(--status-danger)"
+              stroke-width="2"
+              stroke-dasharray="6 4"
+            />
+            {functions.map((fn, i) => {
+              const x = panel.chipX + (i % 2) * (chipWidth + 10);
+              const y = panel.top + 70 + Math.floor(i / 2) * (chipHeight + 8);
+              return (
+                <g
+                  class="state-diagram__node"
+                  transform={`translate(${x}, ${y})`}
+                >
+                  <rect
+                    width={chipWidth}
+                    height={chipHeight}
+                    rx="6"
+                    fill="var(--panel)"
+                    stroke={panel.tone}
+                  />
+                  <text x="12" y="23" class="state-diagram__state">
+                    {fn.name}
+                  </text>
+                  <text x="12" y="44" class="state-diagram__label">
+                    {fn[panel.text]}
+                  </text>
+                </g>
+              );
+            })}
+          </g>
+        ))
+      }
+
+      {/* Exported panel: what is left on the institution's side */}
+      <text x="36" y="140" class="state-diagram__label">Records the</text>
+      <text x="36" y="160" class="state-diagram__label">outcome; the work</text>
+      <text x="36" y="180" class="state-diagram__label">behind it goes</text>
+      <text x="36" y="200" class="state-diagram__label">unrecorded</text>
+
+      {/* Upstream panel: what is left on the person's side */}
+      <text x="642" y="446" class="state-diagram__clause"
+        >Compensating work</text
+      >
+      <text x="642" y="464" class="state-diagram__clause">retired</text>
+      <text x="642" y="490" class="state-diagram__label"
+        >Checked that it does</text
+      >
+      <text x="642" y="508" class="state-diagram__label"
+        >not reappear elsewhere</text
+      >
+      <text
+        x="642"
+        y="548"
+        class="state-diagram__clause"
+        fill="var(--status-success)">Stays here in both</text
+      >
+      <text x="642" y="566" class="state-diagram__label"
+        >Effort the activity</text
+      >
+      <text x="642" y="584" class="state-diagram__label"
+        >itself requires: a hard</text
+      >
+      <text x="642" y="602" class="state-diagram__label"
+        >judgment, learning a skill</text
+      >
+
+      {/* The move */}
+      <text x="460" y="345" text-anchor="middle" class="state-diagram__clause"
+        >Same functions. The line moves; they move with it.</text
+      >
+    </svg>
+  </div>
+</figure>

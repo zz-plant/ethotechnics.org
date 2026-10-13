@@ -1,0 +1,266 @@
+---
+/**
+ * Intervention specification, drawn (explainer).
+ *
+ * Above, a reviewer named in the loop: a score arrives, the reviewer can
+ * approve it, and nothing connects them to the system's state. Below, the
+ * explainer's payments hold queue with each of the six answers placed where
+ * it acts: who, on what signal, with what information, with authority over
+ * which state, how fast, and where disagreement goes. The difference between
+ * the rows is the line from the reviewer to the state.
+ */
+interface Props {
+  level?: "h2" | "h3";
+}
+
+const { level = "h3" }: Props = Astro.props;
+const Heading = level;
+---
+
+<figure class="state-diagram" aria-labelledby="intervention-spec-title">
+  <figcaption>
+    <p class="eyebrow">Mechanism, drawn</p>
+    <Heading id="intervention-spec-title">
+      Named in the loop, or able to change state
+    </Heading>
+    <p class="muted">
+      A reviewer named in the loop can approve what the system shows them and
+      change nothing. A specification answers six questions, and the reviewer
+      counts as a control only if the answers end in a change to the system's
+      state. The lower row is the payments hold queue from the example above.
+    </p>
+  </figcaption>
+
+  <div class="diagram-scroll">
+    <svg
+      viewBox="0 0 920 510"
+      role="img"
+      class="state-diagram__svg"
+      aria-label="Two rows. Named in the loop: a score with no case behind it reaches a reviewer who can approve it. The line from the reviewer to the system's state is cut: no authority over state, and no set route to disagree. Specified, the payments hold queue: 1, who: two on-call reviewers. 2, on what signal: the fraud score routes the case to them. 3, with what information: the customer's history. 4, authority over which state: they can release or freeze the account, and the line to the account's state is whole. 5, how fast: four minutes per case. 6, when they disagree with the model: the case goes to the duty manager."
+    >
+      <defs>
+        <marker
+          id="intervention-spec-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--border)"></path>
+        </marker>
+        <marker
+          id="intervention-spec-accent-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)"></path>
+        </marker>
+      </defs>
+
+      {/* Row A: named in the loop */}
+      <text
+        x="30"
+        y="30"
+        class="state-diagram__state"
+        fill="var(--status-danger)">Named in the loop</text
+      >
+      <g class="state-diagram__node" transform="translate(30, 50)">
+        <rect width="170" height="80" rx="8"></rect>
+        <text x="85" y="34" text-anchor="middle" class="state-diagram__state"
+          >A score</text
+        >
+        <text x="85" y="56" text-anchor="middle" class="state-diagram__label"
+          >No case behind it</text
+        >
+      </g>
+      <line
+        x1="200"
+        y1="90"
+        x2="307"
+        y2="90"
+        stroke="var(--border)"
+        stroke-width="2"
+        marker-end="url(#intervention-spec-arrow)"></line>
+
+      <g class="state-diagram__node" transform="translate(310, 50)">
+        <rect width="200" height="80" rx="8"></rect>
+        <text x="100" y="34" text-anchor="middle" class="state-diagram__state"
+          >Reviewer</text
+        >
+        <text x="100" y="56" text-anchor="middle" class="state-diagram__label"
+          >Can approve</text
+        >
+      </g>
+      <text x="410" y="152" text-anchor="middle" class="state-diagram__label"
+        >No set route to disagree</text
+      >
+
+      <line
+        x1="510"
+        y1="90"
+        x2="598"
+        y2="90"
+        stroke="var(--border)"
+        stroke-width="2"></line>
+      <rect
+        x="602"
+        y="70"
+        width="12"
+        height="40"
+        rx="2"
+        fill="var(--status-danger)"></rect>
+      <line
+        x1="618"
+        y1="90"
+        x2="717"
+        y2="90"
+        stroke="var(--border)"
+        stroke-width="2"
+        stroke-dasharray="4 5"
+        marker-end="url(#intervention-spec-arrow)"></line>
+      <text
+        x="608"
+        y="132"
+        text-anchor="middle"
+        class="state-diagram__clause"
+        fill="var(--status-danger)">No authority over state</text
+      >
+
+      <g class="state-diagram__node" transform="translate(720, 50)">
+        <rect width="170" height="80" rx="8"></rect>
+        <text x="85" y="34" text-anchor="middle" class="state-diagram__state"
+          >System state</text
+        >
+        <text x="85" y="56" text-anchor="middle" class="state-diagram__label"
+          >Unchanged</text
+        >
+      </g>
+
+      <line
+        x1="30"
+        y1="184"
+        x2="890"
+        y2="184"
+        stroke="var(--border)"
+        stroke-width="1"
+        stroke-dasharray="4 4"></line>
+
+      {/* Row B: specified */}
+      <text
+        x="30"
+        y="218"
+        class="state-diagram__state"
+        fill="var(--accent-strong)">Specified: the payments hold queue</text
+      >
+
+      {/* 2. Signal */}
+      <g class="state-diagram__node" transform="translate(30, 240)">
+        <rect width="190" height="96" rx="8"></rect>
+        <text x="14" y="26" class="state-diagram__clause"
+          >2. On what signal</text
+        >
+        <text x="14" y="52" class="state-diagram__state">Fraud score</text>
+        <text x="14" y="74" class="state-diagram__label">Routes the case</text>
+      </g>
+      <line
+        x1="220"
+        y1="288"
+        x2="297"
+        y2="288"
+        stroke="var(--border)"
+        stroke-width="2"
+        marker-end="url(#intervention-spec-arrow)"></line>
+
+      {/* 1. Who */}
+      <g
+        class="state-diagram__node state-diagram__node--active"
+        transform="translate(300, 240)"
+      >
+        <rect width="220" height="124" rx="8"></rect>
+        <text x="14" y="26" class="state-diagram__clause">1. Who</text>
+        <text x="14" y="50" class="state-diagram__state"
+          >Two on-call reviewers</text
+        >
+        <text x="14" y="84" class="state-diagram__clause">5. How fast</text>
+        <text x="14" y="106" class="state-diagram__label"
+          >Four minutes per case</text
+        >
+      </g>
+
+      {/* 3. Information */}
+      <g class="state-diagram__node" transform="translate(300, 404)">
+        <rect width="220" height="70" rx="8"></rect>
+        <text x="14" y="26" class="state-diagram__clause"
+          >3. With what information</text
+        >
+        <text x="14" y="50" class="state-diagram__label"
+          >The customer's history</text
+        >
+      </g>
+      <line
+        x1="410"
+        y1="404"
+        x2="410"
+        y2="367"
+        stroke="var(--border)"
+        stroke-width="2"
+        marker-end="url(#intervention-spec-arrow)"></line>
+
+      {/* 4. Authority over state */}
+      <line
+        x1="520"
+        y1="276"
+        x2="717"
+        y2="276"
+        stroke="var(--accent)"
+        stroke-width="2.5"
+        marker-end="url(#intervention-spec-accent-arrow)"></line>
+      <text x="618" y="264" text-anchor="middle" class="state-diagram__clause"
+        >4. Authority over state</text
+      >
+      <text x="618" y="298" text-anchor="middle" class="state-diagram__label"
+        >Release or freeze</text
+      >
+
+      <g class="state-diagram__node" transform="translate(720, 240)">
+        <rect
+          width="170"
+          height="96"
+          rx="8"
+          fill="var(--panel)"
+          stroke="var(--accent)"></rect>
+        <text x="85" y="42" text-anchor="middle" class="state-diagram__state"
+          >Account</text
+        >
+        <text x="85" y="66" text-anchor="middle" class="state-diagram__label"
+          >Released or frozen</text
+        >
+      </g>
+
+      {/* 6. Disagreement */}
+      <path
+        d="M 520 340 L 620 340 L 620 470 L 717 470"
+        stroke="var(--border)"
+        stroke-width="2"
+        fill="none"
+        marker-end="url(#intervention-spec-arrow)"></path>
+      <text x="632" y="404" class="state-diagram__clause"
+        >6. When they disagree</text
+      >
+      <text x="632" y="422" class="state-diagram__label">with the model</text>
+
+      <g class="state-diagram__node" transform="translate(720, 435)">
+        <rect width="170" height="70" rx="8"></rect>
+        <text x="85" y="42" text-anchor="middle" class="state-diagram__state"
+          >Duty manager</text
+        >
+      </g>
+    </svg>
+  </div>
+</figure>
