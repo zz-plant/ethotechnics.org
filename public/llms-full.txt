@@ -182,6 +182,11 @@ Delegation state (object model v2, one worked example across the six state varia
 - Intervention specifications: `GET https://ethotechnics.org/api/interventions.json`
 - Substrate profiles: `GET https://ethotechnics.org/api/substrate-profiles.json`
 
+Agent profile:
+- Agent Safety Object Model, the profile an AI agent's operator publishes (autonomy level, action classes, who can stop it, receipts, clocks): https://ethotechnics.org/agents/spec
+- Example instance: `GET https://ethotechnics.org/agents/spec.json`
+- Schema 2.0.0: `GET https://ethotechnics.org/standards/agent-safety-object-model.schema.json`
+
 Retrieval:
 - RAG corpus: `GET https://ethotechnics.org/api/rag-corpus.jsonl`
   - Newline-delimited JSON. Each document carries `id`, `type`, `version`, `text`, `object_refs`, an optional `href`, and a `layer` of `theory`, `method`, or `instrument`. Filter on `layer` to keep the doctrine apart from the requirements.
