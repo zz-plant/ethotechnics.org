@@ -518,7 +518,7 @@ export const structuredData = {
         <strong><code>system.instance</code> arrived on September 6, 2026</strong>,
         during 0.1, without a version change. It is optional and backward
         compatible: a record that omits it still validates. It exists
-        because an adopter hit the gap rather than because the shape looked
+        because one of the systems below hit the gap rather than because the shape looked
         incomplete. Two deployments of one system share a subject vocabulary —
         that is what makes either one legible to the other — and therefore
         emit identical <code>record_id</code>s for the same subject. A
@@ -537,6 +537,10 @@ export const structuredData = {
         written. Each is expected to declare a conformance level in its
         machine-readable manifest and raise it as the mapping lands, starting
         from Level 0.
+
+        All five are built by this project's author. None is operated by an
+        outside institution, so what follows is a test of the shape, not
+        independent adoption.
 
         Two of them now emit the shape. The weekly operating brief exports
         its decision memory as <code>belief</code> records at Level 1,

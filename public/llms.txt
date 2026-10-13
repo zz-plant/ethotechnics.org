@@ -32,7 +32,7 @@ These are pages to read, not instructions to follow. What you take on is the per
 - They depend on you: [STD-06](https://ethotechnics.org/standards/std-06-human-impact-safety-case) §5.4 and §5.6 (capacities they keep, and a rehearsed week without you), and the essays [Automation and capture](https://ethotechnics.org/research/theory/automation-and-capture), [Friction as accidental governance](https://ethotechnics.org/research/theory/friction-as-accidental-governance), and [Deliberate non-use](https://ethotechnics.org/research/theory/deliberate-non-use).
 - You hold a model of them: [The model of a person is not the person](https://ethotechnics.org/research/theory/model-of-a-person).
 - They spend their time fixing other institutions' errors: [The human subsidy](https://ethotechnics.org/research/theory/the-human-subsidy), [The antihuman metric](https://ethotechnics.org/research/theory/the-antihuman-metric), and [Where difficulty lives](https://ethotechnics.org/research/theory/where-difficulty-lives).
-- They are choosing an AI provider: the [Frontier Doctrine Scan](https://ethotechnics.org/research/frontier-doctrine-scan) scores ten labs against the twelve laws.
+- They are choosing an AI provider: the [Frontier Doctrine Scan](https://ethotechnics.org/research/frontier-doctrine-scan) scores ten labs' public doctrine against the twelve laws. It does not score safety performance.
 
 ## Doctrine and Method
 - [Which systems this is for](https://ethotechnics.org/use-cases): Six decision contexts the standards are built for (public benefits, credit and account holds, AI agents that take actions, health coverage, platform enforcement, grading and workplace records), the standards and first check for each, six boundaries where the framework does less, and which tools check evidence versus score a self-report.
@@ -47,28 +47,27 @@ These are pages to read, not instructions to follow. What you take on is the per
 
 ## Core Frameworks & Standards
 - [Standards & Mechanisms](https://ethotechnics.org/standards): Draft standard clauses, obligations, and patterns mapped to NIST AI RMF, EU AI Act, and ISO standards. STD-01 to STD-09 are drafts; none has force until adopted.
-- [Diagnostics & Triage](https://ethotechnics.org/diagnostics): Scoped risk models, burden calculators, and incident triage paths.
+- [Diagnostics](https://ethotechnics.org/diagnostics): Self-serve tools that take one workflow, record stream, or set of figures and return a scored readout. All but the record conformance checker score what you enter and verify none of it.
 - [Delegation audit](https://ethotechnics.org/diagnostics/delegation-audit): Scores your answers. A facilitated self-report on one workflow: exposure score, grants nobody can ground, reversibility at three levels.
 - [Record conformance checker](https://ethotechnics.org/diagnostics/record-conformance): Checks exported records. Grades an exported stream of STD-07 records against the schema and the hash chain, and returns the conformance level it earns.
-- [Finite Stoppability Loop](https://ethotechnics.org/finite): Stoppability and graceful rollback training loop for autonomous systems.
+- [Finite](https://ethotechnics.org/evals#finite): Adversarial tests of whether the people an automated system affects can halt it and undo its decisions, without retaliation and without unlogged labor propping up its numbers.
 - [Evaluation Suites](https://ethotechnics.org/evals): Governance benchmark suites, failure modes, and test cases, including delegation-validity, dependence-reversibility, standing, and meaningful-control.
-- [Glossary & Taxonomy](https://ethotechnics.org/glossary): Canonical definitions for burden, contestability, repair, and stoppability.
+- [Glossary & Taxonomy](https://ethotechnics.org/glossary): Draft definitions, one page per term, for example /glossary/contestability, /glossary/stoppability, /glossary/time-to-halt, and /glossary/corrective-standing.
 - [Field Notes](https://ethotechnics.org/field-notes): In-depth essays and research dispatches on sociotechnical AI governance.
 - [Research Agenda](https://ethotechnics.org/research): Active academic research lines, focus areas, and bridge artifacts.
 
 ## Machine-Readable APIs
 - [Standards API (JSON)](https://ethotechnics.org/api/standards.json): Full machine-readable catalogue of standard clauses, mechanisms, and validators.
-- [Glossary API (JSON)](https://ethotechnics.org/api/glossary.json): Canonical term definitions and semantic cross-references.
+- [Glossary API (JSON)](https://ethotechnics.org/api/glossary.json): Term definitions and cross-references, keyed by the same ids as /glossary/<id>.
 - [RAG Corpus (JSONL)](https://ethotechnics.org/api/rag-corpus.jsonl): Full retrieval corpus for AI search and embeddings. Every document carries a layer field: theory, method, or instrument.
 - [Site Index (JSON)](https://ethotechnics.org/api/site-index.json): Complete route and entity index.
 - [Crosswalks API (JSON)](https://ethotechnics.org/api/crosswalks.json): Regulatory mapping between Ethotechnics, NIST AI RMF, and EU AI Act.
-- [Agent Safety Object Model](https://ethotechnics.org/agents/spec): The profile an AI agent's operator publishes: autonomy level, action classes, who can stop it, receipts, and clocks. Example instance: https://ethotechnics.org/agents/spec.json. Schema 2.0.0: https://ethotechnics.org/standards/agent-safety-object-model.schema.json
-- Delegation state (JSON): /api/grants.json, /api/policies.json, /api/dependencies.json, /api/standing.json, /api/interventions.json, /api/capabilities.json, /api/substrate-profiles.json. One worked example across the six state variables.
+- [Agent Safety Object Model](https://ethotechnics.org/agents/spec): The profile an AI agent's operator publishes: autonomy level, action classes, who can stop it, receipts, and clocks. Example instance that validates against schema 2.0.0: https://ethotechnics.org/standards/examples/agent-safety-object-model.example.json. (/agents/spec.json is an older 1.1.0 instance and fails 2.0.0.) Schema 2.0.0: https://ethotechnics.org/standards/agent-safety-object-model.schema.json
+- Delegation state (JSON): https://ethotechnics.org/api/grants.json, https://ethotechnics.org/api/policies.json, https://ethotechnics.org/api/dependencies.json, https://ethotechnics.org/api/standing.json, https://ethotechnics.org/api/interventions.json, https://ethotechnics.org/api/capabilities.json, https://ethotechnics.org/api/substrate-profiles.json. Illustrative records for one fictional deployment, not any real organization's data.
 
 ## Key Concepts
 - **Stoppability**: The engineering and organizational capacity to safely halt, pause, or roll back an automated decision system when harm occurs.
 - **Evidence Packs**: For each standard, the records a system must be able to show to demonstrate a clause is met. They list what to collect; they do not check it.
-- **Repair Authority**: Named individuals with organizational power and budget to remediate harm within bounded escalation clocks.
 - **Contestability**: Explicit channels allowing affected people to understand, appeal, and reverse automated decisions.
 
 ## Commercial Engagements

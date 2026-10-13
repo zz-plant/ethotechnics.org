@@ -100,7 +100,7 @@ export const useCasesContent: UseCasesContent = {
   eyebrow: "Fit",
   title: "Which systems this is for",
   description:
-    "The standards bind a decision, not a model, so they apply in any sector. They do the most in six, and less in five.",
+    "The standards bind a decision, not a model, so they apply in any sector. They do the most in six, and less in six others.",
   shortAnswer: [
     {
       title: "Best fit",

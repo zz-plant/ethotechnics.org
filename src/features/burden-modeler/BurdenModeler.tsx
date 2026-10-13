@@ -126,7 +126,9 @@ export function BurdenModeler() {
         <p className="muted">
           Rate from 0 to 10 how much operational and cognitive load each factor
           adds to your scenario. The model returns a burden index, ranks the
-          hotspots, and lists mitigations with an estimated relief for each.
+          hotspots, and lists mitigations. Each mitigation shows how far the
+          index would fall if that driver were zero; that is arithmetic on your
+          ratings, not a measured result.
         </p>
       </div>
 
@@ -413,7 +415,8 @@ export function BurdenModeler() {
                   </div>
                   <div className="hotspot__relief">
                     <span className="badge badge--ghost">
-                      {hotspot.reliefEstimate}% estimated relief
+                      {hotspot.reliefEstimate} index points if this driver were
+                      zero (a formula, not an observed change)
                     </span>
                     <span className="muted small">
                       {categoryDescription(hotspot.category)}
