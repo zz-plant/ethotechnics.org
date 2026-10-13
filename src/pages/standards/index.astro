@@ -13,6 +13,7 @@ import { cases, type Case } from "../../content/casebook";
 import { getCollection } from "astro:content";
 import { standardsContent } from "../../content/standards";
 import { documentClauseIds } from "../../utils/clause-registry";
+import { formatVersion } from "../../utils/versions";
 import {
   buildStandardsCardViewModels,
   buildStandardsGroupingAndFilters,
@@ -160,7 +161,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                   </td>
                   <td class="standards-register__version">
                     <span class="standards-register__meta-label">v</span>
-                    {standard.version}
+                    {formatVersion(standard.version)}
                   </td>
                   <td
                     class:list={[

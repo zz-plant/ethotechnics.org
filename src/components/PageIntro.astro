@@ -3,6 +3,7 @@ import PageIntroAnchorList from "./PageIntroAnchorList.astro";
 import SectionNav from "./SectionNav.astro";
 import { formatDate } from "../utils/dates";
 import { eyebrowRestatesTitle } from "../utils/eyebrow";
+import { formatVersion } from "../utils/versions";
 
 export interface AnchorLink {
   href: string;
@@ -68,7 +69,7 @@ const resolvedEyebrow =
         {
           (version || lastUpdated) && (
             <p class="page-intro__versioning" aria-label="Document metadata">
-              {version && <span>Version {version}</span>}
+              {version && <span>{formatVersion(version)}</span>}
               {version && lastUpdated && <span aria-hidden="true"> · </span>}
               {lastUpdated && (
                 <span>Last updated {formatDate(lastUpdated)}</span>

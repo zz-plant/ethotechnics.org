@@ -13,6 +13,7 @@ import { cases } from "../content/casebook";
 import { objectionRecord } from "../content/objection-record";
 import { getStandardById, standardsContent } from "../content/standards";
 import { formatDate } from "../utils/dates";
+import { formatVersion } from "../utils/versions";
 import {
   OBJECTION_FORM_URL,
   OBJECTION_ISSUES_URL,
@@ -219,7 +220,7 @@ const standards = standardsContent.standards
                 </th>
                 <td data-label="Title">{standard.title}</td>
                 <td data-label="Status">{standard.status}</td>
-                <td data-label="Version">{standard.version}</td>
+                <td data-label="Version">{formatVersion(standard.version)}</td>
                 <td data-label="Last change">
                   {formatDate(standard.lastChange)}
                 </td>

@@ -164,7 +164,7 @@ export const researchContent: ResearchContent = {
       period: "2026 Q1",
       title: "STD-01 ratification draft",
       summary:
-        "Version 1.0 was released for public review. It stays a draft until it has two independent implementation reports and a decision recorded through the public request-for-comments process.",
+        "v1.0 was released for public review. It stays a draft until it has two independent implementation reports and a decision recorded through the public request-for-comments process.",
       standardRef: "STD-01",
       href: "/standards/std-01-temporal-rights",
     },

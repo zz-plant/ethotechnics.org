@@ -14,6 +14,7 @@ import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SemanticConnections from "../../components/SemanticConnections.astro";
 import { formatDate } from "../../utils/dates";
 import { glossaryEntryPermalink } from "../../utils/glossary";
+import { formatVersion } from "../../utils/versions";
 import {
   getGlossaryEntryDefaults,
   getRelatedGlossaryTerms,
@@ -595,7 +596,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
               <p class="eyebrow">This entry</p>
               <ul class="muted">
                 {termUpdatedDate && <li>Last updated: {termUpdatedDate}</li>}
-                {termVersion && <li>Version: {termVersion}</li>}
+                {termVersion && <li>Version: {formatVersion(termVersion)}</li>}
               </ul>
             </section>
           )

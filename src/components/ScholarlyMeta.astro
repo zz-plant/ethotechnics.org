@@ -2,6 +2,7 @@
 import type { PublicationMetadata } from "../content/types";
 import { formatDate } from "../utils/dates";
 import { resolveDoi } from "../utils/doi";
+import { formatVersion } from "../utils/versions";
 
 type Props = {
   publication: PublicationMetadata;
@@ -66,7 +67,7 @@ const doi = resolveDoi(publication.doi);
       <summary class="scholarly-meta__summary">
         <span class="eyebrow">{label}</span>
         <span class="muted small">
-          {publication.version}
+          {formatVersion(publication.version)}
           {updatedDate
             ? ` · updated ${updatedDate}`
             : ` · published ${publishedDate}`}
@@ -125,7 +126,7 @@ const doi = resolveDoi(publication.doi);
         }
         <li>
           <span class="muted">Version:</span>
-          {publication.version}
+          {formatVersion(publication.version)}
         </li>
         {
           doi && (
@@ -155,7 +156,7 @@ const doi = resolveDoi(publication.doi);
       <div class="scholarly-meta__changelog">
         <p class="muted small">Latest change</p>
         <p>
-          <strong>{latestChange.version}</strong> ·{" "}
+          <strong>{formatVersion(latestChange.version)}</strong> ·{" "}
           {formatDate(latestChange.date)} — {latestChange.summary}
         </p>
         {earlierChanges.length > 0 && historyHref && (
@@ -171,8 +172,8 @@ const doi = resolveDoi(publication.doi);
             <ul>
               {earlierChanges.map((entry) => (
                 <li>
-                  <strong>{entry.version}</strong> · {formatDate(entry.date)} —{" "}
-                  {entry.summary}
+                  <strong>{formatVersion(entry.version)}</strong> ·{" "}
+                  {formatDate(entry.date)} — {entry.summary}
                 </li>
               ))}
             </ul>

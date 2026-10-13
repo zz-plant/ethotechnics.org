@@ -2,6 +2,7 @@
 import type { PublicationMetadata } from "../content/types";
 import { formatDate } from "../utils/dates";
 import { resolveDoi } from "../utils/doi";
+import { formatVersion } from "../utils/versions";
 
 type Props = {
   title: string;
@@ -80,7 +81,7 @@ const hasMeta = Astro.slots.has("default");
     {
       hasMeta ? (
         <span class="muted small">
-          {` · ${publication.version} · updated ${updatedDate} · ${publication.license.label}`}
+          {` · ${formatVersion(publication.version)} · updated ${updatedDate} · ${publication.license.label}`}
         </span>
       ) : (
         variant === "full" && (
@@ -135,7 +136,7 @@ const hasMeta = Astro.slots.has("default");
             <div class="citation-block__meta">
               <div>
                 <p class="muted small">Version</p>
-                <p>{publication.version}</p>
+                <p>{formatVersion(publication.version)}</p>
               </div>
               <div>
                 <p class="muted small">Last updated</p>

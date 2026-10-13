@@ -82,6 +82,13 @@ Additional guidance:
 - ISO stays where it is data: code samples, JSON, schema examples, URLs, `datetime` attributes,
   exports, and filenames.
 
+## Versions shown to readers
+
+- Render a version number with `formatVersion` from `src/utils/versions.ts`: "v1.0.2", with no
+  "Version" in front of it. A "Version" column or label keeps its label, and its value reads
+  "v1.0.2".
+- Version strings in data, schemas, and JSON keep their stored form.
+
 ## Validation and checks
 
 - `bun run content:generate` refreshes derived `src/content/generated/*.generated.ts` files.

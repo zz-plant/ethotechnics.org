@@ -8,6 +8,7 @@ import { diagnosticsContent } from "../../content/diagnostics";
 import { runDelegationAudit } from "../../features/delegation-audit/auditLogic";
 import { resolveEnv } from "../../utils/cloudflare-env";
 import { formatDate } from "../../utils/dates";
+import { formatVersion } from "../../utils/versions";
 import { loadReadout, type ReadoutEnv } from "../../utils/readouts";
 
 /**
@@ -23,7 +24,7 @@ if (!record) return Astro.rewrite("/404");
 const tool = diagnosticsContent.tools.find(
   (entry) => entry.slug === record.tool_id,
 );
-const toolVersion = diagnosticsContent.publication.version;
+const toolVersion = formatVersion(diagnosticsContent.publication.version);
 const result = runDelegationAudit(record.inputs);
 const capturedDate = formatDate(record.captured_at, "prose");
 const readoutUrl = new URL(
@@ -197,7 +198,7 @@ const statusLabel = {
     <p class="small muted">
       This readout records what a team believed about one workflow on
       {capturedDate}. It is not an audit. The scoring is the Delegation Audit's,
-      version {toolVersion}; the inputs are stored at
+      {toolVersion}; the inputs are stored at
       <code>{readoutUrl}.json</code> and anyone with the link can rerun them. Readouts
       expire a year after capture.
     </p>

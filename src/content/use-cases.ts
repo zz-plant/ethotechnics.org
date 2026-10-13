@@ -3,6 +3,7 @@ import { diagnosticsContent } from "./diagnostics";
 import { standardsContent } from "./standards";
 import { validatorsContent } from "./validators";
 import type { PageWithPermalink } from "./types";
+import { formatVersion } from "../utils/versions";
 
 /**
  * Which systems the framework is for, sorted by what the system decides.
@@ -482,7 +483,12 @@ export const standardLink = (id: string) => {
   return {
     label: `${standard.id} ${standard.title}`,
     href: `/standards/${standard.slug}`,
-    status: [standard.status, standard.version].filter(Boolean).join(" "),
+    status: [
+      standard.status,
+      standard.version && formatVersion(standard.version),
+    ]
+      .filter(Boolean)
+      .join(" "),
   };
 };
 
