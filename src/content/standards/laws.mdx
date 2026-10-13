@@ -85,7 +85,7 @@ the model is open-weight or served behind an API.
   variant="alt"
 >
 
-<h3 id="law-i">Law I. Capability does not imply authority</h3>
+<h3 id="law-i">{"Law I. Capability does not imply authority"}</h3>
 
 <LawProtects law="I" />
 
@@ -100,7 +100,7 @@ An authorization holds only while the capability it rests on is verified, not me
 Binds through: [STD-07](/standards/std-07-revisable-delegation-record) §2.1 action under authorization, §2.2 bounded delegation, and §3.4 capability gating; [STD-08](/standards/std-08-delegation) §1.5 content does not carry authority; [STD-09](/standards/std-09-agent-chains) §1.5 and §1.6 shaping and selecting hops; the capability catalog and authority grant objects; [MEC-17 capability catalog](/mechanisms/patterns/capability-catalog), [MEC-13 authority grant register](/mechanisms/patterns/authority-grant-register), and [MEC-22 admission gate](/mechanisms/patterns/admission-gate); harness check that discovery succeeds and execution is refused.
 
 <h3 id="law-ii">
-  Law II. Authority decays unless its justification is renewed
+  {"Law II. Authority decays unless its justification is renewed"}
 </h3>
 
 <LawProtects law="II" />
@@ -113,7 +113,7 @@ Silence is not renewal. A system that has not visibly failed has not thereby ear
 
 Binds through: [STD-07](/standards/std-07-revisable-delegation-record) §2.2 expiry and revocation conditions and §1.3 declared expiry; [STD-08](/standards/std-08-delegation) Part A renewal burden; the `until` and `renewal_basis` fields on the authority grant; [MEC-13 authority grant register](/mechanisms/patterns/authority-grant-register); Delegation Validity eval, grant in `allowed` state at decision time.
 
-<h3 id="law-iii">Law III. Evidence and authority must remain coupled</h3>
+<h3 id="law-iii">{"Law III. Evidence and authority must remain coupled"}</h3>
 
 <LawProtects law="III" />
 
@@ -128,7 +128,7 @@ A decision threshold is such a policy. It is pinned to the model version, questi
 Binds through: [STD-07](/standards/std-07-revisable-delegation-record) §3.1 dependence and §3.2 invalidation conditions; [STD-08](/standards/std-08-delegation) Part B policy validity, with §2.6 decision thresholds and §2.7 held evidence; the policy record and `policy_refs` on the grant; [MEC-14 policy review triggers](/mechanisms/patterns/policy-review-triggers); harness check that an expired policy moves grants to `review_required`.
 
 <h3 id="law-iv">
-  Law IV. Every consequential delegation creates a correction obligation
+  {"Law IV. Every consequential delegation creates a correction obligation"}
 </h3>
 
 <LawProtects law="IV" />
@@ -144,7 +144,7 @@ Capacity is also spent without being counted. When a person catches a failure be
 Binds through: [STD-08](/standards/std-08-delegation) Part D correction symmetry, with §4.5 capacity rechecked with scope and §4.6 execution and evaluation separated; [STD-07](/standards/std-07-revisable-delegation-record) §4.2 objection answered; [STD-06](/standards/std-06-human-impact-safety-case) §3.3 rescue records; `correction_capacity` on the authority grant; [MEC-16 intervention specification](/mechanisms/patterns/intervention-specification) and [MEC-23 challenge load ledger](/mechanisms/patterns/challenge-load-ledger); Correction Symmetry eval, capacity against authority.
 
 <h3 id="law-v">
-  Law V. Dependence converts technical risk into structural risk
+  {"Law V. Dependence converts technical risk into structural risk"}
 </h3>
 
 <LawProtects law="V" />
@@ -160,7 +160,7 @@ This is not the dependence between records that STD-07 Article III governs. That
 Binds through: [STD-06](/standards/std-06-human-impact-safety-case) Article V dependency and reversibility; the dependency record; [MEC-18 dependency ledger](/mechanisms/patterns/dependency-ledger); Dependence eval, depth × substitution cost × correction latency.
 
 <h3 id="law-vi">
-  Law VI. Nominal reversibility is not operational reversibility
+  {"Law VI. Nominal reversibility is not operational reversibility"}
 </h3>
 
 <LawProtects law="VI" />
@@ -174,7 +174,7 @@ A correction that would cause unacceptable damage will not be exercised, and a c
 Binds through: [STD-06](/standards/std-06-human-impact-safety-case) §5.3 reversibility at three levels and §5.6 rehearsal cadence; `reversibility` on the dependency record; [MEC-15 withdrawal rehearsal](/mechanisms/patterns/withdrawal-rehearsal); Practical Reversibility eval.
 
 <h3 id="law-vii">
-  Law VII. Error-bearing parties require standing proportional to exposure
+  {"Law VII. Error-bearing parties require standing proportional to exposure"}
 </h3>
 
 <LawProtects law="VII" />
@@ -210,7 +210,7 @@ Standing has to be usable as well as granted. A decision class that makes errors
 Binds through: [STD-07](/standards/std-07-revisable-delegation-record) §4.1 standing declared and §4.2 objection answered; [STD-02](/standards/std-02-contestability-recourse) Article VIII standing mechanism, with §8.6 issue rate bounded by answer capacity; STD-02 §10.1 and §10.2 depth of consent; STD-02 §5.4 a score is evidence, not a bar; the challenge and standing register objects; [MEC-08 contestation APIs](/mechanisms/patterns/contestation-apis), [MEC-21 halt tier register](/mechanisms/patterns/halt-tier-register), and [MEC-23 challenge load ledger](/mechanisms/patterns/challenge-load-ledger); Standing eval.
 
 <h3 id="law-viii">
-  Law VIII. Observability without state transition is theater
+  {"Law VIII. Observability without state transition is theater"}
 </h3>
 
 <LawProtects law="VIII" />
@@ -232,7 +232,9 @@ Binds through: [STD-07](/standards/std-07-revisable-delegation-record) §3.3 dis
 <TheaterTestFigure level="h4" />
 
 <h3 id="law-ix">
-  Law IX. Human oversight is a control only if the human can alter system state
+  {
+    "Law IX. Human oversight is a control only if the human can alter system state"
+  }
 </h3>
 
 <LawProtects law="IX" />
@@ -248,7 +250,7 @@ A record that a delegation runs on confirm says nothing about whether the confir
 Binds through: [STD-08](/standards/std-08-delegation) Part C intervention, with §3.6 routing thresholds; [STD-07](/standards/std-07-revisable-delegation-record) §2.2 mode; the intervention spec object; [MEC-16 intervention specification](/mechanisms/patterns/intervention-specification); Meaningful Control eval, the Law IX question set.
 
 <h3 id="law-x">
-  Law X. The relevant eval sits at the highest layer where harm can emerge
+  {"Law X. The relevant eval sits at the highest layer where harm can emerge"}
 </h3>
 
 <LawProtects law="X" />
@@ -262,7 +264,7 @@ Evaluate where the harm you care about can appear. Every suite and case is tagge
 Binds through: the evals index, grouped by the layer each suite tests; the `layer` field on suites and cases; every case tagged model, agent, delegation, institution, or consequence.
 
 <h3 id="law-xi">
-  Law XI. Successful automation increases its own governance burden
+  {"Law XI. Successful automation increases its own governance burden"}
 </h3>
 
 <LawProtects law="XI" />
@@ -280,7 +282,7 @@ Binds through: [STD-07](/standards/std-07-revisable-delegation-record) §2.2 cei
 <RatchetFigure level="h4" />
 
 <h3 id="law-xii">
-  Law XII. No system may erase the conditions of its own contestability
+  {"Law XII. No system may erase the conditions of its own contestability"}
 </h3>
 
 <LawProtects law="XII" />

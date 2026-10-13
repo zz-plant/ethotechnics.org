@@ -25,8 +25,11 @@ export type LawRow = {
   variables: string[];
 };
 
+// A heading is written as an MDX expression, {"Law II. ..."}: Prettier
+// wraps a long one, and a wrapped plain-text line inside the h3 became a
+// <p> inside the heading.
 const HEADING =
-  /<h3 id="(law-[ivx]+)">\s*Law ([IVX]+)\.\s*([\s\S]*?)\s*<\/h3>/g;
+  /<h3 id="(law-[ivx]+)">\s*\{?\s*"?\s*Law ([IVX]+)\.\s*([\s\S]*?)\s*"?\s*\}?\s*<\/h3>/g;
 
 const collapse = (text: string) => text.replace(/\s+/g, " ").trim();
 
