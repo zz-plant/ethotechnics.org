@@ -169,13 +169,6 @@ const glossary = defineCollection({
   schema: pageCopySchema.extend({
     permalink: z.string(),
     publication: publicationSchema,
-    territoryMap: z.array(
-      z.object({
-        id: z.string(),
-        label: z.string(),
-        tooltip: z.string(),
-      }),
-    ),
     categories: z.array(
       z.object({
         id: z.string(),
@@ -186,9 +179,6 @@ const glossary = defineCollection({
       }),
     ),
     starterTerms: z.array(
-      z.object({ id: z.string(), label: z.string(), description: z.string() }),
-    ),
-    categoryHighlights: z.array(
       z.object({ id: z.string(), label: z.string(), description: z.string() }),
     ),
   }),

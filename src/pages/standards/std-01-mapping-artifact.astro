@@ -112,8 +112,6 @@ const mappingRows = [
   publishedTime="2025-06-01T00:00:00.000Z"
   mainClass="page page--wide"
 >
-  <ScholarlyMeta publication={publication} permalink={permalink} />
-
   <SectionBlock
     id="scenario"
     eyebrow="Scenario"
@@ -241,6 +239,8 @@ const mappingRows = [
       publication={publication}
       citationKey="std_01_mapping_artifact"
       summaryLabel="Cite this mapping artifact"
-    />
+    >
+      <ScholarlyMeta bare publication={publication} permalink={permalink} />
+    </CitationBlock>
   </SectionBlock>
 </StandardsLayout>

@@ -8,10 +8,7 @@ import PageIntro from "../../components/PageIntro.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import { glossaryEntryPermalink } from "../../utils/glossary";
-import {
-  normalizeGlossaryHeading,
-  stripHtml,
-} from "../../utils/glossary-helpers";
+import { normalizeGlossaryHeading } from "../../utils/glossary-helpers";
 import {
   buildGlossaryIndexEntries,
   buildGlossaryIndexFacets,
@@ -32,20 +29,21 @@ const {
   pageDescription,
   permalink,
   publication,
-  territoryMap,
   categories,
   starterTerms,
-  categoryHighlights,
 } = glossaryEntry.data;
-// The page's four parts. The thirteen category sections used to be listed
-// here too, which made the intro's map read "4 + 13 more sections"; the
-// territory map is the section that lists them, with counts.
+// The page's two parts. The thirteen glossary sections used to follow as a
+// second listing of every term, behind a section map that listed them twice
+// more; the index's "By section" tab now does that job.
 const anchorLinks = [
   { href: "#glossary-index", label: "A–Z index" },
-  { href: "#glossary-pathways", label: "Where terms are used" },
   { href: "#explainer-links", label: "Explainers" },
-  { href: "#territory-map", label: "Sections" },
 ];
+const sectionFilters = categories.map((category) => ({
+  id: category.id,
+  label: normalizeGlossaryHeading(category.heading),
+  count: category.entries.length,
+}));
 const domainFilters = glossaryDomainFilters;
 const phaseFilters = glossaryPhaseFilters;
 const measurabilityFilters = glossaryMeasurabilityFilters;
@@ -64,8 +62,10 @@ const letterGroups = entryIndex.reduce<
   }
   return groups;
 }, []);
-const { statusFilters, glossaryLetters, territoryCounts } =
-  buildGlossaryIndexFacets(categories, entryIndex);
+const { statusFilters, glossaryLetters } = buildGlossaryIndexFacets(
+  categories,
+  entryIndex,
+);
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
 // Links on this page are root-relative. Written as absolute URLs, the 386
 // terms listed twice carried "https://ethotechnics.org" 800 times.
@@ -73,40 +73,20 @@ const explainerLinksWithGlossary = explainerLinks.map((link) => ({
   ...link,
   glossaryHref: glossaryEntryPermalink(link.glossarySlug),
 }));
-const glossaryPathways = [
-  {
-    title: "Standards",
-    description:
-      "The standards state AI governance requirements as numbered clauses. The glossary defines the terms those clauses use.",
-    href: "/standards",
-    linkLabel: "Read the standards",
-  },
-  {
-    title: "Research and theory",
-    description:
-      "Theory essays and research notes that argue for these terms, and the diagnostics that apply them.",
-    href: "/research",
-    linkLabel: "Browse the research",
-  },
-  {
-    title: "Mechanisms and controls library",
-    description:
-      "The mechanisms that implement glossary terms, such as stop controls, safety valves, and appeal paths.",
-    href: "/mechanisms",
-    linkLabel: "Review AI governance mechanisms",
-  },
-  {
-    title: "Field notes and practice briefs",
-    description:
-      "Audits, incident reviews, and remediation playbooks that apply these terms to specific cases.",
-    href: "/field-notes",
-    linkLabel: "Read the field notes",
-  },
-];
 const searchQuery = Astro.url.searchParams.get("query")?.trim() ?? "";
 const normalizedQuery = searchQuery.toLowerCase();
 const hasSearchQuery = normalizedQuery.length > 0;
-const filteredEntries = filterGlossaryIndexEntries(entryIndex, searchQuery);
+// ?section= is the glossary section a link asked for. It filters on the
+// server too, so the list renders filtered before any script runs.
+const sectionParam = (Astro.url.searchParams.get("section") ?? "")
+  .split(",")
+  .filter((id) => categories.some((category) => category.id === id));
+const inSection = (categoryId: string) =>
+  sectionParam.length === 0 || sectionParam.includes(categoryId);
+const filteredEntries = filterGlossaryIndexEntries(
+  entryIndex,
+  searchQuery,
+).filter((entry) => inSection(entry.categoryId));
 const totalEntries = entryIndex.length;
 const visibleEntries = filteredEntries.length;
 
@@ -178,6 +158,15 @@ const structuredDataJson = JSON.stringify(structuredData);
             type="button"
             role="tab"
             aria-selected="false"
+            data-glossary-tab="section"
+          >
+            By section
+          </button>
+          <button
+            class="glossary-filter__tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
             data-glossary-tab="domains"
           >
             By domain
@@ -229,10 +218,40 @@ const structuredDataJson = JSON.stringify(structuredData);
           data-glossary-panel="all"
         >
           <p class="muted small">
-            Search across all terms or narrow by domain, phase, or
+            Search across all terms or narrow by section, domain, phase, or
             measurability.
           </p>
         </div>
+        <fieldset
+          class="glossary-filter__panel"
+          role="tabpanel"
+          data-glossary-panel="section"
+          hidden
+        >
+          <legend>Filter by section</legend>
+          <div class="glossary-filter__chips">
+            {
+              sectionFilters.map((section) => (
+                <label class="glossary-filter__chip">
+                  <input
+                    type="checkbox"
+                    value={section.id}
+                    checked={sectionParam.includes(section.id)}
+                    data-glossary-filter="section"
+                    data-glossary-label={section.label}
+                  />
+                  <span class="glossary-filter__chip-label">
+                    {section.label}
+                  </span>
+                  <span
+                    class="glossary-filter__chip-count"
+                    data-glossary-count
+                  />
+                </label>
+              ))
+            }
+          </div>
+        </fieldset>
         <fieldset
           class="glossary-filter__panel"
           role="tabpanel"
@@ -399,6 +418,13 @@ const structuredDataJson = JSON.stringify(structuredData);
         letterGroups.map((group) => (
           <section
             class="glossary-index__group"
+            hidden={
+              !group.entries.some(
+                (entry) =>
+                  inSection(entry.categoryId) &&
+                  entry.searchText.includes(normalizedQuery),
+              )
+            }
             data-glossary-group={group.letter}
             aria-labelledby={`glossary-letter-${group.letter}`}
           >
@@ -412,14 +438,19 @@ const structuredDataJson = JSON.stringify(structuredData);
               const matchesQuery = entry.searchText.includes(normalizedQuery);
               const entryClasses = [
                 "glossary-index__item",
-                ...(hasSearchQuery && !matchesQuery ? ["is-hidden"] : []),
+                ...((hasSearchQuery && !matchesQuery) ||
+                !inSection(entry.categoryId)
+                  ? ["is-hidden"]
+                  : []),
               ].join(" ");
 
               return (
                 <a
                   class={entryClasses}
+                  id={entry.id}
                   href={glossaryEntryPermalink(entry.id)}
                   data-glossary-entry-link
+                  data-section={entry.categoryId}
                   data-domains={entry.domains.join(" ") || undefined}
                   data-phases={entry.phases.join(" ") || undefined}
                   data-measurability={entry.measurability || undefined}
@@ -438,26 +469,9 @@ const structuredDataJson = JSON.stringify(structuredData);
       }
     </nav>
     <p class="muted glossary-index__empty" hidden={visibleEntries > 0}>
-      No entries match that search or filter. Try another keyword or browse the
-      territory map for nearby concepts.
+      No entries match that search or filter. Try another keyword, or clear the
+      filter.
     </p>
-  </SectionBlock>
-  <SectionBlock
-    id="glossary-pathways"
-    title="Where the glossary terms are used"
-    description="The same terms appear in the standards, the research, the mechanisms library, and the field notes."
-    variant="alt"
-  >
-    <ul class="glossary-links">
-      {
-        glossaryPathways.map((pathway) => (
-          <li>
-            <a href={pathway.href}>{pathway.linkLabel}</a>
-            <span class="muted small">{pathway.description}</span>
-          </li>
-        ))
-      }
-    </ul>
   </SectionBlock>
   <SectionBlock
     id="explainer-links"
@@ -480,122 +494,19 @@ const structuredDataJson = JSON.stringify(structuredData);
     </ul>
   </SectionBlock>
 
-  <SectionBlock
-    id="territory-map"
-    eyebrow="Map"
-    title="Glossary sections"
-    description={`The glossary's ${categories.length} sections, with the number of terms in each.`}
-    variant="alt"
-  >
-    <details>
-      <summary>Show all sections</summary>
-      <div class="glossary__categories">
-        {
-          categoryHighlights.map((category) => (
-            <article class="glossary__category">
-              <h3>{category.label}</h3>
-              <p class="muted">{category.description}</p>
-              <a class="button ghost button--compact" href={`#${category.id}`}>
-                Jump to {category.label}
-              </a>
-            </article>
-          ))
-        }
-      </div>
-      <div class="territory-map">
-        {
-          territoryMap.map((item) => (
-            <article class="territory-map__item" id={`territory-${item.id}`}>
-              <a
-                class="territory-map__link"
-                href={`#${item.id}`}
-                aria-labelledby={`territory-${item.id}-title`}
-                aria-describedby={`territory-${item.id}-description territory-${item.id}-count`}
-              >
-                <h3 id={`territory-${item.id}-title`}>{item.label}</h3>
-                <p id={`territory-${item.id}-description`} class="muted">
-                  {item.tooltip}
-                </p>
-                <p
-                  id={`territory-${item.id}-count`}
-                  class="glossary-territory__count"
-                >
-                  {territoryCounts.get(item.id) ?? 0} entries
-                </p>
-              </a>
-            </article>
-          ))
-        }
-      </div>
-    </details>
-  </SectionBlock>
-
-  {
-    categories.map((category, index) => (
-      <SectionBlock
-        id={category.id}
-        eyebrow={`Section ${String.fromCharCode(65 + index)}`}
-        title={normalizeGlossaryHeading(category.heading)}
-        description={
-          category.comingSoon ? "Definitions in progress." : undefined
-        }
-        variant={index % 2 === 0 ? "default" : "alt"}
-        className="glossary-section"
-      >
-        <details class="chunked-section" open={index === 0}>
-          <summary class="chunked-section__summary">
-            {category.entries.length} terms
-          </summary>
-          <div class="chunked-section__body">
-            <div
-              class="glossary-section__description"
-              set:html={category.descriptionHtml}
-            />
-            {/*
-              Every one of these terms has its own page with the full entry,
-              citations and tests. Rendering all 252 full entries here as well
-              put fifty-four thousand words on one route, most of it inside
-              collapsed sections nobody could search. Each row keeps the id so
-              /glossary#term still lands on the term, and links to the page
-              that carries the rest.
-            */}
-            <ul class="glossary-compact">
-              {category.entries.map((entry) => {
-                const summary = stripHtml(entry.bodyHtml)
-                  .split(/(?<=[.!?])\s+/)[0]
-                  ?.trim();
-                return (
-                  <li class="glossary-compact__item" id={entry.id}>
-                    <a
-                      class="glossary-compact__term"
-                      href={glossaryEntryPermalink(entry.id)}
-                    >
-                      {entry.title}
-                    </a>
-                    {summary && (
-                      <p class="glossary-compact__summary muted">{summary}</p>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        </details>
-      </SectionBlock>
-    ))
-  }
-
-  <ScholarlyMeta
-    publication={publication}
-    permalink={permalink}
-    id="glossary-history"
-  />
   <CitationBlock
     title={pageTitle}
     permalink={permalink}
     publication={publication}
     variant="compact"
-  />
+  >
+    <ScholarlyMeta
+      bare
+      publication={publication}
+      permalink={permalink}
+      id="glossary-history"
+    />
+  </CitationBlock>
   <InlineScript type="application/ld+json" code={structuredDataJson} />
   <script>
     import "../../client/glossary-filter.ts";

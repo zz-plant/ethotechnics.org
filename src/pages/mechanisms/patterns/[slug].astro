@@ -293,13 +293,14 @@ const breadcrumbItems = [
     </div>
   </SectionBlock>
 
-  <ScholarlyMeta publication={publication} permalink={permalink} />
   <CitationBlock
     title={pattern.title}
     permalink={permalink}
     publication={publication}
     citationKey={`mechanism_${pattern.slug}`}
-  />
+  >
+    <ScholarlyMeta bare publication={publication} permalink={permalink} />
+  </CitationBlock>
 </BaseLayout>
 
 <script>

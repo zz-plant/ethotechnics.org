@@ -578,7 +578,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                 set:html={category.descriptionHtml}
               />
               <p class="small">
-                <a href={`${glossaryPermalink}#${category.id}`}>
+                <a
+                  href={`${glossaryPermalink}?section=${category.id}#glossary-index`}
+                >
                   All terms in this section
                 </a>
               </p>
@@ -611,12 +613,14 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     publisher="Ethotechnics glossary"
     citationKey={`glossary_${entry.id}`}
     summaryLabel="Cite this glossary entry"
-  />
-  <ScholarlyMeta
-    publication={publication}
-    permalink={pagePermalink}
-    historyHref="/glossary#glossary-history"
-  />
+  >
+    <ScholarlyMeta
+      bare
+      publication={publication}
+      permalink={pagePermalink}
+      historyHref="/glossary#glossary-history"
+    />
+  </CitationBlock>
 
   <InlineScript type="application/ld+json" code={structuredDataJson} />
 </BaseLayout>

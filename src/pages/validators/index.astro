@@ -2,8 +2,6 @@
 import InlineScript from "../../components/InlineScript.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
-import CardGrid from "../../components/CardGrid.astro";
-import CardItem from "../../components/CardItem.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import { validatorsContent } from "../../content/validators";
 
@@ -15,21 +13,6 @@ const {
   validators,
   method,
 } = validatorsContent;
-const featuredValidators = validators.slice(0, 2);
-const focusGroups = [
-  {
-    title: "Time and friction",
-    description:
-      "Whether a journey costs people so much time and effort that it denies them the service in effect.",
-    validators: validators.slice(0, 2),
-  },
-  {
-    title: "Delays and time limits",
-    description:
-      "Whether the system answers within its declared timeout, and whether a person can escalate to a human.",
-    validators: validators.slice(2, 3),
-  },
-];
 const pageUrl = Astro.site
   ? new URL(permalink, Astro.site).toString()
   : permalink;
@@ -66,52 +49,14 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     title="Validators"
     description="Each validator takes three inputs about a user journey. It returns a red, yellow, or green status, the clauses at risk in STD-01, the temporal rights standard, and a mechanism to review."
     anchorLinks={anchorLinks}
-  >
-    <Fragment slot="actions">
-      {
-        featuredValidators.map((validator, index) => (
-          <a
-            class={`button ${index === 0 ? "primary" : "ghost"}`}
-            href={`/validators/${validator.slug}`}
-          >
-            Run {validator.title}
-          </a>
-        ))
-      }
-      <a class="button ghost" href="#tools"> Browse all validators </a>
-    </Fragment>
-  </PageIntro>
-  <SectionBlock
-    id="featured"
-    eyebrow="Start here"
-    title="Start with the burden validators"
-    description="The Burden Modeler and the Risk Radar score the time and friction a journey puts on the person using it."
-    variant="alt"
-  >
-    <CardGrid className="grid--two">
-      {
-        featuredValidators.map((validator) => (
-          <CardItem
-            eyebrow={validator.id}
-            title={validator.title}
-            description={validator.description}
-          >
-            <a
-              slot="footer"
-              class="button ghost button--compact"
-              href={`/validators/${validator.slug}`}
-            >
-              Run {validator.title}
-            </a>
-          </CardItem>
-        ))
-      }
-    </CardGrid>
-  </SectionBlock>
-
+  />
+  {
+    /* The one list of validators. There are three, and the page used to list
+       them five times: two run buttons in the intro, two "start here" cards,
+       this table, two focus groups, and a closing card grid. */
+  }
   <SectionBlock
     id="register"
-    eyebrow="Register"
     title="Every validator, in one table"
     description="The standard each one checks against, the inputs it takes, and the clauses and mechanisms it points to."
   >
@@ -134,6 +79,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                   <a href={`/validators/${validator.slug}`}>
                     {validator.id} {validator.title}
                   </a>
+                  <span class="catalogue-table__summary">
+                    {validator.description}
+                  </span>
                 </th>
                 <td data-label="Standard">{validator.standardRef}</td>
                 <td data-label="Inputs">
@@ -156,53 +104,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </table>
     </div>
   </SectionBlock>
-
-  <SectionBlock
-    id="focus"
-    eyebrow="Browse by focus"
-    title="Validators grouped by what they check"
-    description="Time and friction on one side, delays and time limits on the other."
-  >
-    <CardGrid className="grid--two">
-      {
-        focusGroups.map((group) => (
-          <CardItem title={group.title} description={group.description}>
-            <ul class="muted">
-              {group.validators.map((validator) => (
-                <li>
-                  <a href={`/validators/${validator.slug}`}>
-                    {validator.id}: {validator.title}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </CardItem>
-        ))
-      }
-    </CardGrid>
-  </SectionBlock>
-
-  <section id="tools" class="section">
-    <CardGrid className="grid--two">
-      {
-        validators.map((validator) => (
-          <CardItem
-            eyebrow={validator.id}
-            title={validator.title}
-            description={validator.description}
-          >
-            <a
-              slot="footer"
-              class="muted"
-              href={`/validators/${validator.slug}`}
-            >
-              Run {validator.title}
-            </a>
-          </CardItem>
-        ))
-      }
-    </CardGrid>
-  </section>
 
   <section id="method" class="section section--alt">
     <div class="section__header">

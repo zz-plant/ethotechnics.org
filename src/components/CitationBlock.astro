@@ -68,6 +68,10 @@ const risLines = [
   "ER  -",
 ];
 const ris = risLines.join("\n");
+// A page that passes its ScholarlyMeta in the slot gets one disclosure for
+// both. The summary then gives what that block's summary gave, and the
+// version, date, and DOI print once, in the slotted block.
+const hasMeta = Astro.slots.has("default");
 ---
 
 {
@@ -79,21 +83,31 @@ const ris = risLines.join("\n");
   <summary class="citation-block__summary">
     {summaryLabel}
     {
-      variant === "full" && (
-        <span class="muted small"> · APA, MLA, Chicago, BibTeX, RIS</span>
+      hasMeta ? (
+        <span class="muted small">
+          {` · ${publication.version} · updated ${updatedDate} · ${publication.license.label}`}
+        </span>
+      ) : (
+        variant === "full" && (
+          <span class="muted small"> · APA, MLA, Chicago, BibTeX, RIS</span>
+        )
       )
     }
   </summary>
   <div class="citation-block__quick">
     <div class="citation-block__quick-actions">
-      <button
-        class="copy-button"
-        type="button"
-        data-citation-text={apa}
-        data-citation-format="APA"
-      >
-        Copy APA
-      </button>
+      {
+        variant === "compact" && (
+          <button
+            class="copy-button"
+            type="button"
+            data-citation-text={apa}
+            data-citation-format="APA"
+          >
+            Copy APA
+          </button>
+        )
+      }
       <button
         class="copy-button"
         type="button"
@@ -102,18 +116,6 @@ const ris = risLines.join("\n");
       >
         Copy permalink
       </button>
-      {
-        variant === "full" && (
-          <button
-            class="copy-button"
-            type="button"
-            data-citation-text={bibtex}
-            data-citation-format="BibTeX"
-          >
-            Copy citation (BibTeX)
-          </button>
-        )
-      }
       {
         variant === "compact" && (
           <a class="muted small" href={moreFormatsHref}>
@@ -134,30 +136,34 @@ const ris = risLines.join("\n");
     variant === "full" && (
       <div class="citation-block__details">
         <div class="citation-block__body">
-          <div class="citation-block__meta">
-            <div>
-              <p class="muted small">Version</p>
-              <p>{publication.version}</p>
-            </div>
-            <div>
-              <p class="muted small">Last updated</p>
-              <p>{updatedDate}</p>
-            </div>
-            <div>
-              <p class="muted small">Permalink</p>
-              <a href={pageUrl}>{pageUrl}</a>
-            </div>
-            {doi && (
+          {!hasMeta && (
+            <div class="citation-block__meta">
               <div>
-                <p class="muted small">DOI</p>
-                <a href={doi.href}>{doi.id}</a>
+                <p class="muted small">Version</p>
+                <p>{publication.version}</p>
               </div>
-            )}
-          </div>
+              <div>
+                <p class="muted small">Last updated</p>
+                <p>{updatedDate}</p>
+              </div>
+              <div>
+                <p class="muted small">Permalink</p>
+                <a href={pageUrl}>{pageUrl}</a>
+              </div>
+              {doi && (
+                <div>
+                  <p class="muted small">DOI</p>
+                  <a href={doi.href}>{doi.id}</a>
+                </div>
+              )}
+            </div>
+          )}
+          {/* data-copy-attached opts each format out of the site-wide code
+               copy button: the labeled button under it already copies it. */}
           <div class="citation-block__formats">
             <div class="citation-block__format">
               <p class="eyebrow">APA</p>
-              <pre>{apa}</pre>
+              <pre data-copy-attached>{apa}</pre>
               <button
                 class="copy-button"
                 type="button"
@@ -169,7 +175,7 @@ const ris = risLines.join("\n");
             </div>
             <div class="citation-block__format">
               <p class="eyebrow">MLA</p>
-              <pre>{mla}</pre>
+              <pre data-copy-attached>{mla}</pre>
               <button
                 class="copy-button"
                 type="button"
@@ -181,7 +187,7 @@ const ris = risLines.join("\n");
             </div>
             <div class="citation-block__format">
               <p class="eyebrow">Chicago</p>
-              <pre>{chicago}</pre>
+              <pre data-copy-attached>{chicago}</pre>
               <button
                 class="copy-button"
                 type="button"
@@ -193,7 +199,7 @@ const ris = risLines.join("\n");
             </div>
             <div class="citation-block__format">
               <p class="eyebrow">BibTeX</p>
-              <pre>{bibtex}</pre>
+              <pre data-copy-attached>{bibtex}</pre>
               <button
                 class="copy-button"
                 type="button"
@@ -205,7 +211,7 @@ const ris = risLines.join("\n");
             </div>
             <div class="citation-block__format">
               <p class="eyebrow">RIS</p>
-              <pre>{ris}</pre>
+              <pre data-copy-attached>{ris}</pre>
               <button
                 class="copy-button"
                 type="button"
@@ -220,6 +226,7 @@ const ris = risLines.join("\n");
       </div>
     )
   }
+  {hasMeta && <slot />}
 </details>
 
 <script>

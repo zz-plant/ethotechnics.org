@@ -632,13 +632,14 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </div>
     </details>
   </SectionBlock>
-  <ScholarlyMeta publication={publication} permalink={permalink} />
   <CitationBlock
     title={pageTitle}
     permalink={permalink}
     publication={publication}
     variant="compact"
-  />
+  >
+    <ScholarlyMeta bare publication={publication} permalink={permalink} />
+  </CitationBlock>
   <InlineScript type="application/ld+json" code={structuredDataJson} />
   <script>
     import "../../client/research-filter.ts";

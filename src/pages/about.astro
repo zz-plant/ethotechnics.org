@@ -4,9 +4,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Logo from "../components/Logo.astro";
 import ClaimsTable from "../components/ClaimsTable.astro";
 import IntellectualLineage from "../components/IntellectualLineage.astro";
-import AdversariesTable from "../components/positioning/AdversariesTable.astro";
-import CompletionsTable from "../components/positioning/CompletionsTable.astro";
-import InstrumentsTable from "../components/positioning/InstrumentsTable.astro";
 import { cases, type LearningVerdict } from "../content/casebook";
 import { studio, studioSummary } from "../content/studio";
 
@@ -191,44 +188,6 @@ for (const entry of cases) {
   </section>
 
   <section class="stack-sm card">
-    <p class="eyebrow">Foundations</p>
-    <h2>Start with these resources</h2>
-    <ul>
-      <li>
-        <a href="/use-cases">Which systems this is for</a>, by what the system
-        decides, with the standards and first check for each.
-      </li>
-      <li>
-        <a href="/casebook">Casebook</a> for five public failures scored on six safeguards.
-      </li>
-      <li><a href="/glossary">Glossary</a> for terms and definitions.</li>
-      <li>
-        <a href="/mechanisms">Mechanisms catalog</a> for decision logs, escalation
-        patterns, and reversibility tools.
-      </li>
-      <li>
-        <a href="/diagnostics">Diagnostics</a> for interactive tools you run on your
-        own workflow.
-      </li>
-      <li>
-        <a href="/standards">Standards</a> for versioned requirements you can cite
-        in policy, contracts, and audits.
-      </li>
-      <li>
-        <a href="/evals">Eval suites</a> for governance benchmarks and their test
-        cases.
-      </li>
-      <li>
-        <a href="/field-notes">Field notes</a> for dated notes on outside changes
-        that bear on the standards.
-      </li>
-      <li>
-        <a href="/start">Start here</a> for a path chosen by your role.
-      </li>
-    </ul>
-  </section>
-
-  <section class="stack-sm card">
     <p class="eyebrow">Institute and Studio</p>
     <h2>How the Institute and Studio fit together</h2>
     <p>
@@ -251,8 +210,14 @@ for (const entry of cases) {
     </p>
   </section>
 
+  {
+    /* This page carried the scholarly-crossings note's three tables in full:
+       nine pairings, eight completions, five counterpositions. They live on
+       that note, which develops each row; this section says what they are
+       and links each one. */
+  }
   <section id="scholars" class="stack-sm card">
-    <p class="eyebrow">For scholars: nine pairings</p>
+    <p class="eyebrow">For scholars</p>
     <h2>Shared values, new instruments</h2>
     <p>
       The neighboring fields already hold the commitments: contestability,
@@ -261,65 +226,17 @@ for (const entry of cases) {
       who would have to act.
     </p>
     <p>
-      Each pairing below names one scholar's concept and the instrument on this
-      site that measures it. The traditions stay theirs; the instruments are
-      what the values were missing.
-    </p>
-    <InstrumentsTable />
-    <p class="small muted">
-      Six of the instruments have worked examples on the{" "}
-      <a href="/research/scholarly-crossings">scholarly crossings</a> page: the effective-power
-      audit, the corrigibility ladder, the oversight depreciation model, the power-responsibility
-      matrix, reserve accounting, and compensated-performance accounting.
-    </p>
-  </section>
-
-  <section id="divergence" class="stack-sm card">
-    <p class="eyebrow">For scholars: eight completions</p>
-    <h2>Different mechanisms, one question</h2>
-    <p>
-      Some of the strongest arguments against new governance prefer an existing
-      mechanism: markets, user exit, open models, benefit-cost analysis,
-      industry self-regulation, application-layer rules, institutional
-      adaptation, or management-based regulation.
-    </p>
-    <p>
-      This framework does not replace any of them. It adds one question each
-      mechanism's own theory does not ask: does this mechanism continue to hold
-      effective corrective power after the system has been successful for ten
-      years? The condition matters. Prolonged success changes the mechanism —
-      dependency accumulates, exit narrows, the handler's practice decays — so a
-      mechanism that corrects in year one can be nominal by year ten.
-    </p>
-    <CompletionsTable />
-    <p class="small muted">
-      None of these additions asks anyone to give up the mechanism. Each one
-      names the record that shows whether the mechanism still works.
-    </p>
-  </section>
-
-  <section id="disagreement" class="stack-sm card">
-    <p class="eyebrow">For scholars: five counterpositions</p>
-    <h2>The real disagreement</h2>
-    <p>
-      The serious opponent of this framework does not defend unaccountable
-      power. The serious opponent holds that competition, exit, reputation, tort
-      liability, sectoral regulation, and ordinary democratic institutions
-      already provide sufficient correction.
-    </p>
-    <p>
-      If that is right, this framework is overhead. Its case rests on there
-      being identifiable, measurable circumstances in which those mechanisms
-      stop providing effective correction as technological dependency grows.
-      Each position below is stated so its holders would accept it, and each row
-      names the empirical question that would settle it.
-    </p>
-    <AdversariesTable />
-    <p class="small muted">
-      The disagreements are empirical, not aesthetic. The{" "}
-      <a href="/research/scholarly-crossings#disagreement"
-        >scholarly crossings</a
-      > note develops each position.
+      The <a href="/research/scholarly-crossings">scholarly crossings</a> note sets
+      this out three ways. <a href="/research/scholarly-crossings#crossings"
+        >Nine pairings</a
+      > match one scholar's concept to the instrument here that measures it. <a
+        href="/research/scholarly-crossings#completions">Eight completions</a
+      > take a mechanism the framework does not replace, such as markets or exit,
+      and add the question its own theory does not ask: does it still correct after
+      ten years of success? <a href="/research/scholarly-crossings#disagreement"
+        >Five counterpositions</a
+      > state the strongest opposing views so their holders would accept them, each
+      with the empirical question that would settle it.
     </p>
   </section>
 

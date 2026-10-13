@@ -177,12 +177,13 @@ Supplier will provide the records each clause names on request. These standards 
     description="Cite the canonical permalink and version, so the governance document points at a fixed text."
     variant="alt"
   >
-    <ScholarlyMeta publication={publication} permalink={permalink} />
     <CitationBlock
       title={pageTitle}
       permalink={permalink}
       publication={publication}
-    />
+    >
+      <ScholarlyMeta bare publication={publication} permalink={permalink} />
+    </CitationBlock>
     <p class="muted" style="margin-top:var(--space-5)">
       See also: <a href="/standards">Standards</a> &middot; <a
         href="/standards/enforceable-governance-crosswalks"

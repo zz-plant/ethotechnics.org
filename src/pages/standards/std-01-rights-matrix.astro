@@ -488,11 +488,12 @@ const mechanisms = collectUnique(matrix.flatMap((row) => row.mechanisms));
     title="Reference this matrix in audits and work plans"
     description="Cite the permalink and version so the audit trail points at a fixed text."
   >
-    <ScholarlyMeta publication={publication} permalink={permalink} />
     <CitationBlock
       title={pageTitle}
       permalink={permalink}
       publication={publication}
-    />
+    >
+      <ScholarlyMeta bare publication={publication} permalink={permalink} />
+    </CitationBlock>
   </SectionBlock>
 </StandardsLayout>

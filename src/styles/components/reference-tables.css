@@ -313,6 +313,16 @@
     color: var(--muted);
   }
 
+  /* A one-line description under a register row's name. */
+  .catalogue-table__summary {
+    display: block;
+    margin-top: var(--space-1);
+    font-size: var(--text-xs);
+    font-weight: 400;
+    line-height: 1.45;
+    color: var(--muted);
+  }
+
   .catalogue-table__num {
     text-align: right;
     font-variant-numeric: tabular-nums;
@@ -526,42 +536,6 @@
     .state-diagram__clause {
       font-size: 14px;
     }
-  }
-}
-
-@layer components {
-  /* --- Compact glossary sections --- */
-  .glossary-compact {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: var(--space-1) var(--space-5);
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
-  }
-
-  .glossary-compact__item {
-    padding: var(--space-2) 0;
-    border-top: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
-    scroll-margin-top: 1rem;
-  }
-
-  .glossary-compact__term {
-    font-family: var(--sans);
-    font-weight: 650;
-    font-size: var(--text-sm);
-    text-decoration: none;
-  }
-
-  .glossary-compact__term:hover,
-  .glossary-compact__term:focus-visible {
-    text-decoration: underline;
-  }
-
-  .glossary-compact__summary {
-    margin: var(--space-hair) 0 0;
-    font-size: var(--text-sm);
-    line-height: 1.45;
   }
 }
 

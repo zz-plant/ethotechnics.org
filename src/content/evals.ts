@@ -162,7 +162,7 @@ export const evalsContent: EvalsContent = {
   updated: "2026-09-25T00:00:00Z",
   anchorLinks: [
     { href: "#stack", label: "Evaluation stack" },
-    { href: "#suites", label: "Available suites" },
+    { href: "#register", label: "The suite register" },
     { href: "#methodology", label: "Methodology" },
     { href: "#run", label: "Run an eval" },
     { href: "#finite", label: "Finite drills" },

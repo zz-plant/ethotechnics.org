@@ -14,6 +14,12 @@ type Props = {
    * changelog, and 386 of them listed the same eighteen versions.
    */
   historyHref?: string;
+  /**
+   * Render the contents without a disclosure of their own, for use inside
+   * CitationBlock: a page used to end on two collapsed boxes that both gave
+   * the version, the date, and the DOI.
+   */
+  bare?: boolean;
 };
 
 const {
@@ -22,7 +28,9 @@ const {
   permalink,
   id,
   historyHref,
+  bare = false,
 }: Props = Astro.props;
+const Wrapper = bare ? "div" : "details";
 const pageUrl = permalink
   ? Astro.site
     ? new URL(permalink, Astro.site).toString()
@@ -59,19 +67,24 @@ const doi = resolveDoi(publication.doi);
      reader scans for; the latest change shows when opened, and the rest of
      the history sits behind its own toggle. */
 }
-<details class="callout scholarly-meta" id={id}>
-  <summary class="scholarly-meta__summary">
-    <span class="eyebrow">{label}</span>
-    <span class="muted small">
-      {publication.version}
-      {
-        updatedDate
-          ? ` · updated ${updatedDate}`
-          : ` · published ${publishedDate}`
-      }
-      {` · ${publication.license.label}`}
-    </span>
-  </summary>
+<Wrapper
+  class:list={["scholarly-meta", bare ? "scholarly-meta--bare" : "callout"]}
+  id={id}
+>
+  {
+    !bare && (
+      <summary class="scholarly-meta__summary">
+        <span class="eyebrow">{label}</span>
+        <span class="muted small">
+          {publication.version}
+          {updatedDate
+            ? ` · updated ${updatedDate}`
+            : ` · published ${publishedDate}`}
+          {` · ${publication.license.label}`}
+        </span>
+      </summary>
+    )
+  }
   <div class="scholarly-meta__grid">
     <div>
       <p class="muted small">Authorship</p>
@@ -178,4 +191,4 @@ const doi = resolveDoi(publication.doi);
       </div>
     )
   }
-</details>
+</Wrapper>

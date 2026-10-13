@@ -228,10 +228,15 @@ const workedExample = `Worked example (hypothetical, anonymized)
             title={pageTitle}
             permalink={permalink}
             publication={publication}
-          />
+          >
+            <ScholarlyMeta
+              bare
+              publication={publication}
+              permalink={permalink}
+            />
+          </CitationBlock>
         </section>
 
-        <ScholarlyMeta publication={publication} permalink={permalink} />
         <p class="muted" style="margin-top:var(--space-5)">
           See also: <a href="/standards">Standards</a> &middot; <a
             href="/mechanisms">Mechanisms</a
