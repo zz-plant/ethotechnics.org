@@ -103,7 +103,7 @@ say once which house word it corresponds to.
   decision. It is the safeguard; a challenge is what standing lets someone make.
 - _Appeal_: a formal route to a tribunal, court, or ombudsman, or the operator's own named appeal
   procedure. Not a synonym for challenge.
-- _Contestability_: the property in the literature (Hirsch, Alfrink, Almada). Use it when engaging
+- _Contestability_: the property as the design and law literature names it. Use it when engaging
   that literature or naming STD-02; otherwise say what can be challenged and how.
 - _Complaint_: what an institution can file and close as an anecdote. Use it for that contrast.
 - _Remedy_: what the person receives when a challenge is upheld or harm is found. Use _redress_
