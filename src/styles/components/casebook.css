@@ -1,6 +1,6 @@
-/* The casebook: the matrix on the hub, the case list, and the scored findings
-   on each case page. The verdict mark is shared with anything else that
-   scores a state variable, so it lives here rather than in the matrix. */
+/* The casebook: the case list on the hub and the scored findings on each case
+   page. The verdict mark is shared with anything else that scores a state
+   variable, so it lives here rather than with either. */
 @layer components {
   /* One verdict. Three glyphs that read in grayscale; colour is secondary. */
   .verdict {
@@ -32,138 +32,6 @@
     color: var(--status-danger);
   }
 
-  /* The matrix. Cases down, variables across, a halt clock at the end. */
-  .casebook-matrix {
-    width: 100%;
-    min-width: 680px;
-    border-collapse: collapse;
-    font-family: var(--sans);
-    font-size: var(--text-sm);
-  }
-
-  .casebook-matrix th,
-  .casebook-matrix td {
-    padding: var(--space-3) var(--space-2);
-    border-bottom: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-    text-align: left;
-    vertical-align: top;
-  }
-
-  .casebook-matrix thead th {
-    font-size: var(--text-eyebrow);
-    letter-spacing: var(--tracking-label-wide);
-    text-transform: uppercase;
-    color: var(--muted);
-    font-weight: 650;
-    border-bottom-color: var(--border);
-  }
-
-  .casebook-matrix thead th:not(:first-child, :last-child),
-  .casebook-matrix tbody td:not(.casebook-matrix__halt),
-  .casebook-matrix tfoot td {
-    text-align: center;
-  }
-
-  .casebook-matrix tbody th {
-    font-weight: 600;
-    min-width: 12rem;
-  }
-
-  .casebook-matrix tbody th a {
-    font-family: var(--serif);
-    font-size: var(--text-base);
-    text-decoration: none;
-  }
-
-  .casebook-matrix tbody th a:hover,
-  .casebook-matrix tbody th a:focus-visible {
-    text-decoration: underline;
-  }
-
-  .casebook-matrix__meta {
-    display: block;
-    margin-top: var(--space-hair);
-    font-weight: 400;
-    color: var(--muted);
-    font-size: var(--text-xs);
-  }
-
-  .casebook-matrix__cell {
-    display: inline-grid;
-    place-items: center;
-    width: 44px;
-    height: 44px;
-    border-radius: var(--radius-xs);
-    text-decoration: none;
-    font-size: var(--text-lg);
-  }
-
-  .casebook-matrix__cell:hover,
-  .casebook-matrix__cell:focus-visible {
-    background: color-mix(in srgb, var(--accent) 12%, transparent);
-  }
-
-  .casebook-matrix__hint {
-    display: none;
-    margin: 0;
-    font-family: var(--sans);
-  }
-
-  #matrix .table-responsive:focus-visible {
-    outline: var(--focus-outline);
-    outline-offset: var(--focus-outline-offset);
-  }
-
-  @media (max-width: 1399.98px) {
-    .casebook-matrix__hint {
-      display: block;
-    }
-
-    .casebook-matrix thead th:first-child,
-    .casebook-matrix tbody th,
-    .casebook-matrix tfoot th {
-      position: sticky;
-      left: 0;
-      z-index: 1;
-      background: var(--surface);
-      box-shadow: 1px 0 0 var(--border);
-    }
-
-    .casebook-matrix thead th:first-child,
-    .casebook-matrix tfoot th {
-      background: var(--panel);
-    }
-  }
-
-  @media (max-width: 719.98px) {
-    .casebook-matrix tbody th {
-      min-width: 9rem;
-      width: 10rem;
-      max-width: 10rem;
-    }
-  }
-
-  .casebook-matrix__halt {
-    min-width: 9rem;
-    color: var(--muted);
-  }
-
-  .casebook-matrix__learning {
-    min-width: 7rem;
-    font-weight: 600;
-    text-transform: capitalize;
-  }
-
-  .casebook-matrix__learning a {
-    text-decoration: none;
-    color: var(--text);
-  }
-
-  .casebook-matrix__learning a:hover,
-  .casebook-matrix__learning a:focus-visible {
-    text-decoration: underline;
-  }
-
   .case-learning__verdict {
     font-family: var(--serif);
     font-size: var(--text-h3);
@@ -175,20 +43,6 @@
     max-width: 72ch;
   }
 
-  .casebook-matrix tfoot th,
-  .casebook-matrix tfoot td {
-    border-bottom: 0;
-    border-top: 1px solid var(--border);
-    color: var(--muted);
-    font-weight: 600;
-  }
-
-  .casebook-matrix__count {
-    font-family: var(--mono);
-    font-size: var(--text-base);
-    color: var(--text);
-  }
-
   .casebook-legend {
     display: flex;
     flex-wrap: wrap;
@@ -197,7 +51,7 @@
     margin-top: var(--space-4);
   }
 
-  /* The case list under the matrix. */
+  /* The case list on the hub. Its row of marks is styled on the page. */
   .casebook-list {
     list-style: none;
     margin: 0;
@@ -266,45 +120,6 @@
   .case-facts dd {
     margin: var(--space-1) 0 0;
     font-size: var(--text-sm);
-  }
-
-  .casebook-list__breakdown {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: var(--space-2) var(--space-4);
-    padding-top: var(--space-1);
-  }
-
-  .casebook-list__breakdown-label {
-    font-family: var(--sans);
-    font-size: var(--text-eyebrow);
-    letter-spacing: var(--tracking-label-wide);
-    text-transform: uppercase;
-    color: var(--muted);
-    font-weight: 650;
-  }
-
-  .casebook-list__verdicts {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-1) var(--space-4);
-    margin: 0;
-    font-family: var(--sans);
-    font-size: var(--text-sm);
-  }
-
-  .casebook-list__verdict {
-    display: inline-flex;
-    align-items: baseline;
-    gap: var(--space-1);
-    text-decoration: none;
-    color: var(--text);
-  }
-
-  .casebook-list__verdict:hover span:last-child,
-  .casebook-list__verdict:focus-visible span:last-child {
-    text-decoration: underline;
   }
 
   .casebook-reading > div {

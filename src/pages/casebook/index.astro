@@ -11,12 +11,16 @@ import {
   cases,
   learningVerdictLabels,
   stateVariables,
-  verdictTally,
 } from "../../content/casebook";
 
 const { pageTitle, pageDescription, eyebrow, title, description } =
   casebookContent;
-const tally = verdictTally();
+
+// The scores and the record were two sections over the same five cases: a
+// matrix of six marks, the halt time, and the after-the-failure verdict, then
+// a list that gave each case's record and repeated its failed safeguards.
+// Each case now appears once, its record above its row of marks. The failure
+// chart below carries the per-safeguard counts the matrix footer gave.
 ---
 
 <BaseLayout
@@ -29,8 +33,7 @@ const tally = verdictTally();
     title={title}
     description={description}
     anchorLinks={[
-      { href: "#matrix", label: "The scores" },
-      { href: "#cases", label: "The cases" },
+      { href: "#cases", label: "The cases, scored" },
       { href: "#reading", label: "How to read a score" },
     ]}
   >
@@ -40,95 +43,11 @@ const tally = verdictTally();
   </PageIntro>
 
   <SectionBlock
-    id="matrix"
-    eyebrow="Six safeguards, five cases"
-    title="Where the safeguards broke"
-    description="Standing, the right of the people affected to challenge a decision and be answered, held in none of the five. Correction held once, at Apple Card, where the issuer changed its own policies without a court, though it took a regulator to prompt it. The last column asks whether the institution changed the process that produced the errors, or corrected them and left it as it was."
+    id="cases"
+    title="What the record established and where the safeguards broke"
+    description="Standing, the right of the people affected to challenge a decision and be answered, held in none of the five. Correction held once, at Apple Card, where the issuer changed its own policies without a court, though it took a regulator to prompt it."
     variant="alt"
   >
-    <p class="casebook-matrix__hint small muted" id="casebook-scroll-hint">
-      Scroll sideways to see all six safeguards.
-    </p>
-    <div
-      class="table-responsive"
-      tabindex="0"
-      role="region"
-      aria-label="Safeguard scores by case"
-    >
-      <table class="casebook-matrix">
-        <thead>
-          <tr>
-            <th scope="col">Case</th>
-            {
-              stateVariables.map((variable) => (
-                <th scope="col" title={variable.question}>
-                  <StateVariableGlyph
-                    variable={variable.id}
-                    label={variable.label}
-                  />
-                </th>
-              ))
-            }
-            <th scope="col">Time to halt</th>
-            <th scope="col">After the failure</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            cases.map((entry) => (
-              <tr>
-                <th scope="row">
-                  <a href={`/casebook/${entry.slug}`}>{entry.title}</a>
-                  <span class="casebook-matrix__meta">
-                    {entry.jurisdiction.split(" · ")[0]} · {entry.period}
-                  </span>
-                </th>
-                {stateVariables.map((variable) => {
-                  const finding = entry.findings.find(
-                    (item) => item.variable === variable.id,
-                  );
-                  return (
-                    <td data-variable={variable.id}>
-                      {finding && (
-                        <a
-                          href={`/casebook/${entry.slug}#${variable.id}`}
-                          class="casebook-matrix__cell"
-                          aria-label={`${entry.title}, ${variable.label}: ${finding.verdict}`}
-                        >
-                          <VerdictMark verdict={finding.verdict} />
-                        </a>
-                      )}
-                    </td>
-                  );
-                })}
-                <td class="casebook-matrix__halt">{entry.timeToHalt}</td>
-                <td class="casebook-matrix__learning">
-                  <a href={`/casebook/${entry.slug}#learning`}>
-                    {learningVerdictLabels[entry.learningOutcome.verdict]}
-                  </a>
-                </td>
-              </tr>
-            ))
-          }
-        </tbody>
-        <tfoot>
-          <tr>
-            <th scope="row">Failed, of {cases.length}</th>
-            {
-              stateVariables.map((variable) => (
-                <td>
-                  <span class="casebook-matrix__count">
-                    {tally[variable.id].failed}
-                  </span>
-                </td>
-              ))
-            }
-            <td></td>
-            <td></td>
-          </tr>
-        </tfoot>
-      </table>
-    </div>
     <p class="casebook-legend small muted" aria-label="Legend">
       <VerdictMark verdict="held" labelled /> in place and working ·
       <VerdictMark verdict="drifted" labelled /> in place but out of step with what
@@ -147,17 +66,6 @@ const tally = verdictTally();
       <a href="/research/theory/exception-learning">Read the theory</a>
     </p>
 
-    <TimeToHaltBars />
-
-    <CasebookFailureChart />
-  </SectionBlock>
-
-  <SectionBlock
-    id="cases"
-    eyebrow="The cases"
-    title="What the record established"
-    description="Each case opens with the system in one line, the scale the inquiry found, and who finally made it stop."
-  >
     <ol class="casebook-list">
       {
         cases.map((entry) => (
@@ -171,6 +79,45 @@ const tally = verdictTally();
               </p>
             </div>
             <p class="casebook-list__system">{entry.system}</p>
+            <dl class="casebook-scores">
+              {stateVariables.map((variable) => {
+                const finding = entry.findings.find(
+                  (item) => item.variable === variable.id,
+                );
+                return (
+                  <div class="casebook-scores__cell">
+                    <dt title={variable.question}>
+                      <StateVariableGlyph
+                        variable={variable.id}
+                        label={variable.label}
+                      />
+                    </dt>
+                    <dd>
+                      {finding && (
+                        <a
+                          href={`/casebook/${entry.slug}#${variable.id}`}
+                          class="casebook-scores__link"
+                          aria-label={`${entry.title}, ${variable.label}: ${finding.verdict}`}
+                        >
+                          <VerdictMark verdict={finding.verdict} labelled />
+                        </a>
+                      )}
+                    </dd>
+                  </div>
+                );
+              })}
+              <div class="casebook-scores__cell casebook-scores__cell--after">
+                <dt>After the failure</dt>
+                <dd>
+                  <a
+                    href={`/casebook/${entry.slug}#learning`}
+                    class="casebook-scores__link"
+                  >
+                    {learningVerdictLabels[entry.learningOutcome.verdict]}
+                  </a>
+                </dd>
+              </div>
+            </dl>
             <dl class="casebook-list__facts">
               <div>
                 <dt>Scale</dt>
@@ -188,50 +135,15 @@ const tally = verdictTally();
                 <dt>Halted by</dt>
                 <dd>{entry.haltedBy}</dd>
               </div>
-              <div>
-                <dt>After the failure</dt>
-                <dd>
-                  <a href={`/casebook/${entry.slug}#learning`}>
-                    {learningVerdictLabels[entry.learningOutcome.verdict]}
-                  </a>
-                </dd>
-              </div>
             </dl>
-            <div class="casebook-list__breakdown">
-              <span class="casebook-list__breakdown-label">
-                Failed or drifted:
-              </span>
-              <div
-                class="casebook-list__verdicts"
-                aria-label="Failed or drifted safeguards"
-              >
-                {entry.findings
-                  .filter(
-                    (finding) =>
-                      finding.verdict === "failed" ||
-                      finding.verdict === "drifted",
-                  )
-                  .map((finding) => (
-                    <a
-                      href={`/casebook/${entry.slug}#${finding.variable}`}
-                      class={`casebook-list__verdict casebook-list__verdict--${finding.verdict}`}
-                    >
-                      <VerdictMark verdict={finding.verdict} />
-                      <span>
-                        {
-                          stateVariables.find(
-                            (variable) => variable.id === finding.variable,
-                          )?.label
-                        }
-                      </span>
-                    </a>
-                  ))}
-              </div>
-            </div>
           </li>
         ))
       }
     </ol>
+
+    <TimeToHaltBars />
+
+    <CasebookFailureChart />
   </SectionBlock>
 
   <SectionBlock
@@ -291,3 +203,83 @@ const tally = verdictTally();
     </p>
   </SectionBlock>
 </BaseLayout>
+
+<style>
+  /* A case's six marks and its after-the-failure verdict share one grid, so
+     a safeguard sits in the same place from case to case. Two columns on a
+     phone, three on a tablet, one row on a wide screen. */
+  .casebook-scores {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3) var(--space-4);
+    max-width: 60rem;
+    margin: 0;
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+  }
+
+  .casebook-scores__cell {
+    display: grid;
+    gap: var(--space-1);
+    align-content: start;
+  }
+
+  .casebook-scores dt {
+    font-family: var(--sans);
+    font-size: var(--text-eyebrow);
+    letter-spacing: var(--tracking-label-wide);
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 650;
+  }
+
+  .casebook-scores dd {
+    margin: 0;
+  }
+
+  .casebook-scores__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.75rem;
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  /* The verdict is inline-flex, so the link's underline does not reach it. */
+  .casebook-scores__link:hover,
+  .casebook-scores__link:focus-visible,
+  .casebook-scores__link:hover :global(.verdict__label),
+  .casebook-scores__link:focus-visible :global(.verdict__label) {
+    text-decoration: underline;
+  }
+
+  .casebook-scores__cell--after {
+    grid-column: 1 / -1;
+    padding-top: var(--space-3);
+    border-top: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  }
+
+  @media (min-width: 560px) {
+    .casebook-scores {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .casebook-scores {
+      grid-template-columns: repeat(6, minmax(0, 1fr)) minmax(9rem, 1.4fr);
+    }
+
+    .casebook-scores__cell--after {
+      grid-column: auto;
+      padding: 0 0 0 var(--space-4);
+      border-top: 0;
+      border-left: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    }
+  }
+</style>
