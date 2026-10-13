@@ -28,7 +28,8 @@ const isStart = normalizePath(currentPath) === "/start";
       /* "Start here" sits in the bar and the theme switch in the drawer. The
          theme toggle used to hold this spot, beside search, and took 9-18% of
          predicted first-screen taps on a phone; the way in for a new reader
-         was two taps deep. */
+         was two taps deep. The drawer below it no longer opens on a second
+         copy of the same link. */
     }
     <a
       href="/start"
@@ -47,29 +48,26 @@ const isStart = normalizePath(currentPath) === "/start";
       </summary>
 
       <div class="nav__mobile-drawer">
-        <a
-          href="/start"
-          class:list={[
-            "nav__mobile-featured-cta",
-            { "nav__mobile-featured-cta--active": isStart },
-          ]}
-          aria-current={isStart ? "page" : undefined}
-        >
-          <div class="nav__mobile-featured-content">
-            <span class="nav__mobile-featured-badge">Orientation</span>
-            <span class="nav__mobile-featured-title">Start here</span>
-            <span class="nav__mobile-featured-desc"
-              >Find the right resource by role or incident</span
-            >
-          </div>
-          <Icon name="lucide:arrow-right" class="nav__mobile-featured-arrow" />
-        </a>
-
         <div class="nav__mobile-section-groups">
           {
             navSections.map((section) => (
               <div class="nav__mobile-group">
-                <p class="eyebrow nav__mobile-group-title">{section.heading}</p>
+                <p class="eyebrow nav__mobile-group-title">
+                  {section.href ? (
+                    <a
+                      href={section.href}
+                      aria-current={getAriaCurrent(
+                        section.href,
+                        currentPath,
+                        currentHash,
+                      )}
+                    >
+                      {section.heading}
+                    </a>
+                  ) : (
+                    section.heading
+                  )}
+                </p>
                 <div class="nav__mobile-group-links">
                   {section.links.map((link) => (
                     <a
@@ -120,34 +118,6 @@ const isStart = normalizePath(currentPath) === "/start";
             />
           </button>
           <span aria-hidden="true">Light or dark theme</span>
-        </div>
-
-        <div class="nav__mobile-connect">
-          <p class="eyebrow nav__mobile-group-title">Ecosystem & community</p>
-          <div class="nav__mobile-connect-links">
-            <a
-              href="https://github.com/zz-plant/ethotechnics.org"
-              class="nav__mobile-connect-link"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <Icon name="lucide:github" class="nav__icon" />
-              <span>GitHub</span>
-            </a>
-            <a
-              href="https://ethotechnics.com"
-              class="nav__mobile-connect-link"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <Icon name="lucide:arrow-up-right" class="nav__icon" />
-              <span>Ethotechnics Studio</span>
-            </a>
-            <a href="/participate#feedback" class="nav__mobile-connect-link">
-              <Icon name="lucide:message-circle" class="nav__icon" />
-              <span>Send feedback</span>
-            </a>
-          </div>
         </div>
       </div>
     </details>

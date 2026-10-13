@@ -222,12 +222,13 @@
 
   /*
    * The link columns size themselves, so a section gained or lost does not
-   * strand a row. Four fit at desktop widths and they reflow to two, then one.
+   * strand a row. auto-fill keeps the empty tracks, so two columns sit at
+   * column width instead of stretching across the footer.
    */
   .footer__nav {
     display: grid;
     gap: clamp(var(--space-5), 3vw, var(--space-7));
-    grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
   }
 
   .footer__column {

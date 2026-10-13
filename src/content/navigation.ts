@@ -2,32 +2,14 @@ export interface NavLink {
   href: string;
   label: string;
   description?: string;
-  primary?: boolean;
-  mobileFeatured?: boolean;
 }
 
 export interface NavSection {
   heading: string;
+  /** The section's index page, linked from its heading. */
+  href?: string;
   description: string;
   links: NavLink[];
-}
-
-export interface NavAction {
-  href: string;
-  label: string;
-  variant: "primary" | "ghost" | "ghost-compact";
-  icon?: string;
-  rel?: string;
-  target?: string;
-}
-
-export interface NavUtilityLink {
-  href: string;
-  label: string;
-  class: string;
-  rel?: string;
-  target?: string;
-  icon?: string;
 }
 
 export const navPrimaryLinks: NavLink[] = [
@@ -36,38 +18,28 @@ export const navPrimaryLinks: NavLink[] = [
     label: "Method",
     description:
       "How evidence of a wrong decision reaches someone who has to change the rule",
-    primary: true,
-    mobileFeatured: true,
   },
   {
     href: "/standards",
     label: "Standards",
     description: "Draft requirements a system can be held to, clause by clause",
-    primary: true,
-    mobileFeatured: true,
   },
   {
     href: "/mechanisms",
     label: "Mechanisms",
     description:
       "Specifications for kill switches, circuit breakers, and appeal controls",
-    primary: true,
-    mobileFeatured: true,
   },
   {
     href: "/diagnostics",
     label: "Diagnostics",
     description:
       "Tools that test a workflow, a decision log, or a set of numbers",
-    primary: true,
-    mobileFeatured: true,
   },
   {
     href: "/casebook",
     label: "Casebook",
     description: "Scored public failures established by courts and regulators",
-    primary: true,
-    mobileFeatured: true,
   },
 ];
 
@@ -158,6 +130,10 @@ export const navSections: NavSection[] = [
     // want" is answerable from the input; it is not answerable from a list of
     // product names.
     heading: "Tools",
+    // The heading carries the hub link so the five slots stay tools. Without
+    // it a phone reaches /diagnostics from no menu: the bar's link to it is
+    // desktop-only, and the footer no longer repeats this map.
+    href: "/diagnostics",
     description:
       "Ordered by what you bring: a workflow, workload ratings, a decision log, the decision your system makes, or a decision made about you.",
     links: [
@@ -228,22 +204,3 @@ export const navSections: NavSection[] = [
     ],
   },
 ];
-
-export const startHereCta: NavLink = {
-  href: "/start",
-  label: "Start here",
-  description: "Find the right resource",
-  primary: true,
-  mobileFeatured: true,
-};
-
-export const navUtilityMobilePrimaryLinks: NavUtilityLink[] = [
-  {
-    href: "/start",
-    label: "Start here",
-    class: "nav__utility-link nav__utility-link--primary",
-    icon: "lucide:arrow-right",
-  },
-];
-
-export const navActions: NavAction[] = [];

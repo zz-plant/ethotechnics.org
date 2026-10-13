@@ -88,7 +88,22 @@ const isStart = normalizePath(currentPath) === "/start";
         {
           navSections.map((section) => (
             <div class="nav__browse-group">
-              <p class="nav__browse-group-title">{section.heading}</p>
+              <p class="nav__browse-group-title">
+                {section.href ? (
+                  <a
+                    href={section.href}
+                    aria-current={getAriaCurrent(
+                      section.href,
+                      currentPath,
+                      currentHash,
+                    )}
+                  >
+                    {section.heading}
+                  </a>
+                ) : (
+                  section.heading
+                )}
+              </p>
               <p class="nav__browse-group-desc">{section.description}</p>
               <ul class="nav__browse-links">
                 {section.links.map((link) => (
