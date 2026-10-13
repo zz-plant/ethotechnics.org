@@ -322,7 +322,7 @@ export function DelegationAudit() {
                       className="delegation-audit__label"
                       htmlFor={`${entry.id}-for-whom`}
                     >
-                      For which affected people
+                      Which people it decides about
                     </label>
                     <input
                       id={`${entry.id}-for-whom`}
@@ -971,12 +971,13 @@ export function DelegationAudit() {
             </h3>
             <p className="delegation-audit__step-question">
               Actions nobody authorized, with no evidence behind them, or with
-              nobody named as affected.
+              nobody named as the people they decide about.
             </p>
             {result.ungroundedGrants.length === 0 ? (
               <p className="delegation-audit__note">
                 None recorded. Every action listed has someone who authorized
-                it, evidence behind it, and a named affected group.
+                it, evidence behind it, and a named group of people it decides
+                about.
               </p>
             ) : (
               <ul className="delegation-audit__list">

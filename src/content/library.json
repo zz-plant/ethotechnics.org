@@ -421,7 +421,7 @@
             "time-to-halt"
           ],
           "cues": [
-            "Set halt triggers on harm indicators, such as a spike in upheld appeals, and on reports from frontline staff.",
+            "Set halt triggers on harm indicators, such as a spike in upheld challenges, and on reports from frontline staff.",
             "Name who may fire the switch, and protect them from retaliation for using it.",
             "Plan what follows the halt: the rule's owner changes the rule, and the people harmed are restored."
           ],
@@ -429,7 +429,7 @@
           "steps": [
             "Mark the points where the automation can stop, and what happens to cases in flight at each one.",
             "Set the triggers that fire a halt, a time-to-halt target for each, and the roster that may fire it.",
-            "Drill the full sequence: halt, notify the people affected, send the rule to its owner, restore the people harmed, then resume."
+            "Drill the full sequence: halt, notify the people whose cases are held, send the rule to its owner, restore the people harmed, then resume."
           ],
           "policyRequirement": "Policy requirement (MEC-05 Kill switch for runaway automation)\n- Keep a pre-authorized halt path with a named roster, and protect anyone on it from retaliation for using it.\n- Publish halt triggers tied to harm indicators, each with a time-to-halt target.\n- Resume only after the rule's owner records a fix and a dated plan exists to restore the people harmed.\nReference: https://ethotechnics.org/mechanisms/patterns/kill-switch",
           "productRequirement": "Product requirement (MEC-05)\n- Operators can fire the kill switch in one step from the monitoring view.\n- Each halt emits a receipt naming who fired it, the trigger, the cases held, and the restoration checklist.",
@@ -472,7 +472,7 @@
           "slug": "appeal-paths",
           "code": "MEC-06",
           "title": "Appeal paths inside the UI",
-          "summary": "Put an appeal next to each automated decision, so the person decided about can dispute it and get a human answer by a stated date. Upheld appeals count against the rule.",
+          "summary": "Put an appeal next to each automated decision, so the person decided about can dispute it and get a human answer by a stated date. Upheld challenges count against the rule.",
           "filters": ["standing", "correction"],
           "chainStages": ["challenge"],
           "chainNote": "It gives the person decided about a way to dispute the decision and a date for a human answer.",
@@ -484,18 +484,18 @@
           "cues": [
             "Say who reviews appeals and the date by which they will answer.",
             "Pre-fill the decision and its reasons, so the person does not have to rebuild the case.",
-            "Count upheld appeals by the rule that produced them, not only in total."
+            "Count upheld challenges by the rule that produced them, not only in total."
           ],
           "diagnostics": ["delegation-audit"],
           "steps": [
             "Place the appeal next to the decision, showing who reviews it and the answer date.",
             "Pre-fill the decision, its reason code, and the data used, so the person adds only what is wrong.",
-            "Count upheld appeals by rule and send the count to the rule's owner. A set number sends the rule back for review (MEC-14 Policy review triggers)."
+            "Count upheld challenges by rule and send the count to the rule's owner. A set number sends the rule back for review (MEC-14 Policy review triggers)."
           ],
-          "policyRequirement": "Policy requirement (MEC-06 Appeal paths inside the UI)\n- Provide an appeal channel inside the product, with a published answer date and a named reviewer role.\n- Count upheld appeals by the rule that produced them, and send the count to the rule's owner. A set number sends the rule back for review.\nReference: https://ethotechnics.org/mechanisms/patterns/appeal-paths",
-          "productRequirement": "Product requirement (MEC-06)\n- Every appeal returns a receipt with the answer date and the role that will answer.\n- The appeal is one step from the decision screen.\n- Each upheld appeal records the reason code of the rule it overturned.",
-          "auditEvidenceChecklist": "Audit evidence checklist (MEC-06)\n[ ] The appeal form pre-fills the decision and its reason code.\n[ ] The reviewer roster and the escalation path are written down.\n[ ] The outcome log records each appeal's answer time and result.\n[ ] Upheld appeals are counted by rule, and the count reaches the rule's owner.",
-          "postmortemTrigger": "Postmortem trigger (MEC-06)\nTrigger review when appeals pass their published answer date, or when a rule reaches its upheld-appeal threshold and its owner has not reviewed it.",
+          "policyRequirement": "Policy requirement (MEC-06 Appeal paths inside the UI)\n- Provide an appeal channel inside the product, with a published answer date and a named reviewer role.\n- Count upheld challenges by the rule that produced them, and send the count to the rule's owner. A set number sends the rule back for review.\nReference: https://ethotechnics.org/mechanisms/patterns/appeal-paths",
+          "productRequirement": "Product requirement (MEC-06)\n- Every appeal returns a receipt with the answer date and the role that will answer.\n- The appeal is one step from the decision screen.\n- Each upheld challenge records the reason code of the rule it overturned.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-06)\n[ ] The appeal form pre-fills the decision and its reason code.\n[ ] The reviewer roster and the escalation path are written down.\n[ ] The outcome log records each appeal's answer time and result.\n[ ] Upheld challenges are counted by rule, and the count reaches the rule's owner.",
+          "postmortemTrigger": "Postmortem trigger (MEC-06)\nTrigger review when appeals pass their published answer date, or when a rule reaches its upheld-challenge threshold and its owner has not reviewed it.",
           "artifacts": [
             {
               "name": "Appeal intake form",
@@ -507,17 +507,17 @@
             },
             {
               "name": "Outcome log",
-              "purpose": "Each appeal's result, the time taken, and the rule an upheld appeal counted against."
+              "purpose": "Each appeal's result, the time taken, and the rule an upheld challenge counted against."
             }
           ],
           "example": {
             "title": "Adding appeals to a credit-limit tool",
-            "description": "A lender puts a “Dispute this limit” link beside each automated credit-limit cut, with the reason code filled in and a ten-day answer date. In the first quarter, 62 of 80 upheld appeals trace to one income-verification rule. The count reaches that rule's owner, and because it passes the threshold of 50, the rule goes back for review."
+            "description": "A lender puts a “Dispute this limit” link beside each automated credit-limit cut, with the reason code filled in and a ten-day answer date. In the first quarter, 62 of 80 upheld challenges trace to one income-verification rule. The count reaches that rule's owner, and because it passes the threshold of 50, the rule goes back for review."
           },
           "antiPatterns": [
             {
               "title": "Appeal link buried",
-              "failure": "Appeals exist, but only in help pages or a separate portal, so few of the people affected find them.",
+              "failure": "Appeals exist, but only in help pages or a separate portal, so few of the people the system decides about find them.",
               "counterfactual": "The appeal sits next to the decision, with the answer date shown.",
               "warning": "A help-center route works for rare decisions if the decision notice links straight to it."
             },
@@ -529,9 +529,9 @@
             },
             {
               "title": "Appeals that only fix cases",
-              "failure": "Each upheld appeal corrects one decision. The rule that produced it stays, and the next person meets the same error.",
-              "counterfactual": "Upheld appeals are counted by rule, and a set number obliges the rule's owner to revise it or publish why not.",
-              "warning": "An appeal upheld because of a data-entry error in one case need not count against the rule, if that reason is recorded."
+              "failure": "Each upheld challenge corrects one decision. The rule that produced it stays, and the next person meets the same error.",
+              "counterfactual": "Upheld challenges are counted by rule, and a set number obliges the rule's owner to revise it or publish why not.",
+              "warning": "A challenge upheld because of a data-entry error in one case need not count against the rule, if that reason is recorded."
             }
           ]
         },
@@ -687,7 +687,7 @@
           ],
           "policyRequirement": "Policy requirement (MEC-09 Burden dashboards)\n- Publish burden measures and thresholds for each high-stakes system.\n- Assign each threshold breach to a named owner with a fix date.\nReference: https://ethotechnics.org/mechanisms/patterns/burden-dashboards",
           "productRequirement": "Product requirement (MEC-09)\n- Burden reports show median and 90th-percentile figures by group and channel.\n- A threshold breach opens a fix task with a named owner.",
-          "auditEvidenceChecklist": "Audit evidence checklist (MEC-09)\n[ ] Each burden measure is defined and recorded the same way in every channel.\n[ ] Reports split burden by group and channel, and include the appeal path.\n[ ] Each breach links to a fix task, its owner, and the measure after the fix.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-09)\n[ ] Each burden measure is defined and recorded the same way in every channel.\n[ ] Reports split burden by group and channel, and include the challenge route.\n[ ] Each breach links to a fix task, its owner, and the measure after the fix.",
           "postmortemTrigger": "Postmortem trigger (MEC-09)\nTrigger review when a burden breach passes its fix date with no fix, or when one group exceeds a threshold that the overall figure does not.",
           "artifacts": [
             {
@@ -1433,7 +1433,7 @@
           ],
           "example": {
             "title": "The pilot that was declined",
-            "description": "A fraud-scoring model is proposed for benefits triage. The admission review finds the correction capacity for the denial class is absent and the affected population cannot reach a responder inside the clock. The outcome is recorded as non-use with those reasons and a reopen condition: the gate reopens when a funded responder path exists, not when the vendor updates the model."
+            "description": "A fraud-scoring model is proposed for benefits triage. The admission review finds the correction capacity for the denial class is absent and the claimants it would decide about cannot reach a responder inside the clock. The outcome is recorded as non-use with those reasons and a reopen condition: the gate reopens when a funded responder path exists, not when the vendor updates the model."
           },
           "antiPatterns": [
             {
@@ -1494,7 +1494,7 @@
           ],
           "example": {
             "title": "The queue that funded its own reviewers",
-            "description": "Appeals against an automated denial triple after a model change. The ledger breaches its threshold, and the recorded decision is two additional funded reviewers and a scope reduction on the denial class — not an admissibility bar. The standing register is unchanged; the model change is reconsidered under its policy review trigger."
+            "description": "Challenges against an automated denial triple after a model change. The ledger breaches its threshold, and the recorded decision is two additional funded reviewers and a scope reduction on the denial class — not an admissibility bar. The standing register is unchanged; the model change is reconsidered under its policy review trigger."
           },
           "antiPatterns": [
             {

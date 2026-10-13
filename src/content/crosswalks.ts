@@ -102,11 +102,11 @@ export const governanceCrosswalks: GovernanceCrosswalk[] = [
   },
   {
     controlId: "CTRL-04",
-    topic: "decision records for appeals",
+    topic: "decision records for challenges",
     metaDescription:
       "Decision records that let an affected decision be rebuilt and challenged, mapped to EU AI Act Article 12, NIST AI RMF MEASURE 2.8, and ISO/IEC 42001 clause 7.5.",
     obligation:
-      "Provide traceability so affected decisions can be reconstructed and contested.",
+      "Provide traceability so affected decisions can be reconstructed and challenged.",
     euAiAct: "Article 12 (Record-keeping)",
     nistAiRmf: "MEASURE 2.8, MEASURE 3.3",
     iso42001: "Clause 7.5 (Documented information)",
@@ -267,7 +267,7 @@ export const euAiActArticleCoverage: EuAiActArticleCoverage[] = [
       "STD-02.6.3",
     ],
     covers:
-      "Records that are never edited and carry a hash of their content, with the moment a record describes kept apart from the moment it was written. An audit trail from each contested decision to its evidence, reviewers, and outcome, kept tamper-evident through the appeal period and the limitation window.",
+      "Records that are never edited and carry a hash of their content, with the moment a record describes kept apart from the moment it was written. An audit trail from each challenged decision to its evidence, reviewers, and outcome, kept tamper-evident through the appeal period and the limitation window.",
     leaves:
       "The logging capability built into the system (12(1)). The minimum log contents for remote biometric identification under Annex III, point 1(a) (12(3)).",
   },

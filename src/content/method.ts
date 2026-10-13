@@ -193,7 +193,8 @@ export const methodContent: MethodContent = {
     {
       id: "challenge",
       title: "Challenge",
-      question: "Who can contest the decision, and with what procedural force?",
+      question:
+        "Who can challenge the decision, and with what procedural force?",
       currentAssets: [
         "STD-02 Contestability and recourse",
         "Minimum viable contestability: standing, reasons, records, timelines, a named responder, defined effects, remedies, and no retaliation",
@@ -307,7 +308,7 @@ export const methodContent: MethodContent = {
       tag: "Correction",
       description:
         "The same scaled system, built so that the people it can misjudge can reach it: a challenge that has to be answered, deadlines that are kept, records that follow the case, halts sized to how much harm is at stake, and performance that does not depend on people quietly absorbing its errors.",
-      cost: "The friction is built back in on purpose: time spent answering appeals, the cost of halting, and the work of restoring what was lost. That cost is planned, funded, and recorded. The challenge load ledger counts it the way the burden ledger counts absorbed errors.",
+      cost: "The friction is built back in on purpose: time spent answering challenges, the cost of halting, and the work of restoring what was lost. That cost is planned, funded, and recorded. The challenge load ledger counts it the way the burden ledger counts absorbed errors.",
       links: [
         {
           label: "Challenge density",

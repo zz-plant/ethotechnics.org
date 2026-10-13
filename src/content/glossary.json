@@ -161,7 +161,7 @@
             ],
             "scope": "A. Core concepts. Terms that define the discipline: its unit of governance, and the coupling of capability, authority, evidence, dependency, standing, and correction it maintains.",
             "operationalTests": [
-              "Documentation maps each obligation to a mechanism (stoppability, contestability, repair ownership).",
+              "Documentation maps each obligation to a mechanism (stoppability, standing, repair ownership).",
               "Teams can show a shipped feature whose halt, reversal, and appeal paths were designed, measured, and revised."
             ],
             "genealogy": "Draws on ethics, safety engineering, and systems design, and judges governance, product, and operations by what their controls observably do.",
@@ -192,7 +192,7 @@
             "title": "Moral behavior (of systems)",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Observable system outcomes that prevent harm, distribute burden fairly, and keep people able to contest and recover. It is judged by <a href=\"/measurement-tiers\">measures</a> such as how fast the system <a href=\"/glossary/time-to-halt\">halts</a>, whether its actions can be <a href=\"/glossary/reversibility\">undone</a>, and whether its failures <a href=\"/glossary/fair-burden-distribution\">fall hardest on the most vulnerable</a>, not by stated intent. A system does not “behave morally” if those measures are tracked but trigger no pause rules, remediation, or resourcing.</p>",
+            "bodyHtml": "<p>Observable system outcomes that prevent harm, distribute burden fairly, and keep people able to challenge decisions and recover. It is judged by <a href=\"/measurement-tiers\">measures</a> such as how fast the system <a href=\"/glossary/time-to-halt\">halts</a>, whether its actions can be <a href=\"/glossary/reversibility\">undone</a>, and whether its failures <a href=\"/glossary/fair-burden-distribution\">fall hardest on the most vulnerable</a>, not by stated intent. A system does not “behave morally” if those measures are tracked but trigger no pause rules, remediation, or resourcing.</p>",
             "examples": [
               "A payments platform slows risky recommendations, surfaces a human review queue, and documents reversals when fraud indicators spike."
             ],
@@ -203,7 +203,7 @@
             ],
             "scope": "A. Core concepts. Terms that define the discipline: its unit of governance, and the coupling of capability, authority, evidence, dependency, standing, and correction it maintains.",
             "operationalTests": [
-              "Halt, reversal, and appeal measures are tracked and drive operational thresholds or pause rules.",
+              "Halt, reversal, and challenge measures are tracked and drive operational thresholds or pause rules.",
               "Post-incident reviews tie outcomes to system controls rather than intent statements."
             ],
             "genealogy": "Defines the observable outcomes Ethotechnics checks for across governance, design, and operations.",
@@ -293,7 +293,7 @@
             ],
             "scope": "A. Core concepts. Terms that define the discipline: its unit of governance, and the coupling of capability, authority, evidence, dependency, standing, and correction it maintains.",
             "operationalTests": [
-              "Audit evidence includes drills, logs, and user-facing pathways for contesting and repairing harm.",
+              "Audit evidence includes drills, logs, and user-facing pathways for challenging decisions and repairing harm.",
               "Remediation plans are time-bound, assigned to owners, and re-audited after major changes."
             ],
             "genealogy": "Builds on safety and compliance audits while centering harm prevention, repair, and accountability.",
@@ -356,7 +356,7 @@
             "title": "Ethotechnic maturity",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A scale describing how consistently a system can halt, reverse, answer a challenge, and learn from correction, across its lifecycle. Early maturity focuses on stopping acute harms; later stages add <a href=\"/glossary/graceful-degradation\">controlled degradation</a>, <a href=\"/glossary/contestability\">ways to challenge decisions</a>, and <a href=\"/glossary/care-retrospective\">routine reviews of maintenance load</a>. Mature systems publish <a href=\"/glossary/service-level-indicators\">fairness and safety measures</a>, maintain repair capacity, and review their halt, reversal, and appeal metrics on a fixed cadence.</p>",
+            "bodyHtml": "<p>A scale describing how consistently a system can halt, reverse, answer a challenge, and learn from correction, across its lifecycle. Early maturity focuses on stopping acute harms; later stages add <a href=\"/glossary/graceful-degradation\">controlled degradation</a>, <a href=\"/glossary/contestability\">ways to challenge decisions</a>, and <a href=\"/glossary/care-retrospective\">routine reviews of maintenance load</a>. Mature systems publish <a href=\"/glossary/service-level-indicators\">fairness and safety measures</a>, maintain repair capacity, and review their halt, reversal, and challenge metrics on a fixed cadence.</p>",
             "examples": [
               "A rail operator publishes service-level justice metrics, runs quarterly pause drills, and funds dedicated repair staffing."
             ],
@@ -370,7 +370,7 @@
               "A maturity level is documented with evidence for each capability and reviewed after major releases.",
               "Maintenance and repair staffing, budgets, and tools are recurring, not ad hoc."
             ],
-            "genealogy": "Adapts maturity modeling to the order in which a system acquires stop, repair, and appeal capabilities and keeps them funded.",
+            "genealogy": "Adapts maturity modeling to the order in which a system acquires the capabilities to stop, repair, and answer challenges, and keeps them funded.",
             "references": [
               {
                 "label": "Maintenance guidance",
@@ -398,7 +398,7 @@
             "title": "Legibility",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>How understandable a system’s actions, reasoning, and ownership are to the people affected by it. With <a href=\"/glossary/explainability-for-accountability\">explanations a person can act on</a> and a visible <a href=\"/glossary/design-authority\">owner of the system's rules</a>, it lets people find who decided, why, and how to respond. Legibility is discoverability of who/why/what-next; it does not guarantee the system can be changed.</p>",
+            "bodyHtml": "<p>How understandable a system’s actions, reasoning, and ownership are to the people it decides about. With <a href=\"/glossary/explainability-for-accountability\">explanations a person can act on</a> and a visible <a href=\"/glossary/design-authority\">owner of the system's rules</a>, it lets people find who decided, why, and how to respond. Legibility is discoverability of who/why/what-next; it does not guarantee the system can be changed.</p>",
             "examples": [
               "Residents receive a plain-language notice that names the office, rule, and appeal path behind a zoning decision."
             ],
@@ -409,10 +409,10 @@
             ],
             "scope": "A. Core concepts. Terms that define the discipline: its unit of governance, and the coupling of capability, authority, evidence, dependency, standing, and correction it maintains.",
             "operationalTests": [
-              "Decision notices include a plain-language rationale, owner, and next step for contesting.",
-              "Affected people can reach the policy basis and escalation path within a single click or call."
+              "Decision notices include a plain-language rationale, owner, and next step for challenging it.",
+              "The people it decides about can reach the policy basis and escalation path within a single click or call."
             ],
-            "genealogy": "Moves transparency from disclosure to an understanding the affected person can act on.",
+            "genealogy": "Moves transparency from disclosure to an understanding the person decided about can act on.",
             "references": [
               {
                 "label": "Worked examples",
@@ -522,12 +522,12 @@
             "title": "Consequential decision",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A decision that changes someone's access, money, obligations, safety, or standing, and that the institution would have to answer for. The consequential decision is the unit of governance in Ethotechnics: each one is a link in the chain from evidence to <a href=\"/glossary/authority-grant\">authority</a> to consequence to <a href=\"/glossary/corrective-standing\">correction</a>.</p><p>Naming the unit matters because it fixes where the governance load sits. Systems governed at the level of the model leave the decisions themselves unaccounted for, which is where <a href=\"/glossary/unowned-harm\">unowned harm</a> collects and where <a href=\"/glossary/prospective-auditability\">prospective auditability</a> has to be designed in.</p>",
+            "bodyHtml": "<p>A decision that changes someone's access, money, obligations, safety, or status, and that the institution would have to answer for. The consequential decision is the unit of governance in Ethotechnics: each one is a link in the chain from evidence to <a href=\"/glossary/authority-grant\">authority</a> to consequence to <a href=\"/glossary/corrective-standing\">correction</a>.</p><p>Naming the unit matters because it fixes where the governance load sits. Systems governed at the level of the model leave the decisions themselves unaccounted for, which is where <a href=\"/glossary/unowned-harm\">unowned harm</a> collects and where <a href=\"/glossary/prospective-auditability\">prospective auditability</a> has to be designed in.</p>",
             "scope": "A. Core concepts. Terms that define the discipline: its unit of governance, and the coupling of capability, authority, evidence, dependency, standing, and correction it maintains.",
             "operationalTests": [
               "The system declares which of its outputs are consequential decisions and which are not.",
               "Each consequential decision emits a record naming the evidence, the grant, and the responsible holder.",
-              "A person affected by one can obtain that record without filing a formal request."
+              "The person it is about can obtain that record without filing a formal request."
             ],
             "genealogy": "Ethotechnics takes the consequential decision, rather than the model or the product, as the unit that standards, mechanisms, and evals attach to.",
             "references": [
@@ -621,7 +621,7 @@
             "title": "Justified delegation",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A delegation that still holds today: the system's permission is in force, the evidence behind it has not expired, and the institution can still correct its errors. In the standards' records, that means an allowed <a href=\"/glossary/grant-state\">grant state</a>, an unexpired <a href=\"/glossary/policy-record\">policy record</a>, and a <a href=\"/glossary/correction-obligation\">correction obligation</a> the institution can still meet. Justification is a present-tense property, not a fact about the launch review.</p><p>It is the point-in-time test. <a href=\"/glossary/revisable-delegation\">Revisable delegation</a> is the standing property it tests for: the grant stays tied to the evidence that justified it, so it can be narrowed or withdrawn when that evidence changes. Ask whether a delegation is justified to grade it today; ask whether it is revisable to know whether the answer can be acted on at all.</p><p>It matters because most delegations fail by outliving their justification rather than by being wrong at the start. Asking whether a delegation is justified today is the operational form of treating authority as an <a href=\"/glossary/authority-lease\">authority lease</a>.</p>",
+            "bodyHtml": "<p>A delegation that still holds today: the system's permission is in force, the evidence behind it has not expired, and the institution can still correct its errors. In the standards' records, that means an allowed <a href=\"/glossary/grant-state\">grant state</a>, an unexpired <a href=\"/glossary/policy-record\">policy record</a>, and a <a href=\"/glossary/correction-obligation\">correction obligation</a> the institution can still meet. Justification is a present-tense property, not a fact about the launch review.</p><p>It is the point-in-time test. <a href=\"/glossary/revisable-delegation\">Revisable delegation</a> is the lasting property it tests for: the grant stays tied to the evidence that justified it, so it can be narrowed or withdrawn when that evidence changes. Ask whether a delegation is justified to grade it today; ask whether it is revisable to know whether the answer can be acted on at all.</p><p>It matters because most delegations fail by outliving their justification rather than by being wrong at the start. Asking whether a delegation is justified today is the operational form of treating authority as an <a href=\"/glossary/authority-lease\">authority lease</a>.</p>",
             "scope": "A. Core concepts. Terms that define the discipline: its unit of governance, and the coupling of capability, authority, evidence, dependency, standing, and correction it maintains.",
             "operationalTests": [
               "For any decision, the institution can show the grant was in an allowed state at the time it was made.",
@@ -763,10 +763,10 @@
             "title": "Contestability architecture",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The design features that let a challenge change a decision: an appealable <a href=\"/glossary/decision-object\">record</a>, an <a href=\"/glossary/binding-clock\">enforceable clock</a> on the response, a <a href=\"/glossary/binding-authority\">reviewer who can change the outcome</a>, <a href=\"/glossary/evidence-parity\">fair access to the evidence</a>, and a guaranteed <a href=\"/glossary/override-path\">override</a>.</p><p>Contestability is not a sentiment; it is this architecture. Where any element is missing, <a href=\"/glossary/contestability\">contestability</a> becomes theater.</p>",
+            "bodyHtml": "<p>The design features that let a challenge change a decision: a challengeable <a href=\"/glossary/decision-object\">record</a>, an <a href=\"/glossary/binding-clock\">enforceable clock</a> on the response, a <a href=\"/glossary/binding-authority\">reviewer who can change the outcome</a>, <a href=\"/glossary/evidence-parity\">fair access to the evidence</a>, and a guaranteed <a href=\"/glossary/override-path\">override</a>.</p><p>Contestability is not a sentiment; it is this architecture. It is the design side of <a href=\"/glossary/corrective-standing\">standing</a>, the right to have a challenge received, answered by a date, and able to change the decision. Where any element is missing, a challenge can be filed but cannot change anything, and <a href=\"/glossary/contestability\">contestability</a> becomes theater.</p>",
             "scope": "A. Core concepts. Terms that define the discipline: its unit of governance, and the coupling of capability, authority, evidence, dependency, standing, and correction it maintains.",
             "operationalTests": [
-              "Every appealable decision has a decision object, a clock, a binding authority, and a defined override path.",
+              "Every decision open to challenge has a decision object, a clock, a binding authority, and a defined override path.",
               "A gap in any one of the five elements is treated as a defect, not a preference."
             ],
             "genealogy": "Condenses the contestability requirements into a named checklist of design features.",
@@ -874,7 +874,7 @@
             ],
             "scope": "A. Core concepts. Terms that define the discipline: its unit of governance, and the coupling of capability, authority, evidence, dependency, standing, and correction it maintains.",
             "operationalTests": [
-              "The system measures exit depth and refusal costs for affected parties.",
+              "The system measures exit depth and refusal costs for the people it decides about.",
               "Frontline manual exception handling is tracked on-ledger rather than treated as free operational elasticity.",
               "Downstream contradiction trends are bound to formal review clocks that can halt or roll back the automated rule."
             ],
@@ -1059,7 +1059,7 @@
             "title": "Drift (system drift)",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The tendency of systems to drift toward harm over time when incentives, data, or constraints shift. Without <a href=\"/glossary/protective-friction\">protective friction</a> and <a href=\"/measurement-tiers\">halt, reversal, and appeal measures</a>, drift quietly erodes safeguards and accountability.</p>",
+            "bodyHtml": "<p>The tendency of systems to drift toward harm over time when incentives, data, or constraints shift. Without <a href=\"/glossary/protective-friction\">protective friction</a> and <a href=\"/measurement-tiers\">halt, reversal, and challenge measures</a>, drift quietly erodes safeguards and accountability.</p>",
             "scope": "B. Failure modes (why Ethotechnics exists). Recurring ways responsibility dissolves, authority drifts from its evidence, and harm lands on people with no route to challenge it.",
             "operationalTests": [
               "Performance metrics are reviewed beside harm and complaint trends, and a divergence opens a review.",
@@ -1136,11 +1136,11 @@
             "title": "Optimization myopia",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Metric chasing that narrows attention to throughput or growth while ignoring <a href=\"/measurement-tiers\">halt, reversal, appeal, and burden measures</a>. It makes decisions <a href=\"/glossary/contestability\">harder to challenge</a>, raises the <a href=\"/glossary/failure-load\">harm done when the system fails</a>, and often <a href=\"/glossary/extraction\">takes value from people without return</a>.</p>",
+            "bodyHtml": "<p>Metric chasing that narrows attention to throughput or growth while ignoring <a href=\"/measurement-tiers\">halt, reversal, challenge, and burden measures</a>. It makes decisions <a href=\"/glossary/contestability\">harder to challenge</a>, raises the <a href=\"/glossary/failure-load\">harm done when the system fails</a>, and often <a href=\"/glossary/extraction\">takes value from people without return</a>.</p>",
             "scope": "B. Failure modes (why Ethotechnics exists). Recurring ways responsibility dissolves, authority drifts from its evidence, and harm lands on people with no route to challenge it.",
             "operationalTests": [
-              "Contestability and reversibility are tracked beside success metrics, and a decline in either stops the optimization.",
-              "Teams can state what an optimization costs affected people, and they track halt, reversal, and appeal measures."
+              "Upheld challenges and reversibility are tracked beside success metrics, and a decline in either stops the optimization.",
+              "Teams can state what an optimization costs affected people, and they track halt, reversal, and challenge measures."
             ],
             "genealogy": "Warns against single-metric tuning that crowds out halt, reversal, and burden measures.",
             "references": [],
@@ -1159,11 +1159,11 @@
             "title": "Precision laundering",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Using detailed metrics or probabilistic scores to disguise inequity as objectivity. It hides <a href=\"/glossary/burden-gradient\">who carries the heaviest load</a> and <a href=\"/glossary/externalization\">which costs were pushed onto others</a> behind statistical gloss, and leaves people without <a href=\"/glossary/explainability-for-accountability\">explanations they can act on</a> or a real way to contest.</p>",
+            "bodyHtml": "<p>Using detailed metrics or probabilistic scores to disguise inequity as objectivity. It hides <a href=\"/glossary/burden-gradient\">who carries the heaviest load</a> and <a href=\"/glossary/externalization\">which costs were pushed onto others</a> behind statistical gloss, and leaves people without <a href=\"/glossary/explainability-for-accountability\">explanations they can act on</a> or a real way to challenge the decision.</p>",
             "scope": "B. Failure modes (why Ethotechnics exists). Recurring ways responsibility dissolves, authority drifts from its evidence, and harm lands on people with no route to challenge it.",
             "operationalTests": [
-              "High-confidence scores are presented with error bounds, provenance, and a path to contest them.",
-              "Appeals against numeric outputs are heard on the merits, including evidence of uneven impact."
+              "High-confidence scores are presented with error bounds, provenance, and a path to challenge them.",
+              "Challenges to numeric outputs are heard on the merits, including evidence of uneven impact."
             ],
             "genealogy": "Calls out false certainty in quantified systems and the misuse of precision as legitimacy.",
             "references": [],
@@ -1244,7 +1244,7 @@
             "classes": [],
             "bodyHtml": "<p>Negative outcomes for which no clear individual or role is accountable, even though the system caused them. It is a sign that responsibility has <a href=\"/glossary/accountability-diffusion\">spread until no one can intervene</a> and that no <a href=\"/glossary/traceable-ownership\">named owner can override the system</a>.</p>",
             "examples": [
-              "Denied applicants cannot identify a responsible team to contest a decision or request reversal."
+              "Denied applicants cannot identify a responsible team to challenge a decision or request reversal."
             ],
             "tags": [
               "accountability",
@@ -1253,7 +1253,7 @@
             ],
             "scope": "B. Failure modes (why Ethotechnics exists). Recurring ways responsibility dissolves, authority drifts from its evidence, and harm lands on people with no route to challenge it.",
             "operationalTests": [
-              "Affected people can find a named owner and an appeal path within the product.",
+              "The people it decides about can find a named owner and a way to challenge the decision within the product.",
               "Incident reviews end with an accountable role assigned and repair funded."
             ],
             "genealogy": "Names the gap left when a system causes harm and no role is accountable for it.",
@@ -1322,7 +1322,7 @@
             ],
             "scope": "B. Failure modes (why Ethotechnics exists). Recurring ways responsibility dissolves, authority drifts from its evidence, and harm lands on people with no route to challenge it.",
             "operationalTests": [
-              "Every ethics artifact is backed by a working stop, contest, or repair mechanism.",
+              "Every ethics artifact is backed by a working stop, challenge, or repair mechanism.",
               "Incident reviews that cite a policy show evidence it was enforced."
             ],
             "genealogy": "Highlights performative governance that substitutes for real accountability.",
@@ -1819,7 +1819,7 @@
             "title": "Exception absorption",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The handling of an exception without any change to the rule, category, workflow, or authority that produced it. A customer-service representative patches an error, a clinician works around bad software, an appeals team reverses a bad determination: each is handled, each is closed, and nothing upstream changes.</p><p>It matters because absorption is what makes <a href=\"/glossary/exception-learning\">exception learning</a> invisible. Every absorbed exception improves the metric that would have caught the pattern, so an institution can be excellent at absorption and wholly incapable of learning, and the excellence is what hides the incapacity. It is the failure mode Law VII's failure-point sequence leaves unresolved when a contestation enters as a case and stops there.</p>",
+            "bodyHtml": "<p>The handling of an exception without any change to the rule, category, workflow, or authority that produced it. A customer-service representative patches an error, a clinician works around bad software, an appeals team reverses a bad determination: each is handled, each is closed, and nothing upstream changes.</p><p>It matters because absorption is what makes <a href=\"/glossary/exception-learning\">exception learning</a> invisible. Every absorbed exception improves the metric that would have caught the pattern, so an institution can be excellent at absorption and wholly incapable of learning, and the excellence is what hides the incapacity. It is the failure mode Law VII's failure-point sequence leaves unresolved when a challenge enters as a case and stops there.</p>",
             "scope": "B. Failure modes (why Ethotechnics exists). Recurring ways responsibility dissolves, authority drifts from its evidence, and harm lands on people with no route to challenge it.",
             "operationalTests": [
               "Handling an exception records whether it changed a policy, category, workflow, or authority object.",
@@ -2127,7 +2127,7 @@
               "Each placement names who decided it and when it was last reviewed.",
               "A change to the line is recorded with the burden it moves and to whom."
             ],
-            "genealogy": "Turns the political dispute over who absorbs complexity into a stated design parameter, adjacent to the burden-of-proof questions in contestability.",
+            "genealogy": "Turns the political dispute over who absorbs complexity into a stated design parameter, adjacent to the burden-of-proof questions in the contestability literature.",
             "references": [
               {
                 "label": "Where difficulty lives",
@@ -2220,7 +2220,7 @@
             "title": "Discretion migration",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The pattern in which automation relocates judgment instead of eliminating it. The judgment the model appears to remove reappears upstream, in thresholds, training data, categories, and exception rules. It also reappears downstream, in the routing of exceptions, overrides, and appeals. The discretion is still exercised — it has moved, and so has the authority over it.</p><p>It matters because the audit question changes accordingly: not whether this system removes discretion, but where judgment moved and who gained authority over it. An institution that answers the first question honestly reports a reduction in discretionary labor; one that answers the second reports who now decides whom the model will misjudge.</p>",
+            "bodyHtml": "<p>The pattern in which automation relocates judgment instead of eliminating it. The judgment the model appears to remove reappears upstream, in thresholds, training data, categories, and exception rules. It also reappears downstream, in the routing of exceptions, overrides, and challenges. The discretion is still exercised — it has moved, and so has the authority over it.</p><p>It matters because the audit question changes accordingly: not whether this system removes discretion, but where judgment moved and who gained authority over it. An institution that answers the first question honestly reports a reduction in discretionary labor; one that answers the second reports who now decides whom the model will misjudge.</p>",
             "scope": "B. Failure modes (why Ethotechnics exists). Recurring ways responsibility dissolves, authority drifts from its evidence, and harm lands on people with no route to challenge it.",
             "operationalTests": [
               "The audit traces judgment to its new locations: thresholds, categories, exception rules, and routing.",
@@ -2305,7 +2305,7 @@
             "title": "Reason substitution",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Presenting an explanation written by one component as the reason for a decision made by another. It appears when the deciding component gives no reasons, as with a classifier or <a href=\"/explainers/typed-decision-models\">typed decision model</a> that returns only a score, and a language model is asked to write a rationale afterward. The text describes a plausible decision, not the one that was made.</p><p>It matters because recourse depends on the reason being something the affected person can dispute and that would change the outcome if it were wrong. A substituted reason meets neither test, and it passes every readability check. STD-02 §1.4 requires reasons to state what the decision rested on, labels an explanation written afterward as an account, and requires a decision object with no reasons to say so. It is a specific form of <a href=\"/glossary/explainability-decoy\">explainability decoy</a>.</p>",
+            "bodyHtml": "<p>Presenting an explanation written by one component as the reason for a decision made by another. It appears when the deciding component gives no reasons, as with a classifier or <a href=\"/explainers/typed-decision-models\">typed decision model</a> that returns only a score, and a language model is asked to write a rationale afterward. The text describes a plausible decision, not the one that was made.</p><p>It matters because a challenge depends on the reason being something the person it decides about can dispute and that would change the outcome if it were wrong. A substituted reason meets neither test, and it passes every readability check. STD-02 §1.4 requires reasons to state what the decision rested on, labels an explanation written afterward as an account, and requires a decision object with no reasons to say so. It is a specific form of <a href=\"/glossary/explainability-decoy\">explainability decoy</a>.</p>",
             "scope": "B. Failure modes (why Ethotechnics exists). Recurring ways responsibility dissolves, authority drifts from its evidence, and harm lands on people with no route to challenge it.",
             "operationalTests": [
               "The component that produced each stated reason is recorded, and it is the component that decided, or the reason is labeled as an account.",
@@ -2768,7 +2768,7 @@
             "title": "Exhaustion-biased instrument",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>An instrument whose readings improve as the people it observes run down. A survey, an appeal, a complaint log, and a self-assessment all draw their input from the subject&#39;s remaining attention, so the depleted answer least and the institution reads the gap as health. The bias runs one direction: more depletion produces a better-looking reading.</p><p>Law VIII asks whether an observation can change the governing state of a system. This asks the prior question, whether the observation is evidence at all. An instrument bought with the subject&#39;s last reserves has a sampling rule that ties difficulty to silence.</p><p>It co-occurs with <a href=\"/glossary/attrition-as-resolution\">attrition-as-resolution</a> and <a href=\"/glossary/endurance-asymmetry\">endurance asymmetry</a>. The remedy is to read friction from the system&#39;s own trail — abandonment at a named step, re-uploads, retries, activity outside scheduled hours — rather than to ask a depleted person to describe it.</p>",
+            "bodyHtml": "<p>An instrument whose readings improve as the people it observes run down. A survey, a challenge channel, a complaint log, and a self-assessment all draw their input from the subject&#39;s remaining attention, so the depleted answer least and the institution reads the gap as health. The bias runs one direction: more depletion produces a better-looking reading.</p><p>Law VIII asks whether an observation can change the governing state of a system. This asks the prior question, whether the observation is evidence at all. An instrument bought with the subject&#39;s last reserves has a sampling rule that ties difficulty to silence.</p><p>It co-occurs with <a href=\"/glossary/attrition-as-resolution\">attrition-as-resolution</a> and <a href=\"/glossary/endurance-asymmetry\">endurance asymmetry</a>. The answer is to read friction from the system&#39;s own trail — abandonment at a named step, re-uploads, retries, activity outside scheduled hours — rather than to ask a depleted person to describe it.</p>",
             "scope": "B. Failure modes (why Ethotechnics exists). Recurring ways responsibility dissolves, authority drifts from its evidence, and harm lands on people with no route to challenge it.",
             "references": [],
             "domains": [
@@ -2802,7 +2802,7 @@
             "title": "Score as acquittal",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>An anti-pattern where a metric is treated as settling a question it was built to inform. A burden ratio, a friction budget, a safety-case result, or a diagnostic score records what an instrument observed; it does not establish that the person affected is wrong. Citing a passing score against an objection converts a measurement into a verdict, and the verdict is reached by a party that did not have to live the outcome being measured.</p><p>STD-02 §5.4 holds that a measurement the challenged party did not produce is evidence and not a bar. Where a score and an account conflict, the conflict goes to a named reviewer holding authority to resolve it.</p><p>It is the technocratic failure mode that <a href=\"/glossary/exhaustion-biased-instrument\">exhaustion-biased instrument</a> enables from the other side. That term covers an instrument that under-reports because collecting it cost the subject. This one covers an instrument that is accurate and is then cited as though accuracy ended the argument. An instrument can be well built and still be the wrong authority.</p>",
+            "bodyHtml": "<p>An anti-pattern where a metric is treated as settling a question it was built to inform. A burden ratio, a friction budget, a safety-case result, or a diagnostic score records what an instrument observed; it does not establish that the person it decides about is wrong. Citing a passing score against an objection converts a measurement into a verdict, and the verdict is reached by a party that did not have to live the outcome being measured.</p><p>STD-02 §5.4 holds that a measurement the challenged party did not produce is evidence and not a bar. Where a score and an account conflict, the conflict goes to a named reviewer holding authority to resolve it.</p><p>It is the technocratic failure mode that <a href=\"/glossary/exhaustion-biased-instrument\">exhaustion-biased instrument</a> enables from the other side. That term covers an instrument that under-reports because collecting it cost the subject. This one covers an instrument that is accurate and is then cited as though accuracy ended the argument. An instrument can be well built and still be the wrong authority.</p>",
             "scope": "B. Failure modes (why Ethotechnics exists). Recurring ways responsibility dissolves, authority drifts from its evidence, and harm lands on people with no route to challenge it.",
             "references": [],
             "domains": [
@@ -2999,7 +2999,7 @@
             "classes": [
               "glossary-entry--diagram"
             ],
-            "bodyHtml": "<p>Whether a decision can be undone, and the people it affected restored, at three levels: <a href=\"/glossary/technical-reversibility\">technical</a> (the system can roll the change back), <a href=\"/glossary/operational-reversibility\">operational</a> (the people who run it can do so in practice, on a stated clock), and <a href=\"/glossary/institutional-reversibility\">institutional</a> (the institution can carry on without the system while it does). Reversibility is measured as <a href=\"/glossary/time-to-restore\">time-to-restore</a>, and a level with no evidence counts as not reversible.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <use href=\"#diagram-reversibility\"></use>\n                          </svg>\n                        </figure>",
+            "bodyHtml": "<p>Whether a decision can be undone, and the people it decided about restored, at three levels: <a href=\"/glossary/technical-reversibility\">technical</a> (the system can roll the change back), <a href=\"/glossary/operational-reversibility\">operational</a> (the people who run it can do so in practice, on a stated clock), and <a href=\"/glossary/institutional-reversibility\">institutional</a> (the institution can carry on without the system while it does). Reversibility is measured as <a href=\"/glossary/time-to-restore\">time-to-restore</a>, and a level with no evidence counts as not reversible.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <use href=\"#diagram-reversibility\"></use>\n                          </svg>\n                        </figure>",
             "scope": "C. Ethotechnic capabilities (what systems must be able to do). What a system must be able to do while it holds consequential authority: halt, reverse, answer a challenge, and learn from the correction.",
             "operationalTests": [
               "Critical actions have tested rollback or remediation paths that restore data and access.",
@@ -3075,17 +3075,17 @@
             "classes": [
               "glossary-entry--diagram"
             ],
-            "bodyHtml": "<p>A person affected by a decision can challenge it, and the challenge can change the outcome.</p><p>It has four parts and needs all four: standing, meaning a named party may raise the challenge; a channel that receives it; an obliged responder who must answer on a clock against a stated standard; and a state change the challenge is capable of producing. Three of the four is a complaints process. The apparatus that supplies them is a <a href=\"/glossary/standing-mechanism\">standing mechanism</a>, and the fourth part is what gives a challenge <a href=\"/glossary/procedural-force\">procedural force</a> rather than a reply.</p><figure class=\"micro-diagram\" aria-hidden=\"true\"><svg viewBox=\"0 0 120 80\" role=\"presentation\"><use href=\"#diagram-contestability\"></use></svg></figure>",
+            "bodyHtml": "<p>The property, as the design and law literature names it, that the person a decision is about can challenge it and the challenge can change the outcome. On this site the right is <a href=\"/glossary/corrective-standing\">standing</a>, the act is a challenge, and what the person receives when a challenge is upheld is the remedy. The word contestability is kept for engaging that literature and for STD-02.</p><p>It has four parts and needs all four: standing, meaning a named party may raise the challenge; a channel that receives it; an obliged responder who must answer on a clock against a stated standard; and a state change the challenge is capable of producing. Three of the four is a complaints process. The apparatus that supplies them is a <a href=\"/glossary/standing-mechanism\">standing mechanism</a>, and the fourth part is what gives a challenge <a href=\"/glossary/procedural-force\">procedural force</a> rather than a reply.</p><figure class=\"micro-diagram\" aria-hidden=\"true\"><svg viewBox=\"0 0 120 80\" role=\"presentation\"><use href=\"#diagram-contestability\"></use></svg></figure>",
             "adjacentTerms": [
               "design-authority"
             ],
             "scope": "C. Ethotechnic capabilities (what systems must be able to do). What a system must be able to do while it holds consequential authority: halt, reverse, answer a challenge, and learn from the correction.",
             "operationalTests": [
-              "Appeals route to reviewers with authority to overturn outcomes.",
+              "Challenges route to reviewers with authority to overturn outcomes.",
               "Appeal passage rate and response time are tracked and used to improve decisions.",
-              "Appeal outcomes are recorded as overturns, restorations, or policy changes, never only as “review completed.”",
+              "Challenge outcomes are recorded as overturns, restorations, or policy changes, never only as “review completed.”",
               "An appeal passage rate below 5% for 30 days triggers a redesign review.",
-              "The share of appeals that produce a decision artifact is tracked and published."
+              "The share of challenges that produce a decision artifact is tracked and published."
             ],
             "presenceChecks": [
               "permission-surface",
@@ -3116,11 +3116,11 @@
             "classes": [
               "glossary-entry--diagram"
             ],
-            "bodyHtml": "<p>Explanations a person can act on, not decorative ones. They identify the decision owner, the data or policy basis, and how the outcome can be corrected, enabling <a href=\"/glossary/contestability\">contestability</a> and <a href=\"/glossary/ethotechnic-audit\">audits</a>. Explainability for accountability is legibility plus a working correction path.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <use href=\"#diagram-explainability\"></use>\n                          </svg>\n                        </figure>",
+            "bodyHtml": "<p>Explanations a person can act on, not decorative ones. They identify the decision owner, the data or policy basis, and how the outcome can be corrected, so the decision can be <a href=\"/glossary/contestability\">challenged</a> and <a href=\"/glossary/ethotechnic-audit\">audited</a>. Explainability for accountability is legibility plus a working correction path.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <use href=\"#diagram-explainability\"></use>\n                          </svg>\n                        </figure>",
             "scope": "C. Ethotechnic capabilities (what systems must be able to do). What a system must be able to do while it holds consequential authority: halt, reverse, answer a challenge, and learn from the correction.",
             "operationalTests": [
-              "Decision notices include the reason, data source, owner, and path to contest.",
-              "Explanations are tested with affected people for whether they understand them and can act on them."
+              "Decision notices include the reason, data source, owner, and path to challenge it.",
+              "Explanations are tested with the people the decisions are about for whether they understand them and can act on them."
             ],
             "presenceChecks": [
               "traceable-ownership",
@@ -3681,7 +3681,7 @@
             "title": "Exception learning",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The modification of a system by its own exceptions: a recurring failure changes the rule, category, workflow, or authority that produced it. It is the counterpart of <a href=\"/glossary/exception-absorption\">exception absorption</a>, which handles each case and changes nothing.</p><p>It matters because most contestability regimes measure whether a case was resolved, which is the weaker capacity. Exception learning is measured by whether the failure changed the evidentiary rule, the ontology, the authority, or the allocation of burden. The deepest Ethotechnic sequence runs residual → signal → standing → correction → institutional revision, and only the final step is learning.</p><p>The capacity this process exercises is structural corrigibility: repeated failures can modify the machinery that produces them. A system with excellent appeals and no mechanism by which appeals alter upstream design has corrected cases and changed nothing about the delegation.</p>",
+            "bodyHtml": "<p>The modification of a system by its own exceptions: a recurring failure changes the rule, category, workflow, or authority that produced it. It is the counterpart of <a href=\"/glossary/exception-absorption\">exception absorption</a>, which handles each case and changes nothing.</p><p>It matters because most contestability regimes measure whether a case was resolved, which is the weaker capacity. Exception learning is measured by whether the failure changed the evidentiary rule, the ontology, the authority, or the allocation of burden. The deepest Ethotechnic sequence runs residual → signal → standing → correction → institutional revision, and only the final step is learning.</p><p>The capacity this process exercises is structural corrigibility: repeated failures can modify the machinery that produces them. A system that handles challenges well and has no mechanism by which challenges alter upstream design has corrected cases and changed nothing about the delegation.</p>",
             "scope": "C. Ethotechnic capabilities (what systems must be able to do). What a system must be able to do while it holds consequential authority: halt, reverse, answer a challenge, and learn from the correction.",
             "operationalTests": [
               "A recurring exception changes a policy, category, workflow, or authority object, not only the case.",
@@ -3738,10 +3738,10 @@
             "title": "Case corrigibility",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The capacity to fix a particular bad decision: an appeal is heard, a reversal is issued, a person is restored. It is what most contestability regimes measure, because it is what the instruments can see.</p><p>It matters because case corrigibility without <a href=\"/research/theory/exception-learning\">structural corrigibility</a> is locally corrigible and globally rigid: the person is restored, the pattern is not, and everything the institution does about the pattern happens after the fact and at the level of the individual, which is the one level at which the pattern does not appear.</p>",
+            "bodyHtml": "<p>The capacity to fix a particular bad decision: a challenge is heard, a reversal is issued, a person is restored. It is what most contestability regimes measure, because it is what the instruments can see.</p><p>It matters because case corrigibility without <a href=\"/research/theory/exception-learning\">structural corrigibility</a> is locally corrigible and globally rigid: the person is restored, the pattern is not, and everything the institution does about the pattern happens after the fact and at the level of the individual, which is the one level at which the pattern does not appear.</p>",
             "scope": "C. Ethotechnic capabilities (what systems must be able to do). What a system must be able to do while it holds consequential authority: halt, reverse, answer a challenge, and learn from the correction.",
             "operationalTests": [
-              "A contested decision can be reversed by a named authority within a declared clock.",
+              "A challenged decision can be reversed by a named authority within a declared clock.",
               "The reversal is recorded and the person is restored to their prior state.",
               "Case-level reversals are counted separately from changes to the upstream rule."
             ],
@@ -3784,7 +3784,7 @@
             "title": "Institutional learning",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Learning that changes what an institution is permitted to do, as distinct from what a model predicts. The model retrains and the prediction improves, while the appeal never changes the evidentiary rule and the exception never changes the ontology; that is model learning without institutional learning.</p><p>It matters because Ethotechnics cares about the second. The test is political: did the failure alter the evidentiary rule, redistribute authority, change who pays for the burden, or constrain what the institution may do next time? If not, the machine may be learning while the institution remains structurally unchanged. See also <a href=\"/glossary/exception-learning\">exception learning</a>.</p>",
+            "bodyHtml": "<p>Learning that changes what an institution is permitted to do, as distinct from what a model predicts. The model retrains and the prediction improves, while the challenge never changes the evidentiary rule and the exception never changes the ontology; that is model learning without institutional learning.</p><p>It matters because Ethotechnics cares about the second. The test is political: did the failure alter the evidentiary rule, redistribute authority, change who pays for the burden, or constrain what the institution may do next time? If not, the machine may be learning while the institution remains structurally unchanged. See also <a href=\"/glossary/exception-learning\">exception learning</a>.</p>",
             "scope": "C. Ethotechnic capabilities (what systems must be able to do). What a system must be able to do while it holds consequential authority: halt, reverse, answer a challenge, and learn from the correction.",
             "operationalTests": [
               "A failure that changed no policy, authority, or burden allocation is not reported as learning.",
@@ -3829,7 +3829,7 @@
             "title": "Corrective debt",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The accumulated gap between an institution's capacity to act and its capacity to detect, contest, reverse, and repair its errors. As action capacity compounds — more data sources integrated, more decisions automated, more downstream consumers, more dependence — while correction machinery stays fixed, corrective debt grows even if no policy document changes.</p><p>It matters because it is the historical form of the Ethotechnical invariant: the rate at which agency accumulates against the rate at which the capacity to answer it does. Technical modernization without matching correction capacity adds to the debt, and it changes the institution's politics without a single decision. The corrective debt calculator is its instrument.</p>",
+            "bodyHtml": "<p>The accumulated gap between an institution's capacity to act and its capacity to detect, answer challenges to, reverse, and repair its errors. As action capacity compounds — more data sources integrated, more decisions automated, more downstream consumers, more dependence — while correction machinery stays fixed, corrective debt grows even if no policy document changes.</p><p>It matters because it is the historical form of the Ethotechnical invariant: the rate at which agency accumulates against the rate at which the capacity to answer it does. Technical modernization without matching correction capacity adds to the debt, and it changes the institution's politics without a single decision. The corrective debt calculator is its instrument.</p>",
             "scope": "C. Ethotechnic capabilities (what systems must be able to do). What a system must be able to do while it holds consequential authority: halt, reverse, answer a challenge, and learn from the correction.",
             "operationalTests": [
               "Action capacity and corrective capacity are tracked on separate axes and compared.",
@@ -4041,7 +4041,7 @@
             "title": "Fail-safe mode",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The system defaults to the safest possible behavior when uncertain, putting the <a href=\"/glossary/stoppability\">ability to stop</a> ahead of throughput. In Ethotechnic practice, fail-safe mode is not a generic error page: it is a predesigned degraded state with bounded actions, clear status signals, and immediate escalation paths.</p><p>A fail-safe posture should preserve <a href=\"/glossary/contestability\">contestability</a> and reduce irreversible harm while operators diagnose the incident.</p>",
+            "bodyHtml": "<p>The system defaults to the safest possible behavior when uncertain, putting the <a href=\"/glossary/stoppability\">ability to stop</a> ahead of throughput. In Ethotechnic practice, fail-safe mode is not a generic error page: it is a predesigned degraded state with bounded actions, clear status signals, and immediate escalation paths.</p><p>A fail-safe posture should keep decisions <a href=\"/glossary/contestability\">open to challenge</a> and reduce irreversible harm while operators diagnose the incident.</p>",
             "examples": [
               "A medication-order service blocks new high-risk orders during model drift and routes clinicians to manual review with visible restore timing."
             ],
@@ -4225,7 +4225,7 @@
             "title": "Interaction surface",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The moments, interfaces, and channels where people experience system decisions and can intervene. Mapping it shows where to add <a href=\"/glossary/dignity-friction\">confirmation steps that protect people</a>, where people need more room to act, and where people <a href=\"/glossary/dead-user-zones\">cannot contest, appeal, or exit</a>.</p>",
+            "bodyHtml": "<p>The moments, interfaces, and channels where people experience system decisions and can intervene. Mapping it shows where to add <a href=\"/glossary/dignity-friction\">confirmation steps that protect people</a>, where people need more room to act, and where people <a href=\"/glossary/dead-user-zones\">cannot challenge, appeal, or exit</a>.</p>",
             "scope": "D. System states & architectures. Operating postures, records, and architectures that decide whether an error is contained, recorded, or amplified.",
             "references": [],
             "domains": [
@@ -4282,7 +4282,7 @@
             "title": "Repair log",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A living record of every mitigation, decision, and resource commitment made after a fault. Repair logs make accountability legible by linking who was harmed, who intervened, and what evidence was used. Repair logs include whether affected people were restored, how long it took, and what remains unrepaired.</p><p>They inform future <a href=\"/glossary/care-retrospective\">care retrospectives</a>, power audits, and service-level reports so follow-up work is traceable and burden does not drift back to the same communities.</p>",
+            "bodyHtml": "<p>A living record of every mitigation, decision, and resource commitment made after a fault. Repair logs make accountability legible by linking who was harmed, who intervened, and what evidence was used. Repair logs include whether the people harmed were restored, how long it took, and what remains unrepaired.</p><p>They inform future <a href=\"/glossary/care-retrospective\">care retrospectives</a>, power audits, and service-level reports so follow-up work is traceable and burden does not drift back to the same communities.</p>",
             "scope": "D. System states & architectures. Operating postures, records, and architectures that decide whether an error is contained, recorded, or amplified.",
             "references": [],
             "domains": [
@@ -4305,7 +4305,7 @@
             "scope": "D. System states & architectures. Operating postures, records, and architectures that decide whether an error is contained, recorded, or amplified.",
             "operationalTests": [
               "Reconciliation across dependencies confirms restoration beyond the local system.",
-              "Affected people confirm their state is restored and downstream impacts are cleared."
+              "The people harmed confirm their state is restored and downstream impacts are cleared."
             ],
             "references": [],
             "domains": [
@@ -4347,7 +4347,7 @@
             "title": "Shadow queue",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A queue users cannot see — internal backlogs, vendor queues, or “pending review” pools — that still determines outcomes. Shadow queues erode <a href=\"/glossary/time-transparency\">time transparency</a> and <a href=\"/glossary/contestability\">contestability</a>.</p>",
+            "bodyHtml": "<p>A queue users cannot see — internal backlogs, vendor queues, or “pending review” pools — that still determines outcomes. Shadow queues erode <a href=\"/glossary/time-transparency\">time transparency</a> and people&#39;s ability to <a href=\"/glossary/contestability\">challenge</a> the outcome.</p>",
             "scope": "D. System states & architectures. Operating postures, records, and architectures that decide whether an error is contained, recorded, or amplified.",
             "operationalTests": [
               "Every queue has public existence, time transparency, and bounded duration.",
@@ -4575,10 +4575,10 @@
             "title": "Bifurcation by contestability",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Systems split into high-contestability lanes (slower, trusted, deployable in high stakes) and low-contestability lanes (fast, then blocked). The split protects people by matching speed to the reversibility of the decision.</p><p>It is the architectural answer to <a href=\"/glossary/velocity-friction\">velocity friction</a>: decisions that can be contested may run fast, and decisions that cannot must not.</p>",
+            "bodyHtml": "<p>Systems split into high-contestability lanes (slower, trusted, deployable in high stakes) and low-contestability lanes (fast, then blocked). The split protects people by matching speed to the reversibility of the decision. Contestability here is the property of a lane: whether a challenge from someone with <a href=\"/glossary/corrective-standing\">standing</a> can reverse the decision before its harm lands.</p><p>It is the architectural answer to <a href=\"/glossary/velocity-friction\">velocity friction</a>: decisions that can be challenged and reversed may run fast, and decisions that cannot must not.</p>",
             "scope": "D. System states & architectures. Operating postures, records, and architectures that decide whether an error is contained, recorded, or amplified.",
             "operationalTests": [
-              "A decision’s speed is gated by its reversibility and appeal rights.",
+              "A decision’s speed is gated by its reversibility and by the standing of the people it decides about.",
               "Decisions with severe or irreversible consequences are routed to a lane with binding review before harm propagates."
             ],
             "genealogy": "Turns contestability into a routing rule rather than an after-the-fact remedy.",
@@ -4820,7 +4820,7 @@
             "title": "Affect-invariance",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Baseline safety and remedy should not change based on distress, fatigue, disability, fear, or anger. Primary threat model: <a href=\"/glossary/virtue-as-access-control\">virtue as access control</a>.</p><p>Affect-invariance reinforces <a href=\"/glossary/care-floor-guarantees\">care floor guarantees</a> and protects <a href=\"/glossary/contestability\">contestability</a>.</p>",
+            "bodyHtml": "<p>Baseline safety and remedy should not change based on distress, fatigue, disability, fear, or anger. Primary threat model: <a href=\"/glossary/virtue-as-access-control\">virtue as access control</a>.</p><p>Affect-invariance reinforces <a href=\"/glossary/care-floor-guarantees\">care floor guarantees</a> and keeps decisions <a href=\"/glossary/contestability\">open to challenge</a> for people in distress.</p>",
             "scope": "E. Human limits & experience. The limits of human time, attention, and endurance that a system's clocks, review loads, and correction paths must fit within.",
             "references": [],
             "domains": [
@@ -4932,7 +4932,7 @@
             ],
             "minimumEvidence": {
               "artifact": "A standing register listing error-bearing parties per decision class.",
-              "behavior": "An operator raising a challenge through the same mechanism available to affected people.",
+              "behavior": "An operator raising a challenge through the same mechanism available to the people the system decides about.",
               "metric": "Share of decision classes with at least one named error-bearing party."
             },
             "domains": [
@@ -5411,7 +5411,7 @@
             "title": "Burden index",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A burden index counts the time and effort a system demands of people who comply with it, appeal against it, or recover from it.</p><p>It counts the minutes, retries, and documents each journey takes. Published on a schedule, it shows whether the cost to people rose or fell since the last report.</p>",
+            "bodyHtml": "<p>A burden index counts the time and effort a system demands of people who comply with it, challenge it, or recover from it.</p><p>It counts the minutes, retries, and documents each journey takes. Published on a schedule, it shows whether the cost to people rose or fell since the last report.</p>",
             "adjacentTerms": [
               "user-burden-ratio",
               "human-substitution-index",
@@ -5521,7 +5521,7 @@
             "title": "Evidence burden ceiling",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A hard cap on documentation demands placed on claimants for a given harm class. Evidence burden ceilings enforce <a href=\"/glossary/fair-burden-distribution\">fair burden distribution</a> during appeals.</p><p><strong>Feeds into:</strong> <a href=\"/glossary/user-burden-ratio\">user burden ratio</a>, <a href=\"/glossary/burden-index\">burden index</a>.</p>",
+            "bodyHtml": "<p>A hard cap on documentation demands placed on claimants for a given harm class. Evidence burden ceilings enforce <a href=\"/glossary/fair-burden-distribution\">fair burden distribution</a> when claimants challenge a decision.</p><p><strong>Feeds into:</strong> <a href=\"/glossary/user-burden-ratio\">user burden ratio</a>, <a href=\"/glossary/burden-index\">burden index</a>.</p>",
             "scope": "F. Burden & load. Who carries the time, cost, and risk when a system runs or fails, and whether that transfer is recorded.",
             "operationalTests": [
               "Maximum documentation counts, minutes, or steps are enforced in UI and policy.",
@@ -5634,11 +5634,11 @@
             "title": "Residual complexity",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The friction, ambiguity, and repair labor that remains unresolved after a formal model simplifies a workflow. A formal system does not eliminate what it cannot represent; it redistributes the burden of dealing with it. What is left out of the formal representation becomes residual complexity.</p><p>The political question is who has to carry this residual, and with what power to contest or correct the system. Where a system has no repair channel, users bend around rigid software, workers patch edge cases by hand, and citizens spend their own time on bureaucratic procedure.</p>",
+            "bodyHtml": "<p>The friction, ambiguity, and repair labor that remains unresolved after a formal model simplifies a workflow. A formal system does not eliminate what it cannot represent; it redistributes the burden of dealing with it. What is left out of the formal representation becomes residual complexity.</p><p>The political question is who has to carry this residual, and with what power to challenge or correct the system. Where a system has no repair channel, users bend around rigid software, workers patch edge cases by hand, and citizens spend their own time on bureaucratic procedure.</p>",
             "scope": "F. Burden & load. Who carries the time, cost, and risk when a system runs or fails, and whether that transfer is recorded.",
             "operationalTests": [
               "The volume and duration of manual interventions needed to make automated outputs usable are tracked.",
-              "The residual effort of resolving model failures is compensated, and a contestability mechanism exists that can change the outcome."
+              "The residual effort of resolving model failures is compensated, and a route to challenge exists that can change the outcome."
             ],
             "genealogy": "States the sequence the method starts from: formal simplification leaves residual complexity, someone has to carry it, and who carries it is a political question.",
             "references": [
@@ -5802,7 +5802,7 @@
             "scope": "F. Burden & load. Who carries the time, cost, and risk when a system runs or fails, and whether that transfer is recorded.",
             "operationalTests": [
               "The party that benefits from a decision is measured against the party that bears its cost.",
-              "A safety obligation is not satisfied by moving paperwork to the affected individual."
+              "A safety obligation is not satisfied by moving paperwork to the person the decision is about."
             ],
             "genealogy": "Names the transfer by which institutions externalize the cost of their own operation.",
             "tags": [
@@ -6132,7 +6132,7 @@
             "title": "Appeal passage rate",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The share of appeals resolved <em>in favor of the person who appealed</em>. A low rate can mean appeals are not being heard. A high rate means many decisions were wrong, which is evidence against the rule that produced them, and the count goes to that rule's owner. Either way, it is an early sign of whether <a href=\"/glossary/contestability\">contestability</a> works in practice.</p><p><strong>Targets &amp; breach behavior.</strong> <strong>Measurement window:</strong> weekly rolling median; monthly review. <strong>Target / floor / ceiling:</strong> target 10–20% by harm class, floor 5%, ceiling 30% (investigate systemic error). <strong>Owner:</strong> <a href=\"/glossary/traceable-ownership\">traceable ownership</a> (required). <strong>Breach action:</strong> trigger decision-rule audits, staffing surges, or pause automation in the affected class. <strong>Public surface:</strong> published appeal outcomes with receipt, <a href=\"/glossary/time-transparency\">time transparency</a>, and <a href=\"/glossary/decision-artifact\">decision artifacts</a>.</p>",
+            "bodyHtml": "<p>The share of challenges resolved <em>in favor of the person who made them</em>, whether through the operator&#39;s appeal procedure or another route. The name keeps the older word; the measure is upheld challenges. A low rate can mean challenges are not being heard. A high rate means many decisions were wrong, which is evidence against the rule that produced them, and the count goes to that rule's owner. Either way, it is an early sign of whether <a href=\"/glossary/contestability\">challenges can change outcomes</a> in practice.</p><p><strong>Targets &amp; breach behavior.</strong> <strong>Measurement window:</strong> weekly rolling median; monthly review. <strong>Target / floor / ceiling:</strong> target 10–20% by harm class, floor 5%, ceiling 30% (investigate systemic error). <strong>Owner:</strong> <a href=\"/glossary/traceable-ownership\">traceable ownership</a> (required). <strong>Breach action:</strong> trigger decision-rule audits, staffing surges, or pause automation in the affected class. <strong>Public surface:</strong> published challenge outcomes with receipt, <a href=\"/glossary/time-transparency\">time transparency</a>, and <a href=\"/glossary/decision-artifact\">decision artifacts</a>.</p>",
             "scope": "G. Measures & indicators. Metrics for whether a system can still be halted, reversed, and challenged, and for what its errors cost the people who carry them.",
             "commonCounterfeits": [
               "Lots of “reviews,” no reversals."
@@ -6660,7 +6660,7 @@
             "title": "Challenge density",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The rate at which challenges arrive against the capacity to answer them. Per case, <a href=\"/glossary/procedural-force\">procedural force</a> is a bounded transaction; in aggregate it is a budget line. A response apparatus that is saturated is measuring the gap between the volume of error a system emits and the <a href=\"/glossary/corrective-standing\">corrective capacity</a> its delegation was granted with.</p><p>It matters because congestion is the point where the open circuit is usually lost. The reflexive response to volume is narrowing standing, which converts the open circuit back into a closed one exactly when the volume proves the system fails often. Density is governed by capacity decisions or scope decisions, not by eligibility decisions: sustained breaches of response clocks are a resourcing event, and an institution that meets them by narrowing who may challenge has treated a capacity signal as a permissions problem.</p>",
+            "bodyHtml": "<p>The rate at which challenges arrive against the capacity to answer them. Per case, <a href=\"/glossary/procedural-force\">procedural force</a> is a bounded transaction; in aggregate it is a budget line. A response apparatus that is saturated is measuring the gap between the volume of error a system emits and the <a href=\"/glossary/corrective-standing\">corrective capacity</a> its delegation was granted with.</p><p>It matters because congestion is the point where the open circuit is usually lost. The reflexive response to volume is narrowing <a href=\"/glossary/corrective-standing\">standing</a>, which converts the open circuit back into a closed one exactly when the volume proves the system fails often. Density is governed by capacity decisions or scope decisions, not by eligibility decisions: sustained breaches of response clocks are a resourcing event, and an institution that meets them by narrowing who may challenge has treated a capacity signal as a permissions problem.</p>",
             "scope": "G. Measures & indicators. Metrics for whether a system can still be halted, reversed, and challenged, and for what its errors cost the people who carry them.",
             "operationalTests": [
               "Challenge volume and response capacity are reported as a ratio, not as separate unread series.",
@@ -6721,7 +6721,7 @@
             "title": "Recourse performance",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>How well a system delivers review → reversal → remedy under realistic load and stress. It combines <a href=\"/glossary/time-to-halt\">how fast harm is halted</a>, <a href=\"/glossary/time-to-restore\">how fast people are restored</a>, and <a href=\"/glossary/appeal-passage-rate\">how often appeals succeed</a> into one picture.</p>",
+            "bodyHtml": "<p>How well a system delivers review → reversal → remedy under realistic load and stress. Recourse is the existence of any route at all; this measure asks whether the route delivers, from a challenge made with <a href=\"/glossary/corrective-standing\">standing</a> to the remedy owed when it is upheld. It combines <a href=\"/glossary/time-to-halt\">how fast harm is halted</a>, <a href=\"/glossary/time-to-restore\">how fast people are restored</a>, and <a href=\"/glossary/appeal-passage-rate\">how often challenges are upheld</a> into one picture.</p>",
             "scope": "G. Measures & indicators. Metrics for whether a system can still be halted, reversed, and challenged, and for what its errors cost the people who carry them.",
             "operationalTests": [
               "Recourse metrics are measured under realistic load, not only in the happy path.",
@@ -6804,7 +6804,7 @@
             "title": "Dual-ledger evaluation",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>An evaluation that scores a system on two ledgers. The first holds visible operational metrics: resolution speed, unit cost, and throughput. The second, kept independently, holds the human capacity used up, uncounted compensatory labor, and whether people keep standing to contest.</p><p>Each ledger has floors the other cannot buy out. High visible output cannot offset a failure on human depletion or suppressed rights.</p>",
+            "bodyHtml": "<p>An evaluation that scores a system on two ledgers. The first holds visible operational metrics: resolution speed, unit cost, and throughput. The second, kept independently, holds the human capacity used up, uncounted compensatory labor, and whether people keep standing to challenge decisions.</p><p>Each ledger has floors the other cannot buy out. High visible output cannot offset a failure on human depletion or suppressed rights.</p>",
             "examples": [
               "An AI triage audit calculates visible diagnostic speed on one ledger and nursing overtime and burnout risk on an independent audit ledger."
             ],
@@ -6851,7 +6851,7 @@
             "scope": "G. Measures & indicators. Metrics for whether a system can still be halted, reversed, and challenged, and for what its errors cost the people who carry them.",
             "operationalTests": [
               "Task success rates are reported for runs in which operators follow the official runbooks and make no unrecorded interventions.",
-              "Net throughput is reported after deducting the labor hours spent auditing, correcting, and appealing wrong outputs."
+              "Net throughput is reported after deducting the labor hours spent auditing, correcting, and challenging wrong outputs."
             ],
             "genealogy": "Answers productivity claims that rest on a falsified denominator and uncounted operator labor.",
             "references": [
@@ -6947,7 +6947,7 @@
             "title": "Adaptation externality",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The unmeasured cost borne by the affected party or the frontline operator when a system pushes onto them the work of making an inflexible process function. That work includes vigilance, patience, error correction, and manual translation. It is the human compensation term in <a href=\"/glossary/performance-decomposition\">performance decomposition</a>.</p>",
+            "bodyHtml": "<p>The unmeasured cost borne by the person a system decides about or the frontline operator when a system pushes onto them the work of making an inflexible process function. That work includes vigilance, patience, error correction, and manual translation. It is the human compensation term in <a href=\"/glossary/performance-decomposition\">performance decomposition</a>.</p>",
             "examples": [
               "An electronic health record system reports reduced clerical overhead for hospitals while shifting hours of uncompensated documentation and alert filtering onto physicians each day."
             ],
@@ -7229,7 +7229,7 @@
             "title": "Permission surface",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Everything a system is permitted to do at a given moment, recorded as a set of grants, each with the evidence behind it, its scope, its current state, and its expiry. The surface is described by authority rather than by access points: an unused grant is still part of it, and a reachable capability with no grant behind it is not part of it at all.</p><p>Every element of the surface is an <a href=\"/glossary/authority-grant\">authority grant</a> that can be narrowed, suspended, or allowed to lapse, which is what makes the surface governable rather than merely documented. Comparing the surface against the <a href=\"/glossary/capability-catalog\">capability catalog</a> is the direct test of whether capability has outrun permission, and a wide surface makes <a href=\"/glossary/contestability\">contestability</a> practical only when each grant in it can be challenged.</p>",
+            "bodyHtml": "<p>Everything a system is permitted to do at a given moment, recorded as a set of grants, each with the evidence behind it, its scope, its current state, and its expiry. The surface is described by authority rather than by access points: an unused grant is still part of it, and a reachable capability with no grant behind it is not part of it at all.</p><p>Every element of the surface is an <a href=\"/glossary/authority-grant\">authority grant</a> that can be narrowed, suspended, or allowed to lapse, which is what makes the surface governable rather than merely documented. Comparing the surface against the <a href=\"/glossary/capability-catalog\">capability catalog</a> is the direct test of whether capability has outrun permission, and a wide surface leaves people a real <a href=\"/glossary/contestability\">challenge</a> only when each grant in it can be challenged.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "references": [
               {
@@ -7595,7 +7595,7 @@
             "title": "Continuity of state",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A persistent cumulative case record that prevents forced repetition of validated inputs across channels, time, and teams. Continuity of state lowers administrative burden and reduces avoidable denial loops.</p><p>It protects <a href=\"/glossary/contestability\">contestability</a> by ensuring prior evidence remains legible during escalation or transfer.</p>",
+            "bodyHtml": "<p>A persistent cumulative case record that prevents forced repetition of validated inputs across channels, time, and teams. Continuity of state lowers administrative burden and reduces avoidable denial loops.</p><p>It keeps decisions <a href=\"/glossary/contestability\">open to challenge</a> by ensuring prior evidence remains legible during escalation or transfer.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "references": [
               {
@@ -7638,7 +7638,7 @@
             "title": "Safe pause / status quo during pendency",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>While a review is pending, nothing adverse happens to the person under review. A narrow emergency exception may apply, and it can itself be reviewed.</p><p>Safe pause preserves the <a href=\"/glossary/utility-window\">utility window</a> and keeps people whole during appeal.</p>",
+            "bodyHtml": "<p>While a review is pending, nothing adverse happens to the person under review. A narrow emergency exception may apply, and it can itself be reviewed.</p><p>Safe pause preserves the <a href=\"/glossary/utility-window\">utility window</a> and keeps people whole while their challenge is pending.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "commonCounterfeits": [
               "“We won’t punish you” while consequences quietly accrue."
@@ -7676,7 +7676,7 @@
             "title": "Time transparency",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A person can see where their case stands: the current step, what is blocking it, the time remaining, the next decision point, and what would trigger escalation. Any progress shown is real progress.</p><p>Time transparency supports <a href=\"/glossary/contestability\">contestability</a> and a <a href=\"/glossary/stable-clock\">stable clock</a>.</p>",
+            "bodyHtml": "<p>A person can see where their case stands: the current step, what is blocking it, the time remaining, the next decision point, and what would trigger escalation. Any progress shown is real progress.</p><p>Time transparency lets people <a href=\"/glossary/contestability\">challenge</a> a decision in time and supports a <a href=\"/glossary/stable-clock\">stable clock</a>.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "commonCounterfeits": [
               "“Status updates” with no time remaining or escalation triggers."
@@ -7727,7 +7727,7 @@
             "title": "Performance-gated remedy",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The correction path works only if someone performs well under stress; the system treats composure as eligibility.</p><p>Performance-gated remedy undermines <a href=\"/glossary/contestability\">contestability</a> and violates <a href=\"/glossary/care-floor-guarantees\">care floor guarantees</a>.</p>",
+            "bodyHtml": "<p>The route to a remedy works only if the person performs well under stress; the system treats composure as eligibility.</p><p>Performance-gated remedy undermines <a href=\"/glossary/corrective-standing\">standing</a>, since a right to challenge that only composed people can use is not a right, and violates <a href=\"/glossary/care-floor-guarantees\">care floor guarantees</a>.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "references": [],
             "domains": [],
@@ -7866,7 +7866,7 @@
             "title": "Legitimacy engineering",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Legitimacy treated as measurable requirements rather than as a reputation: standing and remedy for the people a system decides about, a named authority on stated evidence, a halt path, and time-bounded repair.</p><p>It is the opposite of <a href=\"/glossary/legitimacy-laundering\">legitimacy laundering</a>, which keeps the signals of accountability without the substance. Its center is <a href=\"/glossary/contestability\">contestability</a>: a system is legitimate insofar as the people it decides about have standing and remedy against it. <a href=\"/glossary/stoppability\">Stoppability</a> and <a href=\"/glossary/reversibility\">reversibility</a> are what make that remedy possible.</p>",
+            "bodyHtml": "<p>Legitimacy treated as measurable requirements rather than as a reputation: standing and remedy for the people a system decides about, a named authority on stated evidence, a halt path, and time-bounded repair.</p><p>It is the opposite of <a href=\"/glossary/legitimacy-laundering\">legitimacy laundering</a>, which keeps the signals of accountability without the substance. Its center is <a href=\"/glossary/contestability\">whether decisions can be challenged</a>: a system is legitimate insofar as the people it decides about have standing and remedy against it. <a href=\"/glossary/stoppability\">Stoppability</a> and <a href=\"/glossary/reversibility\">reversibility</a> are what make that remedy possible.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "references": [],
             "domains": [],
@@ -7898,11 +7898,11 @@
             "title": "Retaliation surface",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Where the system can punish people for contesting, pausing, refusing, or exiting — through throttling, stricter scrutiny, “account review,” or service withdrawal. Mapping the retaliation surface protects <a href=\"/glossary/contestability\">contestability</a> and the <a href=\"/glossary/right-of-exit\">right of exit</a>.</p>",
+            "bodyHtml": "<p>Where the system can punish people for challenging a decision, pausing, refusing, or exiting — through throttling, stricter scrutiny, “account review,” or service withdrawal. Mapping the retaliation surface protects the right to <a href=\"/glossary/contestability\">challenge</a> and the <a href=\"/glossary/right-of-exit\">right of exit</a>.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "operationalTests": [
-              "Teams can name every lever that can worsen a claimant’s state after an appeal is filed, including throttling, scrutiny, account review, or service withdrawal.",
-              "Safeguards document how retaliation levers are disabled or monitored during appeals."
+              "Teams can name every lever that can worsen a claimant’s state after a challenge is filed, including throttling, scrutiny, account review, or service withdrawal.",
+              "Safeguards document how retaliation levers are disabled or monitored while a challenge is open."
             ],
             "references": [],
             "domains": [],
@@ -7918,11 +7918,11 @@
             "title": "Non-retaliation guarantee",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A binding commitment that contesting, pausing, refusing, or exiting will not trigger adverse treatment. A non-retaliation guarantee makes <a href=\"/glossary/contestability\">contestability</a> and the <a href=\"/glossary/right-of-exit\">right of exit</a> safe to exercise.</p>",
+            "bodyHtml": "<p>A binding commitment that challenging a decision, pausing, refusing, or exiting will not trigger adverse treatment. A non-retaliation guarantee makes the right to <a href=\"/glossary/contestability\">challenge</a> and the <a href=\"/glossary/right-of-exit\">right of exit</a> safe to exercise.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "operationalTests": [
-              "Adverse-action rates are tracked for users who appeal versus those who do not.",
-              "Policies and interfaces explicitly state that contesting, pausing, refusing, or exiting will not trigger adverse treatment."
+              "Adverse-action rates are tracked for users who challenge a decision versus those who do not.",
+              "Policies and interfaces explicitly state that challenging a decision, pausing, refusing, or exiting will not trigger adverse treatment."
             ],
             "references": [],
             "domains": [],
@@ -7938,7 +7938,7 @@
             "title": "Appeal integrity",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Appeals are judged on merits with transparent criteria, named authority, and documented outcomes — not absorbed into procedural theater. Appeal integrity ensures <a href=\"/glossary/contestability\">contestability</a> yields real corrective action.</p><p>Strong integrity requires publishable decision artifacts, reversible outcomes, and safeguards against retaliatory handling.</p>",
+            "bodyHtml": "<p>Appeals are judged on merits with transparent criteria, named authority, and documented outcomes — not absorbed into procedural theater. An appeal, whether to the operator&#39;s own appeal procedure or to an outside body, is one formal route for a challenge, and appeal integrity is what makes a <a href=\"/glossary/contestability\">challenge</a> through that route yield real corrective action and, when upheld, a remedy.</p><p>Strong integrity requires publishable decision artifacts, reversible outcomes, and safeguards against retaliatory handling.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "operationalTests": [
               "The share of appeals receiving a decision artifact is tracked and published.",
@@ -8072,7 +8072,7 @@
             "title": "Remedy equivalence",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Manual and automated channels must offer equivalent remedy outcomes, timelines, and authority. People should not be penalized for choosing accessibility, safety, or human review paths.</p><p>Remedy equivalence is measured by comparing reversal rates, escalation success, and time-to-resolution across channels.</p>",
+            "bodyHtml": "<p>Manual and automated channels must offer equivalent remedy outcomes, timelines, and authority. The remedy is what the person receives when a challenge is upheld or harm is found, and the channel they used to make the challenge should not change it. People should not be penalized for choosing accessibility, safety, or human review paths.</p><p>Remedy equivalence is measured by comparing reversal rates, escalation success, and time-to-resolution across channels.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "operationalTests": [
               "Appeal passage rates and time-to-resolution are compared across manual and automated channels.",
@@ -8119,7 +8119,7 @@
             "title": "Case ownership continuity",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Cases do not become orphaned across handoffs; ownership persists through vacations, organizational changes, or vendor transfers. Case ownership continuity strengthens <a href=\"/glossary/traceable-ownership\">traceable ownership</a> for contested decisions.</p>",
+            "bodyHtml": "<p>Cases do not become orphaned across handoffs; ownership persists through vacations, organizational changes, or vendor transfers. Case ownership continuity strengthens <a href=\"/glossary/traceable-ownership\">traceable ownership</a> for challenged decisions.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "operationalTests": [
               "Cases never enter a “no owner” state, and ownership transitions are logged and visible.",
@@ -8139,7 +8139,7 @@
             "title": "Revisable delegation",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Delegation of consequential work to a machine that stays tied to the evidence and beliefs that justified it, so the grant can be narrowed, suspended, or withdrawn when those change. A revisable delegation names its holder, its ceiling, what it depends on, and what would revoke it; an unrevisable one is a transfer with a delegation's name. The objects it is written in are the <a href=\"/glossary/authority-grant\">authority grant</a>, the <a href=\"/glossary/policy-record\">policy record</a> it depends on, and the <a href=\"/glossary/delegated-agency\">delegated agency</a> the grant creates.</p><p>Revisability is the standing property. <a href=\"/glossary/justified-delegation\">Justified delegation</a> is the same coupling read in the present tense: whether authority, evidence, and correction capacity are all in force right now. The two are one question at two timescales. A delegation that is justified today but not revisable cannot act on tomorrow's answer.</p><p>The question it serves is how an institution can become more capable without becoming less revisable. The record shape is defined in <a href=\"/standards/std-07-revisable-delegation-record\">STD-07</a>, and the terms the delegation must keep meeting while it stands are in <a href=\"/standards/std-08-delegation\">STD-08</a>. The test is whether the institution can answer, for any past action, what it believed at the time, what it had authorized, and what has since changed.</p>",
+            "bodyHtml": "<p>Delegation of consequential work to a machine that stays tied to the evidence and beliefs that justified it, so the grant can be narrowed, suspended, or withdrawn when those change. A revisable delegation names its holder, its ceiling, what it depends on, and what would revoke it; an unrevisable one is a transfer with a delegation's name. The objects it is written in are the <a href=\"/glossary/authority-grant\">authority grant</a>, the <a href=\"/glossary/policy-record\">policy record</a> it depends on, and the <a href=\"/glossary/delegated-agency\">delegated agency</a> the grant creates.</p><p>Revisability is the lasting property. <a href=\"/glossary/justified-delegation\">Justified delegation</a> is the same coupling read in the present tense: whether authority, evidence, and correction capacity are all in force right now. The two are one question at two timescales. A delegation that is justified today but not revisable cannot act on tomorrow's answer.</p><p>The question it serves is how an institution can become more capable without becoming less revisable. The record shape is defined in <a href=\"/standards/std-07-revisable-delegation-record\">STD-07</a>, and the terms the delegation must keep meeting while it stands are in <a href=\"/standards/std-08-delegation\">STD-08</a>. The test is whether the institution can answer, for any past action, what it believed at the time, what it had authorized, and what has since changed.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "operationalTests": [
               "Every authorization record lists its revocation conditions and the beliefs it depends on.",
@@ -8516,7 +8516,7 @@
             "title": "Corrective standing",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The recognized capacity of <a href=\"/glossary/error-bearing-party\">someone who bears a system's errors</a> to start a correction. Their challenge must be received, answered by a named responder, and judged against a stated standard, and it must be able to change the system's state. Standing is proportional to exposure and carries <a href=\"/glossary/procedural-force\">procedural force</a> rather than veto.</p><p>It matters because contestability without standing is a suggestion box. Standing is what converts the experience of harm into an event the governing system has to process, and it is operationalized by a <a href=\"/glossary/standing-mechanism\">standing mechanism</a>.</p>",
+            "bodyHtml": "<p>The recognized capacity of <a href=\"/glossary/error-bearing-party\">someone who bears a system's errors</a> to start a correction. Their challenge must be received, answered by a named responder, and judged against a stated standard, and it must be able to change the system's state. Standing is proportional to exposure and carries <a href=\"/glossary/procedural-force\">procedural force</a> rather than veto.</p><p>On this site this is what standing means: the right to have a challenge received, answered by a date, and able to change the decision. A challenge is what standing lets someone make, and the remedy is what they receive when it is upheld.</p><p>It matters because a route to challenge without standing is a suggestion box. Standing is what converts the experience of harm into an event the governing system has to process, and it is operationalized by a <a href=\"/glossary/standing-mechanism\">standing mechanism</a>.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "operationalTests": [
               "Standing is declared per decision class rather than granted informally on request.",
@@ -8620,7 +8620,7 @@
             "title": "Procedural force",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The property of a challenge that obliges a response and can change a state, as distinct from a veto that stops action outright. A challenge with procedural force must be received, answered on a clock, and capable of producing a transition; it need not prevail.</p><p>It matters because the usual objection to standing is fear of veto. Procedural force is the narrower claim that keeps <a href=\"/glossary/corrective-standing\">corrective standing</a> workable, and it is the difference between <a href=\"/glossary/contestability\">contestability</a> and consultation.</p>",
+            "bodyHtml": "<p>The property of a challenge that obliges a response and can change a state, as distinct from a veto that stops action outright. A challenge with procedural force must be received, answered on a clock, and capable of producing a transition; it need not prevail.</p><p>It matters because the usual objection to standing is fear of veto. Procedural force is the narrower claim that keeps <a href=\"/glossary/corrective-standing\">corrective standing</a> workable, and it is the difference between a <a href=\"/glossary/contestability\">challenge</a> and a consultation.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "operationalTests": [
               "Every challenge channel names what must happen on receipt and by when.",
@@ -8724,7 +8724,7 @@
             "title": "Constitutional governance",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A way of governing automated systems built on <a href=\"/glossary/authority-grant\">recorded grants of authority</a>, limits on jurisdiction, a recognized right for the people who bear errors to challenge them, and enforceable recourse. It is set against behavioral alignment. Alignment asks whether an automated system intends what its creators intend. Constitutional governance asks what authority the system holds, what happens when it is wrong or incomplete, and who has standing to compel correction.</p><p>Constitutional governance starts from three premises. Authority cannot rest on the absence of observed failure. Evidence and authority must stay coupled. A system's politics show in the rights people hold when its model fails.</p>",
+            "bodyHtml": "<p>A way of governing automated systems built on <a href=\"/glossary/authority-grant\">recorded grants of authority</a>, limits on jurisdiction, a recognized right for the people who bear errors to challenge them, and enforceable remedy. It is set against behavioral alignment. Alignment asks whether an automated system intends what its creators intend. Constitutional governance asks what authority the system holds, what happens when it is wrong or incomplete, and who has standing to compel correction.</p><p>Constitutional governance starts from three premises. Authority cannot rest on the absence of observed failure. Evidence and authority must stay coupled. A system's politics show in the rights people hold when its model fails.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "operationalTests": [
               "Authority is bounded in an explicit grant object with expiration dates and invalidation conditions rather than open-ended permissions.",
@@ -8798,7 +8798,7 @@
               }
             ],
             "minimumEvidence": {
-              "artifact": "A contestation-cost inventory: what a challenger must spend, in time, evidence, and money, to establish an error.",
+              "artifact": "A challenge-cost inventory: what a challenger must spend, in time, evidence, and money, to establish an error.",
               "behavior": "A wrongness-establishing route exercised by a challenge and producing a remedy within the challenger's budget.",
               "metric": "Share of consequential decisions whose error can be established by the error-bearing party at proportionate cost."
             },
@@ -8835,7 +8835,7 @@
             "title": "Insulation",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Insulation keeps the harm a decision causes from reaching anyone who can change the rule. Where it holds, the people harmed cope, and their coping is read as proof the rule works. It takes nine forms:</p><ul><li>Material: someone else pays.</li><li>Organizational: frontline workers absorb failures before they reach leadership.</li><li>Epistemic: the institution measures completed outcomes but not the work it took to complete them.</li><li>Procedural: appeals exist but take extraordinary time, persistence, expertise, or money.</li><li>Temporal: consequences arrive after the decision-maker has moved on.</li><li>Social: those who govern rarely meet those who absorb.</li><li>Legal: responsibility is fragmented or unenforceable.</li><li>Statistical: harm is spread so thin that no single event looks consequential.</li><li>Adaptive: the affected people get so good at compensating that the failure never shows.</li></ul><p>It shields the rule-maker from consequence, not only from the sight of suffering. It needs three things together: costs are displaced, feedback is weak, and authority stays where it was. The side insulated from a mismatch leaves the other side to adapt. The better the other side adapts, the less the failure shows, and the more secure the insulated side becomes. The loop runs from bad fit to human adaptation, apparent success, institutional approval, and wider authority. It is the loop the <a href=\"/glossary/workaround-presumption\">workaround presumption</a> is meant to break.</p><p>Not all insulation is bad. Judges may need insulation from immediate political pressure, scientists from popularity, civil servants from retaliation, and minorities from majorities. The line falls between insulation from improper pressure and insulation from evidence, accountability, and consequence. The design question is which one is being preserved.</p>",
+            "bodyHtml": "<p>Insulation keeps the harm a decision causes from reaching anyone who can change the rule. Where it holds, the people harmed cope, and their coping is read as proof the rule works. It takes nine forms:</p><ul><li>Material: someone else pays.</li><li>Organizational: frontline workers absorb failures before they reach leadership.</li><li>Epistemic: the institution measures completed outcomes but not the work it took to complete them.</li><li>Procedural: appeals exist but take extraordinary time, persistence, expertise, or money.</li><li>Temporal: consequences arrive after the decision-maker has moved on.</li><li>Social: those who govern rarely meet those who absorb.</li><li>Legal: responsibility is fragmented or unenforceable.</li><li>Statistical: harm is spread so thin that no single event looks consequential.</li><li>Adaptive: the people harmed get so good at compensating that the failure never shows.</li></ul><p>It shields the rule-maker from consequence, not only from the sight of suffering. It needs three things together: costs are displaced, feedback is weak, and authority stays where it was. The side insulated from a mismatch leaves the other side to adapt. The better the other side adapts, the less the failure shows, and the more secure the insulated side becomes. The loop runs from bad fit to human adaptation, apparent success, institutional approval, and wider authority. It is the loop the <a href=\"/glossary/workaround-presumption\">workaround presumption</a> is meant to break.</p><p>Not all insulation is bad. Judges may need insulation from immediate political pressure, scientists from popularity, civil servants from retaliation, and minorities from majorities. The line falls between insulation from improper pressure and insulation from evidence, accountability, and consequence. The design question is which one is being preserved.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "operationalTests": [
               "For each decision class, the institution can name what travels back when it is wrong, and the channel it travels through.",
@@ -8960,7 +8960,7 @@
             "title": "Halt stratification",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Halt authority tiered by blast radius, so that the power to stop grows with the size of what is stopped. A frontline operator pausing one case, a supervisor halting a queue, and a steward stopping a system use different instruments, with different restoration paths, notification duties, and evidence demands. Stratification is what keeps per-case <a href=\"/glossary/procedural-force\">procedural force</a> from becoming system-wide friction.</p><p>It matters because veto-point proliferation — the standing objection to contestability — is what happens when every party holds the same maximal instrument and no one holds a graduated one. Tiering does not remove halt points; it prices them: the power to stop scales with the size of what is being stopped, and the smallest tiers stay cheap enough that people use them.</p>",
+            "bodyHtml": "<p>Halt authority tiered by blast radius, so that the power to stop grows with the size of what is stopped. A frontline operator pausing one case, a supervisor halting a queue, and a steward stopping a system use different instruments, with different restoration paths, notification duties, and evidence demands. Stratification is what keeps per-case <a href=\"/glossary/procedural-force\">procedural force</a> from becoming system-wide friction.</p><p>It matters because veto-point proliferation — the usual objection to contestability — is what happens when every party holds the same maximal instrument and no one holds a graduated one. Tiering does not remove halt points; it prices them: the power to stop scales with the size of what is being stopped, and the smallest tiers stay cheap enough that people use them.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "operationalTests": [
               "Each halt tier names who can fire it, what it stops, and the restoration path at that tier.",
@@ -9087,7 +9087,7 @@
             "operationalTests": [
               "Dependents are told when their reliance on the system deepens materially.",
               "Withdrawal from a depended-on system carries continuity obligations with dates and owners.",
-              "Dependents' claims on the system are recorded with the same standing as the institution's claims on them."
+              "Dependents' claims on the system are recorded with the same weight as the institution's claims on them."
             ],
             "genealogy": "Completes Law V: dependence converts technical risk into structural risk, and the conversion runs in the direction of the dependent as well as the institution.",
             "references": [
@@ -9144,10 +9144,10 @@
             "title": "Corrective power",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The effective capacity of affected people to make an arrangement change when its demands become unreasonable: to force reconsideration, reversal, or rule revision, not merely to complain. It is the exercised form of <a href=\"/glossary/corrective-standing\">corrective standing</a> — standing names the right; corrective power names whether exercising it can alter the system's governing state.</p><p>It matters because it is the second term in the discipline's evaluation formula, alongside outcome and <a href=\"/glossary/adaptive-capacity\">burden</a>: what an arrangement accomplishes, what accomplishing it requires from people, and what power those people hold over those requirements. A system whose corrections are nominal scores high on the first term and low on the third, which <a href=\"/research/theory/what-outcomes-hide\">what outcomes hide</a> argues is exactly the failure a pure outcome orientation cannot see.</p>",
+            "bodyHtml": "<p>The effective capacity of the people an arrangement decides about to make it change when its demands become unreasonable: to force reconsideration, reversal, or rule revision, not merely to complain. It is the exercised form of <a href=\"/glossary/corrective-standing\">corrective standing</a> — standing names the right; corrective power names whether exercising it can alter the system's governing state.</p><p>It matters because it is the second term in the discipline's evaluation formula, alongside outcome and <a href=\"/glossary/adaptive-capacity\">burden</a>: what an arrangement accomplishes, what accomplishing it requires from people, and what power those people hold over those requirements. A system whose corrections are nominal scores high on the first term and low on the third, which <a href=\"/research/theory/what-outcomes-hide\">what outcomes hide</a> argues is exactly the failure a pure outcome orientation cannot see.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "operationalTests": [
-              "Affected people can produce a state transition in the arrangement, not only a recorded complaint.",
+              "The people it decides about can produce a state transition in the arrangement, not only a recorded complaint.",
               "The cost of exercising correction is measured against the capacity of those who must bear it.",
               "Corrective power survives the dependence that justified it being engineered away."
             ],
@@ -9199,7 +9199,7 @@
             "title": "Contestability as the legitimacy hinge",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A system is legitimate insofar as affected parties have standing, voice, and remedy against its decisions and actions. <a href=\"/glossary/contestability\">Contestability</a> is the hinge on which legitimacy turns; <a href=\"/glossary/legitimacy-laundering\">legitimacy laundering</a> is the attempt to substitute its appearance for its substance.</p>",
+            "bodyHtml": "<p>A system is legitimate insofar as the people it decides about have standing, voice, and remedy against its decisions and actions. <a href=\"/glossary/contestability\">Contestability</a>, the literature&#39;s name for that property, is the hinge on which legitimacy turns. On this site the right is <a href=\"/glossary/corrective-standing\">standing</a>, the act is a challenge, and what an upheld challenge secures is the remedy; <a href=\"/glossary/legitimacy-laundering\">legitimacy laundering</a> is the attempt to substitute its appearance for its substance.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "operationalTests": [
               "A legitimacy claim is traceable to a standing mechanism, not to messaging.",
@@ -9310,10 +9310,10 @@
             "title": "Standards wars as recourse wars",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Global competition shifts to whose regimes for auditability, liability, and redress become default through supply chains and procurement. The war is not over features but over whose <a href=\"/glossary/restitution-ladder\">restitution</a> and <a href=\"/glossary/governability\">governability</a> rules travel with the product.</p>",
+            "bodyHtml": "<p>Global competition shifts to whose regimes for auditability, liability, and redress become default through supply chains and procurement. The war is not over features but over whose <a href=\"/glossary/restitution-ladder\">restitution</a> and <a href=\"/glossary/governability\">governability</a> rules travel with the product. Recourse here is whether the people a product decides about have any route at all to challenge it; the remedy is what that route owes them when a challenge is upheld.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "operationalTests": [
-              "Procurement criteria weight redress and auditability, not only performance.",
+              "Procurement criteria weight remedy and auditability, not only performance.",
               "A standard is judged by the remedy it binds, not the language it adopts."
             ],
             "genealogy": "Reads international standards competition as competition over enforceable recourse.",
@@ -9338,7 +9338,7 @@
             "title": "Democratic vs coercive governability",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Governance infrastructure can enable either rights-preserving contestability or scaled conduct control, depending on who has standing and remedy. <a href=\"/glossary/governability\">Governability</a> is neutral; its direction is set by whether <a href=\"/glossary/corrective-standing\">standing</a> is distributed or concentrated.</p>",
+            "bodyHtml": "<p>Governance infrastructure can enable either rights-preserving routes to challenge decisions or scaled conduct control, depending on who has standing and remedy. <a href=\"/glossary/governability\">Governability</a> is neutral; its direction is set by whether <a href=\"/glossary/corrective-standing\">standing</a> is distributed or concentrated.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "operationalTests": [
               "The distribution of standing is stated and measurable.",
@@ -9422,7 +9422,7 @@
             "title": "Standing (vs belief)",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Standing is the recognized right to make the system bind itself to engage, decide, and remedy — regardless of whether your story is believed, liked, or emotionally legible. “Belief” is narrative validation; standing is enforceable access to decision power.</p><p><a href=\"/glossary/corrective-standing\">Corrective standing</a> is the test: can this person force a correction, or only be heard?</p>",
+            "bodyHtml": "<p>Standing is the recognized right to make the system bind itself to engage, decide, and remedy — regardless of whether your story is believed, liked, or emotionally legible. “Belief” is narrative validation; standing is enforceable access to decision power.</p><p>Standing is the safeguard; a challenge is what it lets someone make, and the remedy is what they receive when it is upheld. <a href=\"/glossary/corrective-standing\">Corrective standing</a> is the test: can this person force a correction, or only be heard?</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "operationalTests": [
               "Access to remedy does not depend on being believed or found sympathetic.",
@@ -9476,7 +9476,7 @@
             "title": "Evidence parity",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A condition where affected people have a fair chance to meet the evidentiary burden — access to the relevant facts, rules, and records — rather than being asked to prove things the institution can’t or won’t disclose. Without evidence parity, appeals become theater.</p><p>It is the answer to <a href=\"/glossary/evidence-burden-ceiling\">evidence burden ceilings</a> and <a href=\"/glossary/evidence-recycling\">evidence recycling</a>.</p>",
+            "bodyHtml": "<p>A condition where the people a decision is about have a fair chance to meet the evidentiary burden — access to the relevant facts, rules, and records — rather than being asked to prove things the institution can’t or won’t disclose. Without evidence parity, challenges become theater.</p><p>It is the answer to <a href=\"/glossary/evidence-burden-ceiling\">evidence burden ceilings</a> and <a href=\"/glossary/evidence-recycling\">evidence recycling</a>.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "operationalTests": [
               "The institution discloses the facts it used, before the claimant must respond.",
@@ -9643,7 +9643,7 @@
             "title": "Redress",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The set of mechanisms that can correct harm: appeal, review, reversal, compensation, restoration. Redress is real when it is time-bound and reaches binding authority.</p><p>It is the umbrella over the <a href=\"/glossary/restitution-ladder\">restitution ladder</a>, <a href=\"/glossary/remedy-equivalence\">remedy equivalence</a>, and <a href=\"/glossary/decision-reversal-authority\">decision reversal authority</a>.</p>",
+            "bodyHtml": "<p>The legal term for the set of mechanisms that can correct harm: appeal, review, reversal, compensation, restoration. Redress is real when it is time-bound and reaches binding authority.</p><p>This site uses redress only in legal or quoted contexts. Its own word for what the person receives is the remedy, owed when a challenge made with <a href=\"/glossary/corrective-standing\">standing</a> is upheld or harm is found.</p><p>It is the umbrella over the <a href=\"/glossary/restitution-ladder\">restitution ladder</a>, <a href=\"/glossary/remedy-equivalence\">remedy equivalence</a>, and <a href=\"/glossary/decision-reversal-authority\">decision reversal authority</a>.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "operationalTests": [
               "Every harm type has a mapped redress path with a clock and an owner.",
@@ -9725,7 +9725,7 @@
             "title": "Paywalled rights",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>When access to contestation, speed, or binding review is effectively purchased — through fees, premium support, lawyers, consultants, or time flexibility. Rights exist, but only for those who can pay in money or stamina.</p><p>It is the price form of the <a href=\"/glossary/access-cliff\">access cliff</a> and of <a href=\"/glossary/stamina-pricing\">stamina pricing</a>.</p>",
+            "bodyHtml": "<p>When the ability to challenge, speed, or binding review is effectively purchased — through fees, premium support, lawyers, consultants, or time flexibility. Rights exist, but only for those who can pay in money or stamina.</p><p>It is the price form of the <a href=\"/glossary/access-cliff\">access cliff</a> and of <a href=\"/glossary/stamina-pricing\">stamina pricing</a>.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "operationalTests": [
               "Access to remedy is not gated by payment or discretionary free time.",
@@ -9752,7 +9752,7 @@
             "title": "Logs-as-power",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The idea that control over records — what is logged, who can see it, what counts as evidence — shapes who can contest outcomes. Recordkeeping is governance.</p><p>It is why <a href=\"/glossary/attestation\">attestation</a> and the <a href=\"/glossary/liability-record\">liability record</a> matter, and why <a href=\"/glossary/evidence-parity\">evidence parity</a> is a rights question.</p>",
+            "bodyHtml": "<p>The idea that control over records — what is logged, who can see it, what counts as evidence — shapes who can challenge outcomes. Recordkeeping is governance.</p><p>It is why <a href=\"/glossary/attestation\">attestation</a> and the <a href=\"/glossary/liability-record\">liability record</a> matter, and why <a href=\"/glossary/evidence-parity\">evidence parity</a> is a rights question.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "operationalTests": [
               "The evidentiary record is accessible to the affected party by default.",
@@ -9814,7 +9814,7 @@
               "A lived harm can be tested for whether it exists in the administrative record.",
               "The divergence between lived and administrative reality is measured, not denied."
             ],
-            "genealogy": "Names the recognition boundary that determines what can be contested.",
+            "genealogy": "Names the recognition boundary that determines what can be challenged.",
             "tags": [
               "administration",
               "legibility",
@@ -10164,7 +10164,7 @@
             "title": "Ethical circuit breakers",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Automated stops that trip when a risk indicator crosses a set point: a surge in appeals, a bias metric, or a growing backlog of <a href=\"/glossary/moral-debt\">harm not yet repaired</a>. They are the safety counterpart to financial circuit breakers.</p>",
+            "bodyHtml": "<p>Automated stops that trip when a risk indicator crosses a set point: a surge in challenges, a bias metric, or a growing backlog of <a href=\"/glossary/moral-debt\">harm not yet repaired</a>. They are the safety counterpart to financial circuit breakers.</p>",
             "scope": "H. Governance & power. Structures that decide who holds authority, on what grant and for how long, and who can intervene.",
             "references": [],
             "domains": [
@@ -10574,7 +10574,7 @@
             "title": "Decision artifact",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>One decision's output, in a form that can be traced to its owner and challenged. It records the outcome, the reason, the time, and the accountable owner.</p><p>Decision artifacts anchor <a href=\"/glossary/traceable-ownership\">traceable ownership</a> and make <a href=\"/glossary/contestability\">contestability</a> measurable.</p>",
+            "bodyHtml": "<p>One decision's output, in a form that can be traced to its owner and challenged. It records the outcome, the reason, the time, and the accountable owner.</p><p>Decision artifacts anchor <a href=\"/glossary/traceable-ownership\">traceable ownership</a> and make <a href=\"/glossary/contestability\">challenges</a> measurable.</p>",
             "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
             "references": [],
             "domains": [
@@ -10592,7 +10592,7 @@
             "title": "Decision object",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A versioned record of the rules, inputs, thresholds, and authority behind an operational decision. It names an owner and states whether the decision can be appealed or reversed, and on what clock. A decision that affects someone's access, status, or rights must be backed by an active decision object.</p><p>For example, the decision object for an eligibility rule might name Risk Operations as owner and cite the policy section that delegates the decision. It lists two inputs, verified income and months employed, and three possible outputs: approved, denied, or pending review. It allows reversal by human override under a <a href=\"/glossary/reversal-sla\">reversal SLA</a>, and appeal under a <a href=\"/glossary/binding-clock\">binding clock</a>.</p><p>The object turns “the system decided” into “this record decided, and this role owns it.” Once it exists, there is something to appeal and someone who has to answer.</p>",
+            "bodyHtml": "<p>A versioned record of the rules, inputs, thresholds, and authority behind an operational decision. It names an owner and states whether the decision can be challenged or reversed, and on what clock. A decision that affects someone's access, status, or rights must be backed by an active decision object.</p><p>For example, the decision object for an eligibility rule might name Risk Operations as owner and cite the policy section that delegates the decision. It lists two inputs, verified income and months employed, and three possible outputs: approved, denied, or pending review. It allows reversal by human override under a <a href=\"/glossary/reversal-sla\">reversal SLA</a>, and appeal under a <a href=\"/glossary/binding-clock\">binding clock</a>.</p><p>The object turns “the system decided” into “this record decided, and this role owns it.” Once it exists, there is something to challenge and someone who has to answer.</p>",
             "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
             "references": [],
             "domains": [
@@ -10610,7 +10610,7 @@
             "title": "Binding clock",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>An enforceable timer on an institution's obligations once a decision is pending or contested. It keeps running regardless of workload, staffing, or queue length, and pauses only under conditions declared in advance.</p><p>For example, a clock might start when a decision enters pending review. It can pause only for an agreed extension or a documented outside dependency, and only with an ombuds officer's approval on a public log. When it runs out, the case goes to human review and the person gets interim access. The person can see the clock.</p><p>Without a binding clock, delay works as power, silence is read as consent, and “we’re reviewing” has no end. With one, the institution pays for the waiting.</p>",
+            "bodyHtml": "<p>An enforceable timer on an institution's obligations once a decision is pending or challenged. It keeps running regardless of workload, staffing, or queue length, and pauses only under conditions declared in advance.</p><p>For example, a clock might start when a decision enters pending review. It can pause only for an agreed extension or a documented outside dependency, and only with an ombuds officer's approval on a public log. When it runs out, the case goes to human review and the person gets interim access. The person can see the clock.</p><p>Without a binding clock, delay works as power, silence is read as consent, and “we’re reviewing” has no end. With one, the institution pays for the waiting.</p>",
             "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
             "references": [],
             "domains": [
@@ -10628,7 +10628,7 @@
             "title": "Reversal SLA",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A commitment that states the maximum time, the authority, and the procedure for undoing or correcting a decision once it is contested or found wrong. Reversal performance is a reliability measure, not an exception process.</p><p>For example, a contract clause might require the provider to start human review within 24 hours of a valid reversal request, and to reverse or affirm the decision within 5 business days. If it misses either deadline, the person's access is restored in the interim and the provider owes service credits. Escalation runs from the operations lead to the risk director to an independent reviewer.</p><p>A <a href=\"/glossary/decision-object\">decision object</a> records what was decided and who owns it. A <a href=\"/glossary/binding-clock\">binding clock</a> limits how long a decision can stay pending. A reversal SLA limits how long a wrong decision can stand. Together they turn “you can appeal” into “an appeal changes what the institution owes.”</p>",
+            "bodyHtml": "<p>A commitment that states the maximum time, the authority, and the procedure for undoing or correcting a decision once it is challenged or found wrong. Reversal performance is a reliability measure, not an exception process.</p><p>For example, a contract clause might require the provider to start human review within 24 hours of a valid reversal request, and to reverse or affirm the decision within 5 business days. If it misses either deadline, the person's access is restored in the interim and the provider owes service credits. Escalation runs from the operations lead to the risk director to an independent reviewer.</p><p>A <a href=\"/glossary/decision-object\">decision object</a> records what was decided and who owns it. A <a href=\"/glossary/binding-clock\">binding clock</a> limits how long a decision can stay pending. A reversal SLA limits how long a wrong decision can stand. Together they turn “you can appeal” into “an appeal changes what the institution owes.”</p>",
             "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
             "references": [],
             "domains": [
@@ -10646,7 +10646,7 @@
             "title": "Non-decision",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A stable administrative disposition where a system withholds a contestable outcome (“pending,” “in review”) while consequences accrue.</p><p>Non-decisions stretch <a href=\"/glossary/moral-latency\">moral latency</a> and erode <a href=\"/glossary/contestability\">contestability</a> by keeping people in limbo.</p>",
+            "bodyHtml": "<p>A stable administrative disposition where a system withholds an outcome that could be challenged (“pending,” “in review”) while consequences accrue.</p><p>Non-decisions stretch <a href=\"/glossary/moral-latency\">moral latency</a> and leave people nothing to <a href=\"/glossary/contestability\">challenge</a>, keeping them in limbo.</p>",
             "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
             "references": [],
             "domains": [
@@ -10718,7 +10718,7 @@
             "title": "Futility threshold",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The point where time-on-task or repetition becomes so costly that valid claimants predictably abandon pursuit.</p><p>Systems that hit the futility threshold signal <a href=\"/glossary/punitive-friction\">punitive friction</a> and low <a href=\"/glossary/contestability\">contestability</a>.</p>",
+            "bodyHtml": "<p>The point where time-on-task or repetition becomes so costly that valid claimants predictably abandon pursuit.</p><p>Systems that hit the futility threshold signal <a href=\"/glossary/punitive-friction\">punitive friction</a> and decisions that are <a href=\"/glossary/contestability\">hard to challenge</a>.</p>",
             "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
             "references": [],
             "domains": [
@@ -10900,7 +10900,7 @@
             "title": "Harm receipt",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A claimant-facing artifact documenting what happened, what the system believes, and what it will do next, by when. Harm receipts make <a href=\"/glossary/decision-artifact\">decision artifacts</a> legible to affected people.</p>",
+            "bodyHtml": "<p>A claimant-facing artifact documenting what happened, what the system believes, and what it will do next, by when. Harm receipts make <a href=\"/glossary/decision-artifact\">decision artifacts</a> legible to claimants.</p>",
             "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
             "operationalTests": [
               "Receipts are issued automatically for defined incident classes and include a named owner and a clock.",
@@ -10995,7 +10995,7 @@
             "title": "Non-finality",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The property that a decisive action does not close its own categories, evidence, or jurisdiction against revision. A system with non-finality can act now and be corrected later; a system whose decisions become final by default converts each exercise of power into an entitlement. Appeal is its instrument at the level of outcomes, and <a href=\"/glossary/meta-contestability\">meta-contestability</a> extends it to the rules of challenge themselves. Non-finality is not indecision: the system acts now. A case left undecided is <a href=\"/glossary/pendingness\">pendingness</a>, which is a harm in its own right.</p><p>It matters because finality is how power consolidates quietly: an initial judgment that cannot be reopened becomes precedent for the next, and the category that produced the judgment becomes harder to question than the judgment itself. The rights tradition names the interruption — <a href=\"/glossary/anti-conversion-rights\">appeal interrupts the conversion of decision into finality</a> — and Law XII bars consuming the capacity that keeps it possible.</p>",
+            "bodyHtml": "<p>The property that a decisive action does not close its own categories, evidence, or jurisdiction against revision. A system with non-finality can act now and be corrected later; a system whose decisions become final by default converts each exercise of power into an entitlement. The challenge is its instrument at the level of outcomes, and <a href=\"/glossary/meta-contestability\">meta-contestability</a> extends it to the rules of challenge themselves. Non-finality is not indecision: the system acts now. A case left undecided is <a href=\"/glossary/pendingness\">pendingness</a>, which is a harm in its own right.</p><p>It matters because finality is how power consolidates quietly: an initial judgment that cannot be reopened becomes precedent for the next, and the category that produced the judgment becomes harder to question than the judgment itself. The rights tradition names the interruption — <a href=\"/glossary/anti-conversion-rights\">appeal interrupts the conversion of decision into finality</a> — and Law XII bars consuming the capacity that keeps it possible.</p>",
             "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
             "operationalTests": [
               "A decided outcome can be reopened on stated grounds without extraordinary procedure.",
@@ -11054,7 +11054,7 @@
             "title": "Decision surface",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The part of a system where decisions become visible, addressable, and contestable. Many systems minimize the decision surface to avoid accountability.</p><p>It is the territory shaped by the <a href=\"/glossary/interaction-surface\">interaction surface</a>, populated by <a href=\"/glossary/decision-object\">decision objects</a>, and opened or closed by <a href=\"/glossary/contestability\">contestability</a>.</p>",
+            "bodyHtml": "<p>The part of a system where decisions become visible, addressable, and open to challenge. Many systems minimize the decision surface to avoid accountability.</p><p>It is the territory shaped by the <a href=\"/glossary/interaction-surface\">interaction surface</a>, populated by <a href=\"/glossary/decision-object\">decision objects</a>, and opened or closed by whether its decisions can be <a href=\"/glossary/contestability\">challenged</a>.</p>",
             "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
             "operationalTests": [
               "Every consequential decision exposes a surface that can be addressed.",
@@ -11110,7 +11110,7 @@
             "title": "Pending / pendingness",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A state in which nothing is decided and no one is obliged to decide. It is often presented as neutral, but it allocates outcomes: the party that can wait longer wins. Pendingness becomes harm when it has no clock, no owner, or no forced next step.</p><p>It is not <a href=\"/glossary/non-finality\">non-finality</a>. Non-finality means a decision has been made and stays open to revision. Pendingness means no decision has been made, so there is nothing to revise or appeal. It persists through <a href=\"/glossary/delay-as-power\">delay as power</a> wherever no <a href=\"/glossary/binding-clock\">binding clock</a> runs.</p>",
+            "bodyHtml": "<p>A state in which nothing is decided and no one is obliged to decide. It is often presented as neutral, but it allocates outcomes: the party that can wait longer wins. Pendingness becomes harm when it has no clock, no owner, or no forced next step.</p><p>It is not <a href=\"/glossary/non-finality\">non-finality</a>. Non-finality means a decision has been made and stays open to revision. Pendingness means no decision has been made, so there is nothing to revise or challenge. It persists through <a href=\"/glossary/delay-as-power\">delay as power</a> wherever no <a href=\"/glossary/binding-clock\">binding clock</a> runs.</p>",
             "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
             "operationalTests": [
               "Every pending state carries a clock and an owner by default.",
@@ -11193,11 +11193,11 @@
             "title": "Clock-start / clock mismatch",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Clock-start: the moment a system becomes time-bound — deadlines begin, obligations attach, escalation becomes meaningful. Clock mismatch: when institutional execution is fast (instant flags, freezes, denials) but redress is slow (weeks to months of human review), making errors durable and contestation scarce.</p><p>It is the temporal form of <a href=\"/glossary/binding-clock\">binding clocks</a> versus <a href=\"/glossary/reversal-sla\">reversal SLAs</a>.</p>",
+            "bodyHtml": "<p>Clock-start: the moment a system becomes time-bound — deadlines begin, obligations attach, escalation becomes meaningful. Clock mismatch: when institutional execution is fast (instant flags, freezes, denials) but remedy is slow (weeks to months of human review), making errors durable and challenges scarce.</p><p>It is the temporal form of <a href=\"/glossary/binding-clock\">binding clocks</a> versus <a href=\"/glossary/reversal-sla\">reversal SLAs</a>.</p>",
             "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
             "operationalTests": [
               "Every decision has a defined clock-start, not an open-ended one.",
-              "Execution and redress latency are compared; a large gap is flagged as a defect."
+              "Execution and remedy latency are compared; a large gap is flagged as a defect."
             ],
             "genealogy": "Makes the asymmetry between action speed and correction speed explicit.",
             "tags": [
@@ -11220,7 +11220,7 @@
             "title": "Slow redress / fast execution",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A governance asymmetry where harmful state changes are immediate but appeals are delayed, discretionary, and exhausting. The gap lets an institution coerce without deciding to: the harm lands at once, and the remedy arrives late or not at all.</p><p>It is <a href=\"/glossary/degradation-restoration-asymmetry\">degradation-restoration asymmetry</a> in its temporal form, and what <a href=\"/glossary/time-to-restore\">time-to-restore</a> is measured against.</p>",
+            "bodyHtml": "<p>A governance asymmetry where harmful state changes are immediate but challenges are answered late, at discretion, and only after exhausting effort. The gap lets an institution coerce without deciding to: the harm lands at once, and the remedy arrives late or not at all. Redress, in the name, is the legal word for that remedy.</p><p>It is <a href=\"/glossary/degradation-restoration-asymmetry\">degradation-restoration asymmetry</a> in its temporal form, and what <a href=\"/glossary/time-to-restore\">time-to-restore</a> is measured against.</p>",
             "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
             "operationalTests": [
               "Harm and remedy latencies are measured separately and compared.",
@@ -11415,7 +11415,7 @@
             "title": "Empathy surrogacy",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Simulated warmth — chatbots, scripted apologies, tone guidelines — used to mask structural harm or delay fixes. Empathy surrogacy diverts attention from <a href=\"/glossary/repair-log\">repair</a> and weakens <a href=\"/glossary/contestability\">contestability</a> by substituting sentiment for remedy.</p>",
+            "bodyHtml": "<p>Simulated warmth — chatbots, scripted apologies, tone guidelines — used to mask structural harm or delay fixes. Empathy surrogacy diverts attention from <a href=\"/glossary/repair-log\">repair</a> and weakens people&#39;s ability to <a href=\"/glossary/contestability\">challenge</a> decisions by substituting sentiment for remedy.</p>",
             "scope": "K. System patterns & anti-patterns. Recurring structures institutions build, most of them ways that process, tone, or disclosure stands in for remedy.",
             "references": [],
             "domains": [
@@ -11488,7 +11488,7 @@
             "title": "Dead-user zones",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Places where people affected by decisions cannot contest, appeal, or exit — opaque rankings, automated bans, or unmoderated queues. Closing them requires giving people more room to act and raising the <a href=\"/glossary/appeal-passage-rate\">share of appeals that succeed</a>.</p>",
+            "bodyHtml": "<p>Places where the people a system decides about cannot challenge, appeal, or exit — opaque rankings, automated bans, or unmoderated queues. Closing them requires giving people more room to act and raising the <a href=\"/glossary/appeal-passage-rate\">share of challenges that are upheld</a>.</p>",
             "scope": "K. System patterns & anti-patterns. Recurring structures institutions build, most of them ways that process, tone, or disclosure stands in for remedy.",
             "references": [],
             "domains": [
@@ -11798,10 +11798,10 @@
             "title": "Transparency theater",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Disclosures that do not increase contestability — more text, more dashboards, more “explanations” — without deadlines, authority, or reversal paths. Visibility substitutes for enforceability.</p><p>It is the disclosure form of <a href=\"/glossary/paper-compliance\">paper compliance</a> and the complement of <a href=\"/glossary/explainability-decoy\">explainability decoy</a>.</p>",
+            "bodyHtml": "<p>Disclosures that do not make decisions easier to challenge — more text, more dashboards, more “explanations” — without deadlines, authority, or reversal paths. Visibility substitutes for enforceability.</p><p>It is the disclosure form of <a href=\"/glossary/paper-compliance\">paper compliance</a> and the complement of <a href=\"/glossary/explainability-decoy\">explainability decoy</a>.</p>",
             "scope": "K. System patterns & anti-patterns. Recurring structures institutions build, most of them ways that process, tone, or disclosure stands in for remedy.",
             "operationalTests": [
-              "A disclosure is scored by whether it increases contestability, not by its volume.",
+              "A disclosure is scored by whether it makes decisions easier to challenge, not by its volume.",
               "Visibility without a reversal path is flagged as theater, not transparency."
             ],
             "genealogy": "Exposes visibility as a substitute for the enforceability it should enable.",
@@ -11826,10 +11826,10 @@
             "title": "Explainability decoy",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A focus on explaining model decisions that distracts from the harder question: can the decision be contested, reversed, and time-bounded? The decoy offers epistemics where governance is needed.</p><p>It redirects attention from <a href=\"/glossary/explainability-for-accountability\">explainability for accountability</a> toward explanation for its own sake.</p>",
+            "bodyHtml": "<p>A focus on explaining model decisions that distracts from the harder question: can the decision be challenged, reversed, and time-bounded? The decoy offers epistemics where governance is needed.</p><p>It redirects attention from <a href=\"/glossary/explainability-for-accountability\">explainability for accountability</a> toward explanation for its own sake.</p>",
             "scope": "K. System patterns & anti-patterns. Recurring structures institutions build, most of them ways that process, tone, or disclosure stands in for remedy.",
             "operationalTests": [
-              "An explanation is scored by whether it enables contestation and reversal.",
+              "An explanation is scored by whether it enables a challenge and a reversal.",
               "Explainability effort is measured against its effect on remedy, not its detail."
             ],
             "genealogy": "Names the substitution of explanation for enforceable accountability.",
@@ -11944,7 +11944,7 @@
             "title": "Meta-contestability",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Mechanisms that let people challenge the rules of challenge as well as its outcomes: who may appeal, what evidence counts, and who sits on review panels. Meta-contestability keeps <a href=\"/glossary/contestability\">contestability</a> from ossifying.</p>",
+            "bodyHtml": "<p>Mechanisms that let people challenge the rules of challenge as well as its outcomes: who has <a href=\"/glossary/corrective-standing\">standing</a>, what evidence counts, and who sits on review panels. Standing is the right to challenge a decision; meta-contestability is the right to challenge how that right is drawn, and it keeps <a href=\"/glossary/contestability\">contestability</a> from ossifying.</p>",
             "scope": "L. Future concepts / research areas. Open research threads: terms in use that do not yet carry operational tests or a minimum evidence standard.",
             "references": [],
             "domains": [
@@ -12034,7 +12034,7 @@
             "title": "Alignment dividend",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The measurable gains in trust, retention, and safety when a system serves the people it acts on as intended. Tracking the dividend is the budget argument for sustained funding of <a href=\"/measurement-tiers\">halt, reversal, and appeal measures</a> and <a href=\"/glossary/maintenance-metabolism\">maintenance metabolism</a>.</p>",
+            "bodyHtml": "<p>The measurable gains in trust, retention, and safety when a system serves the people it acts on as intended. Tracking the dividend is the budget argument for sustained funding of <a href=\"/measurement-tiers\">halt, reversal, and challenge measures</a> and <a href=\"/glossary/maintenance-metabolism\">maintenance metabolism</a>.</p>",
             "scope": "L. Future concepts / research areas. Open research threads: terms in use that do not yet carry operational tests or a minimum evidence standard.",
             "references": [],
             "domains": [
@@ -12124,7 +12124,7 @@
             "title": "Conflict observability",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Logging that records a conflict between values when it happens, for example when <a href=\"/glossary/service-level-indicators\">fairness and safety measures</a> are traded against throughput or appeals spike. The record lets the conflict be reviewed before it escalates and lets correction start sooner.</p>",
+            "bodyHtml": "<p>Logging that records a conflict between values when it happens, for example when <a href=\"/glossary/service-level-indicators\">fairness and safety measures</a> are traded against throughput or challenges spike. The record lets the conflict be reviewed before it escalates and lets correction start sooner.</p>",
             "scope": "L. Future concepts / research areas. Open research threads: terms in use that do not yet carry operational tests or a minimum evidence standard.",
             "references": [],
             "domains": [
@@ -12214,7 +12214,7 @@
             "title": "Ethical load testing",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Exercises that probe how a system behaves when its safeguards are under stress, such as simulated harassment, mass appeals, or outages, to check that <a href=\"/glossary/ethical-circuit-breakers\">ethical circuit breakers</a> trip and <a href=\"/glossary/care-floor-guarantees\">care floors</a> hold.</p>",
+            "bodyHtml": "<p>Exercises that probe how a system behaves when its safeguards are under stress, such as simulated harassment, mass challenges, or outages, to check that <a href=\"/glossary/ethical-circuit-breakers\">ethical circuit breakers</a> trip and <a href=\"/glossary/care-floor-guarantees\">care floors</a> hold.</p>",
             "scope": "L. Future concepts / research areas. Open research threads: terms in use that do not yet carry operational tests or a minimum evidence standard.",
             "references": [],
             "domains": [
@@ -12286,7 +12286,7 @@
             "title": "Heat maps of refusal",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Maps of where people opt out, churn, or appeal, which show early where refusal is being made costly. They are used to tune <a href=\"/glossary/refusal-budget\">refusal budgets</a> and redesign <a href=\"/glossary/interaction-surface\">interaction surfaces</a>.</p>",
+            "bodyHtml": "<p>Maps of where people opt out, churn, or challenge decisions, which show early where refusal is being made costly. They are used to tune <a href=\"/glossary/refusal-budget\">refusal budgets</a> and redesign <a href=\"/glossary/interaction-surface\">interaction surfaces</a>.</p>",
             "scope": "L. Future concepts / research areas. Open research threads: terms in use that do not yet carry operational tests or a minimum evidence standard.",
             "references": [],
             "domains": [
@@ -12734,7 +12734,7 @@
             "bodyHtml": "<p>The engineering posture for the point where optimization runs out. Optimizing a metric or reward function invites Goodhart drift, leaves out what the metric cannot see, and produces <a href=\"/glossary/residual-complexity\">residual complexity</a>.</p><p>Post-optimization rigor does not try to fix model incompleteness by adding more parameters or objective terms. It builds the institution around the model instead: independent review, measurement of uncounted absorption, corrective standing for affected parties, and revocable authority grants.</p>",
             "scope": "M. Foundational Ethotechnic principles. The principles the method's laws and standards rest on.",
             "operationalTests": [
-              "The deployment pairs every optimized model with an independent correction and contestation infrastructure.",
+              "The deployment pairs every optimized model with independent infrastructure for correction and for challenges.",
               "Performance audits track externalized friction and absorption rather than relying solely on internal loss functions or proxy metrics."
             ],
             "genealogy": "Moves the work from improving the model to building the institution around it.",
@@ -12784,11 +12784,11 @@
             "title": "Human non-substitutability",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The ground rule that a model of a person is not the person: no representation, however accurate, acquires automatic authority to extinguish the represented person's standing against it. A system may infer, classify, predict, and recommend, but the person remains the party who carries the consequences and whose contestation the system must answer.</p><p>It matters because the framework's treatment of <a href=\"/glossary/corrective-standing\">corrective standing</a> rests on it. Standing is inalienable, not generous: if the subject of a decision could be replaced by a sufficiently detailed model of themselves, contestation would be a quality-control step a good enough model could close. Accuracy is evidence for a decision; it is never the decision, and it never substitutes for the person.</p>",
+            "bodyHtml": "<p>The ground rule that a model of a person is not the person: no representation, however accurate, acquires automatic authority to extinguish the represented person's standing against it. A system may infer, classify, predict, and recommend, but the person remains the party who carries the consequences and whose challenge the system must answer.</p><p>It matters because the framework's treatment of <a href=\"/glossary/corrective-standing\">corrective standing</a> rests on it. Standing is inalienable, not generous: if the subject of a decision could be replaced by a sufficiently detailed model of themselves, a challenge would be a quality-control step a good enough model could close. Accuracy is evidence for a decision; it is never the decision, and it never substitutes for the person.</p>",
             "scope": "M. Foundational Ethotechnic principles. The principles the method's laws and standards rest on.",
             "operationalTests": [
               "A system acting on an inference about a person can name what that person's challenge would do to the action.",
-              "Model accuracy is never cited as a reason a person's contestation is unnecessary.",
+              "Model accuracy is never cited as a reason a person's challenge is unnecessary.",
               "The subject of a decision is identified separately from the user of the system."
             ],
             "genealogy": "The ground rule under Law VII, argued for in the theory of what a model of a person is and is not.",
@@ -12805,9 +12805,9 @@
               }
             ],
             "minimumEvidence": {
-              "artifact": "A decision record that names the person it acts on and the route by which that person can contest it.",
+              "artifact": "A decision record that names the person it acts on and the route by which that person can challenge it.",
               "behavior": "A challenge by the represented person that reaches the inference that justified the action.",
-              "metric": "Share of consequential decisions where the represented person's contestation route is recorded."
+              "metric": "Share of consequential decisions where the represented person's challenge route is recorded."
             },
             "domains": [
               "agency",
@@ -12843,14 +12843,14 @@
             "title": "Safe incompleteness",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The design stance that a system should improve its representation of people and preserve their contestation at the same time, because the two capacities compound rather than substitute for each other. The error it opposes is <a href=\"/glossary/closure-without-remainder\">closure without remainder</a>: treating the model boundary as the boundary of relevance, so that every mismatch between the model and the person reads as user error, anomalous input, or noise.</p><p>It matters because a system that is incomplete and contestable is safer than one that is complete and final. The complete one has nowhere for its errors to arrive; the incomplete one constitutionalizes the failure path instead of optimizing it away, and the challenge route is the mechanism by which the representation's errors are discovered at all.</p>",
+            "bodyHtml": "<p>The design stance that a system should improve its representation of people and preserve their ability to challenge it at the same time, because the two capacities compound rather than substitute for each other. The error it opposes is <a href=\"/glossary/closure-without-remainder\">closure without remainder</a>: treating the model boundary as the boundary of relevance, so that every mismatch between the model and the person reads as user error, anomalous input, or noise.</p><p>It matters because a system that is incomplete and open to challenge is safer than one that is complete and final. The complete one has nowhere for its errors to arrive; the incomplete one constitutionalizes the failure path instead of optimizing it away, and the challenge route is the mechanism by which the representation's errors are discovered at all.</p>",
             "scope": "M. Foundational Ethotechnic principles. The principles the method's laws and standards rest on.",
             "operationalTests": [
-              "Better model performance is paired with preserved or widened contestation routes, not narrowed ones.",
+              "Better model performance is paired with preserved or widened challenge routes, not narrowed ones.",
               "The system can state what its representation does not cover.",
               "A mismatch between the model and the person can enter the system as an event with state-changing force."
             ],
-            "genealogy": "The design consequence of closure without remainder: incompleteness is permanent, so contestability is the safety mechanism.",
+            "genealogy": "The design consequence of closure without remainder: incompleteness is permanent, so the route to challenge is the safety mechanism.",
             "references": [
               {
                 "label": "The model of a person is not the person",
@@ -12865,8 +12865,8 @@
             ],
             "minimumEvidence": {
               "artifact": "A stated coverage boundary: what the model represents, what it does not, and where challenges arrive.",
-              "behavior": "A representation improvement shipped without narrowing any contestation route.",
-              "metric": "Contestation route reach after each representation upgrade, compared with before."
+              "behavior": "A representation improvement shipped without narrowing any challenge route.",
+              "metric": "Challenge route reach after each representation upgrade, compared with before."
             },
             "domains": [
               "structural",
@@ -13082,10 +13082,10 @@
             "title": "Asymmetric-capacity restraint",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The principle that an institution's obligations to remain contestable and revisable grow with its capacity to classify, monitor, automate, enforce, and scale. The more a system can see, sort, act on, and impose its categories, the stronger the counterweights must be.</p><p>It matters because capacity is not neutral. A system that can classify at scale can misclassify at scale, and a system that can enforce quickly can commit quickly. Restraint is the obligation side of <a href=\"/glossary/capability-overhang\">capability overhang</a>: capability may expand only as fast as the <a href=\"/glossary/correction-obligation\">correction obligation</a> that checks it. It is why <a href=\"/glossary/earned-autonomy\">earned autonomy</a> is conditional rather than cumulative, and it makes Law XI's burden normative: every expansion of capacity carries a proportional expansion of contestation and revision.</p>",
+            "bodyHtml": "<p>The principle that an institution's obligations to remain open to challenge and revisable grow with its capacity to classify, monitor, automate, enforce, and scale. The more a system can see, sort, act on, and impose its categories, the stronger the counterweights must be.</p><p>It matters because capacity is not neutral. A system that can classify at scale can misclassify at scale, and a system that can enforce quickly can commit quickly. Restraint is the obligation side of <a href=\"/glossary/capability-overhang\">capability overhang</a>: capability may expand only as fast as the <a href=\"/glossary/correction-obligation\">correction obligation</a> that checks it. It is why <a href=\"/glossary/earned-autonomy\">earned autonomy</a> is conditional rather than cumulative, and it makes Law XI's burden normative: every expansion of capacity carries a proportional expansion of the capacity to answer challenges and to revise.</p>",
             "scope": "M. Foundational Ethotechnic principles. The principles the method's laws and standards rest on.",
             "operationalTests": [
-              "Each expansion of classification, monitoring, or enforcement capacity is paired with a stated increase in contestation and revision capacity.",
+              "Each expansion of classification, monitoring, or enforcement capacity is paired with a stated increase in the capacity to answer challenges and to revise.",
               "Correction capacity grows with authority, and the pairing is recorded rather than asserted.",
               "A capability that outruns its correction capacity is refused admission or narrowed, not shipped and apologized for later."
             ],

@@ -54,7 +54,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
     title: "Challenge density",
     href: "/research/theory/challenge-density",
     question:
-      "When appeals pile up, why should an institution add reviewers or narrow the system rather than limit who may appeal?",
+      "When challenges pile up, why should an institution add reviewers or narrow the system rather than limit who may challenge?",
     safeguard: "Standing",
     mechanism:
       "Congestion treated as a capacity failure rather than a standing threshold",
@@ -130,7 +130,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
     title: "Exception learning",
     href: "/research/theory/exception-learning",
     question:
-      "Why does resolving appeals one at a time leave the rule that caused them in place?",
+      "Why does resolving challenges one at a time leave the rule that caused them in place?",
     safeguard: "Correction",
     mechanism:
       "Separation of case corrigibility from structural rule modification",

@@ -379,7 +379,7 @@ export const checkableProperties: CheckableProperty[] = [
     id: "standing-is-proportional-to-exposure",
     title: "The people who bear the error can act on it",
     claim:
-      "Whoever bears the consequence of a decision holds a standing to contest it that does not depend on the operator's goodwill.",
+      "Whoever bears the consequence of a decision holds a standing to challenge it that does not depend on the operator's goodwill.",
     laws: ["law-vii"],
     variables: ["standing"],
     probes: [],

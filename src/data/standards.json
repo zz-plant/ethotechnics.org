@@ -63,7 +63,7 @@
         "id": "STD-02",
         "slug": "std-02-contestability-recourse",
         "title": "Contestability and recourse",
-        "description": "How a person challenges an automated decision: the reasons they are owed, an appeal path, a review clock, remedy, and who has standing to appeal.",
+        "description": "How a person challenges an automated decision: the reasons they are owed, an appeal path, a review clock, remedy, and who has standing to challenge.",
         "status": "Draft",
         "version": "1.4.1",
         "changelogHref": "/standards/std-02-contestability-recourse#publication-history",
@@ -109,7 +109,7 @@
             "summary": "Peer review draft aligned to evidence and remedy clocks."
           }
         ],
-        "stableCriteria": "Requires successful red-team recourse simulation and two external peer reviewers.",
+        "stableCriteria": "Requires a successful red-team simulation of the challenge route and two external peer reviewers.",
         "effectiveDate": "TBD",
         "published": "2026-01-01"
       },
@@ -125,7 +125,7 @@
           {
             "version": "1.0",
             "date": "2025-01-01",
-            "summary": "Initial publication of baseline contestability controls, then marked stable."
+            "summary": "Initial publication of baseline controls for challenging a decision, then marked stable."
           },
           {
             "version": "1.0",
@@ -432,7 +432,7 @@
       {
         "id": "ethotechnics-for-agents",
         "title": "Ethotechnics for agents",
-        "description": "How to implement STD-01 and STD-02 in agent systems, mechanism by mechanism, with recourse a person can enforce.",
+        "description": "How to implement STD-01 and STD-02 in agent systems, mechanism by mechanism, with a route to challenge that a person can use.",
         "href": "/standards/ethotechnics-for-agents",
         "eyebrow": "Practice",
         "ctaLabel": "View practice"
@@ -757,7 +757,7 @@
         "displayId": "§1.2",
         "type": "obligation",
         "requirementLevel": "MUST",
-        "condition": "reasons are given to the person a decision affects",
+        "condition": "reasons are given to the person a decision is about",
         "obligation": "write them in language a layperson can understand; legalese and internal codes are insufficient",
         "evidenceRequired": ["ui_notice", "decision_object"],
         "timeBound": "at the moment of decision",
@@ -794,7 +794,7 @@
         "timeBound": "at the moment of decision",
         "failureModes": [
           "a language model writes a plausible rationale for a score it did not produce",
-          "a classifier's decision presented to the affected person with reasons nobody derived from it"
+          "a classifier's decision presented to the person it decided about with reasons nobody derived from it"
         ],
         "relatedMechanisms": ["MEC-01", "MEC-08"],
         "relatedValidators": []
@@ -805,7 +805,7 @@
         "displayId": "§2.1",
         "type": "obligation",
         "requirementLevel": "MUST",
-        "condition": "a decision is sent or shown to the person it affects",
+        "condition": "a decision is sent or shown to the person it is about",
         "obligation": "make the appeal path reachable directly from the decision notification or interface",
         "evidenceRequired": ["ui_state", "journey_map"],
         "timeBound": "at the moment of decision",
@@ -871,7 +871,7 @@
         "type": "obligation",
         "requirementLevel": "MUST",
         "condition": "a review is pending",
-        "obligation": "give the affected party provisional protection: continued access, the status quo, or a safe fallback",
+        "obligation": "give the person the decision is about provisional protection: continued access, the status quo, or a safe fallback",
         "evidenceRequired": ["interim_protection_policy", "case_log"],
         "timeBound": "until the review is resolved",
         "relatedMechanisms": ["MEC-06"],
@@ -883,10 +883,10 @@
         "displayId": "§4.1",
         "type": "obligation",
         "requirementLevel": "MUST",
-        "condition": "an appeal is upheld",
+        "condition": "a challenge is upheld",
         "obligation": "reverse the contested decision unless safety criteria explicitly prohibit it",
         "evidenceRequired": ["appeal_outcome_log", "remedy_policy"],
-        "timeBound": "when the appeal is upheld",
+        "timeBound": "when the challenge is upheld",
         "relatedMechanisms": ["MEC-10"],
         "relatedValidators": []
       },
@@ -910,7 +910,7 @@
         "type": "obligation",
         "requirementLevel": "MUST",
         "condition": "a remedy is delivered",
-        "obligation": "record delivery with timestamps and have the affected party verify it",
+        "obligation": "record delivery with timestamps and have the person it is owed to verify it",
         "evidenceRequired": ["remediation_log", "case_log"],
         "timeBound": "at delivery",
         "relatedMechanisms": ["MEC-01"],
@@ -952,7 +952,7 @@
         "displayId": "§5.2",
         "type": "obligation",
         "requirementLevel": "MUST",
-        "condition": "appeals are decided",
+        "condition": "challenges are decided",
         "obligation": "publish appeal passage rates and reversal rates, and use them to improve decisions",
         "evidenceRequired": ["appeal_outcome_log", "published_metrics"],
         "timeBound": "ongoing",
@@ -1021,7 +1021,7 @@
         "displayId": "§6.3",
         "type": "obligation",
         "requirementLevel": "MUST",
-        "condition": "logs support review or redress",
+        "condition": "logs support review or remedy",
         "obligation": "retain them, tamper-evident, for at least the full review and appeal period plus the limitation window",
         "evidenceRequired": ["audit_trail", "retention_policy"],
         "timeBound": "retention term",
@@ -1048,7 +1048,7 @@
         "type": "obligation",
         "requirementLevel": "MUST",
         "condition": "a vendor operates the logs, the models, or the controls",
-        "obligation": "still guarantee the affected person's access and remedy as the operating institution",
+        "obligation": "still guarantee access and remedy to the person the system decided about, as the operating institution",
         "evidenceRequired": ["vendor_contract", "access_policy"],
         "timeBound": "ongoing",
         "relatedMechanisms": ["MEC-01"],
@@ -1073,7 +1073,7 @@
         "displayId": "§8.1",
         "type": "obligation",
         "requirementLevel": "MUST",
-        "condition": "a class of consequential decision is contestable",
+        "condition": "a class of consequential decision can be challenged",
         "obligation": "publish a standing register entry naming who may challenge, what may be challenged, admissible evidence, the obliged responder, the response deadline, the standard of review, and the possible state transitions",
         "evidenceRequired": [
           "standing_register.who_may_challenge",
@@ -1146,7 +1146,7 @@
         ],
         "timeBound": "on request",
         "failureModes": [
-          "standing limited to the named subject of the decision",
+          "standing limited to the person the decision names",
           "internal exception handlers routed to a suggestions box",
           "operators' challenges logged but answered later than the published response deadline, or not at all"
         ],

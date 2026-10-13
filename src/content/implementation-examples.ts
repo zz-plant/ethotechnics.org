@@ -69,7 +69,7 @@ export const implementationExamples: ImplementationExample[] = [
     slug: "retail-personalization",
     title: "Retail personalization",
     summary:
-      "A boundary case. Most recommendations decide nothing a person could contest. Prices, credit offers, and job ads do.",
+      "A boundary case. Most recommendations decide nothing a person could challenge. Prices, credit offers, and job ads do.",
     tags: ["Boundary case", "Reasons", "Rollback"],
     cardDescription:
       "Recommendations a person can turn off, with challenges where targeting sets a price or an offer.",

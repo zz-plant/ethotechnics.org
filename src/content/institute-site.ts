@@ -82,24 +82,24 @@ export const artifacts: InstituteArtifact[] = [
       "If a freeze needs someone's permission first, name that person. They hold the freeze authority, whatever the table says.",
   },
   {
-    name: "Contestability & appeals playbook",
-    slug: "contestability-appeals-playbook",
+    name: "Challenge playbook",
+    slug: "challenge-playbook",
     description: [
-      "Defines what counts as an appeal, what evidence rules apply, and how resolution is time-bounded.",
-      "Contestability is defined in operational terms.",
+      "Defines what counts as a challenge, what evidence rules apply, and how resolution is time-bounded.",
+      "What can be challenged, by whom, and how is defined in operational terms.",
     ],
     enforcesBullets: [
-      "Appeals are recognized as system inputs.",
+      "Challenges are recognized as system inputs.",
       "Evidence rules are explicit and consistent.",
       "Time bounds are binding.",
     ],
     howToSteps: [
-      'Define "appeal" in operational terms.',
+      'Define "challenge" in operational terms.',
       "Set evidence rules that do not require perfect legibility.",
-      "Bind the appeals queue to the reversal SLA clock.",
+      "Bind the challenge queue to the reversal SLA clock.",
     ],
     finalLine:
-      "If you cannot say what counts as an appeal, any appeal can be handled as a complaint and closed.",
+      "If you cannot say what counts as a challenge, any challenge can be handled as a complaint and closed.",
   },
   {
     name: "Harm receipt format",
@@ -125,16 +125,16 @@ export const artifacts: InstituteArtifact[] = [
 
 export const failureStates: FailureState[] = [
   {
-    title: "A decision has been appealed",
+    title: "A decision has been challenged",
     slug: "decision-appealed",
-    shortLabel: "Decision appealed",
+    shortLabel: "Decision challenged",
     descriptionLine1:
       "Someone has challenged a decision, and the system cannot explain, reverse, or resolve it within a set time.",
     descriptionLine2:
-      "While the appeal waits, the person who appealed carries the cost of the delay.",
+      "While the challenge waits, the person who made it carries the cost of the delay.",
     artifactSlugs: [
       "decision-record-template",
-      "contestability-appeals-playbook",
+      "challenge-playbook",
       "reversal-sla-template",
     ],
     footerLine: failureFooterLine,
@@ -155,7 +155,7 @@ export const failureStates: FailureState[] = [
     footerLine: failureFooterLine,
   },
   {
-    title: "Appeals or reviews are stuck",
+    title: "Challenges or reviews are stuck",
     slug: "queue-stuck",
     shortLabel: "Queue stuck",
     descriptionLine1:
@@ -208,7 +208,7 @@ export const failureStates: FailureState[] = [
       "Without reasons specific to the case, the person cannot challenge it and nobody can tell whether the rule is wrong.",
     artifactSlugs: [
       "decision-record-template",
-      "contestability-appeals-playbook",
+      "challenge-playbook",
       "harm-receipt-format",
     ],
     footerLine: failureFooterLine,
