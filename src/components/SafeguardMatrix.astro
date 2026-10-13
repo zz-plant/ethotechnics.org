@@ -7,6 +7,7 @@
  * Maps each safeguard directly to its failure drift, governing laws,
  * core standards, casebook precedents, theory essays, and diagnostics.
  */
+import { diagnosticsContent } from "../content/diagnostics";
 import { methodContent } from "../content/method";
 import { standardsContent } from "../content/standards";
 import { theoryTaxonomyBySlug } from "../content/theory-taxonomy";
@@ -27,7 +28,12 @@ interface SafeguardRow {
   standards: string[];
   precedents: { title: string; href: string; outcome: string }[];
   theory: { title: string; href: string }[];
-  diagnostics: { name: string; href: string; purpose: string }[];
+  // A tool in the diagnostics registry is named by its slug and takes its
+  // title from there. Evals, schemas, and templates outside it carry a name.
+  diagnostics: (
+    | { slug: string; purpose: string }
+    | { name: string; href: string; purpose: string }
+  )[];
 }
 
 const matrix: SafeguardRow[] = [
@@ -68,8 +74,7 @@ const matrix: SafeguardRow[] = [
         purpose: "Stress-tests operational limits under human withdrawal.",
       },
       {
-        name: "Delegation Audit",
-        href: "/diagnostics/delegation-audit",
+        slug: "delegation-audit",
         purpose: "Scores unwritten assumptions about autonomous agency.",
       },
     ],
@@ -108,8 +113,7 @@ const matrix: SafeguardRow[] = [
     ],
     diagnostics: [
       {
-        name: "Delegation Audit",
-        href: "/diagnostics/delegation-audit",
+        slug: "delegation-audit",
         purpose:
           "Checks entered answers about delegation scope, evidence, and expiry.",
       },
@@ -155,8 +159,7 @@ const matrix: SafeguardRow[] = [
     ],
     diagnostics: [
       {
-        name: "Record Conformance Checker",
-        href: "/diagnostics/record-conformance",
+        slug: "record-conformance",
         purpose:
           "Checks uploaded records and hash-chain consistency against STD-07 requirements.",
       },
@@ -202,8 +205,7 @@ const matrix: SafeguardRow[] = [
     ],
     diagnostics: [
       {
-        name: "Workload Modeler",
-        href: "/diagnostics/burden-modeler",
+        slug: "burden-modeler",
         purpose:
           "Calculates operational vulnerability when human coping capacity is removed.",
       },
@@ -297,8 +299,7 @@ const matrix: SafeguardRow[] = [
     ],
     diagnostics: [
       {
-        name: "Corrective Debt Calculator",
-        href: "/diagnostics/corrective-debt-calculator",
+        slug: "corrective-debt-calculator",
         purpose:
           "Measures the accumulated backlog of uncorrected errors against institutional capacity.",
       },
@@ -324,6 +325,18 @@ const resolvedMatrix = matrix.map((row) => ({
     const standard = standardsContent.standards.find((item) => item.id === id);
     if (!standard) throw new Error(`Unknown matrix standard: ${id}`);
     return standard;
+  }),
+  diagnostics: row.diagnostics.map((diag) => {
+    if (!("slug" in diag)) return diag;
+    const tool = diagnosticsContent.tools.find(
+      (item) => item.slug === diag.slug,
+    );
+    if (!tool) throw new Error(`Unknown matrix diagnostic: ${diag.slug}`);
+    return {
+      name: tool.title,
+      href: `/diagnostics/${tool.slug}`,
+      purpose: diag.purpose,
+    };
   }),
 }));
 ---
@@ -388,10 +401,17 @@ const resolvedMatrix = matrix.map((row) => ({
             <div class="matrix-col">
               <span class="matrix-col__label">Governing laws</span>
               <ul class="matrix-list">
+                {/* Numbers only: "The twelve laws" below states each one,
+                    and spelling them out here printed the same statements
+                    two to four times across the cards. */}
                 {row.laws.map((law) => (
                   <li>
-                    <a href={law.href} class="matrix-link">
-                      <strong>Law {law.numeral}:</strong> {law.statement}
+                    <a
+                      href={law.href}
+                      class="matrix-link"
+                      title={law.statement}
+                    >
+                      <strong>Law {law.numeral}</strong>
                     </a>
                   </li>
                 ))}
