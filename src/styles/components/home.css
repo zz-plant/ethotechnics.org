@@ -436,58 +436,6 @@
     display: none;
   }
 
-  .self-test__roles {
-    margin-top: var(--space-5);
-    padding-top: var(--space-4);
-    border-top: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
-    display: grid;
-    gap: var(--space-2);
-  }
-
-  .self-test__roles-prompt {
-    font-size: var(--text-xs);
-    font-weight: 650;
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-label);
-    color: var(--muted);
-    margin: 0;
-  }
-
-  .self-test__roles-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2) var(--space-3);
-  }
-
-  .self-test__role-link {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-1);
-    padding: var(--space-1) var(--space-3);
-    border-radius: var(--radius-pill);
-    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-    background: color-mix(in srgb, var(--surface) 90%, transparent);
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--text);
-    text-decoration: none;
-    transition:
-      border-color var(--motion-fast) ease,
-      background-color var(--motion-fast) ease;
-  }
-
-  .self-test__role-link span {
-    font-weight: 450;
-    color: var(--muted);
-  }
-
-  .self-test__role-link:hover,
-  .self-test__role-link:focus-visible {
-    border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
-    background: color-mix(in srgb, var(--accent) 10%, var(--surface));
-    text-decoration: none;
-  }
-
   /* The six-node figure: one ring, six safeguard nodes, the count at
      center. Answers arrive as data-answer on each node group; the shape is
      hidden from assistive technology because the form and its result carry
@@ -851,12 +799,6 @@
   }
 
   @media (any-pointer: coarse) {
-    .self-test__role-link {
-      display: inline-flex;
-      align-items: center;
-      min-height: 44px;
-    }
-
     .self-test__choice span {
       display: inline-flex;
       align-items: center;

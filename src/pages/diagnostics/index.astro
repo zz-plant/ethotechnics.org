@@ -27,7 +27,6 @@ const anchorLinks = [
   { href: "#self-defense-tools", label: "If a system decided about you" },
   { href: "#output-baseline", label: "What every output includes" },
   { href: "#how-it-works", label: "Facilitated sessions" },
-  { href: "#referenced-by", label: "Where diagnostics are cited" },
 ];
 const introDescription =
   "For operators, governance teams, and auditors. Three of the four tools score what you enter about a workflow. The Record Conformance Checker grades the records a system exports.";
@@ -401,73 +400,20 @@ const selfDefenseTools = [
     <p class="muted diagnostics__footnote">{facilitation.note}</p>
   </SectionBlock>
 
-  <SectionBlock
-    id="referenced-by"
-    eyebrow="Referenced by"
-    title="Where diagnostics connect to the standards"
-    description="The worked examples, incident triggers, release checklists, and evidence packs that cite a diagnostic output."
-  >
-    <div class="grid grid--three">
-      <div class="panel">
-        <p class="eyebrow">Used in examples</p>
-        <ul class="muted">
-          <li>
-            <a href="/use-cases/examples/automated-account-lock"
-              >Automated account lock</a
-            >
-          </li>
-          <li>
-            <a href="/use-cases/examples/content-moderation-takedown"
-              >Content moderation takedown</a
-            >
-          </li>
-          <li>
-            <a href="/use-cases/examples/fraud-hold-delayed-notice"
-              >Fraud hold with delayed notice</a
-            >
-          </li>
-        </ul>
-      </div>
-      <div class="panel">
-        <p class="eyebrow">Required after incidents and before release</p>
-        <ul class="muted">
-          <li>
-            <a href="/incidents">Incident triggers</a>
-          </li>
-          <li>
-            <a href="/evidence-packs">Release gate checklist</a>
-          </li>
-        </ul>
-      </div>
-      <div class="panel">
-        <p class="eyebrow">Verified by evidence packs</p>
-        <ul class="muted">
-          <li>
-            <a href="/evidence-packs/std-01">STD-01 Evidence Pack</a>
-          </li>
-          <li>
-            <a href="/evidence-packs/std-02">STD-02 Evidence Pack</a>
-          </li>
-          <li>
-            <a href="/validators">Validators (VAL-01–VAL-03)</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <SearchIds
-      ids={[
-        "AW-01",
-        "AW-02",
-        "AW-03",
-        "AW-04",
-        "VAL-01",
-        "VAL-02",
-        "VAL-03",
-        "STD-02.2.1",
-        "STD-02.3.1",
-      ]}
-    />
-  </SectionBlock>
+  {/* IDs a site search should match to this page. */}
+  <SearchIds
+    ids={[
+      "AW-01",
+      "AW-02",
+      "AW-03",
+      "AW-04",
+      "VAL-01",
+      "VAL-02",
+      "VAL-03",
+      "STD-02.2.1",
+      "STD-02.3.1",
+    ]}
+  />
 
   <section
     class="cta stack-md"

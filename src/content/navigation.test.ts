@@ -1,11 +1,7 @@
 import { describe, expect, it } from "bun:test";
 
-import {
-  navPrimaryLinks,
-  navSections,
-  navUtilityMobilePrimaryLinks,
-  startHereCta,
-} from "./navigation";
+import { navPrimaryLinks, navSections } from "./navigation";
+import { siteFooter } from "./site-footer";
 
 const sectionLinks = (heading: string) => {
   const section = navSections.find((entry) => entry.heading === heading);
@@ -100,9 +96,21 @@ describe("navSections", () => {
   });
 });
 
-describe("start here", () => {
-  it("resolves to one route", () => {
-    expect(startHereCta.href).toBe("/start");
-    expect(navUtilityMobilePrimaryLinks[0]?.href).toBe("/start");
+describe("site footer", () => {
+  // The footer used to mirror the Browse panel, so every page listed the same
+  // twenty destinations twice. It carries only what no menu does.
+  it("repeats no destination the header already reaches", () => {
+    const headerHrefs = new Set([
+      "/start",
+      ...navPrimaryLinks.map((link) => link.href),
+      ...navSections.flatMap((section) => [
+        ...(section.href ? [section.href] : []),
+        ...section.links.map((link) => link.href),
+      ]),
+    ]);
+    const repeated = siteFooter.navigation
+      .flatMap((column) => column.links)
+      .filter((link) => headerHrefs.has(link.href));
+    expect(repeated).toEqual([]);
   });
 });

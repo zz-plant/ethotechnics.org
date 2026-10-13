@@ -185,11 +185,6 @@
     }
   }
 
-  .nav__icon {
-    width: 1.15rem;
-    height: 1.15rem;
-  }
-
   /* --- Mobile Navigation --- */
   .nav__mobile {
     display: block;
@@ -385,61 +380,6 @@
     }
   }
 
-  .nav__mobile-featured-cta {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: var(--space-4) var(--space-4);
-    border-radius: var(--radius-lg);
-    background: color-mix(in srgb, var(--accent) 10%, var(--surface));
-    border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border));
-    text-decoration: none;
-    color: inherit;
-    transition:
-      background-color var(--motion-fast) ease,
-      border-color var(--motion-fast) ease,
-      transform var(--motion-fast) ease;
-  }
-
-  .nav__mobile-featured-cta:hover {
-    background: color-mix(in srgb, var(--accent) 18%, var(--surface));
-    border-color: var(--accent-strong);
-    transform: translateY(-1px);
-  }
-
-  .nav__mobile-featured-content {
-    display: grid;
-    gap: var(--space-1);
-  }
-
-  .nav__mobile-featured-badge {
-    font-size: var(--text-xs);
-    font-family: var(--sans);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-label-wide);
-    color: var(--accent-strong);
-  }
-
-  .nav__mobile-featured-title {
-    font-size: var(--text-base);
-    font-weight: 750;
-    color: var(--text);
-  }
-
-  .nav__mobile-featured-desc {
-    font-size: var(--text-xs);
-    color: var(--muted);
-  }
-
-  .nav__mobile-featured-arrow {
-    width: 1.25rem;
-    height: 1.25rem;
-    color: var(--accent-strong);
-    flex-shrink: 0;
-    margin-left: var(--space-2);
-  }
-
   .nav__mobile-section-groups {
     display: grid;
     gap: var(--space-4);
@@ -456,6 +396,24 @@
     letter-spacing: 0.1em;
     color: var(--muted);
     padding-left: var(--space-1);
+  }
+
+  /* A group heading that names an index page links to it. */
+  .nav__mobile-group-title a,
+  .nav__browse-group-title a {
+    display: inline-block;
+    padding-block: var(--space-1);
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.25em;
+  }
+
+  .nav__mobile-group-title a:hover,
+  .nav__browse-group-title a:hover,
+  .nav__mobile-group-title a[aria-current],
+  .nav__browse-group-title a[aria-current] {
+    color: var(--text);
   }
 
   .nav__mobile-group-links {
@@ -508,49 +466,6 @@
     font-size: var(--text-xs);
     color: var(--muted);
     line-height: 1.35;
-  }
-
-  .nav__mobile-connect {
-    display: grid;
-    gap: var(--space-2);
-    padding-top: var(--space-3);
-    border-top: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
-  }
-
-  .nav__mobile-connect-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-  }
-
-  .nav__mobile-connect-link {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-3);
-    min-height: 44px;
-    border-radius: var(--radius-pill);
-    background: color-mix(in srgb, var(--panel) 65%, transparent);
-    border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
-    font-size: var(--text-xs);
-    font-weight: 600;
-    color: var(--muted);
-    text-decoration: none;
-    transition:
-      color var(--motion-fast) ease,
-      border-color var(--motion-fast) ease,
-      background-color var(--motion-fast) ease;
-  }
-
-  .nav__mobile-connect-link:hover {
-    color: var(--text);
-    background: var(--interactive-bg-hover);
-    border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
-  }
-
-  .nav__mobile-connect-link .nav__icon {
-    width: 0.95rem;
-    height: 0.95rem;
   }
 
   /* --- Keeping the open drawer inside the viewport --- */
