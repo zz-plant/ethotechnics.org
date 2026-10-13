@@ -9,11 +9,11 @@ import SectionBlock from "./SectionBlock.astro";
 import { getExplainerSeoMetadata } from "../utils/explainer-metadata";
 
 interface CtaLink {
+  /** The kind of page the link opens: standard, evidence pack, eval. */
   eyebrow: string;
   title: string;
   description: string;
   href: string;
-  ctaLabel: string;
 }
 
 interface FaqItem {
@@ -58,14 +58,27 @@ const {
   hasDiagram = false,
 }: Props = Astro.props;
 const explainerSeoMetadata = getExplainerSeoMetadata(permalink);
+// "A hypothetical case" and "Where the standards use it" were sections of
+// their own, most under fifty words. The case now closes the definition it
+// illustrates, and the links close what to look for.
 const anchorLinks = [
   { href: "#definition", label: "Definition" },
   ...(hasDiagram ? [{ href: "#mechanism", label: "Visual model" }] : []),
-  { href: "#example", label: "A hypothetical case" },
   { href: "#distinct-signals", label: "What to look for" },
-  { href: "#artifacts", label: "Where the standards use it" },
   { href: "#faq", label: "Common questions" },
 ];
+
+// Each link runs into its description. It names its kind only when its title
+// and description don't: "STD-01 evidence pack" needs no "(evidence pack)".
+const standardLinks = ctas.map(({ eyebrow, title, description, href }) => {
+  const text = `${title} ${description}`.toLowerCase();
+  const kind = eyebrow.toLowerCase();
+  const named = kind
+    .split(/\s+/)
+    .every((word) => text.includes(word.replace(/s$/, "")));
+  const join = !named ? ` (${kind}). ` : /[.?!]$/.test(title) ? " " : ". ";
+  return { href, title, after: `${join}${description}` };
+});
 
 const pageUrl = Astro.site
   ? new URL(permalink, Astro.site).toString()
@@ -105,6 +118,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 
   <SectionBlock id="definition" eyebrow="Definition" title="Definition">
     {definition.map((paragraph) => <p>{paragraph}</p>)}
+    <p><strong>A hypothetical case.</strong> {example}</p>
     <p class="small muted">
       In the glossary: <a href={glossary.href}>{glossary.label}</a>.
     </p>
@@ -119,18 +133,10 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   }
 
   <SectionBlock
-    id="example"
-    eyebrow="Example"
-    title="A hypothetical case"
-    variant={hasDiagram ? "default" : "alt"}
-  >
-    <p>{example}</p>
-  </SectionBlock>
-
-  <SectionBlock
     id="distinct-signals"
     eyebrow="In practice"
     title="What to look for"
+    variant={hasDiagram ? "default" : "alt"}
   >
     <CardGrid className="grid--three">
       {
@@ -143,37 +149,26 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         ))
       }
     </CardGrid>
-  </SectionBlock>
-
-  <SectionBlock
-    id="artifacts"
-    eyebrow="Related"
-    title="Where the standards use it"
-  >
-    <CardGrid className="grid--three">
-      {
-        ctas.map((cta) => (
-          <CardItem
-            eyebrow={cta.eyebrow}
-            title={cta.title}
-            description={cta.description}
-          >
-            <p slot="footer">
-              <a class="button ghost button--compact" href={cta.href}>
-                {cta.ctaLabel}
-              </a>
-            </p>
-          </CardItem>
-        ))
-      }
-    </CardGrid>
+    <div class="explainer-uses">
+      <p class="explainer-uses__label">Where the standards use it:</p>
+      <ul>
+        {
+          standardLinks.map((link) =>
+            // Astro renders a line break after </a> as a space before the
+            // period, so the line is kept whole.
+            // prettier-ignore
+            <li><a href={link.href}>{link.title}</a>{link.after}</li>,
+          )
+        }
+      </ul>
+    </div>
   </SectionBlock>
 
   <SectionBlock
     id="faq"
     eyebrow="Questions"
     title="Common questions"
-    variant="alt"
+    variant={hasDiagram ? "alt" : "default"}
   >
     <CardGrid className="grid--two">
       {
@@ -192,3 +187,21 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 
   <InlineScript type="application/ld+json" code={structuredDataJson} />
 </BaseLayout>
+
+<style>
+  .explainer-uses {
+    margin-top: var(--space-6);
+    max-width: 70ch;
+  }
+
+  .explainer-uses__label {
+    font-weight: 600;
+  }
+
+  .explainer-uses ul {
+    margin: 0;
+    padding-left: var(--space-4);
+    display: grid;
+    gap: var(--space-2);
+  }
+</style>
