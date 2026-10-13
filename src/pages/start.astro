@@ -95,7 +95,7 @@ const pageDescription =
             <div class="role-card__header">
               <span class="role-card__badge">{role.label}</span>
               <h2 class="role-card__title">
-                <a href={rolePermalink(role.id)}>{role.who}</a>
+                <a href={rolePermalink(role.id)}>{role.who.replace(/\.$/, "")}</a>
               </h2>
               <p class="role-card__tagline">{role.tagline}</p>
             </div>
