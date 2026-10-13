@@ -21,6 +21,17 @@ if (!role) return new Response("Role not found", { status: 404 });
 const pageTitle = `${role.label} — Ethotechnics role path`;
 const pageDescription = role.tagline;
 
+// What to attend to and what to have in place were two sections of three
+// and four bullets each. They share one section, a column each.
+const hasFocus = Boolean(role.guide?.focusAreas.length);
+const hasChecklist = Boolean(role.adoptionChecklist?.length);
+const practiceTitle =
+  hasFocus && hasChecklist
+    ? "What to attend to, and what to have in place"
+    : hasFocus
+      ? "What to attend to"
+      : "What to have in place";
+
 const anchorLinks = [
   role.orientation?.length
     ? { href: "#first-moves", label: "Where to start" }
@@ -30,9 +41,8 @@ const anchorLinks = [
   role.guide?.keyLinks.length
     ? { href: "#tools", label: "What to open" }
     : null,
-  role.guide ? { href: "#focus", label: "What to attend to" } : null,
-  role.adoptionChecklist?.length
-    ? { href: "#adopt", label: "Adoption checklist" }
+  role.guide || role.adoptionChecklist?.length
+    ? { href: "#practice", label: practiceTitle }
     : null,
 ].filter((link): link is { href: string; label: string } => link !== null);
 
@@ -162,36 +172,31 @@ const breadcrumbItems = [
   }
 
   {
-    role.guide && (
-      <SectionBlock
-        id="focus"
-        eyebrow="What to attend to"
-        title="The parts of the method that apply to your work"
-        variant="alt"
-      >
-        <ul class="card__list">
-          {role.guide.focusAreas.map((area) => (
-            <li>{area}</li>
-          ))}
-        </ul>
-      </SectionBlock>
-    )
-  }
-
-  {
-    role.adoptionChecklist?.length && (
-      <SectionBlock
-        id="adopt"
-        eyebrow="Adoption checklist"
-        title="What to have in place"
-        description="For a team that has decided to adopt the standards. Each line is something that either exists or does not."
-        variant="alt"
-      >
-        <ul class="card__list">
-          {role.adoptionChecklist.map((item) => (
-            <li>{item}</li>
-          ))}
-        </ul>
+    (hasFocus || hasChecklist) && (
+      <SectionBlock id="practice" title={practiceTitle} variant="alt">
+        <div class:list={[{ "grid grid--two": hasFocus && hasChecklist }]}>
+          {hasFocus && (
+            <div id="focus" class="stack-sm">
+              {hasChecklist && <p class="eyebrow">The parts of the method</p>}
+              <ul class="card__list">
+                {role.guide?.focusAreas.map((area) => (
+                  <li>{area}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {hasChecklist && (
+            <div id="adopt" class="stack-sm">
+              {hasFocus && <p class="eyebrow">Once you adopt</p>}
+              <p class="small muted">Each line either exists or does not.</p>
+              <ul class="card__list">
+                {role.adoptionChecklist?.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
       </SectionBlock>
     )
   }
