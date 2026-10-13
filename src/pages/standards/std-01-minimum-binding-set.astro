@@ -196,14 +196,15 @@ const bindingSets = [
     title="Cite this minimum binding set"
     description="Use the citation block for audits, procurement, and policy references."
   >
-    <ScholarlyMeta publication={publication} permalink={permalink} />
     <CitationBlock
       title={pageTitle}
       permalink={permalink}
       publication={publication}
       citationKey="std_01_minimum_binding_set"
       summaryLabel="Cite this minimum binding set"
-    />
+    >
+      <ScholarlyMeta bare publication={publication} permalink={permalink} />
+    </CitationBlock>
     <p class="muted" style="margin-top:var(--space-5)">
       See also: <a href="/standards">Standards</a> &middot; <a
         href="/mechanisms">Mechanisms</a

@@ -153,12 +153,13 @@ const incidentTemplate = `Incident memo (Template)
     description="Cite the canonical permalink and version in incident documentation."
     variant="alt"
   >
-    <ScholarlyMeta publication={publication} permalink={permalink} />
     <CitationBlock
       title={pageTitle}
       permalink={permalink}
       publication={publication}
-    />
+    >
+      <ScholarlyMeta bare publication={publication} permalink={permalink} />
+    </CitationBlock>
   </SectionBlock>
   <p class="muted small">
     See also: <a href="/artifacts">Adopt-as-is templates</a> &middot;

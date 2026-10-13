@@ -126,12 +126,13 @@ const publication = createImplementationPublication(
   <UseCaseFit slug="customer-service-chatbots" />
 
   <div id="citations">
-    <ScholarlyMeta publication={publication} permalink={permalink} />
     <CitationBlock
       title={pageTitle}
       permalink={permalink}
       publication={publication}
       summaryLabel="Cite this implementation example"
-    />
+    >
+      <ScholarlyMeta bare publication={publication} permalink={permalink} />
+    </CitationBlock>
   </div>
 </BaseLayout>

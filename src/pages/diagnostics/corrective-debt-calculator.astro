@@ -246,13 +246,14 @@ const anchorLinks = [
     </div>
   </SectionBlock>
 
-  <ScholarlyMeta publication={publication} permalink={permalink} />
   <CitationBlock
     title={tool.title}
     permalink={permalink}
     publication={publication}
     citationKey={`diagnostic_${tool.slug}`}
-  />
+  >
+    <ScholarlyMeta bare publication={publication} permalink={permalink} />
+  </CitationBlock>
 </BaseLayout>
 
 <script>

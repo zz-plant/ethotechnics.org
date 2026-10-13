@@ -31,12 +31,13 @@ const permalink = "/mechanisms/cite";
       { href: "#licensing", label: "Licensing & attribution" },
     ]}
   />
-  <ScholarlyMeta publication={publication} permalink={permalink} />
   <CitationBlock
     title={pageTitle}
     permalink={permalink}
     publication={publication}
-  />
+  >
+    <ScholarlyMeta bare publication={publication} permalink={permalink} />
+  </CitationBlock>
 
   <SectionBlock
     id="citation-guidance"

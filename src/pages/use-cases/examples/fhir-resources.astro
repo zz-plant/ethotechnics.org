@@ -162,13 +162,14 @@ const publication = createImplementationPublication(
   <UseCaseFit slug="fhir-resources" />
 
   <div id="citations">
-    <ScholarlyMeta publication={publication} permalink={permalink} />
     <CitationBlock
       title={pageTitle}
       permalink={permalink}
       publication={publication}
       summaryLabel="Cite this implementation example"
-    />
+    >
+      <ScholarlyMeta bare publication={publication} permalink={permalink} />
+    </CitationBlock>
     <p class="muted" style="margin-top:var(--space-5)">
       See also: <a href="/standards">Standards</a> &middot; <a
         href="/mechanisms">Mechanisms</a
