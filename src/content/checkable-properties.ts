@@ -108,7 +108,7 @@ export const checkableProperties: CheckableProperty[] = [
     id: "chain-boundary-governs-composition",
     title: "The chain boundary governs the composition, not a hop",
     claim:
-      "A chain of delegations is measured and stopped as one composition: the composed window is measured from decision records and leaves a human something to act inside, and one boundary intervention halts every enumerated hop.",
+      "A chain of delegations is measured and halted as one composition: the composed window is measured from decision records and leaves a human something to act inside, and one boundary intervention halts every enumerated hop.",
     laws: ["law-ix", "law-iv"],
     variables: ["authority", "correction"],
     probes: [
@@ -236,19 +236,19 @@ export const checkableProperties: CheckableProperty[] = [
   },
   {
     id: "stopping-is-operational",
-    title: "Stop means the work ceases, not that the request was received",
+    title: "Halt means the work ceases, not that the request was received",
     claim:
-      "A stop request is acknowledged and the work ceases within the stop budget.",
+      "A halt request is acknowledged and the work ceases within the time-to-halt budget.",
     laws: ["law-vi", "law-ix"],
     variables: ["capability", "correction"],
     probes: [
       {
         observes: "live",
         id: "STP-005",
-        what: "starts a job, requests a stop, and polls until the system reports the work has ceased or the budget elapses",
+        what: "starts a job, requests a halt, and polls until the system reports the work has ceased or the budget elapses",
       },
     ],
-    gap: "A record probe would need the stop request and the cessation as separate timestamped records. STD-07 has no stop record kind; an intervention record exists but does not distinguish acknowledgment from cessation.",
+    gap: "A record probe would need the halt request and the cessation as separate timestamped records. STD-07 has no halt record kind; an intervention record exists but does not distinguish acknowledgment from cessation.",
   },
   {
     id: "a-human-can-alter-system-state",

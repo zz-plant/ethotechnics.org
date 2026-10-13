@@ -11,7 +11,7 @@ export const failureChoiceLabels: Record<string, string> = {
   "user-harmed": "A user was harmed",
   "no-owner": "No owner is assigned",
   "cant-explain": "Decision cannot be clearly explained",
-  "cant-stop": "System cannot be stopped or rolled back",
+  "cant-stop": "System cannot be halted or rolled back",
 };
 
 export const failurePriorityBadges: Record<string, string> = {
@@ -28,7 +28,7 @@ export const failureFirstMoves: Record<string, string> = {
   "decision-appealed":
     "Name the person who must answer this appeal, and the date they must answer by.",
   "model-wrong":
-    "Contain the error: narrow or pause the decisions it affects, and record who decided.",
+    "Contain the error: narrow or halt the decisions it affects, and record who decided.",
   "queue-stuck":
     "Set a date by which each waiting case will be answered, and name who owns the queue.",
   "user-harmed":

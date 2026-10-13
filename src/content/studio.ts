@@ -41,7 +41,7 @@ export const studio = {
       name: "Readiness sprint",
       format: "2 weeks",
       output:
-        "One workflow mapped end to end: who can stop it, how fast, and who owns each fix.",
+        "One workflow mapped end to end: who can halt it, how fast, and who owns each fix.",
     },
     {
       name: "Investor diligence",

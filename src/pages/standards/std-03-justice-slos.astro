@@ -21,7 +21,7 @@ const standardFields = [
   {
     title: "Metric",
     description:
-      "The justice metric the objective covers: time-to-restore, time-to-halt, appeal passage rate, user burden ratio, or irreversibility index.",
+      "The justice metric the objective covers: time to restore, time to halt, appeal passage rate, user burden ratio, or irreversibility index.",
   },
   {
     title: "Target, budget, or ceiling",
@@ -41,7 +41,7 @@ const standardFields = [
   {
     title: "Owner",
     description:
-      "The named person accountable for the objective, who can pause the workflow or order the remedy.",
+      "The named person accountable for the objective, who can halt the workflow or order the remedy.",
   },
   {
     title: "Public surface",
@@ -52,13 +52,13 @@ const standardFields = [
 
 const metricLinks = [
   {
-    title: "Time-to-restore (TTR)",
+    title: "Time to restore (TTR)",
     description:
       "How long it takes to reverse a harm and return a person to their prior state.",
     href: "/glossary/time-to-restore",
   },
   {
-    title: "Time-to-halt (TTH)",
+    title: "Time to halt (TTH)",
     description:
       "The time between a harmful process starting and the system stopping it.",
     href: "/glossary/time-to-halt",
@@ -83,7 +83,7 @@ const metricLinks = [
 ];
 
 const breachPlaybook = [
-  "Safe pause for the affected workflow class.",
+  "A halt on the affected workflow class, with its open cases held in a safe pause.",
   "An ethical circuit breaker trips and the case escalates.",
   "A rollback lane opens, or the workflow moves to manual handling for a set period.",
   "Added staff or a dedicated remediation queue.",
@@ -143,7 +143,7 @@ const publication = derivePublicationMetadata({
 
 <BaseLayout
   title="STD-03: Justice SLOs"
-  description="A draft standard: each justice metric, such as time-to-halt, needs a target, a measurement window, a breach action, and a named owner."
+  description="A draft standard: each justice metric, such as time to halt, needs a target, a measurement window, a breach action, and a named owner."
   publishedTime="2025-06-01T00:00:00.000Z"
   mainClass="page page--wide standard-document"
   enableGlossaryHighlights={false}
@@ -238,7 +238,7 @@ const publication = derivePublicationMetadata({
           <h2>Ownership and public surface</h2>
           <p>
             Each justice SLO must name an accountable owner with authority to
-            pause the workflow, roll it back, or staff the remedy. The public
+            halt the workflow, roll it back, or staff the remedy. The public
             surface must show how long the process takes and link to the
             decision records, so the people affected can check that a breach
             action happened.
@@ -252,7 +252,9 @@ const publication = derivePublicationMetadata({
           <ul>
             <li>Targets, budgets, or ceilings set by workflow class.</li>
             <li>Measurement windows defined (p95, weekly, rolling).</li>
-            <li>Breach actions wired to pause, rollback, or escalation.</li>
+            <li>
+              Breach actions wired to a halt or pause, rollback, or escalation.
+            </li>
             <li>Named owner with authority to remediate.</li>
           </ul>
         </div>

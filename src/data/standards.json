@@ -170,7 +170,7 @@
         "id": "STD-03",
         "slug": "std-03-justice-slos",
         "title": "Justice SLOs (Targets, Budgets, and Breach Actions)",
-        "description": "Each justice metric, such as time-to-halt, gets a target, a measurement window, a breach action set in advance, and a named owner.",
+        "description": "Each justice metric, such as time to halt, gets a target, a measurement window, a breach action set in advance, and a named owner.",
         "status": "Draft",
         "version": "0.6.1",
         "changelogHref": "/standards/std-03-justice-slos",
@@ -1354,7 +1354,7 @@
         "displayId": "§2.3",
         "type": "obligation",
         "requirementLevel": "MUST",
-        "condition": "time-to-halt or time-to-remedy is reported",
+        "condition": "time to halt or time to remedy is reported",
         "obligation": "measure it against a clock rather than accept the attestation of the team that owns the control",
         "evidenceRequired": [
           "time_to_halt_log",
@@ -1465,12 +1465,12 @@
         "type": "obligation",
         "requirementLevel": "MUST",
         "condition": "a boundary breach is active",
-        "obligation": "stop the deployment or the expansion; do not convert the breach into a monitored risk by a sign-off",
+        "obligation": "halt the deployment or the expansion; do not convert the breach into a monitored risk by a sign-off",
         "evidenceRequired": ["boundary_register.breach", "launch_decision"],
         "timeBound": "at the launch or expansion decision",
         "failureModes": [
           "breach accepted as a risk on the strength of a signature",
-          "breach discovered post-launch and managed rather than paused"
+          "breach discovered post-launch and managed rather than halted"
         ],
         "relatedMechanisms": ["MEC-05"],
         "relatedValidators": []
@@ -1555,7 +1555,7 @@
         ],
         "timeBound": "before launch and at each case refresh",
         "failureModes": [
-          "a working stop control presented as institutional reversibility",
+          "a working halt control presented as institutional reversibility",
           "operational level assessed by the team that would not have to absorb it"
         ],
         "relatedMechanisms": ["MEC-15", "MEC-10"],
@@ -2562,8 +2562,8 @@
         "evidenceRequired": ["intervention_spec", "chain_halt_receipt"],
         "timeBound": "within the intervention spec's reach time",
         "failureModes": [
-          "each hop has a working stop control and the composed process never stops",
-          "downstream hops continue on the output of a stopped hop"
+          "each hop has a working halt control and the composed process never stops",
+          "downstream hops continue on the output of a halted hop"
         ],
         "relatedMechanisms": ["MEC-05", "MEC-16", "MEC-20"],
         "relatedValidators": []

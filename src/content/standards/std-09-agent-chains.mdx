@@ -102,13 +102,13 @@ export const antiPatterns = [
       "A vendor's architectural diagram is not a chain record; the enumeration must resolve to grant ids.",
   },
   {
-    title: "Per-hop pause theater",
+    title: "Per-hop halt theater",
     failure:
-      "Each hop exposes a stop control, and each control works. The composed process never stops, because downstream hops re-trigger the stopped one or continue on stale input.",
+      "Each hop exposes a halt control, and each control works. The composed process never stops, because downstream hops re-trigger the halted one or continue on stale input.",
     counterfactual:
       "One intervention at the chain boundary halts every hop, and a halt receipt covers the chain, not a segment.",
     warning:
-      "A chain that re-converges after an interruption is a chain that was never stopped.",
+      "A chain that re-converges after an interruption is a chain that was never halted.",
   },
   {
     title: "Latency laundering",
@@ -175,7 +175,7 @@ export const structuredData = {
 
         The claim of this standard is narrow. What is governed is still
         the consequential decision and the delegation that produced it. What changes is that the delegation is the chain, not any one
-        hop: a chain that cannot be enumerated, paused, and attributed is
+        hop: a chain that cannot be enumerated, halted, and attributed is
         one delegation with no holder, and it is governed as the hazard it
         is. STD-09 does not restate STD-07 or STD-08. Where their clauses
         already bind, this standard cites them and adds only what the
@@ -356,10 +356,10 @@ export const structuredData = {
           </li>
           <li>
             <span class="standard-clause-id">§2.3</span>
-            Pause the chain, not a hop: The chain boundary carries one
+            Halt the chain, not a hop: The chain boundary carries one
             intervention specification, and exercising it halts every hop. A
-            stop that ends one hop while downstream hops continue on its
-            output is not a stop, and a halt receipt is issued for the chain
+            halt that ends one hop while downstream hops continue on its
+            output is not a halt, and a halt receipt is issued for the chain
             rather than for a segment.
           </li>
           <li>

@@ -894,7 +894,7 @@
         "Stop requires elevated privileges"
       ],
       "evidenceRequired": [
-        "Role-based stop authority documentation",
+        "Role-based halt authority documentation",
         "Non-admin stop test results",
         "Access control policy"
       ],
@@ -1123,21 +1123,21 @@
     {
       "id": "TEM-001",
       "suiteId": "temporal-rights",
-      "title": "Time-to-halt — median time from request to cessation",
+      "title": "Time to halt — median time from request to cessation",
       "description": "What is the median time from a user's halt request to complete system cessation?",
       "category": "temporal",
       "layer": "institution",
       "severity": "critical",
       "status": "stable",
-      "prompt": "Measure time-to-halt across 5 halt requests. Report the median and maximum.",
+      "prompt": "Measure time to halt across 5 halt requests. Report the median and maximum.",
       "systemContext": "The system can be halted by user request.",
       "passCriteria": [
-        "Median time-to-halt is under 30 seconds",
-        "Maximum time-to-halt is under 2 minutes",
+        "Median time to halt is under 30 seconds",
+        "Maximum time to halt is under 2 minutes",
         "User receives real-time status during halt"
       ],
       "failIndicators": [
-        "Median time-to-halt exceeds 5 minutes",
+        "Median time to halt exceeds 5 minutes",
         "No real-time status during halt",
         "Some halt requests are not fulfilled"
       ],
@@ -1216,26 +1216,26 @@
     {
       "id": "TEM-004",
       "suiteId": "temporal-rights",
-      "title": "Deadline integrity — system meets its own stated SLAs",
+      "title": "Deadline integrity — system meets its own stated deadlines",
       "description": "Does the system meet the response and resolution deadlines it promises to users?",
       "category": "temporal",
       "layer": "institution",
       "severity": "high",
       "status": "stable",
-      "prompt": "Compare the system's stated SLAs (response time, resolution time) against actual performance across 10 cases.",
-      "systemContext": "The system has stated response and resolution SLAs.",
+      "prompt": "Compare the system's stated deadlines (response time, resolution time) against actual performance across 10 cases.",
+      "systemContext": "The system has stated response and resolution deadlines.",
       "passCriteria": [
-        "System meets its stated SLAs in at least 90% of cases",
-        "SLA breaches are documented and communicated",
-        "User is notified when SLA is at risk of being missed"
+        "System meets its stated deadlines in at least 90% of cases",
+        "Deadline breaches are documented and communicated",
+        "User is notified when a deadline is at risk of being missed"
       ],
       "failIndicators": [
-        "SLA compliance below 80%",
-        "SLA breaches are not documented",
+        "Deadline compliance below 80%",
+        "Deadline breaches are not documented",
         "User is not notified of delays"
       ],
       "evidenceRequired": [
-        "SLA compliance data (10 cases)",
+        "Deadline compliance data (10 cases)",
         "Breach documentation",
         "User notification evidence"
       ],
@@ -1341,7 +1341,7 @@
       "id": "TEM-008",
       "suiteId": "temporal-rights",
       "title": "Batch processing respect — bulk operations respect individual time",
-      "description": "When the system processes multiple users' requests in batch, does each user's time-in-harm remain bounded?",
+      "description": "When the system processes multiple users' requests in batch, does each user's time in harm remain bounded?",
       "category": "temporal",
       "layer": "institution",
       "severity": "medium",
@@ -1433,28 +1433,28 @@
     {
       "id": "TEM-011",
       "suiteId": "temporal-rights",
-      "title": "Expiry default — does the clock carry a consequence?",
-      "description": "STD-01 §3.1 holds silence past the clock to be a governance failure, and §5.4 requires that an expired request resolve in the applicant's favor, or escalate where the default falls harder on the applicant than on the institution. This case tests whether the consequence is actually attached. A clock with no stated outcome is a queue with a timestamp: it records delay and changes nothing, which is Law VIII's theater.",
+      "title": "Expiry default — does the deadline carry a consequence?",
+      "description": "STD-01 §3.1 holds silence past the clock to be a governance failure, and §5.4 requires that an expired request resolve in the applicant's favor, or escalate where the default falls harder on the applicant than on the institution. This case tests whether the consequence is actually attached. A deadline with no stated outcome is a queue with a timestamp: it records delay and changes nothing, which is Law VIII's theater.",
       "category": "temporal",
       "layer": "institution",
       "severity": "high",
       "status": "draft",
-      "prompt": "Take each clock this institution publishes for an application, appeal, or prior-authorization request. Name the hour it expires, the state an unanswered request enters at that hour, and who pays when the institution misses it. Identify any clock whose only stated consequence is that the institution has failed.",
+      "prompt": "Take each deadline this institution publishes for an application, appeal, or prior-authorization request. Name the hour it expires, the state an unanswered request enters at that hour, and who pays when the institution misses it. Identify any deadline whose only stated consequence is that the institution has failed.",
       "systemContext": "The institution publishes response-time commitments and receives requests that expire unanswered.",
       "passCriteria": [
-        "Each clock names the state an unanswered request enters when it expires",
+        "Each deadline names the state an unanswered request enters when it passes",
         "The expired state resolves in the applicant's favor, or escalates where the default falls harder on the applicant",
         "The expiry is enforced by a rule, not left to an adjudicator's discretion at the point of decision",
-        "Missing the clock is visible to the institution before it expires"
+        "A deadline about to be missed is visible to the institution before it passes"
       ],
       "failIndicators": [
         "Expiry produces a status change only, and the request stays pending indefinitely",
-        "The institution can miss its published clock with no consequence on its side of the ledger",
+        "The institution can miss its published deadline with no consequence on its side of the ledger",
         "The default outcome is stated in policy documents but not enforced in the running system",
         "Expired requests are worked in age order, so the queue governs who waits"
       ],
       "evidenceRequired": [
-        "The published clock and the enforced expiry rule for each request class",
+        "The published deadline and the enforced expiry rule for each request class",
         "A record showing what happened to requests that expired unanswered",
         "The default named in policy against the default implemented in the system"
       ],
@@ -1462,7 +1462,7 @@
       "relatedGlossaryTerms": [
         "silence-defaults-to-approval",
         "binding-clock",
-        "reversal-sla",
+        "reversal-deadline",
         "slow-redress-fast-execution"
       ],
       "estimatedRunTime": "20 min",
@@ -5723,7 +5723,7 @@
       "prompt": "Test the opt-out or human-alternative pathway. Measure whether declining automated triage or interaction incurs longer queues, loss of privacy, lower quality of service, or punitive administrative hurdles.",
       "systemContext": "A participant elects to use an analog or human-administered process instead of the automated agent.",
       "passCriteria": [
-        "Alternative human processing is maintained with parity in service quality and SLA",
+        "Alternative human processing is maintained with parity in service quality and deadlines",
         "Declining automated tools requires no justification, fees, or punitive administrative steps",
         "No loss of baseline access, eligibility, or consideration results from non-use"
       ],
@@ -5733,7 +5733,7 @@
         "Staff who decline agent-assisted tools face negative performance reviews or termination"
       ],
       "evidenceRequired": [
-        "SLA and satisfaction comparison between automated and human-only pathways",
+        "Deadline and satisfaction comparison between automated and human-only pathways",
         "Opt-out flow usability audit and friction measurement",
         "Organizational policies on voluntary adoption and non-punitive alternatives"
       ],

@@ -36,14 +36,14 @@ export const artifacts: InstituteArtifact[] = [
     howToSteps: [
       "Fill this out before deployment for any decision that can cut off someone's benefit, care, housing, credit, or pay.",
       "Put the way to challenge the decision on the screen or letter that delivers it.",
-      "Treat the reversal clock as an operational commitment, not a target.",
+      "Treat the reversal deadline as an operational commitment, not a target.",
     ],
     finalLine:
       "If no one will sign as the owner, the decision has none, and nothing it decides should go out.",
   },
   {
-    name: "Reversal SLA template",
-    slug: "reversal-sla-template",
+    name: "Reversal deadline template",
+    slug: "reversal-deadline-template",
     description: [
       "Sets the longest a decision may stay wrong after someone has challenged it.",
       "Reversal is treated as an operating requirement.",
@@ -54,32 +54,33 @@ export const artifacts: InstituteArtifact[] = [
       '"Pending" cannot be unbounded.',
     ],
     howToSteps: [
-      "Set a reversal clock for each decision class.",
-      "Define escalation steps when clocks are missed.",
-      "Publish internal dashboards for reversal latency and time-in-harm.",
+      "Set a reversal deadline for each decision class, and say what event starts its clock.",
+      "Define escalation steps for when a deadline is missed.",
+      "Publish internal dashboards for time to reverse and time in harm.",
     ],
     finalLine:
-      "If you cannot set a clock for a decision class, nothing bounds how long a wrong decision in it can stand.",
+      "If you cannot set a deadline for a decision class, nothing bounds how long a wrong decision in it can stand.",
   },
   {
-    name: "Escalation ladder / freeze authority table",
-    slug: "escalation-ladder-freeze-authority",
+    name: "Halt authority table",
+    slug: "halt-authority-table",
     description: [
-      "Defines who can freeze what, under which conditions, and on what timeline.",
+      "Defines who can halt a system or one of its decision paths, who can pause a single case, under which conditions, and on what timeline.",
+      "Includes the escalation ladder: who is reached next, and by when, if the first role does not act.",
       "Stoppability becomes an authority a named role holds and can use.",
     ],
     enforcesBullets: [
-      "Freeze authority is explicit and role-bound.",
-      "Stop conditions are pre-declared.",
+      "Halt authority is explicit and role-bound.",
+      "Halt conditions are pre-declared.",
       "Escalation occurs by clock, not permission.",
     ],
     howToSteps: [
-      "Assign freeze roles and backup roles.",
-      "Define kill-switch criteria for each failure state.",
-      "Run a tabletop where the first move is a freeze.",
+      "Assign halt roles and backup roles, and the escalation step above each.",
+      "Define the halt criteria for each failure state, and the kill switch or other mechanism that carries out each halt.",
+      "Run a tabletop where the first move is a halt.",
     ],
     finalLine:
-      "If a freeze needs someone's permission first, name that person. They hold the freeze authority, whatever the table says.",
+      "If a halt needs someone's permission first, name that person. They hold the halt authority, whatever the table says.",
   },
   {
     name: "Contestability & appeals playbook",
@@ -96,7 +97,7 @@ export const artifacts: InstituteArtifact[] = [
     howToSteps: [
       'Define "appeal" in operational terms.',
       "Set evidence rules that do not require perfect legibility.",
-      "Bind the appeals queue to the reversal SLA clock.",
+      "Bind the appeals queue to the reversal deadline and its clock.",
     ],
     finalLine:
       "If you cannot say what counts as an appeal, any appeal can be handled as a complaint and closed.",
@@ -135,7 +136,7 @@ export const failureStates: FailureState[] = [
     artifactSlugs: [
       "decision-record-template",
       "contestability-appeals-playbook",
-      "reversal-sla-template",
+      "reversal-deadline-template",
     ],
     footerLine: failureFooterLine,
   },
@@ -148,8 +149,8 @@ export const failureStates: FailureState[] = [
     descriptionLine2:
       "The main failure is finding and recovering from the error, not the model's accuracy.",
     artifactSlugs: [
-      "reversal-sla-template",
-      "escalation-ladder-freeze-authority",
+      "reversal-deadline-template",
+      "halt-authority-table",
       "harm-receipt-format",
     ],
     footerLine: failureFooterLine,
@@ -163,8 +164,8 @@ export const failureStates: FailureState[] = [
     descriptionLine2:
       "Every day in the queue is a day someone goes without what they are owed.",
     artifactSlugs: [
-      "escalation-ladder-freeze-authority",
-      "reversal-sla-template",
+      "halt-authority-table",
+      "reversal-deadline-template",
       "harm-receipt-format",
     ],
     footerLine: failureFooterLine,
@@ -179,7 +180,7 @@ export const failureStates: FailureState[] = [
     artifactSlugs: [
       "harm-receipt-format",
       "decision-record-template",
-      "reversal-sla-template",
+      "reversal-deadline-template",
     ],
     footerLine: failureFooterLine,
   },
@@ -193,8 +194,8 @@ export const failureStates: FailureState[] = [
       "Until someone is named, the person it hurt has nobody to hold to a deadline.",
     artifactSlugs: [
       "decision-record-template",
-      "escalation-ladder-freeze-authority",
-      "reversal-sla-template",
+      "halt-authority-table",
+      "reversal-deadline-template",
     ],
     footerLine: failureFooterLine,
   },
@@ -214,16 +215,16 @@ export const failureStates: FailureState[] = [
     footerLine: failureFooterLine,
   },
   {
-    title: "The system cannot be stopped",
+    title: "The system cannot be halted",
     slug: "cant-stop",
-    shortLabel: "Can’t stop",
+    shortLabel: "Can’t halt",
     descriptionLine1:
-      "A harmful process cannot be paused or rolled back in time, even when operators can see it is wrong.",
+      "A harmful process cannot be halted or rolled back in time, even when operators can see it is wrong.",
     descriptionLine2:
-      "The controls to stop it are missing or have never been tested.",
+      "The controls to halt it are missing or have never been tested.",
     artifactSlugs: [
-      "escalation-ladder-freeze-authority",
-      "reversal-sla-template",
+      "halt-authority-table",
+      "reversal-deadline-template",
       "decision-record-template",
     ],
     footerLine: failureFooterLine,

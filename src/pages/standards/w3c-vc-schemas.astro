@@ -32,12 +32,12 @@ const schemaCards = [
   {
     title: "Repair Outcome Credential",
     description:
-      "Credential schema for remediation actions, completion confirmations, and repair SLA adherence.",
+      "Credential schema for remediation actions, completion confirmations, and adherence to repair deadlines.",
   },
   {
     title: "Burden Hours Credential",
     description:
-      "Credential schema for burden-hour telemetry and time-in-harm measurements.",
+      "Credential schema for burden-hour telemetry and time in harm measurements.",
   },
 ];
 
@@ -50,7 +50,7 @@ const contextGuidance = [
 const issuanceGuidance = [
   "Issue credentials at each lifecycle state change (decision, appeal intake, repair completion).",
   "Require issuer metadata that names the accountable team and escalation owner.",
-  "Provide verifier guidance for checking remedy status and SLA compliance.",
+  "Provide verifier guidance for checking remedy status and deadline compliance.",
 ];
 const publication = derivePublicationMetadata({
   permalink,

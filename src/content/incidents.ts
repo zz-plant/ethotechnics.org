@@ -56,23 +56,26 @@ export const incidentLessons: IncidentLesson[] = [
       timeframe: "Composite, not a dated event",
     },
     governanceFailures: [
-      "No automated escalation when repair SLAs crossed risk thresholds.",
+      "No automated escalation when repair deadlines crossed risk thresholds.",
       "Insufficient staffing model for volume spikes.",
       "Missing user-visible status updates during queue backlog.",
     ],
     signalsToWatch: [
       "Appeal queue length vs. staffed capacity.",
-      "Percentage of cases breaching repair SLA targets.",
+      "Percentage of cases breaching repair deadlines.",
       "Average response time per escalation tier.",
     ],
     remediationChecklist: [
-      "Define escalation triggers tied to SLA breaches.",
+      "Define escalation triggers tied to deadline breaches.",
       "Publish queue status and expected resolution windows.",
       "Instrument backlog health dashboards for on-call review.",
     ],
     sources: [
       { label: "Incident memo template", href: "/standards/incident-memo" },
-      { label: "Repair SLA schema", href: "/standards/repair-sla.schema.json" },
+      {
+        label: "Repair deadline schema",
+        href: "/standards/repair-sla.schema.json",
+      },
     ],
   },
   {

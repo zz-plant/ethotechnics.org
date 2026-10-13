@@ -56,7 +56,7 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
         {
           title: "Timelines",
           description:
-            "Published review clocks force a final response and escalation path.",
+            "Published review deadlines force a final response and escalation path.",
         },
         {
           title: "Responder and standard",
@@ -139,7 +139,7 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
           "If deadlines are missed, default to human review or pause.",
         ],
         evidence: [
-          "Published SLA or review clock.",
+          "Published review deadline, with the event that starts its clock.",
           "Status tracker or timeline receipt.",
           "Escalation rule documentation.",
         ],

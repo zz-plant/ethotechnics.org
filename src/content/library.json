@@ -111,18 +111,18 @@
         {
           "slug": "chain-boundary-intervention",
           "title": "MEC-20 Chain-boundary intervention",
-          "summary": "Give a chain of automated systems one stop control that reaches every step, so the chain is paused, measured, and held to account as one system.",
+          "summary": "Give a chain of automated systems one halt control that reaches every step, so the chain is halted, measured, and held to account as one system.",
           "filters": ["correction", "capability"],
           "chainStages": ["correction"],
-          "chainNote": "One stop control reaches every step, so the chain halts as one system instead of one step at a time.",
+          "chainNote": "One halt control reaches every step, so the chain halts as one system instead of one step at a time.",
           "glossaryRefs": [
             "delegation-chain",
             "composed-latency",
             "override-path"
           ],
           "cues": [
-            "Enumerate the hops before you design the stop: a chain you cannot list is a chain you cannot halt.",
-            "One halt receipt for the chain, not a stop control per hop.",
+            "Enumerate the hops before you design the halt: a chain you cannot list is a chain you cannot halt.",
+            "One halt receipt for the chain, not a halt control per hop.",
             "Measure the window the chain leaves a human after upstream latency has been spent."
           ],
           "diagnostics": ["delegation-audit"],
@@ -133,9 +133,9 @@
             "Move a chain with no measured human window to confirm mode at the boundary, or narrow it until a window exists."
           ],
           "policyRequirement": "Policy requirement (MEC-20 Chain-boundary intervention)\n- Any consequential decision produced by a chain of delegations records the chain on the head grant, each hop resolving to a full delegation.\n- The chain boundary carries one intervention specification, and exercising it halts every hop with a receipt covering the chain.\n- A chain whose composed latency leaves no measured human window does not run unattended.\nReference: https://ethotechnics.org/mechanisms/patterns/chain-boundary-intervention",
-          "productRequirement": "Product requirement (MEC-20)\n- The interface exposes the chain boundary as a single stop surface, with the hops it covers named on the receipt.\n- The composed window is displayed to the operator, not the per-hop clock each vendor promises.",
+          "productRequirement": "Product requirement (MEC-20)\n- The interface exposes the chain boundary as a single halt surface, with the hops it covers named on the receipt.\n- The composed window is displayed to the operator, not the per-hop clock each vendor promises.",
           "auditEvidenceChecklist": "Audit evidence checklist (MEC-20)\n[ ] Head grants enumerate their chains, and each hop resolves to a grant record.\n[ ] Halt receipts cover the chain, and a halt test shows downstream hops did not continue.\n[ ] Composed windows are measured from decision records, not from vendor estimates.",
-          "postmortemTrigger": "Postmortem trigger (MEC-20)\nTrigger review when a chain decision could not be paused at the boundary, or when hops continued after the hop that was stopped.",
+          "postmortemTrigger": "Postmortem trigger (MEC-20)\nTrigger review when a chain could not be halted at the boundary, or when hops continued after the hop that was halted.",
           "artifacts": [
             {
               "name": "Chain enumeration",
@@ -151,15 +151,15 @@
             }
           ],
           "example": {
-            "title": "One stop for a three-vendor claims chain",
-            "description": "A payer's denial chain runs intake, scoring, and letter generation across three providers. The head grant lists all three hops; pausing the boundary stops all three, and the receipt names each. The composed window leaves the reviewer 90 seconds, so the chain runs in confirm mode at the boundary rather than unattended."
+            "title": "One halt for a three-vendor claims chain",
+            "description": "A payer's denial chain runs intake, scoring, and letter generation across three providers. The head grant lists all three hops; a halt at the boundary stops all three, and the receipt names each. The composed window leaves the reviewer 90 seconds, so the chain runs in confirm mode at the boundary rather than unattended."
           },
           "antiPatterns": [
             {
-              "title": "Per-hop pause theater",
-              "failure": "Each hop exposes a stop control and each works, but downstream hops re-trigger the stopped one or continue on stale output, so the composed process never stops.",
+              "title": "Per-hop halt theater",
+              "failure": "Each hop exposes a halt control and each works, but downstream hops re-trigger the halted one or continue on stale output, so the composed process never stops.",
               "counterfactual": "One boundary intervention halts every hop, and the halt receipt covers the chain.",
-              "warning": "A chain that re-converges after an interruption was never stopped."
+              "warning": "A chain that re-converges after an interruption was never halted."
             },
             {
               "title": "Latency laundering",
@@ -418,13 +418,13 @@
           ],
           "diagnostics": ["delegation-audit"],
           "steps": [
-            "Mark the points where the automation can stop, and what happens to cases in flight at each one.",
+            "Mark the points where the automation can be halted, and what happens to cases in flight at each one.",
             "Set the triggers that fire a halt, a time-to-halt target for each, and the roster that may fire it.",
             "Drill the full sequence: halt, notify the people affected, send the rule to its owner, restore the people harmed, then resume."
           ],
           "policyRequirement": "Policy requirement (MEC-05 Kill switch for runaway automation)\n- Keep a pre-authorized halt path with a named roster, and protect anyone on it from retaliation for using it.\n- Publish halt triggers tied to harm indicators, each with a time-to-halt target.\n- Resume only after the rule's owner records a fix and a dated plan exists to restore the people harmed.\nReference: https://ethotechnics.org/mechanisms/patterns/kill-switch",
           "productRequirement": "Product requirement (MEC-05)\n- Operators can fire the kill switch in one step from the monitoring view.\n- Each halt emits a receipt naming who fired it, the trigger, the cases held, and the restoration checklist.",
-          "auditEvidenceChecklist": "Audit evidence checklist (MEC-05)\n[ ] The runbook names the authorized roster and the triggers.\n[ ] Drill logs show measured time-to-halt against the target.\n[ ] Each real halt links to the rule change that followed and a record of the people restored.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-05)\n[ ] The runbook names the authorized roster and the triggers.\n[ ] Drill logs show measured time to halt against the target.\n[ ] Each real halt links to the rule change that followed and a record of the people restored.",
           "postmortemTrigger": "Postmortem trigger (MEC-05)\nTrigger review when a time-to-halt target is missed, the kill switch is unavailable, or automation resumes with no recorded fix and no plan to restore the people harmed.",
           "artifacts": [
             {
@@ -448,12 +448,12 @@
             {
               "title": "Kill switch without rehearsal",
               "failure": "A halt path exists on paper but has never been fired, so the first real use finds missing permissions and stale contacts.",
-              "counterfactual": "The halt is drilled, and each drill records time-to-halt against the target.",
+              "counterfactual": "The halt is drilled, and each drill records time to halt against the target.",
               "warning": "A tabletop drill can stand in where a live halt would harm people, if the log records what it could not test."
             },
             {
               "title": "Single-point approval",
-              "failure": "Only one person can fire the halt, so at night or during their leave nobody can stop the system.",
+              "failure": "Only one person can fire the halt, so at night or during their leave nobody can halt the system.",
               "counterfactual": "A named roster can fire the halt at any hour, without sign-off and without retaliation.",
               "warning": "A small team can run a primary and a secondary, if the roster shows who covers each hour."
             }
@@ -551,7 +551,7 @@
             "Wire missed targets to the grant transition rules, so an observation can change the grant's state (MEC-13 Authority grant register)."
           ],
           "policyRequirement": "Policy requirement (MEC-07 Accountability latency tracker)\n- Record intervention, halt, and restore times with the person who acted, the trigger, and the system.\n- Publish accountability latency targets in the incident runbook.\nReference: https://ethotechnics.org/mechanisms/patterns/accountability-latency-tracker",
-          "productRequirement": "Product requirement (MEC-07)\n- The monitoring view shows accountability latency next to time-to-halt.\n- Each intervention emits a receipt linked to the repair log and the escalation owner.",
+          "productRequirement": "Product requirement (MEC-07)\n- The monitoring view shows accountability latency next to time to halt.\n- Each intervention emits a receipt linked to the repair log and the escalation owner.",
           "auditEvidenceChecklist": "Audit evidence checklist (MEC-07)\n[ ] Intervention, halt, and restore events are recorded with timestamps.\n[ ] Reports show median and worst-case accountability latency.\n[ ] Incident reviews record latency against target and what was changed.\n[ ] Missed targets move the grant's state and produce a reconsideration record.",
           "postmortemTrigger": "Postmortem trigger (MEC-07)\nTrigger review when accountability latency misses a published target, or when the events needed to measure it were not recorded.",
           "artifacts": [
@@ -770,8 +770,8 @@
           ]
         },
         {
-          "slug": "escalation-slas",
-          "title": "MEC-11 Escalation SLAs",
+          "slug": "escalation-deadlines",
+          "title": "MEC-11 Escalation deadlines",
           "summary": "Publish a deadline for a human answer when a person escalates an automated decision, and staff to meet it. A missed deadline triggers a stated fallback, such as pausing the decision.",
           "filters": ["correction", "standing"],
           "chainStages": ["reconsideration"],
@@ -792,9 +792,9 @@
             "Track each escalation against its deadline, with a receipt to the person and an alert before the deadline passes.",
             "The escalation owner reviews missed deadlines and either adds staff or narrows the cases the system decides alone (MEC-23 Challenge load ledger)."
           ],
-          "policyRequirement": "Policy requirement (MEC-11 Escalation SLAs)\n- Publish escalation deadlines and the role that must answer at each tier.\n- Define what a missed deadline does, such as pausing or reversing the decision until a person answers.\nReference: https://ethotechnics.org/mechanisms/patterns/escalation-slas",
+          "policyRequirement": "Policy requirement (MEC-11 Escalation deadlines)\n- Publish escalation deadlines and the role that must answer at each tier.\n- Define what a missed deadline does, such as pausing or reversing the decision until a person answers.\nReference: https://ethotechnics.org/mechanisms/patterns/escalation-deadlines",
           "productRequirement": "Product requirement (MEC-11)\n- Each escalation receipt shows the deadline and the role that must answer.\n- A missed deadline triggers the stated fallback with no manual step.",
-          "auditEvidenceChecklist": "Audit evidence checklist (MEC-11)\n[ ] Escalation deadlines and responder roles are published.\n[ ] Missed deadlines, and the fallback each triggered, are logged.\n[ ] The staffing roster covers every hour a deadline runs.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-11)\n[ ] Escalation deadlines and responder roles are published.\n[ ] Missed deadlines, and the fallback each triggered, are logged.\n[ ] The staffing roster covers every hour a deadline's clock runs.",
           "postmortemTrigger": "Postmortem trigger (MEC-11)\nTrigger review when missed deadlines exceed the set threshold, or when a missed deadline did not trigger its fallback.",
           "artifacts": [
             {
@@ -803,7 +803,7 @@
             },
             {
               "name": "Coverage roster",
-              "purpose": "Who is on duty for each hour a deadline runs."
+              "purpose": "Who is on duty for each hour a deadline's clock runs."
             },
             {
               "name": "Missed-deadline log",
@@ -818,8 +818,8 @@
             {
               "title": "Escalation without coverage",
               "failure": "A deadline is published, but no one is rostered nights or weekends, so an escalation filed Friday evening waits until Monday.",
-              "counterfactual": "The roster covers every hour the deadline runs.",
-              "warning": "Office-hours coverage is acceptable if the deadline counts only those hours and the notice says so."
+              "counterfactual": "The roster covers every hour the deadline's clock runs.",
+              "warning": "Office-hours coverage is acceptable if the clock counts only those hours and the notice says so."
             },
             {
               "title": "Escalation to someone who cannot decide",
@@ -849,8 +849,8 @@
             "Report the results to the risk owner, and hold the release until each gap is closed."
           ],
           "policyRequirement": "Policy requirement (MEC-12 Stoppability testing)\n- Run halt drills before launch and after each major change.\n- Publish time-to-halt targets and the roles authorized to halt.\nReference: https://ethotechnics.org/mechanisms/patterns/stoppability-testing",
-          "productRequirement": "Product requirement (MEC-12)\n- Each drill logs time-to-halt, the state cases were left in, and whether they were restored.\n- The launch gate checks that drills ran and their gaps are closed.",
-          "auditEvidenceChecklist": "Audit evidence checklist (MEC-12)\n[ ] Drill logs record time-to-halt and the result.\n[ ] The people authorized to halt are named.\n[ ] Each gap a drill found is tracked to a fix.",
+          "productRequirement": "Product requirement (MEC-12)\n- Each drill logs time to halt, the state cases were left in, and whether they were restored.\n- The launch gate checks that drills ran and their gaps are closed.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-12)\n[ ] Drill logs record time to halt and the result.\n[ ] The people authorized to halt are named.\n[ ] Each gap a drill found is tracked to a fix.",
           "postmortemTrigger": "Postmortem trigger (MEC-12)\nTrigger review when a drill is skipped, a time-to-halt target is missed, or a real halt fails in a way the drills did not test.",
           "artifacts": [
             {
@@ -859,7 +859,7 @@
             },
             {
               "name": "Drill log",
-              "purpose": "Each drill's time-to-halt, the state cases were left in, and the restoration steps taken."
+              "purpose": "Each drill's time to halt, the state cases were left in, and the restoration steps taken."
             },
             {
               "name": "Launch gate checklist",
@@ -868,7 +868,7 @@
           ],
           "example": {
             "title": "A halt drill before automated approvals go live",
-            "description": "A benefits team drills a halt on its automated approval flow a week before launch. The on-call operator stops approvals in 3 minutes against a 5-minute target, but 40 approvals already in the queue are sent anyway. Launch waits until queued approvals hold at the halt."
+            "description": "A benefits team drills a halt on its automated approval flow a week before launch. The on-call operator halts approvals in 3 minutes against a 5-minute target, but 40 approvals already in the queue are sent anyway. Launch waits until queued approvals hold at the halt."
           },
           "antiPatterns": [
             {
@@ -878,7 +878,7 @@
               "warning": "A drill in a staging copy counts if it uses the production halt controls and permissions."
             },
             {
-              "title": "Testing the switch, not the stop",
+              "title": "Testing the switch, not the halt",
               "failure": "The drill confirms the switch flips, but queued jobs and downstream systems keep acting on decisions already made.",
               "counterfactual": "The drill checks what happened to queued cases and downstream systems after the halt.",
               "warning": "Work already finished downstream can stay in place if the drill shows each item can be reversed."
@@ -1311,14 +1311,14 @@
           "summary": "Tier halt authority by blast radius so the power to stop scales with the size of what is being stopped, and the smallest tiers stay cheap enough to use.",
           "filters": ["correction"],
           "chainStages": ["correction"],
-          "chainNote": "It sizes the power to halt by what a halt would stop, so the smallest stops stay cheap enough to use.",
+          "chainNote": "It sizes the power to halt by what a halt would stop, so the smallest pauses and halts stay cheap enough to use.",
           "glossaryRefs": [
             "halt-stratification",
             "stoppability",
             "procedural-force"
           ],
           "cues": [
-            "Rank halt instruments by blast radius: one case, one queue, one workflow, the whole system.",
+            "Rank instruments by blast radius: a pause on one case, then a halt on one queue, one workflow, or the whole system.",
             "Name who can fire each tier and what restoration at that tier requires.",
             "Keep the lowest tier unescalated: a frontline pause that needs a committee is not a tier; it is theater."
           ],
@@ -1330,7 +1330,7 @@
           ],
           "policyRequirement": "Policy requirement (MEC-21 Halt tier register)\n- Halt authority is tiered by blast radius, with authorized roles, restoration paths, and notification duties recorded per tier.\n- The lowest tier is reachable by exposed parties and frontline operators without escalation.\nReference: https://ethotechnics.org/mechanisms/patterns/halt-tier-register",
           "productRequirement": "Product requirement (MEC-21)\n- Each tier exposes only the controls that tier's blast radius justifies.\n- Halt events record the tier that fired, the restoration path taken, and everyone notified.",
-          "auditEvidenceChecklist": "Audit evidence checklist (MEC-21)\n[ ] The tier register exists and names roles, blast radius, restoration, and notification per tier.\n[ ] Drills demonstrate halts at the lowest tiers, not only the system-wide stop.\n[ ] Restoration capacity is evidenced at each tier, not only at the top.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-21)\n[ ] The tier register exists and names roles, blast radius, restoration, and notification per tier.\n[ ] Drills demonstrate pauses and halts at the lowest tiers, not only the system-wide halt.\n[ ] Restoration capacity is evidenced at each tier, not only at the top.",
           "postmortemTrigger": "Postmortem trigger (MEC-21)\nTrigger review when a halt had to escalate two or more tiers to take effect, or when a tier's restoration path was exercised without provision behind it.",
           "artifacts": [
             {
@@ -1353,7 +1353,7 @@
           "antiPatterns": [
             {
               "title": "One halt authority for every tier",
-              "failure": "Every halt requires the same senior authority, so low-tier problems either wait or fire the system-wide stop.",
+              "failure": "Every halt requires the same senior authority, so low-tier problems either wait or fire the system-wide halt.",
               "counterfactual": "Tiers match blast radius: small halts are cheap and local; big halts are deliberate.",
               "warning": "A small authorized tier is not a governance gap; the gap is a big tier with no rehearsed restoration."
             },

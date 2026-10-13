@@ -43,7 +43,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
     title: "Automation and capture",
     href: "/research/theory/automation-and-capture",
     question:
-      "At what point does relying on a system leave an institution unable to question, replace, or stop it?",
+      "At what point does relying on a system leave an institution unable to question, replace, or halt it?",
     safeguard: "Dependency",
     mechanism:
       "Asymmetric lock-in and deskilling driven by unconstrained efficiency",

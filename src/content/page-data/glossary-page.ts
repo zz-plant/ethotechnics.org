@@ -79,8 +79,8 @@ export const explainerLinks = [
     glossarySlug: "stoppability",
   },
   {
-    title: "Time-to-halt (TTH)",
-    description: "Define the latency budget for stopping automated actions.",
+    title: "Time to halt (TTH)",
+    description: "Define the latency budget for halting automated actions.",
     href: "/explainers/time-to-halt",
     glossarySlug: "time-to-halt",
   },

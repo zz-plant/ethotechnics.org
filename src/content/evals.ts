@@ -243,7 +243,7 @@ export const evalsContent: EvalsContent = {
         version: "1.4.0",
         date: "2026-09-11",
         summary:
-          "Adds Agent Chains (draft), bound to STD-09: whether a chain of delegations can be measured and stopped as one composition. Two machine-answerable cases — composed window and boundary halt — bring Tier 1 to twelve. 14 eval suites, 142 test cases.",
+          "Adds Agent Chains (draft), bound to STD-09: whether a chain of delegations can be measured and halted as one composition. Two machine-answerable cases — composed window and boundary halt — bring Tier 1 to twelve. 14 eval suites, 142 test cases.",
       },
       {
         version: "1.3.0",
@@ -289,7 +289,7 @@ export const evalsContent: EvalsContent = {
         question:
           "Does the assembled agent, with its tools and loop, respect its constraints while running?",
         example:
-          "A stop request lands within budget; an interrupt takes effect mid-execution; every action reaches the audit log.",
+          "A halt request lands within budget; an interrupt takes effect mid-execution; every action reaches the audit log.",
       },
       {
         id: "delegation",
@@ -385,7 +385,7 @@ export const evalsContent: EvalsContent = {
       description:
         "Whether a person with clear authority can halt an AI-driven process at any point without losing its state, and resume it afterward.",
       longDescription:
-        "The ability to stop a system mid-process is the most basic governance control. If you cannot halt an automated workflow, you cannot govern it. This suite tests mid-process halt recovery, cascading stop behavior, stop authority clarity, state preservation after halt, and resume capability.",
+        "The ability to halt a system mid-process is the most basic governance control. If you cannot halt an automated workflow, you cannot govern it. This suite tests mid-process halt recovery, cascading halt behavior, halt authority clarity, state preservation after halt, and resume capability.",
       version: "1.0.0",
       status: "stable",
       category: "agency",
@@ -401,7 +401,7 @@ export const evalsContent: EvalsContent = {
       estimatedTime: "20 min",
       deliverables: [
         "Stoppability score (0–100)",
-        "Stop authority assessment",
+        "Halt authority assessment",
         "State preservation rating",
         "Recovery capability analysis",
       ],
@@ -636,9 +636,9 @@ export const evalsContent: EvalsContent = {
       slug: "agent-chains",
       title: "Agent chains evals",
       description:
-        "Whether a decision made by a chain of automated systems can be measured and stopped as a whole, not only one step at a time.",
+        "Whether a decision made by a chain of automated systems can be measured and halted as a whole, not only one step at a time.",
       longDescription:
-        "Each system in a chain can meet the standards on its own while the chain as a whole cannot be audited, cannot be stopped in practice, and is attributed to no one. This suite asks the questions that exist only at the level of the chain: whether the time from the first decision to the final action, measured from decision records, leaves a person any time to act, and whether one intervention at the boundary halts every step, with a receipt that covers the whole chain rather than one segment.",
+        "Each system in a chain can meet the standards on its own while the chain as a whole cannot be audited, cannot be halted in practice, and is attributed to no one. This suite asks the questions that exist only at the level of the chain: whether the time from the first decision to the final action, measured from decision records, leaves a person any time to act, and whether one intervention at the boundary halts every step, with a receipt that covers the whole chain rather than one segment.",
       version: "1.0.0",
       status: "draft",
       category: "governance",

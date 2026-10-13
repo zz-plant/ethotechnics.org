@@ -73,7 +73,7 @@ const template = `Institutional Failure Postmortem (PM-01 v1.0.1)
 - T_detect (harm detected):
 - T_halt (harm stopped):
 - T_restore (people restored):
-- Total time-in-harm (T_restore - T0):
+- Total time in harm (T_restore - T0):
 - Evidence for timestamps:
 
 3) Reversibility analysis
@@ -94,7 +94,7 @@ const template = `Institutional Failure Postmortem (PM-01 v1.0.1)
 
 6) Prevention (design-level)
 - System changes that would have prevented the failure:
-- Control plane or stop-authority changes:
+- Control plane or halt-authority changes:
 - Open risks that remain:
 
 7) Evidence + artifacts
@@ -111,9 +111,9 @@ const workedExample = `Worked example (hypothetical, anonymized)
 2) Time-in-harm clock (UTC)
 - T0 (harm began): 2026-02-03 08:05.
 - T_detect (harm detected): 2026-02-12 14:40 (appeals queue spike).
-- T_halt (harm stopped): 2026-02-12 20:30 (automation paused, manual review started).
+- T_halt (harm stopped): 2026-02-12 20:30 (automation halted, manual review started).
 - T_restore (people restored): 2026-02-22 18:00 (benefits reinstated + backpay issued).
-- Total time-in-harm (T_restore - T0): 19 days 9 hours 55 minutes.
+- Total time in harm (T_restore - T0): 19 days 9 hours 55 minutes.
 - Evidence for timestamps: Decision log export DL-3321, ticket INC-2049, payout ledger PL-448.
 
 3) Reversibility analysis
@@ -134,7 +134,7 @@ const workedExample = `Worked example (hypothetical, anonymized)
 
 6) Prevention (design-level)
 - System changes that would have prevented the failure: Income match needed a seasonal earnings flag.
-- Control plane or stop-authority changes: Auto-pause on appeal spike threshold; applicant-facing halt request.
+- Control plane or halt-authority changes: Automatic halt on appeal spike threshold; applicant-facing pause request.
 - Open risks that remain: Manual review staffing ceiling during peak season.
 
 7) Evidence + artifacts
