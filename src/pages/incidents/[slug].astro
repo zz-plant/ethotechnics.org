@@ -21,6 +21,12 @@ const {
 } = entry.data;
 
 const pageTitle = `${title} — Composite`;
+
+// Four sections of about 35 words each followed the scenario: what was
+// missing, the signals, the fixes, and the records to start from. They are one
+// section now. The three lists sit side by side rather than as rows of a gap,
+// signal, and fix table: in two of the three scenarios the items at the same
+// position are about different things.
 ---
 
 <BaseLayout
@@ -34,10 +40,7 @@ const pageTitle = `${title} — Composite`;
     description={description}
     anchorLinks={[
       { href: "#incident", label: "The scenario" },
-      { href: "#failures", label: "Governance failures" },
-      { href: "#signals", label: "Signals to watch" },
-      { href: "#remediation", label: "Remediation checklist" },
-      { href: "#sources", label: "Templates" },
+      { href: "#gaps", label: "Gaps, signals, and fixes" },
     ]}
   />
 
@@ -68,69 +71,68 @@ const pageTitle = `${title} — Composite`;
   </SectionBlock>
 
   <SectionBlock
-    id="failures"
-    eyebrow="Governance failures"
-    title="What was missing"
-    description="The structural gaps that let the harm continue."
+    id="gaps"
+    title="What was missing, how it would have shown, and the fix"
     variant="alt"
   >
-    <CardGrid>
-      {
-        governanceFailures.map((failure) => (
-          <CardItem description={failure} descriptionTone="default" />
-        ))
-      }
+    <CardGrid className="grid--three">
+      <CardItem title="Gaps" description="Each let the harm continue.">
+        <ul class="incident-list">
+          {governanceFailures.map((failure) => <li>{failure}</li>)}
+        </ul>
+      </CardItem>
+      <CardItem
+        title="Signals"
+        description="Each is a number a running system can record before the harm grows."
+      >
+        <ul class="incident-list">
+          {signalsToWatch.map((signal) => <li>{signal}</li>)}
+        </ul>
+      </CardItem>
+      <CardItem
+        title="Fixes"
+        description="Each needs a named owner and a date."
+      >
+        <ul class="incident-list">
+          {remediationChecklist.map((item) => <li>{item}</li>)}
+        </ul>
+      </CardItem>
     </CardGrid>
-  </SectionBlock>
-
-  <SectionBlock
-    id="signals"
-    title="Signals that would have shown it"
-    description="Each is a number a running system can record before the harm grows."
-  >
-    <CardGrid>
-      {
-        signalsToWatch.map((signal) => (
-          <CardItem description={signal} descriptionTone="default" />
-        ))
-      }
-    </CardGrid>
-  </SectionBlock>
-
-  <SectionBlock
-    id="remediation"
-    eyebrow="Remediation checklist"
-    title="Fixes"
-    description="Each fix needs a named owner and a date."
-    variant="alt"
-  >
-    <CardGrid>
-      {
-        remediationChecklist.map((item) => (
-          <CardItem description={item} descriptionTone="default" />
-        ))
-      }
-    </CardGrid>
-  </SectionBlock>
-
-  <SectionBlock
-    id="sources"
-    eyebrow="Templates"
-    title="Records to start from"
-    description="The site's own templates and schemas for the records this scenario was missing. They are not sources for the scenario, which is a composite."
-  >
-    <CardGrid className="grid--two">
-      {
-        sources.map((source) => (
-          <CardItem title={source.label} descriptionTone="muted">
-            <div slot="footer" class="card__footer">
-              <a class="button ghost button--compact" href={source.href}>
-                Open template
-              </a>
-            </div>
-          </CardItem>
-        ))
-      }
-    </CardGrid>
+    <div class="incident-records">
+      <h3>Records to start from</h3>
+      <p class="muted">
+        These are this site's templates and schemas for the records the scenario
+        was missing, not its sources.
+      </p>
+      <ul class="incident-list">
+        {
+          sources.map((source) => (
+            <li>
+              <a href={source.href}>{source.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
   </SectionBlock>
 </BaseLayout>
+
+<style>
+  .incident-list {
+    margin: 0;
+    padding-left: var(--space-4);
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .incident-records {
+    display: grid;
+    gap: var(--space-2);
+    max-width: 72ch;
+    margin-top: var(--space-6);
+  }
+
+  .incident-records > * {
+    margin: 0;
+  }
+</style>
