@@ -132,7 +132,7 @@ const where = markedTitles.join(" and ");
     font-size: var(--text-sm);
     font-weight: 650;
     hyphens: auto;
-    overflow-wrap: anywhere;
+    overflow-wrap: normal;
   }
 
   .chain-position__tag {
@@ -150,9 +150,10 @@ const where = markedTitles.join(" and ");
     font-weight: 700;
   }
 
-  /* Seven boxes in a row need about 46rem; below that the chain runs down
-     the page, one stage per line, with the arrows pointing down. */
-  @container (max-width: 46rem) {
+  /* Seven boxes in a row need about 54rem before "Reconsideration" fits on
+     one line; below that the chain runs down the page, one stage per line,
+     with the arrows pointing down. */
+  @container (max-width: 54rem) {
     .chain-position__stages {
       grid-template-columns: minmax(0, 22rem);
       gap: var(--space-3);

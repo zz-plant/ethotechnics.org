@@ -123,7 +123,7 @@ const standardHref = (ref: string) => {
         <div class="panel stack-sm">
           <p class="eyebrow">Related glossary terms</p>
           <ul class="muted">
-            {suite.glossaryRefs.map((ref) => (
+            {[...new Set(suite.glossaryRefs)].map((ref) => (
               <li>
                 <a href={`/glossary/${ref}`}>{ref.replace(/-/g, " ")}</a>
               </li>
