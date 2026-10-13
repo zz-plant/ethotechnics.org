@@ -114,33 +114,17 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     <ul class="validator-method">
       {method.steps.map((step) => <li>{step}</li>)}
     </ul>
-  </section>
-  <section id="from-outputs" class="section">
-    <div class="section__header">
-      <p class="eyebrow">From outputs</p>
-      <h2>Rights and mechanisms behind the outputs</h2>
-      <p class="muted">
-        The STD-01 rights each validator checks, and the mechanisms that fix a
-        failing result.
-      </p>
-    </div>
-    <div class="library__role-buttons">
-      <a
-        class="button ghost library__role-button"
-        href="/standards/std-01-rights-matrix"
-      >
-        Open the rights matrix
-      </a>
-      <a class="button ghost library__role-button" href="/mechanisms">
-        Browse mechanisms
-      </a>
-      <a
-        class="button ghost library__role-button"
-        href="/standards/std-01-temporal-rights"
-      >
-        Review the rights
-      </a>
-    </div>
+    {
+      /* These three links had a section of their own, "Rights and mechanisms
+         behind the outputs", with nothing else in it. */
+    }
+    <p class="muted">
+      Each output names the STD-01 rights it checks, in the <a
+        href="/standards/std-01-rights-matrix">rights matrix</a
+      > and <a href="/standards/std-01-temporal-rights">the standard</a>, and
+      the
+      <a href="/mechanisms">mechanisms</a> that fix a failing result.
+    </p>
   </section>
 
   <InlineScript type="application/ld+json" code={structuredDataJson} />

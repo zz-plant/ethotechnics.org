@@ -79,42 +79,50 @@ const latestGovernanceUpdate = [...quarterlyUpdates]
         ))
       }
     </CardGrid>
-  </SectionBlock>
-
-  <SectionBlock
-    id="open-rfcs"
-    eyebrow="Current work"
-    title="Current/open RFCs"
-    description={rfcSectionDescription}
-  >
-    <CardGrid>
-      {
-        openRfcs.map((rfc) => (
-          <CardItem
-            title={`${rfc.id}: ${rfc.title}`}
-            meta={`Status: ${rfc.status}`}
-            description={rfc.summary}
-          >
-            <p class="muted small">Opened: {rfc.openedOn}</p>
-            <p class="muted small">
-              Review window: {rfc.reviewWindow}
-              {rfc.review.lapsed && (
-                <strong>
-                  {" "}
-                  — closed {rfc.review.closesOn}, no decision logged
-                </strong>
-              )}
-            </p>
-            <p class="muted small">Owner: {rfc.owner}</p>
-            <p class="muted small">
-              {rfc.reviewerRoles.length > 0
-                ? `Reviewer roles: ${rfc.reviewerRoles.join(", ")}`
-                : "No outside reviewers recorded."}
-            </p>
-          </CardItem>
-        ))
-      }
-    </CardGrid>
+    {
+      /* Open RFCs had a section of their own, which read as one sentence
+         and an empty grid whenever none was open. They sit under the
+         process they are in. */
+    }
+    <h3 id="open-rfcs">Open RFCs</h3>
+    {
+      openRfcs.length === 0 ? (
+        <p class="muted">
+          None is open. The decision log below records each one that was
+          released.
+        </p>
+      ) : (
+        <>
+          <p class="muted">{rfcSectionDescription}</p>
+          <CardGrid>
+            {openRfcs.map((rfc) => (
+              <CardItem
+                title={`${rfc.id}: ${rfc.title}`}
+                meta={`Status: ${rfc.status}`}
+                description={rfc.summary}
+              >
+                <p class="muted small">Opened: {rfc.openedOn}</p>
+                <p class="muted small">
+                  Review window: {rfc.reviewWindow}
+                  {rfc.review.lapsed && (
+                    <strong>
+                      {" "}
+                      — closed {rfc.review.closesOn}, no decision logged
+                    </strong>
+                  )}
+                </p>
+                <p class="muted small">Owner: {rfc.owner}</p>
+                <p class="muted small">
+                  {rfc.reviewerRoles.length > 0
+                    ? `Reviewer roles: ${rfc.reviewerRoles.join(", ")}`
+                    : "No outside reviewers recorded."}
+                </p>
+              </CardItem>
+            ))}
+          </CardGrid>
+        </>
+      )
+    }
   </SectionBlock>
 
   <SectionBlock
