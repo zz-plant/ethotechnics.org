@@ -1,0 +1,225 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import CitationBlock from "../../../components/CitationBlock.astro";
+import PageIntro from "../../../components/PageIntro.astro";
+import ScholarlyMeta from "../../../components/ScholarlyMeta.astro";
+import SectionBlock from "../../../components/SectionBlock.astro";
+import UseCaseFit from "../../../components/UseCaseFit.astro";
+import {
+  createImplementationPublication,
+  implementationExampleAnchorLinks,
+} from "../../../content/implementation-examples";
+
+const pageTitle =
+  "An AI agent acting for one person: implementation comparison";
+const pageDescription =
+  "An assistant that sends email and pays bills for one person, governed two ways: settings and a confirm button, or a grant that ends, a prompt that can change the outcome, and records the person checks it against.";
+const permalink = "/use-cases/examples/personal-agent";
+const recordsBase = "/standards/worked-examples/personal-agent";
+const anchorLinks = [
+  ...implementationExampleAnchorLinks.filter(
+    (link) => link.href !== "#fit" && link.href !== "#citations",
+  ),
+  { href: "#record", label: "The grant as a record" },
+  ...implementationExampleAnchorLinks.filter(
+    (link) => link.href === "#fit" || link.href === "#citations",
+  ),
+];
+const publication = {
+  ...createImplementationPublication(
+    permalink,
+    "Published the comparison for an agent acting for one person.",
+  ),
+  published: "2026-10-13T00:00:00Z",
+  updated: "2026-10-13T00:00:00Z",
+  changelog: [
+    {
+      version: "v1.0.0",
+      date: "2026-10-13",
+      summary: "Published the comparison for an agent acting for one person.",
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2026-10-13T00:00:00.000Z"
+>
+  <PageIntro
+    eyebrow="Implementation example"
+    title={pageTitle}
+    description={pageDescription}
+    anchorLinks={anchorLinks}
+  />
+
+  <SectionBlock
+    id="overview"
+    eyebrow="Overview"
+    title="Where governance breaks down"
+    description="The person who delegates is the person the agent's mistakes land on, and what they hold are settings."
+  >
+    <p>
+      A person connects an assistant to their email, their calendar, one card,
+      and their health insurer's portal. It drafts replies, books appointments,
+      pays recurring bills, and resubmits a claim the insurer rejected. Reading
+      and drafting run without a prompt. Sending and paying wait for a tap.
+    </p>
+    <p>
+      No institution operates this delegation. The person granted it and can end
+      it, so the framework does less here than where an institution decides
+      about many people. What remains is the delegation itself, and the people
+      the agent writes to and pays, who never agreed to it.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="standard"
+    eyebrow="Standard governance"
+    title="What an assistant usually offers"
+    description="Permissions granted once, a confirm button, and a history the vendor keeps."
+    variant="alt"
+  >
+    <ul class="card__list">
+      <li>
+        Permissions granted at setup that last until the person revokes them.
+      </li>
+      <li>A confirm button before a message is sent or a bill is paid.</li>
+      <li>An activity history kept in the vendor's app.</li>
+      <li>A memory of the person that they can view and delete.</li>
+      <li>Terms of service that set what the vendor answers for.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="ethotechnics"
+    eyebrow="Ethotechnics implementation"
+    title="What changes when the delegation is a record"
+    description="The person holds a grant they can read, renew, and end, and checks the agent against records it does not write."
+  >
+    <ul class="card__list">
+      <li>
+        The grant names what the agent may send and pay, and when the grant
+        ends: a date, not "until revoked." At renewal, three quiet months are
+        not a reason on their own. The person names what they would have seen if
+        the agent were failing, as
+        <a href="/standards/std-08-delegation">STD-08 §1.2</a> requires of any renewal.
+      </li>
+      <li>
+        Adding a power, from sending to paying, is a decision with its own date
+        in the record. Scope that grew by habit is scope nobody granted.
+      </li>
+      <li>
+        Before an action, the agent says whether it can be undone in practice. A
+        sent email can be recalled for 30 seconds and not after it has been
+        read. A card payment can be disputed, on the bank's clock.
+      </li>
+      <li>
+        The confirm button is a control only if the person can change the
+        outcome from it: edit the message, change the amount, refuse. If the
+        person approves every prompt for a month, the prompt is what gets
+        reviewed, not the person.
+      </li>
+      <li>
+        The person checks the agent against records it does not write: the sent
+        folder and the card statement. The activity history is the agent's
+        account of itself.
+      </li>
+      <li>
+        A correction changes the agent's standing instruction, and the agent
+        says what changed. Fixing one reply and leaving the instruction in place
+        means making the same correction next week. The eighth of the
+        <a href="/standards/laws#law-viii">twelve laws</a> puts it as "observability
+        without state transition is theater."
+      </li>
+      <li>
+        When the agent fixes another institution's error, a rejected claim or a
+        double charge, it records the error as well as the fix. Otherwise the
+        insurer's error rate looks lower than it is, and the person's time stops
+        being counted.
+        <a href="/research/theory/absorption-as-concealment"
+          >Absorption as concealment</a
+        > describes the pattern.
+      </li>
+      <li>
+        The people the agent writes to and pays have no channel to it. A reply
+        reaches the person, but nothing tells the recipient an assistant wrote.
+      </li>
+      <li>
+        The person keeps the skills the agent replaced. A week without it,
+        before adding a power, shows whether they still can.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="checklist"
+    eyebrow="Implementation checklist"
+    title="Signals to check before adding a power"
+    description="What the person can read, stop, and undo without the agent."
+    variant="alt"
+  >
+    <ul class="muted">
+      <li>An end date on the grant, and what renewal will look at.</li>
+      <li>What the agent does without asking, and what waits for a prompt.</li>
+      <li>A stop that works partway through a task.</li>
+      <li>For each kind of action, a record the agent does not write.</li>
+      <li>How many prompts the person edited or refused last month.</li>
+      <li>
+        The errors the agent fixed in other institutions' systems, by
+        institution.
+      </li>
+      <li>How someone the agent wrote to can reach the person.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="record"
+    eyebrow="The record"
+    title="The grant, written down"
+    description="This delegation as an STD-08 authority grant, filled in with what a person can show."
+  >
+    <p>
+      The <a href={`${recordsBase}/authority-grant.json`}>authority grant</a> and
+      the confirm prompt's <a href={`${recordsBase}/intervention-spec.json`}
+        >intervention specification</a
+      > validate against the published schemas. Three fields assume an institution,
+      and the records say so instead of filling them:
+    </p>
+    <ul class="muted">
+      <li>
+        The attestation asks for a signature. Nothing signs a permission set in
+        an app.
+      </li>
+      <li>
+        Liability names the party that accepted it. Until the person reads the
+        vendor's terms for that, the record names the person.
+      </li>
+      <li>
+        The prompt's specification asks for protection against retaliation. No
+        one can penalize the person for refusing, so it does not apply.
+      </li>
+    </ul>
+    <p>
+      The specification also records the prompt's weakness: approving takes one
+      tap, and nothing rewards reading it.
+    </p>
+    <p>
+      If the agent asks to take this framework on,
+      <a href="/agents">what it should ask, and write down for the person</a>.
+    </p>
+  </SectionBlock>
+
+  <UseCaseFit slug="personal-agent" />
+
+  <div id="citations">
+    <ScholarlyMeta publication={publication} permalink={permalink} />
+    <CitationBlock
+      title={pageTitle}
+      permalink={permalink}
+      publication={publication}
+      summaryLabel="Cite this implementation example"
+    />
+  </div>
+</BaseLayout>
