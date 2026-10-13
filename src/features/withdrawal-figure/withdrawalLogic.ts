@@ -1,7 +1,7 @@
 /**
  * The kill switch you cannot throw, computed.
  *
- * A stop control has three levels of reversibility (STD-06 Article V, Law
+ * A halt control has three levels of reversibility (STD-06 Article V, Law
  * VI): technical, the switch works; operational, the people on shift can run
  * without the system inside the correction window; institutional, the
  * organization survives having done it. The controls here are fields of the

@@ -757,7 +757,7 @@ export function DelegationAudit() {
             <div className="delegation-audit__row">
               <div className="delegation-audit__field">
                 <label className="delegation-audit__label" htmlFor="da-stop">
-                  Can you stop it?
+                  Can you halt it?
                 </label>
                 <select
                   id="da-stop"

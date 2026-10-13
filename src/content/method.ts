@@ -123,7 +123,7 @@ export const methodContent: MethodContent = {
       question:
         "Which actions is the system permitted to perform, for whom, and until when?",
       currentAssets: [
-        "Agent schema fields for who can stop or override an agent, how much it does unattended, and which kinds of action it may take",
+        "Agent schema fields for who can halt or override an agent, how much it does unattended, and which kinds of action it may take",
         "Authority grant register (MEC-13)",
         "Glossary entries on design authority, the authority to reverse a decision, permission surfaces, and override lanes",
         "STD-07 Article II: every action names the authorization it ran under, and a delegation with no revocation conditions is a transfer",
@@ -230,15 +230,15 @@ export const methodContent: MethodContent = {
       currentAssets: [
         "Pause and reversal schema",
         "Events that fire when a decision deadline nears and when an appeal deadline is missed",
-        "Escalation SLAs (MEC-11)",
+        "Escalation deadlines (MEC-11)",
         "STD-07 discrepancy handling: silence past the clock is a governance failure, not a pending state",
         "STD-08 §2.3 and §2.4: a fired review trigger sends the policy, and every grant that cites it, back for review",
         "Record conformance checker: reports discrepancies that were never answered inside their clock",
       ],
       links: [
         {
-          label: "Escalation SLAs",
-          href: "/mechanisms/patterns/escalation-slas",
+          label: "Escalation deadlines",
+          href: "/mechanisms/patterns/escalation-deadlines",
         },
         {
           label: "STD-07 Revisable delegation record",
@@ -255,12 +255,12 @@ export const methodContent: MethodContent = {
       id: "correction",
       title: "Correction",
       question:
-        "Can the institution stop, reverse, or repair, at acceptable cost?",
+        "Can the institution halt, reverse, or repair, at acceptable cost?",
       currentAssets: [
         "Repair deadline schema and its JSON endpoint",
         "Reversibility audit logs (MEC-10)",
         "Stoppability testing (MEC-12)",
-        "Tier 1 harness: tests that stop, override, and audit records work",
+        "Tier 1 harness: tests that halt, override, and audit records work",
         "STD-08 Part D: correction capacity is stated across seven components and must grow when authority does",
         "Delegation audit (self-report): the team's own reading of reversibility at the technical, operational, and institutional levels",
       ],

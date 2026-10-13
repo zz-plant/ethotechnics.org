@@ -1,6 +1,6 @@
 ---
 /**
- * Time-to-Halt (TTH) Latency Architecture Diagram (STD-01).
+ * Time to halt (TTH) latency architecture diagram (STD-01).
  *
  * Visualizes the end-to-end latency budget of an authenticated stop signal,
  * contrasting superficial UI acknowledgement with actual downstream cessation,
@@ -19,7 +19,7 @@ const Heading = level;
     <p class="eyebrow">Mechanism, drawn</p>
     <Heading id="tth-diagram-title"> Time to halt and blast radius </Heading>
     <p class="muted">
-      Time-to-halt runs from the halt request to the moment the last downstream
+      Time to halt runs from the halt request to the moment the last downstream
       action stops. A screen saying the request was received does not stop the
       clock. If a halt takes longer than the harm takes to spread, the halt
       control protects no one. The casebook's time to halt is a different
@@ -37,7 +37,7 @@ const Heading = level;
       viewBox="0 0 920 450"
       role="img"
       class="state-diagram__svg"
-      aria-label="Timeline and latency chart showing the phases of time-to-halt: signal receipt, queue drain, downstream worker kill, and receipt issuance before the irreversible harm horizon."
+      aria-label="Timeline and latency chart showing the phases of time to halt: signal receipt, queue drain, downstream worker kill, and receipt issuance before the irreversible harm horizon."
     >
       <defs>
         <marker
@@ -266,7 +266,7 @@ const Heading = level;
           y="88"
           text-anchor="middle"
           class="state-diagram__state"
-          fill="var(--accent-strong)">Enforced TTH window (p99 SLA)</text
+          fill="var(--accent-strong)">Enforced TTH window (p99 SLO)</text
         >
 
         {/* Irreversible Harm Boundary */}

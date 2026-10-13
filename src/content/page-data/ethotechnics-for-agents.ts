@@ -120,7 +120,7 @@ export const actionClassRows: ActionClassRow[] = [
     examples: "Run scripts, deploy changes, trigger workflows.",
     reversibility: "Irreversible",
     controls:
-      "Sandbox first. Manual approval for prod. Circuit breaker on anomaly.",
+      "Sandbox first. Manual approval for prod. A circuit breaker halts the action class on anomaly.",
   },
 ];
 
@@ -240,7 +240,7 @@ export const practiceSections: PracticeSection[] = [
     summary:
       "Agent failure is assumed; the goal is containment, recovery, and bounded harm.",
     requirements: [
-      "Pause / disable authority with escalation paths",
+      "Authority to pause one run or halt the agent, with escalation paths",
       "Confirmation gates for high-impact actions",
       "Rate limits and circuit breakers by action class",
       "Sandbox or dry-run mode",
@@ -263,7 +263,7 @@ export const practiceSections: PracticeSection[] = [
       },
     ],
     gaps: [
-      "Exception policy for re-enabling automation after a kill switch.",
+      "Exception policy for re-enabling automation after a kill-switch halt.",
       "Safe-mode playbook that keeps humans in control.",
       "Live-trust system for throttling or shutting down on anomaly.",
     ],
@@ -310,7 +310,7 @@ export const practiceSections: PracticeSection[] = [
       "People must see how to challenge a decision, have it reversed, and seek remedy when automation affects them.",
     requirements: [
       "Appeal path visible in every UI where automation acts",
-      "Published clocks for acknowledgment, review, and remedy",
+      "Published deadlines for acknowledgment, review, and remedy",
       "Escalation ladder with accountable decision owners",
       "Decision log linking challenges to receipts and outcomes",
       "Evidence parity between automated and human decisions",

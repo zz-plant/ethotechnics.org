@@ -293,12 +293,31 @@ describe("middleware", () => {
       {
         url: "https://ethotechnics.org/artifacts/reversal-sla-template",
         expectedLocation:
-          "https://ethotechnics.org/artifacts#reversal-sla-template",
+          "https://ethotechnics.org/artifacts#reversal-deadline-template",
       },
       {
         url: "https://ethotechnics.org/artifact/reversal-sla-template",
         expectedLocation:
-          "https://ethotechnics.org/artifacts#reversal-sla-template",
+          "https://ethotechnics.org/artifacts#reversal-deadline-template",
+      },
+      {
+        url: "https://ethotechnics.org/artifacts/escalation-ladder-freeze-authority",
+        expectedLocation:
+          "https://ethotechnics.org/artifacts#halt-authority-table",
+      },
+      {
+        url: "https://ethotechnics.org/artifacts/decision-record-template",
+        expectedLocation:
+          "https://ethotechnics.org/artifacts#decision-record-template",
+      },
+      {
+        url: "https://ethotechnics.org/mechanisms/patterns/escalation-slas",
+        expectedLocation:
+          "https://ethotechnics.org/mechanisms/patterns/escalation-deadlines",
+      },
+      {
+        url: "https://ethotechnics.org/glossary/reversal-sla",
+        expectedLocation: "https://ethotechnics.org/glossary/reversal-deadline",
       },
       {
         url: "https://ethotechnics.org/diagnostics/llm-capacity-benchmark",

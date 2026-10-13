@@ -148,7 +148,7 @@ export function BesideTheLoop() {
             {state.pausedClasses.length > 0 && (
               <>
                 {" "}
-                · paused:{" "}
+                · halted:{" "}
                 {state.pausedClasses
                   .map((cls) => ACTION_CLASS_LABELS[cls])
                   .join(", ")}
@@ -258,7 +258,7 @@ export function BesideTheLoop() {
                       }
                       disabled={!canPause}
                     >
-                      Pause {ACTION_CLASS_LABELS[item.decision.actionClass]}{" "}
+                      Halt {ACTION_CLASS_LABELS[item.decision.actionClass]}{" "}
                       class
                     </button>
                   )}

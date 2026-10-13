@@ -255,8 +255,8 @@ export const roles: Role[] = [
         title: "Put escalation on a deadline",
         description:
           "Give every stalled case a named owner and a deadline that escalates itself, rather than an inbox that ages quietly.",
-        ctaLabel: "Inspect escalation SLAs",
-        ctaHref: "/mechanisms/patterns/escalation-slas",
+        ctaLabel: "Inspect escalation deadlines",
+        ctaHref: "/mechanisms/patterns/escalation-deadlines",
       },
       {
         number: 3,
@@ -269,7 +269,7 @@ export const roles: Role[] = [
     ],
     adoptionChecklist: [
       "Set up a way to report harm, with named triage categories.",
-      "Set escalation SLAs by severity and route to named responders.",
+      "Set escalation deadlines by severity and route to named responders.",
       "Track queue age and auto-escalate stalled cases.",
       "Publish a repair log showing what has been fixed, what has not, and who owns each item.",
     ],
@@ -303,7 +303,7 @@ export const roles: Role[] = [
         number: 3,
         title: "Put a checkpoint where the harm happens",
         description:
-          "Design the checkpoints that stop, slow, or escalate a flow when your rule is wrong, and put them where the people it decides about can reach them.",
+          "Design the checkpoints that pause, slow, or escalate a flow when your rule is wrong, and put them where the people it decides about can reach them.",
         ctaLabel: "Read about checkpoints that pause a flow",
         ctaHref: "/explainers/ethical-interrupts",
       },
@@ -418,7 +418,7 @@ export const roles: Role[] = [
         number: 3,
         title: "Benchmark governance maturity",
         description:
-          "Place the organization on a scale that runs from a basic pause control to published challenge targets and funded maintenance.",
+          "Place the organization on a scale that runs from a basic halt control to published challenge targets and funded maintenance.",
         ctaLabel: "Explore maturity scale",
         ctaHref: "/glossary/ethotechnic-maturity",
       },

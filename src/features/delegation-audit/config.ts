@@ -24,7 +24,7 @@ export const STATE_VARIABLE_QUESTIONS: Record<StateVariableId, string> = {
   dependency:
     "What now depends on this system, and how hard would it be to stop using it?",
   standing: "Who bears the errors, and can they make the system answer?",
-  correction: "Can you stop it, and can the institution carry on if you do?",
+  correction: "Can you halt it, and can the institution carry on if you do?",
 };
 
 export const CLAUSE_REFS = {

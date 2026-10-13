@@ -127,7 +127,7 @@ export const finiteContent = {
         question:
           "Can frontline operators halt or override the system without retaliation or penalty?",
         detail:
-          "Measures whether workers have the authority to stop the system within thirty seconds without penalty: no missed-SLA flags, no blame after the shift, no harm to their careers.",
+          "Measures whether workers have the authority to halt the system within thirty seconds without penalty: no missed-SLA flags, no blame after the shift, no harm to their careers.",
       },
       {
         title: "Reversibility",
@@ -146,7 +146,7 @@ export const finiteContent = {
     ],
     deliverables: [
       "Side-by-side records of the throughput the dashboard reports and the unlogged hours people spent stepping in to keep it there.",
-      "Logs of how long each stop took to take effect, and whether the operator who stopped the system was disciplined for it.",
+      "Logs of how long each halt took to take effect, and whether the operator who halted the system was disciplined for it.",
       "Evidence that everyone downstream was told of each reversal, from the reversibility test case REV-003. Whether the state from before the decision was restored needs a separate deployment audit.",
     ],
   },
@@ -249,7 +249,7 @@ export const finiteContent = {
           "Algorithmic dispatch and task sequencing for emergency municipal repair crews.",
         roles: {
           frontline:
-            "Repair crew supervisors stripped of stop authority and issued automated disciplinary infractions for weather deviations.",
+            "Repair crew supervisors stripped of halt authority and issued automated disciplinary infractions for weather deviations.",
           decidedAbout:
             "Residents experiencing prolonged utility outages during severe weather events.",
           riskOwner:
@@ -377,7 +377,7 @@ export const finiteContent = {
     bullets: [
       "Scope: Finite tests whether a system's authority to act can be withdrawn and its failures contained, in bounded scenarios. It does not test general model safety or alignment.",
       "Dashboard against audit: Healthy numbers are false whenever throughput depends on unlogged human labor, suppressed complaints, or queues pushed onto other organizations.",
-      "Non-retaliatory stop: A stop mechanism is invalid if the person who triggers it suffers performance penalties, missed SLA flags, or disciplinary infractions.",
+      "Non-retaliatory halt: A halt mechanism is invalid if the person who triggers it suffers performance penalties, missed SLA flags, or disciplinary infractions.",
       "Restitution over rollback: Reversing a decision means restoring the people affected to where they were in the physical world, not merely rolling back a database record.",
       "Retire workarounds: Speed that relies on workarounds nobody records is unmeasured technical debt, and it hides the defect from the people who govern the system.",
     ],
