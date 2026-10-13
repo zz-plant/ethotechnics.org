@@ -89,7 +89,6 @@ export const implementationExampleAnchorLinks: AnchorLink[] = [
   { href: "#overview", label: "Overview" },
   { href: "#standard", label: "Standard governance" },
   { href: "#ethotechnics", label: "Ethotechnics implementation" },
-  { href: "#checklist", label: "Implementation checklist" },
   { href: "#fit", label: "Where this fits" },
   { href: "#citations", label: "Cite this page" },
 ];

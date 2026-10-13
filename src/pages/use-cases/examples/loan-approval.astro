@@ -76,55 +76,42 @@ const publication = createImplementationPublication(
   <SectionBlock
     id="ethotechnics"
     eyebrow="Ethotechnics implementation"
-    title="What changes when governance becomes infrastructure"
+    title="What changes, and what to verify before launch"
     description="The scoring rule has an owner, and upheld challenges reach it."
   >
-    <ul class="card__list">
-      <li>
-        An applicant who is refused, or offered a lower limit, gets the specific
-        reasons for that decision.
-      </li>
-      <li>
-        A challenge goes to a named owner who can change the decision and must
-        answer by a stated date. That is what
-        <a href="/glossary/contestability">contestability</a> means here.
-      </li>
-      <li>
-        Upheld challenges are counted by scoring rule. The count goes to the
-        rule's owner, who reviews the rule and records what changed.
-      </li>
-      <li>
-        A named person can halt decisions from one rule while it is reviewed.
-        The halt contains the harm. The review changes the rule.
-        <a href="/explainers/time-to-halt">Time-to-halt</a> measures how long the
-        halt takes.
-      </li>
-      <li>
-        When a decision is <a href="/glossary/reversibility">reversed</a>, the
-        applicant's offer and credit file are restored, including any mark the
-        refusal left.
-      </li>
-    </ul>
-  </SectionBlock>
-
-  <SectionBlock
-    id="checklist"
-    eyebrow="Implementation checklist"
-    title="Signals to verify before launch"
-    description="Each check confirms that a wrong decision reaches the scoring rule and is reversed by a date."
-  >
-    <ul class="muted">
-      <li>Name the owner of each scoring rule, and who can halt it.</li>
-      <li>Set p95 and p99 time-to-halt targets.</li>
-      <li>
-        Give applicants a challenge route with a named owner and an answer date.
-      </li>
-      <li>Count upheld challenges by rule, and name who receives the count.</li>
-      <li>
-        Record each reversal and halt drill in the
+    <div class="stack-sm">
+      <ul class="card__list">
+        <li>
+          An applicant who is refused, or offered a lower limit, gets the
+          specific reasons for that decision.
+        </li>
+        <li>
+          A challenge goes to a named owner who can change the decision and must
+          answer by a stated date. That is what
+          <a href="/glossary/contestability">contestability</a> means here.
+        </li>
+        <li>
+          Upheld challenges are counted by scoring rule. The count goes to the
+          rule's owner, who reviews the rule and records what changed.
+        </li>
+        <li>
+          A named person can halt decisions from one rule while it is reviewed.
+          The halt contains the harm. The review changes the rule.
+          <a href="/explainers/time-to-halt">Time-to-halt</a> measures how long the
+          halt takes.
+        </li>
+        <li>
+          When a decision is <a href="/glossary/reversibility">reversed</a>, the
+          applicant's offer and credit file are restored, including any mark the
+          refusal left.
+        </li>
+      </ul>
+      <p class="muted">
+        Before launch, set p95 and p99 time-to-halt targets. Each halt drill and
+        each reversal is recorded in the
         <a href="/glossary/repair-log">repair log</a>.
-      </li>
-    </ul>
+      </p>
+    </div>
   </SectionBlock>
 
   <UseCaseFit slug="loan-approval" />

@@ -5,7 +5,7 @@ import SectionBlock from "../../../components/SectionBlock.astro";
 import UseCaseFit from "../../../components/UseCaseFit.astro";
 import CardGrid from "../../../components/CardGrid.astro";
 import CardItem from "../../../components/CardItem.astro";
-import GlossaryAnchorsBlock from "../../../components/GlossaryAnchorsBlock.astro";
+import WorkedExampleTerms from "../../../components/WorkedExampleTerms.astro";
 
 const pageTitle = "Automated account lock & eligibility flip — Worked example";
 const pageDescription =
@@ -113,23 +113,26 @@ const artifacts = [
     title="Automated account lock & eligibility flip"
     description={pageDescription}
     anchorLinks={[
-      { href: "#overview", label: "Overview" },
+      { href: "#overview", label: "Scenario and clocks" },
       { href: "#receipt", label: "Receipt" },
       { href: "#owner", label: "Owner + authority" },
-      { href: "#clocks", label: "Clocks" },
       { href: "#exceptions", label: "Exception handling" },
       { href: "#remedy", label: "Remedy path" },
       { href: "#artifacts", label: "Generated artifacts" },
       { href: "#fit", label: "Where this fits" },
-      { href: "#glossary-anchors", label: "Glossary anchors" },
     ]}
   />
 
+  {
+    /* The three clocks had a section of their own after the receipt: cards
+       that repeated steps 2 to 4 of this list. Its one new fact, that the
+       clocks are visible and logged, is in this description now. */
+  }
   <SectionBlock
     id="overview"
     eyebrow="Overview"
-    title="The scenario, step by step"
-    description="A fraud model locks an account after unusual activity. The system still issues a receipt, names who can reverse the lock, and delivers a remedy within set times."
+    title="The scenario and its three clocks"
+    description="A fraud model locks an account after unusual activity. The system still issues a receipt, names who can reverse the lock, and delivers a remedy on clocks the person locked out can see. Each clock is logged in the decision record."
   >
     <ol class="muted">
       {
@@ -181,38 +184,11 @@ const artifacts = [
   </SectionBlock>
 
   <SectionBlock
-    id="clocks"
-    eyebrow="Clocks"
-    title="Acknowledgment, review, and remedy clocks"
-    description="The person locked out can see each clock. Each clock is logged in the decision record."
-    variant="alt"
-  >
-    <CardGrid className="grid--three">
-      <CardItem title="Ack clock" description="2 hours">
-        <p class="muted">
-          The owner confirms who has the case and when review will finish.
-        </p>
-      </CardItem>
-      <CardItem title="Review clock" description="24 hours">
-        <p class="muted">
-          A person reviews the lock and keeps it, records an exception, or
-          reverses it.
-        </p>
-      </CardItem>
-      <CardItem title="Remedy clock" description="72 hours">
-        <p class="muted">
-          The account is unlocked, the holder is compensated, or essential
-          access is kept open.
-        </p>
-      </CardItem>
-    </CardGrid>
-  </SectionBlock>
-
-  <SectionBlock
     id="exceptions"
     eyebrow="Exception handling"
     title="Bounded exceptions for security or legal holds"
     description="Exceptions never erase the receipt or clocks. They only delay specific actions."
+    variant="alt"
   >
     <ul class="muted">
       <li>
@@ -238,7 +214,6 @@ const artifacts = [
     eyebrow="Remedy path"
     title="Remedy is visible, reversible, and time-bound"
     description="The remedy path gives the contest somewhere to land, and limits the harm the lock does while it stands."
-    variant="alt"
   >
     <ul class="muted">
       <li>
@@ -267,6 +242,7 @@ const artifacts = [
     eyebrow="Generated artifacts"
     title="Decision log, evidence packs, and appeal record"
     description="These records show that the decision followed the policy. The policy alone cannot show that."
+    variant="alt"
   >
     <CardGrid className="grid--two">
       {
@@ -281,7 +257,7 @@ const artifacts = [
     </CardGrid>
   </SectionBlock>
 
-  <UseCaseFit slug="automated-account-lock" />
-
-  <GlossaryAnchorsBlock />
+  <UseCaseFit slug="automated-account-lock">
+    <WorkedExampleTerms />
+  </UseCaseFit>
 </BaseLayout>
