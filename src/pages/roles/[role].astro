@@ -48,14 +48,8 @@ const anchorLinks = [
 
 const others = roles.filter((entry) => entry.id !== role.id);
 
-// Design has four first steps, the others three. The heading counts them
-// rather than asserting a number.
-const stepCountWords = ["", "One", "Two", "Three", "Four", "Five", "Six"];
-const stepCount = role.orientation?.length ?? 0;
-const firstMovesTitle =
-  stepCount === 1
-    ? "One step to take first"
-    : `${stepCountWords[stepCount] ?? stepCount} steps, in order`;
+// The heading says what the steps are for, not how many there are.
+const firstMovesTitle = "First steps, in order";
 
 const diagnosticTitle = (slug: string) =>
   diagnosticsContent.tools.find((tool) => tool.slug === slug)?.title ??

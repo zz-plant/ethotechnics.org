@@ -28,12 +28,12 @@ export type IncidentLessonsIntro = PageWithPermalink & {
 };
 
 export const incidentLessonsIntro: IncidentLessonsIntro = {
-  pageTitle: "Three composite failure patterns — Ethotechnics",
+  pageTitle: "Composite failure patterns — Ethotechnics",
   pageDescription:
     "Three composite scenarios, from an appeals backlog to unlogged overrides. None reports on a named institution. Each names the missing control and the fix.",
   permalink: "/incidents",
   eyebrow: "Composite scenarios",
-  title: "Three failure patterns, each drawn from many systems",
+  title: "Failure patterns, each drawn from many systems",
   description:
     "These are composites. None reports on a named institution or a dated event. Each names the control that was missing, the signal that would have shown it, and the fix. For failures a court, an inquiry, or a regulator established, see the casebook.",
 };
