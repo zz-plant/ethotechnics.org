@@ -1,4 +1,6 @@
 import { describe, expect, mock, test } from "bun:test";
+import { readFileSync } from "node:fs";
+import { join, resolve } from "node:path";
 import type { APIContext } from "astro";
 
 import { governanceCrosswalks } from "../../content/crosswalks";
@@ -17,6 +19,25 @@ const allPaths = (Object.keys(sections) as (keyof typeof sections)[]).flatMap(
 );
 
 describe("sitemap coverage", () => {
+  // Vite resolves import.meta.glob relative to sitemaps.ts. Under Bun the
+  // call throws and a filesystem scan answers instead, so no test ever ran
+  // the glob. When the module moved into seo/, the pattern still named
+  // ../pages, matched nothing in the built Worker, and the production core
+  // sitemap lost every static page.
+  test("globs the pages directory from where the module now lives", () => {
+    const source = readFileSync(join(import.meta.dir, "sitemaps.ts"), "utf8");
+    const pattern = source.match(/import\.meta\.glob\(\s*"([^"]+)"/)?.[1];
+    expect(pattern).toBeDefined();
+    const base = pattern!.split("**")[0]!;
+    expect(resolve(import.meta.dir, base)).toBe(
+      resolve(import.meta.dir, "../../pages"),
+    );
+    // The prefix the glob's keys carry is the prefix the code strips.
+    expect(source).toContain(
+      base.replaceAll(".", "\\.").replaceAll("/", "\\/"),
+    );
+  });
+
   test("lists the standards added by the delegation rebuild", () => {
     const standards = paths("standards");
     expect(standards).toContain("/standards/std-08-delegation");

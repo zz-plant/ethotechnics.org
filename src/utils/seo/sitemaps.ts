@@ -63,11 +63,13 @@ const loadPageModules = async () => {
   // the guard is false at runtime in the built Worker and silently emptied
   // the core sitemap.
   try {
-    const modules = import.meta.glob("../pages/**/*.astro", { eager: true });
+    const modules = import.meta.glob("../../pages/**/*.astro", {
+      eager: true,
+    });
     const paths = Object.keys(modules ?? {});
     if (paths.length > 0) {
       return Object.fromEntries(
-        paths.map((path) => [path.replace(/^\.\.\/pages\//, "./"), {}]),
+        paths.map((path) => [path.replace(/^\.\.\/\.\.\/pages\//, "./"), {}]),
       );
     }
   } catch {
