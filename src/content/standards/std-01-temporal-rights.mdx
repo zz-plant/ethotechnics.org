@@ -22,7 +22,6 @@ anchorLinks:
 ---
 
 import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
-import TemporalRightsDiagram from "../../components/TemporalRightsDiagram.astro";
 import Std01MicroDiagram from "../../components/Std01MicroDiagram.astro";
 
 export const rights = [
@@ -30,69 +29,36 @@ export const rights = [
     id: "stoppability",
     title: "Stoppability",
     summary: "A person can stop any process at once, from any screen.",
-    clauses: [
-      "Immediate cessation with a visible halt control.",
-      "Preserve state so users can resume without penalty.",
-      "No step-by-step flow without a way out on every screen.",
-    ],
   },
   {
     id: "resignation",
     title: "Exit (resignation)",
     summary: "Leaving takes no more effort than joining did.",
-    clauses: [
-      "Universal exit with equal or less friction than entry.",
-      "One-step rule for exits that matched one-step entries.",
-      "No retention scripts required to resign.",
-    ],
   },
   {
     id: "bounded-duration",
     title: "Bounded duration",
     summary: "Every process has a defined maximum duration.",
-    clauses: [
-      "Hard clocks for pending, processing, or review states.",
-      "Timeout guarantees with failure or human escalation.",
-      "Declare expected duration before commitment.",
-    ],
   },
   {
     id: "reversibility",
     title: "Reversibility",
     summary: "A consequential action can be undone within a grace period.",
-    clauses: [
-      "Undo window for deletions, transfers, or publication.",
-      "Non-destructive defaults with soft delete as standard.",
-    ],
   },
   {
     id: "non-coercive-waiting",
     title: "Non-coercive waiting",
     summary: "A waiting state shows the real queue position and wait.",
-    clauses: [
-      "Visibility of queue position and expected wait time.",
-      "No fake progress or placebo activity signals.",
-      "Offer async options for waits exceeding five minutes.",
-      "An expired clock resolves in the applicant's favor or escalates.",
-    ],
   },
   {
     id: "human-override",
     title: "Reach a human",
     summary: "An automated denial can be appealed to a human agent.",
-    clauses: [
-      "Defined escalation path for automated denials.",
-      "Operating institution accepts liability for automation.",
-    ],
   },
   {
     id: "transparent-burden",
     title: "Transparent burden",
     summary: "The time a system costs people is measured and published.",
-    clauses: [
-      "Measure and publish the time people spend complying.",
-      "Audit major updates for added cognitive load or time.",
-    ],
   },
 ];
 
@@ -186,42 +152,13 @@ export const structuredData = {
 <StandardStatusSummary slug="std-01-temporal-rights" />
 
 <article class="standard-document">
-  <header class="standard-header">
-    <div>
-      <p class="standard-header__id">STANDARD STD-01</p>
-      <h2 class="standard-header__title">The Temporal Bill of Rights</h2>
-    </div>
-    <dl class="standard-header__meta">
-      <div>
-        <dt>Document ID</dt>
-        <dd>STD-01</dd>
-      </div>
-      <div>
-        <dt>Version</dt>
-        <dd>1.0.2 (draft for ratification)</dd>
-      </div>
-      <div>
-        <dt>Effective date</dt>
-        <dd>January 2026</dd>
-      </div>
-      <div>
-        <dt>Authority</dt>
-        <dd>Ethotechnics Institute</dd>
-      </div>
-    </dl>
-  </header>
 
   <div class="standard-body">
     <div class="standard-main">
-      <section class="standard-section">
-        <TemporalRightsDiagram rights={rights} />
-      </section>
-
       <section id="related-explainers" class="standard-section">
         <h2>Related explainers</h2>
 
-        Short explainers that restate the rights for policy and product
-        teams.
+        Short explainers on single rights, for policy and product teams.
 
         <div class="grid grid--two">
           {explainerLinks.map((explainer) => (
