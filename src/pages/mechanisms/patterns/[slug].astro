@@ -7,6 +7,7 @@ import CitationBlock from "../../../components/CitationBlock.astro";
 import PageIntro from "../../../components/PageIntro.astro";
 import ScholarlyMeta from "../../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../../components/SectionBlock.astro";
+import StateVariableGlyph from "../../../components/StateVariableGlyph.astro";
 import "../../../styles/components/pattern-browser.css";
 import type { DiagnosticTool } from "../../../content/diagnostics";
 import { diagnosticsContent } from "../../../content/diagnostics";
@@ -97,7 +98,11 @@ const breadcrumbItems = [
                 class="pill-list__button"
                 href={`/mechanisms?filter=${filter}#mechanisms`}
               >
-                {filterLabels[filter] ?? filter}
+                <StateVariableGlyph
+                  variable={filter}
+                  label={filterLabels[filter] ?? filter}
+                  size="0.95em"
+                />
               </a>
             </li>
           ))
@@ -252,7 +257,11 @@ const breadcrumbItems = [
           pattern.filters.map((filter) => (
             <li>
               <a class="pill-list__button" href={`/mechanisms#${filter}`}>
-                {filterLabels[filter] ?? filter}
+                <StateVariableGlyph
+                  variable={filter}
+                  label={filterLabels[filter] ?? filter}
+                  size="0.95em"
+                />
               </a>
             </li>
           ))

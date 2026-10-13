@@ -3,6 +3,7 @@ import "../styles/components/pattern-browser.css";
 import { randomUUID } from "node:crypto";
 
 import type { Pattern, PatternFilter } from "../content/library";
+import StateVariableGlyph from "./StateVariableGlyph.astro";
 import { buildPatternSearchText } from "../utils/pattern-search";
 
 type Props = {
@@ -16,7 +17,7 @@ const filterLabels = Object.fromEntries(
   filters.map((filter) => [filter.slug, filter.label]),
 );
 const filtersWithAll: Array<{
-  slug: string;
+  slug: PatternFilter["slug"] | "all";
   label: string;
   description?: string;
 }> = [{ slug: "all", label: "All safeguards" }, ...filters];
@@ -62,7 +63,15 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
                     : `Filter mechanisms by ${filter.label} and update visible results`
                 }
               >
-                {filter.label}
+                {filter.slug === "all" ? (
+                  filter.label
+                ) : (
+                  <StateVariableGlyph
+                    variable={filter.slug}
+                    label={filter.label}
+                    size="0.95em"
+                  />
+                )}
               </button>
             </li>
           );
@@ -100,9 +109,6 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
   <div class="pattern-filter__results" data-pattern-results>
     {
       entries.map((pattern) => {
-        const appliedFilters = pattern.filters
-          .map((filter) => filterLabels[filter] ?? filter)
-          .join(", ");
         const detailHref = `/mechanisms/patterns/${pattern.slug}`;
         const searchContent = buildPatternSearchText(pattern);
 
@@ -114,7 +120,18 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
             data-filters={pattern.filters.join(",")}
             data-search={searchContent}
           >
-            <p class="muted small">{appliedFilters}</p>
+            <p class="muted small">
+              {pattern.filters.map((filter, index) => (
+                <>
+                  {index > 0 && ", "}
+                  <StateVariableGlyph
+                    variable={filter}
+                    label={filterLabels[filter] ?? filter}
+                    size="1em"
+                  />
+                </>
+              ))}
+            </p>
             <h3 class="pattern-card__heading">
               <a class="pattern-card__title" href={detailHref}>
                 {pattern.title}
