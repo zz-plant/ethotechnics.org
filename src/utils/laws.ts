@@ -3,13 +3,13 @@
  *
  * src/content/standards/laws.mdx is the source of truth and stays prose: each
  * law is a heading, an argument, a blockquoted invariant and a "Binds through"
- * line naming the clauses that hold it. That regularity is what makes a
- * reference grid possible without a second copy of the data — this parses the
- * essay rather than duplicating it, so the grid cannot drift from the text.
+ * line naming the clauses that hold it. That regularity lets other pages read
+ * a law without a second copy of the data; this parses the essay rather than
+ * duplicating it, so nothing that reads it can drift from the text.
  *
  * The parse is deliberately strict. A law without an invariant or a binding
  * line is not "partially structured"; it is a law the standards do not yet
- * hold, and the test on this module fails rather than rendering a blank cell.
+ * hold, and the test on this module fails.
  */
 
 import { methodContent } from "../content/method";
@@ -34,17 +34,18 @@ const collapse = (text: string) => text.replace(/\s+/g, " ").trim();
 const numeralsIn = (refs: string) =>
   (refs.match(/\b[IVX]+\b/g) ?? []).filter((n) => /^[IVX]+$/.test(n));
 
+/**
+ * The state variables a law protects: those whose lawRefs on the method page
+ * cite it. /standards/laws prints them under each law's heading.
+ */
+export function variablesForLaw(numeral: string): string[] {
+  return methodContent.stateVariables
+    .filter((variable) => numeralsIn(variable.lawRefs).includes(numeral))
+    .map((variable) => variable.state);
+}
+
 export function extractLaws(body: string): LawRow[] {
   const matches = [...body.matchAll(HEADING)];
-  const variablesByNumeral = new Map<string, string[]>();
-  for (const variable of methodContent.stateVariables) {
-    for (const numeral of numeralsIn(variable.lawRefs)) {
-      variablesByNumeral.set(numeral, [
-        ...(variablesByNumeral.get(numeral) ?? []),
-        variable.state,
-      ]);
-    }
-  }
 
   return matches.map((match, index) => {
     const [, id, numeral, rawTitle] = match;
@@ -63,7 +64,7 @@ export function extractLaws(body: string): LawRow[] {
       title: collapse(rawTitle),
       invariant: collapse(invariant),
       bindsThrough: collapse(binds).replace(/\.$/, ""),
-      variables: variablesByNumeral.get(numeral) ?? [],
+      variables: variablesForLaw(numeral),
     };
   });
 }
