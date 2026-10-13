@@ -320,7 +320,12 @@ const mechanisms = collectUnique(matrix.flatMap((row) => row.mechanisms));
         </div>
       </div>
     </div>
-    <div class="mapping-table__wrapper">
+    <div
+      class="mapping-table__wrapper"
+      tabindex="0"
+      role="region"
+      aria-label="STD-01 rights mapped to validators and mechanisms"
+    >
       <table class="mapping-table">
         <thead>
           <tr>

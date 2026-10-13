@@ -84,7 +84,12 @@ const objectionNote = (clause: StandardClause) =>
         {[...groups.entries()].map(([part, rows]) => (
           <div class="clause-register__group">
             <h3 class="clause-register__part">{parts[part] ?? `§${part}`}</h3>
-            <div class="mapping-table__wrapper">
+            <div
+              class="mapping-table__wrapper"
+              tabindex="0"
+              role="region"
+              aria-label={parts[part] ?? `§${part}`}
+            >
               <table class="mapping-table mapping-table--stack clause-register__table">
                 <thead>
                   <tr>

@@ -87,7 +87,12 @@ const structuredDataJson = JSON.stringify(structuredData);
             <a href={artifact.href}>{artifact.label}</a>,
           ])}
         </p>
-        <div class="mapping-table__wrapper">
+        <div
+          class="mapping-table__wrapper"
+          tabindex="0"
+          role="region"
+          aria-label={domain.title}
+        >
           <table class="mapping-table mapping-table--stack taxonomy-table">
             <thead>
               <tr>

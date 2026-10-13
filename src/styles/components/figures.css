@@ -1578,13 +1578,10 @@
   /* The utility .small (0.84rem) outranks these rules by layer, so a phone
      cannot get larger small text from here. Instead a 960-unit record drawing
      keeps the width it has on a desktop column, where 13.4px text renders at
-     11px, and scrolls. The validator drawing is short enough to widen to the
-     screen edges instead: at the 263px article column its text is 9px. */
+     11px, and scrolls inside its .diagram-scroll (reference-tables.css). The
+     validator drawing is short enough to widen to the screen edges instead:
+     at the 263px article column its text is 9px. */
   @media (max-width: 719.98px) {
-    .standard-diagram > svg {
-      min-width: 800px;
-    }
-
     .validator-diagram {
       width: 100vw;
       margin-inline: calc(50% - 50vw);

@@ -61,7 +61,12 @@ const probeCount = checkableProperties.reduce(
       a side nobody can check from. Rows with neither are shaded. They are
       claims the framework argues for but this site cannot yet test.
     </p>
-    <div class="mapping-table__wrapper">
+    <div
+      class="mapping-table__wrapper"
+      tabindex="0"
+      role="region"
+      aria-label="Live and record probes for each property"
+    >
       <table class="mapping-table mapping-table--stack coverage-matrix__table">
         <thead>
           <tr>

@@ -122,7 +122,12 @@ const standards = standardsContent.standards
         </li>
       </ol>
     </div>
-    <div class="mapping-table__wrapper record-totals">
+    <div
+      class="mapping-table__wrapper record-totals"
+      tabindex="0"
+      role="region"
+      aria-label="Objection totals"
+    >
       <table class="mapping-table mapping-table--compare">
         <caption class="sr-only">Objection totals</caption>
         <tbody>
@@ -142,7 +147,12 @@ const standards = standardsContent.standards
         <p>No objections yet.</p>
       ) : (
         <>
-          <div class="mapping-table__wrapper">
+          <div
+            class="mapping-table__wrapper"
+            tabindex="0"
+            role="region"
+            aria-label="Every objection"
+          >
             <table class="mapping-table mapping-table--stack">
               <caption class="sr-only">Every objection</caption>
               <thead>
@@ -199,7 +209,12 @@ const standards = standardsContent.standards
     variant="alt"
     description="Each published standard, its version, and the date of its last recorded change."
   >
-    <div class="mapping-table__wrapper">
+    <div
+      class="mapping-table__wrapper"
+      tabindex="0"
+      role="region"
+      aria-label="Standards and versions"
+    >
       <table class="mapping-table mapping-table--stack">
         <caption class="sr-only">Standards and versions</caption>
         <thead>

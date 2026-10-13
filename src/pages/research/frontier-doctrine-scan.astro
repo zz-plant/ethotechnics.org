@@ -77,7 +77,12 @@ const formatAverage = (value: number) => value.toFixed(1);
     description="Each lab is scored on each law from 0 to 4. Overall fit is a weighted reading of the twelve scores, reported on a 0 to 10 scale."
     variant="alt"
   >
-    <div class="mapping-table__wrapper">
+    <div
+      class="mapping-table__wrapper"
+      tabindex="0"
+      role="region"
+      aria-label="Scoring scale"
+    >
       <table class="mapping-table mapping-table--compare">
         <thead>
           <tr>
@@ -105,7 +110,12 @@ const formatAverage = (value: number) => value.toFixed(1);
     title="Overall fit by lab"
     description="Fit to the twelve laws as a whole, on public doctrine and product architecture. Higher is closer to the laws. It is not a safety ranking."
   >
-    <div class="mapping-table__wrapper">
+    <div
+      class="mapping-table__wrapper"
+      tabindex="0"
+      role="region"
+      aria-label="Overall fit by lab"
+    >
       <table class="mapping-table">
         <thead>
           <tr>
@@ -136,7 +146,12 @@ const formatAverage = (value: number) => value.toFixed(1);
     description="Columns are Laws I to XII in order. The table scrolls sideways on narrow screens."
     variant="alt"
   >
-    <div class="mapping-table__wrapper">
+    <div
+      class="mapping-table__wrapper"
+      tabindex="0"
+      role="region"
+      aria-label="Scores by lab and law"
+    >
       <table class="mapping-table">
         <thead>
           <tr>
@@ -184,7 +199,12 @@ const formatAverage = (value: number) => value.toFixed(1);
     title="Average score by law"
     description="Mean across the ten labs, sorted from most to least covered. The split between first-generation and second-generation laws is the finding."
   >
-    <div class="mapping-table__wrapper">
+    <div
+      class="mapping-table__wrapper"
+      tabindex="0"
+      role="region"
+      aria-label="Average score by law"
+    >
       <table class="mapping-table">
         <thead>
           <tr>
@@ -217,7 +237,12 @@ const formatAverage = (value: number) => value.toFixed(1);
     description="Where the method should center, given what the labs have already absorbed."
     variant="alt"
   >
-    <div class="mapping-table__wrapper">
+    <div
+      class="mapping-table__wrapper"
+      tabindex="0"
+      role="region"
+      aria-label="What this means for Ethotechnics"
+    >
       <table class="mapping-table mapping-table--compare">
         <thead>
           <tr>
