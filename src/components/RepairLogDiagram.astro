@@ -1,0 +1,273 @@
+---
+/**
+ * Repair log, drawn (explainer).
+ *
+ * Above, one entry's life: it stays open from the harm until the fix is
+ * confirmed in production, and a postmortem with no follow-up does not close
+ * it. Below, the log in order, with hypothetical entries: three repairs under
+ * the same rule mark a cause the fixes left in place, and the repeats go to
+ * that rule's owner.
+ */
+interface Props {
+  level?: "h2" | "h3";
+}
+
+const { level = "h3" }: Props = Astro.props;
+const Heading = level;
+
+const steps = [
+  { name: "Harm", lines: ["What happened,", "to whom"] },
+  { name: "Action", lines: ["Receipt linked,", "owner named"] },
+  { name: "Person told", lines: ["Date recorded"] },
+  { name: "Fix checked", lines: ["Confirmed", "in production"] },
+  { name: "Closed", lines: ["Only now"] },
+];
+const stepWidth = 150;
+const stepGap = 27.5;
+const stepX = (i: number) => 30 + i * (stepWidth + stepGap);
+
+const RULE = "Lock on login anomaly";
+const entries = [
+  { id: "R-01", harm: "Account locked in error", rule: RULE, open: false },
+  {
+    id: "R-02",
+    harm: "Payment held past its date",
+    rule: "Hold over amount limit",
+    open: false,
+  },
+  { id: "R-03", harm: "Account locked in error", rule: RULE, open: false },
+  {
+    id: "R-04",
+    harm: "Notice sent to old address",
+    rule: "Address on file",
+    open: false,
+  },
+  { id: "R-05", harm: "Account locked in error", rule: RULE, open: true },
+];
+const rowY = (i: number) => 296 + i * 28;
+const repeats = entries.filter((entry) => entry.rule === RULE).length;
+---
+
+<figure class="state-diagram" aria-labelledby="repair-log-title">
+  <figcaption>
+    <p class="eyebrow">Mechanism, drawn</p>
+    <Heading id="repair-log-title"
+      >An entry stays open until the fix holds</Heading
+    >
+    <p class="muted">
+      Each entry records the harm, the action and its receipt, the owner, when
+      the person was told, and how the fix was checked. It closes when the fix
+      is confirmed in production, not when a postmortem is written. Read in
+      order, the log shows the same rule producing the same harm, and those
+      repeats go to the rule's owner. The entries are hypothetical.
+    </p>
+  </figcaption>
+
+  <div class="diagram-scroll">
+    <svg
+      viewBox="0 0 920 450"
+      role="img"
+      class="state-diagram__svg"
+      aria-label={`Two parts. Above, the life of one repair log entry: harm, then action with its receipt linked and an owner named, then the person told, then the fix checked and confirmed in production, then closed. The entry is open through the first four and closes only at the last. A postmortem with no follow-up goes to an archive and does not close it. Below, a log of ${entries.length} hypothetical entries in order. ${entries.map((e) => `${e.id}: ${e.harm.toLowerCase()}, under the rule ${e.rule.toLowerCase()}, ${e.open ? "open" : "closed"}.`).join(" ")} The ${repeats} entries under one rule are a repeat: the earlier fixes repaired cases and left the cause in place. They go to the rule's owner, who changes the rule or records why not.`}
+    >
+      <defs>
+        <marker
+          id="repair-log-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--border)"></path>
+        </marker>
+      </defs>
+
+      {/* One entry */}
+      <text x="30" y="30" class="state-diagram__state">One entry</text>
+      {
+        steps.map((step, i) => (
+          <g>
+            <g
+              class:list={[
+                "state-diagram__node",
+                i === steps.length - 1 && "state-diagram__node--active",
+              ]}
+              transform={`translate(${stepX(i)}, 46)`}
+            >
+              <rect width={stepWidth} height="74" rx="8" />
+              <text
+                x={stepWidth / 2}
+                y="26"
+                text-anchor="middle"
+                class="state-diagram__state"
+              >
+                {step.name}
+              </text>
+              {step.lines.map((line, j) => (
+                <text
+                  x={stepWidth / 2}
+                  y={48 + j * 17}
+                  text-anchor="middle"
+                  class="state-diagram__label"
+                >
+                  {line}
+                </text>
+              ))}
+            </g>
+            {i < steps.length - 1 && (
+              <line
+                x1={stepX(i) + stepWidth}
+                x2={stepX(i + 1) - 3}
+                y1="83"
+                y2="83"
+                stroke="var(--border)"
+                stroke-width="2"
+                marker-end="url(#repair-log-arrow)"
+              />
+            )}
+          </g>
+        ))
+      }
+
+      {/* Status under the steps */}
+      <rect
+        x="30"
+        y="130"
+        width={stepX(3) + stepWidth - 30}
+        height="12"
+        rx="3"
+        fill="var(--status-warning)"
+        stroke="none"></rect>
+      <text
+        x={stepX(3) + stepWidth}
+        y="160"
+        text-anchor="end"
+        class="state-diagram__clause">Open</text
+      >
+      <rect
+        x={stepX(4)}
+        y="130"
+        width={stepWidth}
+        height="12"
+        rx="3"
+        fill="var(--status-success)"
+        stroke="none"></rect>
+      <text
+        x={stepX(4) + stepWidth}
+        y="160"
+        text-anchor="end"
+        class="state-diagram__clause"
+        fill="var(--status-success)">Closed</text
+      >
+
+      {/* The postmortem that closes nothing */}
+      <line
+        x1={stepX(1) + stepWidth / 2}
+        x2={stepX(1) + stepWidth / 2}
+        y1="144"
+        y2="176"
+        stroke="var(--status-danger)"
+        stroke-width="1.5"
+        stroke-dasharray="4 4"></line>
+      <text
+        x={stepX(1) + stepWidth / 2 + 10}
+        y="190"
+        class="state-diagram__clause"
+        fill="var(--status-danger)"
+        >Postmortem, no follow-up: archived, still open</text
+      >
+
+      <line
+        x1="30"
+        y1="214"
+        x2="890"
+        y2="214"
+        stroke="var(--border)"
+        stroke-width="1"
+        stroke-dasharray="4 4"></line>
+
+      {/* The log, in order */}
+      <text x="30" y="244" class="state-diagram__state">The log, in order</text>
+      <text x="30" y="272" class="state-diagram__label">Entry</text>
+      <text x="110" y="272" class="state-diagram__label">Harm</text>
+      <text x="350" y="272" class="state-diagram__label"
+        >Rule that produced it</text
+      >
+      <text x="590" y="272" class="state-diagram__label">Status</text>
+      {
+        entries.map((entry, i) => (
+          <g class="state-diagram__node">
+            {entry.rule === RULE && (
+              <rect
+                x="22"
+                y={rowY(i) - 18}
+                width="640"
+                height="25"
+                rx="3"
+                fill="color-mix(in srgb, var(--status-warning) 16%, transparent)"
+                stroke="none"
+              />
+            )}
+            <text x="30" y={rowY(i)} class="state-diagram__clause">
+              {entry.id}
+            </text>
+            <text x="110" y={rowY(i)} class="state-diagram__label">
+              {entry.harm}
+            </text>
+            <text x="350" y={rowY(i)} class="state-diagram__label">
+              {entry.rule}
+            </text>
+            <text
+              x="590"
+              y={rowY(i)}
+              class="state-diagram__clause"
+              fill={
+                entry.open ? "var(--status-warning)" : "var(--status-success)"
+              }
+            >
+              {entry.open ? "Open" : "Closed"}
+            </text>
+          </g>
+        ))
+      }
+
+      {/* Repeats under one rule go to its owner */}
+      <path
+        d={`M 668 ${rowY(0) - 12} L 676 ${rowY(0) - 12} L 676 ${rowY(entries.length - 1)} L 668 ${rowY(entries.length - 1)}`}
+        stroke="var(--status-warning)"
+        stroke-width="1.5"
+        fill="none"></path>
+      <line
+        x1="676"
+        y1={(rowY(0) + rowY(entries.length - 1)) / 2 - 6}
+        x2="697"
+        y2={(rowY(0) + rowY(entries.length - 1)) / 2 - 6}
+        stroke="var(--status-warning)"
+        stroke-width="1.5"
+        marker-end="url(#repair-log-arrow)"></line>
+
+      <g class="state-diagram__node" transform="translate(700, 270)">
+        <rect
+          width="190"
+          height="132"
+          rx="8"
+          fill="var(--panel)"
+          stroke="var(--status-warning)"></rect>
+        <text x="12" y="26" class="state-diagram__state">Rule's owner</text>
+        <text x="12" y="50" class="state-diagram__label"
+          >{repeats} repeats under one rule:</text
+        >
+        <text x="12" y="68" class="state-diagram__label"
+          >the cause is in place.</text
+        >
+        <text x="12" y="96" class="state-diagram__label"
+          >Changes the rule or</text
+        >
+        <text x="12" y="114" class="state-diagram__label">records why not.</text
+        >
+      </g>
+    </svg>
+  </div>
+</figure>
