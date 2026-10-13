@@ -71,10 +71,9 @@ const buildSchemaGraph = (input: SchemaGraphInput): SchemaNode[] => {
       description: input.siteDescription,
       logoId: input.logoId,
       logoUrl: input.logoUrl,
-      sameAs: [
-        "https://ethotechnics.com",
-        "https://github.com/zz-plant/ethotechnics.org",
-      ],
+      // ethotechnics.com was listed here until October 2026. It was the
+      // retired Studio's site, not another name for this organization.
+      sameAs: ["https://github.com/zz-plant/ethotechnics.org"],
     }),
   );
 

@@ -7,7 +7,7 @@ requests so stakeholders know what to expect.
 
 - Burden index score with a short narrative tied to the scenario you bring.
 - Ranked hotspots with mitigation paths and expected relief per action.
-- Off-ramp reminder for complex findings that need studio facilitation.
+- Off-ramp to commissioned help for findings a team cannot interpret.
 
 ## Delegation Audit
 

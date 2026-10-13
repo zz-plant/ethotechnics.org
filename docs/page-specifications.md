@@ -185,25 +185,28 @@ Detailed, testable expectations for each route. Use these specs when adding cont
   - Field-report, peer-review, and clinic cards keep their `id` values for anchors, display tags, and
     nest action buttons as ordered in the content.
   - Feedback strip uses the eyebrow/title/description plus two action buttons from `feedback.actions`.
+  - The peer-review pathway and the engagement-feedback action are built in the page from
+    `src/content/commissioned-work.ts`, so the commissioned-work address lives in one file.
 - **Accessibility:**
   - Anchor links in the intro map to each pathway `id` and the feedback section.
   - Badge and tag lists render as semantic lists; action buttons include `aria-label` text when
     provided in `participationContent`.
   - Feedback actions remain real `<a>` elements for predictable focus and activation behavior.
 
-## Institute (`/institute`)
+## Commissioned work (`/institute/commissioned-work`)
 
-- **Data sources:** Use `instituteContent` for sections and `instituteStudioComparisonContent` for the comparison component.
+- **Data sources:** `commissionedWork` from `src/content/commissioned-work.ts` for the provider,
+  offers, and contact; `commissionedWorkComparisonContent` from `src/content/comparison.ts` for the
+  comparison component. `/institute` redirects to `/about`, and `/institute/how-studio-fits`
+  redirects here.
 - **Layout:**
-  - `PageIntro` anchors cover the overview, programs, Studio partnership, governance, stewards, and contact.
-    Panel copy explains how to escalate to the Studio.
-  - Overview uses a banded `SectionBlock` with a two-column `CardGrid` of highlights. Programs uses the
-    alt section variant with descriptive cards and muted outcomes. Studio partnership wraps
-    `InstituteStudioComparison` inside a standard section. Governance returns to the banded style; stewards
-    stay alt with meta lines; contact retains descriptive links in a standard section.
+  - `PageIntro` anchors cover positioning, staying self-serve, what the work covers, boundaries, and
+    contact. The intro description names the provider and that he wrote the framework.
+  - Positioning wraps `CommissionedWorkComparison` in a standard section; self-serve and boundaries
+    use the alt variant.
 - **Accessibility:**
-  - Anchor IDs match intro links; steward cards keep names as headings with roles in `meta`.
-  - Contact links are descriptive (no bare URLs); list items remain `<li>` elements for screen-reader grouping.
+  - Anchor IDs match intro links; offers and boundaries remain `<li>` elements.
+  - External links to kanav.net open in a new tab with `rel="noopener noreferrer"`.
 
 ## Finite (`/evals#finite` / `/finite`)
 

@@ -4,27 +4,17 @@ import type { APIContext } from "astro";
 import { onRequest } from "./middleware";
 
 describe("middleware", () => {
-  it("redirects ethotechnics.com variants to ethotechnics.org", async () => {
+  it("redirects www.ethotechnics.org to the apex", async () => {
     const redirectCases = [
-      {
-        url: "https://ethotechnics.com/path?foo=bar",
-        host: "ethotechnics.com",
-        expectedLocation: "https://ethotechnics.org/path?foo=bar",
-      },
-      {
-        url: "https://www.ethotechnics.com/with-www?foo=bar",
-        host: "www.ethotechnics.com",
-        expectedLocation: "https://ethotechnics.org/with-www?foo=bar",
-      },
-      {
-        url: "https://www.ethotechnics.com/mixed?foo=bar",
-        host: "WWw.EthoTechnics.Com",
-        expectedLocation: "https://ethotechnics.org/mixed?foo=bar",
-      },
       {
         url: "https://www.ethotechnics.org/glossary?foo=bar",
         host: "www.ethotechnics.org",
         expectedLocation: "https://ethotechnics.org/glossary?foo=bar",
+      },
+      {
+        url: "https://www.ethotechnics.org/mixed?foo=bar",
+        host: "WWW.EthoTechnics.Org",
+        expectedLocation: "https://ethotechnics.org/mixed?foo=bar",
       },
     ];
 
@@ -107,6 +97,7 @@ describe("middleware", () => {
       ["/agent-toolkit", "/archive/retired-tools"],
       ["/agent-toolkit/quick-answers", "/archive/retired-tools"],
       ["/agent-toolkit/teaching-flows", "/archive/retired-tools"],
+      ["/institute/how-studio-fits", "/institute/commissioned-work"],
       ...["v1.0.0", "v1.1.0"].map((version) => [
         `/agent-toolkit/ethotechnics-agent-prompt-pack-${version}.md`,
         `/archive/retired-tools/ethotechnics-agent-prompt-pack-${version}.md`,

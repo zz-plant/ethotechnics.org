@@ -70,8 +70,8 @@ export type UseCase = {
    * gives the person a specific request to make.
    */
   personCanAsk?: string;
-  /** True where Ethotechnics Studio takes commissioned work (src/content/studio.ts). */
-  studio?: boolean;
+  /** True where Kanav Jain takes commissioned work (src/content/commissioned-work.ts). */
+  commissioned?: boolean;
 };
 
 export type Boundary = {
@@ -315,7 +315,7 @@ export const useCases: UseCase[] = [
   {
     id: "health-coverage",
     title: "Health coverage and care decisions",
-    studio: true,
+    commissioned: true,
     decides:
       "Whether a treatment is authorized or a claim is paid, and how a patient is triaged.",
     systems:

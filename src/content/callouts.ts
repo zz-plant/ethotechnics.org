@@ -1,4 +1,4 @@
-import { instituteStudioGuidance } from "./comparison";
+import { commissionedWork } from "./commissioned-work";
 
 export type ReferenceCalloutContent = {
   title: string;
@@ -8,19 +8,10 @@ export type ReferenceCalloutContent = {
   ariaLabel?: string;
 };
 
-export const instituteStudioCallout: ReferenceCalloutContent = {
-  title: "Institute vs. Studio",
-  summary: instituteStudioGuidance.callout,
-  href: "/institute/how-studio-fits",
-  linkLabel: "Read more",
-  ariaLabel: "Read more about how the Institute and Studio work together",
-};
-
-export const diagnosticsStudioOffRampCallout: ReferenceCalloutContent = {
+export const diagnosticsOffRampCallout: ReferenceCalloutContent = {
   title: "Need help with a result?",
-  summary:
-    "Every diagnostic runs without us. For a result that shows high risk, or that your team cannot interpret, Ethotechnics Studio takes commissioned work to go through it with you.",
-  href: "/institute/how-studio-fits",
-  linkLabel: "How the Studio fits",
-  ariaLabel: "Read how Ethotechnics Studio fits alongside the diagnostics",
+  summary: `Every diagnostic runs without us. For a result that shows high risk, or that your team cannot interpret, ${commissionedWork.provider}, ${commissionedWork.disclosure}, takes commissioned work to go through it with you.`,
+  href: "/institute/commissioned-work",
+  linkLabel: "How commissioned work fits",
+  ariaLabel: "Read how commissioned work fits alongside the diagnostics",
 };

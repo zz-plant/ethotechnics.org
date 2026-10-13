@@ -75,8 +75,8 @@ Rules that follow:
 
 ## Middleware, headers, and redirects
 
-- `src/middleware.ts` normalizes legacy `ethotechnics.com` hosts to `ethotechnics.org` with a 301
-  redirect.
+- `src/middleware.ts` redirects `www.ethotechnics.org` to `ethotechnics.org` with a 301. The
+  `ethotechnics.com` redirects live in the et repo's redirect Worker, not here.
 - `REDIRECT_MAP` in the same file holds path redirects for retired and consolidated routes,
   including `/start-here` to `/start` and moved explainers. Add redirects there rather than as
   stub pages.

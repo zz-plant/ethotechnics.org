@@ -1,3 +1,4 @@
+import { commissionedWork } from "./commissioned-work";
 import type {
   PageWithPermalink,
   PublicationMetadata,
@@ -76,13 +77,13 @@ export type DiagnosticTool = {
   outputs: string[];
   estimatedTime: string;
   prepChecklist: string[];
-  studioNote?: string;
+  commissionedNote?: string;
   ctaLabel: string;
   ctaHref: string;
   ctaAriaLabel?: string;
   exampleLabel: string;
   exampleHref: string;
-  deliveryType: "self-serve" | "studio";
+  deliveryType: "self-serve" | "commissioned";
 };
 
 export type DiagnosticsContent = PageWithPermalink &
@@ -715,8 +716,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         "Challenge intake route, staffing, and time to reverse.",
         "The last time a handled exception changed an upstream rule.",
       ],
-      studioNote:
-        "For a healthcare AI system, Ethotechnics Studio's readiness sprint maps one workflow end to end: who can halt it, how fast, and who owns each fix.",
+      commissionedNote: `For a healthcare AI system, ${commissionedWork.provider}'s readiness sprint maps one workflow end to end: who can halt it, how fast, and who owns each fix.`,
       ctaLabel: "Run the corrective capacity self-assessment",
       ctaHref: "/diagnostics/corrective-debt-calculator",
       ctaAriaLabel:

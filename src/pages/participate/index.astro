@@ -8,6 +8,10 @@ import CardItem from "../../components/CardItem.astro";
 import FeedbackRibbon from "../../components/FeedbackRibbon.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import {
+  commissionedWork,
+  commissionedWorkMailto,
+} from "../../content/commissioned-work";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const participationEntry = (await getEntry("participation", "participation"))!;
@@ -15,11 +19,46 @@ const {
   pageTitle,
   pageDescription,
   hero,
-  pathways,
+  pathways: institutePathways,
   openSource,
   intake,
   feedback,
 } = participationEntry.data;
+
+// A commissioned review is Kanav Jain's paid work, not the Institute's. Its
+// description and address come from src/content/commissioned-work.ts rather
+// than participation.json, so they change when that file does.
+const { provider, disclosure, email } = commissionedWork;
+const pathways = [
+  ...institutePathways,
+  {
+    id: "peer-review",
+    title: "Commission a review",
+    description: `Reviews are paid work, done by ${provider}, ${disclosure}, on healthcare AI systems: a safeguards review, a readiness sprint, investor diligence, or a clinical AI safety evaluation. Lessons from a review are published only with your agreement, and anonymized.`,
+    tags: ["Healthcare AI", "Deployed systems", "Investor diligence"],
+    checklist: [
+      "Send the plan or draft you want reviewed.",
+      "Name the decision you have to make next.",
+      "Mark anything that must be anonymized.",
+    ],
+    actions: [
+      {
+        label: `Email ${provider}`,
+        href: commissionedWorkMailto(),
+        ariaLabel: `Email ${email} to request a review`,
+      },
+    ],
+  },
+];
+const feedbackActions = [
+  ...feedback.actions,
+  {
+    label: "Feedback on a commissioned review",
+    href: commissionedWorkMailto("Engagement feedback"),
+    ariaLabel: `Email ${email} with feedback on an engagement`,
+    detail: `For clients of ${provider}.`,
+  },
+];
 const intakeFieldNameMap: Record<string, string> = {
   "participant-name": "name",
   "participant-organization": "organization",
@@ -375,7 +414,7 @@ const resolveIntakeFieldAutocapitalize = (fieldId: string) =>
       eyebrow="Feedback inboxes"
       title="Send notes, critiques, or missing references"
       description="Share unclear steps, missing citations, or examples you want us to add."
-      actions={feedback.actions}
+      actions={feedbackActions}
     />
     <p class="small muted">
       To object to a clause of a standard, use the Object link beside it in the

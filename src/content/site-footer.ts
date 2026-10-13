@@ -62,11 +62,9 @@ export const siteFooter: SiteFooterContent = {
           href: "https://github.com/zz-plant/ethotechnics.org",
           external: true,
         },
-        {
-          label: "Ethotechnics Studio",
-          href: "https://ethotechnics.com",
-          external: true,
-        },
+        // The page says who does the work and that he wrote the framework; a
+        // footer label has room for neither, so the link goes there first.
+        { label: "Commissioned work", href: "/institute/commissioned-work" },
       ],
     },
   ],
