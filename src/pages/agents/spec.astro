@@ -11,55 +11,10 @@ const pageDescription =
 const version = "v1.1.2";
 const lastUpdated = "2026-10-06";
 const anchorLinks = [
-  { href: "#overview", label: "Overview" },
-  { href: "#example", label: "Example model" },
+  { href: "#example", label: "Example object" },
   { href: "#fields", label: "Field guide" },
-  { href: "#failure-modes", label: "What breaks if missing" },
-  { href: "#schema", label: "Full example (1.1.0)" },
   { href: "#usage", label: "Usage" },
 ];
-
-const exampleModel = `{
-  "schema_version": "1.1.0",
-  "doctrine": {
-    "method": "/method",
-    "laws": "/standards/laws",
-    "standards": [
-      "/standards/std-06-human-impact-safety-case",
-      "/standards/std-07-revisable-delegation-record",
-      "/standards/std-08-delegation",
-      "/standards/std-09-agent-chains"
-    ]
-  },
-  "agent_id": "agent-risk-ops-v2",
-  "autonomy_level": {
-    "level": "execute_with_guardrails",
-    "description": "Agent can execute reversible actions within defined scopes."
-  },
-  "action_classes": [
-    { "class": "READ", "reversible": true, "approval_required": false },
-    { "class": "WRITE", "reversible": true, "approval_required": true },
-    { "class": "TRANSFER", "reversible": false, "approval_required": true }
-  ],
-  "stop_override_authority": {
-    "primary_owner": "Risk Operations",
-    "on_call_role": "Risk Steward",
-    "override_window_hours": 2,
-    "kill_switch": "/mechanisms/patterns/kill-switch"
-  },
-  "receipt_schema": { "href": "/standards/agent-receipt-schema.json", "version": "1.0.0" },
-  "clocks": { "ack": { "hours": 2 }, "review": { "hours": 24 }, "remedy": { "hours": 72 } },
-  "evidence_pack_references": [
-    { "standard": "STD-01", "href": "/evidence-packs/std-01" },
-    { "standard": "STD-02", "href": "/evidence-packs/std-02" }
-  ],
-  "required_signals": ["unsafe_action_rate", "human_override_rate", "time_to_detection"],
-  "mapped_mechanisms": [
-    { "id": "MEC-01", "href": "/mechanisms/patterns/decision-log" },
-    { "id": "MEC-05", "href": "/mechanisms/patterns/kill-switch" },
-    { "id": "MEC-06", "href": "/mechanisms/patterns/appeal-paths" }
-  ]
-}`;
 
 const agentSafetyObjectModelText = JSON.stringify(
   agentSafetyObjectModel,
@@ -141,13 +96,6 @@ const fieldGuide = [
       "Controls exist only on paper, and no mechanism runs in production.",
   },
 ];
-
-const failureModes = [
-  "Missing action classes mean approvals, reversibility, and clocks cannot be applied consistently.",
-  "Missing stop/override authority removes the kill-switch owner needed for incident response.",
-  "Missing receipt schema version breaks downstream parsers and evidence pack validators.",
-  "Missing clocks remove enforceable time bounds for acknowledgment, review, and remedy.",
-];
 ---
 
 <BaseLayout
@@ -173,16 +121,18 @@ const failureModes = [
     </Fragment>
   </PageIntro>
 
+  {
+    /* The page printed the example object twice, a short copy and the full
+       one, each under its own version caveat, after an overview that linked
+       the page to itself. One copy, one caveat, the files beside it. */
+  }
   <SectionBlock
-    id="overview"
-    eyebrow="Overview"
-    title="A schema for agent governance"
-    description="Publish this file so automated systems can validate agent controls and evidence."
+    id="example"
+    title="The object, by example"
+    description="Validate against the 2.0.0 schema, not this example. The example is in the 1.1.0 shape: 2.0.0 replaces approval_required with a grant reference for each action class and stop_override_authority with an intervention reference. Replace the IDs and clocks with your system's values."
+    variant="alt"
   >
     <ul class="muted">
-      <li>
-        Spec page: <a href="/agents/spec">/agents/spec</a>
-      </li>
       <li>
         Object model schema, version 2.0.0:
         <a href="/standards/agent-safety-object-model.schema.json"
@@ -190,20 +140,10 @@ const failureModes = [
         >
       </li>
       <li>
-        This page's example object as JSON:
-        <a href="/agents/spec.json">/agents/spec.json</a>
+        This example as JSON: <a href="/agents/spec.json">/agents/spec.json</a>
       </li>
     </ul>
-  </SectionBlock>
-
-  <SectionBlock
-    id="example"
-    eyebrow="Example"
-    title="Example Agent Safety Object Model"
-    description="Validate against the schema, not this example. The example is in the 1.1.0 shape, which version 2.0.0 of the schema replaces. Use it as a starting point and replace the IDs and clocks with your system's values."
-    variant="alt"
-  >
-    <pre class="code-block">{exampleModel}</pre>
+    <pre class="code-block">{agentSafetyObjectModelText}</pre>
     <p class="muted">
       Every field has a type in the JSON Schema, so a validator can check it in
       CI. Keep the JSON human-readable so reviewers can inspect it in change
@@ -213,9 +153,8 @@ const failureModes = [
 
   <SectionBlock
     id="fields"
-    eyebrow="Field guide"
-    title="Field-level explanations"
-    description="Each field includes an example and the failure mode when omitted."
+    title="Each field, and what breaks without it"
+    description="An omitted field leaves an audit or a release gate with nothing to check."
   >
     <div class="mapping-table__wrapper">
       <table class="mapping-table">
@@ -244,29 +183,7 @@ const failureModes = [
   </SectionBlock>
 
   <SectionBlock
-    id="failure-modes"
-    eyebrow="Failure modes"
-    title="What breaks if you omit fields"
-    description="Each omission leaves an audit or a release gate with nothing to check."
-    variant="alt"
-  >
-    <ul class="muted">
-      {failureModes.map((item) => <li>{item}</li>)}
-    </ul>
-  </SectionBlock>
-
-  <SectionBlock
-    id="schema"
-    eyebrow="Example"
-    title="The full example object, in the 1.1.0 shape"
-    description="Validate against the schema, not this example. This instance predates version 2.0.0 of the schema, which replaces approval_required with a grant reference for each action class and stop_override_authority with an intervention reference."
-  >
-    <pre class="code-block">{agentSafetyObjectModelText}</pre>
-  </SectionBlock>
-
-  <SectionBlock
     id="usage"
-    eyebrow="Usage"
     title="Where to use it"
     description="Bind the schema to deployment gates and audit workflows."
     variant="alt"
