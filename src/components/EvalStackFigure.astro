@@ -1,0 +1,223 @@
+---
+/**
+ * The evaluation stack, drawn as a stack: model at the bottom, consequence
+ * on top, each layer wider than the one under it because it contains it.
+ *
+ * Two uses. On a suite page it is compact, marks the suite's layer with the
+ * words "this suite", and the caption carries that layer's question. On
+ * /evals it is the stack section itself: every layer with its question, an
+ * example, and how many suites sit there.
+ */
+import { evalsContent } from "../content/evals";
+import type { EvalLayer } from "../content/evals";
+
+interface Props {
+  /** The layer to mark, on a suite page. */
+  layer?: EvalLayer;
+  /** Show each layer's question, example, and suite count. */
+  detail?: boolean;
+}
+
+const { layer: marked, detail = false }: Props = Astro.props;
+const { layers } = evalsContent.evaluationStack;
+
+const markedLayer = layers.find((entry) => entry.id === marked);
+if (marked && !markedLayer) {
+  throw new Error(`EvalStackFigure: no layer "${marked}" in the stack`);
+}
+
+const suiteCount = (id: EvalLayer) =>
+  evalsContent.suites.filter((suite) => suite.layer === id).length;
+
+// Drawn top down, so the list runs from the highest layer to the lowest and
+// counts down to 1 at the model.
+const drawn = layers
+  .map((entry, index) => ({ ...entry, position: index + 1 }))
+  .reverse();
+const label = markedLayer
+  ? `The evaluation stack, model at the bottom and consequence on top, with ${markedLayer.title} marked`
+  : "The evaluation stack, model at the bottom and consequence on top";
+---
+
+<figure
+  class:list={["eval-stack-figure", { "eval-stack-figure--detail": detail }]}
+  aria-label={label}
+>
+  <ol class="eval-stack-figure__layers" reversed>
+    {
+      drawn.map((entry) => {
+        const isMarked = entry.id === marked;
+        const count = suiteCount(entry.id);
+        return (
+          <li
+            class:list={[
+              "eval-stack-figure__layer",
+              { "eval-stack-figure__layer--marked": isMarked },
+            ]}
+            style={`--layer: ${entry.position}`}
+          >
+            <span class="eval-stack-figure__index">{entry.position}</span>
+            <span class="eval-stack-figure__title">{entry.title}</span>
+            {isMarked && <span class="eval-stack-figure__tag">this suite</span>}
+            {detail && (
+              <>
+                <span class="eval-stack-figure__count">
+                  {count === 0
+                    ? "No suite"
+                    : `${count} ${count === 1 ? "suite" : "suites"}`}
+                </span>
+                <div class="eval-stack-figure__body">
+                  <p>
+                    <strong>{entry.question}</strong>
+                  </p>
+                  <p class="muted small">{entry.example}</p>
+                </div>
+              </>
+            )}
+          </li>
+        );
+      })
+    }
+  </ol>
+  {
+    markedLayer && (
+      <figcaption>
+        <p class="eyebrow">Evaluation layer</p>
+        <p>
+          This suite tests at the{" "}
+          <a href="/evals#stack">{markedLayer.title.toLowerCase()} layer</a>:{" "}
+          {markedLayer.question}
+        </p>
+      </figcaption>
+    )
+  }
+</figure>
+
+<style>
+  .eval-stack-figure {
+    display: grid;
+    gap: var(--space-3);
+    margin: 0;
+    font-family: var(--sans);
+  }
+
+  .eval-stack-figure:not(.eval-stack-figure--detail) {
+    grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
+    align-items: center;
+    gap: var(--space-5);
+  }
+
+  @media (max-width: 639.98px) {
+    .eval-stack-figure:not(.eval-stack-figure--detail) {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-3);
+    }
+  }
+
+  .eval-stack-figure figcaption {
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  .eval-stack-figure figcaption p {
+    margin: 0;
+  }
+
+  .eval-stack-figure__layers {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .eval-stack-figure__layer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--border);
+    background: var(--panel);
+    color: var(--muted);
+  }
+
+  /* One stack, not five cards: neighbours share a border, and only the
+     outer corners are rounded. */
+  .eval-stack-figure__layer + .eval-stack-figure__layer {
+    margin-top: -1px;
+  }
+
+  .eval-stack-figure__layer:first-child {
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+  }
+
+  .eval-stack-figure__layer:last-child {
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+  }
+
+  /* Compact: each layer is narrower than the one above it, centred, so the
+     stack reads as a base with wider layers resting on it. */
+  .eval-stack-figure:not(.eval-stack-figure--detail) .eval-stack-figure__layer {
+    margin-inline: calc((5 - var(--layer)) * 6%);
+    border-radius: var(--radius-sm);
+  }
+
+  .eval-stack-figure:not(.eval-stack-figure--detail)
+    .eval-stack-figure__layer
+    + .eval-stack-figure__layer {
+    margin-top: var(--space-1);
+  }
+
+  .eval-stack-figure__index {
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--accent-strong);
+  }
+
+  .eval-stack-figure__title {
+    font-size: var(--text-sm);
+    font-weight: 650;
+  }
+
+  .eval-stack-figure__tag {
+    margin-left: auto;
+    font-size: var(--text-xs);
+    color: var(--accent-strong);
+  }
+
+  .eval-stack-figure__layer--marked {
+    position: relative;
+    z-index: 1;
+    border: 2px solid var(--accent);
+    background: color-mix(in srgb, var(--accent) 14%, var(--panel));
+    color: var(--text);
+  }
+
+  .eval-stack-figure__layer--marked .eval-stack-figure__title {
+    font-weight: 700;
+  }
+
+  /* Detail: the title and count head each layer, the question and example
+     sit under them. */
+  .eval-stack-figure--detail .eval-stack-figure__layer {
+    padding: var(--space-3) var(--space-4);
+    color: var(--text);
+  }
+
+  .eval-stack-figure__count {
+    margin-left: auto;
+    font-size: var(--text-xs);
+    color: var(--muted);
+  }
+
+  .eval-stack-figure__body {
+    flex-basis: 100%;
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  .eval-stack-figure__body p {
+    margin: 0;
+  }
+</style>
