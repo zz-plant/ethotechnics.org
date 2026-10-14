@@ -57,10 +57,10 @@ component is for and where it appears.
 - Usage: Figure wrapper with a framed image, halo treatment, and optional caption.
 - Reference: `src/pages/index.astro`.
 
-## InstituteStudioComparison.astro
+## CommissionedWorkComparison.astro
 
-- Usage: Glass panel comparison grid between the Institute and Studio offerings.
-- Reference: `src/pages/institute/index.astro`.
+- Usage: Glass panel comparison grid between the self-serve Institute and commissioned work.
+- Reference: `src/pages/institute/commissioned-work.astro`.
 
 ## CitationBlock.astro
 

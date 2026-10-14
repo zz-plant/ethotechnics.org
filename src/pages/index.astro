@@ -6,6 +6,7 @@ import HomeRail from "../components/home/HomeRail.astro";
 import RecordSpine from "../components/home/RecordSpine.astro";
 import SafeguardMap from "../components/home/SafeguardMap.astro";
 import SelfTest from "../components/home/SelfTest.astro";
+import { commissionedWork } from "../content/commissioned-work";
 
 /**
  * The front door as one story in reading order, told without ever holding
@@ -238,12 +239,12 @@ const doors = [
         </p>
       </div>
       <div>
-        <p class="home-colophon__label">Studio</p>
+        <p class="home-colophon__label">Commissioned work</p>
         <p class="home-colophon__text">
-          The Institute publishes the framework. Ethotechnics Studio applies it
-          to one organization's healthcare AI system at a time, under
-          commission.
-          <a href="/institute/how-studio-fits">How the two fit</a>
+          The Institute publishes the framework. Its author,
+          {commissionedWork.provider}, also applies it to one organization's
+          healthcare AI system at a time, under commission.
+          <a href="/institute/commissioned-work">How the two fit</a>
         </p>
       </div>
     </div>

@@ -20,7 +20,7 @@ interface Props {
   runSectionId?: string;
   runSectionEyebrow?: string;
   runSectionVariant?: "default" | "alt";
-  studioOffRamp: {
+  offRamp: {
     title: string;
     summary: string;
     href: string;
@@ -41,7 +41,7 @@ const {
   runSectionId = "run-tool",
   runSectionEyebrow = "Run the tool",
   runSectionVariant = "alt",
-  studioOffRamp,
+  offRamp,
 }: Props = Astro.props;
 
 // The tool comes first. Its method, prep list, and sample output used to sit
@@ -97,13 +97,13 @@ const anchorLinks = [
     {tool.prepChecklist.map((item) => <li>{item}</li>)}
   </ul>
   <ReferenceCallout
-    title={studioOffRamp.title}
-    summary={studioOffRamp.summary}
-    href={studioOffRamp.href}
-    linkLabel={studioOffRamp.linkLabel}
-    ariaLabel={studioOffRamp.ariaLabel}
+    title={offRamp.title}
+    summary={offRamp.summary}
+    href={offRamp.href}
+    linkLabel={offRamp.linkLabel}
+    ariaLabel={offRamp.ariaLabel}
   />
-  {tool.studioNote && <p class="muted small">{tool.studioNote}</p>}
+  {tool.commissionedNote && <p class="muted small">{tool.commissionedNote}</p>}
 </SectionBlock>
 
 <SectionBlock

@@ -1,21 +1,22 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
-import SectionActions from "../../components/SectionActions.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
-import InstituteStudioComparison from "../../components/InstituteStudioComparison.astro";
-import StudioBadge from "../../components/StudioBadge.astro";
-import { instituteStudioComparisonContent } from "../../content/comparison";
-import { studio, studioMailto } from "../../content/studio";
+import CommissionedWorkComparison from "../../components/CommissionedWorkComparison.astro";
+import { commissionedWorkComparisonContent } from "../../content/comparison";
+import {
+  commissionedWork,
+  commissionedWorkMailto,
+} from "../../content/commissioned-work";
 import { formatDate } from "../../utils/dates";
 
-const pageTitle = "How Studio fits";
-const pageDescription =
-  "When the Institute's open standards and diagnostics are enough, and when to commission Ethotechnics Studio to evaluate a healthcare AI system.";
+const { provider, disclosure } = commissionedWork;
+const pageTitle = "Commissioned work";
+const pageDescription = `When the Institute's open standards and diagnostics are enough, and when to commission ${provider}, ${disclosure}, to evaluate a healthcare AI system.`;
 const anchorLinks = [
-  { href: "#positioning", label: "Institute vs. Studio" },
+  { href: "#positioning", label: "Institute vs. commissioned work" },
   { href: "#self-serve", label: "Stay self-serve" },
-  { href: "#offers", label: "What the Studio does" },
+  { href: "#offers", label: "What the work covers" },
   { href: "#boundaries", label: "Engagement boundaries" },
   { href: "#contact", label: "Contact" },
 ];
@@ -25,11 +26,11 @@ const anchorLinks = [
   title={`${pageTitle} — Ethotechnics Institute`}
   description={pageDescription}
   publishedTime="2025-06-01T00:00:00.000Z"
-  modifiedTime="2026-10-01T00:00:00.000Z"
+  modifiedTime="2026-10-13T00:00:00.000Z"
   breadcrumbItems={[
     { name: "Home", url: "/" },
     { name: "About", url: "/about" },
-    { name: pageTitle, url: "/institute/how-studio-fits" },
+    { name: pageTitle, url: "/institute/commissioned-work" },
   ]}
 >
   <PageIntro
@@ -39,17 +40,13 @@ const anchorLinks = [
     anchorLinks={anchorLinks}
   />
 
-  <SectionActions>
-    <StudioBadge />
-  </SectionActions>
-
   <SectionBlock
     id="positioning"
     eyebrow="Positioning"
-    title="Institute vs. Studio"
-    description="The Institute publishes the framework. The Studio applies it to one organization's healthcare AI system under commission."
+    title="Institute vs. commissioned work"
+    description={`The Institute publishes the framework. ${provider} applies it to one organization's healthcare AI system under commission.`}
   >
-    <InstituteStudioComparison content={instituteStudioComparisonContent} />
+    <CommissionedWorkComparison content={commissionedWorkComparisonContent} />
   </SectionBlock>
 
   <SectionBlock
@@ -77,12 +74,12 @@ const anchorLinks = [
   <SectionBlock
     id="offers"
     eyebrow="Commissioned work"
-    title="What the Studio does"
-    description={`${studio.focus}, for ${studio.clients}. As listed on ethotechnics.com on ${formatDate(studio.checked, "prose")}.`}
+    title="What the work covers"
+    description={`${commissionedWork.focus}, for ${commissionedWork.clients}.`}
   >
     <ul class="muted">
       {
-        studio.offers.map((offer) => (
+        commissionedWork.offers.map((offer) => (
           <li>
             <strong>{offer.name}</strong> ({offer.format}). {offer.output}
           </li>
@@ -90,10 +87,11 @@ const anchorLinks = [
       }
     </ul>
     <p class="small muted">
-      Prices and current availability are on
-      <a href={studio.href} rel="noopener noreferrer" target="_blank"
-        >ethotechnics.com</a
-      >. Most of the work falls under the
+      The formats are listed under
+      <a href={commissionedWork.href} rel="noopener noreferrer" target="_blank"
+        >{commissionedWork.linkLabel}</a
+      >, checked {formatDate(commissionedWork.checked, "prose")}. No prices are
+      published. Most of the work falls under the
       <a href="/use-cases#health-coverage">health coverage and care</a> context.
     </p>
   </SectionBlock>
@@ -101,32 +99,27 @@ const anchorLinks = [
   <SectionBlock
     id="boundaries"
     eyebrow="Boundaries"
-    title="Studio engagements stay aligned to published standards"
+    title="Engagements stay aligned to published standards"
     description="Engagements apply the public standard. They do not rewrite it, and they do not certify a system."
     variant="alt"
   >
     <ul class="muted">
       <li>
-        Studio engagements cite the same standards and mechanisms published
-        here.
+        An engagement cites the same standards and mechanisms published here.
       </li>
       <li>
-        An evaluation states what the Studio found. Accountability for the
-        system stays with the organization that runs it.
+        An evaluation states what {provider} found. Accountability for the system
+        stays with the organization that runs it.
       </li>
-      <li>No page on this site reports on a Studio engagement.</li>
+      <li>No page on this site reports on an engagement.</li>
     </ul>
   </SectionBlock>
 
-  <SectionBlock
-    id="contact"
-    eyebrow="Contact"
-    title="Contact the Studio"
-    description="Book a consultation on ethotechnics.com, or email the Studio."
-  >
+  <SectionBlock id="contact" eyebrow="Contact" title={`Contact ${provider}`}>
     <p class="muted">
-      Email <a href={studioMailto()}>{studio.email}</a>. Include the system, the
-      decision it makes, and any diagnostic readout you already have.
+      Email <a href={commissionedWorkMailto()}>{commissionedWork.email}</a>.
+      Include the system, the decision it makes, and any diagnostic readout you
+      already have.
     </p>
   </SectionBlock>
 </BaseLayout>

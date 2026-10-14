@@ -2,7 +2,7 @@
 import "../../styles/components/diagnostics.css";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import DiagnosticToolPage from "../../components/DiagnosticToolPage.astro";
-import { diagnosticsStudioOffRampCallout } from "../../content/callouts";
+import { diagnosticsOffRampCallout } from "../../content/callouts";
 import { diagnosticsContent } from "../../content/diagnostics";
 import BurdenModelerWidget from "../../features/burden-modeler/BurdenModeler";
 
@@ -37,7 +37,7 @@ const permalink = `/diagnostics/${tool.slug}`;
     sampleOutputDescription="The burden index, the hotspot ranking, and the mitigations listed for each hotspot."
     runSectionTitle="Start a new burden scenario"
     runSectionDescription="Run the model and export your scenario readout."
-    studioOffRamp={diagnosticsStudioOffRampCallout}
+    offRamp={diagnosticsOffRampCallout}
   >
     <BurdenModelerWidget client:visible />
     <p class="muted small">

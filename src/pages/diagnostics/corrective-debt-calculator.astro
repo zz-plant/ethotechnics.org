@@ -8,7 +8,7 @@ import PageIntro from "../../components/PageIntro.astro";
 import ReferenceCallout from "../../components/ReferenceCallout.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
-import { diagnosticsStudioOffRampCallout } from "../../content/callouts";
+import { diagnosticsOffRampCallout } from "../../content/callouts";
 import { diagnosticsContent } from "../../content/diagnostics";
 
 const tool = diagnosticsContent.tools.find(
@@ -57,13 +57,17 @@ const anchorLinks = [
     </ul>
     <p class="muted">Estimated time: {tool.estimatedTime}</p>
     <ReferenceCallout
-      title={diagnosticsStudioOffRampCallout.title}
-      summary={diagnosticsStudioOffRampCallout.summary}
-      href={diagnosticsStudioOffRampCallout.href}
-      linkLabel={diagnosticsStudioOffRampCallout.linkLabel}
-      ariaLabel={diagnosticsStudioOffRampCallout.ariaLabel}
+      title={diagnosticsOffRampCallout.title}
+      summary={diagnosticsOffRampCallout.summary}
+      href={diagnosticsOffRampCallout.href}
+      linkLabel={diagnosticsOffRampCallout.linkLabel}
+      ariaLabel={diagnosticsOffRampCallout.ariaLabel}
     />
-    {tool.studioNote && <p class="muted small">{tool.studioNote}</p>}
+    {
+      tool.commissionedNote && (
+        <p class="muted small">{tool.commissionedNote}</p>
+      )
+    }
   </SectionBlock>
 
   <SectionBlock

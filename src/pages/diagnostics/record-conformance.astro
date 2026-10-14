@@ -3,7 +3,7 @@ import "../../styles/components/diagnostics.css";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ActionIcon from "../../components/ActionIcon.astro";
 import DiagnosticToolPage from "../../components/DiagnosticToolPage.astro";
-import { diagnosticsStudioOffRampCallout } from "../../content/callouts";
+import { diagnosticsOffRampCallout } from "../../content/callouts";
 import { diagnosticsContent } from "../../content/diagnostics";
 import RecordConformanceWidget from "../../features/record-conformance/RecordConformance";
 
@@ -38,7 +38,7 @@ const permalink = `/diagnostics/${tool.slug}`;
     sampleOutputDescription="The earned level, what holds it below the next one, and findings graded blocking, finding, or note with the clause each comes from."
     runSectionTitle="Check a record stream"
     runSectionDescription="Paste or load a stream, set the level the system claims, and see the level it earns. Nothing is uploaded."
-    studioOffRamp={diagnosticsStudioOffRampCallout}
+    offRamp={diagnosticsOffRampCallout}
   >
     <RecordConformanceWidget client:load />
     <aside class="callout stack-sm" aria-labelledby="conformance-ci-title">

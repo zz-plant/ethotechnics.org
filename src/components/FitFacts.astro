@@ -8,7 +8,10 @@
  * - compact: Show only cases, standards, and the first check, for the
  *   worked example pages that link back to the full entry.
  */
-import { studio, studioSummary } from "../content/studio";
+import {
+  commissionedWork,
+  commissionedWorkSummary,
+} from "../content/commissioned-work";
 import {
   caseLink,
   standardLink,
@@ -124,13 +127,17 @@ const scored = context.cases.map(caseLink);
     )
   }
   {
-    !compact && context.studio && (
+    !compact && context.commissioned && (
       <div>
         <dt>Commissioned help</dt>
         <dd>
-          {studioSummary}{" "}
-          <a href={studio.href} rel="noopener noreferrer" target="_blank">
-            {studio.name}
+          {commissionedWorkSummary}{" "}
+          <a
+            href={commissionedWork.href}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            {commissionedWork.linkLabel}
           </a>
         </dd>
       </div>

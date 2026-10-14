@@ -4,7 +4,8 @@ import { taxonomyAnchor, taxonomyEntries } from "./content/taxonomy";
 
 const TAXONOMY_SLUGS = new Set(taxonomyEntries.map((entry) => entry.slug));
 
-const COM_HOST_RE = /^(www\.)?ethotechnics\.com$/i;
+// ethotechnics.com redirects live in the et repo's redirect Worker, not here.
+
 // www.ethotechnics.org is a second name for the same site. Once its DNS record
 // points at this Worker, it answers with a permanent redirect to the apex
 // rather than serving a duplicate copy.
@@ -158,9 +159,14 @@ const REDIRECT_MAP: Record<string, string> = {
   // carry stewardship — owners against decisions — is the governance process.
   "/institute/team": "/institute/governance",
   // The Institute hub listed programs, stewards, and a publishing pipeline
-  // that the governance log records never existed. What remained true, the
-  // Institute and the Studio and how they differ, is on /about.
+  // that the governance log records never existed. What remained true, how
+  // the open Institute differs from commissioned work on it, is on /about.
   "/institute": "/about",
+  // "How Studio fits" explained the Studio, the commissioned practice at
+  // ethotechnics.com. The Studio was retired in October 2026 and Kanav Jain
+  // takes the same work under his own name; the page now sits at a path that
+  // names what it covers.
+  "/institute/how-studio-fits": "/institute/commissioned-work",
   "/agent-toolkit": "/archive/retired-tools",
   "/agent-toolkit/ethotechnics-agent-prompt-pack-v1.0.0.md":
     "/archive/retired-tools/ethotechnics-agent-prompt-pack-v1.0.0.md",
@@ -359,7 +365,7 @@ const applySecurityHeaders = (response: Response): Response => {
 export const onRequest: MiddlewareHandler = async (context, next) => {
   const host = context.request.headers.get("host") ?? "";
 
-  if (host && (COM_HOST_RE.test(host) || WWW_ORG_HOST_RE.test(host))) {
+  if (host && WWW_ORG_HOST_RE.test(host)) {
     const url = new URL(context.request.url);
     url.hostname = "ethotechnics.org";
     url.host = "ethotechnics.org";

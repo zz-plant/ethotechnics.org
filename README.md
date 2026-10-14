@@ -119,7 +119,7 @@ remove dependencies and Playwright caches.
 
 ## Security headers
 
-Requests pass through `src/middleware.ts`, which normalizes legacy ethotechnics.com hosts and
+Requests pass through `src/middleware.ts`, which redirects `www.ethotechnics.org` to the apex and
 appends a hardened header set to every response:
 
 - **HSTS** (`Strict-Transport-Security`): one-year max age with subdomains and preload to enforce

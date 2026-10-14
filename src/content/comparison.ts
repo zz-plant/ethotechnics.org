@@ -1,4 +1,8 @@
-import { studio, studioMailto, studioSummary } from "./studio";
+import {
+  commissionedWork,
+  commissionedWorkFormats,
+  commissionedWorkMailto,
+} from "./commissioned-work";
 
 export type ComparisonAction = {
   label: string;
@@ -14,30 +18,18 @@ export type ComparisonCard = {
   actions: ComparisonAction[];
 };
 
-export type InstituteStudioComparisonContent = {
+export type CommissionedWorkComparisonContent = {
   eyebrow: string;
   heading: string;
   description: string;
   cards: ComparisonCard[];
 };
 
-export const instituteStudioGuidance = {
-  callout:
-    "The Institute stays open and self-serve. The Studio takes commissioned safety evaluation for healthcare AI.",
-  overviewDescription:
-    "Use the Institute for open guidance. The Studio is for a health plan, a healthcare AI company, or an investor that wants an outside evaluation of one system.",
-  panelDescription:
-    "Use the Institute when you want open guidance. Commission the Studio when a healthcare AI system needs an outside evaluation.",
-  escalationDescription:
-    "The Institute stays open and self-serve. The Studio takes four kinds of commissioned work, all on healthcare AI: a safeguards review, a readiness sprint, investor diligence, and a clinical AI safety evaluation.",
-};
-
-export const instituteStudioComparisonContent: InstituteStudioComparisonContent =
+export const commissionedWorkComparisonContent: CommissionedWorkComparisonContent =
   {
     eyebrow: "Where to start",
-    heading: "Institute or Studio?",
-    description:
-      "Ethotechnics.org is the Institute: open guides and diagnostics you can run yourself. Ethotechnics.com is the Studio: commissioned safety evaluation for healthcare AI.",
+    heading: "Run it yourself, or commission an evaluation?",
+    description: `Ethotechnics.org is the Institute: open guides and diagnostics you can run yourself. Commissioned safety evaluation for healthcare AI is ${commissionedWork.provider}'s own practice.`,
     cards: [
       {
         eyebrow: "Institute",
@@ -54,19 +46,19 @@ export const instituteStudioComparisonContent: InstituteStudioComparisonContent 
         ],
       },
       {
-        eyebrow: "Studio",
+        eyebrow: "Commissioned",
         title: "Commissioned evaluation of healthcare AI",
-        description: studioSummary,
+        description: `Four formats: ${commissionedWorkFormats}.`,
         actions: [
           {
-            label: "Visit the Studio",
-            href: "https://ethotechnics.com",
+            label: commissionedWork.linkLabel,
+            href: commissionedWork.href,
             variant: "primary",
             rel: "noopener noreferrer",
           },
           {
-            label: `Email ${studio.email}`,
-            href: studioMailto(),
+            label: `Email ${commissionedWork.email}`,
+            href: commissionedWorkMailto(),
             variant: "ghost",
           },
         ],
