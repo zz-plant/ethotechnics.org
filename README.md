@@ -22,6 +22,8 @@ lean, fast-loading pages and clear storytelling.
 
 **Live site:** <https://ethotechnics.org>
 
+> **Canonical Repository**: This repository powers the authoritative public site at [ethotechnics.org](https://ethotechnics.org). Legacy traffic from `ethotechnics.com` is permanently 301-redirected here via [`zz-plant/et`](https://github.com/zz-plant/et).
+
 ## What this publishes
 
 - **Standards.** Citable, versioned specifications with numbered clauses, from temporal rights and
