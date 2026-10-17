@@ -6,9 +6,10 @@ is handed to it explicitly — which is why the OG image used to render as a
 frame with nothing in it.
 
 These are Latin subsets of [Source Serif 4][serif] and [Source Sans 3][sans],
-both under the SIL Open Font License 1.1 (see `OFL.txt`). They are fetched at
-request time from the deployed static assets, the same way the resvg wasm
-already is, so they add nothing to the Worker bundle.
+both under the SIL Open Font License 1.1 (see `OFL.txt`). They are bundled inline
+into the worker module so font buffers are immediately available to resvg across
+all environments without relying on request-time network subrequests, which fail
+in Cloudflare Workers when subrequesting static assets on the same zone.
 
 Regenerate from the upstream variable fonts with:
 

@@ -70,4 +70,30 @@ describe("OG API endpoints", () => {
     expect(response.headers.get("Cache-Control")).toBe(OG_CACHE_CONTROL);
     expect(response.headers.get("ETag")).toBe(etag);
   });
+
+  it("renders a full PNG image with visible text rather than an empty textless frame", async () => {
+    const { GET } = await import("../../../pages/api/og.png");
+    const response = await GET({
+      request: new Request(
+        "https://example.com/api/og.png?title=Ethotechnics%20Institute&description=Standards,%20mechanisms,%20and%20validators%20for%20accountable%20system%20governance.&template=home",
+      ),
+    } as never);
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get("Content-Type")).toBe("image/png");
+    expect(response.headers.get("Cache-Control")).toBe(OG_CACHE_CONTROL);
+    expect(response.headers.get("ETag")).toBeString();
+
+    const buffer = new Uint8Array(await response.arrayBuffer());
+    // Valid PNG signature bytes
+    expect(buffer[0]).toBe(0x89);
+    expect(buffer[1]).toBe(0x50);
+    expect(buffer[2]).toBe(0x4e);
+    expect(buffer[3]).toBe(0x47);
+
+    // When fonts are missing or fail to load, resvg drops all text elements,
+    // producing a textless frame of ~9.9 KB.
+    // When fonts are properly supplied, the rendered PNG includes all text and is > 25 KB.
+    expect(buffer.length).toBeGreaterThan(25000);
+  });
 });

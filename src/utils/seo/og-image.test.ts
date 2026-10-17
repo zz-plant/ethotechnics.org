@@ -5,6 +5,7 @@ import {
   buildOgSvg,
   isIfNoneMatchSatisfied,
   normalizeOgRequestInput,
+  renderOgPng,
   resolveOgTemplate,
 } from "./og-image";
 
@@ -106,5 +107,25 @@ describe("OG request normalization and validators", () => {
     expect(isIfNoneMatchSatisfied(`W/${etag}`, etag)).toBeTrue();
     expect(isIfNoneMatchSatisfied(`"other", ${etag}`, etag)).toBeTrue();
     expect(isIfNoneMatchSatisfied('"other"', etag)).toBeFalse();
+  });
+});
+
+describe("renderOgPng", () => {
+  it("renders a PNG with visible text glyphs rather than an empty frame", async () => {
+    const png = await renderOgPng(
+      "Ethotechnics Institute",
+      "Standards, mechanisms, and validators for accountable system governance.",
+      { template: "home" },
+    );
+
+    expect(png).toBeInstanceOf(Uint8Array);
+    // PNG header
+    expect(png[0]).toBe(0x89);
+    expect(png[1]).toBe(0x50);
+    expect(png[2]).toBe(0x4e);
+    expect(png[3]).toBe(0x47);
+
+    // Textless frame drops all text and is under 12 KB; fully rendered PNG with fonts is > 25 KB.
+    expect(png.length).toBeGreaterThan(25000);
   });
 });
