@@ -13,6 +13,7 @@ Use this map before adding or editing docs so guidance stays easy to find and ma
 - [`presence-automation.md`](presence-automation.md): the objection, record, watch, and release
   workflows, how to answer an objection, and the owner's one-time setup.
 - [`../CHANGELOG.md`](../CHANGELOG.md): dated version history and release notes.
+- [`versioning-and-citations.md`](versioning-and-citations.md): standards versioning, site releases, and citation guidance.
 
 ### Agent contributors
 
