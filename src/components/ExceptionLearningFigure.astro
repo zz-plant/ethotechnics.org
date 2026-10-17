@@ -59,14 +59,14 @@ const panels = [
   {
     counted: true,
     title: "Counted against the rule",
-    kicker: `${THRESHOLD} upheld challenges send the rule to its owner`,
+    kicker: `${THRESHOLD} upheld challenges trigger owner review`,
     marks: countedMonths,
-    label: `The same challenges, counted against the rule. At the ${THRESHOLD}th, in month ${reviewMonth}, the rule goes back to its owner and is revised, and no challenge is upheld after it.`,
+    label: `The same challenges, counted against the rule under MEC-14. At the ${THRESHOLD}th, in month ${reviewMonth}, the rule triggers owner review, requiring revision or formal justification.`,
     totals: [
       `upheld challenges: ${countedMonths.length}`,
-      "rule reviews: 1, none upheld after it",
+      "review triggers: 1 (requires revision or justification)",
     ],
-    note: "its owner had to revise it or publish why not",
+    note: "mandatory review trigger sent to rule owner",
   },
 ];
 ---
@@ -76,7 +76,7 @@ const panels = [
   class="rule-count"
   level={level}
   title="The same upheld challenges, settled and counted"
-  lede={`One upheld challenge a quarter for ${MONTHS / 12} years. In the first drawing, each is settled as one person's case. In the second, each is also counted against the rule that produced it, and ${THRESHOLD} send the rule back to its owner.`}
+  lede={`One upheld challenge a quarter for ${MONTHS / 12} years. In the first drawing, each is settled as one person's case without changing the rule. In the second, each is also counted against the rule that produced it (MEC-14), with ${THRESHOLD} chosen as an illustrative threshold that triggers mandatory review by the rule's owner.`}
 >
   <div class="demo-figure__frame rule-count__panels">
     {
