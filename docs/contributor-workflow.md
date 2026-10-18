@@ -27,6 +27,10 @@ Practical guidance for keeping changes small, verifiable, and easy to review.
 5. For docs-only changes, run formatting checks and explicitly note skipped code checks.
 6. Summarize checks and outcomes in your commit/PR notes.
 
+## Versioning and release flow
+
+Ethotechnics maintains separate version lifecycles for standard documents, site releases, and standalone npm packages. See [`versioning-and-citations.md`](versioning-and-citations.md) for how versions relate and how to document unreleased changes in `CHANGELOG.md`.
+
 ## Canonical content update flow
 
 Use this sequence for domains that have generated wrappers (`home`, `glossary`, `library`,

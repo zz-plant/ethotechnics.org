@@ -6,7 +6,25 @@ The project publishes proposed standards, mechanisms, diagnostics, evaluations, 
 for the operational governance of delegated decision systems.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
-adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). See
+[docs/versioning-and-citations.md](docs/versioning-and-citations.md) for how site releases,
+standard versions, and cited revisions relate.
+
+## [Unreleased]
+
+### Fixed
+
+- **Textless Open Graph cards on mobile unfurls resolved:** Inlined fonts directly into the worker
+  bundle so resvg-wasm does not depend on request-time network subrequests, which fail when
+  subrequesting static assets on the same Cloudflare Workers zone. Busted unfurl caches with `v=2`
+  parameter on `/api/og.png` (#1049).
+- **Homepage exception-learning claim bounded to proposed control:** Clarified that the 4-ruling
+  review count is an illustrative model threshold under MEC-14 rather than an empirical claim about
+  Robodebt history. Outlined production specification requirements under STD-08 §2.6 and aligned
+  `ExceptionLearningFigure` labels and accessible descriptions (#1047).
+- **Site releases, standard versions, and cited revisions clarified:** Documented the three
+  distinct version domains in `docs/versioning-and-citations.md`, detailing formal citation
+  standards, historical revision retrieval, and unreleased change workflows (#1048).
 
 ## [1.22.0] - 2026-10-02
 
@@ -462,3 +480,18 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **MVC-01 (Minimum Viable Contestability Standard) v1.0:** Published baseline contestability controls.
 - **Platform foundation:** Astro architecture deployed on Cloudflare Workers, responsive layouts,
   Pagefind search integration, and Bun/Playwright test suites.
+
+[Unreleased]: https://github.com/zz-plant/ethotechnics.org/compare/v1.11.0...HEAD
+[1.22.0]: https://github.com/zz-plant/ethotechnics.org/tree/7eb7f5cdd47723c05ecc5cf82e6512aea12df45a
+[1.11.0]: https://github.com/zz-plant/ethotechnics.org/releases/tag/v1.11.0
+[1.10.0]: https://github.com/zz-plant/ethotechnics.org/releases/tag/v1.10.0
+[1.9.0]: https://github.com/zz-plant/ethotechnics.org/releases/tag/v1.9.0
+[1.8.0]: https://github.com/zz-plant/ethotechnics.org/releases/tag/v1.8.0
+[1.7.0]: https://github.com/zz-plant/ethotechnics.org/releases/tag/v1.7.0
+[1.6.0]: https://github.com/zz-plant/ethotechnics.org/releases/tag/v1.6.0
+[1.5.0]: https://github.com/zz-plant/ethotechnics.org/releases/tag/v1.5.0
+[1.4.0]: https://github.com/zz-plant/ethotechnics.org/releases/tag/v1.4.0
+[1.3.0]: https://github.com/zz-plant/ethotechnics.org/releases/tag/v1.3.0
+[1.2.0]: https://github.com/zz-plant/ethotechnics.org/releases/tag/v1.2.0
+[1.1.0]: https://github.com/zz-plant/ethotechnics.org/releases/tag/v1.1.0
+[1.0.0]: https://github.com/zz-plant/ethotechnics.org/releases/tag/v1.0.0

@@ -143,16 +143,26 @@ const doors = [
       <ExceptionLearningFigure level="h3" />
     </div>
     <p class="home-claim__applied">
-      Robodebt ran the first drawing: dozens of upheld rulings, each settled for
-      one person, and no review of the averaging rule until the Commonwealth
-      conceded a Federal Court case in November 2019. Under the second drawing,
-      the fourth ruling would have sent the rule to its owner.
+      In the historical record, Robodebt followed the first pattern: dozens of
+      upheld tribunal rulings were settled individually, leaving the
+      income-averaging rule in place until the Commonwealth conceded a Federal
+      Court challenge in November 2019. The second drawing illustrates a
+      proposed control (<a href="/mechanisms/patterns/policy-review-triggers"
+        >MEC-14 Policy Review Triggers</a
+      >): counting upheld challenges against the governing rule. Four is this
+      model’s chosen threshold. In a production deployment under <a
+        href="/standards/std-08-delegation">STD-08 §2.6</a
+      >, the policy specification must define the exact receiving authority, the
+      required response and review deadline, and automatic escalation or
+      suspension if the owner fails to act.
     </p>
     <p class="small muted">
       This is Law VIII of the laws the standards are built on: observability
-      without state transition is theater. A ruling that changes one case and
-      not the rule is an observation the system never acts on.
+      without state transition is theater. A ruling that changes an individual
+      case without recording an obligation against the rule is an observation
+      the system never acts on.
       <a href="/standards/laws#law-viii">Read Law VIII</a> ·
+      <a href="/mechanisms/patterns/policy-review-triggers">Read MEC-14</a> ·
       <a href="/research/theory/exception-learning"
         >Read the essay on exception learning</a
       >

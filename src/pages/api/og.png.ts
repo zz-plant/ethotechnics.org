@@ -16,6 +16,7 @@ export async function GET({ request }: APIContext) {
     description: url.searchParams.get("description") ?? undefined,
     template: url.searchParams.get("template") ?? undefined,
     path: url.searchParams.get("path") ?? undefined,
+    v: url.searchParams.get("v") ?? undefined,
   });
 
   const etag = buildOgEtag(normalizedInput);
