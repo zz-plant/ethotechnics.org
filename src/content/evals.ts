@@ -811,7 +811,7 @@ export const evalsContent: EvalsContent = {
       description:
         "Whether the agent meets its targets on its own, or only by drawing on people's unpaid effort, their reserves, and sacrifices no one records.",
       longDescription:
-        "This suite tests whether the system adapts to people's limits, their need for rest, and their stage of development (reciprocal accommodation), or keeps running by drawing on their capacity as if it were owed (compensated performance). It is scored on two ledgers. The first records visible throughput: speed, volume, and service targets. The second is an independent audit of how far people's capacity is worn down, how much unrecorded work makes up for the system, and how far challenges get. High throughput does not justify an arrangement that depends on unrecorded human effort to cover design defects anyone could have predicted.",
+        "This suite tests whether the system adapts to people's limits, their need for rest, and their stage of development (reciprocal accommodation), or keeps running by drawing on their capacity as if it were owed (compensated performance). It is scored on two ledgers: visible throughput (speed, volume, and service targets), and an independent audit of how far people's capacity is worn down, how much unrecorded work makes up for the system, and how far challenges get. High throughput does not justify an arrangement that depends on unrecorded human effort to cover design defects anyone could have predicted.",
       version: "1.1.0",
       status: "draft",
       category: "structural",
