@@ -5,7 +5,7 @@ permalink: "/explainers/permission-surface"
 eyebrow: "Explainer"
 glossaryRef: "permission-surface"
 definition:
-  - "The permission surface is the set of authority grants in force for a system at a given moment. Each grant carries four things: the evidence that justifies it, the scope it covers, its current state (allowed, review required, suspended, or revoked), and the date it expires."
+  - "The permission surface is the set of authority grants in force for a system at a given moment. Each grant carries the evidence that justifies it, the scope it covers, its current state (allowed, review required, suspended, or revoked), and the date it expires."
   - "Describing the surface by authority, not by access points, changes what it can be used for. A grant nobody uses is still on the surface. A capability the system can reach with no grant behind it is not. Comparing the surface with the catalog of what the system can do shows whether capability has outrun permission."
 example: "An operations agent's surface holds three grants. It may read customer records until the quarterly access review, issue refunds up to 200 currency units with a person confirming each one, and restart a queue worker on its own. Each grant names its evidence. The refund grant moves to review required when the fraud-rate policy record lapses."
 distinctSignals:

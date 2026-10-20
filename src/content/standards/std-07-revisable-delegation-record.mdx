@@ -4,7 +4,8 @@ description: "A draft record format for work delegated to machines: what was bel
 permalink: "/standards/std-07-revisable-delegation-record"
 eyebrow: "Standard STD-07"
 seoTitle: "Revisable delegation record (STD-07)"
-version: "0.1.4"
+version: "0.1.5"
+lastUpdated: "2026-10-20"
 publishedTime: "2026-09-06T00:00:00.000Z"
 mainClass: "page page--wide standard-document"
 anchorLinks:
@@ -101,8 +102,8 @@ export const structuredData = {
     "A record format for institutions that delegate consequential work to machines.",
   url: "https://ethotechnics.org/standards/std-07-revisable-delegation-record",
   datePublished: "2026-09-06",
-  dateModified: "2026-10-13",
-  version: "0.1.4",
+  dateModified: "2026-10-20",
+  version: "0.1.5",
   identifier: "STD-07",
   publisher: {
     "@type": "Organization",
@@ -187,7 +188,7 @@ export const structuredData = {
       <section id="premises" class="standard-section">
         <h2>Premises</h2>
 
-        Six commitments the record shape is built to hold, each with the
+        The commitments the record shape is built to hold, each with the
         field that carries it.
 
         <ul>
@@ -539,7 +540,7 @@ export const structuredData = {
         from Level 0.
 
         All five are built by this project's author. None is operated by an
-        outside institution, so what follows is a test of the shape, not
+        outside institution, so these are tests of the shape, not
         independent adoption.
 
         Two of them now emit the shape. The weekly operating brief exports
@@ -562,17 +563,16 @@ export const structuredData = {
         faith. No emitting system consumes another's records yet, which is a
         different and still-open gap.
 
-        Three rules for adopters. First, map the existing log; do not build a
-        second one. A system that already writes an assumption snapshot has
+        For adopters: map the existing log; do not build a second one. A system that already writes an assumption snapshot has
         <code>invalidated_by</code>; it needs to say so in this shape.
 
-        Second, declare what is not there. A system whose environment adapter
+        Declare what is not there. A system whose environment adapter
         is a fixture emits no <code>action</code> records, because an action
         record from it would attest to something that did not happen in the
         world; it says so beside the level it claims rather than leaving a
         reader to assume otherwise.
 
-        Third, validate against a consumer rather than against yourself. The
+        Validate against a consumer rather than against yourself. The
         first system to emit Level 2 records had every field of every record
         matching this schema and was rejected by the validator on all four,
         because its store wrote <code>2026-09-06 20:35:26</code> where

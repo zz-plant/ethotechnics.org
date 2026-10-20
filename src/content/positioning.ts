@@ -350,7 +350,7 @@ export const adversaries: Adversary[] = [
     challenge:
       "Users can see a bad system's failures and take their business elsewhere. Competition prices failure and forces correction without new bureaucracy, and exit is the consumer protection that needs no administrator.",
     demonstration:
-      "Identifiable conditions under which exit stays formal while becoming unusable: switching costs the user does not control, data and history the user cannot take, and settings — employer systems, public benefits, a region's only hospital — where exit means exiting more than the product. The claim is not that exit fails everywhere. It is that exit's quality is a variable, and nobody measures it.",
+      "Identifiable conditions under which exit stays formal while becoming unusable: switching costs the user does not control, data and history the user cannot take, and settings — employer systems, public benefits, a region's only hospital — where exit means exiting more than the product. Exit does not fail everywhere. Its quality is a variable, and nobody measures it.",
     question:
       "For a system with measurable lock-in, how many of the people it decides about completed an exit in a year, what did exit cost them, and did any rule change because they left?",
   },

@@ -3,13 +3,13 @@ title: "Laws for engineering delegated intelligence"
 description: "Laws for automated systems that make consequential decisions. Each states a condition that must always hold and the clauses that make it checkable."
 permalink: "/standards/laws"
 eyebrow: "Laws"
-version: "1.0.3"
-lastUpdated: "2026-10-13"
+version: "1.0.4"
+lastUpdated: "2026-10-20"
 seoTitle: "Laws for engineering delegated intelligence — Ethotechnics"
 publishedTime: "2026-09-06T00:00:00.000Z"
 anchorLinks:
   - href: "#claim"
-    label: "The claim"
+    label: "What is being engineered"
   - href: "#laws"
     label: "The laws"
   - href: "#invariant"
@@ -19,7 +19,7 @@ anchorLinks:
   - href: "#state-variables"
     label: "What stays in step"
   - href: "#optimization-problem"
-    label: "The optimization problem"
+    label: "What the method protects"
 ---
 
 import SectionBlock from "../../components/SectionBlock.astro";
@@ -193,9 +193,9 @@ The people who bear a system's errors are usually the first to know about them a
 
 Standing is procedural force, not veto. A challenge must be received, answered, and able to change state. It need not prevail. The narrow form of this law is Method; the broader argument about who should hold power over institutions stays in Theory.
 
-The objection that follows the law into every deployment is arithmetic rather than principle: many challenges are a budget line, and institutions that saturate tend to meet the volume by narrowing who may challenge. The essay on <a href="/research/theory/challenge-density">challenge density</a> takes that objection seriously and answers it with measured response capacity and stratified halt force; it is motivation, and no clause cites it.
+Many challenges are a budget line, and institutions that saturate tend to meet the volume by narrowing who may challenge. The essay on <a href="/research/theory/challenge-density">challenge density</a> answers that arithmetic with measured response capacity and stratified halt force; it is motivation, and no clause cites it.
 
-A system's politics show in the rights it grants when its model fails. When a formal system meets what it cannot represent, seven questions decide whether the deployment is accountable or predatory:
+A system's politics show in the rights it grants when its model fails. When a formal system meets what it cannot represent, these questions decide whether the deployment is accountable or predatory:
 
 1. <strong>The encounter:</strong> What happens at the boundary where the formal
    model meets what it cannot represent?
@@ -228,9 +228,9 @@ Binds through: [STD-07](/standards/std-07-revisable-delegation-record) §4.1 sta
 
 Dashboards, logs, and audit trails are only as governing as the transitions they can trigger. An observation that no rule connects to a change in the system's authority state is a record of what happened, not a control over what happens next.
 
-The test is simple. Name the observation. Name the state it can change. If nothing is named, the observation is decorative.
+Name the observation. Name the state it can change. If nothing is named, the observation is decorative.
 
-One question precedes that one. An observation is weaker evidence the more the cost of collecting it falls on the people being observed. A survey, a challenge, a complaint log, and a self-assessment all draw on the subject's remaining attention, so the depleted answer least and the institution reads the gap as health. The bias runs one direction: more depletion produces a better-looking reading. An instrument bought with the subject's last reserves has a sampling rule that ties difficulty to silence, and no better phrasing of the question repairs it. The bias does not make the responses non-evidence; it makes them evidence with a known missingness. Cap the burden an instrument may ask, disclose who did not answer and why, and combine respondent-supplied reports with the system's own trail instead of reading either alone.
+An observation is also weaker evidence the more the cost of collecting it falls on the people being observed. A survey, a challenge, a complaint log, and a self-assessment all draw on the subject's remaining attention, so the depleted answer least and the institution reads the gap as health. The bias runs one direction: more depletion produces a better-looking reading. An instrument bought with the subject's last reserves has a sampling rule that ties difficulty to silence, and no better phrasing of the question repairs it. The bias does not make the responses non-evidence; it makes them evidence with a known missingness. Cap the burden an instrument may ask, disclose who did not answer and why, and combine respondent-supplied reports with the system's own trail instead of reading either alone.
 
 The alternative is to read friction from the system's own trail. Abandonment at a named step, repeated re-uploads, retries, and activity outside scheduled hours are recorded whether or not anyone chooses to answer. Where the operator already holds records that answer the question, the respondent is not asked at all.
 
@@ -353,7 +353,7 @@ The general form: do not claim epistemic, administrative, or political
 authority beyond the point at which you can still be effectively
 contradicted.
 
-Ten instances, as the decisions they ask:
+The instances, as the decisions they ask:
 
 - If you cannot correct the record, do not make the record dispositive.
   Law III: evidence and authority must remain coupled.
@@ -480,7 +480,7 @@ move relative to one another.
 <SectionBlock
   id="optimization-problem"
   eyebrow="Problem"
-  title="The optimization problem"
+  title="What the method protects"
   description="What the method tries to protect, and what it does not try to maximize."
 >
 
@@ -488,11 +488,12 @@ The question is not "how autonomous can the system safely become?" It is
 "how much authority can be delegated without degrading the institution's
 ability to revise that delegation later?"
 
-The first question treats autonomy as the goal and safety as a constraint to
-be satisfied once. The second treats the institution's continuing ability to
-revise as the thing being protected, and autonomy as what may be spent
-against it. Every standard, mechanism, and eval on this site is an
-instrument for answering the second question about a particular deployment.
+Asking how autonomous a system can become treats autonomy as the goal and
+safety as a constraint to be satisfied once. Asking how much can be delegated
+treats the institution's continuing ability to revise as the thing being
+protected, and autonomy as what may be spent against it. Every standard,
+mechanism, and eval on this site is an instrument for answering the delegation
+question about a particular deployment.
 
 The argument for why the laws hold, rather than what they require, is on the
 [core axioms](/standards/core-axioms#premises) page: the premises it assumes,
