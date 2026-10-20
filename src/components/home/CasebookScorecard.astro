@@ -56,21 +56,25 @@ const haltLabel = (value: number) => {
       was stopped by the organization running it. Apple Card's issuer is the one
       operator that changed its own process, after a regulator's investigation.
     </p>
-    <p>
-      Each row marks six safeguards, left to right, as held, drifted (in place
-      but no longer doing its job), or failed. The bar at the right edge is the
-      time to halt: how long the harm ran before it stopped. Longest harm first.
-    </p>
-    <ul class="card__list small">
-      {
-        stateVariables.map((variable) => (
-          <li>
-            <strong>{variable.label}</strong>
-            {` (${abbreviation(variable.label)}): ${safeguardGloss[variable.id]}`}
-          </li>
-        ))
-      }
-    </ul>
+    <details class="home-casebook__key">
+      <summary>How to read the rows</summary>
+      <p>
+        Each row marks six safeguards, left to right, as held, drifted (in place
+        but no longer doing its job), or failed. The bar at the right edge is
+        the time to halt: how long the harm ran before it stopped. Longest harm
+        first.
+      </p>
+      <ul class="card__list small">
+        {
+          stateVariables.map((variable) => (
+            <li>
+              <strong>{variable.label}</strong>
+              {` (${abbreviation(variable.label)}): ${safeguardGloss[variable.id]}`}
+            </li>
+          ))
+        }
+      </ul>
+    </details>
   </div>
 
   <div class="home-casebook__columns" aria-hidden="true">

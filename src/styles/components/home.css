@@ -46,12 +46,6 @@
   }
 
   /* The drawing read back onto the case it came from. */
-  .home-claim__applied {
-    max-width: 68ch;
-    margin: 0;
-    font-size: var(--text-base);
-  }
-
   /* The record's and the mechanism's headers: heading on the left, lede on
      the right on a wide screen, so each opens with one band instead of a
      stack three blocks tall. Stacked below 1000px. */
@@ -152,34 +146,33 @@
   }
 
   /* The doors: the reader names who they are before choosing a page. */
+  /* The doors sit in the masthead's second column on a wide screen and under
+     the buttons below that. They read as a directory: one hairline row per
+     reader, one arrow. No boxes: wayfinding, not merchandising. */
   .home-doors {
-    max-width: var(--content-max);
-    margin-inline: auto;
-    padding: calc(var(--space-section) / 2) 0;
-    border-bottom: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
+    display: grid;
+    gap: var(--space-3);
+    align-content: start;
   }
 
-  /* Eyebrow, heading and lede: the section-header stack, at the same
-     --space-heading apart, with the children's own margins reset. */
-  .home-doors__header,
+  .home-doors__heading {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+
   .self-test__header {
     display: grid;
     gap: var(--space-heading);
   }
 
-  .home-doors__header > *,
   .self-test__header > * {
     margin: 0;
   }
 
-  .home-doors__header {
-    max-width: 68ch;
-    margin-block-end: var(--space-block);
-  }
-
-  /* The doors read as a directory: one hairline row per door, role left,
-     destination middle, one arrow right. No boxes: wayfinding, not
-     merchandising. */
   .home-doors__list {
     list-style: none;
     margin: 0;
@@ -196,7 +189,7 @@
 
   /* The line under the doors for a reader who has no role yet, only a system. */
   .home-doors__fit {
-    margin: var(--space-5) 0 0;
+    margin: 0;
   }
 
   .home-doors__fit a {
@@ -205,11 +198,11 @@
   }
 
   .home-doors__door {
-    display: grid;
-    grid-template-columns: minmax(9rem, 13rem) minmax(0, 1fr) auto;
-    gap: var(--space-2) var(--space-5);
+    display: flex;
+    justify-content: space-between;
     align-items: baseline;
-    padding: var(--space-4) var(--space-1);
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-1);
     color: var(--text);
     text-decoration: none;
     transition: background-color var(--motion-base) ease;
@@ -225,14 +218,8 @@
   .home-doors__who {
     font-family: var(--sans);
     font-size: var(--text-base);
-    font-weight: 650;
+    font-weight: 600;
     color: var(--text);
-    margin: 0;
-  }
-
-  .home-doors__what {
-    margin: 0;
-    line-height: 1.55;
   }
 
   .home-doors__action {
@@ -240,29 +227,8 @@
     font-size: var(--text-sm);
     font-weight: 600;
     color: var(--link);
-    white-space: nowrap;
   }
 
-  @media (max-width: 639px) {
-    .home-doors__door {
-      grid-template-columns: minmax(0, 1fr) auto;
-    }
-
-    .home-doors__who {
-      grid-column: 1;
-    }
-
-    .home-doors__action {
-      grid-row: 1;
-      grid-column: 2;
-    }
-
-    .home-doors__what {
-      grid-column: 1 / -1;
-    }
-  }
-
-  /* Self-test. */
   /* Self-test. */
   .home-core__test {
     display: grid;
@@ -545,6 +511,18 @@
     display: none;
   }
 
+  .home-casebook__key summary {
+    cursor: pointer;
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--link);
+  }
+
+  .home-casebook__key[open] summary {
+    margin-block-end: var(--space-3);
+  }
+
   .home-casebook__verdict-key {
     display: flex;
     flex-wrap: wrap;
@@ -749,53 +727,6 @@
     outline: var(--focus-outline);
     outline-offset: var(--focus-outline-offset);
     border-radius: var(--radius-xs);
-  }
-
-  /* The pillars sit in the masthead's second column on a wide screen,
-     stacked; below that they run as a row under the buttons. */
-  .home-pillars {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-3);
-    margin-top: 0;
-  }
-
-  @media (min-width: 1000px) {
-    .home-pillars {
-      grid-template-columns: minmax(0, 1fr);
-    }
-  }
-
-  .home-pillar {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-    text-decoration: none;
-    color: inherit;
-    padding: var(--space-container-compact);
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border);
-    background: var(--surface);
-    transition:
-      border-color var(--motion-fast) ease,
-      background-color var(--motion-fast) ease;
-  }
-
-  .home-pillar:hover,
-  .home-pillar:focus-visible {
-    border-color: var(--accent);
-    background: var(--surface-emphasis);
-  }
-
-  .home-pillar strong {
-    font-family: var(--sans);
-    font-size: var(--text-base);
-  }
-
-  @media (max-width: 639px) {
-    .home-pillars {
-      grid-template-columns: minmax(0, 1fr);
-    }
   }
 
   @media (any-pointer: coarse) {
