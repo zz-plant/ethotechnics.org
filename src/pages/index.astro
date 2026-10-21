@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import CasebookScorecard from "../components/home/CasebookScorecard.astro";
 import ExceptionLearningFigure from "../components/ExceptionLearningFigure.astro";
 import HomeRail from "../components/home/HomeRail.astro";
+import PublishedMap from "../components/home/PublishedMap.astro";
 import RecordSpine from "../components/home/RecordSpine.astro";
 import SafeguardMap from "../components/home/SafeguardMap.astro";
 import SelfTest from "../components/home/SelfTest.astro";
@@ -12,13 +13,15 @@ import { commissionedWork } from "../content/commissioned-work";
  * The front door as one story in reading order, told without ever holding
  * the scroll. The hero asks the question the page then puts to the reader's
  * system (the self-test) and to this site (the colophon), and answers it
- * once with Robodebt. Listing what the Institute publishes is the pillars'
- * job, not the lede's. Then: watch one scheme run (the record), see why
+ * once with Robodebt. Then: watch one scheme run (the record), see why
  * rulings did not stop it (the mechanism), see that it was not special (the
  * casebook), then turn to the reader's own system (the self-test, scored on
- * the six-node figure) and the doors out. It closes on the site's own
- * answer to its question: who writes it, where a correction goes, and where
- * the framework's instruments failed. The claims are the table on /about,
+ * the six-node figure). Listing what the Institute publishes is not the
+ * lede's job; the map after the self-test does it, read from the header's
+ * menu, so the front door names the discipline and every body of work
+ * behind the one example. It closes on the site's own answer to its
+ * question: who writes it, where a correction goes, and where the
+ * framework's instruments failed. The claims are the table on /about,
  * and the positioning band leads the completions on
  * /research/scholarly-crossings. The two-ledger rail at the viewport edge is
  * the same grammar, as chrome.
@@ -158,6 +161,8 @@ const doors = [
       <SafeguardMap class="home-core__figure" />
     </div>
   </div>
+
+  <PublishedMap />
 
   {
     /*
