@@ -7,7 +7,7 @@ import { taxonomyAnchor, taxonomyEntries } from "../../content/taxonomy";
 
 const pageTitle = "Taxonomy — Ethotechnics Institute";
 const pageDescription =
-  "Twenty-two governance practices in six domains, each filed under the safeguards it serves, with the artifacts that apply.";
+  "Twenty-two governance practices in six domains, each filed under the safeguards it serves, with the standards, mechanisms, evals, and tools that apply.";
 const permalink = "/taxonomy";
 
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
@@ -99,7 +99,7 @@ const structuredDataJson = JSON.stringify(structuredData);
                 <th scope="col">Capability or practice</th>
                 <th scope="col">What it covers</th>
                 <th scope="col">Serves</th>
-                <th scope="col">Standards and tools</th>
+                <th scope="col">Standards, mechanisms, and tools</th>
               </tr>
             </thead>
             <tbody>
@@ -117,7 +117,7 @@ const structuredDataJson = JSON.stringify(structuredData);
                   </th>
                   <td data-label="What it covers">{entry.summary}</td>
                   <td data-label="Serves">{entry.safeguards.join(", ")}</td>
-                  <td data-label="Standards and tools">
+                  <td data-label="Standards, mechanisms, and tools">
                     <ul class="taxonomy-table__links">
                       {entry.relatedArtifacts.map((artifact) => (
                         <li>

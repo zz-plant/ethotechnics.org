@@ -1,0 +1,56 @@
+---
+/**
+ * What the Institute publishes, as one map on the front door. The story
+ * above shows the question with one case; this names the discipline and
+ * every body of work behind it, so a reader who reaches the end of the page,
+ * and a crawler reading it, sees the whole site rather than one example.
+ *
+ * It reads the header's own menu (navSections), so the map and the menu
+ * cannot drift apart, and adding a page to the menu adds it here. Labels
+ * only: the menu carries the one-line descriptions, and a second copy of
+ * twenty of them would undo the page's trim.
+ */
+import { methodContent } from "../../content/method";
+import { navSections } from "../../content/navigation";
+
+// The definition's first sentence. The full one opens /method.
+const definition = methodContent.definition.slice(
+  0,
+  methodContent.definition.indexOf(".") + 1,
+);
+---
+
+<nav class="home-map" aria-labelledby="home-map-heading">
+  <div class="home-split-header">
+    <h2 id="home-map-heading" class="section__heading">
+      What the Institute publishes
+    </h2>
+    <p class="section-lead">
+      {definition} Everything below is licensed CC BY-SA 4.0.
+      <a href="/start">Start here</a>
+    </p>
+  </div>
+  <div class="home-map__cols" data-glossary-ignore>
+    {
+      navSections.map((section) => (
+        <section class="home-map__group">
+          <h3 class="home-map__heading">
+            {section.href ? (
+              <a href={section.href}>{section.heading}</a>
+            ) : (
+              section.heading
+            )}
+          </h3>
+          <p class="home-map__description small muted">{section.description}</p>
+          <ul class="home-map__links">
+            {section.links.map((link) => (
+              <li>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+  </div>
+</nav>

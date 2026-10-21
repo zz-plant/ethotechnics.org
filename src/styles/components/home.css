@@ -65,6 +65,77 @@
     }
   }
 
+  /* What the Institute publishes: the header menu's sections laid flat,
+     one column each, between the self-test band and the colophon. Labels
+     only; the menu carries the descriptions. */
+  .home-map {
+    display: grid;
+    gap: var(--space-6);
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding-block: calc(var(--space-section) / 2) 0;
+  }
+
+  .home-map .section-lead {
+    max-width: 68ch;
+  }
+
+  .home-map__cols {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  @media (min-width: 640px) {
+    .home-map__cols {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .home-map__cols {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .home-map__group {
+    display: grid;
+    align-content: start;
+    gap: var(--space-2);
+    padding-top: var(--space-3);
+    border-top: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
+  }
+
+  .home-map__heading {
+    margin: 0;
+    font-size: var(--text-base);
+    line-height: 1.3;
+  }
+
+  /* A heading that opens its section's index reads as the heading first. */
+  .home-map__heading a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+
+  .home-map__description {
+    margin: 0;
+  }
+
+  .home-map__links {
+    display: grid;
+    gap: var(--space-1);
+    margin: var(--space-1) 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--text-sm);
+  }
+
+  .home-map__links a {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+
   /* The site's own answerability, set as a colophon: a heavy rule, the
      question asked of the site, and one column per route. */
   .home-colophon {
@@ -122,9 +193,9 @@
     text-underline-offset: 0.15em;
   }
 
-  /* The story masthead: the headline and lede, with the three things the
-     site publishes beside them on a wide screen and under the buttons on a
-     phone, so the first tap target stays on the first screen. */
+  /* The story masthead: the headline and lede, with the reader doors
+     beside them on a wide screen and under the buttons on a phone, so the
+     first tap target stays on the first screen. */
   .institute-hero--story {
     display: grid;
     gap: var(--space-7);
