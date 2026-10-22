@@ -4,12 +4,22 @@ import { micromark } from "micromark";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import SearchIds from "../../components/SearchIds.astro";
+import { standardClauses } from "../../content/standards";
 
 const entry = (await getCollection("evidencePacks")).find(
   (candidate) => candidate.id === Astro.params.slug,
 );
 if (!entry) return new Response("Not found", { status: 404 });
-const { title, description, sections, checklists } = entry.data;
+const { title, description, checklists, published, updated, searchIds } =
+  entry.data;
+const sections = entry.data.sections.map((section, index) => ({
+  ...section,
+  id: section.id ?? `section-${index}`,
+}));
+const clauses = standardClauses[entry.data.standardId] ?? [];
+const clauseAnchor = (id: string) =>
+  id.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 
 const pageTitle = `${title} — Ethotechnics Institute`;
 ---
@@ -17,15 +27,16 @@ const pageTitle = `${title} — Ethotechnics Institute`;
 <BaseLayout
   title={pageTitle}
   description={description}
-  publishedTime="2025-06-01T00:00:00.000Z"
+  publishedTime={published}
+  modifiedTime={updated}
 >
   <PageIntro
     eyebrow="Evidence pack"
     title={title}
     description={description}
     anchorLinks={[
-      ...sections.map((section, index) => ({
-        href: `#section-${index}`,
+      ...sections.map((section) => ({
+        href: `#${section.id}`,
         label: section.title,
       })),
       { href: "#referenced-by", label: "Referenced by" },
@@ -35,7 +46,7 @@ const pageTitle = `${title} — Ethotechnics Institute`;
   {
     sections.map((section, index) => (
       <SectionBlock
-        id={`section-${index}`}
+        id={section.id}
         eyebrow={section.required ? "Required" : "Optional"}
         title={section.title}
         description={
@@ -46,14 +57,28 @@ const pageTitle = `${title} — Ethotechnics Institute`;
         variant={index % 2 === 0 ? "default" : "alt"}
       >
         <div set:html={micromark(section.content)} />
+        {section.clauseEvidence && (
+          <ul class="standard-clauses">
+            {clauses.map((clause) => (
+              <li id={clauseAnchor(clause.id)}>
+                <strong>{clause.id}</strong> ({clause.displayId}) — when{" "}
+                {clause.condition}, {clause.obligation}.
+                <br />
+                <span class="muted">
+                  Evidence: {clause.evidenceRequired.join(", ")}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
       </SectionBlock>
     ))
   }
 
   {
-    (checklists ?? []).map((checklist) => (
+    (checklists ?? []).map((checklist, index) => (
       <SectionBlock
-        id="referenced-by"
+        id={index === 0 ? "referenced-by" : `referenced-by-${index}`}
         eyebrow="Referenced by"
         title={checklist.title}
         description="The standards, bindings, and validators this pack supports."
@@ -62,11 +87,12 @@ const pageTitle = `${title} — Ethotechnics Institute`;
         <div class="grid grid--three">
           {checklist.items.map((item) => (
             <div class="panel">
-              <p class="muted">{item}</p>
+              <div class="muted" set:html={micromark(item)} />
             </div>
           ))}
         </div>
       </SectionBlock>
     ))
   }
+  {searchIds && <SearchIds ids={searchIds} />}
 </BaseLayout>
