@@ -7,9 +7,22 @@ eyebrow: "Evidence pack"
 standardId: "STD-02"
 standardTitle: "Contestability and recourse"
 published: "2025-06-01"
-updated: "2026-10-06"
+updated: "2026-10-17"
+searchIds:
+  [
+    "STD-02",
+    "STD-02.2.1",
+    "STD-02.3.1",
+    "AW-01",
+    "AW-02",
+    "AW-03",
+    "AW-04",
+    "VAL-02",
+    "VAL-03",
+  ]
 sections:
-  - title: "Tiered evidence model"
+  - id: "tiers"
+    title: "Tiered evidence model"
     content: |
       **Tier 0 (minimum):** Proof the appeal path exists and is reachable in-product. Evidence: UI links, receipt payloads, and appeal intake records.
 
@@ -17,12 +30,15 @@ sections:
 
       **Tier 2 (resilient):** Proof that the challenge route survives scale, incident load, and exceptions. Evidence: Postmortems, exception audits, and throughput stress tests.
 
-      Receipt payloads should conform to the Agent Receipt schema, so an auditor's tools can read them.
+      Receipt payloads should conform to the [Agent Receipt schema](/standards/agent-receipt-schema.json), so an auditor's tools can read them.
     required: true
-  - title: "Clause evidence list"
+  - id: "clauses"
+    title: "Clause evidence list"
     content: "The evidence each STD-02 clause asks for, drawn from the clause register."
     required: true
-  - title: "Anti-weaponization evidence"
+    clauseEvidence: true
+  - id: "anti-weaponization"
+    title: "Anti-weaponization evidence"
     content: |
       **AW-01:** Burden remediation plan tied to challenge metrics.
 
@@ -32,16 +48,18 @@ sections:
 
       **AW-04:** Assisted channel logs with escalation outcomes.
 
-      Pair this with diagnostics checks to validate AW compliance.
+      Pair this with [diagnostics checks](/diagnostics#anti-weaponization) to validate AW compliance.
     required: true
-  - title: "How teams fake this"
+  - id: "anti-fraud"
+    title: "How teams fake this"
     content: |
       - Appeal links exist but lead to dead ends or generic inboxes.
       - Review clocks are defined but not visible to the people the decisions are about.
       - Manual review happens, but outcomes and reversals are not entered in the decision log.
       - Exception paths are used to avoid remedies without any expiry or review cadence.
     required: true
-  - title: "What auditors ask"
+  - id: "auditors"
+    title: "What auditors ask"
     content: |
       - Show appeal outcomes for the last quarter and the median review time.
       - Demonstrate how many remedies were delivered within the remedy clock.
@@ -52,7 +70,7 @@ sections:
 checklists:
   - title: "Referenced by"
     items:
-      - "Used in examples: Automated eligibility denial, Content moderation takedown, Fraud hold with delayed notice"
-      - "Required by bindings: Incident triggers, Admission gate (MEC-22)"
-      - "Verified by evidence packs: STD-01 evidence pack, STD-02 evidence pack, Validators (VAL-01–VAL-03)"
+      - "Used in examples: [Automated eligibility denial](/use-cases/examples/automated-eligibility-denial), [Content moderation takedown](/use-cases/examples/content-moderation-takedown), [Fraud hold with delayed notice](/use-cases/examples/fraud-hold-delayed-notice)"
+      - "Required by bindings: [Incident triggers](/incidents), [Admission gate](/mechanisms/patterns/admission-gate) (MEC-22)"
+      - "Related evidence: [STD-01 evidence pack](/evidence-packs/std-01), [Validators](/validators) (VAL-01–VAL-03)"
 ---

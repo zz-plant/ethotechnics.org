@@ -74,13 +74,13 @@ export const methodContent: MethodContent = {
     "Evidence that an automated decision is wrong is settled one case at a time and never reaches the rule. The method puts it on the record, one workflow at a time.",
   permalink: "/method",
   definition:
-    "Ethotechnics is the engineering discipline of keeping an automated decision system answerable as it grows. Six things have to stay tied together: what the system can do (capability), what it is permitted to do (authority), the evidence that justified the permission (evidence), how hard it would be to do without it (dependency), who can challenge its decisions and be answered (standing), and who can halt and reverse it (correction). When they come apart, a system that gains ability becomes power nobody can review. Where ethics asks what we should do, Ethotechnics specifies the mechanisms meant to make it happen and the records that show whether they did.",
+    "Ethotechnics is an engineering discipline for keeping automated decisions answerable. It specifies mechanisms for authorization, evidence, challenge, and correction, and records for checking whether they work.",
   positiveDefinition:
     "Ethotechnics is the practice of building capable systems that remain answerable to the people and realities they can never fully represent.",
   claim:
-    "The primary object being engineered is not the model. It is the delegation of consequential agency. The question is not whether the model is capable, aligned, or safe. It is whether the delegation itself remains valid as the system acts, learns, scales, and becomes depended upon.",
+    "An institution must reassess the authority it grants as a system acts, learns, expands, and becomes depended upon.",
   unitOfGovernance:
-    "The unit of governance is the consequential decision and the delegation that produced it. Models, agents, humans, APIs, rules engines, policies, and databases are components of the machinery. Nothing in the method depends on which component made the decision, so the same records and checks apply whether it was a model, a rules engine, or a person.",
+    "The unit of governance is the consequential decision and the delegation that produced it. Models, agents, humans, APIs, rules engines, policies, and databases are components of the machinery.",
   invariant:
     "No system may accumulate consequential agency faster than the institution accumulates the capacity to inspect, challenge, revise, and survive its decisions.",
   chain: [

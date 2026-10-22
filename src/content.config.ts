@@ -524,11 +524,14 @@ const evidencePackSchema = z.object({
   standardTitle: z.string(),
   published: z.string(),
   updated: z.string().optional(),
+  searchIds: z.array(z.string()).optional(),
   sections: z.array(
     z.object({
+      id: z.string().optional(),
       title: z.string(),
       content: z.string(),
       required: z.boolean().optional(),
+      clauseEvidence: z.boolean().optional(),
     }),
   ),
   checklists: z
