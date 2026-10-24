@@ -164,6 +164,24 @@ export const neighboringFields: NeighboringField[] = [
     },
   },
   {
+    field: "Organizational learning",
+    works: [
+      {
+        authors: "Anita Tucker and Amy Edmondson",
+        title: "Why Hospitals Don't Learn from Failures",
+        year: 2003,
+        form: "article",
+      },
+    ],
+    sees: "Frontline workers fix problems as they appear without changing their causes, and each successful fix keeps the failure from reaching the people who could remove it. First-order problem solving produces an illusory equilibrium: the organization reads the absence of reported failures as health.",
+    stops:
+      "It treats the workaround as a learning failure that better reporting or psychological safety would correct. It does not ask what the absorbed work costs, who pays it, or what keeps it necessary once the institution already knows.",
+    essay: {
+      title: "Absorption as concealment",
+      href: "/research/theory/absorption-as-concealment",
+    },
+  },
+  {
     field: "Administrative burden",
     works: [
       {

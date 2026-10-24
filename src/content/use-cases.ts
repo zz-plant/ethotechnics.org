@@ -420,6 +420,8 @@ export const useCases: UseCase[] = [
     incidents: [],
     alreadyRequired:
       "EU AI Act Annex III makes high-risk the systems that evaluate learning outcomes (point 3(b)) and those that inform promotion, termination, or task allocation, or that monitor and evaluate workers' performance (point 4(b)).",
+    personCanAsk:
+      "In the EU, if a decision about you — a grade, a discipline call, or a dismissal — was made solely by automated processing, GDPR Article 22 lets you ask for a person to review it, give your view, and contest it. Article 15 lets you ask for meaningful information about the logic involved. In New York City, if an automated tool substantially drives a decision about your promotion or termination, Local Law 144 requires your employer to give notice at least 10 business days before the tool is used and to publish a yearly bias audit.",
   },
 ];
 

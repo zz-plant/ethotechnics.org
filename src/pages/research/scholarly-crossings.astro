@@ -15,7 +15,7 @@ import {
   embeddedPolitics,
   positioning,
 } from "../../content/positioning";
-import { formatDate, formatMonth } from "../../utils/dates";
+import { formatDate } from "../../utils/dates";
 import { derivePublicationMetadata } from "../../utils/publication";
 
 const note = positioning;
@@ -61,7 +61,6 @@ const lawByNumeral = new Map(
   methodContent.laws.map((law) => [law.numeral, law]),
 );
 const publishedLabel = formatDate(note.published, "prose");
-const staleLabel = formatMonth(note.staleAfter, "prose");
 ---
 
 <BaseLayout
@@ -692,13 +691,10 @@ const staleLabel = formatMonth(note.staleAfter, "prose");
     id="status"
     eyebrow="Status"
     title="Status and sources"
-    description="What the note rests on, and when to treat it as stale."
+    description="What the note rests on."
   >
     <p>{note.sourcesNote}</p>
-    <p>
-      Published {publishedLabel}. If no revision has been published by{" "}
-      {staleLabel}, treat the note as stale.
-    </p>
+    <p>Published {publishedLabel}.</p>
   </SectionBlock>
 
   <CitationBlock
