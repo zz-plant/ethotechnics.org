@@ -205,7 +205,7 @@ export const finiteContent = {
         trigger:
           "Nursing staff work to rule: they decline calls outside their logged hours and take every mandatory rest break.",
         mechanic:
-          "The system hit its speed targets by stripping out verification steps and leaving the verification work to frontline nursing staff. The moment the nurses stopped making up the difference, the dashboard flashed catastrophic red.",
+          "The system hit its speed targets by stripping out verification steps and leaving the verification work to frontline nursing staff. The moment the nurses stopped making up the difference, the dashboard turned red.",
         dualLedgerInsight:
           "The healthy numbers were an accounting illusion. The system did not speed up throughput; it used up the nurses' time and rest as an unrecorded subsidy.",
         standardRefs: ["STD-01", "STD-06", "STD-08"],
