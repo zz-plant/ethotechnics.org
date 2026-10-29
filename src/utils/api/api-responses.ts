@@ -418,6 +418,7 @@ export const createAgentIndexResponse = (options: {
     discovery: {
       sitemap: "/sitemap.xml",
       robots: "/robots.txt",
+      authMd: "/auth.md",
     },
     docs: {
       apiReference: "/api",

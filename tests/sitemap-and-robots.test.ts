@@ -18,6 +18,10 @@ describe("robots.txt", () => {
     expect(body).toContain("User-agent: *");
     expect(body).toContain("Allow: /");
     expect(body).toContain("Sitemap: https://example.org/sitemap.xml");
+    expect(body).toContain(
+      "Content-Signal: search=yes, ai-input=yes, ai-train=yes",
+    );
+    expect(body).toContain("# ai-train: training or fine-tuning AI models.");
   });
 
   it("falls back to the production domain when site is missing", async () => {
@@ -40,6 +44,7 @@ describe("robots.txt", () => {
     const body = await response.text();
 
     expect(body).toContain("Disallow: /");
+    expect(body).not.toContain("Content-Signal");
     expect(response.headers.get("X-Robots-Tag")).toBe("noindex, nofollow");
   });
 

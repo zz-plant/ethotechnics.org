@@ -6,3 +6,8 @@ packages/conformance/action/
 # Its arrays are expanded by JSON.stringify(_, null, 2); prettier collapses the
 # short ones, which rewrites thousands of unrelated lines and buries real edits.
 src/content/glossary.json
+
+# Throwaway worktrees created by coding-agent sessions. They hold full repo
+# clones, so formatting them duplicates the whole tree into every check.
+.claude/worktrees/
+.opencode/worktrees/

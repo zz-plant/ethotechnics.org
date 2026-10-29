@@ -214,6 +214,9 @@ const REDIRECT_MAP: Record<string, string> = {
     "/mechanisms/patterns/escalation-deadlines",
   "/library/patterns/escalation-slas":
     "/mechanisms/patterns/escalation-deadlines",
+  // The agent-access declaration is published at /auth.md, the location the
+  // auth.md protocol names; agents also probe the well-known path.
+  "/.well-known/auth.md": "/auth.md",
 };
 
 const resolveLegacyPathRedirect = (url: URL): string | null => {
@@ -362,6 +365,25 @@ const applySecurityHeaders = (response: Response): Response => {
   }
 };
 
+// Link headers tell an automated reader, on the response it already fetched,
+// where the license and the sitemap live. The license URL is the same deed the
+// site footer publishes; the sitemap pointer mirrors the robots.txt Sitemap
+// line for clients that never fetch robots.txt.
+const applyDiscoveryLinkHeader = (response: Response): Response => {
+  const contentType = response.headers.get("Content-Type");
+  if (!contentType?.startsWith("text/html")) return response;
+
+  try {
+    response.headers.set(
+      "Link",
+      '<https://creativecommons.org/licenses/by-sa/4.0/>; rel="license", </sitemap.xml>; rel="sitemap"',
+    );
+    return response;
+  } catch {
+    return response;
+  }
+};
+
 export const onRequest: MiddlewareHandler = async (context, next) => {
   const host = context.request.headers.get("host") ?? "";
 
@@ -389,5 +411,7 @@ export const onRequest: MiddlewareHandler = async (context, next) => {
   }
 
   const response = await next();
-  return response ? applySecurityHeaders(response) : response;
+  return response
+    ? applySecurityHeaders(applyDiscoveryLinkHeader(response))
+    : response;
 };
