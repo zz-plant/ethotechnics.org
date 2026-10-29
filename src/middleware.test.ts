@@ -318,6 +318,12 @@ describe("middleware", () => {
         url: "https://ethotechnics.org/api/v/2026.01/glossary.json",
         expectedLocation: "https://ethotechnics.org/api/glossary.json",
       },
+      // Agents probe the well-known path for the auth.md protocol; the file
+      // itself lives at /auth.md.
+      {
+        url: "https://ethotechnics.org/.well-known/auth.md",
+        expectedLocation: "https://ethotechnics.org/auth.md",
+      },
       {
         url: "https://ethotechnics.org/start-here",
         expectedLocation: "https://ethotechnics.org/start",
@@ -383,6 +389,43 @@ describe("middleware", () => {
       expect(response.headers.get("Location")).toBe(expectedLocation);
       expect(next).not.toHaveBeenCalled();
     }
+  });
+
+  it("adds license and sitemap Link headers to HTML responses only", async () => {
+    const request = new Request(
+      "https://ethotechnics.org/glossary/stoppability",
+    );
+    const next = mock(() =>
+      Promise.resolve(
+        new Response("<html></html>", {
+          headers: { "Content-Type": "text/html; charset=utf-8" },
+        }),
+      ),
+    );
+
+    const response = await onRequest(
+      { request, locals: {} as App.Locals } as APIContext,
+      next,
+    );
+
+    const link = response?.headers.get("Link");
+    expect(link).toContain(
+      '<https://creativecommons.org/licenses/by-sa/4.0/>; rel="license"',
+    );
+    expect(link).toContain('</sitemap.xml>; rel="sitemap"');
+
+    const jsonResponse = await onRequest(
+      { request, locals: {} as App.Locals } as APIContext,
+      mock(() =>
+        Promise.resolve(
+          new Response("{}", {
+            headers: { "Content-Type": "application/json" },
+          }),
+        ),
+      ),
+    );
+
+    expect(jsonResponse?.headers.get("Link")).toBeNull();
   });
 
   it("redirects a taxonomy entry to its anchor and passes an unknown slug through to 404", async () => {
