@@ -8,7 +8,6 @@ import {
   commissionedWork,
   commissionedWorkMailto,
 } from "../../content/commissioned-work";
-import { formatDate } from "../../utils/dates";
 
 const { provider, disclosure } = commissionedWork;
 const pageTitle = "Commissioned work";
@@ -26,7 +25,7 @@ const anchorLinks = [
   title={`${pageTitle} — Ethotechnics Institute`}
   description={pageDescription}
   publishedTime="2025-06-01T00:00:00.000Z"
-  modifiedTime="2026-10-13T00:00:00.000Z"
+  modifiedTime="2026-11-04T00:00:00.000Z"
   breadcrumbItems={[
     { name: "Home", url: "/" },
     { name: "About", url: "/about" },
@@ -87,11 +86,10 @@ const anchorLinks = [
       }
     </ul>
     <p class="small muted">
-      The formats are listed under
+      The engagement is listed under
       <a href={commissionedWork.href} rel="noopener noreferrer" target="_blank"
         >{commissionedWork.linkLabel}</a
-      >, checked {formatDate(commissionedWork.checked, "prose")}. No prices are
-      published. Most of the work falls under the
+      >. No prices are published. Most of the work falls under the
       <a href="/use-cases#health-coverage">health coverage and care</a> context.
     </p>
   </SectionBlock>

@@ -14,16 +14,16 @@
  * name. The author of the standards is the person paid to apply them, so
  * every page that offers the work says he wrote the framework.
  *
- * The source of truth is the Engagements section on kanav.net/contact, as
- * checked on `checked`. It names the engagement, its clients, and the four
- * formats. The outputs below are the ones ethotechnics.com listed on
- * 2026-10-01; kanav.net does not repeat them and does not contradict them.
- * When kanav.net changes, change this file. Prices are not published
- * anywhere, so no page here states one.
+ * This file is the source of truth for the four formats and their outputs,
+ * which are the ones ethotechnics.com listed on 2026-10-01. Since 2026-11-04 the
+ * Engagements section on kanav.net/contact names the engagement, its focus, and
+ * its clients, and links to /institute/commissioned-work#offers for the rest. If
+ * the name, focus, or clients change on either site, change the other, and keep
+ * that anchor. Prices are not published anywhere, so no page here states one.
  */
 export type CommissionedOffer = {
   name: string;
-  /** Duration as kanav.net states it. */
+  /** How long it takes. */
   format: string;
   /** What the client leaves with. */
   output: string;
@@ -46,7 +46,6 @@ export const commissionedWork = {
   email: "kanav@kanav.net",
   /** The subject kanav.net puts on its own advisory mail links. */
   subject: "Advisory or fractional engagement",
-  checked: "2026-10-13",
   focus:
     "Whether a healthcare AI system can be stopped, overridden, and reversed",
   clients: "health plans, healthcare AI companies, and investors",
@@ -80,7 +79,7 @@ export const commissionedWork = {
 export const commissionedWorkMailto = (subject = commissionedWork.subject) =>
   `mailto:${commissionedWork.email}?subject=${encodeURIComponent(subject)}`;
 
-/** The four formats in one clause, worded as kanav.net words them. */
+/** The four formats in one clause. */
 export const commissionedWorkFormats =
   "a one-hour safeguards review, a two-week readiness sprint on one workflow, an investor diligence memo in five business days, or a two-to-three-week evaluation against FDA and EU AI Act expectations";
 
