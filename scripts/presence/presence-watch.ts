@@ -261,15 +261,16 @@ export const isoWeek = (date: Date): string => {
 };
 
 /**
- * Open issues a new week's report replaces. One report stays open at a time,
- * so the repository's issue list is not a stack of bot reports.
+ * The open reports a new week's report replaces. One report stays open at a
+ * time, so the repository's issue list is not a stack of bot reports.
  */
 export const staleWatchIssues = (
-  issues: readonly { number: number; state: string; pull_request?: unknown }[],
+  openIssues: readonly { number: number }[],
+  current: number,
 ): number[] =>
-  issues
-    .filter((issue) => issue.state === "open" && !issue.pull_request)
-    .map((issue) => issue.number);
+  openIssues
+    .map((issue) => issue.number)
+    .filter((number) => number !== current);
 
 export const watchIssueTitle = (week: string): string =>
   `Presence watch: ${week}`;
