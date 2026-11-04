@@ -71,7 +71,7 @@ export type MethodContent = {
 export const methodContent: MethodContent = {
   pageTitle: "The method: keeping automated decisions answerable",
   pageDescription:
-    "Evidence that an automated decision is wrong is settled one case at a time and never reaches the rule. The method puts it on the record, one workflow at a time.",
+    "Evidence that an automated decision is wrong can be settled one case at a time while the rule goes unexamined. The method puts it on the record, one workflow at a time.",
   permalink: "/method",
   definition:
     "Ethotechnics is an engineering discipline for keeping automated decisions answerable. It specifies mechanisms for authorization, evidence, challenge, and correction, and records for checking whether they work.",

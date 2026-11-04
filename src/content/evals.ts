@@ -570,7 +570,7 @@ export const evalsContent: EvalsContent = {
       description:
         "Whether staff quietly fixing the system's errors are hiding its real failure rate, so that performance with their help is reported as the system's own.",
       longDescription:
-        "Burden distribution evals ask who bears the cost when a system fails. This suite asks whether bearing it is what stops the failure from being counted. It separates how the system performs on its own from how it performs with staff quietly fixing its errors. When staff absorb errors well, the dashboard improves and the evidence disappears. The institution comes to rely on their skill without recording it. The tests measure four things: how much performance drops when those staff are absent, how much work goes into items already reported complete, how much manual correction goes unlogged, and whether performance holds when staff do only what the written procedure requires.",
+        "Burden distribution evals ask who bears the cost when a system fails. This suite asks whether bearing it is what stops the failure from being counted. It separates how the system performs on its own from how it performs with staff quietly fixing its errors. When staff absorb errors well and the work goes unlogged, the dashboard improves and the evidence stays off it. The institution comes to rely on their skill without recording it. The tests measure four things: how much performance drops when those staff are absent, how much work goes into items already reported complete, how much manual correction goes unlogged, and whether performance holds when staff do only what the written procedure requires.",
       version: "1.0.0",
       status: "draft",
       category: "visibility",

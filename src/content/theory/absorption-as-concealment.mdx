@@ -1,33 +1,33 @@
 ---
 title: "Absorption as concealment"
-description: "When people quietly work around a system's errors, the errors never reach its metrics. The more the institution relies on the system, the more reliable it looks."
+description: "When people quietly work around a system's errors, the errors never reach its metrics. The more the institution relies on the system, the more reliable it can look."
 permalink: "/research/theory/absorption-as-concealment"
 eyebrow: "Theory"
 published: "2026-09-06"
 updated: "2026-10-06"
 question: "How do people who quietly work around a system's errors keep those errors out of its metrics?"
 lawRefs: ["V", "VIII", "X"]
-summary: "Every failure someone quietly works around improves the metric that should have caught it. Reliability that rests on that work is not reliability; it is concealment nobody has measured yet."
+summary: "A failure someone quietly works around can improve the metric that should have caught it. Reliability that rests on that work is not reliability; it is concealment nobody has measured yet."
 ---
 
 import DemoFigure from "../../components/DemoFigure.astro";
 import AbsorptionFigure from "../../features/absorption-figure/AbsorptionFigure";
 
-An institution learns about its systems through instruments: error rates, escalation counts, time to resolution, satisfaction scores. The instruments are designed to register failure. They cannot register a failure someone dealt with first, and that class of failure grows exactly when a system becomes important.
+An institution learns about its systems through instruments: error rates, escalation counts, time to resolution, satisfaction scores. The instruments are designed to register failure. They cannot register a failure someone dealt with first, and that class of failure can grow as a system becomes important.
 
 ## The mechanism
 
 A failure that reaches an instrument has to survive long enough to be seen. Between the moment a system produces a wrong output and the moment any instrument looks, there is a gap, and the gap is populated by people. A colleague reroutes the task. A supervisor overrides the flag. The person on the receiving end works around the problem and does not report it, because reporting takes longer than working around.
 
-Each of these acts is competent. Each of them is also an act of erasure. The failure occurred, a person absorbed it, and the instrument recorded nothing. The metric that should have captured the failure improves because it was caught. The institution then reads the metric and concludes the system is performing well. Anita Tucker and Amy Edmondson documented this mechanism in hospitals, where first-order fixes by nurses kept failures from reaching the managers who could remove their causes; the framework adds the ledger — the absorbed failure is also a cost, booked to the wrong line.
+Each of these acts is competent. Each of them can also be an act of erasure. The failure occurred, a person absorbed it, and the instrument recorded nothing. The metric that should have captured the failure improves because it was caught. The institution then reads the metric and concludes the system is performing well. Anita Tucker and Amy Edmondson observed this mechanism in nine hospitals, where first-order fixes by nurses kept failures from reaching the managers who could remove their causes; the framework adds the ledger — the absorbed failure is also a cost, booked to the wrong line.
 
-This is not a measurement error in the ordinary sense. An ordinary measurement error is noise; more samples reduce it. Absorption is a bias, and it runs in one direction wherever the instruments omit the correction. Every absorbed failure makes the system look better than it is, and the more competent the surrounding people, the larger the bias. A system deployed among skilled staff will report a lower error rate than the same system deployed among novices, not because it errs less but because more of its errors are caught before they are counted. Where overrides and near misses are logged rather than erased, the same work increases visibility instead of hiding it; the concealment is a property of the measurement boundary and the reporting incentives, not of competence itself.
+This is not a measurement error in the ordinary sense. An ordinary measurement error is noise; more samples reduce it. Absorption is a bias, and it runs in one direction wherever the instruments omit the correction. Every absorbed failure makes the system look better than it is, and the more competent the surrounding people, the larger the bias can be. A system deployed among skilled staff can report a lower error rate than the same system deployed among novices, not because it errs less but because more of its errors are caught before they are counted. Where overrides and near misses are logged rather than erased, the same work increases visibility instead of hiding it; the concealment is a property of the measurement boundary and the reporting incentives, not of competence itself.
 
-## Why absorption grows with importance
+## Why absorption can grow with importance
 
-Absorption does not stay small. As a system becomes more central to a workflow, more people organize their work around it, and more people are positioned to catch its errors. Their catching becomes routine. Routine catching is invisible catching: nobody writes an incident report for something they fix ten times a day.
+Absorption need not stay small. As a system becomes more central to a workflow, more people organize their work around it, and more people are positioned to catch its errors. Their catching becomes routine. Routine catching is invisible catching: nobody writes an incident report for something they fix ten times a day.
 
-At the same time, the cost of a visible failure rises. When a system is peripheral, a failure that reaches an instrument is a minor data point. When the system is central, a failure that reaches an instrument is an event, with meetings and explanations attached. The incentive to absorb rather than report grows with the stakes. The share of failures that never reach an instrument rises as the system becomes important, which is precisely when the institution most needs to know how it is performing.
+At the same time, the cost of a visible failure rises. When a system is peripheral, a failure that reaches an instrument is a minor data point. When the system is central, a failure that reaches an instrument is an event, with meetings and explanations attached. The incentive to absorb rather than report can grow with the stakes. The share of failures that never reach an instrument can rise as the system becomes important, which is precisely when the institution most needs to know how it is performing.
 
 The result is a system whose reported health improves as its actual dependence deepens. The two curves are not independent, but the direction is not automatic: dependence can also bring stronger monitoring, and the improving reading appears where the instruments do not record the corrections. Where they do, the mechanism changes and the curves separate.
 
@@ -65,7 +65,7 @@ The number matters for the argument about standing as well. Where the absorbed s
 
 ## The instrument has the same defect
 
-The ways of measuring absorption listed above share a property with the instruments they are meant to correct: they are paid in the currency of the people being measured. Shadowing the people around the system spends their time. Asking a clinician how long the workaround takes asks the person with the least of it. A survey of the exhausted returns the views of the rested, and the institution reads the absence as absence of harm.
+The ways of measuring absorption listed above share a property with the instruments they are meant to correct: they are paid in the currency of the people being measured. Shadowing the people around the system spends their time. Asking a clinician how long the workaround takes asks the person with the least of it. A survey of the exhausted over-samples the rested, and the institution can read the absence as absence of harm.
 
 The bias has a direction. An instrument drawing on discretionary effort will under-report the depleted, so a low reading is compatible with a severe problem while a high reading is no evidence of a mild one. Asking the question more carefully does not repair this, because the defect sits in the sampling rule rather than in the wording. It is absorption again, one level earlier: the institution reads a quiet sensor as a healthy system.
 
