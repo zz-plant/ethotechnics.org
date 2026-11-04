@@ -5,7 +5,7 @@ Guidance for shipping the site to Cloudflare Workers and verifying production ou
 ## Prerequisites
 
 - Access to the Cloudflare account and target Worker/Pages project.
-- Node.js 20 and Bun installed (`nvm use`, then `bun install`).
+- Node.js 22 and Bun installed (`nvm use`, then `bun install`).
 - `.env.local` present if you rely on local-only secrets; deployment uses Cloudflare-bound
   environment variables instead of `.env` files.
 
@@ -27,6 +27,15 @@ The build also runs `patch:cf-worker` after `astro build`. This keeps `nodejs_co
 the Node APIs used during build/prerender while forcing Astro's generated Cloudflare Worker bootstrap
 to use `createApp({ streaming: false })`. Without that patch, the Worker can return a 200 response
 whose body is the literal string `[object Object]`.
+
+## Worker build details
+
+- The Cloudflare adapter uses Cloudflare's image service (`imageService` in `astro.config.mjs`).
+- `bun run deploy` runs Wrangler through `bunx`, so no global install is needed.
+- `public/.assetsignore` copies into `dist/client` so Wrangler serves only client assets from the
+  asset binding.
+- Session storage is off. To add it, define the KV binding in `wrangler.toml` before deploying.
+- DNS for `ethotechnics.org` points to the Cloudflare Worker route set in Wrangler.
 
 ## Configuration files to know
 

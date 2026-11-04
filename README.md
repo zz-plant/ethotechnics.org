@@ -1,217 +1,163 @@
-# ethotechnics.org
+# Ethotechnics
 
-[![CC BY-SA 4.0 license badge](https://licensebuttons.net/l/by-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-sa/4.0/)
-[![GitHub stars](https://img.shields.io/github/stars/zz-plant/ethotechnics.org?style=flat)](https://github.com/zz-plant/ethotechnics.org/stargazers)
-[![Last commit](https://img.shields.io/github/last-commit/zz-plant/ethotechnics.org?style=flat)](https://github.com/zz-plant/ethotechnics.org/commits/main)
-[![Website](https://img.shields.io/badge/website-ethotechnics.org-2f4858?style=flat)](https://ethotechnics.org)
-[![Field Notes RSS](https://img.shields.io/badge/rss-field%20notes-f4a261?style=flat)](https://ethotechnics.org/field-notes/rss.xml)
+[![Site checks](https://github.com/zz-plant/ethotechnics.org/actions/workflows/site-checks.yml/badge.svg)](https://github.com/zz-plant/ethotechnics.org/actions/workflows/site-checks.yml)
+[![Written material: CC BY-SA 4.0](https://img.shields.io/badge/written%20material-CC%20BY--SA%204.0-2f4858?style=flat)](#license)
+[![Schemas and checker: Apache-2.0](https://img.shields.io/badge/schemas%20and%20checker-Apache--2.0-2f4858?style=flat)](#license)
 
-<p align="center">
-  <img src="docs/assets/ethotechnics.org-demo.gif" alt="ethotechnics.org demo animation" width="720">
-</p>
+**When an automated system is wrong, does anyone have to change it?**
 
-This repository powers [ethotechnics.org](https://ethotechnics.org), the home of Ethotechnics.
-Ethotechnics is the engineering discipline concerned with keeping capability, authority, evidence,
-dependency, standing, and correction coupled tightly enough that increasing machine agency does not silently
-become unreviewable institutional power. Its central claim: institutions can absorb the evidence that
-their automated systems are wrong (a worker quietly fixes the error, an appeal settles one case, and
-the rule goes unexamined). Ethotechnics names that mechanism, scores it in public cases, and specifies
-the records that carry the evidence back to the rule in any institution that adopts them. The site publishes proposed standards, mechanisms,
-diagnostics, and a glossary that make those states explicit and reviewable. The project favors
-lean, fast-loading pages and clear storytelling.
+From 2016 to 2019, Robodebt's automated rule raised about 470,000 Australian welfare debts that
+were not lawfully made. A tribunal found individual debts unlawful dozens of times. The rule kept
+running.
 
-**Live site:** <https://ethotechnics.org>
+Institutions can absorb the evidence that their systems are wrong: a worker quietly fixes the
+error, an appeal settles one case, and the rule goes unexamined. This repository publishes what
+would carry that evidence back to the rule: draft standards, JSON Schemas for the records, a
+checker that grades decision logs, and five public failures scored on the same six safeguards.
 
-> **Canonical Repository**: This repository powers the authoritative public site at [ethotechnics.org](https://ethotechnics.org). Legacy traffic from `ethotechnics.com` is permanently 301-redirected here via [`zz-plant/et`](https://github.com/zz-plant/et).
+All of it can be read at [ethotechnics.org](https://ethotechnics.org) without cloning anything. If
+a system has decided something about you, start with
+[these tools](https://ethotechnics.org/diagnostics/self-defense-tools).
 
-## What this publishes
+## Five public failures, scored
 
-- **Standards.** Citable, versioned specifications with numbered clauses, from temporal rights and
-  contestability through the delegation record, STD-08 Delegation, and STD-09 Agent chains.
-- **Laws.** Twelve laws of delegated intelligence, each with the invariant the standards bind, at
-  `/standards/laws`. The method that walks the chain and the six safeguards is at `/method`.
-- **Mechanisms.** Operational blueprints for the controls the clauses call for: decision logs, kill
-  switches, appeal paths, authority grant registers, dependency ledgers.
-- **Evals.** Governability evaluation suites and test cases that ask whether a deployed system is
-  correctable, not whether a model is capable.
-- **Diagnostics.** Delegation self-assessment, record conformance checking, and burden measurement.
-  The self-reported audit does not verify the evidence.
-- **Glossary and taxonomy.** Canonical definitions and a branch structure for authority, dependence,
-  governance, delivery, assurance, and experience.
-- **A machine-readable API.** JSON and JSONL surfaces at `/api`, JSON Schemas under
-  `/standards`, plus `llms.txt`, `llms-full.txt`, and an agent spec.
+Courts, inquiries, and regulators established the facts. The scores are this project's reading of
+them. Each one rates six safeguards: what the system can do, what it is permitted to do, the
+evidence behind the permission, how hard it would be to do without, who can challenge it, and who
+can halt it.
 
-## Quick Start
+![The casebook's entry for Robodebt: drifted or failed on all six safeguards, process unchanged afterward, three years and four months to halt.](docs/assets/ethotechnics.org-casebook.png)
 
-1. Install dependencies: `bun install`
-2. Run the dev server: `bun dev` (opens local Astro server)
-3. Run default PR validation: `bun run check`
-4. Build the Worker bundle: `bun run build`
-5. Preview build: `bun run preview` (Astro) or `bun run preview:cf` (Wrangler with local Cloudflare bindings)
+| Case                                                                                 | Scale                                                               | Time to halt                              |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------- | ----------------------------------------- |
+| [Robodebt](https://ethotechnics.org/casebook/robodebt)                               | About 470,000 debts raised unlawfully                               | Three years and four months               |
+| [The childcare benefits scandal](https://ethotechnics.org/casebook/toeslagenaffaire) | More than 30,000 parents wrongly accused of fraud                   | About seven years                         |
+| [Post Office Horizon](https://ethotechnics.org/casebook/post-office-horizon)         | More than 900 prosecutions                                          | About twenty years                        |
+| [England's 2020 exam grades](https://ethotechnics.org/casebook/ofqual-2020-grades)   | About 39% of A-level grades issued below the teacher-assessed grade | Four days                                 |
+| [Apple Card credit limits](https://ethotechnics.org/casebook/apple-card)             | No unlawful discrimination found; applicants could not get reasons  | About seventeen months to a policy change |
 
-For one-shot Codex bootstrap, run `bun run setup:codex`. For deeper setup tips, see [`docs/local-development.md`](docs/local-development.md).
+The cases and scores are in [`src/data/casebook.json`](src/data/casebook.json).
 
-## Common scripts
+## Grade a decision log
 
-| Command                  | Purpose                                                                                  |
-| ------------------------ | ---------------------------------------------------------------------------------------- |
-| `bun dev`                | Run the Astro development server.                                                        |
-| `bun run build`          | Validate content JSON and build the Worker bundle (`dist/server/entry.mjs`).             |
-| `bun run build:search`   | Generate the Pagefind search index in `dist/pagefind`.                                   |
-| `bun run preview`        | Preview the Worker build locally.                                                        |
-| `bun run preview:cf`     | Preview the Worker build via Wrangler with local bindings.                               |
-| `bun run check`          | Run default PR checks: lint, type checks, Astro checks, JSON validation, and unit tests. |
-| `bun run check:full`     | Run deep checks: default PR checks plus SEO audit and coverage unit tests.               |
-| `bun run clean`          | Remove generated local build/test artifacts while keeping dependencies installed.        |
-| `bun run clean:all`      | Remove all generated artifacts plus local dependencies and Playwright caches.            |
-| `bun run lint`           | Lint Astro and TypeScript sources under `src/`.                                          |
-| `bun run lint:fix`       | Lint and auto-fix Astro and TypeScript sources under `src/`.                             |
-| `bun run format`         | Format Markdown and source files with Prettier.                                          |
-| `bun run format:check`   | Check formatting with Prettier (CI-friendly).                                            |
-| `bun test`               | Run unit and component tests with Bun.                                                   |
-| `bun run test:e2e`       | Build and run Playwright against the preview server (Chromium, Firefox, WebKit).         |
-| `bun run test:e2e:smoke` | Build and run a Chromium-only Playwright smoke suite.                                    |
-| `bun run test:e2e:ci`    | Build and run Playwright on Chromium only for CI.                                        |
-| `bun run deploy`         | Build and deploy the Worker to Cloudflare using Wrangler.                                |
+The checker reads a log of
+[revisable delegation records](https://ethotechnics.org/standards/std-07-revisable-delegation-record),
+a draft format for what a system believed, what it was authorized to do, what it did, and what
+changed. It checks that hashes recompute, the chain links, and references resolve. Then it compares
+the level the log earns with the level its emitter claims.
 
-## Safe local cleanup
+It needs Node 20 or later and installs nothing:
 
-The following paths are generated and safe to delete locally when you want to reclaim disk space:
+```bash
+git clone --depth 1 https://github.com/zz-plant/ethotechnics.org
+cd ethotechnics.org
+node packages/conformance/action/cli.mjs packages/conformance/fixtures/example.jsonl
+node packages/conformance/action/cli.mjs packages/conformance/fixtures/tampered.jsonl
+```
 
-- `dist/`, `.astro/`, `.vercel/`, `coverage/`
-- `test-results/`, `playwright-report/`, `blob-report/`, `playwright/.cache/`, `playwright/.auth/`
-- `astro_check_log.txt`
-- `node_modules/` (recreated with `bun install`)
+The first log earns level 3 and exits 0. The second has one altered record, earns level 0, and
+exits 1.
 
-Use `bun run clean` for standard output cleanup and `bun run clean:all` when you also want to
-remove dependencies and Playwright caches.
+To fail a CI job when a log has not earned what it claims:
 
-## Testing
+```yaml
+- uses: zz-plant/ethotechnics.org@67b907edfdfff562c2e2a694b0a3646487aad74e
+  with:
+    records: logs/delegation.jsonl
+    manifest: ethotechnics.manifest.json
+```
 
-### End-to-end (Playwright)
+The [package README](packages/conformance/README.md) lists the options, and the
+[browser checker](https://ethotechnics.org/diagnostics/record-conformance) runs the same code. The
+format is a draft, and this project knows of no outside system that emits it yet.
 
-- After installing dependencies, run `bunx playwright install --with-deps` to install browser
-  binaries and system packages.
-- `bun run test:e2e` builds the Worker bundle and runs Playwright against `bun run preview`
-  across Chromium, Firefox, and WebKit.
-- `bun run test:e2e:smoke` and `bun run test:e2e:ci` run the same flow on Chromium only for
-  faster PR and CI validation; run the full three-browser matrix locally before release.
-- Use `bun run preview:cf` when you need to validate Worker runtime behavior (Durable Objects,
-  bindings, or Workers KV) locally.
-- Override the preview target with `PLAYWRIGHT_BASE_URL` (defaults to `http://127.0.0.1:4321`).
-- Cloudflare Pages can run the suite using `CF_PAGES_URL`; enable testing in the dashboard to run
-  Playwright after the Worker build.
-- If Playwright browser downloads fail:
-  - Reuse cached downloads with `PLAYWRIGHT_BROWSERS_PATH=~/.cache/playwright`.
-  - Confirm proxies or firewalls are not blocking `https://playwright.azureedge.net`.
-  - Use a mirror via `PLAYWRIGHT_DOWNLOAD_HOST=https://your-mirror.example.com`.
+## Test whether a system can be stopped
 
-### Unit and component tests (Bun Test)
+The governance harness runs twelve checks against a system through an adapter you write. A check
+the system cannot answer grades the run incomplete, not passed.
 
-- `bun test` runs the test suite.
-- Component tests run under Bun with happy-dom helpers.
-- CI uses `bun run test:unit:ci` to execute once with coverage.
+```bash
+bun install
+bun run eval:harness                         # runs against the bundled reference system
+bun run eval:harness ./adapters/production.ts  # runs against yours
+```
 
-### Environment configuration
+```text
+PASS  DEL-001  Grant state transition honored
+        observed: refused 0ms after suspension, register reads suspended
+N/A   CHN-002  One boundary intervention halts every hop
+        observed: adapter does not implement: haltChain
 
-- Copy `.env.example` to `.env.local` for local development. Astro automatically loads `.env`,
-  `.env.local`, and environment-specific files (such as `.env.development`).
-- No environment variables are required today, but add new entries to `.env.example` if the project
-  adopts external services.
+10 passed, 0 failed, 2 unsupported → INCOMPLETE
+```
 
-## Security headers
+`bun run eval:local-llm` puts a local Ollama model in charge of a simulated institution and grades
+what it does. [`docs/evals.md`](docs/evals.md) explains both.
 
-Requests pass through `src/middleware.ts`, which redirects `www.ethotechnics.org` to the apex and
-appends a hardened header set to every response:
+## Standards and schemas
 
-- **HSTS** (`Strict-Transport-Security`): one-year max age with subdomains and preload to enforce
-  HTTPS everywhere.
-- **Content-Security-Policy:** locks content to `self`, blocks frames and plug-ins, restricts
-  styles to the site origin, and permits images from the site, `https:` origins, or `data:` URLs.
-- **Referrer-Policy:** `no-referrer` to avoid leaking navigation history.
-- **X-Content-Type-Options:** `nosniff` to disable MIME-type sniffing.
-- **Permissions-Policy:** disables camera, geolocation, microphone, and payment features.
+These are drafts. Each one is versioned, and each clause can be cited.
 
-## Deployment to Cloudflare Workers
+| Standard                                                                                                       | What it covers                                                                                        |
+| -------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| [The Temporal Bill of Rights](https://ethotechnics.org/standards/std-01-temporal-rights) (STD-01)              | A person's time: the rights to stop, to a bounded wait, and to reach a human                          |
+| [Contestability and recourse](https://ethotechnics.org/standards/std-02-contestability-recourse) (STD-02)      | Challenging a decision: notice and reasons, an appeal path, a review clock, and remedy                |
+| [AI safety case for human impact](https://ethotechnics.org/standards/std-06-human-impact-safety-case) (STD-06) | Tests, thresholds, do-not-deploy limits, and dependence tracked after launch                          |
+| [Revisable delegation record](https://ethotechnics.org/standards/std-07-revisable-delegation-record) (STD-07)  | A record format for work delegated to machines                                                        |
+| [Delegation](https://ethotechnics.org/standards/std-08-delegation) (STD-08)                                    | Systems acting for an institution: authority expires unless renewed, and policies are rechecked       |
+| [Agent chains](https://ethotechnics.org/standards/std-09-agent-chains) (STD-09)                                | Decisions made by chains of agents: delays add up, and correction is only as good as the weakest link |
 
-The site uses the official Cloudflare adapter for Astro to produce a Worker-compatible server
-build. `wrangler.toml` captures the base Worker name and compatibility settings; the generated
-`dist/server/wrangler.json` captures the built entrypoint (`dist/server/entry.mjs`) and assets.
-Session storage is not enabled by default; if you add it later, define the KV binding in
-`wrangler.toml` before deploying.
+- **Source text:** [`src/content/standards/`](src/content/standards)
+- **JSON Schemas:** [`public/standards/`](public/standards) has decision records, appeal events,
+  challenges, reconsiderations, pauses and reversals, authority grants, dependency records, and
+  repair deadlines, plus OpenAPI and AsyncAPI definitions.
+- **Mappings:** [crosswalks](https://ethotechnics.org/standards/enforceable-governance-crosswalks)
+  to the EU AI Act, NIST AI RMF, and ISO/IEC 42001.
+- **Also on the site:** [blueprints](https://ethotechnics.org/mechanisms) for controls such as kill
+  switches and appeal paths, a [glossary](https://ethotechnics.org/glossary), and a
+  [JSON API](https://ethotechnics.org/api).
 
-1. Ensure the adapter is installed (`@astrojs/cloudflare`) and configured in `astro.config.mjs` with
-   `output: "server"`.
-2. The adapter is configured to use Cloudflare's image service and to exclude static assets
-   (`/_astro/*`, `/assets/*`) from the server function so they can be served directly via the assets
-   binding.
-3. Build the Worker bundle with `bun run build` when you need to preview or inspect the output.
-   The generated Worker entry is emitted to `dist/server/entry.mjs`, and the build runs
-   `patch:cf-worker` so the generated Astro app renders buffered HTML under `nodejs_compat`.
-4. Deploy with Wrangler using the repo defaults: `bun run deploy`.
-   - The deploy script runs Wrangler via `bunx`, so no global installation is required.
-   - The deploy script runs `bun run build` first so the upload always reflects the latest bundle.
-   - The deploy command uses the generated `dist/server/wrangler.json` so Wrangler uploads the
-     server entry and the matching `dist/client` assets together.
-   - The build copies `.assetsignore` from `public/` to `dist/client` so Wrangler only serves
-     client assets from the asset binding.
-5. Configure DNS for `ethotechnics.org` to point to the Cloudflare Worker route you set in Wrangler.
+## Disagree with a clause
 
-## Documentation map
+Every clause links to an
+[objection form](https://github.com/zz-plant/ethotechnics.org/issues/new?template=objection.yml).
+Each objection gets a public answer within 30 days. An upheld objection ends in a revised clause or
+a published reason for keeping it. [`CONTRIBUTING.md`](CONTRIBUTING.md) lists the other ways to
+take part.
 
-- Start with [`docs/README.md`](docs/README.md) for how the docs folder is organized, when to add a
-  new guide, and formatting expectations.
-- [`docs/contributor-workflow.md`](docs/contributor-workflow.md) outlines the change loop, required
-  checks, and formatting conventions for day-to-day work.
-- [`docs/architecture.md`](docs/architecture.md) covers the rendering model, middleware, and
-  Cloudflare Worker deployment. Update it when routing, layouts, or adapters change.
-- [`docs/specifications.md`](docs/specifications.md) provides a high-level snapshot of site goals,
-  routing, and delivery defaults.
-- [`docs/adding-pages.md`](docs/adding-pages.md) walks through creating new Astro routes without
-  breaking shared navigation and metadata. Use it as the checklist for new content.
-- [`docs/page-specifications.md`](docs/page-specifications.md) lists route-by-route expectations
-  for data, layout, and accessibility.
-- [`docs/content-data.md`](docs/content-data.md) documents JSON-backed content sources, schemas,
-  and validation steps.
-- [`docs/content-components.md`](docs/content-components.md) catalogs the page intro, section
-  blocks, cards, and other building blocks reused across routes. Extend it when adding shared UI.
-- [`docs/local-development.md`](docs/local-development.md) captures local setup, previews, and
-  troubleshooting tips.
-- [`docs/cloudflare-playwright.md`](docs/cloudflare-playwright.md) captures how to run the
-  Playwright suite on Cloudflare Pages after the Worker build completes and how to surface test
-  results in that environment.
-- [`docs/testing-todos.md`](docs/testing-todos.md) tracks current test coverage and outstanding
-  gaps to prioritize.
-- [`docs/glossary.md`](docs/glossary.md) defines shared terminology used across the site and docs.
-- [`docs/diagnostics-outputs.md`](docs/diagnostics-outputs.md) collects diagnostics output
-  references; [`docs/reviews/usability-audit.md`](docs/reviews/usability-audit.md) is the dated
-  UX review snapshot.
+## Who writes this
 
-## Project structure
+[Kanav Jain](https://kanav.net) writes the framework, with AI coding agents working under the rules
+in [`AGENTS.md`](AGENTS.md). "Ethotechnics Institute" is the name it publishes under, not a separate
+body with its own staff or reviewers.
 
-- `src/pages`: Astro routes, starting with [`src/pages/index.astro`](src/pages/index.astro) for the
-  homepage content.
-- `src/layouts`: Shared layouts such as [`src/layouts/BaseLayout.astro`](src/layouts/BaseLayout.astro),
-  which wires global SEO, fonts, and the navigation shell.
-- `src/components`: Interactive islands and shared UI components such as the navigation in
-  [`src/components/Navigation.astro`](src/components/Navigation.astro).
-- `src/styles`: Global styles and theme tokens defined in [`src/styles/global.css`](src/styles/global.css).
+Calling a document a standard or a law gives it no legal force. No standards body has adopted these
+drafts, and this project knows of no outside organization that uses them. If you try one,
+[say what happened](https://github.com/zz-plant/ethotechnics.org/discussions).
 
-## Contributing
+## Run the site
 
-- Start with [`CONTRIBUTING.md`](CONTRIBUTING.md) for the canonical contribution workflow.
-- Keep changes focused and easy to review; align with existing naming and formatting.
-- Use Bun (not npm or yarn) and format Markdown/code with `bunx prettier --write`.
-- Run `bun run check` for code or mixed changes; run `bun run check:full` for release
-  prep or periodic deep validation. Docs-only updates can skip both.
-- CI mirrors `bun run check` on pull requests via the Site checks workflow.
-- Read [`AGENTS.md`](AGENTS.md), [`docs/README.md`](docs/README.md), and
-  [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) before making larger updates.
-- Track version history and release notes in [`CHANGELOG.md`](CHANGELOG.md).
+This repository is also the source of the site, built with Astro on Cloudflare Workers. It uses
+Bun and Node 22.
+
+```bash
+bun install
+bun dev
+```
+
+Run `bun run check` before committing. [`docs/README.md`](docs/README.md) maps the rest, including
+[local development](docs/local-development.md), [architecture](docs/architecture.md), and
+[deployment](docs/deployment.md). This is the canonical repository;
+[`zz-plant/et`](https://github.com/zz-plant/et) only redirects `ethotechnics.com` here.
+
+## Cite
+
+[`CITATION.cff`](CITATION.cff) cites the project. To cite a standard, use its version and clause, as
+[`docs/versioning-and-citations.md`](docs/versioning-and-citations.md) shows.
 
 ## License
 
-This project is licensed under the Creative Commons Attribution-ShareAlike 4.0 International
-license (CC BY-SA 4.0). Unless otherwise noted, you may share and adapt the content with proper
-attribution and under the same license terms. See
-<https://creativecommons.org/licenses/by-sa/4.0/> for details.
+- **Everything by default:** [CC BY-SA 4.0](LICENSE), including the written material and the site.
+- **The checker and the schemas:** [`packages/conformance`](packages/conformance/LICENSE), the
+  source it is built from, and [`public/standards`](public/standards/LICENSE.txt) are also offered
+  under Apache-2.0. Use whichever of the two licenses suits you.

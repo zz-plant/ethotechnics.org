@@ -4,7 +4,7 @@ Practical guidance for keeping changes small, verifiable, and easy to review.
 
 ## Quick start
 
-1. Use Node.js 20: `nvm use`.
+1. Use Node.js 22: `nvm use`.
 2. Install dependencies with Bun: `bun install`.
 3. Read `AGENTS.md` files in scope before editing.
 4. Run focused checks during development.

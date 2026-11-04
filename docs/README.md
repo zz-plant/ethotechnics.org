@@ -29,6 +29,8 @@ Use this map before adding or editing docs so guidance stays easy to find and ma
 - [`architecture.md`](architecture.md), [`specifications.md`](specifications.md), and
   [`page-specifications.md`](page-specifications.md): routing, content layers, and implementation
   expectations.
+- [`adding-pages.md`](adding-pages.md): the checklist for new routes.
+- [`glossary.md`](glossary.md): shared terminology across the site and docs.
 - [`content-data.md`](content-data.md), [`bundles.md`](bundles.md),
   [`content-components.md`](content-components.md): data and content systems.
 - [`agent-metadata.md`](agent-metadata.md): public JSON-LD and machine-readable APIs.

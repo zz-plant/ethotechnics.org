@@ -80,8 +80,11 @@ Rules that follow:
 - `REDIRECT_MAP` in the same file holds path redirects for retired and consolidated routes,
   including `/start-here` to `/start` and moved explainers. Add redirects there rather than as
   stub pages.
-- The middleware appends security headers (HSTS, CSP, Referrer-Policy, X-Content-Type-Options, and
-  Permissions-Policy) to every response, including redirects.
+- The middleware appends these headers to every response, including redirects: HSTS (one-year max
+  age with subdomains and preload), `Referrer-Policy: strict-origin-when-cross-origin`,
+  `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, and a `Permissions-Policy` that
+  disables camera, geolocation, microphone, and payment.
+- The Content-Security-Policy is set by the `csp` option in `astro.config.mjs`, not the middleware.
 
 ## Build outputs and assets
 

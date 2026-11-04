@@ -25,5 +25,5 @@ Detailed execution guides for AI contributors.
 ## Ground rules
 
 - Follow the closest `AGENTS.md` for any file you edit.
-- Use Node.js 20 and Bun commands.
+- Use Node.js 22 and Bun commands.
 - Prefer links to canonical docs over restating long instructions.
