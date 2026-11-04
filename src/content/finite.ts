@@ -292,7 +292,7 @@ export const finiteContent = {
         mechanic:
           "The organization rewarded rapid ticket closure rather than root-cause correction, ensuring the upstream bug remained immortal because competent humans absorbed the failure every day.",
         dualLedgerInsight:
-          "Each failure that people competently absorb hides the defect that caused it. Unless workarounds must be retired, the speed they buy is unmeasured technical debt.",
+          "Each failure that people competently absorb can hide the defect that caused it. Unless workarounds must be retired, the speed they buy is unmeasured technical debt.",
         standardRefs: ["STD-06", "STD-08"],
         suiteRef: "/evals/corrective-learning",
       },

@@ -32,7 +32,7 @@ export type DiagnosticValidation = {
 /**
  * What the instrument costs the person who answers it, stated before they
  * begin. Law VIII holds that an observation whose collection cost falls on the
- * people being observed is not evidence. Three of the four instruments here
+ * people being observed is weaker evidence. Three of the four instruments here
  * take respondent labor, so each states the cost and names what the operator's
  * own records already answer. The fourth reads a record stream and asks no one.
  */

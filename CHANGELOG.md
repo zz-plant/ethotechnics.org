@@ -14,6 +14,10 @@ standard versions, and cited revisions relate.
 
 ### Fixed
 
+- **Overstated empirical claims narrowed:** The central claim, the core axioms (v2.0.5), the laws
+  (1.0.5), the glossary (v1.17.2), and the theory essays now say institutions can absorb the
+  evidence, rather than that they always do. Response volume is described as understating need
+  among people with the fewest resources. No requirement changed.
 - **Textless Open Graph cards on mobile unfurls resolved:** Inlined fonts directly into the worker
   bundle so resvg-wasm does not depend on request-time network subrequests, which fail when
   subrequesting static assets on the same Cloudflare Workers zone. Busted unfurl caches with `v=2`

@@ -130,7 +130,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
     title: "Exception learning",
     href: "/research/theory/exception-learning",
     question:
-      "Why does resolving challenges one at a time leave the rule that caused them in place?",
+      "Why can resolving challenges one at a time leave the rule that caused them in place?",
     safeguard: "Correction",
     mechanism:
       "Separation of case corrigibility from structural rule modification",

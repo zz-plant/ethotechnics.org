@@ -14,11 +14,16 @@
       ],
       "contact": "hello@ethotechnics.org",
       "published": "2025-12-03T00:00:00Z",
-      "updated": "2026-10-06T00:00:00Z",
-      "version": "v1.17.1",
+      "updated": "2026-11-04T00:00:00Z",
+      "version": "v1.17.2",
       "doi": "Pending Zenodo deposit",
       "archiveUrl": "https://web.archive.org/web/*/https://ethotechnics.org/glossary",
       "changelog": [
+        {
+          "version": "v1.17.2",
+          "date": "2026-11-04",
+          "summary": "Editorial revision. Six entries that stated empirical claims as universals now say what the evidence supports: absorbing a failure can remove the signal correction needs, and response volume understates need among people with the fewest resources. No terms were added or removed, and permalinks are unchanged."
+        },
         {
           "version": "v1.17.1",
           "date": "2026-10-06",
@@ -1819,7 +1824,7 @@
             "title": "Exception absorption",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The handling of an exception without any change to the rule, category, workflow, or authority that produced it. A customer-service representative patches an error, a clinician works around bad software, an appeals team reverses a bad determination: each is handled, each is closed, and nothing upstream changes.</p><p>It matters because absorption is what makes <a href=\"/glossary/exception-learning\">exception learning</a> invisible. Every absorbed exception improves the metric that would have caught the pattern, so an institution can be excellent at absorption and wholly incapable of learning, and the excellence is what hides the incapacity. It is the failure mode Law VII's failure-point sequence leaves unresolved when a challenge enters as a case and stops there.</p><p>Absorption is the process by which the <a href=\"/research/theory/the-human-subsidy\">human subsidy</a> hides failure: the people doing the unlogged work close each case, and the record shows a case closed rather than a rule that failed.</p>",
+            "bodyHtml": "<p>The handling of an exception without any change to the rule, category, workflow, or authority that produced it. A customer-service representative patches an error, a clinician works around bad software, an appeals team reverses a bad determination: each is handled, each is closed, and nothing upstream changes.</p><p>It matters because absorption can make <a href=\"/glossary/exception-learning\">exception learning</a> invisible. An absorbed exception can improve the metric that would have caught the pattern, so an institution can be excellent at absorption and wholly incapable of learning, and the excellence can hide the incapacity. It is the failure mode Law VII's failure-point sequence leaves unresolved when a challenge enters as a case and stops there.</p><p>Absorption is the process by which the <a href=\"/research/theory/the-human-subsidy\">human subsidy</a> hides failure: the people doing the unlogged work close each case, and the record shows a case closed rather than a rule that failed.</p>",
             "scope": "B. Failure modes (why Ethotechnics exists). Recurring ways responsibility dissolves, authority drifts from its evidence, and harm lands on people with no route to challenge it.",
             "operationalTests": [
               "Handling an exception records whether it changed a policy, category, workflow, or authority object.",
@@ -2409,7 +2414,7 @@
             "title": "Green dashboard trap",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A condition in which management dashboards show normal performance, high throughput, and SLA compliance because workers outside the recorded system absorb its failures. They do it through unpaid work, manual fixes, and exhaustion: the <a href=\"/research/theory/the-human-subsidy\">human subsidy</a>, read as performance.</p><p>The cost never reaches the ledger, so leaders read green indicators as evidence that the system works. The indicators are a warning: performance depends on work that can stop at any time. See <a href=\"/glossary/compensated-performance\">compensated performance</a>.</p>",
+            "bodyHtml": "<p>A condition in which management dashboards show normal performance, high throughput, and SLA compliance because workers outside the recorded system absorb its failures. They do it through unpaid work, manual fixes, and exhaustion: the <a href=\"/research/theory/the-human-subsidy\">human subsidy</a>, read as performance.</p><p>The cost stays off the ledger, so leaders can read green indicators as evidence that the system works. The indicators are a warning: performance depends on work that can stop at any time. See <a href=\"/glossary/compensated-performance\">compensated performance</a>.</p>",
             "examples": [
               "A customer service resolution dashboard shows green resolution rates because representatives manually fix truncated AI responses in unlogged chat channels."
             ],
@@ -2509,7 +2514,7 @@
             "title": "Counterfeit buffering (the HITL-alibi)",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A failure mode in which people are placed in an automated loop without the authority to override it freely and without penalty. They absorb the machine's failures, clean up its edge cases, and take the blame. Their coping becomes an unrecorded share of the <a href=\"/research/theory/the-human-subsidy\">human subsidy</a>. The system looks healthy, and the error signals that should prompt a redesign are muted.</p>",
+            "bodyHtml": "<p>A failure mode in which people are placed in an automated loop without the authority to override it freely and without penalty. They absorb the machine's failures, clean up its edge cases, and take the blame. Their coping becomes an unrecorded share of the <a href=\"/research/theory/the-human-subsidy\">human subsidy</a>. The system can look healthy, and the error signals a redesign would need can be muted.</p>",
             "examples": [
               "A hospital deployment requires clinicians to sign off on 200 automated treatment alerts per hour, penalizing override delays while disclaiming vendor liability for false positives."
             ],
@@ -2725,7 +2730,7 @@
             "title": "Epistemic erasure cycle",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A recursive feedback failure where successful human adaptation to a system defect prevents the defect from generating an error signal. Because human competence keeps output within acceptable bounds, telemetry and dashboards report healthy operation, institutional learning is blocked, and the defect is preserved.</p>",
+            "bodyHtml": "<p>A recursive feedback failure where successful human adaptation to a system defect prevents the defect from generating an error signal. Because human competence keeps output within acceptable bounds, telemetry and dashboards report healthy operation, the people who could fix the defect lose a signal they would need, and the defect can persist.</p>",
             "examples": [
               "In a triage queue, nurses manually reassign misrouted high-priority cases, so the hospital's automated routing algorithm reports zero adverse triage delays."
             ],
@@ -2768,7 +2773,7 @@
             "title": "Exhaustion-biased instrument",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>An instrument whose readings improve as the people it observes run down. A survey, a challenge channel, a complaint log, and a self-assessment all draw their input from the subject&#39;s remaining attention, so the depleted answer least and the institution reads the gap as health. The bias runs one direction: more depletion produces a better-looking reading.</p><p>Law VIII asks whether an observation can change the governing state of a system. This asks the prior question, whether the observation is evidence at all. An instrument bought with the subject&#39;s last reserves has a sampling rule that ties difficulty to silence.</p><p>It co-occurs with <a href=\"/glossary/attrition-as-resolution\">attrition-as-resolution</a> and <a href=\"/glossary/endurance-asymmetry\">endurance asymmetry</a>. The answer is to read friction from the system&#39;s own trail — abandonment at a named step, re-uploads, retries, activity outside scheduled hours — rather than to ask a depleted person to describe it.</p>",
+            "bodyHtml": "<p>An instrument whose readings can improve as the people it observes run down. A survey, a challenge channel, a complaint log, and a self-assessment all draw their input from the subject&#39;s remaining attention, so the depleted answer less and the institution can read the gap as health. Greater harm tends to bring more response and fewer resources less, so response volume understates need among people with the fewest resources and cannot be read as a measure of need.</p><p>Law VIII asks whether an observation can change the governing state of a system. This asks the prior question, what the observation is evidence of. An instrument bought with the subject&#39;s last reserves samples who has reserves left.</p><p>It co-occurs with <a href=\"/glossary/attrition-as-resolution\">attrition-as-resolution</a> and <a href=\"/glossary/endurance-asymmetry\">endurance asymmetry</a>. The answer is to read friction from the system&#39;s own trail — abandonment at a named step, re-uploads, retries, activity outside scheduled hours — rather than to ask a depleted person to describe it.</p>",
             "scope": "B. Failure modes (why Ethotechnics exists). Recurring ways responsibility dissolves, authority drifts from its evidence, and harm lands on people with no route to challenge it.",
             "references": [],
             "domains": [
@@ -5980,7 +5985,7 @@
               "A rate for any population materially worse than the deployment's overall rate for that measure triggers the declared breach action.",
               "The operator can name a harm its measurement found before any affected party reported it."
             ],
-            "genealogy": "STD-06 §2.4 added discovery without a claim because extraction by endurance hides harm from the dashboard precisely where complaint is least likely.",
+            "genealogy": "STD-06 §2.4 added discovery without a claim because extraction by endurance can hide harm from the dashboard among people with the fewest resources to complain.",
             "references": [
               {
                 "label": "STD-06 Human impact safety case",
