@@ -7,8 +7,8 @@ import { commissionedWork, commissionedWorkMailto } from "./commissioned-work";
 /**
  * Commissioned work was described six ways and reached through two addresses,
  * then moved from Ethotechnics Studio to Kanav Jain's own name. These tests
- * keep one description and one address, the ones kanav.net publishes, and
- * keep the retired Studio's name and site off every page.
+ * keep one description, in this repo, and one address, the one kanav.net
+ * publishes, and keep the retired Studio's name and site off every page.
  */
 
 const walk = (dir: string): string[] =>
