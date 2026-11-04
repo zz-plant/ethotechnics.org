@@ -260,6 +260,17 @@ export const isoWeek = (date: Date): string => {
   return `${day.getUTCFullYear()}-W${String(week).padStart(2, "0")}`;
 };
 
+/**
+ * Open issues a new week's report replaces. One report stays open at a time,
+ * so the repository's issue list is not a stack of bot reports.
+ */
+export const staleWatchIssues = (
+  issues: readonly { number: number; state: string; pull_request?: unknown }[],
+): number[] =>
+  issues
+    .filter((issue) => issue.state === "open" && !issue.pull_request)
+    .map((issue) => issue.number);
+
 export const watchIssueTitle = (week: string): string =>
   `Presence watch: ${week}`;
 

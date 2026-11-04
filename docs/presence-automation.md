@@ -54,7 +54,8 @@ It lists only what no earlier run reported. Each consultation shows the clauses 
 the most distinctive words with it. That is keyword matching, and the issue says so. Consultations
 whose title or summary names the topic come first; matches found only in the full text sit in a
 folded list, because most of them are about something else. A source that fails is noted in the
-issue and does not fail the run.
+issue and does not fail the run. Opening a new week's issue closes the earlier ones, so one report
+stays open at a time; closed reports stay searchable under the `presence-watch` label.
 
 ### Release
 
@@ -101,7 +102,7 @@ No workflow prints a token.
      (the one that always resolves to the latest version). The default is in
      `src/utils/publication.ts`; the others are in `src/content/`. Until then the site prints no
      DOI line, because `src/utils/doi.ts` prints only a value that is a DOI.
-   - Add `doi`, `version`, and `date-released` to `CITATION.cff`, as its comment says.
+   - Add `doi` to `CITATION.cff`, and update its `version` and `date-released`.
 5. Optional: add the `PRESENCE_BOT_TOKEN` secret (Settings > Secrets and variables > Actions).
 
 ## How to answer an objection
