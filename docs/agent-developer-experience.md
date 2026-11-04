@@ -12,7 +12,7 @@ Primary onboarding document for AI contributors.
 
 ## Operational defaults
 
-- Runtime: Node.js 20 via `nvm use`.
+- Runtime: Node.js 22 via `nvm use`.
 - Package manager and scripts: Bun only.
 - Required validation for code or mixed changes: `bun run check`.
 - Docs-only changes may skip `bun run check`, but must include that skip in PR notes.

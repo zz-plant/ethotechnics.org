@@ -19,7 +19,6 @@ const SPECS: Record<string, Spec> = {
   card: { width: 400, height: 300, minBytes: 8_000 },
   circle: { width: 540, height: 540, minBytes: 15_000 },
   dark: { width: 960, height: 540, minBytes: 20_000 },
-  demo: { width: 720, height: 405, minBytes: 15_000 },
   email: { width: 600, height: 200, minBytes: 8_000 },
   favicon: { width: 64, height: 64, minBytes: 250 },
   github: { width: 1280, height: 640, minBytes: 24_000 },

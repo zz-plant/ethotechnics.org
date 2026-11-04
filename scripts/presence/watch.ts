@@ -1,7 +1,8 @@
 /**
  * The weekly outside-uptake watch, run by .github/workflows/presence-watch.yml.
  * Notify only: it opens or updates one issue, "Presence watch: <ISO week>",
- * labeled presence-watch, and changes nothing else.
+ * labeled presence-watch, closes earlier weeks' reports when it opens a new
+ * one, and changes nothing else.
  *
  *   GITHUB_TOKEN=... bun run scripts/presence/watch.ts [--dry-run]
  *
@@ -27,6 +28,7 @@ import {
   parseGitHubCodeMentions,
   parseGovUkConsultations,
   planWatch,
+  staleWatchIssues,
   type Consultation,
   type Mention,
   type SourceId,
@@ -170,6 +172,13 @@ if (dryRun || !client) {
     { title: plan.title, body: plan.body, labels: [WATCH_LABEL] },
   );
   console.log(`Opened #${created.number}.`);
+  for (const number of staleWatchIssues(previousIssues)) {
+    await client.request("PATCH", repoPath(repo, `/issues/${number}`), {
+      state: "closed",
+      state_reason: "completed",
+    });
+    console.log(`Closed #${number}.`);
+  }
 } else {
   console.log("Nothing new this week; no issue opened.");
 }

@@ -20,6 +20,7 @@ import {
   type Mention,
   type SourceResult,
   type WatchInput,
+  staleWatchIssues,
 } from "./presence-watch";
 
 describe("query builders", () => {
@@ -367,5 +368,21 @@ describe("planWatch", () => {
       }),
     );
     expect(recovered.mentions).toEqual([]);
+  });
+});
+
+describe("staleWatchIssues", () => {
+  it("lists open reports and leaves closed ones and pull requests alone", () => {
+    expect(
+      staleWatchIssues([
+        { number: 3, state: "open" },
+        { number: 2, state: "closed" },
+        { number: 1, state: "open", pull_request: {} },
+      ]),
+    ).toEqual([3]);
+  });
+
+  it("returns nothing when no report is open", () => {
+    expect(staleWatchIssues([])).toEqual([]);
   });
 });
