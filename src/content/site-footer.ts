@@ -57,10 +57,11 @@ export const siteFooter: SiteFooterContent = {
         { label: "Send feedback", href: "/participate#feedback" },
         { label: "Reference API", href: "/api" },
         { label: "RSS feed", href: "/rss.xml" },
+        // Not marked external: that adds rel="noreferrer", which hides this site
+        // from the repository's traffic referrers.
         {
           label: "GitHub",
           href: "https://github.com/zz-plant/ethotechnics.org",
-          external: true,
         },
         // The page says who does the work and that he wrote the framework; a
         // footer label has room for neither, so the link goes there first.

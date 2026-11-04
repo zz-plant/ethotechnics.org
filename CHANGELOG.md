@@ -12,7 +12,25 @@ standard versions, and cited revisions relate.
 
 ## [Unreleased]
 
+### Changed
+
+- **README rewritten for a first-time reader:** It now opens with the question and the Robodebt
+  facts, names the five cases, and shows how to run the checker and the harness. Maintainer
+  material moved to `docs/local-development.md`, `docs/deployment.md`, and `docs/architecture.md`.
+- **Checker and schemas also offered under Apache-2.0:** `packages/conformance`, the source it is
+  built from, and `public/standards` are now available under Apache-2.0 or CC BY-SA 4.0.
+  `packages/conformance/NOTICE` carries the license of zod, which the bundled CLI inlines.
+- **One presence-watch report stays open at a time:** A new week's issue closes the earlier ones.
+- **Casebook links to its data:** The casebook page points to `src/data/casebook.json`.
+
 ### Fixed
+
+- **License detection restored:** `LICENSE` is the canonical CC BY-SA 4.0 text again, so GitHub
+  can identify it.
+- **Citation metadata corrected:** `CITATION.cff` said no release was tagged. It now names v1.11.0.
+- **Footer link to GitHub keeps the origin:** It no longer sets `rel="noreferrer"`, so the
+  repository's traffic page can show visits from the site.
+- **Node baseline corrected in docs:** Six guides said Node 20; the repository requires Node 22.
 
 - **Overstated empirical claims narrowed:** The central claim, the core axioms (v2.0.5), the laws
   (1.0.5), the glossary (v1.17.2), and the theory essays now say institutions can absorb the
