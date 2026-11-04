@@ -372,17 +372,13 @@ describe("planWatch", () => {
 });
 
 describe("staleWatchIssues", () => {
-  it("lists open reports and leaves closed ones and pull requests alone", () => {
+  it("lists every open report except the one just opened", () => {
     expect(
-      staleWatchIssues([
-        { number: 3, state: "open" },
-        { number: 2, state: "closed" },
-        { number: 1, state: "open", pull_request: {} },
-      ]),
-    ).toEqual([3]);
+      staleWatchIssues([{ number: 1 }, { number: 2 }, { number: 3 }], 3),
+    ).toEqual([1, 2]);
   });
 
-  it("returns nothing when no report is open", () => {
-    expect(staleWatchIssues([])).toEqual([]);
+  it("returns nothing when the new report is the only one open", () => {
+    expect(staleWatchIssues([{ number: 3 }], 3)).toEqual([]);
   });
 });

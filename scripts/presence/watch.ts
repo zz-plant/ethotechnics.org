@@ -37,6 +37,7 @@ import {
 import {
   createGitHubClient,
   ensureLabels,
+  listLabeledIssues,
   repoFromEnv,
   repoPath,
   type RawIssue,
@@ -172,7 +173,13 @@ if (dryRun || !client) {
     { title: plan.title, body: plan.body, labels: [WATCH_LABEL] },
   );
   console.log(`Opened #${created.number}.`);
-  for (const number of staleWatchIssues(previousIssues)) {
+  const openReports = await listLabeledIssues(
+    client,
+    repo,
+    WATCH_LABEL,
+    "open",
+  );
+  for (const number of staleWatchIssues(openReports, created.number)) {
     await client.request("PATCH", repoPath(repo, `/issues/${number}`), {
       state: "closed",
       state_reason: "completed",
