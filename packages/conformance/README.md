@@ -64,3 +64,7 @@ bun run build                # dist/cli.js and dist/index.js, for the npm packag
 ```
 
 `bun run check` fails when the committed `action/cli.mjs` no longer matches the source, so rebuild it in the same change as any edit to the checker. Publishing, when it happens, is `npm publish --access public` from this directory.
+
+## License
+
+Your choice of [Apache-2.0](LICENSE) or [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). [`NOTICE`](NOTICE) says what that covers and carries the license of zod, which the bundled CLI inlines.
