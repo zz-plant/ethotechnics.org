@@ -216,6 +216,19 @@ const stateVariables = casebookData.stateVariables as {
   id: string;
   label: string;
 }[];
+/**
+ * Plain words for the six safeguards. A card reaches people who have never
+ * seen the site, so it cannot use the casebook's own terms ("standing",
+ * "dependency"). Each restates the gloss on the home page's scorecard.
+ */
+const CARD_LABEL: Record<string, string> = {
+  capability: "Scope",
+  authority: "Permission",
+  evidence: "Evidence",
+  dependency: "Exit",
+  standing: "Appeal",
+  correction: "Repair",
+};
 const cases = casebookData.cases as unknown as CaseRecord[];
 const casesBySlug = new Map(cases.map((entry) => [entry.slug, entry]));
 
@@ -385,7 +398,7 @@ const buildCaseSvg = (entry: CaseRecord) => {
       const verdict = verdictByVariable.get(variable.id);
       const cx = Math.round(scoreLeft + column * index + column / 2);
       return `${verdict ? verdictMark(cx, 528, 17, verdict) : ""}
-      <text x="${cx}" y="574" text-anchor="middle" font-family="${SANS}" font-size="15" fill="${DUSK}">${escapeXml(variable.label)}</text>`;
+      <text x="${cx}" y="574" text-anchor="middle" font-family="${SANS}" font-size="15" fill="${DUSK}">${escapeXml(CARD_LABEL[variable.id] ?? variable.label)}</text>`;
     })
     .join("");
 
@@ -415,7 +428,7 @@ const buildHaltChartSvg = (section: string) => {
   const longest = rows[0]?.timeToHaltDays ?? 1;
 
   const headline = wrapText(
-    `${rows.length === 5 ? "Five" : rows.length} automated decision systems, and how long each ran before anyone stopped it`,
+    `${rows.length === 5 ? "Five" : rows.length} automated decision systems, and how long each ran before anyone stepped in`,
     CONTENT_WIDTH,
     48,
     2,
@@ -447,7 +460,7 @@ const buildHaltChartSvg = (section: string) => {
     .join("");
 
   return svgDocument(
-    "How long each casebook failure ran before it was stopped — Ethotechnics",
+    "How long each casebook failure ran before anyone stepped in — Ethotechnics",
     `<rect width="${WIDTH}" height="${HEIGHT}" fill="${PAPER}"/>
   <rect width="${WIDTH}" height="10" fill="${SAPPHIRE}"/>
   ${brandRow({ section, tile: SAPPHIRE, tileInk: PAPER, brandInk: STONE, sectionInk: SAPPHIRE })}

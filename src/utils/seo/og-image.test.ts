@@ -164,6 +164,9 @@ describe("share cards", () => {
     expect(svg).toContain("470,000");
     expect(svg).toContain("3 years 4 months");
     expect(svg).toContain("SIX SAFEGUARDS");
+    // Cards use plain words, not the casebook's coined terms.
+    expect(svg).toContain(">Appeal<");
+    expect(svg).not.toContain(">Standing<");
     expect(svg).not.toContain("ignored");
   });
 
@@ -173,6 +176,8 @@ describe("share cards", () => {
     const svg = buildOgSvg("Home", "Home", { path: "/" });
     expect(svg).toContain("Post Office Horizon");
     expect(svg).toContain("4 days");
+    // Apple Card got a policy change, not a halt; the headline must cover it.
+    expect(svg).not.toContain("stopped it");
   });
 
   it("sets a glossary entry as a defined term", () => {
