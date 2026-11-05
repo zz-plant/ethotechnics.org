@@ -258,6 +258,16 @@ const NUMBER_WORDS: Record<string, number> = {
   fifty: 50,
 };
 
+const countWord = (count: number) => {
+  const word = Object.keys(NUMBER_WORDS).find(
+    (key) => NUMBER_WORDS[key] === count,
+  );
+  return word ? word[0].toUpperCase() + word.slice(1) : String(count);
+};
+
+/** "~7 years" reads as "tilde 7 years" aloud; alt text spells it out. */
+const spokenFigure = (figure: string) => figure.replace(/^~/, "about ");
+
 /**
  * Turns the casebook's own wording ("About seventeen months to a policy
  * change; the model was not withdrawn.") into a figure for the card
@@ -346,8 +356,21 @@ const verdictMark = (cx: number, cy: number, r: number, verdict: Verdict) => {
   return ring;
 };
 
-const buildCaseSvg = (entry: CaseRecord) => {
+/** What a case card says, shared by the image and its alt text. */
+const caseFacts = (entry: CaseRecord) => {
   const { figure, until } = parseTimeToHalt(entry.timeToHalt);
+  const hook = scaleHook(entry.scale).replace(/[^.!?]$/, "$&.");
+  const counts = { failed: 0, drifted: 0, held: 0 };
+  for (const finding of entry.findings) counts[finding.verdict] += 1;
+  const tally = (["failed", "drifted", "held"] as const)
+    .filter((verdict) => counts[verdict] > 0)
+    .map((verdict) => `${counts[verdict]} ${verdict}`);
+  return { figure, until: until ?? "before it was stopped", hook, tally };
+};
+
+const buildCaseSvg = (entry: CaseRecord) => {
+  const facts = caseFacts(entry);
+  const { figure, until } = facts;
   const meta = `${countryOf(entry.jurisdiction)} · ${shortPeriod(entry.period)}`;
 
   // One line at display size if it fits; otherwise two lines, smaller.
@@ -356,8 +379,7 @@ const buildCaseSvg = (entry: CaseRecord) => {
     ? fitText(entry.title, CONTENT_WIDTH, { max: 70, min: 54 }, 2)
     : oneLine;
   const titleLeading = Math.round(title.size * 1.04);
-  const hookText = scaleHook(entry.scale).replace(/[^.!?]$/, "$&.");
-  const hook = wrapText(hookText, CONTENT_WIDTH, 30, 2);
+  const hook = wrapText(facts.hook, CONTENT_WIDTH, 30, 2);
 
   // Centre title and hook in the band between the brand row and the rule.
   const BAND_TOP = 128;
@@ -378,12 +400,7 @@ const buildCaseSvg = (entry: CaseRecord) => {
   const verdictByVariable = new Map(
     entry.findings.map((finding) => [finding.variable, finding.verdict]),
   );
-  const counts = { failed: 0, drifted: 0, held: 0 };
-  for (const finding of entry.findings) counts[finding.verdict] += 1;
-  const tally = (["failed", "drifted", "held"] as const)
-    .filter((verdict) => counts[verdict] > 0)
-    .map((verdict) => `${counts[verdict]} ${verdict}`)
-    .join(" · ");
+  const tally = facts.tally.join(" · ");
 
   // Left: the duration. Right: the six safeguards.
   const statWidth = 420;
@@ -412,7 +429,7 @@ const buildCaseSvg = (entry: CaseRecord) => {
   <text font-family="${SANS}" font-size="30" fill="${CREAM}" opacity="0.86">${tspans(hook, MARGIN, hookTop, 40)}</text>
   <line x1="${MARGIN}" y1="${RULE_Y}" x2="${RIGHT}" y2="${RULE_Y}" stroke="${CREAM}" stroke-opacity="0.16" stroke-width="2"/>
   <text x="${MARGIN}" y="${RULE_Y + 92}" font-family="${SERIF}" font-size="${statSize}" font-weight="600" fill="${RUST_LIGHT}">${escapeXml(figure)}</text>
-  <text x="${MARGIN}" y="${RULE_Y + 132}" font-family="${SANS}" font-size="20" font-weight="600" fill="${DUSK}">${escapeXml(until ?? "before it was stopped")}</text>
+  <text x="${MARGIN}" y="${RULE_Y + 132}" font-family="${SANS}" font-size="20" font-weight="600" fill="${DUSK}">${escapeXml(until)}</text>
   <text x="${scoreLeft + 8}" y="${RULE_Y + 40}" font-family="${SANS}" font-size="17" font-weight="600" letter-spacing="2.4" fill="${DUSK}">SIX SAFEGUARDS</text>
   <text x="${RIGHT - 8}" y="${RULE_Y + 40}" text-anchor="end" font-family="${SANS}" font-size="19" font-weight="600" fill="${CREAM}">${escapeXml(tally)}</text>
   ${marks}`,
@@ -427,12 +444,13 @@ const buildHaltChartSvg = (section: string) => {
   const rows = [...cases].sort((a, b) => b.timeToHaltDays - a.timeToHaltDays);
   const longest = rows[0]?.timeToHaltDays ?? 1;
 
-  const headline = wrapText(
-    `${rows.length === 5 ? "Five" : rows.length} automated decision systems, and how long each ran before anyone stepped in`,
-    CONTENT_WIDTH,
-    48,
-    2,
-  );
+  // Two short sentences, one per line: a question gets read in a chat
+  // where a long statement gets skimmed. "Stepped in" covers a halt and
+  // Apple Card's policy change alike.
+  const headline = [
+    `${countWord(rows.length)} automated systems got it wrong.`,
+    "How long until someone stepped in?",
+  ];
 
   const LABEL_WIDTH = 330;
   const barLeft = MARGIN + LABEL_WIDTH;
@@ -460,12 +478,12 @@ const buildHaltChartSvg = (section: string) => {
     .join("");
 
   return svgDocument(
-    "How long each casebook failure ran before anyone stepped in — Ethotechnics",
+    `${headline.join(" ")} — Ethotechnics`,
     `<rect width="${WIDTH}" height="${HEIGHT}" fill="${PAPER}"/>
   <rect width="${WIDTH}" height="10" fill="${SAPPHIRE}"/>
   ${brandRow({ section, tile: SAPPHIRE, tileInk: PAPER, brandInk: STONE, sectionInk: SAPPHIRE })}
   <text x="${RIGHT}" y="92" text-anchor="end" font-family="${SANS}" font-size="20" fill="${STONE}">ethotechnics.org/casebook</text>
-  <text font-family="${SERIF}" font-size="48" font-weight="600" fill="${INK}">${tspans(headline, MARGIN, 178, 58)}</text>
+  <text font-family="${SERIF}" font-size="52" font-weight="600" fill="${INK}">${tspans(headline, MARGIN, 180, 60)}</text>
   <line x1="${barLeft}" y1="${rowTop - 8}" x2="${barLeft}" y2="${rowTop + rows.length * rowHeight - 12}" stroke="${BORDER}" stroke-width="2"/>
   ${bars}
   <text x="${MARGIN}" y="${HEIGHT - 26}" font-family="${SANS}" font-size="17" fill="${STONE}">Each established by a court, an inquiry, or a regulator. Each scored on six safeguards.</text>`,
@@ -683,4 +701,32 @@ export const buildOgCardSvg = (
     default:
       return buildSectionSvg(card.template, title, description);
   }
+};
+
+/**
+ * Alt text for the cards that carry data, so a screen reader, or a chat app
+ * that shows alt in place of the image, gets the same facts. Undefined for
+ * cards that only restate the page title and description.
+ */
+export const describeOgCard = (options?: {
+  template?: string;
+  path?: string;
+}): string | undefined => {
+  const card = resolveOgCard(options);
+  if (card.kind === "case") {
+    const entry = casesBySlug.get(card.slug ?? "");
+    if (!entry) return undefined;
+    const facts = caseFacts(entry);
+    return `${entry.title}, casebook entry. ${facts.hook} ${spokenFigure(facts.figure)} ${facts.until}. Six safeguards scored: ${facts.tally.join(", ")}.`;
+  }
+  if (card.kind === "halt-chart") {
+    const rows = [...cases]
+      .sort((a, b) => b.timeToHaltDays - a.timeToHaltDays)
+      .map((entry) => {
+        const { figure, until } = parseTimeToHalt(entry.timeToHalt);
+        return `${entry.title}, ${spokenFigure(figure)}${until ? ` ${until}` : ""}`;
+      });
+    return `Bar chart: ${countWord(cases.length).toLowerCase()} automated systems that got it wrong, and how long until someone stepped in. ${rows.join("; ")}.`;
+  }
+  return undefined;
 };

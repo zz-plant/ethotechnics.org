@@ -8,7 +8,12 @@ import {
   renderOgPng,
   resolveOgTemplate,
 } from "./og-image";
-import { parseTimeToHalt, resolveOgCard, scaleHook } from "./og-cards";
+import {
+  describeOgCard,
+  parseTimeToHalt,
+  resolveOgCard,
+  scaleHook,
+} from "./og-cards";
 
 describe("resolveOgTemplate", () => {
   it("maps major content routes to custom templates", () => {
@@ -178,6 +183,7 @@ describe("share cards", () => {
     expect(svg).toContain("4 days");
     // Apple Card got a policy change, not a halt; the headline must cover it.
     expect(svg).not.toContain("stopped it");
+    expect(svg).toContain("How long until someone stepped in?");
   });
 
   it("sets a glossary entry as a defined term", () => {
@@ -195,5 +201,16 @@ describe("share cards", () => {
     expect(resolveOgCard({ path: "/casebook/not-a-case" }).kind).toBe(
       "section",
     );
+  });
+
+  it("describes data cards in alt text and leaves the rest to the layout", () => {
+    expect(describeOgCard({ path: "/casebook/robodebt" })).toBe(
+      "Robodebt, casebook entry. About 470,000 debts raised unlawfully. 3 years 4 months before it was stopped. Six safeguards scored: 4 failed, 2 drifted.",
+    );
+    const chart = describeOgCard({ path: "/" }) ?? "";
+    expect(chart).toContain("Post Office Horizon, about 20 years");
+    expect(chart).toContain("to a policy change");
+    expect(chart).not.toContain("~");
+    expect(describeOgCard({ path: "/standards/std-01" })).toBeUndefined();
   });
 });
