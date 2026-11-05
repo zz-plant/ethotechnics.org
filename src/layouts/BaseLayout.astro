@@ -20,6 +20,7 @@ import {
   formatDocumentTitle,
   stripBrandSuffix,
 } from "../utils/seo/document-title";
+import { describeOgCard } from "../utils/seo/og-cards";
 import { resolveOgTemplate } from "../utils/seo/og-template";
 import { toSeoRobotsProps } from "../utils/seo/robots";
 import {
@@ -150,11 +151,13 @@ ogImageUrl.searchParams.set(
   resolveOgTemplate(undefined, currentPath),
 );
 ogImageUrl.searchParams.set("path", currentPath);
-ogImageUrl.searchParams.set("v", "2");
+ogImageUrl.searchParams.set("v", "4");
 
 const seoImage = {
   src: ogImageUrl.toString(),
-  alt: `${pageName} — Ethotechnics Institute`,
+  alt:
+    describeOgCard({ path: currentPath }) ??
+    `${pageName} — Ethotechnics Institute`,
   width: 1200,
   height: 630,
 };

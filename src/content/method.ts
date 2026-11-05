@@ -87,7 +87,7 @@ export const methodContent: MethodContent = {
     {
       id: "evidence",
       title: "Evidence",
-      question: "What propositions justify letting this system act at all?",
+      question: "Why should this system be allowed to act at all?",
       currentAssets: [
         "Evidence packs for STD-01, STD-02, STD-06, STD-08, and STD-09",
         "Links on each decision record to the evidence it relied on",
@@ -120,8 +120,7 @@ export const methodContent: MethodContent = {
     {
       id: "authority",
       title: "Authority",
-      question:
-        "Which actions is the system permitted to perform, for whom, and until when?",
+      question: "What is it allowed to do, to whom, and until when?",
       currentAssets: [
         "Agent schema fields for who can halt or override an agent, how much it does unattended, and which kinds of action it may take",
         "Authority grant register (MEC-13)",
@@ -151,7 +150,7 @@ export const methodContent: MethodContent = {
     {
       id: "decision",
       title: "Decision",
-      question: "What was decided, on what record, and with what dissent?",
+      question: "What was decided, based on what, and who disagreed?",
       currentAssets: [
         "Decision record schema and its JSON endpoint",
         "Agent receipt schema",
@@ -174,7 +173,7 @@ export const methodContent: MethodContent = {
     {
       id: "consequence",
       title: "Consequence",
-      question: "Who carries the burden of this decision, and for how long?",
+      question: "Who lives with the cost of this decision, and for how long?",
       currentAssets: [
         "Burden hours schema",
         "VAL-01 Journey burden check and the burden budget worksheet",
@@ -194,7 +193,7 @@ export const methodContent: MethodContent = {
       id: "challenge",
       title: "Challenge",
       question:
-        "Who can challenge the decision, and with what procedural force?",
+        "Who can challenge the decision, and does anyone have to answer?",
       currentAssets: [
         "STD-02 Contestability and recourse",
         "Minimum viable contestability: standing, reasons, records, timelines, a named responder, defined effects, remedies, and no retaliation",

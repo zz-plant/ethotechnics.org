@@ -8,6 +8,12 @@ import {
   renderOgPng,
   resolveOgTemplate,
 } from "./og-image";
+import {
+  describeOgCard,
+  parseTimeToHalt,
+  resolveOgCard,
+  scaleHook,
+} from "./og-cards";
 
 describe("resolveOgTemplate", () => {
   it("maps major content routes to custom templates", () => {
@@ -127,5 +133,84 @@ describe("renderOgPng", () => {
 
     // Textless frame drops all text and is under 12 KB; fully rendered PNG with fonts is > 25 KB.
     expect(png.length).toBeGreaterThan(25000);
+  });
+});
+
+describe("share cards", () => {
+  it("parses the casebook's time-to-halt wording into a figure", () => {
+    expect(parseTimeToHalt("Three years and four months")).toEqual({
+      figure: "3 years 4 months",
+      until: undefined,
+    });
+    expect(parseTimeToHalt("About twenty years").figure).toBe("~20 years");
+    expect(
+      parseTimeToHalt(
+        "About seventeen months to a policy change; the model was not withdrawn.",
+      ),
+    ).toEqual({ figure: "~17 months", until: "to a policy change" });
+  });
+
+  it("leads a long scale line with its first clauses", () => {
+    expect(
+      scaleHook(
+        "More than 900 prosecutions; hundreds imprisoned, bankrupted, or both; the inquiry's first volume links at least thirteen suicides to the scandal.",
+      ),
+    ).toBe(
+      "More than 900 prosecutions; hundreds imprisoned, bankrupted, or both",
+    );
+  });
+
+  it("draws a casebook entry from the casebook, not the query string", () => {
+    expect(resolveOgCard({ path: "/casebook/robodebt" }).kind).toBe("case");
+    const svg = buildOgSvg("ignored", "ignored", {
+      path: "/casebook/robodebt",
+    });
+    expect(svg).toContain("Robodebt");
+    expect(svg).toContain("470,000");
+    expect(svg).toContain("3 years 4 months");
+    expect(svg).toContain("SIX SAFEGUARDS");
+    // Cards use plain words, not the casebook's coined terms.
+    expect(svg).toContain(">Appeal<");
+    expect(svg).not.toContain(">Standing<");
+    expect(svg).not.toContain("ignored");
+  });
+
+  it("charts time to halt on the home page and casebook index", () => {
+    expect(resolveOgCard({ path: "/" }).kind).toBe("halt-chart");
+    expect(resolveOgCard({ path: "/casebook" }).kind).toBe("halt-chart");
+    const svg = buildOgSvg("Home", "Home", { path: "/" });
+    expect(svg).toContain("Post Office Horizon");
+    expect(svg).toContain("4 days");
+    // Apple Card got a policy change, not a halt; the headline must cover it.
+    expect(svg).not.toContain("stopped it");
+    expect(svg).toContain("How long until someone stepped in?");
+  });
+
+  it("sets a glossary entry as a defined term", () => {
+    const svg = buildOgSvg(
+      "Authority lease — Ethotechnics glossary",
+      "Authority lease: A time-limited grant of decision power.",
+      { path: "/glossary/authority-lease" },
+    );
+    expect(svg).toContain(">Authority lease<");
+    expect(svg).not.toContain("Ethotechnics glossary</tspan>");
+    expect(svg).toContain("A time-limited grant of decision power.");
+  });
+
+  it("falls back to the section card for unknown casebook slugs", () => {
+    expect(resolveOgCard({ path: "/casebook/not-a-case" }).kind).toBe(
+      "section",
+    );
+  });
+
+  it("describes data cards in alt text and leaves the rest to the layout", () => {
+    expect(describeOgCard({ path: "/casebook/robodebt" })).toBe(
+      "Robodebt, casebook entry. About 470,000 debts raised unlawfully. 3 years 4 months before it was stopped. Six safeguards scored: 4 failed, 2 drifted.",
+    );
+    const chart = describeOgCard({ path: "/" }) ?? "";
+    expect(chart).toContain("Post Office Horizon, about 20 years");
+    expect(chart).toContain("to a policy change");
+    expect(chart).not.toContain("~");
+    expect(describeOgCard({ path: "/standards/std-01" })).toBeUndefined();
   });
 });
