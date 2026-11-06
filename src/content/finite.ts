@@ -132,7 +132,7 @@ export const finiteContent = {
       {
         title: "Reversibility",
         question:
-          "Can decisions be reversed, the changes they made undone, and the people harmed compensated?",
+          "Can the institution reverse a decision, undo what it changed, and compensate the people harmed?",
         detail:
           "Verifies whether wrongful actions can be reversed and restitution paid to affected people from audit logs, rather than requiring victims to navigate an administrative obstacle course.",
       },

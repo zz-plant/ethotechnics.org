@@ -444,7 +444,7 @@ export const methodContent: MethodContent = {
       id: "infrastructure-dignity",
       title: "Infrastructure dignity",
       question:
-        "Does the system preserve operator agency and user recourse under pressure, or only when nothing is going wrong?",
+        "Under pressure, can operators still override the system and users still get recourse, or only when nothing is going wrong?",
       example:
         "A clinical chatbot gives a wrong dosing recommendation. The nurse cannot override it without calling a supervisor who is in a meeting. The lens asks where the override is, and whether the operator can reach it in thirty seconds.",
     },
@@ -452,7 +452,7 @@ export const methodContent: MethodContent = {
       id: "care-time-economics",
       title: "Care-time economics",
       question:
-        "What is being traded between shipping fast and the upkeep it pushes onto staff later, and was the trade visible to anyone before it was made?",
+        "What does shipping fast push onto staff as upkeep later, and did anyone see that trade before it was made?",
       example:
         "Engineering ships a model update that cuts false positives by 3% and adds 45 minutes of daily review work for the care management team. The lens asks whether that second number existed before the deploy.",
     },
