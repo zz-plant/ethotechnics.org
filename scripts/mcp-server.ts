@@ -8,7 +8,6 @@ import "./mcp/resources";
 import "./mcp/prompts";
 import { server } from "./mcp/server";
 
-// Start server
 async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);

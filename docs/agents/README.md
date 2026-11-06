@@ -21,6 +21,7 @@ Detailed execution guides for AI contributors.
 - `version-control.md`: branch, commit, and PR hygiene.
 - `review-checklist.md`: final pre-handoff quality pass.
 - `code-review-comment-patterns.md`: recurring review themes and guardrails.
+- `micro-diagram-language.md`: what each shape and line means in a diagram.
 
 ## Ground rules
 

@@ -29,7 +29,6 @@ import {
   type CalibrationEvaluation,
 } from "../src/features/eval-runner/calibration";
 
-// Terminal colors
 const RESET = "\x1b[0m";
 const BOLD = "\x1b[1m";
 const DIM = "\x1b[2m";

@@ -27,7 +27,6 @@ const featured = featuredExplainers.flatMap((id) => {
   const entry = explainers.find((explainer) => explainer.id === id);
   return entry ? [entry] : [];
 });
-// The index used to list all of them again below, the first six included.
 const rest = explainers
   .filter((entry) => !featuredExplainers.includes(entry.id))
   .sort((a, b) => a.data.title.localeCompare(b.data.title));

@@ -2,7 +2,6 @@ import { z } from "zod";
 
 import { registerPrompt } from "./server";
 
-// Prompt: Design engineer mode
 registerPrompt(
   "design-engineer",
   "Activate design-engineer mode for taste-focused development",
@@ -59,7 +58,6 @@ Decision Heuristic: fewer primitives, clearer knobs, safer defaults, better comp
   }),
 );
 
-// Prompt: Code review
 registerPrompt(
   "code-review",
   "Template for reviewing code changes",
@@ -92,7 +90,6 @@ Provide specific, actionable feedback with file locations and suggested fixes.`,
   }),
 );
 
-// Prompt: New component
 registerPrompt(
   "new-component",
   "Scaffold a new Astro component",

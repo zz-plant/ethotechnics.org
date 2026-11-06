@@ -52,11 +52,6 @@ component is for and where it appears.
   - Default slot appears after the description (useful for extra paragraphs or metadata).
   - `footer` slot renders after tags and glossary links for permalinks or calls to action.
 
-## Illustration.astro
-
-- Usage: Figure wrapper with a framed image, halo treatment, and optional caption.
-- Reference: `src/pages/index.astro`.
-
 ## CommissionedWorkComparison.astro
 
 - Usage: Glass panel comparison grid between the self-serve Institute and commissioned work.
@@ -70,7 +65,7 @@ component is for and where it appears.
 ## ScholarlyMeta.astro
 
 - Usage: Authorship, publication details, license, and changelog callout for published content. End-matter: place it (with `CitationBlock`) after the page's last content section, not under the intro.
-- Reference: `src/pages/diagnostics/llm-capacity-benchmark.astro`.
+- Reference: `src/pages/diagnostics/corrective-debt-calculator.astro`.
 
 ## DemoFigure.astro
 
@@ -132,7 +127,7 @@ component is for and where it appears.
 ## DiagnosticMethodology.astro
 
 - Usage: Structured diagnostic methodology section for inputs, procedure, outputs, and validation.
-- Reference: `src/pages/diagnostics/llm-capacity-benchmark.astro`.
+- Reference: `src/pages/diagnostics/corrective-debt-calculator.astro`.
 
 ## FieldNotesTabs.astro
 
@@ -150,26 +145,6 @@ component is for and where it appears.
 
 - Usage: Primary site navigation shell with search, utility links, and the expandable menu.
 - Reference: `src/pages/index.astro` (via `BaseLayout.astro`).
-
-## NavSectionList.astro
-
-- Usage: Grouped navigation sections inside the navigation panel.
-- Reference: `src/pages/index.astro` (via `Navigation.astro`).
-
-## NavQuickLinks.astro
-
-- Usage: Compact quick links list for the library theme shortcuts in the navigation panel.
-- Reference: `src/pages/index.astro` (via `Navigation.astro`).
-
-## NavActions.astro
-
-- Usage: Call-to-action button group inside the navigation panel.
-- Reference: `src/pages/index.astro` (via `Navigation.astro`).
-
-## NavUtilityLinks.astro
-
-- Usage: Utility links (GitHub, Studio) used in the navigation bar and panel.
-- Reference: `src/pages/index.astro` (via `Navigation.astro`).
 
 ## Search.astro
 

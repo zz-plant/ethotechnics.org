@@ -303,13 +303,3 @@ export const frontierDoctrineScan: FrontierDoctrineScan = {
 export const getLawAverage = (numeral: LawNumeral): number | undefined =>
   frontierDoctrineScan.lawAverages.find((entry) => entry.numeral === numeral)
     ?.average;
-
-export const getLabScoreForLaw = (
-  labId: string,
-  numeral: LawNumeral,
-): DoctrineScore | undefined => {
-  const lab = frontierDoctrineScan.labs.find((entry) => entry.id === labId);
-  const index = LAW_NUMERALS.indexOf(numeral);
-  if (!lab || index < 0) return undefined;
-  return lab.scores[index];
-};

@@ -142,9 +142,7 @@ function main() {
     }
 
     try {
-      // Fit the lockup to the scene on its tightest axis, then centre it. The
-      // old code scaled by the scene's own dimensions, which left the lockup
-      // stranded in a corner on any scene that was not roughly 400×200.
+      // Fit the lockup to the scene on its tightest axis, then centre it.
       const fraction = spec.scale ?? 0.7;
       const scale =
         Math.min(spec.width / SOURCE_WIDTH, spec.height / SOURCE_HEIGHT) *

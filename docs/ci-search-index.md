@@ -4,27 +4,15 @@ The site uses [Pagefind](https://pagefind.app/) for full-text search. Due to Ast
 
 ## Build-time Index
 
-The `build:search` script (runs automatically as part of `build`) generates the
-search index by crawling the build output with Playwright:
+`bun run build:search` runs Pagefind on the static HTML in `dist/client/` and
+writes the index to `dist/client/pagefind/`. It reuses an existing index and
+does nothing when `dist/client/` is missing. `bun run build` does not call it.
 
-1. Starts the wrangler dev server against the built output
-2. Discovers all URLs from sitemaps (`core`, `glossary`, `standards`, `taxonomy`)
-3. Crawls every page with a headless browser, capturing full HTML
-4. Runs Pagefind on the crawled HTML
-5. Outputs the index to `dist/client/pagefind/`
+## Crawl
 
-If a cached index already exists at `dist/client/pagefind/pagefind.js`, it is
-reused and crawling is skipped.
-
-First-time setup:
-
-```bash
-bun run build:search:setup   # Install Chromium for Playwright
-```
-
-## Manual Crawl
-
-To regenerate the index independently of the build:
+Where the static HTML lacks page bodies, crawl a running build with Playwright
+instead. It reads the URLs from the sitemaps, captures each page, and runs
+Pagefind on the result. Install Chromium once with `bun run build:search:setup`.
 
 ```bash
 bun run build:search:crawl
@@ -37,18 +25,6 @@ preview), point the crawl script at the live URL:
 
 ```bash
 BASE_URL=https://ethotechnics.org bun run scripts/build-search-crawl.ts
-```
-
-## CI Integration
-
-The deploy workflow in `.github/workflows/deploy.yml` runs `build:search` as
-part of `build`. The crawl runs automatically if `dist/client/pagefind/` is
-missing or stale.
-
-For CI without a display server, install Playwright system dependencies:
-
-```bash
-bunx playwright install --with-deps chromium
 ```
 
 ## Content layers and the search index

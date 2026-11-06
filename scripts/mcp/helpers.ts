@@ -1,6 +1,5 @@
 import { realpath } from "node:fs/promises";
 
-// Helper to get project info
 export const getProjectRoot = () => process.cwd();
 export const textResponse = (text: string) => ({
   content: [

@@ -1,7 +1,6 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 
-// Initialize server
 export const server = new McpServer({
   name: "etorg-mcp-server",
   version: "1.0.0",

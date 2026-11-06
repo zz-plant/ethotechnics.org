@@ -11,9 +11,7 @@ const pageDescription =
 
 const anchorLinks = [{ href: "#checklist", label: "Checklist" }];
 
-// What a failing answer means used to sit below the checklist as three
-// expandable notes, and a reader had to match each note back to its
-// questions. Each note's sentences now sit under the question they explain.
+// Each note on a failing answer sits under the question it explains.
 const checklistItems = [
   {
     question:
@@ -256,7 +254,6 @@ const checklistItems = [
     }
   }
 
-  /* The checklist itself prints; a second, print-only copy of it used to. */
   @media print {
     .contestability-layout {
       display: block;

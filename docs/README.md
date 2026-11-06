@@ -26,13 +26,13 @@ Use this map before adding or editing docs so guidance stays easy to find and ma
 
 ### Architecture and implementation references
 
-- [`architecture.md`](architecture.md), [`specifications.md`](specifications.md), and
-  [`page-specifications.md`](page-specifications.md): routing, content layers, and implementation
-  expectations.
+- [`architecture.md`](architecture.md) and [`page-specifications.md`](page-specifications.md):
+  routing, content layers, and implementation expectations.
 - [`adding-pages.md`](adding-pages.md): the checklist for new routes.
 - [`glossary.md`](glossary.md): shared terminology across the site and docs.
-- [`content-data.md`](content-data.md), [`bundles.md`](bundles.md),
-  [`content-components.md`](content-components.md): data and content systems.
+- [`content-data.md`](content-data.md) and [`content-components.md`](content-components.md): data
+  and content systems.
+- [`evals.md`](evals.md): the four parts of the repo called "evals" and who each is for.
 - [`agent-metadata.md`](agent-metadata.md): public JSON-LD and machine-readable APIs.
 - [`ci-search-index.md`](ci-search-index.md): Pagefind index generation and the RAG corpus layer
   field.
@@ -44,7 +44,7 @@ Use this map before adding or editing docs so guidance stays easy to find and ma
 - [`cloudflare-playwright.md`](cloudflare-playwright.md): Playwright in Cloudflare builds.
 - [`diagnostics-outputs.md`](diagnostics-outputs.md): diagnostics tooling.
 - [`planning/pass-1-retirement-2026-09.md`](planning/pass-1-retirement-2026-09.md): retired tools and source archives.
-- [`reviews/`](reviews/): dated point-in-time audits (SEO, usability, front-end). Read as
+- [`reviews/`](reviews/): dated point-in-time audits. Read as
   snapshots, not current guidance; move a doc here when it stops being maintained.
 
 ### Drafts

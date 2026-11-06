@@ -26,7 +26,6 @@ import {
 } from "./skills";
 import { registerTool } from "./server";
 
-// Tool: List available scripts
 registerTool(
   "list_available_scripts",
   "List all scripts defined in package.json",
@@ -39,7 +38,6 @@ registerTool(
   },
 );
 
-// Tool: Get component list
 registerTool(
   "get_component_list",
   "List all Astro components in src/components",
@@ -67,7 +65,6 @@ registerTool(
   },
 );
 
-// Tool: Get project tree
 registerTool(
   "get_project_tree",
   "Get a simplified directory tree of the project",
@@ -103,7 +100,6 @@ registerTool(
   },
 );
 
-// Tool: List pages
 registerTool(
   "list_pages",
   "List available application routes in src/pages",
@@ -130,7 +126,6 @@ registerTool(
   },
 );
 
-// Tool: Read docs
 registerTool(
   "read_docs",
   "Read documentation files from the docs directory",
@@ -159,7 +154,6 @@ registerTool(
   },
 );
 
-// Tool: Read Wrangler Config
 registerTool(
   "read_wrangler_config",
   "Read the wrangler.toml configuration file",
@@ -177,7 +171,6 @@ registerTool(
   },
 );
 
-// Tool: Get repo map (folders only, depth 2)
 registerTool(
   "get_repo_map",
   "Get a high-level map of the repository (folders only, depth 2)",
@@ -219,7 +212,6 @@ registerTool(
   },
 );
 
-// Tool: Run project check
 registerTool(
   "run_check",
   "Run the full project check (bun run check)",
@@ -249,7 +241,6 @@ registerTool(
   },
 );
 
-// Tool: Validate changed files
 registerTool(
   "validate_changed_files",
   "Classify changed files and return required/optional checks",
@@ -337,7 +328,6 @@ ${normalizedFiles.map((f) => `- ${f}`).join("\n")}`
   },
 );
 
-// Tool: Summarize checks for PR notes
 registerTool(
   "summarize_checks",
   "Summarize command results as PR-ready markdown bullets",
@@ -376,7 +366,6 @@ registerTool(
   },
 );
 
-// Tool: List workflows
 registerTool(
   "list_workflows",
   "List available agent skills from .agent/skills/",
@@ -417,7 +406,6 @@ registerTool(
   },
 );
 
-// Tool: Read workflow
 registerTool(
   "read_workflow",
   "Read a specific agent skill definition",
@@ -451,7 +439,6 @@ registerTool(
   },
 );
 
-// Tool: Search docs
 registerTool(
   "search_docs",
   "Search documentation files for a pattern",
@@ -639,7 +626,6 @@ registerTool(
   },
 );
 
-// Tool: Get AGENTS guidance for a path
 registerTool(
   "get_agents_guidance",
   "Get the applicable AGENTS.md guidance for a file path",

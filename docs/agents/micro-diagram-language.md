@@ -31,13 +31,7 @@ When illustrating systems with spatial axes:
 
 ## 4. State Variable Glyphs
 
-Ethotechnics evaluates six state variables across delegations:
-
-1. `reach` (scale and jurisdiction)
-2. `authority` (binding override capacity)
-3. `reversibility` (ability to rollback state)
-4. `velocity` (decision and execution speed)
-5. `transparency` (reasons and verifiable records)
-6. `recourse` (appeal and redress paths)
+Ethotechnics evaluates six state variables across delegations: `capability`, `authority`,
+`evidence`, `dependency`, `standing`, and `correction`. `StateVariableGlyph.astro` defines them.
 
 In UI components, render glyphs via `StateVariableGlyph.astro` rather than custom SVGs.

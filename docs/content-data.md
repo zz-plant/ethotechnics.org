@@ -17,7 +17,6 @@ This keeps Astro collections, runtime imports, and typed wrappers aligned.
 
 | Domain      | Canonical source               | Derived artifact                                 | Notes                                                                                              |
 | ----------- | ------------------------------ | ------------------------------------------------ | -------------------------------------------------------------------------------------------------- |
-| Home        | `src/content/home.json`        | `src/content/generated/home.generated.ts`        | `src/content/home.ts` consumes generated data.                                                     |
 | Glossary    | `src/content/glossary.json`    | `src/content/generated/glossary.generated.ts`    | `src/content/glossary.ts` consumes generated data and keeps supplementary `glossaryTerms` helpers. |
 | Library     | `src/content/library.json`     | `src/content/generated/library.generated.ts`     | `src/content/library.ts` consumes generated data and adds runtime glossary linkage.                |
 | Taxonomy    | `src/content/taxonomy.json`    | `src/content/generated/taxonomy.generated.ts`    | `src/content/taxonomy.ts` builds lookup maps from generated data.                                  |
