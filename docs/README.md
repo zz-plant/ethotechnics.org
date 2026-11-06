@@ -18,8 +18,6 @@ Use this map before adding or editing docs so guidance stays easy to find and ma
 ### Agent contributors
 
 - [`agent-developer-experience.md`](agent-developer-experience.md): agent onboarding and routing.
-- [`mcp-and-skill-adoption-guide.md`](mcp-and-skill-adoption-guide.md): practical MCP and
-  skill implementation options for contributors and web-browsing agents.
 - [`agents/README.md`](agents/README.md): agent playbook index.
 - [`agents/workflow-and-checks.md`](agents/workflow-and-checks.md): required validation rules.
 - [`agents/repo-orientation.md`](agents/repo-orientation.md): where different change types belong.
@@ -44,8 +42,6 @@ Use this map before adding or editing docs so guidance stays easy to find and ma
 - [`cloudflare-playwright.md`](cloudflare-playwright.md): Playwright in Cloudflare builds.
 - [`diagnostics-outputs.md`](diagnostics-outputs.md): diagnostics tooling.
 - [`planning/pass-1-retirement-2026-09.md`](planning/pass-1-retirement-2026-09.md): retired tools and source archives.
-- [`reviews/`](reviews/): dated point-in-time audits. Read as
-  snapshots, not current guidance; move a doc here when it stops being maintained.
 
 ### Drafts
 

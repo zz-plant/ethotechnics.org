@@ -51,6 +51,61 @@ export type ValidatorsContent = PageWithPermalink & {
   method: ValidatorMethod;
 };
 
+const outputSchemaFor = (id: string): ValidatorOutputSchema => ({
+  fields: [
+    {
+      name: "result_id",
+      type: "string",
+      description: "Unique identifier for the diagnostic result.",
+    },
+    {
+      name: "generated_at",
+      type: "string",
+      description: "ISO 8601 timestamp when the report was created.",
+    },
+    {
+      name: "validator_id",
+      type: "string",
+      description: `Validator identifier (e.g., ${id}).`,
+    },
+    {
+      name: "standard_id",
+      type: "string",
+      description: "Standard identifier associated with the validator.",
+    },
+    {
+      name: "inputs",
+      type: "object",
+      description: "Input payload evaluated by the validator.",
+    },
+    {
+      name: "status",
+      type: "string",
+      description: "Risk level: green, yellow, or red.",
+    },
+    {
+      name: "risk_statement",
+      type: "string",
+      description: "Human-readable summary of the risk posture.",
+    },
+    {
+      name: "violated_clauses",
+      type: "string[]",
+      description: "Clause IDs implicated by the risk result.",
+    },
+    {
+      name: "recommended_mechanisms",
+      type: "string[]",
+      description: "Mechanism IDs recommended for remediation.",
+    },
+    {
+      name: "next_actions",
+      type: "string[]",
+      description: "Operator actions to improve compliance.",
+    },
+  ],
+});
+
 export const validatorsContent: ValidatorsContent = {
   pageTitle: "Validators — Ethotechnics Institute",
   pageDescription:
@@ -113,60 +168,7 @@ export const validatorsContent: ValidatorsContent = {
       ],
       clauseRefs: ["STD-01.3.1", "STD-01.3.2", "STD-01.7.1"],
       mechanismRefs: ["MEC-04"],
-      outputSchema: {
-        fields: [
-          {
-            name: "result_id",
-            type: "string",
-            description: "Unique identifier for the diagnostic result.",
-          },
-          {
-            name: "generated_at",
-            type: "string",
-            description: "ISO 8601 timestamp when the report was created.",
-          },
-          {
-            name: "validator_id",
-            type: "string",
-            description: "Validator identifier (e.g., VAL-01).",
-          },
-          {
-            name: "standard_id",
-            type: "string",
-            description: "Standard identifier associated with the validator.",
-          },
-          {
-            name: "inputs",
-            type: "object",
-            description: "Input payload evaluated by the validator.",
-          },
-          {
-            name: "status",
-            type: "string",
-            description: "Risk level: green, yellow, or red.",
-          },
-          {
-            name: "risk_statement",
-            type: "string",
-            description: "Human-readable summary of the risk posture.",
-          },
-          {
-            name: "violated_clauses",
-            type: "string[]",
-            description: "Clause IDs implicated by the risk result.",
-          },
-          {
-            name: "recommended_mechanisms",
-            type: "string[]",
-            description: "Mechanism IDs recommended for remediation.",
-          },
-          {
-            name: "next_actions",
-            type: "string[]",
-            description: "Operator actions to improve compliance.",
-          },
-        ],
-      },
+      outputSchema: outputSchemaFor("VAL-01"),
     },
     {
       id: "VAL-02",
@@ -220,60 +222,7 @@ export const validatorsContent: ValidatorsContent = {
       ],
       clauseRefs: ["STD-01.5.1", "STD-01.5.3", "STD-01.6.1"],
       mechanismRefs: ["MEC-06"],
-      outputSchema: {
-        fields: [
-          {
-            name: "result_id",
-            type: "string",
-            description: "Unique identifier for the diagnostic result.",
-          },
-          {
-            name: "generated_at",
-            type: "string",
-            description: "ISO 8601 timestamp when the report was created.",
-          },
-          {
-            name: "validator_id",
-            type: "string",
-            description: "Validator identifier (e.g., VAL-02).",
-          },
-          {
-            name: "standard_id",
-            type: "string",
-            description: "Standard identifier associated with the validator.",
-          },
-          {
-            name: "inputs",
-            type: "object",
-            description: "Input payload evaluated by the validator.",
-          },
-          {
-            name: "status",
-            type: "string",
-            description: "Risk level: green, yellow, or red.",
-          },
-          {
-            name: "risk_statement",
-            type: "string",
-            description: "Human-readable summary of the risk posture.",
-          },
-          {
-            name: "violated_clauses",
-            type: "string[]",
-            description: "Clause IDs implicated by the risk result.",
-          },
-          {
-            name: "recommended_mechanisms",
-            type: "string[]",
-            description: "Mechanism IDs recommended for remediation.",
-          },
-          {
-            name: "next_actions",
-            type: "string[]",
-            description: "Operator actions to improve compliance.",
-          },
-        ],
-      },
+      outputSchema: outputSchemaFor("VAL-02"),
     },
     {
       id: "VAL-03",
@@ -326,60 +275,7 @@ export const validatorsContent: ValidatorsContent = {
       ],
       clauseRefs: ["STD-01.3.1", "STD-01.3.2", "STD-01.3.3"],
       mechanismRefs: ["MEC-04"],
-      outputSchema: {
-        fields: [
-          {
-            name: "result_id",
-            type: "string",
-            description: "Unique identifier for the diagnostic result.",
-          },
-          {
-            name: "generated_at",
-            type: "string",
-            description: "ISO 8601 timestamp when the report was created.",
-          },
-          {
-            name: "validator_id",
-            type: "string",
-            description: "Validator identifier (e.g., VAL-03).",
-          },
-          {
-            name: "standard_id",
-            type: "string",
-            description: "Standard identifier associated with the validator.",
-          },
-          {
-            name: "inputs",
-            type: "object",
-            description: "Input payload evaluated by the validator.",
-          },
-          {
-            name: "status",
-            type: "string",
-            description: "Risk level: green, yellow, or red.",
-          },
-          {
-            name: "risk_statement",
-            type: "string",
-            description: "Human-readable summary of the risk posture.",
-          },
-          {
-            name: "violated_clauses",
-            type: "string[]",
-            description: "Clause IDs implicated by the risk result.",
-          },
-          {
-            name: "recommended_mechanisms",
-            type: "string[]",
-            description: "Mechanism IDs recommended for remediation.",
-          },
-          {
-            name: "next_actions",
-            type: "string[]",
-            description: "Operator actions to improve compliance.",
-          },
-        ],
-      },
+      outputSchema: outputSchemaFor("VAL-03"),
     },
   ],
   method: {

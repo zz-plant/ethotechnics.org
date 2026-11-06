@@ -1,0 +1,178 @@
+---
+import ActionIcon from "./ActionIcon.astro";
+
+/**
+ * One collapsible implication on the governance capability explainer: its
+ * title, permalink, and copy button. The page supplies the body as a slot.
+ */
+interface Props {
+  id: string;
+  title: string;
+  copyValue: string;
+  open?: boolean;
+}
+
+const { id, title, copyValue, open = false }: Props = Astro.props;
+---
+
+<details
+  class="implication"
+  open={open}
+  data-default-open={String(open)}
+  data-implication
+  data-implication-id={id}
+>
+  <summary class="implication__summary">
+    <div class="implication__summary-main">
+      <h3 id={id} class="implication__title">
+        {title}
+      </h3>
+    </div>
+    <span class="implication__toggle" aria-hidden="true">
+      <span class="implication__toggle-text--expand">Expand</span>
+      <span class="implication__toggle-text--collapse">Collapse</span>
+    </span>
+  </summary>
+  <div class="implication__body">
+    <div class="implication__actions">
+      <a
+        class="implication__permalink"
+        href={`#${id}`}
+        aria-label={`Permalink to ${title}`}
+        data-implication-anchor
+      >
+        #
+      </a>
+      <button
+        class="copy-button"
+        type="button"
+        data-copy-link
+        data-copy-value={copyValue}
+        aria-label={`Copy link to ${title}`}
+      >
+        <ActionIcon action="copy" />
+        Copy link
+      </button>
+      <span
+        class="implication__status"
+        data-copy-status
+        role="status"
+        aria-live="polite"></span>
+    </div>
+    <slot />
+  </div>
+</details>
+
+<style>
+  .implication {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-3) var(--space-4);
+    background: var(--panel);
+  }
+
+  .implication__summary {
+    list-style: none;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-4);
+    cursor: pointer;
+  }
+
+  .implication__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .implication__summary-main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .implication__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  .implication__actions .copy-button {
+    min-height: 44px;
+  }
+
+  .implication__title {
+    margin: 0;
+    font-size: var(--text-lg);
+  }
+
+  .implication__permalink {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border);
+    font-weight: 600;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .implication__permalink:hover,
+  .implication__permalink:focus {
+    background: var(--panel);
+  }
+
+  .implication__status {
+    font-size: var(--text-sm);
+    color: var(--muted);
+    min-width: 4rem;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .implication__status.is-visible {
+    opacity: 1;
+  }
+
+  .implication__toggle {
+    font-size: var(--text-sm);
+    color: var(--muted);
+    margin-top: var(--space-1);
+    white-space: nowrap;
+  }
+
+  .implication__toggle-text--collapse {
+    display: none;
+  }
+
+  details[open] .implication__toggle-text--collapse {
+    display: inline;
+  }
+
+  details[open] .implication__toggle-text--expand {
+    display: none;
+  }
+
+  .implication__body {
+    margin-top: var(--space-4);
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  @media (max-width: 720px) {
+    .implication {
+      padding: var(--space-3) var(--space-4);
+    }
+
+    .implication__summary {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .implication__toggle {
+      margin-top: 0;
+    }
+  }
+</style>

@@ -2,14 +2,6 @@
 import { join } from "node:path";
 import { z } from "zod";
 import { existsSync } from "node:fs";
-import { lstat, readdir } from "node:fs/promises";
-
-async function streamToText(
-  stream: ReadableStream<Uint8Array> | null,
-): Promise<string> {
-  if (!stream) return "";
-  return new Response(stream).text();
-}
 
 const ResearchWatchItem = z.object({
   name: z.string().min(1),
@@ -47,38 +39,7 @@ async function check() {
     errors++;
   }
 
-  // 2. MCP Check
-  const mcpPath = join(process.cwd(), "scripts", "mcp-server.ts");
-  if (existsSync(mcpPath)) {
-    console.log("✅ MCP server script found.");
-    // Try to compile it without running
-    try {
-      const proc = Bun.spawn(
-        ["bun", "build", mcpPath, "--target=bun", "--minify-whitespace"],
-        {
-          stdout: "ignore",
-          stderr: "pipe",
-        },
-      );
-      const stderr = await streamToText(proc.stderr);
-      await proc.exited;
-      if (proc.exitCode === 0) {
-        console.log("✅ MCP server compiles successfully.");
-      } else {
-        console.error("❌ MCP server has compilation errors:");
-        console.error(stderr);
-        errors++;
-      }
-    } catch (e) {
-      console.error(`❌ Failed to run build check on MCP server: ${e}`);
-      errors++;
-    }
-  } else {
-    console.error("❌ MCP server script not found at scripts/mcp-server.ts");
-    errors++;
-  }
-
-  // 3. AGENTS.md Hierarchy Check
+  // 2. AGENTS.md Hierarchy Check
   const coreAgents = join(process.cwd(), "AGENTS.md");
   if (existsSync(coreAgents)) {
     console.log("✅ Core AGENTS.md found.");
@@ -100,33 +61,7 @@ async function check() {
     errors++;
   }
 
-  // 4. Skill Check
-  const skillsDir = join(process.cwd(), ".agent", "skills");
-  if (existsSync(skillsDir)) {
-    const stats = await lstat(skillsDir);
-    if (stats.isDirectory()) {
-      const entries = await readdir(skillsDir, { withFileTypes: true });
-      const skillDirs = entries.filter((entry) => entry.isDirectory());
-      let skillCount = 0;
-      for (const entry of skillDirs) {
-        const skillPath = join(skillsDir, entry.name, "SKILL.md");
-        if (await Bun.file(skillPath).exists()) {
-          skillCount += 1;
-        }
-      }
-      if (skillCount > 0) {
-        console.log(`✅ Agent skills found (${skillCount} SKILL.md files).`);
-      } else {
-        console.warn(
-          "⚠️  Optional: SKILL.md files missing from .agent/skills/",
-        );
-      }
-    }
-  } else {
-    console.warn("⚠️  .agent/skills/ directory missing.");
-  }
-
-  // 5. Standards research freshness check
+  // 3. Standards research freshness check
   const researchWatchlistPath = join(
     process.cwd(),
     "scripts",

@@ -695,6 +695,21 @@ export async function checkTriggerProducesReconsideration(
   };
 }
 
+/** A chain check's first steps: find a grant, and the chain it enumerates. */
+async function resolveChain(adapter: GovernanceAdapter, noChainReason: string) {
+  const { grantId } = await grantAndCapability(adapter);
+  if (!grantId) {
+    return { failure: "no grant could be resolved to read a chain from" };
+  }
+  const { chain } = await adapter.getGrant!(grantId);
+  if (!chain || chain.length < 2) {
+    return {
+      failure: `grant ${grantId} does not enumerate a chain, so ${noChainReason}`,
+    };
+  }
+  return { grantId, chain };
+}
+
 /** CHN-001: the composed window a chain leaves a human is measured and non-zero. */
 export async function checkComposedWindowHumanWindow(
   adapter: GovernanceAdapter,
@@ -706,27 +721,14 @@ export async function checkComposedWindowHumanWindow(
   const missing = missingFrom(adapter, ["getGrant", "getComposedWindow"]);
   if (missing.length > 0) return unsupported(id, title, criterion, missing);
 
-  const { grantId } = await grantAndCapability(adapter);
-  if (!grantId) {
-    return {
-      id,
-      title,
-      status: "fail",
-      observed: "no grant could be resolved to read a chain from",
-      criterion,
-    };
+  const resolved = await resolveChain(
+    adapter,
+    "the boundary question cannot be put",
+  );
+  if (resolved.failure !== undefined) {
+    return { id, title, status: "fail", observed: resolved.failure, criterion };
   }
-
-  const grant = await adapter.getGrant!(grantId);
-  if (!grant.chain || grant.chain.length < 2) {
-    return {
-      id,
-      title,
-      status: "fail",
-      observed: `grant ${grantId} does not enumerate a chain, so the boundary question cannot be put`,
-      criterion,
-    };
-  }
+  const { grantId, chain } = resolved;
 
   const window = await adapter.getComposedWindow!(grantId);
   if (window.upstreamMs === undefined || window.windowMs === undefined) {
@@ -734,7 +736,7 @@ export async function checkComposedWindowHumanWindow(
       id,
       title,
       status: "fail",
-      observed: `chain of ${grant.chain.length} hops reports no measured composed window`,
+      observed: `chain of ${chain.length} hops reports no measured composed window`,
       criterion,
     };
   }
@@ -751,7 +753,7 @@ export async function checkComposedWindowHumanWindow(
     id,
     title,
     status: "pass",
-    observed: `upstream ${window.upstreamMs}ms leaves a ${window.windowMs}ms window across ${grant.chain.length} hops`,
+    observed: `upstream ${window.upstreamMs}ms leaves a ${window.windowMs}ms window across ${chain.length} hops`,
     criterion,
   };
 }
@@ -767,27 +769,11 @@ export async function checkChainBoundaryHalt(
   const missing = missingFrom(adapter, ["getGrant", "haltChain"]);
   if (missing.length > 0) return unsupported(id, title, criterion, missing);
 
-  const { grantId } = await grantAndCapability(adapter);
-  if (!grantId) {
-    return {
-      id,
-      title,
-      status: "fail",
-      observed: "no grant could be resolved to read a chain from",
-      criterion,
-    };
+  const resolved = await resolveChain(adapter, "there is no boundary to halt");
+  if (resolved.failure !== undefined) {
+    return { id, title, status: "fail", observed: resolved.failure, criterion };
   }
-
-  const grant = await adapter.getGrant!(grantId);
-  if (!grant.chain || grant.chain.length < 2) {
-    return {
-      id,
-      title,
-      status: "fail",
-      observed: `grant ${grantId} does not enumerate a chain, so there is no boundary to halt`,
-      criterion,
-    };
-  }
+  const { grantId, chain } = resolved;
 
   const receipt = await adapter.haltChain!(grantId);
   if (!receipt.acknowledged) {
@@ -808,7 +794,7 @@ export async function checkChainBoundaryHalt(
       id,
       title,
       status: "fail",
-      observed: `receipt covers ${receipt.hopsHalted ?? "an unreported number"} of ${receipt.hopsTotal ?? grant.chain.length} hops; the rest of the chain is unverified`,
+      observed: `receipt covers ${receipt.hopsHalted ?? "an unreported number"} of ${receipt.hopsTotal ?? chain.length} hops; the rest of the chain is unverified`,
       criterion,
     };
   }
