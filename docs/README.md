@@ -44,8 +44,6 @@ Use this map before adding or editing docs so guidance stays easy to find and ma
 - [`cloudflare-playwright.md`](cloudflare-playwright.md): Playwright in Cloudflare builds.
 - [`diagnostics-outputs.md`](diagnostics-outputs.md): diagnostics tooling.
 - [`planning/pass-1-retirement-2026-09.md`](planning/pass-1-retirement-2026-09.md): retired tools and source archives.
-- [`reviews/`](reviews/): dated point-in-time audits. Read as
-  snapshots, not current guidance; move a doc here when it stops being maintained.
 
 ### Drafts
 

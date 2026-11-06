@@ -34,25 +34,6 @@ It consolidates references that were previously spread across multiple index sec
 - Interop and toolkit planning:
   - [`python-evaluation-toolkit.md`](python-evaluation-toolkit.md)
 
-## Archived audits
-
-One-off dated audits are kept in [`archive/`](archive/) for reference. They are not active
-planning documents.
-
-- [`archive/copywriting-plain-language-audit-2026-02.md`](archive/copywriting-plain-language-audit-2026-02.md)
-- [`archive/mobile-ux-critique-2026-02.md`](archive/mobile-ux-critique-2026-02.md)
-- [`archive/new-user-routes-critique-2026-02.md`](archive/new-user-routes-critique-2026-02.md)
-- [`archive/open-source-citizenship-audit-2026-02.md`](archive/open-source-citizenship-audit-2026-02.md)
-- [`archive/outside-the-box-applications-ia-2026-03.md`](archive/outside-the-box-applications-ia-2026-03.md)
-- [`archive/outstanding-issues-audit-2026-03-02.md`](archive/outstanding-issues-audit-2026-03-02.md)
-- [`archive/refactor-trawl-2026-03-01.md`](archive/refactor-trawl-2026-03-01.md)
-- [`archive/site-description-alignment-audit.md`](archive/site-description-alignment-audit.md)
-- [`archive/tech-debt-inventory-2026-02.md`](archive/tech-debt-inventory-2026-02.md)
-- [`archive/tech-stack-capabilities-scan-2026.md`](archive/tech-stack-capabilities-scan-2026.md)
-- [`archive/tech-stack-upgrade-actions-2026.md`](archive/tech-stack-upgrade-actions-2026.md)
-- [`archive/ux-audit-kondo-series-2026.md`](archive/ux-audit-kondo-series-2026.md)
-- [`archive/weakest-features-triage-2026-03.md`](archive/weakest-features-triage-2026-03.md)
-
 ## How to keep this hub useful
 
 - Add new planning or audit docs here when they are created.
