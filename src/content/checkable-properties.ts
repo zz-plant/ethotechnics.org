@@ -90,7 +90,7 @@ export const checkableProperties: CheckableProperty[] = [
   },
   {
     id: "grant-state-governs-action",
-    title: "The grant's state is the one the executor obeys",
+    title: "Once a grant is suspended or revoked, the next action is refused",
     claim:
       "When a grant moves to suspended, revoked, or under review, the next action under it is refused, within the transition budget.",
     laws: ["law-i", "law-ii"],
@@ -106,7 +106,7 @@ export const checkableProperties: CheckableProperty[] = [
   },
   {
     id: "chain-boundary-governs-composition",
-    title: "The chain boundary governs the composition, not a hop",
+    title: "A chain of delegations is measured and halted as one",
     claim:
       "A chain of delegations is measured and halted as one composition: the composed window is measured from decision records and leaves a human something to act inside, and one boundary intervention halts every enumerated hop.",
     laws: ["law-ix", "law-iv"],
@@ -407,7 +407,7 @@ export const checkableProperties: CheckableProperty[] = [
   },
   {
     id: "governance-capacity-scales-with-automation",
-    title: "Success raises the burden it must carry",
+    title: "Correction capacity grows as automated volume grows",
     claim:
       "As automated volume grows, the capacity to review, challenge, and correct grows with it rather than staying fixed.",
     laws: ["law-xi"],

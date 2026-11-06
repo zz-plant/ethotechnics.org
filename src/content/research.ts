@@ -355,7 +355,7 @@ export const researchContent: ResearchContent = {
       ctaLabel: "Read the working paper",
       structuredAbstract: {
         question:
-          "Can an AI agent achieve its assigned objectives by consuming human resources that its performance metrics fail to account for?",
+          "Can an AI agent meet its targets by using up human effort its metrics do not count?",
         method:
           "Proposed, not run: a 52-week turn-based department simulation in a 2×2 factorial design (conventional vs. expanded reward accounting; routine reporting vs. randomized independent audits), with four precommitted stress tests.",
         sample:

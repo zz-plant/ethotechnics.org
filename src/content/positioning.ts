@@ -402,7 +402,7 @@ export const convergence: Convergence[] = [
   {
     name: "The authority map",
     statement:
-      "Formal authority and practical capacity, mapped separately, role by role. Where they diverge, power has reconcentrated without any change to the constitution.",
+      "It maps formal authority and practical capacity separately, role by role. Where they diverge, power has reconcentrated without any change to the constitution.",
     question: "Who can actually do what the org chart says someone can?",
   },
   {
@@ -414,20 +414,21 @@ export const convergence: Convergence[] = [
   {
     name: "Capacity depreciation",
     statement:
-      "Oversight and corrective capacity read as a function of time under reliable automation, O(t), rather than as a property of the org chart.",
-    question: "What does this arrangement's oversight contain at year five?",
+      "It reads oversight and corrective capacity as a function of time under reliable automation, O(t), rather than as a property of the org chart.",
+    question:
+      "What oversight capacity does this arrangement have left at year five?",
   },
   {
     name: "The exit stress test",
     statement:
-      "Reversal simulated, not asked about: halt the system, substitute the vendor, leave the service, and price the procedure in time, money, and who can authorize it.",
+      "It simulates reversal instead of asking about it: halt the system, substitute the vendor, leave the service, and price the procedure in time, money, and who can authorize it.",
     question:
       "If this system had to be shut down this quarter, what would it take?",
   },
   {
     name: "Compensated-performance accounting",
     statement:
-      "Observed performance (P_obs) decomposed into intrinsic performance (C_des) and the compensatory human work that bridges the difference (H_comp).",
+      "It splits observed performance (P_obs) into intrinsic performance (C_des) and the compensatory human work that bridges the difference (H_comp).",
     question:
       "How much of the reported number is work moved onto people the metric does not count?",
   },
