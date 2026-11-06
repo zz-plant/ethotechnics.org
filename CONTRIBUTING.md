@@ -29,18 +29,18 @@ The rest of this page is for changes to the site or the code.
 1. Align toolchains: `nvm use` (Node.js 22.x baseline).
 2. Install dependencies: `bun install`.
 3. Create a branch for your change.
-4. Make focused changes with clear commit messages.
+4. Make focused changes. Commit subjects read `<area>: <what changed>`; see
+   [`docs/agents/version-control.md`](docs/agents/version-control.md).
 5. Run required checks:
    - `bun run check` for code or mixed changes.
    - Docs-only updates can skip `bun run check`, but mention the skip in your PR.
-6. Open a pull request using the PR template and summarize:
-   - what changed
-   - why it changed
-   - what checks you ran
+6. Open a pull request. Its title and description become the commit on `main`, so give it a
+   title in the same form and fill the template: what changed, why, the checks you ran, and
+   what is not done.
 
 ## Pull request expectations
 
-- Keep PR scope small and reviewable.
+- One change per pull request, branched from the current `main`.
 - Prefer linked docs over duplicated guidance.
 - Include screenshots for perceptible UI changes.
 - Confirm CI passes (`.github/workflows/site-checks.yml`).

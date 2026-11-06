@@ -7,9 +7,10 @@ updates:
     open-pull-requests-limit: 10
     labels:
       - "dependencies"
+    # Titles read "deps: bump x from 1.0 to 1.1", the form
+    # docs/agents/version-control.md asks for.
     commit-message:
-      prefix: "chore"
-      include: "scope"
+      prefix: "deps"
     ignore:
       # TypeScript 7 changes how the compiler is packaged, and ESLint
       # crashes loading it (see #833). Revisit once typescript-eslint and

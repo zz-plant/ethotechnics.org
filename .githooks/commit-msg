@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+set -eu
+
+# Checks the subject line against docs/agents/version-control.md.
+bun run scripts/check-commit-message.ts "$1"
