@@ -25,21 +25,21 @@ checking when a clause changed. These rules are for that reader.
 - **Imperative, no period, 72 characters or fewer.** GitHub's ` (#123)` suffix does not count.
 - **No type prefix.** Write `seo: …`, not `fix(seo): …`. The area says where; the summary says what.
 
-| Area          | Covers                                                        |
-| ------------- | ------------------------------------------------------------- |
-| `content`     | Essays, standards text, and other prose in `src/content/`     |
-| `copy`        | Interface wording: labels, buttons, cards, empty states       |
-| `design`      | Components, layout, styles, figures                           |
-| `seo`         | Metadata, share cards, sitemaps, structured data              |
-| `a11y`        | Keyboard, screen reader, and contrast fixes                   |
-| `api`         | `/api` endpoints                                              |
-| `conformance` | `packages/conformance`, its schemas, and the GitHub Action    |
-| `presence`    | Presence watch, the objection record, and their bots          |
-| `deps`        | Dependency and toolchain versions                             |
-| `ci`          | `.github/workflows/`                                          |
-| `tests`       | Test suites and fixtures, when nothing else changes           |
-| `docs`        | Repository docs: README, `docs/`, CONTRIBUTING                |
-| `agents`      | `AGENTS.md`, skills, the MCP server, and agent-facing signals |
+| Area          | Covers                                                     |
+| ------------- | ---------------------------------------------------------- |
+| `content`     | Essays, standards text, and other prose in `src/content/`  |
+| `copy`        | Interface wording: labels, buttons, cards, empty states    |
+| `design`      | Components, layout, styles, figures                        |
+| `seo`         | Metadata, share cards, sitemaps, structured data           |
+| `a11y`        | Keyboard, screen reader, and contrast fixes                |
+| `api`         | `/api` endpoints                                           |
+| `conformance` | `packages/conformance`, its schemas, and the GitHub Action |
+| `presence`    | Presence watch, the objection record, and their bots       |
+| `deps`        | Dependency and toolchain versions                          |
+| `ci`          | `.github/workflows/`                                       |
+| `tests`       | Test suites and fixtures, when nothing else changes        |
+| `docs`        | Repository docs: README, `docs/`, CONTRIBUTING             |
+| `agents`      | `AGENTS.md` and agent-facing signals                       |
 
 Before and after, from this repository's history:
 
