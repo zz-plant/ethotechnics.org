@@ -15,12 +15,6 @@ Setup, run, and troubleshoot the site locally using the repository's supported t
 3. Copy `.env.example` to `.env.local` if needed for local overrides. No variables are required
    today; add new entries to `.env.example` if the project adopts an external service.
 
-For an automated setup pass, run `bun run setup:codex`.
-
-- It installs dependencies with `bun install --frozen-lockfile`.
-- It runs `bun run check` by default.
-- It can install Playwright browsers (`--install-playwright`) when needed.
-
 ## Daily commands
 
 - Start development server: `bun dev`.

@@ -12,6 +12,11 @@ standard versions, and cited revisions relate.
 
 ## [Unreleased]
 
+### Removed
+
+- **Repository MCP server and agent skills:** `bun run mcp`, `.agent/skills/`, and
+  `bun run setup:codex` are gone. Agents read `AGENTS.md` and run the package scripts.
+
 ### Changed
 
 - **README rewritten for a first-time reader:** It now opens with the question and the Robodebt

@@ -46,29 +46,6 @@ The reference voice is `src/content/casebook.ts` and `src/content/method.ts`. Ma
 - Record exactly which checks you ran and their outcomes.
 - Keep changes focused; avoid unrelated cleanup in task branches.
 
-## Tool-supported agents (MCP)
-
-Start MCP support with `bun run mcp` when your client supports Model Context Protocol.
-
-Available capabilities:
-
-- **Resources:** project structure, docs index, AGENTS guidance.
-- **Prompts:** design-engineer mode and review templates.
-- **Tools:** script discovery, docs access, build analysis, checks.
-
-## Agent skills
-
-Skill modules are in `.agent/skills/`:
-
-- `fix-types` — resolve TypeScript issues.
-- `qa` — run full quality validation workflows.
-- `ui-verify` — browser-based UI verification.
-- `design-engineer` — visual system and taste alignment.
-- `docs-maintainer` — docs placement, checks, and PR-ready reporting.
-- `seo-maintainer` — metadata, indexing, and discoverability improvements.
-- `glossary-curator` — glossary quality, taxonomy, and cross-linking.
-- `refactor-hygiene` — safe cleanup and maintainability-oriented refactors.
-
 ## Canonical references
 
 - Repository orientation: `docs/agents/repo-orientation.md`

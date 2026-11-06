@@ -4,7 +4,11 @@ import { join } from "node:path";
 
 import { describe, expect, test } from "bun:test";
 
-import { formatErrors, validate, type JsonSchema } from "./json-schema-lite";
+import {
+  formatErrors,
+  validate,
+  type JsonSchema,
+} from "../test/validate-schema";
 
 const standardsDir = join(import.meta.dir, "..", "..", "public", "standards");
 const examplesDir = join(standardsDir, "examples");
@@ -88,7 +92,7 @@ describe("standards schemas", () => {
   }
 });
 
-describe("json-schema-lite", () => {
+describe("authority grant schema", () => {
   const schema = readJson<JsonSchema>(
     join(standardsDir, "authority-grant.schema.json"),
   );
@@ -664,30 +668,6 @@ describe("STD-08 Part D: correction capacity is implementable", () => {
         },
       }).length,
     ).toBeGreaterThan(0);
-  });
-});
-
-describe("json-schema-lite if/then", () => {
-  const schema: JsonSchema = {
-    type: "object",
-    properties: { kind: { type: "string" }, ref: { type: "string" } },
-    if: { required: ["kind"], properties: { kind: { const: "confirm" } } },
-    then: { required: ["ref"] },
-    else: { required: ["kind"] },
-  };
-
-  test("applies then when if matches", () => {
-    expect(validate(schema, { kind: "confirm", ref: "INT-1" })).toEqual([]);
-    expect(validate(schema, { kind: "confirm" }).length).toBeGreaterThan(0);
-  });
-
-  test("applies else when if does not match", () => {
-    expect(validate(schema, { kind: "unattended" })).toEqual([]);
-    expect(validate(schema, {}).length).toBeGreaterThan(0);
-  });
-
-  test("a schema with no if is unaffected", () => {
-    expect(validate({ type: "object" }, { kind: "confirm" })).toEqual([]);
   });
 });
 

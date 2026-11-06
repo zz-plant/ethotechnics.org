@@ -306,27 +306,23 @@ reading plan, not a bibliography.
 
 - Schema: `public/standards/compensatory-work-ledger.schema.json`, with a valid example in
   `public/standards/examples/`. The standards schema tests validate the example.
-- Tests as code: `src/utils/compensatory-work.ts` derives the classification from the four
-  answers and the intervention outcome from trigger counts. `checkLedger` reports any recorded
-  value the answers do not support, unknown item references, and a zero baseline count.
 - The schema also records the ledger's authority setting, each item's institution position, and
-  each intervention's stated objective and who defined success. `summarizeLedger` reports items
-  known and kept, and a conflict-of-interest signal. `meetsStatedObjective` says whether an
-  outcome achieves the objective the intervention stated.
+  each intervention's stated objective and who defined success.
 - Each item also records gain capture, and the ledger can carry an externalization-capacity
-  record per actor. `followTheGain` reports, for extracted items, who would pay if the work were
-  returned, how many returns are blocked, and how many items have no established gain side.
-- The classifier is deliberately conservative. Missing refusal or replacement answers, and partial
-  ownership, return `unresolved` rather than a side. The near-zero threshold for removal is 5% of
-  the baseline trigger count. Both rules are drafts to revise after the reading in the next
-  section and after a pilot.
+  record per actor.
+- The classification is deliberately conservative. Missing refusal or replacement answers, and
+  partial ownership, return `unresolved` rather than a side. The near-zero threshold for removal
+  is 5% of the baseline trigger count. Both rules are drafts to revise after the reading in the
+  next section and after a pilot.
 - The example ledger is constructed, not drawn from a study.
+- A draft of these rules as code, used only by its own test, was removed in November 2026. It is
+  in git history at `src/utils/compensatory-work.ts`.
 
 ## Proposed next steps
 
 1. Review this plan and the ledger fields with at least one person who does compensatory work.
-2. ~~Draft the ledger schema and a validator.~~ Done as JSON Schema plus `checkLedger`. A CSV
-   export for people who keep ledgers in a spreadsheet is still open.
+2. ~~Draft the ledger schema.~~ Done as JSON Schema. A check that recorded values follow from the
+   answers, and a CSV export for people who keep ledgers in a spreadsheet, are still open.
 3. Write the literature comparison and revise the fields and tests where prior work already
    covers them.
 4. Decide whether the redesign test belongs in a new diagnostic or in the casebook's scoring.
