@@ -51,6 +51,8 @@ Use this sequence for domains that have generated wrappers (`home`, `glossary`, 
 ## Pre-commit checklist
 
 - `git status` contains only intended files.
+- The subject reads `<area>: <what changed>` (see
+  [`agents/version-control.md`](agents/version-control.md)).
 - Required checks were run (or intentionally skipped with reason).
 - Commands in docs match scripts in `package.json`.
 - Cross-links resolve after renames/moves.

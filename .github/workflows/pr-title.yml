@@ -1,0 +1,37 @@
+name: PR title
+
+# Pull requests are squash-merged, so the title becomes the subject line on
+# main. This checks it against docs/agents/version-control.md with the same
+# script the commit-msg hook runs. Edit the title and the check runs again.
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-title-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  title:
+    # Dependabot writes its own titles from the prefix in dependabot.yml.
+    if: github.event.pull_request.user.login != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: package.json
+
+      # The script imports only node:fs, so no install step.
+      - name: Check the title
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+        run: bun run scripts/check-commit-message.ts --message "$TITLE"

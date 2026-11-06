@@ -16,6 +16,7 @@ Reference for contributor-safe commands and formatting expectations.
 - Type check: `bun run typecheck`.
 - Unit tests: `bun run test:unit`.
 - Install git hooks: `bun run hooks:install`.
+- Check a commit subject or PR title: `bun run check:commit-message --message "<subject>"`.
 - Format write: `bun run format`.
 - Format verify: `bun run format:check`.
 

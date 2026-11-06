@@ -3,14 +3,16 @@ import { join } from "node:path";
 
 const repoRoot = process.cwd();
 const hooksDir = join(repoRoot, ".githooks");
-const preCommitPath = join(hooksDir, "pre-commit");
+const hooks = ["pre-commit", "commit-msg"] as const;
 
-if (!existsSync(preCommitPath)) {
-  console.error("❌ Missing .githooks/pre-commit hook script.");
-  process.exit(1);
+for (const hook of hooks) {
+  const hookPath = join(hooksDir, hook);
+  if (!existsSync(hookPath)) {
+    console.error(`❌ Missing .githooks/${hook} hook script.`);
+    process.exit(1);
+  }
+  chmodSync(hookPath, 0o755);
 }
-
-chmodSync(preCommitPath, 0o755);
 
 const processResult = Bun.spawnSync([
   "git",
@@ -27,5 +29,5 @@ if (processResult.exitCode !== 0) {
 }
 
 console.log(
-  "✅ Git hooks installed. pre-commit now runs staged review guardrails.",
+  "✅ Git hooks installed. pre-commit runs staged review guardrails; commit-msg checks the subject line.",
 );
