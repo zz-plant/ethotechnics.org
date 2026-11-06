@@ -453,9 +453,6 @@ export const allLiveCheckIds: readonly Tier1CheckId[] = tier1Checks.map(
 export const allEmittedFindingIds: readonly ConformanceFindingId[] =
   CONFORMANCE_FINDING_IDS;
 
-export const getCheckableProperty = (id: string) =>
-  checkableProperties.find((property) => property.id === id);
-
 /** Which property a given probe id belongs to, for cross-linking from either tool. */
 export const propertyForProbe = (
   id: Tier1CheckId | ConformanceFindingId,

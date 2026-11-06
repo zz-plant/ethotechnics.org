@@ -3,23 +3,6 @@ export function initFilterInput(selector: string): HTMLInputElement | null {
   return element instanceof HTMLInputElement ? element : null;
 }
 
-export function syncUrlParam(key: string, value: string | undefined): string {
-  const url = new URL(window.location.href);
-  if (value) {
-    url.searchParams.set(key, value);
-  } else {
-    url.searchParams.delete(key);
-  }
-  window.history.replaceState({}, "", url.toString());
-  return url.toString();
-}
-
-export function updateCount(element: HTMLElement | null, count: number): void {
-  if (element) {
-    element.textContent = String(count);
-  }
-}
-
 export function parseFacetParams<T extends string>(
   keys: readonly T[],
 ): Partial<Record<T, string | undefined>> {

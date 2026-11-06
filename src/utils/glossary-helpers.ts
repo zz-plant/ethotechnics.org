@@ -4,7 +4,6 @@ import type {
   GlossaryMinimumEvidence,
   GlossaryResource,
 } from "../content/glossary";
-import type { PublicationMetadata } from "../content/types";
 
 /**
  * The visible text of an HTML fragment, on one line. Tags become spaces so
@@ -29,10 +28,6 @@ export const stripHtml = (value: string): string =>
 export const normalizeGlossaryHeading = (heading: string): string =>
   heading.replace(/^[A-Z]\.\s*/, "");
 
-export const getGlossaryAuthor = (publication: PublicationMetadata): string =>
-  publication.authors.map((author) => author.name).join(", ") ||
-  "Ethotechnics Institute";
-
 /**
  * An entry's recorded evidence, and nothing where none is recorded.
  *
@@ -45,23 +40,6 @@ export const getGlossaryAuthor = (publication: PublicationMetadata): string =>
 export const getMinimumEvidenceDefaults = (
   entry: Pick<GlossaryEntry, "minimumEvidence" | "title">,
 ): GlossaryMinimumEvidence => entry.minimumEvidence ?? {};
-
-export const buildGlossaryEntrySearchText = (
-  entry: GlossaryEntry,
-  categoryLabel: string,
-): string => {
-  const plainDescription = stripHtml(entry.bodyHtml);
-  const tags = entry.tags?.join(" ") ?? "";
-  const domains = entry.domains?.join(" ") ?? "";
-  const phases = entry.phase?.join(" ") ?? "";
-  const measurability = entry.measurability ?? "";
-  const maturity = entry.maturity ?? "";
-  const examples = entry.examples?.join(" ") ?? "";
-  const searchText =
-    `${entry.title} ${categoryLabel} ${plainDescription} ${tags} ${domains} ${phases} ${measurability} ${maturity} ${examples}`.trim();
-
-  return searchText.toLowerCase();
-};
 
 const GLOSSARY_LINK = /href="\/glossary\/([a-z0-9-]+)/g;
 
