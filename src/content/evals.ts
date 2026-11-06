@@ -123,26 +123,6 @@ export type EvalSuite = {
   deliverables: string[];
 };
 
-export type EvalSuiteResult = {
-  resultId: string;
-  suiteId: EvalSuiteId;
-  suiteVersion: string;
-  systemName: string;
-  runAt: string;
-  testResults: {
-    testCaseId: string;
-    score: number;
-    maxScore: number;
-    passed: boolean;
-    evidence: string;
-    notes?: string;
-  }[];
-  aggregateScore: number;
-  grade: "PASS" | "CONDITIONAL" | "FAIL";
-  violatedClauses: string[];
-  recommendations: string[];
-};
-
 export type EvalsContent = PageWithPermalink &
   PublishedContent & {
     anchorLinks: { href: string; label: string }[];

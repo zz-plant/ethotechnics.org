@@ -2,11 +2,11 @@
 // The record-diagram classes (.chip, .label, .small …) live in figures.css.
 import "../styles/components/figures.css";
 
-export interface ValidatorMicroDiagramProps {
+interface Props {
   variant: "burden" | "latency" | "risk";
 }
 
-const { variant } = Astro.props;
+const { variant }: Props = Astro.props;
 
 const variants = {
   burden: {

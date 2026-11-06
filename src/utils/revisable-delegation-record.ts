@@ -44,8 +44,6 @@ export const CONFORMANCE_LEVELS = {
   3: "contestable: contest.standing and a live channel; objection records accepted from outside the system",
 } as const;
 
-export type ConformanceLevel = keyof typeof CONFORMANCE_LEVELS;
-
 const dateTime = z.iso.datetime({ offset: true });
 const sha256Hex = z.string().regex(/^[0-9a-f]{64}$/);
 const nonEmpty = z.string().min(1);
