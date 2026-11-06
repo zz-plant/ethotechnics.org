@@ -40,10 +40,3 @@ export type AnchorLink = {
   href: string;
   label: string;
 };
-
-export interface ContentEntry {
-  id: string;
-  title: string;
-  description: string;
-  eyebrowInline?: string;
-}

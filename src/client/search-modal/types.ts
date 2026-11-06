@@ -4,10 +4,6 @@ export type HapticOptions = {
   intensity?: number;
 };
 
-export type HapticsController = {
-  trigger: (pattern: HapticPattern, options?: HapticOptions) => Promise<void>;
-};
-
 export type PagefindResultData = {
   url: string;
   excerpt: string;

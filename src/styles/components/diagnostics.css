@@ -3,11 +3,6 @@
     background: color-mix(in srgb, var(--panel) 45%, var(--surface));
     border-color: color-mix(in srgb, var(--accent) 18%, var(--border));
   }
-  .diagnostics__filters {
-    display: grid;
-    gap: var(--space-3);
-    margin-bottom: var(--space-5);
-  }
   .diagnostics__process {
     list-style: none;
     padding: 0;
@@ -38,160 +33,10 @@
     }
   }
 
-  @media (min-width: 880px) {
-  }
-
-  .diagnostics__tool-grid {
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
-  }
-
-  .diagnostics__card-body {
-    display: grid;
-    gap: var(--space-4);
-    margin-top: var(--space-4);
-  }
-
-  .diagnostics__best-for {
-    margin-top: 0;
-  }
-
-  .diagnostics__summary {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    gap: var(--space-4);
-  }
-
-  .diagnostics__summary .pill-list {
-    margin-top: var(--space-3);
-  }
-
-  .diagnostics__label {
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-    font-size: var(--text-sm);
-  }
-
-  .diagnostics__card-footer {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--space-4);
-    margin-top: var(--space-5);
-  }
-
-  .diagnostics__output-box {
-    padding: var(--space-2) var(--space-3);
-    background: var(--panel);
-    border-left: 2px solid var(--accent);
-    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  }
-
-  .diagnostics__output-box .eyebrow {
-    margin: 0 0 var(--space-1);
-    font-size: var(--text-eyebrow);
-  }
-
-  .diagnostics__output-box p {
-    margin: 0;
-  }
-
-  .diagnostics__method-link {
-    font-size: var(--text-sm);
-    font-weight: 650;
-    color: var(--accent);
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-  }
-
-  .diagnostics__method-link:hover {
-    text-decoration: underline;
-    color: var(--accent-strong);
-  }
-
   @media (max-width: 899px) {
     #diagnostic-tools {
       scroll-margin-bottom: 7rem;
     }
-  }
-
-  .diagnostics__comparison {
-    display: grid;
-    gap: var(--space-4);
-    margin-bottom: var(--space-4);
-  }
-
-  .diagnostics__comparison-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
-    gap: var(--space-3);
-  }
-
-  .diagnostics__comparison-card {
-    display: grid;
-    gap: var(--space-3);
-  }
-
-  .diagnostics__comparison-card h3 {
-    margin: 0;
-  }
-
-  .diagnostics__comparison-meta {
-    margin: 0;
-    display: grid;
-    gap: var(--space-2);
-  }
-
-  .diagnostics__comparison-meta div {
-    display: grid;
-    gap: var(--space-hair);
-  }
-
-  .diagnostics__comparison-meta dt {
-    font-weight: 600;
-  }
-
-  .diagnostics__comparison-meta dd {
-    margin: 0;
-  }
-}
-
-@layer components {
-  /* A seven-question wizard showed its position as one line of text. The rail
-     gives the same fact a shape, so the reader can see how much is left. */
-  .intake-form__progress {
-    display: grid;
-    gap: var(--space-2);
-  }
-
-  .intake-form__progress p {
-    margin: 0;
-  }
-
-  .intake-form__steps {
-    display: flex;
-    gap: var(--space-1);
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .intake-form__step {
-    height: 4px;
-    flex: 1 1 0;
-    border-radius: var(--radius-pill);
-    background: color-mix(in srgb, var(--border) 70%, transparent);
-    transition: background var(--motion-fast) ease;
-  }
-
-  .intake-form__step[data-state="done"] {
-    background: color-mix(in srgb, var(--accent) 55%, var(--border));
-  }
-
-  .intake-form__step[data-state="current"] {
-    background: var(--accent-strong, var(--accent));
   }
 }
 
