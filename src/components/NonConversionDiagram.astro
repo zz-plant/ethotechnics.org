@@ -11,6 +11,40 @@ interface Props {
 
 const { level = "h3" }: Props = Astro.props;
 const Heading = level;
+
+const rows = [
+  {
+    y: 65,
+    fact: "1. Reachable capability",
+    refused: "≠ Authorized agency",
+    boundary: "Catalog vs. authority grant",
+  },
+  {
+    y: 115,
+    fact: "2. Elapsed quiet time",
+    refused: "≠ Automatic renewal",
+    boundary: "Recorded basis at lease expiry",
+  },
+  {
+    y: 165,
+    fact: "3. Pilot or scope success",
+    refused: "≠ License to expand",
+    boundary: "New delegation decision",
+  },
+  {
+    y: 215,
+    fact: "4. Corrective labor absorbed",
+    refused: "≠ Free operational buffer",
+    boundary: "Procedural standing register",
+  },
+  {
+    y: 265,
+    fact: "7. Model boundary (omission)",
+    refused: "≠ Resolved reality",
+    boundary: "not represented ⇒ unresolved",
+    emphasis: true,
+  },
+];
 ---
 
 <figure class="state-diagram" aria-labelledby="non-conversion-title">
@@ -85,265 +119,73 @@ const Heading = level;
         >Governing object boundary</text
       >
 
-      {/* Row 1: Law I */}
-      <g transform="translate(0, 65)">
-        <rect
-          x="20"
-          y="0"
-          width="280"
-          height="42"
-          rx="6"
-          fill="var(--surface)"
-          stroke="var(--border)"></rect>
-        <text x="35" y="26" class="state-diagram__label"
-          >1. Reachable capability</text
-        >
-
-        <line
-          x1="300"
-          y1="21"
-          x2="350"
-          y2="21"
-          stroke="var(--status-danger)"
-          stroke-width="2"
-          stroke-dasharray="3 3"
-          marker-end="url(#nc-blocked)"></line>
-        <text
-          x="460"
-          y="26"
-          text-anchor="middle"
-          class="state-diagram__label"
-          fill="var(--muted)">≠ Authorized agency</text
-        >
-
-        <line
-          x1="570"
-          y1="21"
-          x2="620"
-          y2="21"
-          stroke="var(--accent)"
-          stroke-width="2"
-          marker-end="url(#nc-gate-arrow)"></line>
-        <rect
-          x="620"
-          y="0"
-          width="280"
-          height="42"
-          rx="6"
-          fill="var(--surface)"
-          stroke="var(--accent)"></rect>
-        <text x="635" y="26" class="state-diagram__state"
-          >Catalog vs. authority grant</text
-        >
-      </g>
-
-      {/* Row 2: Law II */}
-      <g transform="translate(0, 115)">
-        <rect
-          x="20"
-          y="0"
-          width="280"
-          height="42"
-          rx="6"
-          fill="var(--surface)"
-          stroke="var(--border)"></rect>
-        <text x="35" y="26" class="state-diagram__label"
-          >2. Elapsed quiet time</text
-        >
-
-        <line
-          x1="300"
-          y1="21"
-          x2="350"
-          y2="21"
-          stroke="var(--status-danger)"
-          stroke-width="2"
-          stroke-dasharray="3 3"
-          marker-end="url(#nc-blocked)"></line>
-        <text
-          x="460"
-          y="26"
-          text-anchor="middle"
-          class="state-diagram__label"
-          fill="var(--muted)">≠ Automatic renewal</text
-        >
-
-        <line
-          x1="570"
-          y1="21"
-          x2="620"
-          y2="21"
-          stroke="var(--accent)"
-          stroke-width="2"
-          marker-end="url(#nc-gate-arrow)"></line>
-        <rect
-          x="620"
-          y="0"
-          width="280"
-          height="42"
-          rx="6"
-          fill="var(--surface)"
-          stroke="var(--accent)"></rect>
-        <text x="635" y="26" class="state-diagram__state"
-          >Recorded basis at lease expiry</text
-        >
-      </g>
-
-      {/* Row 3: Law XI */}
-      <g transform="translate(0, 165)">
-        <rect
-          x="20"
-          y="0"
-          width="280"
-          height="42"
-          rx="6"
-          fill="var(--surface)"
-          stroke="var(--border)"></rect>
-        <text x="35" y="26" class="state-diagram__label"
-          >3. Pilot or scope success</text
-        >
-
-        <line
-          x1="300"
-          y1="21"
-          x2="350"
-          y2="21"
-          stroke="var(--status-danger)"
-          stroke-width="2"
-          stroke-dasharray="3 3"
-          marker-end="url(#nc-blocked)"></line>
-        <text
-          x="460"
-          y="26"
-          text-anchor="middle"
-          class="state-diagram__label"
-          fill="var(--muted)">≠ License to expand</text
-        >
-
-        <line
-          x1="570"
-          y1="21"
-          x2="620"
-          y2="21"
-          stroke="var(--accent)"
-          stroke-width="2"
-          marker-end="url(#nc-gate-arrow)"></line>
-        <rect
-          x="620"
-          y="0"
-          width="280"
-          height="42"
-          rx="6"
-          fill="var(--surface)"
-          stroke="var(--accent)"></rect>
-        <text x="635" y="26" class="state-diagram__state"
-          >New delegation decision</text
-        >
-      </g>
-
-      {/* Row 4: Corrective Labor */}
-      <g transform="translate(0, 215)">
-        <rect
-          x="20"
-          y="0"
-          width="280"
-          height="42"
-          rx="6"
-          fill="var(--surface)"
-          stroke="var(--border)"></rect>
-        <text x="35" y="26" class="state-diagram__label"
-          >4. Corrective labor absorbed</text
-        >
-
-        <line
-          x1="300"
-          y1="21"
-          x2="350"
-          y2="21"
-          stroke="var(--status-danger)"
-          stroke-width="2"
-          stroke-dasharray="3 3"
-          marker-end="url(#nc-blocked)"></line>
-        <text
-          x="460"
-          y="26"
-          text-anchor="middle"
-          class="state-diagram__label"
-          fill="var(--muted)">≠ Free operational buffer</text
-        >
-
-        <line
-          x1="570"
-          y1="21"
-          x2="620"
-          y2="21"
-          stroke="var(--accent)"
-          stroke-width="2"
-          marker-end="url(#nc-gate-arrow)"></line>
-        <rect
-          x="620"
-          y="0"
-          width="280"
-          height="42"
-          rx="6"
-          fill="var(--surface)"
-          stroke="var(--accent)"></rect>
-        <text x="635" y="26" class="state-diagram__state"
-          >Procedural standing register</text
-        >
-      </g>
-
-      {/* Row 5: Model Incompleteness */}
-      <g transform="translate(0, 265)">
-        <rect
-          x="20"
-          y="0"
-          width="280"
-          height="42"
-          rx="6"
-          fill="var(--surface)"
-          stroke="var(--accent)"></rect>
-        <text x="35" y="26" class="state-diagram__clause"
-          >7. Model boundary (omission)</text
-        >
-
-        <line
-          x1="300"
-          y1="21"
-          x2="350"
-          y2="21"
-          stroke="var(--status-danger)"
-          stroke-width="2"
-          stroke-dasharray="3 3"
-          marker-end="url(#nc-blocked)"></line>
-        <text
-          x="460"
-          y="26"
-          text-anchor="middle"
-          class="state-diagram__clause"
-          fill="var(--accent-strong)">≠ Resolved reality</text
-        >
-
-        <line
-          x1="570"
-          y1="21"
-          x2="620"
-          y2="21"
-          stroke="var(--accent)"
-          stroke-width="2"
-          marker-end="url(#nc-gate-arrow)"></line>
-        <rect
-          x="620"
-          y="0"
-          width="280"
-          height="42"
-          rx="6"
-          fill="var(--panel)"
-          stroke="var(--accent)"></rect>
-        <text x="635" y="26" class="state-diagram__state"
-          >not represented ⇒ unresolved</text
-        >
-      </g>
+      {
+        rows.map(({ y, fact, refused, boundary, emphasis }) => (
+          <g transform={`translate(0, ${y})`}>
+            <rect
+              x="20"
+              y="0"
+              width="280"
+              height="42"
+              rx="6"
+              fill="var(--surface)"
+              stroke={emphasis ? "var(--accent)" : "var(--border)"}
+            />
+            <text
+              x="35"
+              y="26"
+              class={
+                emphasis ? "state-diagram__clause" : "state-diagram__label"
+              }
+              set:text={fact}
+            />
+            <line
+              x1="300"
+              y1="21"
+              x2="350"
+              y2="21"
+              stroke="var(--status-danger)"
+              stroke-width="2"
+              stroke-dasharray="3 3"
+              marker-end="url(#nc-blocked)"
+            />
+            <text
+              x="460"
+              y="26"
+              text-anchor="middle"
+              class={
+                emphasis ? "state-diagram__clause" : "state-diagram__label"
+              }
+              fill={emphasis ? "var(--accent-strong)" : "var(--muted)"}
+              set:text={refused}
+            />
+            <line
+              x1="570"
+              y1="21"
+              x2="620"
+              y2="21"
+              stroke="var(--accent)"
+              stroke-width="2"
+              marker-end="url(#nc-gate-arrow)"
+            />
+            <rect
+              x="620"
+              y="0"
+              width="280"
+              height="42"
+              rx="6"
+              fill={emphasis ? "var(--panel)" : "var(--surface)"}
+              stroke="var(--accent)"
+            />
+            <text
+              x="635"
+              y="26"
+              class="state-diagram__state"
+              set:text={boundary}
+            />
+          </g>
+        ))
+      }
     </svg>
   </div>
 </figure>

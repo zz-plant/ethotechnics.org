@@ -1,39 +1,14 @@
 import { describe, expect, it } from "bun:test";
-import type { APIContext } from "astro";
 
 import { buildDefaultInput } from "../src/features/delegation-audit/config";
 import { POST } from "../src/pages/api/readouts";
+import { createPostContext } from "./helpers/post-context";
 
 const createContext = (
   body: string,
-  env: Record<string, unknown> = {},
-  headers: Record<string, string> = {},
-) => {
-  const request = new Request("https://ethotechnics.org/api/readouts", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Origin: "https://ethotechnics.org",
-      ...headers,
-    },
-    body,
-  });
-  // Bun's Request drops forbidden headers such as Origin; answer them here.
-  const originalGet = request.headers.get.bind(request.headers);
-  request.headers.get = (name: string) => {
-    const override = Object.entries(headers).find(
-      ([key]) => key.toLowerCase() === name.toLowerCase(),
-    )?.[1];
-    if (override !== undefined) return override;
-    if (name.toLowerCase() === "origin") return "https://ethotechnics.org";
-    if (name.toLowerCase() === "content-type") return "application/json";
-    return originalGet(name);
-  };
-  return {
-    request,
-    locals: { runtime: { env } },
-  } as unknown as APIContext;
-};
+  env?: Record<string, unknown>,
+  headers?: Record<string, string>,
+) => createPostContext("/api/readouts", body, env, headers);
 
 const memoryStore = () => {
   const data = new Map<string, string>();
