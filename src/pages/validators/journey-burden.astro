@@ -1,284 +1,32 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import ActionIcon from "../../components/ActionIcon.astro";
-import ValidatorMicroDiagram from "../../components/ValidatorMicroDiagram.astro";
-import { validatorsContent } from "../../content/validators";
-
-const validatorMeta = validatorsContent.validators.find(
-  (validator) => validator.id === "VAL-01",
-) ?? {
-  id: "VAL-01",
-  standardRef: "STD-01",
-  clauseRefs: [],
-  mechanismRefs: [],
-};
-const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
-const breadcrumbItems = [
-  { name: "Home", url: new URL("/", siteBase).toString() },
-  { name: "Validators", url: new URL("/validators", siteBase).toString() },
-  {
-    name: "Journey burden check",
-    url: new URL("/validators/journey-burden", siteBase).toString(),
-  },
-];
-const validatorMetaJson = JSON.stringify(validatorMeta);
+import ValidatorPage from "../../components/ValidatorPage.astro";
 ---
 
-<BaseLayout
-  title="Journey burden check (VAL-01)"
-  description="Scores a user journey on its length, its step count, and whether every screen has an exit, and returns a red, yellow, or green report card."
-  mainClass="page page--wide"
-  breadcrumbItems={breadcrumbItems}
-  structuredDataType="webpage"
-  publishedTime="2026-01-10"
+<ValidatorPage
+  id="VAL-01"
+  metaTitle="Journey burden check (VAL-01)"
+  metaDescription="Scores a user journey on its length, its step count, and whether every screen has an exit, and returns a red, yellow, or green report card."
+  variant="burden"
+  defaults={{ duration: 12, steps: 4 }}
+  fix={{
+    href: "/mechanisms/patterns/hard-clock",
+    label: "Hard clock (MEC-04)",
+  }}
 >
-  <section class="validator">
-    <header class="validator__header">
-      <div>
-        <p class="validator__id">VAL-01</p>
-        <h1>Journey burden check</h1>
-        <p class="muted">
-          Scores one user journey on its length, its step count, and whether
-          every screen has an exit. To rate the workload a system creates for
-          the team that runs it, use the
-          <a href="/diagnostics/burden-modeler"
-            >Workload modeler, a different tool</a
-          >
-        </p>
-      </div>
-      <a class="validator__standard" href="/standards/std-01-temporal-rights">
-        Linked standard: STD-01
-      </a>
-    </header>
-
-    <ValidatorMicroDiagram variant="burden" />
-
-    <form
-      class="validator__form"
-      data-validator-form
-      data-validator-meta={validatorMetaJson}
-    >
-      <label class="validator__field">
-        Estimated time to completion (minutes)
-        <input
-          id="burden-duration"
-          type="number"
-          name="duration"
-          min="1"
-          value="12"
-          required
-        />
-      </label>
-      <label class="validator__field">
-        Number of required steps
-        <input
-          id="burden-steps"
-          type="number"
-          name="steps"
-          min="1"
-          value="4"
-          required
-        />
-      </label>
-      <label class="validator__field">
-        Exit available on every screen?
-        <select id="burden-exit" name="exit">
-          <option value="yes" selected>Yes</option>
-          <option value="no">No</option>
-        </select>
-      </label>
-      <button class="button primary" type="submit">Generate report card</button>
-    </form>
-
-    <div class="validator__report" data-validator-report hidden>
-      <div class="validator__status" data-validator-status>
-        <span class="status-pill status-pill--green" data-validator-pill>
-          Green
-        </span>
-        <output
-          class="validator__status-text"
-          data-validator-output
-          for="burden-duration burden-steps burden-exit"
-        >
-          15 minutes or less, 5 steps or fewer, and an exit on every screen.
-        </output>
-      </div>
-      <p class="validator__recommendation">
-        Fix this using <a href="/mechanisms/patterns/hard-clock"
-          >Hard clock (MEC-04)</a
-        >.
-      </p>
-      <button class="button ghost" type="button" data-validator-download>
-        <ActionIcon action="download" />
-        Download JSON
-      </button>
-    </div>
-    <p class="muted validator__see-also">
-      See also: <a href="/standards">Standards</a> &middot; <a
-        href="/mechanisms">Mechanisms</a
-      >
-    </p>
-  </section>
-</BaseLayout>
+  Scores one user journey on its length, its step count, and whether every
+  screen has an exit. To rate the workload a system creates for the team that
+  runs it, use the
+  <a href="/diagnostics/burden-modeler">Workload modeler, a different tool</a>
+</ValidatorPage>
 
 <script>
-  const form = document.querySelector<HTMLFormElement>("[data-validator-form]");
-  const validatorMeta = form?.dataset.validatorMeta
-    ? (JSON.parse(form.dataset.validatorMeta) as {
-        id: string;
-        standardRef: string;
-        clauseRefs: string[];
-        mechanismRefs: string[];
-      })
-    : {
-        id: "VAL-01",
-        standardRef: "STD-01",
-        clauseRefs: [],
-        mechanismRefs: [],
-      };
-  const report = document.querySelector<HTMLElement>("[data-validator-report]");
-  const statusPill = document.querySelector<HTMLElement>(
-    "[data-validator-pill]",
-  );
-  const statusOutput = document.querySelector<HTMLOutputElement>(
-    "[data-validator-output]",
-  );
-  const downloadButton = document.querySelector<HTMLButtonElement>(
-    "[data-validator-download]",
-  );
-  const STORAGE_KEY = "validator-burden-modeler";
+  import { initValidatorForm } from "../../client/validator-form";
 
-  const updateStatus = (level: "red" | "yellow" | "green", message: string) => {
-    if (!statusPill || !statusOutput) return;
-    statusPill.classList.remove(
-      "status-pill--red",
-      "status-pill--yellow",
-      "status-pill--green",
-    );
-    statusPill.classList.add(`status-pill--${level}`);
-    statusPill.textContent = level.charAt(0).toUpperCase() + level.slice(1);
-    statusOutput.textContent = message;
-  };
-
-  const buildResult = (
-    level: "red" | "yellow" | "green",
-    message: string,
-    inputs: {
-      duration: number;
-      steps: number;
-      exit: FormDataEntryValue | null;
+  initValidatorForm<{ duration: number; steps: number; exit: string }>(
+    ({ duration, steps, exit }) => {
+      if (duration > 25 || steps > 7 || exit === "no") return "red";
+      if (duration > 15 || steps > 5) return "yellow";
+      return "green";
     },
-  ) => {
-    const clauseMap = {
-      green: [],
-      yellow: validatorMeta.clauseRefs.slice(0, 2),
-      red: validatorMeta.clauseRefs,
-    };
-    const severityMap = {
-      green: "low",
-      yellow: "medium",
-      red: "high",
-    };
-
-    return {
-      result_id: crypto.randomUUID(),
-      generated_at: new Date().toISOString(),
-      validator_id: validatorMeta.id,
-      standard_id: validatorMeta.standardRef,
-      inputs,
-      status: level,
-      severity: severityMap[level],
-      risk_statement: message,
-      violated_clauses: clauseMap[level],
-      recommended_mechanisms: validatorMeta.mechanismRefs,
-      next_actions: [
-        `Apply ${validatorMeta.mechanismRefs.join(", ")} safeguards.`,
-        "Re-run the validator after remediation.",
-      ],
-    };
-  };
-
-  let latestResult: ReturnType<typeof buildResult> | null = null;
-
-  const saveDraft = () => {
-    if (!form || typeof sessionStorage === "undefined") return;
-    const data = new FormData(form);
-    const payload = Object.fromEntries(data.entries());
-    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
-  };
-
-  const restoreDraft = () => {
-    if (!form || typeof sessionStorage === "undefined") return;
-    const saved = sessionStorage.getItem(STORAGE_KEY);
-    if (!saved) return;
-    try {
-      const parsed = JSON.parse(saved) as Record<string, string>;
-      Object.entries(parsed).forEach(([key, value]) => {
-        const field = form.elements.namedItem(key);
-        if (
-          field instanceof HTMLInputElement ||
-          field instanceof HTMLSelectElement
-        ) {
-          field.value = String(value);
-        }
-      });
-    } catch (error) {
-      console.error("Unable to restore burden modeler draft", error);
-    }
-  };
-
-  form?.addEventListener("submit", (event) => {
-    event.preventDefault();
-    if (!form || !report) return;
-
-    if (!form.reportValidity()) {
-      const firstInvalid = form.querySelector<HTMLElement>(":invalid");
-      firstInvalid?.focus();
-      return;
-    }
-
-    const data = new FormData(form);
-    const duration = Number(data.get("duration"));
-    const steps = Number(data.get("steps"));
-    const exit = data.get("exit");
-    let level: "red" | "yellow" | "green" = "green";
-    let message =
-      "15 minutes or less, 5 steps or fewer, and an exit on every screen.";
-
-    if (duration > 25 || steps > 7 || exit === "no") {
-      level = "red";
-      message =
-        "Over 25 minutes, more than 7 steps, or a screen with no exit. A journey this heavy can keep people from the service. Cut steps, or add an exit to every screen.";
-    } else if (duration > 15 || steps > 5) {
-      level = "yellow";
-      message =
-        "Over 15 minutes or more than 5 steps. Red starts above 25 minutes or 7 steps.";
-    } else {
-      level = "green";
-      message =
-        "15 minutes or less, 5 steps or fewer, and an exit on every screen.";
-    }
-
-    updateStatus(level, message);
-    latestResult = buildResult(level, message, { duration, steps, exit });
-    report.removeAttribute("hidden");
-    report.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
-
-  downloadButton?.addEventListener("click", () => {
-    if (!latestResult) return;
-    const blob = new Blob([JSON.stringify(latestResult, null, 2)], {
-      type: "application/json",
-    });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `${validatorMeta.id.toLowerCase()}-result.json`;
-    link.click();
-    URL.revokeObjectURL(url);
-  });
-
-  restoreDraft();
-  form?.addEventListener("input", saveDraft);
-  form?.addEventListener("blur", saveDraft, true);
+  );
 </script>
