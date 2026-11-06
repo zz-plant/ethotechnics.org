@@ -45,7 +45,7 @@ in the page frontmatter area so the automation can track staleness in agentic fl
 
 Run `bun run check:review-guardrails:staged` for a fast pre-commit pass on staged `src/` and `docs/` files.
 
-Install local pre-commit automation once per clone with `bun run hooks:install` (or run `bun run setup:codex`, which installs hooks automatically). It also adds a `commit-msg` hook that checks the subject line; see [`version-control.md`](version-control.md).
+Install local pre-commit automation once per clone with `bun run hooks:install` (or run `bun run setup:codex`, which installs hooks automatically).
 
 `bun run check:full` adds the SEO audit and coverage unit test run.
 

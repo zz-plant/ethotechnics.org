@@ -36,14 +36,7 @@ For an automated setup pass, run `bun run setup:codex`.
 
 - `bun run check`.
 
-`bun run check` runs:
-
-1. `bun run agent:doctor`.
-2. `bun run lint` and `bun run typecheck` (via `concurrently`).
-3. `bun run astro:check`.
-4. `bun run validate:json`.
-5. `bun run validate:glossary`.
-6. `bun run test:unit:ci`.
+[`agents/workflow-and-checks.md`](agents/workflow-and-checks.md) lists what it runs.
 
 ### Common focused checks
 

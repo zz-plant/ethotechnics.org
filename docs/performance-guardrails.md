@@ -10,7 +10,7 @@ Keep the site fast and stable with explicit budgets enforced in automation.
 
 ## Where the checks live
 
-- Playwright validates budgets and console output in `tests/e2e/quality.spec.ts`.
+- Playwright validates budgets and console output in `tests/e2e/quality.e2e.ts`.
 - Run the checks with `bun run test:e2e` after updating layouts, styles, or content that could
   affect rendering performance.
 

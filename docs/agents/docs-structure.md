@@ -24,7 +24,9 @@ docs/
 │   ├── coding-practices.md          # Coding conventions
 │   ├── formatting-and-tooling.md    # Commands and formatting rules
 │   ├── version-control.md           # Git hygiene and PR guidance
-│   └── review-checklist.md          # Final handoff checklist
+│   ├── review-checklist.md          # Final handoff checklist
+│   ├── code-review-comment-patterns.md  # Recurring review themes
+│   └── micro-diagram-language.md    # Shapes and lines in diagrams
 └── ...domain/topic docs             # Architecture, content, QA, diagnostics
 ```
 

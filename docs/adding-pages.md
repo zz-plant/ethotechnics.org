@@ -14,8 +14,8 @@ Quick steps to add an Astro page without breaking navigation or metadata.
 - **Compose with shared components:** Use `PageIntro` for the hero, `SectionBlock` for page
   sections, and `CardGrid`/`CardItem` for collections. Import components from `src/components/`
   and reuse the `className` props instead of adding inline styles.
-- **Update navigation when needed:** Add the new route to the `navLinks` array in
-  `src/components/Navigation.astro` so it appears in the primary menu. Add footer links only if the
+- **Update navigation when needed:** Add the new route to `navPrimaryLinks` in
+  `src/content/navigation.ts` so it appears in the primary menu. Add footer links only if the
   page should be discoverable site-wide.
 - **Validate before opening a PR:** Run `bun run check` to cover linting, types, tests, and Astro's
   checker.

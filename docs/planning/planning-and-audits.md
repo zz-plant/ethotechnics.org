@@ -14,8 +14,6 @@ It consolidates references that were previously spread across multiple index sec
 - [`compensatory-work-protocol-2026-09.md`](compensatory-work-protocol-2026-09.md): proposed
   ledger, classification test, and removal-versus-accommodation test for the compensatory work
   research strand, with a study design and hypotheses that could fail.
-- [`mini-prds.md`](mini-prds.md): scoped proposals for near-term initiatives.
-- [`issue-templates.md`](issue-templates.md): reusable issue definitions for project work.
 - [`full-refactor-plan.md`](full-refactor-plan.md): end-to-end refactor strategy and milestones.
 
 ## User journey and UX audits

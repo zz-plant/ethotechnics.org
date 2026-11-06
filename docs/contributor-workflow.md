@@ -33,8 +33,8 @@ Ethotechnics maintains separate version lifecycles for standard documents, site 
 
 ## Canonical content update flow
 
-Use this sequence for domains that have generated wrappers (`home`, `glossary`, `library`,
-`taxonomy`, and `field-notes`):
+Use this sequence for domains that have generated wrappers (`glossary`, `library`, `taxonomy`,
+and `field-notes`):
 
 1. Edit canonical JSON in `src/content/*.json`.
 2. Run `bun run content:generate`.
@@ -51,8 +51,6 @@ Use this sequence for domains that have generated wrappers (`home`, `glossary`, 
 ## Pre-commit checklist
 
 - `git status` contains only intended files.
-- The subject reads `<area>: <what changed>` (see
-  [`agents/version-control.md`](agents/version-control.md)).
 - Required checks were run (or intentionally skipped with reason).
 - Commands in docs match scripts in `package.json`.
 - Cross-links resolve after renames/moves.

@@ -1,6 +1,6 @@
-# The three eval surfaces
+# The eval surfaces
 
-Three components in this repo answer to the name "evals." They share the benchmark data and the
+Four components in this repo answer to the name "evals." They share the benchmark data and the
 research program but serve different readers. Do not merge them; know which one you are in.
 
 ## 1. Eval case data + coverage pages
