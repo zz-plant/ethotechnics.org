@@ -450,36 +450,7 @@ const explainerSchema = z.object({
   ),
   published: z.string().optional(),
   updated: z.string().optional(),
-  publication: z
-    .object({
-      authors: z.array(
-        z.object({
-          name: z.string(),
-          affiliation: z.string(),
-          email: z.string().optional(),
-          orcid: z.string().optional(),
-        }),
-      ),
-      contact: z.string(),
-      published: z.string(),
-      updated: z.string().optional(),
-      version: z.string(),
-      doi: z.string().optional(),
-      archiveUrl: z.string().optional(),
-      changelog: z.array(
-        z.object({
-          version: z.string(),
-          date: z.string(),
-          summary: z.string(),
-        }),
-      ),
-      license: z.object({
-        label: z.string(),
-        href: z.string(),
-      }),
-      attribution: z.string(),
-    })
-    .optional(),
+  publication: publicationSchema.optional(),
 });
 
 const incidentSchema = z.object({

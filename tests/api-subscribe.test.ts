@@ -1,40 +1,15 @@
 import { afterEach, describe, expect, it, mock } from "bun:test";
-import type { APIContext } from "astro";
 
 import { POST } from "../src/pages/api/subscribe";
+import { createPostContext } from "./helpers/post-context";
 
 const originalFetch = globalThis.fetch;
 
 const createContext = (
   body: string,
-  env: Record<string, unknown> = {},
-  headers: Record<string, string> = {},
-) => {
-  const request = new Request("https://ethotechnics.org/api/subscribe", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Origin: "https://ethotechnics.org",
-      ...headers,
-    },
-    body,
-  });
-  const originalGet = request.headers.get.bind(request.headers);
-  request.headers.get = (name: string) => {
-    const override = Object.entries(headers).find(
-      ([key]) => key.toLowerCase() === name.toLowerCase(),
-    )?.[1];
-    if (override !== undefined) return override;
-    if (name.toLowerCase() === "origin") return "https://ethotechnics.org";
-    if (name.toLowerCase() === "content-type") return "application/json";
-    return originalGet(name);
-  };
-
-  return {
-    request,
-    locals: { runtime: { env } },
-  } as unknown as APIContext;
-};
+  env?: Record<string, unknown>,
+  headers?: Record<string, string>,
+) => createPostContext("/api/subscribe", body, env, headers);
 
 afterEach(() => {
   globalThis.fetch = originalFetch;
