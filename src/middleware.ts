@@ -222,7 +222,6 @@ const REDIRECT_MAP: Record<string, string> = {
 const resolveLegacyPathRedirect = (url: URL): string | null => {
   const normalizedPath = url.pathname.replace(/\/+$/, "") || "/";
 
-  // Check direct lookup
   if (REDIRECT_MAP[normalizedPath]) {
     const target = new URL(REDIRECT_MAP[normalizedPath], url.origin);
     // A target may carry its own query (a glossary section filter); the

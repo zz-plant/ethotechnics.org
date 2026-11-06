@@ -10,7 +10,6 @@ import {
 import { getAgentInterfaceContract, listSkillSummaries } from "./skills";
 import { registerResource } from "./server";
 
-// Resource: Project structure
 registerResource("project://structure", "project://structure", async () => {
   const structure = `# Project Structure
 
@@ -46,7 +45,6 @@ registerResource("project://structure", "project://structure", async () => {
   };
 });
 
-// Resource: Package scripts
 registerResource("project://scripts", "project://scripts", async () => {
   const pkg = (await Bun.file(
     join(getProjectRoot(), "package.json"),
@@ -67,7 +65,6 @@ registerResource("project://scripts", "project://scripts", async () => {
   };
 });
 
-// Resource: Aggregated AGENTS guidance
 registerResource(
   "project://agents-guidance",
   "project://agents-guidance",
@@ -103,7 +100,6 @@ registerResource(
   },
 );
 
-// Resource: Agent workflows and skills
 registerResource("project://workflows", "project://workflows", async () => {
   try {
     const workflows = await listSkillSummaries();
@@ -264,7 +260,6 @@ ${playbook.recommendations.map((item) => `- ${item}`).join("\n")}`,
   },
 );
 
-// Resource: Agent onboarding
 registerResource("agent://onboarding", "agent://onboarding", async () => {
   const onboarding = `# Agent Onboarding & Quick Start
 
@@ -300,7 +295,6 @@ This repo powers ethotechnics.org: open standards, scored public failures, and d
   };
 });
 
-// Resource: Documentation index
 registerResource("project://docs-index", "project://docs-index", async () => {
   const docsDir = join(getProjectRoot(), "docs");
   const glob = new Bun.Glob("**/*.md");

@@ -2,8 +2,6 @@ import { defineCollection } from "astro:content";
 import { file, glob } from "astro/loaders";
 import { z } from "astro/zod";
 
-// Reuse common schemas
-
 /**
  * A mechanism's catalog id, "MEC-05". It is cited in prose and shown beside
  * the title, never inside it.

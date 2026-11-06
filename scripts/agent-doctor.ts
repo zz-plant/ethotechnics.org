@@ -85,9 +85,7 @@ async function check() {
     const content = await Bun.file(coreAgents).text();
     const links = content.match(/docs\/agents\/[a-zA-Z0-9-]+\.md/g) || [];
     for (const link of links) {
-      if (existsSync(join(process.cwd(), link))) {
-        // console.log(`  ✅ Documentation link OK: ${link}`);
-      } else {
+      if (!existsSync(join(process.cwd(), link))) {
         console.error(`❌ Broken link in AGENTS.md: ${link}`);
         errors++;
       }

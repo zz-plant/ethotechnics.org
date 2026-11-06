@@ -1,7 +1,6 @@
 import glossaryData from "../content/glossary.json" with { type: "json" };
 import { glossaryTerms } from "../content/glossary";
 
-// Types for glossary entries
 export type GlossaryEntry = {
   id: string;
   title: string;

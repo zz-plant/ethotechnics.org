@@ -151,8 +151,6 @@ export type EvalsContent = PageWithPermalink &
     publication: PublicationMetadata;
   };
 
-// binaryAnchors, scale03Anchors, scale05Anchors defined inline in eval-test-cases.ts
-
 export const evalsContent: EvalsContent = {
   pageTitle: "Governance eval suites — Ethotechnics",
   pageDescription:
