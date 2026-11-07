@@ -156,7 +156,7 @@ const panels = [
 
           <g class="rule-count__marks">
             {panel.marks.map((month, i) => (
-              <g>
+              <g class="rule-count__mark" style={`--mark-index: ${i}`}>
                 <line
                   x1={xAt(month)}
                   x2={xAt(month)}
