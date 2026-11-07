@@ -341,19 +341,22 @@
 
   .self-test__item {
     border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-    border-left: 3px solid color-mix(in srgb, var(--border) 80%, transparent);
     border-radius: var(--radius-lg);
     background: var(--surface);
-    transition: border-color var(--motion-base) ease;
+    transition:
+      border-color var(--motion-base) ease,
+      background-color var(--motion-base) ease;
   }
 
   .self-test__item[data-answer="y"] {
-    border-left-color: var(--status-success);
+    border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
+    background: color-mix(in srgb, var(--accent) 4%, var(--surface));
   }
 
   .self-test__item[data-answer="n"],
   .self-test__item[data-answer="u"] {
-    border-left-color: var(--status-danger);
+    border-color: color-mix(in srgb, var(--status-warning) 55%, var(--border));
+    background: color-mix(in srgb, var(--status-warning) 4%, var(--surface));
   }
 
   /* A legend cannot be a grid item, so the question and its choices stack
@@ -511,10 +514,54 @@
   }
 
   .safeguard-map__ring,
-  .safeguard-map__spoke {
+  .safeguard-map__spoke,
+  .safeguard-map__hub {
     fill: none;
     stroke: color-mix(in srgb, var(--border) 85%, var(--muted));
     stroke-width: 1.5;
+    transition:
+      stroke var(--motion-fast) ease,
+      stroke-width var(--motion-fast) ease;
+  }
+
+  .safeguard-map__hub {
+    fill: var(--surface);
+    stroke: color-mix(in srgb, var(--border) 70%, transparent);
+    stroke-width: 1;
+  }
+
+  .safeguard-map[data-complete="true"][data-holding="6"] .safeguard-map__hub {
+    stroke: color-mix(in srgb, var(--accent) 45%, var(--border));
+  }
+
+  .safeguard-map__ring {
+    stroke-dasharray: 600;
+    stroke-dashoffset: 0;
+  }
+
+  .safeguard-map[data-complete="true"][data-holding="6"] .safeguard-map__ring {
+    stroke: var(--accent);
+    stroke-width: 2;
+  }
+
+  .safeguard-map__spoke {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 0;
+  }
+
+  .safeguard-map__spoke[data-active] {
+    stroke: var(--text);
+    stroke-width: 2;
+  }
+
+  .safeguard-map__spoke[data-answer="y"] {
+    stroke: var(--accent);
+    stroke-width: 2;
+  }
+
+  .safeguard-map__spoke:is([data-answer="n"], [data-answer="u"]) {
+    stroke: var(--status-warning);
+    stroke-width: 2;
   }
 
   .safeguard-map__svg .safeguard-map__label {
@@ -522,15 +569,59 @@
     font-size: 9.5px;
     letter-spacing: 0.06em;
     fill: var(--muted);
+    transition: fill var(--motion-fast) ease;
+  }
+
+  .safeguard-map__svg .safeguard-map__label[data-active] {
+    fill: var(--text);
+    font-weight: 700;
+  }
+
+  .safeguard-map__svg .safeguard-map__label[data-answer="y"] {
+    fill: var(--accent);
+    font-weight: 650;
+  }
+
+  .safeguard-map__svg
+    .safeguard-map__label:is([data-answer="n"], [data-answer="u"]) {
+    fill: var(--status-warning);
+    font-weight: 650;
+  }
+
+  .safeguard-map__node-pulse {
+    fill: none;
+    stroke: transparent;
+    stroke-width: 2;
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+    pointer-events: none;
+  }
+
+  .safeguard-map__node[data-answer="y"] .safeguard-map__node-pulse {
+    stroke: var(--accent);
+  }
+
+  .safeguard-map__node:is([data-answer="n"], [data-answer="u"])
+    .safeguard-map__node-pulse {
+    stroke: var(--status-warning);
   }
 
   .safeguard-map__node-shape {
     fill: var(--surface);
     stroke: color-mix(in srgb, var(--border) 60%, var(--muted));
     stroke-width: 2;
+    transform-box: fill-box;
+    transform-origin: center;
     transition:
       fill var(--motion-fast) ease,
-      stroke var(--motion-fast) ease;
+      stroke var(--motion-fast) ease,
+      stroke-width var(--motion-fast) ease;
+  }
+
+  .safeguard-map__node[data-active] .safeguard-map__node-shape {
+    stroke: var(--text);
+    stroke-width: 2.5;
   }
 
   .safeguard-map__node[data-answer="y"] .safeguard-map__node-shape {
@@ -559,7 +650,11 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .safeguard-map__node-shape {
+    .safeguard-map__node-shape,
+    .safeguard-map__ring,
+    .safeguard-map__spoke,
+    .safeguard-map__hub,
+    .safeguard-map__svg .safeguard-map__label {
       transition: none;
     }
   }
@@ -675,6 +770,37 @@
     width: calc(var(--halt-share, 0) * 100%);
     border-radius: var(--radius-xs);
     background: var(--accent);
+    transform-origin: left center;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    [data-reveal-ready] [data-reveal] .home-casebook__bar {
+      transform: scaleX(0);
+      transition: transform 0.7s var(--ease-out-editorial) 0.12s;
+    }
+
+    [data-reveal-ready] [data-reveal].is-inview .home-casebook__bar {
+      transform: scaleX(1);
+    }
+
+    @supports ((animation-timeline: view()) and (animation-range: entry)) {
+      [data-reveal-ready] [data-reveal] .home-casebook__bar {
+        transform: scaleX(1);
+        transition: none;
+        animation: home-halt-bar-grow auto linear backwards;
+        animation-timeline: view(block);
+        animation-range: entry 5% cover 38%;
+      }
+    }
+  }
+
+  @keyframes home-halt-bar-grow {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
   }
 
   .home-casebook__days {
@@ -874,6 +1000,38 @@
     background: color-mix(in srgb, var(--border) 70%, transparent);
   }
 
+  .record-spine__rail::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    transform: translateX(-50%) scaleY(0);
+    transform-origin: top center;
+    background: color-mix(in srgb, var(--mark) 85%, var(--border));
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    @supports ((animation-timeline: view()) and (animation-range: entry)) {
+      .record-spine__rail::after {
+        animation: record-spine-fill auto linear both;
+        animation-timeline: view(block);
+        animation-range: entry 15% exit 85%;
+      }
+    }
+  }
+
+  @keyframes record-spine-fill {
+    from {
+      transform: translateX(-50%) scaleY(0);
+    }
+    to {
+      transform: translateX(-50%) scaleY(1);
+    }
+  }
+
   .record-spine__row {
     position: relative;
     display: grid;
@@ -901,6 +1059,8 @@
   }
 
   .record-spine__dot {
+    position: relative;
+    z-index: 1;
     justify-self: center;
     align-self: start;
     margin-top: 0.4em;
@@ -909,6 +1069,17 @@
     border-radius: 50%;
     background: var(--mark);
     box-shadow: 0 0 0 3px var(--bg);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    [data-reveal-ready] [data-reveal] .record-spine__dot {
+      transform: scale(0.4);
+      transition: transform 0.5s var(--ease-out-editorial) 0.1s;
+    }
+
+    [data-reveal-ready] [data-reveal].is-inview .record-spine__dot {
+      transform: scale(1);
+    }
   }
 
   .record-spine__row--halt .record-spine__dot {
@@ -953,7 +1124,8 @@
   }
 
   @media (max-width: 719px) {
-    .record-spine__rail::before {
+    .record-spine__rail::before,
+    .record-spine__rail::after {
       content: none;
     }
 
@@ -975,11 +1147,16 @@
   }
 
   /* The rule-count figure draws itself once its section is in view: the
-     upheld challenges appear, then the arrow and the revised rule draw.
-     Static and complete wherever the script has not run. */
-  [data-reveal-ready] .home-draw .rule-count__marks,
+     upheld challenges appear in quarter-by-quarter sequence, then the arrow
+     and the revised rule draw. Static and complete wherever the script has
+     not run. */
+  [data-reveal-ready] .home-draw .rule-count__mark,
   [data-reveal-ready] .home-draw .rule-count__late {
     opacity: 0;
+  }
+
+  [data-reveal-ready] .home-draw .rule-count__mark {
+    transform: translateY(-4px) scale(0.85);
   }
 
   [data-reveal-ready] .home-draw .rule-count__draw {
@@ -988,21 +1165,28 @@
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    [data-reveal-ready] .home-draw .rule-count__marks {
-      transition: opacity 0.6s ease;
+    [data-reveal-ready] .home-draw .rule-count__mark {
+      transition:
+        opacity 0.42s ease calc(var(--mark-index, 0) * 65ms),
+        transform 0.48s var(--ease-out-editorial)
+          calc(var(--mark-index, 0) * 65ms);
     }
 
     [data-reveal-ready] .home-draw .rule-count__draw {
-      transition: stroke-dashoffset 0.8s var(--ease-out-editorial) 0.7s;
+      transition: stroke-dashoffset 0.8s var(--ease-out-editorial) 0.55s;
     }
 
     [data-reveal-ready] .home-draw .rule-count__late {
-      transition: opacity 0.4s ease 1.3s;
+      transition: opacity 0.4s ease 1.15s;
     }
 
-    [data-reveal-ready] .home-draw.is-inview .rule-count__marks,
+    [data-reveal-ready] .home-draw.is-inview .rule-count__mark,
     [data-reveal-ready] .home-draw.is-inview .rule-count__late {
       opacity: 1;
+    }
+
+    [data-reveal-ready] .home-draw.is-inview .rule-count__mark {
+      transform: none;
     }
 
     [data-reveal-ready] .home-draw.is-inview .rule-count__draw {
