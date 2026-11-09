@@ -1930,6 +1930,97 @@
               }
             ]
           }
+        ,
+          {
+            "slug": "active-epistemic-scaffolding",
+            "code": "MEC-30",
+            "title": "Active epistemic scaffolding",
+            "summary": "Replace passive friction with low-effort discrimination tasks that make the reviewer process the evidence before the recommendation.",
+            "filters": [
+              "evidence",
+              "standing"
+            ],
+            "chainStages": [
+              "decision",
+              "reconsideration"
+            ],
+            "chainNote": "It raises the fidelity of review without adding the passive friction that produces rubber-stamping.",
+            "glossaryRefs": [
+              "verification-fidelity",
+              "corrective-standing",
+              "corrective-power-chain",
+              "institutional-reversibility"
+            ],
+            "cues": [
+              "A countdown timer is not a review.",
+              "A rubber stamp is not a decision.",
+              "Raise fidelity, not just throughput."
+            ],
+            "diagnostics": [
+              "delegation-audit"
+            ],
+            "steps": [
+              "Remove passive friction: countdown timers, confirmation modals, mandatory free-text justifications, and static volume quotas.",
+              "Mask the model verdict until the reviewer has seen the evidence, or require the reviewer's assessment first.",
+              "Require one to three pinned evidence spans for the decision record.",
+              "On borderline cases, present a bounded falsification checklist of the two or three most common failure modes.",
+              "Use canaries only in a disclosed simulation or low-stakes stream, never mixed into live care without disclosure.",
+              "Throttle the queue when cadence falls below the cognitive floor; keep pacing aggregate and out of individual performance review.",
+              "Keep every interaction keyboard-accessible and every control in a stable position."
+            ],
+            "policyRequirement": "Policy requirement (MEC-30 Active epistemic scaffolding)\n- Review interfaces use active discrimination tasks rather than passive friction.\n- Canaries are disclosed and excluded from live care unless the environment is simulated.\n- Pacing data is aggregate and never used in individual performance review.\nReference: https://ethotechnics.org/mechanisms/patterns/active-epistemic-scaffolding",
+            "productRequirement": "Product requirement (MEC-30)\n- The review record carries the pinned evidence spans, the checklist result, and whether the model verdict was revealed before or after the review.\n- Every control has a keyboard equivalent and a stable position.",
+            "auditEvidenceChecklist": "Audit evidence checklist (MEC-30)\n[ ] No countdown timers, confirmation modals, or mandatory free-text justifications.\n[ ] Pinned evidence spans are recorded for each review.\n[ ] The falsification checklist is current and has an owner.\n[ ] Canaries are disclosed and not in live care.\n[ ] Pacing data is aggregate and excluded from individual performance review.\n[ ] All controls are keyboard-accessible and stable.",
+            "postmortemTrigger": "Postmortem trigger (MEC-30)\nTrigger review when a review record has no pinned evidence, when a canary is found in live care without disclosure, or when pacing data is used in individual performance review.",
+            "artifacts": [
+              {
+                "name": "Review record",
+                "purpose": "Pinned evidence spans, the checklist result, and whether the model verdict was revealed before or after the review."
+              },
+              {
+                "name": "Falsification checklist",
+                "purpose": "The common failure modes for the decision type, with an owner and a review date."
+              },
+              {
+                "name": "Canary protocol",
+                "purpose": "Disclosure, environment, and the exclusion of canaries from live care."
+              },
+              {
+                "name": "Pacing log",
+                "purpose": "Aggregate cadence and queue-throttle events, with no individual scores."
+              }
+            ],
+            "example": {
+              "title": "A prior-authorization review queue",
+              "description": "The model verdict is hidden until the reviewer opens it. The reviewer pins the policy clause and the lab value that carry the decision. Borderline cases show a three-item falsification checklist. Canaries run only in the training environment. When median review latency drops below the cognitive floor, the queue slows and switches to a comparative view. Pacing is reported in aggregate and never enters an individual score."
+            },
+            "antiPatterns": [
+              {
+                "title": "Friction theater",
+                "failure": "Countdown timers, confirmation modals, and mandatory free-text boxes slow the operator without engaging the evidence.",
+                "counterfactual": "The interface requires a small act of discrimination that lands the reviewer's attention on the decisive evidence.",
+                "warning": "If the operator can dismiss it without reading, it is not a review."
+              },
+              {
+                "title": "Canary surveillance",
+                "failure": "Synthetic cases are used to score individual operators, so vigilance becomes a performance metric and the canaries become another source of defensive behavior.",
+                "counterfactual": "Canaries are disclosed, used in simulation or low-stakes streams, and reported in aggregate.",
+                "warning": "A canary that can punish the operator is a trap, not a calibration."
+              },
+              {
+                "title": "Randomized controls",
+                "failure": "Moving the approve and deny controls breaks keyboard access and muscle memory, increasing slips without engaging reasoning.",
+                "counterfactual": "Controls keep stable positions; a deliberate gesture or two-step confirmation is reserved for high-stakes or low-confidence cases.",
+                "warning": "Break the reflex, not the accessibility contract."
+              },
+              {
+                "title": "The stale checklist",
+                "failure": "The falsification checklist is written once and never updated, so it becomes a new checkbox.",
+                "counterfactual": "The checklist has an owner, a review date, and a record of what changed.",
+                "warning": "A checklist without a maintenance owner is a modal dialog with better branding."
+              }
+            ]
+          }
         ]
     },
     "id": "library"
