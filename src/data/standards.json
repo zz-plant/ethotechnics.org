@@ -305,9 +305,14 @@
         "title": "Revisable delegation record",
         "description": "One append-only record shape for what an institution believed, could do, authorized, did, saw diverge, and revised.",
         "status": "Draft",
-        "version": "0.1.5",
+        "version": "0.2.0",
         "changelogHref": "/standards/std-07-revisable-delegation-record#conformance",
         "changelogEntries": [
+          {
+            "version": "0.2.0",
+            "date": "2026-11-09",
+            "summary": "Adds Article VI: developmental impact, non-finality, exit and portability, and independent corrective capacity. Adds an evidentiary-status note."
+          },
           {
             "version": "0.1.5",
             "date": "2026-10-20",
@@ -1913,6 +1918,58 @@
         "evidenceRequired": ["identifier_policy"],
         "timeBound": "ongoing",
         "relatedMechanisms": ["MEC-01"],
+        "relatedValidators": []
+      },
+      {
+        "id": "STD-07.6.1",
+        "standardId": "STD-07",
+        "displayId": "§6.1",
+        "type": "obligation",
+        "requirementLevel": "MUST",
+        "condition": "a record authorizes consequential work",
+        "obligation": "state what the arrangement makes possible, what it makes necessary, and what it leaves possible, including the independent knowledge, resources, organizational capacity, and authority through which people can revise, replace, or move beyond it",
+        "evidenceRequired": ["record_sample", "schema_validation"],
+        "timeBound": "before authorization",
+        "relatedMechanisms": [],
+        "relatedValidators": []
+      },
+      {
+        "id": "STD-07.6.2",
+        "standardId": "STD-07",
+        "displayId": "§6.2",
+        "type": "obligation",
+        "requirementLevel": "MUST",
+        "condition": "a consequential authorization is granted",
+        "obligation": "declare a review date and the conditions under which its continued necessity is reconsidered; no authorization is permanent by default",
+        "evidenceRequired": ["record_sample"],
+        "timeBound": "at grant",
+        "relatedMechanisms": [],
+        "relatedValidators": []
+      },
+      {
+        "id": "STD-07.6.3",
+        "standardId": "STD-07",
+        "displayId": "§6.3",
+        "type": "obligation",
+        "requirementLevel": "MUST",
+        "condition": "a record format is adopted",
+        "obligation": "name the export format and the switching path, so the institution can leave without losing the account of what was believed, authorized, and done",
+        "evidenceRequired": ["record_sample", "schema_validation"],
+        "timeBound": "at adoption",
+        "relatedMechanisms": [],
+        "relatedValidators": []
+      },
+      {
+        "id": "STD-07.6.4",
+        "standardId": "STD-07",
+        "displayId": "§6.4",
+        "type": "obligation",
+        "requirementLevel": "MUST",
+        "condition": "a contest route is declared",
+        "obligation": "name the independent expertise and resources available to the person challenging, not only the channel",
+        "evidenceRequired": ["record_sample"],
+        "timeBound": "at declaration",
+        "relatedMechanisms": [],
         "relatedValidators": []
       }
     ],
