@@ -73,10 +73,10 @@ export type ResearchContent = PageWithPermalink &
 export const researchContent: ResearchContent = {
   pageTitle: "Research — Ethotechnics",
   pageDescription:
-    "Research on one question: when an automated system is wrong, does the evidence reach someone who can change the rule? Essays, scored cases, a working paper.",
+    "Five public failures, each established by a court, an inquiry, or a regulator, scored on six safeguards by this project. A draft protocol, the theory, and what remains open.",
   permalink: "/research",
   published: "2025-12-03T00:00:00Z",
-  updated: "2026-10-06T00:00:00Z",
+  updated: "2026-11-08T00:00:00Z",
   publication: {
     authors: [
       {
@@ -87,12 +87,18 @@ export const researchContent: ResearchContent = {
     ],
     contact: "hello@ethotechnics.org",
     published: "2025-12-03T00:00:00Z",
-    updated: "2026-10-06T00:00:00Z",
-    version: "v1.6.1",
+    updated: "2026-11-08T00:00:00Z",
+    version: "v1.7.0",
     doi: "Pending Zenodo deposit",
     archiveUrl:
       "https://web.archive.org/web/*/https://ethotechnics.org/research",
     changelog: [
+      {
+        version: "v1.7.0",
+        date: "2026-11-08",
+        summary:
+          "Added the automation open question and the radiology fallback protocol. Moved the Green Dashboard into planned work and aligned its version and unrun status. Moved the frontier doctrine scan out of the results and labelled it a preliminary worksheet. Led the page with the casebook denominator and selection rule.",
+      },
       {
         version: "v1.6.1",
         date: "2026-10-06",
@@ -209,10 +215,10 @@ export const researchContent: ResearchContent = {
     },
     {
       slug: "frontier-doctrine-scan",
-      title: "Frontier doctrine scan (Sep 2026)",
-      type: "Dated research note",
+      title: "Frontier doctrine scan (Sep 2026, preliminary worksheet)",
+      type: "Dated preliminary worksheet",
       summary:
-        "Ten frontier labs scored 0 to 4 against the twelve laws on public doctrine and product architecture, not safety performance.",
+        "A dated worksheet, not a result: ten labs’ public doctrine scored 0 to 4 against the twelve laws. It measures what the documents say, not what the labs do, and no score has a per-source trail yet.",
       tags: ["doctrine", "laws", "frontier"],
       href: "/research/frontier-doctrine-scan",
     },
@@ -265,6 +271,20 @@ export const researchContent: ResearchContent = {
       ],
       glossaryRefs: ["burden-transfer-event", "compensated-performance"],
     },
+    {
+      title: "What can people still do after years of automation?",
+      timeframe: "Open question",
+      goals: [
+        "Measure task performance as accuracy and reliability on expert-adjudicated cases.",
+        "Measure governability as whether a challenge can halt or reverse a decision.",
+        "Measure long-term effects as independent clinical judgment, the availability of a fallback, and who can change the workflow.",
+      ],
+      glossaryRefs: [
+        "invisible-fallbacks",
+        "automation-ratchet",
+        "normalized-dependence",
+      ],
+    },
   ],
   focusAreas: [
     {
@@ -309,6 +329,40 @@ export const researchContent: ResearchContent = {
   ],
   publications: [
     {
+      title: "Radiology fallback protocol",
+      type: "protocol",
+      status: "planned",
+      summary:
+        "Draft protocol, study pending. An offline chest-radiograph task compares two practice orders on unaided reading skill. A separate drill records who can halt or reverse a decision.",
+      tags: ["evaluations", "radiology", "automation", "fallback"],
+      glossaryRefs: [
+        "invisible-fallbacks",
+        "automation-ratchet",
+        "normalized-dependence",
+        "evaluation-independence",
+      ],
+      href: "/research/radiology-fallback-protocol",
+      ctaLabel: "Read the draft protocol",
+      structuredAbstract: {
+        question:
+          "Does the order of AI-assisted and unaided practice affect unaided reading skill at week eight? Who can halt or reverse a decision in a sandbox drill?",
+        method:
+          "Proposed, not run: one offline chest-radiograph task. Eligible readers complete both an AI-assisted and an unaided practice block in random order, with time, case count, and feedback matched across blocks. Baseline and week-eight reads are blinded and unaided, on expert-adjudicated cases. A separate arm tests responses to correct and deliberately wrong suggestions. A sandbox drill records who can execute a pause and who can request a rule change.",
+        sample:
+          "Eligible readers at one site; the minimum feasible sample and material effect are prespecified in the protocol before data collection.",
+        findings: "No data collected. No results.",
+        limitations:
+          "One offline task at one site. The design estimates the effect of practice order after both groups have used AI. The drill describes the site's procedures.",
+      },
+      datasets: [
+        "To be published with the results: an anonymized case-level summary table.",
+      ],
+      ethicsNotes: [
+        "Readers will be told before the task that suggestions may be wrong; the wrong-suggestion arm is disclosed, not deceptive.",
+        "Case selection and adjudication rules will be fixed before data collection.",
+      ],
+    },
+    {
       title: "Burden index signals",
       type: "report",
       status: "planned",
@@ -340,9 +394,9 @@ export const researchContent: ResearchContent = {
       title:
         "When the Dashboard Is Green: Evaluating Compensatory Reward Hacking in Long-Horizon AI Agents",
       type: "protocol",
-      status: "published",
+      status: "planned",
       summary:
-        "Working paper v0.2, The Green Dashboard: a proposed 52-week simulation of a hospital department that tests whether AI agents meet their targets by using up staff effort their metrics do not count. It names that failure, sets out an experimental design with falsifiable hypotheses, and lists seven gaps in current evaluation practice. No experiments have been run.",
+        "Working paper v0.2.1, The Green Dashboard: a proposed 52-week simulation of a hospital department that tests whether AI agents meet their targets by using up staff effort their metrics do not count. It names that failure, sets out an experimental design with falsifiable hypotheses, and lists seven gaps in current evaluation practice. No experiments have been run.",
       tags: ["evaluations", "benchmarking", "reward-hacking", "governance"],
       glossaryRefs: [
         "reciprocal-accommodation",
@@ -363,7 +417,7 @@ export const researchContent: ResearchContent = {
         findings:
           "The paper defines compensatory reward hacking, specifies the primary outcome metric (the green-under-depletion rate), identifies seven gaps in current evaluation practice, and anticipates objections from the philosophical traditions the benchmark draws on. No experiments have been conducted.",
         limitations:
-          "Rule-based simulated workers in the initial implementation. The simulation would not establish the frequency of these failures in real organizations.",
+          "Rule-based simulated workers are parameters of the model, not estimates of real staff. The simulation would not establish the frequency of these failures in real organizations.",
       },
       datasets: [
         "Simulation parameter configuration schema v0.1.",

@@ -197,12 +197,16 @@ export const instruments: Instrument[] = [
   },
   {
     tradition: "Meaningful human control",
-    scholars: "Juri Santoni de Sio, Jeroen van den Hoven",
+    scholars: "Filippo Santoni de Sio, Jeroen van den Hoven",
     has: "The tracking and tracing conditions: a system is meaningfully controlled when its behavior tracks a human's moral decision and its outcomes trace to a human who could have acted differently.",
     instrument: "Effective-control test",
     supplies:
       "The conditions as a test rather than a list: formal control, information, competence, and intervention feasibility, all of them required. Any one missing, and the control is not meaningful, however complete the approval chain.",
     links: [
+      {
+        label: "Meaningful human control (2018)",
+        href: "https://doi.org/10.3389/frobt.2018.00015",
+      },
       {
         label: "Meaningful-control eval suite",
         href: "/evals/meaningful-control",
