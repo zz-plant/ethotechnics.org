@@ -37,7 +37,7 @@ const {
 const essayCount = (await getCollection("theory")).length;
 
 // What the research has produced so far, read from the data each result
-// rests on, so a new case or a refreshed scan updates the sentence.
+// rests on, so a new case updates the sentence.
 const counted = ["none", "one", "two", "three", "four", "five", "six"];
 const inWords = (count: number) => counted[count] ?? String(count);
 const inWordsCapitalized = (count: number) => {
@@ -54,7 +54,7 @@ const results = [
   {
     meta: `Casebook · ${cases.length} cases`,
     title: `The right to challenge held in ${inWords(heldIn("standing"))} of ${inWords(cases.length)} cases`,
-    description: `${inWordsCapitalized(cases.length)} public failures, each established by a court, an inquiry, or a regulator. The findings are the investigating body’s; the six-safeguard scores are this project’s. This is a failure sample, not a base rate. The casebook calls this one standing: the right of the people a system decides about to challenge a decision and be answered. Correction, the means to halt or reverse the system, held in ${inWords(heldIn("correction"))}.`,
+    description: `${inWordsCapitalized(cases.length)} public failures, each established by a court, an inquiry, or a regulator. The findings are the investigating body’s; the six-safeguard scores are this project’s. The sample includes only documented failures. People affected by a decision could challenge it and get an answer in the cases where that safeguard held. Correction, the means to halt or reverse the system, held in ${inWords(heldIn("correction"))}.`,
     href: "/casebook",
     label: "Read the casebook",
   },
@@ -163,7 +163,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     id="results"
     eyebrow="Results so far"
     title="What the research has produced"
-    description="The casebook’s findings and the argument they test. Proposed work sits under Publications, and the frontier scan is a preliminary worksheet, not a result."
+    description="The casebook’s findings and the argument they test. Publications lists proposed studies. The frontier scan appears among the research materials as a preliminary worksheet."
   >
     <CardGrid className="grid--two research-results">
       {
@@ -452,7 +452,11 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </div>
     </details>
     <p class="muted">
-      The third question has a <a href="/research/radiology-fallback-protocol">draft protocol</a>, and the theory essays read it through <a href="/research/theory#what-changes-with-use">what changes with use</a>.
+      The third question has a <a href="/research/radiology-fallback-protocol"
+        >draft protocol</a
+      >, and the theory essays read it through <a
+        href="/research/theory#what-changes-with-use">what changes with use</a
+      >.
     </p>
     <h3 id="focus-areas">The areas they sit in</h3>
     <details class="chunked-section" data-default-open="false">

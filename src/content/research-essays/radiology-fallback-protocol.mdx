@@ -1,7 +1,7 @@
 ---
 title: "Radiology fallback protocol"
 pageTitle: "Radiology fallback protocol — Ethotechnics"
-description: "A draft protocol, study pending: one offline chest-radiograph task testing whether AI-first practice changes unaided reading skill and who can halt or reverse a decision."
+description: "A draft protocol for an offline chest-radiograph task that compares two practice orders on unaided reading skill and records who can halt or reverse a decision in a drill."
 permalink: "/research/radiology-fallback-protocol"
 eyebrow: "Draft protocol · study pending"
 published: "2026-11-08T00:00:00Z"
@@ -50,14 +50,16 @@ import { derivePublicationMetadata } from "../../utils/publication";
     the other two.
   </p>
   <p>
-    The question is whether AI-first practice changes what a reader can still
-    do independently, and whether it changes who can halt or reverse a decision.
-    The hypothesis is that routine performance can improve while unaided skill
-    and practical authority decline. The study is designed to make that
-    divergence visible, not to assume it.
+    The study asks whether starting with AI-assisted practice changes what a
+    reader can do independently at week eight. A separate drill records who can
+    halt or reverse a decision under the site's procedures. This separates a
+    reader's skill from their authority to intervene.
   </p>
   <p>
-    This protocol extends the <a href="/research/scholarly-crossings#oversight-decay-test">oversight decay test</a>
+    This protocol extends the{" "}
+    <a href="/research/scholarly-crossings#oversight-decay-test">
+      oversight decay test
+    </a>
     into one clinical task. It is not a test of whether AI is good or bad in
     radiology, and it does not set a standard or an evaluation requirement.
   </p>
@@ -91,9 +93,9 @@ import { derivePublicationMetadata } from "../../utils/publication";
     </li>
   </ul>
   <p>
-    The three are reported separately. A gain in accuracy does not offset a
-    loss in the ability to halt a decision, and a loss in unaided accuracy does
-    not by itself show a loss of authority.
+    The three are reported separately. A gain in accuracy does not offset a loss
+    in the ability to halt a decision, and a loss in unaided accuracy does not
+    by itself show a loss of authority.
   </p>
 </SectionBlock>
 
@@ -101,22 +103,20 @@ import { derivePublicationMetadata } from "../../utils/publication";
   id="design"
   eyebrow="Design"
   title="One offline chest-radiograph task"
-  description="A crossover, so time, case count, and AI exposure are held constant."
+  description="Readers complete both practice blocks in a randomly assigned order."
 >
   <p>
-    Eligible readers are randomized to order: AI-first practice, then
-    independent practice, or the reverse. Both blocks use the same number of
-    cases, the same total AI exposure, and the same feedback, and each block is
-    time-matched. The comparison is therefore the order of practice, not
-    whether a reader ever sees AI.
+    One group starts with AI-assisted practice and then practices unaided. The
+    other group completes the same blocks in reverse. The blocks use the same
+    number of cases, the same feedback, and equal time. Both groups spend the
+    same total time practicing with AI.
   </p>
   <p>
     Cases are chest radiographs with a reference standard agreed by two
     radiologists blinded to the AI suggestion; disagreements go to a third.
-    Readers complete a baseline block of unaided reads, the two practice
-    blocks, and a week-eight block of unaided reads. The baseline and week-eight
-    reads are blinded: no AI suggestion is shown, and the reader is not told
-    which cases were used in practice.
+    Readers complete a baseline block of unaided reads, the two practice blocks,
+    and a week-eight block of unaided reads. The baseline and week-eight reads
+    use cases held out from practice, and no AI suggestions are shown.
   </p>
   <p>
     A separate arm tests responses to suggestions that are correct and
@@ -125,9 +125,9 @@ import { derivePublicationMetadata } from "../../utils/publication";
     not deceptive, and every participant is debriefed.
   </p>
   <p>
-    A sandbox drill after the reading task records who can initiate a pause,
-    who can execute it, who can reverse a decision, and who can request a
-    change to the workflow. The drill is observed, not simulated on paper.
+    A sandbox drill after the reading task records who can initiate a pause, who
+    can execute it, who can reverse a decision, and who can request a change to
+    the workflow. The drill is observed, not simulated on paper.
   </p>
 </SectionBlock>
 
@@ -144,19 +144,21 @@ import { derivePublicationMetadata } from "../../utils/publication";
     Secondary outcomes are accuracy and reliability with AI available, the rate
     at which readers follow correct and wrong suggestions, the time to halt or
     reverse a decision, and the sandbox record of who can change the workflow.
+    The randomized comparison estimates the effect of practice order after both
+    groups have completed both blocks. The sandbox drill describes which roles
+    can intervene under the site's procedures.
   </p>
   <p>
     Before data collection, the registration fixes the material effect (the
-    smallest change in unaided accuracy that would matter), the minimum
-    feasible sample, the power calculation behind it, the stop rules, and the
-    analysis. The draft does not set those numbers; it fixes the outcomes and
-    the inference rules, and the study does not start until the rest are
-    registered.
+    smallest change in unaided accuracy that would matter), the minimum feasible
+    sample, the power calculation behind it, the stop rules, and the analysis.
+    The draft does not set those numbers; it fixes the outcomes and the
+    inference rules, and the study does not start until the rest are registered.
   </p>
   <p>
-    Stop rules cover a prespecified decline in unaided accuracy, a
-    prespecified rate of following wrong suggestions, and any sandbox finding
-    that a reader cannot halt a decision the protocol says should be haltable.
+    Stop rules cover a prespecified decline in unaided accuracy, a prespecified
+    rate of following wrong suggestions, and any sandbox finding that a reader
+    cannot halt a decision the protocol says should be haltable.
   </p>
 </SectionBlock>
 
@@ -173,9 +175,9 @@ import { derivePublicationMetadata } from "../../utils/publication";
       correction rather than in underlying skill.
     </li>
     <li>
-      A precise estimate that rules out a meaningful decline in unaided
-      accuracy narrows the claim for this task. It would not show that AI-first
-      practice is safe across radiology, and it would not settle authority.
+      A precise estimate that rules out a meaningful decline in unaided accuracy
+      narrows the claim for this task. It would not show that AI-first practice
+      is safe across radiology, and it would not settle authority.
     </li>
     <li>
       An imprecise estimate leaves the question open. It is not evidence of
@@ -183,10 +185,9 @@ import { derivePublicationMetadata } from "../../utils/publication";
     </li>
   </ul>
   <p>
-    A gain in routine accuracy alongside a loss in the ability to halt or
-    reverse a decision is the divergence the protocol is built to detect. That
-    result would not show that the system should be removed. It would show that
-    the two outcomes have to be governed together.
+    The sandbox drill can reveal that a reader cannot halt a decision, even when
+    assisted reads are more accurate. It records who can intervene at the time
+    of the drill.
   </p>
 </SectionBlock>
 

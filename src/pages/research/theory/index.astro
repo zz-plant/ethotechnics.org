@@ -85,7 +85,9 @@ const changesWithUse = [
     (entry) => entry.data.permalink === `/research/theory/${step.slug}`,
   );
   if (!essay)
-    throw new Error(`What changes with use names a missing essay: ${step.slug}`);
+    throw new Error(
+      `What changes with use names a missing essay: ${step.slug}`,
+    );
   return { ...step, title: essay.data.title, href: essay.data.permalink };
 });
 ---
@@ -127,7 +129,7 @@ const changesWithUse = [
     id="what-changes-with-use"
     eyebrow="Second sequence"
     title="What changes with use"
-    description="Three essays on what a system does to the people who use it: capture, authorization, and standing. Read in this order, they set up the open question about what people can still do after years of automation."
+    description="Three essays on how automation changes the work people do, who can change the system, and who can challenge its decisions."
   >
     <ol class="step-list stack-md">
       {
@@ -142,8 +144,8 @@ const changesWithUse = [
       }
     </ol>
     <p class="muted">
-      The sequence sets up the <a href="/research#agenda">open question</a> and
-      the <a href="/research/radiology-fallback-protocol">draft protocol</a>.
+      The sequence sets up the <a href="/research#agenda">open question</a> and the
+      <a href="/research/radiology-fallback-protocol">draft protocol</a>.
     </p>
   </SectionBlock>
 

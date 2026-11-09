@@ -333,7 +333,7 @@ export const researchContent: ResearchContent = {
       type: "protocol",
       status: "planned",
       summary:
-        "Draft protocol, study pending. A single offline chest-radiograph task tests whether AI-first practice changes unaided reading skill, and whether readers can still halt or reverse a decision.",
+        "Draft protocol, study pending. An offline chest-radiograph task compares two practice orders on unaided reading skill. A separate drill records who can halt or reverse a decision.",
       tags: ["evaluations", "radiology", "automation", "fallback"],
       glossaryRefs: [
         "invisible-fallbacks",
@@ -345,14 +345,14 @@ export const researchContent: ResearchContent = {
       ctaLabel: "Read the draft protocol",
       structuredAbstract: {
         question:
-          "Does AI-first practice change unaided reading skill, and does it change who can halt or reverse a decision?",
+          "Does the order of AI-assisted and unaided practice affect unaided reading skill at week eight? Who can halt or reverse a decision in a sandbox drill?",
         method:
-          "Proposed, not run: one offline chest-radiograph task. Eligible readers are randomized to equally timed AI-first or independent-first practice, with cases, AI exposure, and feedback held constant. Baseline and week-eight reads are blinded and unaided, on expert-adjudicated cases. A separate arm tests responses to correct and deliberately wrong suggestions. A sandbox drill records who can execute a pause and who can request a rule change.",
+          "Proposed, not run: one offline chest-radiograph task. Eligible readers complete both an AI-assisted and an unaided practice block in random order, with time, case count, and feedback matched across blocks. Baseline and week-eight reads are blinded and unaided, on expert-adjudicated cases. A separate arm tests responses to correct and deliberately wrong suggestions. A sandbox drill records who can execute a pause and who can request a rule change.",
         sample:
           "Eligible readers at one site; the minimum feasible sample and material effect are prespecified in the protocol before data collection.",
         findings: "No data collected. No results.",
         limitations:
-          "One task, one site, expert-adjudicated cases. A result would not establish what happens across years or in live reading.",
+          "One offline task at one site. The design estimates the effect of practice order after both groups have used AI. The drill describes the site's procedures.",
       },
       datasets: [
         "To be published with the results: an anonymized case-level summary table.",
