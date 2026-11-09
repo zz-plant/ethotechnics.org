@@ -4,8 +4,8 @@ description: "A draft record format for work delegated to machines: what was bel
 permalink: "/standards/std-07-revisable-delegation-record"
 eyebrow: "Standard STD-07"
 seoTitle: "Revisable delegation record (STD-07)"
-version: "0.1.5"
-lastUpdated: "2026-10-20"
+version: "0.2.0"
+lastUpdated: "2026-11-09"
 publishedTime: "2026-09-06T00:00:00.000Z"
 mainClass: "page page--wide standard-document"
 anchorLinks:
@@ -16,7 +16,7 @@ anchorLinks:
   - href: "#loop"
     label: "The loop"
   - href: "#articles"
-    label: "Articles I–V"
+    label: "Articles I–VI"
   - href: "#conformance"
     label: "Conformance levels"
   - href: "#schema"
@@ -102,8 +102,8 @@ export const structuredData = {
     "A record format for institutions that delegate consequential work to machines.",
   url: "https://ethotechnics.org/standards/std-07-revisable-delegation-record",
   datePublished: "2026-09-06",
-  dateModified: "2026-10-20",
-  version: "0.1.5",
+  dateModified: "2026-11-09",
+  version: "0.2.0",
   identifier: "STD-07",
   publisher: {
     "@type": "Organization",
@@ -182,6 +182,9 @@ export const structuredData = {
         institution does: a forecast registry, a capability graph, an
         operating brief, a change monitor, an approval gate. It is
         domain-neutral by construction.
+
+        This is a draft standard. Conformance verifies record structure, not
+        whether a deployment is just.
 
       </section>
 
@@ -434,6 +437,48 @@ export const structuredData = {
         </ol>
       </section>
 
+      <section class="standard-section">
+        <h2>Article VI: Developmental impact</h2>
+        <p class="standard-article-quote">
+          "A record that shows only what a system enables cannot say what it
+          forecloses."
+        </p>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§6.1</span>
+            Three columns: A record that authorizes consequential work states
+            what the arrangement makes possible, what it makes necessary, and
+            what it leaves possible. The third column names the independent
+            knowledge, resources, organizational capacity, and authority
+            through which people can revise, replace, or move beyond the
+            arrangement.
+          </li>
+          <li>
+            <span class="standard-clause-id">§6.2</span>
+            Non-finality: A consequential authorization declares a review date
+            and the conditions under which its continued necessity is
+            reconsidered. No authorization is permanent by default. A record
+            that cannot name a review condition is a transfer, not a
+            delegation.
+          </li>
+          <li>
+            <span class="standard-clause-id">§6.3</span>
+            Exit and portability: The record names the export format and the
+            switching path, so the institution can leave without losing the
+            account of what was believed, authorized, and done. A record
+            format that cannot leave the vendor is a lock-in, not a record.
+          </li>
+          <li>
+            <span class="standard-clause-id">§6.4</span>
+            Independent corrective capacity: The contest route names the
+            independent expertise and resources available to the person
+            challenging, not only the channel. A route that requires the
+            challenger to accept the institution's own experts as the only
+            experts is a hearing, not a correction.
+          </li>
+        </ol>
+      </section>
+
       <section id="conformance" class="standard-section">
         <h2>Conformance levels</h2>
 
@@ -591,7 +636,12 @@ export const structuredData = {
           <a href="/research/theory/endogenous-authorization">endogenous authorization</a>{" "}
           and{" "}
           <a href="/research/theory/what-does-not-convert">what does not convert</a>.
-          The essays motivate this standard; no clause cites them.
+          The essays motivate this standard; no clause cites them. The broader
+          argument, including what the empirical literature does and does not
+          establish, is in{" "}
+          <a href="https://thecrumple.zone/p/institutional-achievement-without-foreclosure">Who Gets to Determine What Comes Next?</a>{" "}
+          and{" "}
+          <a href="https://thecrumple.zone/p/research-grounding-capability-dependence-institutional-change">Research Grounding</a>.
         </p>
       </section>
     </div>
