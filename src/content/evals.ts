@@ -139,6 +139,7 @@ export const evalsContent: EvalsContent = {
   published: "2026-07-27T00:00:00Z",
   updated: "2026-09-25T00:00:00Z",
   anchorLinks: [
+    { href: "#support-review", label: "Agent eval pilot" },
     { href: "#stack", label: "Evaluation stack" },
     { href: "#register", label: "The suite register" },
     { href: "#methodology", label: "Methodology" },
