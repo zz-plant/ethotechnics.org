@@ -180,6 +180,17 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
     domain: "Experience",
   },
   {
+    slug: "reproduction-of-corrective-power",
+    title: "The reproduction of corrective power",
+    href: "/research/theory/reproduction-of-corrective-power",
+    question:
+      "What makes correction effective, and what does an institution's ordinary operation do to the capacity to correct it?",
+    safeguard: "Correction",
+    mechanism:
+      "Effective corrective power and the reproduction of the capacities it depends on",
+    domain: "Governance",
+  },
+  {
     slug: "the-antihuman-metric",
     title: "The antihuman metric",
     href: "/research/theory/the-antihuman-metric",
