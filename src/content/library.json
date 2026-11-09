@@ -1643,31 +1643,31 @@
           "slug": "effective-corrective-power",
           "code": "MEC-26",
           "title": "Effective corrective power",
-          "summary": "Test correction as a chain from detection to enforcement, and escalate the claim when the binding constraint sits above the decision.",
+          "summary": "Test correction as a chain from detection to enforcement, and map the route to the decision point that sets a binding constraint.",
           "filters": ["standing", "correction"],
           "chainStages": ["challenge", "correction"],
-          "chainNote": "It follows a correction from detection through enforcement and moves the claim to the level that sets the constraint.",
+          "chainNote": "It follows a correction from detection through enforcement and maps the route to the decision point that sets the constraint.",
           "glossaryRefs": [
             "corrective-power-chain",
-            "jurisdictional-escalation",
+            "structural-reachability",
             "corrective-standing",
             "correction-window"
           ],
           "cues": [
             "A challenge that can correct the case but not the rule stops at agenda control.",
             "A remedy that the losing party must execute stops at enforcement.",
-            "A local body that cannot change the constraint has to be able to escalate the claim."
+            "A local body that cannot change the constraint has to be able to reach the decision point that sets it."
           ],
           "diagnostics": ["delegation-audit"],
           "steps": [
             "Map the five conditions for the decision class: who can detect, who has standing, who can put the rule in question, who decides, and who enforces.",
             "Name the first broken link and the record that shows it, rather than describing the whole pathway as present or absent.",
-            "When the binding constraint sits above the deciding body, record the escalation route and the forum that can change it.",
+            "When the binding constraint sits above or outside the deciding body, draw the constraint map: the decision point, the standing at each node, the route, and where it stops.",
             "Follow one live challenge end to end and record where it stopped."
           ],
-          "policyRequirement": "Policy requirement (MEC-26 Effective corrective power)\n- Each consequential decision class names the five conditions and the record that shows each one.\n- A challenge that cannot be remedied locally records the binding constraint and the escalation route.\nReference: https://ethotechnics.org/mechanisms/patterns/effective-corrective-power",
-          "productRequirement": "Product requirement (MEC-26)\n- The challenge record carries detection, standing, agenda, decision, and enforcement status.\n- The escalation route is visible to the challenger, not held only by the deciding body.",
-          "auditEvidenceChecklist": "Audit evidence checklist (MEC-26)\n[ ] The five conditions are recorded for each decision class.\n[ ] The first broken link is named with its record.\n[ ] Escalation records the forum that sets the constraint.\n[ ] One live challenge was followed to enforcement.",
+          "policyRequirement": "Policy requirement (MEC-26 Effective corrective power)\n- Each consequential decision class names the five conditions and the record that shows each one.\n- A challenge that cannot be remedied locally records the constraint map and the decision point that sets it.\nReference: https://ethotechnics.org/mechanisms/patterns/effective-corrective-power",
+          "productRequirement": "Product requirement (MEC-26)\n- The challenge record carries detection, standing, agenda, decision, and enforcement status.\n- The constraint map is visible to the challenger, not held only by the deciding body.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-26)\n[ ] The five conditions are recorded for each decision class.\n[ ] The first broken link is named with its record.\n[ ] The constraint map records the decision point that sets the constraint.\n[ ] One live challenge was followed to enforcement.",
           "postmortemTrigger": "Postmortem trigger (MEC-26)\nTrigger review when a challenge is closed without a record of which condition failed, or when a remedy is recorded as complete before enforcement is confirmed.",
           "artifacts": [
             {
@@ -1675,8 +1675,8 @@
               "purpose": "The five conditions, the owner of each, and the record that shows it."
             },
             {
-              "name": "Escalation record",
-              "purpose": "The binding constraint, the forum that sets it, the standing granted, and the outcome."
+              "name": "Constraint map",
+              "purpose": "The binding constraint, the decision point that sets it, the standing at each node, the route, and where it stops."
             },
             {
               "name": "Enforcement receipt",
@@ -1685,7 +1685,7 @@
           ],
           "example": {
             "title": "A scheduling challenge that reaches the budget",
-            "description": "A worker contests a shift schedule. The local manager cannot change staffing because the budget is set above the department. The claim escalates with standing to the budget owner, and the recorded remedy is a staffing line, not a case-by-case exception. The chain is recorded from detection to enforcement."
+            "description": "A worker contests a shift schedule. The local manager cannot change staffing because the budget is set above the department. The claim reaches the budget owner with standing, and the recorded remedy is a staffing line, not a case-by-case exception. The chain is recorded from detection to enforcement."
           },
           "antiPatterns": [
             {
@@ -1695,10 +1695,10 @@
               "warning": "A challenge route is not a correction pathway until someone can follow it to a changed state."
             },
             {
-              "title": "Escalation as deferral",
-              "failure": "A claim is sent upward with no named forum, no standing, and no answer date, which converts the escalation into an indefinite wait.",
-              "counterfactual": "The escalation names the forum that sets the constraint, the standing it grants, and the date by which it must answer.",
-              "warning": "An upward referral without a decision-maker is a way of closing a claim without deciding it."
+              "title": "Reachability as deferral",
+              "failure": "A claim is referred with no named decision point, no standing, and no answer date, which converts the referral into an indefinite wait.",
+              "counterfactual": "The map names the decision point that sets the constraint, the standing it grants, and the date by which it must answer.",
+              "warning": "A referral without a decision-maker is a way of closing a claim without deciding it."
             }
           ]
         },
@@ -1769,10 +1769,10 @@
           "slug": "reproductive-conditions",
           "code": "MEC-28",
           "title": "Reproductive conditions",
-          "summary": "Treat the capabilities, resources, organizations, alternatives, and time people need to challenge an arrangement as an object of governance.",
+          "summary": "Track the independent capacities people need to challenge an arrangement, and distinguish the institution's duty not to deplete them from the wider order's duty to reproduce them.",
           "filters": ["dependency", "correction"],
           "chainStages": ["consequence", "correction"],
-          "chainNote": "It records what ordinary operation does to the capacity for future correction, not only whether a challenge succeeds now.",
+          "chainNote": "It records what ordinary operation does to future correction, and separates non-depletion from systemic reproduction.",
           "glossaryRefs": [
             "independent-corrective-capacity",
             "correction-window",
@@ -1782,24 +1782,30 @@
           "cues": [
             "Fewer complaints can mean success or foreclosure; the capacity inventory distinguishes them.",
             "A correction window that closes before mobilization is not a window.",
-            "A system that cannot be inspected, migrated, or left is a constitutional constraint."
+            "A system that cannot be inspected, migrated, or left is a constitutional constraint.",
+            "The institution is responsible for not depleting; the wider order is responsible for reproducing."
           ],
           "diagnostics": ["delegation-audit"],
           "steps": [
             "Inventory the independent capacities affected people need to challenge the arrangement: skills, resources, organizations, information, alternatives, and time.",
             "Record how the institution's ordinary operation changes each capacity.",
+            "Distinguish non-depletion (what the institution must not consume) from systemic reproduction (what the wider order must supply).",
             "Set a preservation floor and a review trigger for erosion.",
             "For irreversible changes, record the correction window and the transition plan.",
-            "For technical infrastructure, record inspectability, portability, interoperability, forkability, and exit costs."
+            "For technical infrastructure, record inspectability, portability, interoperability, exit costs, and who has credible collective control; forkability alone is not governance."
           ],
-          "policyRequirement": "Policy requirement (MEC-28 Reproductive conditions)\n- The institution reports the independent capacities its ordinary operation consumes or reproduces.\n- A capacity below its preservation floor triggers a recorded governance decision.\nReference: https://ethotechnics.org/mechanisms/patterns/reproductive-conditions",
-          "productRequirement": "Product requirement (MEC-28)\n- The dependency record carries the independent capacity inventory and the correction window.\n- Technical infrastructure records inspectability, portability, interoperability, and exit cost.",
-          "auditEvidenceChecklist": "Audit evidence checklist (MEC-28)\n[ ] The independent capacity inventory is current.\n[ ] Each capacity has a preservation floor and a review trigger.\n[ ] Irreversible changes record a correction window and transition plan.\n[ ] Technical infrastructure records inspectability, portability, interoperability, and exit cost.",
+          "policyRequirement": "Policy requirement (MEC-28 Reproductive conditions)\n- The institution reports the capacities its ordinary operation depletes or preserves; the wider order's reproduction is reported separately.\n- A capacity below its preservation floor triggers a recorded governance decision.\nReference: https://ethotechnics.org/mechanisms/patterns/reproductive-conditions",
+          "productRequirement": "Product requirement (MEC-28)\n- The dependency record carries the independent capacity inventory and the correction window.\n- Technical infrastructure records inspectability, portability, interoperability, exit cost, and who has collective control.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-28)\n[ ] The independent capacity inventory is current.\n[ ] Each capacity has a preservation floor and a review trigger.\n[ ] Irreversible changes record a correction window and transition plan.\n[ ] Non-depletion and systemic reproduction are reported separately.\n[ ] Technical infrastructure records inspectability, portability, interoperability, exit cost, and who has collective control.",
           "postmortemTrigger": "Postmortem trigger (MEC-28)\nTrigger review when an independent capacity falls below its floor, when a correction window closes before a challenge can be organized, or when exit costs make replacement impractical.",
           "artifacts": [
             {
               "name": "Independent capacity inventory",
               "purpose": "Skills, resources, organizations, information, alternatives, and time."
+            },
+            {
+              "name": "Counterfactual capacity assessment",
+              "purpose": "What capabilities and alternatives would have been available under a different arrangement."
             },
             {
               "name": "Correction window record",
@@ -1824,6 +1830,12 @@
               "failure": "No complaints are read as legitimacy while the institution has consumed the skills, resources, and organizations people would need to complain.",
               "counterfactual": "The capacity inventory is reported beside the complaint volume.",
               "warning": "The absence of opposition is not evidence that opposition is unnecessary."
+            },
+            {
+              "title": "Forkability as freedom",
+              "failure": "Exit and forkability are treated as self-government, although privileged groups can leave more easily and some infrastructure cannot be forked without undermining the collective good.",
+              "counterfactual": "The record separates exit from credible collective control, and reports who can actually leave.",
+              "warning": "A right to fork is not a right to govern."
             },
             {
               "title": "Transition as delay",
