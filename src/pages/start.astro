@@ -77,6 +77,44 @@ const pageDescription =
        <main>, and a second one nested inside it is invalid and gives screen
        readers two main landmarks to choose between. */
   }
+  <section class="container start-principles">
+    <div class="stack-xs role-section-header">
+      <p class="eyebrow">If you read nothing else</p>
+      <h2>Five things this framework says</h2>
+    </div>
+    <ol class="start-principles__list">
+      <li>
+        <strong>A cool boss is not freedom.</strong> Freedom needs a credible way
+        out or a real route to challenge the terms.
+        <a href="/research/theory/dependence-without-standing"
+          >Dependence without standing</a
+        >.
+      </li>
+      <li>
+        <strong>Silence is not consent.</strong> Fewer complaints can mean the
+        complaint became too expensive.
+        <a href="/research/theory/the-consumption-of-adaptive-capacity"
+          >The consumption of adaptive capacity</a
+        >.
+      </li>
+      <li>
+        <strong>Do not stop at the clerk.</strong> A dispute should reach the
+        body that sets the constraint.
+        <a href="/standards/laws#law-vii">Law VII</a>.
+      </li>
+      <li>
+        <strong>A signature at machine speed is not a review.</strong> A human who
+        cannot read the evidence is a liability buffer.
+        <a href="/standards/laws#law-vi">Law VI</a>.
+      </li>
+      <li>
+        <strong>No majority may abolish the next challenge.</strong> Changing an
+        arrangement is permitted; extinguishing the capacity to revise it is not.
+        <a href="/standards/laws#law-xii">Law XII</a>.
+      </li>
+    </ol>
+  </section>
+
   <section class="container">
     <div class="stack-xs role-section-header">
       <p class="eyebrow">Start by role</p>
@@ -564,6 +602,23 @@ const pageDescription =
 
   .time-ladder__header {
     margin-bottom: var(--space-4);
+  }
+
+  .start-principles {
+    margin-bottom: var(--space-8);
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .start-principles__list {
+    margin: var(--space-2) 0 0;
+    padding-inline-start: 1.25em;
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .start-principles__list li {
+    max-width: 70ch;
   }
 
   .role-section-header {
