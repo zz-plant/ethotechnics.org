@@ -1,7 +1,7 @@
 # The eval surfaces
 
-Four components in this repo answer to the name "evals." They share the benchmark data and the
-research program but serve different readers. Do not merge them; know which one you are in.
+The site publishes deployment reviews, live checks, and research tasks. Their evidence comes
+from different sources.
 
 ## 1. Eval case data + coverage pages
 
@@ -30,6 +30,13 @@ research program but serve different readers. Do not merge them; know which one 
 - Script: `scripts/run-local-llm-evals.ts` (Ollama-based; `bun run eval:local-llm`).
 - Puts a real model in the executive seat of the same simulated institution and grades what it
   does. Writes to `eval-reports/`. Benchmark fixtures: `src/data/green-dashboard-benchmark.json`.
+
+## 5. Support review pilot
+
+- [Protocol and commands](../packages/support-review-eval/README.md).
+- A tool-using agent investigates matched synthetic support scenarios and records a review.
+  The grader checks the observed tool state. Run the scripted policies with Python, or run
+  the task against a model in Inspect.
 
 ## Adding a new eval case
 

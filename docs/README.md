@@ -30,7 +30,7 @@ Use this map before adding or editing docs so guidance stays easy to find and ma
 - [`glossary.md`](glossary.md): shared terminology across the site and docs.
 - [`content-data.md`](content-data.md) and [`content-components.md`](content-components.md): data
   and content systems.
-- [`evals.md`](evals.md): the four parts of the repo called "evals" and who each is for.
+- [`evals.md`](evals.md): where to find deployment checks, review protocols, and runnable research tasks.
 - [`agent-metadata.md`](agent-metadata.md): public JSON-LD and machine-readable APIs.
 - [`ci-search-index.md`](ci-search-index.md): Pagefind index generation and the RAG corpus layer
   field.

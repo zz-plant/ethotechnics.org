@@ -58,11 +58,30 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     <Fragment slot="actions">
       <a class="button ghost" href="/evals/coverage">What the evals can check</a
       >
-      <a class="button ghost" href="/use-cases#model-testing"
-        >Evals test the deployment, not the model</a
+      <a class="button ghost" href="#support-review">Try the agent eval pilot</a
       >
     </Fragment>
   </PageIntro>
+
+  <SectionBlock
+    id="support-review"
+    eyebrow="Agent research · Pilot"
+    title="Did support actually improve?"
+    description="Run nine simulated support reviews through a tool-using agent. The same dashboard can reflect better service, blocked reopening, or work shifted to another team."
+  >
+    <p>
+      The agent can inspect case follow-ups and service activity before
+      recording a review. The scorer checks what the agent read, what it
+      concluded, and where it sent the review. The protocol includes a scripted
+      reference and commands for running your own model in Inspect.
+    </p>
+    <p>
+      <a
+        href="https://github.com/zz-plant/ethotechnics.org/tree/main/packages/support-review-eval"
+        >Read the protocol and run the pilot</a
+      >
+    </p>
+  </SectionBlock>
 
   <SectionBlock
     id="stack"
