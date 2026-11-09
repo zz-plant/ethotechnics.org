@@ -112,10 +112,14 @@ describe("positioning instruments", () => {
   });
 
   it("links every instrument to at least one artifact on this site", () => {
-    const unlinked = instruments.filter(
-      (entry) =>
-        entry.links.length === 0 || entry.links.some((l) => !resolves(l.href)),
-    );
+    const unlinked = instruments.filter((entry) => {
+      const siteLinks = entry.links.filter(
+        ({ href }) => !href.startsWith("https://"),
+      );
+      return (
+        siteLinks.length === 0 || siteLinks.some(({ href }) => !resolves(href))
+      );
+    });
     expect(unlinked).toEqual([]);
   });
 });
