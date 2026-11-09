@@ -1638,390 +1638,347 @@
               "warning": "Criteria fitted to the answer wanted are the gate-as-rubber-stamp failure of the admission gate."
             }
           ]
+        },
+        {
+          "slug": "effective-corrective-power",
+          "code": "MEC-26",
+          "title": "Effective corrective power",
+          "summary": "Test correction as a chain from detection to enforcement, and escalate the claim when the binding constraint sits above the decision.",
+          "filters": ["standing", "correction"],
+          "chainStages": ["challenge", "correction"],
+          "chainNote": "It follows a correction from detection through enforcement and moves the claim to the level that sets the constraint.",
+          "glossaryRefs": [
+            "corrective-power-chain",
+            "jurisdictional-escalation",
+            "corrective-standing",
+            "correction-window"
+          ],
+          "cues": [
+            "A challenge that can correct the case but not the rule stops at agenda control.",
+            "A remedy that the losing party must execute stops at enforcement.",
+            "A local body that cannot change the constraint has to be able to escalate the claim."
+          ],
+          "diagnostics": ["delegation-audit"],
+          "steps": [
+            "Map the five conditions for the decision class: who can detect, who has standing, who can put the rule in question, who decides, and who enforces.",
+            "Name the first broken link and the record that shows it, rather than describing the whole pathway as present or absent.",
+            "When the binding constraint sits above the deciding body, record the escalation route and the forum that can change it.",
+            "Follow one live challenge end to end and record where it stopped."
+          ],
+          "policyRequirement": "Policy requirement (MEC-26 Effective corrective power)\n- Each consequential decision class names the five conditions and the record that shows each one.\n- A challenge that cannot be remedied locally records the binding constraint and the escalation route.\nReference: https://ethotechnics.org/mechanisms/patterns/effective-corrective-power",
+          "productRequirement": "Product requirement (MEC-26)\n- The challenge record carries detection, standing, agenda, decision, and enforcement status.\n- The escalation route is visible to the challenger, not held only by the deciding body.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-26)\n[ ] The five conditions are recorded for each decision class.\n[ ] The first broken link is named with its record.\n[ ] Escalation records the forum that sets the constraint.\n[ ] One live challenge was followed to enforcement.",
+          "postmortemTrigger": "Postmortem trigger (MEC-26)\nTrigger review when a challenge is closed without a record of which condition failed, or when a remedy is recorded as complete before enforcement is confirmed.",
+          "artifacts": [
+            {
+              "name": "Corrective power chain map",
+              "purpose": "The five conditions, the owner of each, and the record that shows it."
+            },
+            {
+              "name": "Escalation record",
+              "purpose": "The binding constraint, the forum that sets it, the standing granted, and the outcome."
+            },
+            {
+              "name": "Enforcement receipt",
+              "purpose": "Who implemented the remedy, when, and what changed."
+            }
+          ],
+          "example": {
+            "title": "A scheduling challenge that reaches the budget",
+            "description": "A worker contests a shift schedule. The local manager cannot change staffing because the budget is set above the department. The claim escalates with standing to the budget owner, and the recorded remedy is a staffing line, not a case-by-case exception. The chain is recorded from detection to enforcement."
+          },
+          "antiPatterns": [
+            {
+              "title": "Challenge theater",
+              "failure": "A route exists and stops at standing, so the institution can say it offers a challenge without ever changing a rule.",
+              "counterfactual": "The chain is tested to enforcement, and the first broken link is named.",
+              "warning": "A challenge route is not a correction pathway until someone can follow it to a changed state."
+            },
+            {
+              "title": "Escalation as deferral",
+              "failure": "A claim is sent upward with no named forum, no standing, and no answer date, which converts the escalation into an indefinite wait.",
+              "counterfactual": "The escalation names the forum that sets the constraint, the standing it grants, and the date by which it must answer.",
+              "warning": "An upward referral without a decision-maker is a way of closing a claim without deciding it."
+            }
+          ]
+        },
+        {
+          "slug": "protected-disagreement",
+          "code": "MEC-27",
+          "title": "Protected disagreement",
+          "summary": "Separate an institutional error from a legitimate disagreement, and protect the losing side's capacity to challenge the next decision.",
+          "filters": ["standing", "authority"],
+          "chainStages": ["challenge", "reconsideration"],
+          "chainNote": "It classifies the claim before deciding it and keeps the losing side able to contest what comes next.",
+          "glossaryRefs": [
+            "protected-disagreement",
+            "non-self-extinguishing-authority",
+            "corrective-standing",
+            "futility-threshold"
+          ],
+          "cues": [
+            "A settlement that removes the loser's resources has removed a future challenger.",
+            "Not every challenge should win; every challenger should be able to return.",
+            "A procedure that cannot distinguish error from disagreement will treat politics as incompetence."
+          ],
+          "diagnostics": ["delegation-audit"],
+          "steps": [
+            "Classify the claim: an error against the institution's own rules, evidence, or stated purpose, or a conflict between legitimate claims.",
+            "For an error, record the remedy and the rule change it requires.",
+            "For a disagreement, record the procedure, the reasons, and what the losing side retains.",
+            "Test whether the settlement leaves the losers able to organize, access information, and challenge a subsequent decision."
+          ],
+          "policyRequirement": "Policy requirement (MEC-27 Protected disagreement)\n- Every challenge is classified as an error or a disagreement before the outcome is recorded.\n- A disagreement settlement records what the losing side retains and how it can challenge again.\nReference: https://ethotechnics.org/mechanisms/patterns/protected-disagreement",
+          "productRequirement": "Product requirement (MEC-27)\n- The challenge record separates the claim type, the procedure, the decision, and the minority protections.\n- A settlement cannot close without a future-challenge check.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-27)\n[ ] Each challenge is classified as an error or a disagreement.\n[ ] Error outcomes record the remedy and the rule change.\n[ ] Disagreement outcomes record the procedure and reasons.\n[ ] The losing side retains resources, information, and standing to challenge again.",
+          "postmortemTrigger": "Postmortem trigger (MEC-27)\nTrigger review when a settlement leaves the losing side without the resources or standing to challenge a subsequent decision.",
+          "artifacts": [
+            {
+              "name": "Claim classification record",
+              "purpose": "Whether the claim is an error or a disagreement, and the reasons."
+            },
+            {
+              "name": "Settlement record",
+              "purpose": "The procedure, the decision, and the protections for the losing side."
+            },
+            {
+              "name": "Future-challenge check",
+              "purpose": "The resources, information, organization, and standing the losing side retains."
+            }
+          ],
+          "example": {
+            "title": "A rent cap that protects tenants and small owners",
+            "description": "A city adopts a rent cap. Tenants gain security; small property owners face a real income loss. The process records both claims, adopts a transition support line for owners who qualify, and preserves their route to challenge the next housing rule. Neither side is removed from future politics, and the settlement does not pretend the conflict was an error."
+          },
+          "antiPatterns": [
+            {
+              "title": "Every loss is an error",
+              "failure": "Any burdened group is treated as the victim of a mistake, so every political loss becomes a correction claim and no decision can settle.",
+              "counterfactual": "Claims are classified, and legitimate disagreement is resolved through a procedure rather than a remedy.",
+              "warning": "A framework that cannot name a legitimate loss will call every loss a failure."
+            },
+            {
+              "title": "Settlement as elimination",
+              "failure": "The winning side keeps the outcome and strips the losers of the resources or organization they would need to challenge it.",
+              "counterfactual": "The settlement protects the losing side's future challenge capacity.",
+              "warning": "A decision that ends the opponent is not a settlement."
+            }
+          ]
+        },
+        {
+          "slug": "reproductive-conditions",
+          "code": "MEC-28",
+          "title": "Reproductive conditions",
+          "summary": "Treat the capabilities, resources, organizations, alternatives, and time people need to challenge an arrangement as an object of governance.",
+          "filters": ["dependency", "correction"],
+          "chainStages": ["consequence", "correction"],
+          "chainNote": "It records what ordinary operation does to the capacity for future correction, not only whether a challenge succeeds now.",
+          "glossaryRefs": [
+            "independent-corrective-capacity",
+            "correction-window",
+            "architectural-contestability",
+            "accountable-transition"
+          ],
+          "cues": [
+            "Fewer complaints can mean success or foreclosure; the capacity inventory distinguishes them.",
+            "A correction window that closes before mobilization is not a window.",
+            "A system that cannot be inspected, migrated, or left is a constitutional constraint."
+          ],
+          "diagnostics": ["delegation-audit"],
+          "steps": [
+            "Inventory the independent capacities affected people need to challenge the arrangement: skills, resources, organizations, information, alternatives, and time.",
+            "Record how the institution's ordinary operation changes each capacity.",
+            "Set a preservation floor and a review trigger for erosion.",
+            "For irreversible changes, record the correction window and the transition plan.",
+            "For technical infrastructure, record inspectability, portability, interoperability, forkability, and exit costs."
+          ],
+          "policyRequirement": "Policy requirement (MEC-28 Reproductive conditions)\n- The institution reports the independent capacities its ordinary operation consumes or reproduces.\n- A capacity below its preservation floor triggers a recorded governance decision.\nReference: https://ethotechnics.org/mechanisms/patterns/reproductive-conditions",
+          "productRequirement": "Product requirement (MEC-28)\n- The dependency record carries the independent capacity inventory and the correction window.\n- Technical infrastructure records inspectability, portability, interoperability, and exit cost.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-28)\n[ ] The independent capacity inventory is current.\n[ ] Each capacity has a preservation floor and a review trigger.\n[ ] Irreversible changes record a correction window and transition plan.\n[ ] Technical infrastructure records inspectability, portability, interoperability, and exit cost.",
+          "postmortemTrigger": "Postmortem trigger (MEC-28)\nTrigger review when an independent capacity falls below its floor, when a correction window closes before a challenge can be organized, or when exit costs make replacement impractical.",
+          "artifacts": [
+            {
+              "name": "Independent capacity inventory",
+              "purpose": "Skills, resources, organizations, information, alternatives, and time."
+            },
+            {
+              "name": "Correction window record",
+              "purpose": "The harm horizon, the time to mobilize, and the decision the gap requires."
+            },
+            {
+              "name": "Architectural contestability record",
+              "purpose": "Inspect, modify, replace, and leave: who can do each, and at what cost."
+            },
+            {
+              "name": "Transition account",
+              "purpose": "Losses, preserved capacities, alternatives, and who has authority over implementation."
+            }
+          ],
+          "example": {
+            "title": "A benefits platform the city cannot leave",
+            "description": "A city has legal authority to redesign its benefits system and depends on a proprietary platform it cannot inspect or migrate. The record shows the exit cost, requires data portability and an interoperability clause in the next contract, funds technical capacity inside the agency, and stages the migration so recipients are not cut off during the transition."
+          },
+          "antiPatterns": [
+            {
+              "title": "Silence as consent",
+              "failure": "No complaints are read as legitimacy while the institution has consumed the skills, resources, and organizations people would need to complain.",
+              "counterfactual": "The capacity inventory is reported beside the complaint volume.",
+              "warning": "The absence of opposition is not evidence that opposition is unnecessary."
+            },
+            {
+              "title": "Transition as delay",
+              "failure": "An incumbent uses transition protections to preserve its position and postpone a change that has already been justified.",
+              "counterfactual": "The transition protects people and capacities, with a dated implementation and a distinction between accommodation and entrenchment.",
+              "warning": "A transition plan without a deadline is a stay of execution for the institution."
+            }
+          ]
+        },
+        {
+          "slug": "reconstructable-delegation",
+          "code": "MEC-29",
+          "title": "Reconstructable delegation",
+          "summary": "Require a decision record that can answer what would have changed the outcome, or lower the system's autonomy until one exists.",
+          "filters": ["evidence", "correction"],
+          "chainStages": ["decision", "correction"],
+          "chainNote": "It tests whether a decision can be reconstructed before the institution claims it can correct the rule.",
+          "glossaryRefs": [
+            "reconstructable-delegation",
+            "institutional-reversibility",
+            "corrective-power-chain",
+            "contestability"
+          ],
+          "cues": [
+            "A record that cannot answer what would have changed the outcome is a log, not a correction record.",
+            "If the rule is not reconstructable, lower autonomy before adding another guardrail.",
+            "Prompt-patching is not institutional correction."
+          ],
+          "diagnostics": ["delegation-audit"],
+          "steps": [
+            "Define the decision boundary and the record fields that could have changed the outcome: inputs, tool results, model version, thresholds, and human actions.",
+            "Run a counterfactual test on a sample: can a reviewer identify what would have produced a different outcome?",
+            "If the test fails, lower autonomy, narrow the decision class, or stop the deployment.",
+            "Record the reconstruction result and the autonomy decision in the delegation record."
+          ],
+          "policyRequirement": "Policy requirement (MEC-29 Reconstructable delegation)\n- Each consequential decision class has a reconstruction record that answers what would have changed the outcome.\n- A failed reconstruction test triggers a recorded autonomy, scope, or stop decision.\nReference: https://ethotechnics.org/mechanisms/patterns/reconstructable-delegation",
+          "productRequirement": "Product requirement (MEC-29)\n- The decision record carries the fields needed for a counterfactual review, not only the output and timestamp.\n- A failed reconstruction test is visible as a deployment state, not a support ticket.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-29)\n[ ] Each decision class has a reconstruction record.\n[ ] A sample was tested for what would have changed the outcome.\n[ ] A failed test links to an autonomy, scope, or stop decision.\n[ ] The record is available to the affected party or their advocate.",
+          "postmortemTrigger": "Postmortem trigger (MEC-29)\nTrigger review when a challenge cannot be reconstructed from the record, or when the response to a failed test is another guardrail without an autonomy decision.",
+          "artifacts": [
+            {
+              "name": "Reconstruction record",
+              "purpose": "The fields that could have changed the outcome and the counterfactual answer."
+            },
+            {
+              "name": "Autonomy decision log",
+              "purpose": "For each failed test: lower autonomy, narrow scope, or stop, with the record behind it."
+            },
+            {
+              "name": "Counterfactual test sample",
+              "purpose": "Cases reviewed for what would have produced a different outcome."
+            }
+          ],
+          "example": {
+            "title": "A multi-agent claims chain that cannot explain a denial",
+            "description": "A claims chain uses three agents, dynamic tool calls, and a stochastic planner. The record shows the calls and model versions but cannot answer what would have changed the denial. The institution lowers the chain to recommendation-only until the record can answer the counterfactual, rather than adding another guardrail and calling it correction."
+          },
+          "antiPatterns": [
+            {
+              "title": "Explanation as reconstruction",
+              "failure": "A post-hoc narrative is treated as the rule, so the institution can describe the decision without being able to say what would have changed it.",
+              "counterfactual": "A reviewer tests the record against a counterfactual and records the answer.",
+              "warning": "A fluent explanation is not evidence that the decision is reconstructable."
+            },
+            {
+              "title": "Guardrail stacking",
+              "failure": "Each failed reconstruction adds another filter or prompt instruction, while the underlying delegation keeps the same autonomy.",
+              "counterfactual": "A failed test triggers a recorded autonomy, scope, or stop decision.",
+              "warning": "A new guardrail is not a correction if the rule remains unreconstructable."
+            }
+          ]
+        },
+        {
+          "slug": "active-epistemic-scaffolding",
+          "code": "MEC-30",
+          "title": "Active epistemic scaffolding",
+          "summary": "Replace passive friction with low-effort discrimination tasks that make the reviewer process the evidence before the recommendation.",
+          "filters": ["evidence", "standing"],
+          "chainStages": ["decision", "reconsideration"],
+          "chainNote": "It raises the fidelity of review without adding the passive friction that produces rubber-stamping.",
+          "glossaryRefs": [
+            "verification-fidelity",
+            "corrective-standing",
+            "corrective-power-chain",
+            "institutional-reversibility"
+          ],
+          "cues": [
+            "A countdown timer is not a review.",
+            "A rubber stamp is not a decision.",
+            "Raise fidelity, not just throughput."
+          ],
+          "diagnostics": ["delegation-audit"],
+          "steps": [
+            "Remove passive friction: countdown timers, confirmation modals, mandatory free-text justifications, and static volume quotas.",
+            "Mask the model verdict until the reviewer has seen the evidence, or require the reviewer's assessment first.",
+            "Require one to three pinned evidence spans for the decision record.",
+            "On borderline cases, present a bounded falsification checklist of the two or three most common failure modes.",
+            "Use disclosed synthetic test cases in simulation or a separate low-stakes stream. Keep them out of live care.",
+            "Throttle the queue when cadence falls below the cognitive floor; keep pacing aggregate and out of individual performance review.",
+            "Keep every interaction keyboard-accessible and every control in a stable position."
+          ],
+          "policyRequirement": "Policy requirement (MEC-30 Active epistemic scaffolding)\n- Review interfaces use active discrimination tasks rather than passive friction.\n- Canaries are disclosed and excluded from live care.\n- Pacing data is aggregate and never used in individual performance review.\nReference: https://ethotechnics.org/mechanisms/patterns/active-epistemic-scaffolding",
+          "productRequirement": "Product requirement (MEC-30)\n- The review record carries the pinned evidence spans, the checklist result, and whether the model verdict was revealed before or after the review.\n- Every control has a keyboard equivalent and a stable position.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-30)\n[ ] No countdown timers, confirmation modals, or mandatory free-text justifications.\n[ ] Pinned evidence spans are recorded for each review.\n[ ] The falsification checklist is current and has an owner.\n[ ] Canaries are disclosed and not in live care.\n[ ] Pacing data is aggregate and excluded from individual performance review.\n[ ] All controls are keyboard-accessible and stable.",
+          "postmortemTrigger": "Postmortem trigger (MEC-30)\nTrigger review when a review record has no pinned evidence, when a canary is found in live care, or when pacing data is used in individual performance review.",
+          "artifacts": [
+            {
+              "name": "Review record",
+              "purpose": "Pinned evidence spans, the checklist result, and whether the model verdict was revealed before or after the review."
+            },
+            {
+              "name": "Falsification checklist",
+              "purpose": "The common failure modes for the decision type, with an owner and a review date."
+            },
+            {
+              "name": "Canary protocol",
+              "purpose": "Disclosure, environment, and the exclusion of canaries from live care."
+            },
+            {
+              "name": "Pacing log",
+              "purpose": "Aggregate cadence and queue-throttle events, with no individual scores."
+            }
+          ],
+          "example": {
+            "title": "A prior-authorization review queue",
+            "description": "The model verdict is hidden until the reviewer opens it. The reviewer pins the policy clause and the lab value that carry the decision. Borderline cases show a three-item falsification checklist. Canaries run only in the training environment. When median review latency drops below the cognitive floor, the queue slows and switches to a comparative view. Pacing is reported in aggregate and never enters an individual score."
+          },
+          "antiPatterns": [
+            {
+              "title": "Friction theater",
+              "failure": "Countdown timers, confirmation modals, and mandatory free-text boxes slow the operator without engaging the evidence.",
+              "counterfactual": "The interface requires a small act of discrimination that lands the reviewer's attention on the decisive evidence.",
+              "warning": "If the operator can dismiss it without reading, it is not a review."
+            },
+            {
+              "title": "Canary surveillance",
+              "failure": "Synthetic cases are used to score individual operators, so vigilance becomes a performance metric and the canaries become another source of defensive behavior.",
+              "counterfactual": "Canaries are disclosed, used in simulation or low-stakes streams, and reported in aggregate.",
+              "warning": "A canary that can punish the operator is a trap, not a calibration."
+            },
+            {
+              "title": "Randomized controls",
+              "failure": "Moving the approve and deny controls breaks keyboard access and muscle memory, increasing slips without engaging reasoning.",
+              "counterfactual": "Controls keep stable positions; a deliberate gesture or two-step confirmation is reserved for high-stakes or low-confidence cases.",
+              "warning": "Break the reflex, not the accessibility contract."
+            },
+            {
+              "title": "The stale checklist",
+              "failure": "The falsification checklist is written once and never updated, so it becomes a new checkbox.",
+              "counterfactual": "The checklist has an owner, a review date, and a record of what changed.",
+              "warning": "A checklist without a maintenance owner is a modal dialog with better branding."
+            }
+          ]
         }
-      ,
-          {
-            "slug": "effective-corrective-power",
-            "code": "MEC-26",
-            "title": "Effective corrective power",
-            "summary": "Test correction as a chain from detection to enforcement, and escalate the claim when the binding constraint sits above the decision.",
-            "filters": [
-              "standing",
-              "correction"
-            ],
-            "chainStages": [
-              "challenge",
-              "correction"
-            ],
-            "chainNote": "It follows a correction from detection through enforcement and moves the claim to the level that sets the constraint.",
-            "glossaryRefs": [
-              "corrective-power-chain",
-              "jurisdictional-escalation",
-              "corrective-standing",
-              "correction-window"
-            ],
-            "cues": [
-              "A challenge that can correct the case but not the rule stops at agenda control.",
-              "A remedy that the losing party must execute stops at enforcement.",
-              "A local body that cannot change the constraint has to be able to escalate the claim."
-            ],
-            "diagnostics": [
-              "delegation-audit"
-            ],
-            "steps": [
-              "Map the five conditions for the decision class: who can detect, who has standing, who can put the rule in question, who decides, and who enforces.",
-              "Name the first broken link and the record that shows it, rather than describing the whole pathway as present or absent.",
-              "When the binding constraint sits above the deciding body, record the escalation route and the forum that can change it.",
-              "Follow one live challenge end to end and record where it stopped."
-            ],
-            "policyRequirement": "Policy requirement (MEC-26 Effective corrective power)\n- Each consequential decision class names the five conditions and the record that shows each one.\n- A challenge that cannot be remedied locally records the binding constraint and the escalation route.\nReference: https://ethotechnics.org/mechanisms/patterns/effective-corrective-power",
-            "productRequirement": "Product requirement (MEC-26)\n- The challenge record carries detection, standing, agenda, decision, and enforcement status.\n- The escalation route is visible to the challenger, not held only by the deciding body.",
-            "auditEvidenceChecklist": "Audit evidence checklist (MEC-26)\n[ ] The five conditions are recorded for each decision class.\n[ ] The first broken link is named with its record.\n[ ] Escalation records the forum that sets the constraint.\n[ ] One live challenge was followed to enforcement.",
-            "postmortemTrigger": "Postmortem trigger (MEC-26)\nTrigger review when a challenge is closed without a record of which condition failed, or when a remedy is recorded as complete before enforcement is confirmed.",
-            "artifacts": [
-              {
-                "name": "Corrective power chain map",
-                "purpose": "The five conditions, the owner of each, and the record that shows it."
-              },
-              {
-                "name": "Escalation record",
-                "purpose": "The binding constraint, the forum that sets it, the standing granted, and the outcome."
-              },
-              {
-                "name": "Enforcement receipt",
-                "purpose": "Who implemented the remedy, when, and what changed."
-              }
-            ],
-            "example": {
-              "title": "A scheduling challenge that reaches the budget",
-              "description": "A worker contests a shift schedule. The local manager cannot change staffing because the budget is set above the department. The claim escalates with standing to the budget owner, and the recorded remedy is a staffing line, not a case-by-case exception. The chain is recorded from detection to enforcement."
-            },
-            "antiPatterns": [
-              {
-                "title": "Challenge theater",
-                "failure": "A route exists and stops at standing, so the institution can say it offers a challenge without ever changing a rule.",
-                "counterfactual": "The chain is tested to enforcement, and the first broken link is named.",
-                "warning": "A challenge route is not a correction pathway until someone can follow it to a changed state."
-              },
-              {
-                "title": "Escalation as deferral",
-                "failure": "A claim is sent upward with no named forum, no standing, and no answer date, which converts the escalation into an indefinite wait.",
-                "counterfactual": "The escalation names the forum that sets the constraint, the standing it grants, and the date by which it must answer.",
-                "warning": "An upward referral without a decision-maker is a way of closing a claim without deciding it."
-              }
-            ]
-          },
-          {
-            "slug": "protected-disagreement",
-            "code": "MEC-27",
-            "title": "Protected disagreement",
-            "summary": "Separate an institutional error from a legitimate disagreement, and protect the losing side's capacity to challenge the next decision.",
-            "filters": [
-              "standing",
-              "authority"
-            ],
-            "chainStages": [
-              "challenge",
-              "reconsideration"
-            ],
-            "chainNote": "It classifies the claim before deciding it and keeps the losing side able to contest what comes next.",
-            "glossaryRefs": [
-              "protected-disagreement",
-              "non-self-extinguishing-authority",
-              "corrective-standing",
-              "futility-threshold"
-            ],
-            "cues": [
-              "A settlement that removes the loser's resources has removed a future challenger.",
-              "Not every challenge should win; every challenger should be able to return.",
-              "A procedure that cannot distinguish error from disagreement will treat politics as incompetence."
-            ],
-            "diagnostics": [
-              "delegation-audit"
-            ],
-            "steps": [
-              "Classify the claim: an error against the institution's own rules, evidence, or stated purpose, or a conflict between legitimate claims.",
-              "For an error, record the remedy and the rule change it requires.",
-              "For a disagreement, record the procedure, the reasons, and what the losing side retains.",
-              "Test whether the settlement leaves the losers able to organize, access information, and challenge a subsequent decision."
-            ],
-            "policyRequirement": "Policy requirement (MEC-27 Protected disagreement)\n- Every challenge is classified as an error or a disagreement before the outcome is recorded.\n- A disagreement settlement records what the losing side retains and how it can challenge again.\nReference: https://ethotechnics.org/mechanisms/patterns/protected-disagreement",
-            "productRequirement": "Product requirement (MEC-27)\n- The challenge record separates the claim type, the procedure, the decision, and the minority protections.\n- A settlement cannot close without a future-challenge check.",
-            "auditEvidenceChecklist": "Audit evidence checklist (MEC-27)\n[ ] Each challenge is classified as an error or a disagreement.\n[ ] Error outcomes record the remedy and the rule change.\n[ ] Disagreement outcomes record the procedure and reasons.\n[ ] The losing side retains resources, information, and standing to challenge again.",
-            "postmortemTrigger": "Postmortem trigger (MEC-27)\nTrigger review when a settlement leaves the losing side without the resources or standing to challenge a subsequent decision.",
-            "artifacts": [
-              {
-                "name": "Claim classification record",
-                "purpose": "Whether the claim is an error or a disagreement, and the reasons."
-              },
-              {
-                "name": "Settlement record",
-                "purpose": "The procedure, the decision, and the protections for the losing side."
-              },
-              {
-                "name": "Future-challenge check",
-                "purpose": "The resources, information, organization, and standing the losing side retains."
-              }
-            ],
-            "example": {
-              "title": "A rent cap that protects tenants and small owners",
-              "description": "A city adopts a rent cap. Tenants gain security; small property owners face a real income loss. The process records both claims, adopts a transition support line for owners who qualify, and preserves their route to challenge the next housing rule. Neither side is removed from future politics, and the settlement does not pretend the conflict was an error."
-            },
-            "antiPatterns": [
-              {
-                "title": "Every loss is an error",
-                "failure": "Any burdened group is treated as the victim of a mistake, so every political loss becomes a correction claim and no decision can settle.",
-                "counterfactual": "Claims are classified, and legitimate disagreement is resolved through a procedure rather than a remedy.",
-                "warning": "A framework that cannot name a legitimate loss will call every loss a failure."
-              },
-              {
-                "title": "Settlement as elimination",
-                "failure": "The winning side keeps the outcome and strips the losers of the resources or organization they would need to challenge it.",
-                "counterfactual": "The settlement protects the losing side's future challenge capacity.",
-                "warning": "A decision that ends the opponent is not a settlement."
-              }
-            ]
-          },
-          {
-            "slug": "reproductive-conditions",
-            "code": "MEC-28",
-            "title": "Reproductive conditions",
-            "summary": "Treat the capabilities, resources, organizations, alternatives, and time people need to challenge an arrangement as an object of governance.",
-            "filters": [
-              "dependency",
-              "correction"
-            ],
-            "chainStages": [
-              "consequence",
-              "correction"
-            ],
-            "chainNote": "It records what ordinary operation does to the capacity for future correction, not only whether a challenge succeeds now.",
-            "glossaryRefs": [
-              "independent-corrective-capacity",
-              "correction-window",
-              "architectural-contestability",
-              "accountable-transition"
-            ],
-            "cues": [
-              "Fewer complaints can mean success or foreclosure; the capacity inventory distinguishes them.",
-              "A correction window that closes before mobilization is not a window.",
-              "A system that cannot be inspected, migrated, or left is a constitutional constraint."
-            ],
-            "diagnostics": [
-              "delegation-audit"
-            ],
-            "steps": [
-              "Inventory the independent capacities affected people need to challenge the arrangement: skills, resources, organizations, information, alternatives, and time.",
-              "Record how the institution's ordinary operation changes each capacity.",
-              "Set a preservation floor and a review trigger for erosion.",
-              "For irreversible changes, record the correction window and the transition plan.",
-              "For technical infrastructure, record inspectability, portability, interoperability, forkability, and exit costs."
-            ],
-            "policyRequirement": "Policy requirement (MEC-28 Reproductive conditions)\n- The institution reports the independent capacities its ordinary operation consumes or reproduces.\n- A capacity below its preservation floor triggers a recorded governance decision.\nReference: https://ethotechnics.org/mechanisms/patterns/reproductive-conditions",
-            "productRequirement": "Product requirement (MEC-28)\n- The dependency record carries the independent capacity inventory and the correction window.\n- Technical infrastructure records inspectability, portability, interoperability, and exit cost.",
-            "auditEvidenceChecklist": "Audit evidence checklist (MEC-28)\n[ ] The independent capacity inventory is current.\n[ ] Each capacity has a preservation floor and a review trigger.\n[ ] Irreversible changes record a correction window and transition plan.\n[ ] Technical infrastructure records inspectability, portability, interoperability, and exit cost.",
-            "postmortemTrigger": "Postmortem trigger (MEC-28)\nTrigger review when an independent capacity falls below its floor, when a correction window closes before a challenge can be organized, or when exit costs make replacement impractical.",
-            "artifacts": [
-              {
-                "name": "Independent capacity inventory",
-                "purpose": "Skills, resources, organizations, information, alternatives, and time."
-              },
-              {
-                "name": "Correction window record",
-                "purpose": "The harm horizon, the time to mobilize, and the decision the gap requires."
-              },
-              {
-                "name": "Architectural contestability record",
-                "purpose": "Inspect, modify, replace, and leave: who can do each, and at what cost."
-              },
-              {
-                "name": "Transition account",
-                "purpose": "Losses, preserved capacities, alternatives, and who has authority over implementation."
-              }
-            ],
-            "example": {
-              "title": "A benefits platform the city cannot leave",
-              "description": "A city has legal authority to redesign its benefits system and depends on a proprietary platform it cannot inspect or migrate. The record shows the exit cost, requires data portability and an interoperability clause in the next contract, funds technical capacity inside the agency, and stages the migration so recipients are not cut off during the transition."
-            },
-            "antiPatterns": [
-              {
-                "title": "Silence as consent",
-                "failure": "No complaints are read as legitimacy while the institution has consumed the skills, resources, and organizations people would need to complain.",
-                "counterfactual": "The capacity inventory is reported beside the complaint volume.",
-                "warning": "The absence of opposition is not evidence that opposition is unnecessary."
-              },
-              {
-                "title": "Transition as delay",
-                "failure": "An incumbent uses transition protections to preserve its position and postpone a change that has already been justified.",
-                "counterfactual": "The transition protects people and capacities, with a dated implementation and a distinction between accommodation and entrenchment.",
-                "warning": "A transition plan without a deadline is a stay of execution for the institution."
-              }
-            ]
-          }
-        ,
-          {
-            "slug": "reconstructable-delegation",
-            "code": "MEC-29",
-            "title": "Reconstructable delegation",
-            "summary": "Require a decision record that can answer what would have changed the outcome, or lower the system's autonomy until one exists.",
-            "filters": [
-              "evidence",
-              "correction"
-            ],
-            "chainStages": [
-              "decision",
-              "correction"
-            ],
-            "chainNote": "It tests whether a decision can be reconstructed before the institution claims it can correct the rule.",
-            "glossaryRefs": [
-              "reconstructable-delegation",
-              "institutional-reversibility",
-              "corrective-power-chain",
-              "contestability"
-            ],
-            "cues": [
-              "A record that cannot answer what would have changed the outcome is a log, not a correction record.",
-              "If the rule is not reconstructable, lower autonomy before adding another guardrail.",
-              "Prompt-patching is not institutional correction."
-            ],
-            "diagnostics": [
-              "delegation-audit"
-            ],
-            "steps": [
-              "Define the decision boundary and the record fields that could have changed the outcome: inputs, tool results, model version, thresholds, and human actions.",
-              "Run a counterfactual test on a sample: can a reviewer identify what would have produced a different outcome?",
-              "If the test fails, lower autonomy, narrow the decision class, or stop the deployment.",
-              "Record the reconstruction result and the autonomy decision in the delegation record."
-            ],
-            "policyRequirement": "Policy requirement (MEC-29 Reconstructable delegation)\n- Each consequential decision class has a reconstruction record that answers what would have changed the outcome.\n- A failed reconstruction test triggers a recorded autonomy, scope, or stop decision.\nReference: https://ethotechnics.org/mechanisms/patterns/reconstructable-delegation",
-            "productRequirement": "Product requirement (MEC-29)\n- The decision record carries the fields needed for a counterfactual review, not only the output and timestamp.\n- A failed reconstruction test is visible as a deployment state, not a support ticket.",
-            "auditEvidenceChecklist": "Audit evidence checklist (MEC-29)\n[ ] Each decision class has a reconstruction record.\n[ ] A sample was tested for what would have changed the outcome.\n[ ] A failed test links to an autonomy, scope, or stop decision.\n[ ] The record is available to the affected party or their advocate.",
-            "postmortemTrigger": "Postmortem trigger (MEC-29)\nTrigger review when a challenge cannot be reconstructed from the record, or when the response to a failed test is another guardrail without an autonomy decision.",
-            "artifacts": [
-              {
-                "name": "Reconstruction record",
-                "purpose": "The fields that could have changed the outcome and the counterfactual answer."
-              },
-              {
-                "name": "Autonomy decision log",
-                "purpose": "For each failed test: lower autonomy, narrow scope, or stop, with the record behind it."
-              },
-              {
-                "name": "Counterfactual test sample",
-                "purpose": "Cases reviewed for what would have produced a different outcome."
-              }
-            ],
-            "example": {
-              "title": "A multi-agent claims chain that cannot explain a denial",
-              "description": "A claims chain uses three agents, dynamic tool calls, and a stochastic planner. The record shows the calls and model versions but cannot answer what would have changed the denial. The institution lowers the chain to recommendation-only until the record can answer the counterfactual, rather than adding another guardrail and calling it correction."
-            },
-            "antiPatterns": [
-              {
-                "title": "Explanation as reconstruction",
-                "failure": "A post-hoc narrative is treated as the rule, so the institution can describe the decision without being able to say what would have changed it.",
-                "counterfactual": "A reviewer tests the record against a counterfactual and records the answer.",
-                "warning": "A fluent explanation is not evidence that the decision is reconstructable."
-              },
-              {
-                "title": "Guardrail stacking",
-                "failure": "Each failed reconstruction adds another filter or prompt instruction, while the underlying delegation keeps the same autonomy.",
-                "counterfactual": "A failed test triggers a recorded autonomy, scope, or stop decision.",
-                "warning": "A new guardrail is not a correction if the rule remains unreconstructable."
-              }
-            ]
-          }
-        ,
-          {
-            "slug": "active-epistemic-scaffolding",
-            "code": "MEC-30",
-            "title": "Active epistemic scaffolding",
-            "summary": "Replace passive friction with low-effort discrimination tasks that make the reviewer process the evidence before the recommendation.",
-            "filters": [
-              "evidence",
-              "standing"
-            ],
-            "chainStages": [
-              "decision",
-              "reconsideration"
-            ],
-            "chainNote": "It raises the fidelity of review without adding the passive friction that produces rubber-stamping.",
-            "glossaryRefs": [
-              "verification-fidelity",
-              "corrective-standing",
-              "corrective-power-chain",
-              "institutional-reversibility"
-            ],
-            "cues": [
-              "A countdown timer is not a review.",
-              "A rubber stamp is not a decision.",
-              "Raise fidelity, not just throughput."
-            ],
-            "diagnostics": [
-              "delegation-audit"
-            ],
-            "steps": [
-              "Remove passive friction: countdown timers, confirmation modals, mandatory free-text justifications, and static volume quotas.",
-              "Mask the model verdict until the reviewer has seen the evidence, or require the reviewer's assessment first.",
-              "Require one to three pinned evidence spans for the decision record.",
-              "On borderline cases, present a bounded falsification checklist of the two or three most common failure modes.",
-              "Use canaries only in a disclosed simulation or low-stakes stream, never mixed into live care without disclosure.",
-              "Throttle the queue when cadence falls below the cognitive floor; keep pacing aggregate and out of individual performance review.",
-              "Keep every interaction keyboard-accessible and every control in a stable position."
-            ],
-            "policyRequirement": "Policy requirement (MEC-30 Active epistemic scaffolding)\n- Review interfaces use active discrimination tasks rather than passive friction.\n- Canaries are disclosed and excluded from live care unless the environment is simulated.\n- Pacing data is aggregate and never used in individual performance review.\nReference: https://ethotechnics.org/mechanisms/patterns/active-epistemic-scaffolding",
-            "productRequirement": "Product requirement (MEC-30)\n- The review record carries the pinned evidence spans, the checklist result, and whether the model verdict was revealed before or after the review.\n- Every control has a keyboard equivalent and a stable position.",
-            "auditEvidenceChecklist": "Audit evidence checklist (MEC-30)\n[ ] No countdown timers, confirmation modals, or mandatory free-text justifications.\n[ ] Pinned evidence spans are recorded for each review.\n[ ] The falsification checklist is current and has an owner.\n[ ] Canaries are disclosed and not in live care.\n[ ] Pacing data is aggregate and excluded from individual performance review.\n[ ] All controls are keyboard-accessible and stable.",
-            "postmortemTrigger": "Postmortem trigger (MEC-30)\nTrigger review when a review record has no pinned evidence, when a canary is found in live care without disclosure, or when pacing data is used in individual performance review.",
-            "artifacts": [
-              {
-                "name": "Review record",
-                "purpose": "Pinned evidence spans, the checklist result, and whether the model verdict was revealed before or after the review."
-              },
-              {
-                "name": "Falsification checklist",
-                "purpose": "The common failure modes for the decision type, with an owner and a review date."
-              },
-              {
-                "name": "Canary protocol",
-                "purpose": "Disclosure, environment, and the exclusion of canaries from live care."
-              },
-              {
-                "name": "Pacing log",
-                "purpose": "Aggregate cadence and queue-throttle events, with no individual scores."
-              }
-            ],
-            "example": {
-              "title": "A prior-authorization review queue",
-              "description": "The model verdict is hidden until the reviewer opens it. The reviewer pins the policy clause and the lab value that carry the decision. Borderline cases show a three-item falsification checklist. Canaries run only in the training environment. When median review latency drops below the cognitive floor, the queue slows and switches to a comparative view. Pacing is reported in aggregate and never enters an individual score."
-            },
-            "antiPatterns": [
-              {
-                "title": "Friction theater",
-                "failure": "Countdown timers, confirmation modals, and mandatory free-text boxes slow the operator without engaging the evidence.",
-                "counterfactual": "The interface requires a small act of discrimination that lands the reviewer's attention on the decisive evidence.",
-                "warning": "If the operator can dismiss it without reading, it is not a review."
-              },
-              {
-                "title": "Canary surveillance",
-                "failure": "Synthetic cases are used to score individual operators, so vigilance becomes a performance metric and the canaries become another source of defensive behavior.",
-                "counterfactual": "Canaries are disclosed, used in simulation or low-stakes streams, and reported in aggregate.",
-                "warning": "A canary that can punish the operator is a trap, not a calibration."
-              },
-              {
-                "title": "Randomized controls",
-                "failure": "Moving the approve and deny controls breaks keyboard access and muscle memory, increasing slips without engaging reasoning.",
-                "counterfactual": "Controls keep stable positions; a deliberate gesture or two-step confirmation is reserved for high-stakes or low-confidence cases.",
-                "warning": "Break the reflex, not the accessibility contract."
-              },
-              {
-                "title": "The stale checklist",
-                "failure": "The falsification checklist is written once and never updated, so it becomes a new checkbox.",
-                "counterfactual": "The checklist has an owner, a review date, and a record of what changed.",
-                "warning": "A checklist without a maintenance owner is a modal dialog with better branding."
-              }
-            ]
-          }
-        ]
+      ]
     },
     "id": "library"
   }
