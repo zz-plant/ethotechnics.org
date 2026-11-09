@@ -1,0 +1,230 @@
+---
+title: "Radiology fallback protocol"
+pageTitle: "Radiology fallback protocol — Ethotechnics"
+description: "A draft protocol, study pending: one offline chest-radiograph task testing whether AI-first practice changes unaided reading skill and who can halt or reverse a decision."
+permalink: "/research/radiology-fallback-protocol"
+eyebrow: "Draft protocol · study pending"
+published: "2026-11-08T00:00:00Z"
+updated: "2026-11-08T00:00:00Z"
+lastUpdated: "2026-11-08"
+version: "0.1.0"
+authorName: "Kanav Jain"
+changelogSummary: "First draft. No data collected; no results."
+citationTitle: "Radiology fallback protocol: AI-first practice, unaided reading skill, and the authority to halt or change a workflow"
+anchorLinks:
+  - href: "#question"
+    label: "The question"
+  - href: "#measures"
+    label: "What would be measured"
+  - href: "#design"
+    label: "Design"
+  - href: "#outcomes"
+    label: "Outcomes and analysis"
+  - href: "#change"
+    label: "What would change the claim"
+  - href: "#status"
+    label: "Status"
+  - href: "#citation"
+    label: "Citation"
+actions:
+  - label: "Read the oversight exercise"
+    href: "/research/scholarly-crossings#oversight-decay-test"
+    variant: "ghost"
+---
+
+import SectionBlock from "../../components/SectionBlock.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
+import { derivePublicationMetadata } from "../../utils/publication";
+
+<SectionBlock
+  id="question"
+  eyebrow="Open question"
+  title="What can people still do after years of automation?"
+  description="A draft protocol, not a study. No data have been collected."
+>
+  <p>
+    A system can improve routine performance and still leave the people who use
+    it less able to read a case unaided, less able to correct a single output,
+    or less able to change the workflow when the system is wrong. Those are
+    three different losses, and a study that measures only the first will miss
+    the other two.
+  </p>
+  <p>
+    The question is whether AI-first practice changes what a reader can still
+    do independently, and whether it changes who can halt or reverse a decision.
+    The hypothesis is that routine performance can improve while unaided skill
+    and practical authority decline. The study is designed to make that
+    divergence visible, not to assume it.
+  </p>
+  <p>
+    This protocol extends the <a href="/research/scholarly-crossings#oversight-decay-test">oversight decay test</a>
+    into one clinical task. It is not a test of whether AI is good or bad in
+    radiology, and it does not set a standard or an evaluation requirement.
+  </p>
+</SectionBlock>
+
+<SectionBlock
+  id="measures"
+  eyebrow="Measures"
+  title="What would be measured"
+  description="Three outcomes, kept separate because they can move in different directions."
+  variant="alt"
+>
+  <ul>
+    <li>
+      <strong>Task performance.</strong> Accuracy and reliability on
+      expert-adjudicated chest-radiograph cases, scored against a reference
+      standard fixed before data collection.
+    </li>
+    <li>
+      <strong>Governability.</strong> Whether a reader can challenge a
+      suggestion and halt or reverse a decision, and how long that takes. A
+      sandbox drill records who can execute a pause and who can request a rule
+      change.
+    </li>
+    <li>
+      <strong>Long-term effects.</strong> Independent clinical judgment on
+      blinded, unaided reads; the availability of a practiced fallback; and the
+      authority to change the workflow. The first is measured at baseline and
+      week eight. The second and third are recorded from the site’s procedures
+      and the sandbox drill.
+    </li>
+  </ul>
+  <p>
+    The three are reported separately. A gain in accuracy does not offset a
+    loss in the ability to halt a decision, and a loss in unaided accuracy does
+    not by itself show a loss of authority.
+  </p>
+</SectionBlock>
+
+<SectionBlock
+  id="design"
+  eyebrow="Design"
+  title="One offline chest-radiograph task"
+  description="A crossover, so time, case count, and AI exposure are held constant."
+>
+  <p>
+    Eligible readers are randomized to order: AI-first practice, then
+    independent practice, or the reverse. Both blocks use the same number of
+    cases, the same total AI exposure, and the same feedback, and each block is
+    time-matched. The comparison is therefore the order of practice, not
+    whether a reader ever sees AI.
+  </p>
+  <p>
+    Cases are chest radiographs with a reference standard agreed by two
+    radiologists blinded to the AI suggestion; disagreements go to a third.
+    Readers complete a baseline block of unaided reads, the two practice
+    blocks, and a week-eight block of unaided reads. The baseline and week-eight
+    reads are blinded: no AI suggestion is shown, and the reader is not told
+    which cases were used in practice.
+  </p>
+  <p>
+    A separate arm tests responses to suggestions that are correct and
+    suggestions that are deliberately wrong. Readers are told before the task
+    that some suggestions may be wrong. The wrong-suggestion arm is disclosed,
+    not deceptive, and every participant is debriefed.
+  </p>
+  <p>
+    A sandbox drill after the reading task records who can initiate a pause,
+    who can execute it, who can reverse a decision, and who can request a
+    change to the workflow. The drill is observed, not simulated on paper.
+  </p>
+</SectionBlock>
+
+<SectionBlock
+  id="outcomes"
+  eyebrow="Analysis"
+  title="Outcomes and analysis"
+  description="Fixed before data collection; no result is reported without them."
+  variant="alt"
+>
+  <p>
+    The primary outcome is the between-order difference in change from baseline
+    to week eight on blinded, unaided reads of expert-adjudicated cases.
+    Secondary outcomes are accuracy and reliability with AI available, the rate
+    at which readers follow correct and wrong suggestions, the time to halt or
+    reverse a decision, and the sandbox record of who can change the workflow.
+  </p>
+  <p>
+    Before data collection, the registration fixes the material effect (the
+    smallest change in unaided accuracy that would matter), the minimum
+    feasible sample, the power calculation behind it, the stop rules, and the
+    analysis. The draft does not set those numbers; it fixes the outcomes and
+    the inference rules, and the study does not start until the rest are
+    registered.
+  </p>
+  <p>
+    Stop rules cover a prespecified decline in unaided accuracy, a
+    prespecified rate of following wrong suggestions, and any sandbox finding
+    that a reader cannot halt a decision the protocol says should be haltable.
+  </p>
+</SectionBlock>
+
+<SectionBlock
+  id="change"
+  eyebrow="Inference"
+  title="What would change the claim"
+  description="Three results, three different conclusions."
+>
+  <ul>
+    <li>
+      An effect confined to wrong suggestions favors immediate anchoring: the
+      reader follows the suggestion in front of them, and the loss is in
+      correction rather than in underlying skill.
+    </li>
+    <li>
+      A precise estimate that rules out a meaningful decline in unaided
+      accuracy narrows the claim for this task. It would not show that AI-first
+      practice is safe across radiology, and it would not settle authority.
+    </li>
+    <li>
+      An imprecise estimate leaves the question open. It is not evidence of
+      absence, and it is not a reason to widen the claim.
+    </li>
+  </ul>
+  <p>
+    A gain in routine accuracy alongside a loss in the ability to halt or
+    reverse a decision is the divergence the protocol is built to detect. That
+    result would not show that the system should be removed. It would show that
+    the two outcomes have to be governed together.
+  </p>
+</SectionBlock>
+
+<SectionBlock
+  id="status"
+  eyebrow="Status"
+  title="Draft protocol, study pending"
+  description="No data collected. No results. Standards and evaluations are a separate layer."
+  variant="alt"
+>
+  <p>
+    This is a draft. It has not been registered, no site has agreed to run it,
+    and no data have been collected. The page will be updated with the
+    registration, the site, and the dates before any result is reported.
+  </p>
+  <p>
+    The protocol does not create a standard, an evaluation requirement, or a
+    claim about current practice. Those remain separate layers, and a draft
+    study does not become evidence by being published.
+  </p>
+</SectionBlock>
+
+<SectionBlock
+  id="citation"
+  eyebrow="Reference"
+  title="Citation and metadata"
+  description="Citing the draft protocol."
+>
+  <CitationBlock
+    title={frontmatter.citationTitle}
+    permalink={frontmatter.permalink}
+    publication={derivePublicationMetadata({
+      permalink: frontmatter.permalink,
+      published: frontmatter.published,
+      updated: frontmatter.updated,
+      authorName: frontmatter.authorName,
+      version: frontmatter.version,
+      changelogSummary: frontmatter.changelogSummary,
+    })}
+  />
+</SectionBlock>

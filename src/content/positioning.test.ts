@@ -112,9 +112,10 @@ describe("positioning instruments", () => {
   });
 
   it("links every instrument to at least one artifact on this site", () => {
+    // Every instrument needs at least one artifact on this site. A citation
+    // to the original paper may sit beside it and does not resolve locally.
     const unlinked = instruments.filter(
-      (entry) =>
-        entry.links.length === 0 || entry.links.some((l) => !resolves(l.href)),
+      (entry) => entry.links.filter((link) => resolves(link.href)).length === 0,
     );
     expect(unlinked).toEqual([]);
   });

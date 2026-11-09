@@ -14,7 +14,7 @@ import {
 } from "../../../content/theory-taxonomy";
 
 const published = "2026-09-18T00:00:00.000Z";
-const modified = "2026-10-06T00:00:00.000Z";
+const modified = "2026-11-08T00:00:00.000Z";
 const essays = (await getCollection("theory")).sort((a, b) =>
   a.data.title.localeCompare(b.data.title, "en", { sensitivity: "base" }),
 );
@@ -24,6 +24,7 @@ const pageDescription =
   "Essays on one claim: institutions can absorb the evidence that their automated systems are wrong, so errors get settled case by case and the rule goes unexamined. They argue why the laws hold. No standard cites an essay as a requirement.";
 const anchorLinks = [
   { href: "#start", label: "Reading order" },
+  { href: "#what-changes-with-use", label: "What changes with use" },
   { href: "#questions", label: "Every essay, by safeguard" },
   { href: "#layering", label: "Theory and method" },
 ];
@@ -62,6 +63,31 @@ const readingOrder = [
     throw new Error(`Reading order names a missing essay: ${step.slug}`);
   return { ...step, title: essay.data.title, href: essay.data.permalink };
 });
+
+// A second sequence for readers who want the account of what use does to the
+// user. It deliberately reuses dependence-without-standing: that essay is the
+// hinge between capture, authorization, and standing.
+const changesWithUse = [
+  {
+    slug: "automation-and-capture",
+    why: "How a system’s use can capture the terms of the work, not only the task.",
+  },
+  {
+    slug: "endogenous-authorization",
+    why: "How authority to change the system comes from inside the arrangement that depends on it.",
+  },
+  {
+    slug: "dependence-without-standing",
+    why: "Why people who correct a system need a route into the rule, and what the institution loses when they have none.",
+  },
+].map((step) => {
+  const essay = essays.find(
+    (entry) => entry.data.permalink === `/research/theory/${step.slug}`,
+  );
+  if (!essay)
+    throw new Error(`What changes with use names a missing essay: ${step.slug}`);
+  return { ...step, title: essay.data.title, href: essay.data.permalink };
+});
 ---
 
 <BaseLayout
@@ -95,6 +121,30 @@ const readingOrder = [
         ))
       }
     </ol>
+  </SectionBlock>
+
+  <SectionBlock
+    id="what-changes-with-use"
+    eyebrow="Second sequence"
+    title="What changes with use"
+    description="Three essays on what a system does to the people who use it: capture, authorization, and standing. Read in this order, they set up the open question about what people can still do after years of automation."
+  >
+    <ol class="step-list stack-md">
+      {
+        changesWithUse.map((step) => (
+          <li class="card stack-sm">
+            <h3>
+              <a href={step.href}>{step.title}</a>
+            </h3>
+            <p>{step.why}</p>
+          </li>
+        ))
+      }
+    </ol>
+    <p class="muted">
+      The sequence sets up the <a href="/research#agenda">open question</a> and
+      the <a href="/research/radiology-fallback-protocol">draft protocol</a>.
+    </p>
   </SectionBlock>
 
   <SectionBlock
