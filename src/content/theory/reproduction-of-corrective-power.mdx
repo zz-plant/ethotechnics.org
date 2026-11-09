@@ -167,6 +167,43 @@ to want. The pattern therefore stays with observable conditions of agency —
 skills, resources, organizations, alternatives, and the time to use them —
 rather than claiming access to anyone's authentic preferences.
 
+## The cost of correction
+
+Automation is usually adopted to raise throughput while holding verification
+labor flat. If every increment in consequential agency required a linear
+increment in human review, the economics of the deployment would fail, and an
+institution under competitive pressure would hollow out the safeguards first.
+That is the throughput-verification asymmetry, and it is a real design
+constraint rather than a failure of will.
+
+The invariant does not require a linear ombudsman army. It requires capacity
+proportional to **consequential agency**, and there are four levers that can
+restore the proportion:
+
+- **Scope.** Narrow what the system is allowed to decide. A tool that ranks
+  cases for review delegates less than a tool that closes them.
+- **Autonomy.** Lower the level of authority. A recommendation that a person
+  must act on is a different delegation from an automatic denial.
+- **Volume.** Reduce the number of consequential decisions, even if the system
+  keeps processing the low-stakes ones.
+- **Verification.** Automate inspection, challenge intake, and reconstruction,
+  so the capacity grows without growing the labor linearly.
+
+An institution that pulls none of these levers and instead turns the six
+safeguards into a new layer of paperwork has not met the invariant. It has
+renamed the gap. The economic question is not whether the institution can
+afford to verify everything. It is which decisions are worth delegating at the
+capacity the institution can actually maintain.
+
+The corpus already describes the accounting failure this creates:
+[the antihuman metric](/research/theory/the-antihuman-metric) shows a dashboard
+improving while the people behind it run down, and [what outcomes
+hide](/research/theory/what-outcomes-hide) shows the production path disappearing
+from the terminal measure. [MEC-28 Reproductive
+conditions](/mechanisms/patterns/reproductive-conditions) records the capacity;
+this section adds the constraint that the capacity has to be bought by changing
+the delegation, not by pretending the review is free.
+
 ## The correction window
 
 Correction is usually imagined as a feedback loop: an arrangement acts, an
@@ -210,6 +247,41 @@ not procurement preferences.
 
 Technical capacity is not democratic authority, and democratic authority does
 not supply technical capacity. The pattern has to hold both.
+
+## When the rule cannot be reconstructed
+
+The framework assumes that a decision can be traced to a rule that can be
+inspected and amended. That assumption is safe for a deterministic expert
+system or a supervised classifier. It is not safe for a multi-agent chain with
+stochastic sampling, dynamic tool use, and long-context reasoning. The path to
+the decision is a trajectory, not a policy line. A post-hoc explanation may be
+a rationalization rather than a reconstruction.
+
+If neither the affected person nor the engineering team can isolate what would
+have changed the outcome, the institution cannot correct the rule. It can only
+adjust a prompt, retrain a checkpoint, or add another guardrail, which is the
+ad-hoc patching the framework exists to distinguish from structural
+correction.
+
+The answer is not to demand mechanistic interpretability as a precondition.
+It is to require a **reconstructable decision record** or a lower level of
+autonomy. The record has to carry enough to answer a counterfactual question:
+what input, tool result, model version, threshold, or human action would have
+produced a different outcome? If the record cannot answer that, the system is
+not contestable at that level of delegation. The institution can narrow the
+decision class, lower the autonomy, or stop.
+
+This is a test of the record, not of the model's internal representations. A
+system can be opaque and still produce a record adequate to correction; a
+system can be simple and still fail the test because nobody recorded the
+boundary that mattered. [Law VIII](/standards/laws#law-viii) already says an
+observation that cannot change the governing state is theater. The
+reconstructability test adds the prior question: can the observation establish
+what would have changed the state?
+
+[MEC-29 Reconstructable
+delegation](/mechanisms/patterns/reconstructable-delegation) carries the record,
+the counterfactual test, and the autonomy reduction that follows a failed test.
 
 ## Accountable transition
 
@@ -274,3 +346,10 @@ That is the move from corrigible institutions to the reproduction of democratic
 self-government. It is also a research question, not a result: under what
 conditions does an institution's ordinary operation increase or diminish the
 capacity of those it governs to correct and transform it?
+
+The next research agenda is adversarial contestability tooling: claimant-side
+instruments as cheap, scalable, and inspectable as the decision systems they
+monitor. The pattern language can specify the record, the standing, and the
+enforcement route. It does not build the tool. Until that tooling exists,
+verification remains a slow craft against an instantaneous decision, and the
+asymmetry this essay describes will keep reasserting itself.

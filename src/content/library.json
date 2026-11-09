@@ -1858,6 +1858,78 @@
               }
             ]
           }
+        ,
+          {
+            "slug": "reconstructable-delegation",
+            "code": "MEC-29",
+            "title": "Reconstructable delegation",
+            "summary": "Require a decision record that can answer what would have changed the outcome, or lower the system's autonomy until one exists.",
+            "filters": [
+              "evidence",
+              "correction"
+            ],
+            "chainStages": [
+              "decision",
+              "correction"
+            ],
+            "chainNote": "It tests whether a decision can be reconstructed before the institution claims it can correct the rule.",
+            "glossaryRefs": [
+              "reconstructable-delegation",
+              "institutional-reversibility",
+              "corrective-power-chain",
+              "contestability"
+            ],
+            "cues": [
+              "A record that cannot answer what would have changed the outcome is a log, not a correction record.",
+              "If the rule is not reconstructable, lower autonomy before adding another guardrail.",
+              "Prompt-patching is not institutional correction."
+            ],
+            "diagnostics": [
+              "delegation-audit"
+            ],
+            "steps": [
+              "Define the decision boundary and the record fields that could have changed the outcome: inputs, tool results, model version, thresholds, and human actions.",
+              "Run a counterfactual test on a sample: can a reviewer identify what would have produced a different outcome?",
+              "If the test fails, lower autonomy, narrow the decision class, or stop the deployment.",
+              "Record the reconstruction result and the autonomy decision in the delegation record."
+            ],
+            "policyRequirement": "Policy requirement (MEC-29 Reconstructable delegation)\n- Each consequential decision class has a reconstruction record that answers what would have changed the outcome.\n- A failed reconstruction test triggers a recorded autonomy, scope, or stop decision.\nReference: https://ethotechnics.org/mechanisms/patterns/reconstructable-delegation",
+            "productRequirement": "Product requirement (MEC-29)\n- The decision record carries the fields needed for a counterfactual review, not only the output and timestamp.\n- A failed reconstruction test is visible as a deployment state, not a support ticket.",
+            "auditEvidenceChecklist": "Audit evidence checklist (MEC-29)\n[ ] Each decision class has a reconstruction record.\n[ ] A sample was tested for what would have changed the outcome.\n[ ] A failed test links to an autonomy, scope, or stop decision.\n[ ] The record is available to the affected party or their advocate.",
+            "postmortemTrigger": "Postmortem trigger (MEC-29)\nTrigger review when a challenge cannot be reconstructed from the record, or when the response to a failed test is another guardrail without an autonomy decision.",
+            "artifacts": [
+              {
+                "name": "Reconstruction record",
+                "purpose": "The fields that could have changed the outcome and the counterfactual answer."
+              },
+              {
+                "name": "Autonomy decision log",
+                "purpose": "For each failed test: lower autonomy, narrow scope, or stop, with the record behind it."
+              },
+              {
+                "name": "Counterfactual test sample",
+                "purpose": "Cases reviewed for what would have produced a different outcome."
+              }
+            ],
+            "example": {
+              "title": "A multi-agent claims chain that cannot explain a denial",
+              "description": "A claims chain uses three agents, dynamic tool calls, and a stochastic planner. The record shows the calls and model versions but cannot answer what would have changed the denial. The institution lowers the chain to recommendation-only until the record can answer the counterfactual, rather than adding another guardrail and calling it correction."
+            },
+            "antiPatterns": [
+              {
+                "title": "Explanation as reconstruction",
+                "failure": "A post-hoc narrative is treated as the rule, so the institution can describe the decision without being able to say what would have changed it.",
+                "counterfactual": "A reviewer tests the record against a counterfactual and records the answer.",
+                "warning": "A fluent explanation is not evidence that the decision is reconstructable."
+              },
+              {
+                "title": "Guardrail stacking",
+                "failure": "Each failed reconstruction adds another filter or prompt instruction, while the underlying delegation keeps the same autonomy.",
+                "counterfactual": "A failed test triggers a recorded autonomy, scope, or stop decision.",
+                "warning": "A new guardrail is not a correction if the rule remains unreconstructable."
+              }
+            ]
+          }
         ]
     },
     "id": "library"
