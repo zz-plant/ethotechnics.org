@@ -1,6 +1,10 @@
 version: 2
 updates:
-  - package-ecosystem: "npm"
+  # "bun", not "npm": this repository has bun.lock and no package-lock.json,
+  # so the npm updater aborted on every run from at least 2026-10-21 to
+  # 2026-11-10 ("Dependabot's npm_and_yarn ecosystem cannot update
+  # bun.lock") and no version update was ever proposed.
+  - package-ecosystem: "bun"
     directory: "/"
     # Monthly and grouped since 2026-11-10, when the site went into
     # maintenance (AGENTS.md): one pull request a month for minor and patch
