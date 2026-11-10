@@ -17,10 +17,12 @@ Use this map before adding or editing docs so guidance stays easy to find and ma
 
 ### Agent contributors
 
-- [`agent-developer-experience.md`](agent-developer-experience.md): agent onboarding and routing.
+- [`agents/repo-orientation.md`](agents/repo-orientation.md): start here. Maps a change to the
+  file to edit and the command to run.
 - [`agents/README.md`](agents/README.md): agent playbook index.
 - [`agents/workflow-and-checks.md`](agents/workflow-and-checks.md): required validation rules.
-- [`agents/repo-orientation.md`](agents/repo-orientation.md): where different change types belong.
+- [`agents/local-quirks.md`](agents/local-quirks.md): failures that look like regressions and are
+  not.
 
 ### Architecture and implementation references
 

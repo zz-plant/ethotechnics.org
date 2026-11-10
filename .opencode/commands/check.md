@@ -1,6 +1,6 @@
 ---
-description: "Run typecheck + lint"
+description: "Run every pre-commit check"
 agent: build
 ---
 
-bunx tsc --noEmit --project tsconfig.typecheck.json||bun run build||bun run check
+bun run check

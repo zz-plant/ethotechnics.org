@@ -16,11 +16,11 @@ docs/
 ├── README.md                        # Top-level discovery map
 ├── contributor-workflow.md          # Shared human + agent delivery loop
 ├── local-development.md             # Setup, scripts, troubleshooting
-├── agent-developer-experience.md    # Agent onboarding entry point
 ├── agents/
 │   ├── README.md                    # Agent playbook index
 │   ├── workflow-and-checks.md       # Validation expectations
-│   ├── repo-orientation.md          # Where changes belong
+│   ├── repo-orientation.md          # Change → file → command map
+│   ├── local-quirks.md              # Failures that are not regressions
 │   ├── coding-practices.md          # Coding conventions
 │   ├── formatting-and-tooling.md    # Commands and formatting rules
 │   ├── version-control.md           # Git hygiene and PR guidance
@@ -34,7 +34,7 @@ docs/
 
 - `docs/README.md` owns top-level navigation.
 - `docs/contributor-workflow.md` owns the shared contributor workflow.
-- `docs/agent-developer-experience.md` owns agent onboarding.
+- `docs/agents/repo-orientation.md` owns agent onboarding.
 - `docs/agents/*.md` own detailed agent execution practices.
 - Domain docs own technical depth for specific systems.
 

@@ -36,7 +36,12 @@ The reference voice is `src/content/casebook.ts` and `src/content/method.ts`. Ma
 
 - Package manager and script runner: **Bun**.
 - Runtime baseline: **Node.js 22.x** (`nvm use`).
-- Run `bun run check` before committing code or mixed changes.
+- In a new worktree, run `bun install --frozen-lockfile` before anything else.
+- Run `bun run check` before committing code or mixed changes. A passing step prints one line;
+  a failing step prints its output.
+- Find where a change goes in `docs/agents/repo-orientation.md` before searching.
+- When a check, the dev server, or an e2e test fails for no clear reason, read
+  `docs/agents/local-quirks.md` before debugging.
 - Discover scoped overrides before editing: `rg --files -g 'AGENTS.md'`.
 
 ## Working agreement
@@ -48,7 +53,8 @@ The reference voice is `src/content/casebook.ts` and `src/content/method.ts`. Ma
 
 ## Canonical references
 
-- Repository orientation: `docs/agents/repo-orientation.md`
+- Where a change goes: `docs/agents/repo-orientation.md`
+- Local quirks: `docs/agents/local-quirks.md`
 - Workflow and required checks: `docs/agents/workflow-and-checks.md`
 - Formatting and tooling: `docs/agents/formatting-and-tooling.md`
 - Coding practices: `docs/agents/coding-practices.md`

@@ -1,0 +1,9 @@
+# Read by ripgrep (and the search tools built on it), on top of .gitignore.
+# These files match almost any search and return nothing worth reading.
+# Search them on purpose with `rg --no-ignore <pattern> <path>`.
+
+# Minified bundle: one hit prints a 35,000-character line.
+packages/conformance/action/
+
+bun.lock
+public/archive/

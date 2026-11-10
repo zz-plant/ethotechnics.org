@@ -26,17 +26,92 @@ function ageInDays(isoDate: string): number {
   return Math.floor(elapsed / millisecondsPerDay);
 }
 
+const PackageJson = z.object({
+  engines: z.object({ bun: z.string().optional() }).optional(),
+  dependencies: z.record(z.string(), z.string()).optional(),
+  devDependencies: z.record(z.string(), z.string()).optional(),
+});
+
+const escapeRegExp = (value: string) =>
+  value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+/**
+ * Compares each direct dependency's installed version with the version
+ * bun.lock resolves it to. A worktree or a branch switch can leave
+ * node_modules behind the lockfile; every check then runs against the wrong
+ * packages and fails for reasons unrelated to the change under test.
+ */
+async function findStaleDependencies(
+  packageJson: z.infer<typeof PackageJson>,
+): Promise<string[]> {
+  const lockPath = join(process.cwd(), "bun.lock");
+  if (!existsSync(lockPath)) return [];
+  const lock = await Bun.file(lockPath).text();
+  const names = Object.keys({
+    ...packageJson.dependencies,
+    ...packageJson.devDependencies,
+  });
+
+  const stale: string[] = [];
+  for (const name of names) {
+    const escaped = escapeRegExp(name);
+    const locked = lock.match(
+      new RegExp(`^\\s*"${escaped}": \\["${escaped}@([^"]+)"`, "m"),
+    )?.[1];
+    // Workspace and non-registry entries have no single version to compare.
+    if (!locked || !/^\d/.test(locked)) continue;
+
+    const installedPath = join(
+      process.cwd(),
+      "node_modules",
+      name,
+      "package.json",
+    );
+    if (!existsSync(installedPath)) {
+      stale.push(`${name} is not installed`);
+      continue;
+    }
+    const installed = z
+      .object({ version: z.string() })
+      .parse(await Bun.file(installedPath).json()).version;
+    if (installed !== locked) {
+      stale.push(`${name} is ${installed}, lockfile has ${locked}`);
+    }
+  }
+  return stale;
+}
+
 async function check() {
   console.log("🛠️  Agent Doctor: Checking repository health for agents...\n");
   let errors = 0;
 
-  // 1. Bun Check
+  // 1. Bun version against the pin in package.json
+  const packageJson = PackageJson.parse(
+    await Bun.file(join(process.cwd(), "package.json")).json(),
+  );
   const bunVersion = process.versions.bun;
-  if (bunVersion) {
-    console.log(`✅ Bun version: ${bunVersion}`);
-  } else {
+  const bunRange = packageJson.engines?.bun;
+  if (!bunVersion) {
     console.error("❌ Bun is not running this script!");
     errors++;
+  } else if (bunRange && !Bun.semver.satisfies(bunVersion, bunRange)) {
+    console.error(
+      `❌ Bun ${bunVersion} does not satisfy ${bunRange} (package.json engines). An older Bun fails \`bun install --frozen-lockfile\` and builds a different conformance bundle. With mise: \`mise install\`, or prefix commands with MISE_BUN_VERSION=<pinned version>.`,
+    );
+    errors++;
+  } else {
+    console.log(`✅ Bun version: ${bunVersion}`);
+  }
+
+  // 1b. Installed dependencies against bun.lock
+  const stale = await findStaleDependencies(packageJson);
+  if (stale.length > 0) {
+    console.error(
+      `❌ node_modules does not match bun.lock (${stale.slice(0, 5).join("; ")}${stale.length > 5 ? `; and ${stale.length - 5} more` : ""}). Run \`bun install --frozen-lockfile\` before trusting any other check: stale dependencies make conformance:action:check report a bundle that is "out of date" when it is not.`,
+    );
+    errors++;
+  } else {
+    console.log("✅ node_modules matches bun.lock.");
   }
 
   // 2. AGENTS.md Hierarchy Check

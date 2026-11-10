@@ -5,7 +5,8 @@ Setup, run, and troubleshoot the site locally using the repository's supported t
 ## Prerequisites
 
 - Node.js 22.x (`nvm use`).
-- Bun 1.3+ (`bun --version`).
+- Bun at the version `package.json` pins in `packageManager` (`bun --version`; `mise install`
+  reads the same pin from `mise.toml`).
 - Optional: Playwright browser dependencies for end-to-end tests.
 
 ## Setup
@@ -80,7 +81,10 @@ Playwright caches.
 
 - Toolchain drift:
   - Verify versions with `node -v` and `bun -v`.
-  - Reinstall dependencies: `rm -rf node_modules bun.lock && bun install`.
+  - Reinstall dependencies: `rm -rf node_modules && bun install --frozen-lockfile`. Keep
+    `bun.lock`; the install is frozen to it.
+- Failures that look like regressions and are not (first-start dev crash, port 4321 in use,
+  missing Playwright browsers): see [`agents/local-quirks.md`](agents/local-quirks.md).
 - Astro cache issues:
   - Remove `.astro/` and rerun the failing command.
 - Worker preview issues:

@@ -7,8 +7,8 @@ Playwright.
 
 - Bun test configuration lives in [`bunfig.toml`](../bunfig.toml), which preloads
   [`src/test/preload.ts`](../src/test/preload.ts) to register happy-dom and mock Astro virtual
-  modules. Run `bun run test:unit` for local coverage and `bun run test:unit:ci` for a full run with
-  the lcov reporter.
+  modules. Run `bun run test:unit` for results only and `bun run test:unit:ci` for coverage with the
+  lcov reporter.
 - Component specs live in [`src/components/__tests__/`](../src/components/__tests__/) and run under
   Bun with the happy-dom globals from the preload file. Extend coverage there by adding new
   `*.test.ts` files or assertions alongside existing fixtures. Structural checks of `.astro`
