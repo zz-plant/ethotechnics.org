@@ -2,9 +2,15 @@ version: 2
 updates:
   - package-ecosystem: "npm"
     directory: "/"
+    # Monthly and grouped since 2026-11-10, when the site went into
+    # maintenance (AGENTS.md): one pull request a month for minor and patch
+    # updates, a major one on its own. Security updates still open at once.
     schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 10
+      interval: "monthly"
+    open-pull-requests-limit: 3
+    groups:
+      minor-and-patch:
+        update-types: ["minor", "patch"]
     labels:
       - "dependencies"
     # Titles read "deps: bump x from 1.0 to 1.1", the form

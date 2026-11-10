@@ -2,6 +2,27 @@
 
 Scope: applies to the entire repository unless a more specific `AGENTS.md` overrides it.
 
+## Maintenance mode (since 2026-11-10)
+
+Ethotechnics is in maintenance: the owner decided on 2026-11-10 to keep it working and stop developing it. Until this section is removed, it overrides the roadmap and any other document that names work to do next.
+
+Take:
+
+- a fix for something broken: a failing build or check, a page error, a dead link or source, a deploy that stopped;
+- security updates and the monthly dependency pull request;
+- an objection: the site promises an answer within 30 days, and that promise stands. Draft the answer for the owner to post;
+- the presence-data pull request that rebuilds the objections record.
+
+No new concept, glossary entry, standard or clause unless the owner names a problem the existing framework fails to express.
+
+Decline the rest, and say in your reply that the repository is in maintenance:
+
+- new features, pages, tools, datasets or integrations;
+- redesigns, copy passes, and refactors that fix nothing broken;
+- new automation, services, secrets, paid APIs or scheduled jobs.
+
+The owner can still ask for any of these. Do one only when the request says it overrides this section.
+
 ## Purpose
 
 This repo powers ethotechnics.org: open standards, scored public failures, and diagnostics for

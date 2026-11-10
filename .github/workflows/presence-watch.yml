@@ -23,9 +23,11 @@ name: Presence watch
 # PRESENCE_BOT_TOKEN secret when it is set, otherwise GITHUB_TOKEN; if code
 # search refuses GITHUB_TOKEN, the issue says so.
 
+#
+# By hand only since 2026-11-10: the site is in maintenance (AGENTS.md), and
+# looking for consultations to answer is outreach. The weekly schedule was
+# "17 7 * * 1"; restore it when outreach resumes.
 on:
-  schedule:
-    - cron: "17 7 * * 1"
   workflow_dispatch:
 
 permissions:
