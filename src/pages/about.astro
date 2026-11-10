@@ -4,7 +4,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import ActionIcon from "../components/ActionIcon.astro";
 import Logo from "../components/Logo.astro";
 import ClaimsTable from "../components/ClaimsTable.astro";
-import IntellectualLineage from "../components/IntellectualLineage.astro";
 import { cases, type LearningVerdict } from "../content/casebook";
 import {
   commissionedWork,
@@ -326,7 +325,25 @@ for (const entry of cases) {
   <section id="lineage" class="stack-sm card">
     <p class="eyebrow">Intellectual lineage and distinctive contribution</p>
     <h2>Where the argument comes from, and where it departs</h2>
-    <IntellectualLineage />
+    {
+      /* The full lineage (seven inherited traditions, the neighboring fields
+         and where each stops, the disputes) ran here and again in the essay
+         "What Ethotechnics is not": 2,400 words, word for word, 60% of this
+         page. The essay is the argument's home. This section keeps what is
+         its own: the departure, and the obligations by clause number. */
+    }
+    <p>
+      Ethotechnics does not claim originality for the proposition that human
+      struggle should be reduced, or that institutions exploit unpriced labor to
+      absorb their own failures. Those insights belong to established
+      traditions, and the fields closest to the mechanism each see part of it
+      and stop at a different point.
+      <a
+        href="/research/theory/what-ethotechnics-is-not#where-the-argument-already-exists"
+        >What Ethotechnics is not</a
+      > names the traditions, sets the fields side by side, and marks where each one
+      stops.
+    </p>
     <p>
       Its departure is the instrument. The claim becomes obligations a running
       system can fail, records an auditor can read, and public cases scored

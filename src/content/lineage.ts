@@ -1,10 +1,10 @@
 /**
  * Where the argument comes from, and why the ground it stands on was open.
  *
- * The About page and the essay "What Ethotechnics is not" both state the
- * lineage. They used to carry two copies that drifted: different wording for
- * the same traditions, four contribution items in one and five in the other.
- * Both now render this module through IntellectualLineage.astro.
+ * The About page and the essay "What Ethotechnics is not" both stated the
+ * lineage. They first carried two copies that drifted, then one copy rendered
+ * twice. The essay renders this module through IntellectualLineage.astro;
+ * the About page summarizes it in a paragraph and links there.
  *
  * The argument runs in four steps:
  * 1. The moral propositions are inherited, not original.
