@@ -356,7 +356,7 @@ const pagefindType = pathSegments[0] ?? "";
     <meta data-pagefind-meta="description" content={description} />
     {
       pagefindType ? (
-        <meta data-pagefind-meta="type" content={pagefindType} />
+        <meta data-pagefind-meta="type[content]" content={pagefindType} />
       ) : null
     }
     <slot name="head" />

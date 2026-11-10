@@ -19,10 +19,12 @@ Setup, run, and troubleshoot the site locally using the repository's supported t
 ## Daily commands
 
 - Start development server: `bun dev`.
-- Build production bundle: `bun run build`.
+- Build production bundle: `bun run build`. It also builds the search index in
+  `dist/client/pagefind` ([`ci-search-index.md`](ci-search-index.md)).
 - Preview production build: `bun run preview`.
-- Preview Cloudflare Worker build: `bun run preview:cf`.
-- Generate the Pagefind search index in `dist/pagefind`: `bun run build:search`.
+- Preview Cloudflare Worker build: `bun run preview:cf`. Header search returns full-text results
+  here; the dev server has no index.
+- Rebuild only the search index from an existing `dist/`: `bun run build:search`.
 - Build and deploy the Worker: `bun run deploy`.
 
 ## Quality and validation commands

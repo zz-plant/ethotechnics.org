@@ -28,6 +28,10 @@ the Node APIs used during build/prerender while forcing Astro's generated Cloudf
 to use `createApp({ streaming: false })`. Without that patch, the Worker can return a 200 response
 whose body is the literal string `[object Object]`.
 
+The build then runs `build:search`, which starts that Worker locally, requests every sitemap
+address, and writes the Pagefind index to `dist/client/pagefind`. A page that does not answer 200
+fails the build. See [`ci-search-index.md`](ci-search-index.md).
+
 ## Worker build details
 
 - The Cloudflare adapter uses Cloudflare's image service (`imageService` in `astro.config.mjs`).
