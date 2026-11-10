@@ -129,6 +129,12 @@ const REDIRECT_MAP: Record<string, string> = {
   "/validators/journey-burden": "/validators#journey-burden",
   "/validators/risk-radar": "/validators#risk-radar",
   "/validators/latency-audit": "/validators#latency-audit",
+  // The three composite scenarios were pages of about 215 words, a third of
+  // it the frame they shared. Each is a section of /incidents.
+  "/incidents/appeals-backlog-trigger": "/incidents#appeals-backlog-trigger",
+  "/incidents/model-override-visibility":
+    "/incidents#model-override-visibility",
+  "/incidents/appeal-remedy-mismatch": "/incidents#appeal-remedy-mismatch",
   "/standards/implementation-examples": "/use-cases/examples#domains",
   "/standards/meta-critique": "/standards#governance-by-control",
   "/standards/micro-diagram-language": "/standards",

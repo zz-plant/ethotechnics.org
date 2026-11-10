@@ -262,7 +262,7 @@ export const getPostMarketMonitoringForApi = () =>
     type: "post-market-stage",
     stage: step.stage,
     outcome: step.outcome,
-    href: "/incidents",
+    href: "/standards/enforceable-governance-crosswalks#post-market",
     refs: ["EU-AI-ACT-ART-72", "EU-AI-ACT-ART-73", "ISO-IEC-42001-9.1"],
     deprecated_by: null,
     supersedes: [],

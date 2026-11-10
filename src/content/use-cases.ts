@@ -215,7 +215,7 @@ export const useCases: UseCase[] = [
     incidents: [
       {
         label: "Overrides with no audit trace",
-        href: "/incidents/model-override-visibility",
+        href: "/incidents#model-override-visibility",
       },
     ],
     alreadyRequired:
@@ -269,7 +269,7 @@ export const useCases: UseCase[] = [
     incidents: [
       {
         label: "Appeals backlog trigger",
-        href: "/incidents/appeals-backlog-trigger",
+        href: "/incidents#appeals-backlog-trigger",
       },
     ],
     alreadyRequired:
@@ -348,7 +348,7 @@ export const useCases: UseCase[] = [
     incidents: [
       {
         label: "Appeal accepted without remedy",
-        href: "/incidents/appeal-remedy-mismatch",
+        href: "/incidents#appeal-remedy-mismatch",
       },
     ],
     alreadyRequired:

@@ -317,11 +317,6 @@ export const buildSitemapSections = async () => {
     changefreq: "monthly",
   }));
 
-  const incidentPaths = incidentLessons.map((lesson) => ({
-    path: `/incidents/${lesson.slug}`,
-    lastmod: lesson.updated ?? lesson.published,
-  }));
-
   const casebookPaths = cases.map((entry) => ({
     path: `/casebook/${entry.slug}`,
     lastmod: entry.updated ?? entry.published,
@@ -421,7 +416,6 @@ export const buildSitemapSections = async () => {
   const standardsSection = applyOverrides([
     ...standardsCollectionPaths,
     ...evidencePackPaths,
-    ...incidentPaths,
     ...casebookPaths,
     ...rolePaths,
     ...theoryPaths,

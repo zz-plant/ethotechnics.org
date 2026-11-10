@@ -33,7 +33,6 @@ declares its own `permalink` in frontmatter.
 | `theory`        | `src/content/theory/`         | `/research/theory/[slug]` |
 | `evidencePacks` | `src/content/evidence-packs/` | `/evidence-packs/[slug]`  |
 | `explainers`    | `src/content/explainers/`     | `/explainers/[slug]`      |
-| `incidents`     | `src/content/incidents/`      | `/incidents/[slug]`       |
 
 The `theory` collection holds the Theory layer: the essays that explain why the laws hold. Method
 pages may cite them as motivation, never as a requirement. Adding an essay is one MDX file with

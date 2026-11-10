@@ -253,6 +253,11 @@ describe("middleware", () => {
         expectedLocation: "https://ethotechnics.org/validators#latency-audit",
       },
       {
+        url: "https://ethotechnics.org/incidents/appeals-backlog-trigger",
+        expectedLocation:
+          "https://ethotechnics.org/incidents#appeals-backlog-trigger",
+      },
+      {
         url: "https://ethotechnics.org/standards/meta-critique",
         expectedLocation:
           "https://ethotechnics.org/standards#governance-by-control",

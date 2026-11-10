@@ -453,36 +453,6 @@ const explainerSchema = z.object({
   publication: publicationSchema.optional(),
 });
 
-const incidentSchema = z.object({
-  slug: z.string(),
-  title: z.string(),
-  description: z.string(),
-  permalink: z.string(),
-  eyebrow: z.string().optional().default("Incident"),
-  published: z.string(),
-  updated: z.string().optional(),
-  tags: z.array(z.string()).optional(),
-  glossaryRefs: z.array(z.string()).optional(),
-  mechanismRefs: z.array(z.string()).optional(),
-  standardRefs: z.array(z.string()).optional(),
-  body: z.string().optional(),
-  incident: z.object({
-    headline: z.string(),
-    impact: z.string(),
-    sector: z.string(),
-    timeframe: z.string(),
-  }),
-  governanceFailures: z.array(z.string()),
-  signalsToWatch: z.array(z.string()),
-  remediationChecklist: z.array(z.string()),
-  sources: z.array(
-    z.object({
-      label: z.string(),
-      href: z.string(),
-    }),
-  ),
-});
-
 const evidencePackSchema = z.object({
   slug: z.string(),
   title: z.string(),
@@ -568,11 +538,6 @@ const researchEssays = defineCollection({
   schema: researchEssaySchema,
 });
 
-const incidents = defineCollection({
-  loader: glob({ pattern: "**/*.mdx", base: "src/content/incidents" }),
-  schema: incidentSchema,
-});
-
 const evidencePacks = defineCollection({
   loader: glob({ pattern: "**/*.mdx", base: "src/content/evidence-packs" }),
   schema: evidencePackSchema,
@@ -583,7 +548,6 @@ export const collections = {
   explainers,
   theory,
   researchEssays,
-  incidents,
   evidencePacks,
   taxonomy,
   glossary,
