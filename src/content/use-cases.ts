@@ -503,7 +503,7 @@ export const toolLink = (ref: UseCase["runFirst"]): FitLink => {
     if (!form) throw new Error(`use-cases: unknown validator ${ref.slug}`);
     return {
       label: `${form.id} ${form.title}`,
-      href: `/validators/${form.slug}`,
+      href: `/validators#${form.slug}`,
     };
   }
   const tool = diagnosticsContent.tools.find(

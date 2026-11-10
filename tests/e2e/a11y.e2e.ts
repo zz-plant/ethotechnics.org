@@ -4,7 +4,7 @@ import AxeBuilder from "@axe-core/playwright";
 const ROUTES_TO_TEST = [
   "/",
   "/standards/std-01-temporal-rights",
-  "/validators/latency-audit",
+  "/validators",
   "/about",
   "/start",
   "/explainers/governance-capability",

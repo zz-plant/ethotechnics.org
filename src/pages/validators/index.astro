@@ -3,6 +3,7 @@ import InlineScript from "../../components/InlineScript.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import ValidatorForm from "../../components/ValidatorForm.astro";
 import { validatorsContent } from "../../content/validators";
 
 const {
@@ -16,10 +17,8 @@ const {
 const pageUrl = Astro.site
   ? new URL(permalink, Astro.site).toString()
   : permalink;
-const validatorUrl = (slug: string) =>
-  Astro.site
-    ? new URL(`/validators/${slug}`, Astro.site).toString()
-    : `/validators/${slug}`;
+// Each validator is a section of this page (id = its slug).
+const validatorUrl = (slug: string) => `${pageUrl}#${slug}`;
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
@@ -47,7 +46,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <PageIntro
     eyebrow="Validators"
     title="Validators"
-    description="Each validator takes three inputs about a user journey. It returns a red, yellow, or green status, the clauses at risk in STD-01, the temporal rights standard, and a mechanism to review."
+    description="Each validator takes three inputs about a user journey. It returns a red, yellow, or green status, the clauses at risk in STD-01, the temporal rights standard, and a mechanism to review. All three run on this page."
     anchorLinks={anchorLinks}
   />
   {
@@ -81,7 +80,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
             validators.map((validator) => (
               <tr>
                 <th scope="row">
-                  <a href={`/validators/${validator.slug}`}>
+                  <a href={`#${validator.slug}`}>
                     {validator.id} {validator.title}
                   </a>
                   <span class="catalogue-table__summary">
@@ -110,6 +109,94 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     </div>
   </SectionBlock>
 
+  {
+    /* The three forms. Each was a page of its own at /validators/<slug>: a
+       form and one sentence, with this table already describing it. */
+  }
+  <section id="run" class="section stack-lg">
+    <div class="section__header">
+      <h2>Run a validator</h2>
+    </div>
+
+    <ValidatorForm
+      id="VAL-01"
+      variant="burden"
+      defaults={{ duration: 12, steps: 4 }}
+      fix={{
+        href: "/mechanisms/patterns/hard-clock",
+        label: "Hard clock (MEC-04)",
+      }}
+    >
+      Scores one user journey on its length, its step count, and whether every
+      screen has an exit. To rate the workload a system creates for the team
+      that runs it, use the
+      <a href="/diagnostics/burden-modeler"
+        >Workload modeler, a different tool</a
+      >.
+    </ValidatorForm>
+
+    <ValidatorForm
+      id="VAL-02"
+      variant="risk"
+      defaults={{ touchpoints: 3, wait: 4 }}
+      fix={{
+        href: "/mechanisms/patterns/appeal-paths",
+        label: "Appeal paths (MEC-06)",
+      }}
+    >
+      Counts high-friction touchpoints, average wait, and missing appeal paths
+      in a journey, to show where the friction is heavy enough to keep people
+      from the service.
+
+      <div
+        slot="before-form"
+        class="callout callout--emphasis"
+        role="group"
+        aria-label="Risk radar checklist"
+      >
+        <p class="eyebrow">Before you run this validator</p>
+        <h3>
+          Score the journey, add the appeal path, then download the result
+        </h3>
+        <div class="callout__metrics" aria-label="Validator run details">
+          <span class="pill pill--muted"
+            ><strong>Estimated time:</strong> 3–5 minutes</span
+          >
+          <span class="pill pill--muted"
+            ><strong>Required inputs:</strong> touchpoints, wait time, appeal path</span
+          >
+        </div>
+        <p class="muted small">
+          The JSON download records your inputs, the status, and the clauses at
+          risk.
+        </p>
+        <p class="muted small">
+          Next steps: <a href="/mechanisms/patterns/appeal-paths"
+            >Add appeal paths (MEC-06)</a
+          > ·
+          <a href="/diagnostics/burden-budget-worksheet"
+            >Open burden budget worksheet</a
+          > ·
+          <a href="/evidence-packs/std-01">Map to STD-01 evidence pack</a>
+        </p>
+      </div>
+    </ValidatorForm>
+
+    <ValidatorForm
+      id="VAL-03"
+      variant="latency"
+      defaults={{ timeout: 120, latency: 95 }}
+      fix={{
+        href: "/mechanisms/patterns/hard-clock",
+        label: "Hard clock (MEC-04)",
+      }}
+    >
+      Compares a declared timeout with the longest latency observed, and checks
+      for a human escalation path. It tests the STD-01 rule that every process
+      has a declared maximum duration.
+    </ValidatorForm>
+  </section>
+
   <section id="method" class="section section--alt">
     <div class="section__header">
       <p class="eyebrow">Method</p>
@@ -134,3 +221,42 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 
   <InlineScript type="application/ld+json" code={structuredDataJson} />
 </BaseLayout>
+
+<script>
+  import { initValidatorForm, type Level } from "../../client/validator-form";
+
+  // One scoring rule per form, matched to its section by `data-validator`.
+  const run = <Inputs,>(variant: string, score: (inputs: Inputs) => Level) => {
+    const root = document.querySelector<HTMLElement>(
+      `[data-validator="${variant}"]`,
+    );
+    if (root) initValidatorForm<Inputs>(root, score);
+  };
+
+  run<{ duration: number; steps: number; exit: string }>(
+    "burden",
+    ({ duration, steps, exit }) => {
+      if (duration > 25 || steps > 7 || exit === "no") return "red";
+      if (duration > 15 || steps > 5) return "yellow";
+      return "green";
+    },
+  );
+
+  run<{ touchpoints: number; wait: number; appeal: string }>(
+    "risk",
+    ({ touchpoints, wait, appeal }) => {
+      if (touchpoints >= 5 || wait >= 8 || appeal === "no") return "red";
+      if (touchpoints >= 3 || wait >= 5) return "yellow";
+      return "green";
+    },
+  );
+
+  run<{ timeout: number; latency: number; escalation: string }>(
+    "latency",
+    ({ timeout, latency, escalation }) => {
+      if (latency > timeout || escalation === "no") return "red";
+      if (latency > timeout * 0.8) return "yellow";
+      return "green";
+    },
+  );
+</script>

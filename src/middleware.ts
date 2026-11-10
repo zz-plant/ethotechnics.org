@@ -123,7 +123,12 @@ const REDIRECT_MAP: Record<string, string> = {
   // staff that run it, and VAL-01 at /validators scored the time a journey
   // takes the person it decides about. VAL-01 keeps its ID and is now the
   // Journey burden check at its own slug.
-  "/validators/burden-modeler": "/validators/journey-burden",
+  "/validators/burden-modeler": "/validators#journey-burden",
+  // Each validator was a page: a three-input form and one sentence, beside a
+  // register table that already described it. The forms run on /validators.
+  "/validators/journey-burden": "/validators#journey-burden",
+  "/validators/risk-radar": "/validators#risk-radar",
+  "/validators/latency-audit": "/validators#latency-audit",
   "/standards/implementation-examples": "/use-cases/examples#domains",
   "/standards/meta-critique": "/standards#governance-by-control",
   "/standards/micro-diagram-language": "/standards",

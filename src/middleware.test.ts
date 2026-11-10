@@ -246,7 +246,11 @@ describe("middleware", () => {
       },
       {
         url: "https://ethotechnics.org/validators/burden-modeler",
-        expectedLocation: "https://ethotechnics.org/validators/journey-burden",
+        expectedLocation: "https://ethotechnics.org/validators#journey-burden",
+      },
+      {
+        url: "https://ethotechnics.org/validators/latency-audit",
+        expectedLocation: "https://ethotechnics.org/validators#latency-audit",
       },
       {
         url: "https://ethotechnics.org/standards/meta-critique",

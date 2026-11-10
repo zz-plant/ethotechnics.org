@@ -1,6 +1,6 @@
 import type { ValidatorEntry } from "../content/validators";
 
-type Level = "red" | "yellow" | "green";
+export type Level = "red" | "yellow" | "green";
 
 const SEVERITY: Record<Level, string> = {
   green: "low",
@@ -9,19 +9,25 @@ const SEVERITY: Record<Level, string> = {
 };
 
 /**
- * Runs a validator page: restores the draft, scores the form on submit, shows
- * the report card, and offers the result as JSON. The page supplies only its
+ * Runs one validator: restores the draft, scores the form on submit, shows
+ * the report card, and offers the result as JSON. The page supplies only the
  * scoring rule. The wording for each level comes from the validator's entry in
- * content/validators.ts, which the page writes into `data-validator-meta`.
+ * content/validators.ts, which the form writes into `data-validator-meta`.
+ *
+ * Everything is looked up inside `root`: /validators carries three forms, and
+ * a document-wide query ran the first form's rule for all of them.
  */
-export const initValidatorForm = <Inputs>(score: (inputs: Inputs) => Level) => {
-  const form = document.querySelector<HTMLFormElement>("[data-validator-form]");
-  const report = document.querySelector<HTMLElement>("[data-validator-report]");
-  const pill = document.querySelector<HTMLElement>("[data-validator-pill]");
-  const output = document.querySelector<HTMLOutputElement>(
+export const initValidatorForm = <Inputs>(
+  root: HTMLElement,
+  score: (inputs: Inputs) => Level,
+) => {
+  const form = root.querySelector<HTMLFormElement>("[data-validator-form]");
+  const report = root.querySelector<HTMLElement>("[data-validator-report]");
+  const pill = root.querySelector<HTMLElement>("[data-validator-pill]");
+  const output = root.querySelector<HTMLOutputElement>(
     "[data-validator-output]",
   );
-  const fix = document.querySelector<HTMLElement>("[data-validator-fix]");
+  const fix = root.querySelector<HTMLElement>("[data-validator-fix]");
   if (!form?.dataset.validatorMeta || !report || !pill || !output) return;
 
   const validator = JSON.parse(form.dataset.validatorMeta) as ValidatorEntry;
@@ -112,7 +118,7 @@ export const initValidatorForm = <Inputs>(score: (inputs: Inputs) => Level) => {
     report.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 
-  document
+  root
     .querySelector<HTMLButtonElement>("[data-validator-download]")
     ?.addEventListener("click", () => {
       if (!latestResult) return;

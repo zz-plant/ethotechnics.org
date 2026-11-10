@@ -142,7 +142,7 @@ export const getValidatorsForApi = () =>
     title: validator.title,
     description: validator.description,
     standardRef: validator.standardRef,
-    href: `${validatorsContent.permalink}/${validator.slug}`,
+    href: `${validatorsContent.permalink}#${validator.slug}`,
     inputs: validator.inputs,
     thresholds: validator.thresholds,
     clauseRefs: validator.clauseRefs,
