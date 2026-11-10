@@ -4,65 +4,65 @@ export interface ExplainerSeoMetadata {
 }
 
 const defaultExplainerMetadata: ExplainerSeoMetadata = {
-  publishedTime: "2025-01-15T00:00:00.000Z",
+  publishedTime: "2026-01-15T00:00:00.000Z",
   modifiedTime: "2026-02-09T00:00:00.000Z",
 };
 
 const explainerMetadataBySlug: Record<string, ExplainerSeoMetadata> = {
   stoppability: {
-    publishedTime: "2025-01-15T00:00:00.000Z",
+    publishedTime: "2026-01-15T00:00:00.000Z",
     modifiedTime: "2026-02-09T00:00:00.000Z",
   },
   "time-to-halt": {
-    publishedTime: "2025-01-20T00:00:00.000Z",
+    publishedTime: "2026-01-15T00:00:00.000Z",
     modifiedTime: "2026-02-09T00:00:00.000Z",
   },
   "permission-surface": {
-    publishedTime: "2025-02-10T00:00:00.000Z",
+    publishedTime: "2026-01-15T00:00:00.000Z",
     modifiedTime: "2026-09-06T00:00:00.000Z",
   },
   "repair-log": {
-    publishedTime: "2025-03-05T00:00:00.000Z",
+    publishedTime: "2026-01-15T00:00:00.000Z",
     modifiedTime: "2026-02-09T00:00:00.000Z",
   },
   contestability: {
-    publishedTime: "2025-03-20T00:00:00.000Z",
+    publishedTime: "2026-01-15T00:00:00.000Z",
     modifiedTime: "2026-10-08T00:00:00.000Z",
   },
   "challenge-checklist": {
-    publishedTime: "2025-04-01T00:00:00.000Z",
+    publishedTime: "2026-01-21T00:00:00.000Z",
     modifiedTime: "2026-10-06T00:00:00.000Z",
   },
   "safety-valve": {
-    publishedTime: "2025-05-10T00:00:00.000Z",
+    publishedTime: "2026-01-15T00:00:00.000Z",
     modifiedTime: "2026-02-09T00:00:00.000Z",
   },
   "ethical-interrupts": {
-    publishedTime: "2025-06-15T00:00:00.000Z",
+    publishedTime: "2026-01-15T00:00:00.000Z",
     modifiedTime: "2026-02-09T00:00:00.000Z",
   },
   "consent-journey": {
-    publishedTime: "2025-07-01T00:00:00.000Z",
+    publishedTime: "2026-01-15T00:00:00.000Z",
     modifiedTime: "2026-02-09T00:00:00.000Z",
   },
   "language-people-can-use": {
-    publishedTime: "2025-09-05T00:00:00.000Z",
+    publishedTime: "2026-01-26T00:00:00.000Z",
     modifiedTime: "2026-10-06T00:00:00.000Z",
   },
   "design-authority": {
-    publishedTime: "2025-10-01T00:00:00.000Z",
+    publishedTime: "2026-01-15T00:00:00.000Z",
     modifiedTime: "2026-02-09T00:00:00.000Z",
   },
   "burden-index": {
-    publishedTime: "2025-10-20T00:00:00.000Z",
+    publishedTime: "2026-01-15T00:00:00.000Z",
     modifiedTime: "2026-02-09T00:00:00.000Z",
   },
   "governance-capability": {
-    publishedTime: "2025-11-10T00:00:00.000Z",
+    publishedTime: "2026-01-25T00:00:00.000Z",
     modifiedTime: "2026-10-06T00:00:00.000Z",
   },
   "remedy-essentials": {
-    publishedTime: "2025-12-01T00:00:00.000Z",
+    publishedTime: "2026-01-16T00:00:00.000Z",
     modifiedTime: "2026-10-06T00:00:00.000Z",
   },
   "open-weights-and-the-delegation-boundary": {
