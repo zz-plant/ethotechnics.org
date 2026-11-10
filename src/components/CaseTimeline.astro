@@ -7,7 +7,8 @@
 import type { Case } from "../content/casebook";
 
 type Props = {
-  entry: Case;
+  /** A casebook case, or a pillar case that carries the same timeline. */
+  entry: Pick<Case, "slug" | "timeline"> & Partial<Pick<Case, "timeToHalt">>;
   /** The caption's eyebrow. */
   eyebrow?: string;
   /** Show the case's time to halt beside the eyebrow. */

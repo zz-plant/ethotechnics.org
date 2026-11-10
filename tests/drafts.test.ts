@@ -1,7 +1,7 @@
 import { describe, expect, it, mock } from "bun:test";
 
 /**
- * docs/drafts/ holds content written in a published format but not yet
+ * docs/drafts/ holds content written in a published format but not
  * published. Nothing there is built, routed, or listed in the sitemap. These
  * tests hold both halves of that: each draft fits the format it will be
  * published in, and none of it has leaked into the site.
@@ -18,7 +18,8 @@ const { cases, stateVariables } = await import("../src/content/casebook");
 const { standardClauses, standardsContent } =
   await import("../src/content/standards");
 const { buildSitemapSections } = await import("../src/utils/seo/sitemaps");
-const { draftHealthcareCasebook, draftHealthcareCases } =
+const { healthcareCases } = await import("../src/content/healthcare-casebook");
+const { draftHealthcareCases } =
   await import("../docs/drafts/healthcare-casebook");
 
 const EXPLAINER_DRAFT = "docs/drafts/human-in-the-loop-or-rubber-stamp.mdx";
@@ -74,15 +75,25 @@ describe("human-in-the-loop explainer draft", () => {
   });
 });
 
+// The healthcare pillar is published at /casebook/healthcare-ai from
+// src/content/healthcare-casebook.ts, which has its own tests. What stays here
+// are the cases that do not meet the pillar's admission rule.
 describe("healthcare casebook draft", () => {
-  it("is not published: no case shares a slug, and the sitemap lists none", async () => {
-    const publishedSlugs = new Set(cases.map((entry) => entry.slug));
+  it("is not published: no case shares a slug with the casebook or the pillar, and the sitemap lists none", async () => {
+    const publishedSlugs = new Set(
+      [...cases, ...healthcareCases].map((entry) => entry.slug),
+    );
     const listed = await sitemapPaths();
     for (const entry of draftHealthcareCases) {
       expect(publishedSlugs.has(entry.slug), entry.slug).toBe(false);
       expect(listed).not.toContain(`/casebook/${entry.slug}`);
     }
-    expect(listed).not.toContain(draftHealthcareCasebook.permalink);
+  });
+
+  it("holds only cases that do not meet the pillar's admission rule", () => {
+    for (const entry of draftHealthcareCases) {
+      expect(entry.meetsAdmissionRule, entry.slug).toBe(false);
+    }
   });
 
   it("marks every score as a draft", () => {
@@ -175,10 +186,7 @@ describe("healthcare casebook draft", () => {
     }
   });
 
-  it("keeps page and case descriptions to 160 characters", () => {
-    expect(draftHealthcareCasebook.pageDescription.length).toBeLessThanOrEqual(
-      160,
-    );
+  it("keeps case descriptions to 160 characters", () => {
     for (const entry of draftHealthcareCases) {
       expect(
         entry.metaDescription?.length ?? 0,

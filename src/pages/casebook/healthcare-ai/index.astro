@@ -1,0 +1,335 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import ActionIcon from "../../../components/ActionIcon.astro";
+import CaseTimeline from "../../../components/CaseTimeline.astro";
+import PageIntro from "../../../components/PageIntro.astro";
+import SectionBlock from "../../../components/SectionBlock.astro";
+import StateVariableGlyph from "../../../components/StateVariableGlyph.astro";
+import VerdictMark from "../../../components/VerdictMark.astro";
+import {
+  clauseHref,
+  clauseObligation,
+  learningVerdictLabels,
+  stateVariables,
+} from "../../../content/casebook";
+import {
+  healthcareCasebookContent,
+  healthcareCases,
+} from "../../../content/healthcare-casebook";
+import { formatDate } from "../../../utils/dates";
+
+// The pillar is one page, not a hub with a page per case. The main casebook's
+// case pages, tallies, share cards, and feed read `cases` from casebook.json;
+// these cases are admitted under a different rule and stay out of all of them.
+const {
+  pageTitle,
+  pageDescription,
+  eyebrow,
+  title,
+  description,
+  admissionRule,
+  admissionDifference,
+  scoreStatement,
+  haltStatement,
+} = healthcareCasebookContent;
+
+const variableById = new Map(
+  stateVariables.map((variable) => [variable.id, variable]),
+);
+const sourceKind = {
+  court: "Court",
+  inquiry: "Inquiry",
+  regulator: "Regulator",
+  parliament: "Parliament",
+  operator: "Operator",
+  ngo: "NGO",
+  study: "Peer-reviewed study",
+} as const;
+const published = healthcareCases
+  .map((entry) => entry.published)
+  .sort()
+  .at(-1);
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime={published}
+  structuredDataType="collection"
+>
+  <PageIntro
+    eyebrow={eyebrow}
+    title={title}
+    description={description}
+    anchorLinks={[
+      { href: "#admission", label: "What this page admits" },
+      ...healthcareCases.map((entry) => ({
+        href: `#${entry.slug}`,
+        label: entry.title,
+      })),
+    ]}
+  >
+    <Fragment slot="actions">
+      <a class="button ghost" href="/casebook">The main casebook</a>
+    </Fragment>
+  </PageIntro>
+
+  <SectionBlock
+    id="admission"
+    title="What this page admits, and whose scores these are"
+    variant="alt"
+  >
+    <div class="case-narrative">
+      <p>
+        <strong>{admissionRule}</strong>
+        {admissionDifference}
+      </p>
+      <p>{scoreStatement}</p>
+      <p>{haltStatement}</p>
+      <p>
+        Each case ends with what could not be confirmed. The six safeguards are
+        the ones the <a href="/casebook#reading">main casebook</a> scores, and the
+        <a href="/method">method</a> defines them.
+      </p>
+    </div>
+    <p class="casebook-legend small muted" aria-label="Legend">
+      <VerdictMark verdict="held" labelled /> in place and working ·
+      <VerdictMark verdict="drifted" labelled /> in place but out of step with what
+      it should track ·
+      <VerdictMark verdict="failed" labelled /> absent, or its absence is what the
+      record shows
+    </p>
+  </SectionBlock>
+
+  {
+    healthcareCases.map((entry, index) => (
+      <SectionBlock
+        id={entry.slug}
+        title={entry.title}
+        description={entry.summary}
+        variant={index % 2 === 0 ? "default" : "alt"}
+      >
+        <dl class="case-facts">
+          <div>
+            <dt>System</dt>
+            <dd>{entry.system}</dd>
+          </div>
+          <div>
+            <dt>Where</dt>
+            <dd>{entry.jurisdiction}</dd>
+          </div>
+          <div>
+            <dt>When</dt>
+            <dd>{entry.period}</dd>
+          </div>
+          <div>
+            <dt>Scale</dt>
+            <dd>{entry.scale}</dd>
+          </div>
+          {entry.halt.status === "halted" ? (
+            <>
+              <div>
+                <dt>Time to halt</dt>
+                <dd>{entry.halt.timeToHalt}</dd>
+              </div>
+              <div>
+                <dt>Halted by</dt>
+                <dd>{entry.halt.haltedBy}</dd>
+              </div>
+            </>
+          ) : (
+            <div>
+              <dt>Halt</dt>
+              <dd>
+                None on the record as of {formatDate(entry.halt.asOf)}.{" "}
+                {entry.halt.note}
+              </dd>
+            </div>
+          )}
+          <div>
+            <dt>Errors carried by</dt>
+            <dd>{entry.errorsCarriedBy}</dd>
+          </div>
+          <div>
+            <dt>Admitted on</dt>
+            <dd>{entry.admissionReason}</dd>
+          </div>
+          <div>
+            <dt>Scores</dt>
+            <dd>This project's draft reading.</dd>
+          </div>
+        </dl>
+
+        <h3>What happened</h3>
+        <div class="case-page__timeline">
+          <CaseTimeline entry={entry} />
+        </div>
+        <div class="case-narrative">
+          {entry.narrative.map((paragraph) => (
+            <p>{paragraph}</p>
+          ))}
+        </div>
+
+        <h3>The six safeguards, draft scores</h3>
+        <ol class="case-findings">
+          {entry.findings.map((finding) => {
+            const variable = variableById.get(finding.variable);
+            return (
+              <li class="case-finding" id={`${entry.slug}-${finding.variable}`}>
+                <div class="case-finding__head">
+                  {finding.verdict === "withheld" ? (
+                    <span class="pillar-withheld">Not scored</span>
+                  ) : (
+                    <VerdictMark verdict={finding.verdict} labelled />
+                  )}
+                  <h4>
+                    <StateVariableGlyph
+                      variable={finding.variable}
+                      label={variable?.label}
+                    />
+                  </h4>
+                  <p class="case-finding__question muted small">
+                    {variable?.question}
+                  </p>
+                </div>
+                <p class="case-finding__body">{finding.finding}</p>
+                {finding.clauses.length + finding.laws.length > 0 && (
+                  <p class="case-finding__refs">
+                    {finding.clauses.map((ref) => (
+                      <a
+                        class="clause-chip"
+                        href={clauseHref(ref)}
+                        title={clauseObligation(ref)}
+                      >
+                        {ref.standard} {ref.clause}
+                      </a>
+                    ))}
+                    {finding.laws.map((law) => (
+                      <a
+                        class="clause-chip clause-chip--law"
+                        href={`/standards/laws#law-${law.toLowerCase()}`}
+                      >
+                        Law {law}
+                      </a>
+                    ))}
+                  </p>
+                )}
+              </li>
+            );
+          })}
+        </ol>
+
+        <h3>After the failure: did the institution change?</h3>
+        <p class="case-learning__verdict">
+          <strong>
+            {entry.learningOutcome.verdict === "withheld"
+              ? "Not scored"
+              : learningVerdictLabels[entry.learningOutcome.verdict]}
+          </strong>
+        </p>
+        <p class="case-learning">{entry.learningOutcome.finding}</p>
+
+        <h3>The record that was not there</h3>
+        <p class="case-missing">{entry.theMissingRecord}</p>
+
+        {entry.remediation && (
+          <>
+            <h3>Avoid this failure in your system</h3>
+            <div class="grid grid--three">
+              <div class="panel stack-sm">
+                <p class="eyebrow">1. Run the diagnostic</p>
+                <p>
+                  <a href={entry.remediation.diagnostic.href}>
+                    <strong>{entry.remediation.diagnostic.name}</strong>
+                  </a>
+                </p>
+                <p class="small muted">
+                  {entry.remediation.diagnostic.purpose}
+                </p>
+              </div>
+              <div class="panel stack-sm">
+                <p class="eyebrow">2. Apply the standard</p>
+                <p>
+                  <a href={entry.remediation.standard.href}>
+                    <strong>
+                      {entry.remediation.standard.id}:{" "}
+                      {entry.remediation.standard.name}
+                    </strong>
+                  </a>
+                </p>
+                <p class="small muted">
+                  {entry.remediation.standard.requirement}
+                </p>
+              </div>
+              <div class="panel stack-sm">
+                <p class="eyebrow">3. Read why it recurs</p>
+                <p>
+                  <a href={entry.remediation.theory.href}>
+                    <strong>{entry.remediation.theory.title}</strong>
+                  </a>
+                </p>
+                <p class="small muted">{entry.remediation.theory.question}</p>
+              </div>
+            </div>
+          </>
+        )}
+
+        <h3>What could not be confirmed</h3>
+        <ul class="pillar-gaps">
+          {entry.gaps.map((gap) => (
+            <li>{gap}</li>
+          ))}
+        </ul>
+
+        <h3>Sources</h3>
+        <ol class="case-sources">
+          {entry.sources.map((source) => (
+            <li>
+              <span class="case-sources__kind">{sourceKind[source.kind]}</span>
+              {source.href ? (
+                <a href={source.href} rel="noopener noreferrer">
+                  {source.label}
+                  {source.href.startsWith("http") && (
+                    <ActionIcon action="external" />
+                  )}
+                </a>
+              ) : (
+                <span>{source.label}</span>
+              )}
+              <span class="muted small"> · {formatDate(source.date)}</span>
+            </li>
+          ))}
+        </ol>
+      </SectionBlock>
+    ))
+  }
+</BaseLayout>
+
+<style>
+  .case-facts {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    gap: var(--space-3) var(--space-5);
+  }
+
+  h3 {
+    margin-top: var(--space-6);
+  }
+
+  .case-finding__head h4 {
+    margin: 0;
+    font-size: var(--text-h3);
+  }
+
+  .pillar-withheld {
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--muted);
+  }
+
+  .pillar-gaps {
+    max-width: 72ch;
+    display: grid;
+    gap: var(--space-2);
+  }
+</style>
