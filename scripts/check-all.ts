@@ -6,8 +6,10 @@
  * sequential chain paid the sum of every step's wall time; this pays roughly
  * the slowest one. CI runs the same command, so local and CI parity holds.
  *
- * Output is prefixed per step so concurrent output stays attributable, and a
- * summary at the end names every failing step before exiting non-zero.
+ * A passing step prints one line. A failing step prints the tail of its
+ * output, so a green run costs a reader a dozen lines and a red run shows only
+ * what broke. Pass `--verbose` (`bun run check -- --verbose`) to see every
+ * step's full output, or run the step on its own: `bun run <step>`.
  */
 
 const STEPS = [
@@ -29,58 +31,55 @@ type StepResult = { name: string; exitCode: number };
 
 export {};
 
-const streamWithPrefix = async (
-  stream: ReadableStream<Uint8Array>,
-  prefix: string,
-) => {
-  const reader = stream.getReader();
-  const decoder = new TextDecoder();
-  let buffer = "";
+const VERBOSE = process.argv.includes("--verbose");
+const MAX_LINES = 150;
+const MAX_LINE_LENGTH = 400;
 
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    buffer += decoder.decode(value, { stream: true });
-    const lines = buffer.split("\n");
-    buffer = lines.pop() ?? "";
-    for (const line of lines) {
-      if (line.trim()) console.log(`${prefix} ${line}`);
-    }
+const clip = (line: string) =>
+  line.length > MAX_LINE_LENGTH
+    ? `${line.slice(0, MAX_LINE_LENGTH)} … [${line.length - MAX_LINE_LENGTH} more characters]`
+    : line;
+
+const printOutput = (name: string, output: string) => {
+  const lines = output.split("\n").filter((line) => line.trim());
+  const shown = VERBOSE ? lines : lines.slice(-MAX_LINES);
+  if (shown.length < lines.length) {
+    console.log(
+      `[${name}] … ${lines.length - shown.length} earlier lines hidden; run \`bun run ${name}\` for all of it`,
+    );
   }
-  if (buffer.trim()) console.log(`${prefix} ${buffer}`);
+  for (const line of shown) {
+    console.log(`[${name}] ${VERBOSE ? line : clip(line)}`);
+  }
 };
 
 const runStep = async (name: string): Promise<StepResult> => {
-  const prefix = `[${name}]`;
   const start = performance.now();
   const proc = Bun.spawn({
     cmd: [process.execPath, "run", name],
     stdout: "pipe",
     stderr: "pipe",
+    env: { ...process.env, NO_COLOR: "1", FORCE_COLOR: "0" },
   });
 
-  await Promise.all([
-    streamWithPrefix(proc.stdout, prefix),
-    streamWithPrefix(proc.stderr, prefix),
+  const [stdout, stderr, exitCode] = await Promise.all([
+    new Response(proc.stdout).text(),
+    new Response(proc.stderr).text(),
+    proc.exited,
   ]);
-  const exitCode = await proc.exited;
   const seconds = ((performance.now() - start) / 1000).toFixed(0);
-  console.log(
-    `${prefix} ${exitCode === 0 ? "passed" : "FAILED"} in ${seconds}s`,
-  );
+  if (exitCode !== 0 || VERBOSE) printOutput(name, `${stdout}\n${stderr}`);
+  console.log(`${exitCode === 0 ? "✅" : "❌"} ${name} (${seconds}s)`);
   return { name, exitCode };
 };
 
 const results = await Promise.all(STEPS.map(runStep));
 const failures = results.filter((result) => result.exitCode !== 0);
 
-console.log("");
-for (const result of results.sort((a, b) => a.name.localeCompare(b.name))) {
-  console.log(`${result.exitCode === 0 ? "✅" : "❌"} ${result.name}`);
-}
-
 if (failures.length > 0) {
-  console.error(`\n${failures.length} of ${STEPS.length} checks failed.`);
+  console.error(
+    `\n${failures.length} of ${STEPS.length} checks failed: ${failures.map((failure) => failure.name).join(", ")}.`,
+  );
   process.exit(1);
 }
 console.log(`\nAll ${STEPS.length} checks passed.`);

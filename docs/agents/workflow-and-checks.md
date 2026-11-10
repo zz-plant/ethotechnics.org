@@ -36,7 +36,10 @@ For code or mixed changes, run:
 `bun run check` includes drift validation for generated content wrappers, linting, type checks,
 Astro checks, JSON/glossary validation, unit tests, review guardrails
 (`check:review-guardrails`), and `agent:doctor` preflight checks. The steps run concurrently
-through `scripts/check-all.ts`; failures are summarized per step at the end.
+through `scripts/check-all.ts`. A passing step prints one line and a failing step prints the tail
+of its output; `bun run check -- --verbose` prints everything. `agent:doctor` also fails when Bun
+or `node_modules` does not match the pins, which otherwise shows up as unrelated failures in other
+steps.
 `agent:doctor` now also enforces research freshness for watchlisted standards pages
 via `scripts/research-watchlist.json`.
 

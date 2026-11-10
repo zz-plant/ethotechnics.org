@@ -41,7 +41,7 @@ if (process.argv.includes("--check")) {
   const committed = await readFile(OUT, "utf8").catch(() => "");
   if (committed !== expected) {
     console.error(
-      `${OUT} is out of date with ${ENTRY} and the code it imports. Run: bun run conformance:action`,
+      `${OUT} is out of date with ${ENTRY} and the code it imports. If you changed packages/conformance, run: bun run conformance:action. If you did not, your Bun or node_modules is stale: run \`bun run agent:doctor\`.`,
     );
     process.exit(1);
   }
