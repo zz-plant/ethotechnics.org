@@ -982,6 +982,64 @@
     max-width: 62ch;
   }
 
+  /* The averaging figure: the rule's arithmetic, drawn once, so the
+     warnings below can be read against it. Ink bars are pay; rust bars are
+     income the rule invents in fortnights the person reported none. The
+     span labels sit in HTML under the bars so they stay legible at any
+     width. */
+  .averaging {
+    max-width: 62ch;
+    margin: 0 0 var(--space-block);
+  }
+
+  .averaging__chart {
+    display: block;
+    width: 100%;
+    height: 7.5rem;
+  }
+
+  .averaging__pay {
+    fill: var(--accent);
+  }
+
+  .averaging__phantom {
+    fill: color-mix(in srgb, var(--mark) 45%, transparent);
+  }
+
+  .averaging__average {
+    stroke: var(--mark);
+    stroke-width: 2;
+    stroke-dasharray: 6 4;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .averaging__baseline {
+    stroke: var(--border);
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .averaging__spans {
+    display: grid;
+    margin-block: var(--space-2) var(--space-3);
+    font-family: var(--sans);
+    color: var(--text);
+  }
+
+  .averaging__spans span {
+    padding-block-start: var(--space-1);
+    padding-inline-end: var(--space-2);
+    border-top: 2px solid var(--accent);
+  }
+
+  .averaging__spans span + span {
+    border-top-color: var(--mark);
+  }
+
+  .averaging figcaption {
+    margin: 0;
+  }
+
   .record-spine__rail {
     position: relative;
     list-style: none;

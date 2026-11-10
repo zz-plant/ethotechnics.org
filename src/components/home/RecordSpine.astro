@@ -67,6 +67,22 @@ const launchFact = launch
   ? launch.what.split(". ")[1]?.charAt(0).toLowerCase() +
     launch.what.split(". ")[1]?.slice(1)
   : undefined;
+
+// An illustrative year for the averaging figure: a person works casual
+// shifts for ten fortnights, then claims benefits for sixteen and correctly
+// reports no income. Averaging spreads the year's pay across all 26, so the
+// rule sees income in every benefit fortnight that the person never earned.
+const fortnights = 26;
+const worked = 10;
+const pay = 1300;
+const average = (worked * pay) / fortnights;
+const phantom = (fortnights - worked) * average;
+const slot = 20;
+const barWidth = 14;
+const chartHeight = 120;
+const baseline = chartHeight + 4;
+const yFor = (amount: number) => baseline - (amount / pay) * chartHeight;
+const money = (amount: number) => `A$${amount.toLocaleString("en-AU")}`;
 ---
 
 {
@@ -95,6 +111,63 @@ const launchFact = launch
           reported as a debt they have to disprove. At launch, {launchFact} Each
           dated warning on the record follows, with the response it got.
         </p>
+      )}
+
+      {launch && (
+        <figure class="averaging" aria-labelledby="averaging-caption">
+          <svg
+            class="averaging__chart"
+            viewBox={`0 0 ${fortnights * slot} ${baseline + 2}`}
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            {Array.from({ length: fortnights }, (_, index) => {
+              const x = index * slot + (slot - barWidth) / 2;
+              const amount = index < worked ? pay : average;
+              return (
+                <rect
+                  class={
+                    index < worked ? "averaging__pay" : "averaging__phantom"
+                  }
+                  x={x}
+                  y={yFor(amount)}
+                  width={barWidth}
+                  height={baseline - yFor(amount)}
+                />
+              );
+            })}
+            <line
+              class="averaging__average"
+              x1="0"
+              x2={fortnights * slot}
+              y1={yFor(average)}
+              y2={yFor(average)}
+            />
+            <line
+              class="averaging__baseline"
+              x1="0"
+              x2={fortnights * slot}
+              y1={baseline}
+              y2={baseline}
+            />
+          </svg>
+          <div
+            class="averaging__spans small"
+            style={`grid-template-columns: ${worked}fr ${fortnights - worked}fr`}
+            aria-hidden="true"
+          >
+            <span>Worked: {money(pay)} a fortnight</span>
+            <span>On benefits, reported no income</span>
+          </div>
+          <figcaption id="averaging-caption" class="small muted">
+            One illustrative year of 26 fortnights. The person earns{" "}
+            {money(worked * pay)}, all of it in the first {worked}. The dashed
+            line is the average the rule uses: {money(average)} a fortnight. In
+            the {fortnights - worked} fortnights on benefits, the rule finds{" "}
+            {money(phantom)} of income they never earned, shaded, and bills it
+            as a debt.
+          </figcaption>
+        </figure>
       )}
 
       <ol class="record-spine__rail">
