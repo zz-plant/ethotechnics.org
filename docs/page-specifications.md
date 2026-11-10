@@ -36,7 +36,6 @@ Detailed, testable expectations for each route. Use these specs when adding cont
     justified?" and links to `/method` with the label "See the method".
   - Artifacts section renders preview cards with notes and primary buttons linking to the sample PDFs.
   - Framing section uses two lists (This page is / is not) in a `grid--two` layout.
-  - Studio section keeps the bullet list and ghost CTA inside a banded `SectionBlock`.
   - Footer CTA ends the page with primary and ghost links pulled from `footerCta`.
 - **Accessibility:**
   - Intro anchors match section IDs for keyboard-friendly jumps.

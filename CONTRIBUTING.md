@@ -48,8 +48,8 @@ The rest of this page is for changes to the site or the code.
 ## Reporting issues
 
 - Use issue templates for bug reports, content requests, and objections.
-- For sensitive reports, contact the team via
-  [hello@ethotechnics.org](mailto:hello@ethotechnics.org).
+- For sensitive reports, email [hello@ethotechnics.org](mailto:hello@ethotechnics.org). There is
+  no staff: Kanav Jain reads the inbox.
 - For security vulnerabilities, follow [`SECURITY.md`](SECURITY.md) and use private reporting.
 
 ## License
