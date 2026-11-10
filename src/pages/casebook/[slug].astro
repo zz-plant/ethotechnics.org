@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import ActionIcon from "../../components/ActionIcon.astro";
 import { formatDate } from "../../utils/dates";
 import CaseTimeline from "../../components/CaseTimeline.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import StateVariableGlyph from "../../components/StateVariableGlyph.astro";
@@ -15,6 +16,7 @@ import {
   learningVerdictLabels,
   stateVariables,
 } from "../../content/casebook";
+import { derivePublicationMetadata } from "../../utils/publication";
 
 const entry = casesBySlug.get(Astro.params.slug ?? "");
 if (!entry) return Astro.rewrite("/404");
@@ -22,6 +24,13 @@ if (!entry) return Astro.rewrite("/404");
 const index = cases.findIndex((candidate) => candidate.slug === entry.slug);
 const previous = cases[index - 1];
 const next = cases[index + 1];
+
+const permalink = `/casebook/${entry.slug}`;
+const publication = derivePublicationMetadata({
+  permalink,
+  published: entry.published,
+  updated: entry.updated,
+});
 
 const variableById = new Map(
   stateVariables.map((variable) => [variable.id, variable]),
@@ -296,6 +305,12 @@ const sourceKind = {
         ))
       }
     </ol>
+    <CitationBlock
+      title={`Casebook: ${entry.title}`}
+      permalink={permalink}
+      publication={publication}
+      summaryLabel="Cite this case"
+    />
   </SectionBlock>
 
   <nav class="case-pager" aria-label="Other cases">

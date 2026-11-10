@@ -41,6 +41,9 @@ const citationKeyValue =
 // deposit" leaves the DOI out of the block and out of every format.
 const doi = resolveDoi(publication.doi);
 const hasDoi = doi !== null;
+// A page with no version number carries the placeholder "Draft". It is left
+// out of the block and of BibTeX; it used to print as "vDraft".
+const hasVersion = /\d/.test(publication.version);
 const doiValue = doi?.id;
 const doiHref = doi?.href;
 
@@ -52,8 +55,7 @@ const bibtex = `@misc{${citationKeyValue},
   author={${authorNames}},
   year={${year}},
   howpublished={${publisher}},
-  url={${pageUrl}},
-  version={${publication.version}}${hasDoi ? `,\n  doi={${doiValue}}` : ""}
+  url={${pageUrl}}${hasVersion ? `,\n  version={${publication.version}}` : ""}${hasDoi ? `,\n  doi={${doiValue}}` : ""}
 }`;
 const risLines = [
   "TY  - WEB",
@@ -82,7 +84,7 @@ const hasMeta = Astro.slots.has("default");
     {
       hasMeta ? (
         <span class="muted small">
-          {` · ${formatVersion(publication.version)} · updated ${updatedDate} · ${publication.license.label}`}
+          {`${hasVersion ? ` · ${formatVersion(publication.version)}` : ""} · updated ${updatedDate} · ${publication.license.label}`}
         </span>
       ) : (
         variant === "full" && (
@@ -137,10 +139,12 @@ const hasMeta = Astro.slots.has("default");
         <div class="citation-block__body">
           {!hasMeta && (
             <div class="citation-block__meta">
-              <div>
-                <p class="muted small">Version</p>
-                <p>{formatVersion(publication.version)}</p>
-              </div>
+              {hasVersion && (
+                <div>
+                  <p class="muted small">Version</p>
+                  <p>{formatVersion(publication.version)}</p>
+                </div>
+              )}
               <div>
                 <p class="muted small">Last updated</p>
                 <p>{updatedDate}</p>
