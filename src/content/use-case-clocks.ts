@@ -131,7 +131,7 @@ export const useCaseClocks: Record<UseCaseClockSlug, ClockSet> = {
         key: "remedy",
         label: "Remedy",
         hours: 48,
-        due: "The hold is released, or the account holder is told and given limited access.",
+        due: "The hold is released, or the account holder keeps limited access while more verification is done.",
         ifMissed: "The hold is released.",
       },
     ],

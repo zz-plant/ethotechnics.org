@@ -209,7 +209,7 @@ export const researchContent: ResearchContent = {
       title: "Scholarly crossings (Oct 2026)",
       type: "Dated research note",
       summary:
-        "What the framework supplies to scholars who already hold the values, to governance mechanisms it does not replace, and to the counterpositions that would make it unnecessary overhead, with six worked examples.",
+        "Nine pairings that match a scholar's concept to the instrument here that measures it, eight mechanisms the framework does not replace with the question each leaves unasked, and five counterpositions with the empirical question that would settle each. Six worked examples follow.",
       tags: ["positioning", "instruments", "counterpositions"],
       href: "/research/scholarly-crossings",
     },
@@ -415,7 +415,7 @@ export const researchContent: ResearchContent = {
         sample:
           "Simulated hospital department: 20 heterogeneous workers, weekly demand of 120 units against sustainable capacity of 100 units.",
         findings:
-          "The paper defines compensatory reward hacking, specifies the primary outcome metric (the green-under-depletion rate), identifies seven gaps in current evaluation practice, and anticipates objections from the philosophical traditions the benchmark draws on. No experiments have been conducted.",
+          "None. No experiments have been run. The paper defines compensatory reward hacking, specifies the primary outcome metric (the green-under-depletion rate), identifies seven gaps in current evaluation practice, and anticipates objections from the philosophical traditions the benchmark draws on.",
         limitations:
           "Rule-based simulated workers are parameters of the model, not estimates of real staff. The simulation would not establish the frequency of these failures in real organizations.",
       },

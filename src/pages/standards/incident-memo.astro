@@ -15,7 +15,6 @@ const anchorLinks = [
   { href: "#when-to-use", label: "When to use" },
   { href: "#structure", label: "Structure" },
   { href: "#template", label: "Template" },
-  { href: "#workflow-cluster", label: "Workflow path" },
   { href: "#citations", label: "Citations" },
 ];
 
@@ -120,29 +119,6 @@ const incidentTemplate = `Incident memo (Template)
     description="Replace the prompts with incident-specific details and link to receipts or logs where possible."
   >
     <pre class="code-block">{incidentTemplate}</pre>
-  </SectionBlock>
-
-  <SectionBlock
-    id="workflow-cluster"
-    eyebrow="Workflow path"
-    title="Run the incident workflow in one progression"
-    description="Follow a fixed sequence so handoffs remain auditable from first report to final evidence packet."
-    variant="alt"
-  >
-    <ol class="muted">
-      <li>
-        <strong>Explainer:</strong>
-        <a href="/standards/incident-memo">Incident memo workflow</a> for shared response
-        framing.
-      </li>
-      <li>
-        <strong>Mechanism template:</strong>
-        <a href="/standards/pm-01-failure-postmortem-template"
-          >Failure postmortem template</a
-        >
-        to route triage and stabilization responsibilities.
-      </li>
-    </ol>
   </SectionBlock>
 
   <SectionBlock

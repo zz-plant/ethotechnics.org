@@ -8,7 +8,7 @@ export const failureChoiceLabels: Record<string, string> = {
   "decision-appealed": "Decision challenged",
   "model-wrong": "Model made a harmful error",
   "queue-stuck": "Challenges or reviews are stuck",
-  "user-harmed": "A user was harmed",
+  "user-harmed": "Someone was wrongly denied",
   "no-owner": "No owner is assigned",
   "cant-explain": "Decision cannot be clearly explained",
   "cant-stop": "System cannot be halted or rolled back",

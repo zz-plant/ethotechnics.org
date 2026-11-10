@@ -91,7 +91,7 @@ export const positioning: Positioning = {
     "A dated research note mapping what Ethotechnics supplies to three audiences it does not command: scholars who already hold the values, governance thinkers who prefer a different mechanism, and the counterpositions that would make the framework unnecessary overhead if they are right.",
   disclaimer: [
     "Scholarly positions are stated in summary. Each summary is a reading of published work, and the cited traditions belong to their authors; where a pairing misstates a position, the correction changes the note, not the instrument.",
-    "The worked examples are constructed scenarios set in a hospital. The records each example reads are ordinary: override logs, screen-flow timings, committee minutes, staffing rosters, edit queues.",
+    "The worked examples are constructed scenarios, most set in a hospital. The records each example reads are ordinary: override logs, screen-flow timings, committee minutes, staffing rosters, edit queues.",
     "No worked example reports a measurement taken at a real institution. Where an example states a test, the test is specified, not run.",
     "The note is dated. It describes published positions as of the publication date and will age.",
   ],

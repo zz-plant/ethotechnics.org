@@ -28,24 +28,6 @@ const publication = derivePublicationMetadata({
 
 const mappingRows = [
   {
-    harm: "Eligibility request is auto-denied after a silent review window.",
-    right: {
-      title: "Reach a human",
-      clauses: ["§6.1", "§6.2"],
-      href: "/standards/std-01-temporal-rights",
-    },
-    validator: {
-      title: "Latency audit",
-      href: "/validators#latency-audit",
-    },
-    mechanism: {
-      title: "Appeal paths inside the UI (MEC-06)",
-      href: "/mechanisms/patterns/appeal-paths",
-    },
-    bindingChange:
-      "Expose an appeal intake with SLA, named reviewers, and institutional liability language.",
-  },
-  {
     harm: "Applicants cannot exit a multi-step form without losing progress.",
     right: {
       title: "Stoppability",
@@ -62,6 +44,24 @@ const mappingRows = [
     },
     bindingChange:
       "Add a persistent stop control plus a pause token that preserves state without penalty.",
+  },
+  {
+    harm: "Processing time is undisclosed until after submission.",
+    right: {
+      title: "Bounded duration",
+      clauses: ["§3.1", "§3.2", "§3.3"],
+      href: "/standards/std-01-temporal-rights",
+    },
+    validator: {
+      title: "Latency audit",
+      href: "/validators#latency-audit",
+    },
+    mechanism: {
+      title: "Hard clock (MEC-04)",
+      href: "/mechanisms/patterns/hard-clock",
+    },
+    bindingChange:
+      "Declare expected duration pre-commitment and enforce timeout or human escalation on overrun.",
   },
   {
     harm: "Queue status is opaque and requires staying online to hold a place.",
@@ -82,10 +82,10 @@ const mappingRows = [
       "Publish queue position + ETA, offer callback, and cap wait times with an escalation clock.",
   },
   {
-    harm: "Processing time is undisclosed until after submission.",
+    harm: "Eligibility request is auto-denied after a silent review window.",
     right: {
-      title: "Bounded duration",
-      clauses: ["§3.1", "§3.2", "§3.3"],
+      title: "Reach a human",
+      clauses: ["§6.1", "§6.2"],
       href: "/standards/std-01-temporal-rights",
     },
     validator: {
@@ -93,11 +93,11 @@ const mappingRows = [
       href: "/validators#latency-audit",
     },
     mechanism: {
-      title: "Hard clock (MEC-04)",
-      href: "/mechanisms/patterns/hard-clock",
+      title: "Appeal paths inside the UI (MEC-06)",
+      href: "/mechanisms/patterns/appeal-paths",
     },
     bindingChange:
-      "Declare expected duration pre-commitment and enforce timeout or human escalation on overrun.",
+      "Expose an appeal intake with SLA, named reviewers, and institutional liability language.",
   },
 ];
 ---
@@ -118,17 +118,19 @@ const mappingRows = [
     description="One sequence with no organization named, so it applies across domains."
   >
     <ul class="muted">
-      <li>A person submits an eligibility request for a public benefit.</li>
       <li>
-        The system marks the request as “under review” with no timer or ETA.
+        A person starts an eligibility request for a public benefit. They cannot
+        leave the multi-step form without losing progress.
+      </li>
+      <li>The processing time is not disclosed until after they submit.</li>
+      <li>
+        The system marks the request as “under review” with no timer or ETA. The
+        applicant cannot see their queue position and has to stay online to hold
+        their place.
       </li>
       <li>
         After two weeks, the system auto-denies the request without a clear path
         to appeal.
-      </li>
-      <li>
-        The applicant cannot see their queue position or exit without restarting
-        later.
       </li>
     </ul>
     <p class="muted">

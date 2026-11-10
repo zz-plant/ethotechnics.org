@@ -41,24 +41,24 @@ export const incidentLessonsIntro: IncidentLessonsIntro = {
 export const incidentLessons: IncidentLesson[] = [
   {
     slug: "appeals-backlog-trigger",
-    title: "Appeals backlog triggers unnoticed harm loops",
+    title: "An appeals backlog kept people locked out",
     summary:
-      "A surge in appeal volume stalled remedies, leaving account holders in unresolved states for weeks.",
+      "Appeals arrived faster than staff could answer them, and nothing escalated a case when its deadline passed.",
     published: "2026-02-14T00:00:00Z",
     updated: "2026-02-20T00:00:00Z",
     glossaryRefs: ["appeal-event", "repair-sla", "burden-hours"],
     incident: {
       headline:
-        "Appeals waited in a backlog, and people stayed locked out while they waited.",
+        "A surge in appeals filled the queue. Suspended accounts stayed suspended while each appeal waited its turn.",
       impact:
-        "Accounts stayed suspended for weeks, and people were told different things.",
+        "Account holders were locked out for weeks and were told different things.",
       sector: "Financial services",
       timeframe: "Composite, not a dated event",
     },
     governanceFailures: [
-      "No automated escalation when repair deadlines crossed risk thresholds.",
-      "Insufficient staffing model for volume spikes.",
-      "Missing user-visible status updates during queue backlog.",
+      "Nothing escalated a case when its repair deadline passed.",
+      "Staffing was not planned for a surge.",
+      "People waiting in the queue saw no status.",
     ],
     signalsToWatch: [
       "Appeal queue length vs. staffed capacity.",
@@ -66,9 +66,9 @@ export const incidentLessons: IncidentLesson[] = [
       "Average response time per escalation tier.",
     ],
     remediationChecklist: [
-      "Define escalation triggers tied to deadline breaches.",
-      "Publish queue status and expected resolution windows.",
-      "Instrument backlog health dashboards for on-call review.",
+      "Escalate a case when its deadline is breached.",
+      "Show people in the queue its status and when to expect an answer.",
+      "Put queue length and breached deadlines in front of whoever is on call.",
     ],
     sources: [
       { label: "Incident memo template", href: "/standards/incident-memo" },
@@ -80,32 +80,32 @@ export const incidentLessons: IncidentLesson[] = [
   },
   {
     slug: "model-override-visibility",
-    title: "Model overrides happened without audit trace",
+    title: "Staff overrode the model and left no record",
     summary:
-      "Human overrides removed automated denials, but the rationale was never logged for later audit review.",
+      "Staff reversed automated denials by hand. The decision record had no place for an override or its reason.",
     published: "2026-02-05T00:00:00Z",
     glossaryRefs: ["decision-record", "auditability"],
     incident: {
       headline:
-        "Staff overrode the model, and none of the overrides was logged.",
+        "Reviewers overturned denials they judged wrong. None of the overrides, or the reasons for them, was logged.",
       impact:
-        "Similar cases got different outcomes, and nobody could trace who decided.",
+        "People with similar cases got different outcomes, and nobody could trace who decided.",
       sector: "Public benefits",
       timeframe: "Composite, not a dated event",
     },
     governanceFailures: [
-      "Decision record capture did not include human override flows.",
-      "No shared reasoning schema for override justification.",
-      "Audit reviews lacked visibility into resolution outcomes.",
+      "The decision record did not capture human overrides.",
+      "Reviewers had no shared format for the reason behind an override.",
+      "Audits could not see how overridden cases ended.",
     ],
     signalsToWatch: [
       "Rate of manual overrides per decision category.",
-      "Percentage of overrides missing rationale metadata.",
+      "Percentage of overrides with no reason recorded.",
       "Audit sample completeness for override cases.",
     ],
     remediationChecklist: [
-      "Extend decision-log middleware to capture overrides.",
-      "Require structured rationale fields before approval.",
+      "Log every override in the decision record.",
+      "Require a written reason before an override is approved.",
       "Sample override outcomes in monthly audits.",
     ],
     sources: [
@@ -118,23 +118,23 @@ export const incidentLessons: IncidentLesson[] = [
   },
   {
     slug: "appeal-remedy-mismatch",
-    title: "Appeal accepted without remedy follow-through",
+    title: "Appeals were won and the decisions stood",
     summary:
       "Appeals were marked resolved, but the remedies they granted never reached the teams responsible for delivering them.",
     published: "2026-01-22T00:00:00Z",
     glossaryRefs: ["appeal-event", "remedy"],
     incident: {
       headline:
-        "Appeals were marked resolved before the decisions were reversed.",
+        "An appeal closed when it was decided, not when its remedy was delivered. Nobody owned the step in between.",
       impact:
         "People won their appeals, and their decisions were never reversed.",
       sector: "Healthcare",
       timeframe: "Composite, not a dated event",
     },
     governanceFailures: [
-      "No confirmation loop between appeal resolution and delivery teams.",
-      "Remedy ownership unclear across internal workflows.",
-      "Status updates not tied to verified remedy delivery.",
+      "Nothing confirmed to the appeals team that a remedy had been delivered.",
+      "No one was named as the owner of a remedy.",
+      "A case showed as resolved before its remedy was verified.",
     ],
     signalsToWatch: [
       "Gap between appeal approvals and remedies delivered.",
@@ -142,8 +142,8 @@ export const incidentLessons: IncidentLesson[] = [
       "Time from approval to confirmed remedy delivery.",
     ],
     remediationChecklist: [
-      "Assign remedy ownership at appeal decision time.",
-      "Require confirmation before closing appeal records.",
+      "Name the remedy's owner when the appeal is decided.",
+      "Close an appeal only when delivery of its remedy is confirmed.",
       "Track remedies delivered against appeal outcomes.",
     ],
     sources: [
