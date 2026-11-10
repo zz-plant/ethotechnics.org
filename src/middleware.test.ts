@@ -258,6 +258,10 @@ describe("middleware", () => {
           "https://ethotechnics.org/use-cases/examples/automated-account-lock#standard",
       },
       {
+        url: "https://ethotechnics.org/explainers/public-memory",
+        expectedLocation: "https://ethotechnics.org/glossary#public-memory",
+      },
+      {
         url: "https://ethotechnics.org/incidents/appeals-backlog-trigger",
         expectedLocation:
           "https://ethotechnics.org/incidents#appeals-backlog-trigger",

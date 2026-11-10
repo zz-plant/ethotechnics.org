@@ -5,6 +5,7 @@ import { getEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
 import PageIntro from "../../components/PageIntro.astro";
+import PublicMemory from "../../components/PublicMemory.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import { glossaryEntryPermalink } from "../../utils/glossary";
@@ -38,6 +39,7 @@ const {
 const anchorLinks = [
   { href: "#glossary-index", label: "A–Z index" },
   { href: "#explainer-links", label: "Explainers" },
+  { href: "#public-memory", label: "How the terms drifted" },
 ];
 const sectionFilters = categories.map((category) => ({
   id: category.id,
@@ -495,6 +497,21 @@ const documentTitle = pageTitle.replace(" — ", ": ");
         ))
       }
     </ul>
+    <p class="muted">
+      The <a href="/explainers">explainers page</a> lists these with the longer arguments:
+      remedy essentials, the challenge checklist, and governance as an operational
+      capability.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="public-memory"
+    eyebrow="Public memory"
+    title="How the terms drifted"
+    description="A dated log of how terms like trustworthy AI and responsible AI drifted from commitments into labels, with stable definitions to cite instead."
+    variant="alt"
+  >
+    <PublicMemory />
   </SectionBlock>
 
   <CitationBlock

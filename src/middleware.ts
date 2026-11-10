@@ -137,6 +137,8 @@ const REDIRECT_MAP: Record<string, string> = {
   "/incidents/appeal-remedy-mismatch": "/incidents#appeal-remedy-mismatch",
   // The fraud-detection comparison covered the decision the account-lock
   // example traces, at lower resolution. Its own material opens that page.
+  // The drift log's job was the glossary's: stable definitions to cite.
+  "/explainers/public-memory": "/glossary#public-memory",
   "/use-cases/examples/financial-fraud-detection":
     "/use-cases/examples/automated-account-lock#standard",
   "/standards/implementation-examples": "/use-cases/examples#domains",
