@@ -7,12 +7,12 @@ seoTitle: "The Temporal Bill of Rights (STD-01)"
 publishedTime: "2025-06-01T00:00:00.000Z"
 mainClass: "page page--wide standard-document"
 anchorLinks:
-  - href: "#related-explainers"
-    label: "Related explainers"
-  - href: "#execution-vs-redress"
-    label: "Execution vs redress clocks"
   - href: "#preamble"
     label: "Preamble"
+  - href: "#execution-vs-redress"
+    label: "Execution vs redress clocks"
+  - href: "#related-explainers"
+    label: "Related explainers"
   - href: "#clause-schema"
     label: "Clause schema"
   - href: "#anti-patterns"
@@ -155,37 +155,6 @@ export const structuredData = {
 
   <div class="standard-body">
     <div class="standard-main">
-      <section id="related-explainers" class="standard-section">
-        <h2>Related explainers</h2>
-
-        Short explainers on single rights, for policy and product teams.
-
-        <div class="grid grid--two">
-          {explainerLinks.map((explainer) => (
-            <article class="panel">
-              <p class="eyebrow">Explainer</p>
-
-              <strong>
-                <a href={explainer.href}>{explainer.title}</a>
-              </strong>
-
-              <p class="muted">{explainer.description}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section id="execution-vs-redress" class="standard-section">
-        <h2>Execution vs redress clocks</h2>
-
-        A system executes on its own clock. Redress runs on the institution's,
-        which is slower. The gap between them is the window in which a harm
-        cannot yet be undone. STD-01 narrows it with hard clocks, reversal, and
-        appeal to a human.
-
-        <Std01MicroDiagram />
-      </section>
-
       <section id="preamble" class="standard-section">
         <h2>Preamble: The doctrine of finitude</h2>
 
@@ -215,6 +184,37 @@ export const structuredData = {
         STD-01 sets out seven rights that put that time back in the count. A
         system that violates any article does not comply with STD-01.
 
+      </section>
+
+      <section id="execution-vs-redress" class="standard-section">
+        <h2>Execution vs redress clocks</h2>
+
+        A system executes on its own clock. Redress runs on the institution's,
+        which is slower. The gap between them is the window in which a harm
+        cannot yet be undone. STD-01 narrows it with hard clocks, reversal, and
+        appeal to a human.
+
+        <Std01MicroDiagram />
+      </section>
+
+      <section id="related-explainers" class="standard-section">
+        <h2>Related explainers</h2>
+
+        Short explainers on single rights, for policy and product teams.
+
+        <div class="grid grid--two">
+          {explainerLinks.map((explainer) => (
+            <article class="panel">
+              <p class="eyebrow">Explainer</p>
+
+              <strong>
+                <a href={explainer.href}>{explainer.title}</a>
+              </strong>
+
+              <p class="muted">{explainer.description}</p>
+            </article>
+          ))}
+        </div>
       </section>
 
       <section id="clause-schema" class="standard-section">

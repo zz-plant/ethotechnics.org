@@ -16,7 +16,7 @@ import {
 
 const clocks = useCaseClocks["automated-account-lock"];
 
-const pageTitle = "Account lock and eligibility flip: worked example";
+const pageTitle = "Automated account lock: worked example";
 const pageDescription = `A fraud model locks an account. The worked example traces the receipt, the named owner, the ${clockHoursPhrase(clocks)} clocks, the exceptions, and the remedy.`;
 
 const receiptPayload = `{
@@ -91,7 +91,7 @@ const artifacts = [
 >
   <PageIntro
     eyebrow="Worked example"
-    title="Automated account lock & eligibility flip"
+    title="Automated account lock"
     description={pageDescription}
     anchorLinks={[
       { href: "#standard", label: "Standard governance" },
@@ -167,7 +167,7 @@ const artifacts = [
     id="overview"
     eyebrow="Overview"
     title="The scenario and its three clocks"
-    description="A fraud model locks an account after unusual activity. The system still issues a receipt, names who can reverse the lock, and delivers a remedy on clocks the account holder can see. Each clock is logged in the decision record."
+    description="A fraud model locks an account after unusual activity. The system issues a receipt at once, names who can reverse the lock, and delivers a remedy on clocks the account holder can see. Each clock is logged in the decision record."
   >
     <ClockTimeline clocks={clocks} id="account-lock-clocks" />
   </SectionBlock>
@@ -245,7 +245,7 @@ const artifacts = [
     <ul class="muted">
       <li>
         <strong>Primary remedy:</strong> If no fraud is confirmed, the account is
-        unlocked and eligibility restored within the remedy clock.
+        unlocked within the remedy clock.
       </li>
       <li>
         <strong>Alternative remedy:</strong> If the lock must stand, the holder gets
