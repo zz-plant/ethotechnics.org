@@ -179,7 +179,7 @@ export const instruments: Instrument[] = [
     has: "A decomposition of oversight into knowledge, observation, control, and timely intervention: the capacities an oversight arrangement must contain to be real.",
     instrument: "Oversight depreciation model",
     supplies:
-      "The time index those capacities lack. Oversight is read as O(t): what the arrangement contains at year one, and what five years of reliable automation leave of it.",
+      "A time index for those capacities. Oversight is read as O(t): what the arrangement contains at year one, and what five years of reliable automation leave of it.",
     links: [
       {
         label: "Oversight horizon, glossary",
@@ -201,7 +201,7 @@ export const instruments: Instrument[] = [
     has: "The tracking and tracing conditions: a system is meaningfully controlled when its behavior tracks a human's moral decision and its outcomes trace to a human who could have acted differently.",
     instrument: "Effective-control test",
     supplies:
-      "The conditions as a test rather than a list: formal control, information, competence, and intervention feasibility, all of them required. Any one missing, and the control is not meaningful, however complete the approval chain.",
+      "The conditions as a deployment test: formal control, information, competence, and intervention feasibility, all of them required. Any one missing, and the control is not meaningful, however complete the approval chain.",
     links: [
       {
         label: "Meaningful human control (2018)",
