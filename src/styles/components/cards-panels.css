@@ -172,6 +172,11 @@
     border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
   }
 
+  /* The permalink is one unbroken word; on a phone its end was cut off. */
+  .citation-block__meta a {
+    overflow-wrap: anywhere;
+  }
+
   .citation-block + .scholarly-meta,
   .scholarly-meta + .citation-block {
     margin-top: var(--space-2);
@@ -264,6 +269,16 @@
 
   .callout h3 {
     margin: var(--space-2) 0;
+  }
+
+  /* A callout that opens a page comes straight after the h1, so its heading
+     is an h2 set at the size of the h3 it replaced. */
+  .callout h2 {
+    margin: var(--space-2) 0;
+    font-size: var(--text-h3);
+    font-weight: 700;
+    letter-spacing: -0.006em;
+    line-height: 1.3;
   }
 
   .comparison {

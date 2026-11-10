@@ -1,80 +1,7 @@
-import { glossaryContent, glossaryTerms } from "../content/glossary";
-import {
-  glossaryEntryPermalink,
-  hasGlossaryEntryPage,
-} from "../utils/glossary";
-
-type GlossaryHighlightEntry = {
-  term: string;
-  slug: string;
-  definition: string;
-  /** Absent for terms that are defined here but have no entry page. */
-  href?: string;
-  domain?: string;
-  metric?: string;
-  threshold?: string;
-  scale?: string;
-};
-
-const normalizeDefinition = (definition: string): string => {
-  const cleaned = definition.replace(/\s+/g, " ").trim();
-  if (cleaned.length <= 220) {
-    return cleaned;
-  }
-
-  // Cut at a word boundary, as the entry page's meta description does, so a
-  // card never ends mid-word.
-  const cut = cleaned.slice(0, 217);
-  return `${cut.slice(0, cut.lastIndexOf(" ")).replace(/[\s,:;—–-]+$/, "")}…`;
-};
-
-// Index category entries for rich evidence metrics
-const fullEntriesMap = new Map(
-  glossaryContent.categories.flatMap((cat) =>
-    cat.entries.map((entry) => [entry.id, entry]),
-  ),
-);
-
-// Terms flagged `autoHighlight: false` are ordinary, legal, or engineering
-// words; the reader already knows them, and a card would swap in the site's
-// narrower sense.
-const glossaryEntries: GlossaryHighlightEntry[] = glossaryTerms
-  .filter((term) => term.autoHighlight !== false)
-  .map(({ term, slug, definition }) => {
-    const fullEntry = fullEntriesMap.get(slug);
-    const domain = fullEntry?.domains?.[0];
-    const metric = fullEntry?.minimumEvidence?.metric;
-    const threshold = fullEntry?.minimumEvidence?.threshold;
-    const scale = fullEntry?.scale ?? undefined;
-
-    return {
-      term,
-      slug,
-      definition: normalizeDefinition(definition),
-      href: hasGlossaryEntryPage(slug)
-        ? glossaryEntryPermalink(slug)
-        : undefined,
-      domain,
-      metric: metric && metric.length < 40 ? metric : undefined,
-      threshold: threshold && threshold.length < 45 ? threshold : undefined,
-      scale,
-    };
-  });
-
-const termLookup = new Map(
-  glossaryEntries.map((entry) => [entry.term.toLowerCase(), entry]),
-);
-const sortedTerms = glossaryEntries
-  .map((entry) => entry.term)
-  .sort((a, b) => b.length - a.length);
+import type { GlossaryHighlightEntry } from "../content/page-data/glossary-highlight-index";
 
 const escapeRegExp = (value: string): string =>
   value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-
-const glossaryRegex = new RegExp(
-  `\\b(${sortedTerms.map(escapeRegExp).join("|")})\\b`,
-  "gi",
-);
 
 const highlightRoots = document.querySelectorAll<HTMLElement>(
   "[data-glossary-highlights]",
@@ -88,6 +15,10 @@ const highlightRoots = document.querySelectorAll<HTMLElement>(
 // the home hero underlined the first word of its eyebrow.
 const ignoredSelector = [
   "a",
+  // A framework island owns its DOM. Marking a term inside one changed the
+  // text React was about to hydrate, and /diagnostics/delegation-audit threw
+  // a hydration error on every load.
+  "astro-island",
   "button",
   "code",
   // A heading names the section; it is where the reader orients, not where
@@ -239,74 +170,88 @@ const isInsideAddress = (text: string, start: number, end: number): boolean => {
   return /[@./\\]/.test(before) || /^[@]|^\.[a-z0-9]/i.test(after);
 };
 
-// A term is marked where the page first uses it. Marking every use put 29
-// underlined, focusable copies of "insulation" on the essay about insulation,
-// each a tab stop with its own card, and buried the terms that appear once.
-const highlightedSlugs = new Set<string>();
+/**
+ * Marks each term where the page first uses it. Marking every use put 29
+ * underlined, focusable copies of "insulation" on the essay about insulation,
+ * each a tab stop with its own card, and buried the terms that appear once.
+ */
+const highlightTerms = (entries: GlossaryHighlightEntry[]): void => {
+  const termLookup = new Map(
+    entries.map((entry) => [entry.term.toLowerCase(), entry]),
+  );
+  const sortedTerms = entries
+    .map((entry) => entry.term)
+    .sort((a, b) => b.length - a.length);
+  const glossaryRegex = new RegExp(
+    `\\b(${sortedTerms.map(escapeRegExp).join("|")})\\b`,
+    "gi",
+  );
+  const highlightedSlugs = new Set<string>();
 
-const replaceGlossaryTerms = (node: Text): void => {
-  const text = node.textContent;
-  if (!text) {
-    return;
-  }
-
-  const matches = Array.from(text.matchAll(glossaryRegex)).filter((match) => {
-    const entry = termLookup.get(match[0].toLowerCase());
-    const index = match.index ?? 0;
-    if (
-      !entry ||
-      highlightedSlugs.has(entry.slug) ||
-      isInsideAddress(text, index, index + match[0].length)
-    ) {
-      return false;
-    }
-    highlightedSlugs.add(entry.slug);
-    return true;
-  });
-  if (matches.length === 0) {
-    return;
-  }
-
-  const fragment = document.createDocumentFragment();
-  let lastIndex = 0;
-
-  matches.forEach((match) => {
-    const matchText = match[0];
-    const matchIndex = match.index ?? 0;
-    const entry = termLookup.get(matchText.toLowerCase());
-
-    fragment.append(text.slice(lastIndex, matchIndex));
-    if (entry) {
-      fragment.append(buildHighlightMark(matchText, entry));
-    } else {
-      fragment.append(matchText);
+  const replaceGlossaryTerms = (node: Text): void => {
+    const text = node.textContent;
+    if (!text) {
+      return;
     }
 
-    lastIndex = matchIndex + matchText.length;
-  });
+    const matches = Array.from(text.matchAll(glossaryRegex)).filter((match) => {
+      const entry = termLookup.get(match[0].toLowerCase());
+      const index = match.index ?? 0;
+      if (
+        !entry ||
+        highlightedSlugs.has(entry.slug) ||
+        isInsideAddress(text, index, index + match[0].length)
+      ) {
+        return false;
+      }
+      highlightedSlugs.add(entry.slug);
+      return true;
+    });
+    if (matches.length === 0) {
+      return;
+    }
 
-  fragment.append(text.slice(lastIndex));
-  node.replaceWith(fragment);
-};
+    const fragment = document.createDocumentFragment();
+    let lastIndex = 0;
 
-highlightRoots.forEach((root) => {
-  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-    acceptNode(node) {
-      if (shouldSkipTextNode(node as Text)) {
-        return NodeFilter.FILTER_REJECT;
+    matches.forEach((match) => {
+      const matchText = match[0];
+      const matchIndex = match.index ?? 0;
+      const entry = termLookup.get(matchText.toLowerCase());
+
+      fragment.append(text.slice(lastIndex, matchIndex));
+      if (entry) {
+        fragment.append(buildHighlightMark(matchText, entry));
+      } else {
+        fragment.append(matchText);
       }
 
-      return NodeFilter.FILTER_ACCEPT;
-    },
+      lastIndex = matchIndex + matchText.length;
+    });
+
+    fragment.append(text.slice(lastIndex));
+    node.replaceWith(fragment);
+  };
+
+  highlightRoots.forEach((root) => {
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        if (shouldSkipTextNode(node as Text)) {
+          return NodeFilter.FILTER_REJECT;
+        }
+
+        return NodeFilter.FILTER_ACCEPT;
+      },
+    });
+
+    const textNodes: Text[] = [];
+    while (walker.nextNode()) {
+      textNodes.push(walker.currentNode as Text);
+    }
+
+    textNodes.forEach((node) => replaceGlossaryTerms(node));
   });
-
-  const textNodes: Text[] = [];
-  while (walker.nextNode()) {
-    textNodes.push(walker.currentNode as Text);
-  }
-
-  textNodes.forEach((node) => replaceGlossaryTerms(node));
-});
+};
 
 // The card is centred on its term with `left: 50%` and a -50% translate, which
 // says nothing about whether the result is on screen. It usually was not: on a
@@ -359,6 +304,22 @@ const watchPeekCard = (mark: HTMLElement): void => {
   mark.addEventListener("focusin", () => positionPeekCard(mark));
 };
 
-document
-  .querySelectorAll<HTMLElement>(".glossary-highlight")
-  .forEach(watchPeekCard);
+// The term list is fetched, and only by a page with prose to mark: glossary
+// pages and two standards opt out, and used to download it anyway. A failed
+// fetch leaves the prose unmarked, which is how it reads without scripts.
+const loadAndHighlight = async (): Promise<void> => {
+  const response = await fetch("/glossary/highlight-index.json");
+  if (!response.ok) {
+    return;
+  }
+
+  const entries: GlossaryHighlightEntry[] = await response.json();
+  highlightTerms(entries);
+  document
+    .querySelectorAll<HTMLElement>(".glossary-highlight")
+    .forEach(watchPeekCard);
+};
+
+if (highlightRoots.length > 0) {
+  loadAndHighlight().catch(() => undefined);
+}

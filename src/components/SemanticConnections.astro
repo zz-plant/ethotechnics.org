@@ -4,9 +4,12 @@ import { resolveSemanticContext } from "../utils/semantic-graph";
 interface Props {
   entityId: string;
   className?: string;
+  /** 2 on a page whose sections have no h2 of their own, such as a glossary entry. */
+  headingLevel?: 2 | 3;
 }
 
-const { entityId, className = "" } = Astro.props;
+const { entityId, className = "", headingLevel = 3 } = Astro.props;
+const Heading = `h${headingLevel}` as const;
 const context = resolveSemanticContext(entityId);
 
 if (!context) {
@@ -40,7 +43,7 @@ const showLabels = kinds.length > 1;
 
 <aside class={`semantic-connections ${className}`} aria-label={title}>
   <div class="semantic-connections__header">
-    <h3 class="semantic-connections__title">{title}</h3>
+    <Heading class="semantic-connections__title">{title}</Heading>
   </div>
 
   <div class="semantic-connections__grid">

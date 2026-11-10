@@ -65,7 +65,6 @@ const breadcrumbItems = permalink.startsWith("/standards/critiques/")
   jsonAlternates={jsonAlternates}
   breadcrumbItems={breadcrumbItems}
 >
-  <slot name="pre-intro" />
   <PageIntro
     eyebrow={eyebrow}
     title={title}
@@ -74,5 +73,10 @@ const breadcrumbItems = permalink.startsWith("/standards/critiques/")
     version={version}
     lastUpdated={lastUpdated}
   />
+  {
+    /* Below the title: above it, the status panel and its changelog filled a
+      phone screen before the reader saw what the page was. */
+  }
+  <slot name="status" />
   <slot />
 </BaseLayout>

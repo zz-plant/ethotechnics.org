@@ -430,6 +430,12 @@
   .glossary-entry__main {
     display: grid;
     gap: var(--space-4);
+    /* A definition can cite a record field such as
+       authority_grant.correction_capacity.detection.independent_evaluator.
+       Unbroken, it set the width of the whole column, and every paragraph of
+       "Evaluation independence" ran off a phone screen. */
+    min-width: 0;
+    overflow-wrap: anywhere;
   }
 
   .glossary-entry__section {

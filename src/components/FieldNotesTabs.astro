@@ -97,6 +97,7 @@ const fieldNoteSections = sections.map((section, index) => ({
         >
           {fieldNoteSections.map(({ section, isActive }) => (
             <li
+              role="presentation"
               class={`pill-list__item field-notes__tab${
                 isActive ? " pill-list__item--active" : ""
               }`}

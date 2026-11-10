@@ -109,14 +109,14 @@ export function FrictionFigure({ copy }: Props) {
         <h4 className="friction__panel-title" id={`${uid}-meters`}>
           What the friction was providing
         </h4>
-        <dl className="demo-meters friction__meters">
+        <div className="demo-meters friction__meters">
           {ordered.map((entry) => {
             const value = values[entry.id];
             const rebuilt = state.rebuilt[entry.id];
             const lost = !rebuilt && value === 0;
             return (
               <div key={entry.id} className="friction__meter">
-                <div className="demo-meter">
+                <dl className="demo-meter">
                   <dt className="demo-meter__label">{entry.title}</dt>
                   <dd className="friction__meter-track">
                     <span className="demo-meter__track" aria-hidden="true">
@@ -127,7 +127,7 @@ export function FrictionFigure({ copy }: Props) {
                     </span>
                   </dd>
                   <dd className="demo-meter__value">{percent(value)}</dd>
-                </div>
+                </dl>
                 <p className="friction__meter-text">
                   {rebuilt
                     ? `Rebuilt on purpose: ${entry.rebuilt}`
@@ -138,7 +138,7 @@ export function FrictionFigure({ copy }: Props) {
               </div>
             );
           })}
-        </dl>
+        </div>
       </section>
 
       <section className="friction__panel" aria-labelledby={`${uid}-rebuild`}>

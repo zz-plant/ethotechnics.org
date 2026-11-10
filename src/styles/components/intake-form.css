@@ -18,11 +18,22 @@
     display: grid;
     gap: var(--space-5);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    /* A fieldset is as wide as its widest content by default, and a select is
+       as wide as its longest option. On a phone the corrective debt
+       calculator's form ran to 828px and its fields were cut off. */
+    min-inline-size: 0;
+  }
+
+  fieldset.intake-form__grid {
+    margin: 0;
+    padding: 0;
+    border: 0;
   }
 
   .intake-form__field {
     display: grid;
     gap: var(--space-2);
+    min-width: 0;
   }
 
   .intake-form__field--full {

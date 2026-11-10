@@ -32,6 +32,9 @@
   body {
     margin: 0;
     overflow-x: clip;
+    /* The page clips sideways, so a word wider than its column (a URL, a
+       dotted record field) lost its end on a phone. Break it instead. */
+    overflow-wrap: break-word;
     font-family: var(--serif);
     font-optical-sizing: auto;
     font-kerning: normal;
