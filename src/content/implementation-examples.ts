@@ -20,15 +20,15 @@ export const createImplementationPublication = (
     },
   ],
   contact: "hello@ethotechnics.org",
-  published: "2025-02-01T00:00:00Z",
-  updated: "2025-02-01T00:00:00Z",
+  published: "2026-01-25T00:00:00Z",
+  updated: "2026-01-25T00:00:00Z",
   version: "v1.0.0",
   doi: "Pending Zenodo deposit",
   archiveUrl: `https://web.archive.org/web/*/https://ethotechnics.org${permalink}`,
   changelog: [
     {
       version: "v1.0.0",
-      date: "2025-02-01",
+      date: "2026-01-25",
       summary,
     },
   ],

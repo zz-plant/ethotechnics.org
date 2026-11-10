@@ -66,8 +66,8 @@ export const governanceContent: GovernanceContent = {
   pageDescription:
     "How Ethotechnics changes its own standards: the RFC process, open RFCs, a decision log with named owners, an archive of the framework's own failures, and dated updates.",
   permalink: "/institute/governance",
-  published: "2026-02-01T00:00:00Z",
-  updated: "2026-09-18T00:00:00Z",
+  published: "2026-02-22T00:00:00Z",
+  updated: "2026-11-10T00:00:00Z",
   anchorLinks: [
     { href: "#lifecycle", label: "RFC lifecycle" },
     { href: "#open-rfcs", label: "Current RFCs" },
@@ -122,20 +122,19 @@ export const governanceContent: GovernanceContent = {
       summary:
         "Sets response-time targets and ownership for challenged diagnostic outcomes.",
     },
-    {
-      id: "RFC-2025-11",
-      title: "Quarterly governance digest format",
-      status: "released",
-      openedOn: "2025-11-04",
-      reviewWindow: "2025-11-04 → 2025-11-18",
-      closedOn: "2025-11-20",
-      owner: "Kanav Jain",
-      reviewerRoles: [],
-      summary:
-        "Standardizes the public digest structure so each quarter ships dated deltas, decisions, and release references.",
-    },
   ],
   decisions: [
+    {
+      id: "DEC-2026-11-01",
+      title: "Remove records dated before the repository existed",
+      outcome: "Accepted",
+      rationale:
+        "The repository's first commit is dated December 3, 2025, and nothing was published before it. This page listed an RFC opened in November 2025 and governance updates for the second and third quarters of 2025. Those records described events that did not happen, and they are removed. Every remaining record dated before February 22, 2026 was first written into the repository on that day, in the commit that added this page. Standards, explainers, and worked examples carried publication dates in 2025; each page now carries the date of its first commit.",
+      date: "2026-11-10",
+      owner: "Kanav Jain",
+      releaseVersion: "governance-v1.6.0",
+      releaseHref: "/institute/governance#failure-archive",
+    },
     {
       id: "DEC-2026-10-01",
       title: "Name who made each governance decision",
@@ -206,6 +205,15 @@ export const governanceContent: GovernanceContent = {
   ],
   failureLog: [
     {
+      id: "FE-2026-05",
+      title: "Records and pages were dated before anything was published",
+      detected: "2026-11-10",
+      detail:
+        "This page carried an RFC and two quarterly updates dated between July and November 2025, and standards, explainers, and worked examples gave publication dates in 2025. The repository's first commit is dated December 3, 2025. A reader comparing the two had no way to tell a real record from an invented one, on a page that asks institutions for records an auditor can check.",
+      revision:
+        "The three records are removed. Each page's publication date is now the date its file first appears in the repository's history. The page's own publication date moved from February 1 to February 22, 2026, the day it was committed.",
+    },
+    {
       id: "FE-2026-04",
       title: "Evidence guidance privileged formal documentation",
       detected: "2026-09-18",
@@ -254,18 +262,6 @@ export const governanceContent: GovernanceContent = {
       title: "Q4 2025 governance update",
       summary:
         "Published 3 decision records, closed 2 RFCs, and linked all accepted decisions to release versions.",
-    },
-    {
-      date: "2025-10-10",
-      title: "Q3 2025 governance update",
-      summary:
-        "Introduced reviewer-role tracking in RFC metadata and expanded open forum participation hours.",
-    },
-    {
-      date: "2025-07-12",
-      title: "Q2 2025 governance update",
-      summary:
-        "Established the baseline RFC lifecycle and started publishing dated decision records publicly.",
     },
   ],
 };
