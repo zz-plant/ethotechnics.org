@@ -182,8 +182,18 @@ describe("middleware", () => {
         expectedLocation: "https://ethotechnics.org/triage",
       },
       {
+        url: "https://ethotechnics.org/failure/cant-stop",
+        expectedLocation: "https://ethotechnics.org/triage#cant-stop",
+      },
+      {
+        url: "https://ethotechnics.org/triage/decision-appealed",
+        expectedLocation: "https://ethotechnics.org/triage#decision-appealed",
+      },
+      {
+        // No failure state has this slug. The prefix rewrite used to send it
+        // to /triage/unauthorized-action, which answered 404.
         url: "https://ethotechnics.org/failure/unauthorized-action",
-        expectedLocation: "https://ethotechnics.org/triage/unauthorized-action",
+        expectedLocation: "https://ethotechnics.org/triage",
       },
       {
         url: "https://ethotechnics.org/finite",

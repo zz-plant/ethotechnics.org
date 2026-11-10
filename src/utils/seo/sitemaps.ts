@@ -8,7 +8,6 @@ import type {
 } from "../../content/glossary";
 import { incidentLessons } from "../../content/incidents";
 import { evalsContent } from "../../content/evals";
-import { artifacts, failureStates } from "../../content/institute-site";
 import { governanceCrosswalks } from "../../content/crosswalks";
 import { cases } from "../../content/casebook";
 import { libraryContent } from "../../content/library";
@@ -313,18 +312,6 @@ export const buildSitemapSections = async () => {
     changefreq: "monthly",
   }));
 
-  // A failure state with no resolvable artifact redirects to /artifacts, so
-  // only the states that render are listed.
-  const artifactSlugs = new Set(artifacts.map((artifact) => artifact.slug));
-  const failurePaths = failureStates
-    .filter((state) =>
-      (state.artifactSlugs ?? []).some((slug) => artifactSlugs.has(slug)),
-    )
-    .map((state) => ({
-      path: `/triage/${state.slug}`,
-      changefreq: "monthly",
-    }));
-
   const crosswalkPaths = governanceCrosswalks.map((control) => ({
     path: `/standards/crosswalk/${control.controlId.toLowerCase()}`,
     changefreq: "monthly",
@@ -456,7 +443,6 @@ export const buildSitemapSections = async () => {
     ...corePaths,
     ...explainerPaths,
     ...evalSuitePaths,
-    ...failurePaths,
     ...researchEssayPaths,
     // Crosswalk controls sit under /standards but are not MDX standards
     // documents, so they are listed with the core pages.

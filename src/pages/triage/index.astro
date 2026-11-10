@@ -2,17 +2,128 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SymptomTriage from "../../components/SymptomTriage.astro";
-import { failureStates } from "../../content/institute-site";
+import VerdictMark from "../../components/VerdictMark.astro";
+import { stateVariables } from "../../content/casebook";
+import {
+  artifacts,
+  failureFooterLine,
+  failureStates,
+  type InstituteArtifact,
+} from "../../content/institute-site";
+import { getStandardBySlug } from "../../content/standards";
 import {
   failureChoiceLabels,
+  failureFirstMoves,
   failurePriorityBadges,
 } from "../../content/triage";
+import { pickMatchedCase, variableForTopic } from "../../utils/next-step";
+import { selfTestQuestions } from "../../utils/self-test";
 
 /**
  * Incident triage. This grid used to sit in the middle of the home page,
  * where a first-time reader met seven severity badges before knowing what
  * the site was. Someone in the middle of an incident is sent here directly.
+ *
+ * Each failure was a page of its own at /triage/<slug>. The seven shared the
+ * three-stage workflow, its stage descriptions, "the rule" and the footer
+ * line: 66 to 85% of each page was its siblings' text, and each was linked
+ * only from this grid. They are sections here now (id = the old slug, and
+ * /triage/<slug> redirects to it). What differs per failure stays in its
+ * section: the two-line description, the first move, the record that opens
+ * each stage, and the public case. The workflow is stated once.
  */
+const artifactBySlug = new Map(
+  artifacts.map((artifact) => [artifact.slug, artifact]),
+);
+
+// Which record opens which stage. A failure names three records; each stage
+// prefers its own, and takes the next unused one when the failure lacks it.
+const stagePreferences = [
+  { key: "triage", title: "Triage", prefers: "decision-record-template" },
+  { key: "stabilize", title: "Stabilize", prefers: "halt-authority-table" },
+  { key: "evidence", title: "Evidence", prefers: "harm-receipt-format" },
+] as const;
+
+const stagesFor = (artifactSlugs: string[]) => {
+  const available = artifactSlugs
+    .map((slug) => artifactBySlug.get(slug))
+    .filter((artifact): artifact is InstituteArtifact => Boolean(artifact));
+  const used = new Set<string>();
+  return stagePreferences.flatMap((stage) => {
+    const artifact =
+      available.find(
+        (candidate) =>
+          candidate.slug === stage.prefers && !used.has(candidate.slug),
+      ) ?? available.find((candidate) => !used.has(candidate.slug));
+    if (!artifact) return [];
+    used.add(artifact.slug);
+    return [{ ...stage, artifact }];
+  });
+};
+
+// Standard names come from the register: the labels here were written by
+// hand and named STD-01 "Deadlines for decisions and reversals".
+const standardLabel = (href: string) => {
+  const standard = getStandardBySlug(href.split("/").pop() ?? "");
+  if (!standard) throw new Error(`Triage links an unknown standard: ${href}`);
+  return `Review ${standard.id}: ${standard.title}`;
+};
+
+const workflowStages = [
+  {
+    title: "Triage",
+    description:
+      "Record what failed and the decision involved, before logs rotate and memories fade.",
+    diagnosticsHref: "/diagnostics/self-defense-tools#governable",
+    diagnosticsLabel: "Check whether the decision can be challenged",
+    standardsHref: "/standards/std-02-contestability-recourse",
+  },
+  {
+    title: "Stabilize",
+    description:
+      "Halt or narrow the harmful flow while the owner and the escalation path are in place.",
+    diagnosticsHref: "/diagnostics/delegation-audit",
+    diagnosticsLabel: "Check what the system is allowed to decide",
+    // STD-03 (justice SLOs) has no page yet; STD-06 carries the published
+    // thresholds and breach actions.
+    standardsHref: "/standards/std-06-human-impact-safety-case",
+  },
+  {
+    title: "Evidence",
+    description:
+      "Gather the records and the evidence pack, so each repair the organization owes can be checked against its deadline.",
+    diagnosticsHref: "/diagnostics/record-conformance",
+    diagnosticsLabel: "Check record conformance",
+    standardsHref: "/standards/std-01-temporal-rights",
+  },
+];
+
+// The public case each failure page closed on. The seed is the old page path,
+// so each failure keeps the case it showed as a page.
+const failureSections = failureStates
+  .map((state) => {
+    const pick = pickMatchedCase(
+      variableForTopic(state.slug, state.title),
+      undefined,
+      `/triage/${state.slug}`,
+    );
+    return {
+      state,
+      stages: stagesFor(state.artifactSlugs ?? []),
+      pick,
+      variableLabel: pick
+        ? (stateVariables.find((item) => item.id === pick.finding.variable)
+            ?.label ?? pick.finding.variable)
+        : "",
+      question: pick
+        ? selfTestQuestions.find(
+            (item) => item.variable === pick.finding.variable,
+          )?.question
+        : undefined,
+    };
+  })
+  .filter((section) => section.stages.length > 0);
+
 // The badges already lead with a severity word; this is what lets the grid
 // show it. Seven triage cards whose whole job is "how bad is this" rendered
 // Critical, High and Medium in identical neutral grey, so severity was
@@ -59,7 +170,7 @@ const failureChoiceIcons: Record<string, string[]> = {
   <PageIntro
     eyebrow="Incident triage"
     title="What is going wrong right now?"
-    description="Choose the closest failure. Each path starts with what to do now, names who should own follow-up and what evidence to collect, and ends by asking whether the case is one of many the same rule produced."
+    description="Choose the closest failure. Each one starts with what to do now and names the record that opens each stage. The workflow below is the same for all seven, and ends by asking whether the case is one of many the same rule produced."
     anchorLinks={[]}
   />
 
@@ -74,10 +185,7 @@ const failureChoiceIcons: Record<string, string[]> = {
           ];
           return (
             <li>
-              <a
-                class="button failure-grid__button"
-                href={`/triage/${state.slug}`}
-              >
+              <a class="button failure-grid__button" href={`#${state.slug}`}>
                 <span class="failure-grid__label">
                   <span class="failure-grid__title">
                     <span class="failure-grid__state-icon" aria-hidden="true">
@@ -116,6 +224,108 @@ const failureChoiceIcons: Record<string, string[]> = {
     </p>
   </section>
 
+  <div data-route-metrics="home-to-failure-pathway" hidden></div>
+
+  <section id="workflow" class="container stack-lg section">
+    <h2>Response workflow (triage → stabilize → evidence), then the rule</h2>
+    <p class="section-lead">
+      Every failure below runs through the same three stages. In each one,
+      capture evidence and timestamps in the stage's record, and confirm who the
+      case escalates to before starting other work on it.
+    </p>
+    <ol class="stack-sm">
+      {
+        workflowStages.map((stage) => (
+          <li class="card stack-sm">
+            <h3>{stage.title}</h3>
+            <p class="muted">{stage.description}</p>
+            <p class="muted small">
+              Next checks:{" "}
+              <a href={stage.diagnosticsHref}>{stage.diagnosticsLabel}</a> ·
+              <a href={stage.standardsHref}>
+                {standardLabel(stage.standardsHref)}
+              </a>
+            </p>
+          </li>
+        ))
+      }
+    </ol>
+
+    <div class="card stack-sm">
+      <p class="eyebrow">The rule</p>
+      <h3>Is this case one of many?</h3>
+      <p class="muted">
+        Fixing this case does not fix the rule that produced it. Count the cases
+        the same rule produced that were challenged and upheld, and send the
+        count to whoever owns the rule, with a date for an answer: a revised
+        rule, or a published reason for keeping it.
+      </p>
+      <p class="muted small">
+        Next checks:{" "}
+        <a href="/mechanisms/patterns/policy-review-triggers"
+          >Policy review triggers (MEC-14)</a
+        > ·
+        <a href="/research/theory/exception-learning"
+          >Why exceptions are evidence about the rule</a
+        >
+      </p>
+    </div>
+
+    <p class="small muted">{failureFooterLine}</p>
+  </section>
+
+  {
+    failureSections.map(({ state, stages, pick, variableLabel, question }) => (
+      <section id={state.slug} class="container stack-sm section">
+        <p class="eyebrow">
+          {failurePriorityBadges[state.slug] ?? "Review now"}
+        </p>
+        <h2>{state.title}</h2>
+        <p>{state.descriptionLine1}</p>
+        <p>{state.descriptionLine2}</p>
+        <div class="panel stack-sm">
+          <p class="eyebrow">Start here</p>
+          <p>
+            {failureFirstMoves[state.slug] ??
+              "Assign the accountable owner now."}
+          </p>
+          <p class="muted">
+            Start with the
+            <strong>{stages[0]?.artifact.name.toLowerCase()}</strong>.
+            {stages[0]?.artifact.description[0]}
+          </p>
+        </div>
+        <h3>The record that opens each stage</h3>
+        <ol class="stack-sm">
+          {stages.map((stage) => (
+            <li>
+              {stage.title}:{" "}
+              <a
+                href={`/artifacts#${stage.artifact.slug}`}
+                data-route-action={`failure-${stage.key}-${stage.artifact.slug}`}
+              >
+                {stage.artifact.name}
+              </a>
+            </li>
+          ))}
+        </ol>
+        {pick && (
+          <p class="muted">
+            Where this broke in public:{" "}
+            <a href={`/casebook/${pick.entry.slug}`}>{pick.entry.title}</a>.{" "}
+            {variableLabel}:{" "}
+            <VerdictMark verdict={pick.finding.verdict} labelled />.
+            {question && ` The question it failed: ${question}`}
+          </p>
+        )}
+        <p class="small muted">
+          <a href="#workflow">The workflow for every failure</a> ·
+          <a href="#failure-intake">All seven failures</a>
+        </p>
+      </section>
+    ))
+  }
+
   {
     /* The symptom matrix lived on /start as a second way to route by symptom.
        It belongs with the live-case routes: one page answers "something is
@@ -130,4 +340,7 @@ const failureChoiceIcons: Record<string, string[]> = {
     </p>
     <SymptomTriage />
   </section>
+  <script>
+    import "../../client/route-metrics.ts";
+  </script>
 </BaseLayout>

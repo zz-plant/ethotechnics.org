@@ -1,8 +1,10 @@
 import type { MiddlewareHandler } from "astro";
 
+import { failureStates } from "./content/institute-site";
 import { taxonomyAnchor, taxonomyEntries } from "./content/taxonomy";
 
 const TAXONOMY_SLUGS = new Set(taxonomyEntries.map((entry) => entry.slug));
+const FAILURE_SLUGS = new Set(failureStates.map((state) => state.slug));
 
 // ethotechnics.com redirects live in the et repo's redirect Worker, not here.
 
@@ -283,10 +285,16 @@ const resolveLegacyPathRedirect = (url: URL): string | null => {
     return target.toString();
   }
 
-  // Failure triage rename
-  if (normalizedPath === "/failure" || normalizedPath.startsWith("/failure/")) {
+  // Failure triage. /failure was renamed /triage, and each failure state was
+  // then a page at /triage/<slug>. The seven shared most of their text, so
+  // each is a section of /triage now. Both prefixes go straight to the
+  // section; a slug that names no failure state goes to the page, where the
+  // old prefix rewrite sent /failure/<anything> to a 404.
+  const failureMatch = /^\/(?:failure|triage)\/([^/]+)$/.exec(normalizedPath);
+  if (failureMatch || normalizedPath === "/failure") {
+    const slug = failureMatch?.[1];
     const target = new URL(
-      normalizedPath.replace(/^\/failure/, "/triage"),
+      slug && FAILURE_SLUGS.has(slug) ? `/triage#${slug}` : "/triage",
       url.origin,
     );
     target.search = url.search;
