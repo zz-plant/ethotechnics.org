@@ -267,6 +267,9 @@
   .page-intro__lead h1,
   .page-intro__lead h2 {
     margin: 0;
+    /* Grid items are as wide as their longest word unless told otherwise. */
+    min-width: 0;
+    overflow-wrap: break-word;
   }
 
   .page-intro__lead > .section__actions {

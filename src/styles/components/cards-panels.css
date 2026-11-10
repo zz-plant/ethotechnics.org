@@ -172,6 +172,11 @@
     border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
   }
 
+  /* The permalink is one unbroken word; on a phone its end was cut off. */
+  .citation-block__meta a {
+    overflow-wrap: anywhere;
+  }
+
   .citation-block + .scholarly-meta,
   .scholarly-meta + .citation-block {
     margin-top: var(--space-2);

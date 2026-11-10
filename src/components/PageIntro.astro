@@ -78,7 +78,22 @@ const resolvedEyebrow =
           )
         }
       </div>
-      <HeadingTag>{title}</HeadingTag>
+      <HeadingTag>
+        {
+          /* A break opportunity after each slash: "Degradation/restoration
+            asymmetry" is one unbreakable word otherwise, wider than a phone. */
+          title.split("/").map((part, index) => (
+            <>
+              {index > 0 && (
+                <>
+                  /<wbr />
+                </>
+              )}
+              {part}
+            </>
+          ))
+        }
+      </HeadingTag>
       {
         hasLede ? (
           <p class="muted page-intro__lede">

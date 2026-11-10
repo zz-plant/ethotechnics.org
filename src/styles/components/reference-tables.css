@@ -442,6 +442,26 @@
   .laws-essay .law-protects + blockquote p {
     margin: 0;
   }
+
+  /* LawProtects and LawCases. These rules live here and not in the
+     components' own <style> blocks: the build inlined those on the laws page
+     without adding their hash to the Content-Security-Policy, so production
+     dropped them and both lines rendered as body text. */
+  .law-protects,
+  .law-cases {
+    margin: var(--space-1) 0 0;
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+  }
+
+  .law-protects {
+    font-weight: 600;
+    color: var(--accent-strong);
+  }
+
+  .law-cases {
+    color: var(--muted);
+  }
 }
 
 @layer components {
