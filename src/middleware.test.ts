@@ -106,12 +106,15 @@ describe("middleware", () => {
     const glossaryAliases = [
       ["/glossary/contestability-guarantee", "/glossary/contestability"],
       ["/glossary/structural-corrigibility", "/glossary/exception-learning"],
-      ["/glossary/human-override-lanes", "/glossary/override-path"],
-      ["/glossary/utility-expiry", "/glossary/constructive-denial"],
+      [
+        "/glossary/human-override-lanes",
+        "/mechanisms/patterns/intervention-specification",
+      ],
+      ["/glossary/utility-expiry", "/glossary/binding-clock"],
       ["/glossary/moral-drift-control", "/standards/std-08-delegation"],
       [
         "/glossary/distributed-accountability-protocols",
-        "/glossary/obligation-continuity",
+        "/glossary/authority-grant",
       ],
       [
         "/glossary/ethotechnic-failure-taxonomy",
@@ -121,22 +124,31 @@ describe("middleware", () => {
         "/glossary/boundary-of-acceptable-harm",
         "/standards/std-06-human-impact-safety-case",
       ],
-      ["/glossary/decision-debt-ledger", "/glossary/corrective-debt"],
+      ["/glossary/decision-debt-ledger", "/glossary/correction-capacity"],
       ["/glossary/moral-feature-gating", "/mechanisms/patterns/admission-gate"],
       [
         "/glossary/pathways-to-restitution",
         "/research/scholarly-crossings#corrigibility-ladder",
       ],
+      // Retired in the November 2026 cut: into a kept entry, or to the page
+      // that already covers the term.
+      ["/glossary/moral-latency", "/glossary/time-to-halt"],
+      ["/glossary/consent-journey", "/explainers/consent-journey"],
+      [
+        "/glossary/halt-stratification",
+        "/mechanisms/patterns/halt-tier-register",
+      ],
+      ["/glossary/extraction", "/research/theory/the-human-subsidy"],
     ];
     // Retired per-entry subpages that search engines still list. Each lands on
     // its entry in one hop; a renamed entry lands on its new name.
     const legacyGlossaryEntries = [
       [
         "/glossary/entries/design-authority/overview/",
-        "/glossary/design-authority",
+        "/explainers/design-authority",
       ],
       ["/glossary/entries/time-to-halt/status", "/glossary/time-to-halt"],
-      ["/glossary/entries/fail-silent", "/glossary/fail-silent"],
+      ["/glossary/entries/fail-silent", "/glossary/stoppability"],
       [
         "/glossary/entries/contestability-guarantee/overview",
         "/glossary/contestability",

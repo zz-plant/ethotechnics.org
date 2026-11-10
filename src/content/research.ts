@@ -259,7 +259,7 @@ export const researchContent: ResearchContent = {
         "Find systems that publish how many challenges they uphold, and check whether any rule changed after them.",
         "Test whether the corrective learning evaluations, which ask whether an institution changed after a failure, can be scored from public records alone.",
       ],
-      glossaryRefs: ["exception-absorption", "exception-learning"],
+      glossaryRefs: ["exception-learning"],
     },
     {
       title: "Who pays for correction?",
@@ -269,7 +269,7 @@ export const researchContent: ResearchContent = {
         "Set an institution's efficiency figures beside the correction work its system moves onto claimants, staff, and clinicians.",
         "Find where, if anywhere, that work appears in a public budget.",
       ],
-      glossaryRefs: ["burden-transfer-event", "compensated-performance"],
+      glossaryRefs: ["user-burden-ratio", "compensated-performance"],
     },
     {
       title: "What can people still do after years of automation?",
@@ -280,9 +280,9 @@ export const researchContent: ResearchContent = {
         "Measure long-term effects as independent clinical judgment, the availability of a fallback, and who can change the workflow.",
       ],
       glossaryRefs: [
-        "invisible-fallbacks",
+        "decision-object",
         "automation-ratchet",
-        "normalized-dependence",
+        "dependency-state",
       ],
     },
   ],
@@ -296,7 +296,7 @@ export const researchContent: ResearchContent = {
         "Which public systems give the person they decide about a challenge that must be answered by a date?",
         "When a challenge is upheld, who besides that person learns of it?",
       ],
-      glossaryRefs: ["corrective-standing", "standing-mechanism"],
+      glossaryRefs: ["corrective-standing"],
     },
     {
       slug: "correction",
@@ -307,7 +307,7 @@ export const researchContent: ResearchContent = {
         "How long after the first upheld challenge did each casebook rule change?",
         "What record would show that a rule changed because of a challenge?",
       ],
-      glossaryRefs: ["exception-learning", "correction-obligation"],
+      glossaryRefs: ["exception-learning", "correction-capacity"],
     },
     {
       slug: "burden",
@@ -318,13 +318,7 @@ export const researchContent: ResearchContent = {
         "How much time does a successful challenge cost the person who brings it?",
         "Which efficiency figures leave that time out?",
       ],
-      glossaryRefs: [
-        "burden-transfer-event",
-        "principle-of-non-expropriation-of-resilience",
-        "manufactured-virtue",
-        "epistemic-erasure-cycle",
-        "compensatory-inputs",
-      ],
+      glossaryRefs: ["user-burden-ratio"],
     },
   ],
   publications: [
@@ -336,10 +330,9 @@ export const researchContent: ResearchContent = {
         "Draft protocol, study pending. An offline chest-radiograph task compares two practice orders on unaided reading skill. A separate drill records who can halt or reverse a decision.",
       tags: ["evaluations", "radiology", "automation", "fallback"],
       glossaryRefs: [
-        "invisible-fallbacks",
+        "decision-object",
         "automation-ratchet",
-        "normalized-dependence",
-        "evaluation-independence",
+        "dependency-state",
       ],
       href: "/research/radiology-fallback-protocol",
       ctaLabel: "Read the draft protocol",
@@ -369,7 +362,7 @@ export const researchContent: ResearchContent = {
       summary:
         "Planned pilot to test which operational signals the workload modeler should weight most.",
       tags: ["diagnostics", "measurement", "governance"],
-      glossaryRefs: ["burden-index", "signal-credibility"],
+      glossaryRefs: [],
       href: "/diagnostics/burden-modeler",
       ctaLabel: "Open the workload modeler",
       structuredAbstract: {
@@ -398,13 +391,7 @@ export const researchContent: ResearchContent = {
       summary:
         "Working paper v0.2.1, The Green Dashboard: a proposed 52-week simulation of a hospital department that tests whether AI agents meet their targets by using up staff effort their metrics do not count. It names that failure, sets out an experimental design with falsifiable hypotheses, and lists seven gaps in current evaluation practice. No experiments have been run.",
       tags: ["evaluations", "benchmarking", "reward-hacking", "governance"],
-      glossaryRefs: [
-        "reciprocal-accommodation",
-        "extractive-cannibalism",
-        "green-dashboard-trap",
-        "dual-ledger-evaluation",
-        "systemic-refusal",
-      ],
+      glossaryRefs: ["compensated-performance"],
       href: "/research/the-green-dashboard",
       ctaLabel: "Read the working paper",
       structuredAbstract: {

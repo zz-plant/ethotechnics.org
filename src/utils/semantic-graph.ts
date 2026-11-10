@@ -85,10 +85,7 @@ for (const entry of allCategoryEntries) {
   const isFailure =
     entry.domains?.includes("patterns") ||
     entry.classes?.some((c) => c.toLowerCase().includes("failure")) ||
-    entry.id.includes("failure") ||
-    entry.id === "unearned-closure" ||
-    entry.id === "heroism-dependent-systems" ||
-    entry.id === "affect-invariance";
+    entry.id.includes("failure");
 
   const plainText = stripHtml(entry.bodyHtml);
 

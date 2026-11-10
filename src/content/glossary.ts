@@ -13,9 +13,9 @@ export type GlossaryTerm = {
   /**
    * `false` keeps the term out of the in-page highlighter. Set it on words
    * that already carry an everyday, legal, or engineering sense, where a
-   * tooltip would hand them the site's narrower one: "settlement" in the
-   * DSA's "dispute settlement body", "rollback" in an explainer for
-   * engineers. The entry page, search, and links are unaffected.
+   * tooltip would hand them the site's narrower one: "redress" in a court's
+   * sense, "decision system" in an engineer's. The entry page, search, and
+   * links are unaffected.
    */
   autoHighlight?: false;
 };

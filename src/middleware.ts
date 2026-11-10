@@ -2,6 +2,7 @@ import type { MiddlewareHandler } from "astro";
 
 import { failureStates } from "./content/institute-site";
 import { taxonomyAnchor, taxonomyEntries } from "./content/taxonomy";
+import retiredGlossaryEntries from "./data/glossary-retired.json" with { type: "json" };
 
 const TAXONOMY_SLUGS = new Set(taxonomyEntries.map((entry) => entry.slug));
 const FAILURE_SLUGS = new Set(failureStates.map((state) => state.slug));
@@ -18,16 +19,26 @@ const REDIRECT_MAP: Record<string, string> = {
   // A promise to a person is a deadline, not an SLA (house vocabulary).
   "/glossary/reversal-sla": "/glossary/reversal-deadline",
   "/glossary/structural-corrigibility": "/glossary/exception-learning",
-  "/glossary/human-override-lanes": "/glossary/override-path",
-  "/glossary/utility-expiry": "/glossary/constructive-denial",
+  "/glossary/human-override-lanes":
+    "/mechanisms/patterns/intervention-specification",
+  "/glossary/utility-expiry": "/glossary/binding-clock",
   "/glossary/moral-drift-control": "/standards/std-08-delegation",
-  "/glossary/distributed-accountability-protocols":
-    "/glossary/obligation-continuity",
+  "/glossary/distributed-accountability-protocols": "/glossary/authority-grant",
   "/glossary/ethotechnic-failure-taxonomy": "/glossary?section=failure-modes",
   "/glossary/boundary-of-acceptable-harm":
     "/standards/std-06-human-impact-safety-case",
-  "/glossary/decision-debt-ledger": "/glossary/corrective-debt",
+  "/glossary/decision-debt-ledger": "/glossary/correction-capacity",
   "/glossary/moral-feature-gating": "/mechanisms/patterns/admission-gate",
+  // In November 2026 the glossary kept the 42 terms the standards, the method,
+  // and the measures use, one entry for each thing. The other 355 entries
+  // were retired; each lands on the entry, explainer, mechanism, or essay
+  // that now covers it. The table is src/data/glossary-retired.json.
+  ...Object.fromEntries(
+    Object.entries(retiredGlossaryEntries).map(([slug, target]) => [
+      `/glossary/${slug}`,
+      target,
+    ]),
+  ),
   "/glossary/pathways-to-restitution":
     "/research/scholarly-crossings#corrigibility-ladder",
 

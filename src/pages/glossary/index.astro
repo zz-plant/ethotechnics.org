@@ -70,10 +70,13 @@ const { statusFilters, glossaryLetters } = buildGlossaryIndexFacets(
 );
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
 // Links on this page are root-relative. Written as absolute URLs, the 386
-// terms listed twice carried "https://ethotechnics.org" 800 times.
+// terms it once listed twice carried "https://ethotechnics.org" 800 times.
 const explainerLinksWithGlossary = explainerLinks.map((link) => ({
   ...link,
-  glossaryHref: glossaryEntryPermalink(link.glossarySlug),
+  glossaryHref:
+    "glossarySlug" in link && link.glossarySlug
+      ? glossaryEntryPermalink(link.glossarySlug)
+      : undefined,
 }));
 const searchQuery = Astro.url.searchParams.get("query")?.trim() ?? "";
 const normalizedQuery = searchQuery.toLowerCase();
@@ -482,7 +485,7 @@ const documentTitle = pageTitle.replace(" — ", ": ");
     id="explainer-links"
     eyebrow="Explainers"
     title="Glossary explainers"
-    description="Longer explanations of selected terms, each linked back to its glossary entry."
+    description="Longer explanations of selected terms. Each links to its glossary entry where the glossary has one."
   >
     <ul class="glossary-links glossary-links--columns">
       {
@@ -490,8 +493,13 @@ const documentTitle = pageTitle.replace(" — ", ": ");
           <li>
             <a href={explainer.href}>{explainer.title}</a>
             <span class="muted small">
-              {explainer.description}{" "}
-              <a href={explainer.glossaryHref}>Glossary entry</a>
+              {explainer.description}
+              {explainer.glossaryHref && (
+                <>
+                  {" "}
+                  <a href={explainer.glossaryHref}>Glossary entry</a>
+                </>
+              )}
             </span>
           </li>
         ))

@@ -119,11 +119,7 @@
           "filters": ["correction", "capability"],
           "chainStages": ["correction"],
           "chainNote": "One halt control reaches every step, so the chain halts as one system instead of one step at a time.",
-          "glossaryRefs": [
-            "delegation-chain",
-            "composed-latency",
-            "override-path"
-          ],
+          "glossaryRefs": ["delegation-chain"],
           "cues": [
             "Enumerate the hops before you design the halt: a chain you cannot list is a chain you cannot halt.",
             "One halt receipt for the chain, not a halt control per hop.",
@@ -181,7 +177,7 @@
           "filters": ["authority", "evidence"],
           "chainStages": ["decision"],
           "chainNote": "It records what was decided, who decided, and who dissented, at the moment of deciding.",
-          "glossaryRefs": ["design-authority", "repair-log", "contestability"],
+          "glossaryRefs": ["repair-log", "contestability"],
           "cues": [
             "Record the options ruled out and why, not only the option chosen.",
             "Record dissent in the dissenter's own words, with their role.",
@@ -238,11 +234,7 @@
           "filters": ["standing", "dependency"],
           "chainStages": ["authority"],
           "chainNote": "Each prompt is the person granting, or withdrawing, the system's permission to act on them.",
-          "glossaryRefs": [
-            "consent-journey",
-            "permission-surface",
-            "safety-valve"
-          ],
+          "glossaryRefs": ["permission-surface"],
           "cues": [
             "Ask for each permission when it is needed, with the reason and how to withdraw it.",
             "Show what changes for the person if they say no, before they choose.",
@@ -299,11 +291,7 @@
           "filters": ["dependency", "correction"],
           "chainStages": ["correction"],
           "chainNote": "Every change ships with an owner and a rollback plan, so a bad change can be undone.",
-          "glossaryRefs": [
-            "maintenance-window",
-            "maintenance-metabolism",
-            "repair-log"
-          ],
+          "glossaryRefs": ["repair-log"],
           "cues": [
             "Name an owner for each window and the result that counts as done.",
             "Tell the people a change affects what will differ and when, with more notice for higher-risk changes.",
@@ -362,7 +350,7 @@
           "chainNote": "It caps how long a person waits in any state, and at the cap a named person has to decide the case again.",
           "glossaryRefs": [
             "time-to-halt",
-            "escalation-horizon",
+            "decision-threshold",
             "contestability"
           ],
           "cues": [
@@ -415,11 +403,7 @@
           "filters": ["correction"],
           "chainStages": ["correction"],
           "chainNote": "It halts the system when harm indicators fire, so harm stops spreading while the rule is fixed.",
-          "glossaryRefs": [
-            "stoppability",
-            "ethical-interrupts",
-            "time-to-halt"
-          ],
+          "glossaryRefs": ["stoppability", "time-to-halt"],
           "cues": [
             "Set halt triggers on harm indicators, such as a spike in upheld challenges, and on reports from frontline staff.",
             "Name who may fire the switch, and protect them from retaliation for using it.",
@@ -543,11 +527,7 @@
           "filters": ["correction", "evidence"],
           "chainStages": ["correction"],
           "chainNote": "It times how long it takes a named person to intervene, halt the system, and restore the people harmed.",
-          "glossaryRefs": [
-            "prospective-auditability",
-            "design-authority",
-            "time-to-halt"
-          ],
+          "glossaryRefs": ["decision-object", "time-to-halt"],
           "cues": [
             "Record each intervention, halt, and restore with a timestamp, the person who acted, and the trigger.",
             "Publish a latency target for each, next to the time-to-halt target.",
@@ -606,11 +586,7 @@
           "filters": ["standing"],
           "chainStages": ["challenge"],
           "chainNote": "It lets a person, or someone acting for them, dispute a decision through an interface that must answer by a deadline.",
-          "glossaryRefs": [
-            "contestability",
-            "permission-surface",
-            "escalation-reliability"
-          ],
+          "glossaryRefs": ["contestability", "permission-surface"],
           "cues": [
             "Publish a stable contract: the inputs, the obliged responder, and the answer deadline.",
             "Return a receipt on filing with a challenge ID, the status, and where it goes if the deadline passes.",
@@ -673,7 +649,7 @@
           "filters": ["evidence", "standing"],
           "chainStages": ["consequence"],
           "chainNote": "It measures the time, steps, documents, and waiting the system puts on people, group by group.",
-          "glossaryRefs": ["burden-index", "user-burden-ratio", "time-to-halt"],
+          "glossaryRefs": ["user-burden-ratio", "time-to-halt"],
           "cues": [
             "Report burden next to outcome and response-time figures, not in a separate report.",
             "Split burden by group and channel, such as language, disability access, and phone versus web, so a gap between groups shows.",
@@ -732,7 +708,7 @@
           "chainNote": "It records whether each action can be undone, by whom, and how fast, before anyone needs to undo it.",
           "glossaryRefs": [
             "reversibility",
-            "prospective-auditability",
+            "decision-object",
             "irreversibility-index"
           ],
           "cues": [
@@ -791,11 +767,7 @@
           "filters": ["correction", "standing"],
           "chainStages": ["reconsideration"],
           "chainNote": "It sets a deadline for a human to look at an escalated decision again, and a fallback when the deadline passes.",
-          "glossaryRefs": [
-            "escalation-reliability",
-            "contestability",
-            "time-to-halt"
-          ],
+          "glossaryRefs": ["contestability", "time-to-halt"],
           "cues": [
             "Publish each escalation deadline with the role that must answer and the hours covered.",
             "Check each deadline against the staffing roster before publishing it.",
@@ -852,7 +824,7 @@
           "filters": ["correction"],
           "chainStages": ["correction"],
           "chainNote": "It tests that the people authorized to halt the system can do it within the target time.",
-          "glossaryRefs": ["stoppability", "time-to-halt", "design-authority"],
+          "glossaryRefs": ["stoppability", "time-to-halt"],
           "cues": [
             "Run a halt drill before launch and after each major change.",
             "Write down who can halt, how, and the target time to halt.",
@@ -909,11 +881,7 @@
           "filters": ["authority"],
           "chainStages": ["authority"],
           "chainNote": "It holds each delegated permission as a record with a scope, an evidence basis, an expiry, and conditions for revoking it.",
-          "glossaryRefs": [
-            "design-authority",
-            "permission-surface",
-            "decision-reversal-authority"
-          ],
+          "glossaryRefs": ["permission-surface", "reversibility"],
           "cues": [
             "Give each grant a state, not a boolean: proposed, allowed, review_required, suspended, revoked.",
             "Record what the grant rests on, who issued it, and what would end it.",
@@ -970,11 +938,7 @@
           "filters": ["evidence", "authority"],
           "chainStages": ["evidence", "reconsideration"],
           "chainNote": "A policy is part of the evidence a grant rests on; when it expires or a trigger fires, every grant that cites it goes back for review.",
-          "glossaryRefs": [
-            "design-authority",
-            "reversibility",
-            "permission-surface"
-          ],
+          "glossaryRefs": ["reversibility", "permission-surface"],
           "cues": [
             "Write down the propositions a policy assumes, not only the rule it states.",
             "Name the observation that should reopen the policy, and the threshold that counts.",
@@ -1031,11 +995,7 @@
           "filters": ["dependency", "correction"],
           "chainStages": ["correction"],
           "chainNote": "It runs the work without the system, to show the institution can still stop using it and what that would cost.",
-          "glossaryRefs": [
-            "right-of-exit",
-            "reversibility",
-            "heroism-dependent-systems"
-          ],
+          "glossaryRefs": ["dependency-state", "reversibility"],
           "cues": [
             "Rehearse the workflow without the system rather than testing that the switch flips.",
             "Measure cost, the expertise still available, and time to recover at each reversibility level.",
@@ -1092,11 +1052,7 @@
           "filters": ["correction", "authority"],
           "chainStages": ["decision"],
           "chainNote": "It names who can see, prevent, or alter a decision while it is being made, and what happens when they disagree.",
-          "glossaryRefs": [
-            "override-path",
-            "decision-reversal-authority",
-            "time-to-halt"
-          ],
+          "glossaryRefs": ["reversibility", "time-to-halt"],
           "cues": [
             "State what the intervener can see at the moment of the decision, not afterward.",
             "Separate what they can prevent from what they can alter after the fact.",
@@ -1155,8 +1111,8 @@
           "chainNote": "It keeps what the system can do apart from what it is permitted to do, so a capability is never read as a permission.",
           "glossaryRefs": [
             "permission-surface",
-            "bounded-autonomy",
-            "proxy-privilege"
+            "authority-grant",
+            "burden-ceiling"
           ],
           "cues": [
             "Let discovery answer what is possible; let the grant register answer what is permitted.",
@@ -1214,11 +1170,7 @@
           "filters": ["dependency"],
           "chainStages": ["correction"],
           "chainNote": "It tracks what replacing the system would cost, so stopping it stays possible.",
-          "glossaryRefs": [
-            "moral-lock-in",
-            "exit-coercion",
-            "heroism-dependent-systems"
-          ],
+          "glossaryRefs": ["dependency-state"],
           "cues": [
             "Treat dependence as a state variable that moves, not as a background condition.",
             "Record alternatives while they still exist, not once they are gone.",
@@ -1275,11 +1227,7 @@
           "filters": ["capability", "authority"],
           "chainStages": ["authority"],
           "chainNote": "It treats each widening of scope as a new permission, granted on fresh evidence.",
-          "glossaryRefs": [
-            "earned-autonomy",
-            "bounded-autonomy",
-            "design-authority"
-          ],
+          "glossaryRefs": ["expansion-decision", "authority-grant"],
           "cues": [
             "Treat a successful pilot as a request to expand, not as an approval to expand.",
             "Ask what correction capacity the wider scope needs before the scope moves.",
@@ -1336,11 +1284,7 @@
           "filters": ["correction"],
           "chainStages": ["correction"],
           "chainNote": "It sizes the power to halt by what a halt would stop, so the smallest pauses and halts stay cheap enough to use.",
-          "glossaryRefs": [
-            "halt-stratification",
-            "stoppability",
-            "procedural-force"
-          ],
+          "glossaryRefs": ["stoppability", "corrective-standing"],
           "cues": [
             "Rank instruments by blast radius: a pause on one case, then a halt on one queue, one workflow, or the whole system.",
             "Name who can fire each tier and what recovery at that tier requires.",
@@ -1397,11 +1341,7 @@
           "filters": ["authority", "evidence"],
           "chainStages": ["evidence", "authority"],
           "chainNote": "Deploying at all is the first permission, and it has to rest on recorded evidence.",
-          "glossaryRefs": [
-            "admission-gate",
-            "decision-reversal-authority",
-            "design-authority"
-          ],
+          "glossaryRefs": ["reversibility"],
           "cues": [
             "Review admission before the grant exists, not as a post-hoc audit of a running system.",
             "Record the refusal basis when the answer is no, and make \"not yet\" and \"never\" distinguishable.",
@@ -1458,11 +1398,7 @@
           "filters": ["standing", "correction"],
           "chainStages": ["challenge"],
           "chainNote": "It counts challenges against the capacity to answer them, so congestion is met with staff or a smaller scope, not fewer people allowed to challenge.",
-          "glossaryRefs": [
-            "challenge-density",
-            "corrective-standing",
-            "futility-threshold"
-          ],
+          "glossaryRefs": ["corrective-standing", "binding-clock"],
           "cues": [
             "Report challenge volume, response capacity, and unanswered-challenge age as one series.",
             "Tie sustained breaches of response clocks to a recorded resourcing or scope decision.",
@@ -1519,11 +1455,7 @@
           "filters": ["correction", "evidence"],
           "chainStages": ["evidence"],
           "chainNote": "It turns failures people caught before they reached anyone into evidence about the system.",
-          "glossaryRefs": [
-            "compensated-performance",
-            "principle-of-non-expropriation-of-resilience",
-            "compensatory-adaptation"
-          ],
+          "glossaryRefs": ["compensated-performance"],
           "cues": [
             "Count a caught failure as an occurrence with a cause, not as an absence of incidents.",
             "Ask who caught it, what it cost them, and whether the condition is still there.",
@@ -1580,11 +1512,7 @@
           "filters": ["authority", "evidence"],
           "chainStages": ["evidence"],
           "chainNote": "Before money moves, frontline staff run adversarial scenarios, so the case for using the system rests on what they saw.",
-          "glossaryRefs": [
-            "admission-gate",
-            "score-as-acquittal",
-            "compensated-performance"
-          ],
+          "glossaryRefs": ["compensated-performance"],
           "cues": [
             "Run live scenarios against dirty data instead of accepting a scripted demo.",
             "Record the labor the evaluation itself consumes, and who is pulled from duty to spend it.",
@@ -1647,12 +1575,7 @@
           "filters": ["standing", "correction"],
           "chainStages": ["challenge", "correction"],
           "chainNote": "It follows a correction from detection through enforcement and maps the route to the decision point that sets the constraint.",
-          "glossaryRefs": [
-            "corrective-power-chain",
-            "structural-reachability",
-            "corrective-standing",
-            "correction-window"
-          ],
+          "glossaryRefs": ["corrective-standing", "reversibility"],
           "cues": [
             "A challenge that can correct the case but not the rule stops at agenda control.",
             "A remedy that the losing party must execute stops at enforcement.",
@@ -1710,12 +1633,7 @@
           "filters": ["standing", "authority"],
           "chainStages": ["challenge", "reconsideration"],
           "chainNote": "It classifies the claim before deciding it and keeps the losing side able to contest what comes next.",
-          "glossaryRefs": [
-            "protected-disagreement",
-            "non-self-extinguishing-authority",
-            "corrective-standing",
-            "futility-threshold"
-          ],
+          "glossaryRefs": ["corrective-standing", "binding-clock"],
           "cues": [
             "A settlement that removes the loser's resources has removed a future challenger.",
             "Not every challenge should win; every challenger should be able to return.",
@@ -1773,12 +1691,7 @@
           "filters": ["dependency", "correction"],
           "chainStages": ["consequence", "correction"],
           "chainNote": "It records what ordinary operation does to future correction, and separates non-depletion from systemic reproduction.",
-          "glossaryRefs": [
-            "independent-corrective-capacity",
-            "correction-window",
-            "architectural-contestability",
-            "accountable-transition"
-          ],
+          "glossaryRefs": ["reversibility"],
           "cues": [
             "Fewer complaints can mean success or foreclosure; the capacity inventory distinguishes them.",
             "A correction window that closes before mobilization is not a window.",
@@ -1853,12 +1766,7 @@
           "filters": ["evidence", "correction"],
           "chainStages": ["decision", "correction"],
           "chainNote": "It tests whether a decision can be reconstructed before the institution claims it can correct the rule.",
-          "glossaryRefs": [
-            "reconstructable-delegation",
-            "institutional-reversibility",
-            "corrective-power-chain",
-            "contestability"
-          ],
+          "glossaryRefs": ["contestability"],
           "cues": [
             "A record that cannot answer what would have changed the outcome is a log, not a correction record.",
             "If the rule is not reconstructable, lower autonomy before adding another guardrail.",
@@ -1916,12 +1824,7 @@
           "filters": ["evidence", "standing"],
           "chainStages": ["decision", "reconsideration"],
           "chainNote": "It raises the fidelity of review without adding the passive friction that produces rubber-stamping.",
-          "glossaryRefs": [
-            "verification-fidelity",
-            "corrective-standing",
-            "corrective-power-chain",
-            "institutional-reversibility"
-          ],
+          "glossaryRefs": ["corrective-standing"],
           "cues": [
             "A countdown timer is not a review.",
             "A rubber stamp is not a decision.",
