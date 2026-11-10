@@ -112,7 +112,7 @@ const exampleSearches = [
 const glossaryCount = searchEntries.filter(
   (entry) => entry.category === "Glossary",
 ).length;
-const introDescription = `Matches titles, summaries, and tags across ${searchEntries.length} entries: ${glossaryCount} glossary terms, plus the site's main sections and tools. To search the full text of pages, use the search button at the top of the page.`;
+const introDescription = `Matches titles, summaries, and tags across ${searchEntries.length} entries: ${glossaryCount} glossary terms, plus the site's main sections and tools.`;
 ---
 
 <BaseLayout
@@ -258,8 +258,8 @@ const introDescription = `Matches titles, summaries, and tags across ${searchEnt
             ))
           }
           <p class="muted" data-site-search-empty hidden>
-            Try a shorter term or clear the filters. To search the full text of
-            pages, use the search button at the top of the page.
+            Try a shorter term or clear the filters. This search reads titles,
+            summaries, and tags, not the text of pages.
           </p>
         </div>
       </div>
