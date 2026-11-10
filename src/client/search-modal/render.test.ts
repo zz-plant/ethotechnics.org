@@ -8,7 +8,7 @@ describe("search renderer states", () => {
     const renderer = createSearchRenderer(container);
 
     renderer.showEmpty();
-    expect(container.textContent).toContain("Start typing to search");
+    expect(container.textContent).toContain("Results appear here as you type");
 
     renderer.showLoading();
     expect(container.textContent).toContain("Searching…");
@@ -39,6 +39,52 @@ describe("search renderer states", () => {
     const renderer = createSearchRenderer(container);
 
     renderer.renderResults([], "none");
-    expect(container.textContent).toContain("No matches yet");
+    expect(container.textContent).toContain("No pages match “none”");
+  });
+
+  it("names glossary results instead of filing them under other pages", () => {
+    const container = document.createElement("div");
+    const renderer = createSearchRenderer(container);
+
+    renderer.renderResults(
+      [
+        {
+          url: "/glossary/appeal-integrity",
+          excerpt: "Appeals are judged on merits",
+          meta: { title: "Appeal integrity", type: "glossary" },
+        },
+        {
+          url: "/roles/risk-owner",
+          excerpt: "Who answers for an appeal",
+          meta: { title: "Risk owner", type: "roles" },
+        },
+      ],
+      "appeal",
+    );
+
+    expect(
+      Array.from(
+        container.querySelectorAll(".search-results__group-title"),
+        (title) => title.textContent,
+      ),
+    ).toEqual(["Glossary", "Other pages"]);
+  });
+
+  it("offers the title search when full-text search cannot answer", () => {
+    const container = document.createElement("div");
+    const renderer = createSearchRenderer(container);
+
+    renderer.showFallback(
+      "Full-text search did not load.",
+      "Search titles and summaries instead",
+      "time to halt",
+    );
+
+    expect(container.textContent).toBe(
+      "Full-text search did not load. Search titles and summaries instead.",
+    );
+    expect(container.querySelector("a")?.getAttribute("href")).toBe(
+      "/search?q=time%20to%20halt",
+    );
   });
 });

@@ -21,6 +21,7 @@ export const initValidatorForm = <Inputs>(score: (inputs: Inputs) => Level) => {
   const output = document.querySelector<HTMLOutputElement>(
     "[data-validator-output]",
   );
+  const fix = document.querySelector<HTMLElement>("[data-validator-fix]");
   if (!form?.dataset.validatorMeta || !report || !pill || !output) return;
 
   const validator = JSON.parse(form.dataset.validatorMeta) as ValidatorEntry;
@@ -104,6 +105,8 @@ export const initValidatorForm = <Inputs>(score: (inputs: Inputs) => Level) => {
     pill.classList.add(`status-pill--${level}`);
     pill.textContent = level.charAt(0).toUpperCase() + level.slice(1);
     output.textContent = message;
+    // A green result has nothing to fix.
+    fix?.toggleAttribute("hidden", level === "green");
     latestResult = buildResult(level, message);
     report.removeAttribute("hidden");
     report.scrollIntoView({ behavior: "smooth", block: "start" });

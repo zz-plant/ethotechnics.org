@@ -186,7 +186,11 @@ export const bindSearchInstance = (
     const pagefind = await dependencies.pagefind.init();
     if (!pagefind) {
       renderer.setBusy(false);
-      renderer.showEmpty("Search is unavailable right now.");
+      renderer.showFallback(
+        "Full-text search did not load.",
+        "Search titles and summaries instead",
+        trimmed,
+      );
       return;
     }
 
@@ -210,7 +214,11 @@ export const bindSearchInstance = (
     searchTimeout = window.setTimeout(() => {
       searchResults(query).catch((error) => {
         renderer.setBusy(false);
-        renderer.showEmpty("Search failed. Please try again.");
+        renderer.showFallback(
+          "That search did not finish. Type it again, or",
+          "search titles and summaries instead",
+          serializeQuery(query),
+        );
         dependencies.triggerHaptic("error", { intensity: 0.35 });
         console.warn("Search failed.", error);
       });

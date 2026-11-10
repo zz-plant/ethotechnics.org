@@ -90,7 +90,7 @@ describe("search modal controls", () => {
 
     expect(dialog.open).toBe(false);
     expect(input.value).toBe("");
-    expect(results.textContent).toContain("Start typing to search");
+    expect(results.textContent).toContain("Results appear here as you type");
     expect(dependencies.urlState.clearModalAndQuery).toHaveBeenCalled();
   });
 

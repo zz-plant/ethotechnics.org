@@ -114,6 +114,32 @@ type Worksheet = {
   revision_history: RevisionEntry[];
 };
 
+type ComparedField = Exclude<keyof Worksheet, "timestamp" | "worksheet_id">;
+
+// The comparison names a field the way the form labels it, not by its JSON key.
+const FIELD_LABELS: Record<ComparedField, string> = {
+  artifact_id: "Worksheet type",
+  artifact_version: "Worksheet version",
+  revision: "Revision number",
+  system_name: "System name",
+  system_action: "System action",
+  worst_case_error: "Worst-case error",
+  harm_roles: "Harmed roles",
+  burden_estimates: "Burden estimates per role",
+  burden_totals: "Burden totals",
+  absorbers: "Who absorbs the burden",
+  burden_ceiling: "Burden ceiling",
+  enforcement_triggers: "Enforcement trigger",
+  governability_costs: "Deployer-side cost of governability",
+  claimed_saving: "Automation's claimed saving",
+  unfunded_lines: "Unfunded cost lines",
+  repair_pathway: "Repair pathway",
+  owner: "Owner",
+  review_cadence: "Review cadence",
+  assumptions: "Assumptions (global)",
+  revision_history: "Changelog",
+};
+
 const rowConfigs = [
   {
     listSelector: "[data-role-list]",
@@ -612,7 +638,7 @@ const printPdf = (worksheet: Worksheet) => {
   ];
 
   const printWindow = window.open("", "_blank");
-  if (!printWindow) return;
+  if (!printWindow) return false;
   const printDocument = printWindow.document;
   printDocument.title = "Burden budget worksheet";
 
@@ -635,6 +661,7 @@ const printPdf = (worksheet: Worksheet) => {
   printDocument.body.appendChild(content);
   printWindow.focus();
   printWindow.print();
+  return true;
 };
 
 const updateStatus = (message: string) => {
@@ -649,13 +676,13 @@ const handleExport = (format: string) => {
 
   if (format === "md") {
     downloadFile(toMarkdown(worksheet), `${baseName}.md`, "text/markdown");
-    updateStatus("Markdown export ready.");
+    updateStatus("Markdown file downloaded.");
     return;
   }
 
   if (format === "csv") {
     downloadFile(toCsv(worksheet), `${baseName}.csv`, "text/csv");
-    updateStatus("CSV export ready.");
+    updateStatus("CSV file downloaded.");
     return;
   }
 
@@ -665,13 +692,16 @@ const handleExport = (format: string) => {
       `${baseName}.json`,
       "application/json",
     );
-    updateStatus("JSON export ready.");
+    updateStatus("JSON file downloaded.");
     return;
   }
 
   if (format === "pdf") {
-    printPdf(worksheet);
-    updateStatus("PDF export opened in print dialog.");
+    updateStatus(
+      printPdf(worksheet)
+        ? "Print dialog opened in a new tab. Choose Save as PDF to keep a file."
+        : "The browser blocked the print tab. Allow pop-ups for this site, then choose Export PDF again.",
+    );
   }
 };
 
@@ -696,7 +726,8 @@ const compareWorksheets = () => {
     compareResults.hidden = false;
     compareList.replaceChildren();
     const invalidItem = document.createElement("li");
-    invalidItem.textContent = "Invalid worksheet. Paste a BB-01 JSON export.";
+    invalidItem.textContent =
+      "That is not a worksheet export. Paste the contents of a file saved with Export JSON.";
     compareList.appendChild(invalidItem);
     return;
   }
@@ -715,7 +746,8 @@ const compareWorksheets = () => {
     return value;
   };
   const fields = (Object.keys(worksheet) as (keyof Worksheet)[]).filter(
-    (field) => field !== "timestamp" && field !== "worksheet_id",
+    (field): field is ComparedField =>
+      field !== "timestamp" && field !== "worksheet_id",
   );
   const changes = fields
     .filter((field) => {
@@ -725,14 +757,14 @@ const compareWorksheets = () => {
         JSON.stringify(normalize(current)) !== JSON.stringify(normalize(prior))
       );
     })
-    .map((field) => `${field} changed`);
+    .map((field) => `${FIELD_LABELS[field]} changed`);
 
   compareResults.hidden = false;
   compareList.replaceChildren();
 
   if (changes.length === 0) {
     const noDiffItem = document.createElement("li");
-    noDiffItem.textContent = "No differences detected in compared fields.";
+    noDiffItem.textContent = "No differences. Every field matches.";
     compareList.appendChild(noDiffItem);
     return;
   }

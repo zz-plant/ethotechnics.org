@@ -10,7 +10,7 @@ import { hasGlossaryEntryPage } from "../../utils/glossary";
 
 const pageTitle = "Site search — Ethotechnics";
 const pageDescription =
-  "Search standards, diagnostics, glossary entries, and field notes in one place.";
+  "Search ethotechnics.org glossary terms, sections, and tools by title, summary, and tag.";
 type SearchEntry = {
   title: string;
   description: string;
@@ -93,27 +93,26 @@ const suggestions = searchEntries
 const categoryFilters = Array.from(
   new Set(searchEntries.map((entry) => entry.category)),
 ).sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }));
-const quickSearchSuggestions = [
-  "Diagnostics",
-  "Standards",
-  "Glossary",
-  "Contestability",
-  "Evidence pack readiness",
-  "Field notes",
-];
-const starterQueries = [
-  "appeals",
-  "rollback",
-  "incident memo",
-  "time-to-halt",
-  "anti-weaponization",
-  "ownership",
-];
 const buildSearchText = (entry: SearchEntry) =>
   [entry.title, entry.description, entry.category, entry.tags?.join(" ")]
     .filter(Boolean)
     .join(" ")
     .toLowerCase();
+const searchTexts = searchEntries.map(buildSearchText);
+// An example that matches nothing is a dead end, so each one has to earn its
+// place against the entries this page actually lists.
+const exampleSearches = [
+  "appeals",
+  "rollback",
+  "time to halt",
+  "consent",
+  "ownership",
+  "contestability",
+].filter((query) => searchTexts.some((text) => text.includes(query)));
+const glossaryCount = searchEntries.filter(
+  (entry) => entry.category === "Glossary",
+).length;
+const introDescription = `Matches titles, summaries, and tags across ${searchEntries.length} entries: ${glossaryCount} glossary terms, plus the site's main sections and tools. To search the full text of pages, use the search button at the top of the page.`;
 ---
 
 <BaseLayout
@@ -126,24 +125,20 @@ const buildSearchText = (entry: SearchEntry) =>
     <PageIntro
       eyebrow="Search"
       title="Search the site"
-      description={pageDescription}
+      description={introDescription}
       anchorLinks={[{ href: "#search", label: "Search" }]}
     >
       <div slot="aside" class="panel page-intro__search-panel">
-        <p class="muted">Frequent topics</p>
-        <p class="muted small">
-          Jump straight into frequent topics or paste a query in the main search
-          field to refine with filters.
-        </p>
+        <p class="muted">Example searches</p>
         <ul class="pill-list pill-list--wrap site-search__suggestions">
           {
-            quickSearchSuggestions.map((suggestion) => (
+            exampleSearches.map((query) => (
               <li>
                 <a
                   class="pill-list__button"
-                  href={`/search?q=${encodeURIComponent(suggestion)}`}
+                  href={`/search?q=${encodeURIComponent(query)}`}
                 >
-                  {suggestion}
+                  {query}
                 </a>
               </li>
             ))
@@ -155,22 +150,20 @@ const buildSearchText = (entry: SearchEntry) =>
     <SectionBlock
       id="search"
       eyebrow="Search"
-      title="Find standards, diagnostics, and field notes"
-      description="Search is URL-based, so you can share queries with ?q= in the address bar."
+      title="Find an entry"
+      description="Your search term stays in the page address, so you can copy the link to share it."
     >
       <div class="site-search">
         <div class="site-search__controls">
           <label for="site-search" class="site-search__label">
-            <span class="muted small">
-              Search across the entire Ethotechnics catalog.
-            </span>
+            <span class="muted small"> Search term </span>
             <div class="site-search__input-row">
               <input
                 id="site-search"
                 class="site-search__input"
                 type="search"
                 inputmode="search"
-                placeholder="Search terms, diagnostics, standards, or field notes"
+                placeholder="For example, rollback"
                 autocomplete="off"
                 list="site-search-suggestions"
                 data-site-search-input
@@ -179,7 +172,6 @@ const buildSearchText = (entry: SearchEntry) =>
                 class="button button--ghost button--compact"
                 type="button"
                 data-site-search-clear-query
-                aria-label="Clear search query"
                 hidden
               >
                 Clear search
@@ -189,25 +181,8 @@ const buildSearchText = (entry: SearchEntry) =>
           <datalist id="site-search-suggestions">
             {suggestions.map((suggestion) => <option value={suggestion} />)}
           </datalist>
-          <div class="site-search__starters">
-            <p class="muted small">Starter queries</p>
-            <ul class="pill-list pill-list--wrap">
-              {
-                starterQueries.map((query) => (
-                  <li>
-                    <a
-                      class="pill-list__button"
-                      href={`/search?q=${encodeURIComponent(query)}`}
-                    >
-                      {query}
-                    </a>
-                  </li>
-                ))
-              }
-            </ul>
-          </div>
           <div class="site-search__filters">
-            <p class="muted small">Filter by collection</p>
+            <p class="muted small">Filter by section</p>
             <ul class="pill-list pill-list--wrap">
               {
                 categoryFilters.map((category) => (
@@ -233,9 +208,6 @@ const buildSearchText = (entry: SearchEntry) =>
               >
                 Clear filters
               </button>
-              <p class="muted small" data-site-search-active>
-                Viewing all collections.
-              </p>
             </div>
           </div>
           <p
@@ -244,13 +216,10 @@ const buildSearchText = (entry: SearchEntry) =>
             aria-live="polite"
             data-site-search-status
           >
-            Showing {searchEntries.length} results.
+            Showing all {searchEntries.length} entries.
           </p>
           <p class="muted small" data-site-search-ranking-note hidden>
-            Showing ranked matches based on title, collection, and tag overlap.
-          </p>
-          <p class="muted small" data-site-search-context>
-            Active query: none. Filters: all collections.
+            Title matches come first, then section and tag matches.
           </p>
         </div>
         <div class="site-search__results">
@@ -289,7 +258,8 @@ const buildSearchText = (entry: SearchEntry) =>
             ))
           }
           <p class="muted" data-site-search-empty hidden>
-            No results yet. Try another keyword or clear the search query.
+            Try a shorter term or clear the filters. To search the full text of
+            pages, use the search button at the top of the page.
           </p>
         </div>
       </div>
@@ -302,8 +272,8 @@ const buildSearchText = (entry: SearchEntry) =>
         class="card card--flat"
         style="margin-top: var(--space-4); padding: var(--space-5);"
       >
-        Search filtering requires JavaScript. All {searchEntries.length} results are
-        shown below. Use your browser's find (⌘F / Ctrl+F) to search.
+        This search needs JavaScript. All {searchEntries.length} entries are listed
+        above. Use your browser's find (⌘F or Ctrl+F) to search them.
       </p>
     </noscript>
   </div>

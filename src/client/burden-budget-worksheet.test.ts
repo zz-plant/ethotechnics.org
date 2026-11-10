@@ -53,14 +53,14 @@ it("detects edited values within an existing burden row and repair pathway", () 
     JSON.stringify(previous);
   document.querySelector<HTMLButtonElement>("button")!.click();
   const text = document.querySelector("ul")!.textContent;
-  expect(text).toContain("burden_estimates changed");
-  expect(text).toContain("repair_pathway changed");
+  expect(text).toContain("Burden estimates per role changed");
+  expect(text).toContain("Repair pathway changed");
 });
 
 it("reports non-object JSON instead of comparing it as a worksheet", () => {
   document.querySelector<HTMLTextAreaElement>("textarea")!.value = "null";
   document.querySelector<HTMLButtonElement>("button")!.click();
   expect(document.querySelector("ul")!.textContent).toContain(
-    "Invalid worksheet",
+    "That is not a worksheet export",
   );
 });

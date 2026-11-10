@@ -338,6 +338,13 @@
     margin-top: var(--space-7);
   }
 
+  /* The fallback link sits inside muted text, so color alone would not mark it. */
+  .search-empty a {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+
   .search-dialog__footer {
     display: flex;
     justify-content: space-between;
