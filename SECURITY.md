@@ -15,5 +15,5 @@ When reporting, include:
 - Steps to reproduce or a proof of concept.
 - Any relevant logs, screenshots, or mitigations you have tried.
 
-We aim to acknowledge reports within 3 business days and will coordinate a fix and
-responsible disclosure timeline.
+Kanav Jain reads these reports. There is no on-call rotation and no promised response time. A
+reply says whether the report could be reproduced and what will change.
