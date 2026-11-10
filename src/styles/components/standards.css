@@ -598,6 +598,30 @@
     color: var(--muted);
   }
 
+  /* The four checked fields: numbered in the list beside the example and
+     marked on their line inside it with the same number. */
+  .grant-checks {
+    margin: 0;
+    padding-inline-start: var(--space-5);
+  }
+
+  .grant-checks li::marker {
+    font-family: var(--sans);
+    font-weight: 700;
+    color: var(--mark);
+  }
+
+  .grant-check {
+    background: color-mix(in srgb, var(--mark) 14%, transparent);
+  }
+
+  .grant-check__number {
+    margin-inline-start: var(--space-2);
+    font-family: var(--sans);
+    font-weight: 700;
+    color: var(--mark);
+  }
+
   .standards-code-card pre.code-block {
     border: 0;
     border-radius: 0;
