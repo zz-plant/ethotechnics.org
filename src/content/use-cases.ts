@@ -261,10 +261,6 @@ export const useCases: UseCase[] = [
         label: "Loan approval systems",
         href: "/use-cases/examples/loan-approval",
       },
-      {
-        label: "Financial fraud detection",
-        href: "/use-cases/examples/financial-fraud-detection",
-      },
     ],
     incidents: [
       {

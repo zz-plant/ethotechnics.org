@@ -253,6 +253,11 @@ describe("middleware", () => {
         expectedLocation: "https://ethotechnics.org/validators#latency-audit",
       },
       {
+        url: "https://ethotechnics.org/use-cases/examples/financial-fraud-detection",
+        expectedLocation:
+          "https://ethotechnics.org/use-cases/examples/automated-account-lock#standard",
+      },
+      {
         url: "https://ethotechnics.org/incidents/appeals-backlog-trigger",
         expectedLocation:
           "https://ethotechnics.org/incidents#appeals-backlog-trigger",

@@ -94,6 +94,7 @@ const artifacts = [
     title="Automated account lock & eligibility flip"
     description={pageDescription}
     anchorLinks={[
+      { href: "#standard", label: "Standard governance" },
       { href: "#overview", label: "Scenario and clocks" },
       { href: "#receipt", label: "Receipt" },
       { href: "#owner", label: "Owner + authority" },
@@ -103,6 +104,58 @@ const artifacts = [
       { href: "#fit", label: "Where this fits" },
     ]}
   />
+
+  {
+    /* This section was a page of its own, "Financial fraud detection:
+       implementation comparison". It covered the decision this example
+       traces (a fraud model freezes an account; a receipt names the reason,
+       the owner and a date; the freeze lifts if no fraud is confirmed;
+       wrongful freezes are counted by rule) at lower resolution. What it had
+       that this page lacked is here: what standard governance implements,
+       the public case, and time to restore beside detection accuracy. */
+  }
+  <SectionBlock
+    id="standard"
+    eyebrow="Standard governance"
+    title="What standard governance does, and where it stops"
+    description="Banks tune fraud systems to catch fraud. Customers frozen out by mistake wait, without reasons, for their money."
+    variant="alt"
+  >
+    <p>
+      Standard governance of a fraud system emphasizes detection accuracy and
+      regulatory reporting:
+    </p>
+    <ul class="card__list">
+      <li>
+        Real-time monitoring with automated alerts for suspicious patterns.
+      </li>
+      <li>Audit logs aligned to AML and compliance requirements.</li>
+      <li>Human review queues for flagged transactions or accounts.</li>
+      <li>Explanations that list triggering factors for the freeze.</li>
+      <li>Ownership structures for compliance escalation and review.</li>
+    </ul>
+    <p>
+      None of these says how fast a legitimate customer gets access back, or
+      whether a pattern of wrongful flags reaches whoever owns the rule. In the
+      <a href="/casebook/toeslagenaffaire">Dutch childcare benefits scandal</a>,
+      a fraud risk score was treated as a finding, and the people it flagged
+      could not see why.
+    </p>
+    <p>
+      The example below adds what is missing. Each lock issues a receipt with
+      the reason, the owner, and the date by which the customer will get an
+      answer. <a href="/glossary/time-to-restore">Time to restore</a>, from
+      freeze to restored access for a legitimate customer, is measured alongside
+      detection accuracy. Each restoration, with any fees or missed payments
+      repaid, is entered in the
+      <a href="/glossary/repair-log">repair log</a>.
+    </p>
+    <p class="muted">
+      Before launch, publish the receipt fields and set a time-to-restore target
+      for customers frozen in error. Decide how the person who can halt a
+      detection rule is alerted.
+    </p>
+  </SectionBlock>
 
   {
     /* The three clocks had a section of their own after the receipt: cards

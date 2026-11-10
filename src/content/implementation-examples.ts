@@ -30,15 +30,6 @@ export const implementationExamples: ImplementationExample[] = [
       "Credit decisions with reasons, named owners, and challenges that reach the scoring rule.",
   },
   {
-    slug: "financial-fraud-detection",
-    title: "Financial fraud detection",
-    summary:
-      "Real-time account protection that must restore legitimate access on a deadline and on the record.",
-    tags: ["Time-to-restore", "Receipt", "Repair log"],
-    cardDescription:
-      "Account protection systems that measure recovery time alongside detection.",
-  },
-  {
     slug: "healthcare-diagnostics",
     title: "Healthcare diagnostic AI",
     summary:

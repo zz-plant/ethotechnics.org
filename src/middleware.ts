@@ -135,6 +135,10 @@ const REDIRECT_MAP: Record<string, string> = {
   "/incidents/model-override-visibility":
     "/incidents#model-override-visibility",
   "/incidents/appeal-remedy-mismatch": "/incidents#appeal-remedy-mismatch",
+  // The fraud-detection comparison covered the decision the account-lock
+  // example traces, at lower resolution. Its own material opens that page.
+  "/use-cases/examples/financial-fraud-detection":
+    "/use-cases/examples/automated-account-lock#standard",
   "/standards/implementation-examples": "/use-cases/examples#domains",
   "/standards/meta-critique": "/standards#governance-by-control",
   "/standards/micro-diagram-language": "/standards",
