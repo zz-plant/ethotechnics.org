@@ -7,14 +7,8 @@ const initSiteSearch = () => {
   const rankingNote = root?.querySelector<HTMLElement>(
     "[data-site-search-ranking-note]",
   );
-  const contextText = root?.querySelector<HTMLElement>(
-    "[data-site-search-context]",
-  );
   const emptyState = root?.querySelector<HTMLElement>(
     "[data-site-search-empty]",
-  );
-  const activeFiltersText = root?.querySelector<HTMLElement>(
-    "[data-site-search-active]",
   );
   const clearFiltersButton = root?.querySelector<HTMLButtonElement>(
     "[data-site-search-clear]",
@@ -93,20 +87,28 @@ const initSiteSearch = () => {
     }
   };
 
-  const updateActiveFiltersText = () => {
-    if (!activeFiltersText) {
-      return;
-    }
+  const sectionList = new Intl.ListFormat("en", { type: "disjunction" });
 
-    if (selectedFilters.size === 0) {
-      activeFiltersText.textContent = "Viewing all collections.";
-      return;
-    }
-
-    const filters = Array.from(selectedFilters).sort((a, b) =>
+  // One sentence carries the count, the term, and the sections, so the page
+  // states the result once.
+  const describeResults = (visibleCount: number, rawQuery: string) => {
+    const total = indexedItems.length;
+    const sections = Array.from(selectedFilters).sort((a, b) =>
       a.localeCompare(b, "en", { sensitivity: "base" }),
     );
-    activeFiltersText.textContent = `Filtering to ${filters.join(", ")}.`;
+    const scope = sections.length ? ` in ${sectionList.format(sections)}` : "";
+
+    if (!rawQuery && !scope) {
+      return `Showing all ${total} entries.`;
+    }
+    if (!rawQuery) {
+      return `Showing ${visibleCount} of ${total} entries${scope}.`;
+    }
+    if (visibleCount === 0) {
+      return `No entries match “${rawQuery}”${scope}.`;
+    }
+    const verb = visibleCount === 1 ? "matches" : "match";
+    return `${visibleCount} of ${total} entries ${verb} “${rawQuery}”${scope}.`;
   };
 
   const applyFilter = () => {
@@ -163,28 +165,15 @@ const initSiteSearch = () => {
       reorderResults(indexedItems);
     }
 
-    rankingNote?.toggleAttribute("hidden", !hasQuery);
+    // The order needs explaining only when there is more than one match.
+    rankingNote?.toggleAttribute("hidden", !hasQuery || visibleCount < 2);
 
     if (status) {
-      const plural = visibleCount === 1 ? "result" : "results";
-      status.textContent = `Showing ${visibleCount} ${plural}.`;
+      status.textContent = describeResults(visibleCount, rawQuery);
     }
 
     if (emptyState) {
       emptyState.toggleAttribute("hidden", visibleCount !== 0);
-    }
-
-    updateActiveFiltersText();
-
-    if (contextText) {
-      const activeQuery = rawQuery.length > 0 ? rawQuery : "none";
-      const filterSummary =
-        selectedFilters.size > 0
-          ? Array.from(selectedFilters)
-              .sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }))
-              .join(", ")
-          : "all collections";
-      contextText.textContent = `Active query: ${activeQuery}. Filters: ${filterSummary}.`;
     }
 
     updateClearButtons();

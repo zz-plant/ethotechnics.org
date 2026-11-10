@@ -360,7 +360,7 @@ const changelog = [
           </button>
         </div>
         <p class="muted" data-export-status aria-live="polite">
-          Complete the worksheet to generate exports.
+          Fill in the worksheet, then choose a format.
         </p>
       </div>
     </form>
@@ -368,12 +368,12 @@ const changelog = [
     <div class="panel" data-compare-panel>
       <p class="eyebrow">Compare revisions</p>
       <p class="muted">
-        Paste a previous JSON export to highlight changes against the current
-        worksheet fields.
+        Paste an earlier JSON export to list the fields that differ from the
+        worksheet above.
       </p>
       <div class="intake-form__grid">
         <label class="intake-form__field intake-form__field--full">
-          Previous worksheet JSON
+          Earlier worksheet JSON
           <textarea
             rows="6"
             data-compare-input
@@ -386,7 +386,7 @@ const changelog = [
         </button>
       </div>
       <div class="panel" data-compare-results hidden aria-live="polite">
-        <p class="muted">Detected changes</p>
+        <p class="muted">Compared with the pasted worksheet</p>
         <ul class="muted" data-compare-list></ul>
       </div>
     </div>

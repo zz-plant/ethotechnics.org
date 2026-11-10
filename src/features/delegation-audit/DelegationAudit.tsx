@@ -28,6 +28,23 @@ const STATUS_LABEL: Record<ReversibilityStatus, string> = {
 };
 
 let idCounter = 0;
+const SHARE_FALLBACK = "Copy readout and Export JSON still work.";
+
+// The API's error strings are written for whoever reads the response. The
+// person sharing a readout gets the status in words they can act on.
+const shareFailureMessage = (status: number) => {
+  if (status === 429) {
+    return `Too many readouts saved from this connection. Wait a minute, then try again. ${SHARE_FALLBACK}`;
+  }
+  if (status === 413) {
+    return "This readout is too long to save. Shorten what you typed, or use Export JSON.";
+  }
+  if (status === 503) {
+    return `Saving readouts is switched off on this copy of the site. ${SHARE_FALLBACK}`;
+  }
+  return `The readout could not be saved. ${SHARE_FALLBACK}`;
+};
+
 const nextId = (prefix: string) => {
   idCounter += 1;
   return `${prefix}-${Date.now().toString(36)}-${idCounter}`;
@@ -144,18 +161,23 @@ export function DelegationAudit() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ tool_id: "delegation-audit", inputs: input }),
       });
-      const body: { url?: string; error?: string } = await response.json();
+      const body = (await response.json().catch(() => ({}))) as {
+        url?: string;
+      };
       if (!response.ok || !body.url) {
         setShare({
           state: "failed",
-          message: body.error ?? "The readout could not be saved.",
+          message: shareFailureMessage(response.status),
         });
         return;
       }
       setShare({ state: "saved", url: body.url });
       void navigator.clipboard?.writeText(body.url);
     } catch {
-      setShare({ state: "failed", message: "The readout could not be saved." });
+      setShare({
+        state: "failed",
+        message: `The readout did not reach ethotechnics.org. Check your connection, then try again. ${SHARE_FALLBACK}`,
+      });
     }
   };
 

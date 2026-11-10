@@ -12,7 +12,7 @@ interface Props {
 
 const { scope, label, shortcut, includeDialog = true }: Props = Astro.props;
 const resolvedLabel =
-  label ?? (scope === "mobile" ? "Search" : "Search the library…");
+  label ?? (scope === "mobile" ? "Search" : "Search the site…");
 // `undefined` here does not suppress the badge: an omitted prop falls through
 // to SearchTrigger's own `shortcut = "/"` default, so the mobile trigger has
 // been advertising a keyboard shortcut on touch devices. An empty string is

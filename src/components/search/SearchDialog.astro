@@ -21,7 +21,7 @@ const { dialogTitleId, inputId, helpTextId }: Props = Astro.props;
       <Icon name="lucide:search" class="search-dialog__icon" />
       <div>
         <h2 id={dialogTitleId} class="search-dialog__title-text">
-          Library search
+          Search the site
         </h2>
         <p class="search-dialog__subtitle">
           Standards, validators, mechanisms, research, and glossary entries.
@@ -41,11 +41,11 @@ const { dialogTitleId, inputId, helpTextId }: Props = Astro.props;
     <search class="search-dialog__search" role="search">
       <label class="search-dialog__label" for={inputId}>
         <Icon name="lucide:search" class="search-dialog__input-icon" />
-        <span class="visually-hidden">Search the library</span>
+        <span class="visually-hidden">Search term</span>
         <input
           type="search"
           id={inputId}
-          placeholder="Search the library…"
+          placeholder="Term or ID"
           autocomplete="off"
           enterkeyhint="search"
           aria-describedby={helpTextId}
@@ -67,7 +67,7 @@ const { dialogTitleId, inputId, helpTextId }: Props = Astro.props;
       <strong>consent</strong>.
     </p>
     <div class="search-recent" aria-live="polite" hidden data-search-recent>
-      <span class="search-recent__label">Recent:</span>
+      <span class="search-recent__label">Recent searches:</span>
       <div class="search-recent__list" data-search-recent-list></div>
     </div>
     <div
@@ -77,13 +77,13 @@ const { dialogTitleId, inputId, helpTextId }: Props = Astro.props;
       aria-busy="false"
       data-search-results
     >
-      <p class="search-empty">Start typing to search...</p>
+      <p class="search-empty">Results appear here as you type.</p>
     </div>
   </div>
   <div class="search-dialog__footer">
     <div class="search-help">
-      <span><kbd>↑↓</kbd> to navigate</span>
-      <span><kbd>↵</kbd> to select</span>
+      <span><kbd>↑↓</kbd> to move</span>
+      <span><kbd>↵</kbd> to open</span>
       <span><kbd>esc</kbd> to close</span>
     </div>
     <div class="search-powered">Powered by Pagefind</div>

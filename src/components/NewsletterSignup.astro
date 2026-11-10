@@ -9,7 +9,7 @@
         type="email"
         name="email"
         aria-label="Email address"
-        placeholder="your@email.com"
+        placeholder="name@example.com"
         required
         autocomplete="email"
         spellcheck="false"
@@ -35,12 +35,42 @@
       const button = form.querySelector("button") as HTMLButtonElement;
       const input = form.querySelector("input") as HTMLInputElement;
 
+      // `addressRejected` marks the field itself as invalid. A failed request
+      // with a good address is an error too, but not the reader's to correct.
+      const showStatus = (
+        message: string,
+        kind?: "success" | "error",
+        addressRejected = false,
+      ) => {
+        status.textContent = message;
+        status.className = "newsletter-signup__status";
+        if (kind) status.classList.add(`newsletter-signup__status--${kind}`);
+        if (addressRejected) input.setAttribute("aria-invalid", "true");
+        else input.removeAttribute("aria-invalid");
+      };
+
+      // The API's error strings are written for whoever reads the response.
+      // The reader of this form gets the status in words they can act on.
+      const failureMessage = (statusCode: number) => {
+        if (statusCode === 400) {
+          return "Enter a full email address, like name@example.com.";
+        }
+        if (statusCode === 429) {
+          return "Too many attempts. Wait a minute, then try again.";
+        }
+        if (statusCode >= 500) {
+          return "Signup is not working right now. Try again later.";
+        }
+        return "The signup did not go through. Try again.";
+      };
+
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
         const email = input.value.trim();
 
         if (!email) {
-          status.textContent = "Please enter an email address.";
+          showStatus("Enter an email address.", "error", true);
+          input.focus();
           return;
         }
 
@@ -48,8 +78,7 @@
         const submittingLabel = "Subscribing…";
         const restoreLabel = button.textContent;
         button.textContent = submittingLabel;
-        status.textContent = "";
-        status.className = "newsletter-signup__status";
+        showStatus("");
 
         try {
           const res = await fetch("/api/subscribe", {
@@ -58,23 +87,21 @@
             body: JSON.stringify({ email }),
           });
 
-          const data = (await res.json()) as {
+          const data = (await res.json().catch(() => ({}))) as {
             success?: boolean;
-            error?: string;
           };
 
           if (res.ok && data.success) {
-            status.textContent = "Subscribed. Thank you.";
-            status.classList.add("newsletter-signup__status--success");
+            showStatus("Subscribed. Thank you.", "success");
             input.value = "";
           } else {
-            status.textContent =
-              data.error || "Something went wrong. Try again.";
-            status.classList.add("newsletter-signup__status--error");
+            showStatus(failureMessage(res.status), "error", res.status === 400);
           }
         } catch {
-          status.textContent = "Network error. Please try again.";
-          status.classList.add("newsletter-signup__status--error");
+          showStatus(
+            "Could not reach ethotechnics.org. Check your connection, then try again.",
+            "error",
+          );
         } finally {
           button.disabled = false;
           if (button.textContent === submittingLabel) {

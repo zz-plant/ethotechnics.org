@@ -642,20 +642,25 @@ const anchorLinks = [
     }
   });
 
+  const copyLabel = copyButton ? readButtonLabel(copyButton) : "";
+
   copyButton?.addEventListener("click", async () => {
     if (!(shareInput instanceof HTMLInputElement)) return;
     shareInput.select();
-    try {
-      await navigator.clipboard.writeText(shareInput.value);
-      const originalText = readButtonLabel(copyButton);
-      setButtonLabel(copyButton, "Copied!");
+    const announce = (label: string) => {
+      setButtonLabel(copyButton, label);
       copyButton.setAttribute("aria-live", "polite");
       setTimeout(() => {
-        setButtonLabel(copyButton, originalText);
+        setButtonLabel(copyButton, copyLabel);
         copyButton.removeAttribute("aria-live");
       }, 2500);
+    };
+    try {
+      await navigator.clipboard.writeText(shareInput.value);
+      announce("Link copied");
     } catch {
-      // fall back to manual copy
+      // The link stays selected in the field above, ready to copy by hand.
+      announce("Copy it from the field above");
     }
   });
 

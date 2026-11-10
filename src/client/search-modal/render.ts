@@ -1,6 +1,7 @@
 import {
   CONTENT_TYPE_MAP,
   GROUP_LABELS,
+  OTHER_GROUP_LABEL,
   type PagefindResultData,
 } from "./types";
 
@@ -10,6 +11,7 @@ const escapeRegExp = (value: string) =>
 export type SearchRenderer = {
   showEmpty: (message?: string) => void;
   showLoading: () => void;
+  showFallback: (lead: string, linkText: string, query: string) => void;
   setBusy: (isBusy: boolean) => void;
   renderResults: (results: PagefindResultData[], query: string) => void;
 };
@@ -104,7 +106,7 @@ const groupResults = (results: PagefindResultData[]) =>
         CONTENT_TYPE_MAP[result.meta.type ?? ""] ??
         CONTENT_TYPE_MAP[result.meta.contentType ?? ""] ??
         CONTENT_TYPE_MAP[result.meta.section ?? ""] ??
-        "Other";
+        OTHER_GROUP_LABEL;
       if (!groups[type]) {
         groups[type] = [];
       }
@@ -129,16 +131,31 @@ const sortGroupLabels = (groups: Record<string, PagefindResultData[]>) => {
 export const createSearchRenderer = (
   container: HTMLElement,
 ): SearchRenderer => {
-  const showEmpty = (message = "Start typing to search...") => {
+  const showEmpty = (message = "Results appear here as you type.") => {
     const text = document.createElement("p");
     text.className = "search-empty";
     text.textContent = message;
     container.replaceChildren(text);
   };
 
+  // When full-text search cannot answer, the search page still can: it filters
+  // titles and summaries without Pagefind.
+  const showFallback = (lead: string, linkText: string, query: string) => {
+    const text = document.createElement("p");
+    text.className = "search-empty";
+    const link = document.createElement("a");
+    link.href = `/search?q=${encodeURIComponent(query)}`;
+    link.textContent = linkText;
+    text.appendChild(document.createTextNode(`${lead} `));
+    text.appendChild(link);
+    text.appendChild(document.createTextNode("."));
+    container.replaceChildren(text);
+  };
+
   return {
     showEmpty,
     showLoading: () => showEmpty("Searching…"),
+    showFallback,
     setBusy: (isBusy) => {
       container.setAttribute("aria-busy", isBusy ? "true" : "false");
     },
@@ -146,7 +163,9 @@ export const createSearchRenderer = (
       container.replaceChildren();
 
       if (!results.length) {
-        showEmpty("No matches yet. Try another term.");
+        showEmpty(
+          `No pages match “${query}”. Try a shorter term or an ID like STD-01.`,
+        );
         return;
       }
 

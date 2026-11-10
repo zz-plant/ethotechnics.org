@@ -8,7 +8,7 @@ interface Props {
 }
 
 const {
-  label = "Search the library…",
+  label = "Search the site…",
   shortcut = "/",
   proxy = false,
 }: Props = Astro.props;
@@ -17,7 +17,7 @@ const {
 <button
   class="search-trigger"
   type="button"
-  aria-label="Open library search dialog"
+  aria-label="Search the site"
   data-search-trigger={proxy ? undefined : "true"}
   data-search-proxy-trigger={proxy ? "true" : undefined}
 >
