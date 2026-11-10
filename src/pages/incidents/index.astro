@@ -5,91 +5,129 @@ import CardItem from "../../components/CardItem.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import { incidentLessons, incidentLessonsIntro } from "../../content/incidents";
-import { postMarketWorkflow } from "../../content/crosswalks";
 
+/**
+ * The composite scenarios, on one page. Each was a page at /incidents/<slug>
+ * of about 215 words, a third of it the frame every scenario shared ("a
+ * composite… see the casebook", the gaps, signals and fixes labels, "records
+ * to start from"). They are sections here (id = the old slug), and the frame
+ * is said once, in the intro.
+ *
+ * The page also carried the post-market incident reporting workflow, word
+ * for word what /standards/enforceable-governance-crosswalks#post-market
+ * shows. It stays there, where the clauses it maps are.
+ *
+ * Within a scenario the three lists sit side by side rather than as rows of
+ * a gap, signal, and fix table: in two of the three scenarios the items at
+ * the same position are about different things.
+ */
 const { pageTitle, pageDescription, eyebrow, title, description } =
   incidentLessonsIntro;
-const enhancedDescription = description;
 ---
 
-<BaseLayout
-  title={pageTitle}
-  description={pageDescription}
-  jsonAlternates={[
-    {
-      href: "/api/post-market-monitoring.json",
-      title: "Post-market workflow JSON",
-    },
-  ]}
->
+<BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
     eyebrow={eyebrow}
     title={title}
-    description={enhancedDescription}
-    anchorLinks={[
-      ...incidentLessons.map((lesson) => ({
-        href: `#${lesson.slug}`,
-        label: lesson.title,
-      })),
-      { href: "#post-market-workflow", label: "Post-market workflow" },
-    ]}
+    description={description}
+    anchorLinks={incidentLessons.map((lesson) => ({
+      href: `#${lesson.slug}`,
+      label: lesson.title,
+    }))}
   />
 
-  <SectionBlock
-    id="retrospectives"
-    eyebrow="Composite scenarios"
-    title="The patterns"
-    description="Each card names the setting the pattern is drawn from. The scenario page holds the missing controls and the fixes."
-    className="section--banded"
-  >
-    <CardGrid className="grid--two">
-      {
-        incidentLessons.map((lesson) => (
+  {
+    incidentLessons.map((lesson, index) => (
+      <SectionBlock
+        id={lesson.slug}
+        eyebrow={`Drawn from ${lesson.incident.sector.toLowerCase()}`}
+        title={lesson.title}
+        description={lesson.summary}
+        variant={index % 2 === 1 ? "alt" : undefined}
+      >
+        <CardGrid className="grid--two">
           <CardItem
-            id={lesson.slug}
-            title={lesson.title}
-            description={lesson.summary}
+            title="Headline"
+            description={lesson.incident.headline}
             descriptionTone="default"
-          >
-            <ul class="muted">
-              <li>Drawn from: {lesson.incident.sector.toLowerCase()}</li>
+          />
+          <CardItem
+            title="Impact"
+            description={lesson.incident.impact}
+            descriptionTone="default"
+          />
+        </CardGrid>
+        <CardGrid className="grid--three">
+          <CardItem title="Gaps" description="Each let the harm continue.">
+            <ul class="incident-list">
+              {lesson.governanceFailures.map((failure) => (
+                <li>{failure}</li>
+              ))}
             </ul>
-            <div slot="footer" class="card__footer">
-              <a
-                class="button ghost button--compact"
-                href={`/incidents/${lesson.slug}`}
-              >
-                Open scenario
-              </a>
-            </div>
           </CardItem>
-        ))
-      }
-    </CardGrid>
-  </SectionBlock>
+          <CardItem
+            title="Signals"
+            description="Each is a number a running system can record before the harm grows."
+          >
+            <ul class="incident-list">
+              {lesson.signalsToWatch.map((signal) => (
+                <li>{signal}</li>
+              ))}
+            </ul>
+          </CardItem>
+          <CardItem
+            title="Fixes"
+            description="Each needs a named owner and a date."
+          >
+            <ul class="incident-list">
+              {lesson.remediationChecklist.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </CardItem>
+        </CardGrid>
+        <div class="incident-records">
+          <h3>Records to start from</h3>
+          <ul class="incident-list">
+            {lesson.sources.map((source) => (
+              <li>
+                <a href={source.href}>{source.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </SectionBlock>
+    ))
+  }
 
-  <SectionBlock
-    id="post-market-workflow"
-    eyebrow="Post-market monitoring"
-    title="Incident reporting workflow"
-    description="The stages from intake to closure, each with the record it must produce."
-    variant="alt"
-  >
-    <ol class="muted">
-      {
-        postMarketWorkflow.map((step) => (
-          <li>
-            <strong>{step.stage}:</strong> {step.outcome}
-          </li>
-        ))
-      }
-    </ol>
+  <section class="section container">
     <p class="muted">
-      Machine-readable workflow objects are available at
-      {" "}
-      <a href="/api/post-market-monitoring.json"
-        >/api/post-market-monitoring.json</a
+      The records linked under each scenario are this site's templates and
+      schemas for what the scenario was missing, not its sources. The stages for
+      reporting a real incident after release are in the
+      <a href="/standards/enforceable-governance-crosswalks#post-market"
+        >post-market workflow</a
       >.
     </p>
-  </SectionBlock>
+  </section>
 </BaseLayout>
+
+<style>
+  .incident-list {
+    margin: 0;
+    padding-left: var(--space-4);
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .incident-records {
+    display: grid;
+    gap: var(--space-2);
+    max-width: 72ch;
+    margin-top: var(--space-6);
+  }
+
+  .incident-records > * {
+    margin: 0;
+  }
+</style>

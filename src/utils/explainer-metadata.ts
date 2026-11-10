@@ -45,10 +45,6 @@ const explainerMetadataBySlug: Record<string, ExplainerSeoMetadata> = {
     publishedTime: "2025-07-01T00:00:00.000Z",
     modifiedTime: "2026-02-09T00:00:00.000Z",
   },
-  "public-memory": {
-    publishedTime: "2025-08-10T00:00:00.000Z",
-    modifiedTime: "2026-10-06T00:00:00.000Z",
-  },
   "language-people-can-use": {
     publishedTime: "2025-09-05T00:00:00.000Z",
     modifiedTime: "2026-10-06T00:00:00.000Z",

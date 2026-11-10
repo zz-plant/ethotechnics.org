@@ -1,0 +1,89 @@
+/* The validator forms on /validators. These rules lived in standards.css,
+   which no validator page loaded, so the forms rendered unstyled: fields
+   inline, no card, no gap. ValidatorForm.astro imports this file. */
+@layer components {
+  .validator {
+    display: grid;
+    gap: var(--space-5);
+    border: 1px solid var(--border);
+    padding: clamp(var(--space-5), 3vw, var(--space-6));
+    background: var(--surface);
+  }
+
+  .validator__header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-5);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: var(--space-5);
+  }
+
+  .validator__id {
+    font-family: var(--sans);
+    font-weight: 700;
+    letter-spacing: var(--tracking-label-wide);
+    text-transform: uppercase;
+    font-size: var(--text-sm);
+    color: var(--accent);
+    margin: 0 0 var(--space-2);
+  }
+
+  .validator__standard {
+    font-family: var(--sans);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-label);
+    font-size: var(--text-xs);
+    color: var(--muted);
+    align-self: flex-start;
+  }
+
+  .validator__form {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    align-items: end;
+  }
+
+  .validator__field {
+    display: grid;
+    gap: var(--space-2);
+    font-weight: 600;
+  }
+
+  .validator__field input,
+  .validator__field select {
+    padding: var(--space-3) var(--space-3);
+    border: 1px solid var(--border);
+    border-radius: 0;
+    background: var(--surface);
+    font: inherit;
+    color: inherit;
+  }
+
+  .validator__report {
+    border: 1px solid var(--border);
+    padding: var(--space-4);
+    background: var(--panel);
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .validator__status {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .validator__status-text {
+    margin: 0;
+  }
+
+  .validator__recommendation {
+    margin: 0;
+  }
+
+  /* Standard sequential navigation pager */
+}

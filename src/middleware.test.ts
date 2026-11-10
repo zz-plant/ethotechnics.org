@@ -182,8 +182,18 @@ describe("middleware", () => {
         expectedLocation: "https://ethotechnics.org/triage",
       },
       {
+        url: "https://ethotechnics.org/failure/cant-stop",
+        expectedLocation: "https://ethotechnics.org/triage#cant-stop",
+      },
+      {
+        url: "https://ethotechnics.org/triage/decision-appealed",
+        expectedLocation: "https://ethotechnics.org/triage#decision-appealed",
+      },
+      {
+        // No failure state has this slug. The prefix rewrite used to send it
+        // to /triage/unauthorized-action, which answered 404.
         url: "https://ethotechnics.org/failure/unauthorized-action",
-        expectedLocation: "https://ethotechnics.org/triage/unauthorized-action",
+        expectedLocation: "https://ethotechnics.org/triage",
       },
       {
         url: "https://ethotechnics.org/finite",
@@ -199,7 +209,11 @@ describe("middleware", () => {
       },
       {
         url: "https://ethotechnics.org/standards/implementation-examples",
-        expectedLocation: "https://ethotechnics.org/use-cases/examples#domains",
+        expectedLocation: "https://ethotechnics.org/use-cases#contexts",
+      },
+      {
+        url: "https://ethotechnics.org/use-cases/examples",
+        expectedLocation: "https://ethotechnics.org/use-cases#contexts",
       },
       {
         url: "https://ethotechnics.org/standards/implementation-examples/loan-approval",
@@ -208,7 +222,7 @@ describe("middleware", () => {
       },
       {
         url: "https://ethotechnics.org/examples",
-        expectedLocation: "https://ethotechnics.org/use-cases/examples",
+        expectedLocation: "https://ethotechnics.org/use-cases#contexts",
       },
       {
         url: "https://ethotechnics.org/examples/loan-approval",
@@ -236,7 +250,25 @@ describe("middleware", () => {
       },
       {
         url: "https://ethotechnics.org/validators/burden-modeler",
-        expectedLocation: "https://ethotechnics.org/validators/journey-burden",
+        expectedLocation: "https://ethotechnics.org/validators#journey-burden",
+      },
+      {
+        url: "https://ethotechnics.org/validators/latency-audit",
+        expectedLocation: "https://ethotechnics.org/validators#latency-audit",
+      },
+      {
+        url: "https://ethotechnics.org/use-cases/examples/financial-fraud-detection",
+        expectedLocation:
+          "https://ethotechnics.org/use-cases/examples/automated-account-lock#standard",
+      },
+      {
+        url: "https://ethotechnics.org/explainers/public-memory",
+        expectedLocation: "https://ethotechnics.org/glossary#public-memory",
+      },
+      {
+        url: "https://ethotechnics.org/incidents/appeals-backlog-trigger",
+        expectedLocation:
+          "https://ethotechnics.org/incidents#appeals-backlog-trigger",
       },
       {
         url: "https://ethotechnics.org/standards/meta-critique",

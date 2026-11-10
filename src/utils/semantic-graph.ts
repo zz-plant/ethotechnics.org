@@ -127,7 +127,7 @@ if (incidentLessons) {
       type: "incident",
       title: inc.title,
       description: inc.summary,
-      href: `/incidents/${inc.slug}`,
+      href: `/incidents#${inc.slug}`,
       category: "Incidents",
     });
   }

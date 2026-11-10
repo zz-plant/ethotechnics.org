@@ -3,7 +3,6 @@ import type {
   StandardEntry,
   StandardsContent,
 } from "../standards";
-import type { ImplementationExample } from "../implementation-examples";
 
 export type StandardsCardModel = {
   eyebrow?: string;
@@ -112,7 +111,6 @@ const mapStandardsByIds = (standards: StandardEntry[], ids: string[]) =>
 export const buildStandardsCardViewModels = (input: {
   standards: StandardEntry[];
   doctrine: DoctrineEntry[];
-  implementationExamples: ImplementationExample[];
 }) => {
   const featuredStandardIds = ["STD-01", "STD-02"];
   const featuredStandards = mapStandardsByIds(
@@ -144,26 +142,9 @@ export const buildStandardsCardViewModels = (input: {
       : []),
   ];
 
-  const implementationExampleCards: StandardsCardModel[] = [
-    {
-      title: "Implementation examples overview",
-      description:
-        "How the same system is built differently in each domain once it has to be stoppable and reversible.",
-      href: "/use-cases/examples#domains",
-      ctaLabel: "Read guide",
-    },
-    ...input.implementationExamples.map((example) => ({
-      title: example.title,
-      description: example.cardDescription,
-      href: `/use-cases/examples/${example.slug}`,
-      ctaLabel: "Read example",
-    })),
-  ];
-
   return {
     adoptedStandards,
     starterCards,
-    implementationExampleCards,
   };
 };
 

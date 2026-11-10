@@ -26,6 +26,22 @@ describe("normalizeBreadcrumbItems", () => {
     ]);
   });
 
+  it("skips a path segment that has no page of its own", () => {
+    // The worked-examples index was folded into /use-cases; a crumb for
+    // /use-cases/examples would link a redirect.
+    const items = normalizeBreadcrumbItems({
+      siteBase,
+      currentPath: "/use-cases/examples/loan-approval",
+      title: "Loan approval systems: implementation comparison",
+    });
+
+    expect(items.map((item) => item.href)).toEqual([
+      "/",
+      "/use-cases",
+      "/use-cases/examples/loan-approval",
+    ]);
+  });
+
   it("uses the theory index title for /research/theory", () => {
     const items = normalizeBreadcrumbItems({
       siteBase,

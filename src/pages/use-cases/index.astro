@@ -113,12 +113,42 @@ import {
       not legal advice, and meeting a standard here does not show that a system
       complies with any of them.
     </p>
-    <p class="small">
-      Every worked example belongs to one of these contexts. The
-      <a href="/use-cases/examples">worked examples index</a> lists the signals each
-      one has to show, and the sector comparisons set standard governance beside governance
-      built in.
-    </p>
+    {
+      /* The worked examples had an index of their own, /use-cases/examples,
+         which listed the pages these contexts already link. What it had of
+         its own was this list. */
+    }
+    <div id="required-signals" class="stack-sm">
+      <h3>What every worked example must show</h3>
+      <p class="small muted">
+        Every worked example belongs to one of these contexts. A scenario
+        missing any of these describes a decision. It does not show one that can
+        be enforced or challenged.
+      </p>
+      <ul class="small muted">
+        <li>Receipt issued at the moment the decision is enforced.</li>
+        <li>
+          A named owner who can change the decision, and who it escalates to.
+        </li>
+        <li>Clocks for acknowledgment, review, and remedy.</li>
+        <li>Exception handling with bounded duration and review cadence.</li>
+        <li>Remedy path with reversal, compensation, or safe fallback.</li>
+        <li>
+          Upheld challenges counted against the rule and sent to its owner.
+        </li>
+        <li>
+          Generated artifacts (decision log, evidence pack list, appeal record).
+        </li>
+      </ul>
+      <p class="small">
+        Start with the
+        <a href="/use-cases/examples/automated-account-lock"
+          >automated account lock</a
+        >. It runs every step from receipt to remedy, and the other scenarios
+        vary it. The sector comparisons set standard governance beside
+        governance built in.
+      </p>
+    </div>
   </SectionBlock>
 
   <SectionBlock

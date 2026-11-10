@@ -309,7 +309,7 @@ export const createPostMarketMonitoringResponse = () =>
   createCollectionResponse({
     key: "stages",
     items: getPostMarketMonitoringForApi(),
-    permalink: "/incidents",
+    permalink: "/standards/enforceable-governance-crosswalks",
     release: releaseInfo,
   });
 

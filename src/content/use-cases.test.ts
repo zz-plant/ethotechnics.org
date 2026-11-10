@@ -2,6 +2,7 @@ import { describe, expect, it } from "bun:test";
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 
 import { cases } from "./casebook";
+import { incidentLessons } from "./incidents";
 import { getStandardBySlug } from "./standards";
 import {
   boundaries,
@@ -31,13 +32,14 @@ const pageIds = new Set([
 /** Whether a stored internal link reaches a route this site serves. */
 const resolves = (href: string): boolean => {
   if (href.startsWith("#")) return pageIds.has(href.slice(1));
-  const path = href.split("#")[0] ?? href;
+  const [path = href, fragment] = href.split("#");
+  // The composite scenarios are sections of /incidents (id = the slug).
+  if (path === "/incidents" && fragment)
+    return incidentLessons.some((lesson) => lesson.slug === fragment);
   const [, section, slug, ...rest] = path.split("/");
   if (rest.length === 0 && slug) {
     if (section === "standards" && getStandardBySlug(slug)) return true;
     if (section === "casebook") return cases.some((c) => c.slug === slug);
-    if (section === "incidents")
-      return existsSync(`src/content/incidents/${slug}.mdx`);
     if (section === "glossary")
       return readFileSync("src/content/glossary.json", "utf8").includes(
         `"id": "${slug}"`,

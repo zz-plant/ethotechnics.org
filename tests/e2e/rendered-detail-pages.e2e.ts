@@ -21,7 +21,6 @@ const PAGES = [
   // changed [slug].astro renderers stay broken while the suite passed.
   { path: "/evidence-packs/std-08", family: "evidence pack" },
   { path: "/explainers/stoppability", family: "explainer" },
-  { path: "/incidents/appeals-backlog-trigger", family: "incident" },
   { path: "/casebook/post-office-horizon", family: "casebook entry" },
   {
     path: "/research/theory/absorption-as-concealment",
@@ -36,7 +35,6 @@ const NOT_FOUND = [
   "/evals/does-not-exist",
   "/evidence-packs/does-not-exist",
   "/explainers/does-not-exist",
-  "/incidents/does-not-exist",
   "/casebook/does-not-exist",
   "/research/theory/does-not-exist",
   "/taxonomy/does-not-exist",

@@ -113,6 +113,9 @@ export const validatorsContent: ValidatorsContent = {
   permalink: "/validators",
   anchorLinks: [
     { href: "#register", label: "Every validator" },
+    { href: "#journey-burden", label: "Journey burden check" },
+    { href: "#risk-radar", label: "Risk radar" },
+    { href: "#latency-audit", label: "Latency audit" },
     { href: "#method", label: "Method" },
   ],
   validators: [

@@ -1,0 +1,105 @@
+---
+import "../styles/components/validator.css";
+
+import ActionIcon from "./ActionIcon.astro";
+import ValidatorMicroDiagram from "./ValidatorMicroDiagram.astro";
+import { validatorsContent } from "../content/validators";
+
+/**
+ * One validator on /validators: its form and report card, built from its
+ * entry in content/validators.ts. Each validator was a page of its own, a
+ * form and one sentence; the three are sections of the register page now
+ * (id = the old slug). The caller supplies the intro as the default slot,
+ * and the page's script supplies the scoring rule for `variant`.
+ */
+interface Props {
+  id: string;
+  variant: "burden" | "latency" | "risk";
+  defaults: Record<string, number>;
+  fix: { href: string; label: string };
+}
+
+const { id, variant, defaults, fix }: Props = Astro.props;
+
+const validator = validatorsContent.validators.find(
+  (entry) => entry.id === id,
+)!;
+const fieldId = (name: string) => `${variant}-${name}`;
+const greenSummary = validator.thresholds.find(
+  (threshold) => threshold.level === "green",
+)?.summary;
+---
+
+<section class="validator" id={validator.slug} data-validator={variant}>
+  <header class="validator__header">
+    <div>
+      <p class="validator__id">{validator.id}</p>
+      <h2>{validator.title}</h2>
+      <p class="muted"><slot /></p>
+    </div>
+    <a class="validator__standard" href="/standards/std-01-temporal-rights">
+      Linked standard: {validator.standardRef}
+    </a>
+  </header>
+
+  <ValidatorMicroDiagram variant={variant} />
+
+  <slot name="before-form" />
+
+  <form
+    class="validator__form"
+    data-validator-form
+    data-validator-meta={JSON.stringify(validator)}
+  >
+    {
+      validator.inputs.map((field) =>
+        field.type === "number" ? (
+          <label class="validator__field">
+            {field.label}
+            <input
+              id={fieldId(field.name)}
+              type="number"
+              name={field.name}
+              min={field.min}
+              value={defaults[field.name]}
+              required
+            />
+          </label>
+        ) : (
+          <label class="validator__field">
+            {`${field.label}?`}
+            <select id={fieldId(field.name)} name={field.name}>
+              <option value="yes" selected>
+                Yes
+              </option>
+              <option value="no">No</option>
+            </select>
+          </label>
+        ),
+      )
+    }
+    <button class="button primary" type="submit">Generate report card</button>
+  </form>
+
+  <div class="validator__report" data-validator-report hidden>
+    <div class="validator__status" data-validator-status>
+      <span class="status-pill status-pill--green" data-validator-pill>
+        Green
+      </span>
+      <output
+        class="validator__status-text"
+        data-validator-output
+        for={validator.inputs.map((field) => fieldId(field.name)).join(" ")}
+      >
+        {greenSummary}
+      </output>
+    </div>
+    <p class="validator__recommendation" data-validator-fix hidden>
+      Fix this using <a href={fix.href}>{fix.label}</a>.
+    </p>
+    <button class="button ghost" type="button" data-validator-download>
+      <ActionIcon action="download" />
+      Download JSON
+    </button>
+  </div>
+</section>

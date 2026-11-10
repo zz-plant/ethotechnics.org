@@ -6,7 +6,6 @@ import type { APIContext } from "astro";
 import { governanceCrosswalks } from "../../content/crosswalks";
 import { evalsContent } from "../../content/evals";
 import { glossaryContent } from "../../content/glossary";
-import { failureStates } from "../../content/institute-site";
 import { standardsContent } from "../../content/standards";
 import { onRequest } from "../../middleware";
 import { buildSitemapSections } from "./sitemaps";
@@ -94,9 +93,9 @@ describe("sitemap coverage", () => {
     }
     // Artifacts are anchors on /artifacts, not pages of their own.
     expect(allPaths.some((path) => path.startsWith("/artifacts/"))).toBe(false);
-    for (const state of failureStates) {
-      expect(allPaths).toContain(`/triage/${state.slug}`);
-    }
+    // Failure states are sections of /triage, not pages of their own.
+    expect(allPaths).toContain("/triage");
+    expect(allPaths.some((path) => path.startsWith("/triage/"))).toBe(false);
     for (const control of governanceCrosswalks) {
       expect(allPaths).toContain(
         `/standards/crosswalk/${control.controlId.toLowerCase()}`,

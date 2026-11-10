@@ -266,6 +266,14 @@ export const roles: Role[] = [
         ctaLabel: "See the challenge load ledger",
         ctaHref: "/mechanisms/patterns/challenge-load-ledger",
       },
+      {
+        number: 4,
+        title: "Have the first move ready for a live incident",
+        description:
+          "When a decision is challenged, a queue is stuck, or the system cannot be halted, start from the closest failure: what to do first, and the record that opens each stage.",
+        ctaLabel: "Open incident triage",
+        ctaHref: "/triage",
+      },
     ],
     adoptionChecklist: [
       "Set up a way to report harm, with named triage categories.",
@@ -297,7 +305,7 @@ export const roles: Role[] = [
         description:
           "Score a real user journey for time spent, number of steps, and whether there is a way out. Use the result as a design brief.",
         ctaLabel: "Score one user journey",
-        ctaHref: "/validators/journey-burden",
+        ctaHref: "/validators#journey-burden",
       },
       {
         number: 3,

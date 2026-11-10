@@ -1,0 +1,120 @@
+---
+/**
+ * How the governance vocabulary drifted, and what to cite instead.
+ *
+ * This was a page, /explainers/public-memory. Its job is the glossary's:
+ * stable definitions to cite. It was reachable only from the explainers hub,
+ * which nothing linked but its own pages' breadcrumbs, so it is a section of
+ * /glossary now (#public-memory). No headings above h3: the host section
+ * supplies the h2.
+ */
+import "../styles/components/standards.css";
+
+const timelineEntries = [
+  {
+    period: "2019",
+    title: "Trustworthy AI becomes the umbrella phrase",
+    summary:
+      "The OECD principles frame trustworthy AI around transparency, robustness, and accountability. The phrase later came to be used as a compliance label, with no route to a remedy attached.",
+    sourceLabel: "OECD AI Principles",
+    sourceHref: "https://oecd.ai/en/ai-principles",
+  },
+  {
+    period: "2020",
+    title: "Responsible AI consolidates around vendor playbooks",
+    summary:
+      "Industry guidance offers responsible AI toolkits, but often names no owner and guarantees no way to challenge a decision. The language moves from shared obligations to internal checklists.",
+    sourceLabel: "Google responsible AI practices",
+    sourceHref: "https://ai.google/responsibility/responsible-ai-practices/",
+  },
+  {
+    period: "2022",
+    title: "Rights framing enters public policy",
+    summary:
+      "The White House Blueprint for an AI Bill of Rights centers notice, explanation, and human alternatives. Enforcement stays discretionary. The word “rights” is used, but no review clock is set and no one is named to answer an escalation.",
+    sourceLabel: "Blueprint for an AI Bill of Rights (White House archive)",
+    sourceHref: "https://bidenwhitehouse.archives.gov/ostp/ai-bill-of-rights/",
+  },
+  {
+    period: "2023",
+    title: "Risk management vocabulary takes hold",
+    summary:
+      "The NIST AI RMF sets out governance and accountability functions. Organizations often stop at scoring risk, and publish no evidence that a person can get a decision reversed. The language moves toward accepting risk without the means to remedy it.",
+    sourceLabel: "NIST AI RMF 1.0",
+    sourceHref: "https://www.nist.gov/itl/ai-risk-management-framework",
+  },
+  {
+    period: "2024",
+    title: "Regulatory language converges on transparency and oversight",
+    summary:
+      "The EU AI Act emphasizes transparency, human oversight, and documentation. Without a shared baseline for challenges, an implementation can still leave out the outcomes of challenges and the reversals that someone has to carry out.",
+    sourceLabel: "EU AI Act overview",
+    sourceHref: "https://artificialintelligenceact.eu/",
+  },
+];
+
+// The entries to cite in place of the drifted terms.
+const stableTerms = [
+  { label: "Contestability", href: "/glossary/contestability" },
+  {
+    label: "Explainability for accountability",
+    href: "/glossary/explainability-for-accountability",
+  },
+  { label: "Appeal passage rate", href: "/glossary/appeal-passage-rate" },
+  { label: "Time transparency", href: "/glossary/time-transparency" },
+  { label: "Design authority", href: "/glossary/design-authority" },
+];
+---
+
+<div class="stack-sm">
+  <p>
+    Contestability terms travel through policy, procurement, and public
+    narratives. When a term like “responsible AI” becomes a label rather than a
+    measurable commitment, people lose the ability to demand remedies. The
+    entries in this glossary record what each term commits to, so a citation
+    carries the commitment, not the label.
+  </p>
+  <ol
+    class="standards-timeline"
+    aria-label="Contestability language drift timeline"
+  >
+    {
+      timelineEntries.map((entry) => (
+        <li class="standards-timeline__item">
+          <div class="standards-timeline__badge">{entry.period}</div>
+          <div class="standards-timeline__body">
+            <h3>{entry.title}</h3>
+            <p class="muted">{entry.summary}</p>
+            <a class="standards-timeline__link" href={entry.sourceHref}>
+              Source: {entry.sourceLabel}
+            </a>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+  <h3>What to cite instead</h3>
+  <p>
+    {
+      stableTerms.map((term, index) => (
+        <>
+          <a href={term.href}>{term.label}</a>
+          {index < stableTerms.length - 1 ? " · " : ""}
+        </>
+      ))
+    }
+  </p>
+  <ul class="muted">
+    <li>
+      Cite the glossary entry, not the bare term, in briefs, audits, and press
+      summaries.
+    </li>
+    <li>
+      Put a number next to each term: the appeal passage rate, the review clock,
+      or the remedy log.
+    </li>
+    <li>
+      Record each time a term is used as a label with nothing to enforce it.
+    </li>
+  </ul>
+</div>

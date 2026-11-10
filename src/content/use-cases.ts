@@ -215,7 +215,7 @@ export const useCases: UseCase[] = [
     incidents: [
       {
         label: "Overrides with no audit trace",
-        href: "/incidents/model-override-visibility",
+        href: "/incidents#model-override-visibility",
       },
     ],
     alreadyRequired:
@@ -261,15 +261,11 @@ export const useCases: UseCase[] = [
         label: "Loan approval systems",
         href: "/use-cases/examples/loan-approval",
       },
-      {
-        label: "Financial fraud detection",
-        href: "/use-cases/examples/financial-fraud-detection",
-      },
     ],
     incidents: [
       {
         label: "Appeals backlog trigger",
-        href: "/incidents/appeals-backlog-trigger",
+        href: "/incidents#appeals-backlog-trigger",
       },
     ],
     alreadyRequired:
@@ -348,7 +344,7 @@ export const useCases: UseCase[] = [
     incidents: [
       {
         label: "Appeal accepted without remedy",
-        href: "/incidents/appeal-remedy-mismatch",
+        href: "/incidents#appeal-remedy-mismatch",
       },
     ],
     alreadyRequired:
@@ -503,7 +499,7 @@ export const toolLink = (ref: UseCase["runFirst"]): FitLink => {
     if (!form) throw new Error(`use-cases: unknown validator ${ref.slug}`);
     return {
       label: `${form.id} ${form.title}`,
-      href: `/validators/${form.slug}`,
+      href: `/validators#${form.slug}`,
     };
   }
   const tool = diagnosticsContent.tools.find(

@@ -1,8 +1,10 @@
 import type { MiddlewareHandler } from "astro";
 
+import { failureStates } from "./content/institute-site";
 import { taxonomyAnchor, taxonomyEntries } from "./content/taxonomy";
 
 const TAXONOMY_SLUGS = new Set(taxonomyEntries.map((entry) => entry.slug));
+const FAILURE_SLUGS = new Set(failureStates.map((state) => state.slug));
 
 // ethotechnics.com redirects live in the et repo's redirect Worker, not here.
 
@@ -121,8 +123,29 @@ const REDIRECT_MAP: Record<string, string> = {
   // staff that run it, and VAL-01 at /validators scored the time a journey
   // takes the person it decides about. VAL-01 keeps its ID and is now the
   // Journey burden check at its own slug.
-  "/validators/burden-modeler": "/validators/journey-burden",
-  "/standards/implementation-examples": "/use-cases/examples#domains",
+  "/validators/burden-modeler": "/validators#journey-burden",
+  // Each validator was a page: a three-input form and one sentence, beside a
+  // register table that already described it. The forms run on /validators.
+  "/validators/journey-burden": "/validators#journey-burden",
+  "/validators/risk-radar": "/validators#risk-radar",
+  "/validators/latency-audit": "/validators#latency-audit",
+  // The three composite scenarios were pages of about 215 words, a third of
+  // it the frame they shared. Each is a section of /incidents.
+  "/incidents/appeals-backlog-trigger": "/incidents#appeals-backlog-trigger",
+  "/incidents/model-override-visibility":
+    "/incidents#model-override-visibility",
+  "/incidents/appeal-remedy-mismatch": "/incidents#appeal-remedy-mismatch",
+  // The fraud-detection comparison covered the decision the account-lock
+  // example traces, at lower resolution. Its own material opens that page.
+  // The drift log's job was the glossary's: stable definitions to cite.
+  "/explainers/public-memory": "/glossary#public-memory",
+  "/use-cases/examples/financial-fraud-detection":
+    "/use-cases/examples/automated-account-lock#standard",
+  "/standards/implementation-examples": "/use-cases#contexts",
+  // The worked-examples index listed the pages /use-cases already links,
+  // context by context. The examples stay at /use-cases/examples/<slug>.
+  "/use-cases/examples": "/use-cases#contexts",
+  "/examples": "/use-cases#contexts",
   "/standards/meta-critique": "/standards#governance-by-control",
   "/standards/micro-diagram-language": "/standards",
   "/agent-toolkit/prompt-packs": "/archive/retired-tools",
@@ -283,10 +306,16 @@ const resolveLegacyPathRedirect = (url: URL): string | null => {
     return target.toString();
   }
 
-  // Failure triage rename
-  if (normalizedPath === "/failure" || normalizedPath.startsWith("/failure/")) {
+  // Failure triage. /failure was renamed /triage, and each failure state was
+  // then a page at /triage/<slug>. The seven shared most of their text, so
+  // each is a section of /triage now. Both prefixes go straight to the
+  // section; a slug that names no failure state goes to the page, where the
+  // old prefix rewrite sent /failure/<anything> to a 404.
+  const failureMatch = /^\/(?:failure|triage)\/([^/]+)$/.exec(normalizedPath);
+  if (failureMatch || normalizedPath === "/failure") {
+    const slug = failureMatch?.[1];
     const target = new URL(
-      normalizedPath.replace(/^\/failure/, "/triage"),
+      slug && FAILURE_SLUGS.has(slug) ? `/triage#${slug}` : "/triage",
       url.origin,
     );
     target.search = url.search;
@@ -310,10 +339,7 @@ const resolveLegacyPathRedirect = (url: URL): string | null => {
   // and a reader who landed on one met no standard and no tool. Every example
   // already belonged to exactly one use-case context or boundary, so the pages
   // hang off /use-cases, one level below the registry that claims them.
-  if (
-    normalizedPath === "/examples" ||
-    normalizedPath.startsWith("/examples/")
-  ) {
+  if (normalizedPath.startsWith("/examples/")) {
     const target = new URL(
       normalizedPath.replace(/^\/examples/, "/use-cases/examples"),
       url.origin,

@@ -141,10 +141,16 @@ describe("createPostMarketMonitoringResponse", () => {
     );
 
     expect(payload.meta.count).toBeGreaterThan(0);
-    expect(payload.meta.permalink).toBe("/incidents");
+    // The workflow is a section of the crosswalks page. It was also printed
+    // on /incidents, which is the composite scenarios only now.
+    expect(payload.meta.permalink).toBe(
+      "/standards/enforceable-governance-crosswalks",
+    );
     expect(payload.stages[0]?.stage.length).toBeGreaterThan(0);
     expect(payload.stages[0]?.refs.length).toBeGreaterThan(0);
-    expect(payload.stages[0]?.href).toBe("/incidents");
+    expect(payload.stages[0]?.href).toBe(
+      "/standards/enforceable-governance-crosswalks#post-market",
+    );
   });
 });
 
