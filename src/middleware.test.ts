@@ -209,7 +209,11 @@ describe("middleware", () => {
       },
       {
         url: "https://ethotechnics.org/standards/implementation-examples",
-        expectedLocation: "https://ethotechnics.org/use-cases/examples#domains",
+        expectedLocation: "https://ethotechnics.org/use-cases#contexts",
+      },
+      {
+        url: "https://ethotechnics.org/use-cases/examples",
+        expectedLocation: "https://ethotechnics.org/use-cases#contexts",
       },
       {
         url: "https://ethotechnics.org/standards/implementation-examples/loan-approval",
@@ -218,7 +222,7 @@ describe("middleware", () => {
       },
       {
         url: "https://ethotechnics.org/examples",
-        expectedLocation: "https://ethotechnics.org/use-cases/examples",
+        expectedLocation: "https://ethotechnics.org/use-cases#contexts",
       },
       {
         url: "https://ethotechnics.org/examples/loan-approval",

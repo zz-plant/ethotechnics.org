@@ -9,7 +9,6 @@ import SectionBlock from "../../components/SectionBlock.astro";
 import SearchIds from "../../components/SearchIds.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
-import { implementationExamples } from "../../content/implementation-examples";
 import { cases, type Case } from "../../content/casebook";
 import { getCollection } from "astro:content";
 import { standardsContent } from "../../content/standards";
@@ -47,12 +46,10 @@ const { pageTitle, pageDescription, anchorLinks, standards, doctrine } =
 const listedStandards = standards.filter(
   (standard) => standard.listedOnSite !== false,
 );
-const { adoptedStandards, implementationExampleCards } =
-  buildStandardsCardViewModels({
-    standards,
-    doctrine,
-    implementationExamples,
-  });
+const { adoptedStandards } = buildStandardsCardViewModels({
+  standards,
+  doctrine,
+});
 // The lane (core, implementation, reference) rides in the register as a tag.
 // It used to be a second, filterable list of the same standards.
 const { standardsLaneById } = buildStandardsGroupingAndFilters(standards);
@@ -332,10 +329,10 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </CardItem>
       <CardItem
         title="Oversee implementation"
-        description="Implementation examples show each standard as the halt rules, clocks, and records a delivery team builds."
+        description="Worked examples show each standard as the halt rules, clocks, and records a delivery team builds, listed by the kind of decision."
       >
-        <a slot="footer" class="muted" href="#implementation-examples"
-          >Open implementation examples &rarr;</a
+        <a slot="footer" class="muted" href="/use-cases#contexts"
+          >Open the worked examples &rarr;</a
         >
       </CardItem>
     </CardGrid>
@@ -750,29 +747,6 @@ Control plane → halt rules → clocks → rollback → restoration`}</pre>
         </p>
       </div>
     </div>
-  </SectionBlock>
-
-  <SectionBlock
-    id="implementation-examples"
-    eyebrow="Implementation examples"
-    title="Examples by domain"
-    description="For each domain, conventional governance beside the same system built with halt rules, clocks, and restoration paths."
-  >
-    <CardGrid className="grid--two">
-      {
-        implementationExampleCards.map((item) => (
-          <CardItem title={item.title} description={item.description}>
-            <a slot="footer" class="muted" href={item.href}>
-              {item.ctaLabel} &rarr;
-            </a>
-          </CardItem>
-        ))
-      }
-    </CardGrid>
-    <p class="small muted">
-      Retail personalization is a boundary case: no single recommendation
-      changes a person's status, access, money, or risk.
-    </p>
   </SectionBlock>
 
   {/* IDs a site search should match to this page. */}

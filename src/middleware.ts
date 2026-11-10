@@ -141,7 +141,11 @@ const REDIRECT_MAP: Record<string, string> = {
   "/explainers/public-memory": "/glossary#public-memory",
   "/use-cases/examples/financial-fraud-detection":
     "/use-cases/examples/automated-account-lock#standard",
-  "/standards/implementation-examples": "/use-cases/examples#domains",
+  "/standards/implementation-examples": "/use-cases#contexts",
+  // The worked-examples index listed the pages /use-cases already links,
+  // context by context. The examples stay at /use-cases/examples/<slug>.
+  "/use-cases/examples": "/use-cases#contexts",
+  "/examples": "/use-cases#contexts",
   "/standards/meta-critique": "/standards#governance-by-control",
   "/standards/micro-diagram-language": "/standards",
   "/agent-toolkit/prompt-packs": "/archive/retired-tools",
@@ -335,10 +339,7 @@ const resolveLegacyPathRedirect = (url: URL): string | null => {
   // and a reader who landed on one met no standard and no tool. Every example
   // already belonged to exactly one use-case context or boundary, so the pages
   // hang off /use-cases, one level below the registry that claims them.
-  if (
-    normalizedPath === "/examples" ||
-    normalizedPath.startsWith("/examples/")
-  ) {
+  if (normalizedPath.startsWith("/examples/")) {
     const target = new URL(
       normalizedPath.replace(/^\/examples/, "/use-cases/examples"),
       url.origin,

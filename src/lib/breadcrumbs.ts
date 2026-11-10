@@ -46,6 +46,13 @@ const normalizeHref = (url: string, siteBase: string) => {
   return parsed.toString();
 };
 
+/**
+ * Path segments that name no page. The worked examples live at
+ * /use-cases/examples/<slug>, and their index was folded into /use-cases, so
+ * a crumb for the segment would link a redirect.
+ */
+const SEGMENTS_WITHOUT_A_PAGE = new Set(["/use-cases/examples"]);
+
 export const normalizeBreadcrumbItems = ({
   siteBase,
   currentPath,
@@ -63,18 +70,14 @@ export const normalizeBreadcrumbItems = ({
 
     return [
       { name: "Home", url: new URL("/", siteBase).toString() },
-      ...segments.map((segment, index) => {
+      ...segments.flatMap((segment, index) => {
         const isLast = index === segments.length - 1;
+        const path = `/${segments.slice(0, index + 1).join("/")}`;
+        if (!isLast && SEGMENTS_WITHOUT_A_PAGE.has(path)) return [];
         const label =
           isLast && currentLabel ? currentLabel : titleizeSegment(segment);
 
-        return {
-          name: label,
-          url: new URL(
-            `/${segments.slice(0, index + 1).join("/")}`,
-            siteBase,
-          ).toString(),
-        };
+        return [{ name: label, url: new URL(path, siteBase).toString() }];
       }),
     ];
   };

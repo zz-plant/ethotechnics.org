@@ -101,6 +101,7 @@ const artifacts = [
       { href: "#exceptions", label: "Exception handling" },
       { href: "#remedy", label: "Remedy path" },
       { href: "#artifacts", label: "Generated artifacts" },
+      { href: "#how-to-use", label: "Binding adoption" },
       { href: "#fit", label: "Where this fits" },
     ]}
   />
@@ -281,6 +282,29 @@ const artifacts = [
         ))
       }
     </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="how-to-use"
+    eyebrow="How to use"
+    title="Turn the example into binding adoption"
+    description="The scenario can be copied into a change request or a release gate."
+  >
+    <ul class="muted">
+      <li>
+        Start with the receipt payload and map it to your own system state and
+        logging tools.
+      </li>
+      <li>
+        Translate the owner and authority block into your on-call rotation and
+        escalation policies.
+      </li>
+      <li>
+        Connect the evidence pack list to the
+        <a href="/evidence-packs">evidence pack</a>
+        requirements before your next audit window.
+      </li>
+    </ul>
   </SectionBlock>
 
   <UseCaseFit slug="automated-account-lock">

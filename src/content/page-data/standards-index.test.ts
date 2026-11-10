@@ -5,7 +5,6 @@ import {
   buildStandardsGroupingAndFilters,
   buildStandardsStructuredDataPayload,
 } from "./standards-index";
-import { implementationExamples } from "../implementation-examples";
 import { standardsContent, type StandardEntry } from "../standards";
 
 describe("buildStandardsGroupingAndFilters", () => {
@@ -83,7 +82,6 @@ describe("buildStandardsStructuredDataPayload", () => {
     const cards = buildStandardsCardViewModels({
       standards: standardsContent.standards,
       doctrine: standardsContent.doctrine,
-      implementationExamples,
     });
 
     const payload = buildStandardsStructuredDataPayload({
