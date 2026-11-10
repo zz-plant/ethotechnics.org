@@ -32,7 +32,8 @@ interface Props {
   seoTitle?: string;
   description: string;
   permalink: string;
-  glossary: {
+  /** Absent when the term's glossary entry was retired into this page. */
+  glossary?: {
     href: string;
     label: string;
   };
@@ -119,9 +120,13 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <SectionBlock id="definition" eyebrow="Definition" title="Definition">
     {definition.map((paragraph) => <p>{paragraph}</p>)}
     <p><strong>A hypothetical case.</strong> {example}</p>
-    <p class="small muted">
-      In the glossary: <a href={glossary.href}>{glossary.label}</a>.
-    </p>
+    {
+      glossary && (
+        <p class="small muted">
+          In the glossary: <a href={glossary.href}>{glossary.label}</a>.
+        </p>
+      )
+    }
   </SectionBlock>
 
   {

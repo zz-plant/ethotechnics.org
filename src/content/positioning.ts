@@ -110,8 +110,8 @@ export const instruments: Instrument[] = [
     links: [
       { label: "Delegation audit", href: "/diagnostics/delegation-audit" },
       {
-        label: "Corrective power, glossary",
-        href: "/glossary/corrective-power",
+        label: "The reproduction of corrective power",
+        href: "/research/theory/reproduction-of-corrective-power",
       },
       {
         label: "Dependence without standing",
@@ -167,8 +167,8 @@ export const instruments: Instrument[] = [
     links: [
       { label: "Appeal paths", href: "/mechanisms/patterns/appeal-paths" },
       {
-        label: "Standing mechanism, glossary",
-        href: "/glossary/standing-mechanism",
+        label: "Corrective standing, glossary",
+        href: "/glossary/corrective-standing",
       },
       { label: "Law VIII", href: "/standards/laws#law-viii" },
     ],
@@ -182,8 +182,8 @@ export const instruments: Instrument[] = [
       "A time index for those capacities. Oversight is read as O(t): what the arrangement contains at year one, and what five years of reliable automation leave of it.",
     links: [
       {
-        label: "Oversight horizon, glossary",
-        href: "/glossary/oversight-horizon",
+        label: "Decision object, glossary",
+        href: "/glossary/decision-object",
       },
       {
         label: "Meaningful-control eval suite",
@@ -212,8 +212,8 @@ export const instruments: Instrument[] = [
         href: "/evals/meaningful-control",
       },
       {
-        label: "Delegated agency, glossary",
-        href: "/glossary/delegated-agency",
+        label: "Revisable delegation, glossary",
+        href: "/glossary/revisable-delegation",
       },
       {
         label: "The sovereign override",
@@ -229,7 +229,10 @@ export const instruments: Instrument[] = [
     supplies:
       "The matrix that makes the mismatch legible before the failure: six safeguards — capability, authority, evidence, dependency, standing, correction — mapped separately for each role, so the single verdict of human error cannot absorb them.",
     links: [
-      { label: "Crumple zone, glossary", href: "/glossary/crumple-zone" },
+      {
+        label: "Meaningful control, glossary",
+        href: "/glossary/meaningful-control",
+      },
       { label: "Insulation", href: "/research/theory/insulation" },
       { label: "The casebook", href: "/casebook" },
     ],
@@ -247,8 +250,8 @@ export const instruments: Instrument[] = [
         href: "/research/theory/the-consumption-of-adaptive-capacity",
       },
       {
-        label: "Adaptive capacity, glossary",
-        href: "/glossary/adaptive-capacity",
+        label: "The consumption of adaptive capacity",
+        href: "/research/theory/the-consumption-of-adaptive-capacity",
       },
       {
         label: "Rescue register",

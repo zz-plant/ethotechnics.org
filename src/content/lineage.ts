@@ -425,8 +425,8 @@ export const disputes: Dispute[] = [
       "Slow adoption is an epistemological safeguard: many trial endpoints rely on surrogate markers that never translate to survival benefit, so conservatism protects patients from commercial overhype.",
     answer:
       "The clause forces the review, not the adoption. Held evidence fires a trigger, and a payer may reject the new evidence with recorded reasons and confirm the grant. What it forbids is skepticism nobody performed. Slow uptake with a record is judgment; slow uptake without one is an outdated rulebook.",
-    instrument: "the unwired-evidence term",
-    instrumentHref: "/glossary/unwired-evidence",
+    instrument: "the review-trigger term",
+    instrumentHref: "/glossary/review-trigger",
   },
   {
     claim:
@@ -437,8 +437,8 @@ export const disputes: Dispute[] = [
       "Secondary interventions — peer support, mindfulness, institutional recognition — produce measurable reductions in exhaustion, depersonalization, and turnover intent.",
     answer:
       "The distinction is substitution, not existence. Peer support that complements redesign is not theater; a wellness program offered in place of changing the workload is. The test is whether the intervention alters the system that produces the burden or only helps people survive it.",
-    instrument: "the ethics-theater term",
-    instrumentHref: "/glossary/ethics-theater",
+    instrument: "the redress term",
+    instrumentHref: "/glossary/redress",
   },
 ];
 

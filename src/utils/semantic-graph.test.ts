@@ -8,50 +8,24 @@ const allGlossaryEntries = glossaryContent.categories.flatMap(
 
 const glossaryIds = new Set(allGlossaryEntries.map((entry) => entry.id));
 
-// Terms added by the 2026-09 delegation reconstruction. Each must be reachable
-// from at least two other entries so the semantic graph stays connected.
+// Terms added by the 2026-09 delegation reconstruction that the November 2026
+// cut kept. Each must be reachable from at least two other entries so the
+// semantic graph stays connected.
 const delegationEraTerms = [
   "authority-drift",
   "authority-grant",
-  "authority-lease",
   "automation-ratchet",
-  "capability-catalog",
-  "capability-discovery",
-  "capacity-depreciation",
-  "consent-depth",
   "consequential-decision",
   "correction-capacity",
-  "correction-obligation",
   "corrective-standing",
   "decision-system",
-  "delegated-agency",
   "dependency-state",
-  "error-bearing-party",
-  "evaluation-independence",
-  "evaluation-layer",
   "expansion-decision",
-  "exposure-score",
   "grant-state",
-  "institutional-capture",
-  "institutional-reversibility",
-  "intervention-specification",
-  "justified-delegation",
   "meaningful-control",
-  "normalized-dependence",
-  "operational-reversibility",
-  "policy-as-state",
   "policy-record",
-  "preserved-capacity",
-  "procedural-force",
-  "prospective-auditability",
   "revisable-delegation",
   "review-trigger",
-  "rubber-stamp-review",
-  "standing-mechanism",
-  "substitution-cost",
-  "substrate-profile",
-  "technical-reversibility",
-  "withdrawal-rehearsal",
 ];
 
 const inboundLinks = (() => {
@@ -87,7 +61,7 @@ describe("Semantic Graph Engine", () => {
   });
 
   it("resolves context for failure modes", () => {
-    const context = resolveSemanticContext("unearned-closure");
+    const context = resolveSemanticContext("authority-drift");
     expect(context).not.toBeNull();
     expect(context?.node.type).toBe("failure_mode");
   });
@@ -102,10 +76,10 @@ describe("Semantic Graph Engine", () => {
 
   it("resolves the delegation-era terms added for the authority and dependence branches", () => {
     for (const id of [
-      "delegated-agency",
+      "revisable-delegation",
       "authority-grant",
       "dependency-state",
-      "institutional-reversibility",
+      "reversibility",
       "corrective-standing",
     ]) {
       const context = resolveSemanticContext(id);

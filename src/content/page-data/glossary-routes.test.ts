@@ -120,26 +120,17 @@ describe("published glossary content", () => {
 
   it("indexes the delegation-era terms", () => {
     for (const id of [
-      "delegated-agency",
+      "revisable-delegation",
       "consequential-decision",
-      "justified-delegation",
       "authority-grant",
-      "authority-lease",
+      "policy-record",
       "grant-state",
+      "review-trigger",
       "dependency-state",
-      "exposure-score",
-      "substitution-cost",
-      "technical-reversibility",
-      "operational-reversibility",
-      "institutional-reversibility",
+      "reversibility",
       "corrective-standing",
-      "standing-mechanism",
-      "procedural-force",
-      "intervention-specification",
       "meaningful-control",
       "expansion-decision",
-      "substrate-profile",
-      "evaluation-layer",
     ]) {
       expect(ids.has(id)).toBe(true);
     }

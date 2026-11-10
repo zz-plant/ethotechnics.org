@@ -422,14 +422,6 @@ export const roles: Role[] = [
         ctaLabel: "Run the five-question self-assessment",
         ctaHref: "/diagnostics/corrective-debt-calculator",
       },
-      {
-        number: 3,
-        title: "Benchmark governance maturity",
-        description:
-          "Place the organization on a scale that runs from a basic halt control to published challenge targets and funded maintenance.",
-        ctaLabel: "Explore maturity scale",
-        ctaHref: "/glossary/ethotechnic-maturity",
-      },
     ],
     featuredDiagnostics: ["corrective-debt-calculator", "delegation-audit"],
     featuredStandards: ["std-06-human-impact-safety-case", "std-08-delegation"],

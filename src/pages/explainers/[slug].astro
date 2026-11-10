@@ -35,7 +35,9 @@ const { Content } = hasBody ? await render(entry) : { Content: null };
   seoTitle={seoTitle}
   description={description}
   permalink={permalink}
-  glossary={{ href: `/glossary/${glossaryRef}`, label: glossaryLabel }}
+  glossary={glossaryRef
+    ? { href: `/glossary/${glossaryRef}`, label: glossaryLabel }
+    : undefined}
   definition={definition}
   example={example}
   distinctSignals={distinctSignals}
