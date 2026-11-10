@@ -34,6 +34,35 @@ describe("search renderer states", () => {
     expect(container.querySelectorAll("mark").length).toBeGreaterThan(0);
   });
 
+  it("shows Pagefind's marks as highlights and the rest of an excerpt as text", () => {
+    const container = document.createElement("div");
+    const renderer = createSearchRenderer(container);
+
+    renderer.renderResults(
+      [
+        {
+          url: "/glossary/appeal-integrity",
+          excerpt:
+            "judged on &lt;b&gt;merits&lt;/b&gt; &amp; evidence when a person <mark>appealed</mark>",
+          meta: { title: "Appeal integrity", type: "glossary" },
+        },
+      ],
+      "appeal",
+    );
+
+    const excerpt = container.querySelector(".search-result__excerpt");
+    expect(excerpt?.textContent).toBe(
+      "judged on <b>merits</b> & evidence when a person appealed",
+    );
+    expect(
+      Array.from(
+        excerpt?.querySelectorAll("mark") ?? [],
+        (mark) => mark.textContent,
+      ),
+    ).toEqual(["appealed"]);
+    expect(excerpt?.querySelector("b")).toBeNull();
+  });
+
   it("shows no-results state", () => {
     const container = document.createElement("div");
     const renderer = createSearchRenderer(container);

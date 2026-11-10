@@ -30,6 +30,8 @@ Failures that look like a regression from your change and are not. Check here be
 - The dev server does not enforce the Content-Security-Policy; production does. An inline
   `<style>` inside an `<svg>` renders in dev and is dropped in production. To check CSP, run
   `bun run build`, then `bun run preview:cf`, and read the browser console.
+- The dev server has no search index, so the header search shows its fallback link. To test
+  search, run `bun run build`, then `bun run preview:cf`.
 - To run a worktree's dev server from another directory: `bun run --cwd=<worktree> dev`. The
   flag order matters; `bun --cwd <worktree> run dev` prints usage.
 - In an `.astro` file, punctuation on its own line after an `{expression}` renders with a space

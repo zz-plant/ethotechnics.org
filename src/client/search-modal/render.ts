@@ -43,6 +43,23 @@ export const applyHighlight = (element: HTMLElement, query: string) => {
   element.replaceChildren(fragment);
 };
 
+/**
+ * Pagefind returns the excerpt as HTML: escaped page text with <mark> around
+ * each matched word. Parse it in an inert document and copy across only the
+ * text and the marks, so nothing else in an excerpt becomes markup here.
+ */
+export const renderExcerpt = (element: HTMLElement, excerpt: string) => {
+  const parsed = new DOMParser().parseFromString(excerpt, "text/html");
+  const nodes = Array.from(parsed.body.childNodes, (node) => {
+    const text = node.textContent ?? "";
+    if (node.nodeName !== "MARK") return document.createTextNode(text);
+    const mark = document.createElement("mark");
+    mark.textContent = text;
+    return mark;
+  });
+  element.replaceChildren(...nodes);
+};
+
 const createResultHTML = (result: PagefindResultData, query: string) => {
   const wrapper = document.createElement("article");
   wrapper.className = "search-result";
@@ -86,14 +103,13 @@ const createResultHTML = (result: PagefindResultData, query: string) => {
 
   const excerptElement = document.createElement("p");
   excerptElement.className = "search-result__excerpt";
-  excerptElement.textContent = excerpt;
+  renderExcerpt(excerptElement, excerpt);
   link.appendChild(excerptElement);
 
   wrapper.appendChild(link);
 
   if (query) {
     applyHighlight(titleElement, query);
-    applyHighlight(excerptElement, query);
   }
 
   return wrapper;
