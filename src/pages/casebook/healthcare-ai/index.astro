@@ -2,6 +2,7 @@
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import ActionIcon from "../../../components/ActionIcon.astro";
 import CaseTimeline from "../../../components/CaseTimeline.astro";
+import CitationBlock from "../../../components/CitationBlock.astro";
 import PageIntro from "../../../components/PageIntro.astro";
 import SectionBlock from "../../../components/SectionBlock.astro";
 import StateVariableGlyph from "../../../components/StateVariableGlyph.astro";
@@ -17,6 +18,7 @@ import {
   healthcareCases,
 } from "../../../content/healthcare-casebook";
 import { formatDate } from "../../../utils/dates";
+import { derivePublicationMetadata } from "../../../utils/publication";
 
 // The pillar is one page, not a hub with a page per case. The main casebook's
 // case pages, tallies, share cards, and feed read `cases` from casebook.json;
@@ -49,6 +51,10 @@ const published = healthcareCases
   .map((entry) => entry.published)
   .sort()
   .at(-1);
+const publication = derivePublicationMetadata({
+  permalink: healthcareCasebookContent.permalink,
+  published: published ?? "",
+});
 ---
 
 <BaseLayout
@@ -300,6 +306,13 @@ const published = healthcareCases
             </li>
           ))}
         </ol>
+        {index === healthcareCases.length - 1 && (
+          <CitationBlock
+            title={`Casebook: ${title.charAt(0).toLowerCase()}${title.slice(1)}`}
+            permalink={healthcareCasebookContent.permalink}
+            publication={publication}
+          />
+        )}
       </SectionBlock>
     ))
   }

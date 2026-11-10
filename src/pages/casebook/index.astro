@@ -5,6 +5,7 @@ import SectionBlock from "../../components/SectionBlock.astro";
 import StateVariableGlyph from "../../components/StateVariableGlyph.astro";
 import VerdictMark from "../../components/VerdictMark.astro";
 import CasebookFailureChart from "../../components/CasebookFailureChart.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
 import TimeToHaltBars from "../../components/TimeToHaltBars.astro";
 import {
   casebookContent,
@@ -12,9 +13,20 @@ import {
   learningVerdictLabels,
   stateVariables,
 } from "../../content/casebook";
+import { derivePublicationMetadata } from "../../utils/publication";
 
-const { pageTitle, pageDescription, eyebrow, title, description } =
+const { pageTitle, pageDescription, permalink, eyebrow, title, description } =
   casebookContent;
+
+// The casebook is dated from its first case to its latest change to any case.
+const caseDates = cases
+  .flatMap((entry) => [entry.published, entry.updated ?? entry.published])
+  .sort();
+const publication = derivePublicationMetadata({
+  permalink,
+  published: caseDates[0] ?? "",
+  updated: caseDates.at(-1),
+});
 
 // The scores and the record were two sections over the same five cases: a
 // matrix of six marks, the halt time, and the after-the-failure verdict, then
@@ -185,11 +197,8 @@ const { pageTitle, pageDescription, eyebrow, title, description } =
       Every finding is linked to the clauses it falls under and to the law it
       applies. If a case is scored wrongly, the primary sources are listed on
       its page; <a href="/participate">say which one was misread</a>. The cases
-      and scores are also
-      <a
-        href="https://github.com/zz-plant/ethotechnics.org/blob/main/src/data/casebook.json"
-        >a JSON file in the repository</a
-      >.
+      and scores are also served as JSON at
+      <a href="/api/casebook.json">/api/casebook.json</a>.
     </p>
     <p>
       The seventh mark is not a safeguard. It records what happened after the
@@ -213,6 +222,11 @@ const { pageTitle, pageDescription, eyebrow, title, description } =
       from no single institution, see the
       <a href="/incidents">composite scenarios</a>.
     </p>
+    <CitationBlock
+      title={`Casebook: ${title.charAt(0).toLowerCase()}${title.slice(1)}`}
+      permalink={permalink}
+      publication={publication}
+    />
   </SectionBlock>
 </BaseLayout>
 

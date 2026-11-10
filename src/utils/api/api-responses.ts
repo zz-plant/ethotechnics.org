@@ -1,6 +1,18 @@
+import {
+  casebookContent,
+  cases,
+  clauseHref,
+  learningVerdictLabels,
+  stateVariables,
+  type ClauseRef,
+} from "../../content/casebook";
 import { evalTestCases } from "../../content/eval-test-cases";
 import { evalsContent } from "../../content/evals";
 import { glossaryContent } from "../../content/glossary";
+import {
+  healthcareCasebookContent,
+  healthcareCases,
+} from "../../content/healthcare-casebook";
 import { libraryContent } from "../../content/library";
 import { researchContent } from "../../content/research";
 import { standardsContent } from "../../content/standards";
@@ -311,6 +323,47 @@ export const createPostMarketMonitoringResponse = () =>
     items: getPostMarketMonitoringForApi(),
     permalink: "/standards/enforceable-governance-crosswalks",
     release: releaseInfo,
+  });
+
+const withClauseLinks = <T extends { clauses: ClauseRef[] }>(finding: T) => ({
+  ...finding,
+  clauses: finding.clauses.map((ref) => ({ ...ref, href: clauseHref(ref) })),
+});
+
+/**
+ * The casebook as data. The healthcare cases sit under their own key with
+ * their admission rule, as they sit on their own page: they are not among
+ * `cases` and `meta.count` does not count them.
+ */
+export const createCasebookResponse = () =>
+  jsonResponse({
+    meta: {
+      generatedAt: API_GENERATED_AT,
+      count: cases.length,
+      permalink: casebookContent.permalink,
+      release: releaseInfo,
+      license: "CC BY-SA 4.0",
+      scoring:
+        "The findings are the court's, the inquiry's, or the regulator's. The scores are this project's reading of them.",
+    },
+    safeguards: stateVariables,
+    learningVerdicts: learningVerdictLabels,
+    cases: cases.map((entry) => ({
+      ...entry,
+      permalink: `${casebookContent.permalink}/${entry.slug}`,
+      findings: entry.findings.map(withClauseLinks),
+    })),
+    healthcare: {
+      permalink: healthcareCasebookContent.permalink,
+      count: healthcareCases.length,
+      admissionRule: healthcareCasebookContent.admissionRule,
+      scoring: healthcareCasebookContent.scoreStatement,
+      cases: healthcareCases.map((entry) => ({
+        ...entry,
+        permalink: `${healthcareCasebookContent.permalink}#${entry.slug}`,
+        findings: entry.findings.map(withClauseLinks),
+      })),
+    },
   });
 
 export const createGlossaryResponse = () =>

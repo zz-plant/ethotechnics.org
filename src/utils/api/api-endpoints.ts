@@ -50,6 +50,12 @@ export const API_ENDPOINTS = [
     group: "core",
   },
   {
+    path: "casebook.json",
+    description:
+      "Casebook cases with their six safeguard scores, time to halt, and primary sources.",
+    group: "core",
+  },
+  {
     path: "validators.json",
     description:
       "Validator definitions with inputs, thresholds, and clause mappings.",
