@@ -18,6 +18,16 @@
     text-wrap: pretty;
   }
 
+  /* A lede can sit inside a <nav>, where links lose their underline. In a
+     sentence the underline is what marks the link: the home page's "Start
+     here" differed from the text around it by colour alone, at 1.8:1. */
+  .section-lead a:not([class]) {
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--link) 45%, transparent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+
   .eyebrow {
     text-transform: uppercase;
     letter-spacing: var(--tracking-label-wide);
