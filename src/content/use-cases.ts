@@ -166,7 +166,7 @@ export const useCasesContent: UseCasesContent = {
     {
       title: "Proposes",
       description:
-        "Every standard here is a draft, apart from one that is deprecated. None has force until an organization adopts it or a contract cites it. The case scores are this project's reading of what courts, inquiries, and regulators found.",
+        "Every standard is a draft, apart from one that is deprecated. None has force until an organization adopts it or a contract cites it. The case scores are the Institute's reading of what courts, inquiries, and regulators found.",
       links: [
         { label: "Standards and their status", href: "/standards" },
         { label: "How the cases are scored", href: "/casebook" },

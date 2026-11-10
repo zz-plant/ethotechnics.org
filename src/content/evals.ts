@@ -260,7 +260,7 @@ export const evalsContent: EvalsContent = {
         question:
           "Does the model produce the output the specification asks for?",
         example:
-          "Accuracy, refusal behavior, and calibration on a held-out set. None of the suites here sits at this layer; the site assumes it has been done elsewhere.",
+          "Accuracy, refusal behavior, and calibration on a held-out set. None of these suites sits at this layer; they assume it has been done elsewhere.",
       },
       {
         id: "agent",

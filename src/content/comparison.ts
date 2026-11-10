@@ -29,7 +29,7 @@ export const commissionedWorkComparisonContent: CommissionedWorkComparisonConten
   {
     eyebrow: "Where to start",
     heading: "Run it yourself, or commission an evaluation?",
-    description: `Ethotechnics.org is the Institute: open guides and diagnostics you can run yourself. Commissioned safety evaluation for healthcare AI is ${commissionedWork.provider}'s own practice.`,
+    description: `The Institute publishes open guides and diagnostics you can run yourself. Commissioned safety evaluation for healthcare AI is ${commissionedWork.provider}'s own practice.`,
     cards: [
       {
         eyebrow: "Institute",
