@@ -11,7 +11,10 @@ preload = ["./src/test/preload.ts"]
 sourcemap = true
 
 [install]
-# Use lockfile for reproducible installs
-frozenLockfile = true
+# No global frozenLockfile. CI, the hooks and the docs run
+# `bun install --frozen-lockfile` explicitly, so their installs stay
+# reproducible. Set here, it also froze `bun update`, and every Dependabot
+# version update failed with "lockfile had changes, but lockfile is frozen"
+# (seen 2026-11-10).
 # Automatically install peer dependencies
 peer = true

@@ -15,6 +15,14 @@ Take:
 
 No new concept, glossary entry, standard or clause unless the owner names a problem the existing framework fails to express.
 
+One exception, added on 2026-11-10: evaluation work on three requirements is in scope.
+
+1. A person with standing can cause a consequential decision to be reconsidered.
+2. An institution detects and repairs a failure without making the affected person investigate it.
+3. A system can be interrupted, reversed or withdrawn when its authorization or the evidence for it becomes invalid.
+
+Testing one of these against a real workflow, and publishing the method and the result, is in scope, including a result where the requirement fails. Tests that concern healthcare AI run in zz-plant/fast-harm-slow-repair; this site publishes their results. Title these pull requests `eval: <what was tested>`.
+
 Decline the rest, and say in your reply that the repository is in maintenance:
 
 - new features, pages, tools, datasets or integrations;
