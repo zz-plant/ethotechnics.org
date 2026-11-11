@@ -6,8 +6,12 @@ Security updates apply to the `main` branch and the current production deploymen
 
 ## Reporting a Vulnerability
 
-Please report security issues privately by [opening a security advisory](https://github.com/zz-plant/ethotechnics.org/security/advisories/new). Do not open
-public issues for security vulnerabilities.
+Please report security issues privately by email to
+[security@ethotechnics.org](mailto:security@ethotechnics.org), with the subject line
+`[Vulnerability report]`, as the
+[vulnerability disclosure policy](https://ethotechnics.org/security/vulnerability-disclosure)
+and [`security.txt`](public/.well-known/security.txt) say. Do not open public issues for security
+vulnerabilities.
 
 When reporting, include:
 
