@@ -30,4 +30,18 @@ describe("contact addresses", () => {
     );
     expect(offenders).toEqual([]);
   });
+
+  // SECURITY.md is where GitHub sends a reporter. It sent them to the
+  // repository's private advisory form, which GitHub offers outsiders only
+  // while private vulnerability reporting is switched on, and it was off. The
+  // site's policy and security.txt name an inbox; SECURITY.md names the same.
+  it("gives SECURITY.md a reporting address security.txt publishes", () => {
+    const published = readFileSync("public/.well-known/security.txt", "utf8")
+      .split("\n")
+      .filter((line) => line.startsWith("Contact: mailto:"))
+      .map((line) => line.slice("Contact: mailto:".length).trim());
+    const policy = readFileSync("SECURITY.md", "utf8");
+    expect(published.length).toBeGreaterThan(0);
+    expect(published.some((address) => policy.includes(address))).toBe(true);
+  });
 });
