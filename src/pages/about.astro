@@ -272,25 +272,6 @@ for (const entry of cases) {
     </p>
   </section>
 
-  <section class="stack-sm card">
-    <p class="eyebrow">Institute and commissioned work</p>
-    <h2>How the Institute and commissioned work fit together</h2>
-    <p>
-      <strong>Ethotechnics Institute</strong> is the public, open-access commons:
-      standards, glossary, diagnostics, and field notes are free to use, cite, and
-      extend.
-    </p>
-    <p>
-      {commissionedWorkSummary} The Institute publishes the open framework; commissioned
-      work applies it to specific systems, for {commissionedWork.clients}.
-    </p>
-    <p>
-      <a href={commissionedWork.href} rel="noopener noreferrer" target="_blank">
-        {commissionedWork.linkLabel}<ActionIcon action="external" />
-      </a>
-    </p>
-  </section>
-
   {
     /* This page carried the scholarly-crossings note's three tables in full:
        nine pairings, eight completions, five counterpositions. They live on
@@ -384,6 +365,31 @@ for (const entry of cases) {
       across <a href="https://thecrumple.zone">The Crumple Zone</a>; the formal
       research program on burden accounting and performance decomposition is
       hosted at <a href="https://kanav.net/research/">kanav.net/research/</a>.
+    </p>
+  </section>
+
+  {
+    /* Paid work is a fact about who publishes this, not a step in the
+       argument; it sat between the underlying project and the scholarly
+       crossings and broke the case in two. It closes the page, beside the
+       citation. */
+  }
+  <section class="stack-sm card">
+    <p class="eyebrow">Institute and commissioned work</p>
+    <h2>How the Institute and commissioned work fit together</h2>
+    <p>
+      <strong>Ethotechnics Institute</strong> is the public, open-access commons:
+      standards, glossary, diagnostics, and field notes are free to use, cite, and
+      extend.
+    </p>
+    <p>
+      {commissionedWorkSummary} The Institute publishes the open framework; commissioned
+      work applies it to specific systems, for {commissionedWork.clients}.
+    </p>
+    <p>
+      <a href={commissionedWork.href} rel="noopener noreferrer" target="_blank">
+        {commissionedWork.linkLabel}<ActionIcon action="external" />
+      </a>
     </p>
   </section>
 

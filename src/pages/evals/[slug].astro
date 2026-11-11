@@ -115,6 +115,13 @@ const standardHref = (ref: string) => {
       </div>
     </div>
 
+    <div class="panel stack-sm">
+      <p class="eyebrow">Deliverables</p>
+      <ul class="card__list">
+        {suite.deliverables.map((d) => <li>{d}</li>)}
+      </ul>
+    </div>
+
     {
       suite.standardRefs.length > 0 && (
         <div class="panel stack-sm">
@@ -144,13 +151,6 @@ const standardHref = (ref: string) => {
         </div>
       )
     }
-
-    <div class="panel stack-sm">
-      <p class="eyebrow">Deliverables</p>
-      <ul class="card__list">
-        {suite.deliverables.map((d) => <li>{d}</li>)}
-      </ul>
-    </div>
   </SectionBlock>
 
   <SectionBlock

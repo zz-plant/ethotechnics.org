@@ -214,28 +214,6 @@ const mechanisms = collectUnique(matrix.flatMap((row) => row.mechanisms));
   publishedTime="2026-01-10T00:00:00.000Z"
   mainClass="page page--wide"
 >
-  <div class="callout">
-    <h2>Rights, validators, and mechanisms</h2>
-    <p class="muted">
-      The full catalogs link each right to the validators that test it and the
-      mechanisms that implement it.
-    </p>
-    <div class="library__role-buttons">
-      <a class="button primary library__role-button" href="/validators">
-        Run validators
-      </a>
-      <a class="button primary library__role-button" href="/mechanisms">
-        Browse mechanisms
-      </a>
-      <a
-        class="button primary library__role-button"
-        href="/standards/std-01-temporal-rights"
-      >
-        Read STD-01
-      </a>
-    </div>
-  </div>
-
   <SectionBlock
     id="matrix"
     eyebrow="Crosswalk"
@@ -488,6 +466,32 @@ const mechanisms = collectUnique(matrix.flatMap((row) => row.mechanisms));
       </li>
     </ul>
   </SectionBlock>
+
+  {
+    /* Three buttons to the full catalogs stood between the title and the
+       matrix they summarize. They follow it. */
+  }
+  <div class="callout">
+    <h2>Rights, validators, and mechanisms</h2>
+    <p class="muted">
+      The full catalogs link each right to the validators that test it and the
+      mechanisms that implement it.
+    </p>
+    <div class="library__role-buttons">
+      <a class="button primary library__role-button" href="/validators">
+        Run validators
+      </a>
+      <a class="button primary library__role-button" href="/mechanisms">
+        Browse mechanisms
+      </a>
+      <a
+        class="button primary library__role-button"
+        href="/standards/std-01-temporal-rights"
+      >
+        Read STD-01
+      </a>
+    </div>
+  </div>
 
   <SectionBlock
     id="citations"

@@ -18,6 +18,26 @@ const anchorLinks = [
 ];
 
 const essentials = [
+  // In the order of the map above: the guardrails before harm, then the
+  // clocks during review, then proof of remedy, then readiness.
+  {
+    title: "Constraints on discretionary holds",
+    description:
+      "Each hold has stated criteria, an owner, and a maximum duration, even during fraud or legal review.",
+    why: "A hold with no criteria and no limit cannot be told apart from a denial nobody has to explain.",
+    signals:
+      "Hold policies state the reasons, the clocks, and the appeal route. Exceptions are audited.",
+    ask: "What are the criteria for this hold, and when does it end?",
+  },
+  {
+    title: "Default provisional reinstatement",
+    description:
+      "When the evidence is incomplete, restore access for now while review continues.",
+    why: "If the decision turns out to be wrong, the person has lost less. This matters most for essential services.",
+    signals:
+      "The system can give limited access during review, and withdraw it if the decision stands.",
+    ask: "Can I have access back while you review my case?",
+  },
   {
     title: "Bounded pending",
     description:
@@ -36,15 +56,6 @@ const essentials = [
     ask: "By what date will my case be reviewed, and by what date put right?",
   },
   {
-    title: "Default provisional reinstatement",
-    description:
-      "When the evidence is incomplete, restore access for now while review continues.",
-    why: "If the decision turns out to be wrong, the person has lost less. This matters most for essential services.",
-    signals:
-      "The system can give limited access during review, and withdraw it if the decision stands.",
-    ask: "Can I have access back while you review my case?",
-  },
-  {
     title: "Clear escalation paths",
     description:
       "Name who can override the decision, and how a case reaches them.",
@@ -52,15 +63,6 @@ const essentials = [
     signals:
       "On-call rosters and each person's authority appear on receipts and in internal playbooks.",
     ask: "Who can override this decision, and how do I reach them?",
-  },
-  {
-    title: "Compensation or fee shifting",
-    description:
-      "A wrongful harm triggers credits, fee waivers, or repayment by a set date.",
-    why: "When errors cost the operator money, the operator has a reason to reduce them.",
-    signals:
-      "Each remedy record logs the amount repaid and the date it was paid.",
-    ask: "If this decision was wrong, what will you repay, and by when?",
   },
   {
     title: "Time-to-remedy distribution",
@@ -71,13 +73,13 @@ const essentials = [
     ask: "How long do the slowest cases like mine take to put right?",
   },
   {
-    title: "Constraints on discretionary holds",
+    title: "Compensation or fee shifting",
     description:
-      "Each hold has stated criteria, an owner, and a maximum duration, even during fraud or legal review.",
-    why: "A hold with no criteria and no limit cannot be told apart from a denial nobody has to explain.",
+      "A wrongful harm triggers credits, fee waivers, or repayment by a set date.",
+    why: "When errors cost the operator money, the operator has a reason to reduce them.",
     signals:
-      "Hold policies state the reasons, the clocks, and the appeal route. Exceptions are audited.",
-    ask: "What are the criteria for this hold, and when does it end?",
+      "Each remedy record logs the amount repaid and the date it was paid.",
+    ask: "If this decision was wrong, what will you repay, and by when?",
   },
   {
     title: "Reversal drills and error budgets",
@@ -220,6 +222,7 @@ const checklist = [
     description="Eight steps that put the mechanisms into policy, the UI, and operations."
   >
     <SummaryCallout
+      headingLevel={3}
       title="Order of work"
       description="Start with visible clocks and escalation owners. Add restitution and distribution tracking after."
       takeaways={checklist}

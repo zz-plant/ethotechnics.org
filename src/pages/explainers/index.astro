@@ -27,9 +27,16 @@ const featured = featuredExplainers.flatMap((id) => {
   const entry = explainers.find((explainer) => explainer.id === id);
   return entry ? [entry] : [];
 });
+// "A to Z" by the term, not the title: sorted on the title, every "What is
+// …?" fell to the end, ordered by its article.
+const sortKey = (title: string) =>
+  title
+    .replace(/^what (is|are) (an? |the )?/i, "")
+    .replace(/\?$/, "")
+    .toLowerCase();
 const rest = explainers
   .filter((entry) => !featuredExplainers.includes(entry.id))
-  .sort((a, b) => a.data.title.localeCompare(b.data.title));
+  .sort((a, b) => sortKey(a.data.title).localeCompare(sortKey(b.data.title)));
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>

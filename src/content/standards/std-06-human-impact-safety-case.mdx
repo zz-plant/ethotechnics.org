@@ -12,12 +12,12 @@ mainClass: "page page--wide standard-document"
 anchorLinks:
   - href: "#scope"
     label: "Scope"
-  - href: "#tiers"
-    label: "Tiered evidence model"
   - href: "#articles"
     label: "Articles I–V"
   - href: "#dependency"
     label: "Dependency and reversibility"
+  - href: "#tiers"
+    label: "Tiered evidence model"
   - href: "#publication-history"
     label: "Publication history"
 ---
@@ -142,33 +142,6 @@ export const structuredData = {
         <a href="/evidence-packs/std-06">STD-06 evidence pack</a>. This page
         states the obligations; the pack states what to hand an auditor.
 
-      </section>
-
-      <section id="tiers" class="standard-section">
-        <h2>Tiered evidence model</h2>
-
-        Evidence scales with how much the deployment is relied on. Tier 0 is
-        the floor for any consequential deployment. Tier 2 is expected of
-        deployments whose failure would be felt outside the operating team.
-
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Tier</th>
-              <th scope="col">What it proves</th>
-              <th scope="col">Evidence</th>
-            </tr>
-          </thead>
-          <tbody>
-            {tiers.map((entry) => (
-              <tr>
-                <td>{entry.tier}</td>
-                <td>{entry.proves}</td>
-                <td>{entry.evidence}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
       </section>
 
       <section id="articles" class="standard-section">
@@ -420,6 +393,33 @@ export const structuredData = {
         >
           <WithdrawalFigure client:visible />
         </DemoFigure>
+      </section>
+
+      <section id="tiers" class="standard-section">
+        <h2>Tiered evidence model</h2>
+
+        Evidence scales with how much the deployment is relied on. Tier 0 is
+        the floor for any consequential deployment. Tier 2 is expected of
+        deployments whose failure would be felt outside the operating team.
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Tier</th>
+              <th scope="col">What it proves</th>
+              <th scope="col">Evidence</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tiers.map((entry) => (
+              <tr>
+                <td>{entry.tier}</td>
+                <td>{entry.proves}</td>
+                <td>{entry.evidence}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </section>
 
       <section id="publication-history" class="standard-section">

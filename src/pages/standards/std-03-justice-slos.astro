@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
+import StandardPublicationHistory from "../../components/StandardPublicationHistory.astro";
 import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
 import { derivePublicationMetadata } from "../../utils/publication";
 
@@ -281,6 +282,7 @@ const publication = derivePublicationMetadata({
       </aside>
     </div>
   </article>
+  <StandardPublicationHistory slug="std-03-justice-slos" />
   <script type="application/ld+json" set:html={structuredDataJson} is:inline />
   <CitationBlock
     title={pageTitle}

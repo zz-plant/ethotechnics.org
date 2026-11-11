@@ -15,7 +15,6 @@ const {
   entries,
   latestUpdate,
   cadenceNote,
-  highlight,
 } = fieldNotesEntry.data;
 const anchorLinks = sections.map((section) => ({
   href: `#${section.format}`,
@@ -40,25 +39,22 @@ const latestUpdateLabel = formatMonth(latestUpdate);
     anchorLinks={anchorLinks}
     lastUpdated={latestUpdateLabel}
   />
-  <p class="muted small">{cadenceNote}</p>
-  <div class="callout field-notes__highlight">
-    <p class="eyebrow">Latest highlight</p>
-    <h2>{highlight.title}</h2>
-    <p class="muted">{highlight.summary}</p>
-    <p>{highlight.whyItMatters}</p>
-    <div class="actions">
-      <a class="button ghost" href={highlight.href}>
-        {highlight.ctaLabel}
-      </a>
-      <a class="button" href="/field-notes/rss.xml">Subscribe via RSS</a>
-    </div>
-  </div>
+  <p class="muted small">
+    {cadenceNote}
+    <a href="/field-notes/rss.xml">Subscribe via RSS</a>.
+  </p>
+  {
+    /* A "latest highlight" callout restated the newest note above the list
+       that opens with it, and the reading paths sat between the two copies.
+       The notes come first; the paths are where to go after them. */
+  }
+  <FieldNotesTabs sections={sections} entries={entries} />
   <section
     class="callout field-notes__paths"
     aria-labelledby="field-notes-paths-title"
   >
     <p class="eyebrow">Reading paths</p>
-    <h2 id="field-notes-paths-title">Or start from the task in front of you</h2>
+    <h2 id="field-notes-paths-title">Start from the task in front of you</h2>
     <div class="field-notes__path-grid">
       <a class="field-notes__path-item" href="/diagnostics#quick-triage">
         <span class="field-notes__path-label">Incident response path</span>
@@ -74,5 +70,4 @@ const latestUpdateLabel = formatMonth(latestUpdate);
       </a>
     </div>
   </section>
-  <FieldNotesTabs sections={sections} entries={entries} />
 </BaseLayout>

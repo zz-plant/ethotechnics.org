@@ -1,0 +1,43 @@
+---
+import { getStandardBySlug } from "../content/standards";
+import { formatDate } from "../utils/dates";
+
+interface Props {
+  slug: string;
+}
+
+// The status panel above the text printed every changelog entry, so a
+// standard opened on its own revision notes: 554px of them on STD-07 between
+// the clause register and Scope. The panel keeps the status and links here;
+// the history follows the text it revises.
+const { slug } = Astro.props;
+const standard = getStandardBySlug(slug);
+const entries = standard?.changelogEntries ?? [];
+---
+
+{
+  entries.length > 0 && (
+    <section
+      id="publication-history"
+      class="section standard-history stack-sm"
+      aria-labelledby="publication-history-title"
+    >
+      <h2 id="publication-history-title">Publication history</h2>
+      <ul class="muted standard-history__list">
+        {entries.map((entry) => (
+          <li>
+            <strong>
+              {entry.href ? (
+                <a href={entry.href}>v{entry.version}</a>
+              ) : (
+                `v${entry.version}`
+              )}{" "}
+              ({formatDate(entry.date)}):
+            </strong>{" "}
+            {entry.summary}
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}

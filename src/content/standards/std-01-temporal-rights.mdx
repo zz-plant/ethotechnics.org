@@ -11,14 +11,14 @@ anchorLinks:
     label: "Preamble"
   - href: "#execution-vs-redress"
     label: "Execution vs redress clocks"
-  - href: "#related-explainers"
-    label: "Related explainers"
-  - href: "#clause-schema"
-    label: "Clause schema"
-  - href: "#anti-patterns"
-    label: "Anti-patterns"
   - href: "#articles"
     label: "Articles I–VII"
+  - href: "#anti-patterns"
+    label: "Anti-patterns"
+  - href: "#clause-schema"
+    label: "Clause schema"
+  - href: "#related-explainers"
+    label: "Related explainers"
 ---
 
 import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
@@ -195,59 +195,6 @@ export const structuredData = {
         appeal to a human.
 
         <Std01MicroDiagram />
-      </section>
-
-      <section id="related-explainers" class="standard-section">
-        <h2>Related explainers</h2>
-
-        Short explainers on single rights, for policy and product teams.
-
-        <div class="grid grid--two">
-          {explainerLinks.map((explainer) => (
-            <article class="panel">
-              <p class="eyebrow">Explainer</p>
-
-              <strong>
-                <a href={explainer.href}>{explainer.title}</a>
-              </strong>
-
-              <p class="muted">{explainer.description}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section id="clause-schema" class="standard-section">
-        <h2>Clause schema (agent-readable)</h2>
-
-        Each clause can be expressed as a structured object, so an agent can
-        check compliance and request the evidence it names. The example is
-        §1.1 as the clause register holds it.
-
-        <pre class="code-block">{clauseSchema}</pre>
-      </section>
-
-      <section id="anti-patterns" class="standard-section">
-        <h2>Anti-patterns and counterfactuals</h2>
-
-        Two ways a system can appear to comply without complying, what
-        compliance looks like instead, and a caveat for each.
-
-        <ul class="standard-clauses">
-          {antiPatterns.map((pattern) => (
-            <li>
-              <strong>{pattern.title}:</strong> {pattern.failure}
-              <br />
-              <span class="muted">
-                Counterfactual: {pattern.counterfactual}
-              </span>
-              <br />
-              <span class="muted">
-                Caveat: {pattern.warning}
-              </span>
-            </li>
-          ))}
-        </ul>
       </section>
 
       <section id="articles" class="standard-section">
@@ -431,6 +378,64 @@ export const structuredData = {
             for existing tasks.
           </li>
         </ol>
+      </section>
+
+      {/* The explainer links, the clause schema, and the anti-patterns came
+          between the preamble and Article I: the schema's example is §1.1
+          before Article I states it, and both anti-patterns are failures of
+          articles the reader had not reached. They follow the articles. */}
+
+      <section id="anti-patterns" class="standard-section">
+        <h2>Anti-patterns and counterfactuals</h2>
+
+        Two ways a system can appear to comply without complying, what
+        compliance looks like instead, and a caveat for each.
+
+        <ul class="standard-clauses">
+          {antiPatterns.map((pattern) => (
+            <li>
+              <strong>{pattern.title}:</strong> {pattern.failure}
+              <br />
+              <span class="muted">
+                Counterfactual: {pattern.counterfactual}
+              </span>
+              <br />
+              <span class="muted">
+                Caveat: {pattern.warning}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section id="clause-schema" class="standard-section">
+        <h2>Clause schema (agent-readable)</h2>
+
+        Each clause can be expressed as a structured object, so an agent can
+        check compliance and request the evidence it names. The example is
+        §1.1 as the clause register holds it.
+
+        <pre class="code-block">{clauseSchema}</pre>
+      </section>
+
+      <section id="related-explainers" class="standard-section">
+        <h2>Related explainers</h2>
+
+        Short explainers on single rights, for policy and product teams.
+
+        <div class="grid grid--two">
+          {explainerLinks.map((explainer) => (
+            <article class="panel">
+              <p class="eyebrow">Explainer</p>
+
+              <strong>
+                <a href={explainer.href}>{explainer.title}</a>
+              </strong>
+
+              <p class="muted">{explainer.description}</p>
+            </article>
+          ))}
+        </div>
       </section>
     </div>
 

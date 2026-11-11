@@ -26,11 +26,15 @@ const { publication } = diagnosticsContent;
 const pageTitle = tool.title;
 const pageDescription = tool.metaDescription ?? tool.description;
 const permalink = `/diagnostics/${tool.slug}`;
+// The form comes first, as on every tool built on DiagnosticToolPage. The
+// prep list, the help offer, and the full method used to sit above it, about
+// 1,090 words before the first question, and the help offer came before the
+// reader had a result to need help with.
 const anchorLinks = [
-  { href: "#overview", label: "Overview" },
-  { href: "#methodology", label: "Methodology" },
   { href: "#run-tool", label: "Run the tool" },
   { href: "#results", label: "Results" },
+  { href: "#overview", label: "When to use it" },
+  { href: "#methodology", label: "Methodology" },
 ];
 ---
 
@@ -46,67 +50,6 @@ const anchorLinks = [
     description={tool.description}
     anchorLinks={anchorLinks}
   />
-
-  <SectionBlock
-    id="overview"
-    eyebrow="Overview"
-    title="When to use the corrective capacity self-assessment"
-    description={tool.bestFor}
-  >
-    <ul class="muted">
-      {tool.prepChecklist.map((item) => <li>{item}</li>)}
-    </ul>
-    <p class="muted">Estimated time: {tool.estimatedTime}</p>
-    <ReferenceCallout
-      title={diagnosticsOffRampCallout.title}
-      summary={diagnosticsOffRampCallout.summary}
-      href={diagnosticsOffRampCallout.href}
-      linkLabel={diagnosticsOffRampCallout.linkLabel}
-      ariaLabel={diagnosticsOffRampCallout.ariaLabel}
-    />
-    {
-      tool.commissionedNote && (
-        <p class="muted small">{tool.commissionedNote}</p>
-      )
-    }
-  </SectionBlock>
-
-  <SectionBlock
-    id="methodology"
-    eyebrow="Methodology"
-    title="What the system can do, and what can be corrected"
-    description="Action capacity is how fast the system's power to decide about people is growing. Corrective capacity is how well the institution hears and fixes its mistakes. The gap between them is the corrective debt."
-    variant="alt"
-  >
-    <DiagnosticMethodology
-      methodCards={tool.methodCards}
-      methodOverview={tool.methodOverview}
-      instrument={tool.instrument}
-      validation={tool.validation}
-      collectionCost={tool.collectionCost}
-      replicability={tool.replicability}
-    />
-    <div class="panel stack-sm">
-      <p class="eyebrow">The presumption this tool applies</p>
-      <p>
-        A recurring workaround is a <strong
-          >presumption of upstream design failure</strong
-        >, not evidence that adaptable humans can handle the edge cases. The
-        presumption is rebuttable: show that the workaround is a product of
-        preference rather than compensation. Until it is rebutted, repeated
-        adaptation counts as people covering for a system that will not change.
-      </p>
-      <p class="muted small">
-        Related:
-        <a href="/glossary/exception-learning">Exception learning</a> ·
-        <a href="/glossary/correction-capacity">Correction capacity</a> ·
-        <a href="/research/theory/absorption-as-concealment"
-          >Absorption as concealment</a
-        > ·
-        <a href="/research/theory/the-human-subsidy">The human subsidy</a>
-      </p>
-    </div>
-  </SectionBlock>
 
   <SectionBlock
     id="run-tool"
@@ -257,6 +200,67 @@ const anchorLinks = [
           <span data-button-label>Copy share link</span>
         </button>
       </div>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="overview"
+    eyebrow="Overview"
+    title="When to use the corrective capacity self-assessment"
+    description={tool.bestFor}
+  >
+    <ul class="muted">
+      {tool.prepChecklist.map((item) => <li>{item}</li>)}
+    </ul>
+    <p class="muted">Estimated time: {tool.estimatedTime}</p>
+    <ReferenceCallout
+      title={diagnosticsOffRampCallout.title}
+      summary={diagnosticsOffRampCallout.summary}
+      href={diagnosticsOffRampCallout.href}
+      linkLabel={diagnosticsOffRampCallout.linkLabel}
+      ariaLabel={diagnosticsOffRampCallout.ariaLabel}
+    />
+    {
+      tool.commissionedNote && (
+        <p class="muted small">{tool.commissionedNote}</p>
+      )
+    }
+  </SectionBlock>
+
+  <SectionBlock
+    id="methodology"
+    eyebrow="Methodology"
+    title="What the system can do, and what can be corrected"
+    description="Action capacity is how fast the system's power to decide about people is growing. Corrective capacity is how well the institution hears and fixes its mistakes. The gap between them is the corrective debt."
+    variant="alt"
+  >
+    <DiagnosticMethodology
+      methodCards={tool.methodCards}
+      methodOverview={tool.methodOverview}
+      instrument={tool.instrument}
+      validation={tool.validation}
+      collectionCost={tool.collectionCost}
+      replicability={tool.replicability}
+    />
+    <div class="panel stack-sm">
+      <p class="eyebrow">The presumption this tool applies</p>
+      <p>
+        A recurring workaround is a <strong
+          >presumption of upstream design failure</strong
+        >, not evidence that adaptable humans can handle the edge cases. The
+        presumption is rebuttable: show that the workaround is a product of
+        preference rather than compensation. Until it is rebutted, repeated
+        adaptation counts as people covering for a system that will not change.
+      </p>
+      <p class="muted small">
+        Related:
+        <a href="/glossary/exception-learning">Exception learning</a> ·
+        <a href="/glossary/correction-capacity">Correction capacity</a> ·
+        <a href="/research/theory/absorption-as-concealment"
+          >Absorption as concealment</a
+        > ·
+        <a href="/research/theory/the-human-subsidy">The human subsidy</a>
+      </p>
     </div>
   </SectionBlock>
 

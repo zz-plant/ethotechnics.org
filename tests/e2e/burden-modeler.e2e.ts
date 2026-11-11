@@ -28,13 +28,13 @@ test.describe("Burden Modeler page", () => {
     );
   });
 
-  test("renders the widget with header content", async ({ page }) => {
+  test("renders the widget under its section heading", async ({ page }) => {
     await page.goto(BURDEN_URL);
     await page.waitForLoadState("networkidle");
 
-    const widget = page.locator("[data-burden-modeler]");
-    await expect(widget).toBeVisible();
-    await expect(widget.getByRole("heading", { level: 2 })).toContainText(
+    const section = page.locator("#run-tool");
+    await expect(section.locator("[data-burden-modeler]")).toBeVisible();
+    await expect(section.getByRole("heading", { level: 2 })).toContainText(
       "See where the workload piles up",
     );
   });

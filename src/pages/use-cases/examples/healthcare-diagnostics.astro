@@ -14,7 +14,9 @@ const pageTitle = "Healthcare diagnostic AI: implementation comparison";
 const pageDescription =
   "Diagnostic AI governed two ways: lifecycle review, or overrides counted against the model's rule, patient challenges answered by a date, and a named halt.";
 const permalink = "/use-cases/examples/healthcare-diagnostics";
-const anchorLinks = implementationExampleAnchorLinks;
+const anchorLinks = implementationExampleAnchorLinks.filter(
+  (link) => link.href !== "#standard",
+);
 const publication = createImplementationPublication(
   permalink,
   "Published the healthcare diagnostic implementation comparison.",
@@ -33,30 +35,22 @@ const publication = createImplementationPublication(
     anchorLinks={anchorLinks}
   />
 
+  {
+    /* Standard governance had a section of its own after this one, a
+       five-item list that the overview had already summed up in a line and
+       dismissed. The list comes first here, then where it breaks down, as on
+       the public services comparison. */
+  }
   <SectionBlock
     id="overview"
     eyebrow="Overview"
-    title="Where governance breaks down"
+    title="Standard governance, and where it breaks down"
     description="When overriding a diagnostic model is slow or informal, the patients it misreads most keep getting misread."
   >
     <p>
-      Standard governance emphasizes validation, monitoring, and clinician
-      oversight. Ethotechnics asks who can override a recommendation, how fast a
-      wrong one is reversed, and whether clinicians' overrides are counted as
-      evidence against the model's rule instead of absorbed one patient at a
-      time. Two healthcare cases, a sepsis alert and a risk score that chose
-      patients for extra care, are
-      <a href="/casebook/healthcare-ai">scored as drafts</a>.
+      Standard governance relies on lifecycle controls that often move slower
+      than clinical decision windows:
     </p>
-  </SectionBlock>
-
-  <SectionBlock
-    id="standard"
-    eyebrow="Standard governance"
-    title="What standard AI governance implements"
-    description="Lifecycle controls that often move slower than clinical decision windows."
-    variant="alt"
-  >
     <ul class="card__list">
       <li>Pre-deployment validation and ongoing bias monitoring.</li>
       <li>Explainability layers to surface contributing clinical factors.</li>
@@ -64,6 +58,14 @@ const publication = createImplementationPublication(
       <li>Clinician override protocols for exceptions and edge cases.</li>
       <li>Periodic retraining when disparate impact is detected.</li>
     </ul>
+    <p>
+      Ethotechnics asks who can override a recommendation, how fast a wrong one
+      is reversed, and whether clinicians' overrides are counted as evidence
+      against the model's rule instead of absorbed one patient at a time. Two
+      healthcare cases, a sepsis alert and a risk score that chose patients for
+      extra care, are
+      <a href="/casebook/healthcare-ai">scored as drafts</a>.
+    </p>
   </SectionBlock>
 
   <SectionBlock
@@ -71,6 +73,7 @@ const publication = createImplementationPublication(
     eyebrow="Ethotechnics implementation"
     title="What changes, and what to verify before launch"
     description="Clinicians' overrides are recorded and counted against the model's rule."
+    variant="alt"
   >
     <div class="stack-sm">
       <ul class="card__list">

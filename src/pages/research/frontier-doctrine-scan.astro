@@ -18,12 +18,16 @@ const pageDescription =
 const anchorLinks = [
   { href: "#disclaimer", label: "What this scores" },
   { href: "#scale", label: "Scale" },
-  { href: "#overall", label: "Overall fit" },
-  { href: "#by-law", label: "Law by law" },
   { href: "#law-averages", label: "Law averages" },
   { href: "#what-this-means", label: "What this means" },
+  { href: "#overall", label: "Overall fit" },
+  { href: "#by-law", label: "Law by law" },
   { href: "#sources", label: "Sources" },
 ];
+// The finding (which laws the labs cover and which almost none do) and its
+// consequence come before the lab ranking and the 10-by-12 matrix, which
+// are the data behind it. The ranking's notes use "first-generation", which
+// the averages table defines.
 const publishedTime = `${scan.published}T00:00:00.000Z`;
 const publication = derivePublicationMetadata({
   permalink: scan.permalink,
@@ -102,95 +106,6 @@ const formatAverage = (value: number) => value.toFixed(1);
         </tbody>
       </table>
     </div>
-  </SectionBlock>
-
-  <SectionBlock
-    id="overall"
-    eyebrow="Overall"
-    title="Overall fit by lab"
-    description="Fit to the twelve laws as a whole, on public doctrine and product architecture. Higher is closer to the laws. It is not a safety ranking."
-  >
-    <div
-      class="mapping-table__wrapper"
-      tabindex="0"
-      role="region"
-      aria-label="Overall fit by lab"
-    >
-      <table class="mapping-table">
-        <thead>
-          <tr>
-            <th scope="col">Lab</th>
-            <th scope="col">Overall fit (0 to 10)</th>
-            <th scope="col">Characterization</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            scan.labs.map((lab) => (
-              <tr>
-                <th scope="row">{lab.name}</th>
-                <td>{formatAverage(lab.overall)}</td>
-                <td>{lab.characterization}</td>
-              </tr>
-            ))
-          }
-        </tbody>
-      </table>
-    </div>
-  </SectionBlock>
-
-  <SectionBlock
-    id="by-law"
-    eyebrow="Law by law"
-    title="Scores by lab and law"
-    description="Columns are Laws I to XII in order. The table scrolls sideways on narrow screens."
-    variant="alt"
-  >
-    <div
-      class="mapping-table__wrapper"
-      tabindex="0"
-      role="region"
-      aria-label="Scores by lab and law"
-    >
-      <table class="mapping-table">
-        <thead>
-          <tr>
-            <th scope="col">Lab</th>
-            {
-              LAW_NUMERALS.map((numeral) => (
-                <th scope="col" title={lawByNumeral.get(numeral)?.statement}>
-                  {numeral}
-                </th>
-              ))
-            }
-          </tr>
-        </thead>
-        <tbody>
-          {
-            scan.labs.map((lab) => (
-              <tr>
-                <th scope="row">{lab.name}</th>
-                {lab.scores.map((score) => (
-                  <td>{score}</td>
-                ))}
-              </tr>
-            ))
-          }
-        </tbody>
-      </table>
-    </div>
-    <details>
-      <summary>Law statements</summary>
-      <ol>
-        {
-          scan.laws.map((law) => (
-            <li>
-              <strong>{law.numeral}.</strong> {law.statement}
-            </li>
-          ))
-        }
-      </ol>
-    </details>
   </SectionBlock>
 
   <SectionBlock
@@ -287,6 +202,95 @@ const formatAverage = (value: number) => value.toFixed(1);
       laws themselves are stated on the{" "}
       <a href="/standards/laws">laws page</a>.
     </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="overall"
+    eyebrow="Overall"
+    title="Overall fit by lab"
+    description="Fit to the twelve laws as a whole, on public doctrine and product architecture. Higher is closer to the laws. It is not a safety ranking."
+  >
+    <div
+      class="mapping-table__wrapper"
+      tabindex="0"
+      role="region"
+      aria-label="Overall fit by lab"
+    >
+      <table class="mapping-table">
+        <thead>
+          <tr>
+            <th scope="col">Lab</th>
+            <th scope="col">Overall fit (0 to 10)</th>
+            <th scope="col">Characterization</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            scan.labs.map((lab) => (
+              <tr>
+                <th scope="row">{lab.name}</th>
+                <td>{formatAverage(lab.overall)}</td>
+                <td>{lab.characterization}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="by-law"
+    eyebrow="Law by law"
+    title="Scores by lab and law"
+    description="Columns are Laws I to XII in order. The table scrolls sideways on narrow screens."
+    variant="alt"
+  >
+    <div
+      class="mapping-table__wrapper"
+      tabindex="0"
+      role="region"
+      aria-label="Scores by lab and law"
+    >
+      <table class="mapping-table">
+        <thead>
+          <tr>
+            <th scope="col">Lab</th>
+            {
+              LAW_NUMERALS.map((numeral) => (
+                <th scope="col" title={lawByNumeral.get(numeral)?.statement}>
+                  {numeral}
+                </th>
+              ))
+            }
+          </tr>
+        </thead>
+        <tbody>
+          {
+            scan.labs.map((lab) => (
+              <tr>
+                <th scope="row">{lab.name}</th>
+                {lab.scores.map((score) => (
+                  <td>{score}</td>
+                ))}
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <details>
+      <summary>Law statements</summary>
+      <ol>
+        {
+          scan.laws.map((law) => (
+            <li>
+              <strong>{law.numeral}.</strong> {law.statement}
+            </li>
+          ))
+        }
+      </ol>
+    </details>
   </SectionBlock>
 
   <SectionBlock

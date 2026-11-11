@@ -35,7 +35,7 @@ export const incidentLessonsIntro: IncidentLessonsIntro = {
   eyebrow: "Composite scenarios",
   title: "Failure patterns, each drawn from many systems",
   description:
-    "These are composites. None reports on a named institution or a dated event. Each names the control that was missing, the signal that would have shown it, and the fix. For failures a court, an inquiry, or a regulator established, see the casebook.",
+    "These are composites. None reports on a named institution or a dated event. Each names the control that was missing, the signal that would have shown it, and the fix. The records linked under each scenario are this site's templates and schemas for what it was missing, not its sources. For failures a court, an inquiry, or a regulator established, see the casebook.",
 };
 
 export const incidentLessons: IncidentLesson[] = [

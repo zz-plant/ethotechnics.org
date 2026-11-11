@@ -132,11 +132,11 @@ const pageDescription =
           <article class="role-card" id={role.id}>
             <div class="role-card__header">
               <span class="role-card__badge">{role.label}</span>
-              <h2 class="role-card__title">
+              <h3 class="role-card__title">
                 <a href={rolePermalink(role.id)}>
                   {role.who.replace(/\.$/, "")}
                 </a>
-              </h2>
+              </h3>
               <p class="role-card__tagline">{role.tagline}</p>
             </div>
           </article>
@@ -189,19 +189,6 @@ const pageDescription =
         </article>
       </div>
     </div>
-
-    <!-- Industry translation guide -->
-    <section id="translation" class="start-translation stack-sm">
-      <div class="start-translation__header">
-        <p class="eyebrow">Vocabulary crosswalk</p>
-        <h2>Industry translation guide</h2>
-        <p class="section-lead">
-          Compare common AI terms with the controls and records the standards
-          ask for. Each card names a check you can make.
-        </p>
-      </div>
-      <RosettaStone />
-    </section>
 
     <!-- Fast-path adoption (one sprint) -->
     <section id="fast-path" class="fast-path-section">
@@ -336,6 +323,19 @@ const pageDescription =
           </ul>
         </div>
       </div>
+    </section>
+
+    <!-- Industry translation guide -->
+    <section id="translation" class="start-translation stack-sm">
+      <div class="start-translation__header">
+        <p class="eyebrow">Vocabulary crosswalk</p>
+        <h2>Industry translation guide</h2>
+        <p class="section-lead">
+          Compare common AI terms with the controls and records the standards
+          ask for. Each card names a check you can make.
+        </p>
+      </div>
+      <RosettaStone />
     </section>
   </section>
 </BaseLayout>

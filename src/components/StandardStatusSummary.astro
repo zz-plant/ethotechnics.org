@@ -1,6 +1,6 @@
 ---
 import { getStandardBySlug } from "../content/standards";
-import { formatDate, formatDatesInText } from "../utils/dates";
+import { formatDatesInText } from "../utils/dates";
 
 interface Props {
   slug: string;
@@ -32,25 +32,13 @@ const statusClass = standard.status.toLowerCase();
   </p>
   <p class="muted small">Stable criteria: {standard.stableCriteria}</p>
   {
-    standard.changelogEntries && standard.changelogEntries.length > 0 && (
-      <ul class="muted small standard-status__changelog">
-        {standard.changelogEntries.map((entry) => (
-          <li>
-            {entry.href ? (
-              <a href={entry.href}>v{entry.version}</a>
-            ) : (
-              `v${entry.version}`
-            )}{" "}
-            ({formatDate(entry.date)}): {entry.summary}
-          </li>
-        ))}
-      </ul>
-    )
+    /* The changelog entries were listed here, above the text they revise.
+       They are under "Publication history" at the end of the standard. */
   }
   {
     standard.changelogHref && (
       <p class="small">
-        <a href={standard.changelogHref}>View changelog &rarr;</a>
+        <a href={standard.changelogHref}>Publication history &rarr;</a>
       </p>
     )
   }

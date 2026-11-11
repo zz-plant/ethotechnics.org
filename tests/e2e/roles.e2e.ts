@@ -42,9 +42,15 @@ test.describe("Role pages", () => {
         await expect(page.locator("#focus li")).toHaveCount(
           role.guide.focusAreas.length,
         );
+        // A reading link the first steps already give is not listed again
+        // under "What to open", so it may appear in either section.
         for (const link of role.guide.keyLinks) {
           await expect(
-            page.locator(`#tools a[href="${link.href}"]`),
+            page
+              .locator(
+                `#tools a[href="${link.href}"], #first-moves a[href="${link.href}"]`,
+              )
+              .first(),
           ).toBeVisible();
         }
       } else {

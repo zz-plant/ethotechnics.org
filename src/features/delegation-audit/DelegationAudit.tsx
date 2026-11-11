@@ -951,9 +951,9 @@ export function DelegationAudit() {
           </div>
 
           <div className="delegation-audit__step">
-            <h3 className="delegation-audit__step-title">
+            <h4 className="delegation-audit__step-title">
               Rating for each question
-            </h3>
+            </h4>
             <ul className="delegation-audit__variables">
               {result.variables.map((variable) => (
                 <li
@@ -961,7 +961,7 @@ export function DelegationAudit() {
                   className={`delegation-audit__variable delegation-audit__variable--${variable.rating}`}
                 >
                   <div className="delegation-audit__variable-header">
-                    <h4 className="delegation-audit__variable-name sv">
+                    <h5 className="delegation-audit__variable-name sv">
                       <svg
                         className="sv__glyph"
                         width="1.1em"
@@ -972,7 +972,7 @@ export function DelegationAudit() {
                         <use href={`#sv-${variable.id}`} />
                       </svg>
                       <span className="sv__label">{variable.label}</span>
-                    </h4>
+                    </h5>
                     <span className="delegation-audit__pill">
                       {variable.rating} · {variable.score}/100
                     </span>
@@ -988,9 +988,9 @@ export function DelegationAudit() {
           </div>
 
           <div className="delegation-audit__step">
-            <h3 className="delegation-audit__step-title">
+            <h4 className="delegation-audit__step-title">
               Permissions nobody can justify
-            </h3>
+            </h4>
             <p className="delegation-audit__step-question">
               Actions nobody authorized, with no evidence behind them, or with
               nobody named as the people they decide about.
@@ -1014,9 +1014,9 @@ export function DelegationAudit() {
           </div>
 
           <div className="delegation-audit__step">
-            <h3 className="delegation-audit__step-title">
+            <h4 className="delegation-audit__step-title">
               Reversibility verdict
-            </h3>
+            </h4>
             <ul className="delegation-audit__ladder">
               {result.reversibility.levels.map((level) => (
                 <li
@@ -1043,7 +1043,7 @@ export function DelegationAudit() {
           </div>
 
           <div className="delegation-audit__step">
-            <h3 className="delegation-audit__step-title">Findings</h3>
+            <h4 className="delegation-audit__step-title">Findings</h4>
             {result.findings.length === 0 ? (
               <p className="delegation-audit__note">
                 Nothing flagged from the answers given.
@@ -1052,9 +1052,9 @@ export function DelegationAudit() {
               <ul className="delegation-audit__variables">
                 {result.findings.map((finding) => (
                   <li key={finding.id} className="delegation-audit__variable">
-                    <h4 className="delegation-audit__variable-name">
+                    <h5 className="delegation-audit__variable-name">
                       {finding.title}
-                    </h4>
+                    </h5>
                     <p className="delegation-audit__note">{finding.detail}</p>
                     <div className="delegation-audit__refs">
                       <a href={finding.clause.href}>{finding.clause.label}</a>

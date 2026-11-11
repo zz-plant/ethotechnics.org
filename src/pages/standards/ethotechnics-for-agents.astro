@@ -102,12 +102,60 @@ const publication = derivePublicationMetadata({
     </dl>
   </SectionBlock>
 
+  {
+    /* "In order, before anything else" was the last section, after every
+       artifact. It follows the snapshot now, and the six practices come
+       before the receipt schema, challenge surface, and other artifacts
+       that meet them. */
+  }
+  <SectionBlock
+    id="fast-path"
+    eyebrow="Fast path"
+    title="Minimum viable integration"
+    description="In order, before anything else."
+    variant="alt"
+  >
+    <ol class="standard-clauses">
+      <li>
+        Ship{" "}
+        <a href="/mechanisms/patterns/decision-log">Decision log (MEC-01)</a>
+        {" "}
+        with dissent and owner sign-off.
+      </li>
+      <li>
+        Implement{" "}
+        <a href="/mechanisms/patterns/kill-switch">Kill switch (MEC-05)</a>
+        {" "}
+        with rollback criteria and on-call authority.
+      </li>
+      <li>
+        Embed{" "}
+        <a href="/mechanisms/patterns/appeal-paths">Appeal paths (MEC-06)</a>
+        {" "}
+        in the UI with clocks and an escalation ladder.
+      </li>
+      <li>
+        Emit receipts using the canonical schema, and publish deadlines in the
+        UI.
+      </li>
+      <li>
+        Register action classes with reversible/irreversible flags and
+        approvals.
+      </li>
+      <li>
+        Publish the{" "}
+        <a href="/agents/spec">Agent Safety Object Model</a>
+        {" "}
+        for machine-verifiable controls.
+      </li>
+    </ol>
+  </SectionBlock>
+
   <SectionBlock
     id="what-this-is"
     eyebrow="What this is"
     title="A practice, not a philosophy"
     description="Requirements, artifacts, and checks for teams that build and run agents."
-    variant="alt"
   >
     <p>
       Ethotechnics for agents is a practice. It turns safety and ethics goals
@@ -125,6 +173,7 @@ const publication = derivePublicationMetadata({
     eyebrow="Core premise"
     title="Agents are actors, and humans live with the outcomes"
     description="Any acting system must define its constraints and how operators and the people it decides about can challenge what it does."
+    variant="alt"
   >
     <p>Any system that can act must define:</p>
     <ul class="standard-clauses">
@@ -205,12 +254,65 @@ const publication = derivePublicationMetadata({
     </div>
   </SectionBlock>
 
+  {
+    practiceSections.map((section, index) => (
+      <SectionBlock
+        id={section.id}
+        eyebrow={section.eyebrow}
+        title={section.title}
+        description={section.summary}
+        variant={index % 2 === 1 ? "alt" : undefined}
+      >
+        <div class="grid grid--two">
+          <div>
+            <p class="eyebrow">Required specifications</p>
+            <ul class="standard-clauses">
+              {section.requirements.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+          {section.signals && (
+            <div>
+              <p class="eyebrow">Required signals</p>
+              <ul class="standard-clauses">
+                {section.signals.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+
+        <div class="grid grid--two">
+          <div class="panel">
+            <p class="eyebrow">Mapped mechanisms</p>
+            <ul class="muted">
+              {section.mechanisms.map((mechanism) => (
+                <li>
+                  <a href={mechanism.href}>{mechanism.title}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div class="panel">
+            <p class="eyebrow">Coverage gaps</p>
+            <ul class="muted">
+              {section.gaps.map((gap) => (
+                <li>{gap}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </SectionBlock>
+    ))
+  }
+
   <SectionBlock
     id="receipt-schema"
     eyebrow="P0 artifact"
     title="Canonical agent receipt schema (JSON)"
     description="Every other control reads the receipt, so keep it stable and versioned."
-    variant="alt"
   >
     <p>
       Publish a single canonical schema and emit it everywhere a decision
@@ -297,6 +399,7 @@ const publication = derivePublicationMetadata({
     eyebrow="P0 artifact"
     title="Action-class taxonomy template"
     description="Define allowed actions, reversibility, and default approval gates."
+    variant="alt"
   >
     <p>
       Action classes make enforcement legible. Attach reversibility, clocks, and
@@ -345,7 +448,6 @@ const publication = derivePublicationMetadata({
     eyebrow="P1 artifact"
     title="Challenge surface: minimum shipping spec"
     description="The UI patterns, copy, and escalation ladder a person needs to challenge a decision."
-    variant="alt"
   >
     <div class="grid grid--two">
       <div class="panel">
@@ -396,6 +498,7 @@ const publication = derivePublicationMetadata({
     eyebrow="P1 artifact"
     title="Agent exception policy (explicit and bounded)"
     description="How the bounded exceptions framework applies to agents."
+    variant="alt"
   >
     <ul class="standard-clauses">
       <li>
@@ -419,66 +522,11 @@ const publication = derivePublicationMetadata({
     </ul>
   </SectionBlock>
 
-  {
-    practiceSections.map((section, index) => (
-      <SectionBlock
-        id={section.id}
-        eyebrow={section.eyebrow}
-        title={section.title}
-        description={section.summary}
-        variant={index % 2 === 0 ? "alt" : undefined}
-      >
-        <div class="grid grid--two">
-          <div>
-            <p class="eyebrow">Required specifications</p>
-            <ul class="standard-clauses">
-              {section.requirements.map((item) => (
-                <li>{item}</li>
-              ))}
-            </ul>
-          </div>
-          {section.signals && (
-            <div>
-              <p class="eyebrow">Required signals</p>
-              <ul class="standard-clauses">
-                {section.signals.map((item) => (
-                  <li>{item}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-
-        <div class="grid grid--two">
-          <div class="panel">
-            <p class="eyebrow">Mapped mechanisms</p>
-            <ul class="muted">
-              {section.mechanisms.map((mechanism) => (
-                <li>
-                  <a href={mechanism.href}>{mechanism.title}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div class="panel">
-            <p class="eyebrow">Coverage gaps</p>
-            <ul class="muted">
-              {section.gaps.map((gap) => (
-                <li>{gap}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </SectionBlock>
-    ))
-  }
-
   <SectionBlock
     id="signal-integrity"
     eyebrow="P1 artifact"
     title="Anti-gaming guidance for required signals"
     description="Assume teams will optimize metrics. Instrument what detects gaming."
-    variant="alt"
   >
     <div
       class="mapping-table__wrapper"
@@ -523,6 +571,7 @@ const publication = derivePublicationMetadata({
     eyebrow="P2 artifact"
     title="Control checklist for deployment gates"
     description="A go/no-go gate for agent rollout."
+    variant="alt"
   >
     <p>Copy-paste this checklist into your deployment template or runbook.</p>
     <pre class="code-block">{controlChecklist}</pre>
@@ -533,7 +582,6 @@ const publication = derivePublicationMetadata({
     eyebrow="P2 artifact"
     title="Agent Safety Object Model (machine-readable)"
     description="A minimal JSON index that CI systems can validate."
-    variant="alt"
   >
     <p>
       Publish a machine-readable index at{" "}
@@ -551,6 +599,7 @@ const publication = derivePublicationMetadata({
     eyebrow="Boundary"
     title="What this practice does and does not do"
     description="It does not remove tradeoffs. It records who made each one."
+    variant="alt"
   >
     <p>
       This practice does not eliminate tradeoffs or value conflicts. It keeps
@@ -561,49 +610,6 @@ const publication = derivePublicationMetadata({
       If a system lacks clear constraints, control surfaces, or named owners, it
       has not yet translated ethics into operations.
     </p>
-  </SectionBlock>
-
-  <SectionBlock
-    id="fast-path"
-    eyebrow="Fast path"
-    title="Minimum viable integration"
-    description="In order, before anything else."
-    variant="alt"
-  >
-    <ol class="standard-clauses">
-      <li>
-        Ship{" "}
-        <a href="/mechanisms/patterns/decision-log">Decision log (MEC-01)</a>
-        {" "}
-        with dissent and owner sign-off.
-      </li>
-      <li>
-        Implement{" "}
-        <a href="/mechanisms/patterns/kill-switch">Kill switch (MEC-05)</a>
-        {" "}
-        with rollback criteria and on-call authority.
-      </li>
-      <li>
-        Embed{" "}
-        <a href="/mechanisms/patterns/appeal-paths">Appeal paths (MEC-06)</a>
-        {" "}
-        in the UI with clocks and an escalation ladder.
-      </li>
-      <li>
-        Emit receipts using the canonical schema, and publish deadlines in the
-        UI.
-      </li>
-      <li>
-        Register action classes with reversible/irreversible flags and
-        approvals.
-      </li>
-      <li>
-        Publish the{" "}
-        <a href="/agents/spec">Agent Safety Object Model</a>
-        {" "}
-        for machine-verifiable controls.
-      </li>
-    </ol>
   </SectionBlock>
 
   {/* IDs a site search should match to this page. */}

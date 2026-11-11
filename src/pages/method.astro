@@ -28,14 +28,14 @@ const {
 const anchorLinks = [
   { href: "#definition", label: "Definition" },
   { href: "#stack", label: "How the parts fit" },
-  { href: "#sequence", label: "Applying it" },
   { href: "#chain", label: "The chain" },
   { href: "#circuits", label: "The circuits" },
   { href: "#state-variables", label: "The safeguards" },
   { href: "#laws", label: "The laws" },
   { href: "#incompatible", label: "Sentences that block repair" },
-  { href: "#lenses", label: "The lenses" },
   { href: "#optimization", label: "The optimization problem" },
+  { href: "#lenses", label: "The lenses" },
+  { href: "#sequence", label: "Applying it" },
 ];
 
 const chainSummary = chain.map((stage) => stage.title).join(" → ");
@@ -170,26 +170,6 @@ const substituteJustifications = [
     description="The object is the delegation. The failure is absorption: evidence that a delegation is wrong gets settled case by case and the rule goes unexamined. The instrument is the record. Read the stack from the top: each layer turns the one above it into something a running system can fail."
   >
     <MethodStack />
-  </SectionBlock>
-
-  <SectionBlock
-    id="sequence"
-    eyebrow="Applying it"
-    title="Applying it, one workflow at a time"
-    description="The method is not adopted at the scale of an organization. It is adopted one workflow at a time, and a different workflow each week produces a cross-section of where burden lands."
-  >
-    <ol class="step-list stack-sm">
-      {
-        applicationSequence.map((step) => (
-          <li>
-            <strong>{step.title}.</strong> {step.detail}
-          </li>
-        ))
-      }
-    </ol>
-    <p class="small muted">
-      Step three uses one of the <a href="#lenses">three lenses</a>.
-    </p>
   </SectionBlock>
 
   <SectionBlock
@@ -332,6 +312,26 @@ const substituteJustifications = [
   </SectionBlock>
 
   <SectionBlock
+    id="optimization"
+    eyebrow="The optimization problem"
+    title="What the method optimizes"
+    description={optimizationProblem}
+  >
+    <p>
+      Many familiar projects make an institution better at deciding without
+      asking whether it should decide: fairer scores, better explanations,
+      faster appeals that still fix one case at a time.
+      <a href="/low-leverage">Eleven of them, and what replaces each</a>.
+    </p>
+  </SectionBlock>
+
+  {
+    /* The application steps came third, before the chain, the safeguards,
+       and the lenses they apply; step three sent the reader to the end of
+       the page. They close it now, after the lenses. */
+  }
+
+  <SectionBlock
     id="lenses"
     eyebrow="The lenses"
     title="Ways to account for who carries the burden"
@@ -351,19 +351,25 @@ const substituteJustifications = [
   </SectionBlock>
 
   <SectionBlock
-    id="optimization"
-    eyebrow="The optimization problem"
-    title="What the method optimizes"
-    description={optimizationProblem}
+    id="sequence"
+    eyebrow="Applying it"
+    title="Applying it, one workflow at a time"
+    description="The method is not adopted at the scale of an organization. It is adopted one workflow at a time, and a different workflow each week produces a cross-section of where burden lands."
   >
-    <p>
-      Many familiar projects make an institution better at deciding without
-      asking whether it should decide: fairer scores, better explanations,
-      faster appeals that still fix one case at a time.
-      <a href="/low-leverage">Eleven of them, and what replaces each</a>.
+    <ol class="step-list stack-sm">
+      {
+        applicationSequence.map((step) => (
+          <li>
+            <strong>{step.title}.</strong> {step.detail}
+          </li>
+        ))
+      }
+    </ol>
+    <p class="small muted">
+      Step three uses one of the <a href="#lenses">three lenses</a> above.
     </p>
     <div class="section__actions">
-      <a class="button primary" href="#lenses">Apply the lenses</a>
+      <a class="button primary" href="/use-cases">Which systems this is for</a>
       <a class="button ghost" href="/start">Pick a path</a>
     </div>
   </SectionBlock>

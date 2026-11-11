@@ -7,6 +7,7 @@ import StandardsLayout from "../../components/StandardsLayout.astro";
 import ClauseRegister from "../../components/ClauseRegister.astro";
 import GrantStateDiagram from "../../components/GrantStateDiagram.astro";
 import StandardPager from "../../components/StandardPager.astro";
+import StandardPublicationHistory from "../../components/StandardPublicationHistory.astro";
 import { standardsContent } from "../../content/standards";
 import { derivePublicationMetadata } from "../../utils/publication";
 import { compareRegistryToDocument } from "../../utils/clause-registry";
@@ -46,6 +47,7 @@ const clausePartLabels: Record<string, Record<string, string>> = {
     "3": "Article III: Dependence and invalidation",
     "4": "Article IV: Standing and contest",
     "5": "Article V: Integrity",
+    "6": "Article VI: Developmental impact",
   },
   "STD-08": {
     "1": "Part A: Authority as lease",
@@ -83,6 +85,13 @@ const hasClauseRegister = Boolean(
   compareRegistryToDocument(standardId, entry.body).matches,
 );
 
+// STD-02, STD-06, and STD-09 write their own publication history into the
+// text; every other registered standard gets the registry's, after the text.
+const hasOwnHistory = Boolean(entry.body?.includes('id="publication-history"'));
+const showRegistryHistory = Boolean(
+  registryEntry?.changelogEntries?.length && !hasOwnHistory,
+);
+
 const resolvedAnchorLinks = [...(data.anchorLinks ?? [])];
 if (
   hasClauseRegister &&
@@ -91,6 +100,15 @@ if (
   resolvedAnchorLinks.unshift({
     href: "#clause-register",
     label: "Clause register",
+  });
+}
+if (
+  showRegistryHistory &&
+  !resolvedAnchorLinks.some((link) => link.href === "#publication-history")
+) {
+  resolvedAnchorLinks.push({
+    href: "#publication-history",
+    label: "Publication history",
   });
 }
 ---
@@ -130,7 +148,12 @@ if (
   <div class:list={{ "laws-essay": isLaws }}>
     <Content />
   </div>
-  <SemanticConnections entityId={slugStr} />
+  {showRegistryHistory && <StandardPublicationHistory slug={slugStr} />}
+  {
+    /* An h2: at the default h3 it nested under whichever section came last,
+       Publication history or Motivating theory. */
+  }
+  <SemanticConnections entityId={slugStr} headingLevel={2} />
   <StandardPager
     currentSlug={slugStr}
     standards={standardsContent.standards.filter(
