@@ -1,19 +1,11 @@
 ---
 import "../../styles/components/standards.css";
-import CardGrid from "../../components/CardGrid.astro";
-import CardItem from "../../components/CardItem.astro";
 import StandardsLayout from "../../components/StandardsLayout.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import { minimumViableContestabilityContent } from "../../content/minimum-viable-contestability";
 
-const {
-  pageTitle,
-  pageDescription,
-  permalink,
-  anchorLinks,
-  summary,
-  sections,
-} = minimumViableContestabilityContent;
+const { pageTitle, pageDescription, permalink, anchorLinks, sections } =
+  minimumViableContestabilityContent;
 const version = "1.0.1";
 const lastUpdated = "2026-10-06";
 ---
@@ -28,34 +20,23 @@ const lastUpdated = "2026-10-06";
   lastUpdated={lastUpdated}
   seoTitle={`${pageTitle} — Ethotechnics`}
 >
+  {
+    /* A "one-screen summary" gave the eight commitments as cards, under an
+       h2 that repeated the h1, and the next section opened each commitment
+       with the same line reworded. The outline above lists the eight. */
+  }
   <SectionBlock
-    id="summary"
-    eyebrow="One-screen summary"
-    title={summary.title}
-    description={summary.description}
+    id="standard"
+    eyebrow="Baseline requirements"
+    title="Eight commitments a system must meet before its decisions can be challenged"
+    description="Each commitment is the minimum, with the evidence a reviewer can check."
   >
-    <CardGrid className="grid--two">
-      {
-        summary.items.map((item) => (
-          <CardItem title={item.title} description={item.description} />
-        ))
-      }
-    </CardGrid>
     <p class="muted">
       The definition: <a href="/explainers/contestability"
         >What is AI contestability?</a
       > A case where the model was cleared and the route to challenge it was not:
       <a href="/casebook/apple-card">Apple Card credit limits</a>.
     </p>
-  </SectionBlock>
-
-  <SectionBlock
-    id="standard"
-    eyebrow="Baseline requirements"
-    title="Eight commitments a system must meet before its decisions can be challenged"
-    description="Each commitment is the minimum, with the evidence a reviewer can check."
-    variant="alt"
-  >
     {
       sections.map((section, index) => (
         <section id={section.id} class="standard-section stack-sm">

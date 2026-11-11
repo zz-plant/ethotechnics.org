@@ -59,9 +59,9 @@ const sourceKind = {
     anchorLinks={[
       { href: "#record", label: "The record" },
       { href: "#scoring", label: "Scoring" },
-      { href: "#remediation", label: "Avoid this failure" },
       { href: "#learning", label: "After the failure" },
       { href: "#missing", label: "The missing record" },
+      { href: "#remediation", label: "Avoid this failure" },
       ...(entry.diagnosticStudy
         ? [{ href: "#diagnostic-study", label: "Further reading" }]
         : []),
@@ -176,6 +176,39 @@ const sourceKind = {
     </ol>
   </SectionBlock>
 
+  <SectionBlock
+    id="learning"
+    eyebrow="After the failure"
+    title="Did the institution change?"
+    description="Whether the institution changed the rule, category, or workflow that produced the errors, or corrected the errors and left that process as it was."
+  >
+    <p class="case-learning__verdict">
+      <strong>{learningVerdictLabels[entry.learningOutcome.verdict]}</strong>
+    </p>
+    <p class="case-learning">{entry.learningOutcome.finding}</p>
+    <p class="small muted">
+      <a href="/research/theory/exception-learning"
+        >Read the theory: exception learning</a
+      >
+      {" "}
+      · <a href="/evals/corrective-learning">Corrective learning eval suite</a>
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="missing"
+    title="The record that was not there"
+    description="Every case reduces to a record the standards require and the operator did not hold. This is that record."
+    variant="alt"
+  >
+    <p class="case-missing">{entry.theMissingRecord}</p>
+  </SectionBlock>
+
+  {
+    /* What to do about it came between the scores and the two sections that
+       finish the case, after the failure and the missing record. It follows
+       them. */
+  }
   {
     entry.remediation && (
       <SectionBlock
@@ -222,34 +255,6 @@ const sourceKind = {
     )
   }
 
-  <SectionBlock
-    id="learning"
-    eyebrow="After the failure"
-    title="Did the institution change?"
-    description="Whether the institution changed the rule, category, or workflow that produced the errors, or corrected the errors and left that process as it was."
-    variant="alt"
-  >
-    <p class="case-learning__verdict">
-      <strong>{learningVerdictLabels[entry.learningOutcome.verdict]}</strong>
-    </p>
-    <p class="case-learning">{entry.learningOutcome.finding}</p>
-    <p class="small muted">
-      <a href="/research/theory/exception-learning"
-        >Read the theory: exception learning</a
-      >
-      {" "}
-      · <a href="/evals/corrective-learning">Corrective learning eval suite</a>
-    </p>
-  </SectionBlock>
-
-  <SectionBlock
-    id="missing"
-    title="The record that was not there"
-    description="Every case reduces to a record the standards require and the operator did not hold. This is that record."
-  >
-    <p class="case-missing">{entry.theMissingRecord}</p>
-  </SectionBlock>
-
   {
     entry.diagnosticStudy && (
       <SectionBlock
@@ -257,6 +262,7 @@ const sourceKind = {
         eyebrow="Further reading"
         title="An essay that uses this case"
         description="Published elsewhere, as part of a wider argument. It is not one of the primary sources."
+        variant="alt"
       >
         <div class="case-diagnostic-card">
           <p class="case-diagnostic-card__title">
@@ -283,7 +289,7 @@ const sourceKind = {
     eyebrow="Sources"
     title="The primary record"
     description="Courts, statutory inquiries, regulators, and parliaments, in that order of weight. Operator and NGO documents appear only where they record what the primary record established. No press coverage."
-    variant="alt"
+    variant={entry.diagnosticStudy ? undefined : "alt"}
   >
     <ol class="case-sources">
       {

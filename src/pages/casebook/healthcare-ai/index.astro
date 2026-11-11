@@ -238,6 +238,13 @@ const publication = derivePublicationMetadata({
         <h3>The record that was not there</h3>
         <p class="case-missing">{entry.theMissingRecord}</p>
 
+        <h3>What could not be confirmed</h3>
+        <ul class="pillar-gaps">
+          {entry.gaps.map((gap) => (
+            <li>{gap}</li>
+          ))}
+        </ul>
+
         {entry.remediation && (
           <>
             <h3>Avoid this failure in your system</h3>
@@ -279,13 +286,6 @@ const publication = derivePublicationMetadata({
             </div>
           </>
         )}
-
-        <h3>What could not be confirmed</h3>
-        <ul class="pillar-gaps">
-          {entry.gaps.map((gap) => (
-            <li>{gap}</li>
-          ))}
-        </ul>
 
         <h3>Sources</h3>
         <ol class="case-sources">

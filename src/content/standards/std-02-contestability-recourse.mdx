@@ -8,8 +8,6 @@ lastUpdated: "2026-10-13"
 publishedTime: "2026-01-10T00:00:00.000Z"
 mainClass: "page page--wide standard-document"
 anchorLinks:
-  - href: "#related-explainers"
-    label: "Related explainers"
   - href: "#articles"
     label: "Articles I–V"
   - href: "#review-infrastructure"
@@ -22,6 +20,8 @@ anchorLinks:
     label: "Prospective auditability"
   - href: "#depth-of-consent"
     label: "Depth of consent"
+  - href: "#related-explainers"
+    label: "Related explainers"
   - href: "#publication-history"
     label: "Publication history"
 ---
@@ -118,26 +118,6 @@ export const structuredData = {
 
   <div class="standard-body">
     <div class="standard-main">
-      <section id="related-explainers" class="standard-section">
-        <h2>Related explainers</h2>
-
-        Short explainers that restate the obligations for policy and product teams.
-
-        <div class="grid grid--two">
-          {explainerLinks.map((explainer) => (
-            <article class="panel">
-              <p class="eyebrow">Explainer</p>
-
-              <strong>
-                <a href={explainer.href}>{explainer.title}</a>
-              </strong>
-
-              <p class="muted">{explainer.description}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
       <section id="articles" class="standard-section">
         <h2>Article I: The right to notice and reasons</h2>
         <p class="standard-article-quote">
@@ -543,6 +523,26 @@ export const structuredData = {
             basis for the current degree of dependence.
           </li>
         </ol>
+      </section>
+
+      <section id="related-explainers" class="standard-section">
+        <h2>Related explainers</h2>
+
+        Short explainers that restate the obligations for policy and product teams.
+
+        <div class="grid grid--two">
+          {explainerLinks.map((explainer) => (
+            <article class="panel">
+              <p class="eyebrow">Explainer</p>
+
+              <strong>
+                <a href={explainer.href}>{explainer.title}</a>
+              </strong>
+
+              <p class="muted">{explainer.description}</p>
+            </article>
+          ))}
+        </div>
       </section>
 
       <section id="publication-history" class="standard-section">

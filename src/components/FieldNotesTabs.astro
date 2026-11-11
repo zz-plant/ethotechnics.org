@@ -155,6 +155,7 @@ const fieldNoteSections = sections.map((section, index) => ({
                   </div>
                   <h3>{entry.title}</h3>
                   <p class="muted">{entry.summary}</p>
+                  {entry.whyItMatters ? <p>{entry.whyItMatters}</p> : null}
                   <p class="muted">
                     Glossary{" "}
                     {entry.relatedTerms.map((slug, relatedIndex) => (

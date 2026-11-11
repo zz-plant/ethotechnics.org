@@ -1,10 +1,5 @@
 import type { AnchorLink, PageWithPermalink } from "./types";
 
-type SummaryItem = {
-  title: string;
-  description: string;
-};
-
 type StandardSection = {
   id: string;
   title: string;
@@ -15,11 +10,6 @@ type StandardSection = {
 
 type MinimumViableContestabilityContent = PageWithPermalink & {
   anchorLinks: AnchorLink[];
-  summary: {
-    title: string;
-    description: string;
-    items: SummaryItem[];
-  };
   sections: StandardSection[];
 };
 
@@ -30,56 +20,15 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
       "Eight commitments for challenging an automated decision: standing, reasons, records, timelines, a named responder, defined effects, remedies, no retaliation.",
     permalink: "/standards/minimum-viable-contestability",
     anchorLinks: [
-      { href: "#summary", label: "One-screen summary" },
-      { href: "#standard", label: "Baseline requirements" },
+      { href: "#standing", label: "Standing" },
+      { href: "#reasons", label: "Reasons" },
+      { href: "#records", label: "Records" },
+      { href: "#timelines", label: "Timelines" },
+      { href: "#responder", label: "Responder and standard" },
+      { href: "#effect", label: "Effect" },
+      { href: "#remedies", label: "Remedies" },
+      { href: "#non-retaliation", label: "Non-retaliation" },
     ],
-    summary: {
-      title: "Minimum viable contestability standard",
-      description:
-        "The eight commitments, one line each. The requirements and the evidence for each follow below.",
-      items: [
-        {
-          title: "Standing",
-          description:
-            "Anyone affected can trigger review without permission gates or retaliation.",
-        },
-        {
-          title: "Reasons",
-          description:
-            "Decisions come with plain-language reasons and what could change the outcome.",
-        },
-        {
-          title: "Records",
-          description:
-            "A decision record exists with timestamps, owners, and a shareable receipt.",
-        },
-        {
-          title: "Timelines",
-          description:
-            "Published review deadlines force a final response and escalation path.",
-        },
-        {
-          title: "Responder and standard",
-          description:
-            "A named party must answer, and the register says what they decide against.",
-        },
-        {
-          title: "Effect",
-          description:
-            "The state changes a successful challenge can produce are enumerated in advance.",
-        },
-        {
-          title: "Remedies",
-          description:
-            "A person can reach a remedy, whether reversal, restoration, or compensation, and see when it was delivered.",
-        },
-        {
-          title: "Non-retaliation",
-          description:
-            "People who challenge a decision cannot be punished for using the review process.",
-        },
-      ],
-    },
     sections: [
       {
         id: "standing",

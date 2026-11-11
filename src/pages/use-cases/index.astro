@@ -24,9 +24,10 @@ import {
     anchorLinks={[
       { href: "#short-answer", label: "The short answer" },
       { href: "#test", label: "When it fits" },
-      { href: "#not-covered", label: "What it does not cover" },
       { href: "#contexts", label: "Where it applies" },
       { href: "#boundaries", label: "Where it does less" },
+      { href: "#not-covered", label: "What it does not cover" },
+      { href: "#required-signals", label: "What a worked example shows" },
       { href: "#tooling", label: "What runs today" },
     ]}
   />
@@ -64,25 +65,6 @@ import {
   </SectionBlock>
 
   <SectionBlock
-    id="not-covered"
-    title="What it does not cover"
-    description="It does not judge an institution's goals. Policy, commercial, and political aims are the institution's to choose."
-  >
-    <div class="stack-sm">
-      <p class="fit-not-covered">
-        Whatever the goals, the framework asks for the same three things:
-        approval that expires unless renewed, a reason with each decision, and a
-        named person who can halt the system without penalty.
-      </p>
-      <p class="small">
-        <a href="/standards/core-axioms"
-          >The five principles behind every standard &rarr;</a
-        >
-      </p>
-    </div>
-  </SectionBlock>
-
-  <SectionBlock
     id="contexts"
     title="Where it applies"
     description="Each names what the system decides, the scored cases that came from it, the standards to adopt in policy or a contract, and the check to run first."
@@ -113,41 +95,6 @@ import {
       not legal advice, and meeting a standard here does not show that a system
       complies with any of them.
     </p>
-    {
-      /* The worked examples had an index of their own, /use-cases/examples,
-         which listed the pages these contexts already link. What it had of
-         its own was this list. */
-    }
-    <div id="required-signals" class="stack-sm">
-      <h3>What every worked example must show</h3>
-      <p class="small muted">
-        A scenario missing any of these describes a decision. It does not show
-        one that can be enforced or challenged.
-      </p>
-      <ul class="small muted">
-        <li>Receipt issued at the moment the decision is enforced.</li>
-        <li>
-          A named owner who can change the decision, and who it escalates to.
-        </li>
-        <li>Clocks for acknowledgment, review, and remedy.</li>
-        <li>Exception handling with bounded duration and review cadence.</li>
-        <li>Remedy path with reversal, compensation, or safe fallback.</li>
-        <li>
-          Upheld challenges counted against the rule and sent to its owner.
-        </li>
-        <li>
-          Generated artifacts (decision log, evidence pack list, appeal record).
-        </li>
-      </ul>
-      <p class="small">
-        Start with the
-        <a href="/use-cases/examples/automated-account-lock"
-          >automated account lock</a
-        >. It runs every step from receipt to remedy, and the other scenarios
-        vary it. The sector comparisons set standard governance beside
-        governance built in.
-      </p>
-    </div>
   </SectionBlock>
 
   <SectionBlock
@@ -182,6 +129,61 @@ import {
         ))
       }
     </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="not-covered"
+    title="What it does not cover"
+    description="It does not judge an institution's goals. Policy, commercial, and political aims are the institution's to choose."
+  >
+    <div class="stack-sm">
+      <p class="fit-not-covered">
+        Whatever the goals, the framework asks for the same three things:
+        approval that expires unless renewed, a reason with each decision, and a
+        named person who can halt the system without penalty.
+      </p>
+      <p class="small">
+        <a href="/standards/core-axioms"
+          >The five principles behind every standard &rarr;</a
+        >
+      </p>
+    </div>
+  </SectionBlock>
+
+  {
+    /* The worked examples had an index of their own, /use-cases/examples,
+       which listed the pages these contexts already link. What it had of
+       its own was this list. It was a subsection of "Where it applies",
+       between the contexts and "Where it does less", the section "When it
+       fits" sends the reader to. */
+  }
+  <SectionBlock
+    id="required-signals"
+    title="What every worked example must show"
+    description="A scenario missing any of these describes a decision. It does not show one that can be enforced or challenged."
+    variant="alt"
+  >
+    <ul class="muted">
+      <li>Receipt issued at the moment the decision is enforced.</li>
+      <li>
+        A named owner who can change the decision, and who it escalates to.
+      </li>
+      <li>Clocks for acknowledgment, review, and remedy.</li>
+      <li>Exception handling with bounded duration and review cadence.</li>
+      <li>Remedy path with reversal, compensation, or safe fallback.</li>
+      <li>Upheld challenges counted against the rule and sent to its owner.</li>
+      <li>
+        Generated artifacts (decision log, evidence pack list, appeal record).
+      </li>
+    </ul>
+    <p class="small">
+      Start with the
+      <a href="/use-cases/examples/automated-account-lock"
+        >automated account lock</a
+      >. It runs every step from receipt to remedy, and the other scenarios vary
+      it. The sector comparisons set standard governance beside governance built
+      in.
+    </p>
   </SectionBlock>
 
   <SectionBlock

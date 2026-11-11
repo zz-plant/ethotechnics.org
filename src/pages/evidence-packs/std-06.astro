@@ -107,9 +107,9 @@ const portabilityChecklist = [
       { href: "#tiers", label: "Tiered model" },
       { href: "#artifacts", label: "Artifact inventory" },
       { href: "#tests", label: "Test battery evidence" },
+      { href: "#dependency", label: "Dependency and reversibility" },
       { href: "#portability", label: "Portability checklist" },
       { href: "#auditors", label: "What auditors ask" },
-      { href: "#dependency", label: "Dependency and reversibility" },
     ]}
   />
 
@@ -161,11 +161,22 @@ const portabilityChecklist = [
   </SectionBlock>
 
   <SectionBlock
+    id="dependency"
+    eyebrow="Article V"
+    title="Dependency and reversibility checklist"
+    description="Evidence for STD-06 Article V. Each line maps to a clause."
+    variant="alt"
+  >
+    <ul class="muted">
+      {dependencyChecklist.map((item) => <li>{item}</li>)}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
     id="portability"
     eyebrow="Portability"
     title="Checklist for regulator-ready exports"
     description="Artifacts must travel across vendors, auditors, and community review."
-    variant="alt"
   >
     <ul class="muted">
       {portabilityChecklist.map((item) => <li>{item}</li>)}
@@ -177,6 +188,7 @@ const portabilityChecklist = [
     eyebrow="What auditors ask"
     title="Audit questions to prepare for"
     description="Answer these with links to the evidence pack and safety case summary."
+    variant="alt"
   >
     <ul class="muted">
       <li>Show the latest safety case summary and its test battery results.</li>
@@ -197,18 +209,6 @@ const portabilityChecklist = [
         Show the last withdrawal rehearsal report and what it found at the
         institutional level.
       </li>
-    </ul>
-  </SectionBlock>
-
-  <SectionBlock
-    id="dependency"
-    eyebrow="Article V"
-    title="Dependency and reversibility checklist"
-    description="Evidence for STD-06 Article V. Each line maps to a clause."
-    variant="alt"
-  >
-    <ul class="muted">
-      {dependencyChecklist.map((item) => <li>{item}</li>)}
     </ul>
   </SectionBlock>
 

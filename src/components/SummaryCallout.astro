@@ -8,6 +8,7 @@
  * - description: Supporting copy under the title.
  * - takeaways: Bullet list of key takeaways.
  * - relatedLinks: Pill-style links to related sections.
+ * - headingLevel: 2 by default; 3 when the callout sits inside a section.
  *
  * No on-page jump list: the intro's "Jump to" and the sticky section bar
  * already carry the same anchors, and on a phone all three were on screen
@@ -24,6 +25,7 @@ interface Props {
   description: string;
   takeaways?: string[];
   relatedLinks?: LinkItem[];
+  headingLevel?: 2 | 3;
 }
 
 const props: Props = Astro.props;
@@ -33,13 +35,15 @@ const {
   description,
   takeaways = [],
   relatedLinks = [],
+  headingLevel = 2,
 } = props;
+const Heading = `h${headingLevel}` as const;
 ---
 
 <div class="callout summary-callout">
   <div class="summary-callout__intro">
     {eyebrow && <p class="eyebrow">{eyebrow}</p>}
-    <h2>{title}</h2>
+    <Heading>{title}</Heading>
     <p class="muted summary-callout__desc">{description}</p>
   </div>
   <div class="summary-callout__body">

@@ -1,6 +1,7 @@
 ---
 import StandardsLayout from "../../components/StandardsLayout.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
+import StandardPublicationHistory from "../../components/StandardPublicationHistory.astro";
 import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
@@ -129,6 +130,7 @@ const publication = derivePublicationMetadata({
       >Mechanisms</a
     >
   </p>
+  <StandardPublicationHistory slug="w3c-vc-schemas" />
   <CitationBlock
     title={pageTitle}
     permalink={permalink}

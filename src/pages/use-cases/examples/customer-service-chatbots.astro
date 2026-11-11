@@ -14,7 +14,9 @@ const pageTitle = "Customer service chatbots: implementation comparison";
 const pageDescription =
   "Support chatbots governed two ways: escalation only on low confidence, or a person on request, a reply time, a named halt, and failed requests counted by flow.";
 const permalink = "/use-cases/examples/customer-service-chatbots";
-const anchorLinks = implementationExampleAnchorLinks;
+const anchorLinks = implementationExampleAnchorLinks.filter(
+  (link) => link.href !== "#standard",
+);
 const publication = createImplementationPublication(
   permalink,
   "Published the customer service chatbot implementation comparison.",
@@ -33,27 +35,22 @@ const publication = createImplementationPublication(
     anchorLinks={anchorLinks}
   />
 
+  {
+    /* Standard governance had a section of its own after this one, a
+       five-item list that the overview had already summed up in a line and
+       dismissed. The list comes first here, then where it breaks down, as on
+       the public services comparison. */
+  }
   <SectionBlock
     id="overview"
     eyebrow="Overview"
-    title="Where governance breaks down"
+    title="Standard governance, and where it breaks down"
     description="A support bot that decides when a customer may reach a person keeps them in a loop until they give up."
   >
     <p>
-      Standard governance emphasizes transparency, hand-offs, and monitoring
-      dashboards. Ethotechnics makes reaching a person a right the bot cannot
-      refuse, and counts the requests it fails as evidence about how it is
-      built, not only as tickets to close.
+      Standard governance puts the bot's performance ahead of how fast a
+      customer reaches a person:
     </p>
-  </SectionBlock>
-
-  <SectionBlock
-    id="standard"
-    eyebrow="Standard governance"
-    title="What standard AI governance implements"
-    description="Controls that put the bot's performance ahead of how fast a customer reaches a person."
-    variant="alt"
-  >
     <ul class="card__list">
       <li>
         Disclosure that the customer is speaking with an automated system.
@@ -65,6 +62,11 @@ const publication = createImplementationPublication(
       </li>
       <li>Regular audits of hand-off effectiveness and anomaly detection.</li>
     </ul>
+    <p>
+      Ethotechnics makes reaching a person a right the bot cannot refuse, and
+      counts the requests it fails as evidence about how it is built, not only
+      as tickets to close.
+    </p>
   </SectionBlock>
 
   <SectionBlock
@@ -72,6 +74,7 @@ const publication = createImplementationPublication(
     eyebrow="Ethotechnics implementation"
     title="What changes, and what to verify before launch"
     description="Reaching a person is a right, and the requests the bot fails are counted against its design."
+    variant="alt"
   >
     <div class="stack-sm">
       <ul class="card__list">

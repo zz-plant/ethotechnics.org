@@ -14,7 +14,9 @@ const pageTitle = "Loan approval systems: implementation comparison";
 const pageDescription =
   "Credit scoring governed two ways: oversight added on top, or reasons, a named owner who answers by a date, and upheld challenges that reach the scoring rule.";
 const permalink = "/use-cases/examples/loan-approval";
-const anchorLinks = implementationExampleAnchorLinks;
+const anchorLinks = implementationExampleAnchorLinks.filter(
+  (link) => link.href !== "#standard",
+);
 const publication = createImplementationPublication(
   permalink,
   "Published the loan approval implementation comparison.",
@@ -33,30 +35,22 @@ const publication = createImplementationPublication(
     anchorLinks={anchorLinks}
   />
 
+  {
+    /* Standard governance had a section of its own after this one, a
+       five-item list that the overview had already summed up in a line and
+       dismissed. The list comes first here, then where it breaks down, as on
+       the public services comparison. */
+  }
   <SectionBlock
     id="overview"
     eyebrow="Overview"
-    title="Where governance breaks down"
+    title="Standard governance, and where it breaks down"
     description="A lender's model refuses in seconds. Challenging the refusal takes months, and the applicant loses the home or the business in between."
   >
     <p>
-      Standard governance focuses on fairness audits, documentation, and
-      periodic review. In the <a href="/casebook/apple-card">Apple Card case</a
-      >, the model was examined and cleared. The failure was elsewhere:
-      applicants had no reasons and no working route to challenge a limit.
-      Ethotechnics asks whether an applicant gets reasons and an answer to a
-      challenge by a set date, and whether a pattern of upheld challenges
-      changes the scoring rule.
+      Standard governance adds oversight layers on top of existing credit
+      scoring pipelines:
     </p>
-  </SectionBlock>
-
-  <SectionBlock
-    id="standard"
-    eyebrow="Standard governance"
-    title="What standard AI governance implements"
-    description="Oversight layers that sit on top of existing credit scoring pipelines."
-    variant="alt"
-  >
     <ul class="card__list">
       <li>
         Quarterly bias and fairness audits against protected characteristics.
@@ -71,6 +65,13 @@ const publication = createImplementationPublication(
       </li>
       <li>A decision log and reporting for regulatory readiness.</li>
     </ul>
+    <p>
+      In the <a href="/casebook/apple-card">Apple Card case</a>, the model was
+      examined and cleared. The failure was elsewhere: applicants had no reasons
+      and no working route to challenge a limit. Ethotechnics asks whether an
+      applicant gets reasons and an answer to a challenge by a set date, and
+      whether a pattern of upheld challenges changes the scoring rule.
+    </p>
   </SectionBlock>
 
   <SectionBlock
@@ -78,6 +79,7 @@ const publication = createImplementationPublication(
     eyebrow="Ethotechnics implementation"
     title="What changes, and what to verify before launch"
     description="The scoring rule has an owner, and upheld challenges reach it."
+    variant="alt"
   >
     <div class="stack-sm">
       <ul class="card__list">

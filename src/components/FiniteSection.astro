@@ -61,6 +61,13 @@ const { hero, measures, institutionalGames, benchmarkHarness, keyTakeaways } =
       <p class="muted">{institutionalGames.description}</p>
     </div>
 
+    {
+      /* The four conditions rendered as h4s beside the five drills, with
+         nothing saying they are the arms each drill is run under. */
+    }
+    <h4 class="conditions-heading">
+      The four conditions each drill is run under
+    </h4>
     <div class="grid grid--four conditions-grid">
       {
         institutionalGames.conditions.map((cond) => (
@@ -68,7 +75,7 @@ const { hero, measures, institutionalGames, benchmarkHarness, keyTakeaways } =
             <span class="pill pill--ghost condition-pill">
               {cond.condition}
             </span>
-            <h4 class="condition-card__title">{cond.title}</h4>
+            <h5 class="condition-card__title">{cond.title}</h5>
             <p class="muted small">{cond.description}</p>
           </article>
         ))
@@ -240,6 +247,11 @@ const { hero, measures, institutionalGames, benchmarkHarness, keyTakeaways } =
 
   .finite-subsection__header {
     margin-bottom: var(--space-5);
+  }
+
+  .conditions-heading {
+    margin: 0 0 var(--space-3);
+    font-size: var(--text-base);
   }
 
   .conditions-grid {

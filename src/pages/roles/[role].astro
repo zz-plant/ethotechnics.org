@@ -32,13 +32,27 @@ const practiceTitle =
       ? "What to attend to"
       : "What to have in place";
 
+// The first steps link a diagnostic, a standard, or a page each; the section
+// below listed most of them again. It lists what the steps did not.
+const stepHrefs = new Set(
+  (role.orientation ?? []).map((step) => step.ctaHref.split("#")[0]),
+);
+const notInSteps = (href: string) => !stepHrefs.has(href.split("#")[0]);
+const toolDiagnostics = (role.featuredDiagnostics ?? []).filter((slug) =>
+  notInSteps(`/diagnostics/${slug}`),
+);
+const toolStandards = (role.featuredStandards ?? []).filter((slug) =>
+  notInSteps(`/standards/${slug}`),
+);
+const toolReading = (role.guide?.keyLinks ?? []).filter((link) =>
+  notInSteps(link.href),
+);
+
 const anchorLinks = [
   role.orientation?.length
     ? { href: "#first-moves", label: "Where to start" }
     : null,
-  role.featuredDiagnostics?.length ||
-  role.featuredStandards?.length ||
-  role.guide?.keyLinks.length
+  toolDiagnostics.length || toolStandards.length || toolReading.length
     ? { href: "#tools", label: "What to open" }
     : null,
   role.guide || role.adoptionChecklist?.length
@@ -114,20 +128,18 @@ const breadcrumbItems = [
        further down, which also linked the hubs the header already reaches. */
   }
   {
-    (role.featuredDiagnostics?.length ||
-      role.featuredStandards?.length ||
-      role.guide?.keyLinks.length) && (
+    (toolDiagnostics.length || toolStandards.length || toolReading.length) && (
       <SectionBlock
         id="tools"
         title="What to run, satisfy, and read"
         description="The diagnostics that show risk in this role's work, the standards that apply to it, and the reading behind them."
       >
         <div class="grid grid--three">
-          {role.featuredDiagnostics?.length ? (
+          {toolDiagnostics.length ? (
             <div class="card stack-sm">
               <p class="eyebrow">Diagnostics</p>
               <ul class="card__list">
-                {role.featuredDiagnostics.map((slug) => (
+                {toolDiagnostics.map((slug) => (
                   <li>
                     <a href={`/diagnostics/${slug}`}>{diagnosticTitle(slug)}</a>
                   </li>
@@ -135,11 +147,11 @@ const breadcrumbItems = [
               </ul>
             </div>
           ) : null}
-          {role.featuredStandards?.length ? (
+          {toolStandards.length ? (
             <div class="card stack-sm">
               <p class="eyebrow">Standards</p>
               <ul class="card__list">
-                {role.featuredStandards.map((slug) => (
+                {toolStandards.map((slug) => (
                   <li>
                     <a href={`/standards/${slug}`}>{standardLabel(slug)}</a>
                   </li>
@@ -147,11 +159,11 @@ const breadcrumbItems = [
               </ul>
             </div>
           ) : null}
-          {role.guide?.keyLinks.length ? (
+          {toolReading.length ? (
             <div class="card stack-sm">
               <p class="eyebrow">Reading</p>
               <ul class="card__list">
-                {role.guide.keyLinks.map((link) => (
+                {toolReading.map((link) => (
                   <li>
                     <a href={link.href}>{link.label}</a>
                     {link.note && <span class="muted"> — {link.note}</span>}

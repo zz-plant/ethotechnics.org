@@ -272,13 +272,6 @@ const fieldNotes = defineCollection({
     published: z.string(),
     latestUpdate: z.string(),
     cadenceNote: z.string(),
-    highlight: z.object({
-      title: z.string(),
-      summary: z.string(),
-      whyItMatters: z.string(),
-      href: z.string(),
-      ctaLabel: z.string(),
-    }),
     sections: z.array(
       z.object({
         title: z.string(),
@@ -291,6 +284,7 @@ const fieldNotes = defineCollection({
         slug: z.string(),
         title: z.string(),
         summary: z.string(),
+        whyItMatters: z.string().optional(),
         format: z.enum(["dispatch", "case-study", "signal"]),
         relatedTerms: z.array(z.string()),
         links: z.array(z.string()).optional(),
