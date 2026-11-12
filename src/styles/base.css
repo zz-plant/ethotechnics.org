@@ -241,6 +241,17 @@
     font-variant-ligatures: none;
   }
 
+  /* Inside a small-step line -- a form hint, a clause register cell, both
+     12px -- 0.86em came to 10.3px, under the smallest step of the type
+     scale. On a phone an identifier stops at that step, 12px. */
+  @media (max-width: 30rem), (max-height: 400px) {
+    code,
+    kbd,
+    samp {
+      font-size: max(0.86em, var(--text-xs));
+    }
+  }
+
   :not(pre) > code {
     padding: 0.1em 0.38em;
     border-radius: var(--radius-xs);
