@@ -12,7 +12,7 @@ workflow that only notifies opens or updates an issue.
 | -------------------------------------- | --------------------------------------------- | --------------------------------------------------------- | ----------------------------------------- |
 | `.github/workflows/objections.yml`     | Issue opened or labeled; daily 07:23; by hand | `contents: read`, `issues: write`                         | Labels and comments on `objection` issues |
 | `.github/workflows/presence-data.yml`  | Mondays 06:41; by hand                        | `contents: write`, `pull-requests: write`, `issues: read` | A pull request from `bot/presence-data`   |
-| `.github/workflows/presence-watch.yml` | Mondays 07:17; by hand                        | `contents: read`, `issues: write`                         | One `Presence watch: <ISO week>` issue    |
+| `.github/workflows/presence-watch.yml` | By hand (weekly until 2026-11-10)             | `contents: read`, `issues: write`                         | One `Presence watch: <ISO week>` issue    |
 | `.github/workflows/release.yml`        | By hand, with a `version` input               | `contents: write`                                         | A tag `v<version>` and a GitHub release   |
 
 Times are UTC. "By hand" means Actions > the workflow > Run workflow.
@@ -42,7 +42,8 @@ run on it by itself. Close and reopen the pull request, push a commit to the bra
 
 ### Presence watch
 
-Notify only. Each Monday it looks for:
+Notify only. It ran each Monday until 2026-11-10 and has run by hand since, while the site is in
+maintenance; the workflow's header gives the schedule to restore. Each run looks for:
 
 - US Federal Register proposed rules and notices with an open comment period whose text matches
   "artificial intelligence" or "automated decision".
@@ -55,7 +56,8 @@ the most distinctive words with it. That is keyword matching, and the issue says
 whose title or summary names the topic come first; matches found only in the full text sit in a
 folded list, because most of them are about something else. A source that fails is noted in the
 issue and does not fail the run. Opening a new week's issue closes the earlier ones, so one report
-stays open at a time; closed reports stay searchable under the `presence-watch` label.
+stays open at a time; closed reports stay searchable under the `presence-watch` label. With no
+schedule, the last report stays open until the next run by hand or until someone closes it.
 
 ### Release
 
@@ -74,7 +76,7 @@ mints a DOI with the metadata in `.zenodo.json`.
 | `answered`       | Owner    | The objection has a public answer; the clock stops                     |
 | `upheld`         | Owner    | Upheld: the clause is revised, or a reason for keeping it is published |
 | `not-upheld`     | Owner    | Not upheld; the answer gives the reason                                |
-| `presence-watch` | Watch    | A weekly watch issue                                                   |
+| `presence-watch` | Watch    | A watch issue, one per run                                             |
 
 Missing labels are created on each run of the objection bot and the watch.
 
