@@ -83,6 +83,39 @@
     color: var(--text);
   }
 
+  /* iPhone Safari zooms the page into any field set under 16px when it takes
+     focus, and leaves it zoomed. Components set their fields to the small
+     steps (the footer's email box at 14px on every page, the record checker's
+     textareas at 12px) or to the phone body size, 15px. On a phone a field is
+     never smaller than the base step, 16px or more. It is !important so that
+     it holds over the components layer and over component <style> blocks,
+     which are unlayered; inside a layer, !important beats both. The fix is
+     the size, never maximum-scale or user-scalable=no, which stop the reader
+     zooming at all. Same breakpoint as the phone block in theme.css.
+     A field sizes itself to its text, so the larger text widened the record
+     checker's date-and-time field to 259px and pushed its panel past a
+     320px screen. min-width and max-width let a field shrink to its
+     column, and hold it there. */
+  @media (max-width: 30rem), (max-height: 400px) {
+    input:not(
+      [type="checkbox"],
+      [type="radio"],
+      [type="range"],
+      [type="color"],
+      [type="file"],
+      [type="button"],
+      [type="submit"],
+      [type="reset"],
+      [type="image"]
+    ),
+    select,
+    textarea {
+      font-size: var(--text-base) !important;
+      min-width: 0;
+      max-width: 100%;
+    }
+  }
+
   button,
   input,
   select,
