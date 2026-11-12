@@ -335,10 +335,7 @@ const pageSchema = {
       <div class="glossary-entry__main">
         <header id="definition" class="glossary-entry__definition">
           <p class="eyebrow">Definition</p>
-          <div
-            class="glossary-entry__body"
-            set:html={entry.bodyHtml}
-          />
+          <div class="glossary-entry__body" set:html={entry.bodyHtml} />
           {
             domainPills.length > 0 && (
               <div class="pill-row">
@@ -587,5 +584,4 @@ const pageSchema = {
       historyHref="/glossary#glossary-history"
     />
   </CitationBlock>
-
 </BaseLayout>

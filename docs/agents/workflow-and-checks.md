@@ -33,7 +33,7 @@ For code or mixed changes, run:
 - `bun run check`.
 - `bun run check:full` for release prep or periodic deep validation.
 
-`bun run check` includes drift validation for generated content wrappers, linting, type checks,
+`bun run check` includes Prettier (`format:check`), drift validation for generated content wrappers, linting, type checks,
 Astro checks, JSON/glossary validation, unit tests, review guardrails
 (`check:review-guardrails`), and `agent:doctor` preflight checks. The steps run concurrently
 through `scripts/check-all.ts`. A passing step prints one line and a failing step prints the tail

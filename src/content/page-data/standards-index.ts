@@ -249,15 +249,14 @@ export const buildStandardsSchema = (input: {
             version: standard.version,
             datePublished: standard.published,
           })),
-        ...[
-          ...input.standardsContent.doctrine,
-          ...input.adoptedStandards,
-        ].map((item) => ({
-          "@type": "CreativeWork",
-          name: item.title,
-          description: item.description,
-          url: absolute(item.href),
-        })),
+        ...[...input.standardsContent.doctrine, ...input.adoptedStandards].map(
+          (item) => ({
+            "@type": "CreativeWork",
+            name: item.title,
+            description: item.description,
+            url: absolute(item.href),
+          }),
+        ),
       ]),
     },
   };
