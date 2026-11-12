@@ -38,7 +38,7 @@ const clauses = control.clauseIds.map((clauseId) => ({
 }));
 
 const pageTitle = `${control.controlId} crosswalk brief`;
-const seoTitle = `${control.controlId} crosswalk: ${control.topic}`;
+const seoTitle = `${control.controlId}: ${control.topic}`;
 const pageDescription = control.metaDescription;
 const permalink = `/standards/crosswalk/${control.controlId.toLowerCase()}`;
 
@@ -54,7 +54,6 @@ const publication = derivePublicationMetadata({
   description={pageDescription}
   publishedTime="2026-02-26T00:00:00.000Z"
   modifiedTime="2026-10-06T00:00:00.000Z"
-  structuredDataType="tech-article"
   breadcrumbItems={[
     { name: "Home", url: new URL("/", Astro.url).toString() },
     { name: "Standards", url: new URL("/standards", Astro.url).toString() },

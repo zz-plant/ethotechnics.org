@@ -22,7 +22,7 @@ describe("search renderer states", () => {
       {
         url: "/standards/a",
         excerpt: "Contestability and recourse details",
-        meta: { title: "Contestability Standard", type: "standard" },
+        meta: { title: "Contestability Standard", type: "Standards" },
       },
     ];
 
@@ -41,10 +41,10 @@ describe("search renderer states", () => {
     renderer.renderResults(
       [
         {
-          url: "/glossary/appeal-integrity",
+          url: "/glossary/appeal-passage-rate",
           excerpt:
             "judged on &lt;b&gt;merits&lt;/b&gt; &amp; evidence when a person <mark>appealed</mark>",
-          meta: { title: "Appeal integrity", type: "glossary" },
+          meta: { title: "Appeal passage rate", type: "Glossary" },
         },
       ],
       "appeal",
@@ -71,21 +71,26 @@ describe("search renderer states", () => {
     expect(container.textContent).toContain("No pages match “none”");
   });
 
-  it("names glossary results instead of filing them under other pages", () => {
+  it("groups results by the search group each page names", () => {
     const container = document.createElement("div");
     const renderer = createSearchRenderer(container);
 
     renderer.renderResults(
       [
         {
-          url: "/glossary/appeal-integrity",
-          excerpt: "Appeals are judged on merits",
-          meta: { title: "Appeal integrity", type: "glossary" },
+          url: "/roles/engineering",
+          excerpt: "Who answers for an appeal",
+          meta: { title: "Engineering: role path", type: "Guides" },
         },
         {
-          url: "/roles/risk-owner",
-          excerpt: "Who answers for an appeal",
-          meta: { title: "Risk owner", type: "roles" },
+          url: "/glossary/appeal-passage-rate",
+          excerpt: "Appeals are judged on merits",
+          meta: { title: "Appeal passage rate", type: "Glossary" },
+        },
+        {
+          url: "/old",
+          excerpt: "From an index built before the groups",
+          meta: { title: "Old page", type: "roles" },
         },
       ],
       "appeal",
@@ -96,7 +101,7 @@ describe("search renderer states", () => {
         container.querySelectorAll(".search-results__group-title"),
         (title) => title.textContent,
       ),
-    ).toEqual(["Glossary", "Other pages"]);
+    ).toEqual(["Glossary", "Guides", "Other pages"]);
   });
 
   it("offers the title search when full-text search cannot answer", () => {

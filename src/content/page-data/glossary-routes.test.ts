@@ -3,7 +3,7 @@ import { describe, expect, it } from "bun:test";
 import { glossaryContent } from "../glossary";
 import {
   buildGlossaryIndexEntries,
-  buildGlossaryStructuredDataPayload,
+  buildGlossarySchema,
   filterGlossaryIndexEntries,
 } from "./glossary-routes";
 
@@ -91,9 +91,9 @@ describe("filterGlossaryIndexEntries", () => {
   });
 });
 
-describe("buildGlossaryStructuredDataPayload", () => {
+describe("buildGlossarySchema", () => {
   it("creates defined-term set payload with expected counts", () => {
-    const payload = buildGlossaryStructuredDataPayload({
+    const payload = buildGlossarySchema({
       pageTitle: "Glossary",
       pageDescription: "Definitions",
       permalink: "/glossary",
@@ -102,15 +102,21 @@ describe("buildGlossaryStructuredDataPayload", () => {
       siteBase: "https://ethotechnics.org",
     });
 
-    const graph = payload["@graph"];
-    const setNode = graph.find((item) => item["@type"] === "DefinedTermSet");
+    const setNode = payload.nodes?.find(
+      (item) => item["@type"] === "DefinedTermSet",
+    );
 
     expect(setNode).toBeDefined();
     expect(setNode?.numberOfItems).toBe(3);
-    expect(
-      (setNode as { hasDefinedTerm: Array<{ name: string }> }).hasDefinedTerm[0]
-        ?.name,
-    ).toBe("Alpha");
+    const firstTerm = (
+      setNode as { hasDefinedTerm: Array<{ name: string; "@id": string }> }
+    ).hasDefinedTerm[0];
+    expect(firstTerm?.name).toBe("Alpha");
+    // The same @id the term's own page gives its DefinedTerm.
+    expect(firstTerm?.["@id"]).toBe(
+      "https://ethotechnics.org/glossary/alpha#defined-term",
+    );
+    expect(payload.page?.mainEntity).toEqual({ "@id": setNode?.["@id"] });
   });
 });
 

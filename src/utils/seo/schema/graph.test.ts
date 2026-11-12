@@ -1,166 +1,142 @@
 import { describe, expect, it } from "bun:test";
 
-import { buildSchemaGraph } from "./graph";
+import { resolveRouteProfile } from "../route-type";
+import { buildSchemaGraph, itemList, type PageSchema } from "./graph";
 
-const baseInput = {
-  siteName: "Ethotechnics Institute",
-  siteBase: "https://ethotechnics.org",
-  siteDescription: "Ethical technology standards and mechanisms.",
-  title: "Example page",
-  description: "Example description",
-  seoImage: {
-    src: "https://ethotechnics.org/api/og.png?template=default",
-    alt: "Example page — Ethotechnics Institute",
-    width: 1200,
-    height: 630,
-  },
-  organizationId: "https://ethotechnics.org#organization",
-  websiteId: "https://ethotechnics.org#website",
-  logoId: "https://ethotechnics.org#logo",
-  logoUrl: "https://ethotechnics.org/logo.svg",
-  normalizedPublishedTime: "2025-01-01T00:00:00.000Z",
-  normalizedModifiedTime: "2025-01-02T00:00:00.000Z",
+const site = "https://ethotechnics.org";
+
+const build = (path: string, schema?: PageSchema) => {
+  const canonical = new URL(path, site).toString();
+  return buildSchemaGraph({
+    siteName: "Ethotechnics Institute",
+    siteBase: `${site}/`,
+    siteDescription: "Standards for answerable automated decisions.",
+    canonical,
+    title: "Example page — Ethotechnics",
+    pageName: "Example page",
+    description: "Example description",
+    seoImage: {
+      src: `${site}/api/og.png?template=default`,
+      alt: "Example page — Ethotechnics Institute",
+      width: 1200,
+      height: 630,
+    },
+    organizationId: `${site}/#organization`,
+    websiteId: `${site}/#website`,
+    logoId: `${site}/#logo`,
+    logoUrl: `${site}/favicon.svg`,
+    primaryImageId: `${canonical}#primaryimage`,
+    profile: resolveRouteProfile(path),
+    normalizedPublishedTime: "2026-01-09T00:00:00.000Z",
+    normalizedModifiedTime: "2026-02-01T00:00:00.000Z",
+    breadcrumbs: [
+      { name: "Home", absoluteUrl: `${site}/` },
+      { name: "Example page", absoluteUrl: canonical },
+    ],
+    schema,
+  });
 };
 
-const buildForRoute = (route: {
-  canonical: string;
-  structuredDataType:
-    "collection" | "webpage" | "defined-term" | "tech-article";
-  openGraphType: "article" | "website";
-  breadcrumbs: Array<{ name: string; absoluteUrl: string }>;
-}) =>
-  buildSchemaGraph({
-    ...baseInput,
-    canonical: route.canonical,
-    webpageId: route.canonical,
-    primaryImageId: `${route.canonical}#primaryimage`,
-    structuredDataType: route.structuredDataType,
-    openGraphType: route.openGraphType,
-    breadcrumbs: route.breadcrumbs,
-  });
+const pageNodes = (graph: ReturnType<typeof build>, canonical: string) =>
+  graph.filter((node) => node["@id"] === canonical);
 
 describe("buildSchemaGraph", () => {
-  it("builds homepage collection schema", () => {
-    const graph = buildForRoute({
-      canonical: "https://ethotechnics.org/",
-      structuredDataType: "collection",
-      openGraphType: "website",
-      breadcrumbs: [{ name: "Home", absoluteUrl: "https://ethotechnics.org/" }],
-    });
-
-    const webpage = graph.find(
-      (node) => node["@id"] === "https://ethotechnics.org/",
-    );
-    expect(webpage?.["@type"]).toBe("CollectionPage");
-    expect(graph.some((node) => node["@type"] === "Article")).toBeFalse();
+  it("describes every page with exactly one page node", () => {
+    for (const path of [
+      "/",
+      "/standards",
+      "/standards/std-08-delegation",
+      "/diagnostics/record-conformance",
+      "/glossary/contestability",
+      "/explainers/stoppability",
+    ]) {
+      const graph = build(path, { faq: [{ question: "Q?", answer: "A." }] });
+      const ids = graph.map((node) => node["@id"]).filter(Boolean);
+      expect(new Set(ids).size).toBe(ids.length);
+      expect(pageNodes(graph, new URL(path, site).toString())).toHaveLength(1);
+    }
   });
 
   it("credits the framework's author by the Person @id kanav.net publishes", () => {
-    const graph = buildForRoute({
-      canonical: "https://ethotechnics.org/",
-      structuredDataType: "collection",
-      openGraphType: "website",
-      breadcrumbs: [{ name: "Home", absoluteUrl: "https://ethotechnics.org/" }],
+    const website = build("/").find((node) => node["@type"] === "WebSite");
+    expect(website?.author).toEqual({
+      "@type": "Person",
+      "@id": "https://kanav.net/#person",
+      name: "Kanav Jain",
+      url: "https://kanav.net",
     });
+  });
 
-    const website = graph.find((node) => node["@type"] === "WebSite");
-    expect(website && "author" in website ? website.author : undefined).toEqual(
+  it("gives a hub a CollectionPage and no article", () => {
+    const graph = build("/standards", {
+      page: { mainEntity: itemList([{ name: "STD-01", url: `${site}/a` }]) },
+    });
+    const [page] = pageNodes(graph, `${site}/standards`);
+    expect(page?.["@type"]).toBe("CollectionPage");
+    expect(page?.mainEntity).toMatchObject({
+      "@type": "ItemList",
+      numberOfItems: 1,
+      itemListElement: [{ position: 1, item: { name: "STD-01" } }],
+    });
+    expect(graph.some((node) => String(node["@id"]).endsWith("#article"))).toBe(
+      false,
+    );
+  });
+
+  it("gives a standard a TechArticle carrying its identifier and dates", () => {
+    const graph = build("/standards/std-08-delegation", {
+      article: { identifier: "STD-08", version: "0.3.2" },
+    });
+    const article = graph.find((node) => node["@type"] === "TechArticle");
+    expect(article).toMatchObject({
+      "@id": `${site}/standards/std-08-delegation#article`,
+      headline: "Example page",
+      identifier: "STD-08",
+      version: "0.3.2",
+      datePublished: "2026-01-09T00:00:00.000Z",
+      mainEntityOfPage: { "@id": `${site}/standards/std-08-delegation` },
+    });
+  });
+
+  it("describes a tool page's tool as a WebApplication", () => {
+    const graph = build("/diagnostics/record-conformance");
+    const [page] = pageNodes(graph, `${site}/diagnostics/record-conformance`);
+    expect(page?.mainEntity).toEqual({
+      "@id": `${site}/diagnostics/record-conformance#app`,
+    });
+    expect(graph.some((node) => node["@type"] === "WebApplication")).toBe(true);
+    expect(graph.some((node) => node["@type"] === "Article")).toBe(false);
+  });
+
+  it("makes a page with questions an FAQPage too", () => {
+    const graph = build("/explainers/stoppability", {
+      faq: [{ question: "What is it?", answer: "A halt that works." }],
+    });
+    const [page] = pageNodes(graph, `${site}/explainers/stoppability`);
+    expect(page?.["@type"]).toEqual(["WebPage", "FAQPage"]);
+    expect(page?.mainEntity).toEqual([
       {
-        "@type": "Person",
-        "@id": "https://kanav.net/#person",
-        name: "Kanav Jain",
-        url: "https://kanav.net",
+        "@type": "Question",
+        name: "What is it?",
+        acceptedAnswer: { "@type": "Answer", text: "A halt that works." },
       },
-    );
+    ]);
   });
 
-  it("builds article-like page schema with article node", () => {
-    const graph = buildForRoute({
-      canonical: "https://ethotechnics.org/research/ai-assurance",
-      structuredDataType: "webpage",
-      openGraphType: "article",
-      breadcrumbs: [
-        { name: "Home", absoluteUrl: "https://ethotechnics.org/" },
-        {
-          name: "Research",
-          absoluteUrl: "https://ethotechnics.org/research",
-        },
+  it("adds the entities a page describes under their own @id", () => {
+    const termId = `${site}/glossary/contestability#defined-term`;
+    const graph = build("/glossary/contestability", {
+      page: { mainEntity: { "@id": termId } },
+      nodes: [
+        { "@type": "DefinedTerm", "@id": termId, name: "Contestability" },
       ],
     });
-
-    const articleNode = graph.find((node) => node["@type"] === "Article");
-    expect(articleNode).toBeDefined();
-    expect(articleNode?.["@id"]).toBe(
-      "https://ethotechnics.org/research/ai-assurance#article",
-    );
-    expect(graph.some((node) => node["@type"] === "BreadcrumbList")).toBeTrue();
-  });
-
-  it("builds glossary term schema as DefinedTerm", () => {
-    const graph = buildForRoute({
-      canonical: "https://ethotechnics.org/glossary/accountability",
-      structuredDataType: "defined-term",
-      openGraphType: "article",
-      breadcrumbs: [
-        { name: "Home", absoluteUrl: "https://ethotechnics.org/" },
-        { name: "Glossary", absoluteUrl: "https://ethotechnics.org/glossary" },
-      ],
+    const [page] = pageNodes(graph, `${site}/glossary/contestability`);
+    expect(page?.["@type"]).toBe("WebPage");
+    expect(page?.mainEntity).toEqual({ "@id": termId });
+    expect(graph.find((node) => node["@id"] === termId)).toMatchObject({
+      "@context": "https://schema.org",
+      "@type": "DefinedTerm",
     });
-
-    const webpage = graph.find(
-      (node) =>
-        node["@id"] === "https://ethotechnics.org/glossary/accountability",
-    );
-    expect(webpage?.["@type"]).toBe("DefinedTerm");
-    expect(webpage).toHaveProperty(
-      "inDefinedTermSet",
-      "https://ethotechnics.org/glossary",
-    );
-  });
-
-  it("builds standards page schema as webpage with article metadata", () => {
-    const graph = buildForRoute({
-      canonical: "https://ethotechnics.org/standards/w3c-vc-schemas",
-      structuredDataType: "webpage",
-      openGraphType: "article",
-      breadcrumbs: [
-        { name: "Home", absoluteUrl: "https://ethotechnics.org/" },
-        {
-          name: "Standards",
-          absoluteUrl: "https://ethotechnics.org/standards",
-        },
-      ],
-    });
-
-    const webpage = graph.find(
-      (node) =>
-        node["@id"] === "https://ethotechnics.org/standards/w3c-vc-schemas",
-    );
-    expect(webpage?.["@type"]).toBe("WebPage");
-    expect(graph.some((node) => node["@type"] === "Article")).toBeTrue();
-  });
-});
-
-describe("buildSchemaGraph with a route-supplied page node", () => {
-  it("keeps site nodes and the breadcrumb but leaves the page node to the route", () => {
-    const canonical = "https://ethotechnics.org/glossary/decision-threshold";
-    const graph = buildSchemaGraph({
-      ...baseInput,
-      canonical,
-      webpageId: canonical,
-      primaryImageId: `${canonical}#primaryimage`,
-      structuredDataType: "defined-term",
-      openGraphType: "article",
-      breadcrumbs: [
-        { name: "Home", absoluteUrl: "https://ethotechnics.org/" },
-        { name: "Glossary", absoluteUrl: "https://ethotechnics.org/glossary" },
-        { name: "Decision Threshold", absoluteUrl: canonical },
-      ],
-      pageNode: "route",
-    });
-
-    const types = graph.map((node) => node["@type"]);
-    expect(types).toEqual(["Organization", "WebSite", "BreadcrumbList"]);
-    expect(graph.some((node) => node["@id"] === canonical)).toBeFalse();
   });
 });

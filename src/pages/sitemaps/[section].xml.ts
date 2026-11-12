@@ -2,20 +2,22 @@ export const prerender = true;
 
 import type { APIContext } from "astro";
 
+import {
+  SITEMAP_SECTIONS,
+  type SitemapSection,
+} from "../../utils/seo/route-type";
 import { buildSitemapSections, renderSitemap } from "../../utils/seo/sitemaps";
 
 const fallbackSite = "https://ethotechnics.org";
-const validSections = ["core", "glossary", "standards", "taxonomy"] as const;
-type SitemapSection = (typeof validSections)[number];
 
 export function getStaticPaths() {
-  return validSections.map((section) => ({ params: { section } }));
+  return SITEMAP_SECTIONS.map((section) => ({ params: { section } }));
 }
 
 export async function GET({ params, site }: APIContext) {
   const section = params.section;
 
-  if (!section || !validSections.includes(section as SitemapSection)) {
+  if (!section || !SITEMAP_SECTIONS.includes(section as SitemapSection)) {
     return new Response("Not found", { status: 404 });
   }
 

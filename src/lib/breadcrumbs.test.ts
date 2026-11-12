@@ -26,6 +26,24 @@ describe("normalizeBreadcrumbItems", () => {
     ]);
   });
 
+  it("names section hubs in sentence case", () => {
+    const names = (currentPath: string) =>
+      normalizeBreadcrumbItems({ siteBase, currentPath, title: "Page" }).map(
+        (item) => item.name,
+      );
+
+    expect(names("/evidence-packs/std-08")).toEqual([
+      "Home",
+      "Evidence packs",
+      "Page",
+    ]);
+    expect(names("/use-cases/examples/loan-approval")).toEqual([
+      "Home",
+      "Use cases",
+      "Page",
+    ]);
+  });
+
   it("skips a path segment that has no page of its own", () => {
     // The worked-examples index was folded into /use-cases; a crumb for
     // /use-cases/examples would link a redirect.

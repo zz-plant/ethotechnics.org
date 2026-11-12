@@ -7,6 +7,7 @@ import EvalStackFigure from "../../components/EvalStackFigure.astro";
 import { evalsContent } from "../../content/evals";
 import { evalTestCases } from "../../content/eval-test-cases";
 import { getStandardById } from "../../content/standards";
+import { getGlossaryLabel } from "../../utils/glossary";
 import { formatVersion } from "../../utils/versions";
 import type { EvalTestCase } from "../../content/evals";
 
@@ -47,7 +48,6 @@ const standardHref = (ref: string) => {
   title={pageTitle}
   description={suite.description}
   publishedTime={evalsContent.published}
-  structuredDataType="collection"
 >
   <PageIntro
     eyebrow={suite.category}
@@ -142,9 +142,9 @@ const standardHref = (ref: string) => {
         <div class="panel stack-sm">
           <p class="eyebrow">Related glossary terms</p>
           <ul class="muted">
-            {[...new Set(suite.glossaryRefs)].map((ref) => (
+            {suite.glossaryRefs.map((ref) => (
               <li>
-                <a href={`/glossary/${ref}`}>{ref.replace(/-/g, " ")}</a>
+                <a href={`/glossary/${ref}`}>{getGlossaryLabel(ref)}</a>
               </li>
             ))}
           </ul>

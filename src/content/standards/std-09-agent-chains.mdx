@@ -1,6 +1,6 @@
 ---
 title: "Agent chains"
-description: "A draft standard for decisions made by chains of agents: the chain counts as one delegation, delays add up, and it corrects errors only as well as its weakest link."
+description: "A draft standard for decisions made by chains of agents: the chain counts as one delegation, delays add up, and its weakest link limits error correction."
 permalink: "/standards/std-09-agent-chains"
 eyebrow: "Standard STD-09"
 seoTitle: "Agent chains (STD-09)"
@@ -130,30 +130,6 @@ export const antiPatterns = [
       "Interface stability is not behavior stability; the standard binds to the behavior the evidence basis describes.",
   },
 ];
-
-export const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "TechArticle",
-  "@id": "https://ethotechnics.org/standards/std-09-agent-chains",
-  headline: "STD-09 — Agent chains",
-  description:
-    "The terms a chain of delegations must satisfy: the whole chain is treated as one delegation, delays add up across it, and it can correct errors only as well as its weakest link.",
-  url: "https://ethotechnics.org/standards/std-09-agent-chains",
-  datePublished: "2026-09-11",
-  dateModified: "2026-10-20",
-  version: "0.2.4",
-  identifier: "STD-09",
-  publisher: {
-    "@type": "Organization",
-    name: "Ethotechnics Institute",
-    url: "https://ethotechnics.org",
-  },
-  isPartOf: {
-    "@type": "CollectionPage",
-    name: "Standards — Ethotechnics Institute",
-    url: "https://ethotechnics.org/standards",
-  },
-};
 
 <StandardStatusSummary slug="std-09-agent-chains" />
 
@@ -564,9 +540,3 @@ export const structuredData = {
 
   </div>
 </article>
-
-<script
-  type="application/ld+json"
-  set:html={JSON.stringify(structuredData, null, 2)}
-  is:inline
-/>

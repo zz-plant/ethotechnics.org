@@ -1,5 +1,4 @@
 ---
-import InlineScript from "./InlineScript.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CardGrid from "./CardGrid.astro";
 import CardItem from "./CardItem.astro";
@@ -80,27 +79,6 @@ const standardLinks = ctas.map(({ eyebrow, title, description, href }) => {
   const join = !named ? ` (${kind}). ` : /[.?!]$/.test(title) ? " " : ". ";
   return { href, title, after: `${join}${description}` };
 });
-
-const pageUrl = Astro.site
-  ? new URL(permalink, Astro.site).toString()
-  : permalink;
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  // The layout's WebPage owns the page URL as its @id. Reusing it here gave
-  // one entity two types.
-  "@id": `${pageUrl}#faq`,
-  mainEntityOfPage: { "@id": pageUrl },
-  mainEntity: faqs.map((faq) => ({
-    "@type": "Question",
-    name: faq.question,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: faq.answer,
-    },
-  })),
-};
-const structuredDataJson = JSON.stringify(structuredData, null, 2);
 ---
 
 <BaseLayout
@@ -108,7 +86,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   description={description}
   publishedTime={explainerSeoMetadata.publishedTime}
   modifiedTime={explainerSeoMetadata.modifiedTime}
-  structuredDataType="tech-article"
+  schema={{ faq: faqs }}
 >
   <PageIntro
     eyebrow="Explainer"
@@ -189,8 +167,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   </SectionBlock>
 
   <NextStep topic={[title, permalink]} />
-
-  <InlineScript type="application/ld+json" code={structuredDataJson} />
 </BaseLayout>
 
 <style>

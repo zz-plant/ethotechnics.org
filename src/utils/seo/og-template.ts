@@ -1,4 +1,4 @@
-import { normalizePath } from "./route-type";
+import { resolveRouteProfile, type OgTemplate } from "./route-type";
 
 const OG_TEMPLATES = [
   "default",
@@ -8,45 +8,13 @@ const OG_TEMPLATES = [
   "taxonomy",
   "mechanisms",
   "editorial",
-] as const;
-
-type OgTemplate = (typeof OG_TEMPLATES)[number];
+] as const satisfies readonly OgTemplate[];
 
 const isOgTemplate = (value: string): value is OgTemplate =>
   OG_TEMPLATES.includes(value as OgTemplate);
 
-const inferOgTemplateFromPath = (path?: string): OgTemplate => {
-  const normalizedPath = normalizePath(path ?? "/").toLowerCase();
-
-  if (normalizedPath === "/") return "home";
-  if (normalizedPath.startsWith("/standards")) return "standards";
-  if (normalizedPath.startsWith("/glossary")) return "glossary";
-  if (
-    normalizedPath.startsWith("/taxonomy") ||
-    normalizedPath.startsWith("/delivery") ||
-    normalizedPath.startsWith("/assurance") ||
-    normalizedPath.startsWith("/experience")
-  ) {
-    return "taxonomy";
-  }
-  if (
-    normalizedPath.startsWith("/mechanisms") ||
-    normalizedPath.startsWith("/library") ||
-    normalizedPath.startsWith("/validators")
-  ) {
-    return "mechanisms";
-  }
-  if (
-    normalizedPath.startsWith("/research") ||
-    normalizedPath.startsWith("/incidents") ||
-    normalizedPath.startsWith("/field-notes") ||
-    normalizedPath.startsWith("/explainers")
-  ) {
-    return "editorial";
-  }
-
-  return "default";
-};
+const inferOgTemplateFromPath = (path?: string): OgTemplate =>
+  resolveRouteProfile(path ?? "/").ogTemplate;
 
 const resolveOgTemplate = (template?: string, path?: string): OgTemplate => {
   const normalizedTemplate = template?.trim().toLowerCase();

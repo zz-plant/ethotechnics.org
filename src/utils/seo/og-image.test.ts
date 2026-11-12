@@ -20,9 +20,8 @@ describe("resolveOgTemplate", () => {
     expect(resolveOgTemplate(undefined, "/")).toBe("home");
     expect(resolveOgTemplate(undefined, "/standards/std-01")).toBe("standards");
     expect(resolveOgTemplate(undefined, "/glossary/latency")).toBe("glossary");
-    expect(resolveOgTemplate(undefined, "/taxonomy/governance")).toBe(
-      "taxonomy",
-    );
+    // Taxonomy entries are anchors on /taxonomy; /taxonomy/* redirects there.
+    expect(resolveOgTemplate(undefined, "/taxonomy")).toBe("taxonomy");
     expect(resolveOgTemplate(undefined, "/mechanisms/patterns/bindings")).toBe(
       "mechanisms",
     );

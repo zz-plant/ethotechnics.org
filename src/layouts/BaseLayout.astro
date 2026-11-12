@@ -21,14 +21,9 @@ import {
   stripBrandSuffix,
 } from "../utils/seo/document-title";
 import { describeOgCard } from "../utils/seo/og-cards";
-import { resolveOgTemplate } from "../utils/seo/og-template";
 import { toSeoRobotsProps } from "../utils/seo/robots";
-import {
-  resolveOpenGraphType,
-  resolveStructuredDataType,
-  type StructuredDataMode,
-} from "../utils/seo/route-type";
-import { buildSchemaGraph, type StructuredDataType } from "../utils/seo/schema";
+import { resolveRouteProfile } from "../utils/seo/route-type";
+import { buildSchemaGraph, type PageSchema } from "../utils/seo/schema";
 
 type FooterNavLink = { label: string; href: string; external?: boolean };
 type FooterNavSection = { heading: string; links: FooterNavLink[] };
@@ -48,7 +43,6 @@ interface Props {
    */
   titleSuffix?: boolean;
   description: string;
-  openGraphType?: string;
   robots?: string;
   publishedTime?: string;
   modifiedTime?: string;
@@ -61,13 +55,13 @@ interface Props {
   enableGlossaryHighlights?: boolean;
   breadcrumbItems?: Array<{ name: string; url: string }>;
   jsonAlternates?: Array<{ href: string; title?: string }>;
-  structuredDataType?: StructuredDataMode;
   /**
-   * Set to "route" when the page emits its own page-level JSON-LD. The layout
-   * then emits only Organization, WebSite, and the breadcrumb list, so the
-   * page is described once.
+   * What the page adds to its JSON-LD: the items a hub lists, the term a
+   * glossary entry defines, a standard's identifier and version. The page's
+   * type comes from its address (utils/seo/route-type); a page never emits a
+   * JSON-LD block of its own.
    */
-  pageSchema?: "layout" | "route";
+  schema?: PageSchema;
   canonical?: string;
   /**
    * Footer hrefs to leave out because the page links them just above the
@@ -89,7 +83,6 @@ const {
   title,
   titleSuffix = true,
   description,
-  openGraphType,
   robots = defaultRobots,
   publishedTime,
   modifiedTime,
@@ -97,8 +90,7 @@ const {
   enableGlossaryHighlights = true,
   breadcrumbItems,
   jsonAlternates,
-  structuredDataType = "auto",
-  pageSchema = "layout",
+  schema,
   canonical: canonicalProp,
   footerOmit = [],
 }: Props = Astro.props;
@@ -119,11 +111,8 @@ const canonical =
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
 const currentPath = Astro.url.pathname;
 
-const resolvedOpenGraphType = resolveOpenGraphType(currentPath, openGraphType);
-const resolvedStructuredDataType = resolveStructuredDataType(
-  currentPath,
-  structuredDataType,
-) as StructuredDataType;
+const profile = resolveRouteProfile(currentPath);
+const resolvedOpenGraphType = profile.openGraphType;
 
 const normalizedPublishedTime = normalizeDateTime(publishedTime);
 const normalizedModifiedTime =
@@ -131,7 +120,6 @@ const normalizedModifiedTime =
 
 const organizationId = `${siteBase}#organization`;
 const websiteId = `${siteBase}#website`;
-const webpageId = canonical;
 const { identity, navigation } = siteFooter;
 const footerNav = (navigation as FooterNavSection[])
   .map((section) => ({
@@ -146,10 +134,7 @@ const primaryImageId = `${canonical}#primaryimage`;
 const ogImageUrl = new URL("/api/og.png", siteBase);
 ogImageUrl.searchParams.set("title", pageName);
 ogImageUrl.searchParams.set("description", description);
-ogImageUrl.searchParams.set(
-  "template",
-  resolveOgTemplate(undefined, currentPath),
-);
+ogImageUrl.searchParams.set("template", profile.ogTemplate);
 ogImageUrl.searchParams.set("path", currentPath);
 ogImageUrl.searchParams.set("v", "4");
 
@@ -175,20 +160,19 @@ const structuredData = buildSchemaGraph({
   siteDescription: defaultDescription,
   canonical,
   title: documentTitle,
+  pageName,
   description,
   seoImage,
   organizationId,
   websiteId,
-  webpageId,
   logoId,
   logoUrl,
   primaryImageId,
-  structuredDataType: resolvedStructuredDataType,
-  openGraphType: resolvedOpenGraphType,
+  profile,
   normalizedPublishedTime,
   normalizedModifiedTime,
   breadcrumbs: normalizedBreadcrumbItems,
-  pageNode: pageSchema,
+  schema,
 });
 
 const jsonAlternateLinks = buildJsonAlternateLinks(jsonAlternates);
@@ -240,9 +224,6 @@ const themeBootScript = `(() => {
   }
 })();`;
 const languageAlternates = buildLanguageAlternates(canonical);
-
-const pathSegments = currentPath.split("/").filter(Boolean);
-const pagefindType = pathSegments[0] ?? "";
 ---
 
 <!doctype html>
@@ -354,11 +335,7 @@ const pagefindType = pathSegments[0] ?? "";
     <InlineScript type="application/ld+json" code={structuredDataJson} />
     <meta data-pagefind-meta="title" content={pageName} />
     <meta data-pagefind-meta="description" content={description} />
-    {
-      pagefindType ? (
-        <meta data-pagefind-meta="type[content]" content={pagefindType} />
-      ) : null
-    }
+    <meta data-pagefind-meta="type[content]" content={profile.group} />
     <slot name="head" />
     <meta name="color-scheme" content="light dark" />
     <InlineScript code={themeBootScript} />

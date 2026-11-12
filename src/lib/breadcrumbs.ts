@@ -1,4 +1,5 @@
 import { stripBrandSuffix } from "../utils/seo/document-title";
+import { sectionLabel } from "../utils/seo/route-type";
 
 export interface BreadcrumbInputItem {
   name: string;
@@ -74,8 +75,12 @@ export const normalizeBreadcrumbItems = ({
         const isLast = index === segments.length - 1;
         const path = `/${segments.slice(0, index + 1).join("/")}`;
         if (!isLast && SEGMENTS_WITHOUT_A_PAGE.has(path)) return [];
+        // A section hub carries its sentence-case name ("Evidence packs",
+        // not "Evidence Packs").
         const label =
-          isLast && currentLabel ? currentLabel : titleizeSegment(segment);
+          isLast && currentLabel
+            ? currentLabel
+            : (sectionLabel(path) ?? titleizeSegment(segment));
 
         return [{ name: label, url: new URL(path, siteBase).toString() }];
       }),

@@ -3,7 +3,7 @@ import { describe, expect, it } from "bun:test";
 import {
   buildStandardsCardViewModels,
   buildStandardsGroupingAndFilters,
-  buildStandardsStructuredDataPayload,
+  buildStandardsSchema,
 } from "./standards-index";
 import { standardsContent, type StandardEntry } from "../standards";
 
@@ -77,23 +77,30 @@ describe("buildStandardsGroupingAndFilters", () => {
   });
 });
 
-describe("buildStandardsStructuredDataPayload", () => {
+describe("buildStandardsSchema", () => {
   it("builds collection payload with canonical urls", () => {
     const cards = buildStandardsCardViewModels({
       standards: standardsContent.standards,
       doctrine: standardsContent.doctrine,
     });
 
-    const payload = buildStandardsStructuredDataPayload({
+    const payload = buildStandardsSchema({
       standardsContent,
       adoptedStandards: cards.adoptedStandards,
       siteUrl: new URL("https://ethotechnics.org"),
     });
 
-    expect(payload["@type"]).toBe("CollectionPage");
-    expect(payload.url).toBe("https://ethotechnics.org/standards");
-    expect(payload.hasPart.length).toBeGreaterThan(
+    const list = payload.page?.mainEntity as {
+      "@type": string;
+      itemListElement: Array<{ position: number; item: { url: string } }>;
+    };
+    expect(list["@type"]).toBe("ItemList");
+    expect(list.itemListElement.length).toBeGreaterThan(
       standardsContent.standards.length,
+    );
+    expect(list.itemListElement[0]?.position).toBe(1);
+    expect(list.itemListElement[0]?.item.url).toStartWith(
+      "https://ethotechnics.org/standards/",
     );
   });
 });

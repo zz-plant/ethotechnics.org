@@ -172,7 +172,7 @@ export const governanceCrosswalks: GovernanceCrosswalk[] = [
     controlId: "CTRL-07",
     topic: "dependence and withdrawal rehearsal",
     metaDescription:
-      "Measured dependence and rehearsed withdrawal before scope grows, mapped to EU AI Act Articles 9 and 72, NIST AI RMF GOVERN 1.7 and MANAGE 2.4, and ISO/IEC 42001.",
+      "Measure dependence, rehearse withdrawal, then widen scope. Mapped to EU AI Act Articles 9 and 72, NIST AI RMF GOVERN 1.7 and MANAGE 2.4, and ISO/IEC 42001.",
     obligation:
       "Measure dependence and reversibility, rehearse withdrawal, and preserve the capacities to replace the system before scope expands.",
     euAiAct: "Articles 9 and 72 (Risk management; post-market monitoring)",

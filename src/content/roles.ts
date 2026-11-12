@@ -74,7 +74,7 @@ export const roles: Role[] = [
     label: "Engineering",
     who: "You build or operate the system that makes the decision.",
     tagline:
-      "Build decision systems whose errors reach someone who can change the rule: a log entry for every decision, permissions that expire, and challenges the system has to answer, written as code, not policy.",
+      "Build systems whose errors reach someone who can change the rule, in code, not policy: decision logs, expiring permissions, and challenges it must answer.",
     orientation: [
       {
         number: 1,
@@ -138,7 +138,7 @@ export const roles: Role[] = [
     label: "Policy and compliance",
     who: "You write the rules the system has to satisfy, or prove to a regulator that it does.",
     tagline:
-      "Turn the standards into obligations a regulator or a contract can enforce: mappings to the law, numeric targets for challenges, and clauses a vendor has to sign.",
+      "Make the standards enforceable by a regulator or a contract: mappings to the law, numeric targets for challenges, and clauses a vendor has to sign.",
     orientation: [
       {
         number: 1,

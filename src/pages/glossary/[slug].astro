@@ -1,5 +1,4 @@
 ---
-import InlineScript from "../../components/InlineScript.astro";
 import "../../styles/components/glossary.css";
 
 import { getCollection } from "astro:content";
@@ -63,7 +62,6 @@ const categoryLabel = normalizeGlossaryHeading(category.heading);
 const pagePermalink = glossaryEntryPermalink(entry.id);
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
 const organizationId = `${siteBase}#organization`;
-const websiteId = `${siteBase}#website`;
 const pageUrl = Astro.site
   ? new URL(pagePermalink, Astro.site).toString()
   : pagePermalink;
@@ -172,7 +170,6 @@ const keywordList = Array.from(
     ].filter((item): item is string => Boolean(item)),
   ),
 );
-const keywordContent = keywordList.join(", ");
 const allEntries = categories.flatMap((category) => category.entries);
 const formatClusterLabel = (value: string) =>
   value
@@ -271,50 +268,24 @@ const explainers = (await getCollection("explainers")).filter(
 const explainer =
   explainers.find((candidate) => candidate.id === entry.id) ?? explainers[0];
 const hasEntryDetails = Boolean(termUpdatedDate || termVersion);
-const structuredData = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebPage",
-      "@id": pageUrl,
-      name: `${entry.title} — Ethotechnics glossary`,
-      description: pageDescription,
-      keywords: keywordList,
-      url: pageUrl,
-      inLanguage: "en",
-      datePublished: termPublished,
-      dateModified: termModified,
-      isPartOf: {
-        "@id": websiteId,
-      },
-      publisher: {
-        "@id": organizationId,
-      },
-      mainEntity: {
-        "@id": `${pageUrl}#defined-term`,
-      },
-      breadcrumb: {
-        "@id": `${pageUrl}#breadcrumb`,
-      },
-    },
+const definedTermId = `${pageUrl}#defined-term`;
+const pageSchema = {
+  page: { mainEntity: { "@id": definedTermId } },
+  nodes: [
     {
       "@type": "DefinedTerm",
-      "@id": `${pageUrl}#defined-term`,
+      "@id": definedTermId,
       name: entry.title,
       description: plainDescription,
       keywords: keywordList,
       identifier: entry.id,
       url: pageUrl,
       inLanguage: "en",
-      datePublished: termPublished,
-      dateModified: termModified,
+      ...(termPublished ? { datePublished: termPublished } : {}),
+      ...(termModified ? { dateModified: termModified } : {}),
       about: aboutItems,
-      mainEntityOfPage: {
-        "@id": pageUrl,
-      },
-      publisher: {
-        "@id": organizationId,
-      },
+      mainEntityOfPage: { "@id": pageUrl },
+      publisher: { "@id": organizationId },
       inDefinedTermSet: {
         "@type": "DefinedTermSet",
         "@id": glossarySetId,
@@ -325,21 +296,18 @@ const structuredData = {
     },
   ],
 };
-const structuredDataJson = JSON.stringify(structuredData, null, 2);
 ---
 
 <BaseLayout
   title={`${entry.title} — Ethotechnics glossary`}
   titleSuffix={false}
   description={pageDescription}
-  openGraphType="article"
   publishedTime={termPublished ?? "2026-01-09T00:00:00.000Z"}
   modifiedTime={termModified ?? undefined}
-  pageSchema="route"
+  schema={pageSchema}
   enableGlossaryHighlights={false}
 >
   <Fragment slot="head">
-    <meta name="keywords" content={keywordContent} />
     <meta property="article:section" content={categoryLabel} />
     {
       (entry.tags ?? []).map((tag) => (
@@ -348,14 +316,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     }
   </Fragment>
   <PageIntro eyebrow="Glossary entry" title={entry.title} anchorLinks={[]} />
-  <article
-    class="glossary-entry glossary-entry--detail"
-    itemscope
-    itemtype="https://schema.org/DefinedTerm"
-  >
-    <meta itemprop="name" content={entry.title} />
-    <meta itemprop="url" content={pageUrl} />
-    <meta itemprop="inDefinedTermSet" content={glossaryUrl} />
+  <article class="glossary-entry glossary-entry--detail">
     {
       hasFilterBreadcrumb && (
         <nav
@@ -377,7 +338,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           <div
             class="glossary-entry__body"
             set:html={entry.bodyHtml}
-            itemprop="description"
           />
           {
             domainPills.length > 0 && (
@@ -628,5 +588,4 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     />
   </CitationBlock>
 
-  <InlineScript type="application/ld+json" code={structuredDataJson} />
 </BaseLayout>

@@ -1,5 +1,6 @@
 import type { APIContext } from "astro";
 
+import { SITEMAP_SECTIONS } from "../utils/seo/route-type";
 import {
   buildSitemapSections,
   renderSitemapIndex,
@@ -7,12 +8,10 @@ import {
 
 const fallbackSite = "https://ethotechnics.org";
 
-const sitemapPaths = ["core", "glossary", "standards", "taxonomy"] as const;
-
 export async function GET({ site }: APIContext) {
   const siteUrl = site ?? new URL(fallbackSite);
   const sections = await buildSitemapSections();
-  const sitemapEntries = sitemapPaths.map((section) => {
+  const sitemapEntries = SITEMAP_SECTIONS.map((section) => {
     const sectionEntries = sections[section];
     const latestLastmod = sectionEntries.reduce<string | undefined>(
       (latest, entry) => {

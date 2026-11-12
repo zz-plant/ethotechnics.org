@@ -1,3 +1,5 @@
+import { SEARCH_GROUPS } from "../../utils/seo/route-type";
+
 export type HapticPattern = "nudge" | "success" | "error";
 
 export type HapticOptions = {
@@ -9,10 +11,8 @@ export type PagefindResultData = {
   excerpt: string;
   meta: {
     title: string;
+    /** The page's search group, from utils/seo/route-type. */
     type?: string;
-    section?: string;
-    category?: string;
-    contentType?: string;
   };
 };
 
@@ -45,39 +45,11 @@ export const RECENT_SEARCH_KEY = "et3-search-recent";
 export const SEARCH_QUERY_STORAGE_KEY = "et3-search-query";
 export const MAX_RECENT_SEARCHES = 6;
 export const OTHER_GROUP_LABEL = "Other pages";
-export const GROUP_LABELS = [
-  "Standards",
-  "Validators",
-  "Mechanisms",
-  "Research",
-  "Glossary",
-  "Casebook",
-  "Diagnostics",
-  "Field notes",
-  "Explainers",
-  "Evals",
-  "Evidence packs",
+// Every page names its group in its Pagefind metadata; a result without one
+// comes from an index built before the groups existed.
+export const GROUP_LABELS: readonly string[] = [
+  ...SEARCH_GROUPS,
   OTHER_GROUP_LABEL,
 ];
 export const SEARCH_MODAL_PARAM = "modal";
 export const SEARCH_QUERY_PARAM = "q";
-export const CONTENT_TYPE_MAP: Record<string, string> = {
-  standards: "Standards",
-  standard: "Standards",
-  validators: "Validators",
-  validator: "Validators",
-  mechanisms: "Mechanisms",
-  mechanism: "Mechanisms",
-  research: "Research",
-  paper: "Research",
-  report: "Research",
-  // A page's type is the first segment of its address. Sections without a
-  // name here are grouped under OTHER_GROUP_LABEL.
-  glossary: "Glossary",
-  casebook: "Casebook",
-  diagnostics: "Diagnostics",
-  "field-notes": "Field notes",
-  explainers: "Explainers",
-  evals: "Evals",
-  "evidence-packs": "Evidence packs",
-};

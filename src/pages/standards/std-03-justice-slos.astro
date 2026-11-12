@@ -89,51 +89,11 @@ const breachPlaybook = [
   "Added staff or a dedicated remediation queue.",
 ];
 
-const pageUrl = Astro.site
-  ? new URL("/standards/std-03-justice-slos", Astro.site).toString()
-  : "/standards/std-03-justice-slos";
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "TechArticle",
-  "@id": pageUrl,
-  headline: "STD-03 — Justice SLOs: targets, budgets, and breach actions",
-  description:
-    "A draft standard: each justice metric needs a numeric threshold, a measurement window, a breach action, and a named owner.",
-  url: pageUrl,
-  datePublished: "2026-01-01",
-  dateModified: "2026-10-13",
-  version: "0.6.2",
-  identifier: "STD-03",
-  publisher: {
-    "@type": "Organization",
-    name: "Ethotechnics Institute",
-    url: Astro.site ? new URL("/", Astro.site).toString() : "/",
-  },
-  isPartOf: {
-    "@type": "CollectionPage",
-    name: "Standards — Ethotechnics Institute",
-    url: Astro.site
-      ? new URL("/standards", Astro.site).toString()
-      : "/standards",
-  },
-  hasPart: [
-    ...standardFields.map((field) => ({
-      "@type": "CreativeWork",
-      name: field.title,
-      description: field.description,
-    })),
-    ...metricLinks.map((metric) => ({
-      "@type": "CreativeWork",
-      name: metric.title,
-      description: metric.description,
-    })),
-  ],
-};
-const structuredDataJson = JSON.stringify(structuredData, null, 2);
-
 const publication = derivePublicationMetadata({
   permalink,
-  published: "2026-01-01T00:00:00Z",
+  // The file's first commit; the citation said January 1 after the page's
+  // own date moved to January 21.
+  published: "2026-01-21T00:00:00Z",
   updated: "2026-10-13T00:00:00Z",
   version: "v0.6.2",
   changelogSummary:
@@ -144,11 +104,12 @@ const publication = derivePublicationMetadata({
 <BaseLayout
   title="Justice SLOs (STD-03)"
   description="A draft standard: each justice metric, such as time to halt, needs a target, a measurement window, a breach action, and a named owner."
-  publishedTime="2026-01-21T00:00:00.000Z"
+  publishedTime={publication.published}
+  modifiedTime={publication.updated}
   mainClass="page page--wide standard-document"
   enableGlossaryHighlights={false}
   breadcrumbItems={breadcrumbItems}
-  pageSchema="route"
+  schema={{ article: { identifier: "STD-03", version: "0.6.2" } }}
 >
   <article class="standard-document">
     <header class="standard-header">
@@ -283,7 +244,6 @@ const publication = derivePublicationMetadata({
     </div>
   </article>
   <StandardPublicationHistory slug="std-03-justice-slos" />
-  <script type="application/ld+json" set:html={structuredDataJson} is:inline />
   <CitationBlock
     title={pageTitle}
     permalink={permalink}

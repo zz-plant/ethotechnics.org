@@ -71,9 +71,9 @@ export type ResearchContent = PageWithPermalink &
   };
 
 export const researchContent: ResearchContent = {
-  pageTitle: "Research — Ethotechnics",
+  pageTitle: "Research on automated decisions and correction — Ethotechnics",
   pageDescription:
-    "Five public failures, each established by a court, an inquiry, or a regulator, scored on six safeguards by the Institute. A draft protocol, the theory, and what remains open.",
+    "Five public failures, each established by a court, an inquiry, or a regulator, scored on six safeguards by the Institute. A draft protocol and the theory.",
   permalink: "/research",
   published: "2025-12-03T00:00:00Z",
   updated: "2026-11-08T00:00:00Z",

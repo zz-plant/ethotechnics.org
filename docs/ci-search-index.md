@@ -43,10 +43,11 @@ A page is searchable only if a sitemap lists it.
 
 - `data-pagefind-body` on `<main>`. Pagefind indexes the text inside it and skips the header and
   footer.
-- `<meta data-pagefind-meta="type[content]">`, holding the first segment of the address
-  (`glossary`, `standards`). The dialog groups results under a heading by this value, through
-  `CONTENT_TYPE_MAP` in `src/client/search-modal/types.ts`. The `[content]` suffix tells Pagefind
-  to read the attribute. Without it Pagefind reads the element's text, and a `<meta>` has none.
+- `<meta data-pagefind-meta="type[content]">`, holding the page's search group (`Standards`,
+  `Glossary`, `Guides`). `resolveRouteProfile` in `src/utils/seo/route-type.ts` decides it from
+  the address, and the dialog shows results under these headings in `SEARCH_GROUPS` order. The
+  `[content]` suffix tells Pagefind to read the attribute. Without it Pagefind reads the
+  element's text, and a `<meta>` has none.
 - The `title` and `description` tags beside it have no suffix, so Pagefind ignores them. A
   result's title is the page's first `h1`.
 

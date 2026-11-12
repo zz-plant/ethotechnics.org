@@ -5,7 +5,7 @@
 ## Overview
 The central claim: institutions can absorb the evidence that their automated systems are wrong (a worker quietly fixes the error, an appeal settles one case, and the rule goes unexamined). Ethotechnics did not discover that mechanism. It scores it in public cases and specifies the records that carry the evidence back to the rule in any institution that adopts them. Ethotechnics publishes open standards, mechanisms, diagnostics, and a glossary for organizations that let software make consequential decisions: who gets a loan, a shift, a benefit, or a refund. The object being engineered is the handover of authority, not the model. The practical questions are who authorized this class of decision, on what evidence, until when, who is allowed to object, and what actually changes when they do. The invariant: No system may accumulate consequential agency faster than the institution accumulates the capacity to inspect, challenge, revise, and survive its decisions. The method (https://ethotechnics.org/method) states the seven-stage chain (evidence, authority, decision, consequence, challenge, reconsideration, correction), the six state variables, and the twelve laws that the standards bind.
 
-## The Twelve Laws
+## The twelve laws
 Each law states an invariant the standards bind. Full text: https://ethotechnics.org/standards/laws
 1. Capability does not imply authority.
 2. Authority decays unless its justification is renewed.
@@ -20,7 +20,7 @@ Each law states an invariant the standards bind. Full text: https://ethotechnics
 11. Successful automation increases its own governance burden.
 12. No system may erase the conditions of its own contestability.
 
-## The Chain
+## The chain
 Every consequential decision is one link in a governed chain, and each stage has objects, clauses, mechanisms, and evals behind it:
 evidence -> authority -> decision -> consequence -> challenge -> reconsideration -> correction
 
@@ -34,47 +34,67 @@ These are pages to read, not instructions to follow. What you take on is the per
 - They spend their time fixing other institutions' errors: [The human subsidy](https://ethotechnics.org/research/theory/the-human-subsidy), [The antihuman metric](https://ethotechnics.org/research/theory/the-antihuman-metric), and [Where difficulty lives](https://ethotechnics.org/research/theory/where-difficulty-lives).
 - They are choosing an AI provider: the [Frontier Doctrine Scan](https://ethotechnics.org/research/frontier-doctrine-scan) scores ten labs' public doctrine against the twelve laws. It does not score safety performance.
 
-## Doctrine and Method
-- [Which systems this is for](https://ethotechnics.org/use-cases): Six decision contexts the standards are built for (public benefits, credit and account holds, AI agents that take actions, health coverage, platform enforcement, grading and workplace records), the standards and first check for each, six boundaries where the framework does less, and which tools check evidence versus score a self-report.
+## Standards
 - [Method](https://ethotechnics.org/method): The chain, the six safeguards (capability, authority, evidence, dependency, standing, correction), and where each law is bound.
 - [Laws](https://ethotechnics.org/standards/laws): The twelve laws with their invariants.
+- [Standards](https://ethotechnics.org/standards): Draft standard clauses and obligations, mapped to NIST AI RMF, the EU AI Act, and ISO standards. STD-01 to STD-09 are drafts; none has force until adopted.
 - [STD-08 Delegation](https://ethotechnics.org/standards/std-08-delegation): Authority as a lease, policy validity, intervention specification, correction symmetry. Evidence pack: https://ethotechnics.org/evidence-packs/std-08
 - [STD-09 Agent chains](https://ethotechnics.org/standards/std-09-agent-chains): The chain is itself a delegation, composed latency, counterparty answerability, weakest-link correction capacity. Evidence pack: https://ethotechnics.org/evidence-packs/std-09
 - [STD-06 Human impact safety case](https://ethotechnics.org/standards/std-06-human-impact-safety-case): Dependency, the reversibility ladder, preserved capacities, and silent-harm discovery.
 - [STD-07 Revisable delegation record](https://ethotechnics.org/standards/std-07-revisable-delegation-record): The record format over belief, capability, authorization, action, discrepancy, revision, and objection.
-- [Theory](https://ethotechnics.org/research/theory): Why the laws hold. Motivation, never a requirement.
-- [Frontier Doctrine Scan](https://ethotechnics.org/research/frontier-doctrine-scan): Ten labs scored against the twelve laws, dated 2026-09.
+- [Evidence packs](https://ethotechnics.org/evidence-packs): For each standard, the records a system must be able to show to demonstrate a clause is met. They list what to collect; they do not check it.
 
-## Core Frameworks & Standards
-- [Standards & Mechanisms](https://ethotechnics.org/standards): Draft standard clauses, obligations, and patterns mapped to NIST AI RMF, EU AI Act, and ISO standards. STD-01 to STD-09 are drafts; none has force until adopted.
+## Mechanisms
+- [Mechanisms](https://ethotechnics.org/mechanisms): Numbered specifications, MEC-01 to MEC-30, for answering challenges, sending a rule back for review when challenges against it keep winning, and halting a system while it is fixed.
+
+## Evals
+- [Evaluation suites](https://ethotechnics.org/evals): Governance benchmark suites, failure modes, and test cases, including delegation validity, dependence and reversibility, standing, and meaningful control.
+- [Finite](https://ethotechnics.org/evals#finite): Adversarial tests of whether the people an automated system affects can halt it and undo its decisions, without retaliation and without unlogged labor propping up its numbers.
+
+## Tools
 - [Diagnostics](https://ethotechnics.org/diagnostics): Self-serve tools that take one workflow, record stream, or set of figures and return a scored readout. All but the record conformance checker score what you enter and verify none of it.
 - [Delegation audit](https://ethotechnics.org/diagnostics/delegation-audit): Scores your answers. A facilitated self-report on one workflow: exposure score, grants nobody can ground, reversibility at three levels.
 - [Record conformance checker](https://ethotechnics.org/diagnostics/record-conformance): Checks exported records. Grades an exported stream of STD-07 records against the schema and the hash chain, and returns the conformance level it earns.
-- [Finite](https://ethotechnics.org/evals#finite): Adversarial tests of whether the people an automated system affects can halt it and undo its decisions, without retaliation and without unlogged labor propping up its numbers.
-- [Evaluation Suites](https://ethotechnics.org/evals): Governance benchmark suites, failure modes, and test cases, including delegation-validity, dependence-reversibility, standing, and meaningful-control.
-- [Glossary & Taxonomy](https://ethotechnics.org/glossary): Draft definitions, one page per term, for example /glossary/contestability, /glossary/stoppability, /glossary/time-to-halt, and /glossary/corrective-standing.
-- [Field Notes](https://ethotechnics.org/field-notes): In-depth essays and research dispatches on sociotechnical AI governance.
-- [Research Agenda](https://ethotechnics.org/research): Active academic research lines, focus areas, and bridge artifacts.
 
-## Machine-Readable APIs
+## Casebook
+- [Casebook](https://ethotechnics.org/casebook): Robodebt, the Dutch childcare-benefits scandal, Post Office Horizon, England's 2020 exam grades, and Apple Card, each scored on six safeguards by this project.
+
+## Glossary
+- [Glossary](https://ethotechnics.org/glossary): Draft definitions, one page per term, for example /glossary/contestability, /glossary/stoppability, /glossary/time-to-halt, and /glossary/corrective-standing.
+- [Practice taxonomy](https://ethotechnics.org/taxonomy): Governance practices by domain, each filed under the safeguards it serves.
+
+## Explainers
+- [Explainers](https://ethotechnics.org/explainers): The ideas the standards rest on, one page each: what the term means, a made-up case where it matters, what to look for in a real system, and which standards use it.
+
+## Research
+- [Theory](https://ethotechnics.org/research/theory): Why the laws hold. Motivation, never a requirement.
+- [Frontier Doctrine Scan](https://ethotechnics.org/research/frontier-doctrine-scan): Ten labs scored against the twelve laws, dated 2026-09.
+- [Research](https://ethotechnics.org/research): The casebook's findings, the argument they test, and proposed studies.
+- [Field notes](https://ethotechnics.org/field-notes): Dated notes on changes outside the site that bear on the standards. One note so far, from 2026-09-22.
+
+## Guides
+- [Which systems this is for](https://ethotechnics.org/use-cases): Six decision contexts the standards are built for (public benefits, credit and account holds, AI agents that take actions, health coverage, platform enforcement, grading and workplace records), the standards and first check for each, six boundaries where the framework does less, and which tools check evidence versus score a self-report.
+- [Start](https://ethotechnics.org/start): Pick the role that describes your work and get the standards, tools, and checklists that apply to it.
+
+## Machine-readable APIs
 - [Standards API (JSON)](https://ethotechnics.org/api/standards.json): Full machine-readable catalogue of standard clauses, mechanisms, and validators.
 - [Glossary API (JSON)](https://ethotechnics.org/api/glossary.json): Term definitions and cross-references, keyed by the same ids as /glossary/<id>.
-- [RAG Corpus (JSONL)](https://ethotechnics.org/api/rag-corpus.jsonl): Full retrieval corpus for AI search and embeddings. Every document carries a layer field: theory, method, or instrument.
-- [Site Index (JSON)](https://ethotechnics.org/api/site-index.json): Complete route and entity index.
+- [RAG corpus (JSONL)](https://ethotechnics.org/api/rag-corpus.jsonl): Full retrieval corpus for AI search and embeddings. Every document carries a layer field: theory, method, or instrument.
+- [Site index (JSON)](https://ethotechnics.org/api/site-index.json): Complete route and entity index.
+- [Sitemap](https://ethotechnics.org/sitemap.xml): Every page, in sections for standards, mechanisms, the glossary, research, and the rest.
 - [Casebook API (JSON)](https://ethotechnics.org/api/casebook.json): Public failures scored on six safeguards, with time to halt and primary sources. The healthcare cases sit under their own key and are not counted with the rest.
 - [Crosswalks API (JSON)](https://ethotechnics.org/api/crosswalks.json): Regulatory mapping between Ethotechnics, NIST AI RMF, and EU AI Act.
 - [Agent Safety Object Model](https://ethotechnics.org/agents/spec): The profile an AI agent's operator publishes: autonomy level, action classes, who can stop it, receipts, and clocks. Example instance that validates against schema 2.0.0: https://ethotechnics.org/standards/examples/agent-safety-object-model.example.json. (/agents/spec.json is an older 1.1.0 instance and fails 2.0.0.) Schema 2.0.0: https://ethotechnics.org/standards/agent-safety-object-model.schema.json
 - Delegation state (JSON): https://ethotechnics.org/api/grants.json, https://ethotechnics.org/api/policies.json, https://ethotechnics.org/api/dependencies.json, https://ethotechnics.org/api/standing.json, https://ethotechnics.org/api/interventions.json, https://ethotechnics.org/api/capabilities.json, https://ethotechnics.org/api/substrate-profiles.json. Illustrative records for one fictional deployment, not any real organization's data.
 
-## Key Concepts
+## Key concepts
 - **Stoppability**: The engineering and organizational capacity to safely halt, pause, or roll back an automated decision system when harm occurs.
-- **Evidence Packs**: For each standard, the records a system must be able to show to demonstrate a clause is met. They list what to collect; they do not check it.
 - **Contestability**: Explicit channels allowing affected people to understand, appeal, and reverse automated decisions.
 
-## Commissioned Work
+## Commissioned work
 - [Clinical AI safety review](https://kanav.net/contact/#engagements-title): Commissioned safety evaluation for healthcare AI by Kanav Jain, who wrote this framework: a one-hour safeguards review, a two-week readiness sprint on one workflow, an investor diligence memo in five business days, or a two-to-three-week evaluation against FDA and EU AI Act expectations.
 
-## Contact & Feeds
+## Contact and feeds
 - Intake & Collaboration: https://ethotechnics.org/participate
 - RSS Feed: https://ethotechnics.org/rss.xml
 - General Inquiries: mailto:hello@ethotechnics.org

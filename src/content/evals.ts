@@ -134,7 +134,7 @@ export type EvalsContent = PageWithPermalink &
 export const evalsContent: EvalsContent = {
   pageTitle: "Governance eval suites — Ethotechnics",
   pageDescription:
-    "Eval suites that check whether a deployed AI system's decisions can be challenged, halted, and reversed, and who absorbs its errors, not whether the model is capable.",
+    "Eval suites that check whether a deployed AI system's decisions can be challenged, halted, and reversed, and who absorbs its errors, not model capability.",
   permalink: "/evals",
   published: "2026-07-27T00:00:00Z",
   updated: "2026-09-25T00:00:00Z",
@@ -310,7 +310,7 @@ export const evalsContent: EvalsContent = {
       category: "burden",
       layer: "consequence",
       standardRefs: ["STD-01", "STD-03"],
-      glossaryRefs: ["burden-index", "friction-budgets", "burden-distribution"],
+      glossaryRefs: ["user-burden-ratio"],
       testCases: [],
       scoringMethod: {
         type: "weighted-average",
@@ -338,11 +338,7 @@ export const evalsContent: EvalsContent = {
       category: "agency",
       layer: "institution",
       standardRefs: ["STD-02"],
-      glossaryRefs: [
-        "contestability",
-        "appeal-integrity",
-        "remedy-equivalence",
-      ],
+      glossaryRefs: ["contestability", "appeal-passage-rate", "redress"],
       testCases: [],
       scoringMethod: {
         type: "min-threshold",
@@ -370,7 +366,7 @@ export const evalsContent: EvalsContent = {
       category: "agency",
       layer: "agent",
       standardRefs: ["STD-01", "STD-02"],
-      glossaryRefs: ["stoppability", "time-to-halt", "graceful-degradation"],
+      glossaryRefs: ["stoppability", "time-to-halt"],
       testCases: [],
       scoringMethod: {
         type: "min-threshold",
@@ -399,10 +395,10 @@ export const evalsContent: EvalsContent = {
       layer: "institution",
       standardRefs: ["STD-01"],
       glossaryRefs: [
-        "temporal-exaction",
+        "burden-ceiling",
         "time-to-halt",
         "time-to-restore",
-        "moral-debt",
+        "redress",
       ],
       testCases: [],
       scoringMethod: {
@@ -431,11 +427,7 @@ export const evalsContent: EvalsContent = {
       category: "structural",
       layer: "institution",
       standardRefs: ["STD-01", "STD-02"],
-      glossaryRefs: [
-        "reversibility",
-        "graceful-rollback-lanes",
-        "continuity-of-state",
-      ],
+      glossaryRefs: ["reversibility", "burden-ceiling"],
       testCases: [],
       scoringMethod: {
         type: "weighted-average",
@@ -463,7 +455,7 @@ export const evalsContent: EvalsContent = {
       category: "visibility",
       layer: "institution",
       standardRefs: ["STD-02"],
-      glossaryRefs: ["explainability-for-accountability", "legibility"],
+      glossaryRefs: ["decision-object"],
       testCases: [],
       scoringMethod: {
         type: "weighted-average",
@@ -491,11 +483,7 @@ export const evalsContent: EvalsContent = {
       category: "governance",
       layer: "agent",
       standardRefs: ["STD-01", "STD-02", "STD-03"],
-      glossaryRefs: [
-        "governability",
-        "escalation-reliability",
-        "prospective-auditability",
-      ],
+      glossaryRefs: ["correction-capacity", "decision-object"],
       testCases: [],
       scoringMethod: {
         type: "min-threshold",
@@ -523,11 +511,7 @@ export const evalsContent: EvalsContent = {
       category: "burden",
       layer: "consequence",
       standardRefs: ["STD-01", "STD-03"],
-      glossaryRefs: [
-        "burden-index",
-        "burden-elasticity",
-        "burden-distribution",
-      ],
+      glossaryRefs: ["user-burden-ratio"],
       testCases: [],
       scoringMethod: {
         type: "weighted-average",
@@ -555,13 +539,7 @@ export const evalsContent: EvalsContent = {
       category: "visibility",
       layer: "consequence",
       standardRefs: ["STD-01", "STD-02"],
-      glossaryRefs: [
-        "extraction-by-endurance",
-        "fail-silent",
-        "invisible-fallbacks",
-        "shadow-queue",
-        "burden-index",
-      ],
+      glossaryRefs: ["stoppability", "decision-object", "binding-clock"],
       testCases: [],
       scoringMethod: {
         type: "min-threshold",
@@ -590,11 +568,7 @@ export const evalsContent: EvalsContent = {
       category: "governance",
       layer: "delegation",
       standardRefs: ["STD-07", "STD-08"],
-      glossaryRefs: [
-        "design-authority",
-        "permission-surface",
-        "decision-reversal-authority",
-      ],
+      glossaryRefs: ["permission-surface", "reversibility"],
       testCases: [],
       scoringMethod: {
         type: "min-threshold",
@@ -623,7 +597,7 @@ export const evalsContent: EvalsContent = {
       category: "governance",
       layer: "delegation",
       standardRefs: ["STD-09"],
-      glossaryRefs: ["delegation-chain", "composed-latency"],
+      glossaryRefs: ["delegation-chain"],
       testCases: [],
       scoringMethod: {
         type: "min-threshold",
@@ -652,13 +626,9 @@ export const evalsContent: EvalsContent = {
       layer: "institution",
       standardRefs: ["STD-06", "STD-08"],
       glossaryRefs: [
-        "moral-lock-in",
-        "heroism-dependent-systems",
-        "right-of-exit",
-        "exit-coercion",
+        "dependency-state",
         "reversibility",
-        "capacity-depreciation",
-        "evaluation-independence",
+        "correction-capacity",
       ],
       testCases: [],
       scoringMethod: {
@@ -691,14 +661,7 @@ export const evalsContent: EvalsContent = {
       category: "agency",
       layer: "institution",
       standardRefs: ["STD-02"],
-      glossaryRefs: [
-        "contestability",
-        "meta-contestability",
-        "contestability",
-        "consent-depth",
-        "corrective-standing",
-        "error-bearing-party",
-      ],
+      glossaryRefs: ["contestability", "corrective-standing"],
       testCases: [],
       scoringMethod: {
         type: "min-threshold",
@@ -729,7 +692,7 @@ export const evalsContent: EvalsContent = {
       category: "agency",
       layer: "delegation",
       standardRefs: ["STD-01", "STD-07", "STD-08"],
-      glossaryRefs: ["override-path", "time-to-halt", "stoppability"],
+      glossaryRefs: ["time-to-halt", "stoppability"],
       testCases: [],
       scoringMethod: {
         type: "min-threshold",
@@ -760,12 +723,8 @@ export const evalsContent: EvalsContent = {
       standardRefs: ["STD-02", "STD-07", "STD-08"],
       glossaryRefs: [
         "exception-learning",
-        "exception-absorption",
-        "case-corrigibility",
-        "exception-learning",
-        "institutional-learning",
-        "corrective-debt",
-        "workaround-presumption",
+        "redress",
+        "correction-capacity",
         "corrective-standing",
       ],
       testCases: [],
@@ -796,14 +755,7 @@ export const evalsContent: EvalsContent = {
       category: "structural",
       layer: "institution",
       standardRefs: ["STD-01", "STD-02", "STD-06", "STD-08"],
-      glossaryRefs: [
-        "reciprocal-accommodation",
-        "extractive-cannibalism",
-        "green-dashboard-trap",
-        "dual-ledger-evaluation",
-        "systemic-refusal",
-        "workaround-presumption",
-      ],
+      glossaryRefs: ["compensated-performance", "exception-learning"],
       testCases: [],
       scoringMethod: {
         type: "min-threshold",

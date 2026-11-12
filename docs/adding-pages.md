@@ -7,6 +7,11 @@ Quick steps to add an Astro page without breaking navigation or metadata.
 - **Start from `BaseLayout`:** Import `BaseLayout` at the top of the page and pass `title` and
   `description` for SEO and social cards. The layout will set canonical, favicon, and Open Graph
   defaults.
+- **Check what the page is:** `resolveRouteProfile` in `src/utils/seo/route-type.ts` decides a
+  page's schema.org type, og:type, search group, and sitemap from its address. A page under an
+  existing section needs nothing; a new top-level page or section gets a line in `PAGES` or
+  `SECTIONS` there. Describe what the page lists or defines through BaseLayout's `schema` prop
+  (`mainEntity: itemList([...])` for a hub); a page never writes a JSON-LD block of its own.
 - **Keep copy in `src/content`:** Add a `pageContent` object in a new or existing file under
   `src/content/` (see `src/content/types.ts` for helpers like `PageWithPermalink`). Pull text,
   permalinks, and CTA labels from that object inside the page to keep strings consistent with

@@ -1,3 +1,4 @@
+import { itemList, type PageSchema } from "../../utils/seo/schema";
 import type {
   DoctrineEntry,
   StandardEntry,
@@ -222,57 +223,42 @@ export const buildStandardsGroupingAndFilters = (
   };
 };
 
-export const buildStandardsStructuredDataPayload = (input: {
-  standardsContent: Pick<
-    StandardsContent,
-    "pageTitle" | "pageDescription" | "permalink" | "standards" | "doctrine"
-  >;
+/**
+ * What the standards hub adds to the layout's graph: the documents it lists,
+ * in order. Each standard is named by the @id of the TechArticle on its page.
+ */
+export const buildStandardsSchema = (input: {
+  standardsContent: Pick<StandardsContent, "standards" | "doctrine">;
   adoptedStandards: StandardsCardModel[];
-  siteUrl?: URL;
-}) => {
-  const pageUrl = input.siteUrl
-    ? new URL(input.standardsContent.permalink, input.siteUrl).toString()
-    : input.standardsContent.permalink;
-  const standardsUrl = (slug: string) =>
-    input.siteUrl
-      ? new URL(`/standards/${slug}`, input.siteUrl).toString()
-      : `/standards/${slug}`;
+  siteUrl: URL;
+}): PageSchema => {
+  const absolute = (href: string) => new URL(href, input.siteUrl).toString();
 
   return {
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    "@id": pageUrl,
-    name: input.standardsContent.pageTitle,
-    description: input.standardsContent.pageDescription,
-    url: pageUrl,
-    hasPart: [
-      ...input.standardsContent.standards
-        .filter((standard) => standard.listedOnSite !== false)
-        .map((standard) => ({
+    page: {
+      mainEntity: itemList([
+        ...input.standardsContent.standards
+          .filter((standard) => standard.listedOnSite !== false)
+          .map((standard) => ({
+            "@type": "TechArticle",
+            "@id": `${absolute(`/standards/${standard.slug}`)}#article`,
+            name: `${standard.id}: ${standard.title}`,
+            description: standard.description,
+            url: absolute(`/standards/${standard.slug}`),
+            identifier: standard.id,
+            version: standard.version,
+            datePublished: standard.published,
+          })),
+        ...[
+          ...input.standardsContent.doctrine,
+          ...input.adoptedStandards,
+        ].map((item) => ({
           "@type": "CreativeWork",
-          name: `${standard.id} — ${standard.title}`,
-          description: standard.description,
-          url: standardsUrl(standard.slug),
-          identifier: standard.id,
-          version: standard.version,
-          datePublished: standard.published,
+          name: item.title,
+          description: item.description,
+          url: absolute(item.href),
         })),
-      ...input.standardsContent.doctrine.map((item) => ({
-        "@type": "CreativeWork",
-        name: item.title,
-        description: item.description,
-        url: input.siteUrl
-          ? new URL(item.href, input.siteUrl).toString()
-          : item.href,
-      })),
-      ...input.adoptedStandards.map((item) => ({
-        "@type": "CreativeWork",
-        name: item.title,
-        description: item.description,
-        url: input.siteUrl
-          ? new URL(item.href, input.siteUrl).toString()
-          : item.href,
-      })),
-    ],
+      ]),
+    },
   };
 };
