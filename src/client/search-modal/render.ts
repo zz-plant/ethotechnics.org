@@ -1,5 +1,4 @@
 import {
-  CONTENT_TYPE_MAP,
   GROUP_LABELS,
   OTHER_GROUP_LABEL,
   type PagefindResultData,
@@ -66,22 +65,6 @@ const createResultHTML = (result: PagefindResultData, query: string) => {
   const title = result.meta.title;
   const excerpt = result.excerpt.replace(/\s+/g, " ").trim();
 
-  const metaLabels = [
-    result.meta.type,
-    result.meta.section,
-    result.meta.category,
-    result.meta.contentType,
-  ]
-    .filter(
-      (value): value is string => typeof value === "string" && value.length > 0,
-    )
-    .map(
-      (value) =>
-        CONTENT_TYPE_MAP[value] ??
-        CONTENT_TYPE_MAP[value.toLowerCase()] ??
-        value,
-    );
-
   const link = document.createElement("a");
   link.href = result.url;
 
@@ -89,17 +72,6 @@ const createResultHTML = (result: PagefindResultData, query: string) => {
   titleElement.className = "search-result__title";
   titleElement.textContent = title;
   link.appendChild(titleElement);
-
-  if (metaLabels.length) {
-    const meta = document.createElement("div");
-    meta.className = "search-result__meta";
-    metaLabels.forEach((label) => {
-      const pill = document.createElement("span");
-      pill.textContent = label;
-      meta.appendChild(pill);
-    });
-    link.appendChild(meta);
-  }
 
   const excerptElement = document.createElement("p");
   excerptElement.className = "search-result__excerpt";
@@ -115,34 +87,23 @@ const createResultHTML = (result: PagefindResultData, query: string) => {
   return wrapper;
 };
 
+const groupOf = (result: PagefindResultData) =>
+  result.meta.type && GROUP_LABELS.includes(result.meta.type)
+    ? result.meta.type
+    : OTHER_GROUP_LABEL;
+
 const groupResults = (results: PagefindResultData[]) =>
   results.reduce(
     (groups, result) => {
-      const type =
-        CONTENT_TYPE_MAP[result.meta.type ?? ""] ??
-        CONTENT_TYPE_MAP[result.meta.contentType ?? ""] ??
-        CONTENT_TYPE_MAP[result.meta.section ?? ""] ??
-        OTHER_GROUP_LABEL;
-      if (!groups[type]) {
-        groups[type] = [];
-      }
-      groups[type].push(result);
+      const group = groupOf(result);
+      (groups[group] ??= []).push(result);
       return groups;
     },
     {} as Record<string, PagefindResultData[]>,
   );
 
-const sortGroupLabels = (groups: Record<string, PagefindResultData[]>) => {
-  const availableLabels = Object.keys(groups);
-  const labels = GROUP_LABELS.filter((label) =>
-    availableLabels.includes(label),
-  );
-  const otherLabels = availableLabels.filter(
-    (label) => !GROUP_LABELS.includes(label),
-  );
-
-  return [...labels, ...otherLabels];
-};
+const sortGroupLabels = (groups: Record<string, PagefindResultData[]>) =>
+  GROUP_LABELS.filter((label) => label in groups);
 
 export const createSearchRenderer = (
   container: HTMLElement,

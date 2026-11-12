@@ -1,5 +1,4 @@
 ---
-import InlineScript from "../../components/InlineScript.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
@@ -8,46 +7,35 @@ import EvalStackFigure from "../../components/EvalStackFigure.astro";
 import { evalsContent } from "../../content/evals";
 import { evalTestCases } from "../../content/eval-test-cases";
 import { tier1Checks } from "../../harness/checks";
+import { itemList } from "../../utils/seo/schema";
 
 const machineCaseCount = tier1Checks.length;
 const draftSuiteCount = evalsContent.suites.filter(
   (suite) => suite.status === "draft",
 ).length;
 
-const {
-  pageTitle,
-  pageDescription,
-  permalink,
-  anchorLinks,
-  suites,
-  evaluationStack,
-} = evalsContent;
+const { pageTitle, pageDescription, anchorLinks, suites, evaluationStack } =
+  evalsContent;
 
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "@id": permalink,
-  name: pageTitle,
-  description: pageDescription,
-  url: new URL(permalink, Astro.site ?? Astro.url.origin).toString(),
-  hasPart: suites.map((suite) => ({
-    "@type": "CreativeWork",
-    name: suite.title,
-    description: suite.description,
-    url: new URL(
-      `/evals/${suite.slug}`,
-      Astro.site ?? Astro.url.origin,
-    ).toString(),
-    version: suite.version,
-  })),
+const suiteUrl = (slug: string) =>
+  new URL(`/evals/${slug}`, Astro.site ?? Astro.url).toString();
+const pageSchema = {
+  page: {
+    mainEntity: itemList(
+      suites.map((suite) => ({
+        "@type": "TechArticle",
+        "@id": `${suiteUrl(suite.slug)}#article`,
+        name: suite.title,
+        description: suite.description,
+        url: suiteUrl(suite.slug),
+        version: suite.version,
+      })),
+    ),
+  },
 };
-const structuredDataJson = JSON.stringify(structuredData, null, 2);
 ---
 
-<BaseLayout
-  title={pageTitle}
-  description={pageDescription}
->
+<BaseLayout title={pageTitle} description={pageDescription} schema={pageSchema}>
   <PageIntro
     eyebrow="Evals"
     title="Governance eval suites"
@@ -258,6 +246,4 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   </SectionBlock>
 
   <FiniteSection />
-
-  <InlineScript type="application/ld+json" code={structuredDataJson} />
 </BaseLayout>

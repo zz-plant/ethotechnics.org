@@ -8,6 +8,7 @@ import { evalsContent } from "../../content/evals";
 import { glossaryContent } from "../../content/glossary";
 import { standardsContent } from "../../content/standards";
 import { onRequest } from "../../middleware";
+import { resolveRouteProfile, SITEMAP_SECTIONS } from "./route-type";
 import { buildSitemapSections } from "./sitemaps";
 
 const sections = await buildSitemapSections();
@@ -44,16 +45,31 @@ describe("sitemap coverage", () => {
     expect(standards).toContain("/standards/laws");
   });
 
-  test("lists every theory essay", () => {
-    const standards = paths("standards");
-    expect(standards).toContain("/research/theory/dependence-without-standing");
-    expect(standards).toContain("/research/theory/absorption-as-concealment");
-    expect(standards).toContain(
+  test("lists every theory essay in the research sitemap", () => {
+    const research = paths("research");
+    expect(research).toContain("/research/theory/dependence-without-standing");
+    expect(research).toContain("/research/theory/absorption-as-concealment");
+    expect(research).toContain(
       "/research/theory/democratic-vs-coercive-governability",
     );
-    expect(standards).toContain("/research/theory/what-does-not-convert");
-    expect(standards).toContain("/research/theory/dependence-runs-both-ways");
-    expect(standards).toContain("/research/theory/endogenous-authorization");
+    expect(research).toContain("/research/theory/what-does-not-convert");
+    expect(research).toContain("/research/theory/dependence-runs-both-ways");
+    expect(research).toContain("/research/theory/endogenous-authorization");
+  });
+
+  test("files every URL in the sitemap its kind of page belongs to", () => {
+    expect(Object.keys(sections).sort()).toEqual([...SITEMAP_SECTIONS].sort());
+    for (const section of SITEMAP_SECTIONS) {
+      for (const path of paths(section)) {
+        expect(`${path} ${resolveRouteProfile(path).sitemap}`).toBe(
+          `${path} ${section}`,
+        );
+      }
+    }
+    expect(paths("research")).toContain("/casebook/robodebt");
+    expect(paths("research")).toContain("/explainers/stoppability");
+    expect(paths("mechanisms")).toContain("/mechanisms/patterns/kill-switch");
+    expect(paths("core")).toContain("/roles/engineering");
   });
 
   test("lists the evidence packs, including the dynamic STD-08 route", () => {
@@ -69,9 +85,8 @@ describe("sitemap coverage", () => {
   });
 
   test("lists the method page and the frontier doctrine scan", () => {
-    const core = paths("core");
-    expect(core).toContain("/method");
-    expect(core).toContain("/research/frontier-doctrine-scan");
+    expect(paths("standards")).toContain("/method");
+    expect(paths("research")).toContain("/research/frontier-doctrine-scan");
   });
 
   test("lists every dynamic detail route, not only the page files", async () => {
@@ -160,16 +175,7 @@ describe("sitemap lists only routes that render", () => {
     expect(new Set(listed)).toEqual(entryIds);
   });
 
-  test("standards lists only slugs backed by an MDX document", async () => {
-    const standards = paths("standards").filter((path) =>
-      path.startsWith("/standards/"),
-    );
-    for (const path of standards) {
-      const slug = path.slice("/standards/".length);
-      expect(await Bun.file(`src/content/standards/${slug}.mdx`).exists()).toBe(
-        true,
-      );
-    }
+  test("standards lists no registry entry that has no page", () => {
     // Registry entries without a page never reach the sitemap, whatever their
     // listedOnSite flag says.
     for (const standard of standardsContent.standards) {
@@ -177,15 +183,12 @@ describe("sitemap lists only routes that render", () => {
         expect(allPaths).not.toContain(`/standards/${standard.slug}`);
       }
     }
-    // Crosswalk controls render under /standards but are not MDX documents,
-    // so they are listed in core, never in the standards section.
-    expect(paths("standards")).not.toContain("/standards/crosswalk/ctrl-01");
-    expect(paths("core")).toContain("/standards/crosswalk/ctrl-01");
+    expect(paths("standards")).toContain("/standards/crosswalk/ctrl-01");
   });
 
-  test("the taxonomy section lists the mechanism pages only", () => {
-    for (const path of paths("taxonomy")) {
-      expect(path).toMatch(/^\/mechanisms\/patterns\//);
+  test("the mechanisms section lists the catalog and its patterns only", () => {
+    for (const path of paths("mechanisms")) {
+      expect(path).toMatch(/^\/mechanisms(\/|$)/);
     }
   });
 

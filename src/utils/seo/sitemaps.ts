@@ -16,6 +16,11 @@ import { roles } from "../../content/roles";
 import { researchContent } from "../../content/research";
 import { standardsContent } from "../../content/standards";
 import { glossaryEntryPermalink } from "../glossary";
+import {
+  resolveRouteProfile,
+  SITEMAP_SECTIONS,
+  type SitemapSection,
+} from "./route-type";
 
 const getContentEntry = async (
   collection: string,
@@ -252,8 +257,8 @@ export const buildSitemapSections = async () => {
     glossaryData.publication.updated ?? glossaryData.publication.published,
   );
   // /glossary/[slug] resolves category entries and nothing else. glossaryTerms
-  // carries tooltip definitions for 67 more terms than have a page; listing
-  // those here advertised 67 URLs that 404.
+  // also carries tooltip definitions for terms with no page; listing those
+  // once advertised 67 URLs that 404.
   const glossaryPaths = glossaryData.categories.flatMap(
     (category: GlossaryCategory) =>
       category.entries.map((entry: GlossaryEntry) => ({
@@ -413,47 +418,36 @@ export const buildSitemapSections = async () => {
 
   const corePaths = pagePaths.length > 0 ? pagePaths : [{ path: "/" }];
 
-  const standardsSection = applyOverrides([
+  // One list of every URL the site serves: the page files, then each
+  // dynamic route listed from the data it renders. A page that exists both
+  // as a file and as a collection entry (the STD-01, -02, and -06 evidence
+  // packs) is listed once, with the collection's date.
+  const everyEntry = applyOverrides([
+    ...corePaths,
     ...standardsCollectionPaths,
     ...evidencePackPaths,
+    ...crosswalkPaths,
     ...casebookPaths,
     ...rolePaths,
     ...theoryPaths,
-  ]);
-  const glossarySection = applyOverrides(glossaryPaths);
-  // Taxonomy entries are anchors on /taxonomy (listed with the core pages);
-  // this section keeps the mechanism pages it has always carried.
-  const taxonomySection = applyOverrides(patternPaths);
-
-  // A path listed in a content section is dropped from core, so a page that
-  // exists both as a static file and as a collection entry (the STD-01, -02,
-  // and -06 evidence packs) is listed once.
-  const listedElsewhere = new Set(
-    [...standardsSection, ...glossarySection, ...taxonomySection].map((entry) =>
-      normalizeOverrideKey(entry.path),
-    ),
-  );
-  const coreSection = applyOverrides([
-    ...corePaths,
+    ...researchEssayPaths,
     ...explainerPaths,
     ...evalSuitePaths,
-    ...researchEssayPaths,
-    // Crosswalk controls sit under /standards but are not MDX standards
-    // documents, so they are listed with the core pages.
-    ...crosswalkPaths,
-  ]).filter((entry) => !listedElsewhere.has(normalizeOverrideKey(entry.path)));
+    ...patternPaths,
+    ...glossaryPaths,
+  ]);
 
-  return {
-    core: coreSection,
-    glossary: glossarySection,
-    // Standards come from the MDX collection /standards/[...slug] renders, not
-    // from the registry: a registry entry can exist for clauses and changelogs
-    // long before its page does (PM-01, STD-03, STD-04, STD-05 all did), and the
-    // static standards pages are already in core with the other page files.
-    // Registry dates still reach these entries through the lastmod overrides.
-    standards: standardsSection,
-    taxonomy: taxonomySection,
-  };
+  // Each URL goes to the sitemap its kind of page belongs to
+  // (utils/seo/route-type). The sections used to be assembled by source:
+  // "standards" carried the casebook, the roles, and the theory essays, and
+  // "taxonomy" carried the mechanism pages.
+  const sections = Object.fromEntries(
+    SITEMAP_SECTIONS.map((section) => [section, [] as SitemapEntry[]]),
+  ) as Record<SitemapSection, SitemapEntry[]>;
+  for (const entry of everyEntry) {
+    sections[resolveRouteProfile(entry.path).sitemap].push(entry);
+  }
+  return sections;
 };
 
 export const renderSitemap = (siteUrl: URL, entries: SitemapEntry[]) => {

@@ -53,7 +53,8 @@ export const SITEMAP_SECTIONS = [
 ] as const;
 export type SitemapSection = (typeof SITEMAP_SECTIONS)[number];
 
-export type ArticleType = "Article" | "TechArticle" | "ScholarlyArticle" | "Report";
+export type ArticleType =
+  "Article" | "TechArticle" | "ScholarlyArticle" | "Report";
 
 export type WebPageType =
   | "WebPage"
@@ -178,6 +179,7 @@ const SECTIONS: Section[] = [
 /** Single pages outside any section, and hubs that are not collections. */
 const PAGES: Record<string, Omit<Section, "hub" | "label">> = {
   "/": { kind: "home", group: "Institute", ogTemplate: "home" },
+  "/404": { kind: "institute", group: "Institute" },
   "/search": { kind: "search", group: "Institute" },
   "/about": { kind: "about", group: "Institute" },
   "/participate": { kind: "contact", group: "Institute" },
@@ -187,8 +189,13 @@ const PAGES: Record<string, Omit<Section, "hub" | "label">> = {
   "/method": { kind: "standard", group: "Standards" },
   "/low-leverage": { kind: "standard", group: "Standards" },
   "/measurement-tiers": { kind: "eval", group: "Evals" },
-  "/validators": { kind: "collection", group: "Tools", ogTemplate: "mechanisms" },
+  "/validators": {
+    kind: "collection",
+    group: "Tools",
+    ogTemplate: "mechanisms",
+  },
   "/evals/runner": { kind: "tool", group: "Tools" },
+  "/mechanisms/cite": { kind: "guide", group: "Mechanisms" },
   "/taxonomy": { kind: "collection", group: "Guides", ogTemplate: "taxonomy" },
   "/triage": { kind: "guide", group: "Guides" },
   "/start": { kind: "guide", group: "Guides" },
@@ -269,7 +276,7 @@ export const resolveRouteProfile = (rawPath: string): RouteProfile => {
     sitemap: SITEMAP_BY_GROUP[group],
     pageType: PAGE_TYPE_BY_KIND[kind] ?? "WebPage",
     articleType: articleKind
-      ? ((!page && section?.articleType) || articleKind)
+      ? (!page && section?.articleType) || articleKind
       : undefined,
     openGraphType: ARTICLE_KINDS.has(kind) ? "article" : "website",
     ogTemplate: page?.ogTemplate ?? section?.ogTemplate ?? "default",

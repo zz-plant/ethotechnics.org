@@ -1,10 +1,10 @@
 ---
-import InlineScript from "../../components/InlineScript.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import ValidatorForm from "../../components/ValidatorForm.astro";
 import { validatorsContent } from "../../content/validators";
+import { itemList } from "../../utils/seo/schema";
 
 const {
   pageTitle,
@@ -14,33 +14,31 @@ const {
   validators,
   method,
 } = validatorsContent;
-const pageUrl = Astro.site
-  ? new URL(permalink, Astro.site).toString()
-  : permalink;
-// Each validator is a section of this page (id = its slug).
-const validatorUrl = (slug: string) => `${pageUrl}#${slug}`;
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "@id": pageUrl,
-  name: pageTitle,
-  description: pageDescription,
-  url: pageUrl,
-  hasPart: validators.map((validator) => ({
-    "@type": "CreativeWork",
-    name: `${validator.id} — ${validator.title}`,
-    description: validator.description,
-    url: validatorUrl(validator.slug),
-    identifier: validator.id,
-  })),
+const pageUrl = new URL(permalink, Astro.site ?? Astro.url).toString();
+// Each validator runs in a section of this page (id = its slug).
+const pageSchema = {
+  page: {
+    mainEntity: itemList(
+      validators.map((validator) => ({
+        "@type": "WebApplication",
+        "@id": `${pageUrl}#${validator.slug}`,
+        name: validator.title,
+        identifier: validator.id,
+        description: validator.description,
+        url: `${pageUrl}#${validator.slug}`,
+        applicationCategory: "BusinessApplication",
+        operatingSystem: "Any",
+      })),
+    ),
+  },
 };
-const structuredDataJson = JSON.stringify(structuredData, null, 2);
 ---
 
 <BaseLayout
   title={pageTitle}
   description={pageDescription}
   jsonAlternates={[{ href: "/api/validators.json", title: "Validators JSON" }]}
+  schema={pageSchema}
 >
   <PageIntro
     eyebrow="Validators"
@@ -219,8 +217,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       <a href="/mechanisms">mechanisms</a> that fix a failing result.
     </p>
   </section>
-
-  <InlineScript type="application/ld+json" code={structuredDataJson} />
 </BaseLayout>
 
 <script>

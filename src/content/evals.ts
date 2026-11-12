@@ -134,7 +134,7 @@ export type EvalsContent = PageWithPermalink &
 export const evalsContent: EvalsContent = {
   pageTitle: "Governance eval suites — Ethotechnics",
   pageDescription:
-    "Eval suites that check whether a deployed AI system's decisions can be challenged, halted, and reversed, and who absorbs its errors, not whether the model is capable.",
+    "Eval suites that check whether a deployed AI system's decisions can be challenged, halted, and reversed, and who absorbs its errors, not model capability.",
   permalink: "/evals",
   published: "2026-07-27T00:00:00Z",
   updated: "2026-09-25T00:00:00Z",

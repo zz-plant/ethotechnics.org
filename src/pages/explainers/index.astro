@@ -10,7 +10,7 @@ const explainers = await getCollection("explainers");
 
 const pageTitle = "Explainers";
 const pageDescription =
-  "The ideas the standards rest on, one page each: what the term means, a made-up case where it matters, what to look for in a real system, and which standards use it.";
+  "The ideas the standards rest on, one page each: what the term means, a made-up case, what to look for in a real system, and which standards use it.";
 
 // In the order the argument runs: where the evidence of an error collects,
 // who can challenge it, what authority has to be renewed, and how the repair
@@ -39,7 +39,10 @@ const rest = explainers
   .sort((a, b) => sortKey(a.data.title).localeCompare(sortKey(b.data.title)));
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription}>
+<BaseLayout
+  title="Explainers of the ideas the standards rest on"
+  description={pageDescription}
+>
   <PageIntro
     eyebrow="Explainers"
     title={pageTitle}

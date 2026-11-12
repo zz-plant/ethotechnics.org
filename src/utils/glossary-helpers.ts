@@ -33,7 +33,7 @@ export const normalizeGlossaryHeading = (heading: string): string =>
  *
  * This used to fill the gap with three sentences built from the term itself
  * ("Artifact documenting how X is expected, enforced, or governed"), which
- * read as evidence while saying the same thing about all 261 terms. A term
+ * read as evidence while saying the same thing about every term. A term
  * with no evidence behind it is listed under the entry's completeness notes
  * instead, which is the claim the site can actually support.
  */

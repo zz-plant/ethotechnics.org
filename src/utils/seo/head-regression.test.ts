@@ -1,108 +1,43 @@
 import { describe, expect, it } from "bun:test";
 
 import { resolveOgTemplate } from "./og-template";
-import { resolveOpenGraphType } from "./route-type";
+import { resolveRouteProfile } from "./route-type";
 
-const buildOgImageUrl = (
-  path: string,
-  title: string,
-  description: string,
-): string => {
-  const url = new URL("/api/og.png", "https://ethotechnics.org");
-  url.searchParams.set("title", title);
-  url.searchParams.set("description", description);
-  url.searchParams.set("template", resolveOgTemplate(undefined, path));
-  url.searchParams.set("path", path);
-  return url.toString();
-};
-
-const legacyResolveOpenGraphType = (path: string): "article" | "website" => {
-  const nonArticleRoutes = new Set([
-    "/",
-    "/api",
-    "/robots.txt",
-    "/search",
-    "/sitemap.xml",
-  ]);
-  if (path.startsWith("/glossary") || nonArticleRoutes.has(path))
-    return "website";
-  return "article";
-};
-
-const legacyResolveTemplate = (
-  path: string,
-):
-  | "default"
-  | "home"
-  | "standards"
-  | "glossary"
-  | "taxonomy"
-  | "mechanisms"
-  | "editorial" => {
-  if (path === "/") return "home";
-  if (path.startsWith("/standards")) return "standards";
-  if (path.startsWith("/glossary")) return "glossary";
-  if (
-    path.startsWith("/taxonomy") ||
-    path.startsWith("/delivery") ||
-    path.startsWith("/assurance") ||
-    path.startsWith("/experience")
-  ) {
-    return "taxonomy";
-  }
-  if (
-    path.startsWith("/mechanisms") ||
-    path.startsWith("/library") ||
-    path.startsWith("/validators")
-  ) {
-    return "mechanisms";
-  }
-  if (
-    path.startsWith("/research") ||
-    path.startsWith("/incidents") ||
-    path.startsWith("/field-notes") ||
-    path.startsWith("/explainers")
-  ) {
-    return "editorial";
-  }
-
-  return "default";
-};
-
-describe("head metadata regression", () => {
-  const routes = [
-    "/",
-    "/research/ai-assurance",
-    "/glossary/accountability",
-    "/standards/w3c-vc-schemas",
+/**
+ * og:type and the share-image template follow from what a page is. They used
+ * to come from two separate path tests, which typed every hub and every tool
+ * as an article.
+ */
+describe("head metadata", () => {
+  const cases: Array<[string, "website" | "article", string]> = [
+    ["/", "website", "home"],
+    ["/standards", "website", "standards"],
+    ["/standards/w3c-vc-schemas", "article", "standards"],
+    ["/glossary", "website", "glossary"],
+    ["/glossary/contestability", "article", "glossary"],
+    ["/mechanisms/patterns/kill-switch", "article", "mechanisms"],
+    ["/validators", "website", "mechanisms"],
+    ["/taxonomy", "website", "taxonomy"],
+    ["/research/theory/insulation", "article", "editorial"],
+    ["/explainers/stoppability", "article", "editorial"],
+    ["/diagnostics/delegation-audit", "website", "default"],
+    ["/casebook/robodebt", "article", "default"],
   ];
 
-  it("keeps Open Graph type mapping consistent with legacy behavior", () => {
-    for (const route of routes) {
-      expect(resolveOpenGraphType(route)).toBe(
-        legacyResolveOpenGraphType(route),
+  it("derives og:type and the share-image template from the route profile", () => {
+    for (const [path, openGraphType, template] of cases) {
+      const profile = resolveRouteProfile(path);
+      expect(`${path} ${profile.openGraphType}`).toBe(
+        `${path} ${openGraphType}`,
+      );
+      expect(`${path} ${resolveOgTemplate(undefined, path)}`).toBe(
+        `${path} ${template}`,
       );
     }
   });
 
-  it("keeps OG image template selection consistent with legacy behavior", () => {
-    for (const route of routes) {
-      expect(resolveOgTemplate(undefined, route)).toBe(
-        legacyResolveTemplate(route),
-      );
-    }
-  });
-
-  it("keeps representative OG image head tag values stable", () => {
-    for (const route of routes) {
-      const imageUrl = buildOgImageUrl(
-        route,
-        "Route title",
-        "Route description",
-      );
-      const template = new URL(imageUrl).searchParams.get("template");
-      expect(template).toBe(legacyResolveTemplate(route));
-      expect(new URL(imageUrl).searchParams.get("path")).toBe(route);
-    }
+  it("lets an explicit template override the route's", () => {
+    expect(resolveOgTemplate("glossary", "/standards")).toBe("glossary");
+    expect(resolveOgTemplate("not-a-template", "/standards")).toBe("standards");
   });
 });

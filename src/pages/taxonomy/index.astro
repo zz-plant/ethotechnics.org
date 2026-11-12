@@ -5,16 +5,12 @@ import SectionBlock from "../../components/SectionBlock.astro";
 import "../../styles/components/taxonomy.css";
 import { taxonomyAnchor, taxonomyEntries } from "../../content/taxonomy";
 
-const pageTitle = "Taxonomy — Ethotechnics Institute";
+const pageTitle = "Governance practice taxonomy — Ethotechnics Institute";
 const pageDescription =
   "Twenty-two governance practices in six domains, each filed under the safeguards it serves, with the standards, mechanisms, evals, and tools that apply.";
 const permalink = "/taxonomy";
 
-const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
-const canonicalUrl = Astro.site
-  ? new URL(permalink, siteBase).toString()
-  : permalink;
-
+const pageUrl = new URL(permalink, Astro.site ?? Astro.url).toString();
 const topLevelEntries = taxonomyEntries.filter(
   (entry) => !entry.slug.includes("/"),
 );
@@ -25,34 +21,32 @@ const topLevelEntries = taxonomyEntries.filter(
 const branchFor = (rootSlug: string) =>
   taxonomyEntries.filter((entry) => entry.slug.startsWith(`${rootSlug}/`));
 
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  name: pageTitle,
-  description: pageDescription,
-  url: canonicalUrl,
-  hasPart: taxonomyEntries.map((entry) => ({
-    "@type": "DefinedTerm",
-    name: entry.title,
-    description: entry.summary,
-    identifier: entry.id,
-    url: `${canonicalUrl}#${taxonomyAnchor(entry.slug)}`,
-  })),
+// The taxonomy is a classification scheme: one term per row, each at the
+// anchor of its row or section.
+const termSetId = `${pageUrl}#defined-term-set`;
+const pageSchema = {
+  page: { mainEntity: { "@id": termSetId } },
+  nodes: [
+    {
+      "@type": "DefinedTermSet",
+      "@id": termSetId,
+      name: "Practice taxonomy",
+      description: pageDescription,
+      url: pageUrl,
+      hasDefinedTerm: taxonomyEntries.map((entry) => ({
+        "@type": "DefinedTerm",
+        "@id": `${pageUrl}#${taxonomyAnchor(entry.slug)}`,
+        name: entry.title,
+        description: entry.summary,
+        identifier: entry.id,
+        url: `${pageUrl}#${taxonomyAnchor(entry.slug)}`,
+      })),
+    },
+  ],
 };
-const structuredDataJson = JSON.stringify(structuredData);
 ---
 
-<BaseLayout
-  title={pageTitle}
-  description={pageDescription}
->
-  <Fragment slot="head">
-    <script
-      type="application/ld+json"
-      set:html={structuredDataJson}
-      is:inline
-    />
-  </Fragment>
+<BaseLayout title={pageTitle} description={pageDescription} schema={pageSchema}>
   <PageIntro
     eyebrow="Taxonomy"
     title="Ethotechnics taxonomy"

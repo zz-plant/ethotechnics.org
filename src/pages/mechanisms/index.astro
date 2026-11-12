@@ -1,5 +1,4 @@
 ---
-import InlineScript from "../../components/InlineScript.astro";
 import { getEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
@@ -10,6 +9,7 @@ import PatternFilter from "../../components/PatternFilter.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import { glossaryEntryPermalink } from "../../utils/glossary";
+import { itemList } from "../../utils/seo/schema";
 
 const libraryEntry = (await getEntry("library", "library"))!;
 const {
@@ -24,35 +24,30 @@ const glossaryEntry = (await getEntry("glossary", "glossary"))!;
 const glossaryContent = glossaryEntry.data;
 const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
 type GlossaryStarterTerm = (typeof glossaryContent.starterTerms)[number];
-const pageUrl = Astro.site
-  ? new URL(permalink, Astro.site).toString()
-  : permalink;
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "@id": pageUrl,
-  name: pageTitle,
-  description: pageDescription,
-  url: pageUrl,
-  hasPart: patterns.entries.map((pattern) => ({
-    "@type": "CreativeWork",
-    name: pattern.title,
-    identifier: pattern.code,
-    description: pattern.summary,
-    url: Astro.site
-      ? new URL(`/mechanisms/patterns/${pattern.slug}`, Astro.site).toString()
-      : `/mechanisms/patterns/${pattern.slug}`,
-    keywords: pattern.filters,
-  })),
+const patternUrl = (slug: string) =>
+  new URL(`/mechanisms/patterns/${slug}`, Astro.site ?? Astro.url).toString();
+const pageSchema = {
+  page: {
+    mainEntity: itemList(
+      patterns.entries.map((pattern) => ({
+        "@type": "TechArticle",
+        "@id": `${patternUrl(pattern.slug)}#article`,
+        name: pattern.title,
+        identifier: pattern.code,
+        description: pattern.summary,
+        url: patternUrl(pattern.slug),
+        keywords: pattern.filters,
+      })),
+    ),
+  },
 };
-const structuredDataJson = JSON.stringify(structuredData, null, 2);
 ---
 
 <BaseLayout
   title={pageTitle}
   description={pageDescription}
   jsonAlternates={[{ href: "/api/mechanisms.json", title: "Mechanisms JSON" }]}
-  pageSchema="route"
+  schema={pageSchema}
 >
   <PageIntro
     eyebrow="Mechanisms"
@@ -140,5 +135,4 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   >
     <ScholarlyMeta bare publication={publication} permalink={permalink} />
   </CitationBlock>
-  <InlineScript type="application/ld+json" code={structuredDataJson} />
 </BaseLayout>

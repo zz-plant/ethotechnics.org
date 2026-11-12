@@ -2,6 +2,7 @@ import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 
 import { formatDocumentTitle } from "../src/utils/seo/document-title";
+import { resolveRouteProfile } from "../src/utils/seo/route-type";
 
 const repoRoot = process.cwd();
 const srcRoot = path.join(repoRoot, "src");
@@ -363,26 +364,29 @@ for (const filePath of pageAstroFiles) {
     );
   }
 
-  const isLikelyArticleRoute =
-    !relPath.endsWith("/index.astro") && !relPath.endsWith("404.astro");
-  const hasPublishedTime = /<BaseLayout[\s\S]*?\bpublishedTime=/.test(source);
-  const hasStructuredDataType = /<BaseLayout[\s\S]*?\bstructuredDataType=/.test(
-    source,
-  );
-
-  if (isLikelyArticleRoute && !hasPublishedTime) {
-    warnings.push(
-      `${relPath}: article-like route is missing publishedTime, which weakens Article JSON-LD completeness.`,
+  // The layout types every page from its address and writes its one JSON-LD
+  // block. A page that writes another describes itself twice; five hubs did,
+  // three under the same @id with different properties.
+  if (source.includes("application/ld+json")) {
+    issues.push(
+      `${relPath}: writes its own JSON-LD; pass what it adds through BaseLayout's schema prop.`,
     );
   }
 
-  const isTopLevelLandingPage =
-    /^src\/pages\/[^/]+\/index\.astro$/.test(relPath) ||
-    relPath === "src/pages/index.astro";
+  const route = relPath
+    .replace(/^src\/pages/, "")
+    .replace(/\.astro$/, "")
+    .replace(/\/index$/, "");
+  const isStaticRoute = !route.includes("[");
+  const hasPublishedTime = /<BaseLayout[\s\S]*?\bpublishedTime=/.test(source);
 
-  if (isTopLevelLandingPage && !hasStructuredDataType) {
+  if (
+    isStaticRoute &&
+    resolveRouteProfile(route || "/").articleType &&
+    !hasPublishedTime
+  ) {
     warnings.push(
-      `${relPath}: landing page relies on automatic structuredDataType resolution; set an explicit value for richer JSON-LD control.`,
+      `${relPath}: the page carries an article but no publishedTime, so its JSON-LD has no date.`,
     );
   }
 }

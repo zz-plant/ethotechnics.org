@@ -107,7 +107,8 @@ const outputSchemaFor = (id: string): ValidatorOutputSchema => ({
 });
 
 export const validatorsContent: ValidatorsContent = {
-  pageTitle: "Validators — Ethotechnics Institute",
+  pageTitle:
+    "Validators for journey time, friction, and delay — Ethotechnics Institute",
   pageDescription:
     "Three forms that score a user journey against STD-01, the temporal rights standard, and return a red, yellow, or green status, the clauses at risk, and a fix.",
   permalink: "/validators",

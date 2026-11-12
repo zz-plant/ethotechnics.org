@@ -1,5 +1,4 @@
 ---
-import InlineScript from "../../components/InlineScript.astro";
 import "../../styles/components/research.css";
 import PageIntro from "../../components/PageIntro.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
@@ -18,6 +17,7 @@ import { getCollection } from "astro:content";
 import { researchContent } from "../../content/research";
 import { formatMonth } from "../../utils/dates";
 import { cases } from "../../content/casebook";
+import { itemList } from "../../utils/seo/schema";
 
 const {
   pageTitle,
@@ -111,46 +111,37 @@ const totalResearchItems =
   agenda.length +
   focusAreas.length +
   publications.length;
-const pageUrl = Astro.site
-  ? new URL(permalink, Astro.site).toString()
-  : permalink;
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "@id": pageUrl,
-  name: pageTitle,
-  description: pageDescription,
-  url: pageUrl,
-  hasPart: [
-    ...bridgeArtifacts.map((artifact) => ({
-      "@type": "CreativeWork",
-      name: artifact.title,
-      description: artifact.summary,
-      url: Astro.site
-        ? new URL(artifact.href, Astro.site).toString()
-        : artifact.href,
-      keywords: artifact.tags,
-    })),
-    ...publications
-      .filter((publication) => publication.status === "published")
-      .map((publication) => ({
-        "@type": "Report",
-        name: publication.title,
-        description: publication.summary,
-        url: Astro.site
-          ? new URL(publication.href, Astro.site).toString()
-          : publication.href,
-        keywords: publication.tags,
+const absolute = (href: string) =>
+  new URL(href, Astro.site ?? Astro.url).toString();
+const pageSchema = {
+  page: {
+    mainEntity: itemList([
+      ...bridgeArtifacts.map((artifact) => ({
+        "@type": "CreativeWork",
+        name: artifact.title,
+        description: artifact.summary,
+        url: absolute(artifact.href),
+        keywords: artifact.tags,
       })),
-  ],
+      ...publications
+        .filter((publication) => publication.status === "published")
+        .map((publication) => ({
+          "@type": "Report",
+          name: publication.title,
+          description: publication.summary,
+          url: absolute(publication.href),
+          keywords: publication.tags,
+        })),
+    ]),
+  },
 };
-const structuredDataJson = JSON.stringify(structuredData, null, 2);
 ---
 
 <BaseLayout
   title={pageTitle}
   description={pageDescription}
   jsonAlternates={[{ href: "/api/research.json", title: "Research JSON" }]}
+  schema={pageSchema}
 >
   <PageIntro
     eyebrow="Research"
@@ -602,7 +593,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   >
     <ScholarlyMeta bare publication={publication} permalink={permalink} />
   </CitationBlock>
-  <InlineScript type="application/ld+json" code={structuredDataJson} />
   <script>
     import "../../client/research-filter.ts";
   </script>

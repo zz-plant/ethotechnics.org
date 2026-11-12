@@ -100,7 +100,7 @@ export type DiagnosticsContent = PageWithPermalink &
   };
 
 export const diagnosticsContent: DiagnosticsContent = {
-  pageTitle: "Diagnostics — Ethotechnics",
+  pageTitle: "Diagnostic tools for automated decisions — Ethotechnics",
   pageDescription:
     "Self-serve diagnostics that take one workflow, record stream, or set of figures and return a scored readout you can link, copy, or export.",
   permalink: "/diagnostics",
@@ -219,7 +219,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       description:
         "Walks a team through one workflow against six questions and returns an exposure score, the permissions nobody can justify, and whether its decisions can be undone. Start here when the system keeps no decision records yet; use the record conformance checker once it does.",
       metaDescription:
-        "Six questions about one workflow return an exposure score, unjustified permissions, and whether its decisions can be undone. For systems that keep no decision records.",
+        "Six questions on one workflow return an exposure score, unjustified permissions, and whether decisions can be undone. For systems without decision records.",
       methodCards: {
         measures: [
           "Whether each action class has an identifiable authorizer, evidence basis, and end condition.",
@@ -479,7 +479,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       title: "Workload modeler",
       tier: "Scores your answers",
       description:
-        "Rate seven sources of workload, such as interruptions, handoffs, and incidents. Get a burden score out of 100 and the three places where reducing load would help most.",
+        "Rate seven sources of workload, such as handoffs and incidents. Get a burden score out of 100 and the three places where reducing load would help most.",
       methodCards: {
         measures: [
           "Task load volume across roles and handoffs.",
