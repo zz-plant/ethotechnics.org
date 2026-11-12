@@ -1,5 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SymptomTriage from "../../components/SymptomTriage.astro";
 import VerdictMark from "../../components/VerdictMark.astro";
@@ -10,6 +12,7 @@ import {
   failureStates,
   type InstituteArtifact,
 } from "../../content/institute-site";
+import { incidentLessons, incidentLessonsIntro } from "../../content/incidents";
 import { getStandardBySlug } from "../../content/standards";
 import {
   failureChoiceLabels,
@@ -123,6 +126,16 @@ const failureSections = failureStates
     };
   })
   .filter((section) => section.stages.length > 0);
+
+// Each worked example works through one of the seven failures; the failure's
+// section links to it, and it links back.
+const exampleByFailure = new Map(
+  incidentLessons.map((lesson) => [lesson.failure, lesson]),
+);
+const failureTitle = (slug: string) =>
+  failureChoiceLabels[slug] ??
+  failureStates.find((state) => state.slug === slug)?.title ??
+  slug;
 
 // The badges already lead with a severity word; this is what lets the grid
 // show it. Seven triage cards whose whole job is "how bad is this" rendered
@@ -319,6 +332,14 @@ const failureChoiceIcons: Record<string, string[]> = {
             {question && ` The question it failed: ${question}`}
           </p>
         )}
+        {exampleByFailure.has(state.slug) && (
+          <p class="muted">
+            Worked example:{" "}
+            <a href={`#${exampleByFailure.get(state.slug)?.slug}`}>
+              {exampleByFailure.get(state.slug)?.title}
+            </a>
+          </p>
+        )}
         <p class="small muted">
           <a href="#workflow">The workflow for every failure</a> ·
           <a href="#failure-intake">All seven failures</a>
@@ -326,6 +347,96 @@ const failureChoiceIcons: Record<string, string[]> = {
       </section>
     ))
   }
+
+  <section id="worked-examples" class="container stack-lg section">
+    <div class="stack-sm">
+      <p class="eyebrow">Composite scenarios</p>
+      <h2>{incidentLessonsIntro.title}</h2>
+      <p class="section-lead">{incidentLessonsIntro.description}</p>
+    </div>
+    {
+      incidentLessons.map((lesson) => (
+        <article id={lesson.slug} class="stack-md">
+          <div class="stack-sm">
+            <p class="eyebrow">
+              Drawn from {lesson.incident.sector.toLowerCase()}
+            </p>
+            <h3>{lesson.title}</h3>
+            <p>{lesson.summary}</p>
+            <p class="small muted">
+              The failure it works through:{" "}
+              <a href={`#${lesson.failure}`}>{failureTitle(lesson.failure)}</a>
+            </p>
+          </div>
+          <CardGrid className="grid--two">
+            <CardItem
+              headingLevel="h4"
+              title="What happened"
+              description={lesson.incident.headline}
+              descriptionTone="default"
+            />
+            <CardItem
+              headingLevel="h4"
+              title="Who it landed on"
+              description={lesson.incident.impact}
+              descriptionTone="default"
+            />
+          </CardGrid>
+          <CardGrid className="grid--three">
+            <CardItem
+              headingLevel="h4"
+              title="Gaps"
+              description="Each let the harm continue."
+            >
+              <ul class="incident-list">
+                {lesson.governanceFailures.map((failure) => (
+                  <li>{failure}</li>
+                ))}
+              </ul>
+            </CardItem>
+            <CardItem
+              headingLevel="h4"
+              title="Signals"
+              description="Each is a number a running system can record before the harm grows."
+            >
+              <ul class="incident-list">
+                {lesson.signalsToWatch.map((signal) => (
+                  <li>{signal}</li>
+                ))}
+              </ul>
+            </CardItem>
+            <CardItem
+              headingLevel="h4"
+              title="Fixes"
+              description="Each needs a named owner and a date."
+            >
+              <ul class="incident-list">
+                {lesson.remediationChecklist.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </CardItem>
+          </CardGrid>
+          <div class="incident-records">
+            <h4>Records to start from</h4>
+            <ul class="incident-list">
+              {lesson.sources.map((source) => (
+                <li>
+                  <a href={source.href}>{source.label}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </article>
+      ))
+    }
+    <p class="muted">
+      The stages for reporting a real incident after release are in the
+      <a href="/standards/enforceable-governance-crosswalks#post-market"
+        >post-market workflow</a
+      >.
+    </p>
+  </section>
 
   {
     /* The symptom matrix lived on /start as a second way to route by symptom.
@@ -345,3 +456,22 @@ const failureChoiceIcons: Record<string, string[]> = {
     import "../../client/route-metrics.ts";
   </script>
 </BaseLayout>
+
+<style>
+  .incident-list {
+    margin: 0;
+    padding-left: var(--space-4);
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .incident-records {
+    display: grid;
+    gap: var(--space-2);
+    max-width: 72ch;
+  }
+
+  .incident-records > * {
+    margin: 0;
+  }
+</style>

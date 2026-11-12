@@ -215,7 +215,7 @@ export const useCases: UseCase[] = [
     incidents: [
       {
         label: "Overrides with no audit trace",
-        href: "/incidents#model-override-visibility",
+        href: "/triage#model-override-visibility",
       },
     ],
     alreadyRequired:
@@ -265,7 +265,7 @@ export const useCases: UseCase[] = [
     incidents: [
       {
         label: "Appeals backlog trigger",
-        href: "/incidents#appeals-backlog-trigger",
+        href: "/triage#appeals-backlog-trigger",
       },
     ],
     alreadyRequired:
@@ -344,7 +344,7 @@ export const useCases: UseCase[] = [
     incidents: [
       {
         label: "Appeal accepted without remedy",
-        href: "/incidents#appeal-remedy-mismatch",
+        href: "/triage#appeal-remedy-mismatch",
       },
     ],
     alreadyRequired:
@@ -437,7 +437,10 @@ export const boundaries: Boundary[] = [
     id: "model-testing",
     title: "Testing a model before anyone deploys it",
     why: "The standards evaluate how a model is put to work deciding about people, not the model itself. A model can pass every benchmark and still be deployed under an approval nobody renews or can revoke. Until someone deploys it, there is no one the standards can hold to a clause.",
-    link: { label: "What the evals can check", href: "/evals/coverage" },
+    link: {
+      label: "What the evals can check",
+      href: "/measurement-tiers#coverage",
+    },
     examples: [],
   },
   {
