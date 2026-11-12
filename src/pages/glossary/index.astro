@@ -1,5 +1,4 @@
 ---
-import InlineScript from "../../components/InlineScript.astro";
 import "../../styles/components/glossary.css";
 import { getEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
@@ -13,7 +12,7 @@ import { normalizeGlossaryHeading } from "../../utils/glossary-helpers";
 import {
   buildGlossaryIndexEntries,
   buildGlossaryIndexFacets,
-  buildGlossaryStructuredDataPayload,
+  buildGlossarySchema,
   filterGlossaryIndexEntries,
 } from "../../content/page-data/glossary-routes";
 import { explainerLinks } from "../../content/page-data/glossary-page";
@@ -95,7 +94,7 @@ const filteredEntries = filterGlossaryIndexEntries(
 const totalEntries = entryIndex.length;
 const visibleEntries = filteredEntries.length;
 
-const structuredData = buildGlossaryStructuredDataPayload({
+const pageSchema = buildGlossarySchema({
   pageTitle,
   pageDescription,
   permalink,
@@ -103,12 +102,6 @@ const structuredData = buildGlossaryStructuredDataPayload({
   publication,
   siteBase,
 });
-const glossaryKeywordsNode = structuredData["@graph"].find(
-  (item) => item["@type"] === "CollectionPage",
-) as { keywords?: string[] } | undefined;
-const glossaryKeywordsContent =
-  glossaryKeywordsNode?.keywords?.join(", ") ?? "";
-const structuredDataJson = JSON.stringify(structuredData);
 // The title leads with the glossary's name, which already carries the brand.
 const documentTitle = pageTitle.replace(" — ", ": ");
 ---
@@ -119,11 +112,8 @@ const documentTitle = pageTitle.replace(" — ", ": ");
   description={pageDescription}
   enableGlossaryHighlights={false}
   jsonAlternates={[{ href: "/api/glossary.json", title: "Glossary JSON" }]}
-  pageSchema="route"
+  schema={pageSchema}
 >
-  <Fragment slot="head">
-    <meta name="keywords" content={glossaryKeywordsContent} />
-  </Fragment>
   <PageIntro
     eyebrow="Glossary"
     title="Ethotechnics glossary"
@@ -535,7 +525,6 @@ const documentTitle = pageTitle.replace(" — ", ": ");
       id="glossary-history"
     />
   </CitationBlock>
-  <InlineScript type="application/ld+json" code={structuredDataJson} />
   <script>
     import "../../client/glossary-filter.ts";
   </script>

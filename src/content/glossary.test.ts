@@ -3,6 +3,7 @@ import { existsSync } from "node:fs";
 
 import retiredEntries from "../data/glossary-retired.json" with { type: "json" };
 import { glossaryContent, glossaryTermSeeds, glossaryTerms } from "./glossary";
+import { evalsContent } from "./evals";
 import { libraryContent } from "./library";
 
 /**
@@ -88,5 +89,19 @@ describe("retired glossary entries", () => {
       .filter(([, target]) => !resolves(target))
       .map(([slug, target]) => `${slug} -> ${target}`);
     expect(dangling).toEqual([]);
+  });
+});
+
+describe("glossary references", () => {
+  // The eval suites kept naming 43 retired entries after the glossary was
+  // cut to 42, so every suite page linked through a redirect, under a label
+  // made from the retired slug.
+  it("name only published entries in the eval suites", () => {
+    const stale = evalsContent.suites.flatMap((suite) =>
+      suite.glossaryRefs
+        .filter((ref) => !entryIds.has(ref))
+        .map((ref) => `${suite.slug}: ${ref}`),
+    );
+    expect(stale).toEqual([]);
   });
 });

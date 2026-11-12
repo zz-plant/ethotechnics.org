@@ -156,29 +156,6 @@ export const antiPatterns = [
   },
 ];
 
-export const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "TechArticle",
-  "@id": "https://ethotechnics.org/standards/std-08-delegation",
-  headline: "STD-08 — Delegation",
-  description:
-    "What must stay true while an automated system acts for an institution: authority as a lease, policies rechecked when facts change, human oversight that can change the outcome, and correction capacity that grows with authority.",
-  url: "https://ethotechnics.org/standards/std-08-delegation",
-  datePublished: "2026-09-06",
-  dateModified: "2026-10-13",
-  version: "0.3.2",
-  identifier: "STD-08",
-  publisher: {
-    "@type": "Organization",
-    name: "Ethotechnics Institute",
-    url: "https://ethotechnics.org",
-  },
-  isPartOf: {
-    "@type": "CollectionPage",
-    name: "Standards — Ethotechnics Institute",
-    url: "https://ethotechnics.org/standards",
-  },
-};
 
 <StandardStatusSummary slug="std-08-delegation" />
 
@@ -688,9 +665,3 @@ export const structuredData = {
 
   </div>
 </article>
-
-<script
-  type="application/ld+json"
-  set:html={JSON.stringify(structuredData, null, 2)}
-  is:inline
-/>

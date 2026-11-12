@@ -3,6 +3,7 @@ import {
   stripHtml,
 } from "../../utils/glossary-helpers";
 import { glossaryEntryPermalink } from "../../utils/glossary";
+import type { PageSchema } from "../../utils/seo/schema";
 
 export type GlossaryIndexSourceEntry = {
   id: string;
@@ -144,7 +145,12 @@ export const buildGlossaryIndexFacets = (
   };
 };
 
-export const buildGlossaryStructuredDataPayload = (input: {
+/**
+ * What the glossary index adds to the layout's graph: the term set as the
+ * page's main entity. Each term is named by the @id of the DefinedTerm on its
+ * own page, so the two descriptions are one entity.
+ */
+export const buildGlossarySchema = (input: {
   pageTitle: string;
   pageDescription: string;
   permalink: string;
@@ -154,43 +160,22 @@ export const buildGlossaryStructuredDataPayload = (input: {
     updated?: string;
   };
   siteBase: string;
-}) => {
+}): PageSchema => {
   const organizationId = `${input.siteBase}#organization`;
-  const websiteId = `${input.siteBase}#website`;
-  const pageUrl = input.permalink.startsWith("http")
-    ? input.permalink
-    : new URL(input.permalink, input.siteBase).toString();
+  const pageUrl = new URL(input.permalink, input.siteBase).toString();
   const glossaryEntryUrl = (slug: string) =>
     new URL(glossaryEntryPermalink(slug), input.siteBase).toString();
 
-  // Name and address only. Each term's page carries its own DefinedTerm with
-  // the full definition; repeating all 386 here made the structured data a
-  // quarter of the index page.
-  const structuredEntries = input.categories.flatMap((category) =>
+  // Name and address only. Each term's page carries the full definition.
+  const definedTerms = input.categories.flatMap((category) =>
     category.entries.map((entry) => ({
       "@type": "DefinedTerm",
+      "@id": `${glossaryEntryUrl(entry.id)}#defined-term`,
       name: entry.title,
       url: glossaryEntryUrl(entry.id),
     })),
   );
-
-  const glossaryPublished = input.publication.published ?? null;
-  const glossaryUpdated =
-    input.publication.updated ?? input.publication.published ?? null;
-  const glossaryKeywords = Array.from(
-    new Set([
-      "Ethotechnics glossary",
-      "AI governance",
-      "automated decision systems",
-      "algorithmic accountability",
-      "contestability",
-      "right to appeal",
-      ...input.categories.map((category) =>
-        normalizeGlossaryHeading(category.heading),
-      ),
-    ]),
-  );
-  const glossaryAbout = Array.from(
+  const sections = Array.from(
     new Set(
       input.categories.map((category) =>
         normalizeGlossaryHeading(category.heading),
@@ -200,30 +185,11 @@ export const buildGlossaryStructuredDataPayload = (input: {
   const glossarySetId = `${pageUrl}#defined-term-set`;
 
   return {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "CollectionPage",
-        // The layout emits the breadcrumb list; the page references it.
-        breadcrumb: { "@id": `${pageUrl}#breadcrumb` },
-        "@id": pageUrl,
-        name: input.pageTitle,
-        description: input.pageDescription,
-        keywords: glossaryKeywords,
-        url: pageUrl,
-        inLanguage: "en",
-        datePublished: glossaryPublished,
-        dateModified: glossaryUpdated,
-        isPartOf: {
-          "@id": websiteId,
-        },
-        publisher: {
-          "@id": organizationId,
-        },
-        mainEntity: {
-          "@id": glossarySetId,
-        },
-      },
+    page: {
+      keywords: sections,
+      mainEntity: { "@id": glossarySetId },
+    },
+    nodes: [
       {
         "@type": "DefinedTermSet",
         "@id": glossarySetId,
@@ -231,23 +197,12 @@ export const buildGlossaryStructuredDataPayload = (input: {
         description: input.pageDescription,
         url: pageUrl,
         inLanguage: "en",
-        datePublished: glossaryPublished,
-        dateModified: glossaryUpdated,
-        keywords: glossaryKeywords,
-        about: glossaryAbout,
-        numberOfItems: structuredEntries.length,
-        isPartOf: {
-          "@id": pageUrl,
-        },
-        publisher: {
-          "@id": organizationId,
-        },
-        hasDefinedTerm: structuredEntries,
-        potentialAction: {
-          "@type": "SearchAction",
-          target: `${pageUrl}?query={search_term_string}`,
-          "query-input": "required name=search_term_string",
-        },
+        datePublished: input.publication.published,
+        dateModified: input.publication.updated ?? input.publication.published,
+        about: sections,
+        numberOfItems: definedTerms.length,
+        publisher: { "@id": organizationId },
+        hasDefinedTerm: definedTerms,
       },
     ],
   };

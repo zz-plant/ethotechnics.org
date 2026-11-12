@@ -1,11 +1,12 @@
+import type { ArticleType } from "../route-type";
 import type {
   ArticleNode,
   BreadcrumbListNode,
+  JsonLdNode,
   OrganizationNode,
   PersonReference,
   WebsiteNode,
   WebPageNode,
-  WebPageType,
 } from "./types";
 
 const buildOrganizationNode = (input: {
@@ -67,8 +68,7 @@ const buildWebPageNode = (input: {
   imageWidth: number;
   imageHeight: number;
   imageAlt: string;
-  webPageType: WebPageType;
-  inDefinedTermSet?: string;
+  webPageType: WebPageNode["@type"];
 }): WebPageNode => ({
   "@context": "https://schema.org",
   "@type": input.webPageType,
@@ -94,11 +94,6 @@ const buildWebPageNode = (input: {
   image: {
     "@id": input.primaryImageId,
   },
-  ...(input.inDefinedTermSet
-    ? {
-        inDefinedTermSet: input.inDefinedTermSet,
-      }
-    : {}),
 });
 
 const buildBreadcrumbListNode = (input: {
@@ -118,7 +113,7 @@ const buildBreadcrumbListNode = (input: {
 
 const buildArticleNode = (input: {
   articleId: string;
-  articleType: "Article" | "TechArticle";
+  articleType: ArticleType;
   headline: string;
   description: string;
   imageUrl: string;
@@ -147,8 +142,30 @@ const buildArticleNode = (input: {
   ...(input.dateModified ? { dateModified: input.dateModified } : {}),
 });
 
+/** The interactive tool a diagnostic page runs. */
+const buildWebApplicationNode = (input: {
+  appId: string;
+  name: string;
+  description: string;
+  url: string;
+  organizationId: string;
+}): JsonLdNode => ({
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "@id": input.appId,
+  name: input.name,
+  description: input.description,
+  url: input.url,
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Any",
+  isAccessibleForFree: true,
+  inLanguage: "en",
+  publisher: { "@id": input.organizationId },
+});
+
 export {
   buildArticleNode,
+  buildWebApplicationNode,
   buildBreadcrumbListNode,
   buildOrganizationNode,
   buildWebPageNode,

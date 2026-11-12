@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import type { PageSchema } from "../utils/seo/schema";
 import PageIntro from "./PageIntro.astro";
 
 interface AnchorLink {
@@ -20,8 +21,7 @@ interface Props {
   modifiedTime?: string;
   mainClass?: string;
   jsonAlternates?: Array<{ href: string; title: string }>;
-  /** "route" when the document emits its own page-level JSON-LD. */
-  pageSchema?: "layout" | "route";
+  schema?: PageSchema;
 }
 
 const {
@@ -37,7 +37,7 @@ const {
   modifiedTime,
   mainClass,
   jsonAlternates,
-  pageSchema,
+  schema,
 } = Astro.props as Props;
 
 // The critiques have no index of their own; the framework map lists them,
@@ -60,7 +60,7 @@ const breadcrumbItems = permalink.startsWith("/standards/critiques/")
   description={description}
   publishedTime={publishedTime}
   modifiedTime={modifiedTime}
-  pageSchema={pageSchema}
+  schema={schema}
   mainClass={mainClass}
   jsonAlternates={jsonAlternates}
   breadcrumbItems={breadcrumbItems}

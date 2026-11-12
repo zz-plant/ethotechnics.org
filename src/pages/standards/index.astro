@@ -1,6 +1,5 @@
 ---
 import authorityGrantExample from "../../../public/standards/examples/authority-grant.example.json";
-import InlineScript from "../../components/InlineScript.astro";
 import "../../styles/components/standards.css";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
@@ -17,7 +16,7 @@ import { formatVersion } from "../../utils/versions";
 import {
   buildStandardsCardViewModels,
   buildStandardsGroupingAndFilters,
-  buildStandardsStructuredDataPayload,
+  buildStandardsSchema,
 } from "../../content/page-data/standards-index";
 
 const lastUpdated = "2026-10-06";
@@ -84,20 +83,19 @@ const laneLabel = (id: string) => {
   return lane ? lane.charAt(0).toUpperCase() + lane.slice(1) : undefined;
 };
 const evidencePackIds = ["STD-01", "STD-02", "STD-06", "STD-08", "STD-09"];
-const structuredData = buildStandardsStructuredDataPayload({
+const pageSchema = buildStandardsSchema({
   standardsContent,
   adoptedStandards,
-  siteUrl: Astro.site,
+  siteUrl: Astro.site ?? Astro.url,
 });
-const structuredDataJson = JSON.stringify(structuredData, null, 2);
 ---
 
 <BaseLayout
   title={pageTitle}
   description={pageDescription}
   modifiedTime={lastUpdated}
-  structuredDataType="collection"
   jsonAlternates={[{ href: "/api/standards.json", title: "Standards JSON" }]}
+  schema={pageSchema}
 >
   <PageIntro
     eyebrow="Standards"
@@ -789,5 +787,4 @@ Control plane → halt rules → clocks → rollback → restoration`}</pre>
     ]}
   />
 
-  <InlineScript type="application/ld+json" code={structuredDataJson} />
 </BaseLayout>

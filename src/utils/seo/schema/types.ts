@@ -1,4 +1,13 @@
+import type { ArticleType, WebPageType } from "../route-type";
+
 export type SchemaContext = "https://schema.org";
+
+/** Any schema.org node. Pages describe their own entities with these. */
+export type JsonLdNode = {
+  "@type": string | string[];
+  "@id"?: string;
+  [property: string]: unknown;
+};
 
 export type OrganizationNode = {
   "@context": SchemaContext;
@@ -42,11 +51,9 @@ export type WebsiteNode = {
   };
 };
 
-export type WebPageType = "WebPage" | "CollectionPage" | "DefinedTerm";
-
 export type WebPageNode = {
   "@context": SchemaContext;
-  "@type": WebPageType;
+  "@type": WebPageType | WebPageType[] | [WebPageType, "FAQPage"];
   "@id": string;
   name: string;
   description: string;
@@ -64,8 +71,9 @@ export type WebPageNode = {
   };
   image: { "@id": string };
   breadcrumb?: { "@id": string };
-  inDefinedTermSet?: string;
+  datePublished?: string;
   dateModified?: string;
+  [property: string]: unknown;
 };
 
 export type BreadcrumbListNode = {
@@ -82,7 +90,7 @@ export type BreadcrumbListNode = {
 
 export type ArticleNode = {
   "@context": SchemaContext;
-  "@type": "Article" | "TechArticle";
+  "@type": ArticleType;
   "@id": string;
   headline: string;
   description: string;
@@ -93,6 +101,7 @@ export type ArticleNode = {
   inLanguage: "en";
   datePublished?: string;
   dateModified?: string;
+  [property: string]: unknown;
 };
 
 export type SchemaNode =
@@ -100,4 +109,5 @@ export type SchemaNode =
   | WebsiteNode
   | WebPageNode
   | BreadcrumbListNode
-  | ArticleNode;
+  | ArticleNode
+  | JsonLdNode;

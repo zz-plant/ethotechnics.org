@@ -120,34 +120,6 @@ export const antiPatterns = [
   },
 ];
 
-export const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "TechArticle",
-  "@id": "https://ethotechnics.org/standards/std-01-temporal-rights",
-  headline: "STD-01 — The Temporal Bill of Rights",
-  description:
-    "A draft standard of seven rights that protect a person's time from automated systems.",
-  url: "https://ethotechnics.org/standards/std-01-temporal-rights",
-  datePublished: "2026-01-01",
-  dateModified: "2026-10-13",
-  version: "1.0.3",
-  identifier: "STD-01",
-  publisher: {
-    "@type": "Organization",
-    name: "Ethotechnics Institute",
-    url: "https://ethotechnics.org",
-  },
-  isPartOf: {
-    "@type": "CollectionPage",
-    name: "Standards — Ethotechnics Institute",
-    url: "https://ethotechnics.org/standards",
-  },
-  hasPart: rights.map((right) => ({
-    "@type": "CreativeWork",
-    name: right.title,
-    description: right.summary,
-  })),
-};
 
 <StandardStatusSummary slug="std-01-temporal-rights" />
 
@@ -486,9 +458,3 @@ export const structuredData = {
 
   </div>
 </article>
-
-<script
-  type="application/ld+json"
-  set:html={JSON.stringify(structuredData, null, 2)}
-  is:inline
-/>
