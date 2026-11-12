@@ -3,9 +3,11 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import NextStep from "../../components/NextStep.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
+import ClauseCitations from "../../components/ClauseCitations.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import SummaryCallout from "../../components/SummaryCallout.astro";
+import type { ClauseCitation } from "../../utils/clause-registry";
 
 const pageTitle = "Remedy essentials for accountable systems";
 const pageDescription =
@@ -17,7 +19,16 @@ const anchorLinks = [
   { href: "#deployment", label: "Deployment checklist" },
 ];
 
-const essentials = [
+// Each mechanism cites the clauses that require it, so the list can be
+// checked against the standards rather than standing beside them.
+const essentials: Array<{
+  title: string;
+  description: string;
+  why: string;
+  signals: string;
+  ask: string;
+  cites: ClauseCitation[];
+}> = [
   // In the order of the map above: the guardrails before harm, then the
   // clocks during review, then proof of remedy, then readiness.
   {
@@ -28,6 +39,10 @@ const essentials = [
     signals:
       "Hold policies state the reasons, the clocks, and the appeal route. Exceptions are audited.",
     ask: "What are the criteria for this hold, and when does it end?",
+    cites: [
+      { standard: "STD-01", clauses: ["§3.1"] },
+      { standard: "STD-02", clauses: ["§3.1"] },
+    ],
   },
   {
     title: "Default provisional reinstatement",
@@ -37,6 +52,7 @@ const essentials = [
     signals:
       "The system can give limited access during review, and withdraw it if the decision stands.",
     ask: "Can I have access back while you review my case?",
+    cites: [{ standard: "STD-02", clauses: ["§3.3"] }],
   },
   {
     title: "Bounded pending",
@@ -46,6 +62,10 @@ const essentials = [
     signals:
       "Each pending state has a time limit. When it runs out, the case escalates or a fallback applies.",
     ask: "What is the longest my case can stay pending?",
+    cites: [
+      { standard: "STD-01", clauses: ["§3.1", "§3.2"] },
+      { standard: "STD-02", clauses: ["§3.2"] },
+    ],
   },
   {
     title: "Remedy clocks",
@@ -54,6 +74,7 @@ const essentials = [
     why: "A published deadline makes each delay countable, so an owner can be held to it.",
     signals: "Each receipt states the owner and the deadline for each stage.",
     ask: "By what date will my case be reviewed, and by what date put right?",
+    cites: [{ standard: "STD-02", clauses: ["§2.3", "§3.1"] }],
   },
   {
     title: "Clear escalation paths",
@@ -63,6 +84,7 @@ const essentials = [
     signals:
       "On-call rosters and each person's authority appear on receipts and in internal playbooks.",
     ask: "Who can override this decision, and how do I reach them?",
+    cites: [{ standard: "STD-02", clauses: ["§2.2", "§3.2"] }],
   },
   {
     title: "Time-to-remedy distribution",
@@ -71,6 +93,7 @@ const essentials = [
     signals:
       "Reports show median, p90, and p99 remedy times for each group of cases.",
     ask: "How long do the slowest cases like mine take to put right?",
+    cites: [{ standard: "STD-03" }, { standard: "STD-06", clauses: ["§2.3"] }],
   },
   {
     title: "Compensation or fee shifting",
@@ -80,6 +103,7 @@ const essentials = [
     signals:
       "Each remedy record logs the amount repaid and the date it was paid.",
     ask: "If this decision was wrong, what will you repay, and by when?",
+    cites: [{ standard: "STD-02", clauses: ["§4.2"] }],
   },
   {
     title: "Reversal drills and error budgets",
@@ -89,6 +113,7 @@ const essentials = [
     signals:
       "Quarterly drill results, reviews after incidents, and alerts when the error budget runs low are on record.",
     ask: "Have other decisions made under the same rule been overturned?",
+    cites: [{ standard: "STD-02", clauses: ["§4.4"] }, { standard: "STD-03" }],
   },
 ];
 
@@ -209,6 +234,7 @@ const checklist = [
             <p class="muted">Why it matters: {item.why}</p>
             <p class="muted">Signal: {item.signals}</p>
             <p class="muted">A person can ask: "{item.ask}"</p>
+            <ClauseCitations cites={item.cites} />
           </CardItem>
         ))
       }
