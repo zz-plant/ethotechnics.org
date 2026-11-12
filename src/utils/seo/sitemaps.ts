@@ -376,13 +376,9 @@ export const buildSitemapSections = async () => {
     addOverride(`/standards/${standard.slug}`, standard.published);
   });
 
-  [
-    "/casebook",
-    "/glossary",
-    "/mechanisms",
-    "/standards",
-    "/research",
-  ].forEach((path) => priorityOverrides.set(normalizeOverrideKey(path), "0.8"));
+  ["/casebook", "/glossary", "/mechanisms", "/standards", "/research"].forEach(
+    (path) => priorityOverrides.set(normalizeOverrideKey(path), "0.8"),
+  );
 
   const applyOverrides = (entries: SitemapEntry[]) => {
     const entryMap = new Map<string, SitemapEntry>();
