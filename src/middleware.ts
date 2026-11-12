@@ -141,11 +141,15 @@ const REDIRECT_MAP: Record<string, string> = {
   "/validators/risk-radar": "/validators#risk-radar",
   "/validators/latency-audit": "/validators#latency-audit",
   // The three composite scenarios were pages of about 215 words, a third of
-  // it the frame they shared. Each is a section of /incidents.
-  "/incidents/appeals-backlog-trigger": "/incidents#appeals-backlog-trigger",
-  "/incidents/model-override-visibility":
-    "/incidents#model-override-visibility",
-  "/incidents/appeal-remedy-mismatch": "/incidents#appeal-remedy-mismatch",
+  // it the frame they shared, then sections of /incidents. They are the
+  // worked examples on /triage, each beside the failure it works through.
+  "/incidents": "/triage#worked-examples",
+  "/incidents/appeals-backlog-trigger": "/triage#appeals-backlog-trigger",
+  "/incidents/model-override-visibility": "/triage#model-override-visibility",
+  "/incidents/appeal-remedy-mismatch": "/triage#appeal-remedy-mismatch",
+  // What the tools can check answered the measurement tiers' question from
+  // the other end, and sits on that page now.
+  "/evals/coverage": "/measurement-tiers#coverage",
   // The fraud-detection comparison covered the decision the account-lock
   // example traces, at lower resolution. Its own material opens that page.
   // The drift log's job was the glossary's: stable definitions to cite.

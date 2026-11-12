@@ -142,7 +142,7 @@ describe("createPostMarketMonitoringResponse", () => {
 
     expect(payload.meta.count).toBeGreaterThan(0);
     // The workflow is a section of the crosswalks page. It was also printed
-    // on /incidents, which is the composite scenarios only now.
+    // on /incidents, whose composite scenarios are now on /triage.
     expect(payload.meta.permalink).toBe(
       "/standards/enforceable-governance-crosswalks",
     );

@@ -110,12 +110,6 @@ export const navSections: NavSection[] = [
           "Tests of whether a deployed system's decisions can be challenged, halted, and reversed",
       },
       {
-        href: "/evals/coverage",
-        label: "What we can check",
-        description:
-          "Each check and the claim it tests, plus the claims no check covers yet",
-      },
-      {
         href: "/validators",
         label: "Validators",
         description:
@@ -125,7 +119,7 @@ export const navSections: NavSection[] = [
         href: "/measurement-tiers",
         label: "Measurement tiers",
         description:
-          "Levels of evidence, how each is gamed, and how to detect it",
+          "Levels of evidence, how each is gamed, and which claims a tool can check",
       },
     ],
   },

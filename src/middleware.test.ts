@@ -280,7 +280,7 @@ describe("middleware", () => {
       {
         url: "https://ethotechnics.org/incidents/appeals-backlog-trigger",
         expectedLocation:
-          "https://ethotechnics.org/incidents#appeals-backlog-trigger",
+          "https://ethotechnics.org/triage#appeals-backlog-trigger",
       },
       {
         url: "https://ethotechnics.org/standards/meta-critique",
