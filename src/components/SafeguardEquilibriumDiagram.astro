@@ -6,6 +6,17 @@
  * six failure drifts. The invariant requires keeping these in step: when one
  * outruns another, unreviewable institutional power emerges.
  */
+import { methodContent } from "../content/method";
+
+// The laws each drift cites come from the method's state-variable table, the
+// one /standards/laws reads, so the three cannot disagree.
+const lawRefsByDrift = new Map(
+  methodContent.stateVariables.map((variable) => [
+    variable.drift,
+    variable.lawRefs,
+  ]),
+);
+
 // 6 drifts linking the state variables
 const drifts = [
   {
@@ -13,7 +24,6 @@ const drifts = [
     from: "Capability",
     to: "Authority",
     symptom: "Capability outruns authority",
-    lawRef: "Law I",
     lawHref: "/standards/laws#law-i",
     lawStatement: "Capability does not imply authority",
     diagnostic: "Delegation audit",
@@ -26,7 +36,6 @@ const drifts = [
     from: "Authority",
     to: "Evidence",
     symptom: "Authority outlives evidence",
-    lawRef: "Laws II, III",
     lawHref: "/standards/laws#law-ii",
     lawStatement:
       "Authority decays unless its justification is renewed on evidence",
@@ -40,7 +49,6 @@ const drifts = [
     from: "Evidence",
     to: "Dependency",
     symptom: "Policy detaches from reality",
-    lawRef: "Law III",
     lawHref: "/standards/laws#law-iii",
     lawStatement: "Evidence and authority must remain coupled",
     diagnostic: "Record Conformance",
@@ -53,7 +61,6 @@ const drifts = [
     from: "Dependency",
     to: "Correction",
     symptom: "Dependence outruns correction",
-    lawRef: "Laws V, XI",
     lawHref: "/standards/laws#law-v",
     lawStatement: "Dependence converts technical risk into structural risk",
     diagnostic: "Workload modeler",
@@ -66,7 +73,6 @@ const drifts = [
     from: "Correction",
     to: "Standing",
     symptom: "Observability grows without control",
-    lawRef: "Laws VIII, IX",
     lawHref: "/standards/laws#law-viii",
     lawStatement: "Observability without state transition is theater",
     diagnostic: "Delegation audit",
@@ -79,7 +85,6 @@ const drifts = [
     from: "Standing",
     to: "Capability",
     symptom: "Exposure grows without standing",
-    lawRef: "Law VII",
     lawHref: "/standards/laws#law-vii",
     lawStatement:
       "Error-bearing parties require standing proportional to exposure",
@@ -322,7 +327,8 @@ const drifts = [
               <span class="small muted">Governing law:</span>
               <p>
                 <a href={drift.lawHref}>
-                  <strong>{drift.lawRef}:</strong> {drift.lawStatement}
+                  <strong>{lawRefsByDrift.get(drift.symptom)}:</strong>{" "}
+                  {drift.lawStatement}
                 </a>
               </p>
             </div>

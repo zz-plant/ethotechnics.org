@@ -342,7 +342,7 @@ export const methodContent: MethodContent = {
       state: "Evidence",
       question: "What propositions justify that authority?",
       drift: "Policy detaches from reality",
-      lawRefs: "Law III",
+      lawRefs: "Laws III, X",
     },
     {
       state: "Dependency",
@@ -355,14 +355,14 @@ export const methodContent: MethodContent = {
       question:
         "Who can challenge which decisions or delegations, with what procedural force?",
       drift: "Exposure grows without standing",
-      lawRefs: "Law VII",
+      lawRefs: "Laws VII, XII",
     },
     {
       state: "Correction",
       question:
         "Which interventions remain technically, operationally, or institutionally feasible?",
       drift: "Observability grows without control",
-      lawRefs: "Laws VIII, IX, XII",
+      lawRefs: "Laws IV, VI, VIII, IX, XII",
     },
   ],
   laws: [
