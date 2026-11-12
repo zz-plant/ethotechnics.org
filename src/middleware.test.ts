@@ -305,21 +305,21 @@ describe("middleware", () => {
       },
       {
         url: "https://ethotechnics.org/delivery/intake",
-        expectedLocation: "https://ethotechnics.org/taxonomy#delivery-intake",
+        expectedLocation: "https://ethotechnics.org/method#delivery-intake",
       },
       {
         url: "https://ethotechnics.org/assurance/monitoring",
         expectedLocation:
-          "https://ethotechnics.org/taxonomy#assurance-monitoring",
+          "https://ethotechnics.org/method#assurance-monitoring",
       },
       {
         url: "https://ethotechnics.org/governance/policy",
-        expectedLocation: "https://ethotechnics.org/taxonomy#governance-policy",
+        expectedLocation: "https://ethotechnics.org/method#governance-policy",
       },
       {
         url: "https://ethotechnics.org/taxonomy/governance/oversight/audits",
         expectedLocation:
-          "https://ethotechnics.org/taxonomy#governance-oversight-audits",
+          "https://ethotechnics.org/method#governance-oversight-audits",
       },
       {
         url: "https://ethotechnics.org/navigator",
@@ -412,7 +412,7 @@ describe("middleware", () => {
       // One hop, not two, when a legacy path arrives with a slash as well.
       {
         url: "https://ethotechnics.org/delivery/intake/",
-        expectedLocation: "https://ethotechnics.org/taxonomy#delivery-intake",
+        expectedLocation: "https://ethotechnics.org/method#delivery-intake",
       },
     ];
 
@@ -472,13 +472,17 @@ describe("middleware", () => {
     expect(jsonResponse?.headers.get("Link")).toBeNull();
   });
 
-  it("redirects a taxonomy entry to its anchor and passes an unknown slug through to 404", async () => {
+  it("redirects a taxonomy entry to its row on /method and passes an unknown slug through to 404", async () => {
     const known = [
       [
         "/taxonomy/experience/consent/revocation",
-        "/taxonomy#experience-consent-revocation",
+        "/method#experience-consent-revocation",
       ],
-      ["/experience/recourse", "/taxonomy#experience-recourse"],
+      ["/experience/recourse", "/method#experience-recourse"],
+      // The page and its retired domains land on the practices table.
+      ["/taxonomy", "/method#practices"],
+      ["/taxonomy/dependence", "/method#practices"],
+      ["/delivery", "/method#practices"],
     ];
     for (const [from, to] of known) {
       const request = new Request(`https://ethotechnics.org${from}`);

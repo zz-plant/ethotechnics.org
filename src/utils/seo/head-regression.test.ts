@@ -17,7 +17,6 @@ describe("head metadata", () => {
     ["/glossary/contestability", "article", "glossary"],
     ["/mechanisms/patterns/kill-switch", "article", "mechanisms"],
     ["/validators", "website", "mechanisms"],
-    ["/taxonomy", "website", "taxonomy"],
     ["/research/theory/insulation", "article", "editorial"],
     ["/explainers/stoppability", "article", "editorial"],
     ["/diagnostics/delegation-audit", "website", "default"],

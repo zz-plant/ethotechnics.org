@@ -6,7 +6,11 @@ import { cases } from "./casebook";
 import { diagnosticsContent } from "./diagnostics";
 import { evalsContent } from "./evals";
 import { standardsContent } from "./standards";
-import { getTaxonomyBranch, taxonomyEntries } from "./taxonomy";
+import {
+  practicesBySafeguard,
+  SAFEGUARD_ORDER,
+  taxonomyEntries,
+} from "./taxonomy";
 
 const filedHrefs = new Set(
   taxonomyEntries.flatMap((entry) =>
@@ -27,45 +31,31 @@ const theorySlugs = readdirSync("src/content/theory")
 const unfiled = (hrefs: string[]) =>
   hrefs.filter((href) => !filedHrefs.has(href));
 
-const rootSlugs = taxonomyEntries
-  .filter((entry) => !entry.slug.includes("/"))
-  .map((entry) => entry.slug);
-
 describe("taxonomy entries", () => {
-  it("exposes the six top-level branches", () => {
-    expect([...rootSlugs].sort()).toEqual([
-      "assurance",
-      "authority",
-      "delivery",
-      "dependence",
-      "experience",
-      "governance",
-    ]);
-  });
-
-  it("nests the authority and dependence children under their roots", () => {
-    expect(getTaxonomyBranch("authority").map((entry) => entry.slug)).toEqual([
-      "authority",
-      "authority/delegation",
-      "authority/delegation/leases",
-      "authority/policy-validity",
-      "authority/expansion",
-    ]);
-
-    expect(getTaxonomyBranch("dependence").map((entry) => entry.slug)).toEqual([
-      "dependence",
-      "dependence/reversibility",
-      "dependence/reversibility/rollbacks",
-      "dependence/standing",
-      "dependence/preserved-capacity",
-    ]);
+  // The six domains were a second list of six beside the safeguards, and two
+  // of them had the safeguards' names. Practices are filed by safeguard now.
+  it("files every practice once, under the first safeguard it serves", () => {
+    const groups = practicesBySafeguard();
+    expect(groups.map((group) => group.safeguard)).toEqual(
+      SAFEGUARD_ORDER.filter((safeguard) =>
+        taxonomyEntries.some((entry) => entry.safeguards[0] === safeguard),
+      ),
+    );
+    for (const group of groups) {
+      for (const practice of group.practices) {
+        expect(practice.safeguards[0]).toBe(group.safeguard);
+      }
+    }
+    expect(groups.flatMap((group) => group.practices)).toHaveLength(
+      taxonomyEntries.length,
+    );
   });
 
   it("files every entry under at least one safeguard, with a valid scope and at least two related artifacts", () => {
     for (const entry of taxonomyEntries) {
       expect(entry.safeguards.length).toBeGreaterThan(0);
       expect("owner" in entry).toBe(false);
-      expect(["Domain", "Capability", "Practice"]).toContain(entry.scope);
+      expect(["Capability", "Practice"]).toContain(entry.scope);
       expect(entry.summary.length).toBeGreaterThan(0);
       expect(entry.relatedArtifacts.length).toBeGreaterThanOrEqual(2);
     }
@@ -113,15 +103,5 @@ describe("taxonomy entries", () => {
     );
 
     expect(broken).toEqual([]);
-  });
-
-  it("keeps every parent slug resolvable to a declared entry", () => {
-    const slugs = new Set(taxonomyEntries.map((entry) => entry.slug));
-
-    for (const entry of taxonomyEntries) {
-      const segments = entry.slug.split("/");
-      if (segments.length === 1) continue;
-      expect(slugs.has(segments.slice(0, -1).join("/"))).toBe(true);
-    }
   });
 });

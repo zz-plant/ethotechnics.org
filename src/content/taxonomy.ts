@@ -7,9 +7,14 @@ export type TaxonomyArtifact = {
 };
 
 /**
- * The six safeguards the method names. Each taxonomy entry says which of them
- * it serves, so the taxonomy's six domains read as a way of filing practices
- * under the safeguards rather than as a second, competing six.
+ * The six safeguards the method names. Each practice says which of them it
+ * serves, first the one it is filed under on /method.
+ *
+ * The practices used to sit under six domains of their own (Governance,
+ * Delivery, Assurance, Experience, Authority, Dependence) on a separate
+ * /taxonomy page: a second list of six beside the safeguards, two of them the
+ * safeguards' own names. The domains are gone, their links moved to the
+ * practice each fits, and the practices are filed by safeguard on /method.
  */
 export type Safeguard =
   | "Capability"
@@ -31,10 +36,21 @@ export type TaxonomyEntry = {
 
 export const taxonomyEntries = taxonomyEntriesData as TaxonomyEntry[];
 
-/** The id of an entry's row or section on /taxonomy: its slug, dashed. */
+/** The id of a practice's row on /method: its slug, dashed. */
 export const taxonomyAnchor = (slug: string) => slug.replaceAll("/", "-");
 
-export const getTaxonomyBranch = (rootSlug: string) =>
-  taxonomyEntries.filter(
-    (entry) => entry.slug === rootSlug || entry.slug.startsWith(`${rootSlug}/`),
-  );
+export const SAFEGUARD_ORDER: Safeguard[] = [
+  "Capability",
+  "Authority",
+  "Evidence",
+  "Dependency",
+  "Standing",
+  "Correction",
+];
+
+/** Practices grouped by the safeguard each is filed under, in method order. */
+export const practicesBySafeguard = (entries = taxonomyEntries) =>
+  SAFEGUARD_ORDER.map((safeguard) => ({
+    safeguard,
+    practices: entries.filter((entry) => entry.safeguards[0] === safeguard),
+  })).filter((group) => group.practices.length > 0);

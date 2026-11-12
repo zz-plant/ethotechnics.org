@@ -52,7 +52,6 @@ describe("resolveRouteProfile", () => {
       "/evals",
       "/research",
       "/glossary",
-      "/taxonomy",
       "/validators",
     ]) {
       expect(profile(hub)).toMatchObject({

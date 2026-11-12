@@ -397,7 +397,6 @@ export const buildSitemapSections = async () => {
     "/mechanisms",
     "/standards",
     "/research",
-    "/taxonomy",
   ].forEach((path) => priorityOverrides.set(normalizeOverrideKey(path), "0.8"));
 
   const applyOverrides = (entries: SitemapEntry[]) => {

@@ -78,10 +78,8 @@ describe("sitemap coverage", () => {
     expect(standards).toContain("/evidence-packs/std-01");
   });
 
-  test("lists the taxonomy once, as a page, not as one URL per entry", () => {
-    // Entries are anchors on /taxonomy; their old paths redirect there.
-    expect(paths("core")).toContain("/taxonomy");
-    expect(allPaths.some((path) => path.startsWith("/taxonomy/"))).toBe(false);
+  test("lists no taxonomy page: the practices are a section of /method", () => {
+    expect(allPaths.some((path) => path.startsWith("/taxonomy"))).toBe(false);
   });
 
   test("lists the method page and the frontier doctrine scan", () => {

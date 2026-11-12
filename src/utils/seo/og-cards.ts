@@ -587,14 +587,6 @@ const sectionStyles: Record<OgTemplate, SectionStyle> = {
     tile: TEAL,
     tileInk: PAPER,
   },
-  taxonomy: {
-    ...LIGHT,
-    label: "Taxonomy",
-    kicker: "Design and governance domains in context",
-    accent: TEAL,
-    tile: TEAL,
-    tileInk: PAPER,
-  },
   mechanisms: {
     ...DARK,
     ground: TEAL,

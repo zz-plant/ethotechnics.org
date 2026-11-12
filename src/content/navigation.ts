@@ -180,12 +180,6 @@ export const navSections: NavSection[] = [
         description: "Defined terms, each at a stable URL you can cite",
       },
       {
-        href: "/taxonomy",
-        label: "Practice taxonomy",
-        description:
-          "Governance practices by domain, each filed under the safeguards it serves",
-      },
-      {
         href: "/casebook",
         label: "Casebook",
         description:
