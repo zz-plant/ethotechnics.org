@@ -29,6 +29,7 @@ import RatchetFigure from "../../components/RatchetFigure.astro";
 import FailurePointDiagram from "../../components/FailurePointDiagram.astro";
 import LawProtects from "../../components/LawProtects.astro";
 import LawCases from "../../components/LawCases.astro";
+import { methodContent } from "../method";
 
 <SectionBlock
   id="claim"
@@ -422,57 +423,18 @@ can now make it stop doing, correct, or justify.
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">
-            <StateVariableGlyph variable="capability" label="Capability" />
-          </th>
-          <td>What can the assembled system do?</td>
-          <td>Capability outruns authority (Law I)</td>
-        </tr>
-        <tr>
-          <th scope="row">
-            <StateVariableGlyph variable="authority" label="Authority" />
-          </th>
-          <td>
-            Which actions is it currently permitted to perform, for whom, until
-            when?
-          </td>
-          <td>Authority outlives evidence (Laws II, III)</td>
-        </tr>
-        <tr>
-          <th scope="row">
-            <StateVariableGlyph variable="evidence" label="Evidence" />
-          </th>
-          <td>What propositions justify that authority?</td>
-          <td>Policy detaches from reality (Law III)</td>
-        </tr>
-        <tr>
-          <th scope="row">
-            <StateVariableGlyph variable="dependency" label="Dependency" />
-          </th>
-          <td>How difficult would withdrawal or substitution now be?</td>
-          <td>Dependence outruns correction (Laws V, XI)</td>
-        </tr>
-        <tr>
-          <th scope="row">
-            <StateVariableGlyph variable="standing" label="Standing" />
-          </th>
-          <td>
-            Who can challenge which decisions or delegations, with what
-            procedural force?
-          </td>
-          <td>Exposure grows without standing (Law VII)</td>
-        </tr>
-        <tr>
-          <th scope="row">
-            <StateVariableGlyph variable="correction" label="Correction" />
-          </th>
-          <td>
-            Which interventions remain technically, operationally, or
-            institutionally feasible?
-          </td>
-          <td>Observability grows without control (Laws VIII, IX, XII)</td>
-        </tr>
+        {methodContent.stateVariables.map((variable) => (
+          <tr>
+            <th scope="row">
+              <StateVariableGlyph
+                variable={variable.state.toLowerCase()}
+                label={variable.state}
+              />
+            </th>
+            <td>{variable.question}</td>
+            <td>{`${variable.drift} (${variable.lawRefs})`}</td>
+          </tr>
+        ))}
       </tbody>
     </table>
   </div>

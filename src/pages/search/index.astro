@@ -7,6 +7,11 @@ import { fieldNotesContent } from "../../content/fieldNotes";
 import { glossaryTerms } from "../../content/glossary";
 import { navSections } from "../../content/navigation";
 import { hasGlossaryEntryPage } from "../../utils/glossary";
+import {
+  resolveRouteProfile,
+  SEARCH_GROUPS,
+  type SearchGroup,
+} from "../../utils/seo/route-type";
 
 const pageTitle = "Site search — Ethotechnics";
 const pageDescription =
@@ -15,84 +20,73 @@ type SearchEntry = {
   title: string;
   description: string;
   href: string;
-  category: string;
+  category: SearchGroup;
   tags?: string[];
 };
 
-const navEntries: SearchEntry[] = navSections.flatMap((section) =>
-  section.links.map((link) => ({
-    title: link.label,
-    description: link.description ?? section.description,
-    href: link.href,
-    category: section.heading,
-  })),
+// Each entry is filed under the group the search dialog uses for the same
+// page. The filters used to be the menu headings plus three section names,
+// so the dialog and this page sorted one site two ways.
+const toEntry = (fields: Omit<SearchEntry, "category">): SearchEntry => ({
+  ...fields,
+  category: resolveRouteProfile(fields.href.split("#")[0] ?? "/").group,
+});
+
+const navEntries = navSections.flatMap((section) =>
+  section.links.map((link) =>
+    toEntry({
+      title: link.label,
+      description: link.description ?? section.description,
+      href: link.href,
+    }),
+  ),
 );
-const diagnosticEntries: SearchEntry[] = diagnosticsContent.tools.map(
-  (tool) => ({
+const diagnosticEntries = diagnosticsContent.tools.map((tool) =>
+  toEntry({
     title: tool.title,
     description: tool.description,
     href: `/diagnostics/${tool.slug}`,
-    category: "Diagnostics",
     tags: [tool.deliveryType, tool.estimatedTime],
   }),
 );
 // A result is a page. Terms with only a tooltip definition have none.
-const glossaryEntries: SearchEntry[] = glossaryTerms
+const glossaryEntries = glossaryTerms
   .filter((term) => hasGlossaryEntryPage(term.slug))
-  .map((term) => ({
-    title: term.term,
-    description: term.definition,
-    href: `/glossary/${term.slug}`,
-    category: "Glossary",
-    tags: term.appliesTo,
-  }));
-const fieldNoteEntries: SearchEntry[] = fieldNotesContent.entries.map(
-  (entry) => ({
-    title: entry.title,
-    description: entry.summary,
-    href: `${fieldNotesContent.permalink}#${entry.slug}`,
-    category: "Field notes",
-    tags: entry.relatedTerms,
+  .map((term) =>
+    toEntry({
+      title: term.term,
+      description: term.definition,
+      href: `/glossary/${term.slug}`,
+      tags: term.appliesTo,
+    }),
+  );
+const fieldNoteEntries = fieldNotesContent.entries.map((note) =>
+  toEntry({
+    title: note.title,
+    description: note.summary,
+    href: `${fieldNotesContent.permalink}#${note.slug}`,
+    tags: note.relatedTerms,
   }),
 );
 
-const entries = [
+// The first entry for an address wins: a menu label over a tool's own title.
+const uniqueEntries = new Map<string, SearchEntry>();
+for (const item of [
   ...navEntries,
   ...diagnosticEntries,
   ...glossaryEntries,
   ...fieldNoteEntries,
-];
-const uniqueEntries = new Map<string, SearchEntry>();
-const navCategoryPriority = [
-  ...navSections
-    .map((section) => section.heading)
-    .filter((heading) => heading !== "Start"),
-  "Start",
-];
-const navCategoryRanks = new Map(
-  navCategoryPriority.map((category, index) => [category, index]),
-);
-const getCategoryRank = (category: string) =>
-  navCategoryRanks.get(category) ?? navCategoryRanks.size;
-const pickPreferredEntry = (current: SearchEntry, next: SearchEntry) =>
-  getCategoryRank(next.category) < getCategoryRank(current.category)
-    ? next
-    : current;
-entries.forEach((entry) => {
-  const existing = uniqueEntries.get(entry.href);
-  if (!existing) {
-    uniqueEntries.set(entry.href, entry);
-    return;
-  }
-  uniqueEntries.set(entry.href, pickPreferredEntry(existing, entry));
-});
+]) {
+  if (!uniqueEntries.has(item.href)) uniqueEntries.set(item.href, item);
+}
 const searchEntries = Array.from(uniqueEntries.values());
 const suggestions = searchEntries
-  .map((entry) => entry.title)
+  .map((item) => item.title)
   .sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }));
-const categoryFilters = Array.from(
-  new Set(searchEntries.map((entry) => entry.category)),
-).sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }));
+// In the dialog's order, listing only groups this page has entries in.
+const categoryFilters = SEARCH_GROUPS.filter((group) =>
+  searchEntries.some((item) => item.category === group),
+);
 const buildSearchText = (entry: SearchEntry) =>
   [entry.title, entry.description, entry.category, entry.tags?.join(" ")]
     .filter(Boolean)
