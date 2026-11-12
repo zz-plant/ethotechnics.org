@@ -179,6 +179,61 @@
     text-underline-offset: 0.25em;
   }
 
+  /* Touch targets. A fingertip covers about 44px. These controls stand on
+     their own -- a link on its own line, a card title, a disclosure -- and
+     draw a box 15-24px tall, so on a phone a tap that looked on target
+     could land beside it. On a touch screen each gets an invisible hit area
+     44px tall (and wide, if it is narrower), centred on it: nothing moves
+     and nothing looks different. A control goes on this list only when the
+     22px above and below its centre hold plain text or space, not another
+     control. Links inside a sentence stay off it: lines sit about 24px
+     apart, so a taller area would take taps meant for the next line. */
+  @media (pointer: coarse) {
+    :is(
+      .footer__license,
+      .next-step__case-link,
+      .reference-callout__link,
+      .home-map__heading a,
+      .card > :is(h2, h3, h4) > a,
+      .card > a.muted,
+      .citation-block a.muted,
+      .clause-register__object,
+      .clause-register__objections,
+      .glossary-peek-card__link,
+      .citation-block__summary,
+      .clause-register__summary,
+      .chunked-section__summary,
+      .home-casebook__key > summary,
+      .pattern-filter__legend > summary,
+      .scholarly-meta__history > summary
+    ) {
+      position: relative;
+    }
+
+    :is(
+      .footer__license,
+      .next-step__case-link,
+      .reference-callout__link,
+      .home-map__heading a,
+      .card > :is(h2, h3, h4) > a,
+      .card > a.muted,
+      .citation-block a.muted,
+      .clause-register__object,
+      .clause-register__objections,
+      .glossary-peek-card__link,
+      .citation-block__summary,
+      .clause-register__summary,
+      .chunked-section__summary,
+      .home-casebook__key > summary,
+      .pattern-filter__legend > summary,
+      .scholarly-meta__history > summary
+    )::after {
+      content: "";
+      position: absolute;
+      inset: min(0px, calc(50% - 22px));
+    }
+  }
+
   img,
   svg {
     max-width: 100%;
