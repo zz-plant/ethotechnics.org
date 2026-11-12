@@ -156,7 +156,6 @@ export const antiPatterns = [
   },
 ];
 
-
 <StandardStatusSummary slug="std-08-delegation" />
 
 <article class="standard-document">
@@ -276,7 +275,7 @@ export const antiPatterns = [
         says both.
 
         <ol class="standard-clauses">
-          <li>
+          <li id="clause-1-1">
             <span class="standard-clause-id">§1.1</span>
             Renewal burden scales: The evidence a renewal must produce MUST rise
             with the duration the grant has already run and the consequence of
@@ -284,7 +283,7 @@ export const antiPatterns = [
             <code>renewal_basis</code>, what that evidence is before the review
             period begins, so the bar cannot be set after the result is known.
           </li>
-          <li>
+          <li id="clause-1-2">
             <span class="standard-clause-id">§1.2</span>
             Silence is not renewal: A renewal MUST NOT rest solely on the
             absence of observed failure. The renewal record names what was
@@ -293,7 +292,7 @@ export const antiPatterns = [
             period is recorded as unrenewed and moves to
             <code>review_required</code>.
           </li>
-          <li>
+          <li id="clause-1-3">
             <span class="standard-clause-id">§1.3</span>
             Expansion is a new authorization: Widening a grant's scope,
             population, action classes, or ceiling MUST be taken as its own
@@ -302,7 +301,7 @@ export const antiPatterns = [
             continuation of the existing authorization, and it does not inherit
             the earlier decision's evidence.
           </li>
-          <li>
+          <li id="clause-1-4">
             <span class="standard-clause-id">§1.4</span>
             Expansion is recorded as a transition: Every widening MUST appear in
             <code>state_history</code> as a transition whose reason is
@@ -310,7 +309,7 @@ export const antiPatterns = [
             reference to the evidence produced under §1.3. Scope that grew
             without such an entry is treated as ungranted scope.
           </li>
-          <li>
+          <li id="clause-1-5">
             <span class="standard-clause-id">§1.5</span>
             Content does not carry authority: Authority for an action MUST be
             read from grant and authorization records, never from the material
@@ -342,7 +341,7 @@ export const antiPatterns = [
         grants downstream of it.
 
         <ol class="standard-clauses">
-          <li>
+          <li id="clause-2-1">
             <span class="standard-clause-id">§2.1</span>
             Policy is a record: A policy a grant relies on MUST itself be a
             record carrying <code>provenance</code>, <code>assumptions</code>,
@@ -351,7 +350,7 @@ export const antiPatterns = [
             rule held only in configuration or in a deck is not a policy record
             and cannot be cited as the basis of a grant.
           </li>
-          <li>
+          <li id="clause-2-2">
             <span class="standard-clause-id">§2.2</span>
             Grants name their policies: A grant MUST list in
             <code>policy_refs</code> every policy record its
@@ -359,7 +358,7 @@ export const antiPatterns = [
             <code>version</code>. An unpinned reference is a reference to
             whatever the policy has since become.
           </li>
-          <li>
+          <li id="clause-2-3">
             <span class="standard-clause-id">§2.3</span>
             A fired trigger changes status: When a condition in
             <code>review_triggers</code> is met, the policy MUST move to
@@ -367,7 +366,7 @@ export const antiPatterns = [
             Recording the observation without the status change does not
             satisfy this clause.
           </li>
-          <li>
+          <li id="clause-2-4">
             <span class="standard-clause-id">§2.4</span>
             Dependent grants follow: Every grant whose
             <code>policy_refs</code> include a policy in
@@ -377,7 +376,7 @@ export const antiPatterns = [
             and returned to <code>allowed</code>; it may not stay in
             <code>allowed</code> without that decision being taken.
           </li>
-          <li>
+          <li id="clause-2-5">
             <span class="standard-clause-id">§2.5</span>
             Expiry ends justification: A policy past its
             <code>expires_at</code> MUST NOT justify a live grant. Either the
@@ -385,7 +384,7 @@ export const antiPatterns = [
             grants resting on it lose their basis and move to
             <code>review_required</code>. Expiry is not a warning state.
           </li>
-          <li>
+          <li id="clause-2-6">
             <span class="standard-clause-id">§2.6</span>
             A decision threshold is a policy: A threshold, cut-off, or
             confidence floor that decides whether an action runs unattended,
@@ -399,7 +398,7 @@ export const antiPatterns = [
             version that is not pinned has already met its trigger, because the
             thing it was calibrated against can change without a record.
           </li>
-          <li>
+          <li id="clause-2-7">
             <span class="standard-clause-id">§2.7</span>
             Held evidence is declared evidence: The{" "}
             <code>review_triggers</code> on a policy record name the events
@@ -433,7 +432,7 @@ export const antiPatterns = [
         answer.
 
         <ol class="standard-clauses">
-          <li>
+          <li id="clause-3-1">
             <span class="standard-clause-id">§3.1</span>
             Every oversight claim resolves to a specification: Any requirement,
             control description, or assurance claim asserting that a human
@@ -445,7 +444,7 @@ export const antiPatterns = [
             <code>cost_to_exercise</code>, and <code>reach_time_target</code>.
             An unresolved oversight claim is a finding.
           </li>
-          <li>
+          <li id="clause-3-2">
             <span class="standard-clause-id">§3.2</span>
             Confirm mode is specified: Every grant whose <code>mode</code> is
             <code>confirm</code>, the mode STD-07 §2.2 requires the
@@ -454,7 +453,7 @@ export const antiPatterns = [
             confirm mode with no specification behind it is recorded as
             unattended, because that is how it behaves.
           </li>
-          <li>
+          <li id="clause-3-3">
             <span class="standard-clause-id">§3.3</span>
             Approval without state change is not a control: If
             <code>states_alterable</code> is empty, or the actions the owner can
@@ -463,7 +462,7 @@ export const antiPatterns = [
             counted toward a correction-capacity claim under §4.1. It may be
             recorded as advisory review, under that name.
           </li>
-          <li>
+          <li id="clause-3-4">
             <span class="standard-clause-id">§3.4</span>
             Intervention is measured: The institution MUST measure, per
             specification and per review period, the approval rate, the median
@@ -471,7 +470,7 @@ export const antiPatterns = [
             reaching the owner inside <code>reach_time_target</code>. An
             unmeasured specification is a claim, not a control.
           </li>
-          <li>
+          <li id="clause-3-5">
             <span class="standard-clause-id">§3.5</span>
             Near-unanimous approval is a finding: Sustained approval rates at or
             near unanimity, or a median approval time too short for the
@@ -483,7 +482,7 @@ export const antiPatterns = [
             begins. The finding is not that the reviewer is at fault. It is that
             the control has not been shown to be one.
           </li>
-          <li>
+          <li id="clause-3-6">
             <span class="standard-clause-id">§3.6</span>
             The routing threshold is part of the specification: Where a score
             or threshold decides which decisions reach the owner, it is part of
@@ -530,7 +529,7 @@ export const antiPatterns = [
         exercised is a claim, not a capability.
 
         <ol class="standard-clauses">
-          <li>
+          <li id="clause-4-1">
             <span class="standard-clause-id">§4.1</span>
             Correction capacity is stated: A grant MUST state its correction
             capacity across seven components: detection, that a wrong action can
@@ -542,7 +541,7 @@ export const antiPatterns = [
             operate after correction, that the institution can absorb the
             reversal. Each component names its evidence.
           </li>
-          <li>
+          <li id="clause-4-2">
             <span class="standard-clause-id">§4.2</span>
             Expansion requires matching capacity: Authority MUST NOT be expanded
             under §1.3 without a matching expansion of correction capacity,
@@ -550,7 +549,7 @@ export const antiPatterns = [
             have grown with scope, the expansion is refused or the scope is
             narrowed to what the existing capacity covers.
           </li>
-          <li>
+          <li id="clause-4-3">
             <span class="standard-clause-id">§4.3</span>
             Capacity is reviewed at renewal: Correction capacity MUST be
             re-examined at every renewal under §1.1, against the volume and
@@ -558,7 +557,7 @@ export const antiPatterns = [
             what it was expected to do. Capacity that has degraded moves the
             grant to <code>review_required</code>.
           </li>
-          <li>
+          <li id="clause-4-4">
             <span class="standard-clause-id">§4.4</span>
             Practical ability is evidenced, not asserted: The seventh component
             of §4.1 SHOULD be evidenced from the deployment's dependency record
@@ -568,7 +567,7 @@ export const antiPatterns = [
             <code>reversibility</code>. A correction the institution cannot
             afford to make is not counted as capacity.
           </li>
-          <li>
+          <li id="clause-4-5">
             <span class="standard-clause-id">§4.5</span>
             Capacity is recorded on the grant and rechecked with scope: The
             seven components of §4.1 MUST be recorded on the grant in
@@ -579,7 +578,7 @@ export const antiPatterns = [
             effect until the capacity has been re-assessed and the assessment
             recorded against the widening transition.
           </li>
-          <li>
+          <li id="clause-4-6">
             <span class="standard-clause-id">§4.6</span>
             Execution and evaluation may not rest on the same provider: A single
             provider MUST NOT be necessary both to execute a consequential

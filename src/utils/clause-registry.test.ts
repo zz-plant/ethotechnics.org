@@ -4,6 +4,8 @@ import { join } from "node:path";
 
 import { standardClauses } from "../content/standards";
 import {
+  clauseAnchor,
+  clauseHref,
   compareRegistryToDocument,
   documentClauseIds,
 } from "./clause-registry";
@@ -48,5 +50,30 @@ describe("the clause registry against the normative documents", () => {
     for (const id of Object.keys(standardClauses)) {
       expect(bodyFor(id).length, `${id} has a document`).toBeGreaterThan(0);
     }
+  });
+});
+
+describe("clause anchors", () => {
+  it("gives every clause the registry lists an anchor on its page", () => {
+    const missing = Object.entries(standardClauses).flatMap(
+      ([standardId, clauses]) => {
+        const body = bodyFor(standardId);
+        return clauses
+          .filter(
+            (clause) =>
+              !body.includes(`<li id="${clauseAnchor(clause.displayId)}">`),
+          )
+          .map((clause) => `${standardId} ${clause.displayId}`);
+      },
+    );
+    expect(missing).toEqual([]);
+  });
+
+  it("links a clause, or refuses one the registry does not have", () => {
+    expect(clauseHref("STD-02", "§2.3")).toBe(
+      "/standards/std-02-contestability-recourse#clause-2-3",
+    );
+    expect(clauseHref("STD-03")).toBe("/standards/std-03-justice-slos");
+    expect(() => clauseHref("STD-02", "§99.1")).toThrow();
   });
 });

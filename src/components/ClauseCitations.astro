@@ -1,0 +1,43 @@
+---
+/**
+ * The standard clauses a summary item restates, each linked to its clause.
+ * Minimum viable contestability, the challenge checklist, and remedy
+ * essentials each restate parts of STD-02. They used to do it without saying
+ * which part, so the four lists drifted apart and none could be checked
+ * against the standard.
+ */
+import { clauseHref, type ClauseCitation } from "../utils/clause-registry";
+
+interface Props {
+  cites: ClauseCitation[];
+}
+
+const { cites } = Astro.props;
+
+// One flat run of text and links, rendered from a single expression: markup
+// split across lines puts a space before each comma.
+type Part = { text: string; href?: string };
+const parts: Part[] = cites.flatMap(({ standard, clauses = [] }, index) => [
+  ...(index > 0 ? [{ text: "; " }] : []),
+  ...(clauses.length === 0
+    ? [{ text: standard, href: clauseHref(standard) }]
+    : [
+        { text: `${standard} ` },
+        ...clauses.flatMap((displayId, clauseIndex) => [
+          ...(clauseIndex > 0 ? [{ text: ", " }] : []),
+          { text: displayId, href: clauseHref(standard, displayId) },
+        ]),
+      ]),
+]);
+---
+
+{
+  parts.length > 0 && (
+    <p class="clause-citations small muted">
+      {"In the standards: "}
+      {parts.map((part) =>
+        part.href ? <a href={part.href}>{part.text}</a> : part.text,
+      )}
+    </p>
+  )
+}
