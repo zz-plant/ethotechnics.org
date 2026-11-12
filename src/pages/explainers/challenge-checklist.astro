@@ -1,9 +1,11 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ActionIcon from "../../components/ActionIcon.astro";
+import ClauseCitations from "../../components/ClauseCitations.astro";
 import NextStep from "../../components/NextStep.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import type { ClauseCitation } from "../../utils/clause-registry";
 
 const pageTitle = "Can this decision be challenged?";
 const pageDescription =
@@ -11,46 +13,58 @@ const pageDescription =
 
 const anchorLinks = [{ href: "#checklist", label: "Checklist" }];
 
-// Each note on a failing answer sits under the question it explains.
-const checklistItems = [
+// Each note on a failing answer sits under the question it explains, and
+// each question cites the STD-02 clauses it checks.
+const checklistItems: Array<{
+  question: string;
+  ifNot: string;
+  cites: ClauseCitation[];
+}> = [
   {
     question:
       "Does the person receive a receipt with the reasons, the date, and what the decision covers?",
     ifNot:
       "The person has nothing in writing to check or to show someone else. Without a receipt, “contact support” is only a request for help.",
+    cites: [{ standard: "STD-02", clauses: ["§1.1", "§1.3", "§5.1"] }],
   },
   {
     question: "Can a named person change or reverse the decision?",
     ifNot:
       "The route is for show: it hides who decides. A challenge changes the outcome only when it reaches someone who can reverse the decision, and the evidence the person sends is weighed.",
+    cites: [{ standard: "STD-02", clauses: ["§2.2"] }],
   },
   {
     question: "Is there a deadline by which the person must get an answer?",
     ifNot:
       "Requests sit in the queue and are never reversed. Due process needs a deadline and escalation that has to happen.",
+    cites: [{ standard: "STD-02", clauses: ["§2.3", "§3.1"] }],
   },
   {
     question:
       "Can the person challenge the decision without asking permission or meeting hidden conditions first?",
     ifNot:
       "The case never reaches a state the system has to answer. The person has no standing, even if there is a form or a hotline.",
+    cites: [{ standard: "STD-02", clauses: ["§6.1", "§8.4"] }],
   },
   {
     question:
       "If the challenge is upheld, is there a set way to reverse the decision or repair the harm?",
     ifNot: "Winning changes nothing. Due process needs a decision that binds.",
+    cites: [{ standard: "STD-02", clauses: ["§4.1", "§4.2"] }],
   },
   {
     question:
       "Is there a record that challenges have been upheld, not only that they were processed?",
     ifNot:
       "The route may end in a queue no one can trace. A working route publishes how often challenges are upheld.",
+    cites: [{ standard: "STD-02", clauses: ["§5.2"] }],
   },
   {
     question:
       "Are upheld challenges counted against the rule that produced them, and is the count sent to the rule's owner?",
     ifNot:
       "Upheld challenges pile up as individual wins, and no one counts them against the rule. A count sent to the rule's owner is what turns repeated upholds into a rule change.",
+    cites: [{ standard: "STD-02", clauses: ["§4.4", "§5.2"] }],
   },
 ];
 ---
@@ -97,6 +111,7 @@ const checklistItems = [
                 <p class="muted">
                   <strong>If not.</strong> {item.ifNot}
                 </p>
+                <ClauseCitations cites={item.cites} />
               </li>
             ))
           }
@@ -104,9 +119,9 @@ const checklistItems = [
         <p class="muted small">
           The questions come from the <a href="/glossary/contestability"
             >glossary definition</a
-          >. The contestability standard, <a
+          >. Each cites the clauses of the contestability standard, <a
             href="/standards/std-02-contestability-recourse">STD-02</a
-          >, sets the obligations behind them, including clear appeal paths.
+          >, that it checks.
         </p>
       </div>
       <aside class="contestability-summary" aria-label="Checklist summary">

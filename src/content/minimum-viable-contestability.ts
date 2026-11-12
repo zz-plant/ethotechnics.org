@@ -1,3 +1,4 @@
+import type { ClauseCitation } from "../utils/clause-registry";
 import type { AnchorLink, PageWithPermalink } from "./types";
 
 type StandardSection = {
@@ -6,6 +7,8 @@ type StandardSection = {
   summary: string;
   requirements: string[];
   evidence: string[];
+  /** The STD-02 clauses this commitment is the minimum of. */
+  cites: ClauseCitation[];
 };
 
 type MinimumViableContestabilityContent = PageWithPermalink & {
@@ -45,6 +48,7 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
           "Receipt confirming submission.",
           "Policy stating who can file and how.",
         ],
+        cites: [{ standard: "STD-02", clauses: ["§6.1", "§8.1", "§8.4"] }],
       },
       {
         id: "reasons",
@@ -59,6 +63,9 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
           "Reason statement attached to the decision record.",
           "Accountable owner name and contact path.",
           "Versioned policy reference or rule ID.",
+        ],
+        cites: [
+          { standard: "STD-02", clauses: ["§1.1", "§1.2", "§1.3", "§1.4"] },
         ],
       },
       {
@@ -76,6 +83,7 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
           "Accessible record history for the person the decision is about.",
           "Repair log or decision log entry.",
         ],
+        cites: [{ standard: "STD-02", clauses: ["§5.1", "§5.3", "§6.3"] }],
       },
       {
         id: "timelines",
@@ -92,6 +100,7 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
           "Status tracker or timeline receipt.",
           "Escalation rule documentation.",
         ],
+        cites: [{ standard: "STD-02", clauses: ["§2.3", "§3.1", "§3.2"] }],
       },
       {
         id: "responder",
@@ -109,6 +118,7 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
           "Answered cases showing the standard applied.",
           "Admissible evidence list published with the challenge path.",
         ],
+        cites: [{ standard: "STD-02", clauses: ["§2.2", "§8.2", "§8.5"] }],
       },
       {
         id: "effect",
@@ -125,6 +135,7 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
           "Outcome log mapping closed challenges to transitions.",
           "Reconsideration records for challenges that changed a grant.",
         ],
+        cites: [{ standard: "STD-02", clauses: ["§8.3"] }],
       },
       {
         id: "remedies",
@@ -141,6 +152,7 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
           "Completion receipt for remedy actions.",
           "Decision log entry recording the reversal and the restoration.",
         ],
+        cites: [{ standard: "STD-02", clauses: ["§4.1", "§4.2", "§4.3"] }],
       },
       {
         id: "non-retaliation",
@@ -157,6 +169,9 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
           "Monitoring note for adverse impacts.",
           "Contact path for reporting retaliation.",
         ],
+        // STD-02 has no clause against retaliation; this commitment is
+        // stated here alone.
+        cites: [],
       },
     ],
   };

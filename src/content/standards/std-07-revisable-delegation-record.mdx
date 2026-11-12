@@ -92,7 +92,6 @@ export const conformanceLevels = [
   },
 ];
 
-
 <StandardStatusSummary slug="std-07-revisable-delegation-record" />
 
 <article class="standard-document">
@@ -251,7 +250,7 @@ export const conformanceLevels = [
           the time."
         </p>
         <ol class="standard-clauses">
-          <li>
+          <li id="clause-1-1">
             <span class="standard-clause-id">§1.1</span>
             Two clocks: Every record carries <code>time.as_of</code>, the moment
             in the world it describes, and <code>time.recorded_at</code>, when
@@ -260,14 +259,14 @@ export const conformanceLevels = [
             be scored also carries <code>time.available_at</code>, when its
             evidence became available to the actor.
           </li>
-          <li>
+          <li id="clause-1-2">
             <span class="standard-clause-id">§1.2</span>
             Append-only: No record is edited or deleted. A change is a new
             record whose <code>supersedes</code> names the old one. The old
             record remains readable. A correction is visible forever, which is
             the point.
           </li>
-          <li>
+          <li id="clause-1-3">
             <span class="standard-clause-id">§1.3</span>
             Declared expiry: A record whose validity has a horizon declares it
             in <code>time.valid_until</code>. A record past its expiry is stale,
@@ -284,14 +283,14 @@ export const conformanceLevels = [
           authorization each action ran under."
         </p>
         <ol class="standard-clauses">
-          <li>
+          <li id="clause-2-1">
             <span class="standard-clause-id">§2.1</span>
             Action under authorization: Every <code>action</code> record names
             the <code>authorization</code> record it ran under in
             <code>authority.authorization_record</code>. An action with no
             authorization is a finding, not a record.
           </li>
-          <li>
+          <li id="clause-2-2">
             <span class="standard-clause-id">§2.2</span>
             Bounded delegation: Every <code>authorization</code> record names
             its scope, holder, grantor, mode (unattended, confirm, or
@@ -299,14 +298,14 @@ export const conformanceLevels = [
             the conditions under which it is revoked. A delegation with no
             revocation conditions is a transfer, not a delegation.
           </li>
-          <li>
+          <li id="clause-2-3">
             <span class="standard-clause-id">§2.3</span>
             Delegation chain: Where the actor acts for a principal,
             <code>actor.on_behalf_of</code> names that principal. The chain of
             <code>on_behalf_of</code> links, read back to a human or an
             institution, is the answer to "who authorized this."
           </li>
-          <li>
+          <li id="clause-2-4">
             <span class="standard-clause-id">§2.4</span>
             Clause citation: A record produced to satisfy a published
             obligation cites it in <code>authority.clauses</code>, pinned by
@@ -322,7 +321,7 @@ export const conformanceLevels = [
           revised, only replaced."
         </p>
         <ol class="standard-clauses">
-          <li>
+          <li id="clause-3-1">
             <span class="standard-clause-id">§3.1</span>
             Dependence: <code>belief</code>, <code>authorization</code>, and
             <code>action</code> records list in <code>depends_on</code> the
@@ -330,14 +329,14 @@ export const conformanceLevels = [
             capabilities that justified it; an action depends on its
             authorization.
           </li>
-          <li>
+          <li id="clause-3-2">
             <span class="standard-clause-id">§3.2</span>
             Invalidation conditions: Those same records list in
             <code>invalidated_by</code> the checkable conditions that, if they
             became true, would mean the record no longer holds. Each condition
             may name where it is checked and a clock.
           </li>
-          <li>
+          <li id="clause-3-3">
             <span class="standard-clause-id">§3.3</span>
             Discrepancy handling: When a <code>discrepancy</code> record matches
             an invalidation condition on a live record, the emitting system
@@ -345,7 +344,7 @@ export const conformanceLevels = [
             within the condition's clock. Silence past the clock is a
             governance failure, not a pending state.
           </li>
-          <li>
+          <li id="clause-3-4">
             <span class="standard-clause-id">§3.4</span>
             Capability gating: A <code>capability</code> record distinguishes
             <em>configured</em> from <em>verified</em>. An authorization that
@@ -361,20 +360,20 @@ export const conformanceLevels = [
           "Who gets to object is part of the record, not a policy about it."
         </p>
         <ol class="standard-clauses">
-          <li>
+          <li id="clause-4-1">
             <span class="standard-clause-id">§4.1</span>
             Standing declared: A record that affects people outside the
             emitting system declares in <code>contest.standing</code> who may
             object, in plain language, and in <code>contest.channel</code>
             where an objection is accepted.
           </li>
-          <li>
+          <li id="clause-4-2">
             <span class="standard-clause-id">§4.2</span>
             Objection answered: An <code>objection</code> record accepted on
             the declared channel produces a <code>revision</code> or a reasoned
             refusal, itself a record, within <code>contest.reversal_clock</code>.
           </li>
-          <li>
+          <li id="clause-4-3">
             <span class="standard-clause-id">§4.3</span>
             Visibility named: Every record carries <code>visibility</code>. A
             public record is citable; an internal record is auditable inside
@@ -390,7 +389,7 @@ export const conformanceLevels = [
           "Git history is tamper-evident for the people who read git."
         </p>
         <ol class="standard-clauses">
-          <li>
+          <li id="clause-5-1">
             <span class="standard-clause-id">§5.1</span>
             Canonical hash: Every record carries
             <code>integrity.hash</code>, the SHA-256 of its canonical
@@ -398,13 +397,13 @@ export const conformanceLevels = [
             recursively, no insignificant whitespace, UTF-8. Two emitters
             serializing the same record produce the same hash.
           </li>
-          <li>
+          <li id="clause-5-2">
             <span class="standard-clause-id">§5.2</span>
             Chained stream: Records in one system's stream carry
             <code>integrity.prior_hash</code>, the hash of the record before
             them, so a missing or reordered record is detectable.
           </li>
-          <li>
+          <li id="clause-5-3">
             <span class="standard-clause-id">§5.3</span>
             Stable identifiers: <code>record_id</code> is never reused, even
             after supersession. The recommended form is
@@ -420,7 +419,7 @@ export const conformanceLevels = [
           forecloses."
         </p>
         <ol class="standard-clauses">
-          <li>
+          <li id="clause-6-1">
             <span class="standard-clause-id">§6.1</span>
             Three columns: A record that authorizes consequential work states
             what the arrangement makes possible, what it makes necessary, and
@@ -429,7 +428,7 @@ export const conformanceLevels = [
             through which people can revise, replace, or move beyond the
             arrangement.
           </li>
-          <li>
+          <li id="clause-6-2">
             <span class="standard-clause-id">§6.2</span>
             Non-finality: A consequential authorization declares a review date
             and the conditions under which its continued necessity is
@@ -437,14 +436,14 @@ export const conformanceLevels = [
             that cannot name a review condition is a transfer, not a
             delegation.
           </li>
-          <li>
+          <li id="clause-6-3">
             <span class="standard-clause-id">§6.3</span>
             Exit and portability: The record names the export format and the
             switching path, so the institution can leave without losing the
             account of what was believed, authorized, and done. A record
             format that cannot leave the vendor is a lock-in, not a record.
           </li>
-          <li>
+          <li id="clause-6-4">
             <span class="standard-clause-id">§6.4</span>
             Independent corrective capacity: The contest route names the
             independent expertise and resources available to the person

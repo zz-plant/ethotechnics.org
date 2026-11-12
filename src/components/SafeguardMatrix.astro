@@ -12,6 +12,7 @@ import { diagnosticsContent } from "../content/diagnostics";
 import { methodContent } from "../content/method";
 import { standardsContent } from "../content/standards";
 import { theoryTaxonomyBySlug } from "../content/theory-taxonomy";
+import { variablesForLaw } from "../utils/laws";
 import StateVariableGlyph from "./StateVariableGlyph.astro";
 import type { StateVariableGlyphId } from "./StateVariableGlyph.astro";
 
@@ -29,7 +30,6 @@ const variableById = new Map(
 interface SafeguardRow {
   id: StateVariableGlyphId;
   driftWarning: string;
-  laws: string[];
   standards: string[];
   precedents: { title: string; href: string; outcome: string }[];
   theory: { title: string; href: string }[];
@@ -46,7 +46,6 @@ const rows: SafeguardRow[] = [
     id: "capability",
     driftWarning:
       "Capability outruns authority when models gain autonomous tools or wider reach without signed jurisdictional limits.",
-    laws: ["I", "IV"],
     standards: ["STD-08", "STD-06"],
     precedents: [
       {
@@ -86,7 +85,6 @@ const rows: SafeguardRow[] = [
     id: "authority",
     driftWarning:
       "Authority outlives evidence when an expired delegation continues executing decisions after the baseline population shifts.",
-    laws: ["I", "II", "III"],
     standards: ["STD-08", "STD-07"],
     precedents: [
       {
@@ -130,7 +128,6 @@ const rows: SafeguardRow[] = [
     id: "evidence",
     driftWarning:
       "Policy detaches from reality when error metrics stay green only because frontline workers invisibly repair failures.",
-    laws: ["II", "III", "VI"],
     standards: ["STD-07", "STD-03"],
     precedents: [
       {
@@ -174,7 +171,6 @@ const rows: SafeguardRow[] = [
     id: "dependency",
     driftWarning:
       "Dependence outruns correction when the institution loses the staff or skills needed to continue after halting the automation.",
-    laws: ["V", "X", "XI"],
     standards: ["STD-01", "STD-06"],
     precedents: [
       {
@@ -218,7 +214,6 @@ const rows: SafeguardRow[] = [
     id: "standing",
     driftWarning:
       "Exposure grows without standing when the people a system decides about bear the full burden of algorithmic errors with no procedural route to challenge them.",
-    laws: ["VII", "VIII", "IX"],
     standards: ["STD-02", "MVC-01"],
     precedents: [
       {
@@ -263,7 +258,6 @@ const rows: SafeguardRow[] = [
     id: "correction",
     driftWarning:
       "Observability grows without control when operators detect anomalies on dashboards but lack authority to halt throughput or issue refunds.",
-    laws: ["IV", "VIII", "XII"],
     standards: ["STD-01", "STD-02", "STD-07"],
     precedents: [
       {
@@ -314,11 +308,15 @@ const matrix = rows.map((row) => {
 // Resolve references from the same catalogues used by their destination pages.
 const resolvedMatrix = matrix.map((row) => ({
   ...row,
-  laws: row.laws.map((numeral) => {
-    const law = methodContent.laws.find((item) => item.numeral === numeral);
-    if (!law) throw new Error(`Unknown matrix law: ${numeral}`);
-    return law;
-  }),
+  // The laws come from the method's state-variable table, which the diagram
+  // above and /standards/laws also read. The matrix kept its own list, and on
+  // the same page it filed Law IX under standing while the diagram filed it
+  // under correction.
+  laws: methodContent.laws.filter((law) =>
+    variablesForLaw(law.numeral).some(
+      (state) => state.toLowerCase() === row.id,
+    ),
+  ),
   standards: row.standards.map((id) => {
     const standard = standardsContent.standards.find((item) => item.id === id);
     if (!standard) throw new Error(`Unknown matrix standard: ${id}`);

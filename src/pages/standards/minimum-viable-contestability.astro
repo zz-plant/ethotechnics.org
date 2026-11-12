@@ -1,6 +1,7 @@
 ---
 import "../../styles/components/standards.css";
 import StandardsLayout from "../../components/StandardsLayout.astro";
+import ClauseCitations from "../../components/ClauseCitations.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import { minimumViableContestabilityContent } from "../../content/minimum-viable-contestability";
 
@@ -29,7 +30,7 @@ const lastUpdated = "2026-10-06";
     id="standard"
     eyebrow="Baseline requirements"
     title="Eight commitments a system must meet before its decisions can be challenged"
-    description="Each commitment is the minimum, with the evidence a reviewer can check."
+    description="Each commitment is the minimum of the STD-02 clauses it cites, with the evidence a reviewer can check."
   >
     <p class="muted">
       The definition: <a href="/explainers/contestability"
@@ -43,6 +44,7 @@ const lastUpdated = "2026-10-06";
           <p class="eyebrow">Section {index + 1}</p>
           <h3>{section.title}</h3>
           <p class="muted">{section.summary}</p>
+          <ClauseCitations cites={section.cites} />
           <div class="grid grid--two">
             <div class="panel">
               <p class="eyebrow">Requirements</p>

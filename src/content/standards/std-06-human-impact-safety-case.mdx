@@ -93,7 +93,6 @@ export const battery = [
   "Silent-harm discovery: error, reversal, and remedy rates computed per affected population from records the operator already retains, without waiting for a challenge or claim.",
 ];
 
-
 <StandardStatusSummary slug="std-06-human-impact-safety-case" />
 
 <article class="standard-document">
@@ -128,19 +127,19 @@ export const battery = [
           it is safe."
         </p>
         <ol class="standard-clauses">
-          <li>
+          <li id="clause-1-1">
             <span class="standard-clause-id">§1.1</span>
             Impact class: The case states the impact class of the deployment: who
             is affected, in what capacity, and what the worst plausible outcome
             for one of them is.
           </li>
-          <li>
+          <li id="clause-1-2">
             <span class="standard-clause-id">§1.2</span>
             Boundary of the case: The case states what is inside it and what is
             not. Components excluded from the case are named, with the reason,
             so an exclusion is visible rather than assumed.
           </li>
-          <li>
+          <li id="clause-1-3">
             <span class="standard-clause-id">§1.3</span>
             Named owner: The case has one accountable owner who can halt the
             deployment, not a committee that can recommend halting it.
@@ -154,22 +153,22 @@ export const battery = [
           "A threshold with no measurement behind it is a preference."
         </p>
         <ol class="standard-clauses">
-          <li>
+          <li id="clause-2-1">
             <span class="standard-clause-id">§2.1</span>
             The battery: The case runs and records the standard battery, and
             states any test it omitted and why.
           </li>
-          <li>
+          <li id="clause-2-2">
             <span class="standard-clause-id">§2.2</span>
             Declared thresholds: Each test carries a threshold declared before the
             test is run, with the action that follows a breach.
           </li>
-          <li>
+          <li id="clause-2-3">
             <span class="standard-clause-id">§2.3</span>
             Measured, not attested: Time to halt and time to remedy are measured
             against a clock, not attested by the team that owns the control.
           </li>
-          <li>
+          <li id="clause-2-4">
             <span class="standard-clause-id">§2.4</span>
             Discovery without a claim: The case measures error, reversal, and
             remedy rates per affected population on a declared cadence, computed
@@ -216,18 +215,18 @@ export const battery = [
           </tbody>
         </table>
         <ol class="standard-clauses">
-          <li>
+          <li id="clause-3-1">
             <span class="standard-clause-id">§3.1</span>
             Portability: Artifacts export as PDF and as JSON or CSV with stable
             IDs, and carry a plain-language summary for affected people.
           </li>
-          <li>
+          <li id="clause-3-2">
             <span class="standard-clause-id">§3.2</span>
             Freshness: Each artifact carries the date it was last refreshed, and a
             stale artifact is reported as stale rather than presented as
             current.
           </li>
-          <li>
+          <li id="clause-3-3">
             <span class="standard-clause-id">§3.3</span>
             Rescue records: A failure that a person caught before it reached
             someone else is recorded as an occurrence, with the condition that
@@ -247,19 +246,19 @@ export const battery = [
           "Some findings are not risks to be accepted. They are boundaries."
         </p>
         <ol class="standard-clauses">
-          <li>
+          <li id="clause-4-1">
             <span class="standard-clause-id">§4.1</span>
             The register: Boundaries are enumerated in a register, each with the
             condition that constitutes a breach and the last remediation review
             date.
           </li>
-          <li>
+          <li id="clause-4-2">
             <span class="standard-clause-id">§4.2</span>
             Breach halts launch: An active boundary breach stops the deployment or
             the expansion. It is not converted into a monitored risk by a
             sign-off.
           </li>
-          <li>
+          <li id="clause-4-3">
             <span class="standard-clause-id">§4.3</span>
             Exceptions expire: Any exception to a boundary is time-bounded, owned,
             and reviewed on expiry rather than rolled forward.
@@ -293,7 +292,7 @@ export const battery = [
         on the record this article requires.
 
         <ol class="standard-clauses">
-          <li>
+          <li id="clause-5-1">
             <span class="standard-clause-id">§5.1</span>
             The dependency record: The safety case carries a dependency record
             naming <code>dependents</code> (workflows, roles, customers,
@@ -305,7 +304,7 @@ export const battery = [
             <code>correction_latency</code>. A dependency claim with no record
             behind it is an estimate held by whoever was asked.
           </li>
-          <li>
+          <li id="clause-5-2">
             <span class="standard-clause-id">§5.2</span>
             The exposure score: The case computes and publishes an exposure score
             as dependency depth × substitution cost × correction latency,
@@ -318,7 +317,7 @@ export const battery = [
             substitution cost in the same unit. It is not a threshold to pass.
             A rising score with an unchanged safety case is itself a finding.
           </li>
-          <li>
+          <li id="clause-5-3">
             <span class="standard-clause-id">§5.3</span>
             Reversibility at three levels: <code>reversibility</code> is evidenced
             at all three levels, each separately: technical, that the change can
@@ -328,7 +327,7 @@ export const battery = [
             not evidence at another, and an unevidenced level is recorded as not
             evidenced rather than as feasible.
           </li>
-          <li>
+          <li id="clause-5-4">
             <span class="standard-clause-id">§5.4</span>
             Preserved capacities: The case lists in
             <code>preserved_capacities</code> the capacities the institution
@@ -337,7 +336,7 @@ export const battery = [
             for keeping it. Erosion of a preserved capacity is recorded as a
             governance event, not reported as an efficiency gain.
           </li>
-          <li>
+          <li id="clause-5-5">
             <span class="standard-clause-id">§5.5</span>
             Do not expand without institutional reversibility: Where the
             institutional level of <code>reversibility</code> is not evidenced,
@@ -346,7 +345,7 @@ export const battery = [
             substitute. This condition binds the expansion decision in STD-08
             §1.3.
           </li>
-          <li>
+          <li id="clause-5-6">
             <span class="standard-clause-id">§5.6</span>
             Rehearsal cadence: Withdrawal is rehearsed on a published cadence, at
             least annually for any deployment with a dependency depth of one or
@@ -355,7 +354,7 @@ export const battery = [
             reversibility. An untested withdrawal path is a claim, and
             <code>last_withdrawal_rehearsal</code> records how old the claim is.
           </li>
-          <li>
+          <li id="clause-5-7">
             <span class="standard-clause-id">§5.7</span>
             Refresh with the case: The dependency record is refreshed whenever the
             safety case is refreshed, and in any event before a renewal or
