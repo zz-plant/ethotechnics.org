@@ -19,7 +19,7 @@
   "scripts": {
     "dev": "bunx astro dev",
     "start": "bunx astro dev",
-    "build": "bun run content:generate && bun run validate:json && bun run validate:glossary && bunx astro build && bun run patch:cf-worker && bun run build:search && bun run check:build-output",
+    "build": "bun run content:generate && bun run validate:json && bun run validate:glossary && bunx astro build && bun run patch:cf-worker && bun run build:search && bun run check:build-output && bun run write:deploy-manifest",
     "build:search": "bun run scripts/build-search.ts",
     "preview": "bunx astro preview",
     "preview:cf": "rm -f .wrangler/deploy/config.json && bunx wrangler dev --local --config dist/server/wrangler.json",
@@ -66,6 +66,7 @@
     "icons:generate": "bun run scripts/generate-icons.ts",
     "icons:check": "bun run scripts/generate-icons.ts --check",
     "check:build-output": "bun run scripts/check-build-output.ts",
+    "write:deploy-manifest": "bun run scripts/write-deploy-manifest.ts",
     "check:reachability": "bun run scripts/check-reachability.ts",
     "check:sitemap": "bun run scripts/check-sitemap.ts",
     "presence:brief": "bun run scripts/presence/brief.ts"
