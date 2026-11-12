@@ -7,9 +7,64 @@ import { useCasesContent } from "../content/use-cases";
 // The same four conditions /use-cases tests a system against.
 const { test: applicability } = useCasesContent;
 
-const pageTitle = "Start: role paths";
+const pageTitle = "Start here: find your path";
 const pageDescription =
-  "Pick the role that describes your work and get the standards, tools, and checklists that apply to it.";
+  "Start from what you bring: your role, the decision your system makes, a failure in progress, a decision made about you, or an AI agent.";
+
+// One list of ways in, ordered by what the reader brings, as the Tools menu
+// is. /use-cases, /triage, /agents, and the self-defense checks each served
+// as a starting point of their own, sorted a different way, and this page
+// mentioned them in three panels and a line of links.
+const routes = [
+  {
+    bring: "Your role",
+    what: "The standards, tools, and first steps for your work.",
+    href: "#roles",
+    label: "Pick a role",
+  },
+  {
+    bring: "The decision your system makes",
+    what: "Six kinds of automated decision the standards are built for, the check to run first in each, and six where the framework does less.",
+    href: "/use-cases",
+    label: "Which systems this is for",
+  },
+  {
+    bring: "Something going wrong now",
+    what: "The first move for seven failures, who owns follow-up, and what evidence to keep.",
+    href: "/triage",
+    label: "Incident triage",
+  },
+  {
+    bring: "A failure that keeps coming back",
+    what: "The diagnostic, standard, and public case for a pattern you keep seeing.",
+    href: "/triage#symptoms",
+    label: "Match a symptom",
+  },
+  {
+    bring: "A decision made about you",
+    what: "Can it be challenged, can a challenge change the outcome, and who can reverse it.",
+    href: "/diagnostics/self-defense-tools",
+    label: "Check a decision about you",
+  },
+  {
+    bring: "An AI agent that acts for you",
+    what: "When its permission ends, what it does without asking, and what you can check it against that it does not write.",
+    href: "/use-cases/examples/personal-agent",
+    label: "Check an agent that acts for you",
+  },
+  {
+    bring: "An AI agent of your own, reading this site",
+    what: "What adopting the framework changes for the person the agent acts for.",
+    href: "/agents",
+    label: "For an AI agent",
+  },
+  {
+    bring: "A term you already use",
+    what: "Human-in-the-loop, kill switch, bias audit: the control or record the standards ask for in its place.",
+    href: "#translation",
+    label: "Translate a term",
+  },
+];
 ---
 
 <BaseLayout
@@ -24,15 +79,31 @@ const pageDescription =
         <span class="pill pill--ghost">Start</span>
         <h1 class="page-title">Find your path through Ethotechnics</h1>
         <p class="page-lede">
-          Pick the role closest to your work to see the standards, tools, and
-          first steps that apply to it.
+          Start from what you bring. Each route leads to the page built for it.
         </p>
-        <p class="small muted">
-          Or start from
-          <a href="/triage#symptoms">a symptom you see</a>{" "}·{" "}
-          <a href="#translation">an industry term</a>{" "}·{" "}
-          <a href="#fast-path">the one-sprint plan</a>
-        </p>
+
+        <nav class="start-routes" aria-label="Ways in">
+          <ul class="start-routes__list">
+            {
+              routes.map((route) => (
+                <li class="start-routes__item">
+                  <a class="start-routes__link" href={route.href}>
+                    <span class="start-routes__bring">{route.bring}</span>
+                    <span class="start-routes__what small muted">
+                      {route.what}
+                    </span>
+                    <span class="start-routes__label small">
+                      {route.label} →
+                    </span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+          <p class="small muted">
+            Or adopt the basics in <a href="#fast-path">one sprint</a>.
+          </p>
+        </nav>
 
         <div class="panel panel--glass start-applicability">
           <p class="eyebrow">Does this apply to your system?</p>
@@ -44,28 +115,6 @@ const pageDescription =
             <a href="/use-cases">Which systems this is for</a>: six kinds of
             automated decision the standards are built for, where to start in
             each, and six where the framework does less.
-          </p>
-        </div>
-
-        <div class="panel panel--glass start-applicability">
-          <p class="eyebrow">If a system decided about you</p>
-          <p>
-            Three checks: can the decision be challenged, can a challenge change
-            the outcome, and who can reverse it.
-            <a href="/diagnostics/self-defense-tools"
-              >Check a decision about you</a
-            >
-          </p>
-        </div>
-
-        <div class="panel panel--glass start-applicability">
-          <p class="eyebrow">If an AI agent acts for you</p>
-          <p>
-            Three checks: when its permission ends, what it does without asking,
-            and what you can check it against that it does not write.
-            <a href="/use-cases/examples/personal-agent"
-              >Check an agent that acts for you</a
-            >
           </p>
         </div>
       </div>
@@ -115,7 +164,7 @@ const pageDescription =
     </ol>
   </section>
 
-  <section class="container">
+  <section id="roles" class="container">
     <div class="stack-xs role-section-header">
       <p class="eyebrow">Start by role</p>
       <h2>Find the guidance for your work</h2>
@@ -578,6 +627,44 @@ const pageDescription =
 
   .deliverables-list a:hover {
     text-decoration: underline;
+  }
+
+  .start-routes {
+    margin-top: var(--space-6);
+  }
+
+  .start-routes__list {
+    list-style: none;
+    margin: 0 0 var(--space-3);
+    padding: 0;
+    display: grid;
+    gap: var(--space-3);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  }
+
+  .start-routes__link {
+    display: grid;
+    gap: var(--space-1);
+    height: 100%;
+    padding: var(--space-4);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .start-routes__link:hover,
+  .start-routes__link:focus-visible {
+    border-color: var(--accent);
+  }
+
+  .start-routes__bring {
+    font-weight: 600;
+  }
+
+  .start-routes__label {
+    color: var(--accent);
+    margin-top: auto;
   }
 
   .start-applicability {

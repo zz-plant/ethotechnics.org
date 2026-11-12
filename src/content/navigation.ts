@@ -44,12 +44,15 @@ export const navPrimaryLinks: NavLink[] = [
 ];
 
 /**
- * The mega menu, named for the three layers the content model already has.
+ * The mega menu, in four sections: what must be true (Method), how it is
+ * built and scored (Mechanisms and evals), what a reader can run on their own
+ * material (Tools), and what the rest rests on (Knowledge: terms, cases, and
+ * the theory essays).
  *
- * Theory says why the laws hold, method says what must be true, instruments
- * check whether it is. The old headings ("Standards & Specifications",
- * "Diagnostics & Workbench") described file types rather than layers, which is
- * why every new page had to argue for a slot instead of falling into one.
+ * The sections are not the theory / method / instrument layers the search
+ * corpus tags documents with. Validators and measurement tiers are
+ * instruments there and sit under Mechanisms and evals here; theory has no
+ * section of its own.
  *
  * The five-link ceiling stays. It is not a display constraint — it is the only
  * thing forcing a decision about what a section is for.
@@ -107,12 +110,6 @@ export const navSections: NavSection[] = [
           "Tests of whether a deployed system's decisions can be challenged, halted, and reversed",
       },
       {
-        href: "/evals/coverage",
-        label: "What we can check",
-        description:
-          "Each check and the claim it tests, plus the claims no check covers yet",
-      },
-      {
         href: "/validators",
         label: "Validators",
         description:
@@ -122,7 +119,7 @@ export const navSections: NavSection[] = [
         href: "/measurement-tiers",
         label: "Measurement tiers",
         description:
-          "Levels of evidence, how each is gamed, and how to detect it",
+          "Levels of evidence, how each is gamed, and which claims a tool can check",
       },
     ],
   },

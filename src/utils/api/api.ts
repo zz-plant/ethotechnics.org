@@ -9,6 +9,7 @@ import {
 import { standardClauses, standardsContent } from "../../content/standards";
 import { validatorsContent } from "../../content/validators";
 
+import { clauseAnchor } from "../clause-registry";
 import { resolveDoi } from "../doi";
 import { glossaryEntryPermalink } from "../glossary";
 import { getMinimumEvidenceDefaults } from "../glossary-helpers";
@@ -28,8 +29,10 @@ export const buildClauseObject = (
   clause: (typeof standardClauses)[string][number],
 ) => {
   const standardSlug = standardSlugMap.get(clause.standardId);
+  // The clause's own anchor, so a citation lands on the clause, not the top
+  // of a standard that runs to thirty-five of them.
   const href = standardSlug
-    ? `/standards/${standardSlug}`
+    ? `/standards/${standardSlug}#${clauseAnchor(clause.displayId)}`
     : standardsContent.permalink;
   const refs = [
     clause.standardId,

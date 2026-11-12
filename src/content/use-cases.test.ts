@@ -33,8 +33,8 @@ const pageIds = new Set([
 const resolves = (href: string): boolean => {
   if (href.startsWith("#")) return pageIds.has(href.slice(1));
   const [path = href, fragment] = href.split("#");
-  // The composite scenarios are sections of /incidents (id = the slug).
-  if (path === "/incidents" && fragment)
+  // The composite scenarios are sections of /triage (id = the slug).
+  if (path === "/triage" && fragment)
     return incidentLessons.some((lesson) => lesson.slug === fragment);
   const [, section, slug, ...rest] = path.split("/");
   if (rest.length === 0 && slug) {

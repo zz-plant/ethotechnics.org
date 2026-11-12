@@ -6,7 +6,6 @@ import type {
   GlossaryContent,
   GlossaryEntry,
 } from "../../content/glossary";
-import { incidentLessons } from "../../content/incidents";
 import { evalsContent } from "../../content/evals";
 import { governanceCrosswalks } from "../../content/crosswalks";
 import { cases } from "../../content/casebook";
@@ -364,19 +363,6 @@ export const buildSitemapSections = async () => {
     addOverride("/library", libraryLastmod);
   }
 
-  if (incidentLessons.length > 0) {
-    const latestIncident = incidentLessons.reduce((latest, lesson) =>
-      new Date(lesson.updated ?? lesson.published).getTime() >
-      new Date(latest.updated ?? latest.published).getTime()
-        ? lesson
-        : latest,
-    );
-    addOverride(
-      "/incidents",
-      latestIncident.updated ?? latestIncident.published,
-    );
-  }
-
   if (standardsContent.standards.length > 0) {
     const latestStandard = standardsContent.standards.reduce((latest, entry) =>
       new Date(entry.published).getTime() > new Date(latest.published).getTime()
@@ -393,7 +379,6 @@ export const buildSitemapSections = async () => {
   [
     "/casebook",
     "/glossary",
-    "/incidents",
     "/mechanisms",
     "/standards",
     "/research",

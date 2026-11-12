@@ -1,12 +1,10 @@
-import type {
-  GlossaryLinked,
-  PageWithPermalink,
-  PublishedContent,
-} from "./types";
+import type { GlossaryLinked, PublishedContent } from "./types";
 
 export type IncidentLesson = GlossaryLinked &
   PublishedContent & {
     slug: string;
+    /** The /triage failure this scenario works through. */
+    failure: string;
     title: string;
     summary: string;
     incident: {
@@ -21,26 +19,22 @@ export type IncidentLesson = GlossaryLinked &
     sources: { label: string; href: string }[];
   };
 
-export type IncidentLessonsIntro = PageWithPermalink & {
-  eyebrow: string;
-  title: string;
-  description: string;
-};
-
-export const incidentLessonsIntro: IncidentLessonsIntro = {
-  pageTitle: "Composite failure patterns — Ethotechnics",
-  pageDescription:
-    "Three composite scenarios, from an appeals backlog to unlogged overrides. None reports on a named institution. Each names the missing control and the fix.",
-  permalink: "/incidents",
-  eyebrow: "Composite scenarios",
-  title: "Failure patterns, each drawn from many systems",
+/**
+ * The scenarios are the worked examples on /triage. They were a page of their
+ * own at /incidents, which answered the question /triage asks ("what is going
+ * wrong?") with three made-up answers, linked from neither the triage grid
+ * nor the failure each one illustrates.
+ */
+export const incidentLessonsIntro = {
+  title: "Worked examples",
   description:
-    "These are composites. None reports on a named institution or a dated event. Each names the control that was missing, the signal that would have shown it, and the fix. The records linked under each scenario are this site's templates and schemas for what it was missing, not its sources. For failures a court, an inquiry, or a regulator established, see the casebook.",
+    "Three composite scenarios. None reports on a named institution or a dated event. Each names the control that was missing, the signal that would have shown it, and the fix. The records linked under each are this site's templates and schemas for what it was missing, not its sources. For failures a court, an inquiry, or a regulator established, see the casebook.",
 };
 
 export const incidentLessons: IncidentLesson[] = [
   {
     slug: "appeals-backlog-trigger",
+    failure: "queue-stuck",
     title: "An appeals backlog kept people locked out",
     summary:
       "Appeals arrived faster than staff could answer them, and nothing escalated a case when its deadline passed.",
@@ -80,6 +74,7 @@ export const incidentLessons: IncidentLesson[] = [
   },
   {
     slug: "model-override-visibility",
+    failure: "cant-explain",
     title: "Staff overrode the model and left no record",
     summary:
       "Staff reversed automated denials by hand. The decision record had no place for an override or its reason.",
@@ -118,6 +113,7 @@ export const incidentLessons: IncidentLesson[] = [
   },
   {
     slug: "appeal-remedy-mismatch",
+    failure: "user-harmed",
     title: "Appeals were won and the decisions stood",
     summary:
       "Appeals were marked resolved, but the remedies they granted never reached the teams responsible for delivering them.",

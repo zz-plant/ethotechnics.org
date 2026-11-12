@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import CheckCoverage from "../../components/CheckCoverage.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import { tier1Checks } from "../../harness/checks";
@@ -170,6 +171,7 @@ const mpis = [
     anchorLinks={[
       ...mpis.map((mpi) => ({ href: `#${mpi.id}`, label: mpi.title })),
       { href: "#harness", label: "Tier 1 harness" },
+      { href: "#coverage", label: "What the tools can check" },
     ]}
   />
 
@@ -236,11 +238,20 @@ const mpis = [
       }
     </ul>
     <p class="muted">
-      The harness is one of two tools that check a system. <a
-        href="/evals/coverage">What the tools can check</a
-      > maps each of these {machineAnswerable.length} cases, and every finding the
-      record conformance checker raises, to the governance property it is evidence
-      for. It also lists the properties neither tool reaches.
+      The harness is one of two tools that check a system. The next section maps
+      each of these {machineAnswerable.length} cases, and every finding the record
+      conformance checker raises, to the governance property it is evidence for, and
+      lists the properties neither tool reaches.
     </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="coverage"
+    eyebrow="Coverage"
+    title="What the tools can check"
+    description="Each governance property this site claims to check, which of its two checkers can observe it, and which properties nothing checks yet."
+    variant="alt"
+  >
+    <CheckCoverage />
   </SectionBlock>
 </BaseLayout>

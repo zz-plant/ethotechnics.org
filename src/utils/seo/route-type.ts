@@ -193,7 +193,6 @@ const PAGES: Record<string, Omit<Section, "hub" | "label">> = {
   "/triage": { kind: "guide", group: "Guides" },
   "/start": { kind: "guide", group: "Guides" },
   "/agents": { kind: "guide", group: "Guides" },
-  "/incidents": { kind: "guide", group: "Guides", ogTemplate: "editorial" },
   // Hubs whose index is a collection although the section's pages are not.
   "/standards/exceptions": { kind: "collection", group: "Standards" },
   "/casebook/healthcare-ai": { kind: "collection", group: "Casebook" },
