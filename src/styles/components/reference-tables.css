@@ -275,6 +275,39 @@
     }
   }
 
+  /* A Markdown table that is wider than the column (ProseTable.astro puts
+     each one in this box) scrolls inside it and stays in the column. On a
+     phone it takes the diagram's edge shadows. The covers are opaque across
+     the shadow's width, so a table that fits shows no shadow at all; one
+     that overflows shows it on the side with more to see. */
+  .prose-table {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+
+  @media (max-width: 719.98px) {
+    .prose-table {
+      -webkit-overflow-scrolling: touch;
+      background:
+        linear-gradient(to right, var(--bg) 0.75rem, transparent) left / 1.5rem
+          100% no-repeat local,
+        linear-gradient(to left, var(--bg) 0.75rem, transparent) right / 1.5rem
+          100% no-repeat local,
+        radial-gradient(
+            farthest-side at 0 50%,
+            color-mix(in srgb, var(--text) 18%, transparent),
+            transparent
+          )
+          left / 0.75rem 100% no-repeat scroll,
+        radial-gradient(
+            farthest-side at 100% 50%,
+            color-mix(in srgb, var(--text) 18%, transparent),
+            transparent
+          )
+          right / 0.75rem 100% no-repeat scroll;
+    }
+  }
+
   /* The state-diagram defaults skip any element that sets its own fill or
      stroke. A presentation attribute loses to every author rule, so an
      unconditional default here turned each diagram's red boxes and titles

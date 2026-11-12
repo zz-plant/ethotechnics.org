@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import ExplainerLayout from "../../components/ExplainerLayout.astro";
+import ProseTable from "../../components/ProseTable.astro";
 import { getGlossaryLabel } from "../../utils/glossary";
 
 const entry = (await getCollection("explainers")).find(
@@ -45,5 +46,5 @@ const { Content } = hasBody ? await render(entry) : { Content: null };
   faqs={faqs}
   hasDiagram={hasBody}
 >
-  {Content && <Content />}
+  {Content && <Content components={{ table: ProseTable }} />}
 </ExplainerLayout>

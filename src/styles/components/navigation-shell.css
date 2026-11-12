@@ -701,10 +701,28 @@
     }
   }
 
+  /* Both class names: `.theme-toggle` in shell.css sets 38px, comes later in
+     the same layer at the same specificity, and won, so on a phone this
+     44px rule never applied. */
   @media (any-pointer: coarse) {
-    .nav__mobile-theme-toggle {
+    .theme-toggle.nav__mobile-theme-toggle {
       width: 44px;
       height: 44px;
+    }
+  }
+
+  /* A group heading that links to its index is 24px tall. On a touch screen
+     its hit area runs to 44px through the space around it: 12px into the
+     16px between groups, 8px down to the first card, no further. */
+  @media (pointer: coarse) {
+    .nav__mobile-group-title a {
+      position: relative;
+    }
+
+    .nav__mobile-group-title a::after {
+      content: "";
+      position: absolute;
+      inset: -12px min(0px, calc(50% - 22px)) -8px;
     }
   }
 }

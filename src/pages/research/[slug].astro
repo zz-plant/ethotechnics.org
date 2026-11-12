@@ -3,6 +3,7 @@ import { getCollection, render } from "astro:content";
 import "../../styles/components/research.css";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
+import ProseTable from "../../components/ProseTable.astro";
 import { derivePublicationMetadata } from "../../utils/publication";
 
 // Rendered on demand, matching /research/theory/[slug].astro: the entry is
@@ -56,7 +57,7 @@ const publication = derivePublicationMetadata({
     }
   </PageIntro>
 
-  <Content />
+  <Content components={{ table: ProseTable }} />
 
   <style is:global>
     .grid--spaced {

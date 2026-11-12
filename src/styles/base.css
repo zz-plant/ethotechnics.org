@@ -83,6 +83,39 @@
     color: var(--text);
   }
 
+  /* iPhone Safari zooms the page into any field set under 16px when it takes
+     focus, and leaves it zoomed. Components set their fields to the small
+     steps (the footer's email box at 14px on every page, the record checker's
+     textareas at 12px) or to the phone body size, 15px. On a phone a field is
+     never smaller than the base step, 16px or more. It is !important so that
+     it holds over the components layer and over component <style> blocks,
+     which are unlayered; inside a layer, !important beats both. The fix is
+     the size, never maximum-scale or user-scalable=no, which stop the reader
+     zooming at all. Same breakpoint as the phone block in theme.css.
+     A field sizes itself to its text, so the larger text widened the record
+     checker's date-and-time field to 259px and pushed its panel past a
+     320px screen. min-width and max-width let a field shrink to its
+     column, and hold it there. */
+  @media (max-width: 30rem), (max-height: 400px) {
+    input:not(
+      [type="checkbox"],
+      [type="radio"],
+      [type="range"],
+      [type="color"],
+      [type="file"],
+      [type="button"],
+      [type="submit"],
+      [type="reset"],
+      [type="image"]
+    ),
+    select,
+    textarea {
+      font-size: var(--text-base) !important;
+      min-width: 0;
+      max-width: 100%;
+    }
+  }
+
   button,
   input,
   select,
@@ -146,6 +179,61 @@
     text-underline-offset: 0.25em;
   }
 
+  /* Touch targets. A fingertip covers about 44px. These controls stand on
+     their own -- a link on its own line, a card title, a disclosure -- and
+     draw a box 15-24px tall, so on a phone a tap that looked on target
+     could land beside it. On a touch screen each gets an invisible hit area
+     44px tall (and wide, if it is narrower), centred on it: nothing moves
+     and nothing looks different. A control goes on this list only when the
+     22px above and below its centre hold plain text or space, not another
+     control. Links inside a sentence stay off it: lines sit about 24px
+     apart, so a taller area would take taps meant for the next line. */
+  @media (pointer: coarse) {
+    :is(
+      .footer__license,
+      .next-step__case-link,
+      .reference-callout__link,
+      .home-map__heading a,
+      .card > :is(h2, h3, h4) > a,
+      .card > a.muted,
+      .citation-block a.muted,
+      .clause-register__object,
+      .clause-register__objections,
+      .glossary-peek-card__link,
+      .citation-block__summary,
+      .clause-register__summary,
+      .chunked-section__summary,
+      .home-casebook__key > summary,
+      .pattern-filter__legend > summary,
+      .scholarly-meta__history > summary
+    ) {
+      position: relative;
+    }
+
+    :is(
+      .footer__license,
+      .next-step__case-link,
+      .reference-callout__link,
+      .home-map__heading a,
+      .card > :is(h2, h3, h4) > a,
+      .card > a.muted,
+      .citation-block a.muted,
+      .clause-register__object,
+      .clause-register__objections,
+      .glossary-peek-card__link,
+      .citation-block__summary,
+      .clause-register__summary,
+      .chunked-section__summary,
+      .home-casebook__key > summary,
+      .pattern-filter__legend > summary,
+      .scholarly-meta__history > summary
+    )::after {
+      content: "";
+      position: absolute;
+      inset: min(0px, calc(50% - 22px));
+    }
+  }
+
   img,
   svg {
     max-width: 100%;
@@ -206,6 +294,17 @@
     font-family: var(--mono);
     font-size: 0.86em;
     font-variant-ligatures: none;
+  }
+
+  /* Inside a small-step line -- a form hint, a clause register cell, both
+     12px -- 0.86em came to 10.3px, under the smallest step of the type
+     scale. On a phone an identifier stops at that step, 12px. */
+  @media (max-width: 30rem), (max-height: 400px) {
+    code,
+    kbd,
+    samp {
+      font-size: max(0.86em, var(--text-xs));
+    }
   }
 
   :not(pre) > code {

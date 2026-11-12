@@ -1,0 +1,22 @@
+---
+/**
+ * The `table` of an MDX body. A table cannot shrink below its longest words,
+ * and the page clips sideways, so on a 320px phone a three-column table in a
+ * theory essay ran 75px past the screen edge with no way to reach it. In this
+ * box it scrolls on its own; reference-tables.css draws the edge shadows.
+ * The box takes keyboard focus so a keyboard can scroll it, and as a
+ * focusable region it is named by the table's column headings.
+ */
+import { tableLabel } from "../utils/prose-table";
+
+const html = await Astro.slots.render("default");
+---
+
+<div
+  class="prose-table"
+  tabindex="0"
+  role="region"
+  aria-label={tableLabel(html)}
+>
+  <table {...Astro.props} set:html={html} />
+</div>

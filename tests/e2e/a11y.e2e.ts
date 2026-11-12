@@ -53,3 +53,32 @@ test.describe("Diagram accessibility on phones", () => {
     });
   }
 });
+
+// A Markdown table wider than a phone column used to run past the screen
+// edge, where the page clips it. It scrolls inside its own box now, and a
+// keyboard can reach and scroll that box.
+test.describe("Prose tables on phones", () => {
+  test.use({ viewport: { width: 320, height: 700 } });
+
+  test("a wide Markdown table scrolls inside the column", async ({ page }) => {
+    await page.goto("/research/theory/the-consumption-of-adaptive-capacity");
+    const results = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
+      .analyze();
+    expect(results.violations).toEqual([]);
+
+    const box = page.locator(".prose-table").first();
+    const { boxRight, viewport } = await box.evaluate((element) => ({
+      boxRight: element.getBoundingClientRect().right,
+      viewport: document.documentElement.clientWidth,
+    }));
+    expect(boxRight).toBeLessThanOrEqual(viewport);
+
+    await box.focus();
+    await expect(box).toBeFocused();
+    await page.keyboard.press("ArrowRight");
+    await expect
+      .poll(() => box.evaluate((element) => element.scrollLeft))
+      .toBeGreaterThan(0);
+  });
+});
