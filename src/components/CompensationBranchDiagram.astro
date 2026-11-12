@@ -1,0 +1,253 @@
+---
+/**
+ * Compensation Branch Diagram.
+ *
+ * The conditional branch in "Absorption as concealment": people compensate
+ * for a system's defect, and four conditions decide which row follows. Where
+ * they are absent, the concealment loop runs and the blame for a shortfall
+ * feeds back as pressure to compensate. Where they hold, the same work is
+ * leverage. The essay's loop without the branch is drawn by
+ * ExtractionLoopDiagram on "Dependence without standing".
+ */
+interface Props {
+  level?: "h2" | "h3";
+}
+
+const { level = "h3" }: Props = Astro.props;
+const Heading = level;
+
+const conditions = [
+  "The cost is on a record",
+  "They can act together",
+  "A right outlasts the need",
+  "They have somewhere to go",
+];
+
+const rowX = [436, 620, 804];
+const nodeWidth = 168;
+
+const concealment = [
+  { state: "Performance holds", label: "The metric stays green" },
+  { state: "Defect stays hidden", label: "No record of the fix" },
+  { state: "Shortfall is blamed", label: "on whoever stops" },
+];
+
+const leverage = [
+  { state: "The work is needed", label: "and can be withheld" },
+  { state: "Cost gets answered", label: "where rules are made" },
+  { state: "The rule changes", label: "or a right is secured" },
+];
+
+const rows = [
+  {
+    y: 70,
+    color: "var(--status-danger)",
+    marker: "danger",
+    nodes: concealment,
+  },
+  {
+    y: 322,
+    color: "var(--status-success)",
+    marker: "success",
+    nodes: leverage,
+  },
+];
+---
+
+<figure class="state-diagram" aria-labelledby="compensation-branch-title">
+  <figcaption>
+    <p class="eyebrow">Theory, drawn</p>
+    <Heading id="compensation-branch-title">
+      A conditional branch: concealment or leverage
+    </Heading>
+    <p class="muted">
+      Which row runs depends on the conditions in the middle. The top row is a
+      loop: blame for a shortfall returns as pressure to keep compensating.
+    </p>
+  </figcaption>
+
+  <div
+    class="diagram-scroll"
+    tabindex="0"
+    role="region"
+    aria-labelledby="compensation-branch-title"
+  >
+    <svg
+      viewBox="0 0 1000 420"
+      role="img"
+      class="state-diagram__svg"
+      aria-label="Conditional branch. People compensate for a system's defect. What follows depends on four conditions: the cost is on a record, they can act together, a right outlasts the need for their work, and they have somewhere to go. Where the conditions are absent, performance holds, the defect stays hidden, and the shortfall is blamed on whoever stops, which loops back as more pressure to compensate. Where they hold, the work is needed and can be withheld, its cost gets answered where rules are made, and the rule changes or a right is secured."
+    >
+      <defs>
+        <marker
+          id="compensation-branch-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--border)"></path>
+        </marker>
+        <marker
+          id="compensation-branch-danger"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--status-danger)"></path>
+        </marker>
+        <marker
+          id="compensation-branch-success"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--status-success)"></path>
+        </marker>
+      </defs>
+
+      {/* The concealment loop: blame for the shortfall returns as pressure. */}
+      <path
+        d="M 888 70 V 40 H 100 V 194"
+        fill="none"
+        stroke="var(--status-danger)"
+        stroke-width="2"
+        stroke-dasharray="5 4"
+        marker-end="url(#compensation-branch-danger)"></path>
+      <text
+        x="494"
+        y="30"
+        text-anchor="middle"
+        class="state-diagram__clause"
+        fill="var(--status-danger)">More pressure to compensate</text
+      >
+
+      {/* Start */}
+      <g class="state-diagram__node" transform="translate(20, 196)">
+        <rect width="160" height="76" rx="8"></rect>
+        <text x="80" y="32" text-anchor="middle" class="state-diagram__state"
+          >People compensate</text
+        >
+        <text x="80" y="54" text-anchor="middle" class="state-diagram__label"
+          >for a system's defect</text
+        >
+      </g>
+      <line
+        x1="180"
+        y1="234"
+        x2="204"
+        y2="234"
+        stroke="var(--border)"
+        stroke-width="2"
+        marker-end="url(#compensation-branch-arrow)"></line>
+
+      {/* The conditions */}
+      <g class="state-diagram__node" transform="translate(206, 162)">
+        <rect
+          width="204"
+          height="144"
+          rx="8"
+          fill="var(--panel)"
+          stroke="var(--accent)"
+          stroke-dasharray="5 4"></rect>
+        <text x="102" y="28" text-anchor="middle" class="state-diagram__clause"
+          >Conditional on</text
+        >
+        {
+          conditions.map((condition, index) => (
+            <text
+              x="102"
+              y={54 + index * 22}
+              text-anchor="middle"
+              class="state-diagram__label"
+            >
+              {condition}
+            </text>
+          ))
+        }
+      </g>
+
+      {/* Branches */}
+      <path
+        d="M 410 200 H 420 V 108 H 434"
+        fill="none"
+        stroke="var(--status-danger)"
+        stroke-width="2"
+        marker-end="url(#compensation-branch-danger)"></path>
+      <path
+        d="M 410 268 H 420 V 360 H 434"
+        fill="none"
+        stroke="var(--status-success)"
+        stroke-width="2"
+        marker-end="url(#compensation-branch-success)"></path>
+      <text
+        x="436"
+        y="170"
+        class="state-diagram__clause"
+        fill="var(--status-danger)">Where they are absent: concealment</text
+      >
+      <text
+        x="436"
+        y="312"
+        class="state-diagram__clause"
+        fill="var(--status-success)">Where they hold: leverage</text
+      >
+
+      {
+        rows.map((row) => (
+          <>
+            {row.nodes.map((node, index) => (
+              <g
+                class="state-diagram__node"
+                transform={`translate(${rowX[index]}, ${row.y})`}
+              >
+                <rect
+                  width={nodeWidth}
+                  height="76"
+                  rx="8"
+                  fill="var(--panel)"
+                  stroke={row.color}
+                />
+                <text
+                  x={nodeWidth / 2}
+                  y="32"
+                  text-anchor="middle"
+                  class="state-diagram__state"
+                >
+                  {node.state}
+                </text>
+                <text
+                  x={nodeWidth / 2}
+                  y="54"
+                  text-anchor="middle"
+                  class="state-diagram__label"
+                >
+                  {node.label}
+                </text>
+              </g>
+            ))}
+            {[0, 1].map((index) => (
+              <line
+                x1={rowX[index] + nodeWidth}
+                y1={row.y + 38}
+                x2={rowX[index + 1] - 2}
+                y2={row.y + 38}
+                stroke={row.color}
+                stroke-width="2"
+                marker-end={`url(#compensation-branch-${row.marker})`}
+              />
+            ))}
+          </>
+        ))
+      }
+    </svg>
+  </div>
+</figure>

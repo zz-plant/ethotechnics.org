@@ -4,7 +4,7 @@ description: "Errors that people quietly work around never reach a system's metr
 permalink: "/research/theory/absorption-as-concealment"
 eyebrow: "Theory"
 published: "2026-09-06"
-updated: "2026-10-06"
+updated: "2026-11-12"
 question: "How do people who quietly work around a system's errors keep those errors out of its metrics?"
 lawRefs: ["V", "VIII", "X"]
 summary: "A failure someone quietly works around can improve the metric that should have caught it. Reliability that rests on that work is not reliability; it is concealment nobody has measured yet."
@@ -12,6 +12,7 @@ summary: "A failure someone quietly works around can improve the metric that sho
 
 import DemoFigure from "../../components/DemoFigure.astro";
 import AbsorptionFigure from "../../features/absorption-figure/AbsorptionFigure";
+import CompensationBranchDiagram from "../../components/CompensationBranchDiagram.astro";
 
 An institution learns about its systems through instruments: error rates, escalation counts, time to resolution, satisfaction scores. The instruments are designed to register failure. They cannot register a failure someone dealt with first, and that class of failure can grow as a system becomes important.
 
@@ -19,7 +20,7 @@ An institution learns about its systems through instruments: error rates, escala
 
 A failure that reaches an instrument has to survive long enough to be seen. Between the moment a system produces a wrong output and the moment any instrument looks, there is a gap, and the gap is populated by people. A colleague reroutes the task. A supervisor overrides the flag. The person on the receiving end works around the problem and does not report it, because reporting takes longer than working around.
 
-Each of these acts is competent. Each of them can also be an act of erasure. The failure occurred, a person absorbed it, and the instrument recorded nothing. The metric that should have captured the failure improves because it was caught. The institution then reads the metric and concludes the system is performing well. Anita Tucker and Amy Edmondson observed this mechanism in nine hospitals, where first-order fixes by nurses kept failures from reaching the managers who could remove their causes; the framework adds the ledger — the absorbed failure is also a cost, booked to the wrong line.
+Each of these acts is competent. Each of them can also be an act of erasure. The failure occurred, a person absorbed it, and the instrument recorded nothing. The metric that should have captured the failure improves because it was caught. The institution then reads the metric and concludes the system is performing well. Anita Tucker and Amy Edmondson (2003) observed this mechanism in nine hospitals, where first-order fixes by nurses kept failures from reaching the managers who could remove their causes; the framework adds the ledger — the absorbed failure is also a cost, booked to the wrong line. J. Bradley Morrison (2015) modeled it from fieldwork at a manufacturer adopting lean production, where workarounds solved the problem in front of a worker, masked the weakness behind it, and let resource shortages persist; this essay adds what the mask is used for later, when its apparent reliability is cited to widen the system's authority.
 
 This is not a measurement error in the ordinary sense. An ordinary measurement error is noise; more samples reduce it. Absorption is a bias, and it runs in one direction wherever the instruments omit the correction. Every absorbed failure makes the system look better than it is, and the more competent the surrounding people, the larger the bias can be. A system deployed among skilled staff can report a lower error rate than the same system deployed among novices, not because it errs less but because more of its errors are caught before they are counted. Where overrides and near misses are logged rather than erased, the same work increases visibility instead of hiding it; the concealment is a property of the measurement boundary and the reporting incentives, not of competence itself.
 
@@ -31,6 +32,8 @@ At the same time, the cost of a visible failure rises. When a system is peripher
 
 The result is a system whose reported health improves as its actual dependence deepens. The two curves are not independent, but the direction is not automatic: dependence can also bring stronger monitoring, and the improving reading appears where the instruments do not record the corrections. Where they do, the mechanism changes and the curves separate.
 
+Barbara Levitt and James March (1988) named a related trap. In a competency trap, good results with an inferior procedure lead an organization to keep using it, so it never gains enough experience with a better procedure for that one to pay off. Absorption supplies part of those good results, so the trap is entered on an instrument that credits the procedure with the work of the people around it.
+
 ## What this does to reliability claims
 
 The standard argument for expanding a system's authority is that it has proven reliable. The argument has the form: the system has been running for a period, the instruments show few failures, therefore the system can be trusted with more. Absorption breaks the second premise. The instruments show few failures because failures are being absorbed, and the rate of absorption is unmeasured.
@@ -38,6 +41,8 @@ The standard argument for expanding a system's authority is that it has proven r
 This does not mean the system is unreliable. It means the institution does not know whether it is. A claim of reliability that rests on instruments subject to absorption bias is a claim about the combined performance of the system and the people around it, attributed to the system alone. When the institution then expands the system's authority on the strength of that claim, it is expanding on the strength of labor it has not counted and cannot see.
 
 The failure mode is easy to describe and hard to notice from inside. The system is extended into a context where the absorbing people are absent, or where the absorbed errors have larger consequences, and the true error rate appears for the first time. The institution experiences this as a sudden decline in a previously reliable system. Nothing declined. The concealment ended.
+
+The misreading takes another form when the absorbing people are still there and stop. Performance falls, and the nearest visible cause is the people who stopped. Nelson Repenning and John Sterman (2001) traced this in manufacturing and product development. Managers who could not see the effort holding output up blamed shortfalls on worker effort, raised the pressure, and read the short-run recovery as proof. They called the end state a capability trap, in which ever more effort is needed to hold performance level. Their way out is a shift in how managers and workers understand the process; this essay asks for a record that does not wait for that shift. Where corrections are counted, their withdrawal shows up as a failure of the system, not of the people.
 
 <DemoFigure
   id="absorption-figure"
@@ -79,11 +84,39 @@ Sometimes the institution can see what its people absorb. A hospital can know to
 
 Measurement does not help in that case. The institution already has the number, and better coordination of the workaround serves the institution's interest as well as the workers'. What is missing is not information but authority: the people who carry the cost have no say over the budget, the staffing, or the priorities that would end it. Whether an institution is blind or is choosing is an empirical question, and the two need different responses. Blindness calls for an instrument. Choice calls for standing, leverage from outside, or both. Do not treat the second case as the first because the first is easier to say to the institution.
 
+## When compensation becomes leverage
+
+Everything above assumes that the people doing this work have nothing to bargain with. That is a condition, not a law. The same work can give them a hold over the arrangement, because the institution needs it and they can stop.
+
+Elinor Ostrom's studies of farmer-managed irrigation in Nepal document a case. On many of these systems the diversion works at the river were brushwood and stone, and needed repair or rebuilding each year. Farmers at the head of the canal did not have the labor to do it alone. They needed the farmers at the tail end, so the tail-end farmers had a real say in how the water was shared. Where a government agency or a donor built permanent cement and steel headworks, the head-end farmers no longer needed that labor. They watered their own fields first, and fewer tail-end farmers got water in the dry season.
+
+In a 2002 summary of 231 Nepali systems, coded with Neeraj Joshi and colleagues, Ostrom reported that 53% of the farmer-managed systems delivered adequate water to the tail end predictably, against 11% of the agency-managed ones. That comparison is between two ways of running a system, not two kinds of headworks, and the systems were not a random sample. Ostrom also reported that systems without permanent headworks performed better than systems with them, while lined canals helped the tail end. She did not blame the concrete. The agencies built headworks without first settling the water rights the old arrangement had carried, so the tail-end farmers' say depended on a need the concrete removed. Her evidence concerns farmers and water. This essay applies it to people who correct an automated system and draws one conclusion: a say that rests on being needed has to become a right before the need is engineered away, as [dependence without standing](/research/theory/dependence-without-standing) argues for standing.
+
+This essay names four conditions under which compensation becomes leverage:
+
+- **The cost is on a record.** The yearly rebuilding happened in the open, and annual meetings set each farmer's share of the labor. Work nobody records can still be withdrawn, but its absence reads as the workers' failure.
+- **The people doing it can act together or change the rule.** The same meetings set each farmer's share of the water. A feedback form gives no such hold; a route that can change the rule is what this site calls [standing](/glossary/corrective-standing).
+- **Their claim outlasts the need for their work.** An enforceable right does. A say that rests on being needed does not.
+- **They have somewhere to go.** Stopping is a credible threat only for people who can bear what follows, and people who cannot leave bear the most. The Nepal case does not test this one; [dependence runs both ways](/research/theory/dependence-runs-both-ways#exit-cost-as-the-instrument) measures it as exit cost.
+
+Visibility alone is not enough; the previous section describes an institution that sees the cost and keeps it. This essay does not claim that all four are needed, or say how much of each is enough. The tests below are how that would be found out.
+
+<CompensationBranchDiagram />
+
 ## Where evaluation belongs
 
 A model can be evaluated in isolation, and the evaluation will be accurate about the model. It will say nothing about what happens when the model's outputs pass through an agent, a workflow, a set of people, and an institution before they reach the world. Each layer can add failures the layer below cannot produce, and each layer can hide failures the layer below did produce.
 
 Absorption is the hiding. It happens at the layers where people are, which are the layers above the model and below the consequence. An evaluation that stops at the model will not see it. An evaluation that starts at the consequence will see its effects but may not know their cause. The evaluation that can see absorption is the one placed at the layer where the absorbing happens, which is the institution, and it has to be designed to look for something that is by nature not being reported.
+
+## What would show this wrong
+
+Each claim in this essay predicts something a record can show. A team's count of its own failures is the instrument this essay says is biased, so a test counts only at Tier 2 of the [measurement tiers](/measurement-tiers): someone outside the team checks the measure against a sample of real cases.
+
+- **No gap.** On a bounded sample, someone outside the team counts the corrections, by shadowing the work or reading the traces listed under [the instrument has the same defect](#the-instrument-has-the-same-defect), or removes the people who make them. If the failure rate they find matches the reported rate within the sample's margin of error, absorption is concealing nothing in that system.
+- **No growth.** Across sites or periods where corrections go unrecorded, the gap between the reported and the counted failure rate stays flat or shrinks while dependence on the system deepens. Dependence is what the [STD-06 dependency ledger](/evidence-packs/std-06) records: dependents, substitution cost, and correction latency. If the gap does not grow, the claim that absorption can grow with importance is wrong for that setting.
+- **Redesign without leverage.** Take the workarounds that recurred past a set count, as the [rule change measure](/measurement-tiers#rule-change) does for upheld challenges. Record whether each was followed by a change to the rule or workflow, or a published reason to keep it, and which of the four conditions held. If redesign followed as often where none held as where all four did, or rarely where all four did, the conditions are wrong.
+- **Withdrawal read correctly.** Collect the disruptions that followed withdrawn compensation: a resignation, a staffing cut, a refusal to keep covering, or an extension to a site without the people who had covered. Read the incident memo for each, which the same evidence pack asks for at Tier 2. If most name the defect the work had been covering and change it, instead of blaming the people who stopped or reporting a sudden decline in the system, the claims about how withdrawal is read are wrong.
 
 ## What the laws take from this
 
