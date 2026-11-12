@@ -701,8 +701,11 @@
     }
   }
 
+  /* Both class names: `.theme-toggle` in shell.css sets 38px, comes later in
+     the same layer at the same specificity, and won, so on a phone this
+     44px rule never applied. */
   @media (any-pointer: coarse) {
-    .nav__mobile-theme-toggle {
+    .theme-toggle.nav__mobile-theme-toggle {
       width: 44px;
       height: 44px;
     }
