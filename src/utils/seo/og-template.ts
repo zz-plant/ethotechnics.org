@@ -5,7 +5,6 @@ const OG_TEMPLATES = [
   "home",
   "standards",
   "glossary",
-  "taxonomy",
   "mechanisms",
   "editorial",
 ] as const satisfies readonly OgTemplate[];

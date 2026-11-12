@@ -64,13 +64,7 @@ export type WebPageType =
   | "SearchResultsPage";
 
 export type OgTemplate =
-  | "default"
-  | "home"
-  | "standards"
-  | "glossary"
-  | "taxonomy"
-  | "mechanisms"
-  | "editorial";
+  "default" | "home" | "standards" | "glossary" | "mechanisms" | "editorial";
 
 export type RouteProfile = {
   kind: ContentKind;
@@ -196,7 +190,6 @@ const PAGES: Record<string, Omit<Section, "hub" | "label">> = {
   },
   "/evals/runner": { kind: "tool", group: "Tools" },
   "/mechanisms/cite": { kind: "guide", group: "Mechanisms" },
-  "/taxonomy": { kind: "collection", group: "Guides", ogTemplate: "taxonomy" },
   "/triage": { kind: "guide", group: "Guides" },
   "/start": { kind: "guide", group: "Guides" },
   "/agents": { kind: "guide", group: "Guides" },

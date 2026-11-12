@@ -5,6 +5,16 @@ import { taxonomyAnchor, taxonomyEntries } from "./content/taxonomy";
 import retiredGlossaryEntries from "./data/glossary-retired.json" with { type: "json" };
 
 const TAXONOMY_SLUGS = new Set(taxonomyEntries.map((entry) => entry.slug));
+// The six domains the practices were filed under before they were filed by
+// safeguard. Their old addresses land on the practices table.
+const RETIRED_TAXONOMY_DOMAINS = new Set([
+  "governance",
+  "delivery",
+  "assurance",
+  "experience",
+  "authority",
+  "dependence",
+]);
 const FAILURE_SLUGS = new Set(failureStates.map((state) => state.slug));
 
 // ethotechnics.com redirects live in the et repo's redirect Worker, not here.
@@ -67,9 +77,10 @@ const REDIRECT_MAP: Record<string, string> = {
   // process page at the root, and the taxonomy domain under every path below
   // it. Both now have a canonical home and /governance* is redirect-only.
   "/governance": "/institute/governance",
-  // The six taxonomy domains route one way: to their section on /taxonomy.
-  // Experience was the last one still rendering at the top level.
-  "/experience": "/taxonomy#experience",
+  // The practice taxonomy is a section of /method, filed by safeguard. Its
+  // six domains are gone; Experience was the last one with a top-level page.
+  "/taxonomy": "/method#practices",
+  "/experience": "/method#practices",
   // One noun for the artifact family. The index was plural and the detail
   // pages singular, which is the only family on the site split that way.
   "/artifact": "/artifacts",
@@ -282,10 +293,11 @@ const resolveLegacyPathRedirect = (url: URL): string | null => {
   }
 
   // Taxonomy entries. Each one had its own page under /taxonomy, and four
-  // domains had a top-level mirror; the pages were a summary and two links
-  // apiece, so all of them now sit on /taxonomy, one anchor per entry. A slug
-  // that names no entry 404s, as its page did. Redirected, it would land on
-  // the top of /taxonomy with nothing to say the entry does not exist.
+  // domains had a top-level mirror; then each was an anchor on /taxonomy.
+  // The practices are now rows on /method, under the same anchors, and a
+  // retired domain lands on the table. A slug that names neither 404s, as
+  // its page did: redirected, it would land on /method with nothing to say
+  // the entry does not exist.
   const taxonomySlug = normalizedPath.startsWith("/taxonomy/")
     ? normalizedPath.slice("/taxonomy/".length)
     : /^\/(?:delivery|assurance|experience)(?:\/|$)|^\/governance\//.test(
@@ -293,11 +305,15 @@ const resolveLegacyPathRedirect = (url: URL): string | null => {
         )
       ? normalizedPath.slice(1)
       : null;
-  if (taxonomySlug && TAXONOMY_SLUGS.has(taxonomySlug)) {
-    const target = new URL(
-      `/taxonomy#${taxonomyAnchor(taxonomySlug)}`,
-      url.origin,
-    );
+  if (
+    taxonomySlug &&
+    (TAXONOMY_SLUGS.has(taxonomySlug) ||
+      RETIRED_TAXONOMY_DOMAINS.has(taxonomySlug))
+  ) {
+    const anchor = TAXONOMY_SLUGS.has(taxonomySlug)
+      ? taxonomyAnchor(taxonomySlug)
+      : "practices";
+    const target = new URL(`/method#${anchor}`, url.origin);
     target.search = url.search;
     return target.toString();
   }

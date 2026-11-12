@@ -3,11 +3,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import PageIntro from "../components/PageIntro.astro";
 import SectionBlock from "../components/SectionBlock.astro";
 import { methodContent } from "../content/method";
+import { taxonomyAnchor, taxonomyEntries } from "../content/taxonomy";
 import ChainDiagram from "../components/ChainDiagram.astro";
 import CircuitNavigator from "../components/CircuitNavigator.astro";
 import SafeguardEquilibriumDiagram from "../components/SafeguardEquilibriumDiagram.astro";
 import SafeguardMatrix from "../components/SafeguardMatrix.astro";
 import MethodStack from "../components/MethodStack.astro";
+import PracticesBySafeguard from "../components/PracticesBySafeguard.astro";
 import SpeechBubble from "../components/SpeechBubble.astro";
 
 const {
@@ -31,6 +33,7 @@ const anchorLinks = [
   { href: "#chain", label: "The chain" },
   { href: "#circuits", label: "The circuits" },
   { href: "#state-variables", label: "The safeguards" },
+  { href: "#practices", label: "Practices by safeguard" },
   { href: "#laws", label: "The laws" },
   { href: "#incompatible", label: "Sentences that block repair" },
   { href: "#optimization", label: "The optimization problem" },
@@ -39,6 +42,30 @@ const anchorLinks = [
 ];
 
 const chainSummary = chain.map((stage) => stage.title).join(" → ");
+
+// The practices are a classification scheme: one defined term per row, each
+// at its row's anchor.
+const pageUrl = new URL("/method", Astro.site ?? Astro.url).toString();
+const practiceSetId = `${pageUrl}#practices`;
+const pageSchema = {
+  page: { hasPart: { "@id": practiceSetId } },
+  nodes: [
+    {
+      "@type": "DefinedTermSet",
+      "@id": practiceSetId,
+      name: "Governance practices by safeguard",
+      url: practiceSetId,
+      hasDefinedTerm: taxonomyEntries.map((entry) => ({
+        "@type": "DefinedTerm",
+        "@id": `${pageUrl}#${taxonomyAnchor(entry.slug)}`,
+        name: entry.title,
+        description: entry.summary,
+        identifier: entry.id,
+        url: `${pageUrl}#${taxonomyAnchor(entry.slug)}`,
+      })),
+    },
+  ],
+};
 
 /** Sentences institutions say, each with the method's answer. */
 const incompatibleSentences = [
@@ -114,6 +141,7 @@ const substituteJustifications = [
   title={pageTitle}
   description={pageDescription}
   publishedTime="2026-09-06T00:00:00.000Z"
+  schema={pageSchema}
 >
   <PageIntro
     eyebrow="Method"
@@ -237,6 +265,15 @@ const substituteJustifications = [
     <div id="matrix">
       <SafeguardMatrix />
     </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="practices"
+    eyebrow="Practices"
+    title="Practices, filed by safeguard"
+    description="Twenty-two governance practices, each under the safeguard it serves first, with the standards, mechanisms, evals, and tools that apply. Every standard, mechanism, eval suite, tool, and case on this site is listed under at least one."
+  >
+    <PracticesBySafeguard />
   </SectionBlock>
 
   <SectionBlock

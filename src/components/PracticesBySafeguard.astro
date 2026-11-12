@@ -1,0 +1,64 @@
+---
+/**
+ * The governance practices, filed by the safeguard each serves first, with
+ * the standards, mechanisms, evals, and tools that apply. Every current
+ * standard, mechanism, eval suite, tool, and case is listed under at least
+ * one practice (src/content/taxonomy.test.ts holds that).
+ *
+ * Each row keeps the anchor it had on the retired /taxonomy page, so
+ * /taxonomy/<slug> and its old #anchors redirect to the same row here.
+ */
+import "../styles/components/taxonomy.css";
+import { practicesBySafeguard, taxonomyAnchor } from "../content/taxonomy";
+
+const groups = practicesBySafeguard();
+---
+
+<div
+  class="mapping-table__wrapper"
+  tabindex="0"
+  role="region"
+  aria-label="Practices by safeguard"
+>
+  <table class="mapping-table mapping-table--stack taxonomy-table">
+    <thead>
+      <tr>
+        <th scope="col">Practice</th>
+        <th scope="col">What it covers</th>
+        <th scope="col">Also serves</th>
+        <th scope="col">Standards, mechanisms, and tools</th>
+      </tr>
+    </thead>
+    {
+      groups.map((group) => (
+        <tbody>
+          <tr class="taxonomy-table__group">
+            <th scope="rowgroup" colspan="4">
+              {group.safeguard}
+            </th>
+          </tr>
+          {group.practices.map((entry) => (
+            <tr id={taxonomyAnchor(entry.slug)} class="taxonomy-table__row">
+              <th scope="row">
+                <span class="taxonomy-table__title">{entry.title}</span>
+              </th>
+              <td data-label="What it covers">{entry.summary}</td>
+              <td data-label="Also serves">
+                {entry.safeguards.slice(1).join(", ") || "—"}
+              </td>
+              <td data-label="Standards, mechanisms, and tools">
+                <ul class="taxonomy-table__links">
+                  {entry.relatedArtifacts.map((artifact) => (
+                    <li>
+                      <a href={artifact.href}>{artifact.label}</a>
+                    </li>
+                  ))}
+                </ul>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      ))
+    }
+  </table>
+</div>
