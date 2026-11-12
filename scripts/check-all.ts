@@ -1,10 +1,15 @@
 /**
  * Runs every `bun run check` step concurrently.
  *
- * The steps are independent read-only checks (lint, typecheck, astro:check,
- * tests, content drift, validators, asset/icon/guardrail checks). The old
- * sequential chain paid the sum of every step's wall time; this pays roughly
- * the slowest one. CI runs the same command, so local and CI parity holds.
+ * The steps are independent read-only checks (formatting, lint, typecheck,
+ * astro:check, tests, content drift, validators, asset/icon/guardrail
+ * checks). The old sequential chain paid the sum of every step's wall time;
+ * this pays roughly the slowest one. CI runs the same command, so local and
+ * CI parity holds.
+ *
+ * format:check was CI's alone until 2026-11-12. A change that passed this
+ * script merged seven unformatted files, and main failed CI on every run
+ * after it, including runs for pull requests that never touched them.
  *
  * A passing step prints one line. A failing step prints the tail of its
  * output, so a green run costs a reader a dozen lines and a red run shows only
@@ -13,6 +18,7 @@
  */
 
 const STEPS = [
+  "format:check",
   "assets:check",
   "icons:check",
   "agent:doctor",

@@ -4,11 +4,12 @@ name: Site checks
 # checks, Astro checks, content and JSON validation, and unit tests. The
 # participate page and the /api badges manifest link to this workflow.
 #
-# format:check runs here too, and not in `bun run check`, because the two
-# caught different halves of a problem: 87 files had drifted past Prettier
-# while CI stayed green because nothing here invoked it. Keep this step in
-# sync with the formatter's ignore list; a file listed in .prettierignore
-# cannot be checked here.
+# format:check also runs as its own step first. 87 files once drifted past
+# Prettier while CI stayed green because nothing here invoked it, and later
+# a change passed `bun run check` locally and merged unformatted files, so
+# `bun run check` now runs it too. Keep the step in sync with the
+# formatter's ignore list; a file listed in .prettierignore cannot be
+# checked here.
 
 on:
   pull_request:
