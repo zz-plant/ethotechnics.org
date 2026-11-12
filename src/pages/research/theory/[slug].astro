@@ -4,6 +4,7 @@ import "../../../styles/components/standards.css";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import CitationBlock from "../../../components/CitationBlock.astro";
 import PageIntro from "../../../components/PageIntro.astro";
+import ProseTable from "../../../components/ProseTable.astro";
 import { derivePublicationMetadata } from "../../../utils/publication";
 
 const entry = (await getCollection("theory")).find(
@@ -85,7 +86,7 @@ const breadcrumbItems = [
   </PageIntro>
 
   <article class="theory-essay stack-md">
-    <Content />
+    <Content components={{ table: ProseTable }} />
   </article>
 
   <p class="muted">
