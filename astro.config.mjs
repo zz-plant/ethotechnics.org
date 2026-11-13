@@ -6,6 +6,8 @@ import mdx from "@astrojs/mdx";
 import icon from "astro-icon";
 import react from "@astrojs/react";
 
+import { pageDatesPlugin } from "./scripts/lib/page-dates";
+
 export default defineConfig({
   site: "https://ethotechnics.org",
   prefetch: true,
@@ -79,6 +81,7 @@ export default defineConfig({
   },
   integrations: [react(), icon(), mdx()],
   vite: {
+    plugins: [pageDatesPlugin(fileURLToPath(new URL(".", import.meta.url)))],
     resolve: {
       alias: {
         "@": fileURLToPath(new URL("./src", import.meta.url)),
