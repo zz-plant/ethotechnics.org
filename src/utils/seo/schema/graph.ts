@@ -26,6 +26,12 @@ type PageSchema = {
   page?: Record<string, unknown>;
   /** Merged into the article node: identifier, version, and the like. */
   article?: Record<string, unknown>;
+  /**
+   * The byline the page prints. The article credits Kanav Jain as a Person
+   * when the byline names him, and the Institute otherwise, so the markup
+   * says what a reader sees.
+   */
+  byline?: string;
   /** Entities the page describes, each with an @id under the page's URL. */
   nodes?: JsonLdNode[];
   /** Questions answered on the page. The page node becomes an FAQPage too. */
@@ -151,6 +157,8 @@ const buildSchemaGraph = (input: SchemaGraphInput): SchemaNode[] => {
       description: input.description,
       imageUrl: input.seoImage.src,
       organizationId: input.organizationId,
+      author:
+        schema.byline === FRAMEWORK_AUTHOR.name ? FRAMEWORK_AUTHOR : undefined,
       webpageId: canonical,
       datePublished: input.normalizedPublishedTime,
       dateModified: input.normalizedModifiedTime,

@@ -67,6 +67,21 @@ describe("buildSchemaGraph", () => {
     });
   });
 
+  it("credits an article to whoever its byline names", () => {
+    const essay = build("/research/the-green-dashboard", {
+      byline: "Kanav Jain",
+    }).find((node) => String(node["@id"]).endsWith("#article"));
+    expect(essay?.author).toMatchObject({
+      "@type": "Person",
+      "@id": "https://kanav.net/#person",
+    });
+
+    const standard = build("/standards/std-08-delegation", {
+      byline: "Ethotechnics Institute",
+    }).find((node) => String(node["@id"]).endsWith("#article"));
+    expect(standard?.author).toEqual({ "@id": `${site}/#organization` });
+  });
+
   it("gives a hub a CollectionPage and no article", () => {
     const graph = build("/standards", {
       page: { mainEntity: itemList([{ name: "STD-01", url: `${site}/a` }]) },

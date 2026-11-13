@@ -34,6 +34,7 @@ const publication = derivePublicationMetadata({
   description={data.description}
   publishedTime={publication.published}
   modifiedTime={publication.updated}
+  schema={{ byline: data.authorName }}
 >
   <PageIntro
     eyebrow={data.eyebrow}

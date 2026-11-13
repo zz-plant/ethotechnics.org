@@ -118,6 +118,8 @@ const buildArticleNode = (input: {
   description: string;
   imageUrl: string;
   organizationId: string;
+  /** A named person; the organization when absent. */
+  author?: PersonReference;
   webpageId: string;
   datePublished?: string;
   dateModified?: string;
@@ -128,7 +130,7 @@ const buildArticleNode = (input: {
   headline: input.headline,
   description: input.description,
   image: [input.imageUrl],
-  author: {
+  author: input.author ?? {
     "@id": input.organizationId,
   },
   publisher: {

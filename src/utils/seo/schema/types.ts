@@ -95,7 +95,7 @@ export type ArticleNode = {
   headline: string;
   description: string;
   image: string[];
-  author: { "@id": string };
+  author: PersonReference | { "@id": string };
   publisher: { "@id": string };
   mainEntityOfPage: { "@id": string };
   inLanguage: "en";
