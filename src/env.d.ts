@@ -22,6 +22,12 @@ interface Env {
   };
 }
 
+/** Route → ISO date of the page's last commit (scripts/lib/page-dates.ts). */
+declare module "virtual:page-dates" {
+  const pageDates: Record<string, string>;
+  export default pageDates;
+}
+
 declare module "/pagefind/pagefind.js" {
   export function options(options: { excerptLength: number }): Promise<void>;
   export function search(query: string): Promise<{

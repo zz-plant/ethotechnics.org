@@ -21,6 +21,7 @@ import {
   stripBrandSuffix,
 } from "../utils/seo/document-title";
 import { describeOgCard } from "../utils/seo/og-cards";
+import { loadPageDates, pageDateKey } from "../utils/seo/page-dates";
 import { toSeoRobotsProps } from "../utils/seo/robots";
 import { resolveRouteProfile } from "../utils/seo/route-type";
 import { buildSchemaGraph, type PageSchema } from "../utils/seo/schema";
@@ -115,8 +116,18 @@ const profile = resolveRouteProfile(currentPath);
 const resolvedOpenGraphType = profile.openGraphType;
 
 const normalizedPublishedTime = normalizeDateTime(publishedTime);
+// A page that sets no modifiedTime takes its last commit, so an edit after
+// launch doesn't leave dateModified at the publish date. A date the page
+// sets wins, because the page prints it.
+const committedTime = normalizeDateTime(
+  (await loadPageDates())[pageDateKey(currentPath)],
+);
 const normalizedModifiedTime =
-  normalizeDateTime(modifiedTime) ?? normalizedPublishedTime;
+  normalizeDateTime(modifiedTime) ??
+  [committedTime, normalizedPublishedTime]
+    .filter((date): date is string => Boolean(date))
+    .sort()
+    .at(-1);
 
 const organizationId = `${siteBase}#organization`;
 const websiteId = `${siteBase}#website`;

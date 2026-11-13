@@ -15,6 +15,7 @@ import { roles } from "../../content/roles";
 import { researchContent } from "../../content/research";
 import { standardsContent } from "../../content/standards";
 import { glossaryEntryPermalink } from "../glossary";
+import { loadPageDates, pageDateKey } from "./page-dates";
 import {
   resolveRouteProfile,
   SITEMAP_SECTIONS,
@@ -234,14 +235,13 @@ const renderUrl = (base: URL, entry: SitemapEntry) => {
 
 export const buildSitemapSections = async () => {
   const pageModules = await loadPageModules();
-  const pagePaths = Object.entries(pageModules)
-    .map(([path, module]) => {
+  const pageDates = await loadPageDates();
+  const pagePaths = Object.keys(pageModules)
+    .map((path) => {
       const routePath = normalizeRoutePath(path);
       if (!routePath) return null;
-      const mod = module as { lastmod?: string };
-      return mod.lastmod
-        ? { path: routePath, lastmod: mod.lastmod }
-        : { path: routePath };
+      const lastmod = pageDates[pageDateKey(routePath)];
+      return lastmod ? { path: routePath, lastmod } : { path: routePath };
     })
     .filter((entry): entry is SitemapEntry => entry !== null)
     .filter((entry) => isPublicPath(entry.path));
