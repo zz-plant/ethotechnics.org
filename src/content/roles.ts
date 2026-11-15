@@ -96,7 +96,7 @@ export const roles: Role[] = [
         number: 3,
         title: "Log every decision, and check the log",
         description:
-          "Log each decision in the format the decision-record standard (STD-07) sets out, including the permission it ran under. Then check an exported log against the schema and the conformance level you claim.",
+          "Log each decision in the format the decision-record standard sets out, including the permission it ran under. Then check an exported log against the schema and the claimed conformance level.",
         ctaLabel: "Check an exported log",
         ctaHref: "/diagnostics/record-conformance",
       },
@@ -167,7 +167,7 @@ export const roles: Role[] = [
     ],
     guide: {
       focusAreas: [
-        "Choose the standard your policy rests on, and the rights it protects.",
+        "Choose the standard the policy rests on, and the rights it protects.",
         "Set out how each rule is enforced and where escalations go.",
         "Write public summaries in the words people use to challenge a decision. Keep the glossary's defined terms in the policy text.",
       ],
@@ -209,7 +209,7 @@ export const roles: Role[] = [
       },
       {
         number: 2,
-        title: "Know what each clause asks you to see",
+        title: "Know what each clause requires",
         description:
           "Each evidence pack lists the records a clause needs: decision timestamps, deadlines, and what people received. Check the operator's records against it.",
         ctaLabel: "Inspect evidence packs",
