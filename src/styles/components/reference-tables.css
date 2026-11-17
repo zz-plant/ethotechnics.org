@@ -180,6 +180,19 @@
     white-space: nowrap;
   }
 
+  /* A row header that carries a summary is a name and a sentence, not an
+     identifier. Held to one line in the column label's capitals, the
+     sentence set the first column of /evals and /validators at 1,400px and
+     pushed every other column out of the wrapper; on a phone the stacked
+     card cut it off mid-word. The name keeps its line and the cell takes
+     the body's case; the summary wraps inside a width the cell holds. */
+  .catalogue-table tbody th[scope="row"]:has(.catalogue-table__summary) {
+    min-width: min(22rem, 100%);
+    font-size: var(--text-sm);
+    letter-spacing: normal;
+    text-transform: none;
+  }
+
   .catalogue-table__status {
     font-family: var(--sans);
     font-size: var(--text-xs);
@@ -204,6 +217,8 @@
     font-weight: 400;
     line-height: 1.45;
     color: var(--muted);
+    white-space: normal;
+    max-width: 60ch;
   }
 
   .catalogue-table__num {
