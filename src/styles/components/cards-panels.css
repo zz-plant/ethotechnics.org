@@ -28,6 +28,11 @@
     padding: var(--space-container);
     border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
     display: grid;
+    /* Packed to the top. A card stretched to match a taller neighbor used
+       to share the extra height among its rows, so the same heading, text
+       and link sat at a different depth in each card of a row, and a tag
+       grew as tall as its share. */
+    align-content: start;
     gap: var(--space-3);
     overflow: hidden;
     transition:
@@ -63,6 +68,13 @@
      children; a bare heading or paragraph drops its margins, while a class
      that sets its own (a footer pushed down with margin-top: auto) still
      wins, since :where() carries no specificity. */
+  /* A card that ends in a row of buttons keeps the sharing: side by side,
+     as in the commissioned-work comparison, it is what brings the two
+     button rows level when one card has a line less of text. */
+  .card:has(> :is(.actions, .section__actions, .button):last-child) {
+    align-content: normal;
+  }
+
   :where(.card, .panel, .callout, .cta) > :first-child {
     margin-top: 0;
   }
@@ -131,6 +143,13 @@
     color: var(--muted);
     display: grid;
     gap: var(--space-1);
+  }
+
+  /* The list was written to close a card, so it carries no margin below. A
+     paragraph after it, as on the implementation examples, started on the
+     line under the last item with nothing between them. */
+  .card__list + p {
+    margin-top: var(--space-3);
   }
 
   .card__list a {
