@@ -144,45 +144,55 @@ for (const entry of cases) {
         <tbody>
           <tr>
             <th>EU AI Act</th>
-            <td>
+            <td data-label="What it names">
               Risk management, human oversight, transparency, post-market
               monitoring.
             </td>
-            <td>
+            <td data-label="What it leaves to the operator">
               What the reviewer must be able to do; how to test it; how to
               escalate a constraint above the deciding body.
             </td>
-            <td>
+            <td data-label="Ethotechnics mechanism">
               Effective corrective power; active epistemic scaffolding;
               reconstructable delegation.
             </td>
           </tr>
           <tr>
             <th>NIST AI RMF</th>
-            <td>Govern, map, measure, manage.</td>
-            <td>
+            <td data-label="What it names">Govern, map, measure, manage.</td>
+            <td data-label="What it leaves to the operator">
               The delegation record: who granted what, on what evidence, until
               when.
             </td>
-            <td>Authority as a lease; the revisable delegation record.</td>
+            <td data-label="Ethotechnics mechanism"
+              >Authority as a lease; the revisable delegation record.</td
+            >
           </tr>
           <tr>
             <th>Military rules of engagement</th>
-            <td>Distinction, proportionality, precautions in attack.</td>
-            <td>
+            <td data-label="What it names"
+              >Distinction, proportionality, precautions in attack.</td
+            >
+            <td data-label="What it leaves to the operator">
               The review time, and the record that shows the precaution was
               feasible.
             </td>
-            <td>Effective corrective power; active epistemic scaffolding.</td>
+            <td data-label="Ethotechnics mechanism"
+              >Effective corrective power; active epistemic scaffolding.</td
+            >
           </tr>
           <tr>
             <th>Administrative law</th>
-            <td>Reasons, appeal rights, deadlines.</td>
-            <td>
+            <td data-label="What it names"
+              >Reasons, appeal rights, deadlines.</td
+            >
+            <td data-label="What it leaves to the operator">
               The capacity to use the right, and the route to the body that sets
               the constraint.
             </td>
-            <td>Jurisdictional escalation; reproductive conditions.</td>
+            <td data-label="Ethotechnics mechanism"
+              >Jurisdictional escalation; reproductive conditions.</td
+            >
           </tr>
         </tbody>
       </table>
@@ -421,7 +431,12 @@ for (const entry of cases) {
 </BaseLayout>
 
 <style>
+  /* The top margin and padding are the masthead's on every other page
+     (.section.page-intro); without them this title sat 20px nearer the
+     header than the rest. */
   .about-hero {
+    margin-top: var(--space-2);
+    padding-top: var(--space-3);
     padding-bottom: var(--space-5);
     border-bottom: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
   }
@@ -449,13 +464,87 @@ for (const entry of cases) {
     align-items: center;
   }
 
-  .about-hero__logo {
+  /* :global, because the <svg> belongs to Logo.astro and never receives
+     this page's scope attribute. As a scoped rule this matched nothing, and
+     the mark rendered at the SVG's own 64px in body ink: a small black
+     glyph alone in the hero's right half. */
+  .about-hero__flourish :global(.about-hero__logo) {
     width: clamp(90px, 14vw, 150px);
     height: clamp(90px, 14vw, 150px);
     color: var(--accent);
     opacity: 0.85;
-    filter: drop-shadow(
-      0 4px 16px color-mix(in srgb, var(--accent) 15%, transparent)
-    );
+  }
+
+  /* Four columns do not fit a phone, and the card around the table clips
+     what overflows it: the last column was cut away with no way to reach
+     it. The wrapper scrolls, as the mapping tables' wrapper does. */
+  .about-table-wrap {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+
+  /* Below 720px each framework is a block under a rule, its three cells
+     captioned by the column heading they repeat, as the stacked mapping
+     tables are. Scrolled sideways the columns were two words wide. No frame
+     round a row: the table already sits inside a card. */
+  @media (max-width: 719.98px) {
+    .about-table,
+    .about-table caption,
+    .about-table tbody,
+    .about-table tr,
+    .about-table th,
+    .about-table td {
+      display: block;
+    }
+
+    .about-table caption {
+      padding-bottom: var(--space-2);
+      text-align: left;
+    }
+
+    .about-table thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
+    .about-table tbody tr {
+      padding-block: var(--space-3);
+      border-top: 1px solid var(--border);
+    }
+
+    .about-table tbody th,
+    .about-table tbody td {
+      padding: 0;
+      border: 0;
+      background: none;
+    }
+
+    .about-table tbody th {
+      font-size: var(--text-base);
+    }
+
+    .about-table tbody td {
+      margin-top: var(--space-3);
+    }
+
+    .about-table tbody td[data-label]::before {
+      content: attr(data-label);
+      display: block;
+      margin-bottom: var(--space-1);
+      font-family: var(--sans);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .about-table tbody td[data-label]:last-child::before {
+      color: var(--accent-strong);
+    }
   }
 </style>
