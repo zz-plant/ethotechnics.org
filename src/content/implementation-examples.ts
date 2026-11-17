@@ -14,7 +14,7 @@ export const createImplementationPublication = (
 ): PublicationMetadata => ({
   authors: [
     {
-      name: "Ethotechnics Institute",
+      name: "Kanav Jain",
       affiliation: "Ethotechnics Institute",
       email: "hello@ethotechnics.org",
     },

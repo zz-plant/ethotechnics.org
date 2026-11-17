@@ -1,37 +1,12 @@
 import type { AnchorLink, PageWithPermalink, PublishedContent } from "./types";
 
-export type RFCLifecycleStage = {
-  stage: string;
+/**
+ * How a change to the framework is actually made. Each entry states one
+ * fact a reader can check against the repository or the site.
+ */
+export type ChangeRule = {
+  title: string;
   detail: string;
-};
-
-export type RFCEntry = {
-  id: string;
-  title: string;
-  status: "proposal" | "review" | "decision" | "released";
-  openedOn: string;
-  reviewWindow: string;
-  closedOn?: string;
-  owner: string;
-  reviewerRoles: string[];
-  summary: string;
-};
-
-export type DecisionRecord = {
-  id: string;
-  title: string;
-  outcome: string;
-  rationale: string;
-  date: string;
-  owner: string;
-  releaseVersion: string;
-  releaseHref: string;
-};
-
-export type QuarterlyUpdate = {
-  date: string;
-  title: string;
-  summary: string;
 };
 
 /**
@@ -54,164 +29,53 @@ export type GovernanceContent = PageWithPermalink &
     pageTitle: string;
     pageDescription: string;
     anchorLinks: AnchorLink[];
-    lifecycle: RFCLifecycleStage[];
-    rfcs: RFCEntry[];
-    decisions: DecisionRecord[];
+    howChangesAreMade: ChangeRule[];
     failureLog: FrameworkFailure[];
-    quarterlyUpdates: QuarterlyUpdate[];
   };
 
+// Until 2026-11-17 this file held an RFC lifecycle, RFC entries, a decision
+// log with release labels and quarterly updates. The page was added on
+// 2026-02-22 in one commit (624167ec) that already carried records dated
+// from July 2025 to February 2026, and no RFC process, council or review
+// window ever existed. FE-2026-06 below is the record of that. Do not add a
+// process here that nobody runs.
 export const governanceContent: GovernanceContent = {
-  pageTitle: "Governance process — Ethotechnics",
+  pageTitle: "Governance — Ethotechnics",
   pageDescription:
-    "How Ethotechnics changes its own standards: the RFC process, open RFCs, a decision log with named owners, an archive of its failures, and dated updates.",
+    "Who decides what Ethotechnics publishes, how a change is made, and the record of where the framework's own instruments failed.",
   permalink: "/institute/governance",
   published: "2026-02-22T00:00:00Z",
-  updated: "2026-11-10T00:00:00Z",
+  updated: "2026-11-17T00:00:00Z",
   anchorLinks: [
-    { href: "#lifecycle", label: "RFC lifecycle" },
-    { href: "#open-rfcs", label: "Current RFCs" },
-    { href: "#decision-log", label: "Decision log" },
+    { href: "#how-changes-are-made", label: "How a change is made" },
     { href: "#failure-archive", label: "Failure archive" },
-    { href: "#governance-updates", label: "Governance updates" },
   ],
-  lifecycle: [
+  howChangesAreMade: [
     {
-      stage: "Proposal",
+      title: "One person decides",
       detail:
-        "An owner opens an RFC with scope, affected users, and draft safeguards.",
+        "Kanav Jain writes the framework and decides every change, with AI coding agents working under the rules in the repository. “Ethotechnics Institute” is the name it publishes under. It has no council, no reviewers and no staff.",
     },
     {
-      stage: "Review window",
+      title: "A change is a commit",
       detail:
-        "The RFC is public for a dated comment window. Anyone can comment on harms, rollback plans, and implementation fit; no outside reviewer is assigned.",
+        "Every change to a page, a clause or a score is a commit in the public repository, with its date and what changed. Each standard lists its own versions on its page.",
     },
     {
-      stage: "Decision",
+      title: "An objection gets an answer",
       detail:
-        "A named owner records the outcome and rationale in the decision log and assigns an owner to each follow-up.",
-    },
-    {
-      stage: "Release",
-      detail:
-        "Accepted changes ship with a linked release/version so downstream teams can verify what changed and when.",
-    },
-  ],
-  rfcs: [
-    {
-      id: "RFC-2026-02",
-      title: "Evidence-pack compatibility baseline",
-      status: "released",
-      openedOn: "2026-02-03",
-      reviewWindow: "2026-02-03 → 2026-02-24",
-      closedOn: "2026-09-18",
-      owner: "Kanav Jain",
-      reviewerRoles: [],
-      summary:
-        "Defines a minimum compatibility contract for evidence packs so diagnostics and standards pages can share structured receipts.",
-    },
-    {
-      id: "RFC-2026-01",
-      title: "Recourse escalation SLA for diagnostics",
-      status: "released",
-      openedOn: "2026-01-28",
-      reviewWindow: "2026-01-28 → 2026-02-20",
-      closedOn: "2026-09-18",
-      owner: "Kanav Jain",
-      reviewerRoles: [],
-      summary:
-        "Sets response-time targets and ownership for challenged diagnostic outcomes.",
-    },
-  ],
-  decisions: [
-    {
-      id: "DEC-2026-11-01",
-      title: "Remove records dated before the repository existed",
-      outcome: "Accepted",
-      rationale:
-        "The repository's first commit is dated December 3, 2025, and nothing was published before it. This page listed an RFC opened in November 2025 and governance updates for the second and third quarters of 2025. Those records described events that did not happen, and they are removed. Every remaining record dated before February 22, 2026 was first written into the repository on that day, in the commit that added this page. Standards, explainers, and worked examples carried publication dates in 2025; each page now carries the date of its first commit.",
-      date: "2026-11-10",
-      owner: "Kanav Jain",
-      releaseVersion: "governance-v1.6.0",
-      releaseHref: "/institute/governance#failure-archive",
-    },
-    {
-      id: "DEC-2026-10-01",
-      title: "Name who made each governance decision",
-      outcome: "Accepted",
-      rationale:
-        "Earlier records named a steward council, program operations, a publishing pipeline, a documentation steward, and reviewer roles such as a risk steward and a community reviewer. None of these existed as a separate body. The records now name Kanav Jain, the Institute's author, as the owner of each decision, and the RFCs list no reviewer roles that were not filled. DEC-2026-01-03 described community office hours that were never held, so it is withdrawn. DEC-2026-02-01 and the Q3 2025 update mention decision forums and forum hours; those forums did not run either. The earlier entries stay in the log, corrected, rather than being removed.",
-      date: "2026-10-01",
-      owner: "Kanav Jain",
-      releaseVersion: "governance-v1.5.0",
-      releaseHref: "/institute/governance#decision-log",
-    },
-    {
-      id: "DEC-2026-09-02",
-      title:
-        "Resolve lapsed RFC-2026-01 (Recourse escalation SLA for diagnostics)",
-      outcome: "Superseded",
-      rationale:
-        "The review window lapsed without a logged decision. The substance was carried by the diagnostics anti-weaponization constraints (AW-01 to AW-04), which set response-time and ownership targets for challenged outcomes. Closed so the open-RFC list stops carrying a decision nobody logged.",
-      date: "2026-09-18",
-      owner: "Kanav Jain",
-      releaseVersion: "diagnostics-v2.0.0",
-      releaseHref: "/standards/anti-weaponization",
-    },
-    {
-      id: "DEC-2026-09-01",
-      title: "Adopt RFC-2026-02 (Evidence-pack compatibility baseline)",
-      outcome: "Accepted",
-      rationale:
-        "The review window lapsed without a logged decision. The baseline is adopted as released because the evidence packs that shipped after the proposal (STD-01, STD-02, STD-06, STD-08, STD-09) and the evidence-pack readiness checker already embody it. The lapse is recorded rather than hidden.",
-      date: "2026-09-18",
-      owner: "Kanav Jain",
-      releaseVersion: "evidence-packs-v1.0.0",
-      releaseHref: "/evidence-packs",
-    },
-    {
-      id: "DEC-2026-02-01",
-      title: "Adopt decision-owner field for all governance records",
-      outcome: "Accepted",
-      rationale:
-        "Ownership was inconsistent across forum outputs. Mandatory owner attribution reduces ambiguity in follow-up.",
-      date: "2026-02-14",
-      owner: "Kanav Jain",
-      releaseVersion: "governance-v1.4.0",
-      releaseHref: "/mechanisms",
-    },
-    {
-      id: "DEC-2026-01-03",
-      title: "Extend review windows to include community office hours",
-      outcome: "Withdrawn by DEC-2026-10-01",
-      rationale:
-        "Asynchronous review missed context from implementation teams; office-hours notes now count as formal review input.",
-      date: "2026-01-22",
-      owner: "Kanav Jain",
-      releaseVersion: "governance-v1.3.2",
-      releaseHref: "/participate",
-    },
-    {
-      id: "DEC-2025-12-02",
-      title: "Archive inactive RFC threads after release",
-      outcome: "Accepted",
-      rationale:
-        "Open threads without closure dates made audits hard. Archiving after release keeps status visible and history navigable.",
-      date: "2025-12-19",
-      owner: "Kanav Jain",
-      releaseVersion: "governance-v1.2.0",
-      releaseHref: "/institute/governance",
+        "Every clause links to an objection form. Each objection gets a public answer within 30 days. An upheld objection ends in a revised clause or a published reason for keeping it.",
     },
   ],
   failureLog: [
     {
-      id: "FE-2026-05",
-      title: "Records and pages were dated before anything was published",
-      detected: "2026-11-10",
+      id: "FE-2026-06",
+      title: "This page described a governance process that did not exist",
+      detected: "2026-11-17",
       detail:
-        "This page carried an RFC and two quarterly updates dated between July and November 2025, and standards, explainers, and worked examples gave publication dates in 2025. The repository's first commit is dated December 3, 2025. A reader comparing the two had no way to tell a real record from an invented one, on a page that asks institutions for records an auditor can check.",
+        "This page was added on February 22, 2026, in one commit. It arrived with three RFCs, three decisions and three quarterly updates dated between July 2025 and February 2026, all before the day it was written. It described a four-stage RFC process with review windows and linked releases, and its records named a steward council, reviewer roles and community office hours. None of these existed. Cleanups on September 18, October 1 and November 10, 2026 recorded the lapsed review windows (FE-2026-01), the missed quarterly cadence (FE-2026-02), the invented reviewers, and the records dated before the repository's first commit (FE-2026-05), and removed some of them. The RFC process, two RFCs, a decision log with release labels and a Q4 2025 update stayed on the page.",
       revision:
-        "The three records are removed. Each page's publication date is now the date its file first appears in the repository's history. The page's own publication date moved from February 1 to February 22, 2026, the day it was committed.",
+        "The RFC lifecycle, the RFCs, the decision log and the governance updates are removed, along with the three earlier entries about them, which this one replaces. The page now says how a change is actually made. Every earlier version of this page is in the repository's history.",
     },
     {
       id: "FE-2026-04",
@@ -230,38 +94,6 @@ export const governanceContent: GovernanceContent = {
         "The casebook scored five public failures against the six safeguards, which are present-tense properties of a deployment, and left unstated whether each failure trajectory ended in case resolution or in institutional revision. A framework about correction was missing its own historical category, and its central case — Robodebt — is one where the exceptions were all handled and nothing changed.",
       revision:
         "Every case now carries a learning-outcome verdict, and the exception absorption versus exception learning distinction is formalized in the glossary, a theory essay, and the Corrective Learning eval suite.",
-    },
-    {
-      id: "FE-2026-02",
-      title: "A stated cadence was not kept, and the silence was unrecorded",
-      detected: "2026-09-18",
-      detail:
-        "No governance update was published between January and September 2026 while the page carried quarterly entries. The gap was visible in the data and readable by nobody, which is the same failure Law II names in a grant: silence is not renewal, but here it was also not recorded.",
-      revision:
-        "The Q3 2026 update records the pause, and the page now reports the date of the most recent update so the gap is the reader's to judge rather than the page's to imply away.",
-    },
-    {
-      id: "FE-2026-01",
-      title: "Review windows lapsed without logged decisions",
-      detected: "2026-09-18",
-      detail:
-        "RFC-2026-01 and RFC-2026-02 sat listed under active review for seven months after their stated windows closed. The lapse was in the data; nothing on the page computed it, so the reader had to trust a status field the process had stopped honoring.",
-      revision:
-        "The page now reads the review-window clock and reports a lapse as a governance failure. Both RFCs were closed with decisions on the evidence available, and the lapse is recorded in the decision log rather than hidden.",
-    },
-  ],
-  quarterlyUpdates: [
-    {
-      date: "2026-09-18",
-      title: "Q3 2026 governance update",
-      summary:
-        "Publishing paused between January and September. This update records the pause, closes RFC-2026-01 and RFC-2026-02 with decisions on the evidence available, and re-binds the cadence: a stated review window that passes without a decision is now reported as a governance failure rather than left to the reader.",
-    },
-    {
-      date: "2026-01-15",
-      title: "Q4 2025 governance update",
-      summary:
-        "Published 3 decision records, closed 2 RFCs, and linked all accepted decisions to release versions.",
     },
   ],
 };

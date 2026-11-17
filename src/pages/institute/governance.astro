@@ -5,48 +5,15 @@ import CardItem from "../../components/CardItem.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import { governanceContent } from "../../content/governance";
-import { formatDate, formatDatesInText } from "../../utils/dates";
-import { readReviewWindow, todayIso } from "../../utils/review-window";
+import { formatDate } from "../../utils/dates";
 
 const {
   pageTitle,
   pageDescription,
   anchorLinks,
-  lifecycle,
-  rfcs,
-  decisions,
+  howChangesAreMade,
   failureLog,
-  quarterlyUpdates,
 } = governanceContent;
-
-const openRfcStatuses = new Set(["proposal", "review", "decision"]);
-const today = todayIso();
-// RFC-2026-01 and RFC-2026-02 sat under "active review windows" for seven
-// months after their windows closed; the September 2026 update closed them.
-// The clock is in the data, so the page reads it rather than leaving the
-// reader to.
-const openRfcs = rfcs
-  .filter((entry) => openRfcStatuses.has(entry.status))
-  .map((entry) => ({
-    ...entry,
-    review: readReviewWindow(entry.reviewWindow, today),
-  }));
-const lapsedRfcs = openRfcs.filter((entry) => entry.review.lapsed).length;
-const rfcSectionDescription =
-  lapsedRfcs === 0
-    ? "Open RFCs show the status, the owner, and the review window before a decision is logged."
-    : `Open RFCs show the status and the owner before a decision is logged. ${lapsedRfcs} of ${openRfcs.length} have passed their stated review window without a decision being logged.`;
-
-// The page used to promise a quarterly cadence it did not keep. It reports
-// the date of the most recent update and leaves the reader to judge the gap,
-// which is the same test Law II applies to a grant: silence is not renewal.
-const latestGovernanceUpdate = formatDate(
-  [...quarterlyUpdates]
-    .map((entry) => entry.date)
-    .sort()
-    .at(-1) ?? "",
-  "prose",
-);
 ---
 
 <BaseLayout
@@ -55,103 +22,43 @@ const latestGovernanceUpdate = formatDate(
   breadcrumbItems={[
     { name: "Home", url: "/" },
     { name: "About", url: "/about" },
-    { name: "Governance process", url: "/institute/governance" },
+    { name: "Governance", url: "/institute/governance" },
   ]}
 >
   <PageIntro
-    eyebrow="Governance"
-    title="Governance process"
+    eyebrow="About"
+    title="Governance"
     description={pageDescription}
     anchorLinks={anchorLinks}
   />
 
+  {
+    /* Until 2026-11-17 this page opened on an RFC lifecycle, open RFCs, a
+       decision log and governance updates. None of it described anything
+       that happened; see FE-2026-06 in the failure archive below. */
+  }
   <SectionBlock
-    id="lifecycle"
+    id="how-changes-are-made"
     eyebrow="Process"
-    title="RFC lifecycle"
-    description="Every policy change passes four stages, and each leaves a record: the RFC, a dated review window, a logged decision, and a linked release."
+    title="How a change is made"
     className="section--banded"
   >
     <CardGrid>
       {
-        lifecycle.map((step, index) => (
-          <CardItem
-            title={`${index + 1}. ${step.stage}`}
-            description={step.detail}
-          />
+        howChangesAreMade.map((rule) => (
+          <CardItem title={rule.title} description={rule.detail} />
         ))
       }
     </CardGrid>
-    {
-      /* Open RFCs had a section of their own, which read as one sentence
-         and an empty grid whenever none was open. They sit under the
-         process they are in. */
-    }
-    <h3 id="open-rfcs">Open RFCs</h3>
-    {
-      openRfcs.length === 0 ? (
-        <p class="muted">
-          None is open. The decision log below records each one that was
-          released.
-        </p>
-      ) : (
-        <>
-          <p class="muted">{rfcSectionDescription}</p>
-          <CardGrid>
-            {openRfcs.map((rfc) => (
-              <CardItem
-                title={`${rfc.id}: ${rfc.title}`}
-                meta={`Status: ${rfc.status}`}
-                description={rfc.summary}
-              >
-                <p class="muted small">Opened: {formatDate(rfc.openedOn)}</p>
-                <p class="muted small">
-                  Review window: {formatDatesInText(rfc.reviewWindow)}
-                  {rfc.review.lapsed && rfc.review.closesOn && (
-                    <strong>
-                      {" "}
-                      — closed {formatDate(rfc.review.closesOn)}, no decision
-                      logged
-                    </strong>
-                  )}
-                </p>
-                <p class="muted small">Owner: {rfc.owner}</p>
-                <p class="muted small">
-                  {rfc.reviewerRoles.length > 0
-                    ? `Reviewer roles: ${rfc.reviewerRoles.join(", ")}`
-                    : "No outside reviewers recorded."}
-                </p>
-              </CardItem>
-            ))}
-          </CardGrid>
-        </>
-      )
-    }
-  </SectionBlock>
-
-  <SectionBlock
-    id="decision-log"
-    eyebrow="Receipts"
-    title="Decision log"
-    description="Every decision includes a date, an accountable owner, a rationale, and a linked release."
-    className="section--banded"
-  >
-    <CardGrid>
-      {
-        decisions.map((record) => (
-          <CardItem
-            title={`${record.id}: ${record.title}`}
-            meta={`${record.outcome} • ${formatDate(record.date)}`}
-            description={record.rationale}
-          >
-            <p class="muted small">Owner: {record.owner}</p>
-            <a slot="footer" href={record.releaseHref}>
-              Linked release: {record.releaseVersion}
-            </a>
-          </CardItem>
-        ))
-      }
-    </CardGrid>
+    <p class="muted small">
+      <a href="https://github.com/zz-plant/ethotechnics.org/commits/main"
+        >The repository's history</a
+      >{" "}
+      is the record of every change. <a href="/record"
+        >Objections and their answers</a
+      >{" "}
+      are listed on their own page.
+    </p>
   </SectionBlock>
 
   <SectionBlock
@@ -181,24 +88,5 @@ const latestGovernanceUpdate = formatDate(
       framework too: the archive is part of the evidence, and{" "}
       <a href="/participate">contestations of the framework</a> belong in it.
     </p>
-  </SectionBlock>
-
-  <SectionBlock
-    id="governance-updates"
-    eyebrow="Update log"
-    title="Governance updates"
-    description={`Dated updates summarize what shipped in governance operations. The most recent was published ${latestGovernanceUpdate}.`}
-  >
-    <CardGrid>
-      {
-        quarterlyUpdates.map((entry) => (
-          <CardItem
-            title={entry.title}
-            meta={formatDate(entry.date)}
-            description={entry.summary}
-          />
-        ))
-      }
-    </CardGrid>
   </SectionBlock>
 </BaseLayout>
