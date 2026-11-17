@@ -33,6 +33,9 @@ Do not edit these by hand; the command regenerates them and `bun run check` fail
 - `packages/conformance/action/cli.mjs`: `bun run conformance:action`
 - The favicon and app icon set: `bun run icons:generate`
 
+The brand kit in `docs/assets/` is generated too (`bun run assets:generate`), but `bun run check`
+checks only its sizes, not drift. See [`../assets/README.md`](../assets/README.md).
+
 ## Searching
 
 - `.ignore` hides the minified conformance bundle, `bun.lock`, and `public/archive/` from
