@@ -17,7 +17,9 @@ const SPECS: Record<string, Spec> = {
   badge: { width: 240, height: 96, minBytes: 2_000 },
   blur: { width: 50, height: 28, minBytes: 200 },
   card: { width: 400, height: 300, minBytes: 8_000 },
-  circle: { width: 540, height: 540, minBytes: 15_000 },
+  // The lockup on a flat ground is about 12KB since the kit was redrawn
+  // (2026-11-17); the old floor was set against a gradient that is gone.
+  circle: { width: 540, height: 540, minBytes: 8_000 },
   dark: { width: 960, height: 540, minBytes: 20_000 },
   email: { width: 600, height: 200, minBytes: 8_000 },
   favicon: { width: 64, height: 64, minBytes: 250 },
