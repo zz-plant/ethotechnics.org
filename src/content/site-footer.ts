@@ -43,7 +43,7 @@ export const siteFooter: SiteFooterContent = {
       heading: "The Institute",
       links: [
         { label: "About the Institute", href: "/about" },
-        { label: "Governance process", href: "/institute/governance" },
+        { label: "Governance", href: "/institute/governance" },
         { label: "The record", href: "/record" },
         {
           label: "Security policy",

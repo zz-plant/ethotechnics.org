@@ -80,7 +80,7 @@ export const researchContent: ResearchContent = {
   publication: {
     authors: [
       {
-        name: "Ethotechnics Institute",
+        name: "Kanav Jain",
         affiliation: "Ethotechnics Institute",
         email: "hello@ethotechnics.org",
       },
@@ -168,9 +168,9 @@ export const researchContent: ResearchContent = {
   standardsTimeline: [
     {
       period: "2026 Q1",
-      title: "STD-01 ratification draft",
+      title: "STD-01 public draft",
       summary:
-        "v1.0 was released for public review. It stays a draft until it has two independent implementation reports and a decision recorded through the public request-for-comments process.",
+        "v1.0 was released for public review. It stays a draft until it has two independent implementation reports and a decision recorded in its version history.",
       standardRef: "STD-01",
       href: "/standards/std-01-temporal-rights",
     },

@@ -109,7 +109,7 @@ export const diagnosticsContent: DiagnosticsContent = {
   publication: {
     authors: [
       {
-        name: "Ethotechnics Institute Diagnostics Lab",
+        name: "Kanav Jain",
         affiliation: "Ethotechnics Institute",
         email: "hello@ethotechnics.org",
       },
@@ -169,7 +169,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       href: "https://creativecommons.org/licenses/by-sa/4.0/",
     },
     attribution:
-      "Credit the Ethotechnics Institute Diagnostics Lab, include the tool name and version, and link to the canonical permalink.",
+      "Credit Ethotechnics Institute, include the tool name and version, and link to the canonical permalink.",
   },
   valueProps: [
     {
