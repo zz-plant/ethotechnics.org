@@ -423,7 +423,7 @@ export const checkableProperties: CheckableProperty[] = [
     laws: ["law-x"],
     variables: ["evidence"],
     probes: [],
-    gap: "Not a property of a system under test but of the testing program around it, so it will never have a probe here. It is cataloged because leaving it out would let the framework's most-cited claim escape the accounting that every other claim is held to.",
+    gap: "A property of the testing program around a system, not of the system under test, so it will never have a probe here. It is cataloged because leaving it out would let the framework's most-cited claim escape the accounting that every other claim is held to.",
   },
 ];
 

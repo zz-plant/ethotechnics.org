@@ -12,6 +12,9 @@ Use this map before adding or editing docs so guidance stays easy to find and ma
 - [`deployment.md`](deployment.md): deploy flow and post-deploy verification.
 - [`presence-automation.md`](presence-automation.md): the objection, record, watch, and release
   workflows, how to answer an objection, and the owner's one-time setup.
+- [`visitor-objections.md`](visitor-objections.md): objections visitors have raised about page
+  copy, with evidence, and the check that keeps page copy from answering any other. Separate from
+  the standards objections process above.
 - [`../CHANGELOG.md`](../CHANGELOG.md): dated version history and release notes.
 - [`versioning-and-citations.md`](versioning-and-citations.md): standards versioning, site releases, and citation guidance.
 
