@@ -35,7 +35,10 @@ const challengeMonths = Array.from(
 const reviewMonth = challengeMonths[THRESHOLD - 1];
 const countedMonths = challengeMonths.filter((month) => month <= reviewMonth);
 
-// Each panel is drawn on a 480 × 400 canvas.
+// Each panel is drawn on a 480 × 424 canvas: the counted panel's totals take
+// three lines. On one line, "review triggers: 1 (requires revision or
+// justification)" ran 55 characters from x = 40 on a 480-unit canvas, past
+// the drawing and over the frame's border; on a phone the frame cut it off.
 const x0 = 40;
 const panelWidth = 400;
 const ruleY = 112;
@@ -64,7 +67,8 @@ const panels = [
     label: `The same challenges, counted against the rule under MEC-14. At the ${THRESHOLD}th, in month ${reviewMonth}, the rule triggers owner review, requiring revision or formal justification.`,
     totals: [
       `upheld challenges: ${countedMonths.length}`,
-      "review triggers: 1 (requires revision or justification)",
+      "review triggers: 1",
+      "(requires revision or justification)",
     ],
     note: "mandatory review trigger sent to rule owner",
   },
@@ -82,7 +86,7 @@ const panels = [
     {
       panels.map((panel) => (
         <svg
-          viewBox="0 0 480 400"
+          viewBox="0 0 480 424"
           role="img"
           aria-label={`${panel.title}. ${panel.label}`}
           class="rule-count__svg"
@@ -227,7 +231,11 @@ const panels = [
               {line}
             </text>
           ))}
-          <text x={x0} y={axisY + 104} class="demo-figure__svg-label">
+          <text
+            x={x0}
+            y={axisY + 56 + panel.totals.length * 24}
+            class="demo-figure__svg-label"
+          >
             {panel.note}
           </text>
         </svg>

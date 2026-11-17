@@ -421,8 +421,16 @@ const views = [
 </script>
 
 <style>
+  /* reference-tables.css still styles this class for the markup it replaced:
+     layers beside views as two columns of .method-stack itself, and the
+     name, count and role as direct children of the layer. Left in force
+     above 1000px, those rules set the trace banner beside the controls and
+     squeezed each layer's row into a 13rem column, so a role wrapped one
+     word to a line. The three track lists below put the grid back on the
+     elements that carry it now. */
   .method-stack {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-4);
   }
 
@@ -468,12 +476,14 @@ const views = [
     }
   }
 
+  /* The gap is the height of the arrow reference-tables.css draws between
+     two layers; at a smaller gap the arrow sat on the band above. */
   .method-stack__layers {
     list-style: none;
     margin: 0;
     padding: 0;
     display: grid;
-    gap: var(--space-2);
+    gap: var(--space-5);
   }
 
   .method-stack__layer {
@@ -482,6 +492,7 @@ const views = [
     border-radius: var(--radius-sm);
     padding: var(--space-3) var(--space-4);
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-2);
     transition: all var(--motion-fast) ease;
   }
@@ -490,17 +501,18 @@ const views = [
     border-color: var(--accent);
   }
 
+  /* Name over count in the first column, the role beside both: the
+     placement reference-tables.css gives the three from 640px up. */
   .method-stack__layer-main {
     display: grid;
-    grid-template-columns: 140px auto 1fr;
+    grid-template-columns: minmax(10rem, 13rem) minmax(0, 1fr);
     align-items: baseline;
-    gap: var(--space-3);
+    gap: var(--space-1) var(--space-4);
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 639.98px) {
     .method-stack__layer-main {
-      grid-template-columns: 1fr;
-      gap: var(--space-1);
+      grid-template-columns: minmax(0, 1fr);
     }
   }
 
@@ -517,10 +529,6 @@ const views = [
     font-size: var(--text-xs);
     color: var(--muted);
     font-variant-numeric: tabular-nums;
-  }
-
-  .method-stack__count-part {
-    margin-left: var(--space-1);
   }
 
   .method-stack__role {

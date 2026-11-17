@@ -27,6 +27,14 @@
     box-shadow: var(--card-inner-highlight);
   }
 
+  /* One format is not a choice. With a single tab the switcher drew a lone
+     "Signals" button adrift beside the heading, and on a phone an empty
+     full-width capsule that read as a search field. The panel stays; its
+     heading already names the format. */
+  .field-notes__tabs:has(> .pill-list__item:only-child) {
+    display: none;
+  }
+
   .field-notes__tabs .pill-list__item {
     padding: 0;
     background: transparent;

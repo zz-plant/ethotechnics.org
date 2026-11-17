@@ -141,6 +141,13 @@
     width: min(var(--content-max), 100%);
   }
 
+  /* A .container set directly inside <main> took the gutter off a second
+     time: /start and /triage ran 64px a side narrower than the header above
+     them and the footer below, and 20px a side narrower on a phone. */
+  .page-shell__content > main > .container {
+    width: 100%;
+  }
+
   /* --- Site Footer --- */
   /*
    * Two bands, not one grid. Every section used to share a single auto-fit

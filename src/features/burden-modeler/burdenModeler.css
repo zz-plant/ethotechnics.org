@@ -323,8 +323,12 @@
 }
 
 @media (max-width: 900px) {
+  /* minmax(0, ...), not a bare 1fr: an fr track is at least as wide as its
+     widest content, and the segment table's four columns add up to 486px.
+     On a phone the track came out 560px wide inside a 303px panel that
+     clips, so every input, slider and result was cut off at the right. */
   .burden-modeler__grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .input-card__header,
@@ -356,5 +360,40 @@
 @media (prefers-reduced-motion: reduce) {
   .hotspot__bar-fill {
     transition: none;
+  }
+}
+
+/* A phone: the panel, the card inside it and the table inside that each
+   took 24px a side, leaving 231px of a 390px screen. The inner two step
+   down to the compact container, and the segment table's columns give up
+   their pixel floors so four of them fit. */
+@media (max-width: 560px) {
+  .input-card,
+  .result-card {
+    padding: var(--space-container-compact);
+  }
+
+  .segment-table__row {
+    grid-template-columns:
+      minmax(0, 1.2fr) 3.25rem minmax(0, 1fr)
+      minmax(0, 0.9fr);
+    gap: var(--space-2);
+  }
+
+  .segment-table__row--header {
+    letter-spacing: var(--tracking-label);
+  }
+
+  /* Five descriptors in tracked capitals are wider than the scale they sit
+     under, and ran together as one word off the card's edge. The two ends
+     and the midpoint stay, in sentence case; every slider below names its
+     own rating in full. */
+  .scale-legend__descriptors {
+    text-transform: none;
+    letter-spacing: normal;
+  }
+
+  .scale-legend__descriptors > :nth-child(even) {
+    display: none;
   }
 }
