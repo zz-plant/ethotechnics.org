@@ -19,6 +19,12 @@ standard versions, and cited revisions relate.
 
 ### Changed
 
+- **Page copy answers only objections visitors raised:** A unit test
+  (`scripts/lib/presupposing-copy.test.ts`) fails on copy under `src/` that answers a doubt nobody
+  voiced ("don't worry", "not another …", a list of what a tool is not) unless the sentence names
+  an entry in `docs/visitor-objections.md`, which records each objection with its evidence. Six
+  passages on the about, method, burden budget worksheet, scholarly crossings, checkable
+  properties, and green dashboard pages now say what the thing is instead.
 - **README rewritten for a first-time reader:** It now opens with the question and the Robodebt
   facts, names the five cases, and shows how to run the checker and the harness. Maintainer
   material moved to `docs/local-development.md`, `docs/deployment.md`, and `docs/architecture.md`.
