@@ -89,7 +89,13 @@ test.describe("Production scripts", () => {
 
   test("opens the signals panel at a field note's hash", async ({ page }) => {
     await page.goto("/field-notes#price-of-a-decision");
-    const signalsTab = page.getByRole("tab", { name: "Signals" });
+    // With one format the tab list is not drawn (field-notes.css), so the
+    // tab is out of the accessibility tree; its state is still what the
+    // script sets.
+    const signalsTab = page.getByRole("tab", {
+      name: "Signals",
+      includeHidden: true,
+    });
     const signalPanel = page.locator(
       '[data-field-notes-panel][data-format="signal"]',
     );
