@@ -642,8 +642,13 @@ const routes = [
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
   }
 
+  /* Three rows, the middle one taking the slack: the description sits under
+     its heading and the link on the card's floor. With no rows named, a
+     card taller than its text shared the extra height among all three and
+     each description floated at a different depth. */
   .start-routes__link {
     display: grid;
+    grid-template-rows: auto 1fr auto;
     gap: var(--space-1);
     height: 100%;
     padding: var(--space-4);
@@ -660,6 +665,17 @@ const routes = [
 
   .start-routes__bring {
     font-weight: 600;
+  }
+
+  /* The sentence under the routes sits inside the <nav>, where links lose
+     their underline. "One sprint" differed from the muted text around it by
+     colour alone, at 1.09:1, and the a11y suite failed /start on it. The
+     same underline .section-lead gives a link in a sentence. */
+  .start-routes > p a {
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--link) 45%, transparent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
   }
 
   .start-routes__label {
@@ -712,10 +728,11 @@ const routes = [
     margin-bottom: var(--space-4);
   }
 
+  /* The last section on the page: the footer draws the rule that closes it.
+     With a rule and a margin of its own it ended on two rules a hundred
+     pixels apart with nothing between them. */
   .start-translation {
-    margin-bottom: var(--space-8);
-    padding-bottom: var(--space-6);
-    border-bottom: 1px solid var(--border);
+    margin-bottom: 0;
   }
 
   .start-translation__header {

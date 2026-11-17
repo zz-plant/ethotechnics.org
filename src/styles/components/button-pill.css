@@ -118,8 +118,13 @@
     }
   }
 
+  /* A pill is as wide as its label. As a grid or column-flex item it was
+     stretched to the track instead: the "Start" label on /start ran the
+     width of the page and read as an empty search field, and the tag on
+     each symptom, time and translation card ran the width of its card. */
   .pill {
     display: inline-flex;
+    width: fit-content;
     align-items: center;
     gap: var(--space-2);
     padding: var(--space-2) var(--space-4);
