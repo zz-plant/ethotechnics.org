@@ -57,6 +57,8 @@ timeline.forEach((event, index) => {
 });
 
 const warnings = rows.filter((row) => row.state === "unanswered").length;
+// A reader meets the chip before the rail it counts, so it names the warnings.
+const chipLabel = `${warnings} ${warnings === 1 ? "warning" : "warnings"} unanswered, then a halt`;
 
 // The launch is the run's opening beat: it is not a warning, so it sets the
 // scene in a lead rather than taking a rail row.
@@ -95,13 +97,7 @@ const money = (amount: number) => `A$${amount.toLocaleString("en-AU")}`;
             Watch one scheme run.
           </h2>
         </div>
-        <p
-          class="record-spine__chip"
-          data-spine-chip
-          data-warnings-total={warnings}
-        >
-          {warnings} unanswered · 1 halt
-        </p>
+        <p class="record-spine__chip">{chipLabel}</p>
       </header>
 
       {launch && (
@@ -177,8 +173,6 @@ const money = (amount: number) => `A$${amount.toLocaleString("en-AU")}`;
               "record-spine__row",
               `record-spine__row--${row.state}`,
             ]}
-            data-spine-row
-            data-state={row.state}
             data-reveal
           >
             <div class="record-spine__quote">
