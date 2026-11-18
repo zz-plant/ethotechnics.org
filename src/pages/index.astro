@@ -31,11 +31,16 @@ import { commissionedWork } from "../content/commissioned-work";
  * with the exception-learning drawing that shows both the broken path and
  * the fix, and the self-test draws the reader's system as a six-node ring.
  *
- * The role doors sit in the masthead, beside the question, so a reader who
- * will not scroll the story still has a next page on the first screen: on a
- * phone the header bar shows no sections, and the doors are the first
- * screen's only way past it. They name the reader, not the site's sections;
- * the header carries the sections. They appear only there.
+ * The first screen offers one next step: the self-test, the story's own
+ * turn to the reader's system. It used to put two hero buttons and six
+ * reader doors beside the question, on top of the header's links. Incident
+ * triage stays under the button as a plain link, for the reader whose system
+ * is failing now, and the header's "Start here" leads to the routes by
+ * reader on any screen.
+ *
+ * The reader doors follow the self-test instead, where a reader who has
+ * answered for their own system asks what to read next. They name the
+ * reader, not the site's sections; the map after them carries the sections.
  */
 const doors = [
   {
@@ -90,34 +95,12 @@ const doors = [
         <a class="button primary" href="#self-test">
           Test your system in 60 seconds
         </a>
-        <a class="button ghost institute-hero__triage-link" href="/triage">
-          Triage a failure in progress
-        </a>
       </div>
-    </div>
-    <nav class="home-doors" aria-labelledby="home-doors-heading">
-      <h2 id="home-doors-heading" class="home-doors__heading">
-        Start from where you are
-      </h2>
-      <ul class="home-doors__list">
-        {
-          doors.map((door) => (
-            <li>
-              <a class="home-doors__door" href={door.href}>
-                <span class="home-doors__who">{door.who}</span>
-                <span class="home-doors__action" aria-hidden="true">
-                  →
-                </span>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-      <p class="home-doors__fit small muted">
-        Not sure it applies to your system?
-        <a href="/use-cases">Which systems this is for</a>
+      <p class="institute-hero__urgent small muted">
+        Something going wrong now?
+        <a href="/triage">Triage a failure in progress</a>
       </p>
-    </nav>
+    </div>
   </section>
 
   <RecordSpine />
@@ -166,6 +149,30 @@ const doors = [
       <SafeguardMap class="home-core__figure" />
     </div>
   </div>
+
+  <nav class="home-doors" aria-labelledby="home-doors-heading">
+    <h2 id="home-doors-heading" class="section__heading">
+      Start from where you are
+    </h2>
+    <ul class="home-doors__list">
+      {
+        doors.map((door) => (
+          <li>
+            <a class="home-doors__door" href={door.href}>
+              <span class="home-doors__who">{door.who}</span>
+              <span class="home-doors__action" aria-hidden="true">
+                →
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="home-doors__fit small muted">
+      Not sure it applies to your system?
+      <a href="/use-cases">Which systems this is for</a>
+    </p>
+  </nav>
 
   <PublishedMap />
 

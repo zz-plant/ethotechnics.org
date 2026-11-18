@@ -8,10 +8,14 @@
  * On the left, each upheld challenge goes back to the one person who brought
  * it, and the rule that produced the decision is never asked to answer. The
  * same error keeps arriving, quarter after quarter. On the right, upheld
- * challenges are counted against the rule (MEC-14). When the count reaches a
- * set number the rule goes back to its owner, is revised, and stops producing
- * the error. Same system, same errors at the start. The difference is whether
- * anyone had to count.
+ * challenges are counted against the rule by a policy review trigger. When
+ * the count reaches a set number the rule goes back to its owner, is revised,
+ * and stops producing the error. Same system, same errors at the start. The
+ * difference is whether anyone had to count.
+ *
+ * The figure sits on the homepage, whose reader has not met the catalog's
+ * numbering, so it names the mechanism and the standard in words and links
+ * them, without their IDs.
  *
  * One drawing per panel, so the two stack on a phone instead of the second,
  * which carries the point, sitting off-screen in a scroller.
@@ -64,7 +68,7 @@ const panels = [
     title: "Counted against the rule",
     kicker: `${THRESHOLD} upheld challenges trigger owner review`,
     marks: countedMonths,
-    label: `The same challenges, counted against the rule under MEC-14. At the ${THRESHOLD}th, in month ${reviewMonth}, the rule triggers owner review, requiring revision or formal justification.`,
+    label: `The same challenges, counted against the rule by a policy review trigger. At the ${THRESHOLD}th, in month ${reviewMonth}, the rule triggers owner review, requiring revision or formal justification.`,
     totals: [
       `upheld challenges: ${countedMonths.length}`,
       "review triggers: 1",
@@ -80,7 +84,7 @@ const panels = [
   class="rule-count"
   level={level}
   title="The same upheld challenges, settled and counted"
-  lede={`One upheld challenge a quarter for ${MONTHS / 12} years. In the first drawing, each is settled as one person's case without changing the rule. In the second, each is also counted against the rule that produced it (MEC-14), with ${THRESHOLD} chosen as an illustrative threshold that triggers mandatory review by the rule's owner.`}
+  lede={`One upheld challenge a quarter for ${MONTHS / 12} years. In the first drawing, each is settled as one person's case without changing the rule. In the second, a policy review trigger also counts each one against the rule that produced it, with ${THRESHOLD} chosen as an illustrative threshold that triggers mandatory review by the rule's owner.`}
 >
   <div class="demo-figure__frame rule-count__panels">
     {
@@ -246,8 +250,10 @@ const panels = [
     The first system fixes every case it is shown and never learns. This is a
     demonstration, not a measurement of any real system. The trigger is a
     <a href="/mechanisms/patterns/policy-review-triggers"
-      >policy review trigger (MEC-14)</a
-    >; the deadline for the revision comes from
-    <a href="/standards/std-07-revisable-delegation-record">STD-07</a>.
+      >policy review trigger</a
+    >; the deadline for the revision comes from the standard for a
+    <a href="/standards/std-07-revisable-delegation-record"
+      >revisable delegation record</a
+    >.
   </p>
 </DemoFigure>

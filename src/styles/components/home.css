@@ -193,20 +193,18 @@
     text-underline-offset: 0.15em;
   }
 
-  /* The story masthead: the headline and lede, with the reader doors
-     beside them on a wide screen and under the buttons on a phone, so the
-     first tap target stays on the first screen. */
+  /* The story masthead: the headline, the lede, and one next step. The
+     reader doors used to fill a second column here; they follow the
+     self-test now (see .home-doors). */
   .institute-hero--story {
     display: grid;
-    gap: var(--space-7);
   }
 
-  @media (min-width: 1000px) {
-    .institute-hero--story {
-      grid-template-columns: minmax(0, 1fr) minmax(20rem, 28rem);
-      column-gap: clamp(var(--space-6), 4vw, var(--space-8));
-      align-items: center;
-    }
+  /* The way out of the story for a reader whose system is failing now:
+     a line under the button, not a second button beside it. */
+  .institute-hero__urgent a {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
   }
 
   .institute-hero__lede {
@@ -216,23 +214,20 @@
     color: var(--text);
   }
 
-  /* The doors: the reader names who they are before choosing a page. */
-  /* The doors sit in the masthead's second column on a wide screen and under
-     the buttons below that. They read as a directory: one hairline row per
-     reader, one arrow. No boxes: wayfinding, not merchandising. */
+  /* The doors: the reader names who they are before choosing a page. They
+     follow the self-test, between the tinted band and the map, and read as a
+     directory: one hairline row per reader, one arrow. No boxes: wayfinding,
+     not merchandising. Two columns on a wide screen. */
   .home-doors {
     display: grid;
-    gap: var(--space-3);
-    align-content: start;
+    gap: var(--space-4);
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding-block: calc(var(--space-section) / 2) 0;
   }
 
-  .home-doors__heading {
+  .home-doors > h2 {
     margin: 0;
-    font-family: var(--sans);
-    font-size: var(--text-sm);
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    color: var(--muted);
   }
 
   .self-test__header {
@@ -251,11 +246,23 @@
   }
 
   .home-doors__list li {
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+  }
+
+  .home-doors__list li:first-child {
     border-top: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
   }
 
-  .home-doors__list li:last-child {
-    border-bottom: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+  @media (min-width: 760px) {
+    .home-doors__list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: clamp(var(--space-5), 4vw, var(--space-8));
+    }
+
+    .home-doors__list li:nth-child(2) {
+      border-top: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+    }
   }
 
   /* The line under the doors for a reader who has no role yet, only a system. */
@@ -920,7 +927,7 @@
     }
   }
 
-  .institute-hero__triage-link:focus-visible {
+  .institute-hero__urgent a:focus-visible {
     outline: var(--focus-outline);
     outline-offset: var(--focus-outline-offset);
     border-radius: var(--radius-xs);

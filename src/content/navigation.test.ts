@@ -35,18 +35,20 @@ describe("navSections", () => {
     expect(navSections.map((section) => section.heading)).toEqual([
       "Method",
       "Mechanisms and evals",
-      "Tools",
+      "Diagnostics",
       "Knowledge",
     ]);
   });
 
+  // The laws, the standards that test them, and the evidence each standard
+  // asks for sit in that order, so the pages that sound alike sit together.
   it("routes to the method, the laws, and the evidence packs from the method section", () => {
     expect(sectionLinks("Method")).toEqual([
       "/method",
       "/standards/laws",
-      "/low-leverage",
       "/standards",
       "/evidence-packs",
+      "/low-leverage",
     ]);
   });
 
@@ -63,8 +65,8 @@ describe("navSections", () => {
     }
   });
 
-  it("lists both delegation tools under tools", () => {
-    const links = sectionLinks("Tools");
+  it("lists both delegation tools under diagnostics", () => {
+    const links = sectionLinks("Diagnostics");
     expect(links).toContain("/diagnostics/delegation-audit");
     expect(links).toContain("/diagnostics/record-conformance");
   });
@@ -73,7 +75,9 @@ describe("navSections", () => {
   // one that takes a workflow is deliberate: it is the only input every reader
   // already has.
   it("orders tools by input, workflow first", () => {
-    expect(sectionLinks("Tools")[0]).toBe("/diagnostics/delegation-audit");
+    expect(sectionLinks("Diagnostics")[0]).toBe(
+      "/diagnostics/delegation-audit",
+    );
   });
 
   // The section description names five inputs, the fifth being "a decision
@@ -81,11 +85,43 @@ describe("navSections", () => {
   // decided about — the audience the site's purpose statement names — so the
   // link goes to their checks, not to a hub they then have to interpret.
   it("gives the person a system decided about a direct link", () => {
-    expect(sectionLinks("Tools")).toContain("/diagnostics/self-defense-tools");
+    expect(sectionLinks("Diagnostics")).toContain(
+      "/diagnostics/self-defense-tools",
+    );
   });
 
   it("lists theory under knowledge", () => {
     expect(sectionLinks("Knowledge")).toContain("/research/theory");
+  });
+
+  // The bar said "Diagnostics" while the menu heading for the same page said
+  // "Tools", and the two described Standards and Mechanisms differently. A
+  // page reached from both is called one thing; the bar may drop a leading
+  // "The".
+  it("names each bar destination as the menu does", () => {
+    for (const link of navPrimaryLinks) {
+      const entry = navSections
+        .flatMap((section) => [
+          ...(section.href
+            ? [
+                {
+                  href: section.href,
+                  label: section.heading,
+                  description: section.description,
+                },
+              ]
+            : []),
+          ...section.links,
+        ])
+        .find((candidate) => candidate.href === link.href);
+      expect(entry, `${link.href} is not in the menu`).toBeDefined();
+      expect(
+        entry?.label.replace(/^The (\w)/, (_, first: string) =>
+          first.toUpperCase(),
+        ),
+      ).toBe(link.label);
+      expect(entry?.description).toBe(link.description);
+    }
   });
 
   it("uses unique hrefs across the mega menu", () => {
