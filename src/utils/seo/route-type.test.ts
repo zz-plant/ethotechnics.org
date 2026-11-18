@@ -66,7 +66,7 @@ describe("resolveRouteProfile", () => {
   it("types tools, the about page, contact, and search by what they are", () => {
     expect(profile("/diagnostics/record-conformance")).toMatchObject({
       kind: "tool",
-      group: "Tools",
+      group: "Diagnostics",
       articleType: undefined,
       openGraphType: "website",
     });
