@@ -4,8 +4,8 @@ description: "A draft record format for work delegated to machines: what was bel
 permalink: "/standards/std-07-revisable-delegation-record"
 eyebrow: "Standard STD-07"
 seoTitle: "Revisable delegation record (STD-07)"
-version: "0.2.0"
-lastUpdated: "2026-11-09"
+version: "0.2.1"
+lastUpdated: "2026-11-18"
 publishedTime: "2026-09-06T00:00:00.000Z"
 mainClass: "page page--wide standard-document"
 anchorLinks:
@@ -450,6 +450,21 @@ export const conformanceLevels = [
             challenging, not only the channel. A route that requires the
             challenger to accept the institution's own experts as the only
             experts is a hearing, not a correction.
+          </li>
+          <li id="clause-6-5">
+            <span class="standard-clause-id">§6.5</span>
+            Halt and re-authorization are independent: A consequential
+            authorization MUST name who can halt it
+            (<code>halt_authority</code>), the time-to-halt target
+            (<code>time_to_halt_target</code>), and whether that authority is
+            independent of the operator
+            (<code>independent_of_operator</code>). The review date and
+            conditions in §6.2 MUST also name the authority that re-authorizes
+            (<code>reauthorization_authority</code>). Where that authority is
+            the operator alone, the record MUST say so and MUST NOT be cited as
+            independent review. An authorization whose only halt route runs
+            through the party that benefits from its continuation does not
+            satisfy §6.2, however clearly it states a review date.
           </li>
         </ol>
       </section>

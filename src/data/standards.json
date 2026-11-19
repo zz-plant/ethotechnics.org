@@ -301,9 +301,14 @@
         "title": "Revisable delegation record",
         "description": "One append-only record shape for what an institution believed, could do, authorized, did, saw diverge, and revised.",
         "status": "Draft",
-        "version": "0.2.0",
+        "version": "0.2.1",
         "changelogHref": "/standards/std-07-revisable-delegation-record#publication-history",
         "changelogEntries": [
+          {
+            "version": "0.2.1",
+            "date": "2026-11-18",
+            "summary": "Adds §6.5: halt authority, time-to-halt target, operator independence, and the re-authorization authority are named on the record."
+          },
           {
             "version": "0.2.0",
             "date": "2026-11-09",
@@ -350,9 +355,14 @@
         "title": "Delegation",
         "description": "What must stay true while an automated system acts for an institution: its authority expires unless renewed, the policies behind it are rechecked when facts change, human oversight names what the human can actually change, and the capacity to correct errors grows with the authority granted.",
         "status": "Draft",
-        "version": "0.3.2",
+        "version": "0.3.3",
         "changelogHref": "/standards/std-08-delegation#publication-history",
         "changelogEntries": [
+          {
+            "version": "0.3.3",
+            "date": "2026-11-18",
+            "summary": "Adds §3.7: dissent and override are recorded per specification and review period, and a sustained override rate opens a reconsideration of the specification and routing threshold."
+          },
           {
             "version": "0.3.2",
             "date": "2026-10-13",
@@ -1967,6 +1977,24 @@
         "timeBound": "at declaration",
         "relatedMechanisms": [],
         "relatedValidators": []
+      },
+      {
+        "id": "STD-07.6.5",
+        "standardId": "STD-07",
+        "displayId": "§6.5",
+        "type": "obligation",
+        "requirementLevel": "MUST",
+        "condition": "a consequential authorization is recorded",
+        "obligation": "name the halt authority, the time-to-halt target, whether that authority is independent of the operator, and the authority that re-authorizes; an operator-only halt or re-authorization route must be stated and cannot be cited as independent review",
+        "evidenceRequired": [
+          "halt_authority",
+          "time_to_halt_target",
+          "independent_of_operator",
+          "reauthorization_authority"
+        ],
+        "timeBound": "at authorization",
+        "relatedMechanisms": [],
+        "relatedValidators": []
       }
     ],
     "STD-08": [
@@ -2486,6 +2514,27 @@
           "independent evaluator named but reliant on the executor for the data it evaluates"
         ],
         "relatedMechanisms": ["MEC-13", "MEC-18"],
+        "relatedValidators": []
+      },
+      {
+        "id": "STD-08.3.7",
+        "standardId": "STD-08",
+        "displayId": "§3.7",
+        "type": "obligation",
+        "requirementLevel": "MUST",
+        "condition": "a confirm-mode intervention specification is in use",
+        "obligation": "record each occasion the owner disagreed with or overrode the routed decision, with the reason given, and open a reconsideration of the specification and routing threshold when the override rate is sustained above the threshold published before the review period",
+        "evidenceRequired": [
+          "intervention_specification.dissent_log",
+          "intervention_specification.override_rate",
+          "intervention_specification.override_threshold"
+        ],
+        "timeBound": "per review period",
+        "failureModes": [
+          "override rate measured but never compared with a published threshold",
+          "dissent recorded as an aggregate count with no reasons"
+        ],
+        "relatedMechanisms": ["MEC-13"],
         "relatedValidators": []
       }
     ],
