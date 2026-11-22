@@ -5,6 +5,7 @@ import {
   isCurrentLink,
   isHashLink,
   isSameDocumentHashLink,
+  isSectionCurrent,
   normalizePath,
   toViewTransitionName,
 } from "./navigation";
@@ -105,5 +106,37 @@ describe("isSameDocumentHashLink", () => {
   it("detects same-document homepage section links", () => {
     expect(isSameDocumentHashLink("/#failure-intake")).toBe(true);
     expect(isSameDocumentHashLink("/standards#overview")).toBe(false);
+  });
+});
+
+describe("isSectionCurrent", () => {
+  const methodSection = {
+    links: [
+      { href: "/method" },
+      { href: "/standards" },
+      { href: "/standards/laws" },
+    ],
+  };
+  const diagnosticsSection = {
+    href: "/diagnostics",
+    links: [{ href: "/diagnostics/delegation-audit" }, { href: "/use-cases" }],
+  };
+
+  it("matches exact links and descendant paths inside a section", () => {
+    expect(isSectionCurrent(methodSection, "/method")).toBe(true);
+    expect(
+      isSectionCurrent(methodSection, "/standards/std-01-temporal-rights"),
+    ).toBe(true);
+    expect(isSectionCurrent(diagnosticsSection, "/diagnostics")).toBe(true);
+    expect(
+      isSectionCurrent(diagnosticsSection, "/diagnostics/burden-modeler"),
+    ).toBe(true);
+    expect(isSectionCurrent(diagnosticsSection, "/use-cases")).toBe(true);
+  });
+
+  it("does not match unrelated routes or homepage", () => {
+    expect(isSectionCurrent(methodSection, "/")).toBe(false);
+    expect(isSectionCurrent(methodSection, "/glossary")).toBe(false);
+    expect(isSectionCurrent(diagnosticsSection, "/casebook")).toBe(false);
   });
 });

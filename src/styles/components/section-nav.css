@@ -25,7 +25,9 @@
        ghost on the dark ground. */
     background: var(--bg);
     border-bottom: 1px solid var(--glass-border);
+    transform: translateY(0);
     transition:
+      transform var(--motion-base) var(--ease-out-editorial),
       background-color var(--motion-fast) ease,
       border-color var(--motion-fast) ease,
       box-shadow var(--motion-fast) ease;

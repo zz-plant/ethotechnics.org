@@ -63,6 +63,19 @@ const getAriaCurrent = (
   return undefined;
 };
 
+const isSectionCurrent = (
+  section: { href?: string; links: Array<{ href: string }> },
+  currentPath: string,
+): boolean => {
+  if (section.href && isCurrentLink(section.href, currentPath, true)) {
+    return true;
+  }
+
+  return section.links.some((link) =>
+    isCurrentLink(link.href, currentPath, true),
+  );
+};
+
 const toViewTransitionName = (href: string, scope: "desktop" | "mobile") => {
   const normalized = normalizePath(href);
   const slug = normalized
@@ -79,6 +92,7 @@ export {
   isCurrentLink,
   isHashLink,
   isSameDocumentHashLink,
+  isSectionCurrent,
   normalizePath,
   toViewTransitionName,
 };

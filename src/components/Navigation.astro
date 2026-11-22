@@ -1,7 +1,11 @@
 ---
+import { Icon } from "astro-icon/components";
+import Logo from "./Logo.astro";
+import Search from "./Search.astro";
+import Wordmark from "./Wordmark.astro";
 import NavigationDesktop from "./navigation/NavigationDesktop.astro";
 import NavigationMobile from "./navigation/NavigationMobile.astro";
-import { navPrimaryLinks } from "../content/navigation";
+import { normalizePath } from "../utils/navigation";
 
 interface Props {
   currentPath?: string;
@@ -12,26 +16,74 @@ const {
   currentPath = Astro.url.pathname,
   currentHash = Astro.url.hash,
 }: Props = Astro.props;
+
+const normalizedPath = normalizePath(currentPath);
+const isHome = normalizedPath === "/";
+const isStart = normalizedPath === "/start";
 ---
 
-<nav class="nav" aria-label="Primary" data-nav>
+<header class="nav" data-nav>
   <div class="nav__inner container">
-    <NavigationDesktop
-      currentPath={currentPath}
-      currentHash={currentHash}
-      desktopLinks={navPrimaryLinks}
-    />
+    <a
+      href="/"
+      class="nav__brand"
+      aria-label="Ethotechnics Institute home"
+      aria-current={isHome ? "page" : undefined}
+    >
+      <Logo class="nav__brand-logo" ariaHidden={true} />
+      <Wordmark class="nav__wordmark" ariaHidden={true} />
+    </a>
 
-    <NavigationMobile currentPath={currentPath} currentHash={currentHash} />
+    <NavigationDesktop currentPath={currentPath} currentHash={currentHash} />
+
+    <div class="nav__actions">
+      <a
+        href="/start"
+        class:list={["nav__start-btn", { "nav__start-btn--active": isStart }]}
+        aria-current={isStart ? "page" : undefined}
+      >
+        Start here
+      </a>
+
+      <div class="nav__search">
+        <Search label="Search" shortcut="⌘K" />
+      </div>
+
+      <button
+        class="theme-toggle nav__theme-desktop"
+        data-theme-toggle
+        aria-label="Toggle theme"
+        type="button"
+      >
+        <Icon
+          name="lucide:sun"
+          class="theme-toggle__icon theme-toggle__icon--sun"
+          aria-hidden="true"
+        />
+        <Icon
+          name="lucide:moon"
+          class="theme-toggle__icon theme-toggle__icon--moon"
+          aria-hidden="true"
+        />
+      </button>
+
+      <button
+        class="nav__menu-btn"
+        type="button"
+        aria-controls="nav-drawer"
+        aria-expanded="false"
+        data-nav-drawer-open
+      >
+        <Icon name="lucide:menu" class="nav__menu-icon" aria-hidden="true" />
+        <span class="nav__menu-label">Menu</span>
+      </button>
+    </div>
   </div>
-</nav>
+</header>
 
-{
-  /* Bundled scripts cannot be gated by a template conditional; the script
-    itself no-ops when the page has no same-document hash links. */
-}
+<NavigationMobile currentPath={currentPath} currentHash={currentHash} />
+
 <script>
-  import "../client/navigation-home-hash.ts";
-  import "../client/navigation-browse.ts";
+  import "../client/navigation-menus.ts";
   import "../client/section-nav.ts";
 </script>

@@ -1,166 +1,103 @@
 ---
-import Logo from "../Logo.astro";
-import Wordmark from "../Wordmark.astro";
-import Search from "../Search.astro";
 import { Icon } from "astro-icon/components";
-import type { NavLink } from "../../content/navigation";
 import { navSections } from "../../content/navigation";
-import {
-  getAriaCurrent,
-  isHashLink,
-  isSameDocumentHashLink,
-  normalizePath,
-} from "../../utils/navigation";
+import { getAriaCurrent, isSectionCurrent } from "../../utils/navigation";
 
 interface Props {
   currentPath: string;
   currentHash?: string;
-  desktopLinks: NavLink[];
 }
 
-const { currentPath, currentHash = "", desktopLinks }: Props = Astro.props;
-const isHome = normalizePath(currentPath) === "/";
-const isStart = normalizePath(currentPath) === "/start";
+const { currentPath, currentHash = "" }: Props = Astro.props;
 ---
 
-<div class="nav__bar">
-  <a
-    href="/"
-    class="nav__brand"
-    aria-label="Go to the homepage"
-    aria-current={isHome ? "page" : undefined}
-  >
-    <Logo class="nav__brand-logo" title="Ethotechnics" />
-    <Wordmark class="nav__wordmark" ariaHidden={true} />
-  </a>
-
-  <nav class="nav__links nav__links--desktop" aria-label="Primary">
+<nav class="nav__primary" aria-label="Primary">
+  <ul class="nav__sections">
     {
-      desktopLinks.map((link) => (
-        <a
-          class="nav__link"
-          href={link.href}
-          aria-label={
-            isHashLink(link.href)
-              ? `${link.label}, jumps to a homepage section`
-              : link.label
-          }
-          title={
-            isHashLink(link.href)
-              ? "Jumps to a section on the homepage"
-              : undefined
-          }
-          data-nav-hash-link={
-            isSameDocumentHashLink(link.href) ? "true" : undefined
-          }
-          aria-current={getAriaCurrent(
-            link.href,
-            currentPath,
-            currentHash,
-            true,
-          )}
-        >
-          {link.label}
-        </a>
-      ))
-    }
-  </nav>
+      navSections.map((section) => {
+        const panelId = `nav-panel-${section.id}`;
+        const isActive = isSectionCurrent(section, currentPath);
 
-  {
-    /*
-    The four sections and their twenty described links used to render only in
-    the mobile drawer, so the widest viewport saw the least: five bare labels
-    and no descriptions. This panel puts the same map on desktop without
-    hiding the primary links behind a hover menu — the bar stays a fast path,
-    this is the full view. A <details> element carries the open state, so it
-    works from the keyboard and before any script runs, which is the pattern
-    the mobile drawer already uses.
-  */
-  }
-  <details class="nav__browse" data-nav-browse>
-    <summary class="nav__browse-summary">
-      <span>Browse</span>
-      <Icon name="lucide:chevron-down" class="nav__browse-chevron" />
-    </summary>
+        return (
+          <li class="nav__section-item" data-nav-section>
+            <button
+              type="button"
+              class="nav__section-trigger"
+              popovertarget={panelId}
+              popovertargetaction="toggle"
+              aria-controls={panelId}
+              aria-expanded="false"
+              data-nav-trigger
+              data-section-active={isActive ? "true" : undefined}
+            >
+              <span>{section.heading}</span>
+              <Icon
+                name="lucide:chevron-down"
+                class="nav__chevron"
+                aria-hidden="true"
+              />
+            </button>
 
-    <div class="nav__browse-panel">
-      <div class="nav__browse-grid">
-        {
-          navSections.map((section) => (
-            <div class="nav__browse-group">
-              <p class="nav__browse-group-title">
-                {section.href ? (
-                  <a
-                    href={section.href}
-                    aria-current={getAriaCurrent(
-                      section.href,
-                      currentPath,
-                      currentHash,
-                    )}
-                  >
-                    {section.heading}
-                  </a>
-                ) : (
-                  section.heading
-                )}
-              </p>
-              <p class="nav__browse-group-desc">{section.description}</p>
-              <ul class="nav__browse-links">
-                {section.links.map((link) => (
-                  <li>
+            <div
+              id={panelId}
+              class="nav__popover"
+              popover="auto"
+              data-nav-popover
+            >
+              <div class="nav__popover-surface">
+                <div class="nav__popover-header">
+                  {section.href ? (
                     <a
-                      class="nav__browse-link"
-                      href={link.href}
+                      class="nav__popover-hub"
+                      href={section.href}
                       aria-current={getAriaCurrent(
-                        link.href,
+                        section.href,
                         currentPath,
                         currentHash,
                       )}
                     >
-                      <span class="nav__browse-link-title">{link.label}</span>
-                      {link.description && (
-                        <span class="nav__browse-link-desc">
-                          {link.description}
-                        </span>
-                      )}
+                      <span>{section.heading}</span>
+                      <Icon
+                        name="lucide:arrow-right"
+                        class="nav__popover-hub-icon"
+                        aria-hidden="true"
+                      />
                     </a>
-                  </li>
-                ))}
-              </ul>
+                  ) : (
+                    <p class="nav__popover-heading">{section.heading}</p>
+                  )}
+                  <p class="nav__popover-desc">{section.description}</p>
+                </div>
+
+                <ul class="nav__popover-list">
+                  {section.links.map((link) => (
+                    <li>
+                      <a
+                        class="nav__popover-link"
+                        href={link.href}
+                        aria-current={getAriaCurrent(
+                          link.href,
+                          currentPath,
+                          currentHash,
+                        )}
+                      >
+                        <span class="nav__popover-link-title">
+                          {link.label}
+                        </span>
+                        {link.description && (
+                          <span class="nav__popover-link-desc">
+                            {link.description}
+                          </span>
+                        )}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
-          ))
-        }
-      </div>
-    </div>
-  </details>
-
-  <div class="nav__actions-desktop">
-    <a
-      href="/start"
-      class:list={["nav__start-btn", { "nav__start-btn--active": isStart }]}
-      aria-current={isStart ? "page" : undefined}
-    >
-      <span>Start here</span>
-    </a>
-
-    <div class="nav__search-desktop">
-      <Search scope="desktop" label="Search" shortcut="⌘K" />
-    </div>
-
-    <button
-      class="theme-toggle"
-      data-theme-toggle
-      aria-label="Toggle theme"
-      type="button"
-    >
-      <Icon
-        name="lucide:sun"
-        class="theme-toggle__icon theme-toggle__icon--sun"
-      />
-      <Icon
-        name="lucide:moon"
-        class="theme-toggle__icon theme-toggle__icon--moon"
-      />
-    </button>
-  </div>
-</div>
+          </li>
+        );
+      })
+    }
+  </ul>
+</nav>

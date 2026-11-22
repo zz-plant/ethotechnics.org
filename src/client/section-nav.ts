@@ -6,13 +6,18 @@
 
 const publishNavOffset = () => {
   const nav = document.querySelector<HTMLElement>("[data-nav]");
-  const bottom = nav ? Math.round(nav.getBoundingClientRect().bottom) : 0;
-  document.documentElement.style.setProperty("--nav-bottom", `${bottom}px`);
-  return bottom;
+  const height = nav ? Math.round(nav.offsetHeight) : 0;
+  document.documentElement.style.setProperty("--nav-bottom", `${height}px`);
+  return height;
 };
 
 const initializeSectionNav = () => {
   publishNavOffset();
+  const nav = document.querySelector<HTMLElement>("[data-nav]");
+  if (nav && typeof ResizeObserver !== "undefined") {
+    const navResizeObserver = new ResizeObserver(publishNavOffset);
+    navResizeObserver.observe(nav);
+  }
   window.addEventListener("resize", publishNavOffset, { passive: true });
 
   const bar = document.querySelector<HTMLElement>("[data-section-nav]");
@@ -46,7 +51,9 @@ const initializeSectionNav = () => {
   const setCurrent = () => {
     bar.hidden = !introPassed();
     document.documentElement.classList.toggle("has-section-nav", !bar.hidden);
-    const line = (publishNavOffset() || 0) + bar.offsetHeight + 8;
+    const line = bar.hidden
+      ? (publishNavOffset() || 0) + 8
+      : Math.round(bar.getBoundingClientRect().bottom) + 8;
     let current: HTMLElement | null = null;
     for (const target of targets) {
       if (target.getBoundingClientRect().top <= line) current = target;

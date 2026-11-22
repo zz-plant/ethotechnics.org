@@ -32,11 +32,15 @@
 
   const syncToggleLabels = () => {
     const isDark = document.documentElement.classList.contains("dark");
+    const nextLabel = isDark ? "Switch to light theme" : "Switch to dark theme";
     toggles.forEach((btn) => {
-      btn.setAttribute(
-        "aria-label",
-        isDark ? "Switch to light theme" : "Switch to dark theme",
+      btn.setAttribute("aria-label", nextLabel);
+      const labelEl = btn.querySelector<HTMLElement>(
+        "[data-theme-toggle-text]",
       );
+      if (labelEl) {
+        labelEl.textContent = nextLabel;
+      }
     });
     return isDark;
   };
@@ -61,82 +65,6 @@
       announceTheme(nowDark);
     });
   });
-
-  /* mobile nav focus trap + inert + body scroll lock */
-  const mobileNav = document.querySelector("[data-mobile-nav]");
-  if (mobileNav instanceof HTMLDetailsElement) {
-    const pageRegions = () => {
-      const main = document.getElementById("main-content");
-      const footer = document.querySelector<HTMLElement>(".footer");
-      return [main, footer].filter((el): el is HTMLElement => el !== null);
-    };
-
-    let releaseFocusTrap: (() => void) | null = null;
-
-    const trapFocus = (container: HTMLElement) => {
-      const focusable = container.querySelectorAll<HTMLElement>(
-        'summary, a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
-      );
-      if (!focusable.length) return;
-
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-
-      const onKeyDown = (e: KeyboardEvent) => {
-        if (e.key !== "Tab") return;
-        if (e.shiftKey) {
-          if (document.activeElement === first) {
-            e.preventDefault();
-            last.focus();
-          }
-        } else {
-          if (document.activeElement === last) {
-            e.preventDefault();
-            first.focus();
-          }
-        }
-      };
-
-      container.addEventListener("keydown", onKeyDown);
-      return () => container.removeEventListener("keydown", onKeyDown);
-    };
-
-    mobileNav.addEventListener("toggle", () => {
-      const isMobile = window.matchMedia("(max-width: 1099px)").matches;
-      if (mobileNav.open && isMobile) {
-        document.body.style.overflow = "hidden";
-        pageRegions().forEach((el) => (el.inert = true));
-        const firstLink = mobileNav.querySelector<HTMLElement>("a[href]");
-        if (firstLink) firstLink.focus();
-        if (releaseFocusTrap) releaseFocusTrap();
-        releaseFocusTrap = trapFocus(mobileNav) ?? null;
-      } else {
-        document.body.style.overflow = "";
-        pageRegions().forEach((el) => (el.inert = false));
-        if (releaseFocusTrap) {
-          releaseFocusTrap();
-          releaseFocusTrap = null;
-        }
-      }
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key !== "Escape" || !mobileNav.open) return;
-      mobileNav.open = false;
-      mobileNav.querySelector<HTMLElement>("summary")?.focus();
-    });
-
-    /* Crossing to the desktop breakpoint hides the drawer in CSS without
-       firing a toggle, which would leave the page locked and inert behind a
-       drawer that is no longer on screen. Close it so the lock is released
-       with it. */
-    const mobileQuery = window.matchMedia("(max-width: 1099px)");
-    mobileQuery.addEventListener("change", (event) => {
-      if (!event.matches && mobileNav.open) {
-        mobileNav.open = false;
-      }
-    });
-  }
 
   /* back to top button */
   const backToTopBtn = document.getElementById("back-to-top");

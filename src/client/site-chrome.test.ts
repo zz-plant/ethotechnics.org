@@ -1,71 +1,51 @@
-import {
-  afterAll,
-  beforeAll,
-  beforeEach,
-  describe,
-  expect,
-  it,
-} from "bun:test";
+import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 
-describe("mobile navigation keyboard access", () => {
-  let menu: HTMLDetailsElement;
-  let summary: HTMLElement;
-  let main: HTMLElement;
+describe("theme toggle controls", () => {
+  let iconToggle: HTMLButtonElement;
+  let drawerToggle: HTMLButtonElement;
+  let drawerToggleText: HTMLElement;
 
   beforeAll(async () => {
+    document.documentElement.classList.remove("dark");
+    document.documentElement.classList.add("light");
     document.body.innerHTML = `
-      <details data-mobile-nav>
-        <summary>Browse</summary>
-        <a href="/start">Start here</a>
-        <button type="button">Theme</button>
-      </details>
-      <main id="main-content"></main>
-      <footer class="footer"></footer>`;
-    menu = document.querySelector("details")!;
-    summary = menu.querySelector("summary")!;
-    main = document.querySelector("main")!;
+      <button type="button" data-theme-toggle aria-label="Toggle theme"></button>
+      <button type="button" data-theme-toggle aria-label="Toggle theme">
+        <span data-theme-toggle-text>Switch theme</span>
+      </button>`;
+    const buttons = document.querySelectorAll<HTMLButtonElement>(
+      "[data-theme-toggle]",
+    );
+    iconToggle = buttons[0]!;
+    drawerToggle = buttons[1]!;
+    drawerToggleText = drawerToggle.querySelector<HTMLElement>(
+      "[data-theme-toggle-text]",
+    )!;
     await import("./site-chrome");
   });
 
-  beforeEach(() => {
-    menu.open = true;
-    menu.dispatchEvent(new Event("toggle"));
-  });
-
   afterAll(() => {
-    menu.open = false;
-    menu.dispatchEvent(new Event("toggle"));
     document.body.innerHTML = "";
+    document.documentElement.classList.remove("dark", "light");
   });
 
-  it("Escape closes the menu, releases the page, and restores trigger focus", () => {
-    expect(main.inert).toBe(true);
-    menu
-      .querySelector("a")!
-      .dispatchEvent(
-        new KeyboardEvent("keydown", { key: "Escape", bubbles: true }),
-      );
-    expect(menu.open).toBe(false);
-    menu.dispatchEvent(new Event("toggle"));
-    expect(main.inert).toBe(false);
-    expect(document.body.style.overflow).toBe("");
-    expect(document.activeElement).toBe(summary);
-  });
+  it("syncs aria-label and visible label text across both theme buttons", () => {
+    expect(iconToggle.getAttribute("aria-label")).toBe("Switch to dark theme");
+    expect(drawerToggle.getAttribute("aria-label")).toBe(
+      "Switch to dark theme",
+    );
+    expect(drawerToggleText.textContent).toBe("Switch to dark theme");
 
-  it("keeps the Browse trigger in the keyboard cycle", () => {
-    const last = menu.querySelector("button")!;
-    last.focus();
-    last.dispatchEvent(
-      new KeyboardEvent("keydown", { key: "Tab", bubbles: true }),
+    drawerToggle.click();
+
+    expect(document.documentElement.classList.contains("dark")).toBe(true);
+    expect(iconToggle.getAttribute("aria-label")).toBe("Switch to light theme");
+    expect(drawerToggle.getAttribute("aria-label")).toBe(
+      "Switch to light theme",
     );
-    expect(document.activeElement).toBe(summary);
-    summary.dispatchEvent(
-      new KeyboardEvent("keydown", {
-        key: "Tab",
-        shiftKey: true,
-        bubbles: true,
-      }),
+    expect(drawerToggleText.textContent).toBe("Switch to light theme");
+    expect(document.querySelector("#theme-status")?.textContent).toBe(
+      "Dark theme on.",
     );
-    expect(document.activeElement).toBe(last);
   });
 });

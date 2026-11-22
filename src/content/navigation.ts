@@ -5,60 +5,22 @@ export interface NavLink {
 }
 
 export interface NavSection {
+  id: string;
   heading: string;
-  /** The section's index page, linked from its heading. */
+  /** The section's index page, linked from its panel header and drawer. */
   href?: string;
   description: string;
   links: NavLink[];
 }
 
-// The bar and the menu both reach these five pages. Each is named and
-// described once, here, so the two cannot call one page two things: the bar
-// said "Diagnostics" while the menu heading for the same page said "Tools".
-const METHOD_DESCRIPTION =
-  "The framework on one page: its claim and how its parts fit together";
-const STANDARDS_DESCRIPTION =
-  "Draft clauses to cite or adopt, each a test a running system passes or fails";
-const MECHANISMS_DESCRIPTION =
-  "What to build: specifications for kill switches, appeal paths, and review triggers";
-const DIAGNOSTICS_DESCRIPTION =
-  "Ordered by what you bring: a workflow, workload ratings, a decision log, the decision your system makes, or a decision made about you.";
-const CASEBOOK_DESCRIPTION =
-  "Public failures a court or inquiry established, scored by which safeguard broke";
-
-export const navPrimaryLinks: NavLink[] = [
-  {
-    href: "/method",
-    label: "Method",
-    description: METHOD_DESCRIPTION,
-  },
-  {
-    href: "/standards",
-    label: "Standards",
-    description: STANDARDS_DESCRIPTION,
-  },
-  {
-    href: "/mechanisms",
-    label: "Mechanisms",
-    description: MECHANISMS_DESCRIPTION,
-  },
-  {
-    href: "/diagnostics",
-    label: "Diagnostics",
-    description: DIAGNOSTICS_DESCRIPTION,
-  },
-  {
-    href: "/casebook",
-    label: "Casebook",
-    description: CASEBOOK_DESCRIPTION,
-  },
-];
-
 /**
- * The mega menu, in four sections: what must be true (Method), how it is
- * built and scored (Mechanisms and evals), what a reader can run on their own
- * material (Diagnostics), and what the rest rests on (Knowledge: terms, cases,
- * and the theory essays).
+ * The site's four sections, shared across the desktop bar, the mobile drawer,
+ * the home page's published map, and site search:
+ *
+ * 1. What must be true (Method),
+ * 2. How it is built and scored (Mechanisms and evals),
+ * 3. What a reader can run on their own material (Diagnostics),
+ * 4. What the rest rests on (Knowledge: terms, cases, notes, and theory).
  *
  * Neighbors that sound alike each say what they are for: the laws give the
  * reasons and the standards hold the tests; evidence packs list what to show
@@ -77,6 +39,7 @@ export const navPrimaryLinks: NavLink[] = [
  */
 export const navSections: NavSection[] = [
   {
+    id: "method",
     heading: "Method",
     description:
       "The reasoning first, then the clauses a system is held to and the evidence each one asks for.",
@@ -84,7 +47,8 @@ export const navSections: NavSection[] = [
       {
         href: "/method",
         label: "The method",
-        description: METHOD_DESCRIPTION,
+        description:
+          "The framework on one page: its claim and how its parts fit together",
       },
       {
         href: "/standards/laws",
@@ -95,7 +59,8 @@ export const navSections: NavSection[] = [
       {
         href: "/standards",
         label: "Standards",
-        description: STANDARDS_DESCRIPTION,
+        description:
+          "Draft clauses to cite or adopt, each a test a running system passes or fails",
       },
       {
         href: "/evidence-packs",
@@ -112,6 +77,7 @@ export const navSections: NavSection[] = [
     ],
   },
   {
+    id: "mechanisms",
     heading: "Mechanisms and evals",
     description:
       "What to build to meet a clause, then how to test, measure, and score what was built.",
@@ -119,7 +85,8 @@ export const navSections: NavSection[] = [
       {
         href: "/mechanisms",
         label: "Mechanisms",
-        description: MECHANISMS_DESCRIPTION,
+        description:
+          "What to build: specifications for kill switches, appeal paths, and review triggers",
       },
       {
         href: "/evals",
@@ -133,8 +100,6 @@ export const navSections: NavSection[] = [
         description:
           "Numbers to report, such as time to halt, the proof each needs, and how it is gamed",
       },
-      // Last, beside the Diagnostics column: a validator is a form, like
-      // the diagnostics, but it scores a user journey against clauses.
       {
         href: "/validators",
         label: "Validators",
@@ -147,15 +112,13 @@ export const navSections: NavSection[] = [
     // Ordered by what you have to bring, not by tool name. "Which one do I
     // want" is answerable from the input; it is not answerable from a list of
     // product names.
-    //
-    // Named as the bar names the same page. As "Tools" it read as a second
-    // destination beside the bar's "Diagnostics".
+    id: "diagnostics",
     heading: "Diagnostics",
-    // The heading carries the hub link so the five slots stay tools. Without
-    // it a phone reaches /diagnostics from no menu: the bar's link to it is
-    // desktop-only, and the footer no longer repeats this map.
+    // The hub link sits at the top of the Diagnostics panel and drawer list so
+    // the five slots stay tools while /diagnostics stays one click away.
     href: "/diagnostics",
-    description: DIAGNOSTICS_DESCRIPTION,
+    description:
+      "Ordered by what you bring: a workflow, workload ratings, a decision log, the decision your system makes, or a decision made about you.",
     links: [
       {
         href: "/diagnostics/delegation-audit",
@@ -189,6 +152,7 @@ export const navSections: NavSection[] = [
     ],
   },
   {
+    id: "knowledge",
     heading: "Knowledge",
     description:
       "Terms, scored public failures, and the theory behind the laws.",
@@ -201,7 +165,8 @@ export const navSections: NavSection[] = [
       {
         href: "/casebook",
         label: "Casebook",
-        description: CASEBOOK_DESCRIPTION,
+        description:
+          "Public failures a court or inquiry established, scored by which safeguard broke",
       },
       {
         href: "/field-notes",

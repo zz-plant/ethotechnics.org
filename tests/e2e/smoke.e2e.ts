@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { navPrimaryLinks, navSections } from "../../src/content/navigation";
+import { navSections } from "../../src/content/navigation";
 import { diagnosticsContent } from "../../src/content/diagnostics";
 import { libraryContent } from "../../src/content/library";
 
@@ -7,10 +7,8 @@ import { libraryContent } from "../../src/content/library";
 // pin the headline: if the front door loses its copy, that is a regression.
 const HERO_HEADING =
   "When an automated system is wrong, does anyone have to change it?";
-// The desktop bar renders the primary links verbatim; the mobile menu does
-// not (see the mobile test below).
-const PRIMARY_NAV_LINKS = navPrimaryLinks.map((link) => link.label);
-const PRIMARY_NAV_TARGET = navPrimaryLinks[0];
+const PRIMARY_NAV_SECTIONS = navSections.map((section) => section.heading);
+const FIRST_NAV_TARGET = navSections[0]?.links[0];
 const BURDEN_TOOL = diagnosticsContent.tools.find(
   (tool) => tool.slug === "burden-modeler",
 );
@@ -18,8 +16,8 @@ const MECHANISM_WITH_DIAGNOSTICS = libraryContent.patterns.entries.find(
   (pattern) => pattern.diagnostics.length > 0,
 );
 
-if (!PRIMARY_NAV_TARGET) {
-  throw new Error("Primary navigation links are missing; check navSections.");
+if (!FIRST_NAV_TARGET) {
+  throw new Error("Navigation sections are missing; check navSections.");
 }
 
 if (!BURDEN_TOOL) {
@@ -74,62 +72,74 @@ test("serves the change feed", async ({ request }) => {
 });
 
 test.describe("Navigation", () => {
-  test("opens on mobile and navigates to the first primary link", async ({
+  test("opens the mobile drawer, expands sections, and navigates to the first link", async ({
     page,
   }) => {
-    await page.setViewportSize({ width: 480, height: 900 });
+    await page.setViewportSize({ width: 375, height: 812 });
     await page.goto("/");
 
-    const mobileNav = page.locator("[data-mobile-nav]");
-    await expect(mobileNav).not.toHaveAttribute("open", "");
+    // Brand wordmark and Start here stay visible in the phone bar.
+    await expect(page.locator(".nav__wordmark")).toBeVisible();
+    await expect(page.locator(".nav__start-btn")).toBeVisible();
 
-    await page.locator(".nav__mobile-sections-summary").click();
-    await expect(mobileNav).toHaveAttribute("open", "");
+    const drawer = page.locator("[data-nav-drawer]");
+    await expect(drawer).not.toHaveAttribute("open", "");
 
-    // The mobile menu renders navSections, whose link labels are more specific
-    // than the primary bar’s ("Knowledge" appears as "Glossary").
-    // Assert every primary DESTINATION is reachable, which is the property
-    // that matters, rather than that its label is repeated verbatim.
-    for (const link of navPrimaryLinks) {
-      await expect(
-        mobileNav.locator(`a[href^="${link.href}"]`).first(),
-      ).toBeVisible();
+    await page.locator("[data-nav-drawer-open]").click();
+    await expect(drawer).toHaveAttribute("open", "");
+
+    // Expand every collapsed section so all destinations are reachable.
+    for (const section of navSections) {
+      const trigger = drawer.locator(
+        `[data-drawer-accordion-trigger][aria-controls="nav-drawer-panel-${section.id}"]`,
+      );
+      await expect(trigger).toBeVisible();
+      if ((await trigger.getAttribute("aria-expanded")) !== "true") {
+        await trigger.click();
+      }
+      if (section.href) {
+        await expect(
+          drawer.locator(`a[href="${section.href}"]`).first(),
+        ).toBeVisible();
+      }
+      for (const link of section.links) {
+        await expect(
+          drawer.locator(`a[href="${link.href}"]`).first(),
+        ).toBeVisible();
+      }
     }
 
-    await mobileNav
-      .locator(`a[href^="${PRIMARY_NAV_TARGET.href}"]`)
-      .first()
-      .click();
-    await page.waitForURL(PRIMARY_NAV_TARGET.href);
+    await drawer.locator(`a[href="${FIRST_NAV_TARGET.href}"]`).first().click();
+    await page.waitForURL(FIRST_NAV_TARGET.href);
 
     await expect(
       page.getByRole("heading", {
         level: 1,
-        name: new RegExp(PRIMARY_NAV_TARGET.label, "i"),
+        name: /method/i,
       }),
     ).toBeVisible();
   });
 
-  test("keeps every drawer destination reachable on a phone", async ({
+  test("keeps every drawer destination reachable and dismissible on a phone", async ({
     page,
   }) => {
     const viewport = { width: 375, height: 812 };
     await page.setViewportSize(viewport);
     await page.goto("/");
 
-    await page.locator(".nav__mobile-sections-summary").click();
-    const drawer = page.locator(".nav__mobile-drawer");
-    await expect(drawer).toBeVisible();
+    await page.locator("[data-nav-drawer-open]").click();
+    const drawer = page.locator("[data-nav-drawer]");
+    const sheet = drawer.locator("[data-nav-drawer-sheet]");
+    await expect(sheet).toBeVisible();
 
-    /* The open drawer locks page scroll, so the header has to stay inside the
-       viewport and the drawer has to carry its own scroll -- otherwise the
-       sections below the fold cannot be reached at all. */
-    const navHeight = await page
-      .locator(".nav")
-      .evaluate((el) => el.getBoundingClientRect().height);
-    expect(navHeight).toBeLessThanOrEqual(viewport.height + 1);
+    // Expand the last section (Knowledge) and confirm its final link scrolls
+    // cleanly into the viewport inside the drawer body.
+    const lastTrigger = drawer.locator(
+      `[data-drawer-accordion-trigger][aria-controls="nav-drawer-panel-${LAST_NAV_SECTION!.id}"]`,
+    );
+    await lastTrigger.click();
 
-    const lastLink = drawer.getByRole("link", {
+    const lastLink = sheet.getByRole("link", {
       name: LAST_DRAWER_LINK.label,
     });
     await lastLink.scrollIntoViewIfNeeded();
@@ -139,23 +149,29 @@ test.describe("Navigation", () => {
       return rect.top >= 0 && rect.bottom <= window.innerHeight;
     });
     expect(withinViewport).toBe(true);
+
+    // Dismissing via the explicit close button closes the modal dialog.
+    await drawer.locator("[data-nav-drawer-close]").click();
+    await expect(drawer).not.toHaveAttribute("open", "");
   });
 
-  test("shows top destinations on desktop without opening a menu", async ({
+  test("shows all four section menus and Start here on desktop without opening a drawer", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto("/");
 
-    const desktopNav = page.locator(".nav__links--desktop");
+    const desktopNav = page.locator(".nav__primary");
     await expect(desktopNav).toBeVisible();
 
-    for (const label of PRIMARY_NAV_LINKS) {
-      await expect(desktopNav.getByRole("link", { name: label })).toBeVisible();
+    for (const heading of PRIMARY_NAV_SECTIONS) {
+      await expect(
+        desktopNav.getByRole("button", { name: heading }),
+      ).toBeVisible();
     }
 
-    const startBtn = page.locator(".nav__start-btn");
-    await expect(startBtn).toBeVisible();
+    await expect(page.locator(".nav__start-btn")).toBeVisible();
+    await expect(page.locator("[data-nav-drawer-open]")).toBeHidden();
   });
 });
 

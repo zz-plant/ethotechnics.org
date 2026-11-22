@@ -1,13 +1,7 @@
 ---
-import Search from "../Search.astro";
 import { Icon } from "astro-icon/components";
 import { navSections } from "../../content/navigation";
-import {
-  getAriaCurrent,
-  isHashLink,
-  isSameDocumentHashLink,
-  normalizePath,
-} from "../../utils/navigation";
+import { getAriaCurrent, isSectionCurrent } from "../../utils/navigation";
 
 interface Props {
   currentPath: string;
@@ -15,99 +9,135 @@ interface Props {
 }
 
 const { currentPath, currentHash = "" }: Props = Astro.props;
-const isStart = normalizePath(currentPath) === "/start";
+const activeSectionIndex = navSections.findIndex((section) =>
+  isSectionCurrent(section, currentPath),
+);
 ---
 
-<nav class="nav__mobile" aria-label="Main navigation">
-  <div class="nav__mobile-bar">
-    <div class="nav__search-mobile">
-      <Search scope="mobile" label="Search" includeDialog={true} />
-    </div>
+<dialog
+  id="nav-drawer"
+  class="nav-drawer"
+  aria-labelledby="nav-drawer-title"
+  data-nav-drawer
+>
+  <div class="nav-drawer__scroller" data-nav-drawer-scroller>
+    <div class="nav-drawer__sheet" data-nav-drawer-sheet>
+      <div class="nav-drawer__header">
+        <p id="nav-drawer-title" class="nav-drawer__title">Site index</p>
+        <button
+          type="button"
+          class="nav-drawer__close"
+          aria-label="Close menu"
+          autofocus
+          data-nav-drawer-close
+        >
+          <Icon
+            name="lucide:x"
+            class="nav-drawer__close-icon"
+            aria-hidden="true"
+          />
+        </button>
+      </div>
 
-    {
-      /* "Start here" sits in the bar and the theme switch in the drawer. The
-         theme toggle used to hold this spot, beside search, and took 9-18% of
-         predicted first-screen taps on a phone; the way in for a new reader
-         was two taps deep. The drawer below it no longer opens on a second
-         copy of the same link. */
-    }
-    <a
-      href="/start"
-      class="nav__mobile-start"
-      aria-current={isStart ? "page" : undefined}>Start here</a
-    >
+      <nav class="nav-drawer__body" aria-label="Site sections">
+        {
+          navSections.map((section, index) => {
+            const panelId = `nav-drawer-panel-${section.id}`;
+            const isActive = index === activeSectionIndex;
+            const defaultOpen =
+              isActive || (activeSectionIndex === -1 && index === 0);
 
-    <details
-      class="nav__mobile-sections"
-      name="mobile-sections"
-      data-mobile-nav
-    >
-      <summary class="nav__mobile-sections-summary">
-        <span class="nav__mobile-summary-text">Browse</span>
-        <Icon name="lucide:chevron-down" class="nav__mobile-summary-icon" />
-      </summary>
+            return (
+              <div
+                class="nav-drawer__section"
+                data-drawer-section
+                data-default-open={defaultOpen ? "true" : "false"}
+              >
+                <button
+                  type="button"
+                  class="nav-drawer__section-trigger"
+                  aria-expanded="true"
+                  aria-controls={panelId}
+                  data-drawer-accordion-trigger
+                  data-section-active={isActive ? "true" : undefined}
+                >
+                  <span class="nav-drawer__section-heading">
+                    {section.heading}
+                  </span>
+                  <Icon
+                    name="lucide:chevron-down"
+                    class="nav-drawer__section-chevron"
+                    aria-hidden="true"
+                  />
+                </button>
 
-      <div class="nav__mobile-drawer">
-        <div class="nav__mobile-section-groups">
-          {
-            navSections.map((section) => (
-              <div class="nav__mobile-group">
-                <p class="eyebrow nav__mobile-group-title">
-                  {section.href ? (
-                    <a
-                      href={section.href}
-                      aria-current={getAriaCurrent(
-                        section.href,
-                        currentPath,
-                        currentHash,
-                      )}
-                    >
-                      {section.heading}
-                    </a>
-                  ) : (
-                    section.heading
-                  )}
-                </p>
-                <div class="nav__mobile-group-links">
-                  {section.links.map((link) => (
-                    <a
-                      class="nav__mobile-link-card"
-                      href={link.href}
-                      aria-label={
-                        isHashLink(link.href)
-                          ? `${link.label}, jumps to a homepage section`
-                          : link.label
-                      }
-                      data-nav-hash-link={
-                        isSameDocumentHashLink(link.href) ? "true" : undefined
-                      }
-                      aria-current={getAriaCurrent(
-                        link.href,
-                        currentPath,
-                        currentHash,
-                      )}
-                    >
-                      <span class="nav__mobile-link-title">{link.label}</span>
-                      {link.description && (
-                        <span class="nav__mobile-link-desc">
-                          {link.description}
-                        </span>
-                      )}
-                    </a>
-                  ))}
+                <div
+                  id={panelId}
+                  class="nav-drawer__section-panel"
+                  data-drawer-accordion-panel
+                >
+                  <p class="nav-drawer__section-desc">{section.description}</p>
+                  <ul class="nav-drawer__links">
+                    {section.href && (
+                      <li>
+                        <a
+                          class="nav-drawer__link nav-drawer__link--hub"
+                          href={section.href}
+                          aria-current={getAriaCurrent(
+                            section.href,
+                            currentPath,
+                            currentHash,
+                          )}
+                        >
+                          <span class="nav-drawer__link-title">
+                            <span>{section.heading}</span>
+                            <Icon
+                              name="lucide:arrow-right"
+                              class="nav-drawer__hub-icon"
+                              aria-hidden="true"
+                            />
+                          </span>
+                        </a>
+                      </li>
+                    )}
+                    {section.links.map((link) => (
+                      <li>
+                        <a
+                          class="nav-drawer__link"
+                          href={link.href}
+                          aria-current={getAriaCurrent(
+                            link.href,
+                            currentPath,
+                            currentHash,
+                          )}
+                        >
+                          <span class="nav-drawer__link-title">
+                            {link.label}
+                          </span>
+                          {link.description && (
+                            <span class="nav-drawer__link-desc">
+                              {link.description}
+                            </span>
+                          )}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
-            ))
-          }
-        </div>
+            );
+          })
+        }
+      </nav>
 
-        <div class="nav__mobile-theme">
-          <button
-            class="theme-toggle nav__mobile-theme-toggle"
-            data-theme-toggle
-            aria-label="Toggle theme"
-            type="button"
-          >
+      <div class="nav-drawer__footer">
+        <button
+          class="nav-drawer__theme-btn"
+          data-theme-toggle
+          aria-label="Toggle theme"
+          type="button"
+        >
+          <span class="nav-drawer__theme-icons" aria-hidden="true">
             <Icon
               name="lucide:sun"
               class="theme-toggle__icon theme-toggle__icon--sun"
@@ -116,10 +146,12 @@ const isStart = normalizePath(currentPath) === "/start";
               name="lucide:moon"
               class="theme-toggle__icon theme-toggle__icon--moon"
             />
-          </button>
-          <span aria-hidden="true">Light or dark theme</span>
-        </div>
+          </span>
+          <span class="nav-drawer__theme-text" data-theme-toggle-text>
+            Switch theme
+          </span>
+        </button>
       </div>
-    </details>
+    </div>
   </div>
-</nav>
+</dialog>
