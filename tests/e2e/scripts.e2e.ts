@@ -62,19 +62,19 @@ test.describe("Production scripts", () => {
     const input = page.getByLabel("Filter glossary terms", { exact: true });
     const count = page.locator(".glossary-filter__count");
     const empty = page.locator(".glossary-index__empty");
-    const consentJourney = page
+    const redress = page
       .locator(".glossary-index__item")
-      .filter({ hasText: "Consent Journey" });
-    const burdenIndex = page
+      .filter({ hasText: "Redress" });
+    const timeToHalt = page
       .locator(".glossary-index__item")
-      .filter({ hasText: "Burden Index" });
+      .filter({ hasText: "Time to halt" });
 
     const initialCount = await count.textContent();
 
-    await input.fill("consent");
+    await input.fill("redress");
     await expect(count).not.toHaveText(initialCount ?? "");
-    await expect(consentJourney).toBeVisible();
-    await expect(burdenIndex).toHaveClass(/is-hidden/);
+    await expect(redress).toBeVisible();
+    await expect(timeToHalt).toHaveClass(/is-hidden/);
     await expect(empty).toBeHidden();
 
     await input.fill("no-matching-term");
@@ -84,7 +84,7 @@ test.describe("Production scripts", () => {
     await page.getByRole("button", { name: "Clear filter" }).click();
     await expect(input).toHaveValue("");
     await expect(empty).toBeHidden();
-    await expect(burdenIndex).not.toHaveClass(/is-hidden/);
+    await expect(timeToHalt).not.toHaveClass(/is-hidden/);
   });
 
   test("opens the signals panel at a field note's hash", async ({ page }) => {
