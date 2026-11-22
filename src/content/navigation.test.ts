@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 
-import { navPrimaryLinks, navSections } from "./navigation";
+import { navSections } from "./navigation";
 import { siteFooter } from "./site-footer";
 
 const sectionLinks = (heading: string) => {
@@ -11,17 +11,12 @@ const sectionLinks = (heading: string) => {
   return section.links.map((link) => link.href);
 };
 
-describe("navPrimaryLinks", () => {
-  it("keeps five primary items", () => {
-    expect(navPrimaryLinks).toHaveLength(5);
-  });
-
-  it("puts the method in the primary bar", () => {
-    expect(navPrimaryLinks[0]?.href).toBe("/method");
-  });
-});
-
 describe("navSections", () => {
+  it("gives every section a unique id", () => {
+    const ids = navSections.map((section) => section.id);
+    expect(new Set(ids).size).toBe(ids.length);
+  });
+
   it("keeps every section at five links or fewer", () => {
     for (const section of navSections) {
       expect(section.links.length).toBeLessThanOrEqual(5);
@@ -50,19 +45,6 @@ describe("navSections", () => {
       "/evidence-packs",
       "/low-leverage",
     ]);
-  });
-
-  // The mobile menu renders navSections, not navPrimaryLinks, so a primary
-  // destination that appears in no section is unreachable on a phone.
-  it("reaches every primary destination from a section", () => {
-    const allSectionLinks = navSections.flatMap((section) =>
-      section.links.map((link) => link.href),
-    );
-    for (const link of navPrimaryLinks) {
-      expect(allSectionLinks.some((href) => href.startsWith(link.href))).toBe(
-        true,
-      );
-    }
   });
 
   it("lists both delegation tools under diagnostics", () => {
@@ -94,51 +76,21 @@ describe("navSections", () => {
     expect(sectionLinks("Knowledge")).toContain("/research/theory");
   });
 
-  // The bar said "Diagnostics" while the menu heading for the same page said
-  // "Tools", and the two described Standards and Mechanisms differently. A
-  // page reached from both is called one thing; the bar may drop a leading
-  // "The".
-  it("names each bar destination as the menu does", () => {
-    for (const link of navPrimaryLinks) {
-      const entry = navSections
-        .flatMap((section) => [
-          ...(section.href
-            ? [
-                {
-                  href: section.href,
-                  label: section.heading,
-                  description: section.description,
-                },
-              ]
-            : []),
-          ...section.links,
-        ])
-        .find((candidate) => candidate.href === link.href);
-      expect(entry, `${link.href} is not in the menu`).toBeDefined();
-      expect(
-        entry?.label.replace(/^The (\w)/, (_, first: string) =>
-          first.toUpperCase(),
-        ),
-      ).toBe(link.label);
-      expect(entry?.description).toBe(link.description);
-    }
-  });
-
-  it("uses unique hrefs across the mega menu", () => {
-    const hrefs = navSections.flatMap((section) =>
-      section.links.map((link) => link.href),
-    );
+  it("uses unique hrefs across all sections and hub links", () => {
+    const hrefs = navSections.flatMap((section) => [
+      ...(section.href ? [section.href] : []),
+      ...section.links.map((link) => link.href),
+    ]);
     expect(new Set(hrefs).size).toBe(hrefs.length);
   });
 });
 
 describe("site footer", () => {
-  // The footer used to mirror the Browse panel, so every page listed the same
-  // twenty destinations twice. It carries only what no menu does.
+  // The footer used to mirror the header's sections, so every page listed the
+  // same destinations twice. It carries only what no menu does.
   it("repeats no destination the header already reaches", () => {
     const headerHrefs = new Set([
       "/start",
-      ...navPrimaryLinks.map((link) => link.href),
       ...navSections.flatMap((section) => [
         ...(section.href ? [section.href] : []),
         ...section.links.map((link) => link.href),

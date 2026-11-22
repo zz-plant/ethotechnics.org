@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 
-import { navPrimaryLinks, navSections } from "./navigation";
+import { navSections } from "./navigation";
 import { roles, rolePermalink, getRole, roleMaterial } from "./roles";
 
 /**
@@ -87,13 +87,12 @@ describe("a role page's reading list", () => {
   // destinations the header reaches from every page, restated under a
   // heading of their own.
   it("links nothing the header or the same page already links", () => {
-    const header = new Set([
-      ...navPrimaryLinks.map((link) => link.href),
-      ...navSections.flatMap((section) => [
+    const header = new Set(
+      navSections.flatMap((section) => [
         ...(section.href ? [section.href] : []),
         ...section.links.map((link) => link.href),
       ]),
-    ]);
+    );
     for (const role of roles) {
       const onPage = new Set([
         ...(role.featuredDiagnostics ?? []).map(

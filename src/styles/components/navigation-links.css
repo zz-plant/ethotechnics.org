@@ -1,45 +1,61 @@
 @layer components {
-  .nav__links--desktop {
+  /* --- Desktop Primary Section Bar (1024px+) --- */
+  .nav__primary {
     display: none;
   }
 
-  @media (min-width: 1100px) {
-    .nav__links--desktop {
-      display: inline-flex;
+  @media (min-width: 1024px) {
+    .nav__primary {
+      display: flex;
       align-items: center;
-      gap: var(--space-hair);
+      min-inline-size: 0;
     }
   }
 
-  /* Plain labels in the bar. The current section is marked by a rust
-     rule under the label -- the same mark the eyebrows carry -- rather than a
-     filled chip, so the header reads as a masthead and not a toolbar. */
-  .nav__link {
+  .nav__sections {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav__section-item {
+    position: relative;
+  }
+
+  /* Plain editorial labels with a rust margin rule under the active section
+     (never a filled chip), keeping the bar calm like a publication masthead. */
+  .nav__section-trigger {
     position: relative;
     display: inline-flex;
     align-items: center;
+    gap: var(--space-1);
+    min-block-size: 38px;
     padding: var(--space-2) var(--space-3);
-    white-space: nowrap;
-    min-height: 38px;
-    border-radius: var(--radius);
-    font-size: var(--text-sm);
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: color-mix(in srgb, var(--muted) 75%, var(--text));
     font-family: var(--sans);
+    font-size: var(--text-sm);
     font-weight: 600;
-    color: color-mix(in srgb, var(--muted) 80%, var(--text));
-    text-decoration: none;
+    line-height: 1.2;
+    white-space: nowrap;
+    cursor: pointer;
     touch-action: manipulation;
     transition:
-      background-color var(--motion-fast) ease,
-      color var(--motion-fast) ease;
+      color var(--motion-fast) ease,
+      background-color var(--motion-fast) ease;
   }
 
-  .nav__link::after {
+  .nav__section-trigger::after {
     content: "";
     position: absolute;
-    left: 0.65rem;
-    right: 0.65rem;
-    bottom: 0.2rem;
-    height: 2px;
+    inset-inline: 0.75rem;
+    inset-block-end: 0.15rem;
+    block-size: 2px;
     border-radius: var(--radius-pill);
     background: var(--mark);
     opacity: 0;
@@ -50,36 +66,274 @@
       transform var(--motion-base) var(--ease-out-editorial);
   }
 
-  .nav__link:hover,
-  .nav__link:focus-visible {
+  .nav__section-trigger:hover,
+  .nav__section-trigger:focus-visible,
+  .nav__section-trigger[aria-expanded="true"] {
     color: var(--text);
     background: color-mix(in srgb, var(--text) 5%, transparent);
-    text-decoration: none;
   }
 
-  .nav__link:focus-visible {
+  .nav__section-trigger:focus-visible {
     outline: var(--focus-outline);
     outline-offset: 2px;
   }
 
-  .nav__link[aria-current="page"],
-  .nav__link[aria-current="true"],
-  .nav__link[aria-current="location"] {
+  .nav__section-trigger[data-section-active="true"] {
     color: var(--text);
     font-weight: 650;
   }
 
-  .nav__link[aria-current="page"]::after,
-  .nav__link[aria-current="true"]::after,
-  .nav__link[aria-current="location"]::after {
+  .nav__section-trigger[data-section-active="true"]::after {
     opacity: 1;
     transform: scaleX(1);
   }
 
+  .nav__chevron {
+    inline-size: 0.9rem;
+    block-size: 0.9rem;
+    color: var(--muted);
+    flex-shrink: 0;
+    transition:
+      transform var(--motion-fast) var(--ease-out-editorial),
+      color var(--motion-fast) ease;
+  }
+
+  .nav__section-trigger:hover .nav__chevron,
+  .nav__section-trigger[aria-expanded="true"] .nav__chevron {
+    color: var(--text);
+  }
+
+  .nav__section-trigger[aria-expanded="true"] .nav__chevron {
+    transform: rotate(180deg);
+  }
+
+  /* --- Desktop Section Popover Panels --- */
+  /* The outer [popover] box is transparent with block padding that acts as a
+     continuous hover bridge between trigger and panel (both below and when
+     flipped above), while .nav__popover-surface carries the visible sheet and
+     internal scrolling. */
+  .nav__popover {
+    padding-block: var(--space-2);
+    padding-inline: 0;
+    border: 0;
+    background: transparent;
+    color: var(--text);
+    overflow: visible;
+    inline-size: clamp(21rem, 26vw, 24.5rem);
+    max-inline-size: calc(100dvw - var(--space-6));
+    opacity: 0;
+    transition-property: opacity, translate, display, overlay;
+    transition-duration: var(--motion-fast);
+    transition-timing-function: var(--ease-out-editorial);
+    /* Kept separate after transition so older browsers don't drop it. */
+    transition-behavior: allow-discrete;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .nav__popover {
+      translate: 0 -6px;
+    }
+  }
+
+  /* Progressive enhancement: tether each popover to its implicit popovertarget
+     button with CSS Anchor Positioning where supported, flipping on collision. */
+  @supports (position-area: block-end) {
+    .nav__popover {
+      position: fixed;
+      inset: auto;
+      margin: 0;
+      block-size: auto;
+      position-area: block-end span-inline-end;
+      position-try-fallbacks:
+        flip-block,
+        flip-inline,
+        flip-block flip-inline;
+    }
+  }
+
+  /* Fallback for browsers without CSS Anchor Positioning (positioned via JS
+     toggle handler from trigger.getBoundingClientRect()). */
+  @supports not (position-area: block-end) {
+    .nav__popover {
+      position: fixed;
+      inset: auto;
+      margin: 0;
+      block-size: auto;
+    }
+  }
+
+  .nav__popover:not(:is(:popover-open, .\:popover-open)) {
+    display: none;
+  }
+
+  .nav__popover:is(:popover-open, .\:popover-open) {
+    display: block;
+    opacity: 1;
+    translate: 0 0;
+
+    @starting-style {
+      opacity: 0;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      @starting-style {
+        translate: 0 -6px;
+      }
+    }
+  }
+
+  .nav__popover-surface {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-float);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    max-block-size: calc(100dvh - 5.5rem);
+  }
+
+  .nav__popover-header {
+    padding: var(--space-4) var(--space-4) var(--space-3);
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+    background: color-mix(in srgb, var(--panel) 45%, var(--surface));
+  }
+
+  .nav__popover-heading,
+  .nav__popover-hub {
+    margin: 0 0 var(--space-1);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--sans);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: var(--tracking-label-wide);
+    text-transform: uppercase;
+    color: var(--accent-strong);
+    text-decoration: none;
+  }
+
+  .nav__popover-heading::before,
+  .nav__popover-hub::before {
+    content: "";
+    inline-size: 0.7rem;
+    block-size: 2px;
+    background: var(--mark);
+    border-radius: var(--radius-pill);
+    flex-shrink: 0;
+  }
+
+  .nav__popover-hub:hover,
+  .nav__popover-hub:focus-visible {
+    color: var(--text);
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+
+  .nav__popover-hub-icon {
+    inline-size: 0.85rem;
+    block-size: 0.85rem;
+    transition: transform var(--motion-fast) ease;
+  }
+
+  .nav__popover-hub:hover .nav__popover-hub-icon {
+    transform: translateX(2px);
+  }
+
+  .nav__popover-desc {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: var(--text-xs);
+    line-height: 1.45;
+    color: var(--muted);
+  }
+
+  .nav__popover-list {
+    list-style: none;
+    margin: 0;
+    padding: var(--space-2);
+    display: grid;
+    gap: var(--space-hair);
+  }
+
+  .nav__popover-link {
+    display: grid;
+    gap: var(--space-hair);
+    padding: var(--space-2) var(--space-3);
+    border-inline-start: 2px solid transparent;
+    border-radius: var(--radius-xs);
+    text-decoration: none;
+    color: inherit;
+    transition:
+      background-color var(--motion-fast) ease,
+      border-color var(--motion-fast) ease;
+  }
+
+  .nav__popover-link:hover,
+  .nav__popover-link:focus-visible {
+    background: color-mix(in srgb, var(--panel) 65%, transparent);
+    text-decoration: none;
+  }
+
+  .nav__popover-link:hover .nav__popover-link-title,
+  .nav__popover-link:focus-visible .nav__popover-link-title {
+    color: var(--accent-strong);
+  }
+
+  .nav__popover-link:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: -2px;
+  }
+
+  .nav__popover-link[aria-current="page"] {
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+    border-inline-start-color: var(--mark);
+  }
+
+  .nav__popover-link[aria-current="page"] .nav__popover-link-title {
+    color: var(--accent-strong);
+  }
+
+  .nav__popover-link-title {
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--text);
+    transition: color var(--motion-fast) ease;
+  }
+
+  .nav__popover-link-desc {
+    font-family: var(--sans);
+    font-size: var(--text-xs);
+    line-height: 1.4;
+    color: var(--muted);
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .nav__link,
-    .nav__link::after {
+    .nav__section-trigger,
+    .nav__section-trigger::after,
+    .nav__chevron,
+    .nav__popover-hub-icon {
       transition: none;
+    }
+
+    .nav__popover {
+      transition-duration: 0.08s;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .nav__section-trigger[data-section-active="true"]::after {
+      background: Highlight;
+    }
+
+    .nav__popover-surface {
+      border: 1px solid CanvasText;
+    }
+
+    .nav__popover-link[aria-current="page"] {
+      border-inline-start: 3px solid Highlight;
     }
   }
 }

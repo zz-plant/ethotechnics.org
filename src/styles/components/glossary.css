@@ -167,7 +167,7 @@
   .glossary-index__letters {
     position: sticky;
     top: var(--nav-bottom, 0px);
-    z-index: var(--z-overlay);
+    z-index: calc(var(--z-overlay) - 1);
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-1);
@@ -175,6 +175,7 @@
     padding: var(--space-2) 0;
     background: var(--bg, var(--surface));
     border-bottom: 1px solid var(--border);
+    transition: top var(--motion-base) var(--ease-out-editorial);
   }
 
   .glossary-index__letters .pill {
