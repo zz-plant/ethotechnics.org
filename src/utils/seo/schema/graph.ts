@@ -28,8 +28,7 @@ type PageSchema = {
   article?: Record<string, unknown>;
   /**
    * The byline the page prints. The article credits Kanav Jain as a Person
-   * when the byline names him, and the Institute otherwise, so the markup
-   * says what a reader sees.
+   * when the byline names him, so the markup says what a reader sees.
    */
   byline?: string;
   /** Entities the page describes, each with an @id under the page's URL. */

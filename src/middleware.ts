@@ -1,6 +1,6 @@
 import type { MiddlewareHandler } from "astro";
 
-import { failureStates } from "./content/institute-site";
+import { failureStates } from "./content/project-site";
 import { taxonomyAnchor, taxonomyEntries } from "./content/taxonomy";
 import retiredGlossaryEntries from "./data/glossary-retired.json" with { type: "json" };
 
@@ -73,10 +73,8 @@ const REDIRECT_MAP: Record<string, string> = {
   "/adopt/ops": "/roles/operations",
   "/adopt/policy": "/roles/policy",
   "/roles": "/start",
-  // /governance used to be two subjects behind one prefix: the institute's
-  // process page at the root, and the taxonomy domain under every path below
-  // it. Both now have a canonical home and /governance* is redirect-only.
-  "/governance": "/institute/governance",
+  // /governance used to redirect here: the process page lived under
+  // /institute/governance. The process page now sits at /governance itself.
   // The practice taxonomy is a section of /method, filed by safeguard. Its
   // six domains are gone; Experience was the last one with a top-level page.
   "/taxonomy": "/method#practices",
@@ -206,16 +204,19 @@ const REDIRECT_MAP: Record<string, string> = {
   // /institute/team promised "named stewards" four times over and named
   // nobody: four role titles and no people behind them. The page that does
   // carry stewardship — owners against decisions — is the governance process.
-  "/institute/team": "/institute/governance",
-  // The Institute hub listed programs, stewards, and a publishing pipeline
-  // that the governance log records never existed. What remained true, how
-  // the open Institute differs from commissioned work on it, is on /about.
+  "/institute/team": "/governance",
+  // The old /institute hub listed programs, stewards, and a publishing
+  // pipeline that the governance log records never existed. What remained
+  // true, how the open work differs from commissioned work on it, is on
+  // /about. The two pages that survived the hub move to top-level paths.
   "/institute": "/about",
+  "/institute/governance": "/governance",
   // "How Studio fits" explained the Studio, the commissioned practice at
   // ethotechnics.com. The Studio was retired in October 2026 and Kanav Jain
   // takes the same work under his own name; the page now sits at a path that
   // names what it covers.
-  "/institute/how-studio-fits": "/institute/commissioned-work",
+  "/institute/how-studio-fits": "/commissioned-work",
+  "/institute/commissioned-work": "/commissioned-work",
   "/agent-toolkit": "/archive/retired-tools",
   "/agent-toolkit/ethotechnics-agent-prompt-pack-v1.0.0.md":
     "/archive/retired-tools/ethotechnics-agent-prompt-pack-v1.0.0.md",

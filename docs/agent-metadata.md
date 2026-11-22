@@ -16,7 +16,7 @@ Guidance for machine-readable metadata, JSON-LD coverage, and the public JSON en
 {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  "name": "Standards — Ethotechnics Institute",
+  "name": "Standards — Ethotechnics",
   "hasPart": [
     {
       "@type": "CreativeWork",

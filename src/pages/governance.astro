@@ -1,11 +1,11 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import CardGrid from "../../components/CardGrid.astro";
-import CardItem from "../../components/CardItem.astro";
-import PageIntro from "../../components/PageIntro.astro";
-import SectionBlock from "../../components/SectionBlock.astro";
-import { governanceContent } from "../../content/governance";
-import { formatDate } from "../../utils/dates";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CardGrid from "../components/CardGrid.astro";
+import CardItem from "../components/CardItem.astro";
+import PageIntro from "../components/PageIntro.astro";
+import SectionBlock from "../components/SectionBlock.astro";
+import { governanceContent } from "../content/governance";
+import { formatDate } from "../utils/dates";
 
 const {
   pageTitle,
@@ -22,7 +22,7 @@ const {
   breadcrumbItems={[
     { name: "Home", url: "/" },
     { name: "About", url: "/about" },
-    { name: "Governance", url: "/institute/governance" },
+    { name: "Governance", url: "/governance" },
   ]}
 >
   <PageIntro

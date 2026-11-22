@@ -8,7 +8,7 @@ const site = "https://ethotechnics.org";
 const build = (path: string, schema?: PageSchema) => {
   const canonical = new URL(path, site).toString();
   return buildSchemaGraph({
-    siteName: "Ethotechnics Institute",
+    siteName: "Ethotechnics",
     siteBase: `${site}/`,
     siteDescription: "Standards for answerable automated decisions.",
     canonical,
@@ -17,7 +17,7 @@ const build = (path: string, schema?: PageSchema) => {
     description: "Example description",
     seoImage: {
       src: `${site}/api/og.png?template=default`,
-      alt: "Example page — Ethotechnics Institute",
+      alt: "Example page — Ethotechnics",
       width: 1200,
       height: 630,
     },
@@ -77,7 +77,7 @@ describe("buildSchemaGraph", () => {
     });
 
     const standard = build("/standards/std-08-delegation", {
-      byline: "Ethotechnics Institute",
+      byline: "Ethotechnics",
     }).find((node) => String(node["@id"]).endsWith("#article"));
     expect(standard?.author).toEqual({ "@id": `${site}/#organization` });
   });

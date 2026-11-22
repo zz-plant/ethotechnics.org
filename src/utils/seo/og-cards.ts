@@ -564,8 +564,8 @@ const sectionStyles: Record<OgTemplate, SectionStyle> = {
   },
   home: {
     ...LIGHT,
-    label: "Institute",
-    kicker: "Open standards for answerable automated decisions",
+    label: "Project",
+    kicker: "Draft standards and test instruments for answerable decisions",
     accent: SAPPHIRE,
     tile: SAPPHIRE,
     tileInk: PAPER,
@@ -686,7 +686,7 @@ export const buildOgCardSvg = (
       return buildCaseSvg(casesBySlug.get(card.slug ?? "") as CaseRecord);
     case "halt-chart":
       return buildHaltChartSvg(
-        card.template === "home" ? "Institute" : "Casebook",
+        card.template === "home" ? "Ethotechnics" : "Casebook",
       );
     case "glossary":
       return buildGlossarySvg(title, description);

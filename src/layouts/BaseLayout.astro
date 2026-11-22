@@ -72,11 +72,10 @@ interface Props {
   footerOmit?: string[];
 }
 
-const siteName = "Ethotechnics Institute";
-const defaultTitle =
-  "Ethotechnics Institute — keeping automated decisions answerable";
+const siteName = "Ethotechnics";
+const defaultTitle = "Ethotechnics — keeping automated decisions answerable";
 const defaultDescription =
-  "The Ethotechnics Institute publishes open standards, scored public failures, and diagnostics for one question: when an automated decision system is hurting people, does evidence of the harm reach someone who has to change the system?";
+  "Draft standards, record formats, and test instruments for one question: when an automated decision system is wrong, does anyone have to change it? Written in the open by Kanav Jain.";
 const defaultRobots =
   "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
 
@@ -151,9 +150,7 @@ ogImageUrl.searchParams.set("v", "4");
 
 const seoImage = {
   src: ogImageUrl.toString(),
-  alt:
-    describeOgCard({ path: currentPath }) ??
-    `${pageName} — Ethotechnics Institute`,
+  alt: describeOgCard({ path: currentPath }) ?? `${pageName} — Ethotechnics`,
   width: 1200,
   height: 630,
 };

@@ -43,7 +43,7 @@ export const governanceContent: GovernanceContent = {
   pageTitle: "Governance — Ethotechnics",
   pageDescription:
     "Who decides what Ethotechnics publishes, how a change is made, and the record of where the framework's own instruments failed.",
-  permalink: "/institute/governance",
+  permalink: "/governance",
   published: "2026-02-22T00:00:00Z",
   updated: "2026-11-17T00:00:00Z",
   anchorLinks: [
@@ -54,7 +54,7 @@ export const governanceContent: GovernanceContent = {
     {
       title: "One person decides",
       detail:
-        "Kanav Jain writes the framework and decides every change, with AI coding agents working under the rules in the repository. “Ethotechnics Institute” is the name it publishes under. It has no council, no reviewers and no staff.",
+        "Kanav Jain writes the framework and decides every change, with AI coding agents working under the rules in the repository. Ethotechnics is the name the work publishes under. There is no council, no reviewer panel and no staff.",
     },
     {
       title: "A change is a commit",

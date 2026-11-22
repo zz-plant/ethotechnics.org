@@ -14,7 +14,7 @@ export const DOCUMENT_TITLE_SUFFIX = " — Ethotechnics";
 // Titles written before the convention end in either brand form.
 const BRAND_SUFFIX_PATTERN = /\s+[—-]\s+Ethotechnics(?: Institute)?$/;
 
-/** The title without a trailing " — Ethotechnics" or " — Ethotechnics Institute". */
+/** The title without a trailing " — Ethotechnics" or " — Ethotechnics". */
 export const stripBrandSuffix = (title: string): string =>
   title.replace(BRAND_SUFFIX_PATTERN, "").trim();
 

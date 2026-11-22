@@ -40,7 +40,7 @@ export const SEARCH_GROUPS = [
   "Explainers",
   "Research",
   "Guides",
-  "Institute",
+  "Project",
 ] as const;
 export type SearchGroup = (typeof SEARCH_GROUPS)[number];
 
@@ -170,20 +170,21 @@ const SECTIONS: Section[] = [
   { hub: "/agents", label: "Agents", kind: "guide", group: "Guides" },
   // Role pages have no index of their own; /start lists them.
   { hub: "/roles", label: "Roles", kind: "guide", group: "Guides" },
-  { hub: "/institute", label: "About", kind: "institute", group: "Institute" },
-  { hub: "/security", label: "About", kind: "institute", group: "Institute" },
-  { hub: "/archive", label: "About", kind: "institute", group: "Institute" },
+  { hub: "/security", label: "About", kind: "institute", group: "Project" },
+  { hub: "/archive", label: "About", kind: "institute", group: "Project" },
 ];
 
 /** Single pages outside any section, and hubs that are not collections. */
 const PAGES: Record<string, Omit<Section, "hub" | "label">> = {
-  "/": { kind: "home", group: "Institute", ogTemplate: "home" },
-  "/404": { kind: "institute", group: "Institute" },
-  "/search": { kind: "search", group: "Institute" },
-  "/about": { kind: "about", group: "Institute" },
-  "/participate": { kind: "contact", group: "Institute" },
-  "/record": { kind: "institute", group: "Institute" },
-  "/api": { kind: "collection", group: "Institute" },
+  "/": { kind: "home", group: "Project", ogTemplate: "home" },
+  "/404": { kind: "institute", group: "Project" },
+  "/search": { kind: "search", group: "Project" },
+  "/about": { kind: "about", group: "Project" },
+  "/governance": { kind: "institute", group: "Project" },
+  "/commissioned-work": { kind: "institute", group: "Project" },
+  "/participate": { kind: "contact", group: "Project" },
+  "/record": { kind: "institute", group: "Project" },
+  "/api": { kind: "collection", group: "Project" },
   "/artifacts": { kind: "collection", group: "Standards" },
   "/method": { kind: "standard", group: "Standards" },
   "/low-leverage": { kind: "standard", group: "Standards" },
@@ -213,7 +214,7 @@ const SITEMAP_BY_GROUP: Record<SearchGroup, SitemapSection> = {
   Evals: "core",
   Diagnostics: "core",
   Guides: "core",
-  Institute: "core",
+  Project: "core",
 };
 
 const PAGE_TYPE_BY_KIND: Partial<Record<ContentKind, WebPageType>> = {

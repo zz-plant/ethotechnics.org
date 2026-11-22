@@ -128,11 +128,12 @@ take part.
 ## Who writes this
 
 [Kanav Jain](https://kanav.net) writes the framework, with AI coding agents working under the rules
-in [`AGENTS.md`](AGENTS.md). "Ethotechnics Institute" is the name it publishes under, not a separate
-body with its own staff or reviewers.
+in [`AGENTS.md`](AGENTS.md). Ethotechnics is the name the work publishes under: one person, no
+council, no reviewer panel, and no staff.
 
-Calling a document a standard or a law gives it no legal force. No standards body has adopted these
-drafts, and this project knows of no outside organization that uses them. If you try one,
+These are drafts, not standards anyone has adopted. Calling a document a standard or a law gives it
+no legal force. No standards body has adopted them, and this project knows of no outside
+organization that uses them. If you try one,
 [say what happened](https://github.com/zz-plant/ethotechnics.org/discussions).
 
 ## Run the site

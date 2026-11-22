@@ -1,19 +1,19 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import PageIntro from "../../components/PageIntro.astro";
-import SectionBlock from "../../components/SectionBlock.astro";
-import CommissionedWorkComparison from "../../components/CommissionedWorkComparison.astro";
-import { commissionedWorkComparisonContent } from "../../content/comparison";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageIntro from "../components/PageIntro.astro";
+import SectionBlock from "../components/SectionBlock.astro";
+import CommissionedWorkComparison from "../components/CommissionedWorkComparison.astro";
+import { commissionedWorkComparisonContent } from "../content/comparison";
 import {
   commissionedWork,
   commissionedWorkMailto,
-} from "../../content/commissioned-work";
+} from "../content/commissioned-work";
 
 const { provider, disclosure } = commissionedWork;
 const pageTitle = "Commissioned work";
-const pageDescription = `When the Institute's open standards and diagnostics are enough, and when to commission ${provider}, ${disclosure}, to evaluate a healthcare AI system.`;
+const pageDescription = `When the open drafts and diagnostics are enough, and when to commission ${provider}, ${disclosure}, to evaluate a healthcare AI system.`;
 const anchorLinks = [
-  { href: "#positioning", label: "Institute vs. commissioned work" },
+  { href: "#positioning", label: "Open work vs. commissioned work" },
   { href: "#self-serve", label: "Stay self-serve" },
   { href: "#offers", label: "What the work covers" },
   { href: "#boundaries", label: "Engagement boundaries" },
@@ -22,18 +22,18 @@ const anchorLinks = [
 ---
 
 <BaseLayout
-  title={`${pageTitle} — Ethotechnics Institute`}
+  title={`${pageTitle} — Ethotechnics`}
   description={pageDescription}
   publishedTime="2026-01-10T00:00:00.000Z"
   modifiedTime="2026-11-04T00:00:00.000Z"
   breadcrumbItems={[
     { name: "Home", url: "/" },
     { name: "About", url: "/about" },
-    { name: pageTitle, url: "/institute/commissioned-work" },
+    { name: pageTitle, url: "/commissioned-work" },
   ]}
 >
   <PageIntro
-    eyebrow="Institute"
+    eyebrow="Open work"
     title={pageTitle}
     description={pageDescription}
     anchorLinks={anchorLinks}
@@ -42,8 +42,8 @@ const anchorLinks = [
   <SectionBlock
     id="positioning"
     eyebrow="Positioning"
-    title="Institute vs. commissioned work"
-    description={`The Institute publishes the framework. ${provider} applies it to one organization's healthcare AI system under commission.`}
+    title="Open work vs. commissioned work"
+    description={`The open framework is published here. ${provider} applies it to one organization's healthcare AI system under commission.`}
   >
     <CommissionedWorkComparison content={commissionedWorkComparisonContent} />
   </SectionBlock>
@@ -51,7 +51,7 @@ const anchorLinks = [
   <SectionBlock
     id="self-serve"
     eyebrow="Stay self-serve"
-    title="Use the Institute when the answer is already in the library"
+    title="Use the open material when the answer is already here"
     description="Each of these is free to use and needs no engagement."
     variant="alt"
   >

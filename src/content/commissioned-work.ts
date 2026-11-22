@@ -1,7 +1,7 @@
 /**
  * Commissioned work on this framework, in one place.
  *
- * The Institute once described its commercial counterpart, Ethotechnics
+ * The open project once described its commercial counterpart, Ethotechnics
  * Studio, at least six ways: clinical AI safety evaluation and VC diligence on
  * some pages; facilitation, mediation, and embedded delivery on others;
  * "independent audit verification", "custom governance tooling", and
@@ -17,7 +17,7 @@
  * This file is the source of truth for the four formats and their outputs,
  * which are the ones ethotechnics.com listed on 2026-10-01. Since 2026-11-04 the
  * Engagements section on kanav.net/contact names the engagement, its focus, and
- * its clients, and links to /institute/commissioned-work#offers for the rest. If
+ * its clients, and links to /commissioned-work#offers for the rest. If
  * the name, focus, or clients change on either site, change the other, and keep
  * that anchor. Prices are not published anywhere, so no page here states one.
  */
