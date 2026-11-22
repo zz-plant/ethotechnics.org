@@ -59,7 +59,7 @@ describe("variableForTopic", () => {
   });
 
   it("returns undefined when nothing matches", () => {
-    expect(variableForTopic("Institute", undefined, null)).toBeUndefined();
+    expect(variableForTopic("Missing", undefined, null)).toBeUndefined();
     expect(variableForTopic()).toBeUndefined();
   });
 });

@@ -15,7 +15,7 @@ export const createImplementationPublication = (
   authors: [
     {
       name: "Kanav Jain",
-      affiliation: "Ethotechnics Institute",
+      affiliation: "Ethotechnics",
       email: "hello@ethotechnics.org",
     },
   ],
@@ -37,5 +37,5 @@ export const createImplementationPublication = (
     href: "https://creativecommons.org/licenses/by-sa/4.0/",
   },
   attribution:
-    "Credit the Ethotechnics Institute, include the page title and version, and link to the canonical permalink.",
+    "Credit the Ethotechnics, include the page title and version, and link to the canonical permalink.",
 });

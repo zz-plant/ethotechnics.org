@@ -10,7 +10,7 @@ describe("formatDocumentTitle", () => {
   });
 
   it("replaces either legacy brand suffix instead of doubling it", () => {
-    expect(formatDocumentTitle("Theory — Ethotechnics Institute")).toBe(
+    expect(formatDocumentTitle("Theory — Ethotechnics")).toBe(
       "Theory — Ethotechnics",
     );
     expect(formatDocumentTitle("Field notes — Ethotechnics")).toBe(
@@ -36,8 +36,7 @@ describe("formatDocumentTitle", () => {
   });
 
   it("returns an opted-out title as passed", () => {
-    const home =
-      "Ethotechnics Institute — who has to act when a system is wrong?";
+    const home = "Ethotechnics — who has to act when a system is wrong?";
     expect(formatDocumentTitle(home, { suffix: false })).toBe(home);
     expect(
       formatDocumentTitle("Abstention — Ethotechnics glossary", {

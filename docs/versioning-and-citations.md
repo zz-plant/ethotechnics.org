@@ -18,11 +18,11 @@ When citing an Ethotechnics standard or clause, cite the **standard document ver
 
 **Standard Citation Pattern:**
 
-> _Ethotechnics Institute, STD-08 (Delegation) v0.3.2, §2.6 (2026). https://ethotechnics.org/standards/std-08-delegation_
+> _Ethotechnics, STD-08 (Delegation) v0.3.2, §2.6 (2026). https://ethotechnics.org/standards/std-08-delegation_
 
 **Specific Historical Revision Citation:**
 
-> _Ethotechnics Institute, STD-08 (Delegation) v0.3.2 (commit `15d04ab`), §2.6 (2026). https://github.com/zz-plant/ethotechnics.org/blob/v1.11.0/src/content/standards/std-08-delegation.mdx_
+> _Ethotechnics, STD-08 (Delegation) v0.3.2 (commit `15d04ab`), §2.6 (2026). https://github.com/zz-plant/ethotechnics.org/blob/v1.11.0/src/content/standards/std-08-delegation.mdx_
 
 ---
 

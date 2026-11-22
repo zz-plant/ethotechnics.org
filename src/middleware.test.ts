@@ -97,7 +97,7 @@ describe("middleware", () => {
       ["/agent-toolkit", "/archive/retired-tools"],
       ["/agent-toolkit/quick-answers", "/archive/retired-tools"],
       ["/agent-toolkit/teaching-flows", "/archive/retired-tools"],
-      ["/institute/how-studio-fits", "/institute/commissioned-work"],
+      ["/institute/how-studio-fits", "/commissioned-work"],
       ...["v1.0.0", "v1.1.0"].map((version) => [
         `/agent-toolkit/ethotechnics-agent-prompt-pack-${version}.md`,
         `/archive/retired-tools/ethotechnics-agent-prompt-pack-${version}.md`,

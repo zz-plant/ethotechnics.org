@@ -382,7 +382,7 @@ export const roles: Role[] = [
       focusAreas: [
         "Align research questions with glossary and standard definitions.",
         "Publish protocols and data that the validators and mechanisms can use.",
-        "Send datasets and findings to the Institute through the Participate page.",
+        "Send datasets and findings through the Participate page.",
       ],
       keyLinks: [
         {

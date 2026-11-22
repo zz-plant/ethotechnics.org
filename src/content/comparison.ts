@@ -29,10 +29,10 @@ export const commissionedWorkComparisonContent: CommissionedWorkComparisonConten
   {
     eyebrow: "Where to start",
     heading: "Run it yourself, or commission an evaluation?",
-    description: `The Institute publishes open guides and diagnostics you can run yourself. Commissioned safety evaluation for healthcare AI is ${commissionedWork.provider}'s own practice.`,
+    description: `This project publishes open guides and diagnostics you can run yourself. Commissioned safety evaluation for healthcare AI is ${commissionedWork.provider}'s own practice.`,
     cards: [
       {
-        eyebrow: "Institute",
+        eyebrow: "Open material",
         title: "Open guidance and self-serve diagnostics",
         description:
           "Work from the openly licensed mechanisms catalog (CC BY-SA 4.0), and run a diagnostic yourself for a first reading of readiness.",

@@ -21,7 +21,7 @@ Quick steps to add an Astro page without breaking navigation or metadata.
   and reuse the `className` props instead of adding inline styles.
 - **Update navigation when needed:** Add the new route to the matching section of `navSections` in
   `src/content/navigation.ts` so it appears in both the desktop menus and the mobile drawer (each
-  section stays at five links or fewer). Add footer links only for Institute or contact destinations
+  section stays at five links or fewer). Add footer links only for project or contact destinations
   the header does not already reach.
 - **Validate before opening a PR:** Run `bun run check` to cover linting, types, tests, and Astro's
   checker.

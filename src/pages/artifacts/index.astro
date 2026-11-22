@@ -1,9 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import {
-  artifacts,
-  type InstituteArtifact,
-} from "../../content/institute-site";
+import { artifacts, type ProjectArtifact } from "../../content/project-site";
 
 /**
  * The five templates, each in full on this one page.
@@ -16,7 +13,7 @@ import {
  * obligations and its steps -- so copying it gives exactly what is on the
  * screen.
  */
-const templateText = (artifact: InstituteArtifact) =>
+const templateText = (artifact: ProjectArtifact) =>
   [
     `# ${artifact.name}`,
     "",

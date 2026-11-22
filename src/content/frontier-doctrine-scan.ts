@@ -269,9 +269,9 @@ export const frontierDoctrineScan: FrontierDoctrineScan = {
   refreshCadence: "No refresh is scheduled.",
   staleAfter: "2027-06",
   scope:
-    "Ten frontier labs scored against the twelve laws for engineering delegated intelligence, on the Institute's reading of their public doctrine and product architecture. No individual score has a source attached yet.",
+    "Ten frontier labs scored against the twelve laws for engineering delegated intelligence, on this project's reading of their public doctrine and product architecture. No individual score has a source attached yet.",
   disclaimer: [
-    "No score has a source attached yet. Each is the Institute's reading of public material, and the documents and product surfaces it was read from are not listed. Treat the scores as unsourced until they are.",
+    "No score has a source attached yet. Each is this project's reading of public material, and the documents and product surfaces it was read from are not listed. Treat the scores as unsourced until they are.",
     "This scan scores public doctrine and product architecture. It does not score safety performance, internal practice, or intent.",
     "A score of 0 means no meaningful public analogue was found. It is not evidence that a lab rejects the principle.",
     "Scores are a reading of what has been published. A lab may hold a stronger internal position than its public material shows, or a weaker one.",
@@ -297,7 +297,7 @@ export const frontierDoctrineScan: FrontierDoctrineScan = {
     ],
   },
   sourcesNote:
-    "No score has a source attached yet. When sources are added, each score will cite the public document or product surface it was read from. Until then, read the scan as the Institute's structured reading, not as a sourced dataset.",
+    "No score has a source attached yet. When sources are added, each score will cite the public document or product surface it was read from. Until then, read the scan as this project's structured reading, not as a sourced dataset.",
 };
 
 export const getLawAverage = (numeral: LawNumeral): number | undefined =>

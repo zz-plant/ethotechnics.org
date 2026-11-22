@@ -44,7 +44,7 @@ describe("commissioned work has one offer and one address", () => {
     );
   });
 
-  // studio@ethotechnics.org was the Institute's guess at a Studio inbox, and
+  // studio@ethotechnics.org was the project's guess at a Studio inbox, and
   // hello@ethotechnics.com was the Studio's own. Neither reaches the work now.
   it("sends no one to a retired address or to ethotechnics.com", () => {
     expect(

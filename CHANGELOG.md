@@ -19,6 +19,13 @@ standard versions, and cited revisions relate.
 
 ### Changed
 
+- **Site presents as a working project, not an institute:** The brand is "Ethotechnics" rather
+  than "Ethotechnics Institute". The about page, footer, homepage colophon, governance page, and
+  commissioned-work page say one person writes the framework with AI agents, that there is no
+  council, reviewer panel, or staff, and that no standards body has adopted the drafts.
+  `/institute/governance` and `/institute/commissioned-work` move to `/governance` and
+  `/commissioned-work`; the old paths redirect. Citation, affiliation, and metadata strings follow
+  the new name.
 - **Page copy answers only objections visitors raised:** A unit test
   (`scripts/lib/presupposing-copy.test.ts`) fails on copy under `src/` that answers a doubt nobody
   voiced ("don't worry", "not another …", a list of what a tool is not) unless the sentence names

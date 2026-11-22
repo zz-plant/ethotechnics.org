@@ -150,7 +150,7 @@ export const evalsContent: EvalsContent = {
     authors: [
       {
         name: "Kanav Jain",
-        affiliation: "Ethotechnics Institute",
+        affiliation: "Ethotechnics",
         email: "kanav@ethotechnics.org",
       },
     ],
@@ -162,7 +162,7 @@ export const evalsContent: EvalsContent = {
       href: "https://creativecommons.org/licenses/by-sa/4.0/",
     },
     attribution:
-      "Ethotechnics Institute. (2026). Governance Eval Suites v1.13.0. Ethotechnics Institute.",
+      "Ethotechnics. (2026). Governance Eval Suites v1.13.0. Ethotechnics.",
     changelog: [
       {
         version: "1.13.0",

@@ -1,4 +1,4 @@
-export interface InstituteArtifact {
+export interface ProjectArtifact {
   name: string;
   slug: string;
   description: string[];
@@ -20,7 +20,7 @@ export interface FailureState {
 export const failureFooterLine =
   "If a field in these templates is hard to fill in, that field is the gap this failure exposes.";
 
-export const artifacts: InstituteArtifact[] = [
+export const artifacts: ProjectArtifact[] = [
   {
     name: "Decision record template",
     slug: "decision-record-template",

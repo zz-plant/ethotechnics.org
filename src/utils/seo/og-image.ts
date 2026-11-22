@@ -6,9 +6,9 @@ import { createHash } from "node:crypto";
 import { buildOgCardSvg, HEIGHT, WIDTH } from "./og-cards";
 import { OG_TEMPLATES, resolveOgTemplate } from "./og-template";
 
-const DEFAULT_TITLE = "Ethotechnics Institute";
+const DEFAULT_TITLE = "Ethotechnics";
 const DEFAULT_DESCRIPTION =
-  "Standards, mechanisms, and validators for accountable system governance.";
+  "Draft standards, record formats, and test instruments for answerable automated decisions.";
 const MAX_TITLE_CHARS = 98;
 const MAX_DESCRIPTION_CHARS = 185;
 const MAX_TEMPLATE_CHARS = 32;

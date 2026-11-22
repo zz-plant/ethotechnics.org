@@ -9,7 +9,7 @@ describe("normalizeBreadcrumbItems", () => {
     const items = normalizeBreadcrumbItems({
       siteBase,
       currentPath: "/research/theory/dependence-without-standing",
-      title: "Dependence without standing — Ethotechnics Institute",
+      title: "Dependence without standing — Ethotechnics",
     });
 
     expect(items.map((item) => item.name)).toEqual([
@@ -64,7 +64,7 @@ describe("normalizeBreadcrumbItems", () => {
     const items = normalizeBreadcrumbItems({
       siteBase,
       currentPath: "/research/theory",
-      title: "Theory — Ethotechnics Institute",
+      title: "Theory — Ethotechnics",
     });
 
     expect(items.map((item) => item.name)).toEqual([
@@ -78,7 +78,7 @@ describe("normalizeBreadcrumbItems", () => {
     const items = normalizeBreadcrumbItems({
       siteBase,
       currentPath: "/taxonomy/authority/policy-validity",
-      title: "Policy Validity — Ethotechnics Institute",
+      title: "Policy Validity — Ethotechnics",
     });
 
     expect(items.map((item) => item.name)).toEqual([

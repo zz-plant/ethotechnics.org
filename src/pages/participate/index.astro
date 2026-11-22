@@ -19,18 +19,18 @@ const {
   pageTitle,
   pageDescription,
   hero,
-  pathways: institutePathways,
+  pathways: projectPathways,
   openSource,
   intake,
   feedback,
 } = participationEntry.data;
 
-// A commissioned review is Kanav Jain's paid work, not the Institute's. Its
+// A commissioned review is Kanav Jain's paid work, not the project's. Its
 // description and address come from src/content/commissioned-work.ts rather
 // than participation.json, so they change when that file does.
 const { provider, disclosure, email } = commissionedWork;
 const pathways = [
-  ...institutePathways,
+  ...projectPathways,
   {
     id: "peer-review",
     title: "Commission a review",

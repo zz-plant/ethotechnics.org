@@ -54,8 +54,8 @@ component is for and where it appears.
 
 ## CommissionedWorkComparison.astro
 
-- Usage: Glass panel comparison grid between the self-serve Institute and commissioned work.
-- Reference: `src/pages/institute/commissioned-work.astro`.
+- Usage: Glass panel comparison grid between the open material and commissioned work.
+- Reference: `src/pages/commissioned-work.astro`.
 
 ## CitationBlock.astro
 

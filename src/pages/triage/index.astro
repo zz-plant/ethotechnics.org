@@ -10,8 +10,8 @@ import {
   artifacts,
   failureFooterLine,
   failureStates,
-  type InstituteArtifact,
-} from "../../content/institute-site";
+  type ProjectArtifact,
+} from "../../content/project-site";
 import { incidentLessons, incidentLessonsIntro } from "../../content/incidents";
 import { getStandardBySlug } from "../../content/standards";
 import {
@@ -50,7 +50,7 @@ const stagePreferences = [
 const stagesFor = (artifactSlugs: string[]) => {
   const available = artifactSlugs
     .map((slug) => artifactBySlug.get(slug))
-    .filter((artifact): artifact is InstituteArtifact => Boolean(artifact));
+    .filter((artifact): artifact is ProjectArtifact => Boolean(artifact));
   const used = new Set<string>();
   return stagePreferences.flatMap((stage) => {
     const artifact =

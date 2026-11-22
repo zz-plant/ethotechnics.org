@@ -75,7 +75,7 @@ describe("OG API endpoints", () => {
     const { GET } = await import("../../../pages/api/og.png");
     const response = await GET({
       request: new Request(
-        "https://example.com/api/og.png?title=Ethotechnics%20Institute&description=Standards,%20mechanisms,%20and%20validators%20for%20accountable%20system%20governance.&template=home",
+        "https://example.com/api/og.png?title=Ethotechnics&description=Draft%20standards,%20record%20formats,%20and%20test%20instruments%20for%20answerable%20automated%20decisions.&template=home",
       ),
     } as never);
 

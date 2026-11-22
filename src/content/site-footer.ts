@@ -18,32 +18,32 @@ type SiteFooterContent = {
 
 export const siteFooter: SiteFooterContent = {
   identity: {
-    heading: "Ethotechnics Institute",
+    heading: "Ethotechnics",
     brand: {
-      name: "Ethotechnics Institute",
+      name: "Ethotechnics",
       href: "/",
-      ariaLabel: "Ethotechnics Institute home",
+      ariaLabel: "Ethotechnics home",
       logoSrc: "/favicon.svg",
-      logoAlt: "Ethotechnics Institute seal",
+      logoAlt: "Ethotechnics mark",
     },
     description:
-      "Proposed standards, mechanisms, and diagnostics for keeping automated decision systems answerable, whether or not they use AI.",
+      "Draft standards, record formats, and test instruments for keeping automated decision systems answerable. Written in the open by Kanav Jain.",
     license: {
       label: "Content licensed CC BY-SA 4.0",
       href: "https://creativecommons.org/licenses/by-sa/4.0/",
       external: true,
     },
   },
-  // The footer holds what no menu does: the Institute itself and the ways to
-  // reach it. It used to repeat the Browse panel's four sections as well, so
+  // The footer holds what no menu does: who writes this and the ways to
+  // reach them. It used to repeat the Browse panel's four sections as well, so
   // every page carried the same twenty links twice, once in the header and
   // once here. The map lives in the header now and nowhere else.
   navigation: [
     {
-      heading: "The Institute",
+      heading: "The project",
       links: [
-        { label: "About the Institute", href: "/about" },
-        { label: "Governance", href: "/institute/governance" },
+        { label: "About", href: "/about" },
+        { label: "Governance", href: "/governance" },
         { label: "The record", href: "/record" },
         {
           label: "Security policy",
@@ -65,7 +65,7 @@ export const siteFooter: SiteFooterContent = {
         },
         // The page says who does the work and that he wrote the framework; a
         // footer label has room for neither, so the link goes there first.
-        { label: "Commissioned work", href: "/institute/commissioned-work" },
+        { label: "Commissioned work", href: "/commissioned-work" },
       ],
     },
   ],

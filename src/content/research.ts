@@ -73,7 +73,7 @@ export type ResearchContent = PageWithPermalink &
 export const researchContent: ResearchContent = {
   pageTitle: "Research on automated decisions and correction — Ethotechnics",
   pageDescription:
-    "Five public failures, each established by a court, an inquiry, or a regulator, scored on six safeguards by the Institute. A draft protocol and the theory.",
+    "Five public failures, each established by a court, an inquiry, or a regulator, scored on six safeguards by this project. A draft protocol and the theory.",
   permalink: "/research",
   published: "2025-12-03T00:00:00Z",
   updated: "2026-11-08T00:00:00Z",
@@ -81,7 +81,7 @@ export const researchContent: ResearchContent = {
     authors: [
       {
         name: "Kanav Jain",
-        affiliation: "Ethotechnics Institute",
+        affiliation: "Ethotechnics",
         email: "hello@ethotechnics.org",
       },
     ],
@@ -152,7 +152,7 @@ export const researchContent: ResearchContent = {
       href: "https://creativecommons.org/licenses/by-sa/4.0/",
     },
     attribution:
-      "Credit the Ethotechnics Institute, include the page title and version, and link to the canonical permalink.",
+      "Credit the Ethotechnics, include the page title and version, and link to the canonical permalink.",
   },
   lastUpdated: "2026-10-06T00:00:00Z",
   updateCadence:

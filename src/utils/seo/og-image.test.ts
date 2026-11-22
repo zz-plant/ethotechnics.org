@@ -116,7 +116,7 @@ describe("OG request normalization and validators", () => {
 describe("renderOgPng", () => {
   it("renders a PNG with visible text glyphs rather than an empty frame", async () => {
     const png = await renderOgPng(
-      "Ethotechnics Institute",
+      "Ethotechnics",
       "Standards, mechanisms, and validators for accountable system governance.",
       { template: "home" },
     );

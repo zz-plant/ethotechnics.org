@@ -110,7 +110,7 @@ export const diagnosticsContent: DiagnosticsContent = {
     authors: [
       {
         name: "Kanav Jain",
-        affiliation: "Ethotechnics Institute",
+        affiliation: "Ethotechnics",
         email: "hello@ethotechnics.org",
       },
     ],
@@ -169,7 +169,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       href: "https://creativecommons.org/licenses/by-sa/4.0/",
     },
     attribution:
-      "Credit Ethotechnics Institute, include the tool name and version, and link to the canonical permalink.",
+      "Credit Ethotechnics, include the tool name and version, and link to the canonical permalink.",
   },
   valueProps: [
     {
@@ -209,7 +209,7 @@ export const diagnosticsContent: DiagnosticsContent = {
           "You leave with a linkable readout, the mechanisms it cites, and one named next step.",
       },
     ],
-    note: "Every diagnostic runs without a prior relationship, and the Institute publishes each one under CC BY-SA 4.0.",
+    note: "Every diagnostic runs without a prior relationship, and this project publishes each one under CC BY-SA 4.0.",
   },
   tools: [
     {
@@ -349,7 +349,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       title: "Record conformance checker",
       tier: "Checks exported records",
       description:
-        "Reads the decision records a system exports in STD-07, the Institute's draft record format for work delegated to machines. It checks them against the schema, recomputes the hashes, and compares the conformance level the records earn with the level the system claims. Use it when a system already produces records; use the delegation audit when it does not.",
+        "Reads the decision records a system exports in STD-07, this project's draft record format for work delegated to machines. It checks them against the schema, recomputes the hashes, and compares the conformance level the records earn with the level the system claims. Use it when a system already produces records; use the delegation audit when it does not.",
       metaDescription:
         "Checks a system's decision records against the STD-07 record schema, recomputes their hashes, and compares the level they earn with the level it claims.",
       methodCards: {

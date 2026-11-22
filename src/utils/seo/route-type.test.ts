@@ -12,7 +12,7 @@ describe("resolveRouteProfile", () => {
   it("types each kind of page once, from its address", () => {
     expect(profile("/")).toEqual({
       kind: "home",
-      group: "Institute",
+      group: "Project",
       sitemap: "core",
       pageType: "WebPage",
       articleType: undefined,
