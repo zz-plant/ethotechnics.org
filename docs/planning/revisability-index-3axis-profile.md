@@ -29,13 +29,15 @@ Necessity.
 ## 2. The three axes
 
 ### 2.1 Possibility
-*How socio-technical arrangements shape what people can recognize, imagine, and
-pursue — and whether high-performing systems clarify or obscure alternatives.*
+
+_How socio-technical arrangements shape what people can recognize, imagine, and
+pursue — and whether high-performing systems clarify or obscure alternatives._
 
 Measures whether the institution's own performance leaves participants more or
 less able to notice anomalies, formulate objections, and imagine alternatives.
 
 Inputs (drawn from #4, Epistemic-Friction Metrics):
+
 - **Anomaly surfacing rate**: share of detected anomalies that reach a human with
   standing, vs. being auto-resolved or absorbed into a metric.
 - **Epistemic friction preserved**: whether an oversight step actually forces a
@@ -48,12 +50,14 @@ Inputs (drawn from #4, Epistemic-Friction Metrics):
   without the tool).
 
 ### 2.2 Authority
-*How arrangements determine who can make discoveries consequential — procedural
-responsiveness vs. standing to set agendas and revise rules.*
+
+_How arrangements determine who can make discoveries consequential — procedural
+responsiveness vs. standing to set agendas and revise rules._
 
 Measures who can actually change the governing rule, not just file a ticket.
 
 Inputs (drawn from #17, Constitutional Stopping Mechanisms):
+
 - **Rule-change standing**: which roles/accounts can propose, and which can
   ratify, a change to the governing rule (not just to an operational parameter).
 - **Sunset clause presence**: whether automated workflows carry enforceable
@@ -64,12 +68,14 @@ Inputs (drawn from #17, Constitutional Stopping Mechanisms):
   body with standing, and whether that body is independent of the operator.
 
 ### 2.3 Necessity
-*How arrangements create, conceal, reproduce, or reduce dependencies — the
-material, epistemic, and organizational cost of doing otherwise.*
+
+_How arrangements create, conceal, reproduce, or reduce dependencies — the
+material, epistemic, and organizational cost of doing otherwise._
 
 Measures the cost of opting out, challenging, or replacing the system.
 
 Inputs (drawn from #17 and from the casebook):
+
 - **Exit cost**: data portability, interoperability, switching cost (technical
   and organizational).
 - **Challenge cost**: time, money, and standing required to contest a decision
@@ -86,13 +92,13 @@ Inputs (drawn from #17 and from the casebook):
 The profile is not a score; it is a vector plus flags. Flags fire when axes
 diverge in ways that mask a problem:
 
-| Flag | Condition | Meaning |
-|------|-----------|---------|
-| `POSSIBILITY_MASKS_AUTHORITY` | Possibility high, Authority zero/low | The institution surfaces anomalies beautifully but no one can act on them. "Participatory theater." |
-| `AUTHORITY_WITHOUT_NECESSITY` | Authority high, Necessity high | Those with standing to change rules have no incentive to reduce dependency (they benefit from lock-in). |
-| `NECESSITY_HIDDEN_BY_POSSIBILITY` | Necessity high, Possibility high | The system is transparent about its own operation but opaque about the cost of leaving. |
-| `STAGNANT` | All three low | Bureaucracy: nothing surfaces, nothing changes, dependency is total. |
-| `HIGH_CHURN_NO_POWER` | Possibility high, Authority low, Necessity high | Lots of feedback and activity, no rule change, high exit cost. The "absorption" pattern. |
+| Flag                              | Condition                                       | Meaning                                                                                                 |
+| --------------------------------- | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `POSSIBILITY_MASKS_AUTHORITY`     | Possibility high, Authority zero/low            | The institution surfaces anomalies beautifully but no one can act on them. "Participatory theater."     |
+| `AUTHORITY_WITHOUT_NECESSITY`     | Authority high, Necessity high                  | Those with standing to change rules have no incentive to reduce dependency (they benefit from lock-in). |
+| `NECESSITY_HIDDEN_BY_POSSIBILITY` | Necessity high, Possibility high                | The system is transparent about its own operation but opaque about the cost of leaving.                 |
+| `STAGNANT`                        | All three low                                   | Bureaucracy: nothing surfaces, nothing changes, dependency is total.                                    |
+| `HIGH_CHURN_NO_POWER`             | Possibility high, Authority low, Necessity high | Lots of feedback and activity, no rule change, high exit cost. The "absorption" pattern.                |
 
 These flags are the point of keeping the axes separate: a composite score would
 hide every one of them.
@@ -101,12 +107,12 @@ hide every one of them.
 
 ## 4. Mapping to existing standards
 
-| Axis / input | Existing standard | Extension needed |
-|--------------|-------------------|------------------|
-| Epistemic friction (#4) | STD-02 (contestability), STD-08 (delegation) | Add friction metrics (time-to-decision, dissent recorded, override rate) as measurable fields |
-| Stopping mechanisms (#17) | STD-07 (revisable delegation record) | Add sunset-clause, re-authorization-gate, and kill-switch fields to the delegation record |
-| Rule-change standing | STD-08 (delegation) | Add "who can ratify a rule change" as distinct from "who can change an operational parameter" |
-| Exit cost / lock-in | STD-01 (temporal rights), casebook | Add interoperability/portability checks to the casebook scoring |
+| Axis / input              | Existing standard                            | Extension needed                                                                              |
+| ------------------------- | -------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| Epistemic friction (#4)   | STD-02 (contestability), STD-08 (delegation) | Add friction metrics (time-to-decision, dissent recorded, override rate) as measurable fields |
+| Stopping mechanisms (#17) | STD-07 (revisable delegation record)         | Add sunset-clause, re-authorization-gate, and kill-switch fields to the delegation record     |
+| Rule-change standing      | STD-08 (delegation)                          | Add "who can ratify a rule change" as distinct from "who can change an operational parameter" |
+| Exit cost / lock-in       | STD-01 (temporal rights), casebook           | Add interoperability/portability checks to the casebook scoring                               |
 
 The index does **not** replace these standards; it reads across them.
 
@@ -151,7 +157,5 @@ or becoming less dependent on the system?" — which is the baseline test in
    known failures (Robodebt, Toeslagenaffaire, Post Office Horizon, Ofqual 2020,
    Apple Card).
 
-*This is a design note. Standard amendments and the diagnostic page follow in
-separate PRs.*
-EOF
-echo "written"
+_This is a design note. Standard amendments and the diagnostic page follow in
+separate PRs._
