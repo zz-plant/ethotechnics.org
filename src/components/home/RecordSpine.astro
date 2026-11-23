@@ -35,7 +35,7 @@ timeline.forEach((event, index) => {
       verbatim: event.voice.verbatim ?? false,
       speaker: event.voice.speaker,
       state: "halt",
-      response: "halt",
+      response: "halted",
     });
     return;
   }
@@ -47,12 +47,12 @@ timeline.forEach((event, index) => {
     speaker: event.voice.speaker,
     note: event.voice.after || undefined,
     state: after ? "after" : "unanswered",
-    response: after ? "came after the halt" : "no response",
+    response: after ? "came after it stopped" : "no answer",
   });
 });
 
 const warnings = rows.filter((row) => row.state === "unanswered").length;
-const chipLabel = `${warnings} ${warnings === 1 ? "warning" : "warnings"} unanswered, then a halt`;
+const chipLabel = `${warnings} ${warnings === 1 ? "warning" : "warnings"} unanswered, then it stopped`;
 
 const launch = timeline.find(
   (event) => !event.evidence && !event.halt && !event.voice,
@@ -91,10 +91,11 @@ const money = (amount: number) => `A$${amount.toLocaleString("en-AU")}`;
 
       {launch && (
         <p class="disruption__lead">
-          The rule takes a person's yearly income from tax records, spreads it
-          evenly across the year's fortnights, and treats any gap with what they
-          reported as a debt they have to disprove. At launch, {launchFact} Each
-          dated warning on the record follows, with the response it got.
+          The rule took a person's yearly income from tax records and spread it
+          evenly across the year's fortnights. Then it compared that figure with
+          what the person reported. Any gap became a debt the person had to
+          disprove. At launch, {launchFact} Below is each dated warning, with
+          the answer it got.
         </p>
       )}
 
@@ -184,7 +185,7 @@ const money = (amount: number) => `A$${amount.toLocaleString("en-AU")}`;
 
       <p class="small muted">
         <a class="line-link" href={`/casebook/${robodebt.slug}`}>
-          Read the scored case →
+          Read the full case →
         </a>
       </p>
     </section>

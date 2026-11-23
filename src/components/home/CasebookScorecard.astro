@@ -17,10 +17,10 @@ const days = [...cases].sort((a, b) => b.timeToHaltDays - a.timeToHaltDays);
 const yearDays = 365.25;
 
 const safeguardGloss: Record<StateVariableId, string> = {
-  capability: "what the system could do",
-  authority: "what it was allowed to do, for whom, and until when",
+  capability: "what the system was able to do",
+  authority: "what it was allowed to do, to whom, and for how long",
   evidence: "what justified that permission",
-  dependency: "how hard it had become to switch off or replace",
+  dependency: "how hard it was to switch off or replace",
   standing:
     "whether a person it decided about could challenge the decision and get an answer",
   correction: "whether anyone could still step in, and how fast",
@@ -44,17 +44,20 @@ const haltLabel = (value: number) => {
       Robodebt was not the exception.
     </h2>
     <p class="line-lead">
-      A court, an inquiry, or a regulator established the facts of each case
-      below. None was stopped by the organization running it. Apple Card's
-      issuer is the one operator that changed its own process, after a
-      regulator's investigation.
+      A court, an inquiry, or a regulator established the facts in each case
+      below. In every case but one, the change was forced from outside. Apple
+      Card's bank changed its own process, after a regulator investigated.
     </p>
   </header>
 
   <div class="case-lines__key">
-    <span><i class="line-map__key line-map__key--held"></i>held</span>
-    <span><i class="line-map__key line-map__key--drift"></i>drifted</span>
-    <span><i class="line-map__key line-map__key--failed"></i>failed</span>
+    <span
+      ><i class="line-map__key line-map__key--held"></i>held: still in place</span
+    >
+    <span
+      ><i class="line-map__key line-map__key--drift"></i>drifted: weakened</span
+    >
+    <span><i class="line-map__key line-map__key--failed"></i>failed: gone</span>
     <span>Longest harm first.</span>
   </div>
 
@@ -67,7 +70,7 @@ const haltLabel = (value: number) => {
         ))
       }
     </span>
-    <span>Halt</span>
+    <span>Ran for</span>
   </div>
 
   <ol class="case-lines__list">
@@ -81,7 +84,7 @@ const haltLabel = (value: number) => {
                 {entry.jurisdiction.split(" · ")[0]} ·{" "}
                 {entry.learningOutcome.verdict === "learned"
                   ? "changed its own process"
-                  : "change imposed from outside"}
+                  : "change forced from outside"}
               </span>
             </span>
             <span
@@ -120,7 +123,7 @@ const haltLabel = (value: number) => {
   </ol>
 
   <details class="case-lines__key">
-    <summary>How to read the stops</summary>
+    <summary>What the dots mean</summary>
     <ul class="small">
       {
         stateVariables.map((variable) => (
@@ -132,8 +135,10 @@ const haltLabel = (value: number) => {
       }
     </ul>
     <p class="small muted">
-      Each row marks the six safeguards left to right. The halt time is how long
-      the harm ran before it stopped.
+      A filled dot means the safeguard was still in place. A half dot means it
+      had weakened. A red dot means it was gone. Each row shows the six
+      safeguards from left to right. The time on the right is how long the harm
+      ran before it stopped.
     </p>
   </details>
 

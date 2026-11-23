@@ -54,7 +54,7 @@ const stations = methodContent.chain.map((stage) => ({
   id: stage.id,
   code: codes[stage.id] ?? stage.id.slice(0, 3).toUpperCase(),
   title: stage.title,
-  question: stage.question,
+  question: stage.plainQuestion ?? stage.question,
   color: colors[stage.id] ?? "var(--line-ink)",
   state: robodebt[stage.id] ?? "held",
   interchange: stage.id === "authority" || stage.id === "challenge",
@@ -69,10 +69,10 @@ const stations = methodContent.chain.map((stage) => ({
     <span class="line-map__badge"><i aria-hidden="true"></i>Line 7</span>
     <span class="line-map__name">The decision chain</span>
     <a class="line-map__you" href="#self-test"
-      >Where is your system? <strong>Mark it →</strong></a
+      >Where is your system? <strong>Check it →</strong></a
     >
     <span class="line-map__halt">
-      Halt clock
+      Ran for
       <strong>3 yr 4 mo</strong>
     </span>
   </div>
@@ -107,12 +107,16 @@ const stations = methodContent.chain.map((stage) => ({
     }
   </ol>
   <figcaption class="line-map__legend">
-    <span><i class="line-map__key line-map__key--held"></i>held</span>
-    <span><i class="line-map__key line-map__key--drift"></i>drifted</span>
-    <span><i class="line-map__key line-map__key--failed"></i>failed</span>
+    <span
+      ><i class="line-map__key line-map__key--held"></i>held: still in place</span
+    >
+    <span
+      ><i class="line-map__key line-map__key--drift"></i>drifted: weakened</span
+    >
+    <span><i class="line-map__key line-map__key--failed"></i>failed: gone</span>
     <span class="line-map__note"
-      >Robodebt: the signal stops at Consequence. Challenge to Correction are
-      suspended.</span
+      >Robodebt: the signal stops at Consequence. Challenge to Correction never
+      ran.</span
     >
   </figcaption>
 </figure>

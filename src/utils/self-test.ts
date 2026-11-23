@@ -25,35 +25,35 @@ export const selfTestQuestions: SelfTestQuestion[] = [
     variable: "correction",
     label: "Correction",
     question:
-      "If it were harming people right now, could a named person halt it within a day?",
-    ifNo: "No one can halt it within a day of seeing the harm.",
+      "If it were harming people right now, could one named person stop it within a day?",
+    ifNo: "No one can stop it within a day of seeing the harm.",
   },
   {
     variable: "standing",
-    label: "Standing",
+    label: "Appeal",
     question:
-      "Can someone it decided about challenge the decision and get a human answer by a set date?",
+      "If it decides against someone, can that person appeal and get an answer from a human by a set date?",
     ifNo: "No one has to answer a person who challenges it.",
   },
   {
     variable: "authority",
     label: "Authority",
     question:
-      "Does its permission to act have a written end date or review trigger?",
-    ifNo: "Its approval outlives the reasons for it.",
+      "Does its permission to act have a written end date, or a rule that sends it back for review?",
+    ifNo: "Its permission outlasts the reason it was given.",
   },
   {
     variable: "evidence",
     label: "Evidence",
     question:
-      "Could you produce today the evidence that justified switching it on, and is that evidence still true?",
+      "Could you produce today the evidence that justified turning it on, and is that evidence still true?",
     ifNo: "The rule no longer matches what is true.",
   },
   {
     variable: "capability",
     label: "Capability",
     question:
-      "Was it re-approved the last time it got faster, broader, or more automated?",
+      "The last time it got faster, broader, or more automated, was it approved again?",
     ifNo: "It does more than anyone approved.",
   },
   {
@@ -155,13 +155,13 @@ export function verdictLine(result: SelfTestResult): string {
   const total = selfTestQuestions.length;
   const drift = result.drifting.length;
   if (drift === 0) {
-    return `All ${total} hold. Check that someone other than you would answer the same way.`;
+    return `All ${total} pass. Check that someone other than you would answer the same way.`;
   }
   if (drift === total) {
-    return `None of the ${total} hold. Robodebt failed on four of these and ran for three years and four months.`;
+    return `None of the ${total} pass. Robodebt failed on four of these and ran for three years and four months.`;
   }
   if (drift >= 4) {
-    return `${drift} of ${total} are drifting. Four of the five casebook failures had at least four not holding.`;
+    return `${drift} of ${total} fail. Four of the five cases in the casebook had at least four of these checks missing or weak.`;
   }
-  return `${drift} of ${total} ${drift === 1 ? "is" : "are"} drifting. Fix ${drift === 1 ? "it" : "them"} before its scope next widens.`;
+  return `${drift} of ${total} ${drift === 1 ? "fails" : "fail"}. Fix ${drift === 1 ? "it" : "them"} before the system is given more to do.`;
 }
