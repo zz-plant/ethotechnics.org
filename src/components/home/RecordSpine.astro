@@ -1,17 +1,12 @@
 ---
 /**
- * Act 1 of the home page: the Robodebt record as a spine rail.
+ * The Robodebt record as a service disruption log.
  *
- * One row per dated event the casebook holds: the quote on the left, a dot
- * on the rail, and the institution's response on the right. Rust dots are
- * warnings the institution never answered by changing the scheme; the count
- * chip in the header reads the rail, and the halt row's dot is drawn in the
- * institution's ink because the halt is the one thing the record made
- * happen.
- *
- * Everything is server-rendered from the casebook entry, so the page is
- * true without JavaScript. The rows keep the reveal animation; nothing here
- * counts on scroll anymore — the rail is the count.
+ * One entry per dated event the casebook holds: the warning on the left, a
+ * stop on the line, and the institution's response on the right. Vermilion
+ * stops are warnings the institution never answered by changing the scheme;
+ * the halt is the one thing the record made happen. Everything is
+ * server-rendered from the casebook entry.
  */
 import { casesBySlug } from "../../content/casebook";
 
@@ -57,11 +52,8 @@ timeline.forEach((event, index) => {
 });
 
 const warnings = rows.filter((row) => row.state === "unanswered").length;
-// A reader meets the chip before the rail it counts, so it names the warnings.
 const chipLabel = `${warnings} ${warnings === 1 ? "warning" : "warnings"} unanswered, then a halt`;
 
-// The launch is the run's opening beat: it is not a warning, so it sets the
-// scene in a lead rather than taking a rail row.
 const launch = timeline.find(
   (event) => !event.evidence && !event.halt && !event.voice,
 );
@@ -89,19 +81,16 @@ const money = (amount: number) => `A$${amount.toLocaleString("en-AU")}`;
 
 {
   robodebt && rows.length > 0 && (
-    <section id="record" class="record-spine" aria-labelledby="record-heading">
-      <header class="record-spine__header">
-        <div class="stack-sm">
-          <p class="eyebrow">The record</p>
-          <h2 id="record-heading" class="section__heading">
-            Watch one scheme run.
-          </h2>
-        </div>
-        <p class="record-spine__chip">{chipLabel}</p>
+    <section id="record" class="disruption" aria-labelledby="record-heading">
+      <header class="disruption__header">
+        <h2 id="record-heading" class="line-heading">
+          Watch one scheme run.
+        </h2>
+        <p class="disruption__chip">{chipLabel}</p>
       </header>
 
       {launch && (
-        <p class="record-spine__lead">
+        <p class="disruption__lead">
           The rule takes a person's yearly income from tax records, spreads it
           evenly across the year's fortnights, and treats any gap with what they
           reported as a debt they have to disprove. At launch, {launchFact} Each
@@ -110,7 +99,7 @@ const money = (amount: number) => `A$${amount.toLocaleString("en-AU")}`;
       )}
 
       {launch && (
-        <figure class="averaging" aria-labelledby="averaging-caption">
+        <figure class="disruption__chart" aria-labelledby="averaging-caption">
           <svg
             class="averaging__chart"
             viewBox={`0 0 ${fortnights * slot} ${baseline + 2}`}
@@ -148,7 +137,7 @@ const money = (amount: number) => `A$${amount.toLocaleString("en-AU")}`;
             />
           </svg>
           <div
-            class="averaging__spans small"
+            class="averaging__spans"
             style={`grid-template-columns: ${worked}fr ${fortnights - worked}fr`}
             aria-hidden="true"
           >
@@ -166,36 +155,37 @@ const money = (amount: number) => `A$${amount.toLocaleString("en-AU")}`;
         </figure>
       )}
 
-      <ol class="record-spine__rail">
+      <ol class="disruption__log">
         {rows.map((row) => (
           <li
             class:list={[
-              "record-spine__row",
-              `record-spine__row--${row.state}`,
+              "disruption__entry",
+              `disruption__entry--${row.state}`,
             ]}
             data-reveal
           >
-            <div class="record-spine__quote">
-              <p class="record-spine__said">
+            <span class="disruption__when">{row.when}</span>
+            <span class="disruption__dot" aria-hidden="true" />
+            <div>
+              <p class="disruption__said">
                 {row.verbatim ? <q>{row.said}</q> : row.said}
                 {row.note && (
-                  <span class="record-spine__note"> — {row.note}</span>
+                  <span class="disruption__note"> — {row.note}</span>
                 )}
               </p>
-              <p class="record-spine__source">
-                {row.when} · {row.speaker}
-              </p>
+              <p class="disruption__source">{row.speaker}</p>
             </div>
-            <span class="record-spine__dot" aria-hidden="true" />
-            <p class="record-spine__response">{row.response}</p>
+            <p class="disruption__response">{row.response}</p>
           </li>
         ))}
       </ol>
 
-      <p class="record-spine__cost">{robodebt.scale}</p>
+      <p class="disruption__cost">{robodebt.scale}</p>
 
-      <p class="record-spine__foot small muted">
-        <a href={`/casebook/${robodebt.slug}`}>Read the scored case →</a>
+      <p class="small muted">
+        <a class="line-link" href={`/casebook/${robodebt.slug}`}>
+          Read the scored case →
+        </a>
       </p>
     </section>
   )

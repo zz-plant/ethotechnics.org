@@ -1,48 +1,48 @@
 ---
 /**
- * What this project publishes, as one map on the front door. The story
- * above shows the question with one case; this names the discipline and
- * every body of work behind it, so a reader who reaches the end of the page,
- * and a crawler reading it, sees the whole site rather than one example.
+ * What this project publishes, as a network of four lines.
  *
  * It reads the header's own menu (navSections), so the map and the menu
- * cannot drift apart, and adding a page to the menu adds it here. Labels
- * only: the menu carries the one-line descriptions, and a second copy of
- * twenty of them would undo the page's trim.
+ * cannot drift apart. Each section is a line with its pages as stops; labels
+ * only, because the menu carries the descriptions.
  */
 import { methodContent } from "../../content/method";
 import { navSections } from "../../content/navigation";
 
-// The definition's first sentence. The full one opens /method.
 const definition = methodContent.definition.slice(
   0,
   methodContent.definition.indexOf(".") + 1,
 );
+
+const lineColors = [
+  "var(--line-cobalt)",
+  "var(--line-vermilion)",
+  "var(--line-teal)",
+  "var(--line-violet)",
+];
 ---
 
-<nav class="home-map" aria-labelledby="home-map-heading">
-  <div class="home-split-header">
-    <h2 id="home-map-heading" class="section__heading">
-      What this project publishes
-    </h2>
-    <p class="section-lead">
+<nav class="network" aria-labelledby="network-heading">
+  <header class="network__header">
+    <h2 id="network-heading" class="line-heading">The network.</h2>
+    <p class="line-lead">
       {definition} Everything below is licensed CC BY-SA 4.0.
-      <a href="/start">Start here</a>
+      <a class="line-link" href="/start">Start here</a>
     </p>
-  </div>
-  <div class="home-map__cols" data-glossary-ignore>
+  </header>
+  <div class="network__lines" data-glossary-ignore>
     {
-      navSections.map((section) => (
-        <section class="home-map__group">
-          <h3 class="home-map__heading">
+      navSections.map((section, index) => (
+        <section class="network__line" style={`--line: ${lineColors[index]}`}>
+          <h3 class="network__name">
             {section.href ? (
               <a href={section.href}>{section.heading}</a>
             ) : (
               section.heading
             )}
           </h3>
-          <p class="home-map__description small muted">{section.description}</p>
-          <ul class="home-map__links">
+          <p class="network__description small">{section.description}</p>
+          <ul class="network__stops">
             {section.links.map((link) => (
               <li>
                 <a href={link.href}>{link.label}</a>
