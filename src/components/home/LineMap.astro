@@ -1,0 +1,118 @@
+---
+/**
+ * The decision chain as a transit line.
+ *
+ * The seven stages are the method's own chain, in order. The hero draws the
+ * Robodebt service pattern on it: the signal reaches Consequence and stops;
+ * Challenge through Correction are drawn as suspended service. The compact
+ * variant is the same map without the station questions.
+ */
+import { methodContent } from "../../content/method";
+
+interface Props {
+  variant?: "hero" | "compact";
+  class?: string;
+}
+
+const { variant = "hero", class: className }: Props = Astro.props;
+
+type State = "held" | "drifted" | "failed" | "suspended";
+
+const codes: Record<string, string> = {
+  evidence: "EVD",
+  authority: "AUT",
+  decision: "DEC",
+  consequence: "CON",
+  challenge: "CHA",
+  reconsideration: "REC",
+  correction: "COR",
+};
+
+const colors: Record<string, string> = {
+  evidence: "var(--line-teal)",
+  authority: "var(--line-cobalt)",
+  decision: "var(--line-violet)",
+  consequence: "var(--line-vermilion)",
+  challenge: "var(--line-amber)",
+  reconsideration: "var(--line-magenta)",
+  correction: "var(--line-ink)",
+};
+
+// Robodebt: the record was kept, the permission was not renewed, and the
+// correction never came. The halt sits at Consequence.
+const robodebt: Record<string, State> = {
+  evidence: "drifted",
+  authority: "failed",
+  decision: "failed",
+  consequence: "failed",
+  challenge: "suspended",
+  reconsideration: "suspended",
+  correction: "suspended",
+};
+
+const stations = methodContent.chain.map((stage) => ({
+  id: stage.id,
+  code: codes[stage.id] ?? stage.id.slice(0, 3).toUpperCase(),
+  title: stage.title,
+  question: stage.question,
+  color: colors[stage.id] ?? "var(--line-ink)",
+  state: robodebt[stage.id] ?? "held",
+  interchange: stage.id === "authority" || stage.id === "challenge",
+}));
+---
+
+<figure
+  class:list={["line-map", `line-map--${variant}`, className]}
+  data-glossary-ignore
+>
+  <div class="line-map__head">
+    <span class="line-map__badge"><i aria-hidden="true"></i>Line 7</span>
+    <span class="line-map__name">The decision chain</span>
+    <a class="line-map__you" href="#self-test"
+      >Where is your system? <strong>Mark it →</strong></a
+    >
+    <span class="line-map__halt">
+      Halt clock
+      <strong>3 yr 4 mo</strong>
+    </span>
+  </div>
+  <ol class="line-map__stations">
+    {
+      stations.map((station) => (
+        <li
+          class:list={[
+            "line-map__station",
+            `line-map__station--${station.state}`,
+            station.state === "failed" && station.id === "consequence"
+              ? "line-map__station--halt"
+              : undefined,
+            station.interchange ? "line-map__station--interchange" : undefined,
+          ]}
+          style={`--station: ${station.color}`}
+        >
+          <span class="line-map__dot" aria-hidden="true" />
+          {station.id === "reconsideration" && (
+            <span class="line-map__branch" aria-hidden="true" />
+          )}
+          {station.id === "correction" && (
+            <span class="line-map__terminus" aria-hidden="true" />
+          )}
+          <span class="line-map__code">{station.code}</span>
+          <span class="line-map__label">{station.title}</span>
+          {variant === "hero" && (
+            <span class="line-map__question">{station.question}</span>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+  <figcaption class="line-map__legend">
+    <span><i class="line-map__key line-map__key--held"></i>held</span>
+    <span><i class="line-map__key line-map__key--drift"></i>drifted</span>
+    <span><i class="line-map__key line-map__key--failed"></i>failed</span>
+    <span class="line-map__note"
+      >Robodebt: the signal stops at Consequence. Challenge to Correction are
+      suspended.</span
+    >
+  </figcaption>
+</figure>

@@ -2,45 +2,26 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CasebookScorecard from "../components/home/CasebookScorecard.astro";
 import ExceptionLearningFigure from "../components/ExceptionLearningFigure.astro";
-import HomeRail from "../components/home/HomeRail.astro";
+import LineMap from "../components/home/LineMap.astro";
 import PublishedMap from "../components/home/PublishedMap.astro";
 import RecordSpine from "../components/home/RecordSpine.astro";
-import SafeguardMap from "../components/home/SafeguardMap.astro";
 import SelfTest from "../components/home/SelfTest.astro";
 import { commissionedWork } from "../content/commissioned-work";
 
 /**
- * The front door as one story in reading order, told without ever holding
- * the scroll. The hero asks the question the page then puts to the reader's
- * system (the self-test) and to this site (the colophon), and answers it
- * once with Robodebt. Then: watch one scheme run (the record), see why
- * rulings did not stop it (the mechanism), see that it was not special (the
- * casebook), then turn to the reader's own system (the self-test, scored on
- * the six-node figure). Listing what this project publishes is not the
- * lede's job; the map after the self-test does it, read from the header's
- * menu, so the front door names the discipline and every body of work
- * behind the one example. It closes on the site's own answer to its
- * question: who writes it, where a correction goes, and where the
- * framework's instruments failed. The claims are the table on /about,
- * and the positioning band leads the completions on
- * /research/scholarly-crossings. The two-ledger rail at the viewport edge is
- * the same grammar, as chrome.
+ * The front door as a transit line.
  *
- * Each idea is drawn as well as written, for readers who think in pictures:
- * the record draws the unanswered warnings as a rail, the mechanism leads
- * with the exception-learning drawing that shows both the broken path and
- * the fix, and the self-test draws the reader's system as a six-node ring.
+ * The seven-stage decision chain is the page's spine. The hero draws it with
+ * the Robodebt service pattern; the record shows the warnings the institution
+ * never answered; the mechanism shows the count that would have sent the rule
+ * back; the casebook shows the same failure five times; the self-test asks the
+ * reader to mark their own system on the line; the connections route each
+ * reader; the network names what the project publishes; the colophon answers
+ * the page's own question about who corrects this site.
  *
- * The first screen offers one next step: the self-test, the story's own
- * turn to the reader's system. It used to put two hero buttons and six
- * reader doors beside the question, on top of the header's links. Incident
- * triage stays under the button as a plain link, for the reader whose system
- * is failing now, and the header's "Start here" leads to the routes by
- * reader on any screen.
- *
- * The reader doors follow the self-test instead, where a reader who has
- * answered for their own system asks what to read next. They name the
- * reader, not the site's sections; the map after them carries the sections.
+ * The world is scoped to `.home-line` on the body, so the rest of the site
+ * keeps its own identity. All copy claims, data, and links are the existing
+ * ones; the visual system is replaced.
  */
 const doors = [
   {
@@ -55,8 +36,6 @@ const doors = [
     href: "/roles/executive",
     who: "I decide whether to deploy them",
   },
-  // 2026-10-24: the protective half of the discipline (arrangements that
-  // consume the capacity they run on) had no door; this is its entrance.
   {
     href: "/diagnostics/burden-modeler",
     who: "My team absorbs its failures",
@@ -76,157 +55,181 @@ const doors = [
   title="Ethotechnics — who has to act when a system is wrong?"
   titleSuffix={false}
   description="Draft standards, scored public failures, and free diagnostics for one question: when an automated decision system is wrong, does anyone have to change it?"
+  bodyClass="home-line"
+  mainClass="page page--home-line"
   footerOmit={["/about", "/participate#feedback", "/governance"]}
 >
-  <HomeRail />
-
-  <section class="institute-hero institute-hero--story">
-    <div class="institute-hero__main">
-      <p class="institute-hero__eyebrow">Ethotechnics</p>
-      <h1 class="balanced-headline">
-        When an automated system is wrong, does anyone have to change it?
-      </h1>
-      <p class="institute-hero__lede">
-        From 2016 to 2019, Robodebt's automated rule raised about 470,000
-        Australian welfare debts that were not lawfully made. A tribunal found
-        individual debts unlawful dozens of times. The rule kept running.
-      </p>
-      <div class="institute-hero__actions actions">
-        <a class="button primary" href="#self-test">
-          Test your system in 60 seconds
-        </a>
+  <section class="line-hero line-wrap" aria-labelledby="line-hero-heading">
+    <div class="line-hero__top">
+      <div class="line-hero__sign">
+        <span class="line-hero__plate">
+          Ethotechnics <span>Line 7</span>
+        </span>
+        <h1 id="line-hero-heading">Who has to change it?</h1>
+        <p class="line-hero__lede">
+          From 2016 to 2019, Robodebt's automated rule raised about 470,000
+          Australian welfare debts that were not lawfully made. A tribunal found
+          individual debts unlawful dozens of times. The rule kept running.
+        </p>
+        <div class="line-hero__actions">
+          <a class="button primary" href="#self-test">Mark your system</a>
+          <a class="line-hero__urgent" href="/triage">
+            Failure in progress? Triage it <span aria-hidden="true">→</span>
+          </a>
+        </div>
       </div>
-      <p class="institute-hero__urgent small muted">
-        Something going wrong now?
-        <a href="/triage">Triage a failure in progress</a>
-      </p>
+      <aside class="line-hero__stamp" aria-label="Robodebt service notice">
+        <span class="line-hero__stamp-label">Service disruption</span>
+        <span class="line-hero__stamp-value">Robodebt</span>
+        <span class="line-hero__stamp-note">
+          Correction never arrived. The scheme ran until a court stopped it.
+        </span>
+      </aside>
     </div>
+    <LineMap />
   </section>
 
-  <RecordSpine />
+  <section class="line-section" aria-labelledby="record-heading">
+    <div class="line-wrap">
+      <RecordSpine />
+    </div>
+  </section>
 
   <section
     id="mechanism"
-    class="home-claim stack-md"
+    class="line-section"
     aria-labelledby="mechanism-heading"
   >
-    <div class="home-split-header">
-      <div class="stack-sm">
-        <p class="eyebrow">Why the rulings did not stop it</p>
-        <h2 id="mechanism-heading" class="section__heading">
-          Each ruling fixed one debt. None of them reached the rule.
-        </h2>
+    <div class="line-wrap mechanism">
+      <div class="mechanism__grid">
+        <div class="mechanism__copy">
+          <h2 id="mechanism-heading" class="line-heading">
+            Each ruling fixed one debt. None of them reached the rule.
+          </h2>
+          <p class="line-lead">
+            The department treated each ruling as one person's outcome. It
+            appealed none of them, so none became a precedent, and the averaging
+            rule never had to answer for them.
+          </p>
+          <p class="mechanism__rule">
+            The fix is a count: upheld challenges recorded against the rule that
+            produced them, and a set number that sends the rule back to its
+            owner.
+          </p>
+          <div class="mechanism__links">
+            <a class="line-link" href="/standards/laws#law-viii"
+              >Read Law VIII</a
+            >
+            <a
+              class="line-link"
+              href="/mechanisms/patterns/policy-review-triggers"
+              >Read the review trigger</a
+            >
+            <a class="line-link" href="/research/theory/exception-learning"
+              >Read the essay on exception learning</a
+            >
+          </div>
+        </div>
+        <div class="home-draw" data-reveal="draw">
+          <ExceptionLearningFigure level="h3" />
+        </div>
       </div>
-      <p class="section-lead">
-        The department treated each ruling as one person's outcome. It appealed
-        none of them, so none became a precedent, and the averaging rule never
-        had to answer for them. The fix is a count: upheld challenges recorded
-        against the rule that produced them, and a set number that sends the
-        rule back to its owner.
-      </p>
     </div>
-    <div class="home-draw" data-reveal="draw">
-      <ExceptionLearningFigure level="h3" />
-    </div>
-    <p class="small muted">
-      This is Law VIII of the laws the standards are built on: a record that
-      cannot change the rule shows what happened and controls nothing.
-      <a href="/standards/laws#law-viii">Read Law VIII</a> ·
-      <a href="/mechanisms/patterns/policy-review-triggers"
-        >Read the review trigger</a
-      > ·
-      <a href="/research/theory/exception-learning"
-        >Read the essay on exception learning</a
-      >
-    </p>
   </section>
 
-  <CasebookScorecard />
-
-  <div class="home-core">
-    <div class="home-core__test">
-      <SelfTest />
-      <SafeguardMap class="home-core__figure" />
+  <section class="line-section" aria-labelledby="home-casebook-heading">
+    <div class="line-wrap">
+      <CasebookScorecard />
     </div>
-  </div>
+  </section>
 
-  <nav class="home-doors" aria-labelledby="home-doors-heading">
-    <h2 id="home-doors-heading" class="section__heading">
-      Start from where you are
-    </h2>
-    <ul class="home-doors__list">
-      {
-        doors.map((door) => (
-          <li>
-            <a class="home-doors__door" href={door.href}>
-              <span class="home-doors__who">{door.who}</span>
-              <span class="home-doors__action" aria-hidden="true">
-                →
-              </span>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-    <p class="home-doors__fit small muted">
-      Not sure it applies to your system?
-      <a href="/use-cases">Which systems this is for</a>
-    </p>
-  </nav>
+  <section class="line-section" aria-labelledby="self-test-heading">
+    <div class="line-wrap">
+      <SelfTest />
+    </div>
+  </section>
 
-  <PublishedMap />
+  <section class="line-section" aria-labelledby="connections-heading">
+    <div class="line-wrap connections">
+      <h2 id="connections-heading" class="line-heading">Where you get on.</h2>
+      <ul class="connections__list">
+        {
+          doors.map((door, index) => (
+            <li class="connections__item">
+              <a href={door.href}>
+                <span class="connections__code">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span class="connections__who">{door.who}</span>
+                <span class="connections__arrow" aria-hidden="true">
+                  →
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="small muted">
+        Not sure it applies to your system?
+        <a class="line-link" href="/use-cases">Which systems this is for</a>
+      </p>
+    </div>
+  </section>
 
-  {
-    /*
-      The site's own answer to the question it asks of institutions. It
-      names the author and the routes a correction can take, so the footer
-      below leaves out the About, feedback, and governance links it would
-      otherwise repeat (footerOmit above).
-    */
-  }
+  <section class="line-section" aria-labelledby="network-heading">
+    <div class="line-wrap">
+      <PublishedMap />
+    </div>
+  </section>
+
   <section
-    class="home-colophon"
+    class="line-section"
     aria-labelledby="home-colophon-heading"
     data-glossary-ignore
   >
-    <h2 id="home-colophon-heading" class="home-colophon__heading">
-      Who has to act when this site is wrong?
-    </h2>
-    <div class="home-colophon__cols">
-      <div>
-        <p class="home-colophon__label">Who writes it</p>
-        <p class="home-colophon__text">
-          Kanav Jain writes the framework, with AI coding agents working under
-          the repository's rules. Ethotechnics is the name the work publishes
-          under.
-          <a href="/about">About the framework</a>
-        </p>
-      </div>
-      <div>
-        <p class="home-colophon__label">Corrections</p>
-        <p class="home-colophon__text">
-          If a case score, a clause, or any claim on this site is wrong, send
-          the record that shows it.
-          <a href="/participate#feedback">Send a correction</a>
-        </p>
-      </div>
-      <div>
-        <p class="home-colophon__label">Its own failures</p>
-        <p class="home-colophon__text">
-          The framework keeps the record it asks of institutions: where its own
-          instruments failed, and what changed because of it.
-          <a href="/governance#failure-archive"> Read the failure archive </a>
-        </p>
-      </div>
-      <div>
-        <p class="home-colophon__label">Commissioned work</p>
-        <p class="home-colophon__text">
-          The framework is published here. Its author,
-          {commissionedWork.provider}, also applies it to one organization's
-          healthcare AI system at a time, under commission.
-          <a href="/commissioned-work">How the two fit</a>
-        </p>
-      </div>
+    <div class="line-wrap colophon">
+      <h2 id="home-colophon-heading" class="line-heading">
+        Who has to act when this site is wrong?
+      </h2>
+      <dl class="colophon__list">
+        <div class="colophon__item">
+          <dt>Who writes it</dt>
+          <dd>
+            Kanav Jain writes the framework, with AI coding agents working under
+            the repository's rules. Ethotechnics is the name the work publishes
+            under. <a class="line-link" href="/about">About the framework</a>
+          </dd>
+        </div>
+        <div class="colophon__item">
+          <dt>Corrections</dt>
+          <dd>
+            If a case score, a clause, or any claim on this site is wrong, send
+            the record that shows it.
+            <a class="line-link" href="/participate#feedback"
+              >Send a correction</a
+            >
+          </dd>
+        </div>
+        <div class="colophon__item">
+          <dt>Its own failures</dt>
+          <dd>
+            The framework keeps the record it asks of institutions: where its
+            own instruments failed, and what changed because of it.
+            <a class="line-link" href="/governance#failure-archive"
+              >Read the failure archive</a
+            >
+          </dd>
+        </div>
+        <div class="colophon__item">
+          <dt>Commissioned work</dt>
+          <dd>
+            The framework is published here. Its author,
+            {commissionedWork.provider}, also applies it to one organization's
+            healthcare AI system at a time, under commission.
+            <a class="line-link" href="/commissioned-work">How the two fit</a>
+          </dd>
+        </div>
+      </dl>
     </div>
   </section>
 

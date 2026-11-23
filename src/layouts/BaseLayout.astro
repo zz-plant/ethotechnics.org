@@ -53,6 +53,8 @@ interface Props {
    * "page page--wide" to allow full-bleed or alternative padding.
    */
   mainClass?: string;
+  /** Optional class list for the <body>, for a page that replaces the world. */
+  bodyClass?: string;
   enableGlossaryHighlights?: boolean;
   breadcrumbItems?: Array<{ name: string; url: string }>;
   jsonAlternates?: Array<{ href: string; title?: string }>;
@@ -87,6 +89,7 @@ const {
   publishedTime,
   modifiedTime,
   mainClass = "page container",
+  bodyClass,
   enableGlossaryHighlights = true,
   breadcrumbItems,
   jsonAlternates,
@@ -348,7 +351,7 @@ const languageAlternates = buildLanguageAlternates(canonical);
     <meta name="color-scheme" content="light dark" />
     <InlineScript code={themeBootScript} />
   </head>
-  <body>
+  <body class={bodyClass}>
     <SvgDefs />
     <a class="skip-link" href="#main-content">Skip to main content</a>
     <div class="page-shell">

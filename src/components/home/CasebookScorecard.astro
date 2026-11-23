@@ -1,26 +1,21 @@
 ---
 /**
- * The casebook as barcode rows: one packed row per case, sorted by how long
- * harm ran. The six verdicts read as a barcode, the halt bar sits at the
- * right edge on a square-root scale — so a four-day bar stays visible beside
- * a twenty-year one — and the row's text carries what the record
- * established. The row link is the content; the marks are labelled for
- * assistive technology and drawn as marks for everyone else.
+ * The casebook as five lines that failed the same way.
+ *
+ * One row per case, sorted by how long harm ran. Six stops on the line are
+ * the six safeguards, drawn held, drifted, or failed; the halt time sits at
+ * the right edge. The row is the link; the stops are labelled for assistive
+ * technology.
  */
 import {
   cases,
   stateVariables,
   type StateVariableId,
 } from "../../content/casebook";
-import VerdictMark from "../VerdictMark.astro";
 
 const days = [...cases].sort((a, b) => b.timeToHaltDays - a.timeToHaltDays);
-const longest = days[0]?.timeToHaltDays ?? 1;
 const yearDays = 365.25;
 
-// The scorecard can sit above the self-test that names the six safeguards,
-// so it glosses them itself. Plain restatements of the casebook's questions;
-// the legend also keys the three-letter column heads.
 const safeguardGloss: Record<StateVariableId, string> = {
   capability: "what the system could do",
   authority: "what it was allowed to do, for whom, and until when",
@@ -30,9 +25,7 @@ const safeguardGloss: Record<StateVariableId, string> = {
     "whether a person it decided about could challenge the decision and get an answer",
   correction: "whether anyone could still step in, and how fast",
 };
-const abbreviation = (label: string) => label.slice(0, 3).toUpperCase();
 
-const haltShare = (value: number) => Math.sqrt(value / longest);
 const haltLabel = (value: number) => {
   if (value < yearDays) return `${Math.max(1, Math.round(value))} days`;
   const years = Math.floor(value / yearDays);
@@ -43,70 +36,48 @@ const haltLabel = (value: number) => {
 
 <section
   id="casebook"
-  class="home-casebook stack-lg"
+  class="case-lines"
   aria-labelledby="home-casebook-heading"
 >
-  <div class="section__header">
-    <p class="eyebrow">Casebook</p>
-    <h2 id="home-casebook-heading" class="section__heading">
+  <header class="case-lines__header">
+    <h2 id="home-casebook-heading" class="line-heading">
       Robodebt was not the exception.
     </h2>
-    <p class="section-lead">
+    <p class="line-lead">
       A court, an inquiry, or a regulator established the facts of each case
       below. None was stopped by the organization running it. Apple Card's
       issuer is the one operator that changed its own process, after a
       regulator's investigation.
     </p>
-    <details class="home-casebook__key">
-      <summary>How to read the rows</summary>
-      <p>
-        Each row marks six safeguards, left to right, as held, drifted (in place
-        but no longer doing its job), or failed. The bar at the right edge is
-        the time to halt: how long the harm ran before it stopped. Longest harm
-        first.
-      </p>
-      <ul class="card__list small">
-        {
-          stateVariables.map((variable) => (
-            <li>
-              <strong>{variable.label}</strong>
-              {` (${abbreviation(variable.label)}): ${safeguardGloss[variable.id]}`}
-            </li>
-          ))
-        }
-      </ul>
-    </details>
+  </header>
+
+  <div class="case-lines__key">
+    <span><i class="line-map__key line-map__key--held"></i>held</span>
+    <span><i class="line-map__key line-map__key--drift"></i>drifted</span>
+    <span><i class="line-map__key line-map__key--failed"></i>failed</span>
+    <span>Longest harm first.</span>
   </div>
 
-  <div class="home-casebook__columns" aria-hidden="true">
-    <span class="home-casebook__col home-casebook__col--spacer"></span>
-    <span class="home-casebook__col-group">
+  <div class="case-lines__columns" aria-hidden="true">
+    <span></span>
+    <span class="case-lines__col-group">
       {
         stateVariables.map((variable) => (
-          <span class="home-casebook__col" title={variable.label}>
-            {abbreviation(variable.label)}
-          </span>
+          <span>{variable.label.slice(0, 3).toUpperCase()}</span>
         ))
       }
     </span>
-    <span class="home-casebook__col home-casebook__col--halt">
-      Time to halt
-    </span>
+    <span>Halt</span>
   </div>
-  <p class="home-casebook__verdict-key" aria-hidden="true">
-    <VerdictMark verdict="held" labelled />
-    <VerdictMark verdict="drifted" labelled />
-    <VerdictMark verdict="failed" labelled />
-  </p>
 
-  <ol class="home-casebook__list">
+  <ol class="case-lines__list">
     {
       days.map((entry) => (
-        <li data-reveal>
-          <a class="home-casebook__row" href={`/casebook/${entry.slug}`}>
-            <span class="home-casebook__name">
-              <span class="home-casebook__title">{entry.title}</span>
-              <span class="home-casebook__meta small muted">
+        <li class="case-lines__row" data-reveal>
+          <a href={`/casebook/${entry.slug}`}>
+            <span class="case-lines__name">
+              <span>{entry.title}</span>
+              <span class="case-lines__meta">
                 {entry.jurisdiction.split(" · ")[0]} ·{" "}
                 {entry.learningOutcome.verdict === "learned"
                   ? "changed its own process"
@@ -114,7 +85,7 @@ const haltLabel = (value: number) => {
               </span>
             </span>
             <span
-              class="home-casebook__marks"
+              class="case-lines__track"
               aria-label={stateVariables
                 .map((variable) => {
                   const finding = entry.findings.find(
@@ -129,28 +100,44 @@ const haltLabel = (value: number) => {
                   (item) => item.variable === variable.id,
                 );
                 return finding ? (
-                  <VerdictMark verdict={finding.verdict} />
+                  <span
+                    class:list={[
+                      "case-lines__stop",
+                      `case-lines__stop--${finding.verdict}`,
+                    ]}
+                    aria-hidden="true"
+                  />
                 ) : null;
               })}
             </span>
-            <span class="home-casebook__halt">
-              <span class="home-casebook__track" aria-hidden="true">
-                <span
-                  class="home-casebook__bar"
-                  style={`--halt-share: ${haltShare(entry.timeToHaltDays).toFixed(4)}`}
-                />
-              </span>
-              <span class="home-casebook__days">
-                {haltLabel(entry.timeToHaltDays)}
-              </span>
+            <span class="case-lines__halt">
+              {haltLabel(entry.timeToHaltDays)}
             </span>
           </a>
         </li>
       ))
     }
   </ol>
-  <p class="small muted">Time to halt is drawn on a square-root scale.</p>
+
+  <details class="case-lines__key">
+    <summary>How to read the stops</summary>
+    <ul class="small">
+      {
+        stateVariables.map((variable) => (
+          <li>
+            <strong>{variable.label}</strong>
+            {`: ${safeguardGloss[variable.id]}`}
+          </li>
+        ))
+      }
+    </ul>
+    <p class="small muted">
+      Each row marks the six safeguards left to right. The halt time is how long
+      the harm ran before it stopped.
+    </p>
+  </details>
+
   <p class="small muted">
-    <a href="/casebook">Open the casebook →</a>
+    <a class="line-link" href="/casebook">Open the casebook →</a>
   </p>
 </section>

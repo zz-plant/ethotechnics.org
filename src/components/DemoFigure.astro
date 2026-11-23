@@ -18,6 +18,8 @@ interface Props {
   /** The heading level the figure's title takes from where it sits. */
   level?: "h3" | "h4";
   eyebrow?: string;
+  /** The home page's transit world refuses the kicker; elsewhere it stays. */
+  showEyebrow?: boolean;
   class?: string;
 }
 
@@ -27,6 +29,7 @@ const {
   lede,
   level = "h3",
   eyebrow = "Demonstration",
+  showEyebrow = true,
   class: className,
 }: Props = Astro.props;
 const Heading = level;
@@ -45,7 +48,7 @@ const titleId = `${id}-title`;
   data-glossary-ignore
 >
   <figcaption>
-    <p class="eyebrow">{eyebrow}</p>
+    {showEyebrow && <p class="eyebrow">{eyebrow}</p>}
     <Heading id={titleId}>{title}</Heading>
     <p class="muted">{lede}</p>
   </figcaption>
