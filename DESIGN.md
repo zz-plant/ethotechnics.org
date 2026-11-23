@@ -113,6 +113,11 @@ route colours encode stages, in order: teal (Evidence), cobalt (Authority), viol
 vermilion (Consequence), amber (Challenge), magenta (Reconsideration), ink (Correction). Amber is
 darkened to `#8a5a00` so the 11px CHA code clears 4.5:1 on the ground.
 
+Dark mode flips the Line to a warm obsidian ground (`#171412`) with cream structure, and lifts each
+route colour to a tint that holds on near-black. The same tokens drive the rules, dots, and codes, so
+the diagram keeps its meaning. The override is written twice, once for the system preference and once
+for the stored choice, and the two blocks must stay identical.
+
 The incumbent site palette — paper `#f5f3ee`, sapphire `#1e3a5f`, rust `#b5481f` — stays outside
 `.home-line`. The home page's header and footer adopt the Line through the body class, not by
 changing the shared tokens.
