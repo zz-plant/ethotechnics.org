@@ -3,7 +3,7 @@
  *
  * The seven-stage decision chain is drawn as a metropolitan line: a bright
  * ground, black structure, saturated route colours, station codes, interchange
- * rings, and a halt clock. The world is scoped to `.home-line`, applied to the
+ * rings, and a run-time readout. The world is scoped to `.home-line`, applied to the
  * body only on the home page, so the rest of the site keeps its own identity.
  *
  * Public Sans is self-hosted from /public/fonts (OFL). Station codes use the
@@ -48,7 +48,7 @@
   --line-ink: #111318;
   --line-muted: #555b66;
   --line-rule: #d5d8de;
-  --line-rule-strong: #111318;
+  --line-rule-strong: var(--line-ink);
   --line-teal: #0b6f63;
   --line-cobalt: #1f4fd8;
   --line-violet: #5b3fd0;
@@ -76,11 +76,60 @@
   color: var(--line-ink);
   font-family: var(--line-sans);
   font-feature-settings: "tnum" 1;
+  color-scheme: light;
+}
+
+/* --- Dark Line: warm obsidian ---
+   The site's dark theme sets the body ground and text directly, with higher
+   specificity than `.home-line`. These blocks restore the Line's own ground
+   and flip its stage colours to tints that hold on near-black. The block is
+   written twice, once for the system preference and once for the stored
+   choice, and the two must stay identical. */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) .home-line {
+    --line-ground: #171412;
+    --line-surface: #1f1b18;
+    --line-ink: #f1ece3;
+    --line-muted: #a69f95;
+    --line-rule: #4f4740;
+    --line-teal: #5eead4;
+    --line-cobalt: #8fb3ff;
+    --line-violet: #c4b5fd;
+    --line-vermilion: #ff8a70;
+    --line-amber: #f2c14e;
+    --line-magenta: #ff9ecb;
+    color-scheme: dark;
+  }
+
+  :root:not(.light) body.home-line {
+    background: var(--line-ground);
+    color: var(--line-ink);
+  }
+}
+
+:root.dark .home-line {
+  --line-ground: #171412;
+  --line-surface: #1f1b18;
+  --line-ink: #f1ece3;
+  --line-muted: #a69f95;
+  --line-rule: #4f4740;
+  --line-teal: #5eead4;
+  --line-cobalt: #8fb3ff;
+  --line-violet: #c4b5fd;
+  --line-vermilion: #ff8a70;
+  --line-amber: #f2c14e;
+  --line-magenta: #ff9ecb;
+  color-scheme: dark;
+}
+
+:root.dark body.home-line {
+  background: var(--line-ground);
+  color: var(--line-ink);
 }
 
 .home-line ::selection {
   background: var(--line-cobalt);
-  color: #ffffff;
+  color: var(--line-ground);
 }
 
 .home-line :focus-visible {
