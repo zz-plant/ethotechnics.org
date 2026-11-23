@@ -57,11 +57,11 @@ const panels = [
   {
     counted: false,
     title: "Settled one case at a time",
-    kicker: "each upheld challenge goes back to one person",
+    kicker: "each one is settled for the person who brought it",
     marks: challengeMonths,
     label: `${challengeMonths.length} upheld challenges over ${MONTHS} months, each fixing one case.`,
     totals: [`upheld challenges: ${challengeMonths.length}`, "rule reviews: 0"],
-    note: "the next person meets the same error",
+    note: "the next person hits the same error",
   },
   {
     counted: true,
@@ -72,9 +72,9 @@ const panels = [
     totals: [
       `upheld challenges: ${countedMonths.length}`,
       "review triggers: 1",
-      "(requires revision or justification)",
+      "(revision or justification required)",
     ],
-    note: "mandatory review trigger sent to rule owner",
+    note: "sent to the rule's owner",
   },
 ];
 ---
@@ -84,8 +84,8 @@ const panels = [
   class="rule-count"
   level={level}
   showEyebrow={false}
-  title="The same upheld challenges, settled and counted"
-  lede={`One upheld challenge a quarter for ${MONTHS / 12} years. In the first drawing, each is settled as one person's case without changing the rule. In the second, a policy review trigger also counts each one against the rule that produced it, with ${THRESHOLD} chosen as an illustrative threshold that triggers mandatory review by the rule's owner.`}
+  title="The same twelve upheld challenges, settled or counted"
+  lede={`One challenge is upheld every three months for ${MONTHS / 12} years. In the first drawing, each one is settled as one person's case and the rule never changes. In the second, a policy review trigger counts each challenge against the rule that made the decision. At four, a threshold chosen to illustrate the mechanism, the rule goes back to its owner for review.`}
 >
   <div class="demo-figure__frame rule-count__panels">
     {
@@ -252,7 +252,7 @@ const panels = [
     demonstration, not a measurement of any real system. The trigger is a
     <a href="/mechanisms/patterns/policy-review-triggers"
       >policy review trigger</a
-    >; the deadline for the revision comes from the standard for a
+    >. The revision deadline comes from the standard for a
     <a href="/standards/std-07-revisable-delegation-record"
       >revisable delegation record</a
     >.

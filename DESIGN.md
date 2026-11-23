@@ -101,7 +101,7 @@ future page adopts the Line only by applying `.home-line` and the tokens in
 
 - The chain is the page. The first viewport is the line, not a header over a row of cards.
 - Colour is data. Each stage owns a route colour; colour never decorates a card or a heading.
-- Flat and rule-bound. Hairlines, station dots, interchange rings, and one halt clock do the work.
+- Flat and rule-bound. Hairlines, station dots, interchange rings, and one run-time readout do the work.
 - Citable codes. EVD, AUT, DEC, CON, CHA, REC, COR are stable labels, not ornament.
 - One authored moment: the self-test lights each station as the reader answers, and the signal stops
   at the first gap.
@@ -133,7 +133,7 @@ signage: heavy, tight, and uppercase for station names; sentence case for the he
 Display runs at `clamp(3rem, 7vw, 6rem)`, weight 800, line-height 0.9, tracking -0.04em. Headings run
 at `clamp(2.25rem, 4.4vw, 4.25rem)`, weight 800, line-height 0.98, tracking -0.035em. Body is
 `clamp(1rem, 0.3vw + 0.95rem, 1.1rem)` at 1.6. Labels are 0.75rem, 800, 0.08em, uppercase. Station
-codes and the halt clock use the platform mono with tabular figures because they are data.
+codes and the run-time readout use the platform mono with tabular figures because they are data.
 
 The site's serif is not used inside `.home-line`.
 
@@ -145,7 +145,7 @@ bands separated by a hairline, with a maximum inner width of 1420px.
 
 At 1100px the self-test board and the mechanism grid stack. At 820px the line becomes a vertical
 rail: station rows stack, the dots sit on the rail, and the branch and terminus stay at the foot. The
-casebook is a three-column row (name, six stops, halt time); below 820px it becomes a name and halt
+casebook is a three-column row (name, six stops, run time); below 820px it becomes a name and run-time
 row with the stops on their own line. The network is a 2×2 board that becomes one column.
 
 ## Elevation & Depth
@@ -171,8 +171,8 @@ branch uses the 8px radius at its bottom corners. No pills on the home page.
   notice and the self-test result.
 - **Field.** White surface, 1px ink border, square, Public Sans. The footer newsletter field matches
   the Subscribe button.
-- **Casebook row.** Name and learning outcome, six stops on a hairline, halt time in mono. The
-  column heads are CAP, AUT, EVD, DEP, STA, COR.
+- **Casebook row.** Name and learning outcome, six stops on a hairline, run time in mono. The column
+  heads are CAP, AUT, EVD, DEP, STA, COR.
 - **Self-test.** Six stops on a 6px ink rail; each node is its stage colour. A held answer fills the
   node, a "no" or "not sure" floods it vermilion.
 - **Network.** Four line-coloured bars (cobalt, vermilion, teal, violet) over a 2×2 board of links.
@@ -183,7 +183,7 @@ branch uses the 8px radius at its bottom corners. No pills on the home page.
 
 - Keep the chain as the page's spine and the first viewport as its thesis.
 - Use colour to encode a stage or a status, and keep the station codes citable.
-- Keep the halt clock, the Robodebt stop at Consequence, and the legend.
+- Keep the run-time readout, the Robodebt stop at Consequence, and the legend.
 - Keep the self-test on the line; the signal stops at the first gap.
 - Keep the mobile rail vertical with the dots on it.
 

@@ -4,6 +4,12 @@ export type ChainStage = {
   id: string;
   title: string;
   question: string;
+  /**
+   * The same question in the words the home page uses. Only the stages whose
+   * governing question leans on the method's vocabulary carry one; the hero
+   * line map prefers it and falls back to `question`.
+   */
+  plainQuestion?: string;
   currentAssets: string[];
   links: MethodLink[];
 };
@@ -74,7 +80,7 @@ export const methodContent: MethodContent = {
     "Evidence that an automated decision is wrong can be settled case by case while the rule goes unexamined. The method records it, one workflow at a time.",
   permalink: "/method",
   definition:
-    "Ethotechnics is an engineering discipline for keeping automated decisions answerable. It specifies mechanisms for authorization, evidence, challenge, and correction, and records for checking whether they work.",
+    "Ethotechnics is a set of practices for keeping automated decisions answerable. It specifies mechanisms for authorization, evidence, challenge, and correction, and records for checking whether they work.",
   positiveDefinition:
     "Ethotechnics is the practice of building capable systems that remain answerable to the people and realities they can never fully represent.",
   claim:
@@ -226,6 +232,8 @@ export const methodContent: MethodContent = {
       title: "Reconsideration",
       question:
         "Does the delegation still deserve to stand once challenged or once the facts change?",
+      plainQuestion:
+        "If someone challenges it, or the facts change, should it still be allowed to stand?",
       currentAssets: [
         "Pause and reversal schema",
         "Events that fire when a decision deadline nears and when an appeal deadline is missed",
@@ -255,6 +263,8 @@ export const methodContent: MethodContent = {
       title: "Correction",
       question:
         "Can the institution halt, reverse, or repair, at acceptable cost?",
+      plainQuestion:
+        "Can the institution stop it, undo it, or repair the harm, at a cost it can bear?",
       currentAssets: [
         "Repair deadline schema and its JSON endpoint",
         "Reversibility audit logs (MEC-10)",
