@@ -67,7 +67,10 @@ const publication = derivePublicationMetadata({
     title={title}
     description={description}
     anchorLinks={[
-      { href: "#admission", label: "What this page admits" },
+      {
+        href: "#admission",
+        label: "Which cases are here, and who scored them",
+      },
       ...healthcareCases.map((entry) => ({
         href: `#${entry.slug}`,
         label: entry.title,
@@ -81,7 +84,7 @@ const publication = derivePublicationMetadata({
 
   <SectionBlock
     id="admission"
-    title="What this page admits, and whose scores these are"
+    title="Which cases are here, and who scored them"
     variant="alt"
   >
     <div class="case-narrative">

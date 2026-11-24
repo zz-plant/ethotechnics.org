@@ -30,9 +30,9 @@ export type PracticeSection = {
 
 export const anchorLinks = [
   { href: "#who-this-is-for", label: "Who this is for" },
-  { href: "#overview", label: "Practice snapshot" },
-  { href: "#fast-path", label: "Fast path" },
-  { href: "#what-this-is", label: "What this is" },
+  { href: "#overview", label: "Status, scope, and standards" },
+  { href: "#fast-path", label: "The first steps" },
+  { href: "#what-this-is", label: "What the practice asks of teams" },
   { href: "#core-premise", label: "Core premise" },
   { href: "#knowing-differently", label: "Infrastructure for knowing" },
   { href: "#epistemic-obstacles", label: "Epistemic obstacles" },

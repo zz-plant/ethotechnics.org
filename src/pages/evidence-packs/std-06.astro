@@ -104,11 +104,14 @@ const portabilityChecklist = [
     title="STD-06 evidence pack"
     description={pageDescription}
     anchorLinks={[
-      { href: "#tiers", label: "Tiered model" },
-      { href: "#artifacts", label: "Artifact inventory" },
-      { href: "#tests", label: "Test battery evidence" },
-      { href: "#dependency", label: "Dependency and reversibility" },
-      { href: "#portability", label: "Portability checklist" },
+      { href: "#tiers", label: "The minimum evidence at each tier" },
+      {
+        href: "#artifacts",
+        label: "Evidence artifacts required in every safety case",
+      },
+      { href: "#tests", label: "Evidence per threshold test" },
+      { href: "#dependency", label: "Dependency and reversibility checklist" },
+      { href: "#portability", label: "Checklist for regulator-ready exports" },
       { href: "#auditors", label: "What auditors ask" },
     ]}
   />
@@ -116,7 +119,7 @@ const portabilityChecklist = [
   <SectionBlock
     id="tiers"
     eyebrow="Tiered evidence model"
-    title="Tier 0 to Tier 2 minimum"
+    title="The minimum evidence at each tier"
     description="Start with Tier 0 for baseline proof, then scale to Tier 2 for resilience."
   >
     <ul class="muted">
@@ -186,7 +189,7 @@ const portabilityChecklist = [
   <SectionBlock
     id="auditors"
     eyebrow="What auditors ask"
-    title="Audit questions to prepare for"
+    title="What auditors ask"
     description="Answer these with links to the evidence pack and safety case summary."
     variant="alt"
   >

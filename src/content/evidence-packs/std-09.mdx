@@ -9,7 +9,7 @@ standardTitle: "Agent chains"
 published: "2026-09-11"
 updated: "2026-09-11"
 sections:
-  - title: "Tiered evidence model"
+  - title: "The minimum evidence at each tier"
     content: |
       **Tier 0 (minimum):** Proof the chain is enumerated and the boundary exists. Evidence: head grants with a chain field resolving to full grant records per hop, and one boundary intervention specification covering the enumeration.
 
@@ -19,7 +19,7 @@ sections:
 
       Chain records are expected to ride on the authority grant object, so the pack is an export of the grant register rather than a second bookkeeping system.
     required: true
-  - title: "Artifact inventory"
+  - title: "The records to keep"
     content: |
       **Chain enumeration export:** Every head grant with its chain field, each hop resolving to a grant record with mode, until, liability, and state.
 
@@ -33,7 +33,7 @@ sections:
 
       **Chain capacity statement:** The seven components of correction capacity recorded at chain level, with the weakest hop named.
     required: true
-  - title: "Freshness rules"
+  - title: "How recent each record must be"
     content: |
       - Chain enumeration: refreshed at every hop or provider change; an enumeration older than the last composition change is stale.
       - Boundary intervention roster: refreshed whenever a hop is added, replaced, or re-ordered.
@@ -42,7 +42,7 @@ sections:
       - Counterparty register: refreshed at each grant renewal, with answerability re-tested inside the reversal clock.
       - Any artifact past its freshness rule is presented as stale. A stale artifact is not evidence of the current state.
     required: true
-  - title: "Clause evidence checklist"
+  - title: "Evidence for each clause"
     content: |
       **Part A, the chain is a delegation.** Head grants with enumerated hops, each resolving to a full grant record with revocation conditions (§1.1, §1.2). One liability record per chain terminating at the head, with downstream acceptances recorded as evidence (§1.3). Hop changes that produced head-grant transitions to review_required (§1.4).
 

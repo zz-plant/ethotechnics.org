@@ -19,6 +19,14 @@ standard versions, and cited revisions relate.
 
 ### Changed
 
+- **Headings say what their section establishes:** 215 h1s and h2s on 122 pages. Theory essay
+  sections named by one noun or by the argument's scaffolding ("The override", "A specification",
+  "The question the method cannot answer for itself") now state the section's claim; headings
+  that pair defined terms or name a tradition stay. Every mechanism page's sections, the five
+  evidence packs' shared sections, and repeated sections on comparison pages use one name each.
+  The case at the foot of a deep page is announced as "Where this broke in public: Robodebt"
+  rather than "Robodebt". Standard names, glossary terms, case names, and the standards'
+  versioned article headings are unchanged.
 - **Interface text says what happened and what to do next:** Dead ends now offer a way out. The
   404 page, the search dialog's no-match state, and the title search's empty state lead with the
   self-defense checks for someone a system decided about. An expired or broken readout link gets

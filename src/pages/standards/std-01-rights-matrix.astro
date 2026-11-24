@@ -5,7 +5,7 @@ import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import { derivePublicationMetadata } from "../../utils/publication";
 
-const pageTitle = "STD-01 rights \u2192 validators \u2192 mechanisms matrix";
+const pageTitle = "STD-01 rights matrix";
 const pageDescription =
   "Each of the seven temporal rights, the validators that test it, and the mechanisms that implement it.";
 const permalink = "/standards/std-01-rights-matrix";
@@ -446,7 +446,7 @@ const mechanisms = collectUnique(matrix.flatMap((row) => row.mechanisms));
   <SectionBlock
     id="notes"
     eyebrow="Coverage notes"
-    title="The matrix is a starting point, not a complete list"
+    title="What to check beyond the matrix"
     description="Use the minimum binding set and the mapping artifact to confirm coverage clause by clause."
     variant="alt"
   >
