@@ -487,7 +487,12 @@ const documentTitle = pageTitle.replace(" — ", ": ");
               {explainer.glossaryHref && (
                 <>
                   {" "}
-                  <a href={explainer.glossaryHref}>Glossary entry</a>
+                  <a
+                    href={explainer.glossaryHref}
+                    aria-label={`Glossary entry for ${explainer.title}`}
+                  >
+                    Glossary entry
+                  </a>
                 </>
               )}
             </span>

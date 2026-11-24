@@ -109,9 +109,11 @@ const pageSchema = buildStandardsSchema({
         Which systems this is for
       </a>
       <a class="button ghost" href="/standards/std-01-temporal-rights">
-        Open STD-01
+        Read STD-01: The Temporal Bill of Rights
       </a>
-      <a class="button ghost" href="#comparison">See how they differ</a>
+      <a class="button ghost" href="#comparison"
+        >Compare with existing standards</a
+      >
     </Fragment>
   </PageIntro>
   <SectionBlock
@@ -435,7 +437,7 @@ const pageSchema = buildStandardsSchema({
 
   <SectionBlock
     id="crosswalks"
-    eyebrow="Statutory crosswalks"
+    eyebrow="Framework map"
     title="How to compare the drafts with external frameworks"
     description="For risk owners and legal counsel: these are proposed technical correspondences, not a determination of legal compliance."
   >
@@ -447,7 +449,7 @@ const pageSchema = buildStandardsSchema({
     </p>
     <p class="small">
       <a href="/standards/enforceable-governance-crosswalks"
-        >Open the crosswalk hub</a
+        >Open the framework map for buyers and auditors</a
       >. The critiques of each framework sit in{" "}
       <a href="#adopted-standards">existing frameworks</a>, below.
     </p>
@@ -468,7 +470,8 @@ const pageSchema = buildStandardsSchema({
             description={item.description}
           >
             <a slot="footer" class="muted" href={item.href}>
-              Read critique &rarr;
+              Read the {item.title} critique{" "}
+              <span aria-hidden="true">&rarr;</span>
             </a>
           </CardItem>
         ))

@@ -1,35 +1,41 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { Icon } from "astro-icon/components";
+import { navSections } from "../content/navigation";
 
+// Names and descriptions come from the header's navigation model, so a
+// destination is called the same thing here as everywhere else.
+const navLink = (href: string) => {
+  const link = navSections
+    .flatMap((section) => section.links)
+    .find((candidate) => candidate.href === href);
+  if (!link?.description) {
+    throw new Error(
+      `404 page links to ${href}, which navigation.ts does not list`,
+    );
+  }
+  return link;
+};
+
+const fromNav = (href: string, icon: string) => {
+  const { label, description } = navLink(href);
+  return { title: label, description, href, icon };
+};
+
+// The person a system decided about comes first: a dead end is the worst
+// place to lose them.
 const quickLinks = [
+  fromNav("/diagnostics/self-defense-tools", "lucide:shield"),
+  fromNav("/standards", "lucide:book-open"),
   {
-    title: "Standards index",
-    description: "Numbered, citable clauses, stated so a system can fail them.",
-    href: "/standards",
-    icon: "lucide:book-open",
-  },
-  {
-    title: "Diagnostics & tools",
+    title: "Diagnostics",
     description:
-      "Delegation audit, record conformance, and burden measurement.",
+      "Checks to run on your own workflow, workload ratings, or decision log.",
     href: "/diagnostics",
     icon: "lucide:activity",
   },
-  {
-    title: "Glossary of terms",
-    description:
-      "Canonical definitions of the terms the standards and mechanisms use.",
-    href: "/glossary",
-    icon: "lucide:list-tree",
-  },
-  {
-    title: "Field notes",
-    description:
-      "Dispatches, incident analyses, and case studies from the field.",
-    href: "/field-notes",
-    icon: "lucide:file-text",
-  },
+  fromNav("/casebook", "lucide:file-text"),
+  fromNav("/glossary", "lucide:list-tree"),
 ];
 ---
 
@@ -44,14 +50,14 @@ const quickLinks = [
       <h1 class="page-404__title">Page not found</h1>
       <p class="page-404__description">
         Nothing on ethotechnics.org lives at this address. The page may have
-        moved. Search the site, or start from one of the sections below.
+        moved. Search the site, or start from one of the pages below.
       </p>
       <div class="page-404__actions">
         <a href="/" class="button primary">
           <Icon name="lucide:home" class="page-404__btn-icon" />
           <span>Return home</span>
         </a>
-        <a href="/search" class="button" data-search-trigger>
+        <a href="/search" class="button" data-search-proxy-trigger>
           <Icon name="lucide:search" class="page-404__btn-icon" />
           <span>Search the site</span>
         </a>
@@ -59,7 +65,7 @@ const quickLinks = [
     </div>
 
     <section class="page-404__recovery" aria-labelledby="recovery-heading">
-      <h2 id="recovery-heading" class="eyebrow">Main sections</h2>
+      <h2 id="recovery-heading" class="eyebrow">Places to start</h2>
       <div class="page-404__grid">
         {
           quickLinks.map((item) => (

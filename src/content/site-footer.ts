@@ -44,7 +44,7 @@ export const siteFooter: SiteFooterContent = {
       links: [
         { label: "About", href: "/about" },
         { label: "Governance", href: "/governance" },
-        { label: "The record", href: "/record" },
+        { label: "The site's own record", href: "/record" },
         {
           label: "Security policy",
           href: "/security/vulnerability-disclosure",
@@ -54,7 +54,10 @@ export const siteFooter: SiteFooterContent = {
     {
       heading: "Connect",
       links: [
-        { label: "Send feedback", href: "/participate#feedback" },
+        {
+          label: "Report an error on this site",
+          href: "/participate#feedback",
+        },
         { label: "Reference API", href: "/api" },
         { label: "RSS feed", href: "/rss.xml" },
         // Not marked external: that adds rel="noreferrer", which hides this site

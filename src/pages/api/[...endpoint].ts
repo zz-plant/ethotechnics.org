@@ -19,7 +19,14 @@ export const GET: APIRoute = async (context) => {
 
   if (!handler) {
     return new Response(
-      JSON.stringify({ error: `No such endpoint: /api/${path}` }, null, 2),
+      JSON.stringify(
+        {
+          error: `No endpoint at /api/${path}. The list of endpoints is at /api.`,
+          endpoints: "/api",
+        },
+        null,
+        2,
+      ),
       {
         status: 404,
         headers: { "Content-Type": "application/json; charset=utf-8" },

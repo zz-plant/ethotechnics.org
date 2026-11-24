@@ -136,7 +136,7 @@ const FIELD_LABELS: Record<ComparedField, string> = {
   repair_pathway: "Repair pathway",
   owner: "Owner",
   review_cadence: "Review cadence",
-  assumptions: "Assumptions (global)",
+  assumptions: "Assumptions that apply to the whole worksheet",
   revision_history: "Changelog",
 };
 

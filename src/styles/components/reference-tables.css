@@ -76,24 +76,26 @@
       table-layout: fixed;
     }
 
+    /* The last column holds each mechanism's and validator's name, not just
+       its id, and the first has to fit the word "Clause" on one line. */
     .clause-register__table thead th:nth-child(1) {
-      width: 8%;
+      width: 10%;
     }
 
     .clause-register__table thead th:nth-child(2) {
-      width: 18%;
+      width: 17%;
     }
 
     .clause-register__table thead th:nth-child(3) {
-      width: 38%;
+      width: 32%;
     }
 
     .clause-register__table thead th:nth-child(4) {
-      width: 24%;
+      width: 23%;
     }
 
     .clause-register__table thead th:nth-child(5) {
-      width: 12%;
+      width: 18%;
     }
   }
 
@@ -117,8 +119,8 @@
     font-size: var(--text-xs);
   }
 
-  /* A list of ids wraps between ids, never inside one. */
-  .clause-register__ref {
+  /* Each reference is an id and a name: the name wraps, the id never does. */
+  .clause-register__ref-id {
     white-space: nowrap;
   }
 

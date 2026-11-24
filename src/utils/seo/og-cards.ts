@@ -226,7 +226,7 @@ const CARD_LABEL: Record<string, string> = {
   authority: "Permission",
   evidence: "Evidence",
   dependency: "Exit",
-  standing: "Appeal",
+  standing: "Challenge",
   correction: "Repair",
 };
 const cases = casebookData.cases as unknown as CaseRecord[];

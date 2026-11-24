@@ -42,7 +42,7 @@ const routes = [
   },
   {
     bring: "A decision made about you",
-    what: "Can it be challenged, can a challenge change the outcome, and who can reverse it.",
+    what: "Can it be challenged, can an appeal change the outcome, and who can reverse it.",
     href: "/diagnostics/self-defense-tools",
     label: "Check a decision about you",
   },
@@ -112,9 +112,8 @@ const routes = [
             {applicability.conditions.map((condition) => <li>{condition}</li>)}
           </ol>
           <p class="small">
-            <a href="/use-cases">Which systems this is for</a>: six kinds of
-            automated decision the standards are built for, where to start in
-            each, and six where the framework does less.
+            <a href="/use-cases">Which systems this is for</a> applies these conditions
+            to six kinds of automated decision.
           </p>
         </div>
       </div>
@@ -214,14 +213,15 @@ const routes = [
         </article>
         <article class="card stack-xs">
           <span class="pill pill--ghost">1 hour</span>
-          <h3>Rehearse halting the system in 30 seconds</h3>
+          <h3>Rehearse a halt with the Finite drills</h3>
           <p class="small muted">
-            Three drills: can the people who run the system halt it without
-            penalty, can its decisions be reversed and the people harmed repaid,
-            and who absorbs the cost when it strains.
+            Five drills, scored on three tests: can the people who run the
+            system halt it within thirty seconds without penalty, can its
+            decisions be reversed and the people harmed repaid, and who absorbs
+            the cost when it strains.
           </p>
           <p class="small">
-            <a href="/evals#finite">Open the drills &rarr;</a>
+            <a href="/evals#finite">Open the Finite drills &rarr;</a>
           </p>
         </article>
         <article class="card stack-xs">
@@ -263,7 +263,7 @@ const routes = [
             to its owner for review.
           </p>
           <a href="/mechanisms/patterns/appeal-paths" class="fast-path-link"
-            >Open mechanism &rarr;</a
+            >Appeal paths mechanism &rarr;</a
           >
         </div>
         <div class="fast-path-card">
@@ -275,7 +275,7 @@ const routes = [
             visible.
           </p>
           <a href="/mechanisms/patterns/decision-log" class="fast-path-link"
-            >Open mechanism &rarr;</a
+            >Decision log mechanism &rarr;</a
           >
         </div>
         <div class="fast-path-card">
@@ -287,7 +287,7 @@ const routes = [
             correction is made.
           </p>
           <a href="/mechanisms/patterns/kill-switch" class="fast-path-link"
-            >Open mechanism &rarr;</a
+            >Kill switch mechanism &rarr;</a
           >
         </div>
       </div>
@@ -318,7 +318,7 @@ const routes = [
             </div>
             <div class="receipt-guarantee">
               <strong>Deadlines:</strong> Sets hard limits: acknowledge in 2 hours,
-              review in 24, fix in 72. Missing one is a breach.
+              review in 24, remedy in 72. Missing one is a breach.
             </div>
             <div class="receipt-guarantee">
               <strong>Appeal path:</strong> Gives the applicant a direct link to the
@@ -363,7 +363,9 @@ const routes = [
               >
             </li>
             <li>
-              <a href="/agents/spec"><strong>Safety Object Model</strong></a>
+              <a href="/agents/spec"
+                ><strong>Agent Safety Object Model</strong></a
+              >
               <span
                 >Publish a machine-readable description of the system's
                 safeguards, checked in CI.</span
@@ -377,7 +379,6 @@ const routes = [
     <!-- Industry translation guide -->
     <section id="translation" class="start-translation stack-sm">
       <div class="start-translation__header">
-        <p class="eyebrow">Vocabulary crosswalk</p>
         <h2>Industry translation guide</h2>
         <p class="section-lead">
           Compare common AI terms with the controls and records the standards

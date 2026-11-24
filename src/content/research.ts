@@ -158,12 +158,12 @@ export const researchContent: ResearchContent = {
   updateCadence:
     "Each change is dated in the changelog at the foot of the page.",
   anchorLinks: [
-    { href: "#results", label: "Results" },
-    { href: "#orientation", label: "Orientation" },
-    { href: "#bridge-artifacts", label: "Bridge artifacts" },
-    { href: "#standards-timeline", label: "Standards timeline" },
-    { href: "#agenda", label: "Agenda" },
-    { href: "#publications", label: "Publications" },
+    { href: "#results", label: "What the research has produced" },
+    { href: "#orientation", label: "How the work is run" },
+    { href: "#bridge-artifacts", label: "Research notes and citable essays" },
+    { href: "#standards-timeline", label: "Standards milestones" },
+    { href: "#agenda", label: "Open questions" },
+    { href: "#publications", label: "Planned studies and working materials" },
   ],
   standardsTimeline: [
     {

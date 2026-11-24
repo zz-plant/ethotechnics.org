@@ -30,9 +30,9 @@ export const selfTestQuestions: SelfTestQuestion[] = [
   },
   {
     variable: "standing",
-    label: "Appeal",
+    label: "Challenge",
     question:
-      "If it decides against someone, can that person appeal and get an answer from a human by a set date?",
+      "If it decides against someone, can that person challenge the decision and get an answer from a human by a set date?",
     ifNo: "No one has to answer a person who challenges it.",
   },
   {

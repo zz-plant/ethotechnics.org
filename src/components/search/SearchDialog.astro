@@ -24,7 +24,8 @@ const { dialogTitleId, inputId, helpTextId }: Props = Astro.props;
           Search the site
         </h2>
         <p class="search-dialog__subtitle">
-          Standards, validators, mechanisms, research, and glossary entries.
+          The full text of every page, from the standards and casebook to the
+          glossary.
         </p>
       </div>
     </div>
@@ -45,7 +46,7 @@ const { dialogTitleId, inputId, helpTextId }: Props = Astro.props;
         <input
           type="search"
           id={inputId}
-          placeholder="Term or ID"
+          placeholder="Word, phrase, or standard number"
           autocomplete="off"
           enterkeyhint="search"
           aria-describedby={helpTextId}
@@ -63,8 +64,8 @@ const { dialogTitleId, inputId, helpTextId }: Props = Astro.props;
       </label>
     </search>
     <p id={helpTextId} class="search-dialog__hint">
-      Try short IDs like <strong>STD-01</strong> or topics like{" "}
-      <strong>consent</strong>.
+      Try a topic like <strong>consent</strong>, or a standard number like{" "}
+      <strong>STD-01</strong>.
     </p>
     <div class="search-recent" aria-live="polite" hidden data-search-recent>
       <span class="search-recent__label">Recent searches:</span>

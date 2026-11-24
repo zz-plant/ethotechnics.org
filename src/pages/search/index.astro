@@ -13,7 +13,7 @@ import {
   type SearchGroup,
 } from "../../utils/seo/route-type";
 
-const pageTitle = "Site search — Ethotechnics";
+const pageTitle = "Search titles and summaries — Ethotechnics";
 const pageDescription =
   "Search ethotechnics.org glossary terms, sections, and tools by title, summary, and tag.";
 type SearchEntry = {
@@ -117,9 +117,9 @@ const introDescription = `Matches titles, summaries, and tags across ${searchEnt
   <div data-site-search>
     <PageIntro
       eyebrow="Search"
-      title="Search the site"
+      title="Search titles and summaries"
       description={introDescription}
-      anchorLinks={[{ href: "#search", label: "Search" }]}
+      anchorLinks={[]}
     >
       <div slot="aside" class="panel page-intro__search-panel">
         <p class="muted">Example searches</p>
@@ -142,7 +142,6 @@ const introDescription = `Matches titles, summaries, and tags across ${searchEnt
 
     <SectionBlock
       id="search"
-      eyebrow="Search"
       title="Find an entry"
       description="The search term stays in the page address for sharing."
     >
@@ -175,7 +174,7 @@ const introDescription = `Matches titles, summaries, and tags across ${searchEnt
             {suggestions.map((suggestion) => <option value={suggestion} />)}
           </datalist>
           <div class="site-search__filters">
-            <p class="muted small">Filter by section</p>
+            <p class="muted small">Filter by type of page</p>
             <ul class="pill-list pill-list--wrap">
               {
                 categoryFilters.map((category) => (
@@ -212,7 +211,8 @@ const introDescription = `Matches titles, summaries, and tags across ${searchEnt
             Showing all {searchEntries.length} entries.
           </p>
           <p class="muted small" data-site-search-ranking-note hidden>
-            Title matches come first, then section and tag matches.
+            Title matches come first, then matches on the type of page and its
+            tags.
           </p>
         </div>
         <div class="site-search__results">
@@ -251,8 +251,15 @@ const introDescription = `Matches titles, summaries, and tags across ${searchEnt
             ))
           }
           <p class="muted" data-site-search-empty hidden>
-            Try a shorter term or clear the filters. This search reads titles,
-            summaries, and tags, not the text of pages.
+            Try a shorter word or clear the filters. This page reads titles,
+            summaries, and tags only;{" "}
+            <a href="/search" data-search-proxy-trigger
+              >search the full text of every page</a
+            >
+            for more. If a system decided something about you, start with the{
+              " "
+            }
+            <a href="/diagnostics/self-defense-tools">self-defense checks</a>.
           </p>
         </div>
       </div>

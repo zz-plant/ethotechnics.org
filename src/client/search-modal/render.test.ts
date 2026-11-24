@@ -69,6 +69,9 @@ describe("search renderer states", () => {
 
     renderer.renderResults([], "none");
     expect(container.textContent).toContain("No pages match “none”");
+    expect(
+      container.querySelector<HTMLAnchorElement>("a")?.getAttribute("href"),
+    ).toBe("/diagnostics/self-defense-tools");
   });
 
   it("groups results by the search group each page names", () => {

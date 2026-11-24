@@ -308,7 +308,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       replicability: {
         runSteps: [
           "Name one workflow and gather the people who know how it runs.",
-          "Answer the six sections in order without skipping the blanks.",
+          "Answer the five sections in order without skipping the blanks.",
           "Export the JSON snapshot and keep it with the safety case.",
           "Re-run after the next expansion decision and compare exposure scores.",
         ],
@@ -479,7 +479,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       title: "Workload modeler",
       tier: "Scores your answers",
       description:
-        "Rate seven sources of workload, such as handoffs and incidents. Get a burden score out of 100 and the three places where reducing load would help most.",
+        "Rate seven sources of workload, such as handoffs and incidents. Get a burden index out of 100 and the three places where reducing load would help most.",
       methodCards: {
         measures: [
           "Task load volume across roles and handoffs.",

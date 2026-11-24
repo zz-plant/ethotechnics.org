@@ -167,7 +167,7 @@ describe("share cards", () => {
     expect(svg).toContain("3 years 4 months");
     expect(svg).toContain("SIX SAFEGUARDS");
     // Cards use plain words, not the casebook's coined terms.
-    expect(svg).toContain(">Appeal<");
+    expect(svg).toContain(">Challenge<");
     expect(svg).not.toContain(">Standing<");
     expect(svg).not.toContain("ignored");
   });

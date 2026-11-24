@@ -50,10 +50,10 @@ const toolReading = (role.guide?.keyLinks ?? []).filter((link) =>
 
 const anchorLinks = [
   role.orientation?.length
-    ? { href: "#first-moves", label: "Where to start" }
+    ? { href: "#first-moves", label: "First steps, in order" }
     : null,
   toolDiagnostics.length || toolStandards.length || toolReading.length
-    ? { href: "#tools", label: "What to open" }
+    ? { href: "#tools", label: "What to run, satisfy, and read" }
     : null,
   role.guide || role.adoptionChecklist?.length
     ? { href: "#practice", label: practiceTitle }
@@ -183,7 +183,7 @@ const breadcrumbItems = [
         <div class:list={[{ "grid grid--two": hasFocus && hasChecklist }]}>
           {hasFocus && (
             <div id="focus" class="stack-sm">
-              {hasChecklist && <p class="eyebrow">The parts of the method</p>}
+              {hasChecklist && <p class="eyebrow">What to attend to</p>}
               <ul class="card__list">
                 {role.guide?.focusAreas.map((area) => (
                   <li>{area}</li>
@@ -193,7 +193,7 @@ const breadcrumbItems = [
           )}
           {hasChecklist && (
             <div id="adopt" class="stack-sm">
-              {hasFocus && <p class="eyebrow">Once you adopt</p>}
+              {hasFocus && <p class="eyebrow">What to have in place</p>}
               <p class="small muted">Each line either exists or does not.</p>
               <ul class="card__list">
                 {role.adoptionChecklist?.map((item) => (

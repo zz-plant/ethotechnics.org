@@ -18,6 +18,9 @@ const initializePatternFilter = (root: HTMLElement) => {
     "[data-search-input]",
   );
   const emptyState = root.querySelector<HTMLElement>("[data-empty]");
+  const clearButton = root.querySelector<HTMLButtonElement>(
+    "[data-clear-filters]",
+  );
   const status = root.querySelector<HTMLElement>("[data-filter-status]");
   const cardMetadata = Array.from(
     root.querySelectorAll<HTMLElement>("[data-pattern-card]"),
@@ -86,14 +89,14 @@ const initializePatternFilter = (root: HTMLElement) => {
     }
 
     if (status) {
-      const filterLabel = selectedFilter
-        ? getFilterLabel(selectedFilter)
-        : "All safeguards";
-      const queryLabel = normalizedQuery
-        ? ` and search for "${normalizedQuery}"`
-        : "";
-      const pluralized = visibleCount === 1 ? "mechanism" : "mechanisms";
-      status.textContent = `${visibleCount} ${pluralized} visible with ${filterLabel}${queryLabel}.`;
+      const total = cardMetadata.length;
+      const scope = [
+        selectedFilter ? ` for ${getFilterLabel(selectedFilter)}` : "",
+        normalizedQuery ? `, matching “${query.trim()}”` : "",
+      ].join("");
+      status.textContent = scope
+        ? `Showing ${visibleCount} of ${total} mechanisms${scope}.`
+        : `Showing all ${total} mechanisms.`;
     }
   };
 
@@ -147,6 +150,16 @@ const initializePatternFilter = (root: HTMLElement) => {
 
         handleFilterChange(filter);
       });
+    });
+
+    clearButton?.addEventListener("click", () => {
+      selectedFilter = null;
+      query = "";
+      if (searchInput) searchInput.value = "";
+      updateUrlState();
+      updateFilterButtons();
+      scheduleFilterApplication();
+      searchInput?.focus();
     });
 
     searchInput?.addEventListener("input", (event) => {

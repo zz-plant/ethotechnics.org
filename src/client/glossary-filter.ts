@@ -311,6 +311,10 @@ const initGlossaryFilter = () => {
         button.className = "glossary-filter__active-chip";
         button.dataset.glossaryLetterClear = "true";
         button.textContent = `${activeLetter} ×`;
+        button.setAttribute(
+          "aria-label",
+          `Remove letter filter: ${activeLetter}`,
+        );
         activeFilterChips.appendChild(button);
       }
 
@@ -322,6 +326,7 @@ const initGlossaryFilter = () => {
         button.dataset.filterKey = selection.key;
         button.dataset.filterValue = selection.value;
         button.textContent = `${selection.label} ×`;
+        button.setAttribute("aria-label", `Remove filter: ${selection.label}`);
         activeFilterChips.appendChild(button);
       });
 

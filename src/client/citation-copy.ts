@@ -41,12 +41,19 @@ citationButtons.forEach((button) => {
         showCopyPopover(`${format} copied.`);
         window.setTimeout(() => {
           setButtonLabel(button, defaultLabel);
-          button.setAttribute("aria-label", `Copy ${format}`);
+          // The visible label names the button again once the state clears.
+          button.removeAttribute("aria-label");
         }, POPOVER_VISIBILITY_DURATION);
       } catch (error) {
         console.error("Unable to copy citation", error);
-        setButtonLabel(button, "Copy failed");
-        showCopyPopover("Copy failed.");
+        setButtonLabel(button, "Not copied");
+        // A blocked clipboard is the browser's call, so the reader gets the
+        // way to copy it by hand rather than a bare failure.
+        showCopyPopover(
+          format === "Permalink"
+            ? "Could not copy. Copy the address from your browser's address bar."
+            : `Could not copy. Select the ${format} text and copy it by hand.`,
+        );
         window.setTimeout(() => {
           setButtonLabel(button, defaultLabel);
         }, POPOVER_VISIBILITY_DURATION);

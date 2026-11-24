@@ -11,8 +11,6 @@ const correctionMechanisms = libraryContent.patterns.entries.filter((pattern) =>
 const correctionAppealMechanisms = correctionMechanisms.filter((pattern) =>
   buildPatternSearchText(pattern).includes("appeal"),
 );
-const countLabel = (count: number) =>
-  `${count} ${count === 1 ? "mechanism" : "mechanisms"}`;
 
 test.describe("Production scripts", () => {
   test("keeps the mechanism filter working", async ({ page }) => {
@@ -23,13 +21,11 @@ test.describe("Production scripts", () => {
     // The mechanism filter boots lazily once the section scrolls into view;
     // the status line switches to a live count when the script takes over.
     await page.locator("[data-pattern-filter]").scrollIntoViewIfNeeded();
-    await expect(filterStatus).toContainText(
-      /mechanisms visible with All safeguards\./,
-    );
+    await expect(filterStatus).toContainText(/Showing all \d+ mechanisms\./);
 
-    const correction = page.getByRole("button", {
-      name: "Filter mechanisms by Correction and update visible results",
-    });
+    const correction = page
+      .getByRole("group", { name: "Filter mechanisms by safeguard" })
+      .getByRole("button", { name: "Correction", exact: true });
     // MEC-01 is Authority + Evidence, MEC-06 is Standing + Correction,
     // MEC-02 is Standing + Dependency.
     const decisionLog = page.locator("#decision-log");
@@ -39,8 +35,9 @@ test.describe("Production scripts", () => {
     await correction.click();
     await expect(correction).toHaveAttribute("aria-pressed", "true");
     await expect(filterStatus).toContainText(
-      `${countLabel(correctionMechanisms.length)} visible with Correction.`,
+      `Showing ${correctionMechanisms.length} of `,
     );
+    await expect(filterStatus).toContainText("mechanisms for Correction.");
     await expect(appealPaths).toBeVisible();
     await expect(decisionLog).toBeHidden();
     await expect(progressiveConsent).toBeHidden();
@@ -49,7 +46,10 @@ test.describe("Production scripts", () => {
       .getByLabel("Search mechanisms by name or keyword")
       .fill("appeal");
     await expect(filterStatus).toContainText(
-      `${countLabel(correctionAppealMechanisms.length)} visible with Correction and search for "appeal".`,
+      `Showing ${correctionAppealMechanisms.length} of `,
+    );
+    await expect(filterStatus).toContainText(
+      "mechanisms for Correction, matching “appeal”.",
     );
     await expect(appealPaths).toBeVisible();
   });

@@ -21,8 +21,8 @@ const rights = useCases.filter((entry) => entry.personCanAsk);
 const anchorLinks = [
   { href: "#your-rights", label: "What you can ask for now" },
   { href: "#governable", label: "Can this decision be challenged?" },
-  { href: "#appeal-real", label: "Can the appeal change anything?" },
-  { href: "#power-map", label: "Who holds power?" },
+  { href: "#appeal-real", label: "Can this appeal change the outcome?" },
+  { href: "#power-map", label: "Who holds power here?" },
 ];
 
 const ask = "/explainers/language-people-can-use";
@@ -30,7 +30,7 @@ const ask = "/explainers/language-people-can-use";
 const tools = [
   {
     id: "governable",
-    eyebrow: "Tool 1",
+    eyebrow: "Check 1 of 3",
     title: "Can this decision be challenged?",
     description:
       "Seven yes-or-no questions: is someone responsible, have you been given reasons and a date, and is there a way to put it right?",
@@ -65,7 +65,7 @@ const tools = [
         title: "Mostly no",
         result: "Not enough is in place yet",
         description:
-          "Without someone responsible, a date, or a way to put it right, there is no one yet who has to answer a challenge.",
+          "Without someone responsible, a date, or a way to put it right, nobody is yet obliged to answer a challenge. Send one in writing anyway, and keep any reply.",
         nextSteps: [
           {
             label: "Ask who can change it, and by when",
@@ -82,7 +82,7 @@ const tools = [
   },
   {
     id: "appeal-real",
-    eyebrow: "Tool 2",
+    eyebrow: "Check 2 of 3",
     title: "Can this appeal change the outcome?",
     description:
       "Six yes-or-no questions on whether the appeal can change the outcome, or only records the complaint.",
@@ -114,9 +114,9 @@ const tools = [
       },
       {
         title: "Mostly no",
-        result: "A complaint route that changes nothing",
+        result: "A complaint route, not a review",
         description:
-          "If the same people review it, or a win gets you nothing back, expect the appeal to change nothing.",
+          "If the same people review it, or a win gets you nothing back, the appeal alone is unlikely to change the outcome. File it anyway and keep the written reply: it is the record an outside body, such as an ombudsman, will ask to see.",
         nextSteps: [
           { label: "Ask for the refusal in writing", href: `${ask}#phrases` },
           {
@@ -130,7 +130,7 @@ const tools = [
   },
   {
     id: "power-map",
-    eyebrow: "Tool 3",
+    eyebrow: "Check 3 of 3",
     title: "Who holds power here?",
     description:
       "Six questions. For each, write down a name, an office, or an organization.",
@@ -276,7 +276,7 @@ const tools = [
         </div>
         {index === tools.length - 1 && (
           <p class="muted small self-defense-source">
-            Source: Ethotechnics self-defense diagnostics ·{" "}
+            Source: Ethotechnics self-defense checks ·{" "}
             <a href={permalink}>{pageUrl}</a>
           </p>
         )}

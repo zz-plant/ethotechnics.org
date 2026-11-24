@@ -96,14 +96,15 @@ const pageSchema = {
                 description={term.description}
               >
                 <a slot="footer" class="muted" href={glossaryHref(term.id)}>
-                  Permalink to {term.label} &rarr;
+                  {term.label} in the glossary{" "}
+                  <span aria-hidden="true">&rarr;</span>
                 </a>
               </CardItem>
             ))
           }
         </CardGrid>
         <p class="muted glossary__cta">
-          Full glossary: <a href={glossaryContent.permalink}>/glossary</a>
+          <a href={glossaryContent.permalink}>Browse the full glossary</a>
         </p>
       </div>
       <div>

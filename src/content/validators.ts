@@ -143,7 +143,7 @@ export const validatorsContent: ValidatorsContent = {
         },
         {
           name: "exit",
-          label: "Exit available on every screen",
+          label: "Does every screen have an exit?",
           type: "select",
           required: true,
           options: ["yes", "no"],
@@ -177,7 +177,7 @@ export const validatorsContent: ValidatorsContent = {
       id: "VAL-02",
       title: "Risk radar",
       description:
-        "Scores the friction a journey adds up to, from the number of hard steps, the average wait, and whether each step can be challenged.",
+        "Scores the friction a journey adds up to, from the number of high-friction touchpoints, the average wait, and whether every touchpoint has an appeal path.",
       slug: "risk-radar",
       standardRef: "STD-01",
       inputs: [
@@ -197,7 +197,7 @@ export const validatorsContent: ValidatorsContent = {
         },
         {
           name: "appeal",
-          label: "Appeal path available for every touchpoint",
+          label: "Does every touchpoint have an appeal path?",
           type: "select",
           required: true,
           options: ["yes", "no"],
@@ -251,7 +251,7 @@ export const validatorsContent: ValidatorsContent = {
         },
         {
           name: "escalation",
-          label: "Human escalation path in place",
+          label: "Is there a path to a person?",
           type: "select",
           required: true,
           options: ["yes", "no"],

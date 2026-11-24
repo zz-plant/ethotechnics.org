@@ -19,7 +19,7 @@ export const failurePriorityBadges: Record<string, string> = {
   "model-wrong": "Critical · Contain the error",
   "queue-stuck": "High · Set a deadline",
   "user-harmed": "Critical · Answer the person",
-  "no-owner": "High · Assign owner",
+  "no-owner": "High · Name an owner",
   "cant-explain": "Medium · Record the reasons",
   "cant-stop": "Critical · Find who can halt it",
 };

@@ -559,7 +559,9 @@ export async function auditRecords(
       id: "manifest-unreadable",
       severity: "finding",
       title: "The manifest could not be read",
-      detail: `${manifestError}. The stream was audited on its own; nothing was checked against a declaration.`,
+      // The parser's reasons are clauses ("the manifest is not valid JSON"),
+      // so the sentence that leads with one capitalizes it here.
+      detail: `${manifestError.charAt(0).toUpperCase()}${manifestError.slice(1)}. The stream was checked on its own, against no declared level. Fix the manifest and check again, or clear it and set the level by hand.`,
       clause: "STD-07 §6",
       records: [],
     });
@@ -596,7 +598,9 @@ export async function auditRecords(
     (finding) => finding.severity === "blocking",
   ).length;
   const verdict = !records.length
-    ? "Nothing to audit yet."
+    ? rejected.length
+      ? `None of the ${rejected.length} ${rejected.length === 1 ? "entry" : "entries"} could be read as a record. The first problem in each is listed under “Entries the schema rejected”.`
+      : "Nothing to check yet."
     : declaredLevel !== null &&
         earnedLevel !== null &&
         declaredLevel > earnedLevel

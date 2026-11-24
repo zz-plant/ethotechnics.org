@@ -142,10 +142,10 @@ export const roles: Role[] = [
     orientation: [
       {
         number: 1,
-        title: "Review the regulatory crosswalks",
+        title: "Review the framework map",
         description:
           "Line-by-line mappings from the EU AI Act, the NIST AI RMF, and ISO/IEC 42001 to controls a system can be tested against.",
-        ctaLabel: "View crosswalk matrix",
+        ctaLabel: "Open the framework map",
         ctaHref: "/standards/enforceable-governance-crosswalks",
       },
       {
@@ -366,7 +366,7 @@ export const roles: Role[] = [
         title: "Read why the laws hold",
         description:
           "The theory essays make the argument: who depends on whom, who can object, and why being able to do something is not permission to do it.",
-        ctaLabel: "Open theory",
+        ctaLabel: "Read the theory essays",
         ctaHref: "/research/theory",
       },
       {
@@ -374,7 +374,7 @@ export const roles: Role[] = [
         title: "Bring a case or a dataset",
         description:
           "Send field studies, incident analyses, and protocols through the Participate page.",
-        ctaLabel: "Open Participate",
+        ctaLabel: "Send a case or dataset",
         ctaHref: "/participate",
       },
     ],
@@ -419,7 +419,7 @@ export const roles: Role[] = [
         title: "Check how your organization fixes its errors",
         description:
           "Five questions: how fast the system's reach grew, and whether challenges are received, reversed, fed back into the rules, and tracked when staff work around it.",
-        ctaLabel: "Run the five-question self-assessment",
+        ctaLabel: "Run the corrective capacity self-assessment",
         ctaHref: "/diagnostics/corrective-debt-calculator",
       },
     ],

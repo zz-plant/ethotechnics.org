@@ -50,7 +50,7 @@ const standardHref = (ref: string) => {
   publishedTime={evalsContent.published}
 >
   <PageIntro
-    eyebrow={suite.category}
+    eyebrow="Eval suite"
     title={suite.title}
     titleLevel={1}
     description={suite.description}
@@ -129,7 +129,11 @@ const standardHref = (ref: string) => {
           <ul class="muted">
             {suite.standardRefs.map((ref) => (
               <li>
-                <a href={standardHref(ref)}>{ref}</a>
+                <a href={standardHref(ref)}>
+                  {getStandardById(ref)
+                    ? `${ref}: ${getStandardById(ref)?.title}`
+                    : ref}
+                </a>
               </li>
             ))}
           </ul>
@@ -165,9 +169,11 @@ const standardHref = (ref: string) => {
           <summary class="eval-test-case__summary">
             <span class="eval-test-case__id">{tc.id}</span>
             <span class="eval-test-case__title">{tc.title}</span>
-            <span class="status-badge status-badge--layer">{tc.layer}</span>
+            <span class="status-badge status-badge--layer">
+              {tc.layer} layer
+            </span>
             <span class={`status-badge status-badge--severity-${tc.severity}`}>
-              {tc.severity}
+              {tc.severity} severity
             </span>
           </summary>
           <div class="eval-test-case__body">

@@ -53,6 +53,10 @@ const nextId = (prefix: string) => {
 export function DelegationAudit() {
   const [input, setInput] = useState<AuditInput>(buildDefaultInput());
   const [copied, setCopied] = useState(false);
+  // Set when a /readouts/<id> link opened the tool but its answers could not
+  // be loaded. Without it the form shows the sample workflow, and a reader
+  // cannot tell it from the shared answers.
+  const [readoutFailed, setReadoutFailed] = useState(false);
   const [share, setShare] = useState<
     | { state: "idle" }
     | { state: "saving" }
@@ -74,8 +78,13 @@ export function DelegationAudit() {
         const inputs = (snapshot as { inputs?: unknown } | null)?.inputs;
         const parsed = delegationAuditInputSchema.safeParse(inputs);
         if (parsed.success) setInput(parsed.data);
+        else setReadoutFailed(true);
       })
-      .catch(() => undefined);
+      .catch((error: unknown) => {
+        if ((error as { name?: string } | null)?.name !== "AbortError") {
+          setReadoutFailed(true);
+        }
+      });
     return () => controller.abort();
   }, []);
 
@@ -201,6 +210,13 @@ export function DelegationAudit() {
 
   return (
     <div className="delegation-audit" data-delegation-audit>
+      {readoutFailed && (
+        <p className="delegation-audit__note" role="alert">
+          This shared readout could not be opened. Readouts expire a year after
+          they are saved, and a link with missing characters will not open. The
+          form below shows the sample workflow, not the shared answers.
+        </p>
+      )}
       <div className="delegation-audit__grid">
         <div className="delegation-audit__panel">
           <div className="delegation-audit__step">
@@ -227,7 +243,9 @@ export function DelegationAudit() {
           </div>
 
           <div className="delegation-audit__step">
-            <h3 className="delegation-audit__step-title">1. Capability</h3>
+            <h3 className="delegation-audit__step-title">
+              1. Capability and authority
+            </h3>
             <p className="delegation-audit__step-question">
               {STATE_VARIABLE_QUESTIONS.capability}
             </p>
@@ -256,6 +274,9 @@ export function DelegationAudit() {
               </select>
             </div>
 
+            <p className="delegation-audit__step-question">
+              {STATE_VARIABLE_QUESTIONS.authority}
+            </p>
             <p className="delegation-audit__note">
               List each kind of action the system takes in this workflow, one
               per card.
@@ -298,7 +319,7 @@ export function DelegationAudit() {
                       className="delegation-audit__label"
                       htmlFor={`${entry.id}-authorizer`}
                     >
-                      Who authorized it
+                      Who authorized it (leave blank if nobody can be named)
                     </label>
                     <input
                       id={`${entry.id}-authorizer`}
@@ -312,7 +333,7 @@ export function DelegationAudit() {
                           event.target.value,
                         )
                       }
-                      placeholder="Leave blank if nobody can be named"
+                      placeholder="e.g., Support operations lead"
                     />
                   </div>
                   <div className="delegation-audit__field">
@@ -320,7 +341,7 @@ export function DelegationAudit() {
                       className="delegation-audit__label"
                       htmlFor={`${entry.id}-evidence`}
                     >
-                      On what evidence
+                      On what evidence: what had to be true for it to be allowed
                     </label>
                     <input
                       id={`${entry.id}-evidence`}
@@ -334,7 +355,7 @@ export function DelegationAudit() {
                           event.target.value,
                         )
                       }
-                      placeholder="What had to be true for this to be allowed"
+                      placeholder="e.g., Pilot accuracy review, March 2026"
                     />
                   </div>
                 </div>
@@ -422,7 +443,7 @@ export function DelegationAudit() {
                 className="button ghost button--compact"
                 onClick={addActionClass}
               >
-                Add an action class
+                Add an action
               </button>
             </div>
           </div>
@@ -870,7 +891,8 @@ export function DelegationAudit() {
                 {result.exposure.score}
               </span>
               <span className="delegation-audit__score-unit">
-                workflow staff-week hours. {result.exposure.bandLabel}.
+                Exposure, in workflow staff-week hours:{" "}
+                {result.exposure.bandLabel.toLowerCase()}.
               </span>
             </div>
             <div className="delegation-audit__factors">

@@ -13,6 +13,15 @@ import "./evalRunner.css";
 
 const STORAGE_KEY = "eval-runner-state";
 
+// What each grade means, in the terms getGradeFromScore applies. A bare
+// "CONDITIONAL" tells the reader nothing about what to do next.
+const GRADE_MEANING: Record<RunSummary["grade"], string> = {
+  PASS: "At or above this suite's pass mark, with no critical case failed.",
+  CONDITIONAL:
+    "Above this suite's failure line but not a pass: the score is under the pass mark, one critical case failed, or, on a suite where every case must pass, one did not. Fix the failed cases before relying on the system.",
+  FAIL: "Below this suite's failure line, or more than one critical case failed.",
+};
+
 type SavedState = {
   selectedSuiteSlug: string | null;
   systemName: string;
@@ -232,6 +241,19 @@ export function EvalRunner() {
             </button>
           ))}
         </div>
+        <div className="eval-question__field">
+          <label className="input-card__label" htmlFor="eval-system-name">
+            System being evaluated (optional)
+          </label>
+          <input
+            id="eval-system-name"
+            className="input"
+            type="text"
+            value={systemName}
+            onChange={(e) => setSystemName(e.target.value)}
+            placeholder="e.g., Benefits eligibility screener"
+          />
+        </div>
         <div className="eval-selector">
           {visibleSuites.map((opt) => (
             <button
@@ -263,13 +285,16 @@ export function EvalRunner() {
         <div className="eval-runner__header">
           <p className="eyebrow">{summary.suiteTitle}</p>
           <h2>Eval complete</h2>
-          <p className="muted">System under test: {summary.systemName}</p>
+          {systemName.trim() && (
+            <p className="muted">System under test: {summary.systemName}</p>
+          )}
         </div>
 
         <div className={`eval-results__grade ${gradeClass}`}>
           <span className="eval-results__score">{summary.aggregateScore}%</span>
           <span className="eval-results__badge">{summary.grade}</span>
         </div>
+        <p className="muted">{GRADE_MEANING[summary.grade]}</p>
 
         <p className="muted small">
           {/* The reader's own clock: "Oct 13, 2026, 3:04 PM". */}
@@ -357,7 +382,7 @@ export function EvalRunner() {
             className="button ghost button--compact"
             onClick={handleReset}
           >
-            Reset
+            Start over
           </button>
         </div>
         <div
@@ -385,7 +410,10 @@ export function EvalRunner() {
         <p className="muted">{currentTestCase.description}</p>
 
         <div className="eval-question__anchors">
-          <p className="muted small">Score</p>
+          <p className="muted small">
+            Score. Each case starts at the lowest score; raise it only as far as
+            the evidence shows.
+          </p>
           <div className="eval-question__radio-group">
             {currentTestCase.scoringRubric.anchors.map((anchor) => (
               <label key={anchor.score} className="eval-question__radio">
@@ -502,7 +530,7 @@ export function EvalRunner() {
             className="button primary"
             onClick={handleSubmitAll}
           >
-            Submit all
+            Finish and grade the run
           </button>
         )}
       </div>

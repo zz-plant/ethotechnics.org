@@ -105,6 +105,23 @@
 
   /* A card is the safeguards it serves, the title (the link to its page),
      and the summary. Cards in a row share a height; content sits at the top. */
+  /* The no-match note spans the grid and keeps its recovery button beside it. */
+  .pattern-filter__empty {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .pattern-filter__empty[hidden] {
+    display: none;
+  }
+
+  .pattern-filter__empty p {
+    margin: 0;
+  }
+
   .pattern-filter__results > .card {
     gap: var(--space-2);
     padding: var(--space-container-compact);

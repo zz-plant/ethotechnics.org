@@ -5,21 +5,17 @@ interface Props {
   title: string;
   summary: string;
   href: string;
-  linkLabel?: string;
+  /** Visible link text; it must make sense out of context. */
+  linkLabel: string;
+  /** Only when the visible text needs more for a screen reader. */
   ariaLabel?: string;
 }
 
-const {
-  title,
-  summary,
-  href,
-  linkLabel = "Read more",
-  ariaLabel,
-}: Props = Astro.props;
+const { title, summary, href, linkLabel, ariaLabel }: Props = Astro.props;
 
 const headingId = `callout-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
 const isExternal = href.startsWith("http");
-const linkAriaLabel = ariaLabel ?? `Read more about ${title}`;
+const linkAriaLabel = ariaLabel;
 ---
 
 <aside class="callout reference-callout" aria-labelledby={headingId}>
@@ -33,6 +29,12 @@ const linkAriaLabel = ariaLabel ?? `Read more about ${title}`;
     target={isExternal ? "_blank" : undefined}
   >
     {linkLabel}
-    {isExternal ? <ActionIcon action="external" /> : <>&rarr;</>}
+    {
+      isExternal ? (
+        <ActionIcon action="external" />
+      ) : (
+        <span aria-hidden="true">&rarr;</span>
+      )
+    }
   </a>
 </aside>
