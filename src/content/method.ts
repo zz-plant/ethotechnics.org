@@ -298,7 +298,7 @@ export const methodContent: MethodContent = {
       tag: "Absorption",
       description:
         "The system optimizes its own path and cuts off the feedback that would force it to change. Errors, waits, and exceptions are routed around whatever gets measured, so the figures improve because people quietly do the work the system no longer does.",
-      cost: "The friction lands on whoever the system touches: unpaid work fixing its errors, exhausted operators, and claimants who carry the cost of being misjudged. The burden is real, unrecorded, and appears in no ledger.",
+      cost: "The friction lands on whoever the system touches: staff doing unpaid work to fix its errors, and claimants who carry the cost of being misjudged. The burden is real and appears in no ledger.",
       links: [
         {
           label: "Absorption as concealment",

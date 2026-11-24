@@ -80,7 +80,7 @@ export const navSections: NavSection[] = [
     id: "mechanisms",
     heading: "Mechanisms and evals",
     description:
-      "What to build to meet a clause, then how to test, measure, and score what was built.",
+      "What to build to meet a clause, and how to check what was built.",
     links: [
       {
         href: "/mechanisms",
