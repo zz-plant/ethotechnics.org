@@ -19,7 +19,7 @@ export interface TheoryQuestionEntry {
 export const theoryTaxonomy: TheoryQuestionEntry[] = [
   {
     slug: "absorption-as-concealment",
-    title: "Absorption as concealment",
+    title: "Workarounds can make a failing system’s metrics look better",
     href: "/research/theory/absorption-as-concealment",
     question:
       "How do people who quietly work around a system's errors keep those errors out of its metrics?",
@@ -29,7 +29,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
   },
   {
     slug: "an-engineering-tradition",
-    title: "An engineering tradition",
+    title: "Decision systems still lack an engineering safety tradition",
     href: "/research/theory/an-engineering-tradition",
     question:
       "What would a safety engineering tradition look like for systems that make decisions on an institution's behalf?",
@@ -40,7 +40,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
   },
   {
     slug: "automation-and-capture",
-    title: "Automation and capture",
+    title: "When an institution can no longer afford to question its system",
     href: "/research/theory/automation-and-capture",
     question:
       "At what point does relying on a system leave an institution unable to question, replace, or halt it?",
@@ -51,7 +51,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
   },
   {
     slug: "challenge-density",
-    title: "Challenge density",
+    title: "When challenges pile up, add the capacity to answer them",
     href: "/research/theory/challenge-density",
     question:
       "When challenges pile up, why should an institution add reviewers or narrow the system rather than limit who may challenge?",
@@ -62,7 +62,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
   },
   {
     slug: "deliberate-non-use",
-    title: "Deliberate non-use",
+    title: "Deciding not to use a capability, on the record",
     href: "/research/theory/deliberate-non-use",
     question:
       "Once a system can do something it could not do before, how can an institution decide, on the record, not to use it?",
@@ -73,7 +73,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
   },
   {
     slug: "democratic-vs-coercive-governability",
-    title: "Democratic vs. coercive governability",
+    title: "The same logs and audits can protect people or control them",
     href: "/research/theory/democratic-vs-coercive-governability",
     question:
       "What decides whether logs, audits, and escalation paths give people a way to challenge a system or a way to be controlled by it?",
@@ -94,7 +94,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
   },
   {
     slug: "dependence-without-standing",
-    title: "Dependence without standing",
+    title: "People who catch a system’s errors need a way to change it",
     href: "/research/theory/dependence-without-standing",
     question:
       "If an institution relies on people to catch its system's errors, why does it owe them a formal way to change the system?",
@@ -105,7 +105,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
   },
   {
     slug: "endogenous-authorization",
-    title: "Endogenous authorization",
+    title: "A system in use shapes the evidence for keeping it",
     href: "/research/theory/endogenous-authorization",
     question:
       "How does a system already in place shape the evidence used to decide whether to keep it?",
@@ -116,7 +116,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
   },
   {
     slug: "ethotechnical-design",
-    title: "Ethotechnical design",
+    title: "Let the institution adjust before the person has to",
     href: "/research/theory/ethotechnical-design",
     question:
       "When a design does not fit people, how can it be built so the institution adjusts before the people do?",
@@ -127,7 +127,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
   },
   {
     slug: "exception-learning",
-    title: "Exception learning",
+    title: "Fixing bad decisions one at a time can leave the rule in place",
     href: "/research/theory/exception-learning",
     question:
       "Why can resolving challenges one at a time leave the rule that caused them in place?",
@@ -138,7 +138,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
   },
   {
     slug: "friction-as-accidental-governance",
-    title: "Friction as accidental governance",
+    title: "When agents remove friction, they remove how errors were noticed",
     href: "/research/theory/friction-as-accidental-governance",
     question:
       "When automation removes the handoffs and reviews that used to catch errors, what has to be built to catch them instead?",
@@ -159,7 +159,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
   },
   {
     slug: "insulation",
-    title: "Insulation",
+    title: "When the people harmed cope, the rule looks like it works",
     href: "/research/theory/insulation",
     question:
       "What keeps evidence that a decision was wrong from reaching the people who could change the rule?",
@@ -181,7 +181,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
   },
   {
     slug: "reproduction-of-corrective-power",
-    title: "The reproduction of corrective power",
+    title: "Ordinary operation can wear down the power to correct it",
     href: "/research/theory/reproduction-of-corrective-power",
     question:
       "What makes correction effective, and what does an institution's ordinary operation do to the capacity to correct it?",
@@ -192,7 +192,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
   },
   {
     slug: "the-antihuman-metric",
-    title: "The antihuman metric",
+    title: "A green dashboard can hide the people wearing out behind it",
     href: "/research/theory/the-antihuman-metric",
     question:
       "How can a dashboard reward a system for hitting its targets while the system wears out the people who run it?",
@@ -203,7 +203,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
   },
   {
     slug: "the-compulsion-problem",
-    title: "The compulsion problem",
+    title: "A standard has to be enforceable by someone other than its authors",
     href: "/research/theory/the-compulsion-problem",
     question:
       "Since a standard cannot force anyone to adopt it, how can it be written so that contracts, courts, insurers, and regulators enforce it?",
@@ -214,7 +214,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
   },
   {
     slug: "the-consumption-of-adaptive-capacity",
-    title: "The consumption of adaptive capacity",
+    title: "People’s attention, evenings, and sleep are a limited budget",
     href: "/research/theory/the-consumption-of-adaptive-capacity",
     question:
       "When, if ever, may an institution ask people to spend their limited time and stamina making up for its own defects?",
@@ -225,7 +225,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
   },
   {
     slug: "the-human-subsidy",
-    title: "The human subsidy to institutional continuity",
+    title: "Uncounted repair work keeps institutions looking capable",
     href: "/research/theory/the-human-subsidy",
     question:
       "What kinds of uncounted work keep an institution looking functional, and how does it come to call that work dedication?",
@@ -236,7 +236,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
   },
   {
     slug: "the-sovereign-override",
-    title: "The sovereign override",
+    title: "Each emergency override is evidence the rule failed",
     href: "/research/theory/the-sovereign-override",
     question:
       "When a hard rule fails staff in an emergency, how can the software stay strict while each emergency override is recorded as evidence against the rule, not as staff misconduct?",
@@ -247,7 +247,7 @@ export const theoryTaxonomy: TheoryQuestionEntry[] = [
   },
   {
     slug: "what-does-not-convert",
-    title: "What does not convert",
+    title: "Capability and a clean record do not grant authority",
     href: "/research/theory/what-does-not-convert",
     question:
       "Why do a system's capability and track record never give it authority on their own?",

@@ -20,7 +20,11 @@ test.describe("Role pages", () => {
       expect(response?.status()).toBe(200);
 
       await expect(
-        page.getByRole("heading", { level: 1, name: role.label, exact: true }),
+        page.getByRole("heading", {
+          level: 1,
+          name: role.who.replace(/\.$/, ""),
+          exact: true,
+        }),
       ).toBeVisible();
 
       // Whatever was written for this role has to actually appear, and the
@@ -87,7 +91,7 @@ test.describe("Role pages", () => {
         await expect(
           page.getByRole("heading", {
             level: 1,
-            name: role.label,
+            name: role.who.replace(/\.$/, ""),
             exact: true,
           }),
         ).toBeVisible();

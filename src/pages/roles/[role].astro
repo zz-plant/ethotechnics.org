@@ -87,9 +87,13 @@ const breadcrumbItems = [
   publishedTime="2026-09-07T00:00:00.000Z"
   breadcrumbItems={breadcrumbItems}
 >
+  {
+    /* The heading is the reader's situation, in the words the home page's
+      doors and /start already use; the role's name is the eyebrow. */
+  }
   <PageIntro
-    eyebrow="Role guidance"
-    title={role.label}
+    eyebrow={role.label}
+    title={role.who.replace(/\.$/, "")}
     description={role.tagline}
     anchorLinks={anchorLinks}
   >

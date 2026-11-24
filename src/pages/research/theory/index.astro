@@ -18,6 +18,14 @@ const modified = "2026-11-08T00:00:00.000Z";
 const essays = (await getCollection("theory")).sort((a, b) =>
   a.data.title.localeCompare(b.data.title, "en", { sensitivity: "base" }),
 );
+// The by-safeguard list is a concept index: each entry is the concept an
+// essay names, glossed by its question. The essay's own title is its claim.
+const conceptByHref = new Map(
+  essays.map((essay) => [
+    essay.data.permalink,
+    essay.data.concept ?? essay.data.title,
+  ]),
+);
 
 const pageTitle = "Theory essays on why the laws hold — Ethotechnics";
 const pageDescription =
@@ -177,7 +185,9 @@ const changesWithUse = [
                   <li>
                     <p>
                       <a href={item.href}>
-                        <strong>{item.title}:</strong>
+                        <strong>
+                          {conceptByHref.get(item.href) ?? item.title}:
+                        </strong>
                       </a>{" "}
                       <em>{item.question}</em>
                     </p>

@@ -25,8 +25,17 @@ standard versions, and cited revisions relate.
   that pair defined terms or name a tradition stay. Every mechanism page's sections, the five
   evidence packs' shared sections, and repeated sections on comparison pages use one name each.
   The case at the foot of a deep page is announced as "Where this broke in public: Robodebt"
-  rather than "Robodebt". Standard names, glossary terms, case names, and the standards'
-  versioned article headings are unchanged.
+  rather than "Robodebt". Standard names, glossary terms, and case names are unchanged.
+- **Theory essay titles state their claim; standards' headings say what they grant:** Nineteen
+  theory essays are retitled from their summaries ("Insulation" is now "When the people harmed
+  cope, the rule looks like it works"); the concept each names stays on the page as its eyebrow
+  and in its document title, breadcrumb, and citation. Role pages lead with the reader's
+  situation. Article and part headings in the standards say what each grants or requires, in
+  editorial revisions where no clause changed: STD-01 (v1.0.4; its rights now read as its
+  description already did, "the right to stop a process", "to a bounded wait", "to wait without
+  coercion", "to see the burden"), STD-02 (v1.4.2), STD-03 (v0.6.3), STD-06 (v0.7.2), STD-07
+  (v0.2.2), STD-08 (v0.3.4), STD-09 (v0.2.5), and PM-01 (v1.0.3). The STD-01 rights matrix,
+  minimum binding set, and mapping artifact follow at v1.0.2.
 - **Interface text says what happened and what to do next:** Dead ends now offer a way out. The
   404 page, the search dialog's no-match state, and the title search's empty state lead with the
   self-defense checks for someone a system decided about. An expired or broken readout link gets

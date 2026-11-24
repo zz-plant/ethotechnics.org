@@ -506,7 +506,14 @@ const researchEssaySchema = z.object({
 });
 
 const theorySchema = z.object({
+  /** The essay's claim, in plain words: what it shows. */
   title: z.string(),
+  /**
+   * The concept the essay names ("Insulation", "Exception learning"). Other
+   * pages and citations refer to the essay by it, so it stays on the page as
+   * the eyebrow and in the document title, breadcrumb, and citation.
+   */
+  concept: z.string().optional(),
   description: z.string(),
   permalink: z.string(),
   eyebrow: z.string().optional().default("Theory"),

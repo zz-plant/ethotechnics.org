@@ -4,8 +4,8 @@ description: "A draft standard for decisions made by chains of agents: the chain
 permalink: "/standards/std-09-agent-chains"
 eyebrow: "Standard STD-09"
 seoTitle: "Agent chains (STD-09)"
-version: "0.2.4"
-lastUpdated: "2026-10-20"
+version: "0.2.5"
+lastUpdated: "2026-11-24"
 publishedTime: "2026-09-11T00:00:00.000Z"
 mainClass: "page page--wide standard-document"
 anchorLinks:
@@ -20,9 +20,9 @@ anchorLinks:
   - href: "#part-b"
     label: "Part B: Composed latency"
   - href: "#part-c"
-    label: "Part C: Counterparty answerability"
+    label: "Part C: Each hop's counterparty must answer for it"
   - href: "#part-d"
-    label: "Part D: Chain correction capacity"
+    label: "Part D: A chain corrects only as well as its weakest link"
   - href: "#anti-patterns"
     label: "Anti-patterns"
 ---
@@ -352,7 +352,7 @@ export const antiPatterns = [
       </section>
 
       <section id="part-c" class="standard-section">
-        <h2>Part C: Counterparty answerability (Laws III, IV)</h2>
+        <h2>Part C: Each hop’s counterparty must answer for it (Laws III, IV)</h2>
         <p class="standard-article-quote">
           "A hop you cannot question is a decision you did not make."
         </p>
@@ -387,7 +387,7 @@ export const antiPatterns = [
       </section>
 
       <section id="part-d" class="standard-section">
-        <h2>Part D: Chain correction capacity (Law IV)</h2>
+        <h2>Part D: A chain corrects only as well as its weakest link (Law IV)</h2>
         <p class="standard-article-quote">
           "The chain can be corrected no faster than its slowest correction."
         </p>
@@ -432,7 +432,7 @@ export const antiPatterns = [
       </section>
 
       <section id="anti-patterns" class="standard-section">
-        <h2>Anti-patterns and counterfactuals</h2>
+        <h2>How it passes on paper and fails in practice</h2>
 
         Four ways each hop of a chain can satisfy STD-07 and STD-08 while the
         chain as a whole satisfies neither, what meeting the terms looks like,
@@ -458,6 +458,11 @@ export const antiPatterns = [
       <section id="publication-history" class="standard-section">
         <h2>Publication history</h2>
         <ul>
+          <li>
+            <strong>v0.2.5 (Nov 24, 2026):</strong> Editorial revision; no
+            obligation changed. Parts C and D state their requirement; formerly
+            "Counterparty answerability" and "Chain correction capacity".
+          </li>
           <li>
             <strong>v0.2.4 (Oct 20, 2026):</strong> Editorial revision; no
             obligation changed. Cut framing that narrated the argument instead
