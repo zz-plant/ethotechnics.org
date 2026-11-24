@@ -102,7 +102,7 @@ export type DiagnosticsContent = PageWithPermalink &
 export const diagnosticsContent: DiagnosticsContent = {
   pageTitle: "Diagnostic tools for automated decisions — Ethotechnics",
   pageDescription:
-    "Self-serve diagnostics that take one workflow, record stream, or set of figures and return a scored readout you can link, copy, or export.",
+    "Self-serve diagnostics that take one workflow, record stream, or set of figures and return a scored readout to file with the decision it informs.",
   permalink: "/diagnostics",
   published: "2025-12-03T00:00:00Z",
   updated: "2026-10-01T00:00:00Z",
@@ -180,7 +180,7 @@ export const diagnosticsContent: DiagnosticsContent = {
     {
       title: "A readout you can file",
       description:
-        "Every tool returns a readout you can link, copy, or export and keep with the decision it informed.",
+        "Every tool returns a readout you can keep with the decision it informed.",
     },
     {
       title: "Named mechanisms",
@@ -206,7 +206,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       {
         title: "Leave with a next step",
         detail:
-          "You leave with a linkable readout, the mechanisms it cites, and one named next step.",
+          "You leave with a readout you can link to and one named next step.",
       },
     ],
     note: "Every diagnostic runs without a prior relationship, and this project publishes each one under CC BY-SA 4.0.",

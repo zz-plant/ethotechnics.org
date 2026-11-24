@@ -95,7 +95,7 @@ export type UseCasesContent = PageWithPermalink & {
 export const useCasesContent: UseCasesContent = {
   pageTitle: "Which systems this is for — Ethotechnics",
   pageDescription:
-    "The kinds of automated decision the standards, cases, and tools are built for, which standard and tool to start with in each, and where the framework does less.",
+    "Six kinds of automated decision the standards are built for, with the standard and tool to start with in each. Six more where the framework does less.",
   permalink: "/use-cases",
   eyebrow: "Fit",
   title: "Which systems this is for",
@@ -227,7 +227,7 @@ export const useCases: UseCase[] = [
     id: "credit-and-accounts",
     title: "Credit, payments, and account holds",
     decides:
-      "Whether a person gets credit, at what limit, and whether they can use the money or the account they already have.",
+      "What credit a person gets, and whether they can use the money or the account they already have.",
     systems:
       "Credit scoring and limit setting, fraud holds, account locks, payment blocks, refund and chargeback decisions.",
     why: "These decisions run in real time, and many take effect before anyone could review them. The framework does not ask them to wait. It asks that each hold come with a receipt and a review deadline, and that access be restored when no fraud is confirmed.",
@@ -316,7 +316,7 @@ export const useCases: UseCase[] = [
       "Whether a treatment is authorized or a claim is paid, and how a patient is triaged.",
     systems:
       "Prior authorization and utilization review, claim denials, clinical risk scores that set a care pathway, triage.",
-    why: "Coverage decisions are frequent, each one is consequential, and a delay is itself a harm. Patients and clinicians already appeal them, so the casebook's question applies directly: does an upheld challenge change the rule?",
+    why: "Coverage decisions are frequent, and a delay is itself a harm. Patients and clinicians already appeal them, so the casebook's question applies directly: does an upheld challenge change the rule?",
     defense: {
       said: "Patients can appeal.",
       answer:
@@ -356,7 +356,7 @@ export const useCases: UseCase[] = [
     id: "platform-enforcement",
     title: "Platform enforcement",
     decides:
-      "Whether a person's post stays up, their account stays open, or their listing stays visible.",
+      "Whether a person keeps their account, and whether what they post or sell stays visible.",
     systems:
       "Content takedowns, account suspensions, seller and creator delisting, spam and abuse filters.",
     why: "Enforcement runs at a volume no team could review case by case, and a wrong suspension can cut off a person's income or audience. Removal often has to be fast. The framework asks that each removal come with a receipt, that exceptions have limits, and that content be restored if the takedown is overturned.",
@@ -417,7 +417,7 @@ export const useCases: UseCase[] = [
     alreadyRequired:
       "EU AI Act Annex III makes high-risk the systems that evaluate learning outcomes (point 3(b)) and those that inform promotion, termination, or task allocation, or that monitor and evaluate workers' performance (point 4(b)).",
     personCanAsk:
-      "In the EU, if a decision about you — a grade, a discipline call, or a dismissal — was made solely by automated processing, GDPR Article 22 lets you ask for a person to review it, give your view, and contest it. Article 15 lets you ask for meaningful information about the logic involved. In New York City, if an automated tool substantially drives a decision about your hiring or promotion, Local Law 144 requires your employer to give notice at least 10 business days before the tool is used and to publish a yearly bias audit.",
+      "In the EU, if a decision about you was made solely by automated processing, GDPR Article 22 lets you ask for a person to review it, give your view, and contest it. Article 15 lets you ask for meaningful information about the logic involved. In New York City, if an automated tool substantially drives a decision about your hiring or promotion, Local Law 144 requires your employer to give notice at least 10 business days before the tool is used and to publish a yearly bias audit.",
   },
 ];
 
@@ -453,7 +453,7 @@ export const boundaries: Boundary[] = [
   {
     id: "low-volume",
     title: "Decisions a committee makes a few times a year",
-    why: "A board that approves ten grants a year reads each one. Receipts, review deadlines, and graded records add cost there without catching what ordinary review would miss.",
+    why: "A board that approves ten grants a year reads each one. Records kept for each decision add cost there without catching what ordinary review would miss.",
     examples: [],
   },
   {

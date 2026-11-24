@@ -138,7 +138,7 @@ export const roles: Role[] = [
     label: "Policy and compliance",
     who: "You write the rules the system has to satisfy, or prove to a regulator that it does.",
     tagline:
-      "Make the standards enforceable by a regulator or a contract: mappings to the law, numeric targets for challenges, and clauses a vendor has to sign.",
+      "Make the standards enforceable by a regulator or a contract, down to the clauses a vendor has to sign.",
     orientation: [
       {
         number: 1,
@@ -197,7 +197,7 @@ export const roles: Role[] = [
     label: "Audit and assurance",
     who: "You verify someone else's claims from the evidence their system emits.",
     tagline:
-      "Check a system from its records, decisions, and halt logs, not from what its operator says.",
+      "Check a system from its decision and halt logs, not from what its operator says.",
     orientation: [
       {
         number: 1,
@@ -289,7 +289,7 @@ export const roles: Role[] = [
     label: "Design",
     who: "You shape the interface where a person meets the decision.",
     tagline:
-      "Turn standards into flows that ask for consent, show people how to escalate, and use words they can act on.",
+      "Turn standards into consent and escalation flows, written in words a person can act on.",
     orientation: [
       {
         number: 1,
