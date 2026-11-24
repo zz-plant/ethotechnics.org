@@ -189,7 +189,9 @@ const failureChoiceIcons: Record<string, string[]> = {
   />
 
   <section id="failure-intake" class="container stack-lg">
-    <h2 id="failure-intake-heading" class="sr-only">Failure modes</h2>
+    <h2 id="failure-intake-heading" class="sr-only">
+      Failures, and the first move for each
+    </h2>
     <ul class="failure-grid" aria-labelledby="failure-intake-heading">
       {
         failureStates.map((state) => {
@@ -241,7 +243,7 @@ const failureChoiceIcons: Record<string, string[]> = {
   <div data-route-metrics="home-to-failure-pathway" hidden></div>
 
   <section id="workflow" class="container stack-lg section">
-    <h2>Response workflow (triage → stabilize → evidence), then the rule</h2>
+    <h2>Triage, stabilize, gather evidence, then correct the rule</h2>
     <p class="section-lead">
       Every failure below runs through the same three stages. In each one,
       capture evidence and timestamps in the stage's record, and confirm who the

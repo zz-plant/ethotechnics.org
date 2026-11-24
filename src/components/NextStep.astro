@@ -69,8 +69,14 @@ const finding = pick?.finding;
       aria-labelledby="next-step-case-title"
     >
       <div class="next-step__case">
-        <p class="eyebrow">Where this broke in public</p>
+        {/* The eyebrow carries the sense of the heading visually; a heading
+            list or screen reader gets the full phrase, not a bare case name
+            like "Robodebt". */}
+        <p class="eyebrow" aria-hidden="true">
+          Where this broke in public
+        </p>
         <h2 id="next-step-case-title" class="next-step__title">
+          <span class="sr-only">Where this broke in public: </span>
           {entry.title}
         </h2>
         <p class="next-step__verdict">

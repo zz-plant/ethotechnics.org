@@ -9,7 +9,7 @@ standardTitle: "Delegation"
 published: "2026-09-06"
 updated: "2026-09-06"
 sections:
-  - title: "Tiered evidence model"
+  - title: "The minimum evidence at each tier"
     content: |
       **Tier 0 (minimum):** Proof the objects exist and are populated. Evidence: grant register export with state and state_history, policy register export with review_triggers and expires_at, one intervention specification per confirm-mode delegation.
 
@@ -19,7 +19,7 @@ sections:
 
       Grant, policy, and intervention records are expected to be emitted as STD-07 records at Level 2 or better, so the pack is an export rather than a second bookkeeping system.
     required: true
-  - title: "Artifact inventory"
+  - title: "The records to keep"
     content: |
       **Grant register export:** Every live grant with grant_id, scope, state, until, renewal_basis, policy_refs, intervention_ref, and the full state_history including renewal and expansion transitions.
 
@@ -31,7 +31,7 @@ sections:
 
       **Capability catalog snapshot:** What the assembled system could do at the date of the snapshot, so that grant scope can be read against capability rather than against intent.
     required: true
-  - title: "Freshness rules"
+  - title: "How recent each record must be"
     content: |
       - Grant register export: no older than the shortest renewal interval in it, and never older than 90 days.
       - Policy register export: refreshed on any status change, and in full at each safety-case refresh.
@@ -41,7 +41,7 @@ sections:
       - Capability catalog snapshot: no older than the last material change to tools, models, integrations, or data access.
       - Any artifact past its freshness rule is presented as stale. A stale artifact is not evidence of the current state.
     required: true
-  - title: "Clause evidence checklist"
+  - title: "Evidence for each clause"
     content: |
       **Part A, authority as lease.** Renewal records naming what was examined and who looked (§1.1, §1.2). State_history entries with reason `expansion` and their evidence references (§1.3, §1.4).
 
