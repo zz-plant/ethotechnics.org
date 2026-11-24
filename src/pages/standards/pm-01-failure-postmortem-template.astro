@@ -23,11 +23,11 @@ const breadcrumbItems = [
 const publication = derivePublicationMetadata({
   permalink,
   published: "2026-04-15T00:00:00Z",
-  updated: "2026-10-13T00:00:00Z",
-  version: "v1.0.2",
+  updated: "2026-11-24T00:00:00Z",
+  version: "v1.0.3",
   authorName: "Kanav Jain",
   changelogSummary:
-    'Editorial revision; the template is unchanged. Retitled in sentence case; formerly "Institutional Failure Postmortem Template".',
+    'Editorial revision; the template is unchanged. Section headings say what each section holds; formerly "Standard intent", "Template structure", "Required primitives", and "Template + worked example".',
 });
 
 const templateSections = [
@@ -61,7 +61,7 @@ const templateSections = [
   },
 ];
 
-const template = `Institutional failure postmortem (PM-01 v1.0.2)
+const template = `Institutional failure postmortem (PM-01 v1.0.3)
 
 1) Incident summary (what failed, not who)
 - System/workflow name:
@@ -163,7 +163,7 @@ const workedExample = `Worked example (hypothetical, anonymized)
     <div class="standard-body">
       <div class="standard-main">
         <section class="standard-section">
-          <h2>Standard intent</h2>
+          <h2>What the template records, and who it is for</h2>
           <p>
             This template uses enforceable clocks, reversibility analysis,
             burden allocation, and repair paths to document institutional
@@ -174,7 +174,7 @@ const workedExample = `Worked example (hypothetical, anonymized)
         </section>
 
         <section class="standard-section">
-          <h2>Template structure</h2>
+          <h2>The sections every postmortem includes</h2>
           <p>
             Seven required sections keep postmortems consistent and cite-ready.
           </p>
@@ -191,7 +191,7 @@ const workedExample = `Worked example (hypothetical, anonymized)
         </section>
 
         <section class="standard-section">
-          <h2>Required primitives</h2>
+          <h2>What every postmortem must record</h2>
           <ul class="muted">
             <li>Time-in-harm clocks with halt and restore timestamps.</li>
             <li>
@@ -203,7 +203,7 @@ const workedExample = `Worked example (hypothetical, anonymized)
         </section>
 
         <section class="standard-section">
-          <h2>Template + worked example</h2>
+          <h2>The template and a worked example</h2>
           <p>
             Copy the template verbatim. The example is hypothetical and included
             only for structure and tone.

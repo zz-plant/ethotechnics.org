@@ -5,12 +5,13 @@ permalink: "/standards/std-01-temporal-rights"
 eyebrow: "Standard STD-01"
 seoTitle: "The Temporal Bill of Rights (STD-01)"
 publishedTime: "2026-01-09T00:00:00.000Z"
+lastUpdated: "2026-11-24"
 mainClass: "page page--wide standard-document"
 anchorLinks:
   - href: "#preamble"
     label: "Preamble"
   - href: "#execution-vs-redress"
-    label: "Execution vs redress clocks"
+    label: "The window between a decision and its remedy"
   - href: "#articles"
     label: "Articles I–VII"
   - href: "#anti-patterns"
@@ -27,27 +28,27 @@ import Std01MicroDiagram from "../../components/Std01MicroDiagram.astro";
 export const rights = [
   {
     id: "stoppability",
-    title: "Stoppability",
+    title: "Stop a process",
     summary: "A person can stop any process at once, from any screen.",
   },
   {
     id: "resignation",
-    title: "Exit (resignation)",
+    title: "Exit",
     summary: "Leaving takes no more effort than joining did.",
   },
   {
     id: "bounded-duration",
-    title: "Bounded duration",
+    title: "Bounded wait",
     summary: "Every process has a defined maximum duration.",
   },
   {
     id: "reversibility",
-    title: "Reversibility",
+    title: "Reversal",
     summary: "A consequential action can be undone within a grace period.",
   },
   {
     id: "non-coercive-waiting",
-    title: "Non-coercive waiting",
+    title: "Wait without coercion",
     summary: "A waiting state shows the real queue position and wait.",
   },
   {
@@ -57,7 +58,7 @@ export const rights = [
   },
   {
     id: "transparent-burden",
-    title: "Transparent burden",
+    title: "See the burden",
     summary: "The time a system costs people is measured and published.",
   },
 ];
@@ -158,7 +159,7 @@ export const antiPatterns = [
       </section>
 
       <section id="execution-vs-redress" class="standard-section">
-        <h2>Execution vs redress clocks</h2>
+        <h2>The window between a decision and its remedy</h2>
 
         A system executes on its own clock. Redress runs on the institution's,
         which is slower. The gap between them is the window in which a harm
@@ -169,7 +170,7 @@ export const antiPatterns = [
       </section>
 
       <section id="articles" class="standard-section">
-        <h2>Article I: The right to stoppability</h2>
+        <h2>Article I: The right to stop a process</h2>
         <p class="standard-article-quote">
           A person can stop any process they no longer want to complete.
         </p>
@@ -196,7 +197,7 @@ export const antiPatterns = [
       </section>
 
       <section class="standard-section">
-        <h2>Article II: The right to exit (resignation)</h2>
+        <h2>Article II: The right to exit</h2>
         <p class="standard-article-quote">
           A person can always leave, and leaving costs no more than joining did.
         </p>
@@ -223,7 +224,7 @@ export const antiPatterns = [
       </section>
 
       <section class="standard-section">
-        <h2>Article III: The right to bounded duration</h2>
+        <h2>Article III: The right to a bounded wait</h2>
         <p class="standard-article-quote">
           Every process has a declared maximum duration, and a stated outcome
           when it runs out.
@@ -251,7 +252,7 @@ export const antiPatterns = [
       </section>
 
       <section class="standard-section">
-        <h2>Article IV: The right to reversibility</h2>
+        <h2>Article IV: The right to reversal</h2>
         <p class="standard-article-quote">
           A person's mistake can be undone without asking anyone's permission.
         </p>
@@ -272,7 +273,7 @@ export const antiPatterns = [
       </section>
 
       <section class="standard-section">
-        <h2>Article V: The right to non-coercive waiting</h2>
+        <h2>Article V: The right to wait without coercion</h2>
         <p class="standard-article-quote">
           A person who is kept waiting is told where they stand, is not held on
           the line, and is not left waiting past a stated clock.
@@ -332,7 +333,7 @@ export const antiPatterns = [
       </section>
 
       <section class="standard-section">
-        <h2>Article VII: The right to transparent burden</h2>
+        <h2>Article VII: The right to see the burden</h2>
         <p class="standard-article-quote">
           The time a system costs the public is measured and published.
         </p>
@@ -357,7 +358,7 @@ export const antiPatterns = [
           articles the reader had not reached. They follow the articles. */}
 
       <section id="anti-patterns" class="standard-section">
-        <h2>Anti-patterns and counterfactuals</h2>
+        <h2>How it passes on paper and fails in practice</h2>
 
         Two ways a system can appear to comply without complying, what
         compliance looks like instead, and a caveat for each.

@@ -24,15 +24,15 @@ const slugify = (value: string) =>
 const publication = derivePublicationMetadata({
   permalink,
   published: "2026-03-01T00:00:00Z",
-  updated: "2026-10-06T00:00:00Z",
-  version: "v1.0.1",
+  updated: "2026-11-24T00:00:00Z",
+  version: "v1.0.2",
   changelogSummary:
-    "Renamed the Article VI right to reach a human, matching STD-01 v1.0.1, and reworded the waiting-state note.",
+    "Renamed the rights to match STD-01 v1.0.4: stop a process, exit, a bounded wait, reversal, wait without coercion, and see the burden.",
 });
 
 const matrix = [
   {
-    right: "Stoppability (STD-01 \u00a71)",
+    right: "Stop a process (STD-01 \u00a71)",
     validators: [
       {
         label: "Journey burden check (VAL-01)",
@@ -54,7 +54,7 @@ const matrix = [
       "Use halt controls plus decision logging to make stoppability enforceable.",
   },
   {
-    right: "Exit / resignation (STD-01 \u00a72)",
+    right: "Exit (STD-01 \u00a72)",
     validators: [
       {
         label: "Journey burden check (VAL-01)",
@@ -72,10 +72,10 @@ const matrix = [
         href: "/mechanisms/patterns/appeal-paths",
       },
     ],
-    notes: "Model time-to-exit and enforce clear resignation paths in the UI.",
+    notes: "Model time-to-exit and enforce clear exit paths in the UI.",
   },
   {
-    right: "Bounded duration (STD-01 \u00a73)",
+    right: "Bounded wait (STD-01 \u00a73)",
     validators: [
       { label: "Latency audit (VAL-03)", href: "/validators#latency-audit" },
     ],
@@ -90,7 +90,7 @@ const matrix = [
       "Every state needs a deadline, escalation path, and declared window.",
   },
   {
-    right: "Reversibility (STD-01 \u00a74)",
+    right: "Reversal (STD-01 \u00a74)",
     validators: [
       {
         label: "Journey burden check (VAL-01)",
@@ -112,7 +112,7 @@ const matrix = [
       "Guard irreversible actions with rollback windows and decision traceability.",
   },
   {
-    right: "Non-coercive waiting (STD-01 \u00a75)",
+    right: "Wait without coercion (STD-01 \u00a75)",
     validators: [
       { label: "Latency audit (VAL-03)", href: "/validators#latency-audit" },
       {
@@ -156,7 +156,7 @@ const matrix = [
       "Ensure escalations route to accountable humans with visible ownership.",
   },
   {
-    right: "Transparent burden (STD-01 \u00a77)",
+    right: "See the burden (STD-01 \u00a77)",
     validators: [
       {
         label: "Journey burden check (VAL-01)",

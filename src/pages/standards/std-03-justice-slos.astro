@@ -94,10 +94,10 @@ const publication = derivePublicationMetadata({
   // The file's first commit; the citation said January 1 after the page's
   // own date moved to January 21.
   published: "2026-01-21T00:00:00Z",
-  updated: "2026-10-13T00:00:00Z",
-  version: "v0.6.2",
+  updated: "2026-11-24T00:00:00Z",
+  version: "v0.6.3",
   changelogSummary:
-    'Editorial revision; no requirement changed. Retitled in sentence case; formerly "Justice SLOs (Targets, Budgets, and Breach Actions)".',
+    'Editorial revision; no requirement changed. Section headings say what each section requires; formerly "Standard intent", "Required metric coverage", and "Ownership and public surface".',
 });
 ---
 
@@ -109,7 +109,7 @@ const publication = derivePublicationMetadata({
   mainClass="page page--wide standard-document"
   enableGlossaryHighlights={false}
   breadcrumbItems={breadcrumbItems}
-  schema={{ article: { identifier: "STD-03", version: "0.6.2" } }}
+  schema={{ article: { identifier: "STD-03", version: "0.6.3" } }}
 >
   <article class="standard-document">
     <header class="standard-header">
@@ -126,7 +126,7 @@ const publication = derivePublicationMetadata({
     <div class="standard-body">
       <div class="standard-main">
         <section class="standard-section">
-          <h2>Standard intent</h2>
+          <h2>What a justice SLO is, and what it must carry</h2>
           <p>
             A justice service-level objective (justice SLO) is a target for how
             a system treats the people it decides about: how fast it stops a
@@ -157,7 +157,7 @@ const publication = derivePublicationMetadata({
         </section>
 
         <section class="standard-section">
-          <h2>Required metric coverage</h2>
+          <h2>The metrics every workflow class must set a target for</h2>
           <p>
             Every consequential workflow class must publish a target, budget, or
             ceiling for each of these five metrics.
@@ -197,7 +197,7 @@ const publication = derivePublicationMetadata({
         </section>
 
         <section class="standard-section">
-          <h2>Ownership and public surface</h2>
+          <h2>Who owns each justice SLO, and what the public sees</h2>
           <p>
             Each justice SLO must name an accountable owner with authority to
             halt the workflow, roll it back, or staff the remedy. The public

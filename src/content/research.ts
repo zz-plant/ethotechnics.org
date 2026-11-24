@@ -191,7 +191,7 @@ export const researchContent: ResearchContent = {
       tags: ["Open questions", "Stated methods", "Data with findings"],
     },
     {
-      title: "Glossary-linked",
+      title: "Terms link to the glossary",
       description:
         "Agenda items, focus areas, and publications link to the glossary terms they use, so a reader can check each definition.",
       tags: ["Glossary-linked", "Shared vocabulary"],
@@ -385,7 +385,7 @@ export const researchContent: ResearchContent = {
     },
     {
       title:
-        "When the Dashboard Is Green: Evaluating Compensatory Reward Hacking in Long-Horizon AI Agents",
+        "When the dashboard is green: evaluating compensatory reward hacking in long-horizon AI agents",
       type: "protocol",
       status: "planned",
       summary:

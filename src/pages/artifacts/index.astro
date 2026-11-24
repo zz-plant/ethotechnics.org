@@ -26,7 +26,7 @@ const templateText = (artifact: ProjectArtifact) =>
       "      Evidence:",
     ]),
     "",
-    "## How to use",
+    "## How to use it",
     "",
     ...artifact.howToSteps.map((step, index) => `${index + 1}. ${step}`),
     "",
@@ -87,7 +87,7 @@ const entries = artifacts.map((artifact) => ({
             ))}
           </ul>
 
-          <h3>How to use</h3>
+          <h3>How to use it</h3>
           <ol class="artifact-entry__steps">
             {artifact.howToSteps.map((step) => (
               <li>{step}</li>

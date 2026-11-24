@@ -19,18 +19,18 @@ const anchorLinks = [
 const publication = derivePublicationMetadata({
   permalink,
   published: "2026-02-01T00:00:00Z",
-  updated: "2026-10-06T00:00:00Z",
-  version: "v1.0.1",
+  updated: "2026-11-24T00:00:00Z",
+  version: "v1.0.2",
   authorName: "Kanav Jain",
   changelogSummary:
-    "Renamed the Article VI right to reach a human, matching STD-01 v1.0.1.",
+    "Renamed the rights to match STD-01 v1.0.4: stop a process, a bounded wait, and wait without coercion.",
 });
 
 const mappingRows = [
   {
     harm: "Applicants cannot exit a multi-step form without losing progress.",
     right: {
-      title: "Stoppability",
+      title: "Stop a process",
       clauses: ["§1.1", "§1.2", "§1.3"],
       href: "/standards/std-01-temporal-rights",
     },
@@ -48,7 +48,7 @@ const mappingRows = [
   {
     harm: "Processing time is undisclosed until after submission.",
     right: {
-      title: "Bounded duration",
+      title: "Bounded wait",
       clauses: ["§3.1", "§3.2", "§3.3"],
       href: "/standards/std-01-temporal-rights",
     },
@@ -66,7 +66,7 @@ const mappingRows = [
   {
     harm: "Queue status is opaque and requires staying online to hold a place.",
     right: {
-      title: "Non-coercive waiting",
+      title: "Wait without coercion",
       clauses: ["§5.1", "§5.2", "§5.3"],
       href: "/standards/std-01-temporal-rights",
     },

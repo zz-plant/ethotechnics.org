@@ -31,16 +31,20 @@ const publication = derivePublicationMetadata({
   authorName: "Kanav Jain",
 });
 
+// The title is the essay's claim; the concept it names is how other pages and
+// citations refer to it, so search results and citations carry both.
+const fullTitle = data.concept ? `${data.concept}: ${data.title}` : data.title;
+
 const breadcrumbItems = [
   { name: "Home", url: "/" },
   { name: "Research", url: "/research" },
   { name: "Theory", url: "/research/theory" },
-  { name: data.title, url: data.permalink },
+  { name: data.concept ?? data.title, url: data.permalink },
 ];
 ---
 
 <BaseLayout
-  title={`${data.title} — Ethotechnics`}
+  title={`${fullTitle} — Ethotechnics`}
   description={data.description}
   publishedTime={publishedTime}
   modifiedTime={modifiedTime}
@@ -58,7 +62,7 @@ const breadcrumbItems = [
   */
   }
   <PageIntro
-    eyebrow={data.eyebrow}
+    eyebrow={data.concept ?? data.eyebrow}
     title={data.title}
     description={data.summary}
     anchorLinks={anchorLinks}
@@ -94,7 +98,7 @@ const breadcrumbItems = [
   </p>
 
   <CitationBlock
-    title={data.title}
+    title={fullTitle}
     permalink={data.permalink}
     publication={publication}
   />
