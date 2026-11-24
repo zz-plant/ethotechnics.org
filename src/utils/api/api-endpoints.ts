@@ -171,6 +171,12 @@ export const API_ENDPOINTS = [
     group: "release",
   },
   {
+    path: "openapi.json",
+    description:
+      "OpenAPI 3.1 description of these endpoints, listed in /.well-known/api-catalog.",
+    group: "standalone",
+  },
+  {
     path: "badges.json",
     description: "Repository badges for CI status and license.",
     group: "standalone",

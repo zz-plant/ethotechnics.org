@@ -30,6 +30,7 @@ import {
   createSubstrateProfilesResponse,
   createValidatorsResponse,
 } from "../../utils/api/api-responses";
+import { buildReadApiOpenApi } from "../../utils/api/openapi";
 
 const parseLimit = (request: Request) => {
   const { searchParams } = new URL(request.url);
@@ -80,5 +81,9 @@ export const apiRoutes: Record<string, (context: APIContext) => Response> = {
   "substrate-profiles.json": () => createSubstrateProfilesResponse(),
   "releases.json": () => createReleasesResponse(),
   "changelog.json": () => createChangelogResponse(),
+  "openapi.json": () =>
+    new Response(JSON.stringify(buildReadApiOpenApi(), null, 2), {
+      headers: { "Content-Type": "application/json; charset=utf-8" },
+    }),
   "badges.json": () => createBadgesResponse(),
 };
