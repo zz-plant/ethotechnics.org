@@ -35,7 +35,10 @@ standard versions, and cited revisions relate.
   description already did, "the right to stop a process", "to a bounded wait", "to wait without
   coercion", "to see the burden"), STD-02 (v1.4.2), STD-03 (v0.6.3), STD-06 (v0.7.2), STD-07
   (v0.2.2), STD-08 (v0.3.4), STD-09 (v0.2.5), and PM-01 (v1.0.3). The STD-01 rights matrix,
-  minimum binding set, and mapping artifact follow at v1.0.2.
+  minimum binding set, and mapping artifact follow at v1.0.2. Mechanism steps are checkbox labels
+  rather than h3s, so the page outline lists sections instead of every instruction; fragments
+  and leftovers among the h3s ("Proposes", "Glossary-linked", "5.2", ampersands) now read as
+  labels.
 - **Interface text says what happened and what to do next:** Dead ends now offer a way out. The
   404 page, the search dialog's no-match state, and the title search's empty state lead with the
   self-defense checks for someone a system decided about. An expired or broken readout link gets

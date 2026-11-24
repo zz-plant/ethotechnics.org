@@ -158,7 +158,9 @@ const breadcrumbItems = [
                   data-step-index={index}
                 />
               </div>
-              <h3>{step}</h3>
+              {/* The step is the checkbox's label, not a section: as an h3
+                  it put every instruction sentence into the page outline. */}
+              <span class="pattern-detail__step-text">{step}</span>
             </label>
           </li>
         ))
@@ -397,6 +399,17 @@ const breadcrumbItems = [
     justify-content: space-between;
     align-items: center;
     margin-bottom: var(--space-2);
+  }
+
+  /* Keeps the look the step had as an h3. */
+  .pattern-detail__step-text {
+    display: block;
+    color: var(--text);
+    font-size: var(--text-h3);
+    font-weight: 700;
+    letter-spacing: -0.006em;
+    line-height: 1.3;
+    text-wrap: balance;
   }
 
   .pattern-detail__step-checkbox {

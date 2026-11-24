@@ -183,7 +183,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         "Every tool returns a readout you can keep with the decision it informed.",
     },
     {
-      title: "Named mechanisms",
+      title: "Findings use the library’s mechanism names",
       description:
         "Recommendations use the mechanism names from the library, so the team that acts on a finding and the team that reviews it use the same terms.",
     },

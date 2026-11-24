@@ -140,7 +140,7 @@ export const useCasesContent: UseCasesContent = {
   },
   tooling: [
     {
-      title: "Checks evidence",
+      title: "One tool checks evidence: the record conformance checker",
       description:
         "The record conformance checker reads the decision records a system exports, checks them against the published schema, recomputes the hashes that link them, and reports the conformance level they earn. The receipt and record formats are published as JSON Schemas that any validator can run in CI.",
       links: [
@@ -155,7 +155,7 @@ export const useCasesContent: UseCasesContent = {
       ],
     },
     {
-      title: "Organizes a self-report",
+      title: "The other tools organize a self-report",
       description:
         "The delegation audit, the corrective capacity self-assessment, the workload modeler, the three validators, and the 60-second self-test score what a team enters about its system. None of them verifies it.",
       links: [
@@ -164,7 +164,7 @@ export const useCasesContent: UseCasesContent = {
       ],
     },
     {
-      title: "Proposes",
+      title: "The standards and case scores are proposals",
       description:
         "Every standard is a draft, apart from one that is deprecated. None has force until an organization adopts it or a contract cites it. The case scores are this project's reading of what courts, inquiries, and regulators found.",
       links: [
