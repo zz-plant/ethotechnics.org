@@ -40,6 +40,10 @@ const ratingForScore = (score: number): Rating => {
 
 const isNamed = (value: string) => value.trim().length > 0;
 
+// The form calls each card an action; the readout counts them the same way.
+const actions = (count: number) =>
+  `${count} ${count === 1 ? "action" : "actions"}`;
+
 const namedActionClasses = (input: AuditInput) =>
   input.actionClasses.filter((entry) => isNamed(entry.name));
 
@@ -143,9 +147,9 @@ const scoreCapability = (input: AuditInput): VariableRating => {
 
   if (classes.length > 0) {
     score += 40;
-    notes.push(`${classes.length} action class(es) named for this workflow.`);
+    notes.push(`${actions(classes.length)} named for this workflow.`);
   } else {
-    notes.push("No action class has been named yet.");
+    notes.push("No action has been named yet.");
   }
 
   if (input.capabilityListSeparate === "yes") {
@@ -183,7 +187,7 @@ const scoreAuthority = (input: AuditInput): VariableRating => {
       label: STATE_VARIABLE_LABELS.authority,
       score: 0,
       rating: "weak",
-      notes: ["No action class has been named, so no authority can be traced."],
+      notes: ["No action has been named, so no authority can be traced."],
     };
   }
 
@@ -202,12 +206,12 @@ const scoreAuthority = (input: AuditInput): VariableRating => {
   );
 
   notes.push(
-    `${withAuthorizer.length} of ${classes.length} action class(es) have an identifiable authorizer.`,
+    `${withAuthorizer.length} of ${actions(classes.length)} ${withAuthorizer.length === 1 ? "has" : "have"} an identifiable authorizer.`,
   );
   const openEnded = classes.filter((entry) => entry.expiry === "none").length;
   if (openEnded > 0) {
     notes.push(
-      `${openEnded} action class(es) have no end date and no condition that would end them.`,
+      `${actions(openEnded)} ${openEnded === 1 ? "has" : "have"} no end date and no condition that would end ${openEnded === 1 ? "it" : "them"}.`,
     );
   }
   const automatic = classes.filter(
@@ -215,7 +219,7 @@ const scoreAuthority = (input: AuditInput): VariableRating => {
   ).length;
   if (automatic > 0) {
     notes.push(
-      `${automatic} action class(es) continue unless somebody intervenes, which is renewal by default.`,
+      `${actions(automatic)} ${automatic === 1 ? "continues" : "continue"} unless somebody intervenes, which is renewal by default.`,
     );
   }
 
@@ -248,14 +252,14 @@ const scoreEvidence = (input: AuditInput): VariableRating => {
   score = clampScore(score);
 
   notes.push(
-    `${withEvidence.length} of ${classes.length || 0} action class(es) record what has to be true for the permission to make sense.`,
+    `${withEvidence.length} of ${actions(classes.length)} ${withEvidence.length === 1 ? "records" : "record"} what has to be true for the permission to make sense.`,
   );
   const stale = classes.filter(
     (entry) => entry.lastChecked === "stale" || entry.lastChecked === "never",
   ).length;
   if (stale > 0) {
     notes.push(
-      `${stale} action class(es) have not had that checked in the last 12 months.`,
+      `${actions(stale)} ${stale === 1 ? "has" : "have"} not had that checked in the last 12 months.`,
     );
   }
   if (input.policyReviewTrigger !== "yes") {
@@ -544,7 +548,7 @@ const buildFindings = (
     findings.push({
       id: "ungrounded-grants",
       variable: "authority",
-      title: `${ungrounded.length} action class(es) with no authorizer or no evidence basis`,
+      title: `${actions(ungrounded.length)} with no authorizer or no evidence basis`,
       detail:
         "A permission nobody can justify is something to investigate. Either the record is missing or the authority is.",
       clause: CLAUSE_REFS.renewalBurden,
@@ -560,7 +564,7 @@ const buildFindings = (
     findings.push({
       id: "open-ended-authority",
       variable: "authority",
-      title: `${openEnded.length} action class(es) renew by default`,
+      title: `${actions(openEnded.length)} ${openEnded.length === 1 ? "renews" : "renew"} by default`,
       detail:
         "Authority that continues unless somebody intervenes is renewed by silence. Record what the next renewal has to show, before the review period starts.",
       clause: CLAUSE_REFS.silenceNotRenewal,

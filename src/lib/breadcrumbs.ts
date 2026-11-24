@@ -50,9 +50,10 @@ const normalizeHref = (url: string, siteBase: string) => {
 /**
  * Path segments that name no page. The worked examples live at
  * /use-cases/examples/<slug>, and their index was folded into /use-cases, so
- * a crumb for the segment would link a redirect.
+ * a crumb for the segment would link a redirect. Shared readouts live at
+ * /readouts/<id> and have no index, so that crumb would link a 404.
  */
-const SEGMENTS_WITHOUT_A_PAGE = new Set(["/use-cases/examples"]);
+const SEGMENTS_WITHOUT_A_PAGE = new Set(["/use-cases/examples", "/readouts"]);
 
 export const normalizeBreadcrumbItems = ({
   siteBase,

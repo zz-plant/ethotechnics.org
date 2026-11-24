@@ -81,7 +81,8 @@ const finding = pick?.finding;
           {entry.period}. Time to halt: {entry.timeToHalt}
         </p>
         <a class="next-step__case-link" href={`/casebook/${entry.slug}`}>
-          Read the full case <span aria-hidden="true">&rarr;</span>
+          Read the full case<span class="sr-only">: {entry.title}</span>
+          <span aria-hidden="true">&rarr;</span>
         </a>
       </div>
       <div class="next-step__action">

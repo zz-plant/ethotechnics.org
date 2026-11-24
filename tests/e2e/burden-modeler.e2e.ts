@@ -107,9 +107,11 @@ test.describe("Burden Modeler page", () => {
 
     const segmentTable = page.locator(".segment-table");
     await expect(segmentTable).toBeVisible();
-    await expect(segmentTable.getByText("Segment")).toBeVisible();
-    await expect(segmentTable.getByText("Score")).toBeVisible();
-    await expect(segmentTable.getByText("Delta")).toBeVisible();
+    await expect(segmentTable.getByText("Category")).toBeVisible();
+    await expect(
+      segmentTable.getByText("Score", { exact: true }),
+    ).toBeVisible();
+    await expect(segmentTable.getByText("Gap from average")).toBeVisible();
     await expect(segmentTable.getByText("Flag")).toBeVisible();
   });
 

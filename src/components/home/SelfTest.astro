@@ -104,7 +104,9 @@ const choices = [
     hidden
   >
     <p class="self-test__score">
-      <span data-self-test-holding>0</span> of {selfTestQuestions.length} pass
+      <span data-self-test-holding>0</span> of {selfTestQuestions.length}{
+        " "
+      }<span data-self-test-holding-verb>pass</span>
     </p>
     <p class="self-test__verdict" data-self-test-verdict></p>
     <ul class="self-test__drift" data-self-test-drift></ul>
@@ -115,6 +117,9 @@ const choices = [
       <button type="button" class="button ghost" data-self-test-share>
         <ActionIcon action="copy" />
         <span data-button-label>Copy link to this result</span>
+      </button>
+      <button type="button" class="button ghost" data-self-test-clear>
+        Clear answers
       </button>
     </div>
   </div>

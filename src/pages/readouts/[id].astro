@@ -19,7 +19,7 @@ import { loadReadout, type ReadoutEnv } from "../../utils/readouts";
 
 const store = (await resolveEnv<ReadoutEnv>(Astro.locals))?.READOUTS;
 const record = store ? await loadReadout(store, Astro.params.id ?? "") : null;
-if (!record) return Astro.rewrite("/404");
+if (!record) return Astro.rewrite("/readouts/unavailable");
 
 const tool = diagnosticsContent.tools.find(
   (entry) => entry.slug === record.tool_id,
@@ -129,7 +129,7 @@ const statusLabel = {
     id="grants"
     eyebrow="Permissions nobody can justify"
     title={result.ungroundedGrants.length === 0
-      ? "Every action class is grounded"
+      ? "Every action has an authorizer and evidence"
       : `${result.ungroundedGrants.length} ${result.ungroundedGrants.length === 1 ? "action" : "actions"} nobody can justify`}
     description="Each is a finding to investigate, not a proven violation."
     variant="alt"

@@ -58,6 +58,14 @@ describe("normalizeBreadcrumbItems", () => {
       "/use-cases",
       "/use-cases/examples/loan-approval",
     ]);
+
+    // Shared readouts have no index page; a /readouts crumb would 404.
+    const readout = normalizeBreadcrumbItems({
+      siteBase,
+      currentPath: "/readouts/abc123",
+      title: "Refund decisions: delegation audit readout",
+    });
+    expect(readout.map((item) => item.href)).toEqual(["/", "/readouts/abc123"]);
   });
 
   it("uses the theory index title for /research/theory", () => {

@@ -357,6 +357,14 @@
     font-family: var(--sans);
     font-weight: 600;
   }
+
+  /* The arrow, return, and escape hints are keyboard instructions; a phone
+     has none of those keys. */
+  @media (hover: none) and (pointer: coarse) {
+    .search-help {
+      display: none;
+    }
+  }
 }
 
 @media (max-width: 640px) {

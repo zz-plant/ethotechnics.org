@@ -157,7 +157,7 @@ const fieldNoteSections = sections.map((section, index) => ({
                   <p class="muted">{entry.summary}</p>
                   {entry.whyItMatters ? <p>{entry.whyItMatters}</p> : null}
                   <p class="muted">
-                    Glossary{" "}
+                    Glossary terms:{" "}
                     {entry.relatedTerms.map((slug, relatedIndex) => (
                       <span>
                         <a
@@ -172,7 +172,7 @@ const fieldNoteSections = sections.map((section, index) => ({
                   </p>
                   {hasLinks ? (
                     <p class="muted">
-                      Related links{" "}
+                      Related links:{" "}
                       {links.map((link, linkIndex) => (
                         <span>
                           <a href={link}>{relatedLinkLabel(link)}</a>
@@ -188,16 +188,22 @@ const fieldNoteSections = sections.map((section, index) => ({
                     <p class="eyebrow">After this note</p>
                     <ul>
                       <li>
-                        <a href={primaryGlossaryHref}>Glossary definition</a>
+                        <a href={primaryGlossaryHref}>
+                          {primaryTerm
+                            ? `${getGlossaryLabel(primaryTerm)} in the glossary`
+                            : "Browse the glossary"}
+                        </a>
                       </li>
                       <li>
                         <a href={links[0] ?? "/mechanisms#patterns"}>
-                          Mechanism or pattern
+                          {links[0]
+                            ? relatedLinkLabel(links[0])
+                            : "Browse the mechanism catalog"}
                         </a>
                       </li>
                       <li>
                         <a href="/diagnostics#quick-triage">
-                          Diagnostic next step
+                          Pick a diagnostic for your question
                         </a>
                       </li>
                     </ul>

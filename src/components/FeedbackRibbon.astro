@@ -23,13 +23,17 @@ const resolveIconName = (label: string) =>
     : "lucide:message-circle";
 ---
 
-<div class="feedback-ribbon" aria-label="Feedback channels">
+<div class="feedback-ribbon">
   <div class="feedback-ribbon__lead">
     {eyebrow && <p class="eyebrow">{eyebrow}</p>}
     <h3>{title}</h3>
     <p class="muted">{description}</p>
   </div>
-  <div class="feedback-ribbon__actions" aria-label="Ways to contact the team">
+  <div
+    class="feedback-ribbon__actions"
+    role="group"
+    aria-label="Ways to reach the author"
+  >
     {
       actions.map((action) => (
         <a

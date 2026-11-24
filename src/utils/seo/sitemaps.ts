@@ -109,6 +109,8 @@ const isPublicPath = (path: string) => {
   // A Playwright visual-testing harness. It answers 404 anywhere but
   // localhost, so it must never be advertised.
   if (path === "/components-preview") return false;
+  // The page an expired or broken readout link rewrites to; it answers 404.
+  if (path === "/readouts/unavailable") return false;
   return !path
     .split("/")
     .filter(Boolean)

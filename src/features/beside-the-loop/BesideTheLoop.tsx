@@ -101,7 +101,8 @@ export function BesideTheLoop() {
           </h4>
           <p className="demo-field__hint">
             Six switches, one per field. Off is how "a human reviews" is usually
-            built. Each applies from the next beat.
+            built. A beat is one action of yours, and new decisions arrive with
+            each one; a switch applies from the next beat.
           </p>
           <div className="loop__switches">
             {SPEC_FIELDS.map((field) => {

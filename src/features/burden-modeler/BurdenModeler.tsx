@@ -50,9 +50,9 @@ const descriptorForRating = (rating: number) => {
 };
 
 const deltaLabel = (delta: number) => {
-  if (delta === 0) return "On baseline";
-  if (delta > 0) return `+${delta} pts above baseline`;
-  return `${Math.abs(delta)} pts below baseline`;
+  if (delta === 0) return "At the average";
+  if (delta > 0) return `+${delta} pts above average`;
+  return `${Math.abs(delta)} pts below average`;
 };
 
 const buildSnapshot = (
@@ -126,7 +126,7 @@ export function BurdenModeler() {
           two sibling sections out of one. */}
       <div className="burden-modeler__header">
         <p className="muted">
-          Rate from 0 to 10 how much operational and cognitive load each factor
+          Rate from 0 to 10 how much operational and cognitive load each driver
           adds to your scenario. The model returns a burden index, ranks the
           hotspots, and lists mitigations. Each mitigation shows how far the
           index would fall if that driver were zero; that is arithmetic on your
@@ -141,8 +141,8 @@ export function BurdenModeler() {
               Scenario name
             </label>
             <p className="muted small">
-              Reference a release, queue, or incident stream so the results stay
-              linkable.
+              Name a release, queue, or incident stream so the export says what
+              was rated.
             </p>
             <input
               id="scenario-name"
@@ -317,12 +317,6 @@ export function BurdenModeler() {
                   {results.hotspots[0]?.label ?? "—"}
                 </p>
               </div>
-              <div className="summary-item">
-                <p className="muted small">Imbalance threshold</p>
-                <p className="summary-item__value">
-                  {SEGMENT_IMBALANCE_THRESHOLD} pts
-                </p>
-              </div>
             </div>
 
             <div className="result-card__grid">
@@ -350,10 +344,12 @@ export function BurdenModeler() {
           <div className="result-card">
             <div className="result-card__header">
               <div>
-                <p className="eyebrow">Segments</p>
-                <h3>Top impacted segments</h3>
+                <p className="eyebrow">Categories</p>
+                <h3>Categories against their average</h3>
                 <p className="muted small">
-                  Compare category scores against the category baseline.
+                  Each category&apos;s score against the average of all three. A
+                  gap of {SEGMENT_IMBALANCE_THRESHOLD} points or more is
+                  flagged.
                 </p>
               </div>
             </div>
@@ -361,15 +357,15 @@ export function BurdenModeler() {
             <div
               className="segment-table"
               role="table"
-              aria-label="Segment comparison table"
+              aria-label="Categories against their average"
             >
               <div
                 className="segment-table__row segment-table__row--header"
                 role="row"
               >
-                <span role="columnheader">Segment</span>
+                <span role="columnheader">Category</span>
                 <span role="columnheader">Score</span>
-                <span role="columnheader">Delta</span>
+                <span role="columnheader">Gap from average</span>
                 <span role="columnheader">Flag</span>
               </div>
               {results.topSegments.map((segment) => (
@@ -394,8 +390,8 @@ export function BurdenModeler() {
               <p className="eyebrow">Hotspots</p>
               <h3>Where burden is peaking</h3>
               <p className="muted small">
-                Top factors sorted by weighted score with suggested mitigation
-                paths.
+                The three drivers with the highest weighted scores, each with
+                mitigations.
               </p>
             </div>
 

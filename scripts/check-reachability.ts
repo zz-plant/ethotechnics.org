@@ -60,6 +60,10 @@ const INTENTIONALLY_UNLINKED = new Map<string, string>([
   ["/404", "the error page; reached by failing to find something else"],
   ["/components-preview", "a development gallery, not site content"],
   [
+    "/readouts/unavailable",
+    "the error page for a shared readout link; reached by opening one that expired or lost characters",
+  ],
+  [
     "/search",
     "readers search through the dialog the header button opens; the page is the SearchAction target and the 404 page's way out",
   ],

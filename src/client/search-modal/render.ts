@@ -4,6 +4,8 @@ import {
   type PagefindResultData,
 } from "./types";
 
+const SELF_DEFENSE_HREF = "/diagnostics/self-defense-tools";
+
 const escapeRegExp = (value: string) =>
   value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
@@ -129,6 +131,24 @@ export const createSearchRenderer = (
     container.replaceChildren(text);
   };
 
+  // A search that finds nothing is a dead end, and the reader most likely to
+  // hit one is the person a system decided about, searching in their own words.
+  const showNoMatch = (query: string) => {
+    const text = document.createElement("p");
+    text.className = "search-empty";
+    const link = document.createElement("a");
+    link.href = SELF_DEFENSE_HREF;
+    link.textContent = "self-defense checks";
+    text.appendChild(
+      document.createTextNode(
+        `No pages match “${query}”. Try a shorter word, or a standard number like STD-01. If a system decided something about you, start with the `,
+      ),
+    );
+    text.appendChild(link);
+    text.appendChild(document.createTextNode("."));
+    container.replaceChildren(text);
+  };
+
   return {
     showEmpty,
     showLoading: () => showEmpty("Searching…"),
@@ -140,9 +160,7 @@ export const createSearchRenderer = (
       container.replaceChildren();
 
       if (!results.length) {
-        showEmpty(
-          `No pages match “${query}”. Try a shorter term or an ID like STD-01.`,
-        );
+        showNoMatch(query);
         return;
       }
 

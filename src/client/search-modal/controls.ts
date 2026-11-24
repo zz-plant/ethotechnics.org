@@ -387,6 +387,9 @@ export const bindGlobalSearchListeners = ({
       return;
     }
 
+    // A proxy trigger may be a link to /search, so it still works without
+    // script. With script, it opens the full-text dialog instead.
+    event.preventDefault();
     triggerHaptic("nudge", { intensity: 0.3 });
     activeInstance.openDialog({ pushHistory: true });
   });

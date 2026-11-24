@@ -42,7 +42,11 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
         aria-label="Search mechanisms by name or keyword"
       />
     </label>
-    <ul class="pill-list pattern-filter__themes">
+    <ul
+      class="pill-list pattern-filter__themes"
+      role="group"
+      aria-label="Filter mechanisms by safeguard"
+    >
       {
         filtersWithAll.map((filter) => {
           const isAll = filter.slug === "all";
@@ -57,11 +61,6 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
                 aria-pressed={isAll}
                 data-filter={filter.slug}
                 title={filter.description}
-                aria-label={
-                  filter.slug === "all"
-                    ? "Show all mechanisms"
-                    : `Filter mechanisms by ${filter.label} and update visible results`
-                }
               >
                 {filter.slug === "all" ? (
                   filter.label
@@ -144,7 +143,14 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
         );
       })
     }
-    <p class="muted" data-empty hidden>No mechanisms match these filters.</p>
+    <div class="pattern-filter__empty" data-empty hidden>
+      <p class="muted">
+        No mechanisms match. Clear the search, or choose All safeguards.
+      </p>
+      <button type="button" class="button ghost" data-clear-filters>
+        Clear filters
+      </button>
+    </div>
   </div>
 </div>
 

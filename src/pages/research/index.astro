@@ -94,11 +94,11 @@ const researchSuggestions = Array.from(
 ).sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }));
 const researchSections = [
   { id: "", label: "All sections" },
-  { id: "orientation", label: "Orientation" },
-  { id: "bridge-artifacts", label: "Bridge artifacts" },
-  { id: "agenda", label: "Agenda" },
+  { id: "orientation", label: "How the work is run" },
+  { id: "bridge-artifacts", label: "Research notes and essays" },
+  { id: "agenda", label: "Open questions" },
   { id: "focus-areas", label: "Focus areas" },
-  { id: "publications", label: "Publications" },
+  { id: "publications", label: "Planned studies" },
 ];
 const buildSearchText = (...parts: Array<string | string[] | undefined>) =>
   parts
@@ -179,7 +179,7 @@ const pageSchema = {
     description="Dated releases of the standards this research informs."
     variant="alt"
   >
-    <ol class="standards-timeline" aria-label="Standards research timeline">
+    <ol class="standards-timeline">
       {
         standardsTimeline.map((entry) => (
           <li class="standards-timeline__item">
@@ -305,7 +305,7 @@ const pageSchema = {
   >
     <details class="chunked-section" open data-default-open="true">
       <summary class="chunked-section__summary">
-        Orientation cards ({orientationCards.length})
+        Show all {orientationCards.length} cards
       </summary>
       <div class="chunked-section__body">
         <CardGrid className="grid--two research__grid">
@@ -338,14 +338,14 @@ const pageSchema = {
 
   <SectionBlock
     id="bridge-artifacts"
-    eyebrow="Bridge artifacts"
+    eyebrow="Research notes"
     title="Research notes and citable essays"
     description="Dated research notes and the theory essays behind the laws."
     variant="alt"
   >
     <details class="chunked-section" data-default-open="false">
       <summary class="chunked-section__summary">
-        Bridge artifacts ({bridgeArtifacts.length})
+        Show all {bridgeArtifacts.length} notes and essays
       </summary>
       <div class="chunked-section__body">
         <CardGrid className="grid--two">
@@ -379,7 +379,7 @@ const pageSchema = {
                         ? { target: "_blank", rel: "noopener noreferrer" }
                         : {})}
                     >
-                      View artifact
+                      Open “{artifact.title}”
                       {artifact.href.startsWith("http") && (
                         <ActionIcon action="external" />
                       )}
@@ -407,7 +407,7 @@ const pageSchema = {
     }
     <details class="chunked-section" data-default-open="false">
       <summary class="chunked-section__summary">
-        Agenda entries ({agenda.length})
+        Show all {agenda.length} open questions
       </summary>
       <div class="chunked-section__body">
         <CardGrid>
@@ -451,7 +451,7 @@ const pageSchema = {
     <h3 id="focus-areas">The areas they sit in</h3>
     <details class="chunked-section" data-default-open="false">
       <summary class="chunked-section__summary">
-        Focus areas ({focusAreas.length})
+        Show all {focusAreas.length} focus areas
       </summary>
       <div class="chunked-section__body">
         <CardGrid>

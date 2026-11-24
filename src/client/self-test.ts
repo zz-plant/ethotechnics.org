@@ -91,8 +91,14 @@ function init(): void {
   const driftEl = result.querySelector<HTMLUListElement>(
     "[data-self-test-drift]",
   );
+  const holdingVerbEl = result.querySelector<HTMLElement>(
+    "[data-self-test-holding-verb]",
+  );
   const shareButton = result.querySelector<HTMLButtonElement>(
     "[data-self-test-share]",
+  );
+  const clearButton = result.querySelector<HTMLButtonElement>(
+    "[data-self-test-clear]",
   );
   const items = [...form.querySelectorAll<HTMLLIElement>(".self-test__item")];
   // The safeguard map beside the questions: one node per variable, drawn
@@ -231,10 +237,14 @@ function init(): void {
     result.hidden = false;
     result.dataset.complete = String(score.complete);
     if (holdingEl) holdingEl.textContent = String(score.holding);
+    if (holdingVerbEl) {
+      holdingVerbEl.textContent = score.holding === 1 ? "passes" : "pass";
+    }
     if (verdictEl) {
+      const left = selfTestQuestions.length - score.answered;
       verdictEl.textContent = score.complete
         ? verdictLine(score)
-        : `${selfTestQuestions.length - score.answered} to go.`;
+        : `${left} ${left === 1 ? "question" : "questions"} left.`;
     }
     if (driftEl) {
       driftEl.textContent = "";
@@ -268,6 +278,15 @@ function init(): void {
   };
 
   form.addEventListener("change", () => render(true));
+
+  // A radio cannot be unchecked, and the answers live in the address, so a
+  // reload brings them back. Clearing is the only way to start again.
+  clearButton?.addEventListener("click", () => {
+    form.reset();
+    history.replaceState(null, "", `${location.pathname}${location.search}`);
+    render(false);
+    form.querySelector<HTMLInputElement>("input")?.focus();
+  });
 
   shareButton?.addEventListener("click", () => {
     const original = readButtonLabel(shareButton);

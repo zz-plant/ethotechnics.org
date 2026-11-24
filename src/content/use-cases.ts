@@ -438,7 +438,7 @@ export const boundaries: Boundary[] = [
     title: "Testing a model before anyone deploys it",
     why: "The standards evaluate how a model is put to work deciding about people, not the model itself. A model can pass every benchmark and still be deployed under an approval nobody renews or can revoke. Until someone deploys it, there is no one the standards can hold to a clause.",
     link: {
-      label: "What the evals can check",
+      label: "What the tools can check",
       href: "/measurement-tiers#coverage",
     },
     examples: [],

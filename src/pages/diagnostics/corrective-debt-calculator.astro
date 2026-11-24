@@ -172,7 +172,7 @@ const anchorLinks = [
           <p class="metric" data-debt-trajectory>--</p>
         </div>
         <div>
-          <p class="muted">Workaround presumption</p>
+          <p class="muted">Presumption of upstream design failure</p>
           <p class="metric" data-debt-presumption>--</p>
         </div>
       </div>
@@ -190,8 +190,8 @@ const anchorLinks = [
         />
       </label>
       <p class="small muted">
-        The link carries your answers in the address, including the owner and
-        fix you typed. Nothing is stored on ethotechnics.org, but anyone you
+        The link carries your answers in the address, including the two optional
+        context answers. Nothing is stored on ethotechnics.org, but anyone you
         send the link to can read them.
       </p>
       <div class="intake-form__actions">
@@ -409,7 +409,7 @@ const anchorLinks = [
       min: 80,
       status: "red",
       summary:
-        "Your answers fall in the critical concern band. Action capacity compounds while the capacity to hear from people is unresourced. Halt expansion until challenge intake, reversal, and revision are funded.",
+        "Your answers fall in the critical concern band. Action capacity compounds while the capacity to hear from people is unresourced. Stop expanding the system until challenge intake, reversal, and revision are funded.",
     },
     {
       label: "High",
@@ -441,9 +441,9 @@ const anchorLinks = [
   };
 
   const presumptionLabels: Record<WorkaroundValue, string> = {
-    none: "Applies — unmeasured",
-    informal: "Applies — no register",
-    inventoried: "Rebuttable — register held",
+    none: "Applies: nobody records the workarounds",
+    informal: "Applies: workarounds known, not reviewed",
+    inventoried: "Rebuttable: workarounds inventoried and investigated",
   };
 
   const readField = (name: string) => {

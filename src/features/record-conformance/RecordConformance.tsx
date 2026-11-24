@@ -122,7 +122,7 @@ function RecordConformance() {
             Paste a record stream
             <span className="record-conformance__hint">
               Newline-delimited JSON, a JSON array, or an object with a{" "}
-              <code>records</code> array. Nothing is uploaded; the audit runs in
+              <code>records</code> array. Nothing is uploaded; the check runs in
               this page.
             </span>
           </label>
@@ -193,7 +193,7 @@ function RecordConformance() {
           </div>
           <p className="record-conformance__hint">
             {manifest.trim()
-              ? "The manifest is supplying the declared level, so the selector is off. Clear the manifest to set one by hand."
+              ? "When the manifest can be read, it supplies the declared level, so the selector is off. Clear the manifest to set a level by hand."
               : "Set the level by hand only when the system publishes no manifest. A level read from what the system itself publishes is the one worth checking."}{" "}
             Leave the time blank to use now. Set it to when the stream was
             exported, so deadlines are judged against the system's lateness, not
@@ -235,17 +235,18 @@ function RecordConformance() {
 
         <section
           className="record-conformance__panel"
-          aria-label="The audit readout"
+          aria-label="Readout"
           aria-live="polite"
         >
           {!report ? (
             <p className="record-conformance__empty">
-              Paste a stream and run the audit. It checks what the records say
-              about each other: whether the hashes hold, whether references
-              resolve, whether each record says what would make it invalid, and
-              whether a discrepancy was ever answered. It does not judge whether
-              a belief was correct or an authorization wise, because a stream
-              cannot show that.
+              Paste a stream or load a file, then choose Check the stream. Load
+              a worked example to see a readout first. It checks what the
+              records say about each other: whether the hashes hold, whether
+              references resolve, whether each record says what would make it
+              invalid, and whether a discrepancy was ever answered. It does not
+              judge whether a belief was correct or an authorization wise,
+              because a stream cannot show that.
             </p>
           ) : (
             <>

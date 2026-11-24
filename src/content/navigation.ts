@@ -147,7 +147,7 @@ export const navSections: NavSection[] = [
         href: "/diagnostics/self-defense-tools",
         label: "Self-defense checks",
         description:
-          "Bring a decision made about you: can it be challenged, can the challenge change the outcome, and who can reverse it",
+          "Bring a decision made about you: can it be challenged, can an appeal change the outcome, and who can reverse it",
       },
     ],
   },
@@ -155,7 +155,7 @@ export const navSections: NavSection[] = [
     id: "knowledge",
     heading: "Knowledge",
     description:
-      "Terms, scored public failures, and the theory behind the laws.",
+      "Terms, scored public failures, dated field notes, and the theory behind the laws.",
     links: [
       {
         href: "/glossary",

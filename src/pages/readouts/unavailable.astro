@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+
+/**
+ * What a /readouts/<id> link shows when no readout answers it: the link
+ * expired, lost characters on the way, or this copy of the site keeps no
+ * readouts. The generic 404 says the page may have moved, which sends the
+ * reader looking for a page that never existed under another address.
+ */
+Astro.response.status = 404;
+---
+
+<BaseLayout
+  title="Readout not available"
+  description="This shared readout has expired, or the link is incomplete."
+  robots="noindex, nofollow"
+>
+  <PageIntro
+    eyebrow="Readout"
+    title="This readout is not available"
+    anchorLinks={[]}
+    description="Readouts expire a year after they are saved, and a link with missing characters will not open. Ask whoever sent it for the JSON export, or run the delegation audit again with the same answers."
+  >
+    <Fragment slot="actions">
+      <a class="button primary" href="/diagnostics/delegation-audit"
+        >Run the delegation audit</a
+      >
+    </Fragment>
+  </PageIntro>
+</BaseLayout>

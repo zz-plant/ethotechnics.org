@@ -56,13 +56,15 @@ const sourceKind = {
     title={entry.title}
     description={entry.summary}
     anchorLinks={[
-      { href: "#record", label: "The record" },
-      { href: "#scoring", label: "Scoring" },
-      { href: "#learning", label: "After the failure" },
-      { href: "#missing", label: "The missing record" },
-      { href: "#remediation", label: "Avoid this failure" },
+      // Each label is the heading it jumps to, so the reader lands where the
+      // link said they would.
+      { href: "#record", label: "What happened" },
+      { href: "#scoring", label: "The six safeguards" },
+      { href: "#learning", label: "Did the institution change?" },
+      { href: "#missing", label: "The record that was not there" },
+      { href: "#remediation", label: "Preventing this failure" },
       ...(entry.diagnosticStudy
-        ? [{ href: "#diagnostic-study", label: "Further reading" }]
+        ? [{ href: "#diagnostic-study", label: "An essay that uses this case" }]
         : []),
       { href: "#sources", label: "Sources" },
     ]}

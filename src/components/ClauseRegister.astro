@@ -23,7 +23,9 @@
  * record the weekly presence-data workflow rebuilds; a clause with none
  * shows nothing.
  */
+import { libraryContent } from "../content/library";
 import { objectionRecord } from "../content/objection-record";
+import { validatorsContent } from "../content/validators";
 import { standardClauses, type StandardClause } from "../content/standards";
 import { compareRegistryToDocument } from "../utils/clause-registry";
 import { objectionIssueUrl } from "../utils/objection-link";
@@ -38,6 +40,28 @@ interface Props {
 }
 
 const { standardId, body, parts = {} } = Astro.props;
+
+// A bare "MEC-06" tells an auditor nothing; each reference carries its name
+// and links to the page that specifies it.
+const refTargets = new Map<string, { title: string; href: string }>([
+  ...libraryContent.patterns.entries.map(
+    (pattern) =>
+      [
+        pattern.code,
+        { title: pattern.title, href: `/mechanisms/patterns/${pattern.slug}` },
+      ] as const,
+  ),
+  ...validatorsContent.validators.map(
+    (validator) =>
+      [
+        validator.id,
+        {
+          title: validator.title,
+          href: `${validatorsContent.permalink}#${validator.slug}`,
+        },
+      ] as const,
+  ),
+]);
 const clauses: StandardClause[] = compareRegistryToDocument(standardId, body)
   .matches
   ? (standardClauses[standardId] ?? [])
@@ -97,7 +121,7 @@ const objectionNote = (clause: StandardClause) =>
                     <th scope="col">When</th>
                     <th scope="col">Obligation</th>
                     <th scope="col">Evidence</th>
-                    <th scope="col">Bears on</th>
+                    <th scope="col">Mechanisms and validators</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -144,29 +168,39 @@ const objectionNote = (clause: StandardClause) =>
                           ))}
                         </ul>
                       </td>
-                      <td data-label="Bears on" class="clause-register__refs">
+                      <td
+                        data-label="Mechanisms and validators"
+                        class="clause-register__refs"
+                      >
                         {[
                           ...clause.relatedMechanisms,
                           ...clause.relatedValidators,
-                        ].length > 0
-                          ? [
+                        ].length > 0 ? (
+                          <ul class="clause-register__list">
+                            {[
                               ...clause.relatedMechanisms,
                               ...clause.relatedValidators,
-                            ].flatMap((ref, index, refs) =>
-                              index < refs.length - 1
-                                ? [
-                                    <span class="clause-register__ref">
-                                      {`${ref},`}
-                                    </span>,
-                                    " ",
-                                  ]
-                                : [
-                                    <span class="clause-register__ref">
-                                      {ref}
-                                    </span>,
-                                  ],
-                            )
-                          : "—"}
+                            ].map((ref) => {
+                              const target = refTargets.get(ref);
+                              return (
+                                <li class="clause-register__ref">
+                                  {target ? (
+                                    <a href={target.href}>
+                                      <span class="clause-register__ref-id">
+                                        {ref}
+                                      </span>{" "}
+                                      {target.title}
+                                    </a>
+                                  ) : (
+                                    ref
+                                  )}
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        ) : (
+                          "—"
+                        )}
                       </td>
                     </tr>
                   ))}

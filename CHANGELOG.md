@@ -19,6 +19,19 @@ standard versions, and cited revisions relate.
 
 ### Changed
 
+- **Interface text says what happened and what to do next:** Dead ends now offer a way out. The
+  404 page, the search dialog's no-match state, and the title search's empty state lead with the
+  self-defense checks for someone a system decided about. An expired or broken readout link gets
+  its own page instead of the generic 404, and the delegation audit says when a shared readout
+  did not load rather than showing the sample answers as if they were shared. Copy failures say
+  how to copy by hand. The eval runner explains each grade, asks for the system's name before
+  printing one, and names its final button. The record conformance checker no longer says
+  "nothing to audit" when every entry was rejected. Destinations keep one name wherever they
+  are linked: the framework map, the self-defense checks, the burden index, and each section a
+  jump link leads to. The home self-test says "Challenge", the house word, and its map caption
+  no longer promises a signal that stops at the first gap. Validator yes/no fields are now
+  questions in the reference API too, and an unknown `/api/*` path names where the endpoint
+  list is.
 - **Site presents as a working project, not an institute:** The brand is "Ethotechnics" rather
   than "Ethotechnics Institute". The about page, footer, homepage colophon, governance page, and
   commissioned-work page say one person writes the framework with AI agents, that there is no
