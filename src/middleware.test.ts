@@ -457,6 +457,9 @@ describe("middleware", () => {
       '<https://creativecommons.org/licenses/by-sa/4.0/>; rel="license"',
     );
     expect(link).toContain('</sitemap.xml>; rel="sitemap"');
+    expect(link).toContain('</.well-known/api-catalog>; rel="api-catalog"');
+    expect(link).toContain('</api/openapi.json>; rel="service-desc"');
+    expect(link).toContain('</api>; rel="service-doc"');
 
     const jsonResponse = await onRequest(
       { request, locals: {} as App.Locals } as APIContext,

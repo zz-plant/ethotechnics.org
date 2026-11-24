@@ -423,9 +423,11 @@ const applySecurityHeaders = (response: Response): Response => {
 };
 
 // Link headers tell an automated reader, on the response it already fetched,
-// where the license and the sitemap live. The license URL is the same deed the
-// site footer publishes; the sitemap pointer mirrors the robots.txt Sitemap
-// line for clients that never fetch robots.txt.
+// where the license, the sitemap, and the read API live. The license URL is the
+// same deed the site footer publishes; the sitemap pointer mirrors the
+// robots.txt Sitemap line for clients that never fetch robots.txt. The API
+// relations (RFC 9727) point to the catalog, the OpenAPI description, and the
+// /api reference page.
 const applyDiscoveryLinkHeader = (response: Response): Response => {
   const contentType = response.headers.get("Content-Type");
   if (!contentType?.startsWith("text/html")) return response;
@@ -433,7 +435,13 @@ const applyDiscoveryLinkHeader = (response: Response): Response => {
   try {
     response.headers.set(
       "Link",
-      '<https://creativecommons.org/licenses/by-sa/4.0/>; rel="license", </sitemap.xml>; rel="sitemap"',
+      [
+        '<https://creativecommons.org/licenses/by-sa/4.0/>; rel="license"',
+        '</sitemap.xml>; rel="sitemap"',
+        '</.well-known/api-catalog>; rel="api-catalog"',
+        '</api/openapi.json>; rel="service-desc"; type="application/vnd.oai.openapi+json"',
+        '</api>; rel="service-doc"; type="text/html"',
+      ].join(", "),
     );
     return response;
   } catch {
