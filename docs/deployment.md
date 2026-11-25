@@ -23,6 +23,15 @@ The deploy script runs `bun run build` and then
 `dist/server/wrangler.json` that ties those outputs together. Use the generated config for deploys;
 plain `wrangler deploy` reads the root `wrangler.toml` and can publish an incomplete Worker.
 
+Workers Builds runs one script per trigger, with no separate build command:
+
+- `main`: `bun run deploy`.
+- Other branches: `bun run deploy:dry-run` (build, then `wrangler deploy --dry-run`; nothing is
+  uploaded) and `bun run deploy:preview` (build, then `wrangler versions upload`, which uploads a
+  preview version of `et3` without promoting it).
+
+`cloudflare.config.ts` pins the Cloudflare account for the cf CLI. Wrangler ignores it.
+
 The build also runs `patch:cf-worker` after `astro build`. This keeps `nodejs_compat` available for
 the Node APIs used during build/prerender while forcing Astro's generated Cloudflare Worker bootstrap
 to use `createApp({ streaming: false })`. Without that patch, the Worker can return a 200 response
