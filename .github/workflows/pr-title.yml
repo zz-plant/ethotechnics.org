@@ -3,10 +3,12 @@ name: PR title
 # Pull requests are squash-merged, so the title becomes the subject line on
 # main. This checks it against docs/agents/version-control.md with the same
 # script the commit-msg hook runs. Edit the title and the check runs again.
+# A new commit does not change the title, so pushes to the branch do not
+# re-run it (no branch rule requires this check on the latest commit).
 
 on:
   pull_request:
-    types: [opened, edited, reopened, synchronize]
+    types: [opened, edited, reopened]
 
 permissions:
   contents: read
