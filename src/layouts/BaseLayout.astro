@@ -21,6 +21,7 @@ import {
   stripBrandSuffix,
 } from "../utils/seo/document-title";
 import { describeOgCard } from "../utils/seo/og-cards";
+import { ogVideoFor } from "../utils/seo/og-video";
 import { loadPageDates, pageDateKey } from "../utils/seo/page-dates";
 import { toSeoRobotsProps } from "../utils/seo/robots";
 import { resolveRouteProfile } from "../utils/seo/route-type";
@@ -157,6 +158,23 @@ const seoImage = {
   width: 1200,
   height: 630,
 };
+
+// The home page's card, moving (src/utils/seo/og-video.ts). Null on every other page, and on
+// the home page too once the casebook has changed since the clip was filmed.
+const ogVideo = ogVideoFor({
+  path: currentPath,
+  template: profile.ogTemplate,
+  siteBase,
+});
+const ogVideoMeta = ogVideo
+  ? [
+      { property: "og:video", content: ogVideo.url },
+      { property: "og:video:secure_url", content: ogVideo.url },
+      { property: "og:video:type", content: ogVideo.type },
+      { property: "og:video:width", content: String(ogVideo.width) },
+      { property: "og:video:height", content: String(ogVideo.height) },
+    ]
+  : [];
 
 const normalizedBreadcrumbItems = normalizeBreadcrumbItems({
   siteBase,
@@ -340,6 +358,7 @@ const languageAlternates = buildLanguageAlternates(canonical);
             content: "#171412",
             media: "(prefers-color-scheme: dark)",
           },
+          ...ogVideoMeta,
         ],
       }}
     />
