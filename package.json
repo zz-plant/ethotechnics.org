@@ -40,6 +40,7 @@
     "clean:all": "bun run clean && rm -rf node_modules .vercel playwright/.cache playwright/.auth",
     "test:unit": "bun test src packages scripts tests/*.test.ts",
     "test:unit:ci": "bun test src packages scripts tests/*.test.ts --coverage --coverage-reporter=lcov",
+    "og:video": "bun scripts/film-og-video.ts",
     "test:e2e": "bun run build && bunx playwright test",
     "test:e2e:smoke": "bun run build && bunx playwright test --project=chromium",
     "test:e2e:ci": "bun run build && bunx playwright test --project=chromium --reporter=line",
