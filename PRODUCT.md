@@ -25,6 +25,10 @@ system in the six safeguards and taking one concrete next step.
 
 ## Positioning
 
+The homepage connects apparent institutional performance to compensatory human work, the power
+people have to change the rules, and their continued capacity to act as dependence grows. This is
+the site's proposed contribution, not an independently established claim of novelty or effectiveness.
+
 Most AI governance asks whether the model is capable, aligned, or safe. This project asks who has
 standing and the means to compel correction when the delegation is wrong. The unit is the
 consequential decision and the delegation that produced it, not the model.
@@ -41,9 +45,10 @@ drafts.
 
 - Astro site on Cloudflare Workers, built with Bun and Node 22.
 - Existing routes, content, schemas, and copy claims must keep working.
-- The home page currently carries: the hero question, the Robodebt evidence, the record spine, the
-  exception-learning mechanism, the casebook scorecard, the self-test, six reader doors, the
-  published map, and the colophon.
+- The homepage introduces the argument, illustrates correction with Robodebt, separates theory,
+  draft requirements, and record checks, and retains the self-test, reader routes, and correction
+  information. The owner requested a substantial revamp on 2026-11-21 and requested completion
+  on 2026-11-27, explicitly overriding maintenance.
 - Claims must stay inside the evidence. No invented adoption, customers, benchmarks, or response
   times.
 - The repository is in maintenance mode; this redesign is an explicit owner override.

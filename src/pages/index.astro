@@ -1,244 +1,353 @@
 ---
+import { Icon } from "astro-icon/components";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import CasebookScorecard from "../components/home/CasebookScorecard.astro";
-import ExceptionLearningFigure from "../components/ExceptionLearningFigure.astro";
-import LineMap from "../components/home/LineMap.astro";
-import PublishedMap from "../components/home/PublishedMap.astro";
-import RecordSpine from "../components/home/RecordSpine.astro";
 import SelfTest from "../components/home/SelfTest.astro";
+import { cases } from "../content/casebook";
 import { commissionedWork } from "../content/commissioned-work";
+import "../styles/components/home-revamp.css";
 
-/**
- * The front door as a transit line.
- *
- * The seven-stage decision chain is the page's spine. The hero draws it with
- * the Robodebt service pattern; the record shows the warnings the institution
- * never answered; the mechanism shows the count that would have sent the rule
- * back; the casebook shows the same failure five times; the self-test asks the
- * reader to mark their own system on the line; the connections route each
- * reader; the network names what the project publishes; the colophon answers
- * the page's own question about who corrects this site.
- *
- * The world is scoped to `.home-line` on the body, so the rest of the site
- * keeps its own identity. All copy claims, data, and links are the existing
- * ones; the visual system is replaced.
- */
+const questions = [
+  {
+    title: "Count the work the result leaves out.",
+    detail:
+      "A service can get faster because its software improved, or because patients, claimants, and staff took on more of the work. The same result can conceal a different cost.",
+    href: "/research/theory/what-outcomes-hide",
+    link: "What outcomes hide",
+    subject: "The work",
+  },
+  {
+    title: "Make a correction reach the rule.",
+    detail:
+      "An appeal can fix one person's case while the system repeats the error. Correction needs a route to whoever can change the rule, including when its cause sits outside the organization.",
+    href: "/research/theory/exception-learning",
+    link: "How institutions learn from exceptions",
+    subject: "The rule",
+  },
+  {
+    title: "Keep the power to change it.",
+    detail:
+      "A right to challenge means little without time, knowledge, resources, and someone who must act. An institution can wear those conditions down through its ordinary work, even while its results improve.",
+    href: "/research/theory/reproduction-of-corrective-power",
+    link: "What makes correction possible over time",
+    subject: "The power to act",
+  },
+];
+
+const readingRoutes = [
+  {
+    href: "/research/theory",
+    title: "Read the argument",
+    description:
+      "Essays on what people absorb, how power stays correctable, and what an institution may ask of the people it governs.",
+    kind: "Theory",
+  },
+  {
+    href: "/standards",
+    title: "Inspect the requirements",
+    description:
+      "Draft clauses for authorization, challenges, review deadlines, and repair. Each names something an institution would have to show.",
+    kind: "Draft standards",
+  },
+  {
+    href: "/diagnostics/record-conformance",
+    title: "Check a decision log",
+    description:
+      "The checker reads a stream of records for integrity, references, and answered discrepancies. A clean log does not establish a well-run institution.",
+    kind: "Working instrument",
+  },
+];
+
 const doors = [
-  {
-    href: "/roles/engineering",
-    who: "I build these systems",
-  },
-  {
-    href: "/roles/audit",
-    who: "I audit or regulate them",
-  },
-  {
-    href: "/roles/executive",
-    who: "I decide whether to deploy them",
-  },
+  { href: "/roles/engineering", who: "I build these systems" },
+  { href: "/roles/audit", who: "I audit or regulate them" },
+  { href: "/roles/executive", who: "I decide whether to deploy them" },
   {
     href: "/diagnostics/burden-modeler",
-    who: "My team fixes what it gets wrong",
+    who: "My team absorbs their failures",
   },
   {
     href: "/diagnostics/self-defense-tools",
     who: "A system decided something about me",
   },
-  {
-    href: "/research/scholarly-crossings",
-    who: "I study these systems",
-  },
+  { href: "/research/scholarly-crossings", who: "I study these systems" },
 ];
 ---
 
 <BaseLayout
-  title="Ethotechnics — who has to act when a system is wrong?"
+  title="Ethotechnics — who keeps the system working?"
   titleSuffix={false}
-  description="Draft standards, scored public failures, and free diagnostics for one question: when an automated decision system is wrong, does anyone have to change it?"
-  bodyClass="home-line"
-  mainClass="page page--home-line"
+  description="Institutions can look successful because people absorb their errors. Ethotechnics connects that hidden work to who can change the rules and whether they retain the capacity to do so."
+  mainClass="page container home-revamp"
+  enableGlossaryHighlights={false}
   footerOmit={["/about", "/participate#feedback", "/governance"]}
 >
-  <section class="line-hero line-wrap" aria-labelledby="line-hero-heading">
-    <div class="line-hero__top">
-      <div class="line-hero__sign">
-        <span class="line-hero__plate">
-          Ethotechnics <span>Line 7</span>
-        </span>
-        <h1 id="line-hero-heading">Who has to change it?</h1>
-        <p class="line-hero__lede">
-          From 2016 to 2019, Australia's welfare agency ran an automated rule
-          that raised about 470,000 debts it had no legal right to raise. A
-          tribunal found individual debts unlawful dozens of times. The rule
-          kept running.
+  <section class="home-opening" aria-labelledby="home-heading">
+    <div class="home-opening__composition">
+      <h1 id="home-heading" class="home-opening__title">
+        Who keeps the system working<span>—and can they make it change?</span>
+      </h1>
+      <aside class="home-margin" aria-label="The question behind the numbers">
+        <p class="home-margin__heading">
+          A good result can have a hidden cost.
         </p>
-        <div class="line-hero__actions">
-          <a class="button primary" href="#self-test">Check your system</a>
-          <a class="line-hero__urgent" href="/triage">
-            Something going wrong now? First steps
-            <span aria-hidden="true">→</span>
-          </a>
-        </div>
-      </div>
-      <aside class="line-hero__stamp" aria-label="Robodebt service notice">
-        <span class="line-hero__stamp-label">Service disruption</span>
-        <span class="line-hero__stamp-value">Robodebt</span>
-        <span class="line-hero__stamp-note">
-          No one corrected it. The scheme ran until a court stopped it.
-        </span>
+        <dl class="home-margin__ledger">
+          <div>
+            <dt>What the institution counts</dt>
+            <dd>Cases resolved. Time saved. Cost reduced.</dd>
+          </div>
+          <div>
+            <dt>What the number can miss</dt>
+            <dd>
+              The evening spent fixing a record. The appeal nobody had the time
+              to make. The nurse who stayed after the shift.
+            </dd>
+          </div>
+        </dl>
+        <p class="home-margin__question">
+          Who carries that work, and what can they change?
+        </p>
       </aside>
     </div>
-    <LineMap />
-  </section>
-
-  <section class="line-section" aria-labelledby="record-heading">
-    <div class="line-wrap">
-      <RecordSpine />
-    </div>
-  </section>
-
-  <section
-    id="mechanism"
-    class="line-section"
-    aria-labelledby="mechanism-heading"
-  >
-    <div class="line-wrap mechanism">
-      <div class="mechanism__grid">
-        <div class="mechanism__copy">
-          <h2 id="mechanism-heading" class="line-heading">
-            Each ruling fixed one debt. None of them reached the rule.
-          </h2>
-          <p class="line-lead">
-            The department treated each ruling as one person's case. It appealed
-            none of them, so none set a precedent, and the rule never had to
-            answer for the pattern.
-          </p>
-          <p class="mechanism__rule">
-            The fix is a count. When a challenge is upheld, record it against
-            the rule that made the decision. At a set number, the rule goes back
-            to its owner.
-          </p>
-          <div class="mechanism__links">
-            <a class="line-link" href="/standards/laws#law-viii"
-              >Read Law VIII</a
-            >
-            <a
-              class="line-link"
-              href="/mechanisms/patterns/policy-review-triggers"
-              >Read how a review trigger works</a
-            >
-            <a class="line-link" href="/research/theory/exception-learning"
-              >Read the essay on exception learning</a
-            >
-          </div>
-        </div>
-        <div class="home-draw" data-reveal="draw">
-          <ExceptionLearningFigure level="h3" />
-        </div>
+    <div class="home-opening__bottom">
+      <p class="home-opening__intro">
+        Automated systems can look successful because people absorb their
+        errors.
+        <strong>Ethotechnics</strong> studies that hidden work, who can change the
+        rules, and what keeps them able to act as dependence grows. The site publishes
+        research, draft requirements, and checks for decision records.
+      </p>
+      <div class="home-opening__actions">
+        <a class="home-action" href="#contribution"
+          >What Ethotechnics adds <Icon
+            name="lucide:arrow-down"
+            aria-hidden="true"
+            width={16}
+            height={16}
+          /></a
+        >
+        <p>
+          Something going wrong now? <a href="/triage"
+            >Triage a failure in progress</a
+          >
+        </p>
       </div>
     </div>
   </section>
 
-  <section class="line-section" aria-labelledby="home-casebook-heading">
-    <div class="line-wrap">
-      <CasebookScorecard />
+  <section
+    id="contribution"
+    class="home-contribution"
+    aria-labelledby="home-contribution-heading"
+  >
+    <header class="home-section-intro">
+      <h2 id="home-contribution-heading">What did the result cost people?</h2>
+      <p>
+        Evaluate what the institution achieved alongside the work it demanded
+        from people and their ability to challenge those demands.
+      </p>
+    </header>
+    <div class="home-questions">
+      {
+        questions.map((question) => (
+          <article class="home-question">
+            <p class="home-question__subject">{question.subject}</p>
+            <div>
+              <>
+                <h3>{question.title}</h3>
+                <p>{question.detail}</p>
+              </>
+            </div>
+            <a href={question.href}>
+              {question.link}
+              <Icon
+                name="lucide:arrow-up-right"
+                aria-hidden="true"
+                width={16}
+                height={16}
+              />
+            </a>
+          </article>
+        ))
+      }
     </div>
+    <p class="home-contribution__lineage">
+      This work builds on research in administrative burden, contestability,
+      resilience, and the distribution of power. Its proposals are open to
+      challenge.
+      <a href="/research/scholarly-crossings"
+        >Where it meets existing scholarship</a
+      >
+    </p>
   </section>
 
-  <section class="line-section" aria-labelledby="self-test-heading">
-    <div class="line-wrap">
-      <SelfTest />
-    </div>
-  </section>
-
-  <section class="line-section" aria-labelledby="connections-heading">
-    <div class="line-wrap connections">
-      <h2 id="connections-heading" class="line-heading">
-        Start from your situation.
+  <section id="record" class="home-evidence" aria-labelledby="record-heading">
+    <div class="home-evidence__opening">
+      <h2 id="record-heading">
+        Rulings changed individual debts.<br />The rule kept running.
       </h2>
-      <ul class="connections__list">
-        {
-          doors.map((door, index) => (
-            <li class="connections__item">
-              <a href={door.href}>
-                <span class="connections__code">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <span class="connections__who">{door.who}</span>
-                <span class="connections__arrow" aria-hidden="true">
-                  →
-                </span>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-      <p class="small muted">
-        Not sure this is about your system?
-        <a class="line-link" href="/use-cases">Which systems this is for</a>
+      <div class="home-evidence__account">
+        <p>
+          From 2016 to 2019, Robodebt's automated rule raised about 470,000
+          Australian welfare debts that were not lawfully made. A tribunal found
+          individual debts unlawful dozens of times. The rule kept running.
+        </p>
+        <a href="/casebook/robodebt"
+          >Read the Robodebt case <Icon
+            name="lucide:arrow-up-right"
+            aria-hidden="true"
+            width={16}
+            height={16}
+          /></a
+        >
+      </div>
+    </div>
+    <div id="mechanism" class="home-evidence__mechanism">
+      <h3 id="mechanism-heading">
+        Fixing one case can leave the cause intact.
+      </h3>
+      <div>
+        <p>
+          A review can reverse a debt without requiring anyone to reconsider the
+          rule behind it. The framework proposes recording upheld challenges
+          against that rule, with a threshold that requires its owner to review
+          it.
+        </p>
+        <a href="/mechanisms/patterns/policy-review-triggers"
+          >How repeated errors can trigger a rule review <span
+            aria-hidden="true">↗</span
+          ></a
+        >
+      </div>
+    </div>
+    <div class="home-evidence__sources">
+      <p>
+        The casebook examines {cases.length} public failures: what each system was
+        allowed to do, who could challenge it, and who could stop it. Courts, inquiries,
+        and regulators established the facts. The framework's scores are the author's
+        interpretation.
+      </p>
+      <a href="/casebook"
+        >Open the casebook <Icon
+          name="lucide:arrow-up-right"
+          aria-hidden="true"
+          width={16}
+          height={16}
+        /></a
+      >
+    </div>
+  </section>
+
+  <section class="home-library" aria-labelledby="home-library-heading">
+    <header class="home-section-intro">
+      <h2 id="home-library-heading">
+        An argument you can inspect.<br />Requirements you can test.
+      </h2>
+      <p>
+        The essays explain the claim. The draft standards state obligations. The
+        instruments check particular evidence. Each does a different job.
+      </p>
+    </header>
+    <div class="home-reading-list">
+      {
+        readingRoutes.map((route) => (
+          <a class="home-reading" href={route.href}>
+            <div class="home-reading__name">
+              <>
+                <h3>{route.title}</h3>
+                <span>{route.kind}</span>
+              </>
+            </div>
+            <p>{route.description}</p>
+            <Icon
+              class="home-reading__arrow"
+              name="lucide:arrow-up-right"
+              aria-hidden="true"
+              width={20}
+              height={20}
+            />
+          </a>
+        ))
+      }
+    </div>
+    <div class="home-library__limits">
+      <p>
+        These standards are drafts. They have no legal force, and publishing a
+        requirement does not demonstrate that it works in practice.
+      </p>
+      <a href="/about#claims">What the framework can and cannot establish</a>
+    </div>
+  </section>
+
+  <section class="home-check" aria-labelledby="home-check-heading">
+    <div class="home-check__invitation">
+      <h2 id="home-check-heading">Check a system you know.</h2>
+      <p>
+        Think of one system that decides benefits, schedules, loans, or fraud
+        alerts. Can the people around it still question, interrupt, and change
+        what it does?
+      </p>
+      <a class="home-action" href="#self-test"
+        >Answer six questions <Icon
+          name="lucide:arrow-down"
+          aria-hidden="true"
+          width={16}
+          height={16}
+        /></a
+      >
+      <p class="home-check__note">
+        Your answers stay in your browser. You can copy a link to the result.
       </p>
     </div>
+    <SelfTest />
   </section>
 
-  <section class="line-section" aria-labelledby="network-heading">
-    <div class="line-wrap">
-      <PublishedMap />
-    </div>
-  </section>
+  <nav class="home-reader-routes" aria-labelledby="home-reader-heading">
+    <h2 id="home-reader-heading">Start with the work in front of you.</h2>
+    <ul>
+      {
+        doors.map((door) => (
+          <li>
+            <a href={door.href}>
+              {door.who}
+              <Icon
+                name="lucide:arrow-up-right"
+                aria-hidden="true"
+                width={16}
+                height={16}
+              />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <a class="home-reader-routes__scope" href="/use-cases"
+      >Which systems this is for</a
+    >
+  </nav>
 
   <section
-    class="line-section"
-    aria-labelledby="home-colophon-heading"
-    data-glossary-ignore
+    class="home-answerability"
+    aria-labelledby="home-answerability-heading"
   >
-    <div class="line-wrap colophon">
-      <h2 id="home-colophon-heading" class="line-heading">
-        Who has to act when this site is wrong?
+    <div>
+      <h2 id="home-answerability-heading">
+        This framework has to answer, too.
       </h2>
-      <dl class="colophon__list">
-        <div class="colophon__item">
-          <dt>Who writes it</dt>
-          <dd>
-            Kanav Jain writes the standards and tools here, with AI coding
-            agents working under the repository's rules. Ethotechnics is the
-            name the work publishes under.
-            <a class="line-link" href="/about">About the project</a>
-          </dd>
-        </div>
-        <div class="colophon__item">
-          <dt>Corrections</dt>
-          <dd>
-            If a fact or a score on this site is wrong, send the record that
-            shows it.
-            <a class="line-link" href="/participate#feedback"
-              >Send a correction</a
-            >
-          </dd>
-        </div>
-        <div class="colophon__item">
-          <dt>Its own failures</dt>
-          <dd>
-            This site keeps the record it asks of institutions: where its own
-            tools failed, and what changed because of it.
-            <a class="line-link" href="/governance#failure-archive"
-              >Read the failure archive</a
-            >
-          </dd>
-        </div>
-        <div class="colophon__item">
-          <dt>Commissioned work</dt>
-          <dd>
-            The standards are published here. Their author,
-            {commissionedWork.provider}, also applies the same practices to one
-            organization's healthcare AI system at a time, as commissioned work.
-            <a class="line-link" href="/commissioned-work">How the two fit</a>
-          </dd>
-        </div>
-      </dl>
+      <p>
+        Kanav Jain writes Ethotechnics as part of an institutional
+        error-accounting research program. If a case score, clause, or claim is
+        wrong, send the record that shows it.
+      </p>
+      <div class="home-answerability__links">
+        <a href="/about">About the framework</a>
+        <a href="/participate#feedback">Send a correction</a>
+        <a href="/governance#failure-archive">Where the framework has failed</a>
+      </div>
     </div>
+    <p class="home-answerability__commission">
+      The framework is published openly. Its author also applies it to
+      healthcare AI under commission through {commissionedWork.provider}.
+      <a href="/commissioned-work">How commissioned work fits</a>
+    </p>
   </section>
-
-  <script>
-    import "../client/home-reveal.ts";
-  </script>
 </BaseLayout>
