@@ -39,8 +39,8 @@ composition with an editorial front page and route-local CSS, reusing canonical 
 - [x] Run file formatting, `bun run check`, and `bun run build`.
 - [x] Inspect the production preview and run accessibility and internal-link checks.
 - [x] Run the Impeccable detector once over changed UI files.
-- [ ] Obtain the Impeccable finish review; resolve material findings and confirm captures.
-- [ ] Record the design system and report the exact delivery and validation status.
+- [x] Obtain the Impeccable finish review; resolve material findings and confirm captures.
+- [x] Record the design system and report the exact delivery and validation status.
 
 ## Verification record
 
@@ -55,3 +55,6 @@ The detector ran once and reported only two font-choice warnings for the self-ho
 Serif faces. The display choice is intentional; review it in the context of the composed page.
 Screenshots and behavioral records are local, ignored artifacts under `.impeccable/review/` and
 `output/playwright/`.
+
+The finish reviewer confirmed that the selected controls remain visible after restoring a shared
+result. The final review cleared the remaining documentation finding about the design seed.
