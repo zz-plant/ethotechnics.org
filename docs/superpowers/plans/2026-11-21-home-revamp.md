@@ -27,17 +27,31 @@ composition with an editorial front page and route-local CSS, reusing canonical 
 
 ### Task 1: Recompose the homepage
 
-- [ ] Replace `src/pages/index.astro` with the thesis, contribution, evidence, reading routes,
+- [x] Replace `src/pages/index.astro` with the thesis, contribution, evidence, reading routes,
       existing self-test, reader routes, and correction colophon.
-- [ ] Add `src/styles/components/home-revamp.css`, imported only on this route; add display type
+- [x] Add `src/styles/components/home-revamp.css`, imported only on this route; add display type
       tokens in `src/styles/theme.css`.
-- [ ] Keep canonical data in `src/content/casebook.ts` and self-test logic unchanged.
-- [ ] Verify desktop/mobile, light/dark, anchors, no-JS, and self-test restoration in the browser.
+- [x] Keep canonical data in `src/content/casebook.ts` and self-test logic unchanged.
+- [x] Verify desktop/mobile, light/dark, anchors, no-JS, and self-test restoration in the browser.
 
 ### Task 2: Verify and review
 
-- [ ] Run file formatting, `bun run check`, and `bun run build`.
-- [ ] Inspect the production preview and run accessibility and internal-link checks.
-- [ ] Run the Impeccable detector once over changed UI files.
+- [x] Run file formatting, `bun run check`, and `bun run build`.
+- [x] Inspect the production preview and run accessibility and internal-link checks.
+- [x] Run the Impeccable detector once over changed UI files.
 - [ ] Obtain the Impeccable finish review; resolve material findings and confirm captures.
 - [ ] Record the design system and report the exact delivery and validation status.
+
+## Verification record
+
+Rebased onto main at `6059f938` on 2026-11-27, preserving the unified navigation and project name.
+`bun run check` passed all 13 checks. `bun run build` passed. Five Chromium homepage, WCAG, and
+navigation checks passed against the production Worker preview. Browser inspection covered 1440,
+390, and 320 CSS pixels in light and dark themes. All 27 main-content links and fragments resolved.
+Self-test completion, clipboard sharing, reload restoration, reduced motion, keyboard focus, and
+no-JavaScript content/fallback were verified with no browser errors.
+
+The detector ran once and reported only two font-choice warnings for the self-hosted Instrument
+Serif faces. The display choice is intentional; review it in the context of the composed page.
+Screenshots and behavioral records are local, ignored artifacts under `.impeccable/review/` and
+`output/playwright/`.

@@ -13,7 +13,6 @@ const questions = [
       "A service can get faster because its software improved, or because patients, claimants, and staff took on more of the work. The same result can conceal a different cost.",
     href: "/research/theory/what-outcomes-hide",
     link: "What outcomes hide",
-    subject: "The work",
   },
   {
     title: "Make a correction reach the rule.",
@@ -21,7 +20,6 @@ const questions = [
       "An appeal can fix one person's case while the system repeats the error. Correction needs a route to whoever can change the rule, including when its cause sits outside the organization.",
     href: "/research/theory/exception-learning",
     link: "How institutions learn from exceptions",
-    subject: "The rule",
   },
   {
     title: "Keep the power to change it.",
@@ -29,7 +27,6 @@ const questions = [
       "A right to challenge means little without time, knowledge, resources, and someone who must act. An institution can wear those conditions down through its ordinary work, even while its results improve.",
     href: "/research/theory/reproduction-of-corrective-power",
     link: "What makes correction possible over time",
-    subject: "The power to act",
   },
 ];
 
@@ -150,7 +147,6 @@ const doors = [
       {
         questions.map((question) => (
           <article class="home-question">
-            <p class="home-question__subject">{question.subject}</p>
             <div>
               <>
                 <h3>{question.title}</h3>
@@ -213,9 +209,12 @@ const doors = [
           it.
         </p>
         <a href="/mechanisms/patterns/policy-review-triggers"
-          >How repeated errors can trigger a rule review <span
-            aria-hidden="true">↗</span
-          ></a
+          >How repeated errors can trigger a rule review <Icon
+            name="lucide:arrow-up-right"
+            aria-hidden="true"
+            width={16}
+            height={16}
+          /></a
         >
       </div>
     </div>

@@ -18,7 +18,7 @@ account of the contribution, evidence, and explicit routes into the work.
 
 ## Composition
 
-Use a bold serif masthead, a deep ink evidence section, warm paper, numbered editorial sections,
+Use a bold serif masthead, a deep ink evidence section, warm paper, ruled editorial sections,
 and ruled reading lists. Preserve the shared site chrome. A small typographic comparison explains
 the difference between reported success and the human work it omits; it uses no invented data.
 

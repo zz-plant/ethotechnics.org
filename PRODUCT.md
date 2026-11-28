@@ -29,9 +29,9 @@ The homepage connects apparent institutional performance to compensatory human w
 people have to change the rules, and their continued capacity to act as dependence grows. This is
 the site's proposed contribution, not an independently established claim of novelty or effectiveness.
 
-Most AI governance asks whether the model is capable, aligned, or safe. This project asks who has
-standing and the means to compel correction when the delegation is wrong. The unit is the
-consequential decision and the delegation that produced it, not the model.
+The unit of analysis is the consequential decision and the delegation that produced it. Existing
+accountability, contestability, administrative-burden, and resilience research supplies substantive
+concepts and mechanisms; the framework's claims should be assessed alongside that work.
 
 ## Operating Context
 
