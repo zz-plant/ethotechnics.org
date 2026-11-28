@@ -5,7 +5,8 @@ import { libraryContent } from "../../src/content/library";
 
 // Mirrors the hand-authored hero in src/pages/index.astro. A smoke test should
 // pin the headline: if the front door loses its copy, that is a regression.
-const HERO_HEADING = "Who has to change it?";
+const HERO_HEADING =
+  /Who keeps the system working\s*—and can they make it change\?/;
 const PRIMARY_NAV_SECTIONS = navSections.map((section) => section.heading);
 const FIRST_NAV_TARGET = navSections[0]?.links[0];
 const BURDEN_TOOL = diagnosticsContent.tools.find(
@@ -41,17 +42,16 @@ test.describe("Homepage smoke", () => {
       page.getByRole("heading", { level: 1, name: HERO_HEADING }),
     ).toBeVisible();
 
-    // The two ways on from the first screen, and where each one goes: the
-    // self-test further down the page, and triage for a failure in progress.
+    // Keep the self-test and urgent triage routes available from the homepage.
     const selfTest = page.getByRole("link", {
-      name: "Check your system",
+      name: "Answer six questions",
       exact: true,
     });
     await expect(selfTest).toBeVisible();
     await expect(selfTest).toHaveAttribute("href", "#self-test");
 
     const triage = page.getByRole("link", {
-      name: "Something going wrong now? First steps",
+      name: "Triage a failure in progress",
     });
     await expect(triage).toBeVisible();
     await expect(triage).toHaveAttribute("href", "/triage");
